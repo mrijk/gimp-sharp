@@ -12,6 +12,8 @@ SOURCES =			\
 	PreferencesDialog.cs	\
 	Preview.cs		\
 	PreviewRenderer.cs	\
+	Property.cs		\
+	PropertySet.cs		\
 	Rectangle.cs		\
 	RectangleSet.cs		\
 	RemoveFunc.cs		\
