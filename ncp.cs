@@ -1,12 +1,11 @@
 using System;
 using System.Collections;
-using System.IO;
 
 using Gtk;
 
 namespace Gimp
   {
-    public class TestPlugin : Plugin
+    public class ncp : Plugin
     {
       Drawable drawable;
       GimpParam[] values = new GimpParam[1];
@@ -20,10 +19,10 @@ namespace Gimp
       [STAThread]
       static void Main(string[] args)
       {
-	TestPlugin plugin = new TestPlugin(args);
+	ncp plugin = new ncp(args);
       }
 
-      public TestPlugin(string[] args) : base(args)
+      public ncp(string[] args) : base(args)
       {
       }
 
@@ -131,7 +130,6 @@ namespace Gimp
       bool has_alpha;
       int width, height;
 
-      // Try to implement the ncp plug-in
       override protected void DoSomething()
       {
 	int x1, y1, x2, y2;
@@ -149,8 +147,6 @@ namespace Gimp
 
 	int xmid = width / 2;
 	int ymid = height / 2;
-
-	Console.WriteLine("Points: " + _points);
 
 	_distances = new int[4 * _points];
 	vp = new Point[bpp, 4 * _points];
@@ -227,7 +223,7 @@ namespace Gimp
       {
 	for (int b = 0; b < bpp; b++) 
 	  {
-	  /* compute distance to each point */
+	  // compute distance to each point
 	  for (int k = 0; k < _points * 4; k++) 
 	    {
 	    int x2 = x - vp[b, k].x;
@@ -235,15 +231,10 @@ namespace Gimp
 	    _distances[k] = x2 * x2 + y2 * y2;
 	    }
 
-#if _OLD_
-	  Array.Sort(_distances);
-	  
-	  byte val = (byte) (255.0 * Math.Sqrt((double) _distances[_closest - 1] / (width * height)));
-#else
-	  byte val = (byte) (255.0 * Math.Sqrt((double) Select(_closest) / (width * height)));
-#endif
+	  byte val = (byte) (255.0 * Math.Sqrt((double) Select(_closest) / 
+					       (width * height)));
 
-	  /* invert */ 
+	  // invert
 	  val = (byte) (255 - val);
 	  if (color) 
 	    { 

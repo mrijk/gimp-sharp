@@ -1,25 +1,20 @@
-Release 0.1
------------
-- Create homepage
-- Robust install procedure
-- Initial version of picture package [just GUI, no functionality]
-- Port of ncp plug-in [almost done]
-- Freshmeat announcement
-
 Release 0.2
 -----------
-- Improved picture package
+- Initial version of picture package [just GUI, no functionality]
+- Freshmeat announcement
+- Robust install procedure
 - More API coverage
 - Autoconf/automake
 
 Release 0.3
 -----------
-- Fully functional version of picture package
+- Improved picture package
 - More demo plug-ins?
 - Generate class from PDB.
 
 Release 0.4
 -----------
+- Fully functional version of picture package
 - Add preview stuff
 
 Release 0.9

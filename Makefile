@@ -1,6 +1,6 @@
 MCS = mcs
 
-VERSION = 0.1
+VERSION = 0.2
 
 # Fill in GIMP version here.
 # GIMPVERSION = 2.0
@@ -20,21 +20,26 @@ SOURCES = \
 	Plugin.cs		\
 	RandomSeed.cs		\
 	RgnIterator.cs		\
-	ScaleEntry.cs		\
-	TestPlugin.cs
+	ScaleEntry.cs
 
 EXTRADIST =		\
 	AUTHORS		\
 	COPYING		\
+	INSTALL		\
+	NEWS		\
 	TODO		\
 	Makefile	\
 	ncp		\
+	PicturePackage	\
 	gimp.c
 
-all: ncp.exe
+all: ncp.exe PicturePackage.exe
 
-ncp.exe: $(SOURCES) gimpwrapper.so
-	$(MCS) -2 $(RESOURCES) -o $@ $(SOURCES) $(REFERENCES)
+ncp.exe: ncp.cs $(SOURCES) gimpwrapper.so
+	$(MCS) -2 ncp.cs $(RESOURCES) -o $@ $(SOURCES) $(REFERENCES)
+
+PicturePackage.exe: PicturePackage.cs  $(SOURCES) gimpwrapper.so
+	$(MCS) -2 PicturePackage.cs $(RESOURCES) -o $@ $(SOURCES) $(REFERENCES)
 
 gimp.o: gimp.c
 	gcc `gimptool-$(GIMPVERSION) --cflags` -fPIC -c -o gimp.o gimp.c
@@ -42,10 +47,12 @@ gimp.o: gimp.c
 gimpwrapper.so: gimp.o
 	gcc -shared `gimptool-$(GIMPVERSION) --libs` -o gimpwrapper.so gimp.o
 
-install: ncp.exe ncp gimpwrapper.so
+install: *.exe ncp PicturePackage gimpwrapper.so
+	chmod +x ncp PicturePackage
 	gimptool-$(GIMPVERSION) --install-bin ncp
-	chmod -x ncp.exe
-	cp -f ncp.exe ~/.gimp-$(GIMPVERSION)/plug-ins/
+	gimptool-$(GIMPVERSION) --install-bin PicturePackage
+	chmod -x *.exe
+	cp -f *.exe ~/.gimp-$(GIMPVERSION)/plug-ins/
 	chmod -x gimpwrapper.so
 	cp -f gimpwrapper.so ~/.gimp-$(GIMPVERSION)/plug-ins/
 
