@@ -298,11 +298,12 @@ namespace Gimp.SliceTool
     void OnRolloverCreate(object o, EventArgs args)
     {
       RolloverDialog dialog = new RolloverDialog();
+      dialog.SetRectangleData(_sliceData.Selected);
       dialog.ShowAll();
       ResponseType type = dialog.Run();
       if (type == ResponseType.Ok)
 	{
-	// Fix me: do something
+	dialog.GetRectangleData(_sliceData.Selected);
 	}
       dialog.Destroy();
     }

@@ -33,34 +33,24 @@ namespace Gimp.SliceTool
       table.Attach(label, 0, 2, 6, 7);
     }
 
-    public string MouseOver
+    public void SetRectangleData(Rectangle rectangle)
     {
-      get {return _mouseOver.FileName;}
+      _mouseOver.FileName = rectangle.MouseOver;
+      _mouseOut.FileName = rectangle.MouseOut;
+      _mouseClick.FileName = rectangle.MouseClick;
+      _mouseDoubleClick.FileName = rectangle.MouseDoubleClick;
+      _mouseUp.FileName = rectangle.MouseUp;
+      _mouseDown.FileName = rectangle.MouseDown;
     }
 
-    public string MouseOut
+    public void GetRectangleData(Rectangle rectangle)
     {
-      get {return _mouseOut.FileName;}
-    }
-
-    public string MouseClick
-    {
-      get {return _mouseClick.FileName;}
-    }
-
-    public string MouseDoubleClick
-    {
-      get {return _mouseDoubleClick.FileName;}
-    }
-
-    public string MouseUp
-    {
-      get {return _mouseUp.FileName;}
-    }
-
-    public string MouseDown
-    {
-      get {return _mouseDown.FileName;}
+      rectangle.MouseOver = _mouseOver.FileName;
+      rectangle.MouseOut = _mouseOut.FileName;
+      rectangle.MouseClick = _mouseClick.FileName;
+      rectangle.MouseDoubleClick = _mouseDoubleClick.FileName;
+      rectangle.MouseUp = _mouseUp.FileName;
+      rectangle.MouseDown = _mouseDown.FileName;
     }
 
     public bool Enabled

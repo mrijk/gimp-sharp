@@ -12,6 +12,14 @@ namespace Gimp.SliceTool
     string _url = "";
     string _altText = "";
     string _target = "";
+
+    string _mouseOver = "";
+    string _mouseOut = "";
+    string _mouseClick = "";
+    string _mouseDoubleClick = "";
+    string _mouseUp = "";
+    string _mouseDown = "";
+
     bool _include = true;
 
     public Rectangle(VerticalSlice left, VerticalSlice right,
@@ -177,7 +185,8 @@ namespace Gimp.SliceTool
 			    extension);
     }
 
-    public void WriteHTML(StreamWriter w, string name, string extension, int index)
+    public void WriteHTML(StreamWriter w, string name, string extension, 
+			  int index)
     {
       w.WriteLine("<td rowspan=\"{0}\" colspan=\"{1}\" width=\"{2}\" height=\"{3}\">",
 		  Bottom.Index - Top.Index, Right.Index - Left.Index, 
@@ -202,11 +211,13 @@ namespace Gimp.SliceTool
       w.WriteLine("</td>");
     }
 
-    public void WriteSlice(Image image, string path, string name, string extension)
+    public void WriteSlice(Image image, string path, string name, 
+			   string extension)
     {
       Image clone = new Image(image);
       clone.Crop(Width, Height, X1, Y1);
-      string filename = path + System.IO.Path.DirectorySeparatorChar + GetFilename(name, extension);
+      string filename = path + System.IO.Path.DirectorySeparatorChar + 
+	GetFilename(name, extension);
       clone.Save(RunMode.NONINTERACTIVE, filename, filename);
       clone.Delete();
     }
@@ -295,6 +306,42 @@ namespace Gimp.SliceTool
     {
       get {return _target;}
       set {_target = value;}
+    }
+
+    public string MouseOver
+    {
+      get {return _mouseOver;}
+      set {_mouseOver = value;}
+    }
+
+    public string MouseOut
+    {
+      get {return _mouseOut;}
+      set {_mouseOut = value;}
+    }
+
+    public string MouseClick
+    {
+      get {return _mouseClick;}
+      set {_mouseClick = value;}
+    }
+
+    public string MouseDoubleClick
+    {
+      get {return _mouseDoubleClick;}
+      set {_mouseDoubleClick = value;}
+    }
+
+    public string MouseUp
+    {
+      get {return _mouseUp;}
+      set {_mouseUp = value;}
+    }
+
+    public string MouseDown
+    {
+      get {return _mouseDown;}
+      set {_mouseDown = value;}
     }
 
     public bool Include
