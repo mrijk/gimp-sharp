@@ -1,0 +1,100 @@
+using System;
+using System.Runtime.InteropServices;
+
+namespace Gimp
+{
+	public class Image
+	{
+		Int32 _imageID;
+
+		public Image(Int32 imageID)
+		{
+			_imageID = imageID;
+		}
+
+		[DllImport("libgimp-2.0.so")]
+		static extern Int32 gimp_image_duplicate (Int32 image_ID);
+		
+		public Image Duplicate()
+		{
+			return new Image(gimp_image_duplicate(_imageID));
+		}
+
+		[DllImport("libgimp-2.0.so")]
+		static extern int gimp_image_width (Int32 image_ID);
+
+		public int Width
+		{
+			get {return gimp_image_width(_imageID);}
+		}
+
+		[DllImport("libgimp-2.0.so")]
+		static extern int gimp_image_height (Int32 image_ID);
+
+		public int Height
+		{
+			get {return gimp_image_height(_imageID);}
+		}
+
+		[DllImport("libgimp-2.0.so")]
+		static extern bool gimp_image_free_shadow (Int32 image_ID);
+
+		public bool FreeShadow()
+		{
+			return gimp_image_free_shadow(_imageID);
+		}
+
+		[DllImport("libgimp-2.0.so")]
+		static extern bool gimp_image_resize (Int32 image_ID,
+			int new_width,
+			int new_height,
+			int offx,
+			int offy);
+
+		public bool Resize(int new_width, int new_height, int offx, int offy)
+		{
+			return gimp_image_resize(_imageID, new_width, new_height, offx, offy);
+		}
+
+		[DllImport("libgimp-2.0.so")]
+		static extern bool gimp_image_scale (Int32 image_ID,
+			int new_width,
+			int new_height);
+
+		public bool Scale(int new_width, int new_height)
+		{
+			return gimp_image_scale(_imageID, new_width, new_height);
+		}
+
+		[DllImport("libgimp-2.0.so")]
+		static extern bool gimp_image_crop(Int32 image_ID,
+			int new_width, int new_height,
+			int offx, int offy);
+
+		public bool Crop(int new_width, int new_height,
+			int offx, int offy)
+		{
+			return gimp_image_crop(_imageID, new_width, new_height, offx, offy);
+		}
+
+		[DllImport("libgimp-2.0.so")]
+		static extern bool gimp_image_add_layer (Int32 image_ID,
+			Int32 layer_ID,
+			int position);
+
+		public bool AddLayer(Layer layer, int position)
+		{
+			return gimp_image_add_layer(_imageID, layer.ID, position);
+		}
+
+		public Int32 ID
+		{
+			get {return _imageID;}
+		}
+
+		public GuideCollection Guides
+		{
+			get {return new GuideCollection(this);}
+		}
+	}
+}
