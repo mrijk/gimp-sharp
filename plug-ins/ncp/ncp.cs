@@ -155,6 +155,7 @@ namespace Gimp.ncp
     Point[,] vp;
 
     int[] _distances;
+    int[] _data, _under, _over;
 
     byte[] _dest;
     int _bpp;
@@ -181,6 +182,10 @@ namespace Gimp.ncp
       int ymid = _height / 2;
 
       _distances = new int[4 * _points];
+      _data = new int[4 * _points];
+      _under = new int[4 * _points];
+      _over = new int[4 * _points];
+
       vp = new Point[_bpp, 4 * _points];
 
       for (int b = 0; b < _bpp; b++) 
@@ -209,7 +214,6 @@ namespace Gimp.ncp
     override protected void DoSomething(Drawable drawable)
     {
       Initialize(drawable);
-
       RgnIterator iter = new RgnIterator(drawable, RunMode.INTERACTIVE);
       iter.Progress = new Progress("NCP");
       iter.Iterate(new RgnIterator.IterFuncDest(DoNCP));
@@ -220,43 +224,48 @@ namespace Gimp.ncp
     int Select(int n)
     {
       int pivot = 0;
-      ArrayList data = new ArrayList(_distances);
+      int len = 4 * _points;
+      _data = _distances;
 
       while (true)
 	{
-	ArrayList under = new ArrayList();
-	ArrayList over = new ArrayList();
+	int j = 0;
+	int k = 0;
 	int pcount = 0;
 	  
-	pivot = (int) data[0];
-	foreach (int elem in data)
+	pivot = _data[0];
+
+	for (int i = 0; i < len; i++)
 	  {
+	  int elem = _data[i];
+
 	  if (elem < pivot)
-	    under.Add(elem);
+	    _under[j++] = elem;
 	  else if (elem > pivot)
-	    over.Add(elem);
+	    _over[k++] = elem;
 	  else
-	    pcount++;
+	    pcount++;	
 	  }
-	  
-	if (n < under.Count)
+
+	if (n < j)
 	  {
-	  data = under;
+	  len = j;
+	  _data = _under;
 	  }
-	else if (n < under.Count + pcount)
+	else if (n < j + pcount)
 	  {
 	  break;
 	  }
 	else
 	  {
-	  data = over;
-	  n -= under.Count + pcount;
+	  len = k;
+	  _data = _over;
+	  n -= j + pcount;
 	  }
 	}
-
       return pivot;
     }
-      
+
     byte[] DoNCP(int x, int y)
     {
       for (int b = 0; b < _bpp; b++) 
@@ -264,20 +273,15 @@ namespace Gimp.ncp
 	// compute distance to each point
 	for (int k = 0; k < _points * 4; k++) 
 	  {
-	  int x2 = x - vp[b, k].x;
-	  int y2 = y - vp[b, k].y;
+	  Point p = vp[b, k];
+	  int x2 = x - p.x;
+	  int y2 = y - p.y;
 	  _distances[k] = x2 * x2 + y2 * y2;
 	  }
-#if true
-	// This crashes on Windows, probably because the garbage collector frees
-	// some memory that is still used in the interop stuff (wrapper).
+
 	byte val = (byte) (255.0 * Math.Sqrt((double) Select(_closest) / 
 					     (_width * _height)));
-#else
-	Array.Sort(_distances);
-	byte val = (byte) (255.0 * Math.Sqrt((double) _distances[_closest] / 
-					     (_width * _height)));
-#endif
+
 	// invert
 	val = (byte) (255 - val);
 	if (_color) 

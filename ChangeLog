@@ -1,3 +1,7 @@
+2004-12-02    <maurits@Mau>
+
+	* plug-ins/ncp/ncp.cs: major speed-up, now 20 times as fast.
+
 2004-11-29    <maurits@Mau>
 
 	* lib/Makefile.am: changed accordingly
