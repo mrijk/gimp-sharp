@@ -6,7 +6,7 @@ namespace Gimp.SliceTool
   {
     PreviewRenderer _renderer;
     SliceData _sliceData;
-    Rectangle _rectangle;
+    Rectangle _rectangle, _endRectangle;
     Slice _slice;
     int _x, _y;
     bool _horizontal;
@@ -39,18 +39,53 @@ namespace Gimp.SliceTool
 		
     override protected void OnMove(int x, int y) 
     {
-      if (_horizontal ^ ((Math.Abs(x - _x) > Math.Abs(y - _y))))
+      Rectangle rectangle;
+      if (_horizontal)
+	{
+	rectangle = _sliceData.FindRectangle(x, _y);
+	}
+      else
+	{
+	rectangle = _sliceData.FindRectangle(_x, y);
+	}
+
+      bool rectangleChanged = rectangle != _endRectangle;
+      if (rectangleChanged)
+	{
+	_endRectangle = rectangle;
+	}
+
+      bool orientationChanged = _horizontal ^ ((Math.Abs(x - _x) > 
+						Math.Abs(y - _y)));
+      if (orientationChanged)
+	{
+	_horizontal = !_horizontal;
+	}
+
+      if (orientationChanged || rectangleChanged)
 	{
 	_slice.Draw(_renderer);
 	if (_horizontal)
 	  {
-	  _horizontal = false;
-	  _slice = _rectangle.CreateVerticalSlice(_x);
+	  if (rectangle.Left.X <= _rectangle.Left.X)
+	    {
+	    _slice = new HorizontalSlice(rectangle.Left, _rectangle.Right, _y);
+	    }
+	  else
+	    {
+	    _slice = new HorizontalSlice(_rectangle.Left, rectangle.Right, _y);
+	    }
 	  }
 	else
 	  {
-	  _horizontal = true;
-	  _slice = _rectangle.CreateHorizontalSlice(_y);
+	  if (rectangle.Top.Y <= _rectangle.Top.Y)
+	    {
+	    _slice = new VerticalSlice(rectangle.Top, _rectangle.Bottom, _x);
+	    }
+	  else
+	    {
+	    _slice = new VerticalSlice(_rectangle.Top, rectangle.Bottom, _x);
+	    }
 	  }
 	_slice.Draw(_renderer);
 	}

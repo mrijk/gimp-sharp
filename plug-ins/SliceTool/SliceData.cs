@@ -70,19 +70,62 @@ namespace Gimp.SliceTool
       return slice;
     }
 
-    public bool Remove(int x, int y)
+    public Slice MayRemove(int x, int y)
     {
-      Slice slice = FindSlice(x, y);
-      if (slice != null)
+      Slice slice = _horizontalSlices.Find(x, y);
+      if (slice == null)
 	{
-	if (_rectangles.Remove(x, y, slice))
+	slice = _verticalSlices.Find(x, y);
+	if (slice != null && !_horizontalSlices.IsEndPoint(slice))
 	  {
-	  _horizontalSlices.Remove(slice);
-	  _verticalSlices.Remove(slice);
-	  return true;
+	  return slice;
 	  }
 	}
-      return false;
+      else if (!_verticalSlices.IsEndPoint(slice))
+	{
+	return slice;
+	}
+      return null;
+    }
+
+    public void Remove(Slice slice)
+    {
+      RectangleSet set1 = new RectangleSet();
+      RectangleSet set2 = new RectangleSet();
+
+      foreach (Rectangle rectangle in _rectangles)
+	{
+	if (slice == rectangle.Bottom || slice == rectangle.Right)
+	  {
+	  set1.Add(rectangle);
+	  }
+	else if (slice == rectangle.Top || slice == rectangle.Left)
+	  {
+	  set2.Add(rectangle);
+	  }
+	}
+
+      foreach (Rectangle r1 in set1)
+	{
+	foreach (Rectangle r2 in set2)
+	  {
+	  if (r1.Left == r2.Left && r1.Right == r2.Right)
+	    {
+	    r1.Bottom = r2.Bottom;
+	    _rectangles.Remove(r2);
+	    break;
+	    }
+	  else if (r1.Top == r2.Top && r1.Bottom == r2.Bottom)
+	    {
+	    r1.Right = r2.Right;
+	    _rectangles.Remove(r2);
+	    break;
+	    }
+	  }
+	}
+
+      _horizontalSlices.Remove(slice);
+      _verticalSlices.Remove(slice);
     }
 
     public void CreateTable(int x, int y, int rows, int columns)

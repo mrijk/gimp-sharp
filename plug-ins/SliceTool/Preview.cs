@@ -19,6 +19,7 @@ namespace Gimp.SliceTool
 
       ExposeEvent += new ExposeEventHandler(OnExposed);
       Realized += new EventHandler(OnRealized);
+      SizeAllocated += new SizeAllocatedHandler(OnSizeAllocated);
 
       Events = EventMask.ButtonPressMask | EventMask.ButtonReleaseMask | 
 	EventMask.PointerMotionHintMask | EventMask.PointerMotionMask;
@@ -32,11 +33,20 @@ namespace Gimp.SliceTool
     void OnRealized (object o, EventArgs args)
     {
       _gc = new Gdk.GC(GdkWindow);
+      _renderer = new PreviewRenderer(this, _gc, 
+				      _drawable.Width, _drawable.Height);
+      FillWithImage();
+    }
 
+    void OnSizeAllocated(object o, SizeAllocatedArgs args)
+    {
+      FillWithImage();
+    }
+
+    void FillWithImage()
+    {
       int width = _drawable.Width;
       int height = _drawable.Height;
-
-      _renderer = new PreviewRenderer(this, _gc, width, height);
 
       PixelRgn rgn = new PixelRgn(_drawable, 0, 0, width, height, 
 				  false, false);

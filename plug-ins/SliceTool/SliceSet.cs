@@ -71,6 +71,18 @@ namespace Gimp.SliceTool
       return null;
     }
 
+    public bool IsEndPoint(Slice s)
+    {
+      foreach (Slice slice in _set)
+	{
+	if (slice.Begin == s || slice.End == s)
+	  {
+	  return true;
+	  }
+	}
+      return false;
+    }
+
     public void Remove(Slice slice)
     {
       _set.Remove(slice);

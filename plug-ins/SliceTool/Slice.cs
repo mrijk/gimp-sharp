@@ -50,11 +50,13 @@ namespace Gimp.SliceTool
 
     public Slice Begin
     {
+      get {return _begin;}
       set {_begin = value;}
     }
 
     public Slice End
     {
+      get {return _end;}
       set {_end = value;}
     }
 
