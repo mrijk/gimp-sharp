@@ -57,6 +57,7 @@ dnl read Makefile.in and write Makefile
 AC_OUTPUT(Makefile)
 AC_OUTPUT(lib/Makefile)
 AC_OUTPUT(plug-ins/Makefile)
+AC_OUTPUT(plug-ins/KoalaPaint/Makefile)
 AC_OUTPUT(plug-ins/ncp/Makefile)
 AC_OUTPUT(plug-ins/Ministeck/Makefile)
 AC_OUTPUT(plug-ins/PicturePackage/Makefile)

@@ -6,18 +6,17 @@ namespace Gimp
     public class Drawable
     {
       IntPtr _drawable;
-      Int32 _drawableID;
+      protected Int32 _ID;
 
       public Drawable(Int32 drawableID)
       {
-	_drawableID = drawableID;
-	_drawable = gimp_drawable_get (_drawableID);
+	_ID = drawableID;
+	_drawable = gimp_drawable_get (_ID);
       }
 
       public Drawable(IntPtr drawable)
       {
 	_drawable = drawable;
-	Console.WriteLine(" Fix me: set _drawableID!");
       }
 
       public void Detach()
@@ -32,97 +31,106 @@ namespace Gimp
 
       public bool Delete()
       {
-	return gimp_drawable_delete (_drawableID);
+	return gimp_drawable_delete (_ID);
       }
 
       public string Name
       {
-	get {return gimp_drawable_get_name(_drawableID);}
-	set {gimp_drawable_set_name(_drawableID, value);}
+	get {return gimp_drawable_get_name(_ID);}
+	set {gimp_drawable_set_name(_ID, value);}
       }
 
       public bool Visible
       {
-	get {return gimp_drawable_get_visible(_drawableID);}
-	set {gimp_drawable_set_visible(_drawableID, value);}
+	get {return gimp_drawable_get_visible(_ID);}
+	set {gimp_drawable_set_visible(_ID, value);}
       }
 
       public bool Linked
       {
-	get {return gimp_drawable_get_linked(_drawableID);}
-	set {gimp_drawable_set_linked(_drawableID, value);}
+	get {return gimp_drawable_get_linked(_ID);}
+	set {gimp_drawable_set_linked(_ID, value);}
       }
 
       public int Tattoo
       {
-	get {return gimp_drawable_get_tattoo(_drawableID);}
-	set {gimp_drawable_set_tattoo(_drawableID, value);}
+	get {return gimp_drawable_get_tattoo(_ID);}
+	set {gimp_drawable_set_tattoo(_ID, value);}
+      }
+
+      public byte[] GetThumbnailData(ref int width, ref int height, out int bpp)
+      {
+	IntPtr src = gimp_drawable_get_thumbnail_data(_ID, ref width, ref height, out bpp);
+	byte[] dest = new byte[width * height * bpp];
+	Marshal.Copy(src, dest, 0, width * height * bpp);
+	// Fix me: free src
+	return dest;
       }
 
       public bool Fill(FillType fill_type)
       {
-	return gimp_drawable_fill(_drawableID, fill_type);
+	return gimp_drawable_fill(_ID, fill_type);
       }
 
       public bool MaskBounds(out int x1, out int y1, out int x2, out int y2)
       {
-	return gimp_drawable_mask_bounds(_drawableID, out x1, out y1, 
+	return gimp_drawable_mask_bounds(_ID, out x1, out y1, 
 					 out x2, out y2);
       }
 
       public bool MergeShadow(bool undo)
       {
-	return gimp_drawable_merge_shadow(_drawableID, undo);
+	return gimp_drawable_merge_shadow(_ID, undo);
       }
 
       public bool Update(int x, int y, int width, int height)
       {
-	return gimp_drawable_update(_drawableID, x, y, width, height);
+	return gimp_drawable_update(_ID, x, y, width, height);
       }
 
       public bool HasAlpha()
       {
-	return gimp_drawable_has_alpha(_drawableID);
+	return gimp_drawable_has_alpha(_ID);
       }
 
       public bool IsRGB
       {
-	get {return gimp_drawable_is_rgb(_drawableID);}
+	get {return gimp_drawable_is_rgb(_ID);}
       }
 
       public bool IsGray
       {
-	get {return gimp_drawable_is_gray(_drawableID);}
+	get {return gimp_drawable_is_gray(_ID);}
       }
 
       public bool IsIndexed
       {
-	get {return gimp_drawable_is_indexed(_drawableID);}
+	get {return gimp_drawable_is_indexed(_ID);}
       }
 
       public int Bpp
       {
-	get {return gimp_drawable_bpp(_drawableID);}
+	get {return gimp_drawable_bpp(_ID);}
       }
 
       public int Height
       {
-	get {return gimp_drawable_height(_drawableID);}
+	get {return gimp_drawable_height(_ID);}
       }
 
       public int Width
       {
-	get {return gimp_drawable_width(_drawableID);}
+	get {return gimp_drawable_width(_ID);}
       }
 
       public Image Image
       {
-	get {return new Image(gimp_drawable_get_image(_drawableID));}
+	get {return new Image(gimp_drawable_get_image(_ID));}
       }
 
       public Int32 ID
       {
-	get {return _drawableID;}
+	get {return _ID;}
       }
 
       public IntPtr Ptr
@@ -156,6 +164,11 @@ namespace Gimp
       [DllImport("libgimp-2.0.so")]
       static extern bool gimp_drawable_set_tattoo(Int32 drawable_ID, 
 						  int tattoo);
+      [DllImport("libgimp-2.0.so")]
+      static extern IntPtr gimp_drawable_get_thumbnail_data(Int32 drawable_ID,
+							    ref int width, 
+							    ref int height, 
+							    out int bpp);
       [DllImport("libgimp-2.0.so")]
       static extern void gimp_drawable_detach(IntPtr drawable);
       [DllImport("libgimp-2.0.so")]

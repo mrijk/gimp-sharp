@@ -274,6 +274,8 @@ namespace Gimp
 
     void CallDoSomething()
     {
+      int m_start = Environment.TickCount;
+
       GetRequiredParameters();
       
       if (_usesDrawable && _usesImage)
@@ -292,6 +294,12 @@ namespace Gimp
 	{
 	DoSomething();
 	}
+
+      int m_time= Environment.TickCount - m_start;
+      if (m_time<0)
+	m_time &=0x7FFFFFFF;
+      Console.WriteLine("Processing time {0:0.0} seconds.", 
+			(double)m_time / 1000 );
     }
     
     virtual protected void DoSomething() {}

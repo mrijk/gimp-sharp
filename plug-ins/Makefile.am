@@ -1,2 +1,2 @@
 AUTOMAKE_OPTIONS = gnu
-SUBDIRS = Ministeck ncp PicturePackage Splitter
+SUBDIRS = KoalaPaint Ministeck ncp PicturePackage Splitter
