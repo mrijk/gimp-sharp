@@ -1,10 +1,9 @@
 using System;
 using System.Collections;
 
-using Gimp;
 using Gtk;
 
-namespace Ministeck
+namespace Gimp.Ministeck
   {
     public class Ministeck : Plugin
     {
@@ -87,8 +86,7 @@ namespace Ministeck
 	_size = (sender as SpinButton).ValueAsInt;
       }
 
-      override protected void DoSomething(Drawable drawable,
-					  Gimp.Image image)
+      override protected void DoSomething(Drawable drawable, Image image)
       {
 	image.UndoGroupStart();
 

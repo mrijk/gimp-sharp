@@ -1,13 +1,12 @@
 using System;
 using System.Collections;
 
-using Gimp;
-
-namespace Ministeck
+namespace Gimp.Ministeck
   {
   abstract public class Shape
   {
     protected ShapeSet[] _set;
+    protected ArrayList _set2 = new ArrayList(); 
     protected int _size;
 
     Random _random = new Random();
@@ -18,6 +17,28 @@ namespace Ministeck
     public Shape(int size)
     {
       _size = size;
+    }
+
+    protected void Combine(params ShapeDescription[] list)
+    {
+      ShapeSet empty = new ShapeSet();
+      _set2.Add(empty);
+
+      foreach (ShapeDescription val in list)
+	{
+	ArrayList copy = new ArrayList();
+	foreach (ShapeSet ele in _set2)
+	  {
+	  for (int i = 0; i <= ele.Count; i++)
+	    {
+	    ShapeSet tmp = new ShapeSet(ele);
+	    tmp.Insert(i, val);
+	    copy.Add(tmp);
+	    }
+	  }
+	_set2 = copy;
+	}
+      Console.WriteLine("Count: " + _set2.Count);
     }
 
     public bool Fits(PixelFetcher pf, bool[,] A, int x, int y)

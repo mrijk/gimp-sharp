@@ -1,8 +1,6 @@
 using System;
 
-using Gimp;
-
-namespace Ministeck
+namespace Gimp.Ministeck
   {
     public class ThreeByOneShape : Shape
     {

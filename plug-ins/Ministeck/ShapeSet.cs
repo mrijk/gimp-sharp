@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 
-namespace Ministeck
+namespace Gimp.Ministeck
   {
     public class ShapeSet : IEnumerable 
     {
@@ -16,9 +16,24 @@ namespace Ministeck
 	  }		
       }
 
+      public ShapeSet(ShapeSet s)
+      {
+	_set = new ArrayList(s._set);
+      }
+
       IEnumerator IEnumerable.GetEnumerator() 
       {
 	return _set.GetEnumerator();
+      }
+
+      public void Insert(int index, ShapeDescription val)
+      {
+	_set.Insert(index, val);
+      }
+
+      public int Count
+      {
+	get {return _set.Count;}
       }
     }
   }

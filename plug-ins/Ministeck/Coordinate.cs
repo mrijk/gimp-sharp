@@ -1,6 +1,6 @@
 using System;
 
-namespace Ministeck
+namespace Gimp.Ministeck
   {
     public class Coordinate
     {

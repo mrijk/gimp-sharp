@@ -1,8 +1,6 @@
 using System;
 
-using Gimp;
-
-namespace Ministeck
+namespace Gimp.Ministeck
   {
     public class CornerShape : Shape
     {
@@ -50,6 +48,8 @@ namespace Ministeck
 	_set[21] = new ShapeSet(_shape4, _shape2, _shape3, _shape1);
 	_set[22] = new ShapeSet(_shape4, _shape3, _shape1, _shape2);
 	_set[23] = new ShapeSet(_shape4, _shape3, _shape2, _shape1);
+
+	Combine(_shape1, _shape2, _shape3, _shape4);
       }
 
       protected override void Fill(PixelFetcher pf, int x, int y,
@@ -60,37 +60,37 @@ namespace Ministeck
 	  {
 	  HLine(2 * _size);
 	  VLine(1 * _size);
-	  HLine(-1 * _size - 1);
-	  VLine(1 * _size + 1);
-	  HLine(-1 * _size);
+	  HLine(-_size - 1);
+	  VLine(_size + 1);
+	  HLine(-_size);
 	  VLine(-2 * _size);
 	  }
 	else if (shape == _shape2)
 	  {
 	  HLine(2 * _size);
 	  VLine(2 * _size);
-	  HLine(-1 * _size);
-	  VLine(-1 * _size - 1);
-	  HLine(-1 * _size - 1);
-	  VLine(-1 * _size);
+	  HLine(-_size);
+	  VLine(-_size - 1);
+	  HLine(-_size - 1);
+	  VLine(-_size);
 	  }
 	else if (shape == _shape3)
 	  {
-	  HLine(1 * _size);
-	  VLine(1 * _size + 1);
-	  HLine(1 * _size + 1);
-	  VLine(1 * _size);
+	  HLine(_size);
+	  VLine(_size + 1);
+	  HLine(_size + 1);
+	  VLine(_size);
 	  HLine(-2 * _size);
 	  VLine(-2 * _size);
 	  }
 	else
 	  {
-	  HLine(1 * _size);
+	  HLine(_size);
 	  VLine(2 * _size);
 	  HLine(-2 * _size);
-	  VLine(-1 * _size);
-	  HLine(1 * _size + 1);
-	  VLine(-1 * _size - 1);
+	  VLine(-_size);
+	  HLine(_size + 1);
+	  VLine(-_size - 1);
 	  }
       }
     }

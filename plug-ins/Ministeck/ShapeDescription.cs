@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 
-namespace Ministeck
+namespace Gimp.Ministeck
   {
     public class ShapeDescription : IEnumerable 
     {
