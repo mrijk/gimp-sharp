@@ -26,7 +26,7 @@ namespace Gimp.PicturePackage
       get {return (Rectangle) _set[index];}
     }
 
-    public Rectangle Find(int x, int y)
+    public Rectangle Find(double x, double y)
     {
       foreach (Rectangle rectangle in _set)
 	{
@@ -41,36 +41,22 @@ namespace Gimp.PicturePackage
       factory.Reset();
       foreach (Rectangle rectangle in _set)
 	{
-	ImageProvider provider = factory.Provide();
+	ImageProvider provider = rectangle.Provider;
+
+	if (provider == null)
+	  {
+	  provider = factory.Provide();
+	  }
+
+	if (provider == null)
+	  {
+	  break;
+	  }
 	rectangle.Render(provider.GetImage(), renderer);
 	factory.Cleanup(provider);
 	}
       factory.Cleanup();
       renderer.Cleanup();
-    }
-
-    int _index = 0;
-    public bool Render(ProviderFactory factory, Renderer renderer, bool foo)
-    {
-      if (_index == 0)
-	{
-	factory.Reset();
-	}
-
-      if (_index == _set.Count)
-	{
-	factory.Cleanup();
-	_index = 0;
-	return false;
-	}
-
-      Rectangle rectangle = (Rectangle) _set[_index++];
-      ImageProvider provider = factory.Provide();
-      rectangle.Render(provider.GetImage(), renderer);
-      factory.Cleanup(provider);
-      renderer.Cleanup();
-
-      return true;
     }
 
     public int Count

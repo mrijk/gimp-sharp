@@ -25,7 +25,6 @@ namespace Gimp.PicturePackage
 			if (_image == null)
 			{
 				_image = Image.Load(RunMode.NONINTERACTIVE, _filename, _rawFilename);
-				Console.WriteLine("Image loaded: " + _image.ID);
 			}
 			return _image;
 		}

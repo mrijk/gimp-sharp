@@ -9,11 +9,11 @@ namespace Gimp.PicturePackage
     PicturePackage _parent;
     OptionMenu _size;
     OptionMenu _layout;
-    SpinButton _resolution;
 
     LayoutSet _layoutSet;
     PageSizeSet _sizes;
-    bool _flatten = true;
+
+    int _resolution;
 
     public DocumentFrame(PicturePackage parent, LayoutSet layoutSet) : 
       base(5, 3, "Document")
@@ -29,26 +29,23 @@ namespace Gimp.PicturePackage
       _layout = new OptionMenu();
       FillLayoutMenu(_layoutSet);
       _layout.Changed += new EventHandler(OnLayoutChanged);
-      Table.AttachAligned(0, 1, "_Layout:", 0.0, 0.5,
-			  _layout, 2, false);
+      Table.AttachAligned(0, 1, "_Layout:", 0.0, 0.5, _layout, 2, false);
 
-      _resolution = new SpinButton (72, 1200, 1);
-      Table.AttachAligned(0, 2, "_Resolution:", 0.0, 0.5, _resolution, 1, 
-			  true);
-      _resolution.ValueChanged += new EventHandler(OnResolutionChanged);
+      _resolution = parent.Resolution;
+      SpinButton resolution = new SpinButton (_resolution, 1200, 1);
+      Table.AttachAligned(0, 2, "_Resolution:", 0.0, 0.5, resolution, 1, true);
+      resolution.ValueChanged += new EventHandler(OnResolutionChanged);
 
-      OptionMenu units = CreateOptionMenu(
-	"pixels/inch", "pixels/cm",
-	"pixels/mm");
+      OptionMenu units = CreateOptionMenu("pixels/inch", "pixels/cm",
+					  "pixels/mm");
       Table.Attach(units, 2, 3, 2, 3);	
 
-      OptionMenu mode = CreateOptionMenu(
-	"Grayscale", "RGB Color");
+      OptionMenu mode = CreateOptionMenu("Grayscale", "RGB Color");
       mode.SetHistory(1);
       Table.AttachAligned(0, 3, "_Mode:", 0.0, 0.5, mode, 2, false);
 
       CheckButton flatten = new CheckButton("Flatten All Layers");
-      flatten.Active = _flatten;
+      flatten.Active = parent.Flatten;
       flatten.Toggled += new EventHandler(FlattenToggled);
       Table.Attach(flatten, 0, 2, 4, 5);
     }
@@ -56,7 +53,7 @@ namespace Gimp.PicturePackage
     void FillPageSizeMenu(LayoutSet layoutSet)
     {
       Menu menu = new Menu();
-      _sizes = layoutSet.GetPageSizeSet(72 /* _res */);
+      _sizes = layoutSet.GetPageSizeSet(_resolution);
       foreach (PageSize size in _sizes)
 	{
 	menu.Append(new MenuItem(String.Format("{0,1:f1} x {1,1:f1} inches", 
@@ -79,7 +76,7 @@ namespace Gimp.PicturePackage
     void OnSizeChanged (object o, EventArgs args) 
     {
       int nr = (o as OptionMenu).History;
-      LayoutSet set = _layoutSet.GetLayouts(_sizes[nr], 72); // Problem here!!??
+      LayoutSet set = _layoutSet.GetLayouts(_sizes[nr], _resolution);
       FillLayoutMenu(set);
     }
 
@@ -94,14 +91,9 @@ namespace Gimp.PicturePackage
       _parent.Resolution = (o as SpinButton).ValueAsInt;
     }
 
-    void FlattenToggled (object o, EventArgs args)
+    void FlattenToggled (object sender, EventArgs args)
     {
-      _flatten = (o as CheckButton).Active;
-    }
-
-    public bool Flatten
-    {
-      get {return _flatten;}
+      _parent.Flatten = (sender as CheckButton).Active;
     }
   }
   }

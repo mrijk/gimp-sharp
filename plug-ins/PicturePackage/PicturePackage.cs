@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 
 using Gtk;
 
@@ -13,6 +14,7 @@ namespace Gimp.PicturePackage
 
     DocumentFrame _df;
     Preview _preview;
+    Thread _renderThread;
 
     [SaveAttribute]
     bool _flatten = false;
@@ -58,7 +60,7 @@ namespace Gimp.PicturePackage
       _layoutSet.Load();
       _loader = new FrontImageProviderFactory(_image);
 
-      Dialog dialog = DialogNew("Picture Package", "PicturePackage",
+      Dialog dialog = DialogNew("Picture Package 0.4", "PicturePackage",
 				IntPtr.Zero, 0, null, "PicturePackage");
 
       HBox hbox = new HBox(false, 12);
@@ -87,15 +89,14 @@ namespace Gimp.PicturePackage
       _preview = new Preview(this);
       _preview.WidthRequest = 400;
       _preview.HeightRequest = 500;
-
+      _preview.ButtonPressEvent += new ButtonPressEventHandler(PreviewClicked);
       fbox.Add(_preview);
 
       _layoutSet.Selected = _layoutSet[0];
       _layout = _layoutSet[0];
       _layoutSet.SelectEvent += new SelectHandler(SetLayout);
-
-      dialog.ShowAll();
 	
+      dialog.ShowAll();
       return DialogRun();
     }
 
@@ -105,41 +106,93 @@ namespace Gimp.PicturePackage
       RedrawPreview();
     }
 
-    bool RenderOne()
-    {
-      Console.WriteLine("RenderOne");
-      bool val = _layout.Render(_loader, _preview.GetRenderer(_layout), false);
-      if (!val) _preview.QueueDraw();
-      return val;
-    }
-    public void RenderX()
-    {
-      GLib.Idle.Add(new GLib.IdleHandler(RenderOne));
-    }
-
     public void Render()
     {
       _layout.Render(_loader, _preview.GetRenderer(_layout));
     }
 
+    public void RenderX()
+    {
+      _renderThread = new Thread(new ThreadStart(RenderThread));
+      _renderThread.Start();
+    }
+
+    void RenderThread()
+    {
+      _layout.Render(_loader, _preview.GetRenderer(_layout));
+    }
+#if false
+    void RedrawPreview()
+    {
+      if (_renderThread != null)
+	{
+	_renderThread.Abort();
+	_renderThread.Join();
+	}
+      _preview.Clear();
+      Render();
+    }
+#else
     void RedrawPreview()
     {
       Render();
       _preview.QueueDraw();
     }
+#endif
+
+    Rectangle _rectangle;
+
+    public void PreviewClicked(object o, ButtonPressEventArgs args)
+    {
+      int offx, offy;
+      double zoom = _layout.Boundaries(_preview.WidthRequest, 
+				       _preview.HeightRequest, 
+				       out offx, out offy);
+      double x = (args.Event.X - offx) / zoom;
+      double y = (args.Event.Y - offy) / zoom;
+
+      _rectangle = _layout.Find(x, y);
+      if (_rectangle != null)
+	{
+	FileSelection selection = new FileSelection("Select image");
+	selection.Response += new ResponseHandler (OnFileSelectionResponse);
+	selection.Run();
+	}
+    }
+
+    void OnFileSelectionResponse (object o, ResponseArgs args)
+    {
+      FileSelection fs = o as FileSelection;
+      if (args.ResponseId == ResponseType.Ok)
+	{
+	Console.WriteLine("Selected: " + fs.Filename);
+	ImageProvider provider = new FileImageProvider(fs.Filename);
+	_rectangle.Provider = provider;
+	Image image = provider.GetImage();
+	if (image != null)
+	  {
+	  Renderer renderer = _preview.GetRenderer(_layout);
+	  _rectangle.Render(image, renderer);
+	  renderer.Cleanup();
+	  provider.Release();
+	  }
+	else
+	  {
+	  // Error dialog here.
+	  }
+	}
+      fs.Hide();
+    }
 
     override protected void DoSomething(Image image)
     {
-      _flatten = _df.Flatten;
-
-       PageSize size = _layout.GetPageSizeInPixels(_resolution);
+      PageSize size = _layout.GetPageSizeInPixels(_resolution);
 
       int width = (int) size.Width;
       int height = (int) size.Height;
       Image composed = new Image(width, height, ImageBaseType.RGB);
 
-      _layout.Render(_loader, 
-		     new ImageRenderer(_layout, composed, _resolution));
+      _layout.Render(_loader, new ImageRenderer(_layout, composed, _resolution));
 
       if (_flatten)
 	{
@@ -185,6 +238,13 @@ namespace Gimp.PicturePackage
     public int Resolution
     {
       set {_resolution = value;}
+      get {return _resolution;}
+    }
+
+    public bool Flatten
+    {
+      set {_flatten = value;}
+      get {return _flatten;}
     }
   }
   }

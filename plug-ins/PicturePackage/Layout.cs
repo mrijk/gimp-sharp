@@ -53,14 +53,9 @@ namespace Gimp.PicturePackage
       _rectangles.Add(rectangle);
     }
 
-    public Rectangle Find(int x, int y)
+    public Rectangle Find(double x, double y)
     {
       return _rectangles.Find(x, y);
-    }
-
-    public bool Render(ProviderFactory factory, Renderer renderer, bool foo)
-    {
-      return _rectangles.Render(factory, renderer, foo);
     }
 
     public void Render(ProviderFactory factory, Renderer renderer)
@@ -93,19 +88,22 @@ namespace Gimp.PicturePackage
 	}
     }
 
+    public double Boundaries(int pw, int ph, out int x, out int y)
+    {
+      double zoom = Math.Min(pw / _width, ph / _height);
+
+      int w = (int) (_width * zoom);
+      int h = (int) (_height * zoom);
+
+      x = (pw - w) / 2;
+      y = (ph - h) / 2;
+
+      return zoom;
+    }
+
     public string Name
     {
       get {return _name;}
-    }
-
-    public double Width
-    {
-      get {return _width;}
-    }
-
-    public double Height
-    {
-      get {return _height;}
     }
 
     public Unit Unit
