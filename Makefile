@@ -4,7 +4,9 @@ VERSION = 0.2
 
 # Fill in GIMP version here.
 # GIMPVERSION = 2.0
-GIMPVERSION = 2.1
+
+GIMPTOOL = gimptool
+GIMPVERSION = 2.2
 
 PLUGINDIR = ~/.gimp-$(GIMPVERSION)/plug-ins/
 
@@ -25,6 +27,7 @@ SOURCES = \
 	Plugin.cs		\
 	RandomSeed.cs		\
 	RgnIterator.cs		\
+	SaveAttribute.cs	\
 	ScaleEntry.cs
 
 NCP_SOURCES = \
@@ -77,9 +80,9 @@ gimpwrapper.so: gimp.o
 
 install: *.exe ncp PicturePackage gimpwrapper.so gimp-sharp.dll
 	chmod +x ncp PicturePackage
-	gimptool-$(GIMPVERSION) --install-bin Ministeck
-	gimptool-$(GIMPVERSION) --install-bin ncp
-	gimptool-$(GIMPVERSION) --install-bin PicturePackage
+	$(GIMPTOOL) --install-bin Ministeck
+	$(GIMPTOOL) --install-bin ncp
+	$(GIMPTOOL) --install-bin PicturePackage
 	chmod -x *.exe gimpwrapper.so gimp-sharp.dll
 	cp -f *.exe $(PLUGINDIR)
 	cp -f gimpwrapper.so $(PLUGINDIR)

@@ -1,6 +1,8 @@
 using System;
 using System.IO;
+using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Runtime.Serialization.Formatters.Binary;
 
 using Gtk;
 using GtkSharp;
@@ -304,7 +306,28 @@ namespace Gimp
 	paramPtr = (IntPtr)((int)paramPtr + Marshal.SizeOf(param[i]));
 	}
       Run(name, param, out return_vals);
+      SetData();
       n_return_vals = return_vals.Length;
+    }
+
+    MemoryStream _memoryStream = new MemoryStream();
+    BinaryFormatter _formatter = new BinaryFormatter();
+
+    protected void SetData()
+    {
+      foreach (FieldInfo field in GetType().GetFields(BindingFlags.Instance |  
+						      BindingFlags.NonPublic | 
+						      BindingFlags.Public))
+	{
+        foreach (object attribute in field.GetCustomAttributes(true))
+	  {
+	  if (attribute is SaveAttribute)
+            {
+	    Console.WriteLine("SaveAttribute found");
+	    _formatter.Serialize(_memoryStream, field.GetValue(this));
+            }
+	  }
+	}
     }
 
     protected Dialog DialogNew( string title,

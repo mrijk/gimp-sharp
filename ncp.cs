@@ -12,7 +12,9 @@ namespace Gimp
       UInt32 _seed;
       bool _random_seed;
 
+      [SaveAttribute]
       int _points = 12;
+      [SaveAttribute]
       int _closest = 1;
       const bool color = true;
 
@@ -106,7 +108,6 @@ namespace Gimp
 
 	drawable.Detach();
       }
-
 
       void PointsUpdate(object sender, EventArgs e)
       {

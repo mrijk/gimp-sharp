@@ -89,6 +89,7 @@ namespace Gimp
 	dialog.ShowAll();
 
 	DialogRun();
+	SetData();
       }
 
       void ReadConfiguration()
