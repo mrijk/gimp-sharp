@@ -280,10 +280,13 @@ namespace Gimp.SliceTool
 
     void SetRectangleData(Rectangle rectangle)
     {
-      rectangle.URL = _url.Text;
-      rectangle.AltText = _altText.Text;
-      rectangle.Target = _target.Text;
-      rectangle.Include = _include.Active;
+      if (rectangle != null)
+	{
+	rectangle.URL = _url.Text;
+	rectangle.AltText = _altText.Text;
+	rectangle.Target = _target.Text;
+	rectangle.Include = _include.Active;
+	}
     }
 
     void GetRectangleData(Rectangle rectangle)
@@ -306,10 +309,7 @@ namespace Gimp.SliceTool
 	Rectangle rectangle = _rectangles.Find(x, y);
 	if (rectangle != _rectangle)
 	  {
-	  if (_rectangle != null)
-	    {
-	    SetRectangleData(_rectangle);
-	    }
+	  SetRectangleData(_rectangle);
 	  _rectangle = rectangle;
 	  Redraw(_preview.Renderer);
 
@@ -533,7 +533,7 @@ namespace Gimp.SliceTool
       w.WriteLine("<!-- Begin Table -->");
       w.WriteLine("<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"{0}\">", 
 		  drawable.Width);
-      
+
       _rectangles.WriteHTML(w, name, _format.Exension);
 
       w.WriteLine("</table>");

@@ -97,7 +97,7 @@ namespace Gimp.SliceTool
     public void Slice(Image image, string name, string extension)
     {
       Image clone = new Image(image);
-      clone.Crop(Width, Height + 1, X1, Y1);
+      clone.Crop(Width, Height, X1, Y1);
       string filename = GetFilename(name, extension);
       clone.Save(RunMode.NONINTERACTIVE, filename, filename);
       clone.Delete();
