@@ -1,3 +1,7 @@
+2004-11-01    <maurits@Mau>
+
+	* GimpEnums.cs: new file
+
 2004-10-31  Maurits  <m.rijk@chello.nl>
 
 	* GimpColorButton.cs: completed API

@@ -76,7 +76,7 @@ namespace Gimp
 
 	Preview preview = new Preview();
 	preview.WidthRequest = 240;
-	preview.Layout = _layoutSet.GetLayout(1);		// Fix me!
+	preview.Layout = _layoutSet[1];		// Fix me!
 	// preview.HeightRequest = 300;
 	frame.Add(preview);
 
@@ -103,6 +103,9 @@ namespace Gimp
 	  }
       }
 
+      CheckButton _include;
+      Button _choose;
+
       void BuildSourceFrame(VBox vbox)
       {
 	GimpFrame frame = new GimpFrame("Source");
@@ -119,15 +122,43 @@ namespace Gimp
 	menu.Append(new MenuItem("Folder"));
 	menu.Append(new MenuItem("Frontmost Document"));
 	use.Menu = menu;
+	use.SetHistory(2);
 	table.AttachAligned(0, 0, "Use:", 0.0, 0.5,
 			    use, 1, false);
+	use.Changed += new EventHandler(OnUseChanged);
 
-	CheckButton include = new CheckButton("Include All Subfolders");
-	table.Attach(include, 1, 2, 1, 2);
+	_include = new CheckButton("Include All Subfolders");
+	table.Attach(_include, 1, 2, 1, 2);
 
-	Button choose = new Button("Choose...");
-	table.Attach(choose, 1, 2, 2, 3, AttachOptions.Shrink,
+	_choose = new Button("Choose...");
+	table.Attach(_choose, 1, 2, 2, 3, AttachOptions.Shrink,
 		     AttachOptions.Fill, 0, 0);	
+
+	SetSourceFrameSensitivity(2);
+      }
+
+      void SetSourceFrameSensitivity(int history)
+      {
+	if (history == 0)
+	  {
+	  _include.Sensitive = false;
+	  _choose.Sensitive = true;
+	  }
+	else if (history == 1)
+	  {
+	  _include.Sensitive = true;
+	  _choose.Sensitive = true;
+	  }
+	else
+	  {
+	  _include.Sensitive = false;
+	  _choose.Sensitive = false;
+	  }
+      }
+
+      void OnUseChanged (object o, EventArgs args) 
+      {
+	SetSourceFrameSensitivity(((OptionMenu) o).History);
       }
 
       void BuildDocumentFrame(VBox vbox)

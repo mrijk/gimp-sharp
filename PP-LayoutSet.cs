@@ -18,13 +18,13 @@ namespace Gimp
       }
 
       public IEnumerator GetEnumerator()
-	{
-	    return _set.GetEnumerator();
-	}
-
-	public Layout GetLayout(int index)
-	{
-	    return (Layout) _set[index];
-	}
+      {
+	return _set.GetEnumerator();
+      }
+      
+      public Layout this[int index]
+      {
+	get {return (Layout) _set[index];}
+      }
     }
   }

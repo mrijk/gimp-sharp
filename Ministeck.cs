@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 
 using Gtk;
 
@@ -64,6 +63,7 @@ namespace Gimp
 					  Image image)
       {
 	// First apply Pixelize plug-in
+	RunProcedure("plug_in_pixelize", 16);
 
 	// Next convert to indexed
 	image.ConvertIndexed(ConvertDitherType.NO_DITHER, 

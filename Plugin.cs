@@ -9,22 +9,6 @@ using GtkSharp;
 
 namespace Gimp
   {
-    public enum RunMode
-      {
-	INTERACTIVE,
-	NONINTERACTIVE,
-	WITH_LAST_VALS
-      }
-
-    public enum PDBStatusType
-      {
-	PDB_EXECUTION_ERROR,
-	PDB_CALLING_ERROR,
-	PDB_PASS_THROUGH,
-	PDB_SUCCESS,
-	PDB_CANCEL
-      }
-
   [StructLayout(LayoutKind.Sequential)]
     public struct RGB
     {
@@ -77,41 +61,6 @@ namespace Gimp
       [FieldOffset(0)]
       public PDBStatusType	d_status;
     };
-
-    public enum PDBProcType
-    {
-      INTERNAL,
-      PLUGIN,
-      EXTENSION,
-      TEMPORARY
-    }
-
-    public enum PDBArgType
-      {
-	INT32,
-	INT16,
-	INT8,
-	FLOAT,
-	STRING,
-	INT32ARRAY,
-	INT16ARRAY,
-	INT8ARRAY,
-	FLOATARRAY,
-	STRINGARRAY,
-	COLOR,
-	REGION,
-	DISPLAY,
-	IMAGE,
-	LAYER,
-	CHANNEL,
-	DRAWABLE,
-	SELECTION,
-	BOUNDARY,
-	PATH,
-	PARASITE,
-	STATUS,
-	END
-      };
 
   [StructLayout(LayoutKind.Sequential)]
   public struct GimpParam
@@ -448,6 +397,69 @@ namespace Gimp
     protected string GimpDirectory()
     {
       return gimp_directory();
+    }
+
+    [DllImport("libgimp-2.0.so")]
+    public static extern GimpParam[] gimp_run_procedure2(string name,
+							 out int n_return_vals,
+							 int n_params,
+							 GimpParam[] _params);
+
+    [DllImport("libgimp-2.0.so")]
+    public static extern bool gimp_procedural_db_proc_info (
+      string procedure,
+      out string blurb,
+      out string help,
+      out string author,
+      out string copyright,
+      out string date,
+      out PDBProcType proc_type,
+      out int num_args,
+      out int num_values,
+      out IntPtr args,
+      out GimpParamDef[] return_vals);
+
+    protected void RunProcedure(string name, params object[] list)
+    {
+      string blurb;
+      string help;
+      string author;
+      string copyright;
+      string date;
+      PDBProcType proc_type;
+      int num_args;
+      int num_values;
+      IntPtr argsPtr;
+      GimpParamDef[] return_vals;
+    
+      if (gimp_procedural_db_proc_info(name, 
+				       out blurb, 
+				       out help,
+				       out author,
+				       out copyright,
+				       out date,
+				       out proc_type,
+				       out num_args,
+				       out num_values,
+				       out argsPtr,
+				       out return_vals))
+	{
+	Console.WriteLine("blurb: " + blurb);
+	
+	// Get parameters
+	GimpParamDef[] param = new GimpParamDef[num_args];
+	for (int i = 0; i < num_args; i++)
+	  {
+	  param[i] = (GimpParamDef) Marshal.PtrToStructure(
+	    argsPtr, typeof(GimpParamDef));
+	  Console.WriteLine(param[i].type);
+	  argsPtr = (IntPtr)((int)argsPtr + Marshal.SizeOf(param[i]));
+	  }
+	}
+      else
+	{
+	Console.WriteLine(name + " not found!");
+	}
     }
   }
   }
