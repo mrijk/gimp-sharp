@@ -10,6 +10,7 @@ namespace Gimp.SliceTool
     Gdk.GC _gc;
     Drawable _drawable;
     SliceTool _parent;
+    PreviewRenderer _renderer;
 
     public Preview(Drawable drawable, SliceTool parent)
     {
@@ -25,16 +26,14 @@ namespace Gimp.SliceTool
 
     void OnExposed (object o, ExposeEventArgs args)
     {	
-      _parent.Redraw();
+      _parent.Redraw(_renderer);
     }
 
     void OnRealized (object o, EventArgs args)
     {
-      Gdk.Color red = new Gdk.Color (0xff, 0, 0);
-      Gdk.Colormap colormap = Gdk.Colormap.System;
-      colormap.AllocColor (ref red, true, true);
       _gc = new Gdk.GC(GdkWindow);
-      _gc.Foreground = red;
+
+      _renderer = new PreviewRenderer(this, _gc);
 
       int width = _drawable.Width;
       int height = _drawable.Height;
@@ -46,9 +45,9 @@ namespace Gimp.SliceTool
       Draw(0, 0, width, height, ImageType.RGB, buf, width * _drawable.Bpp);
     }
 
-    public PreviewRenderer GetRenderer()
+    public PreviewRenderer Renderer
     {
-      return new PreviewRenderer(this, _gc);
+      get {return _renderer;}
     }
   }
   }

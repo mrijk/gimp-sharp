@@ -7,6 +7,10 @@ namespace Gimp.SliceTool
   {
     VerticalSlice _left, _right;
     HorizontalSlice _top, _bottom;
+    
+    string _url = "";
+    string _altText = "";
+    string _target = "";
 
     public Rectangle(VerticalSlice left, VerticalSlice right,
 		     HorizontalSlice top, HorizontalSlice bottom)
@@ -55,6 +59,11 @@ namespace Gimp.SliceTool
     public bool IsInside(int x, int y)
     {
       return x >= X1 && x <= X2 && y >= Y1 && y <= Y2;
+    }
+
+    public void Draw(PreviewRenderer renderer)
+    {
+      renderer.DrawRectangle(X1, Y1, X2 - X1, Y2 - Y1);
     }
 
     public HorizontalSlice CreateHorizontalSlice(int y)
@@ -135,6 +144,24 @@ namespace Gimp.SliceTool
     public int Y2
     {
       get {return _bottom.Y;}
+    }
+
+    public string URL
+    {
+      get {return _url;}
+      set {_url = value;}
+    }
+
+    public string AltText
+    {
+      get {return _altText;}
+      set {_altText = value;}
+    }
+
+    public string Target
+    {
+      get {return _target;}
+      set {_target = value;}
     }
   }
   }

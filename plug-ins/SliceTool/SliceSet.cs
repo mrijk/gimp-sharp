@@ -44,8 +44,20 @@ namespace Gimp.SliceTool
     {
       foreach (Slice slice in _slices)
 	{
-	renderer.Draw(slice);
+	slice.Draw(renderer);
 	}
+    }
+
+    public Slice Find(int x, int y)
+    {
+      foreach (Slice slice in _slices)
+	{
+	if (slice.PointOn(x, y))
+	  {
+	  return slice;
+	  }
+	}
+      return null;
     }
   }
   }

@@ -11,13 +11,12 @@ namespace Gimp.SliceTool
     {
     }
     
-    abstract public void Draw(Preview preview, Gdk.GC gc);
+    abstract public void Draw(PreviewRenderer renderer);
     abstract public bool IntersectsWith(Rectangle rectangle);
     abstract public Rectangle SliceRectangle(Rectangle rectangle);
     abstract public void SetPosition(int x, int y);
     abstract public int CompareTo(object obj);
-    
-    abstract public void Dump();
+    abstract public bool PointOn(int x, int y);
     
     public int Index
     {

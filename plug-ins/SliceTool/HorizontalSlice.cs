@@ -21,9 +21,9 @@ namespace Gimp.SliceTool
       return _y - slice._y;
     }
 
-    override public void Draw(Preview preview, Gdk.GC gc)
+    override public void Draw(PreviewRenderer renderer)
     {
-      preview.GdkWindow.DrawLine(gc, _x1, _y, _x2, _y);
+      renderer.DrawLine(_x1, _y, _x2, _y);
     }
 
     override public bool IntersectsWith(Rectangle rectangle)
@@ -45,15 +45,15 @@ namespace Gimp.SliceTool
       _y = y;
     }
 
+    override public bool PointOn(int x, int y)
+    {
+      return x >= _x1 && x <= _x2 && Math.Abs(y - _y) < 5;
+    }
+ 
     public int Y
     {
       get {return _y;}
       set {_y = value;}
-    }
-
-    override public void Dump()
-    {
-      Console.WriteLine("y={0} {1}", _y, Index);
     }
   }
   }
