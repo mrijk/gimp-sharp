@@ -1,11 +1,22 @@
-all: ncp.exe
+all: Ministeck.exe
 
 ASSEMBLIES = -r $(top_builddir)/lib/gimp-sharp.dll /pkg:gtk-sharp
 
-SOURCES = ncp.cs
+SOURCES =			\
+	Ministeck.cs		\
+	MS-Coordinate.cs	\
+	MS-CornerShape.cs	\
+	MS-OneByOneShape.cs	\
+	MS-Shape.cs		\
+	MS-ShapeDescription.cs	\
+	MS-ShapeSet.cs		\
+	MS-ThreeByOneShape.cs	\
+	MS-TwoByOneShape.cs	\
+	MS-TwoByTwoShape.cs
 
-ncp.exe : $(SOURCES)
+
+Ministeck.exe : $(SOURCES)
 	$(CSC) $(SOURCES) -o $@ $(ASSEMBLIES)
 
 install:
-	install -m='u=rw,g=r,o=r' ncp.exe /usr/local/lib/gimp/2.0/plug-ins
+	install -m='u=rw,g=r,o=r' Ministeck.exe /usr/local/lib/gimp/2.0/plug-ins

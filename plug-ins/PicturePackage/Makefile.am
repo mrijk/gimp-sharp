@@ -1,11 +1,17 @@
-all: ncp.exe
+all: PicturePackage.exe
 
 ASSEMBLIES = -r $(top_builddir)/lib/gimp-sharp.dll /pkg:gtk-sharp
 
-SOURCES = ncp.cs
+SOURCES =			\
+	PicturePackage.cs	\
+	PP-Layout.cs		\
+	PP-LayoutSet.cs		\
+	PP-preview.cs		\
+	PP-Rectangle.cs		\
+	PP-RectangleSet.cs
 
-ncp.exe : $(SOURCES)
+PicturePackage.exe : $(SOURCES)
 	$(CSC) $(SOURCES) -o $@ $(ASSEMBLIES)
 
 install:
-	install -m='u=rw,g=r,o=r' ncp.exe /usr/local/lib/gimp/2.0/plug-ins
+	install -m='u=rw,g=r,o=r' PicturePackage.exe /usr/local/lib/gimp/2.0/plug-ins
