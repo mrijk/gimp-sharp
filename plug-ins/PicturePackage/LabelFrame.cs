@@ -30,11 +30,11 @@ namespace Gimp.PicturePackage
       _entry.Changed += new EventHandler(OnCustomTextChanged);
       Table.AttachAligned(0, 1, "Custom Text:", 0.0, 0.5,
 			  _entry, 1, true);
-#if false
-      GimpFontSelectWidget font = new GimpFontSelectWidget(null, 
-							   "Monospace");
+
+      Button font = new Button(Stock.SelectFont);
+      font.Clicked += new EventHandler(OnFontClicked);
       Table.AttachAligned(0, 2, "Font:", 0.0, 0.5, font, 1, true);
-#endif
+
       HBox hbox = new HBox(false, 12);
 
       RGB rgb = new RGB(0, 0, 0);
@@ -48,21 +48,21 @@ namespace Gimp.PicturePackage
       hbox.Add(new Label("Opacity:"));
       hbox.Add(_opacity);
       hbox.Add(new Label("%"));
-      Table.AttachAligned(0, 2, "Color:", 0.0, 0.5,
+      Table.AttachAligned(0, 3, "Color:", 0.0, 0.5,
 			  hbox, 1, true);
 
       _position = CreateOptionMenu(
 	"Centered", "Top Left", "Bottom Left",
 	"Top Right", "Bottom Right");
       _position.Changed += new EventHandler(OnPositionChanged);
-      Table.AttachAligned(0, 3, "Position:", 0.0, 0.5,
+      Table.AttachAligned(0, 4, "Position:", 0.0, 0.5,
 			  _position, 1, false);
 
       _rotate = CreateOptionMenu(
 	"None", "45 Degrees Right",
 	"90 Degrees Right", "45 Degrees Left",
 	"90 Degrees Left");
-      Table.AttachAligned(0, 4, "Rotate:", 0.0, 0.5,
+      Table.AttachAligned(0, 5, "Rotate:", 0.0, 0.5,
 			  _rotate, 1, false);
 
       SetLabelFrameSensitivity(0);
@@ -92,6 +92,13 @@ namespace Gimp.PicturePackage
     void OnPositionChanged (object o, EventArgs args) 
     {
       _parent.Position = (o as OptionMenu).History;
+    }
+
+    void OnFontClicked (object o, EventArgs args) 
+    {
+      FontSelectionDialog fs = new FontSelectionDialog("Select Font");
+      fs.Run();
+      fs.Hide();
     }
   }
   }
