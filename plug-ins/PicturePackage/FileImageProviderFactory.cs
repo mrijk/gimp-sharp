@@ -18,6 +18,7 @@ namespace Gimp.PicturePackage
 
     public override void Cleanup()
     {
+      Console.WriteLine("Cleanup: " + _provider);
       _provider.Release();
     }
   }

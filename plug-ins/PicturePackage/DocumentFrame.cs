@@ -10,6 +10,7 @@ namespace Gimp.PicturePackage
     OptionMenu _size;
     OptionMenu _layout;
 
+    LayoutSet _fullLayoutSet;
     LayoutSet _layoutSet;
     PageSizeSet _sizes;
 
@@ -19,7 +20,9 @@ namespace Gimp.PicturePackage
       base(5, 3, "Document")
     {
       _parent = parent;
+      _fullLayoutSet = layoutSet;
       _layoutSet = layoutSet;
+      _resolution = parent.Resolution;
 
       _size = new OptionMenu();
       FillPageSizeMenu(layoutSet);
@@ -31,7 +34,6 @@ namespace Gimp.PicturePackage
       _layout.Changed += new EventHandler(OnLayoutChanged);
       Table.AttachAligned(0, 1, "_Layout:", 0.0, 0.5, _layout, 2, false);
 
-      _resolution = parent.Resolution;
       SpinButton resolution = new SpinButton (_resolution, 1200, 1);
       Table.AttachAligned(0, 2, "_Resolution:", 0.0, 0.5, resolution, 1, true);
       resolution.ValueChanged += new EventHandler(OnResolutionChanged);
@@ -76,14 +78,14 @@ namespace Gimp.PicturePackage
     void OnSizeChanged (object o, EventArgs args) 
     {
       int nr = (o as OptionMenu).History;
-      LayoutSet set = _layoutSet.GetLayouts(_sizes[nr], _resolution);
-      FillLayoutMenu(set);
+      _layoutSet = _fullLayoutSet.GetLayouts(_sizes[nr], _resolution);
+      FillLayoutMenu(_layoutSet);
     }
 
     void OnLayoutChanged (object o, EventArgs args) 
     {
       int nr = (o as OptionMenu).History;
-      _layoutSet.Selected = _layoutSet[nr];
+      _fullLayoutSet.Selected = _layoutSet[nr];
     }
 
     void OnResolutionChanged (object o, EventArgs args) 

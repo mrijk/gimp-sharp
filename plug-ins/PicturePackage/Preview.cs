@@ -33,7 +33,6 @@ namespace Gimp.PicturePackage
 
       Gtk.Drag.DestSet(this, DestDefaults.All, targets, 
 		       DragAction.Copy | DragAction.Move);
-      DragDataReceived += new DragDataReceivedHandler(OnDragDataReceived);
 
       Events = EventMask.ButtonPressMask;
     }
@@ -43,6 +42,7 @@ namespace Gimp.PicturePackage
       if (_firstTime)
 	{
 	_firstTime = false;
+	_pixmap.DrawRectangle(_gc, true, 0, 0, _width, _height);
 	_parent.Render();
 	GdkWindow.Cursor = new Cursor(CursorType.Hand2);
 	}
@@ -119,18 +119,6 @@ namespace Gimp.PicturePackage
 	  _labelY = _height - height;
 	  break;
 	}		
-    }
-
-    void OnDragDataReceived(object o, DragDataReceivedArgs args)
-    {
-      SelectionData data = args.SelectionData;
-      string text = (new System.Text.ASCIIEncoding()).GetString(data.Data);
-      Console.WriteLine("OnDragDataReceived " + text);
-      if (text.StartsWith("file:"))
-	{
-	_parent.LoadRectangle((double) args.X, (double) args.Y, 
-			      text.Substring(5));
-	}
     }
   }
   }

@@ -1,4 +1,6 @@
 using System;
+using System.IO;
+using System.Net;
 using System.Threading;
 
 using Gtk;
@@ -22,8 +24,8 @@ namespace Gimp.PicturePackage
     [SaveAttribute]
     int _resolution = 72;
 
-    // [SaveAttribute]
-    string _label;
+    [SaveAttribute]
+    string _label = "";
 
     [SaveAttribute]
     int _position;
@@ -90,12 +92,14 @@ namespace Gimp.PicturePackage
       _preview.WidthRequest = 400;
       _preview.HeightRequest = 500;
       _preview.ButtonPressEvent += new ButtonPressEventHandler(PreviewClicked);
+      _preview.DragDataReceived += 
+	new DragDataReceivedHandler(OnDragDataReceived);
       fbox.Add(_preview);
 
       _layoutSet.Selected = _layoutSet[0];
       _layout = _layoutSet[0];
       _layoutSet.SelectEvent += new SelectHandler(SetLayout);
-	
+
       dialog.ShowAll();
       return DialogRun();
     }
@@ -108,6 +112,7 @@ namespace Gimp.PicturePackage
 
     public void Render()
     {
+      _preview.Clear();
       _layout.Render(_loader, _preview.GetRenderer(_layout));
     }
 
@@ -169,7 +174,7 @@ namespace Gimp.PicturePackage
 	}		
     }
 
-    public void LoadRectangle(double x, double y, string filename)
+    void LoadRectangle(double x, double y, string filename)
     {
       Rectangle rectangle = FindRectangle(x, y);
       if (rectangle != null)
@@ -180,7 +185,7 @@ namespace Gimp.PicturePackage
 
     Rectangle _rectangle;
 
-    public void PreviewClicked(object o, ButtonPressEventArgs args)
+    void PreviewClicked(object o, ButtonPressEventArgs args)
     {
       _rectangle = FindRectangle(args.Event.X, args.Event.Y);
       if (_rectangle != null)
@@ -189,6 +194,33 @@ namespace Gimp.PicturePackage
 	selection.Response += new ResponseHandler (OnFileSelectionResponse);
 	selection.Run();
 	}
+    }
+
+    void OnDragDataReceived(object o, DragDataReceivedArgs args)
+    {
+      SelectionData data = args.SelectionData;
+      string text = (new System.Text.ASCIIEncoding()).GetString(data.Data);
+      // Console.WriteLine("OnDragDataReceived " + text);
+      if (text.StartsWith("file:"))
+	{
+	LoadRectangle((double) args.X, (double) args.Y, text.Substring(5));
+	}
+      else if (text.StartsWith("http://"))
+	{
+#if false
+	HttpWebRequest request = (HttpWebRequest) WebRequest.Create(text);
+	request.KeepAlive = false;
+	/*
+	WebResponse response = request.GetResponse();
+	Console.WriteLine("Length: " + response.ContentLength);
+	response.Close();
+	*/
+#else
+	Console.WriteLine("Implement this!");
+#endif
+	}
+      Drag.Finish(args.Context, true, false, args.Time);
+      _preview.QueueDraw();
     }
 
     void OnFileSelectionResponse (object o, ResponseArgs args)

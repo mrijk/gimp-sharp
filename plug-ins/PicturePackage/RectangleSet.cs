@@ -46,14 +46,18 @@ namespace Gimp.PicturePackage
 	if (provider == null)
 	  {
 	  provider = factory.Provide();
+	  if (provider == null)
+	    {
+	    break;
+	    }
+	  rectangle.Render(provider.GetImage(), renderer);
+	  factory.Cleanup(provider);
 	  }
-
-	if (provider == null)
+	else
 	  {
-	  break;
+	  rectangle.Render(provider.GetImage(), renderer);
+	  provider.Release();
 	  }
-	rectangle.Render(provider.GetImage(), renderer);
-	factory.Cleanup(provider);
 	}
       factory.Cleanup();
       renderer.Cleanup();

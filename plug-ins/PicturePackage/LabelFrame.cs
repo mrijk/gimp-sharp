@@ -11,6 +11,7 @@ namespace Gimp.PicturePackage
     OptionMenu _position;
     OptionMenu _rotate;
     GimpColorButton _color;
+    SpinButton _opacity;
 
     public LabelFrame(PicturePackage parent) : base(3, 3, "Label")
     {
@@ -32,8 +33,7 @@ namespace Gimp.PicturePackage
 #if false
       GimpFontSelectWidget font = new GimpFontSelectWidget(null, 
 							   "Monospace");
-      Table.AttachAligned(0, 2, "Font:", 0.0, 0.5,
-			  font, 1, true);
+      Table.AttachAligned(0, 2, "Font:", 0.0, 0.5, font, 1, true);
 #endif
       HBox hbox = new HBox(false, 12);
 
@@ -48,7 +48,7 @@ namespace Gimp.PicturePackage
 #else
       hbox.Add(_color);
 #endif
-      SpinButton _opacity = new SpinButton(0, 100, 1);
+      _opacity = new SpinButton(0, 100, 1);
 #if false
       Table.AttachAligned(2, 2, "Opacity:", 0.0, 0.5,
 			  _opacity, 1, true);
@@ -82,6 +82,7 @@ namespace Gimp.PicturePackage
 
       _entry.Sensitive = sensitive;
       _color.Sensitive = sensitive;
+      _opacity.Sensitive = sensitive;
       _position.Sensitive = sensitive;
       _rotate.Sensitive = sensitive;
     }

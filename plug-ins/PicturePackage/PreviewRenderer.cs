@@ -45,6 +45,7 @@ namespace Gimp.PicturePackage
 	ih--;
 
       _pixmap.DrawRectangle (_gc, false, ix, iy, iw, ih);
+      _pixmap.DrawRectangle (_gc, true, ix, iy, iw, ih);
 
       Image clone = RotateAndScale(image, w, h);
       int tw = clone.Width;
@@ -58,8 +59,7 @@ namespace Gimp.PicturePackage
       pixbuf.RenderToDrawable(_pixmap, _gc, 0, 0, ix, iy, -1, -1, 
 			      RgbDither.Normal, 0, 0);
       pixbuf.Dispose();
-
-      _preview.QueueDrawArea(ix, iy, tw, th);
+      // _preview.QueueDrawArea(ix, iy, tw, th);
     }
   }
   }
