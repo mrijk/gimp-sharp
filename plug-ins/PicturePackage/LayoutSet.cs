@@ -22,7 +22,7 @@ namespace Gimp.PicturePackage
       String[] names = myAssembly.GetManifestResourceNames();
       // Console.WriteLine(names[0]);
       // Stream myStream = 
-      //	myAssembly.GetManifestResourceStream("PicturePackage.picture-package.xml");
+      // myAssembly.GetManifestResourceStream("PicturePackage.picture-package.xml");
       Stream myStream = 
       	myAssembly.GetManifestResourceStream("picture-package.xml");
 
@@ -50,6 +50,18 @@ namespace Gimp.PicturePackage
     public Layout this[int index]
     {
       get {return (Layout) _set[index];}
+    }
+
+    public PageSizeSet GetPageSizeSet(int resolution)
+    {
+      PageSizeSet set = new PageSizeSet();
+
+      foreach (Layout layout in _set)
+	{
+	set.Add(layout.GetPageSize(resolution));
+	}
+
+      return set;
     }
   }
   }

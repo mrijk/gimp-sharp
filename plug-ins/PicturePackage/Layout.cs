@@ -73,6 +73,19 @@ namespace Gimp.PicturePackage
       _rectangles.Render(new Renderer(composed, source, resolution));
     }
 
+    public PageSize GetPageSize(int resolution)
+    {
+      if (_units == Unit.INCHES)
+	{
+	return new PageSize(_width, _height);
+	}
+      else
+	{
+	return new PageSize(_width / resolution,
+			    _height / resolution);
+	}
+    }
+
     public string Name
     {
       get {return _name;}

@@ -12,7 +12,10 @@ namespace Gimp.PicturePackage
     Preview _preview;
 
     [SaveAttribute]
-    bool _flatten = true;
+    bool _flatten = false;
+
+    [SaveAttribute]
+    int _res = 72;
 
     [STAThread]
     static void Main(string[] args)
@@ -80,7 +83,7 @@ namespace Gimp.PicturePackage
     }
 
     CheckButton _include;
-    Button _choose;
+    FileEntry _choose;
 
     void BuildSourceFrame(VBox vbox)
     {
@@ -104,12 +107,25 @@ namespace Gimp.PicturePackage
 
       _include = new CheckButton("_Include All Subfolders");
       table.Attach(_include, 1, 2, 1, 2);
-
+#if false
       _choose = new Button("Choose...");
       table.Attach(_choose, 1, 2, 2, 3, AttachOptions.Shrink,
 		   AttachOptions.Fill, 0, 0);	
-
+      _choose.Clicked += new EventHandler(OnChooseClicked);
+#else
+      _choose = new FileEntry("Open...", "", true, true);
+      table.Attach(_choose, 1, 2, 2, 3, AttachOptions.Shrink,
+		   AttachOptions.Fill, 0, 0);	
+#endif
       SetSourceFrameSensitivity(2);
+    }
+
+    void OnChooseClicked (object o, EventArgs args)
+    {
+      FileSelection fs = new FileSelection ("Choose a file");
+      fs.Run ();
+      Console.WriteLine("Selected: " + fs.SelectionEntry.Text);
+      fs.Hide ();
     }
 
     void SetSourceFrameSensitivity(int history)
@@ -148,22 +164,28 @@ namespace Gimp.PicturePackage
       table.RowSpacing = 6;
       frame.Add(table);
 
-      OptionMenu size = new OptionMenu();
+      OptionMenu _size = new OptionMenu();
       Menu menu = new Menu();
-      menu.Append(new MenuItem("8.0 x 10.0 inches"));
-      size.Menu = menu;
-      table.AttachAligned(0, 0, "_Page Size:", 0.0, 0.5, size, 2, false);
-
-      OptionMenu layout = new OptionMenu();
-      menu = new Menu();
-      foreach (Layout l in _layoutSet)
+      PageSizeSet sizes = _layoutSet.GetPageSizeSet(_res);
+      foreach (PageSize size in sizes)
 	{
-	menu.Append(new MenuItem(l.Name));
+	menu.Append(new MenuItem(String.Format("{0,1:f1} x {1,1:f1} inches", 
+					       size.Width, size.Height)));
 	}
-      layout.Menu = menu;
-      layout.Changed += new EventHandler(OnLayoutChanged);
+
+      _size.Menu = menu;
+      table.AttachAligned(0, 0, "_Page Size:", 0.0, 0.5, _size, 2, false);
+
+      OptionMenu _layout = new OptionMenu();
+      menu = new Menu();
+      foreach (Layout layout in _layoutSet)
+	{
+	menu.Append(new MenuItem(layout.Name));
+	}
+      _layout.Menu = menu;
+      _layout.Changed += new EventHandler(OnLayoutChanged);
       table.AttachAligned(0, 1, "_Layout:", 0.0, 0.5,
-			  layout, 2, false);
+			  _layout, 2, false);
 
       _resolution = new Entry();
       _resolution.WidthChars = 4;
@@ -188,7 +210,6 @@ namespace Gimp.PicturePackage
 
       CheckButton flatten = new CheckButton("Flatten All Layers");
       flatten.Toggled += new EventHandler(FlattenToggled);
-      flatten.Active = _flatten;
       table.Attach(flatten, 0, 2, 4, 5);
     }
 
@@ -225,24 +246,20 @@ namespace Gimp.PicturePackage
       menu.Append(new MenuItem("Credits"));
       menu.Append(new MenuItem("Title"));
       content.Menu = menu;
-      table.AttachAligned(0, 0, "Content:", 0.0, 0.5,
-			  content, 1, false);
+      table.AttachAligned(0, 0, "Content:", 0.0, 0.5, content, 1, false);
 
       Entry entry = new Entry();
-      table.AttachAligned(0, 1, "Custom Text:", 0.0, 0.5,
-			  entry, 1, true);
+      table.AttachAligned(0, 1, "Custom Text:", 0.0, 0.5, entry, 1, true);
 #if false
       GimpFontSelectWidget font = new GimpFontSelectWidget(null, 
 							   "Monospace");
-      table.AttachAligned(0, 2, "Font:", 0.0, 0.5,
-			  font, 1, true);
+      table.AttachAligned(0, 2, "Font:", 0.0, 0.5, font, 1, true);
 #endif
       RGB rgb = new RGB(0, 0, 0);
 
       GimpColorButton color = new GimpColorButton("", 16, 16, rgb.GimpRGB,
 						  ColorAreaType.COLOR_AREA_FLAT);
-      table.AttachAligned(0, 2, "Color:", 0.0, 0.5,
-			  color, 1, true);
+      table.AttachAligned(0, 2, "Color:", 0.0, 0.5, color, 1, true);
 
       OptionMenu position = new OptionMenu();
       menu = new Menu();
@@ -252,8 +269,7 @@ namespace Gimp.PicturePackage
       menu.Append(new MenuItem("Top Right"));
       menu.Append(new MenuItem("Bottom Right"));
       position.Menu = menu;
-      table.AttachAligned(0, 3, "Position:", 0.0, 0.5,
-			  position, 1, false);
+      table.AttachAligned(0, 3, "Position:", 0.0, 0.5, position, 1, false);
 
       OptionMenu rotate = new OptionMenu();
       menu = new Menu();
@@ -263,8 +279,7 @@ namespace Gimp.PicturePackage
       menu.Append(new MenuItem("45 Degrees Left"));
       menu.Append(new MenuItem("90 Degrees Left"));
       rotate.Menu = menu;
-      table.AttachAligned(0, 4, "Rotate:", 0.0, 0.5,
-			  rotate, 1, false);
+      table.AttachAligned(0, 4, "Rotate:", 0.0, 0.5, rotate, 1, false);
     }
 
     override protected void DoSomething(Image image)

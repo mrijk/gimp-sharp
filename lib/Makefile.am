@@ -9,6 +9,7 @@ SOURCES = 			\
 	Channel.cs		\
 	Display.cs		\
 	Drawable.cs		\
+	FileEntry.cs		\
 	GimpColorButton.cs	\
 	GimpEnums.cs		\
 	GimpFontSelectWidget.cs	\

@@ -1,3 +1,12 @@
+2004-11-24    <maurits@Mau>
+
+	* plug-ins/PicturePackage/Makefile.am
+	* plug-ins/PicturePackage/PageSize.cs: 
+	* plug-ins/PicturePackage/PageSizeSet.cs: new files
+
+	* lib/Makefile.am
+	* lib/FileEntry.cs: new file
+
 2004-11-21    <maurits@Mau>
 
 	* lib/Image.cs: added more functions.
