@@ -35,7 +35,8 @@ SOURCES = 			\
 	RgnIterator.cs		\
 	SaveAttribute.cs	\
 	ScaleEntry.cs		\
-	ScrolledPreview.cs
+	ScrolledPreview.cs	\
+	VoidObjectSignal.cs
 
 EXTRA_DIST = $(SOURCES)
 

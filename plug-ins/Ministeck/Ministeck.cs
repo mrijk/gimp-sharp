@@ -14,7 +14,7 @@ namespace Gimp.Ministeck
       int _size = 16;
 
       // [SaveAttribute]
-      RGB _color;
+      RGB _color = new RGB(0, 0, 0);
 
       [STAThread]
       static void Main(string[] args)
@@ -53,6 +53,7 @@ namespace Gimp.Ministeck
 	dialog.VBox.PackStart(vbox, true, true, 0);
 
 	_preview = new DrawablePreview(_drawable, false);
+	_preview.Invalidated += new EventHandler(UpdatePreview);
 	vbox.PackStart(_preview, true, true, 0);
 
 	GimpTable table = new GimpTable(2, 2, false);
@@ -63,31 +64,30 @@ namespace Gimp.Ministeck
 	SpinButton size = new SpinButton(3, 100, 1);
 	size.Value = _size;
 	table.AttachAligned(0, 0, "_Size:", 0.0, 0.5, size, 2, true);
-	size.ValueChanged += SizeChanged;
-
-	RGB rgb = new RGB(0, 0, 0);
+	size.ValueChanged += new EventHandler(SizeChanged);
 
 	_colorButton = new GimpColorButton(
-	  "", 16, 16, rgb.GimpRGB, ColorAreaType.COLOR_AREA_FLAT);
+	  "", 16, 16, _color.GimpRGB, ColorAreaType.COLOR_AREA_FLAT);
 	_colorButton.Update = true;
+	_colorButton.ColorChanged += new EventHandler(ColorChanged);
 	table.AttachAligned(0, 1, "C_olor:", 0.0, 0.5, _colorButton, 1, true);
 
 	dialog.ShowAll();
 	return DialogRun();
       }
 
+      void ColorChanged(object sender, EventArgs e)
+      {
+	_color = (sender as GimpColorButton).Color;
+      }
+
       void SizeChanged(object sender, EventArgs e)
       {
 	_size = (sender as SpinButton).ValueAsInt;
-	// UpdatePreview();
+	_preview.Invalidate();
       }
 
-      override protected void GetParameters()
-      {
-	_color = _colorButton.Color;
-      }
-
-      void UpdatePreview()
+      void UpdatePreview(object sender, EventArgs e)
       {
 	int x, y, width, height;
 	
@@ -97,8 +97,6 @@ namespace Gimp.Ministeck
 	_preview.GetSize(out width, out height);
 	Image clone = new Image(_image);
 	clone.Crop(width, height, x, y);
-	
-	GetParameters();
 	
 	DoSomething(clone, clone.ActiveDrawable);
 	PixelRgn rgn = new PixelRgn(clone.ActiveDrawable, 0, 0, width, height, 

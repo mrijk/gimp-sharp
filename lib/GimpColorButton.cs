@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Runtime.InteropServices;
 
 using GLib;
@@ -15,14 +16,6 @@ namespace Gimp
 
     public class GimpColorButton : Button
     {
-      [DllImport("libgimpwidgets-2.0.so")]
-      extern static IntPtr gimp_color_button_new(
-	string title,
-	int width,
-	int height,
-	ref GimpRGB color,
-	ColorAreaType type);
-
       public GimpColorButton(string title,
 			     int width,
 			     int height,
@@ -31,13 +24,6 @@ namespace Gimp
 	base(gimp_color_button_new(title, width, height, ref color, type))
       {
       }
-
-      [DllImport("libgimpwidgets-2.0.so")]
-      extern static void gimp_color_button_set_color(IntPtr button,
-						     ref GimpRGB color);
-      [DllImport("libgimpwidgets-2.0.so")]
-      extern static void gimp_color_button_get_color(IntPtr button,
-						     ref GimpRGB color);
 
       public RGB Color
       {
@@ -54,8 +40,6 @@ namespace Gimp
 	    }
       }
 
-      [DllImport("libgimpwidgets-2.0.so")]
-      extern static bool gimp_color_button_has_alpha(IntPtr button);
       public bool Alpha
       {
 	get
@@ -64,9 +48,6 @@ namespace Gimp
 	    }
       }
 
-      [DllImport("libgimpwidgets-2.0.so")]
-      extern static void gimp_color_button_set_type(IntPtr button,
-						    ColorAreaType type);
       public ColorAreaType Type
       {
 	set
@@ -87,47 +68,72 @@ namespace Gimp
 	    }
       }
 
-      [GLib.Signal("color-changed")]
+      [GLib.Signal("color_changed")]
       public event EventHandler ColorChanged
       {
 	add 
 	    {
-#if false
-	    if (value.Method.GetCustomAttributes(
-		  typeof(GLib.ConnectBeforeAttribute), false).Length > 0) 
+	    if (value.Method.GetCustomAttributes(typeof(ConnectBeforeAttribute), false).Length > 0) 
 	      {
-	      if (BeforeHandlers["color-changed"] == null)
-		BeforeSignals["color-changed"] = 
-		  new GtkSharp.voidObjectObjectSignal(
-		    this, "color-changed", value, 
-		    typeof (EventArgs), 0);
-	      else
-		((SignalCallback) BeforeSignals ["color-changed"]).AddDelegate (value);
-	      BeforeHandlers.AddHandler("color-changed", value);
+	      if (BeforeHandlers["color_changed"] == null)
+		BeforeSignals["color_changed"] = new voidObjectSignal(this, "color_changed", value, typeof (System.EventArgs), 0);		 		 		 		 		 else
+		  ((SignalCallback) BeforeSignals ["color_changed"]).AddDelegate (value);
+	      BeforeHandlers.AddHandler("color_changed", value);
 	      } 
 	    else 
 	      {
-	      if (AfterHandlers["color-changed"] == null)
-		AfterSignals["color-changed"] = 
-		  new GtkSharp.voidObjectObjectSignal(
-		    this, "color-changed", value, 
-		    typeof (EventArgs), 1);					else
-		      ((SignalCallback) AfterSignals ["color-changed"]).AddDelegate (value);
-	      AfterHandlers.AddHandler("color-changed", value);
+	      if (AfterHandlers["color_changed"] == null)
+		AfterSignals["color_changed"] = new voidObjectSignal(this, "color_changed", value, typeof (System.EventArgs), 1);		 		 		 		 		 else
+		  ((SignalCallback) AfterSignals ["color_changed"]).AddDelegate (value);
+	      AfterHandlers.AddHandler("color_changed", value);
 	      }
-#endif
 	    }
-	
-	remove
+	remove 
 	    {
+	    System.ComponentModel.EventHandlerList event_list = AfterHandlers;
+	    Hashtable signals = AfterSignals;
+	    if (value.Method.GetCustomAttributes(typeof(ConnectBeforeAttribute), false).Length > 0) 
+	      {
+	      event_list = BeforeHandlers;
+	      signals = BeforeSignals;
+	      }
+	    SignalCallback cb = signals ["color_changed"] as SignalCallback;
+	    event_list.RemoveHandler("color_changed", value);
+	    if (cb == null)
+	      return;
+
+	    cb.RemoveDelegate (value);
+
+	    if (event_list["color_changed"] == null) 
+	      {
+	      signals.Remove("color_changed");
+	      cb.Dispose ();
+	      }
 	    }
       }
 
+      [DllImport("libgimpwidgets-2.0.so")]
+      extern static IntPtr gimp_color_button_new(
+	string title,
+	int width,
+	int height,
+	ref GimpRGB color,
+	ColorAreaType type);
+      [DllImport("libgimpwidgets-2.0.so")]
+      extern static void gimp_color_button_set_color(IntPtr button,
+						     ref GimpRGB color);
+      [DllImport("libgimpwidgets-2.0.so")]
+      extern static void gimp_color_button_get_color(IntPtr button,
+						     ref GimpRGB color);
+      [DllImport("libgimpwidgets-2.0.so")]
+      extern static bool gimp_color_button_has_alpha(IntPtr button);
+      [DllImport("libgimpwidgets-2.0.so")]
+      extern static void gimp_color_button_set_type(IntPtr button,
+						    ColorAreaType type);
       [DllImport("libgimpwidgets-2.0.so")]
       extern static void gimp_color_button_set_update(IntPtr button,
 						      bool continuous);
       [DllImport("libgimpwidgets-2.0.so")]
       extern static bool gimp_color_button_get_update(IntPtr button);
-
     }
   }
