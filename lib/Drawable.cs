@@ -147,7 +147,8 @@ namespace Gimp
 	bool sample_merged)
       {
 	if (!gimp_fuzzy_select(_ID, x, y, threshold, operation,
-			       antialias, feather, feather_radius, sample_merged))
+			       antialias, feather, feather_radius, 
+			       sample_merged))
 	  {
 	  throw new Exception();
 	  }

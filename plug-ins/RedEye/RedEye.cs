@@ -32,17 +32,18 @@ namespace Gimp.RedEye
 		       "Maurits Rijk",
 		       "(C) Maurits Rijk",
 		       "2004-2005",
-		       "Red Eye Correction...",
+		       "Red Eye Removal...",
 		       "RGB*",
 		       null);
 
       MenuRegister("<Image>/Filters/Enhance");
+      IconRegister("RedEye.png");
     }
 
     override protected bool CreateDialog()
     {
       gimp_ui_init("red_eye", true);
-      Dialog dialog = DialogNew("Red Eye Correction", "red_eye",
+      Dialog dialog = DialogNew("Red Eye Removal", "red_eye",
 				IntPtr.Zero, 0, null, "red eye");
       VBox vbox = new VBox(false, 12);
       vbox.BorderWidth = 12;
@@ -61,10 +62,12 @@ namespace Gimp.RedEye
       ScaleEntry entry = new ScaleEntry(table, 0, 0, "_Radius:", 150, 3,
 					_radius, 1.0, 100.0, 1.0, 8.0, 0,
 					true, 0, 0, null, null);
+      entry.ValueChanged += new EventHandler(RadiusUpdate);
 
       entry = new ScaleEntry(table, 0, 1, "_Threshold:", 150, 3,
 			     _threshold, 1.0, 256.0, 1.0, 8.0, 0,
 			     true, 0, 0, null, null);
+      entry.ValueChanged += new EventHandler(ThresholdUpdate);
 
       dialog.ShowAll();
       return DialogRun();
@@ -89,21 +92,32 @@ namespace Gimp.RedEye
       Console.WriteLine("Clicked {0}!", _x);
     }
 
+    void RadiusUpdate(object sender, EventArgs e)
+    {
+      _radius = (int) (sender as Adjustment).Value;
+    }
+
+    void ThresholdUpdate(object sender, EventArgs e)
+    {
+      _threshold = (int) (sender as Adjustment).Value;
+    }
+
     override protected void DoSomething(Image image, Drawable drawable)
     {
-      // int x1, y1, x2, y2;
-      // drawable.MaskBounds(out x1, out y1, out x2, out y2);
+      Console.WriteLine("Threshold: " + _threshold);
 
       image.UndoGroupStart();
 
       image.SetComponentActive(ChannelType.RED, false);
       image.SetComponentActive(ChannelType.BLUE, false);
-      drawable.FuzzySelect(_x, _y, _threshold, ChannelOps.ADD, true, true, 
+      _x = 827;
+      _y = 1508;
+      drawable.FuzzySelect(_x, _y, _threshold, ChannelOps.REPLACE, true, false, 
 			   _radius, false);
-
       // Desaturate the red channel
       image.SetComponentActive(ChannelType.RED, true);
       image.SetComponentActive(ChannelType.GREEN, false);
+
       drawable.Desaturate();
       image.SetComponentActive(ChannelType.GREEN, true);
       image.SetComponentActive(ChannelType.BLUE, true);
