@@ -1,3 +1,9 @@
+2004-11-20    <maurits@Mau>
+
+	* plug-ins/Ministeck/Ministeck.cs: added progress indicator
+
+	* lib/Image.cs: Bunch of new functions.
+
 2004-11-19  Maurits  <m.rijk@chello.nl>
 
 	* Made 0.3 release

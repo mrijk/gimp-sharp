@@ -13,76 +13,72 @@ namespace Gimp
 	_imageID = imageID;
       }
        
-      [DllImport("libgimp-2.0.so")]
-      static extern Int32 gimp_image_duplicate (Int32 image_ID);
-       
       public Image Duplicate()
       {
 	return new Image(gimp_image_duplicate(_imageID));
       }
+
+      public bool Delete()
+      {
+	return gimp_image_delete(_imageID);
+      }
        
-      [DllImport("libgimp-2.0.so")]
-      static extern int gimp_image_width (Int32 image_ID);
-       
+      public ImageBaseType BaseType
+      {
+	get {return gimp_image_base_type (_imageID);}
+      }
+
       public int Width
       {
 	get {return gimp_image_width(_imageID);}
       }
-       
-      [DllImport("libgimp-2.0.so")]
-      static extern int gimp_image_height (Int32 image_ID);
        
       public int Height
       {
 	get {return gimp_image_height(_imageID);}
       }
        
-      [DllImport("libgimp-2.0.so")]
-      static extern bool gimp_image_free_shadow (Int32 image_ID);
-       
       public bool FreeShadow()
       {
 	return gimp_image_free_shadow(_imageID);
       }
-       
-      [DllImport("libgimp-2.0.so")]
-      static extern bool gimp_image_resize (Int32 image_ID,
-					    int new_width,
-					    int new_height,
-					    int offx,
-					    int offy);
+
+      public bool Flip(OrientationType flip_type)
+      {
+	return gimp_image_flip(_imageID, flip_type);
+      }
+
+      public bool Rotate(RotationType rotate_type)
+      {
+	return gimp_image_rotate(_imageID, rotate_type);
+      }
 
       public bool Resize(int new_width, int new_height, int offx, int offy)
       {
-	return gimp_image_resize(_imageID, new_width, new_height, offx, offy);
+	return gimp_image_resize (_imageID, new_width, new_height, offx, offy);
       }
-       
-      [DllImport("libgimp-2.0.so")]
-      static extern bool gimp_image_scale (Int32 image_ID,
-					   int new_width,
-					   int new_height);
+
+      public bool ResizeToLayers()
+      {
+	return gimp_image_resize_to_layers (_imageID);
+      }
        
       public bool Scale(int new_width, int new_height)
       {
 	return gimp_image_scale(_imageID, new_width, new_height);
       }
        
-      [DllImport("libgimp-2.0.so")]
-      static extern bool gimp_image_crop(Int32 image_ID,
-					 int new_width, int new_height,
-					 int offx, int offy);
-       
       public bool Crop(int new_width, int new_height,
 		       int offx, int offy)
       {
 	return gimp_image_crop(_imageID, new_width, new_height, offx, offy);
       }
-       
-      [DllImport("libgimp-2.0.so")]
-      static extern bool gimp_image_add_layer (Int32 image_ID,
-					       Int32 layer_ID,
-					       int position);
-       
+              
+      public Drawable ActiveDrawable
+      {
+	get {return new Drawable(gimp_image_get_active_drawable (_imageID));}
+      }
+
       public bool AddLayer(Layer layer, int position)
       {
 	return gimp_image_add_layer(_imageID, layer.ID, position);
@@ -159,5 +155,48 @@ namespace Gimp
       {
 	get {return new GuideCollection(this);}
       }
+
+      // All the dll imports
+
+      [DllImport("libgimp-2.0.so")]
+      static extern Int32 gimp_image_duplicate (Int32 image_ID);
+      [DllImport("libgimp-2.0.so")]
+      static extern bool gimp_image_delete (Int32 image_ID);
+      [DllImport("libgimp-2.0.so")]
+      static extern ImageBaseType gimp_image_base_type (Int32 image_ID);
+      [DllImport("libgimp-2.0.so")]
+      static extern int gimp_image_width (Int32 image_ID);
+      [DllImport("libgimp-2.0.so")]
+      static extern int gimp_image_height (Int32 image_ID);
+      [DllImport("libgimp-2.0.so")]
+      static extern bool gimp_image_free_shadow (Int32 image_ID);
+      [DllImport("libgimp-2.0.so")]
+      static extern bool gimp_image_flip (Int32 image_ID,
+					  OrientationType flip_type);
+      [DllImport("libgimp-2.0.so")]
+      static extern bool gimp_image_rotate (Int32 image_ID,
+					    RotationType rotate_type);
+      [DllImport("libgimp-2.0.so")]
+      static extern bool gimp_image_resize (Int32 image_ID,
+					    int new_width,
+					    int new_height,
+					    int offx,
+					    int offy);
+      [DllImport("libgimp-2.0.so")]
+      static extern bool gimp_image_resize_to_layers (Int32 image_ID);
+      [DllImport("libgimp-2.0.so")]
+      static extern bool gimp_image_scale (Int32 image_ID,
+					   int new_width,
+					   int new_height);
+      [DllImport("libgimp-2.0.so")]
+      static extern bool gimp_image_crop (Int32 image_ID,
+					  int new_width, int new_height,
+					  int offx, int offy);
+      [DllImport("libgimp-2.0.so")]
+      static extern Int32 gimp_image_get_active_drawable (Int32 image_ID);
+      [DllImport("libgimp-2.0.so")]
+      static extern bool gimp_image_add_layer (Int32 image_ID,
+					       Int32 layer_ID,
+					       int position);
     }
   }

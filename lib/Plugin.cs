@@ -37,9 +37,6 @@ namespace Gimp
     [DllImport("libgimpui-2.0.so")]
     public static extern void gimp_ui_init(string prog_name, bool preview);
 
-    [DllImport("libgimp-2.0.so")]
-    public static extern bool gimp_progress_init (string message);
-
     [DllImport("libgimpwrapper.so")]
     public static extern int fnInitGimp(ref GimpPlugInInfo info, 
 					int argc, string[] args);
@@ -367,11 +364,6 @@ namespace Gimp
 	return true;
 	}
       return false;
-    }
-
-    protected void ProgressInit(string message)
-    {
-      gimp_progress_init(message);
     }
 
     [DllImport("libgimp-2.0.so")]

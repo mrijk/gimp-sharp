@@ -117,6 +117,7 @@ namespace Gimp.Ministeck
 	shapes.Add(new CornerShape());
 	shapes.Add(new OneByOneShape());
 
+	Progress progress = new Progress("Ministeck...");
 	for (int y = 0; y < height; y++)
 	  {
 	  for (int x = 0; x < width; x++)
@@ -136,6 +137,7 @@ namespace Gimp.Ministeck
 		}
 	      }
 	    }
+	  progress.Update((double) y / height);
 	  }
 	
 	painter.Destroy();

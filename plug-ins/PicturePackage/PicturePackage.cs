@@ -249,8 +249,12 @@ namespace Gimp.PicturePackage
 			  rotate, 1, false);
     }
 
-    override protected void DoSomething(Drawable drawable)
+    override protected void DoSomething(Image image)
     {
+      Image clone = image.Duplicate();
+      clone.Rotate(RotationType.ROTATE_90);
+      Console.WriteLine("DoSomething: " + clone.Width);
+      Display.DisplaysFlush();
     }
   }
   }

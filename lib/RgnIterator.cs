@@ -13,10 +13,8 @@ namespace Gimp
       Drawable _drawable;
       int x1, y1, x2, y2;
       RunMode _runmode;
+      Progress _progress;
       int _bpp;
-
-      [DllImport("libgimp-2.0.so")]
-      public static extern bool gimp_progress_update(double percentage);
 
       public RgnIterator(Drawable drawable, RunMode runmode)
       {
@@ -24,6 +22,11 @@ namespace Gimp
 	_runmode = runmode;
 	_bpp = drawable.Bpp;
 	drawable.MaskBounds(out x1, out y1, out x2, out y2);
+      }
+
+      public Progress Progress
+      {
+	set {_progress = value;}
       }
 
       public void Iterate(IterFuncSrc func)
@@ -80,7 +83,7 @@ namespace Gimp
 	  if (_runmode != RunMode.NONINTERACTIVE)
 	    {
 	    area_so_far += destPR.W * destPR.H;
-	    gimp_progress_update ((double) area_so_far / (double) total_area);
+	    _progress.Update ((double) area_so_far / (double) total_area);
 	    }
 	  }
 	_drawable.Flush();

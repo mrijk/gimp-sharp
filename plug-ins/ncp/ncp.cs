@@ -158,9 +158,9 @@ namespace Gimp.ncp
 	      : (vp[b, i].y - height);
 	    }
 	  }
-				
-	ProgressInit("NCP");
+
 	RgnIterator iter = new RgnIterator(drawable, RunMode.INTERACTIVE);
+	iter.Progress = new Progress("NCP");
 	iter.Iterate(new RgnIterator.IterFuncDest(DoNCP));
 			
 	Display.DisplaysFlush();

@@ -23,6 +23,7 @@ SOURCES = 			\
 	PixelFetcher.cs		\
 	PixelRgn.cs		\
 	Plugin.cs		\
+	Progress.cs		\
 	RGB.cs			\
 	RandomSeed.cs		\
 	RgnIterator.cs		\
