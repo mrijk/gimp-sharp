@@ -26,9 +26,9 @@ namespace Gimp.PicturePackage
       _h = (h == null) ? 0 :  Convert.ToDouble(h.Value);
     }
 
-    public void Render(Renderer renderer)
+    public void Render(Image image, Renderer renderer)
     {
-      renderer.Render(_x, _y, _w, _h);
+      renderer.Render(image, _x, _y, _w, _h);
     }
 
     public bool Inside(int x, int y)

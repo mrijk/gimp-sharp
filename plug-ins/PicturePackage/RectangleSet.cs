@@ -16,6 +16,11 @@ namespace Gimp.PicturePackage
       _set.Add(rectangle);
     }
 
+    public Rectangle this[int index]
+    {
+      get {return (Rectangle) _set[index];}
+    }
+
     public Rectangle Find(int x, int y)
     {
       foreach (Rectangle rectangle in _set)
@@ -26,12 +31,17 @@ namespace Gimp.PicturePackage
       return null;
     }
 
-    public void Render(Renderer renderer)
+    public void Render(Image image, Renderer renderer)
     {
       foreach (Rectangle rectangle in _set)
 	{
-	rectangle.Render(renderer);
+	rectangle.Render(image, renderer);
 	}
+    }
+
+    public int Count
+    {
+      get {return _set.Count;}
     }
   }
   }

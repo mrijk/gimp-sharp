@@ -24,5 +24,10 @@ namespace Gimp.PicturePackage
     {
       return _set.GetEnumerator();
     }
+
+    public PageSize this[int index]
+    {
+      get {return (PageSize) _set[index];}
+    }
   }
   }

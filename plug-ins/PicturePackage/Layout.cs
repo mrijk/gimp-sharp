@@ -1,21 +1,16 @@
 using System;
+using System.IO;
 using System.Xml;
 
 namespace Gimp.PicturePackage
 {
   public class Layout
   {
-    enum Unit
-    {
-      INCHES,
-      PIXELS
-    };
-
     RectangleSet _rectangles = new RectangleSet();
     string _name;
     double _width;
     double _height;
-    Unit   _units;
+    Unit   _unit;
 
     public Layout(XmlNode node)
     {
@@ -32,17 +27,17 @@ namespace Gimp.PicturePackage
       XmlAttribute units = (XmlAttribute) attributes.GetNamedItem("units");
       if (units == null)
 	{
-	_units = Unit.INCHES;
+	_unit = Unit.INCH;
 	}
       else 
 	{
 	if (units.Value == "inches")
 	  {
-	  _units = Unit.INCHES;
+	  _unit = Unit.INCH;
 	  }
 	else if (units.Value == "pixels")
 	  {
-	  _units = Unit.PIXELS;
+	  _unit = Unit.PIXEL;
 	  }
 	}
 	  
@@ -63,14 +58,42 @@ namespace Gimp.PicturePackage
       return _rectangles.Find(x, y);
     }
 
-    public void Render(Renderer renderer)
+    public void Render(Image image, Renderer renderer)
     {
-      _rectangles.Render(renderer);
+      _rectangles.Render(image, renderer);
+    }
+
+    public void LoadFromDirectory(string directory, Renderer renderer)
+    {
+      int count = _rectangles.Count;
+      int i = 0;
+
+      foreach	(string	file in	Directory.GetFiles(directory))
+	{
+	if (i >= count)
+	  break;
+
+	Image image = Image.Load(RunMode.NONINTERACTIVE, file, 
+				 directory + "/" + file);
+	if (image != null)
+	  {
+	  Rectangle rectangle = _rectangles[i];
+	  rectangle.Render(image, renderer);
+	  image.Delete();
+	  i++;
+	  }
+	}
+#if false
+      foreach	(string	directory in Directory.GetDirectories(parent))
+	{
+	Iterate(directory);
+	}
+#endif
     }
 
     public PageSize GetPageSize(int resolution)
     {
-      if (_units == Unit.INCHES)
+      if (_unit == Unit.INCH)
 	{
 	return new PageSize(_width, _height);
 	}
@@ -81,19 +104,36 @@ namespace Gimp.PicturePackage
 	}
     }
 
+    public PageSize GetPageSizeInPixels(int resolution)
+    {
+      if (_unit == Unit.INCH)
+	{
+	return new PageSize(_width * resolution, _height * resolution);
+	}
+      else
+	{
+	return new PageSize(_width, _height);
+	}
+    }
+
     public string Name
     {
       get {return _name;}
     }
 
-    public int Width
+    public double Width
     {
-      get {return (int) _width;}
+      get {return _width;}
     }
 
-    public int Height
+    public double Height
     {
-      get {return (int) _height;}
+      get {return _height;}
+    }
+
+    public Unit Unit
+    {
+      get {return _unit;}
     }
   }
   }

@@ -65,21 +65,21 @@ namespace Gimp
       }
 
     public enum PDBProcType
-    {
-      INTERNAL,
-      PLUGIN,
-      EXTENSION,
-      TEMPORARY
-    }
+      {
+	INTERNAL,
+	PLUGIN,
+	EXTENSION,
+	TEMPORARY
+      }
   
     public enum ImageBaseType
       {
-	RGB,
+	RGB,    
 	RGBA,
 	GRAY,
 	GRAYA,
 	INDEXED,
-	INDEXEDA,
+	INDEXEDA
       }
 
     public enum PDBArgType
@@ -190,5 +190,17 @@ namespace Gimp
 	KEEP_ALPHA,
 	SMALL_CHECKS,
 	LARGE_CHECKS
+      }
+
+    public enum Unit
+      {
+	PIXEL   = 0,
+	INCH    = 1,
+	MM      = 2,
+	POINT   = 3,
+	PICA    = 4,
+	END     = 5,
+
+	PERCENT = 65536 
       }
   }

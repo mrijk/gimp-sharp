@@ -7,19 +7,18 @@ namespace Gimp
   {
     public class Image
     {
-
       Int32 _imageID;
      
       public Image(Int32 imageID)
       {
 	_imageID = imageID;
       }
-
+       
       public Image(int width, int height, ImageBaseType type)
       {
 	_imageID = gimp_image_new (width, height, type);
       }
-      
+
       public Image(Image image)
       {
 	_imageID = gimp_image_duplicate(image._imageID);
@@ -28,6 +27,13 @@ namespace Gimp
       public Image Duplicate()
       {
 	return new Image(gimp_image_duplicate(_imageID));
+      }
+
+      public static Image Load(RunMode run_mode, string filename, 
+			       string raw_filename)
+      {
+	Int32 imageID = gimp_file_load(run_mode, filename, raw_filename);
+	return (imageID >= 0) ? new Image(imageID) : null;
       }
 
       public bool Delete()
@@ -181,6 +187,12 @@ namespace Gimp
 	get {return new Channel(gimp_image_get_active_channel (_imageID));}
 	set {gimp_image_set_active_channel (_imageID, value.ID);}
 	// Fix me: exception handling
+      }
+
+      public Unit Unit
+      {
+	get {return gimp_image_get_unit (_imageID);}
+	set {gimp_image_set_unit (_imageID, value);}
       }
 
       public bool ConvertRgb()
@@ -350,6 +362,10 @@ namespace Gimp
       [DllImport("libgimp-2.0.so")]
       static extern Int32 gimp_image_set_active_channel (Int32 image_ID,
 							 Int32 active_channel_ID);
+      [DllImport("libgimp-2.0.so")]
+      static extern Unit gimp_image_get_unit (Int32 image_ID);
+      [DllImport("libgimp-2.0.so")]
+      static extern bool gimp_image_set_unit (Int32 image_ID, Unit unit);
 
       [DllImport("libgimp-2.0.so")]
       static extern bool gimp_image_convert_rgb (Int32 image_ID);
@@ -364,5 +380,8 @@ namespace Gimp
        bool alpha_dither,
        bool remove_unused,
        string palette);
+      [DllImport("libgimp-2.0.so")]
+      static extern Int32 gimp_file_load(RunMode run_mode, string filename,
+					 string raw_filename);
     }
   }

@@ -11,6 +11,7 @@ SOURCES =			\
 	PageSize.cs		\
 	PageSizeSet.cs		\
 	PicturePackage.cs	\
+	PicturePackageFrame.cs	\
 	Preview.cs		\
 	PreviewRenderer.cs	\
 	Rectangle.cs		\

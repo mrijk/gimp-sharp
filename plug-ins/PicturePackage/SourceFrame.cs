@@ -4,33 +4,26 @@ using Gtk;
 
 namespace Gimp.PicturePackage
 {
-  public class SourceFrame : GimpFrame
+  public class SourceFrame : PicturePackageFrame
   {
+    PicturePackage _parent;
     CheckButton _include;
     FileEntry _choose;
 
-    public SourceFrame() : base("Source")
+    public SourceFrame(PicturePackage parent) : base(2, 3, "Source")
     {
-      GimpTable table = new GimpTable(2, 3, false);
-      table.ColumnSpacing = 6;
-      table.RowSpacing = 6;
-      Add(table);
-
-      OptionMenu use = new OptionMenu();
-      Menu menu = new Menu();
-      menu.Append(new MenuItem("File"));
-      menu.Append(new MenuItem("Folder"));
-      menu.Append(new MenuItem("Frontmost Document"));
-      use.Menu = menu;
+      _parent = parent;
+      OptionMenu use = CreateOptionMenu(
+	"File", "Folder", "Frontmost Document");
       use.SetHistory(2);
-      table.AttachAligned(0, 0, "_Use:", 0.0, 0.5, use, 1, false);
+      Table.AttachAligned(0, 0, "_Use:", 0.0, 0.5, use, 1, false);
       use.Changed += new EventHandler(OnUseChanged);
 
       _include = new CheckButton("_Include All Subfolders");
-      table.Attach(_include, 1, 2, 1, 2);
+      Table.Attach(_include, 1, 2, 1, 2);
 
       _choose = new FileEntry("Open...", "", true, true);
-      table.Attach(_choose, 1, 2, 2, 3, AttachOptions.Shrink,
+      Table.Attach(_choose, 1, 2, 2, 3, AttachOptions.Shrink,
 		   AttachOptions.Fill, 0, 0);	
 
       SetSourceFrameSensitivity(2);		
@@ -58,6 +51,12 @@ namespace Gimp.PicturePackage
     void OnUseChanged (object o, EventArgs args) 
     {
       SetSourceFrameSensitivity((o as OptionMenu).History);
+
+      string directory = _choose.FileName;
+      if (directory.Length > 0)
+	{
+	_parent.LoadFromDirectory(directory);
+	}
     }
   }
   }
