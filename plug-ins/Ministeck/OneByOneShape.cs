@@ -4,17 +4,14 @@ namespace Gimp.Ministeck
   {
     public class OneByOneShape : Shape
     {
-      public OneByOneShape(int size) : base(size)
+      public OneByOneShape()
       {
-	ShapeDescription shape = new ShapeDescription();
-
-	Combine(shape);
+	Combine(new ShapeDescription());
       }
 
-      protected override void Fill(PixelFetcher PR, int x, int y,
-				   ShapeDescription shape)
+      protected override void Fill(int x, int y, ShapeDescription shape)
       {
-	Rectangle(PR, x, y, 1, 1);
+	Rectangle(x, y, 1, 1);
       }
     }	
   }

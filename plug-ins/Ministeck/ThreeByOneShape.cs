@@ -7,7 +7,7 @@ namespace Gimp.Ministeck
       ShapeDescription _shape1 = new ShapeDescription();
       ShapeDescription _shape2 = new ShapeDescription();
 
-      public ThreeByOneShape(int size) : base(size)
+      public ThreeByOneShape()
       {
 	_shape1.Add(0, 1);
 	_shape1.Add(0, 2);
@@ -18,16 +18,15 @@ namespace Gimp.Ministeck
 	Combine(_shape1, _shape2);
       }
 
-      protected override void Fill(PixelFetcher PR, int x, int y,
-				   ShapeDescription shape)
+      protected override void Fill(int x, int y, ShapeDescription shape)
       {
 	if (shape == _shape1)	// Vertical
 	  {
-	  Rectangle(PR, x, y, 1, 3);
+	  Rectangle(x, y, 1, 3);
 	  }
 	else			// Horizontal
 	  {
-	  Rectangle(PR, x, y, 3, 1);
+	  Rectangle(x, y, 3, 1);
 	  }
       }
     }

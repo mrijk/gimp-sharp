@@ -9,7 +9,7 @@ namespace Gimp.Ministeck
       ShapeDescription _shape3 = new ShapeDescription();
       ShapeDescription _shape4 = new ShapeDescription();
 
-      public CornerShape(int size) : base(size) 
+      public CornerShape()
       {
 	_shape1.Add(0, 1);
 	_shape1.Add(1, 0);
@@ -26,10 +26,11 @@ namespace Gimp.Ministeck
 	Combine(_shape1, _shape2, _shape3, _shape4);
       }
 
-      protected override void Fill(PixelFetcher pf, int x, int y,
-				   ShapeDescription shape)
+      protected override void Fill(int x, int y, ShapeDescription shape)
       {
-	LineStart(pf, x, y);
+	int _size = Shape._painter.Size;
+
+	LineStart(x, y);
 	if (shape == _shape1)
 	  {
 	  HLine(2 * _size);

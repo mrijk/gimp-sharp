@@ -5,17 +5,21 @@ namespace Gimp.Ministeck
   {
   abstract public class Shape
   {
-    public ArrayList _set = new ArrayList(); 
-    protected int _size;
+    ArrayList _set = new ArrayList(); 
+    static protected Painter _painter;
 
     Random _random = new Random();
     byte[] _color = new byte[3]{3, 3, 3};
 
     public int _match = 0;
 
-    public Shape(int size)
+    public Shape()
     {
-      _size = size;
+    }
+
+    static public Painter Painter
+    {
+      set {_painter = value;}
     }
 
     protected void Combine(params ShapeDescription[] list)
@@ -39,26 +43,26 @@ namespace Gimp.Ministeck
 	}
     }
 
-    public bool Fits(PixelFetcher pf, bool[,] A, int x, int y)
+    public bool Fits(bool[,] A, int x, int y)
     {
       int index = _random.Next(0, _set.Count);
 
       foreach (ShapeDescription shape in (ShapeSet) _set[index])
 	{
-	if (Fits(pf, A, x, y, shape))
+	if (Fits(A, x, y, shape))
 	  {
-	  Fill(pf, A, x, y, shape);
+	  Fill(A, x, y, shape);
 	  return true;
 	  }
 	}
       return false;
     }
 
-    bool Fits(PixelFetcher pf, bool[,] A, int x, int y, ShapeDescription shape)
+    bool Fits(bool[,] A, int x, int y, ShapeDescription shape)
     {
       byte[] color = new byte[3];
       byte[] buf = new byte[3];
-      pf.GetPixel(x * _size, y * _size, color);
+      _painter.GetPixel(x, y, color);
 
       int width = A.GetLength(0);
       int height = A.GetLength(1);
@@ -71,10 +75,8 @@ namespace Gimp.Ministeck
 	  {
 	  return false;
 	  }
-	cx *= _size;
-	cy *= _size;
 
-	pf.GetPixel(cx, cy, buf);
+	_painter.GetPixel(cx, cy, buf);
 	for (int b = 0; b < 3; b++)
 	  {
 	  if (color[b] != buf[b])
@@ -86,12 +88,11 @@ namespace Gimp.Ministeck
       return true;
     }
 
-    abstract protected void Fill(PixelFetcher pf, int x, int y,
-				 ShapeDescription shape) ;
+    abstract protected void Fill(int x, int y, ShapeDescription shape) ;
 
-    void Fill(PixelFetcher pf, bool[,] A, int x, int y, ShapeDescription shape)
+    void Fill(bool[,] A, int x, int y, ShapeDescription shape)
     {
-      Fill(pf, x, y, shape);
+      Fill(x, y, shape);
       A[x, y] = true;
       foreach (Coordinate c in shape)
 	{
@@ -101,60 +102,24 @@ namespace Gimp.Ministeck
 	}
     }
 
-    PixelFetcher _pf;
-    int _x, _y;
-
-    protected void LineStart(PixelFetcher pf, int x, int y)
+    protected void LineStart(int x, int y)
     {
-      _pf = pf;
-      _x = x * _size;
-      _y = y * _size;
+      _painter.LineStart(x, y);
     }
 
-    protected void Rectangle(PixelFetcher pf, int x, int y, int w, int h)
+    protected void Rectangle(int x, int y, int w, int h)
     {
-      w *= _size;
-      h *= _size;
-
-      LineStart(pf, x, y);
-      HLine(w);
-      VLine(h);
-      HLine(-w);
-      VLine(-h);
+      _painter.Rectangle(x, y, w, h);
     }
 
     protected void HLine(int len)
     {
-      int dx = 1;
-      if (len < 0)
-	{
-	len = -len;
-	dx = -1;
-	}
-
-      for (int i = 0; i < len; i++)
-	{
-	_pf.PutPixel(_x, _y, _color);
-	_x += dx;
-	}
-      _x -= dx;
+      _painter.HLine(len);
     }
 
     protected void VLine(int len)
     {
-      int dy = 1;
-      if (len < 0)
-	{
-	len = -len;
-	dy = -1;
-	}
-
-      for (int i = 0; i < len; i++)
-	{
-	_pf.PutPixel(_x, _y, _color);
-	_y += dy;
-	}
-      _y -= dy;
+      _painter.VLine(len);
     }
   }
   }

@@ -7,6 +7,7 @@ SOURCES =			\
 	CornerShape.cs		\
 	Ministeck.cs		\
 	OneByOneShape.cs	\
+	Painter.cs		\
 	Shape.cs		\
 	ShapeDescription.cs	\
 	ShapeSet.cs		\

@@ -4,7 +4,7 @@ namespace Gimp.Ministeck
   {
     public class TwoByTwoShape : Shape
     {
-      public TwoByTwoShape(int size) : base(size)
+      public TwoByTwoShape()
       {
 	ShapeDescription shape = new ShapeDescription();
 	shape.Add(0, 1);
@@ -14,10 +14,9 @@ namespace Gimp.Ministeck
 	Combine(shape);
       }
 
-      protected override void Fill(PixelFetcher PR, int x, int y,
-				   ShapeDescription shape)
+      protected override void Fill(int x, int y, ShapeDescription shape)
       {
-	Rectangle(PR, x, y, 2, 2);
+	Rectangle(x, y, 2, 2);
       }
     }
   }

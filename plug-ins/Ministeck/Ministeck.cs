@@ -106,25 +106,20 @@ namespace Gimp.Ministeck
 	int width = drawable.Width / _size;
 	int height = drawable.Height / _size;
 
-	PixelFetcher pf = new PixelFetcher(drawable, false);
-	bool[,] A = new bool[width, height];
+	Painter painter = new Painter(drawable, _size);
+	Shape.Painter = painter;
 
-	for (int i = 0; i < width; i++)
-	  {
-	  for (int j = 0; j < height; j++)
-	    {
-	    A[i, j] = false;
-	    }
-	  }
+	bool[,] A = new bool[width, height];
+	Array.Clear(A, 0, width * height);
 
 	// Fill in shapes
 	
 	ArrayList shapes = new ArrayList();
-	shapes.Add(new TwoByTwoShape(_size));
-	shapes.Add(new ThreeByOneShape(_size));
-	shapes.Add(new TwoByOneShape(_size));
-	shapes.Add(new CornerShape(_size));
-	shapes.Add(new OneByOneShape(_size));
+	shapes.Add(new TwoByTwoShape());
+	shapes.Add(new ThreeByOneShape());
+	shapes.Add(new TwoByOneShape());
+	shapes.Add(new CornerShape());
+	shapes.Add(new OneByOneShape());
 
 	for (int y = 0; y < height; y++)
 	  {
@@ -137,7 +132,7 @@ namespace Gimp.Ministeck
 		{
 		int index = random.Next(copy.Count - 1);
 		Shape shape = (Shape) copy[index];
-		if (shape.Fits(pf, A, x, y))
+		if (shape.Fits(A, x, y))
 		  {
 		  break;
 		  }
@@ -147,7 +142,7 @@ namespace Gimp.Ministeck
 	    }
 	  }
 	
-	pf.Destroy();
+	painter.Destroy();
 
 	// foreach (Shape shape in shapes)
 	//   Console.WriteLine(shape._match);
