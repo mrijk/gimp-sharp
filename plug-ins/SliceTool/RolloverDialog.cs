@@ -94,6 +94,36 @@ namespace Gimp.SliceTool
       SetFileEntry(o, _mouseDown);
     }
 
+    public string MouseOver
+    {
+      get {return _mouseOver.FileName;}
+    }
+
+    public string MouseOut
+    {
+      get {return _mouseOut.FileName;}
+    }
+
+    public string MouseClick
+    {
+      get {return _mouseClick.FileName;}
+    }
+
+    public string MouseDoubleClick
+    {
+      get {return _mouseDoubleClick.FileName;}
+    }
+
+    public string MouseUp
+    {
+      get {return _mouseUp.FileName;}
+    }
+
+    public string MouseDown
+    {
+      get {return _mouseDown.FileName;}
+    }
+
     public bool Enabled
     {
       get {return false;}	// Fix me!
