@@ -50,13 +50,8 @@ namespace Gimp
 		     "<Image>/Filters/Render");
       }
 
-      override protected void Run(string name, GimpParam[] param,
-				  out GimpParam[] return_vals)
+      override protected bool CreateDialog()
       {
-	values[0].type = PDBArgType.STATUS;
-	values[0].data.d_status = PDBStatusType.PDB_SUCCESS;
-	return_vals = values;
-
 	gimp_ui_init("PicturePackage", true);
 
 	ReadConfiguration();
@@ -87,9 +82,8 @@ namespace Gimp
 	frame.Add(preview);
 
 	dialog.ShowAll();
-
-	DialogRun();
-	SetData();
+	
+	return DialogRun();
       }
 
       void ReadConfiguration()
@@ -246,7 +240,8 @@ namespace Gimp
 
       }
 
-      override protected void DoSomething()
+      override protected void DoSomething(Drawable drawable,
+					  Image image)
       {
       }
     }

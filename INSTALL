@@ -1,0 +1,5 @@
+To install Gimp# you will need Mono. Right now there is only a
+simple Makefile provided. At the top of this Makefile you can choose
+between Gimp 2.0 and Gimp 2.2. I have only tested my code with Gimp
+2.1.x. Please report back if there are any issues with using Gimp# and
+Gimp 2.0.

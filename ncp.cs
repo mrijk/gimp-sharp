@@ -7,8 +7,6 @@ namespace Gimp
   {
     public class ncp : Plugin
     {
-      Drawable drawable;
-      GimpParam[] values = new GimpParam[1];
       UInt32 _seed;
       bool _random_seed;
 
@@ -64,15 +62,8 @@ namespace Gimp
 		     "<Image>/Filters/Render");
       }
 
-      override protected void Run(string name, GimpParam[] param,
-				  out GimpParam[] return_vals)
+      override protected bool CreateDialog()
       {
-	values[0].type = PDBArgType.STATUS;
-	values[0].data.d_status = PDBStatusType.PDB_SUCCESS;
-	return_vals = values;
-
-	drawable = new Drawable(param[2].data.d_drawable);
-
 	gimp_ui_init("ncp", true);
 
 	Dialog dialog = DialogNew("ncp", "ncp",
@@ -104,9 +95,7 @@ namespace Gimp
 	entry.ValueChanged += new EventHandler(CloseToUpdate);
 			       
 	dialog.ShowAll();
-	DialogRun();
-
-	drawable.Detach();
+	return DialogRun();
       }
 
       void PointsUpdate(object sender, EventArgs e)
@@ -127,7 +116,8 @@ namespace Gimp
       bool has_alpha;
       int width, height;
 
-      override protected void DoSomething()
+      override protected void DoSomething(Drawable drawable,
+					  Image image)
       {
 	int x1, y1, x2, y2;
 	drawable.MaskBounds(out x1, out y1, out x2, out y2);

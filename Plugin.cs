@@ -122,6 +122,8 @@ namespace Gimp
 
   abstract public class Plugin
   {
+    protected string _name;
+
     public delegate void GimpMainProc(ref IntPtr info);
 
     public delegate void InitProc();
@@ -194,7 +196,7 @@ namespace Gimp
       string date,
       string menu_path,
       string image_types,
-      int	   type,	// Fix me!
+      int    type,	// Fix me!
       int    n_params,
       int    n_return_vals,
       GimpParamDef[] _params,
@@ -293,11 +295,19 @@ namespace Gimp
     abstract protected void Run(string name, GimpParam[] param,
 				out GimpParam[] return_vals);
 
+    virtual protected bool CreateDialog() {return true;}
+
+    Image _image;
+    Drawable _drawable;
+    GimpParam[] values = new GimpParam[1];
+
     public void Run(string name, int n_params, IntPtr paramPtr,
 		    ref int n_return_vals, out GimpParam[] return_vals)
     {
-      GimpParam[] param = new GimpParam[n_params];
+      _name = name;
+
       // Get parameters
+      GimpParam[] param = new GimpParam[n_params];
       for (int i = 0; i < n_params; i++)
 	{
 	param[i] = (GimpParam) Marshal.PtrToStructure(paramPtr,
@@ -305,27 +315,95 @@ namespace Gimp
 	Console.WriteLine(param[i].type);
 	paramPtr = (IntPtr)((int)paramPtr + Marshal.SizeOf(param[i]));
 	}
-      Run(name, param, out return_vals);
-      SetData();
-      n_return_vals = return_vals.Length;
+
+      RunMode run_mode = (RunMode) param[0].data.d_int32;
+      _image = new Image(param[1].data.d_image);
+      _drawable = new Drawable(param[2].data.d_drawable);
+      
+      if (run_mode == RunMode.INTERACTIVE)
+	{
+	GetData();
+	if (CreateDialog())
+	  {
+	  SetData();
+	  }
+	}
+      else if (run_mode == RunMode.NONINTERACTIVE)
+	{
+	Console.WriteLine("RunMode.NONINTERACTIVE not implemented yet!");
+	}
+      else if (run_mode == RunMode.WITH_LAST_VALS)
+	{
+	GetData();
+	DoSomething(_drawable, _image);
+	}
+
+      _drawable.Detach();
+
+      values[0].type = PDBArgType.STATUS;
+      values[0].data.d_status = PDBStatusType.PDB_SUCCESS;
+      return_vals = values;
+
+      n_return_vals = values.Length;
     }
 
-    MemoryStream _memoryStream = new MemoryStream();
+    [DllImport("gimpwrapper.so")]
+    public static extern bool wrapper_set_data(string identifier,
+					       byte[] data,
+					       int bytes);
+    [DllImport("gimpwrapper.so")]
+    public static extern bool wrapper_get_data(string identifier,
+					       byte[] data);
+    [DllImport("gimpwrapper.so")]
+    public static extern int wrapper_get_data_size(string identifier);
+
+
     BinaryFormatter _formatter = new BinaryFormatter();
 
     protected void SetData()
     {
-      foreach (FieldInfo field in GetType().GetFields(BindingFlags.Instance |  
-						      BindingFlags.NonPublic | 
-						      BindingFlags.Public))
+      MemoryStream memoryStream = new MemoryStream();
+
+      foreach (FieldInfo field 
+	       in GetType().GetFields(BindingFlags.Instance |  
+				      BindingFlags.NonPublic | 
+				      BindingFlags.Public))
 	{
         foreach (object attribute in field.GetCustomAttributes(true))
 	  {
 	  if (attribute is SaveAttribute)
             {
-	    Console.WriteLine("SaveAttribute found");
-	    _formatter.Serialize(_memoryStream, field.GetValue(this));
+	    _formatter.Serialize(memoryStream, field.GetValue(this));
             }
+	  }
+	}
+      wrapper_set_data(_name, memoryStream.GetBuffer(),
+		       (int) memoryStream.Length);		    
+    }
+
+
+    protected void GetData()
+    {
+      int size = wrapper_get_data_size(_name);
+      if (size > 0)
+	{
+	byte[] data = new byte[size];
+	wrapper_get_data(_name, data);
+
+	MemoryStream memoryStream = new MemoryStream(data);
+
+	foreach (FieldInfo field 
+		 in GetType().GetFields(BindingFlags.Instance |  
+					BindingFlags.NonPublic | 
+					BindingFlags.Public))
+	  {
+	  foreach (object attribute in field.GetCustomAttributes(true))
+	    {
+	    if (attribute is SaveAttribute)
+	      {
+	      field.SetValue(this, _formatter.Deserialize(memoryStream));
+	      }
+	    }
 	  }
 	}
     }
@@ -346,15 +424,17 @@ namespace Gimp
       return new Dialog(_dialogPtr);
     }
 
-    abstract protected void DoSomething();
+    abstract protected void DoSomething(Drawable drawable,
+					Image image);
 
-    protected void DialogRun()
+    protected bool DialogRun()
     {
-
       if (gimp_dialog_run(_dialogPtr) == ResponseType.Ok)
 	{
-	DoSomething();
+	DoSomething(_drawable, _image);
+	return true;
 	}
+      return false;
     }
 
     protected void ProgressInit(string message)

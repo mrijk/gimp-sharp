@@ -7,10 +7,6 @@ namespace Gimp
   {
     public class Ministeck : Plugin
     {
-      Drawable _drawable;
-      Image _image;
-      GimpParam[] values = new GimpParam[1];
-
       [STAThread]
       static void Main(string[] args)
       {
@@ -51,16 +47,8 @@ namespace Gimp
 		     "<Image>/Filters/Artistic");
       }
 
-      override protected void Run(string name, GimpParam[] param,
-				  out GimpParam[] return_vals)
+      override protected bool CreateDialog()
       {
-	values[0].type = PDBArgType.STATUS;
-	values[0].data.d_status = PDBStatusType.PDB_SUCCESS;
-	return_vals = values;
-
-	_image = new Image(param[1].data.d_image);
-	_drawable = new Drawable(param[2].data.d_drawable);
-
 	gimp_ui_init("ncp", true);
 
 	Dialog dialog = DialogNew("ministeck", "ministeck",
@@ -69,19 +57,18 @@ namespace Gimp
 				  Stock.Ok, ResponseType.Ok);
 			       
 	dialog.ShowAll();
-	DialogRun();
-
-	_drawable.Detach();
+	return DialogRun();
       }
 
-      override protected void DoSomething()
+      override protected void DoSomething(Drawable drawable,
+					  Image image)
       {
 	// First apply Pixelize plug-in
 
 	// Next convert to indexed
-	_image.ConvertIndexed(ConvertDitherType.NO_DITHER, 
-			      ConvertPaletteType.CUSTOM_PALETTE, 
-			      0, false, false, "Default");
+	image.ConvertIndexed(ConvertDitherType.NO_DITHER, 
+			     ConvertPaletteType.CUSTOM_PALETTE, 
+			     0, false, false, "Default");
 
 	// And finally calculate the Ministeck pieces
 

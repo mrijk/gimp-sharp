@@ -2,6 +2,8 @@ Overview of Changes in Gimp# 0.2
 ================================
 
 - More work on Picture Package plug-in. GUI now complete
+- Implemented Repeat/Re-show with last values
+- More Gimp API coverage
 - Improved installation. Should still convert to automake/autoconf
 - Generic stuff now put in dll that all plug-ins link against
 - Started with Ministeck plug-in

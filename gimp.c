@@ -1,4 +1,4 @@
-// gimp.cpp : Defines the entry point for the DLL application.
+// gimp.c
 //
 
 #include <stdarg.h>
@@ -56,6 +56,24 @@ int fnInitGimp(GimpPlugInInfo *info, int argc, char *args[])
 
   return gimp_main (&_wrap, argc, args);
 }
+
+gboolean wrapper_set_data(const gchar  *identifier,
+			  const guint8 *data,
+			  gint          bytes)
+{
+  return gimp_set_data(identifier, data, bytes);
+}
+
+gboolean wrapper_get_data(const gchar  *identifier,
+			  guint8 *data)
+{
+  return gimp_get_data(identifier, data);
+}
+
+int wrapper_get_data_size(const char *identifier)
+{
+  return gimp_get_data_size(identifier);
+}			  
 
 int gimp_main_wrapper(GimpPlugInInfo *info)
 {
