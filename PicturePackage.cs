@@ -2,8 +2,6 @@ using System;
 using System.Xml;
 using System.Collections;
 
-// using System.IO;
-
 using Gtk;
 
 namespace Gimp
@@ -69,7 +67,7 @@ namespace Gimp
 				  Stock.Cancel, ResponseType.Cancel,
 				  Stock.Ok, ResponseType.Ok);
 
-	HBox hbox = new HBox(false, 1);
+	HBox hbox = new HBox(false, 12);
 	hbox.BorderWidth = 12;
 	dialog.VBox.PackStart(hbox, true, true, 0);
 
@@ -130,7 +128,7 @@ namespace Gimp
 	menu.Append(new MenuItem("Frontmost Document"));
 	use.Menu = menu;
 	table.AttachAligned(0, 0, "Use:", 0.0, 0.5,
-			    use, 1, true);
+			    use, 1, false);
 
 	CheckButton include = new CheckButton("Include All Subfolders");
 	table.Attach(include, 1, 2, 1, 2);
@@ -155,7 +153,7 @@ namespace Gimp
 	menu.Append(new MenuItem("8.0 x 10.0 inches"));
 	size.Menu = menu;
 	table.AttachAligned(0, 0, "Page Size:", 0.0, 0.5,
-			    size, 1, true);
+			    size, 2, false);
 
 	OptionMenu layout = new OptionMenu();
 	menu = new Menu();
@@ -165,19 +163,28 @@ namespace Gimp
 	  }
 	layout.Menu = menu;
 	table.AttachAligned(0, 1, "Layout:", 0.0, 0.5,
-			    layout, 1, true);
+			    layout, 2, false);
 
 	Entry resolution = new Entry();
+	resolution.WidthChars = 4;
 	table.AttachAligned(0, 2, "Resolution:", 0.0, 0.5,
 			    resolution, 1, true);
 	
+	OptionMenu units = new OptionMenu();
+	menu = new Menu();
+	menu.Append(new MenuItem("pixels/inch"));
+	menu.Append(new MenuItem("pixels/cm"));
+	menu.Append(new MenuItem("pixels/mm"));
+	units.Menu = menu;
+	table.Attach(units, 2, 3, 2, 3);	
+
 	OptionMenu mode = new OptionMenu();
 	menu = new Menu();
 	menu.Append(new MenuItem("Grayscale"));
 	menu.Append(new MenuItem("RGB Color"));
 	mode.Menu = menu;
 	table.AttachAligned(0, 3, "Mode:", 0.0, 0.5,
-			    mode, 1, true);
+			    mode, 2, false);
 
 	CheckButton flatten = new CheckButton("Flatten All Layers");
 	table.Attach(flatten, 0, 2, 4, 5);
@@ -205,7 +212,7 @@ namespace Gimp
 	menu.Append(new MenuItem("Title"));
 	content.Menu = menu;
 	table.AttachAligned(0, 0, "Content:", 0.0, 0.5,
-			    content, 1, true);
+			    content, 1, false);
 
 	Entry entry = new Entry();
 	table.AttachAligned(0, 1, "Custom Text:", 0.0, 0.5,
@@ -221,14 +228,14 @@ namespace Gimp
 	menu.Append(new MenuItem("Centered"));
 	position.Menu = menu;
 	table.AttachAligned(0, 3, "Position:", 0.0, 0.5,
-			    position, 1, true);
+			    position, 1, false);
 
 	OptionMenu rotate = new OptionMenu();
 	menu = new Menu();
 	menu.Append(new MenuItem("None"));
 	rotate.Menu = menu;
 	table.AttachAligned(0, 4, "Rotate:", 0.0, 0.5,
-			    rotate, 1, true);
+			    rotate, 1, false);
 
       }
 
