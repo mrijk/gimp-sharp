@@ -23,15 +23,15 @@ namespace Gimp.SliceTool
     {
       set
 	  {
-	  if (value == "gif")
+	  if (value == ".gif")
 	    {
 	    _format.SetHistory(0);
 	    }
-	  else if (value == "jpg" || value == "jpeg")
+	  else if (value == ".jpg" || value == ".jpeg")
 	    {
 	    _format.SetHistory(1);
 	    }
-	  else if (value == "png")
+	  else if (value == ".png")
 	    {
 	    _format.SetHistory(2);
 	    }

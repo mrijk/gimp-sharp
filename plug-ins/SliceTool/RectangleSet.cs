@@ -7,6 +7,7 @@ namespace Gimp.SliceTool
   public class RectangleSet: IEnumerable
   {
     ArrayList _set = new ArrayList();
+    Rectangle _selected;
 
     public RectangleSet()
     {
@@ -20,11 +21,20 @@ namespace Gimp.SliceTool
     public void Add(Rectangle rectangle)
     {
       _set.Add(rectangle);
+      if (_selected == null)
+	{
+	_selected = rectangle;
+	}
     }
 
     Rectangle this[int index]
     {
       get {return (Rectangle) _set[index];}
+    }
+
+    public Rectangle Selected
+    {
+      get {return _selected;}
     }
 
     public void Slice(Slice slice)
@@ -55,6 +65,12 @@ namespace Gimp.SliceTool
 	  }
 	}
       return null;
+    }
+
+    public Rectangle Select(int x, int y)
+    {
+      _selected = Find(x, y);
+      return _selected;
     }
 
     public void WriteHTML(StreamWriter w, string name, string extension)
@@ -98,16 +114,17 @@ namespace Gimp.SliceTool
 	  {
 	  if (found == null)
 	    {
-	    Console.WriteLine("Found first slicepiece");
 	    found = rectangle;
 	    }
 	  else
 	    {
-	    Console.WriteLine("Found second slicepiece!");
 	    if (piece.IsPartOf(found))
 	      {
-	      Console.WriteLine("... and it's the same!");
 	      rectangle.Merge(found);
+	      if (found == _selected)
+		{
+		_selected = rectangle;
+		}
 	      merged = true;
 	      break;
 	      }

@@ -28,16 +28,26 @@ namespace Gimp.SliceTool
 
       if (_useRelease)
 	{
-	_preview.ButtonReleaseEvent += 
-	  new ButtonReleaseEventHandler(OnButtonRelease);
+	AddReleaseEvent();
 	}
 
       if (_useMove)
 	{
-	_preview.MotionNotifyEvent += new 
-	  MotionNotifyEventHandler(OnMotionNotify);
+	AddMotionNotifyEvent();
 	}
       OnPress(x, y);
+    }
+
+    protected void AddReleaseEvent()
+    {
+      _preview.ButtonReleaseEvent += 
+	new ButtonReleaseEventHandler(OnButtonRelease);
+    }
+
+    protected void AddMotionNotifyEvent()
+    {
+      _preview.MotionNotifyEvent += 
+	new MotionNotifyEventHandler(OnMotionNotify);
     }
 
     void OnButtonRelease(object o, ButtonReleaseEventArgs args)
