@@ -25,6 +25,7 @@ SOURCES = \
 	Guide.cs		\
 	Layer.cs		\
 	Image.cs		\
+	Palette.cs		\
 	PixelRgn.cs		\
 	Plugin.cs		\
 	RandomSeed.cs		\

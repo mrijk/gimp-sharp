@@ -3,8 +3,4 @@
 THISDIR=`dirname $0`
 export LD_LIBRARY_PATH=$THISDIR:$LD_LIBRARY_PATH
 
-# export LD_LIBRARY_PATH=/home/laura/.gimp-2.1/plug-ins/
-
-echo $LD_LIBRARY_PATH
-
 mono $THISDIR/Ministeck.exe "$@"

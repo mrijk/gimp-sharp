@@ -59,8 +59,7 @@ namespace Gimp
 			 "RGB*, GRAY*",
 			 args);
 
-	MenuRegister("plug_in_ncp",
-		     "<Image>/Filters/Render");
+	MenuRegister("plug_in_ncp", "<Image>/Filters/Render");
       }
 
       override protected bool CreateDialog()
@@ -68,9 +67,7 @@ namespace Gimp
 	gimp_ui_init("ncp", true);
 
 	Dialog dialog = DialogNew("ncp", "ncp",
-				  IntPtr.Zero, 0, null, "ncp", 
-				  Stock.Cancel, ResponseType.Cancel,
-				  Stock.Ok, ResponseType.Ok);
+				  IntPtr.Zero, 0, null, "ncp");
 
 	VBox vbox = new VBox(false, 12);
 	vbox.BorderWidth = 12;

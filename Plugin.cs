@@ -374,6 +374,18 @@ namespace Gimp
       return new Dialog(_dialogPtr);
     }
 
+    protected Dialog DialogNew( string title,
+				string role,
+				IntPtr parent,
+				Gtk.DialogFlags flags,
+				GimpHelpFunc help_func,
+				string help_id)
+    {
+      return DialogNew (title, role, parent, flags, help_func, help_id,
+			Stock.Cancel, ResponseType.Cancel,
+			Stock.Ok, ResponseType.Ok);
+    }
+
     abstract protected void DoSomething(Drawable drawable,
 					Image image);
 

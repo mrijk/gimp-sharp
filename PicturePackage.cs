@@ -56,9 +56,7 @@ namespace Gimp
 	ReadConfiguration();
 
 	Dialog dialog = DialogNew("Picture Package", "PicturePackage",
-				  IntPtr.Zero, 0, null, "PicturePackage", 
-				  Stock.Cancel, ResponseType.Cancel,
-				  Stock.Ok, ResponseType.Ok);
+				  IntPtr.Zero, 0, null, "PicturePackage");
 
 	HBox hbox = new HBox(false, 12);
 	hbox.BorderWidth = 12;

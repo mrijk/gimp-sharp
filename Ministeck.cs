@@ -38,14 +38,13 @@ namespace Ministeck
 			 "Generates Ministeck",
 			 "Generates Ministeck",
 			 "Maurits Rijk",
-			 "Maurits Rijk",
+			 "(C) Maurits Rijk",
 			 "2004",
 			 "Ministeck...",
 			 "RGB*",
 			 args);
 
-	MenuRegister("plug_in_ministeck",
-		     "<Image>/Filters/Artistic");
+	MenuRegister("plug_in_ministeck", "<Image>/Filters/Artistic");
       }
 
       override protected bool CreateDialog()
@@ -53,9 +52,7 @@ namespace Ministeck
 	gimp_ui_init("ministeck", true);
 
 	Dialog dialog = DialogNew("Ministeck", "ministeck",
-				  IntPtr.Zero, 0, null, "ministeck", 
-				  Stock.Cancel, ResponseType.Cancel,
-				  Stock.Ok, ResponseType.Ok);
+				  IntPtr.Zero, 0, null, "ministeck");
 	
 	VBox vbox = new VBox(false, 12);
 	vbox.BorderWidth = 12;
@@ -71,6 +68,8 @@ namespace Ministeck
       override protected void DoSomething(Drawable drawable,
 					  Gimp.Image image)
       {
+	CreatePalette();
+
 	image.UndoGroupStart();
 
 	// First apply Pixelize plug-in
@@ -82,7 +81,6 @@ namespace Ministeck
 			     0, false, false, "Default");
 
 	image.ConvertRgb();
-
 	image.UndoGroupEnd();
 
 	// And finally calculate the Ministeck pieces
@@ -104,11 +102,9 @@ namespace Ministeck
 	  {
 	  for (int j = 0; j < height; j++)
 	    {
-	    // A[i, j] = random.Next(1, 3);
 	    srcPR.GetPixel(buf, i * 16, j * 16);
 	    A[i, j] = buf[0];
 	    }
-	  Console.WriteLine(buf[1]);
 	  }
 
 	// Fill in shapes
@@ -145,6 +141,14 @@ namespace Ministeck
 	  Console.WriteLine(shape._match);
 
 	Display.DisplaysFlush();
+      }
+
+      void CreatePalette()
+      {
+	Palette palette = new Palette("Ministeck");
+
+	int entry_num;
+	palette.AddEntry("", new RGB(), out entry_num);
       }
     }
 }
