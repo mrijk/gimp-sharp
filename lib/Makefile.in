@@ -176,6 +176,7 @@ SOURCES = \
 	PaletteList.cs		\
 	ParamDef.cs		\
 	ParamDefList.cs		\
+	PersistentStorage.cs	\
 	PixelFetcher.cs		\
 	PixelRgn.cs		\
 	Plugin.cs		\
@@ -232,6 +233,7 @@ SOURCES = \
 	PaletteList.cs		\
 	ParamDef.cs		\
 	ParamDefList.cs		\
+	PersistentStorage.cs	\
 	PixelFetcher.cs		\
 	PixelRgn.cs		\
 	Plugin.cs		\
@@ -392,7 +394,7 @@ $(LIBRARY): $(SOURCES)
 	$(CSC) --target library $(ASSEMBLIES) $(SOURCES) -o $(LIBRARY)
 
 install:
-	$(INSTALL_DATA) $(LIBRARY) $(GIMPPLUGINDIR)
+	$(INSTALL_DATA) $(LIBRARY) $(DESTDIR)/$(GIMPPLUGINDIR)
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:

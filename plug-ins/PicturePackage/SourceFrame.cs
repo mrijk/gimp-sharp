@@ -8,12 +8,15 @@ namespace Gimp.PicturePackage
   {
     PicturePackage _parent;
     ImageComboBox _imageBox;
+    Button _refresh;
     CheckButton _include;
     FileEntry _choose;
 
+    string _fileName = "";
+    string _directory = "";
     bool _recursive = false;
 
-    public SourceFrame(PicturePackage parent) : base(2, 3, "Source")
+    public SourceFrame(PicturePackage parent) : base(3, 2, "Source")
     {
       _parent = parent;
 
@@ -23,9 +26,18 @@ namespace Gimp.PicturePackage
       button.Clicked += new EventHandler(OnImageClicked);
       Table.Attach(button, 0, 1, 0, 1);
 
+      HBox hbox = new HBox();
+      Table.Attach(hbox, 1, 2, 0, 1);
+
       _imageBox = new ImageComboBox();
       _imageBox.Changed += new EventHandler(OnImageChanged);
-      Table.Attach(_imageBox, 1, 2, 0, 1);
+      hbox.Add(_imageBox);
+
+      _refresh = new Button();
+      Gtk.Image image = new Gtk.Image(Stock.Refresh, IconSize.Button);
+      _refresh.Add(image);
+      _refresh.Clicked += new EventHandler(OnRefreshClicked);
+      hbox.PackEnd(_refresh, false, false, 0);
 
       button = new RadioButton(button, "File");
       button.Clicked += new EventHandler(OnFileClicked);
@@ -56,11 +68,13 @@ namespace Gimp.PicturePackage
 	{
 	_choose = new FileEntry("Open...", "", true, true);
 	_choose.FilenameChanged += new EventHandler(OnDirNameChanged);
+	_choose.FileName = _directory;
 	}
       else
 	{
 	_choose = new FileEntry("Open...", "", false, true);
 	_choose.FilenameChanged += new EventHandler(OnFileNameChanged);
+	_choose.FileName = _fileName;
 	}
 
       _choose.Show();
@@ -77,14 +91,26 @@ namespace Gimp.PicturePackage
     {
       // _parent.Loader = new FrontImageProviderFactory(_parent.Image);
       _imageBox.Sensitive = true;
+      _refresh.Sensitive = true;
       _include.Sensitive = false;
       _choose.Sensitive = false;
+    }
+
+    void OnRefreshClicked (object o, EventArgs args) 
+    {
+      HBox hbox = _imageBox.Parent as HBox;
+      _imageBox.Destroy();
+      _imageBox = new ImageComboBox();
+      _imageBox.Changed += new EventHandler(OnImageChanged);
+      hbox.Add(_imageBox);
+      _imageBox.Show();
     }
 
     void OnFileClicked (object o, EventArgs args) 
     {
       SetFileEntry(false);
       _imageBox.Sensitive = false;
+      _refresh.Sensitive = false;
       _include.Sensitive = false;
       _choose.Sensitive = true;
     }
@@ -93,6 +119,7 @@ namespace Gimp.PicturePackage
     {
       SetFileEntry(true);
       _imageBox.Sensitive = false;
+      _refresh.Sensitive = false;
       _include.Sensitive = true;
       _choose.Sensitive = true;
     }
@@ -104,19 +131,19 @@ namespace Gimp.PicturePackage
 
     void OnFileNameChanged (object o, EventArgs args) 
     {
-      string fileName = _choose.FileName;
-      if (fileName.Length > 0)
+      _fileName = _choose.FileName;
+      if (_fileName.Length > 0)
 	{
-	_parent.Loader = new FileImageProviderFactory(fileName);
+	_parent.Loader = new FileImageProviderFactory(_fileName);
 	}
     }
 
     void OnDirNameChanged (object o, EventArgs args) 
     {
-      string directory = _choose.FileName;
-      if (directory.Length > 0)
+      _directory = _choose.FileName;
+      if (_directory.Length > 0)
 	{
-	_parent.Loader = new DirImageProviderFactory(directory, _recursive);
+	_parent.Loader = new DirImageProviderFactory(_directory, _recursive);
 	}
     }
 

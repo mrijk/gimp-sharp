@@ -1,8 +1,6 @@
 using System;
-using System.IO;
-using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Runtime.Serialization.Formatters.Binary;
+using System.Reflection;
 
 using Gtk;
 
@@ -48,6 +46,11 @@ namespace Gimp
       args.CopyTo (progargs, 1);
 
       fnInitGimp(ref _info, progargs.Length, progargs);
+    }
+
+    public string Name
+    {
+      get {return _name;}
     }
 
     protected virtual void Init() 
@@ -204,53 +207,16 @@ namespace Gimp
       Console.WriteLine("length: " + n_return_vals);
     }
 
-    BinaryFormatter _formatter = new BinaryFormatter();
-
     protected void SetData()
     {
-      MemoryStream memoryStream = new MemoryStream();
-
-      foreach (FieldInfo field 
-	       in GetType().GetFields(BindingFlags.Instance |  
-				      BindingFlags.NonPublic | 
-				      BindingFlags.Public))
-	{
-        foreach (object attribute in field.GetCustomAttributes(true))
-	  {
-	  if (attribute is SaveAttribute)
-            {
-	    _formatter.Serialize(memoryStream, field.GetValue(this));
-            }
-	  }
-	}
-      wrapper_set_data(_name, memoryStream.GetBuffer(),
-		       (int) memoryStream.Length);		    
+      PersistentStorage storage = new PersistentStorage(this);
+      storage.SetData();
     }
 
     protected void GetData()
     {
-      int size = wrapper_get_data_size(_name);
-      if (size > 0)
-	{
-	byte[] data = new byte[size];
-	wrapper_get_data(_name, data);
-
-	MemoryStream memoryStream = new MemoryStream(data);
-
-	foreach (FieldInfo field 
-		 in GetType().GetFields(BindingFlags.Instance |  
-					BindingFlags.NonPublic | 
-					BindingFlags.Public))
-	  {
-	  foreach (object attribute in field.GetCustomAttributes(true))
-	    {
-	    if (attribute is SaveAttribute)
-	      {
-	      field.SetValue(this, _formatter.Deserialize(memoryStream));
-	      }
-	    }
-	  }
-	}
+      PersistentStorage storage = new PersistentStorage(this);
+      storage.GetData();
     }
 
     GimpDialog _dialog;

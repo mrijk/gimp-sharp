@@ -22,5 +22,5 @@ Ministeck.exe : $(SOURCES)
 	$(CSC) $(SOURCES) -o $@ $(ASSEMBLIES)
 
 install:
-	$(INSTALL_DATA) Ministeck.exe $(GIMPPLUGINDIR)
-	$(INSTALL) Ministeck $(GIMPPLUGINDIR)
+	$(INSTALL_DATA) Ministeck.exe $(DESTDIR)/$(GIMPPLUGINDIR)
+	$(INSTALL) Ministeck $(DESTDIR)/$(GIMPPLUGINDIR)

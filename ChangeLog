@@ -1,3 +1,10 @@
+2004-12-20    <maurits@Mau>
+
+	* lib/Plugin.cs: split of get/set data stuff into...
+	
+	* lib/Makefile.am
+	* lib/PersistentStorage.cs: new file
+
 2004-12-10  Maurits  <m.rijk@chello.nl>
 
 	* Made 0.4 release

@@ -321,8 +321,8 @@ Ministeck.exe : $(SOURCES)
 	$(CSC) $(SOURCES) -o $@ $(ASSEMBLIES)
 
 install:
-	$(INSTALL_DATA) Ministeck.exe $(GIMPPLUGINDIR)
-	$(INSTALL) Ministeck $(GIMPPLUGINDIR)
+	$(INSTALL_DATA) Ministeck.exe $(DESTDIR)/$(GIMPPLUGINDIR)
+	$(INSTALL) Ministeck $(DESTDIR)/$(GIMPPLUGINDIR)
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:

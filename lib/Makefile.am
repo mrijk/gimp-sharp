@@ -39,6 +39,7 @@ SOURCES = 			\
 	PaletteList.cs		\
 	ParamDef.cs		\
 	ParamDefList.cs		\
+	PersistentStorage.cs	\
 	PixelFetcher.cs		\
 	PixelRgn.cs		\
 	Plugin.cs		\
@@ -59,4 +60,4 @@ $(LIBRARY): $(SOURCES)
 	$(CSC) --target library $(ASSEMBLIES) $(SOURCES) -o $(LIBRARY)
 
 install:
-	$(INSTALL_DATA) $(LIBRARY) $(GIMPPLUGINDIR)
+	$(INSTALL_DATA) $(LIBRARY) $(DESTDIR)/$(GIMPPLUGINDIR)
