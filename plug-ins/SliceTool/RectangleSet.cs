@@ -27,6 +27,11 @@ namespace Gimp.SliceTool
 	}
     }
 
+    public void Remove(Rectangle rectangle)
+    {
+      _set.Remove(rectangle);
+    }
+
     Rectangle this[int index]
     {
       get {return (Rectangle) _set[index];}
@@ -94,11 +99,12 @@ namespace Gimp.SliceTool
       w.WriteLine("</tr>");
     }
 
-    public void WriteSlices(Image image, string name, string extension)
+    public void WriteSlices(Image image, string path, string name, 
+			    string extension)
     {
       foreach (Rectangle rectangle in _set)
 	{
-	rectangle.WriteSlice(image, name, extension);
+	rectangle.WriteSlice(image, path, name, extension);
 	}
     }
 

@@ -2,71 +2,60 @@ using System;
 
 namespace Gimp.SliceTool
 {
-  public class HorizontalSlice : Slice
-  {
-    int _x1, _x2, _y;
+	public class HorizontalSlice : Slice
+	{
+		public HorizontalSlice(Slice left, Slice right, int y) : base(left, right, y)
+		{
+		}
 
-    public HorizontalSlice(int x1, int x2, int y)
-    {
-      _x1 = x1;
-      _x2 = x2;
-      _y = y;
-    }
+		override public void Draw(PreviewRenderer renderer)
+		{
+			renderer.DrawLine(X1, Y, X2, Y);
+		}
 
-    override public int CompareTo(object obj)
-    {
-      HorizontalSlice slice = obj as HorizontalSlice;
-      return _y - slice._y;
-    }
+		override public bool IntersectsWith(Rectangle rectangle)
+		{
+			return Y > rectangle.Y1 && Y < rectangle.Y2
+				&& X1 <= rectangle.X1 && X2 >= rectangle.X2;
+		}
 
-    override public void Draw(PreviewRenderer renderer)
-    {
-      renderer.DrawLine(_x1, _y, _x2, _y);
-    }
+		override public bool IsPartOf(Rectangle rectangle)
+		{
+			return rectangle.HasHorizontalSlice(this);
+		}
 
-    override public bool IntersectsWith(Rectangle rectangle)
-    {
-      return _y > rectangle.Y1 && _y < rectangle.Y2
-	&& _x1 <= rectangle.X1 && _x2 >= rectangle.X2;
-    }
+		override public Rectangle SliceRectangle(Rectangle rectangle)
+		{
+			Rectangle copy = new Rectangle(rectangle);
+			rectangle.Bottom = this;
+			copy.Top = this;
+			return copy;
+		}
 
-    override public bool IsPartOf(Rectangle rectangle)
-    {
-      return rectangle.HasHorizontalSlice(this);
-    }
+		override public void SetPosition(int x, int y)
+		{
+			Y = y;
+		}
 
-    override public Rectangle SliceRectangle(Rectangle rectangle)
-    {
-      Rectangle copy = new Rectangle(rectangle);
-      rectangle.Bottom = this;
-      copy.Top = this;
-      return copy;
-    }
-
-    override public void SetPosition(int x, int y)
-    {
-      _y = y;
-    }
-
-    override public bool PointOn(int x, int y)
-    {
-      return x >= _x1 && x <= _x2 && Math.Abs(y - _y) < 5;
-    }
+		override public bool PointOn(int x, int y)
+		{
+			return x >= X1 && x <= X2 && Math.Abs(y - Y) < 5;
+		}
  
-    public int Y
-    {
-      get {return _y;}
-      set {_y = value;}
-    }
+		public int Y
+		{
+			get {return Position;}
+			set {Position = value;}
+		}
 
-    public int X1
-    {
-      get {return _x1;}
-    }
+		public int X1
+		{
+			get {return _begin.Position;}
+		}
 
-    public int X2
-    {
-      get {return _x2;}
-    }
-  }
-  }
+		public int X2
+		{
+			get {return _end.Position;}
+		}
+	}
+}

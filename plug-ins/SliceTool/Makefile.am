@@ -21,10 +21,13 @@ SOURCES =			\
 	TableDialog.cs		\
 	VerticalSlize.cs
 
-EXTRA_DIST = $(SOURCES) SliceTool SliceTool.png stock-arrow.png
+EXTRA_DIST = $(SOURCES) SliceTool SliceTool.png blank.png stock-arrow.png
 
 SliceTool.exe : $(SOURCES) SliceTool.png
-	$(CSC) $(SOURCES) /resource:SliceTool.png /resource:stock-arrow.png -o $@ $(ASSEMBLIES)
+	$(CSC) $(SOURCES) /resource:SliceTool.png	\
+			  /resource:blank.png		\
+			  /resource:stock-arrow.png	\
+		-o $@ $(ASSEMBLIES)
 
 install:
 	$(INSTALL_DATA) SliceTool.exe $(DESTDIR)/$(GIMPPLUGINDIR)

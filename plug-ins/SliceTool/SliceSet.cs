@@ -21,7 +21,7 @@ namespace Gimp.SliceTool
       _set.Add(slice);
     }
 
-    Slice this[int index]
+    public Slice this[int index]
     {
       get {return (Slice) _set[index];}
     }

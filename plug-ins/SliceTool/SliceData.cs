@@ -22,14 +22,18 @@ namespace Gimp.SliceTool
       int width = drawable.Width;
       int height = drawable.Height;
 
-      VerticalSlice left = new VerticalSlice(0, 0, height - 1);
-      VerticalSlice right = new VerticalSlice(width - 1, 0, height - 1);
-      HorizontalSlice top = new HorizontalSlice(0, width - 1, 0);
-      HorizontalSlice bottom = new HorizontalSlice(0, width - 1, height - 1);
+      VerticalSlice left = new VerticalSlice(null, null, 0);
+      VerticalSlice right = new VerticalSlice(null, null, width);
+      HorizontalSlice top = new HorizontalSlice(left, right, 0);
+      HorizontalSlice bottom = new HorizontalSlice(left, right, height);
       _verticalSlices.Add(left);
       _verticalSlices.Add(right);
       _horizontalSlices.Add(top);
       _horizontalSlices.Add(bottom);
+
+      left.Begin = right.Begin = top;
+      left.End = right.End = bottom;
+
       _rectangles.Add(new Rectangle(left, right, top, bottom));
     }
 
@@ -113,7 +117,7 @@ namespace Gimp.SliceTool
       for (int row = 1; row < rows; row++)
 	{
 	int ypos = y1 + row * height / rows;
-	horizontalSlices.Add(new HorizontalSlice(x1, x2, ypos));
+	horizontalSlices.Add(rectangle.CreateHorizontalSlice(ypos));
 	}
 
       foreach (Slice slice in horizontalSlices)
@@ -126,7 +130,7 @@ namespace Gimp.SliceTool
       for (int col = 1; col < columns; col++)
 	{
 	int xpos = x1 + col * width / columns;
-	verticalSlices.Add(new VerticalSlice(xpos, y1, y2));
+	verticalSlices.Add(rectangle.CreateVerticalSlice(xpos));
 	}
 
       foreach (Slice slice in verticalSlices)
@@ -143,6 +147,42 @@ namespace Gimp.SliceTool
       _rectangles.Selected.Draw(renderer);
     }
 
+    public void Cleanup(Slice slice)
+    {
+      RectangleSet set = new RectangleSet();
+
+      foreach (Rectangle rectangle in _rectangles)
+	{
+	if (rectangle.Normalize(slice))
+	  {
+	  set.Add(rectangle);
+	  }
+	}
+
+      foreach (Rectangle rectangle in set)
+	{
+	_rectangles.Remove(rectangle);
+	}
+    }
+
+    void WriteBlankLine(StreamWriter w)
+    {
+      w.WriteLine("<tr>");
+      Slice prev = null;
+      foreach (Slice slice in _verticalSlices)
+	{
+	if (prev != null)
+	  {
+	  int width = slice.Position - prev.Position;
+	  w.WriteLine("<td width=\"{0}\" height=\"1\">", width);
+	  w.WriteLine("\t<img name=\"blank\" src=\"blank.png\" width=\"{0}\" height=\"1\" border=\"0\"></td>", 
+		      width); 
+	  }
+	prev = slice;
+	}
+      w.WriteLine("</tr>");
+    }
+
     public void Save(string filename, string extension, Image image, 
 		     Drawable drawable)
     {
@@ -150,7 +190,6 @@ namespace Gimp.SliceTool
       _verticalSlices.Sort();
 
       string name = System.IO.Path.GetFileNameWithoutExtension(image.Name);
-
       FileStream fs = new FileStream(filename, FileMode.Create,
 				     FileAccess.Write);
       StreamWriter w = new StreamWriter(fs);
@@ -170,6 +209,8 @@ namespace Gimp.SliceTool
 		  drawable.Width);
 
       _rectangles.WriteHTML(w, name, extension);
+      WriteBlankLine(w);
+
       w.WriteLine("</table>");
       w.WriteLine("<!-- End Table -->");
       w.WriteLine("");
@@ -177,7 +218,8 @@ namespace Gimp.SliceTool
       w.WriteLine("</html>");
       w.Close();
 
-      _rectangles.WriteSlices(image, name, extension);		
+      string path = System.IO.Path.GetDirectoryName(filename);
+      _rectangles.WriteSlices(image, path, name, extension);		
     }
 
     public Rectangle Selected

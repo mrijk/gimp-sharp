@@ -110,10 +110,24 @@ namespace Gimp.SliceTool
       return DialogRun();
     }
 
+    void SaveBlank(string path)
+    {
+      Assembly assembly = Assembly.GetExecutingAssembly();
+      Stream input = assembly.GetManifestResourceStream("blank.png");
+      BinaryReader reader = new BinaryReader(input);
+      byte[] buffer = reader.ReadBytes((int) input.Length);
+      FileStream fs = new FileStream(path + "/blank.png", FileMode.Create, 
+				     FileAccess.Write);
+      BinaryWriter writer = new BinaryWriter(fs);
+      writer.Write(buffer);
+      writer.Close();
+    }
+
     void Save()
     {
       SetRectangleData(_sliceData.Selected);
       _sliceData.Save(_filename, _format.Extension, _image, _drawable);
+      SaveBlank(System.IO.Path.GetDirectoryName(_filename));
     }
 
     override protected void DialogRun(ResponseType type)
@@ -306,8 +320,8 @@ namespace Gimp.SliceTool
       _include.Active = rectangle.Include;		
 
       _left.Text = rectangle.X1.ToString();
-      _right.Text = rectangle.Y1.ToString();
-      _top.Text = rectangle.X2.ToString();
+      _right.Text = rectangle.X2.ToString();
+      _top.Text = rectangle.Y1.ToString();
       _bottom.Text = rectangle.Y2.ToString();
     }
 

@@ -52,6 +52,31 @@ namespace Gimp.SliceTool
       return slice.IntersectsWith(this);
     }
 
+    public bool Normalize(Slice slice)
+    {
+      if (slice == Left && X1 >= X2)
+	{
+	Left.X = Right.X;
+	return true;
+	} 
+      else if (slice == Right && X2 <= X1)
+	{
+	Right.X = Left.X;
+	return true;
+	}
+
+      if (slice == Top && Y1 >= Y2)
+	{
+	Top.Y = Bottom.Y;
+	return true;
+	}
+      else if (slice == Bottom && Y2 <= Y1)
+	{
+	Bottom.Y = Top.Y;
+	}
+      return false;
+    }
+
     public bool HasHorizontalSlice(HorizontalSlice slice)
     {
       return (slice.Y == Y1 || slice.Y == Y2)
@@ -68,19 +93,19 @@ namespace Gimp.SliceTool
     {
       if (slice == Left && y >= Y1 && y <= Y2)
 	{
-	return new VerticalSlice(Left.X, Y1, Y2);
+	return CreateVerticalSlice(Left.X);
 	}
       else if (slice == Right && y >= Y1 && y <= Y2)
 	{
-	return new VerticalSlice(Right.X, Y1, Y2);
+	return CreateVerticalSlice(Right.X);
 	}
       else if (slice == Top && x >= X1 && x <= X2)
 	{
-	return new HorizontalSlice(X1, X2, Top.Y);
+	return CreateHorizontalSlice(Top.Y);
 	}
       else if (slice == Bottom && x >= X1 && x <= X2)
 	{
-	return new HorizontalSlice(X1, X2, Bottom.Y);
+	return CreateHorizontalSlice(Bottom.Y);
 	}
       return null;
     }
@@ -117,17 +142,17 @@ namespace Gimp.SliceTool
 
     public void Draw(PreviewRenderer renderer)
     {
-      renderer.DrawRectangle(X1, Y1, X2 - X1, Y2 - Y1);
+      renderer.DrawRectangle(X1, Y1, Width, Height);
     }
 
     public HorizontalSlice CreateHorizontalSlice(int y)
     {
-      return new HorizontalSlice(X1, X2, y);
+      return new HorizontalSlice(Left, Right, y);
     }
 
     public VerticalSlice CreateVerticalSlice(int x)
     {
-      return new VerticalSlice(x, Y1, Y2);
+      return new VerticalSlice(Top, Bottom, x);
     }
 
     string GetFilename(string name, string extension)
@@ -138,21 +163,34 @@ namespace Gimp.SliceTool
 
     public void WriteHTML(StreamWriter w, string name, string extension, int index)
     {
-      w.WriteLine("<td rowspan=\"{0}\" colspan = \"{1}\" width=\"{2}\" height=\"{3}\">",
+      w.WriteLine("<td rowspan=\"{0}\" colspan=\"{1}\" width=\"{2}\" height=\"{3}\">",
 		  Bottom.Index - Top.Index, Right.Index - Left.Index, 
 		  Width, Height);
       if (_include)
 	{
-	w.WriteLine("\t<img name=\"{0}\" src=\"{1}\" width=\"{2}\" height=\"{3}\" border=\"0\" alt=\"\"/></td>", 
-		    name + index, GetFilename(name, extension), Width, Height); 
+	w.Write("\t");
+	if (_url.Length > 0)
+	  {
+	  w.Write("<a href=\"{0}\">", _url);
+	  }
+
+	w.WriteLine("<img name=\"{0}\" src=\"{1}\" width=\"{2}\" height=\"{3}\" border=\"0\" alt=\"{4}\"/></td>", 
+		    name + index, GetFilename(name, extension), Width, Height, _altText); 
 	}
+
+	if (_url.Length > 0)
+	  {
+	  w.Write("</a>");
+	  }
+
+	w.WriteLine("</td>");
     }
 
-    public void WriteSlice(Image image, string name, string extension)
+    public void WriteSlice(Image image, string path, string name, string extension)
     {
       Image clone = new Image(image);
       clone.Crop(Width, Height, X1, Y1);
-      string filename = GetFilename(name, extension);
+      string filename = path + "/" + GetFilename(name, extension);
       clone.Save(RunMode.NONINTERACTIVE, filename, filename);
       clone.Delete();
     }
@@ -203,12 +241,12 @@ namespace Gimp.SliceTool
 
     public int Width
     {
-      get {return X2 - X1 + 1;}
+      get {return X2 - X1;}
     }
 
     public int Height
     {
-      get {return Y2 - Y1 + 1;}
+      get {return Y2 - Y1;}
     }
 
     public string URL
