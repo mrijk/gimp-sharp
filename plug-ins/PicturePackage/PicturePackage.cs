@@ -69,7 +69,7 @@ namespace Gimp.PicturePackage
       SourceFrame sf = new SourceFrame(this);
       vbox.PackStart(sf, false, false, 0);
 
-      _df = new DocumentFrame(_layoutSet);
+      _df = new DocumentFrame(this, _layoutSet);
       vbox.PackStart(_df, false, false, 0);
 
       LabelFrame lf = new LabelFrame(this);
@@ -101,9 +101,7 @@ namespace Gimp.PicturePackage
     {
       _flatten = _df.Flatten;
 
-      // double resolution = double.Parse(_resolution.Text);
       Layout layout = _layoutSet.Selected;
-
       PageSize size = layout.GetPageSizeInPixels(_resolution);
 
       int width = (int) size.Width;
@@ -142,6 +140,11 @@ namespace Gimp.PicturePackage
 	  _position = value;
 	  _preview.DrawLabel(_position, _label);
 	  }
+    }
+
+    public int Resolution
+    {
+      set {_resolution = value;}
     }
   }
   }

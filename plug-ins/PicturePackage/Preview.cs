@@ -23,6 +23,8 @@ namespace Gimp.PicturePackage
       ButtonPressEvent += new ButtonPressEventHandler(OnButtonPress);
 
       TargetEntry[] targets = new TargetEntry[]{
+	//	new TargetEntry("image/jpeg", 0, 0),
+	// new TargetEntry("image/pjpeg", 0, 0),
 	new TargetEntry("text/plain", 0, 1),
 	new TargetEntry("STRING", 0, 2)};
 
@@ -55,6 +57,8 @@ namespace Gimp.PicturePackage
 	GdkWindow.DrawDrawable(_gc, _labelPixmap, 0, 0, _labelX, _labelY, 
 			       -1, -1);
 	}
+
+      GdkWindow.Cursor = new Cursor(CursorType.Hand2);
     }
 
     void OnRealized (object o, EventArgs args)
