@@ -1,3 +1,7 @@
+2005-01-05    <maurits@Mau>
+
+	* plug-ins/SliceTool/*: new plug-in
+
 2004-12-22    <maurits@Mau>
 
 	* plug-ins/ncp/ncp.cs: Minor clean-up

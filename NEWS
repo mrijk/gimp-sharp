@@ -2,6 +2,8 @@ Overview of Changes in Gimp# 0.5
 ================================
 
 - Many improvements and bug fixes for Picture Package.
+- Started development of Slicer Tool.
+- Started development of red eye correction plug-in.
 - Add support in framework for plug-ins that load/save files.
 - KoalaPaint (old CBM64 format) plug-in as example
 - More Gimp API coverage
