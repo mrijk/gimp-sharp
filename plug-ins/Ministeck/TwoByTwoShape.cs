@@ -17,7 +17,7 @@ namespace Ministeck
 	_set[0] = new ShapeSet(shape);
       }
 
-      protected override void Fill(PixelRgn PR, int x, int y,
+      protected override void Fill(PixelFetcher PR, int x, int y,
 				   ShapeDescription shape)
       {
 	Rectangle(PR, x, y, 2, 2);

@@ -11,6 +11,8 @@ namespace Gimp
       static extern IntPtr gimp_pixel_fetcher_new (IntPtr drawable,
 						   bool shadow);
       [DllImport("libgimp-2.0.so")]
+      static extern IntPtr gimp_pixel_fetcher_destroy (IntPtr drawable);
+      [DllImport("libgimp-2.0.so")]
       static extern IntPtr gimp_pixel_fetcher_get_pixel (IntPtr pf,
 							 int x,
 							 int y,
@@ -25,6 +27,11 @@ namespace Gimp
       public PixelFetcher(Drawable drawable, bool shadow)
       {
 	_ptr = gimp_pixel_fetcher_new (drawable.Ptr, shadow);
+      }
+
+      public void Destroy()
+      {
+	gimp_pixel_fetcher_destroy (_ptr);
       }
 
       public void GetPixel(int x, int y, byte[] pixel)

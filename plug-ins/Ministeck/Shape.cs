@@ -17,7 +17,7 @@ namespace Ministeck
     {
     }
 
-    public bool Fits(PixelRgn PR, bool[,] A, int x, int y)
+    public bool Fits(PixelFetcher PR, bool[,] A, int x, int y)
     {
       int index = _random.Next(0, _set.Length);
 
@@ -32,11 +32,11 @@ namespace Ministeck
       return false;
     }
 
-    bool Fits(PixelRgn PR, bool[,] A, int x, int y, ShapeDescription shape)
+    bool Fits(PixelFetcher PR, bool[,] A, int x, int y, ShapeDescription shape)
     {
       byte[] color = new byte[3];
       byte[] buf = new byte[3];
-      PR.GetPixel(color, x * 16, y * 16);
+      PR.GetPixel(x * 16, y * 16, color);
 
       int width = A.GetLength(0);
       int height = A.GetLength(1);
@@ -52,7 +52,7 @@ namespace Ministeck
 	cx *= 16;
 	cy *= 16;
 
-	PR.GetPixel(buf, cx, cy);
+	PR.GetPixel(cx, cy, buf);
 	for (int b = 0; b < 3; b++)
 	  {
 	  if (color[b] != buf[b])
@@ -64,10 +64,10 @@ namespace Ministeck
       return true;
     }
 
-    abstract protected void Fill(PixelRgn PR, int x, int y,
+    abstract protected void Fill(PixelFetcher PR, int x, int y,
 				 ShapeDescription shape) ;
 
-    void Fill(PixelRgn PR, bool[,] A, int x, int y, ShapeDescription shape)
+    void Fill(PixelFetcher PR, bool[,] A, int x, int y, ShapeDescription shape)
     {
       Fill(PR, x, y, shape);
       A[x, y] = true;
@@ -79,17 +79,17 @@ namespace Ministeck
 	}
     }
 
-    PixelRgn _PR;
+    PixelFetcher _PR;
     int _x, _y;
 
-    protected void LineStart(PixelRgn PR, int x, int y)
+    protected void LineStart(PixelFetcher PR, int x, int y)
     {
       _PR = PR;
       _x = x * 16;
       _y = y * 16;
     }
 
-    protected void Rectangle(PixelRgn PR, int x, int y, int w, int h)
+    protected void Rectangle(PixelFetcher PR, int x, int y, int w, int h)
     {
       w *= 16;
       h *= 16;
@@ -112,7 +112,7 @@ namespace Ministeck
 
       for (int i = 0; i < len; i++)
 	{
-	_PR.SetPixel(_color, _x, _y);
+	_PR.PutPixel(_x, _y, _color);
 	_x += dx;
 	}
       _x -= dx;
@@ -129,7 +129,7 @@ namespace Ministeck
 
       for (int i = 0; i < len; i++)
 	{
-	_PR.SetPixel(_color, _x, _y);
+	_PR.PutPixel(_x, _y, _color);
 	_y += dy;
 	}
       _y -= dy;

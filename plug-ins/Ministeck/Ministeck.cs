@@ -93,10 +93,13 @@ namespace Ministeck
 	Random random = new Random();
 	int width = drawable.Width / 16;
 	int height = drawable.Height / 16;
-
+#if false
 	PixelRgn srcPR = new PixelRgn(drawable, 0, 0, 
 				      drawable.Width, drawable.Height,
 				      true, false);
+#else
+	PixelFetcher pf = new PixelFetcher(drawable, false);
+#endif
 	bool[,] A = new bool[width, height];
 
 	for (int i = 0; i < width; i++)
@@ -127,7 +130,8 @@ namespace Ministeck
 		{
 		int index = random.Next(copy.Count - 1);
 		Shape shape = (Shape) copy[index];
-		if (shape.Fits(srcPR, A, x, y))
+		// if (shape.Fits(srcPR, A, x, y))
+		if (shape.Fits(pf, A, x, y))
 		  {
 		  break;
 		  }
@@ -137,6 +141,8 @@ namespace Ministeck
 	    }
 	  }
 	
+	pf.Destroy();
+
 	foreach (Shape shape in shapes)
 	  Console.WriteLine(shape._match);
 	

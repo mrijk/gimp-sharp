@@ -52,7 +52,7 @@ namespace Ministeck
 	_set[23] = new ShapeSet(_shape4, _shape3, _shape2, _shape1);
       }
 
-      protected override void Fill(PixelRgn PR, int x, int y,
+      protected override void Fill(PixelFetcher PR, int x, int y,
 				   ShapeDescription shape)
       {
 	LineStart(PR, x, y);

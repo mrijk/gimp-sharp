@@ -33,3 +33,6 @@ EXTRA_DIST = $(SOURCES)
 
 $(LIBRARY): $(SOURCES)
 	$(CSC) --target library $(ASSEMBLIES) $(SOURCES) -o $(LIBRARY)
+
+install:
+	$(INSTALL_DATA) $(LIBRARY) $(GIMPPLUGINDIR)

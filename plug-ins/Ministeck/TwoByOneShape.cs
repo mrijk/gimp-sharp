@@ -19,7 +19,7 @@ namespace Ministeck
       _set[1] = new ShapeSet(_shape2, _shape1);
     }
 
-    protected override void Fill(PixelRgn PR, int x, int y,
+    protected override void Fill(PixelFetcher PR, int x, int y,
 				 ShapeDescription shape)
     {
 	if (shape == _shape1)	// Vertical
