@@ -5,10 +5,9 @@ ASSEMBLIES=	/pkg:gtk-sharp
 
 all: $(LIBRARY)
 
-SOURCES = 			\
-	AspectPreview.cs	\
-	Channel.cs		\
-	Display.cs		\
+SOURCES = AspectPreview.cs 	\
+	Channel.cs 		\
+	Display.cs 		\
 	Drawable.cs		\
 	DrawablePreview.cs	\
 	FileEntry.cs		\

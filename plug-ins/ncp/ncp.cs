@@ -80,8 +80,7 @@ namespace Gimp.ncp
 
       RandomSeed seed = new RandomSeed(ref _seed, ref _random_seed);
 
-      Widget label = table.AttachAligned(0, 0, "Random _Seed:", 0.0, 0.5,
-					 seed, 2, true);
+      table.AttachAligned(0, 0, "Random _Seed:", 0.0, 0.5, seed, 2, true);
 
       ScaleEntry entry = new ScaleEntry(table, 0, 1, "Po_ints:", 150, 3,
 					_points, 1.0, 256.0, 1.0, 8.0, 0,
