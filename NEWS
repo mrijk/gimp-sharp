@@ -1,7 +1,9 @@
 Overview of Changes in Gimp# 0.2
 ================================
 
-- Improved installation
+- More work on Picture Package plug-in. GUI now complete
+- Improved installation. Should still convert to automake/autoconf
+- Generic stuff now put in dll that all plug-ins link against
 
 Overview of Changes in Gimp# 0.1.1
 ==================================

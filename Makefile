@@ -6,7 +6,10 @@ VERSION = 0.2
 # GIMPVERSION = 2.0
 GIMPVERSION = 2.1
 
-REFERENCES = -pkg:gtk-sharp
+PLUGINDIR = ~/.gimp-$(GIMPVERSION)/plug-ins/
+
+REFERENCES = 			\
+	-pkg:gtk-sharp
 
 SOURCES = \
 	Display.cs		\
@@ -29,7 +32,11 @@ NCP_SOURCES = \
 
 PICTURE_PACKAGE_SOURCES = 	\
 	PicturePackage.cs	\
-	PP-preview.cs
+	PP-Layout.cs		\
+	PP-LayoutSet.cs		\
+	PP-preview.cs		\
+	PP-Rectangle.cs		\
+	PP-RectangleSet.cs
 
 EXTRADIST =		\
 	AUTHORS		\
@@ -45,13 +52,16 @@ EXTRADIST =		\
 	$(NCP_SOURCES)		\
 	$(PICTURE_PACKAGE_SOURCES)
 
-all: ncp.exe PicturePackage.exe
+all: gimp-sharp.dll ncp.exe PicturePackage.exe
 
-ncp.exe: $(NCP_SOURCES) $(SOURCES) gimpwrapper.so
-	$(MCS) -2 $(NCP_SOURCES) $(RESOURCES) -o $@ $(SOURCES) $(REFERENCES)
+gimp-sharp.dll: $(SOURCES)
+	$(MCS) $(SOURCES) -t:library -o $@ $(REFERENCES)
 
-PicturePackage.exe: $(PICTURE_PACKAGE_SOURCES) $(SOURCES) gimpwrapper.so
-	$(MCS) -2 $(PICTURE_PACKAGE_SOURCES) $(RESOURCES) -o $@ $(SOURCES) $(REFERENCES)
+ncp.exe: $(NCP_SOURCES) gimpwrapper.so
+	$(MCS) -2 $(NCP_SOURCES) -o $@ $(REFERENCES) -r:gimp-sharp.dll
+
+PicturePackage.exe: $(PICTURE_PACKAGE_SOURCES) gimpwrapper.so
+	$(MCS) -2 $(PICTURE_PACKAGE_SOURCES) -o $@ $(REFERENCES) -r:gimp-sharp.dll
 
 gimp.o: gimp.c
 	gcc `gimptool-$(GIMPVERSION) --cflags` -fPIC -c -o gimp.o gimp.c
@@ -59,15 +69,15 @@ gimp.o: gimp.c
 gimpwrapper.so: gimp.o
 	gcc -shared `gimptool-$(GIMPVERSION) --libs` -o gimpwrapper.so gimp.o
 
-install: *.exe ncp PicturePackage gimpwrapper.so
+install: *.exe ncp PicturePackage gimpwrapper.so gimp-sharp.dll
 	chmod +x ncp PicturePackage
 	gimptool-$(GIMPVERSION) --install-bin ncp
 	gimptool-$(GIMPVERSION) --install-bin PicturePackage
-	chmod -x *.exe
-	cp -f *.exe ~/.gimp-$(GIMPVERSION)/plug-ins/
-	chmod -x gimpwrapper.so
-	cp -f gimpwrapper.so ~/.gimp-$(GIMPVERSION)/plug-ins/
-	cp -f picture-package.xml ~/.gimp-$(GIMPVERSION)/plug-ins/
+	chmod -x *.exe gimpwrapper.so gimp-sharp.dll
+	cp -f *.exe $(PLUGINDIR)
+	cp -f gimpwrapper.so $(PLUGINDIR)
+	cp -f gimp-sharp.dll $(PLUGINDIR)
+	cp -f picture-package.xml $(PLUGINDIR)
 
 dist: 
 	rm -rf gimp-sharp-$(VERSION)

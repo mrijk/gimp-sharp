@@ -3,11 +3,11 @@ Release 0.2
 - Initial version of picture package [just GUI, no functionality]
 - Robust install procedure
 - More API coverage
-- Autoconf/automake
 
 Release 0.3
 -----------
 - Improved picture package
+- Autoconf/automake
 - More demo plug-ins?
 - Generate class from PDB.
 
