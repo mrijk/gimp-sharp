@@ -22,7 +22,7 @@ namespace Gimp.PicturePackage
 
       _table.ColumnSpacing = 12;
 
-      RadioButton button = new RadioButton("Image");
+      RadioButton button = new RadioButton("_Image");
       button.Clicked += new EventHandler(OnImageClicked);
       Table.Attach(button, 0, 1, 0, 1);
 
@@ -39,11 +39,11 @@ namespace Gimp.PicturePackage
       _refresh.Clicked += new EventHandler(OnRefreshClicked);
       hbox.PackEnd(_refresh, false, false, 0);
 
-      button = new RadioButton(button, "File");
+      button = new RadioButton(button, "_File");
       button.Clicked += new EventHandler(OnFileClicked);
       Table.Attach(button, 0, 1, 1, 2);
 
-      button = new RadioButton(button, "Folder");
+      button = new RadioButton(button, "Fol_der");
       button.Clicked += new EventHandler(OnFolderClicked);
       Table.Attach(button, 0, 1, 2, 3);
 
@@ -89,7 +89,7 @@ namespace Gimp.PicturePackage
 
     void OnImageClicked (object o, EventArgs args) 
     {
-      // _parent.Loader = new FrontImageProviderFactory(_parent.Image);
+      _parent.Loader = new FrontImageProviderFactory(_imageBox.Active);
       _imageBox.Sensitive = true;
       _refresh.Sensitive = true;
       _include.Sensitive = false;
@@ -104,6 +104,7 @@ namespace Gimp.PicturePackage
       _imageBox.Changed += new EventHandler(OnImageChanged);
       hbox.Add(_imageBox);
       _imageBox.Show();
+      _parent.Loader = new FrontImageProviderFactory(_imageBox.Active);
     }
 
     void OnFileClicked (object o, EventArgs args) 

@@ -64,7 +64,6 @@ namespace Gimp.PicturePackage
       gimp_ui_init("PicturePackage", true);
 
       _layoutSet.Load();
-      // _loader = new FrontImageProviderFactory(_image);
 
       Dialog dialog = DialogNew("Picture Package 0.5", "PicturePackage",
 				IntPtr.Zero, 0, null, "PicturePackage");
@@ -254,6 +253,7 @@ namespace Gimp.PicturePackage
 	RenderRectangle(_rectangle, fs.Filename);
 	}
       fs.Hide();
+      _preview.QueueDraw();
     }
 
     override protected void DoSomething()
