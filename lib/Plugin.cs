@@ -23,7 +23,7 @@ namespace Gimp
     public delegate void RunProc(string name, int n_params, 
 				 IntPtr param,
 				 ref int n_return_vals, 
-				 out GimpParam[] return_vals);
+				 ref GimpParam[] return_vals);
     [StructLayout(LayoutKind.Sequential)]
     public struct GimpPlugInInfo
     {
@@ -136,7 +136,7 @@ namespace Gimp
     abstract protected void Query();
 
     virtual protected void Run(string name, GimpParam[] inParam,
-			       out GimpParam[] outParam)
+			       ref GimpParam[] outParam)
     {
       RunMode run_mode = (RunMode) inParam[0].data.d_int32;
       if (_usesImage)
@@ -174,7 +174,7 @@ namespace Gimp
       outParam = new GimpParam[1];
       
       outParam[0].type = PDBArgType.STATUS;
-      outParam[0].data.d_status = PDBStatusType.PDB_SUCCESS;
+      outParam[0].data.d_status = PDBStatusType.SUCCESS;
     }
     
     virtual protected bool CreateDialog() {return true;}
@@ -182,7 +182,7 @@ namespace Gimp
     GimpParam[] _origParam;
 
     public void Run(string name, int n_params, IntPtr paramPtr,
-		    ref int n_return_vals, out GimpParam[] return_vals)
+		    ref int n_return_vals, ref GimpParam[] return_vals)
     {
       _name = name;
       
@@ -198,7 +198,7 @@ namespace Gimp
 	paramPtr = (IntPtr)((int)paramPtr + Marshal.SizeOf(_origParam[i]));
 	}
       
-      Run(name, _origParam, out return_vals);
+      Run(name, _origParam, ref return_vals);
       
       n_return_vals = return_vals.Length;
       Console.WriteLine("length: " + n_return_vals);

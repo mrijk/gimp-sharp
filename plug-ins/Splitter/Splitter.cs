@@ -106,13 +106,13 @@ namespace Gimp.Splitter
       Image clone = new Image(image);
 
       Layer layer1 = new Layer(clone, "layer_one", clone.Width, clone.Height,
-			       ImageType.RGB_IMAGE, 100, 
+			       ImageType.RGB, 100, 
 			       LayerModeEffects.NORMAL_MODE);
       clone.AddLayer(layer1, 0);
       // layer1.AddAlpha();
 
       Layer layer2 = new Layer(clone, "layer_two", clone.Width, clone.Height,
-			       ImageType.RGB_IMAGE, 100, 
+			       ImageType.RGB, 100, 
 			       LayerModeEffects.NORMAL_MODE);
       clone.AddLayer(layer2, 0);
       // layer2.AddAlpha();

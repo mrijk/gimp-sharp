@@ -31,6 +31,9 @@ EXTRA_DIST = $(SOURCES) PicturePackage picture-package.xml
 PicturePackage.exe : $(SOURCES) picture-package.xml
 	$(CSC) $(SOURCES) /resource:picture-package.xml -o $@ $(ASSEMBLIES)
 
+clean:
+	rm -f PicturePackage.exe
+
 install:
 	$(INSTALL_DATA) PicturePackage.exe $(GIMPPLUGINDIR)
 	$(INSTALL) PicturePackage $(GIMPPLUGINDIR)

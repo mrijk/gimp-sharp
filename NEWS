@@ -1,6 +1,9 @@
 Overview of Changes in Gimp# 0.5
 ================================
 
+- Many improvements and bug fixes for Picture Package.
+- Add support in framework for plug-ins that load/save files.
+- KoalaPaint (old CBM64 format) plug-in as example
 - More Gimp API coverage
 
 Overview of Changes in Gimp# 0.4

@@ -57,11 +57,11 @@ namespace Gimp
 
     public enum PDBStatusType
       {
-	PDB_EXECUTION_ERROR,
-	PDB_CALLING_ERROR,
-	PDB_PASS_THROUGH,
-	PDB_SUCCESS,
-	PDB_CANCEL
+	EXECUTION_ERROR,
+	CALLING_ERROR,
+	PASS_THROUGH,
+	SUCCESS,
+	CANCEL
       }
 
     public enum PDBProcType

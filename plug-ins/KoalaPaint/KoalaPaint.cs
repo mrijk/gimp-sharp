@@ -10,25 +10,29 @@ namespace Gimp.KoalaPaint
     const int KOALA_WIDTH = 320;
     const int KOALA_HEIGHT = 200;
 
+    byte[] _mcolor;
+    byte[] _color;
+    byte _background;
+
     byte[] _colormap = new byte[]
-	{
-	  0x00, 0x00, 0x00,
-	  0xff, 0xff, 0xff,
-	  0x88, 0x00, 0x00,
-	  0xaa, 0xff, 0xee,
-	  0xcc, 0x44, 0xcc,
-	  0x00, 0xcc, 0x55,
-	  0x00, 0x00, 0xaa,
-	  0xee, 0xee, 0x77,
-	  0xdd, 0x88, 0x55,
-	  0x66, 0x44, 0x00,
-	  0xff, 0x77, 0x77,
-	  0x33, 0x33, 0x33,
-	  0x77, 0x77, 0x77,
-	  0xaa, 0xff, 0x66,
-	  0x00, 0x88, 0xff,
-	  0xbb, 0xbb, 0xbb
-	};
+    {
+      0x00, 0x00, 0x00,
+      0xff, 0xff, 0xff,
+      0x88, 0x00, 0x00,
+      0xaa, 0xff, 0xee,
+      0xcc, 0x44, 0xcc,
+      0x00, 0xcc, 0x55,
+      0x00, 0x00, 0xaa,
+      0xee, 0xee, 0x77,
+      0xdd, 0x88, 0x55,
+      0x66, 0x44, 0x00,
+      0xff, 0x77, 0x77,
+      0x33, 0x33, 0x33,
+      0x77, 0x77, 0x77,
+      0xaa, 0xff, 0x66,
+      0x00, 0x88, 0xff,
+      0xbb, 0xbb, 0xbb
+    };
 
     [STAThread]
     static void Main(string[] args)
@@ -74,38 +78,80 @@ namespace Gimp.KoalaPaint
 
     override protected Image Load(string filename)
     {
+      byte[] bitmap;
+
       if (File.Exists(filename))
 	{
 	BinaryReader reader = new BinaryReader(File.Open(filename, 
 							 FileMode.Open));
 	
 	byte[] unused = reader.ReadBytes(2);
-	byte[] bitmap = reader.ReadBytes(8000);
-	byte[] mcolor = reader.ReadBytes(1000);
-	byte[] color = reader.ReadBytes(1000);
-	byte background = reader.ReadByte();
-	Console.WriteLine("background: " + background);
-	}
+	bitmap = reader.ReadBytes(8000);
+	_mcolor = reader.ReadBytes(1000);
+	_color = reader.ReadBytes(1000);
+	_background = reader.ReadByte();
 
-      Image image = new Image(KOALA_WIDTH, KOALA_HEIGHT, 
-			      ImageBaseType.INDEXED);
+	Image image = new Image(KOALA_WIDTH, KOALA_HEIGHT, 
+				ImageBaseType.INDEXED);
 
-      Layer layer = new Layer(image, "Background", KOALA_WIDTH, KOALA_HEIGHT, 
-			      ImageType.INDEXED, 100, 
-			      LayerModeEffects.NORMAL_MODE);
-      image.AddLayer(layer, 0);
+	Layer layer = new Layer(image, "Background", KOALA_WIDTH, 
+				KOALA_HEIGHT, ImageType.INDEXED, 100, 
+				LayerModeEffects.NORMAL_MODE);
+	image.AddLayer(layer, 0);
  
-      image.Filename = filename;
-      image.Colormap = _colormap;
+	image.Filename = filename;
+	image.Colormap = _colormap;
 
-      PixelRgn rgn = new PixelRgn(layer, 0, 0, KOALA_WIDTH, KOALA_HEIGHT, 
-				  true, false);
-      byte[] buf = new byte[KOALA_WIDTH * KOALA_HEIGHT];
+	PixelRgn rgn = new PixelRgn(layer, 0, 0, KOALA_WIDTH, KOALA_HEIGHT, 
+				    true, false);
+	byte[] buf = new byte[KOALA_WIDTH * KOALA_HEIGHT];
+	int bufp = 8;
 
-      rgn.SetRect(buf, 0, 0, KOALA_WIDTH, KOALA_HEIGHT);
-      layer.Flush();
+	for (int row = 0; row < KOALA_HEIGHT; row++) 
+	  {
+	  for (int col = 0; col < KOALA_WIDTH / 8; col++) 
+	    {
+	    byte p = bitmap[(row / 8) * KOALA_WIDTH + row % 8 + col * 8];
 
-      return image;
+	    for (int i = 0; i < 4; i++) 
+	      {
+	      byte index = GetColor(row / 8, col, p & 3);
+	      buf[--bufp] = index;
+	      buf[--bufp] = index;
+	      p >>= 2;
+	      }
+	    bufp += 16;
+	    }
+	  }
+
+	rgn.SetRect(buf, 0, 0, KOALA_WIDTH, KOALA_HEIGHT);
+	layer.Flush();
+
+	return image;
+	}
+      return null;
+    }
+
+    byte GetColor(int row, int col, int index)
+    {
+      if (index == 0)
+	return LowNibble(_background);
+      else if (index == 1)
+	return HighNibble(_mcolor[row * KOALA_WIDTH / 8 + col]);
+      else if (index == 2)
+	return LowNibble(_mcolor[row * KOALA_WIDTH / 8 + col]);
+      else
+	return LowNibble(_color[row * KOALA_WIDTH / 8 + col]);
+    }
+
+    byte LowNibble(byte val)
+    {
+      return (byte) (val & 0x0f);
+    }
+
+    byte HighNibble(byte val)
+    {
+      return (byte) ((val >> 4) & 0x0f);
     }
   }
   }

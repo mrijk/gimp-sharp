@@ -9,6 +9,9 @@ EXTRA_DIST = $(SOURCES) Splitter
 Splitter.exe : $(SOURCES)
 	$(CSC) $(SOURCES) -o $@ $(ASSEMBLIES)
 
+clean:
+	rm -f Splitter.exe
+
 install:
 	$(INSTALL_DATA) Splitter.exe $(GIMPPLUGINDIR)
 	$(INSTALL) Splitter $(GIMPPLUGINDIR)
