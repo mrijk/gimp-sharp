@@ -2,6 +2,8 @@ Overview of Changes in Gimp# 0.3
 ================================
 
 - Added configuration with autoconf/automake
+- Ministeck plug-in now fully functional
+- More Gimp API coverage
 
 Overview of Changes in Gimp# 0.2
 ================================

@@ -1,9 +1,8 @@
-Release 0.3
------------
-- Improved picture package
-- Add color in Ministeck
-
 Release 0.4
+-----------
+- First functional version of picture package
+
+Release 0.5
 -----------
 - Fully functional version of picture package
 - Add preview stuff

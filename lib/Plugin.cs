@@ -13,8 +13,6 @@ namespace Gimp
   {
     protected string _name;
 
-    public delegate void GimpMainProc(ref IntPtr info);
-
     public delegate void InitProc();
     public delegate void QuitProc();
     public delegate void QueryProc();
@@ -30,10 +28,6 @@ namespace Gimp
       public QueryProc Query;
       public RunProc Run;
     }
-
-    [DllImport("libgimp-2.0.so")]
-    public static extern int gimp_main(ref IntPtr info, int argc, 
-				       string[] args);
 
     [DllImport("libgimpui-2.0.so")]
     public static extern void gimp_ui_init(string prog_name, bool preview);
@@ -84,11 +78,6 @@ namespace Gimp
       args.CopyTo (progargs, 1);
 
       fnInitGimp(ref _info, progargs.Length, progargs);
-    }
-
-    void GimpMain(ref IntPtr info)
-    {	
-      gimp_main(ref info, myArgs.Length, myArgs);
     }
 
     protected virtual void Init() 
