@@ -24,7 +24,16 @@ namespace Gimp.SliceTool
 			_format.Menu = menu;
 
 			_apply = new CheckButton("Apply to whole image");
+			_apply.Activated += new EventHandler(OnApply);
 			table.Attach(_apply, 0, 2, 1, 2);
+		}
+
+		void OnApply(object o, EventArgs args)
+		{
+			if ((o as CheckButton).Active)
+			{
+				Rectangle.GlobalExtension = Extension;
+			}
 		}
 
 		public string Extension
@@ -47,6 +56,11 @@ namespace Gimp.SliceTool
 				{
 					_format.SetHistory(2);
 				}
+
+				if (_apply.Active)
+				{
+					Rectangle.GlobalExtension = value;
+				}
 			}
 
 			get
@@ -62,6 +76,14 @@ namespace Gimp.SliceTool
 					default:
 						return null;
 				}
+			}
+		}
+
+		public bool Apply
+		{
+			get
+			{
+				return _apply.Active;
 			}
 		}
 	}

@@ -35,22 +35,22 @@ namespace Gimp.SliceTool
 
 		public void SetRectangleData(Rectangle rectangle)
 		{
-			_mouseOver.FileName = rectangle.MouseOver;
-			_mouseOut.FileName = rectangle.MouseOut;
-			_mouseClick.FileName = rectangle.MouseClick;
-			_mouseDoubleClick.FileName = rectangle.MouseDoubleClick;
-			_mouseUp.FileName = rectangle.MouseUp;
-			_mouseDown.FileName = rectangle.MouseDown;
+			_mouseOver.FileName = rectangle.GetProperty("MouseOver");
+			_mouseOut.FileName = rectangle.GetProperty("MouseOut");
+			_mouseClick.FileName = rectangle.GetProperty("MouseClick");
+			_mouseDoubleClick.FileName = rectangle.GetProperty("MouseDoubleClick");
+			_mouseUp.FileName = rectangle.GetProperty("MouseUp");
+			_mouseDown.FileName = rectangle.GetProperty("MouseDown");
 		}
 
 		public void GetRectangleData(Rectangle rectangle)
 		{
-			rectangle.MouseOver = _mouseOver.FileName;
-			rectangle.MouseOut = _mouseOut.FileName;
-			rectangle.MouseClick = _mouseClick.FileName;
-			rectangle.MouseDoubleClick = _mouseDoubleClick.FileName;
-			rectangle.MouseUp = _mouseUp.FileName;
-			rectangle.MouseDown = _mouseDown.FileName;
+			rectangle.SetProperty("MouseOver", _mouseOver.FileName);
+			rectangle.SetProperty("MouseOut", _mouseOut.FileName);
+			rectangle.SetProperty("MouseClick", _mouseClick.FileName);
+			rectangle.SetProperty("MouseDoubleClick", _mouseDoubleClick.FileName);
+			rectangle.SetProperty("MouseUp", _mouseUp.FileName);
+			rectangle.SetProperty("MouseDown", _mouseDown.FileName);
 		}
 
 		public bool Enabled

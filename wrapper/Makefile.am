@@ -6,4 +6,4 @@ lib_LTLIBRARIES = libgimpwrapper.la
 
 libgimpwrapper_la_SOURCES = gimp.c
 
-libgimpwrapper_la_LDFLAGS = -version-info 0:0:0 `gimptool --libs`
+libgimpwrapper_la_LDFLAGS = -version-info 0:0:0 `gimptool-2.0 --libs`
