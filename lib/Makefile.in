@@ -143,6 +143,7 @@ LIBRARY = $(LIBRARY_NAME).dll
 ASSEMBLIES = /pkg:gtk-sharp
 
 SOURCES = \
+	Channel.cs		\
 	Display.cs		\
 	Drawable.cs		\
 	GimpColorButton.cs	\
@@ -176,6 +177,7 @@ CONFIG_CLEAN_FILES =
 DIST_SOURCES =
 DIST_COMMON = Makefile.am Makefile.in
 SOURCES = \
+	Channel.cs		\
 	Display.cs		\
 	Drawable.cs		\
 	GimpColorButton.cs	\

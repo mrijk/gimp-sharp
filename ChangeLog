@@ -1,3 +1,10 @@
+2004-11-21    <maurits@Mau>
+
+	* lib/Image.cs: added more functions.
+
+	* lib/Makefile.am
+	* lib/Channel.cs: new file
+
 2004-11-20    <maurits@Mau>
 
 	* plug-ins/Ministeck/Ministeck.cs: added progress indicator

@@ -83,7 +83,94 @@ namespace Gimp
       {
 	return gimp_image_add_layer(_imageID, layer.ID, position);
       }
+
+      public bool RemoveLayer(Layer layer)
+      {
+	return gimp_image_remove_layer(_imageID, layer.ID);
+      }
+
+      public bool RaiseLayer(Layer layer)
+      {
+	return gimp_image_raise_layer(_imageID, layer.ID);
+      }
        
+      public bool LowerLayer(Layer layer)
+      {
+	return gimp_image_lower_layer(_imageID, layer.ID);
+      }
+
+      public bool RaiseLayerToTop(Layer layer)
+      {
+	return gimp_image_raise_layer(_imageID, layer.ID);
+      }
+       
+      public bool LowerLayerToBottom(Layer layer)
+      {
+	return gimp_image_lower_layer(_imageID, layer.ID);
+      }
+
+      public bool AddChannel(Channel channel, int position)
+      {
+	return gimp_image_add_channel(_imageID, channel.ID, position);
+      }
+
+      public bool RemoveChannel(Channel channel)
+      {
+	return gimp_image_remove_channel(_imageID, channel.ID);
+      }
+
+      public bool RaiseChannel(Channel channel)
+      {
+	return gimp_image_raise_channel(_imageID, channel.ID);
+      }
+       
+      public bool LowerChannel(Channel channel)
+      {
+	return gimp_image_lower_channel(_imageID, channel.ID);
+      }
+
+      public Layer Flatten()
+      {
+	return new Layer(gimp_image_flatten (_imageID));
+      }
+
+      public Layer MergeVisibleLayers(MergeType merge_type)
+      {
+	return new Layer(gimp_image_merge_visible_layers (_imageID,
+							  merge_type));
+      }
+
+      public Layer MergeDown(Layer layer, MergeType merge_type)
+      {
+	return new Layer(gimp_image_merge_down (_imageID,
+						layer.ID,
+						merge_type));
+      }
+
+      public bool CleanAll()
+      {
+	return gimp_image_clean_all (_imageID);
+      }
+
+      public bool IsDirty
+      {
+	get {return gimp_image_is_dirty (_imageID);}
+      }
+
+      public Layer ActiveLayer
+      {
+	get {return new Layer(gimp_image_get_active_layer (_imageID));}
+	set {gimp_image_set_active_layer (_imageID, value.ID);}
+	// Fix me: exception handling
+      }
+
+      public Channel ActiveChannel
+      {
+	get {return new Channel(gimp_image_get_active_channel (_imageID));}
+	set {gimp_image_set_active_channel (_imageID, value.ID);}
+	// Fix me: exception handling
+      }
+
       [DllImport("libgimp-2.0.so")]
       static extern bool gimp_image_convert_rgb (Int32 image_ID);
        
@@ -198,5 +285,57 @@ namespace Gimp
       static extern bool gimp_image_add_layer (Int32 image_ID,
 					       Int32 layer_ID,
 					       int position);
+      [DllImport("libgimp-2.0.so")]
+      static extern bool gimp_image_remove_layer (Int32 image_ID,
+						  Int32 layer_ID);
+      [DllImport("libgimp-2.0.so")]
+      static extern bool gimp_image_raise_layer (Int32 image_ID,
+						 Int32 layer_ID);
+      [DllImport("libgimp-2.0.so")]
+      static extern bool gimp_image_lower_layer (Int32 image_ID,
+						 Int32 layer_ID);
+      [DllImport("libgimp-2.0.so")]
+      static extern bool gimp_image_raise_layer_to_top (Int32 image_ID,
+							Int32 layer_ID);
+      [DllImport("libgimp-2.0.so")]
+      static extern bool gimp_image_raise_layer_to_bottom (Int32 image_ID,
+							   Int32 layer_ID);
+      [DllImport("libgimp-2.0.so")]
+      static extern bool gimp_image_add_channel (Int32 image_ID,
+						 Int32 channel_ID,
+						 int position);
+      [DllImport("libgimp-2.0.so")]
+      static extern bool gimp_image_remove_channel (Int32 image_ID,
+						    Int32 channel_ID);
+      [DllImport("libgimp-2.0.so")]
+      static extern bool gimp_image_raise_channel (Int32 image_ID,
+						   Int32 channel_ID);
+      [DllImport("libgimp-2.0.so")]
+      static extern bool gimp_image_lower_channel (Int32 image_ID,
+						   Int32 channel_ID);
+      [DllImport("libgimp-2.0.so")]
+      static extern Int32 gimp_image_flatten (Int32 image_ID);
+      [DllImport("libgimp-2.0.so")]
+      static extern Int32 gimp_image_merge_visible_layers(Int32 image_ID,
+							  MergeType merge_type);
+      [DllImport("libgimp-2.0.so")]
+      static extern Int32 gimp_image_merge_down(Int32 image_ID,
+						Int32 merge_layer_ID,
+						MergeType merge_type);
+      [DllImport("libgimp-2.0.so")]
+      static extern bool gimp_image_clean_all (Int32 image_ID);
+      [DllImport("libgimp-2.0.so")]
+      static extern bool gimp_image_is_dirty (Int32 image_ID);
+      [DllImport("libgimp-2.0.so")]
+      static extern Int32 gimp_image_get_active_layer (Int32 image_ID);
+      [DllImport("libgimp-2.0.so")]
+      static extern Int32 gimp_image_set_active_layer (Int32 image_ID,
+						       Int32 active_layer_ID);
+      [DllImport("libgimp-2.0.so")]
+      static extern Int32 gimp_image_get_active_channel (Int32 image_ID);
+      [DllImport("libgimp-2.0.so")]
+      static extern Int32 gimp_image_set_active_channel (Int32 image_ID,
+							 Int32 active_channel_ID);
+
     }
   }

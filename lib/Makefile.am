@@ -6,6 +6,7 @@ ASSEMBLIES=	/pkg:gtk-sharp
 all: $(LIBRARY)
 
 SOURCES = 			\
+	Channel.cs		\
 	Display.cs		\
 	Drawable.cs		\
 	GimpColorButton.cs	\
