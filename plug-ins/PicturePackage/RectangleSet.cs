@@ -3,12 +3,17 @@ using System.Collections;
 
 namespace Gimp.PicturePackage
 {
-  public class RectangleSet
+  public class RectangleSet : IEnumerable
   {
     ArrayList _set = new ArrayList();
 
     public RectangleSet()
     {
+    }
+
+    public IEnumerator GetEnumerator()
+    {
+      return _set.GetEnumerator();
     }
 
     public void Add(Rectangle rectangle)
@@ -36,6 +41,23 @@ namespace Gimp.PicturePackage
       foreach (Rectangle rectangle in _set)
 	{
 	rectangle.Render(image, renderer);
+	}
+    }
+
+    public void Render(ImageProvider provider, Renderer renderer)
+    {
+      foreach (Rectangle rectangle in _set)
+	{
+	rectangle.Provider = provider;
+	rectangle.Render(renderer);
+	}
+    }
+
+    public void Render(Renderer renderer)
+    {
+      foreach (Rectangle rectangle in _set)
+	{
+	rectangle.Render(renderer);
 	}
     }
 

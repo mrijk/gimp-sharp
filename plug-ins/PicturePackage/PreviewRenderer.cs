@@ -9,6 +9,7 @@ namespace Gimp.PicturePackage
     Gdk.GC _gc;
     double _zoom;
     int _pw, _ph;
+    int _offx, _offy;
 
     public PreviewRenderer(Preview preview, Layout layout, Pixmap pixmap, 
 			   Gdk.GC gc)
@@ -19,8 +20,16 @@ namespace Gimp.PicturePackage
       _pw = preview.WidthRequest;
       _ph = preview.HeightRequest;
 
+      _pixmap.DrawRectangle(_gc, true, 0, 0, _pw, _ph);
+
       _zoom = Math.Min(_pw / layout.Width, 
 		       _ph / layout.Height);
+
+      int iw = (int) (layout.Width * _zoom);
+      int ih = (int) (layout.Height * _zoom);
+
+      _offx = (_pw - iw) / 2;
+      _offy = (_ph - ih) / 2;
     }
 
     override public void Render(Image image, double x, double y, 
@@ -32,8 +41,8 @@ namespace Gimp.PicturePackage
       w *= _zoom;
       h *= _zoom;
 
-      int ix = (int) x;
-      int iy = (int) y;
+      int ix = _offx + (int) x;
+      int iy = _offy + (int) y;
       int iw = (int) w;
       int ih = (int) h;
 
@@ -60,7 +69,7 @@ namespace Gimp.PicturePackage
       ix += (iw - tw) / 2;
       iy += (ih - th) / 2;
 
-      Console.WriteLine("tw: {0}, th: {1}", tw, th);
+      // Console.WriteLine("tw: {0}, th: {1}", tw, th);
 
       clone.Scale(tw, th);
       Pixbuf pixbuf = clone.GetThumbnail(tw, th, Transparency.KEEP_ALPHA);

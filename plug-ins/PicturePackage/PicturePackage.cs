@@ -108,7 +108,7 @@ namespace Gimp.PicturePackage
       int height = (int) size.Height;
       Image composed = new Image(width, height, ImageBaseType.RGB);
 
-      layout.Render(image, new ImageRenderer(layout, composed, _resolution));
+      layout.Render(new ImageRenderer(layout, composed, _resolution));
 
       if (_flatten)
 	{
@@ -122,6 +122,11 @@ namespace Gimp.PicturePackage
     public void LoadFromDirectory(string directory)
     {
       _preview.LoadFromDirectory(directory);
+    }
+
+    public void LoadFromFile(string file)
+    {
+      _preview.LoadFromFile(file);
     }
 
     public string Label

@@ -75,14 +75,27 @@ namespace Gimp.PicturePackage
 
     void RenderPixmap()
     {
-      _pixmap.DrawRectangle(_gc, true, 0, 0, _width, _height);
       _layout.Render(_image, new PreviewRenderer(this, _layout, _pixmap, _gc));
+    }
+
+    public void LoadFromFrontImage()
+    {
+      _layout.LoadFromFrontImage(_image, new PreviewRenderer(this, _layout, 
+							     _pixmap, _gc));
+      QueueDraw();
     }
 
     public void LoadFromDirectory(string directory)
     {
       _layout.LoadFromDirectory(directory, new PreviewRenderer(this, _layout, 
 							       _pixmap, _gc));
+      QueueDraw();
+    }
+
+    public void LoadFromFile(string file)
+    {
+      _layout.LoadFromFile(file, new PreviewRenderer(this, _layout, 
+						     _pixmap, _gc));
       QueueDraw();
     }
 

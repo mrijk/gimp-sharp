@@ -13,7 +13,7 @@ namespace Gimp.PicturePackage
 
     LayoutSet _layoutSet;
     PageSizeSet _sizes;
-    bool _flatten;
+    bool _flatten = true;
 
     public DocumentFrame(PicturePackage parent, LayoutSet layoutSet) : 
       base(5, 3, "Document")
@@ -48,6 +48,7 @@ namespace Gimp.PicturePackage
       Table.AttachAligned(0, 3, "_Mode:", 0.0, 0.5, mode, 2, false);
 
       CheckButton flatten = new CheckButton("Flatten All Layers");
+      flatten.Active = _flatten;
       flatten.Toggled += new EventHandler(FlattenToggled);
       Table.Attach(flatten, 0, 2, 4, 5);
     }

@@ -4,6 +4,9 @@ ASSEMBLIES = -r $(top_builddir)/lib/gimp-sharp.dll /pkg:gtk-sharp
 
 SOURCES =			\
 	DocumentFrame.cs	\
+	FileImageProvider.cs	\
+	FrontImageProvider.cs	\
+	ImageProvider.cs	\
 	ImageRenderer.cs	\
 	LabelFrame.cs		\
 	Layout.cs		\

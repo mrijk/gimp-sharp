@@ -7,6 +7,7 @@ namespace Gimp.PicturePackage
 {
   public class Rectangle
   {
+    ImageProvider _provider;
     double _x, _y, _w, _h;
 
     public Rectangle(XmlNode node)
@@ -26,8 +27,19 @@ namespace Gimp.PicturePackage
       _h = (h == null) ? 0 :  Convert.ToDouble(h.Value);
     }
 
+    public ImageProvider Provider
+    {
+      set {_provider = value;}
+    }
+
     public void Render(Image image, Renderer renderer)
     {
+      renderer.Render(image, _x, _y, _w, _h);
+    }
+
+    public void Render(Renderer renderer)
+    {
+      Image image = _provider.GetImage();
       renderer.Render(image, _x, _y, _w, _h);
     }
 

@@ -63,6 +63,18 @@ namespace Gimp.PicturePackage
       _rectangles.Render(image, renderer);
     }
 
+    public void Render(Renderer renderer)
+    {
+      _rectangles.Render(renderer);
+    }
+
+    public void LoadFromFrontImage(Image image, Renderer renderer)
+    {
+      FrontImageProvider provider = new FrontImageProvider(image);
+      _rectangles.Render(provider, renderer);
+      provider.Release();
+    }
+
     public void LoadFromDirectory(string directory, Renderer renderer)
     {
       int count = _rectangles.Count;
@@ -73,13 +85,14 @@ namespace Gimp.PicturePackage
 	if (i >= count)
 	  break;
 
-	Image image = Image.Load(RunMode.NONINTERACTIVE, file, 
-				 directory + "/" + file);
-	if (image != null)
+	FileImageProvider provider = 
+	  new FileImageProvider(file, directory + "/" + file);
+	if (provider.GetImage() != null)
 	  {
 	  Rectangle rectangle = _rectangles[i];
-	  rectangle.Render(image, renderer);
-	  image.Delete();
+	  rectangle.Provider = provider;
+	  rectangle.Render(renderer);
+	  provider.Release();
 	  i++;
 	  }
 	}
@@ -89,6 +102,14 @@ namespace Gimp.PicturePackage
 	Iterate(directory);
 	}
 #endif
+    }
+
+    public void LoadFromFile(string file, Renderer renderer)
+    {
+      FileImageProvider provider = new FileImageProvider(file);
+      _rectangles.Render(provider, renderer);
+      provider.Release();
+      // Fixme: handle failure
     }
 
     public PageSize GetPageSize(int resolution)
