@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Reflection;
 
 using Gdk;
 using Gtk;
@@ -46,6 +47,8 @@ namespace Gimp.SliceTool
     {
       gimp_ui_init("SliceTool", true);
 
+      CreateStockIcons();
+
       Dialog dialog = DialogNew("Slice Tool", "SliceTool",
 				IntPtr.Zero, 0, null, "SliceTool");
 
@@ -57,18 +60,40 @@ namespace Gimp.SliceTool
       vbox.PackStart(hbox, true, true, 0);
 
       HandleBox handle = new HandleBox();
-      hbox.PackStart(handle, true, true, 0);
+      hbox.PackStart(handle, false, true, 0);
 
       Toolbar tools = new Toolbar();
       tools.Orientation = Gtk.Orientation.Vertical;
       tools.ToolbarStyle = Gtk.ToolbarStyle.Icons;
       handle.Add(tools);
 
-      Button button = new Button("gimp-grid");
-      tools.AppendWidget(button, "blah", "foo");
+      Button button = new Button();
+      Gtk.Image image = new Gtk.Image("slice-tool-arrow", 
+				      IconSize.SmallToolbar);
+      button.Add(image);
+      tools.AppendWidget(button, "Select Rectangle", "arrow");
+
+      button = new Button();
+      image = new Gtk.Image("gimp-tool-crop", IconSize.SmallToolbar);
+      button.Add(image);
+      tools.AppendWidget(button, "Create a new Slice", "create");
+
+      button = new Button();
+      image = new Gtk.Image(Stock.Delete, IconSize.SmallToolbar);
+      button.Add(image);
+      tools.AppendWidget(button, "Remove Slice", "delete");
+
+      button = new Button();
+      image = new Gtk.Image("gimp-grid", IconSize.SmallToolbar);
+      button.Add(image);
+      tools.AppendWidget(button, "Insert Table", "grid");
 
       int width = _drawable.Width;
       int height = _drawable.Height;
+
+      ScrolledWindow window = new ScrolledWindow();
+      window.SetSizeRequest(600, 400);
+      hbox.PackStart(window, true, true, 0);
 
       _preview = new Preview(_drawable, this);
       _preview.WidthRequest = width;
@@ -80,14 +105,14 @@ namespace Gimp.SliceTool
       _preview.MotionNotifyEvent +=
       	new MotionNotifyEventHandler(OnShowCoordinates);
 
-      hbox.PackStart(_preview, true, true, 0);
+      window.AddWithViewport(_preview);
 
       _xy = new Entry();
       _xy.Editable = false;
       vbox.Add(_xy);
 
       GimpFrame frame = new GimpFrame("Cell Properties");
-      vbox.Add(frame);
+      vbox.PackStart(frame, false, true, 0);
       GimpTable table = new GimpTable(3, 2, false);
       table.ColumnSpacing = 6;
       table.RowSpacing = 6;
@@ -116,6 +141,30 @@ namespace Gimp.SliceTool
 
       dialog.ShowAll();
       return DialogRun();
+    }
+
+    void AddStockIcon(IconFactory factory, string stockId, string filename)
+    {
+      Pixbuf pixbuf = LoadImage(filename);
+
+      IconSource source = new IconSource();
+      source.Pixbuf = pixbuf;
+      source.SizeWildcarded = true;
+      source.Size = IconSize.SmallToolbar;
+
+      IconSet set = new IconSet();
+      set.AddSource(source);
+      source.Free();
+
+      factory.Add(stockId, set);
+      set.Unref();
+    }
+
+    void CreateStockIcons()
+    {
+      IconFactory factory = new IconFactory();
+      factory.AddDefault();
+      AddStockIcon(factory, "slice-tool-arrow", "stock-arrow.png");
     }
 
     public void Redraw()

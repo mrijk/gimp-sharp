@@ -23,22 +23,8 @@ namespace Gimp.SliceTool
 	EventMask.PointerMotionHintMask | EventMask.PointerMotionMask;
     }
 
-    static bool firstTime = true;
-
     void OnExposed (object o, ExposeEventArgs args)
-    {		
-      if (firstTime)
-	{
-	firstTime = false;
-	int width = _drawable.Width;
-	int height = _drawable.Height;
-
-	PixelRgn rgn = new PixelRgn(_drawable, 0, 0, width, height, 
-				    false, false);
-			
-	byte[] buf = rgn.GetRect(0, 0, width, height);
-	Draw(0, 0, width, height, ImageType.RGB, buf, width * _drawable.Bpp);
-	}
+    {	
       _parent.Redraw();
     }
 
@@ -49,6 +35,15 @@ namespace Gimp.SliceTool
       colormap.AllocColor (ref red, true, true);
       _gc = new Gdk.GC(GdkWindow);
       _gc.Foreground = red;
+
+      int width = _drawable.Width;
+      int height = _drawable.Height;
+      
+      PixelRgn rgn = new PixelRgn(_drawable, 0, 0, width, height, 
+				  false, false);
+      
+      byte[] buf = rgn.GetRect(0, 0, width, height);
+      Draw(0, 0, width, height, ImageType.RGB, buf, width * _drawable.Bpp);
     }
 
     public PreviewRenderer GetRenderer()

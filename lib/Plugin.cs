@@ -145,11 +145,9 @@ namespace Gimp
       return MenuRegister(_name, menu_path);
     }
 
-    protected void IconRegister(string fileName)
+    Pixbuf LoadImageHelper(Assembly assembly, string filename)
     {
-      Assembly myAssembly = Assembly.GetCallingAssembly();
-      
-      Stream imageStream = myAssembly.GetManifestResourceStream(fileName);
+      Stream imageStream = assembly.GetManifestResourceStream(filename);
 
       PixbufLoader pixbufLoader = new Gdk.PixbufLoader();
       BinaryReader reader = new BinaryReader(imageStream);
@@ -162,6 +160,18 @@ namespace Gimp
       
       Pixbuf pixbuf = pixbufLoader.Pixbuf;
       pixbufLoader.Close();
+
+      return pixbuf;
+    }
+
+    protected Pixbuf LoadImage(string filename)
+    {
+      return LoadImageHelper(Assembly.GetCallingAssembly(), filename);
+    }
+
+    protected void IconRegister(string filename)
+    {
+      Pixbuf pixbuf = LoadImageHelper(Assembly.GetCallingAssembly(), filename);
       
       Pixdata data = new Pixdata();
       data.FromPixbuf(pixbuf, false);
