@@ -1,3 +1,7 @@
+2005-01-27    <maurits@Mau>
+
+	* plug-ins/wbmp/*: new plug-in to read wbmp files.
+
 2005-01-16    <maurits@Mau>
 
 	* plug-ins/SliceTool/RolloverEntry.cs: new file
