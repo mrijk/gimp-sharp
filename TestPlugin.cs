@@ -13,6 +13,10 @@ namespace Gimp
       UInt32 _seed;
       bool _random_seed;
 
+      int _points = 12;
+      int _closest = 1;
+      const bool color = true;
+
       [STAThread]
       static void Main(string[] args)
       {
@@ -93,23 +97,32 @@ namespace Gimp
 					  seed, 2, true);
 
 	ScaleEntry entry = new ScaleEntry(table, 0, 1, "_Points:", 150, 3,
-					  1, 1.0, 256.0, 1.0, 8.0, 0,
+					  _points, 1.0, 256.0, 1.0, 8.0, 0,
 					  true, 0, 0, null, null);
+	entry.ValueChanged += new EventHandler(PointsUpdate);
 
 	entry = new ScaleEntry(table, 0, 2, "C_lose to:", 150, 3,
-			       1, 1.0, 256.0, 1.0, 8.0, 0,
+			       _closest, 1.0, 256.0, 1.0, 8.0, 0,
 			       true, 0, 0, null, null);
+	entry.ValueChanged += new EventHandler(CloseToUpdate);
 			       
 	dialog.Show();
 	DialogRun(dialogPtr);
 
 	drawable.Detach();
       }
-		
-      const int _points = 12;
-      const int _closest = 2;
-      const bool color = true;
 
+
+      void PointsUpdate(object sender, EventArgs e)
+      {
+	_points = (int) ((Adjustment)sender).Value;
+      }
+
+      void CloseToUpdate(object sender, EventArgs e)
+      {
+	_closest = (int) ((Adjustment)sender).Value;
+      }
+		
       Point[,] vp;
 
       int[] _distances;
@@ -121,12 +134,10 @@ namespace Gimp
       // Try to implement the ncp plug-in
       override protected void DoSomething()
       {
-	const int _seed = 2;
-
 	int x1, y1, x2, y2;
 	drawable.MaskBounds(out x1, out y1, out x2, out y2);
 
-	Random random = new Random(_seed);
+	Random random = new Random((int) _seed);
 
 	bpp = drawable.Bpp;
 	has_alpha = drawable.HasAlpha();
@@ -138,6 +149,8 @@ namespace Gimp
 
 	int xmid = width / 2;
 	int ymid = height / 2;
+
+	Console.WriteLine("Points: " + _points);
 
 	_distances = new int[4 * _points];
 	vp = new Point[bpp, 4 * _points];

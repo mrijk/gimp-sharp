@@ -5,7 +5,7 @@ using Gtk;
 
 namespace Gimp
   {
-    public class ScaleEntry
+    public class ScaleEntry : Adjustment
     {
       [DllImport("libgimpwidgets-2.0.so")]
       extern static IntPtr gimp_scale_entry_new (
@@ -40,13 +40,13 @@ namespace Gimp
 			double       unconstrained_lower,
 			double       unconstrained_upper,
 			string 	tooltip,
-			string 	help_id) 
-      {
-	IntPtr adj = gimp_scale_entry_new(table.Handle, column, row, text, scale_width,
+			string 	help_id) :
+	base(gimp_scale_entry_new(table.Handle, column, row, text, scale_width,
 			     spinbutton_width, value, lower, upper, 
 			     step_increment, page_increment, digits,
 			     constrain, unconstrained_lower,
-			     unconstrained_upper, tooltip, help_id);
+				  unconstrained_upper, tooltip, help_id))
+      {
       }
     }
   }
