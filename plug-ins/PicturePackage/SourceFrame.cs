@@ -7,47 +7,40 @@ namespace Gimp.PicturePackage
   public class SourceFrame : PicturePackageFrame
   {
     PicturePackage _parent;
+    ImageComboBox _imageBox;
     CheckButton _include;
     FileEntry _choose;
 
     bool _recursive = false;
-    uint _useHistory = 2;
 
     public SourceFrame(PicturePackage parent) : base(2, 3, "Source")
     {
       _parent = parent;
-      OptionMenu use = CreateOptionMenu(
-	"File", "Folder", "Frontmost Document");
-      use.SetHistory(_useHistory);
-      Table.AttachAligned(0, 0, "_Use:", 0.0, 0.5, use, 1, false);
-      use.Changed += new EventHandler(OnUseChanged);
+
+      _table.ColumnSpacing = 12;
+
+      RadioButton button = new RadioButton("Image");
+      button.Clicked += new EventHandler(OnImageClicked);
+      Table.Attach(button, 0, 1, 0, 1);
+
+      _imageBox = new ImageComboBox();
+      _imageBox.Changed += new EventHandler(OnImageChanged);
+      Table.Attach(_imageBox, 1, 2, 0, 1);
+
+      button = new RadioButton(button, "File");
+      button.Clicked += new EventHandler(OnFileClicked);
+      Table.Attach(button, 0, 1, 1, 2);
+
+      button = new RadioButton(button, "Folder");
+      button.Clicked += new EventHandler(OnFolderClicked);
+      Table.Attach(button, 0, 1, 2, 3);
 
       _include = new CheckButton("_Include All Subfolders");
       _include.Active = _recursive;
       _include.Toggled += new EventHandler(OnIncludeToggled);
-      Table.Attach(_include, 1, 2, 1, 2);
+      Table.Attach(_include, 1, 2, 2, 3);
 
       SetFileEntry(false);
-      SetSourceFrameSensitivity();		
-    }
-
-    void SetSourceFrameSensitivity()
-    {
-      if (_useHistory == 0)
-	{
-	_include.Sensitive = false;
-	_choose.Sensitive = true;
-	}
-      else if (_useHistory == 1)
-	{
-	_include.Sensitive = true;
-	_choose.Sensitive = true;
-	}
-      else
-	{
-	_include.Sensitive = false;
-	_choose.Sensitive = false;
-	}
     }
 
     void SetFileEntry(bool isDir)
@@ -69,28 +62,37 @@ namespace Gimp.PicturePackage
 	}
 
       _choose.Show();
-      Table.Attach(_choose, 1, 2, 2, 3, AttachOptions.Shrink,
+      Table.Attach(_choose, 1, 2, 1, 2, AttachOptions.Shrink,
 		   AttachOptions.Fill, 0, 0);	
     }
 
-    void OnUseChanged (object o, EventArgs args) 
+    void OnImageChanged (object o, EventArgs args) 
     {
-      _useHistory = (uint) (o as OptionMenu).History;
+      _parent.Loader = new FrontImageProviderFactory(_imageBox.Active);
+    }
 
-      SetSourceFrameSensitivity();
+    void OnImageClicked (object o, EventArgs args) 
+    {
+      // _parent.Loader = new FrontImageProviderFactory(_parent.Image);
+      _imageBox.Sensitive = true;
+      _include.Sensitive = false;
+      _choose.Sensitive = false;
+    }
 
-      if (_useHistory == 0)
-	{
-	SetFileEntry(false);
-	}
-      else if (_useHistory == 1)
-	{
-	SetFileEntry(true);
-	}
-      else
-	{
-	_parent.Loader = new FrontImageProviderFactory(_parent.Image);
-	}
+    void OnFileClicked (object o, EventArgs args) 
+    {
+      SetFileEntry(false);
+      _imageBox.Sensitive = false;
+      _include.Sensitive = false;
+      _choose.Sensitive = true;
+    }
+
+    void OnFolderClicked (object o, EventArgs args) 
+    {
+      SetFileEntry(true);
+      _imageBox.Sensitive = false;
+      _include.Sensitive = true;
+      _choose.Sensitive = true;
     }
 
     void OnIncludeToggled (object o, EventArgs args) 

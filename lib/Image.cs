@@ -256,7 +256,7 @@ namespace Gimp
 
 	set
 	    {
-	    if (!gimp_image_set_cmap(_imageID, value, value.Length))
+	    if (!gimp_image_set_cmap(_imageID, value, value.Length / 3))
 	      {
 	      throw new Exception();
 	      }

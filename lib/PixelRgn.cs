@@ -3,20 +3,19 @@ using System.Runtime.InteropServices;
 
 namespace Gimp
   {
-  [StructLayout(LayoutKind.Sequential)]
+    [StructLayout(LayoutKind.Sequential)]
     public struct GimpPixelRgn
     {
-      // byte[]       data;          /* pointer to region data */
-      public IntPtr		 data;
-      IntPtr		 drawable;      /* pointer to drawable */
-      public uint         bpp;           /* bytes per pixel */
-      public uint         rowstride;     /* bytes per pixel row */
-      public uint         x, y;          /* origin */
-      public uint         w, h;          /* width and height of region */
+      public IntPtr	data;  	       /* pointer to region data */
+      IntPtr		drawable;      /* pointer to drawable */
+      public uint       bpp;           /* bytes per pixel */
+      public uint       rowstride;     /* bytes per pixel row */
+      public uint       x, y;          /* origin */
+      public uint       w, h;          /* width and height of region */
       // uint         dirty : 1;     /* will this region be dirtied? */
       // uint         shadow : 1;    /* will this region use the shadow or normal tiles */
       public uint		 dirty_shadow;
-      uint         process_count; /* used internally */
+      uint         process_count;      /* used internally */
     }
 
     public class PixelRgn
@@ -66,6 +65,16 @@ namespace Gimp
       public void SetPixel(byte[] buf, int x, int y)
       {
 	gimp_pixel_rgn_set_pixel(ref pr, buf, x, y);
+      }
+
+      public void GetRect(byte[] buf, int x, int y, int width, int height)
+      {
+	gimp_pixel_rgn_get_rect(ref pr, buf, x, y, width, height);
+      }
+
+      public void SetRect(byte[] buf, int x, int y, int width, int height)
+      {
+	gimp_pixel_rgn_set_rect(ref pr, buf, x, y, width, height);
       }
 
       public int X
@@ -144,12 +153,26 @@ namespace Gimp
       [DllImport("libgimp-2.0.so")]
       static extern void gimp_pixel_rgn_get_pixel (ref GimpPixelRgn  pr,
 						   byte[] buf,
-						   int        x,
-						   int        y);
+						   int    x,
+						   int    y);
       [DllImport("libgimp-2.0.so")]
       static extern void gimp_pixel_rgn_set_pixel (ref GimpPixelRgn  pr,
 						   byte[] buf,
-						   int        x,
-						   int        y);
+						   int    x,
+						   int    y);
+      [DllImport("libgimp-2.0.so")]
+      static extern void gimp_pixel_rgn_get_rect (ref GimpPixelRgn pr,
+						  byte[] buf,
+						  int x,
+						  int y,
+						  int width,
+						  int height);
+      [DllImport("libgimp-2.0.so")]
+      static extern void gimp_pixel_rgn_set_rect (ref GimpPixelRgn pr,
+						  byte[] buf,
+						  int x,
+						  int y,
+						  int width,
+						  int height);
     }
   }

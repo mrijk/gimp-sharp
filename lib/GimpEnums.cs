@@ -74,12 +74,9 @@ namespace Gimp
   
     public enum ImageBaseType
       {
-	RGB,    
-	RGBA,
+	RGB,
 	GRAY,
-	GRAYA,
-	INDEXED,
-	INDEXEDA
+	INDEXED
       }
 
     public enum PDBArgType
@@ -128,12 +125,12 @@ namespace Gimp
 
     public enum ImageType
       {
-	RGB_IMAGE,
-	RGBA_IMAGE,
-	GRAY_IMAGE,
-	GRAYA_IMAGE,
-	INDEXED_IMAGE,
-	INDEXEDA_IMAGE
+	RGB,
+	RGBA,
+	GRAY,
+	GRAYA,
+	INDEXED,
+	INDEXEDA
       }
   
     public enum LayerModeEffects

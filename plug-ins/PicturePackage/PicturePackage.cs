@@ -49,10 +49,10 @@ namespace Gimp.PicturePackage
 		       "Maurits Rijk",
 		       "2004",
 		       "Picture Package...",
-		       "RGB*, GRAY*",
+		       "",
 		       null);
 
-      MenuRegister("plug_in_picture_package", "<Image>/Filters/Render");
+      MenuRegister("plug_in_picture_package", "<Toolbox>/Xtns/Extensions");
     }
 
     override protected bool CreateDialog()
@@ -60,7 +60,7 @@ namespace Gimp.PicturePackage
       gimp_ui_init("PicturePackage", true);
 
       _layoutSet.Load();
-      _loader = new FrontImageProviderFactory(_image);
+      // _loader = new FrontImageProviderFactory(_image);
 
       Dialog dialog = DialogNew("Picture Package 0.5", "PicturePackage",
 				IntPtr.Zero, 0, null, "PicturePackage");
@@ -88,13 +88,19 @@ namespace Gimp.PicturePackage
       fbox.BorderWidth = 12;
       frame.Add(fbox);
 
+      Tooltips tips = new Tooltips();
+      
+      EventBox eventBox = new EventBox();
+      fbox.Add(eventBox);
+      tips.SetTip(eventBox, "Click to select picture", "preview");
+
       _preview = new Preview(this);
       _preview.WidthRequest = 400;
       _preview.HeightRequest = 500;
       _preview.ButtonPressEvent += new ButtonPressEventHandler(PreviewClicked);
       _preview.DragDataReceived += 
 	new DragDataReceivedHandler(OnDragDataReceived);
-      fbox.Add(_preview);
+      eventBox.Add(_preview);
 
       _layoutSet.Selected = _layoutSet[0];
       _layout = _layoutSet[0];
@@ -112,8 +118,11 @@ namespace Gimp.PicturePackage
 
     public void Render()
     {
-      _preview.Clear();
-      _layout.Render(_loader, _preview.GetRenderer(_layout));
+      if (_loader != null) // Hack
+	{
+	_preview.Clear();
+	_layout.Render(_loader, _preview.GetRenderer(_layout));
+	}
     }
 
     public void RenderX()
@@ -233,7 +242,7 @@ namespace Gimp.PicturePackage
       fs.Hide();
     }
 
-    override protected void DoSomething(Image image)
+    override protected void DoSomething()
     {
       PageSize size = _layout.GetPageSizeInPixels(_resolution);
 
@@ -260,11 +269,6 @@ namespace Gimp.PicturePackage
 	  _loader = value;
 	  RedrawPreview();
 	  }
-    }
-
-    public Image Image
-    {
-      get {return _image;}
     }
 
     public string Label

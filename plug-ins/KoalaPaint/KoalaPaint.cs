@@ -7,6 +7,29 @@ namespace Gimp.KoalaPaint
 {	
   class KoalaPaint : FilePlugin
   {
+    const int KOALA_WIDTH = 320;
+    const int KOALA_HEIGHT = 200;
+
+    byte[] _colormap = new byte[]
+	{
+	  0x00, 0x00, 0x00,
+	  0xff, 0xff, 0xff,
+	  0x88, 0x00, 0x00,
+	  0xaa, 0xff, 0xee,
+	  0xcc, 0x44, 0xcc,
+	  0x00, 0xcc, 0x55,
+	  0x00, 0x00, 0xaa,
+	  0xee, 0xee, 0x77,
+	  0xdd, 0x88, 0x55,
+	  0x66, 0x44, 0x00,
+	  0xff, 0x77, 0x77,
+	  0x33, 0x33, 0x33,
+	  0x77, 0x77, 0x77,
+	  0xaa, 0xff, 0x66,
+	  0x00, 0x88, 0xff,
+	  0xbb, 0xbb, 0xbb
+	};
+
     [STAThread]
     static void Main(string[] args)
     {
@@ -51,37 +74,36 @@ namespace Gimp.KoalaPaint
 
     override protected Image Load(string filename)
     {
-      byte[] colormap = new byte[]
+      if (File.Exists(filename))
 	{
-	  0x00, 0x00, 0x00,
-	  0xff, 0xff, 0xff,
-	  0x88, 0x00, 0x00,
-	  0xaa, 0xff, 0xee,
-	  0xcc, 0x44, 0xcc,
-	  0x00, 0xcc, 0x55,
-	  0x00, 0x00, 0xaa,
-	  0xee, 0xee, 0x77,
-	  0xdd, 0x88, 0x55,
-	  0x66, 0x44, 0x00,
-	  0xff, 0x77, 0x77,
-	  0x33, 0x33, 0x33,
-	  0x77, 0x77, 0x77,
-	  0xaa, 0xff, 0x66,
-	  0x00, 0x88, 0xff,
-	  0xbb, 0xbb, 0xbb
-	};
+	BinaryReader reader = new BinaryReader(File.Open(filename, 
+							 FileMode.Open));
+	
+	byte[] unused = reader.ReadBytes(2);
+	byte[] bitmap = reader.ReadBytes(8000);
+	byte[] mcolor = reader.ReadBytes(1000);
+	byte[] color = reader.ReadBytes(1000);
+	byte background = reader.ReadByte();
+	Console.WriteLine("background: " + background);
+	}
 
-      Console.WriteLine("File: " + filename);
+      Image image = new Image(KOALA_WIDTH, KOALA_HEIGHT, 
+			      ImageBaseType.INDEXED);
 
-      Image image = new Image(320, 200, ImageBaseType.RGB);
-      image.Colormap = colormap;
-
-      Layer layer = new Layer(image, "Background", 320, 200, 
-			      ImageType.INDEXED_IMAGE, 100, 
+      Layer layer = new Layer(image, "Background", KOALA_WIDTH, KOALA_HEIGHT, 
+			      ImageType.INDEXED, 100, 
 			      LayerModeEffects.NORMAL_MODE);
       image.AddLayer(layer, 0);
-
+ 
       image.Filename = filename;
+      image.Colormap = _colormap;
+
+      PixelRgn rgn = new PixelRgn(layer, 0, 0, KOALA_WIDTH, KOALA_HEIGHT, 
+				  true, false);
+      byte[] buf = new byte[KOALA_WIDTH * KOALA_HEIGHT];
+
+      rgn.SetRect(buf, 0, 0, KOALA_WIDTH, KOALA_HEIGHT);
+      layer.Flush();
 
       return image;
     }

@@ -6,9 +6,10 @@ namespace Gimp.PicturePackage
 {
   public class PicturePackageFrame : GimpFrame
   {
-    GimpTable _table;
+    protected GimpTable _table;
 
-    protected PicturePackageFrame(uint rows, uint columns, string label) : base(label)
+    protected PicturePackageFrame(uint rows, uint columns, string label) : 
+      base(label)
     {
       _table = new GimpTable(rows, columns, false);
       _table.ColumnSpacing = 6;
