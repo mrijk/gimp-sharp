@@ -247,8 +247,9 @@ namespace Gimp
     virtual protected bool CreateDialog() {return true;}
 
     Image _image;
-    Drawable _drawable;
-    GimpParam[] values = new GimpParam[1];
+    protected Drawable _drawable;
+    GimpParam[] _origParam;
+    GimpParam[] _values = new GimpParam[1];
 
     public void Run(string name, int n_params, IntPtr paramPtr,
 		    ref int n_return_vals, out GimpParam[] return_vals)
@@ -256,18 +257,18 @@ namespace Gimp
       _name = name;
 
       // Get parameters
-      GimpParam[] param = new GimpParam[n_params];
+      _origParam = new GimpParam[n_params];
       for (int i = 0; i < n_params; i++)
 	{
-	param[i] = (GimpParam) Marshal.PtrToStructure(paramPtr,
-	 					      typeof(GimpParam));
-	Console.WriteLine(param[i].type);
-	paramPtr = (IntPtr)((int)paramPtr + Marshal.SizeOf(param[i]));
+	_origParam[i] = (GimpParam) Marshal.PtrToStructure(paramPtr,
+							   typeof(GimpParam));
+	Console.WriteLine(_origParam[i].type);
+	paramPtr = (IntPtr)((int)paramPtr + Marshal.SizeOf(_origParam[i]));
 	}
 
-      RunMode run_mode = (RunMode) param[0].data.d_int32;
-      _image = new Image(param[1].data.d_image);
-      _drawable = new Drawable(param[2].data.d_drawable);
+      RunMode run_mode = (RunMode) _origParam[0].data.d_int32;
+      _image = new Image(_origParam[1].data.d_image);
+      _drawable = new Drawable(_origParam[2].data.d_drawable);
       
       if (run_mode == RunMode.INTERACTIVE)
 	{
@@ -289,11 +290,11 @@ namespace Gimp
 
       _drawable.Detach();
 
-      values[0].type = PDBArgType.STATUS;
-      values[0].data.d_status = PDBStatusType.PDB_SUCCESS;
-      return_vals = values;
+      _values[0].type = PDBArgType.STATUS;
+      _values[0].data.d_status = PDBStatusType.PDB_SUCCESS;
+      return_vals = _values;
 
-      n_return_vals = values.Length;
+      n_return_vals = _values.Length;
     }
 
     [DllImport("gimpwrapper.so")]
@@ -400,10 +401,10 @@ namespace Gimp
     }
 
     [DllImport("libgimp-2.0.so")]
-    public static extern GimpParam[] gimp_run_procedure2(string name,
-							 out int n_return_vals,
-							 int n_params,
-							 GimpParam[] _params);
+    public static extern IntPtr gimp_run_procedure2(string name,
+						    out int n_return_vals,
+						    int n_params,
+						    GimpParam[] _params);
 
     [DllImport("libgimp-2.0.so")]
     public static extern bool gimp_procedural_db_proc_info (
@@ -446,15 +447,42 @@ namespace Gimp
 	{
 	Console.WriteLine("blurb: " + blurb);
 	
-	// Get parameters
-	GimpParamDef[] param = new GimpParamDef[num_args];
-	for (int i = 0; i < num_args; i++)
+	// Get parameter types
+	GimpParamDef[] paramDef = new GimpParamDef[num_args];
+	GimpParam[] _params = new GimpParam[num_args];
+
+	// First 3 parameters are default
+	int i;
+	for (i = 0; i < 3; i++)
 	  {
-	  param[i] = (GimpParamDef) Marshal.PtrToStructure(
-	    argsPtr, typeof(GimpParamDef));
-	  Console.WriteLine(param[i].type);
-	  argsPtr = (IntPtr)((int)argsPtr + Marshal.SizeOf(param[i]));
+	  _params[i] = _origParam[i];
 	  }
+
+	for (i = 0; i < num_args; i++)
+	  {
+	  paramDef[i] = (GimpParamDef) Marshal.PtrToStructure(
+	    argsPtr, typeof(GimpParamDef));
+	  argsPtr = (IntPtr)((int)argsPtr + Marshal.SizeOf(paramDef[i]));
+	  }
+
+	i = 3;
+	foreach (object obj in list)
+	  {
+	  switch (paramDef[i].type)
+	    {
+	    case PDBArgType.INT32:
+	      _params[i].type = PDBArgType.INT32;
+	      _params[i].data.d_int32 = (Int32) obj;
+	      break;
+	    default:
+	      Console.WriteLine("Implement this!");
+	      break;
+	    }
+	  i++;
+	  }
+
+	int n_return_vals;
+	gimp_run_procedure2(name, out n_return_vals, num_args, _params);
 	}
       else
 	{

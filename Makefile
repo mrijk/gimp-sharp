@@ -35,8 +35,17 @@ SOURCES = \
 NCP_SOURCES = \
 	ncp.cs
 
-MINISTECK_SOURCES = \
-	Ministeck.cs
+MINISTECK_SOURCES = 		\
+	Ministeck.cs		\
+	MS-Coordinate.cs	\
+	MS-CornerShape.cs	\
+	MS-OneByOneShape.cs	\
+	MS-Shape.cs		\
+	MS-ShapeDescription.cs	\
+	MS-ShapeSet.cs		\
+	MS-ThreeByOneShape.cs	\
+	MS-TwoByOneShape.cs	\
+	MS-TwoByTwoShape.cs
 
 PICTURE_PACKAGE_SOURCES = 	\
 	PicturePackage.cs	\
@@ -58,6 +67,7 @@ EXTRADIST =		\
 	picture-package.xml	\
 	gimp.c			\
 	$(NCP_SOURCES)		\
+	$(MINISTECK_SOURCES)	\
 	$(PICTURE_PACKAGE_SOURCES)
 
 all: gimp-sharp.dll ncp.exe Ministeck.exe PicturePackage.exe
