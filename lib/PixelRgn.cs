@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace Gimp
   {
-    [StructLayout(LayoutKind.Sequential)]
+  [StructLayout(LayoutKind.Sequential)]
     public struct GimpPixelRgn
     {
       public IntPtr	data;  	       /* pointer to region data */
@@ -67,9 +67,11 @@ namespace Gimp
 	gimp_pixel_rgn_set_pixel(ref pr, buf, x, y);
       }
 
-      public void GetRect(byte[] buf, int x, int y, int width, int height)
+      public byte[] GetRect(int x, int y, int width, int height)
       {
+	byte[] buf = new byte[width * pr.bpp * height];
 	gimp_pixel_rgn_get_rect(ref pr, buf, x, y, width, height);
+	return buf;
       }
 
       public void SetRect(byte[] buf, int x, int y, int width, int height)

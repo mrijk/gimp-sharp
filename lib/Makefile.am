@@ -44,6 +44,7 @@ SOURCES = 			\
 	PixelFetcher.cs		\
 	PixelRgn.cs		\
 	Plugin.cs		\
+	PreviewArea.cs		\
 	Progress.cs		\
 	RGB.cs			\
 	RandomSeed.cs		\
