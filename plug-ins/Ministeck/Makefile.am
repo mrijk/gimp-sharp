@@ -16,7 +16,7 @@ SOURCES =			\
 	TwoByOneShape.cs	\
 	TwoByTwoShape.cs
 
-EXTRA_DIST = $(SOURCES)
+EXTRA_DIST = $(SOURCES) Ministeck
 
 Ministeck.exe : $(SOURCES)
 	$(CSC) $(SOURCES) -o $@ $(ASSEMBLIES)

@@ -11,7 +11,7 @@ SOURCES =			\
 	Rectangle.cs		\
 	RectangleSet.cs
 
-EXTRA_DIST = $(SOURCES) picture-package.xml
+EXTRA_DIST = $(SOURCES) PicturePackage picture-package.xml
 
 PicturePackage.exe : $(SOURCES)
 	$(CSC) $(SOURCES) /resource:picture-package.xml -o $@ $(ASSEMBLIES)

@@ -1,7 +1,7 @@
 Gimp#
 
-- I have only tested my code with Gimp 2.1.x. Please report back if there are 
-any issues with using Gimp# and Gimp 2.0.
+- I have only tested my code with Gimp 2.1.x and Gimp 2.2-pre. Gimp#
+  will NOT work with Gimp 2.0.x!
 
 At the moment Gimp# will install 3 plug-ins for you:
 

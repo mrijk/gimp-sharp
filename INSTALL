@@ -1,8 +1,16 @@
-To install Gimp# you will need Mono. Right now there is only a
-simple Makefile provided. At the top of this Makefile you can choose
-between Gimp 2.0 and Gimp 2.2. I have only tested my code with Gimp
-2.1.x. Please report back if there are any issues with using Gimp# and
-Gimp 2.0.
+To install Gimp# you will need Mono. Gimp# will only work with GIMP 2.1.x
+or GIMP 2.2 (pre).
+
+Building Gimp# is easy:
+
+1) unpack the archive
+2) % cd gimp-sharp-0.3
+3) % make
+4) become root
+5) % make install
+
+The files will be installed in your GIMP plug-in directory, for
+example in /usr/local/lib/gimp/2.0/plug-ins/
 
 At the moment Gimp# will install 3 plug-ins for you:
 

@@ -155,7 +155,7 @@ SOURCES = \
 	TwoByTwoShape.cs
 
 
-EXTRA_DIST = $(SOURCES)
+EXTRA_DIST = $(SOURCES) Ministeck
 subdir = plug-ins/Ministeck
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = $(top_builddir)/config.h

@@ -142,7 +142,7 @@ ASSEMBLIES = -r $(top_builddir)/lib/gimp-sharp.dll /pkg:gtk-sharp
 
 SOURCES = ncp.cs
 
-EXTRA_DIST = $(SOURCES)
+EXTRA_DIST = $(SOURCES) ncp
 subdir = plug-ins/ncp
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = $(top_builddir)/config.h
