@@ -238,7 +238,29 @@ namespace Gimp
 
       public Channel GetChannelByTattoo(Tattoo tattoo)
       {
-	return new Channel(gimp_image_get_channel_by_tattoo(_imageID, tattoo.ID));
+	return new Channel(gimp_image_get_channel_by_tattoo(_imageID, 
+							    tattoo.ID));
+      }
+
+      public byte[] Colormap
+      {
+	get
+	    {
+	    int num_colors;
+	    IntPtr cmap = gimp_image_get_cmap(_imageID, out num_colors);
+	    byte[] colormap = new byte[num_colors];
+	    Marshal.Copy(cmap, colormap, 0, num_colors);
+	    // Free cmap!
+	    return colormap;
+	    }
+
+	set
+	    {
+	    if (!gimp_image_set_cmap(_imageID, value, value.Length))
+	      {
+	      throw new Exception();
+	      }
+	    }
       }
 
       public bool ConvertRgb()
@@ -411,8 +433,7 @@ namespace Gimp
       [DllImport("libgimp-2.0.so")]
       static extern string gimp_image_get_filename (Int32 image_ID);
       [DllImport("libgimp-2.0.so")]
-      static extern bool gimp_image_set_filename (Int32 image_ID, 
-						  string filename);
+      static extern bool gimp_image_set_filename (Int32 image_ID, string filename);
       [DllImport("libgimp-2.0.so")]
       static extern string gimp_image_get_name (Int32 image_ID);
       [DllImport("libgimp-2.0.so")]
@@ -425,6 +446,12 @@ namespace Gimp
       [DllImport("libgimp-2.0.so")]
       static extern Int32 gimp_image_get_channel_by_tattoo (Int32 image_ID, 
 							    int tattoo);
+      [DllImport("libgimp-2.0.so")]
+      static extern IntPtr gimp_image_get_cmap(Int32 image_ID, 
+					       out int num_colors);
+      [DllImport("libgimp-2.0.so")]
+      static extern bool gimp_image_set_cmap(Int32 image_ID, byte[] colormap, 
+					     int num_colors);
       [DllImport("libgimp-2.0.so")]
       static extern bool gimp_image_convert_rgb (Int32 image_ID);
       [DllImport("libgimp-2.0.so")]

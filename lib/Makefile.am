@@ -12,6 +12,7 @@ SOURCES = 			\
 	Drawable.cs		\
 	DrawablePreview.cs	\
 	FileEntry.cs		\
+	FilePlugin.cs		\
 	FloatingSelection.cs	\
 	GimpBaseEnums.cs	\
 	GimpColorButton.cs	\
@@ -25,6 +26,8 @@ SOURCES = 			\
 	Gimp.cs			\
 	GuideCollection.cs	\
 	Guide.cs		\
+	ImageComboBox.cs	\
+	IntComboBox.cs		\
 	Layer.cs		\
 	Image.cs		\
 	ImageList.cs		\

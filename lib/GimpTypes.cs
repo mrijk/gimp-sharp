@@ -15,18 +15,20 @@ namespace Gimp
       [FieldOffset(0)]
       public double 	d_float;
       [FieldOffset(0)]
-      public GimpRGB    d_color;
+      public IntPtr	d_string;
+      [FieldOffset(0)]
+      public GimpRGB  	d_color;
 #if _FIXME_
       [FieldOffset(0)]
       public ParamRegion d_region;
 #endif
       [FieldOffset(0)]
-      public Int32    d_image;
+      public Int32    	d_image;
       [FieldOffset(0)]
-      public Int32    d_drawable;
+      public Int32    	d_drawable;
 #if _FIXME_
       [FieldOffset(0)]
-      GimpParasite    d_parasite;
+      GimpParasite    	d_parasite;
 #endif
       [FieldOffset(0)]
       public PDBStatusType	d_status;

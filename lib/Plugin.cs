@@ -135,32 +135,18 @@ namespace Gimp
 
     abstract protected void Query();
 
-    abstract protected void Run(string name, GimpParam[] param,
-				out GimpParam[] return_vals);
-
-    virtual protected bool CreateDialog() {return true;}
-
-    GimpParam[] _origParam;
-    GimpParam[] _values = new GimpParam[1];
-
-    public void Run(string name, int n_params, IntPtr paramPtr,
-		    ref int n_return_vals, out GimpParam[] return_vals)
+    virtual protected void Run(string name, GimpParam[] inParam,
+			       out GimpParam[] outParam)
     {
-      _name = name;
-
-      // Get parameters
-      _origParam = new GimpParam[n_params];
-      for (int i = 0; i < n_params; i++)
+      RunMode run_mode = (RunMode) inParam[0].data.d_int32;
+      if (_usesImage)
 	{
-	_origParam[i] = (GimpParam) Marshal.PtrToStructure(paramPtr,
-							   typeof(GimpParam));
-	Console.WriteLine(_origParam[i].type);
-	paramPtr = (IntPtr)((int)paramPtr + Marshal.SizeOf(_origParam[i]));
+	_image = new Image(inParam[1].data.d_image);
 	}
-
-      RunMode run_mode = (RunMode) _origParam[0].data.d_int32;
-      _image = new Image(_origParam[1].data.d_image);
-      _drawable = new Drawable(_origParam[2].data.d_drawable);
+      if (_usesDrawable)
+	{
+	_drawable = new Drawable(inParam[2].data.d_drawable);
+	}
       
       if (run_mode == RunMode.INTERACTIVE)
 	{
@@ -179,14 +165,43 @@ namespace Gimp
 	GetData();
 	CallDoSomething();
 	}
+      
+      if (_usesDrawable)
+	{
+	_drawable.Detach();
+	}
+      
+      outParam = new GimpParam[1];
+      
+      outParam[0].type = PDBArgType.STATUS;
+      outParam[0].data.d_status = PDBStatusType.PDB_SUCCESS;
+    }
+    
+    virtual protected bool CreateDialog() {return true;}
 
-      _drawable.Detach();
+    GimpParam[] _origParam;
 
-      _values[0].type = PDBArgType.STATUS;
-      _values[0].data.d_status = PDBStatusType.PDB_SUCCESS;
-      return_vals = _values;
-
-      n_return_vals = _values.Length;
+    public void Run(string name, int n_params, IntPtr paramPtr,
+		    ref int n_return_vals, out GimpParam[] return_vals)
+    {
+      _name = name;
+      
+      GetRequiredParameters();
+      
+      // Get parameters
+      _origParam = new GimpParam[n_params];
+      for (int i = 0; i < n_params; i++)
+	{
+	_origParam[i] = (GimpParam) Marshal.PtrToStructure(paramPtr,
+							   typeof(GimpParam));
+	Console.WriteLine(_origParam[i].type);
+	paramPtr = (IntPtr)((int)paramPtr + Marshal.SizeOf(_origParam[i]));
+	}
+      
+      Run(name, _origParam, out return_vals);
+      
+      n_return_vals = return_vals.Length;
+      Console.WriteLine("length: " + n_return_vals);
     }
 
     BinaryFormatter _formatter = new BinaryFormatter();
