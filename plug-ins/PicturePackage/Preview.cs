@@ -17,9 +17,16 @@ namespace Gimp.PicturePackage
       ExposeEvent += new ExposeEventHandler(OnExposed);
       ButtonPressEvent += new ButtonPressEventHandler(OnButtonPress);
 
-      TargetEntry[] targets = new TargetEntry[2];
-      targets[0] = new TargetEntry("text/plain", 0, 1);
-      targets[1] = new TargetEntry("STRING", 0, 2);
+      PixbufFormat[] formats = Pixbuf.Formats;
+      Console.WriteLine("Format: " + formats.Length);
+      foreach (PixbufFormat format in formats)
+	{
+	Console.WriteLine(format.Name);
+	}
+
+      TargetEntry[] targets = new TargetEntry[] {
+	new TargetEntry("text/plain", 0, 1),
+	new TargetEntry("STRING", 0, 2)};
 
       Gtk.Drag.DestSet(this, DestDefaults.All, targets, DragAction.Copy);
       DragDataReceived += new DragDataReceivedHandler(OnDragDataReceived);
@@ -63,12 +70,6 @@ namespace Gimp.PicturePackage
     void OnDragDataReceived(object o, DragDataReceivedArgs args)
     {
       Console.WriteLine("OnDragDataReceived");
-    }
-
-    public void DrawPixbuf(Pixbuf pixbuf)
-    {
-      pixbuf.RenderToDrawable(this.GdkWindow, _gc, 0, 0, 0, 0, -1, -1, 
-			      RgbDither.Normal, 0, 0);
     }
   }
   }
