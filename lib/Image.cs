@@ -36,6 +36,13 @@ namespace Gimp
 	return (imageID >= 0) ? new Image(imageID) : null;
       }
 
+      public bool Save(RunMode run_mode, string filename, string raw_filename)
+      {
+	Int32 drawableID = ActiveDrawable.ID;	// Check this!
+	return gimp_file_save(run_mode, _imageID, drawableID, filename,
+			      raw_filename);
+      }
+
       public void Delete()
       {
 	if (!gimp_image_delete(_imageID))
@@ -529,5 +536,9 @@ namespace Gimp
       [DllImport("libgimp-2.0.so")]
       static extern Int32 gimp_file_load(RunMode run_mode, string filename,
 					 string raw_filename);
+      [DllImport("libgimp-2.0.so")]
+      static extern bool gimp_file_save(RunMode run_mode, Int32 image_ID,
+					Int32 drawable_ID, string filename,
+					string raw_filename);
     }
   }

@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 
 using Gdk;
 using Gtk;
@@ -213,29 +214,36 @@ namespace Gimp.SliceTool
       _horizontalSlices.Sort();
       _verticalSlices.Sort();
 
-      Console.WriteLine("Name: " + image.Name);
-      Console.WriteLine("Filename: " + image.Filename);
+      string name = System.IO.Path.GetFileNameWithoutExtension(image.Name);
 
-      Console.WriteLine("<html>");
-      Console.WriteLine("<head>");
-      Console.WriteLine("<meta name=\"Author\" content=\"{0}\">",
-			Environment.UserName);
-      Console.WriteLine("<meta name=\"Generator\" content=\"GIMP {0}\">",
-			Gimp.Version);
-      Console.WriteLine("<title></title>");
-      Console.WriteLine("</head>");
-      Console.WriteLine("<body");
-      Console.WriteLine("");
-      Console.WriteLine("<!-- Begin Table -->");
-      Console.WriteLine("<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"{0}\">", drawable.Width);
+      FileStream fs = new FileStream("slicer.html", FileMode.Create, 
+				     FileAccess.Write);
+      StreamWriter w = new StreamWriter(fs);
 
-      _rectangles.WriteHTML();
+      w.WriteLine("<html>");
+      w.WriteLine("<head>");
+      w.WriteLine("<meta name=\"Author\" content=\"{0}\">",
+		  Environment.UserName);
+      w.WriteLine("<meta name=\"Generator\" content=\"GIMP {0}\">",
+		  Gimp.Version);
+      w.WriteLine("<title></title>");
+      w.WriteLine("</head>");
+      w.WriteLine("<body");
+      w.WriteLine("");
+      w.WriteLine("<!-- Begin Table -->");
+      w.WriteLine("<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"{0}\">", 
+		  drawable.Width);
+      
+      _rectangles.WriteHTML(w, name);
 
-      Console.WriteLine("</table>");
-      Console.WriteLine("<!-- End Table -->");
-      Console.WriteLine("");
-      Console.WriteLine("</body");
-      Console.WriteLine("</html>");
+      w.WriteLine("</table>");
+      w.WriteLine("<!-- End Table -->");
+      w.WriteLine("");
+      w.WriteLine("</body");
+      w.WriteLine("</html>");
+      w.Close();
+
+      _rectangles.Slice(image, name);
     }
   }
   }

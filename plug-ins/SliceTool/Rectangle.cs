@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 
 namespace Gimp.SliceTool
 {
@@ -66,16 +67,30 @@ namespace Gimp.SliceTool
       return new VerticalSlice(x, Y1, Y2);
     }
 
-    public void WriteHTML(int index)
+    string GetFilename(string name)
+    {
+      return  string.Format("{0}_{1}x{2}.jpg", name, Top.Index, Left.Index);
+    }
+
+    public void WriteHTML(StreamWriter w, string name, int index)
     {
       int width = X2 - X1 + 1;
       int height = Y2 - Y1 + 1;
 
-      Console.WriteLine("<td rowspan=\"{0}\" colspan = \"{1}\" width=\"{2}\" height=\"{3}\">",
-			Bottom.Index - Top.Index, Right.Index - Left.Index, 
-			width, height);
-      Console.WriteLine("\t<img name=\"Image1{0}\" src=\"Image1_{1}x{2}.gif\" width=\"{3}\" height=\"{4}\" border=\"0\" alt=\"\"/></td>", 
-			index, Top.Index, Left.Index, width, height); 
+      w.WriteLine("<td rowspan=\"{0}\" colspan = \"{1}\" width=\"{2}\" height=\"{3}\">",
+		  Bottom.Index - Top.Index, Right.Index - Left.Index, 
+		  width, height);
+      w.WriteLine("\t<img name=\"{0}\" src=\"{1}\" width=\"{2}\" height=\"{3}\" border=\"0\" alt=\"\"/></td>", 
+		  name + index, GetFilename(name), width, height); 
+    }
+
+    public void Slice(Image image, string name)
+    {
+      Image clone = new Image(image);
+      clone.Crop(X2 - X1 + 1, Y2 - Y1 + 1, X1, Y1);
+      string filename = GetFilename(name);
+      clone.Save(RunMode.NONINTERACTIVE, filename, filename);
+      clone.Delete();
     }
 
     public VerticalSlice Left

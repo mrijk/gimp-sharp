@@ -44,7 +44,11 @@ namespace Gimp.SliceTool
 
     void OnRealized (object o, EventArgs args)
     {
+      Gdk.Color red = new Gdk.Color (0xff, 0, 0);
+      Gdk.Colormap colormap = Gdk.Colormap.System;
+      colormap.AllocColor (ref red, true, true);
       _gc = new Gdk.GC(GdkWindow);
+      _gc.Foreground = red;
     }
 
     public PreviewRenderer GetRenderer()
