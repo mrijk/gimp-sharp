@@ -1,5 +1,6 @@
 using System;
 
+using Gdk;
 using Gtk;
 
 namespace Gimp.SliceTool
@@ -24,6 +25,11 @@ namespace Gimp.SliceTool
 				Redraw();
 			}
 			dialog.Destroy();
+		}
+
+		override public CursorType GetCursorType(int x, int y)
+		{
+			return CursorType.RtlLogo;	// Fix me!
 		}
 	}
 }

@@ -347,6 +347,11 @@ namespace Gimp
 
     virtual protected void DialogRun(ResponseType type) {}
 
+    virtual protected bool OnClose()
+    {
+      return true;
+    }
+
     protected bool DialogRun()
     {
       while (true)
@@ -360,7 +365,10 @@ namespace Gimp
 	  } 
 	else if (type == ResponseType.Cancel || type == ResponseType.Close)
 	  {
-	  return false;
+	  if (OnClose())
+	    {
+	    return false;
+	    }
 	  }
 	else if (type == ResponseType.Help)
 	  {

@@ -26,6 +26,11 @@ namespace Gimp.SliceTool
 		virtual protected void OnRelease() {}
 		virtual protected void OnMove(int x, int y) {}
 
+		virtual public CursorType GetCursorType(int x, int y)
+		{
+			return CursorType.Arrow;
+		}
+
 		public void OnButtonPress(object o, ButtonPressEventArgs args)
 		{
 			int x = (int) args.Event.X;

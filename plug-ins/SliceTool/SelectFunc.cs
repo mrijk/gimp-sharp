@@ -1,5 +1,7 @@
 using System;
 
+using Gdk;
+
 namespace Gimp.SliceTool
 {
 	public class SelectFunc : MouseFunc
@@ -53,6 +55,19 @@ namespace Gimp.SliceTool
 			_slice.Draw(_renderer);
 			_slice.SetPosition(x, y);
 			_slice.Draw(_renderer);		
+		}
+
+		override public CursorType GetCursorType(int x, int y)
+		{
+			Slice slice = _sliceData.FindSlice(x, y);
+			if (slice != null && !slice.Locked)
+			{
+				return slice.CursorType;
+			}
+			else
+			{
+				return base.GetCursorType(x, y);
+			}
 		}
 	}
 }

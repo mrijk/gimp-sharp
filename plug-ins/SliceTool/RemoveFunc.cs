@@ -1,5 +1,7 @@
 using System;
 
+using Gdk;
+
 namespace Gimp.SliceTool
 {
 	public class RemoveFunc : MouseFunc
@@ -18,6 +20,19 @@ namespace Gimp.SliceTool
 			{
 				_sliceData.Remove(slice);
 				Redraw();
+			}
+		}
+
+		override public CursorType GetCursorType(int x, int y)
+		{
+			Slice slice = _sliceData.MayRemove(x, y);
+			if (slice == null)
+			{
+				return base.GetCursorType(x, y);
+			}
+			else
+			{
+				return CursorType.XCursor;
 			}
 		}
 	}

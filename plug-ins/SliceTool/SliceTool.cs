@@ -58,8 +58,6 @@ namespace Gimp.SliceTool
 
     override protected bool CreateDialog()
     {
-      _sliceData.Init(_drawable);
- 
       gimp_ui_init("SliceTool", true);
 
       CreateStockIcons();
@@ -86,9 +84,12 @@ namespace Gimp.SliceTool
       hbox.PackStart(preview, true, true, 0);
 
       // Create coordinates
+      hbox = new HBox();
+      vbox.PackStart(hbox, true, true, 0);
       _xy = new Entry();
+      _xy.WidthChars = 12;
       _xy.Editable = false;
-      vbox.Add(_xy);
+      hbox.PackStart(_xy, false, false, 0);
 
       hbox = new HBox(false, 24);
       vbox.PackStart(hbox, true, true, 0);
@@ -101,7 +102,7 @@ namespace Gimp.SliceTool
 
       Widget rollover = CreateRollover();
       vbox.PackStart(rollover, false, true, 0);
- 
+
       _format = new Format();
       _format.Extension = System.IO.Path.GetExtension(_image.Name).ToLower();
       vbox.PackStart(_format, false, true, 0);
@@ -121,6 +122,7 @@ namespace Gimp.SliceTool
       preferences.Clicked += new EventHandler(OnPreferences);
       vbox.PackStart(preferences, false, true, 0);
 
+      _sliceData.Init(_drawable);
       GetRectangleData(_sliceData.Selected);
 
       _func = new SelectFunc(this, _sliceData, _preview);
@@ -159,6 +161,22 @@ namespace Gimp.SliceTool
       SaveBlank(System.IO.Path.GetDirectoryName(_filename));
     }
 
+    override protected bool OnClose()
+    {
+      if (_sliceData.Changed)
+	{
+	MessageDialog message = 
+	  new MessageDialog(null, DialogFlags.DestroyWithParent,
+			    MessageType.Warning, ButtonsType.YesNo, 
+			    "Some data has been changed!\n" + 
+			    "Do you really want to discard your changes?");
+	ResponseType response = (ResponseType) message.Run();
+	message.Destroy();
+	return response == ResponseType.Yes;
+	}
+      return true;
+    }
+
     override protected void DialogRun(ResponseType type)
     {
       if ((int) type == 0 || ((int) type == 1 && _filename == null))
@@ -194,7 +212,7 @@ namespace Gimp.SliceTool
       _preview.ButtonPressEvent += new ButtonPressEventHandler(OnButtonPress);
       
       _preview.MotionNotifyEvent +=
-       	new MotionNotifyEventHandler(OnShowCoordinates);
+	new MotionNotifyEventHandler(OnShowCoordinates);
 
       window.AddWithViewport(_preview);
 
@@ -256,7 +274,7 @@ namespace Gimp.SliceTool
 
       _url = new Entry();
       table.AttachAligned(0, 0, "URL:", 0.0, 0.5, _url, 3, false);
- 
+
       _altText = new Entry();
       table.AttachAligned(0, 1, "Alt text:", 0.0, 0.5, _altText, 3, false);
 
@@ -278,7 +296,7 @@ namespace Gimp.SliceTool
       _include = new CheckButton("_Include cell in table");
       _include.Active = true;
       table.Attach(_include, 0, 2, 5, 6);
- 
+
       return frame;
     }
 
@@ -482,16 +500,7 @@ namespace Gimp.SliceTool
 
     void SetCursorType(int x, int y)
     {
-      CursorType type;
-      Slice slice = _sliceData.FindSlice(x, y);
-      if (slice != null && !slice.Locked)
-	{
-	type = slice.CursorType;
-	}
-      else
-	{
-	type = CursorType.Hand2;
-	}
+      CursorType type = _func.GetCursorType(x, y);
       _preview.SetCursor(type);
     }
 
