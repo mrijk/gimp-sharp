@@ -9,7 +9,7 @@ namespace Gimp.SliceTool
 {
   public class SliceTool : Plugin
   {
-    ButtonPressEventHandler _onClick;
+    MouseFunc _func;
 
     SliceData _sliceData = new SliceData();
 
@@ -104,8 +104,7 @@ namespace Gimp.SliceTool
 
       _sliceData.Init(_drawable);
 
-      SelectFunc func = new SelectFunc(this, _sliceData, _preview);
-      _onClick = new ButtonPressEventHandler(func.OnButtonPress);
+      _func = new SelectFunc(this, _sliceData, _preview);
 
       dialog.ShowAll();
       return DialogRun();
@@ -161,7 +160,7 @@ namespace Gimp.SliceTool
 
     void OnButtonPress(object o, ButtonPressEventArgs args)
     {
-      _onClick(o, args);
+      _func.OnButtonPress(o, args);
     }
 
     Widget CreateToolbar()
@@ -314,26 +313,22 @@ namespace Gimp.SliceTool
 
     void OnSelect(object o, EventArgs args)
     {
-      SelectFunc func = new SelectFunc(this, _sliceData, _preview);
-      _onClick = new ButtonPressEventHandler(func.OnButtonPress);
+      _func = new SelectFunc(this, _sliceData, _preview);
     }
 
     void OnCreateSlice(object o, EventArgs args)
     {
-      CreateFunc func = new CreateFunc(_sliceData, _preview);
-      _onClick = new ButtonPressEventHandler(func.OnButtonPress);
+      _func = new CreateFunc(_sliceData, _preview);
     }
 
     void OnRemoveSlice(object o, EventArgs args)
     {
-      RemoveFunc func = new RemoveFunc(_sliceData, _preview);
-      _onClick = new ButtonPressEventHandler(func.OnButtonPress);
+      _func = new RemoveFunc(_sliceData, _preview);
     }
 
     void OnCreateTable(object o, EventArgs args)
     {
-      CreateTableFunc func = new CreateTableFunc(_sliceData, _preview);
-      _onClick = new ButtonPressEventHandler(func.OnButtonPress);
+      _func = new CreateTableFunc(_sliceData, _preview);
     }
 
     void OnShowCoordinates(object o, MotionNotifyEventArgs args)

@@ -10,7 +10,7 @@ namespace Gimp.SliceTool
     Slice _slice;
     Rectangle _rectangle;
 
-    public SelectFunc(SliceTool parent, SliceData sliceData, Preview preview) : base(preview, true, true)
+    public SelectFunc(SliceTool parent, SliceData sliceData, Preview preview) : base(preview, false, false)
     {
       _parent = parent;
       _sliceData = sliceData;
