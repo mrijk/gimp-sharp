@@ -125,7 +125,7 @@ namespace Ministeck
 	      ArrayList copy = (ArrayList) shapes.Clone();
 	      while (copy.Count > 0)
 		{
-		int index = random.Next(copy.Count);
+		int index = random.Next(copy.Count - 1);
 		Shape shape = (Shape) copy[index];
 		if (shape.Fits(srcPR, A, x, y))
 		  {
@@ -136,9 +136,10 @@ namespace Ministeck
 	      }
 	    }
 	  }
-
+	
 	foreach (Shape shape in shapes)
 	  Console.WriteLine(shape._match);
+	
 	drawable.Flush();
 	drawable.Update(0, 0, drawable.Width, drawable.Height);
 

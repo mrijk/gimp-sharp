@@ -20,6 +20,7 @@ SOURCES = 			\
 	Image.cs		\
 	Palette.cs		\
 	ParamDef.cs		\
+	PixelFetcher.cs		\
 	PixelRgn.cs		\
 	Plugin.cs		\
 	RGB.cs			\

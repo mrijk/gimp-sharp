@@ -45,7 +45,7 @@ namespace Ministeck
 	{
 	int cx = x + c.X;
 	int cy = y + c.Y;
-	if (cx < 0 || cx >= width || cy < 0 || cy >= height || A[x, y])
+	if (cx < 0 || cx >= width || cy < 0 || cy >= height || A[cx, cy])
 	  {
 	  return false;
 	  }

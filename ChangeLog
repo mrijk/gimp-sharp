@@ -1,3 +1,7 @@
+2004-11-13    <maurits@Mau>
+
+	* lib/PixelFetcher.cs: new file
+
 2004-11-11    <maurits@Mau>
 
 	* plug-ins/PicturePackage/PicturePackage.cs: include 

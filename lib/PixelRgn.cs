@@ -32,11 +32,13 @@ namespace Gimp
 					      bool shadow);
 
       [DllImport("libgimp-2.0.so")]
-      static extern IntPtr gimp_pixel_rgns_register  (int nrgns, ref GimpPixelRgn pr);
+      static extern IntPtr gimp_pixel_rgns_register (int nrgns, 
+						     ref GimpPixelRgn pr);
 
       [DllImport("libgimp-2.0.so")]
-      static extern IntPtr gimp_pixel_rgns_register  (int nrgns, ref GimpPixelRgn pr1,
-						      ref GimpPixelRgn pr2);
+      static extern IntPtr gimp_pixel_rgns_register (int nrgns, 
+						     ref GimpPixelRgn pr1,
+						     ref GimpPixelRgn pr2);
 
       [DllImport("libgimp-2.0.so")]
       static extern IntPtr gimp_pixel_rgns_process (IntPtr pri_ptr);
@@ -50,7 +52,8 @@ namespace Gimp
 		      bool dirty,
 		      bool shadow)
       {
-	gimp_pixel_rgn_init (ref pr, drawable.Ptr, x, y, width, height, dirty, shadow);
+	gimp_pixel_rgn_init (ref pr, drawable.Ptr, x, y, width, height, dirty, 
+			     shadow);
       }
 
       public static IntPtr Register(PixelRgn rgn)
