@@ -184,4 +184,11 @@ namespace Gimp
 	ROTATE_180,
 	ROTATE_270
       }
+
+    public enum Transparency
+      {
+	KEEP_ALPHA,
+	SMALL_CHECKS,
+	LARGE_CHECKS
+      }
   }

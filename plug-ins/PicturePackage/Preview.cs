@@ -45,5 +45,11 @@ namespace Gimp.PicturePackage
       else
 	Console.WriteLine("Rectangle found");
     }
+
+    public void DrawPixbuf(Pixbuf pixbuf)
+    {
+      pixbuf.RenderToDrawable(this.GdkWindow, _gc, 0, 0, 0, 0, -1, -1, 
+			      RgbDither.Normal, 0, 0);
+    }
   }
   }

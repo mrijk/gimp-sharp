@@ -15,7 +15,7 @@ namespace Gimp
     bool _usesDrawable = false;
     bool _usesImage = false;
     
-    Image _image;
+    protected Image _image;
     Drawable _drawable;
 
     public delegate void InitProc();

@@ -1,5 +1,6 @@
 using System;
 
+using Gdk;
 using Gtk;
 
 namespace Gimp.PicturePackage
@@ -184,7 +185,18 @@ namespace Gimp.PicturePackage
     {
       int nr = (o as OptionMenu).History;
       _preview.Layout = _layoutSet[nr];
-      _preview.QueueDraw();
+      // _preview.QueueDraw();
+
+      // Fix me: temp test code
+      Image clone = _image.Duplicate();
+
+      clone.Rotate(RotationType.ROTATE_90);
+      clone.Resize(128, 128, 0, 0);
+
+      Pixbuf pixbuf = clone.GetThumbnail(128, 128, Transparency.KEEP_ALPHA);
+
+      Console.WriteLine("DoSomething: {0} {1}", pixbuf.Width, pixbuf.Height);
+      _preview.DrawPixbuf(pixbuf);
     }
 
     void BuildLabelFrame(VBox vbox)
@@ -251,10 +263,6 @@ namespace Gimp.PicturePackage
 
     override protected void DoSomething(Image image)
     {
-      Image clone = image.Duplicate();
-      clone.Rotate(RotationType.ROTATE_90);
-      Console.WriteLine("DoSomething: " + clone.Width);
-      Display.DisplaysFlush();
     }
   }
   }

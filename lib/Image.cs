@@ -1,6 +1,8 @@
 using System;
 using System.Runtime.InteropServices;
 
+using Gdk;
+
 namespace Gimp
   {
     public class Image
@@ -171,31 +173,16 @@ namespace Gimp
 	// Fix me: exception handling
       }
 
-      [DllImport("libgimp-2.0.so")]
-      static extern bool gimp_image_convert_rgb (Int32 image_ID);
-       
       public bool ConvertRgb()
       {
 	return gimp_image_convert_rgb(_imageID);
       }
-       
-      [DllImport("libgimp-2.0.so")]
-      static extern bool gimp_image_convert_grayscale (Int32 image_ID);
        
       public bool ConvertGrayscale()
       {
 	return gimp_image_convert_grayscale(_imageID);
       }
        
-      [DllImport("libgimp-2.0.so")]
-      static extern bool gimp_image_convert_indexed 
-      (Int32 image_ID,
-       ConvertDitherType dither_type,
-       ConvertPaletteType palette_type,
-       int num_cols,
-       bool alpha_dither,
-       bool remove_unused,
-       string palette);
        
       public bool ConvertIndexed(ConvertDitherType dither_type,
 				 ConvertPaletteType palette_type,
@@ -211,6 +198,20 @@ namespace Gimp
 					  alpha_dither,
 					  remove_unused,
 					  palette);
+      }
+
+      // Implementation of ...
+
+      [DllImport("libgimpui-2.0.so")]
+      static extern IntPtr gimp_image_get_thumbnail (Int32 image_ID,
+						     int width,
+						     int height,
+						     Transparency alpha);
+
+      public Pixbuf GetThumbnail (int width, int height, Transparency alpha)
+      {
+	return new Pixbuf (gimp_image_get_thumbnail (_imageID, width, height,
+						     alpha));
       }
 
       // Implementation of gimpundo_pdb.h
@@ -337,5 +338,18 @@ namespace Gimp
       static extern Int32 gimp_image_set_active_channel (Int32 image_ID,
 							 Int32 active_channel_ID);
 
+      [DllImport("libgimp-2.0.so")]
+      static extern bool gimp_image_convert_rgb (Int32 image_ID);
+      [DllImport("libgimp-2.0.so")]
+      static extern bool gimp_image_convert_grayscale (Int32 image_ID);
+      [DllImport("libgimp-2.0.so")]
+      static extern bool gimp_image_convert_indexed 
+      (Int32 image_ID,
+       ConvertDitherType dither_type,
+       ConvertPaletteType palette_type,
+       int num_cols,
+       bool alpha_dither,
+       bool remove_unused,
+       string palette);
     }
   }
