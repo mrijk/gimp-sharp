@@ -289,10 +289,18 @@ namespace Gimp
 				GimpHelpFunc help_func,
 				string help_id)
     {
+#if false
       return DialogNew (title, role, parent, flags, help_func, help_id,
 			Stock.Help, ResponseType.Help,
 			Stock.Cancel, ResponseType.Cancel,
 			Stock.Ok, ResponseType.Ok);
+#else
+      _dialog = new GimpDialog(title, role, parent, flags, 
+			       help_func, help_id, 
+			       Stock.Cancel, ResponseType.Cancel,
+			       Stock.Ok, ResponseType.Ok);
+      return _dialog;
+#endif
     }
 
     void CallDoSomething()

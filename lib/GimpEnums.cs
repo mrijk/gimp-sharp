@@ -126,11 +126,11 @@ namespace Gimp
 
     public enum ConvertPaletteType
       {
-	MAKE_PALETTE,
-	REUSE_PALETTE,
-	WEB_PALETTE,
-	MONO_PALETTE,
-	CUSTOM_PALETTE
+	MAKE,
+	REUSE,
+	WEB,
+	MONO,
+	CUSTOM
       }
 
     public enum ImageType
