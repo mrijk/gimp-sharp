@@ -330,11 +330,6 @@ namespace Gimp
 	}
     }
 
-    protected string GimpDirectory()
-    {
-      return gimp_directory();
-    }
-
     protected void RunProcedure(string name, params object[] list)
     {
       RunProcedure(name, _image, _drawable, list);
@@ -452,8 +447,6 @@ namespace Gimp
       out int num_values,
       out IntPtr args,
       out GimpParamDef[] return_vals);
-    [DllImport("libgimp-2.0.so")]
-    public static extern string gimp_directory();
 
     [DllImport("libgimpwrapper.so")]
     public static extern int fnInitGimp(ref GimpPlugInInfo info, 

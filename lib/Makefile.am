@@ -22,6 +22,7 @@ SOURCES = 			\
 	GimpPreview.cs		\
 	GimpTable.cs		\
 	GimpTypes.cs		\
+	Gimp.cs			\
 	GuideCollection.cs	\
 	Guide.cs		\
 	Layer.cs		\

@@ -118,6 +118,7 @@ namespace Gimp.PicturePackage
     }
 
     void RenderThread()
+
     {
       _layout.Render(_loader, _preview.GetRenderer(_layout));
     }
@@ -140,18 +141,48 @@ namespace Gimp.PicturePackage
     }
 #endif
 
-    Rectangle _rectangle;
-
-    public void PreviewClicked(object o, ButtonPressEventArgs args)
+    Rectangle FindRectangle(double x, double y)
     {
       int offx, offy;
       double zoom = _layout.Boundaries(_preview.WidthRequest, 
 				       _preview.HeightRequest, 
 				       out offx, out offy);
-      double x = (args.Event.X - offx) / zoom;
-      double y = (args.Event.Y - offy) / zoom;
+      return _layout.Find((x - offx) / zoom, (y - offy) / zoom);		
+    }
 
-      _rectangle = _layout.Find(x, y);
+    void RenderRectangle(Rectangle rectangle, string filename)
+    {
+      ImageProvider provider = new FileImageProvider(filename);
+      rectangle.Provider = provider;
+      Image image = provider.GetImage();
+      if (image != null)
+	{
+	Renderer renderer = _preview.GetRenderer(_layout);
+	rectangle.Render(image, renderer);
+	renderer.Cleanup();
+	provider.Release();
+	}
+      else
+	{
+	Console.WriteLine("Couldn't load: " + filename);
+	// Error dialog here.
+	}		
+    }
+
+    public void LoadRectangle(double x, double y, string filename)
+    {
+      Rectangle rectangle = FindRectangle(x, y);
+      if (rectangle != null)
+	{
+	RenderRectangle(rectangle, filename);
+	}
+    }
+
+    Rectangle _rectangle;
+
+    public void PreviewClicked(object o, ButtonPressEventArgs args)
+    {
+      _rectangle = FindRectangle(args.Event.X, args.Event.Y);
       if (_rectangle != null)
 	{
 	FileSelection selection = new FileSelection("Select image");
@@ -165,21 +196,7 @@ namespace Gimp.PicturePackage
       FileSelection fs = o as FileSelection;
       if (args.ResponseId == ResponseType.Ok)
 	{
-	Console.WriteLine("Selected: " + fs.Filename);
-	ImageProvider provider = new FileImageProvider(fs.Filename);
-	_rectangle.Provider = provider;
-	Image image = provider.GetImage();
-	if (image != null)
-	  {
-	  Renderer renderer = _preview.GetRenderer(_layout);
-	  _rectangle.Render(image, renderer);
-	  renderer.Cleanup();
-	  provider.Release();
-	  }
-	else
-	  {
-	  // Error dialog here.
-	  }
+	RenderRectangle(_rectangle, fs.Filename);
 	}
       fs.Hide();
     }
@@ -192,7 +209,8 @@ namespace Gimp.PicturePackage
       int height = (int) size.Height;
       Image composed = new Image(width, height, ImageBaseType.RGB);
 
-      _layout.Render(_loader, new ImageRenderer(_layout, composed, _resolution));
+      _layout.Render(_loader, new ImageRenderer(_layout, composed, 
+						_resolution));
 
       if (_flatten)
 	{
@@ -233,6 +251,7 @@ namespace Gimp.PicturePackage
 	  _position = value;
 	  _preview.DrawLabel(_position, _label);
 	  }
+      get {return _position;}
     }
 
     public int Resolution

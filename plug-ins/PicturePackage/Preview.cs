@@ -126,6 +126,11 @@ namespace Gimp.PicturePackage
       SelectionData data = args.SelectionData;
       string text = (new System.Text.ASCIIEncoding()).GetString(data.Data);
       Console.WriteLine("OnDragDataReceived " + text);
+      if (text.StartsWith("file:"))
+	{
+	_parent.LoadRectangle((double) args.X, (double) args.Y, 
+			      text.Substring(5));
+	}
     }
   }
   }
