@@ -1,14 +1,8 @@
-Release 0.2
------------
-- Robust install procedure
-- More API coverage
-
 Release 0.3
 -----------
 - Improved picture package
 - Autoconf/automake
-- More demo plug-ins?
-- Generate class from PDB.
+- Finish Ministeck plug-in
 
 Release 0.4
 -----------

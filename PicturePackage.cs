@@ -244,11 +244,9 @@ namespace Gimp
 	table.AttachAligned(0, 2, "Font:", 0.0, 0.5,
 			    font, 1, true);
 #endif
-	RGB rgb = new RGB();
-	rgb.r = rgb.g = rgb.b = 0;
-	rgb.a = 255;
+	RGB rgb = new RGB(0, 0, 0);
 
-	GimpColorButton color = new GimpColorButton("", 16, 16, rgb, 
+	GimpColorButton color = new GimpColorButton("", 16, 16, rgb.GimpRGB,
 						    ColorAreaType.COLOR_AREA_FLAT);
 	table.AttachAligned(0, 2, "Color:", 0.0, 0.5,
 			    color, 1, true);

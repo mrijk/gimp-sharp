@@ -19,13 +19,13 @@ namespace Gimp
 	string title,
 	int width,
 	int height,
-	ref RGB color,
+	ref GimpRGB color,
 	ColorAreaType type);
 
       public GimpColorButton(string title,
 			     int width,
 			     int height,
-			     RGB color,
+			     GimpRGB color,
 			     ColorAreaType type) : 
 	base(gimp_color_button_new(title, width, height, ref color, type))
       {
@@ -33,15 +33,15 @@ namespace Gimp
 
       [DllImport("libgimpwidgets-2.0.so")]
       extern static void gimp_color_button_set_color(IntPtr button,
-						     ref RGB color);
+						     ref GimpRGB color);
       [DllImport("libgimpwidgets-2.0.so")]
       extern static void gimp_color_button_get_color(IntPtr button,
-						     out RGB color);	
-      public RGB Color
+						     out GimpRGB color);
+      public GimpRGB Color
       {
 	get
 	    {
-	    RGB rgb = new RGB();
+	    GimpRGB rgb = new GimpRGB();
 	    gimp_color_button_get_color(Handle, out rgb);
 	    return rgb;
 	    }

@@ -1,12 +1,21 @@
-2004-11-05    <maurits@Mau>
+2004-11-06  Maurits  <m.rijk@chello.nl>
+
+	* Made 0.2 release
+
+2004-11-06  Maurits  <m.rijk@chello.nl>
+
+	* RGB.cs
+	* GimpTypes.cs: new files
+
+2004-11-05  Maurits  <m.rijk@chello.nl>
 
 	* Palette.cs: new file
 
-2004-11-02    <maurits@Mau>
+2004-11-02  Maurits  <m.rijk@chello.nl>
 
 	* MS-*.cs: bunch of new files for Ministeck plug-in
 
-2004-11-01    <maurits@Mau>
+2004-11-01  Maurits  <m.rijk@chello.nl>
 
 	* GimpEnums.cs: new file
 

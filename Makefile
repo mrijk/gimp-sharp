@@ -21,6 +21,7 @@ SOURCES = \
 	GimpFontSelectWidget.cs	\
 	GimpFrame.cs		\
 	GimpTable.cs		\
+	GimpTypes.cs		\
 	GuideCollection.cs	\
 	Guide.cs		\
 	Layer.cs		\
@@ -28,6 +29,7 @@ SOURCES = \
 	Palette.cs		\
 	PixelRgn.cs		\
 	Plugin.cs		\
+	RGB.cs			\
 	RandomSeed.cs		\
 	RgnIterator.cs		\
 	SaveAttribute.cs	\

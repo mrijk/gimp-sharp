@@ -58,8 +58,13 @@ namespace Ministeck
 	vbox.BorderWidth = 12;
 	dialog.VBox.PackStart(vbox, true, true, 0);
 
+	GimpTable table = new GimpTable(4, 3, false);
+	table.ColumnSpacing = 6;
+	table.RowSpacing = 6;
+	vbox.PackStart(table, false, false, 0);
+
 	SpinButton size = new SpinButton(3, 100, 1);
-	vbox.PackStart(size, false, false, 0);
+	table.AttachAligned(0, 0, "_Size", 0.0, 0.5, size, 2, true);
 
 	dialog.ShowAll();
 	return DialogRun();
@@ -68,9 +73,9 @@ namespace Ministeck
       override protected void DoSomething(Drawable drawable,
 					  Gimp.Image image)
       {
-	CreatePalette();
-
 	image.UndoGroupStart();
+
+	CreatePalette();
 
 	// First apply Pixelize plug-in
 	RunProcedure("plug_in_pixelize", 16);
@@ -78,8 +83,8 @@ namespace Ministeck
 	// Next convert to indexed
 	image.ConvertIndexed(ConvertDitherType.NO_DITHER, 
 			     ConvertPaletteType.CUSTOM_PALETTE, 
-			     0, false, false, "Default");
-
+			     0, false, false, "Ministeck");
+	DeletePalette();
 	image.ConvertRgb();
 	image.UndoGroupEnd();
 
@@ -88,9 +93,6 @@ namespace Ministeck
 	Random random = new Random();
 	int width = _drawable.Width / 16;
 	int height = _drawable.Height / 16;
-
-	Console.WriteLine("Width: " + width);
-	Console.WriteLine("Height: " + height);
 
 	PixelRgn srcPR = new PixelRgn(_drawable, 0, 0, 
 				      _drawable.Width, _drawable.Height,
@@ -137,18 +139,50 @@ namespace Ministeck
 	    }
 	  }
 
-	foreach (Shape shape in shapes)
-	  Console.WriteLine(shape._match);
+	// foreach (Shape shape in shapes)
+	//  Console.WriteLine(shape._match);
 
 	Display.DisplaysFlush();
       }
 
+      Palette _palette;
+
       void CreatePalette()
       {
-	Palette palette = new Palette("Ministeck");
+	_palette = new Palette("Ministeck");
 
-	int entry_num;
-	palette.AddEntry("", new RGB(), out entry_num);
+	_palette.AddEntry("", new RGB(253, 254, 253));
+	_palette.AddEntry("", new RGB(206, 153,  50));
+	_palette.AddEntry("", new RGB(155, 101,  52));
+	_palette.AddEntry("", new RGB( 50,  50,  50));
+	_palette.AddEntry("", new RGB(  4,   3,  98));
+	_palette.AddEntry("", new RGB(  2, 102,  54));
+
+	_palette.AddEntry("", new RGB(  2,  50, 154));
+	_palette.AddEntry("", new RGB(254,  50, 102));
+	_palette.AddEntry("", new RGB(206, 154, 102));
+	_palette.AddEntry("", new RGB(254, 254,  50));
+	_palette.AddEntry("", new RGB(250,  90,   6));
+	_palette.AddEntry("", new RGB( 55, 101,  53));
+
+	_palette.AddEntry("", new RGB(103, 102, 101));
+	_palette.AddEntry("", new RGB(206,   2,  50));
+	_palette.AddEntry("", new RGB(254, 154,  54));
+	_palette.AddEntry("", new RGB(102,  50,  50));
+	_palette.AddEntry("", new RGB(253, 154, 154));
+	_palette.AddEntry("", new RGB( 50, 102, 206));
+
+	_palette.AddEntry("", new RGB(  3,  50,  56));
+	_palette.AddEntry("", new RGB( 50,   2, 102));
+	_palette.AddEntry("", new RGB(251, 155, 101));
+	_palette.AddEntry("", new RGB(254, 254, 202));
+	_palette.AddEntry("", new RGB(  4,   2,   2));
+	_palette.AddEntry("", new RGB(206, 206, 206));
+      }
+      
+      void DeletePalette()
+      {
+	_palette.Delete();
       }
     }
 }

@@ -3,7 +3,7 @@ using System.Collections;
 
 using Gtk;
 
-namespace Gimp
+namespace Gimp.ncp
   {
     public class ncp : Plugin
     {
