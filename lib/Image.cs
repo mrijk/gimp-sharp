@@ -243,6 +243,19 @@ namespace Gimp
 	    }
       }
 
+      public bool GetComponentActive(ChannelType component)
+      {
+	return gimp_image_get_component_active(_imageID, component);
+      }
+
+      public void SetComponentActive(ChannelType component, bool active)
+      {
+	if (!gimp_image_set_component_active(_imageID, component, active))
+	  {
+	  throw new Exception();
+	  }
+      }
+
       public string Name
       {
 	get {return gimp_image_get_name (_imageID);}
@@ -471,6 +484,12 @@ namespace Gimp
       [DllImport("libgimp-2.0.so")]
       static extern bool gimp_image_set_active_channel (Int32 image_ID,
 							Int32 active_channel_ID);
+      [DllImport("libgimp-2.0.so")]
+      static extern bool gimp_image_get_component_active (Int32 image_ID,
+							  ChannelType component);
+      [DllImport("libgimp-2.0.so")]
+      static extern bool gimp_image_set_component_active (Int32 image_ID,
+							  ChannelType component, bool active);
       [DllImport("libgimp-2.0.so")]
       static extern string gimp_image_get_filename (Int32 image_ID);
       [DllImport("libgimp-2.0.so")]

@@ -128,6 +128,31 @@ namespace Gimp
 	get {return new Image(gimp_drawable_get_image(_ID));}
       }
 
+      public void Desaturate()
+      {
+	if (!gimp_desaturate(_ID))
+	  {
+	  throw new Exception();
+	  }
+      }
+
+      public void FuzzySelect (
+	double x,
+	double y,
+	int threshold,
+	ChannelOps operation,
+	bool antialias,
+	bool feather,
+	double feather_radius,
+	bool sample_merged)
+      {
+	if (!gimp_fuzzy_select(_ID, x, y, threshold, operation,
+			       antialias, feather, feather_radius, sample_merged))
+	  {
+	  throw new Exception();
+	  }
+      }
+
       public Int32 ID
       {
 	get {return _ID;}
@@ -166,9 +191,7 @@ namespace Gimp
 						  int tattoo);
       [DllImport("libgimp-2.0.so")]
       static extern IntPtr gimp_drawable_get_thumbnail_data(Int32 drawable_ID,
-							    ref int width, 
-							    ref int height, 
-							    out int bpp);
+							    ref int width, ref int height, out int bpp);
       [DllImport("libgimp-2.0.so")]
       static extern void gimp_drawable_detach(IntPtr drawable);
       [DllImport("libgimp-2.0.so")]
@@ -205,5 +228,19 @@ namespace Gimp
 					      int y,
 					      int width,
 					      int height);
+
+      [DllImport("libgimp-2.0.so")]
+      static extern bool gimp_desaturate (Int32 drawable_ID);
+
+      [DllImport("libgimp-2.0.so")]
+      static extern bool gimp_fuzzy_select (Int32 drawable_ID,
+					    double x,
+					    double y,
+					    int threshold,
+					    ChannelOps operation,
+					    bool antialias,
+					    bool feather,
+					    double feather_radius,
+					    bool sample_merged);
     }
   }

@@ -39,6 +39,16 @@ namespace Gimp
 	INTERSECT
       }
 
+    public enum ChannelType
+      {
+	RED,
+	GREEN,
+	BLUE,
+	GRAY,
+	INDEXED,
+	ALPHA
+      }
+
     public enum FillType
       {
 	FOREGROUND_FILL,
@@ -116,11 +126,11 @@ namespace Gimp
 
     public enum ConvertPaletteType
       {
-	MAKE,
-	REUSE,
-	WEB,
-	MONO,
-	CUSTOM
+	MAKE_PALETTE,
+	REUSE_PALETTE,
+	WEB_PALETTE,
+	MONO_PALETTE,
+	CUSTOM_PALETTE
       }
 
     public enum ImageType
