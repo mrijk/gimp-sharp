@@ -50,4 +50,21 @@ namespace Gimp
 	STATUS,
 	END
       }
+
+    public enum ConvertDitherType
+      {
+	NO_DITHER,
+	FS_DITHER,
+	FSLOWBLEED_DITHER,
+	FIXED_DITHER
+      }
+
+    public enum ConvertPaletteType
+      {
+	MAKE_PALETTE,
+	REUSE_PALETTE,
+	WEB_PALETTE,
+	MONO_PALETTE,
+	CUSTOM_PALETTE
+      }
   }

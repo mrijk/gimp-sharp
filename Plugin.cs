@@ -452,11 +452,13 @@ namespace Gimp
 	GimpParam[] _params = new GimpParam[num_args];
 
 	// First 3 parameters are default
+
+	_params[0].type = PDBArgType.INT32;
+	_params[0].data.d_int32 = (Int32) RunMode.NONINTERACTIVE;	
+	_params[1] = _origParam[1];
+	_params[2] = _origParam[2];
+
 	int i;
-	for (i = 0; i < 3; i++)
-	  {
-	  _params[i] = _origParam[i];
-	  }
 
 	for (i = 0; i < num_args; i++)
 	  {

@@ -41,7 +41,7 @@ namespace Ministeck
 			 "Maurits Rijk",
 			 "2004",
 			 "Ministeck...",
-			 "RGB*, GRAY*",
+			 "RGB*",
 			 args);
 
 	MenuRegister("plug_in_ministeck",
@@ -50,13 +50,20 @@ namespace Ministeck
 
       override protected bool CreateDialog()
       {
-	gimp_ui_init("ncp", true);
+	gimp_ui_init("ministeck", true);
 
-	Dialog dialog = DialogNew("ministeck", "ministeck",
-				  IntPtr.Zero, 0, null, "Ministeck", 
+	Dialog dialog = DialogNew("Ministeck", "ministeck",
+				  IntPtr.Zero, 0, null, "ministeck", 
 				  Stock.Cancel, ResponseType.Cancel,
 				  Stock.Ok, ResponseType.Ok);
-			       
+	
+	VBox vbox = new VBox(false, 12);
+	vbox.BorderWidth = 12;
+	dialog.VBox.PackStart(vbox, true, true, 0);
+
+	SpinButton size = new SpinButton(3, 100, 1);
+	vbox.PackStart(size, false, false, 0);
+
 	dialog.ShowAll();
 	return DialogRun();
       }
@@ -64,6 +71,8 @@ namespace Ministeck
       override protected void DoSomething(Drawable drawable,
 					  Gimp.Image image)
       {
+	image.UndoGroupStart();
+
 	// First apply Pixelize plug-in
 	RunProcedure("plug_in_pixelize", 16);
 
@@ -71,6 +80,10 @@ namespace Ministeck
 	image.ConvertIndexed(ConvertDitherType.NO_DITHER, 
 			     ConvertPaletteType.CUSTOM_PALETTE, 
 			     0, false, false, "Default");
+
+	image.ConvertRgb();
+
+	image.UndoGroupEnd();
 
 	// And finally calculate the Ministeck pieces
 	
@@ -86,17 +99,18 @@ namespace Ministeck
 				      false, false);
 	int[,] A = new int[width, height];
 	byte[] buf = new byte[4];
-	
+
 	for (int i = 0; i < width; i++)
 	  {
 	  for (int j = 0; j < height; j++)
 	    {
 	    // A[i, j] = random.Next(1, 3);
-	    srcPR.GetPixel(buf, i * 16 + 8, j * 16 + 8);
+	    srcPR.GetPixel(buf, i * 16, j * 16);
 	    A[i, j] = buf[0];
 	    }
+	  Console.WriteLine(buf[1]);
 	  }
-	
+
 	// Fill in shapes
 	
 	ArrayList shapes = new ArrayList();
@@ -105,7 +119,7 @@ namespace Ministeck
 	shapes.Add(new TwoByOneShape());
 	shapes.Add(new CornerShape());
 	shapes.Add(new OneByOneShape());
-#if false	
+
 	for (int x = 0; x < width; x++)
 	  {
 	  for (int y = 0; y < height; y++)
@@ -126,7 +140,10 @@ namespace Ministeck
 	      }
 	    }
 	  }
-#endif	
+
+	foreach (Shape shape in shapes)
+	  Console.WriteLine(shape._match);
+
 	Display.DisplaysFlush();
       }
     }
