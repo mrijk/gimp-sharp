@@ -6,6 +6,7 @@ namespace Gimp.PicturePackage
 {
   public class Preview : DrawingArea
   {
+    public Pixmap _pixmap;
     Gdk.GC _gc;
     Layout _layout;
     Image _image;
@@ -17,14 +18,7 @@ namespace Gimp.PicturePackage
       ExposeEvent += new ExposeEventHandler(OnExposed);
       ButtonPressEvent += new ButtonPressEventHandler(OnButtonPress);
 
-      PixbufFormat[] formats = Pixbuf.Formats;
-      Console.WriteLine("Format: " + formats.Length);
-      foreach (PixbufFormat format in formats)
-	{
-	Console.WriteLine(format.Name);
-	}
-
-      TargetEntry[] targets = new TargetEntry[] {
+      TargetEntry[] targets = new TargetEntry[]{
 	new TargetEntry("text/plain", 0, 1),
 	new TargetEntry("STRING", 0, 2)};
 
@@ -34,9 +28,14 @@ namespace Gimp.PicturePackage
       Events = EventMask.ButtonPressMask;
     }
 
-    public Layout Layout
+    public void SetLayout(Layout layout)
     {
-      set {_layout = value;}
+      _layout = layout;
+      if (IsRealized)
+	{
+	RenderPixmap();
+	QueueDraw();
+	}
     }
 
     public Image Image
@@ -44,17 +43,27 @@ namespace Gimp.PicturePackage
       set {_image = value;}
     }
 
+    static bool first = true;
+
     void OnExposed (object o, ExposeEventArgs args)
     {
-      if (_layout != null)
-	{
-	_layout.Draw(new Painter(this, _layout, _image, _gc));
-	}
+      GdkWindow.DrawDrawable(_gc, _pixmap, 0, 0, 0, 0, -1, -1);
     }
 
     void OnRealized (object o, EventArgs args)
     {
+      if (_pixmap == null)
+	{
+	_pixmap = new Pixmap(this.GdkWindow, WidthRequest, HeightRequest, -1);
+	}
       _gc = new Gdk.GC(this.GdkWindow);
+      RenderPixmap();
+    }
+
+    void RenderPixmap()
+    {
+      _pixmap.DrawRectangle(_gc, true, 0, 0, WidthRequest, HeightRequest);
+      _layout.Render(new PreviewRenderer(this, _layout, _image, _pixmap, _gc));
     }
 
     void OnButtonPress(object o, ButtonPressEventArgs args)

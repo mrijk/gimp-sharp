@@ -6,10 +6,13 @@ using System.Xml;
 
 namespace Gimp.PicturePackage
 {
+  public delegate void SelectHandler(Layout layout);
+
   public class LayoutSet : IEnumerable
   {
     ArrayList _set = new ArrayList();
-    
+    Layout _selected = null;
+
     public LayoutSet()
     {
     }
@@ -37,11 +40,15 @@ namespace Gimp.PicturePackage
 	{
 	XmlAttributeCollection attributes = layout.Attributes;
 	XmlAttribute name = (XmlAttribute) attributes.GetNamedItem("name");
-	_set.Add(new Layout(layout));
+	Add(new Layout(layout));
 	}
-      
     }
     
+    public void Add(Layout layout)
+    {
+      _set.Add(layout);
+    }
+
     public IEnumerator GetEnumerator()
     {
       return _set.GetEnumerator();
@@ -52,6 +59,22 @@ namespace Gimp.PicturePackage
       get {return (Layout) _set[index];}
     }
 
+    public event SelectHandler SelectEvent;
+
+    public Layout Selected
+    {
+      set
+	  {
+	  _selected = value;
+	  if (SelectEvent != null)
+	    {
+	    SelectEvent(value);
+	    }
+	  }
+
+      get {return _selected;}
+    }
+
     public PageSizeSet GetPageSizeSet(int resolution)
     {
       PageSizeSet set = new PageSizeSet();
@@ -60,7 +83,20 @@ namespace Gimp.PicturePackage
 	{
 	set.Add(layout.GetPageSize(resolution));
 	}
+      return set;
+    }
 
+    public LayoutSet GetLayouts(PageSize pageSize, int resolution)
+    {
+      LayoutSet set = new LayoutSet();
+
+      foreach (Layout layout in _set)
+	{
+	if (layout.GetPageSize(resolution).CompareTo(pageSize) == 0)
+	  {
+	  set.Add(layout);
+	  }
+	}
       return set;
     }
   }

@@ -26,14 +26,6 @@ namespace Gimp.PicturePackage
       return null;
     }
 
-    public void Draw(Painter painter)
-    {
-      foreach (Rectangle rectangle in _set)
-	{
-	rectangle.Draw(painter);
-	}
-    }
-
     public void Render(Renderer renderer)
     {
       foreach (Rectangle rectangle in _set)

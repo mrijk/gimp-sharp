@@ -141,16 +141,20 @@ target_alias = @target_alias@
 ASSEMBLIES = -r $(top_builddir)/lib/gimp-sharp.dll /pkg:gtk-sharp
 
 SOURCES = \
-	Painter.cs		\
-	PicturePackage.cs	\
+	DocumentFrame.cs	\
+	ImageRenderer.cs	\
+	LabelFrame.cs		\
 	Layout.cs		\
 	LayoutSet.cs		\
 	PageSize.cs		\
 	PageSizeSet.cs		\
+	PicturePackage.cs	\
 	Preview.cs		\
+	PreviewRenderer.cs	\
 	Rectangle.cs		\
 	RectangleSet.cs		\
-	Renderer.cs
+	Renderer.cs		\
+	SourceFrame.cs
 
 
 EXTRA_DIST = $(SOURCES) PicturePackage picture-package.xml
@@ -161,16 +165,20 @@ CONFIG_CLEAN_FILES =
 DIST_SOURCES =
 DIST_COMMON = Makefile.am Makefile.in
 SOURCES = \
-	Painter.cs		\
-	PicturePackage.cs	\
+	DocumentFrame.cs	\
+	ImageRenderer.cs	\
+	LabelFrame.cs		\
 	Layout.cs		\
 	LayoutSet.cs		\
 	PageSize.cs		\
 	PageSizeSet.cs		\
+	PicturePackage.cs	\
 	Preview.cs		\
+	PreviewRenderer.cs	\
 	Rectangle.cs		\
 	RectangleSet.cs		\
-	Renderer.cs
+	Renderer.cs		\
+	SourceFrame.cs
 
 
 all: all-am

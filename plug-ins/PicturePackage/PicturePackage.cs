@@ -8,19 +8,19 @@ namespace Gimp.PicturePackage
   public class PicturePackage : Plugin
   {
     LayoutSet _layoutSet = new LayoutSet();
-    Layout _selectedLayout;
-    Preview _preview;
+
+    DocumentFrame _df;
 
     [SaveAttribute]
     bool _flatten = false;
 
     [SaveAttribute]
-    int _res = 72;
+    int _resolution = 72;
 
     [STAThread]
     static void Main(string[] args)
     {
-      PicturePackage plugin = new PicturePackage(args);
+      new PicturePackage(args);
     }
 
     public PicturePackage(string[] args) : base(args)
@@ -47,7 +47,6 @@ namespace Gimp.PicturePackage
       gimp_ui_init("PicturePackage", true);
 
       _layoutSet.Load();
-      _selectedLayout = _layoutSet[0];
 
       Dialog dialog = DialogNew("Picture Package", "PicturePackage",
 				IntPtr.Zero, 0, null, "PicturePackage");
@@ -59,9 +58,14 @@ namespace Gimp.PicturePackage
       VBox vbox = new VBox(false, 12);
       hbox.PackStart(vbox, false, false, 0);
 
-      BuildSourceFrame(vbox);
-      BuildDocumentFrame(vbox);
-      BuildLabelFrame(vbox);
+      SourceFrame sf = new SourceFrame();
+      vbox.PackStart(sf, false, false, 0);
+
+      _df = new DocumentFrame(_layoutSet);
+      vbox.PackStart(_df, false, false, 0);
+
+      LabelFrame lf = new LabelFrame();
+      vbox.PackStart(lf, false, false, 0);
 
       Frame frame = new Frame();
       hbox.PackStart(frame, true, true, 0);
@@ -70,234 +74,40 @@ namespace Gimp.PicturePackage
       fbox.BorderWidth = 12;
       frame.Add(fbox);
 
-      _preview = new Preview();
-      _preview.WidthRequest = 400;
-      _preview.HeightRequest = 500;
-      _preview.Layout = _selectedLayout;
-      _preview.Image = _image;
-      fbox.Add(_preview);
+      Preview preview = new Preview();
+      preview.WidthRequest = 400;
+      preview.HeightRequest = 500;
+      preview.Image = _image;
+      fbox.Add(preview);
+
+      _layoutSet.SelectEvent += new SelectHandler(preview.SetLayout);
+
+      _layoutSet.Selected = _layoutSet[0];
 
       dialog.ShowAll();
 	
       return DialogRun();
     }
 
-    CheckButton _include;
-    FileEntry _choose;
-
-    void BuildSourceFrame(VBox vbox)
-    {
-      GimpFrame frame = new GimpFrame("Source");
-      vbox.PackStart(frame, false, false, 0);
-
-      GimpTable table = new GimpTable(2, 3, false);
-      table.ColumnSpacing = 6;
-      table.RowSpacing = 6;
-      frame.Add(table);
-
-      OptionMenu use = new OptionMenu();
-      Menu menu = new Menu();
-      menu.Append(new MenuItem("File"));
-      menu.Append(new MenuItem("Folder"));
-      menu.Append(new MenuItem("Frontmost Document"));
-      use.Menu = menu;
-      use.SetHistory(2);
-      table.AttachAligned(0, 0, "_Use:", 0.0, 0.5, use, 1, false);
-      use.Changed += new EventHandler(OnUseChanged);
-
-      _include = new CheckButton("_Include All Subfolders");
-      table.Attach(_include, 1, 2, 1, 2);
-#if false
-      _choose = new Button("Choose...");
-      table.Attach(_choose, 1, 2, 2, 3, AttachOptions.Shrink,
-		   AttachOptions.Fill, 0, 0);	
-      _choose.Clicked += new EventHandler(OnChooseClicked);
-#else
-      _choose = new FileEntry("Open...", "", true, true);
-      table.Attach(_choose, 1, 2, 2, 3, AttachOptions.Shrink,
-		   AttachOptions.Fill, 0, 0);	
-#endif
-      SetSourceFrameSensitivity(2);
-    }
-
-    void OnChooseClicked (object o, EventArgs args)
-    {
-      FileSelection fs = new FileSelection ("Choose a file");
-      fs.Run ();
-      Console.WriteLine("Selected: " + fs.SelectionEntry.Text);
-      fs.Hide ();
-    }
-
-    void SetSourceFrameSensitivity(int history)
-    {
-      if (history == 0)
-	{
-	_include.Sensitive = false;
-	_choose.Sensitive = true;
-	}
-      else if (history == 1)
-	{
-	_include.Sensitive = true;
-	_choose.Sensitive = true;
-	}
-      else
-	{
-	_include.Sensitive = false;
-	_choose.Sensitive = false;
-	}
-    }
-
-    void OnUseChanged (object o, EventArgs args) 
-    {
-      SetSourceFrameSensitivity((o as OptionMenu).History);
-    }
-
-    Entry _resolution;
-
-    void BuildDocumentFrame(VBox vbox)
-    {
-      Frame frame = new GimpFrame("Document");
-      vbox.PackStart(frame, false, false, 0);
-
-      GimpTable table = new GimpTable(5, 3, false);
-      table.ColumnSpacing = 6;
-      table.RowSpacing = 6;
-      frame.Add(table);
-
-      OptionMenu _size = new OptionMenu();
-      Menu menu = new Menu();
-      PageSizeSet sizes = _layoutSet.GetPageSizeSet(_res);
-      foreach (PageSize size in sizes)
-	{
-	menu.Append(new MenuItem(String.Format("{0,1:f1} x {1,1:f1} inches", 
-					       size.Width, size.Height)));
-	}
-
-      _size.Menu = menu;
-      table.AttachAligned(0, 0, "_Page Size:", 0.0, 0.5, _size, 2, false);
-
-      OptionMenu _layout = new OptionMenu();
-      menu = new Menu();
-      foreach (Layout layout in _layoutSet)
-	{
-	menu.Append(new MenuItem(layout.Name));
-	}
-      _layout.Menu = menu;
-      _layout.Changed += new EventHandler(OnLayoutChanged);
-      table.AttachAligned(0, 1, "_Layout:", 0.0, 0.5,
-			  _layout, 2, false);
-
-      _resolution = new Entry();
-      _resolution.WidthChars = 4;
-      _resolution.Text = "72";
-      table.AttachAligned(0, 2, "_Resolution:", 0.0, 0.5, _resolution, 1, true);
-	
-      OptionMenu units = new OptionMenu();
-      menu = new Menu();
-      menu.Append(new MenuItem("pixels/inch"));
-      menu.Append(new MenuItem("pixels/cm"));
-      menu.Append(new MenuItem("pixels/mm"));
-      units.Menu = menu;
-      table.Attach(units, 2, 3, 2, 3);	
-
-      OptionMenu mode = new OptionMenu();
-      menu = new Menu();
-      menu.Append(new MenuItem("Grayscale"));
-      menu.Append(new MenuItem("RGB Color"));
-      mode.Menu = menu;
-      mode.SetHistory(1);
-      table.AttachAligned(0, 3, "_Mode:", 0.0, 0.5, mode, 2, false);
-
-      CheckButton flatten = new CheckButton("Flatten All Layers");
-      flatten.Toggled += new EventHandler(FlattenToggled);
-      table.Attach(flatten, 0, 2, 4, 5);
-    }
-
-    void OnLayoutChanged (object o, EventArgs args) 
-    {
-      int nr = (o as OptionMenu).History;
-      _selectedLayout = _layoutSet[nr];
-      _preview.Layout = _selectedLayout;
-      _preview.QueueDraw();
-    }
-
-    void FlattenToggled (object sender, EventArgs args)
-    {
-      _flatten = (sender as CheckButton).Active;
-    }
-
-    void BuildLabelFrame(VBox vbox)
-    {
-      GimpFrame frame = new GimpFrame("Label");
-      vbox.PackStart(frame, false, false, 0);
-
-      GimpTable table = new GimpTable(3, 3, false);
-      table.ColumnSpacing = 6;
-      table.RowSpacing = 6;
-      frame.Add(table);
-
-      OptionMenu content = new OptionMenu();
-      Menu menu = new Menu();
-      menu.Append(new MenuItem("None"));
-      menu.Append(new MenuItem("Custom Text"));
-      menu.Append(new MenuItem("Filename"));
-      menu.Append(new MenuItem("Copyright"));
-      menu.Append(new MenuItem("Caption"));
-      menu.Append(new MenuItem("Credits"));
-      menu.Append(new MenuItem("Title"));
-      content.Menu = menu;
-      table.AttachAligned(0, 0, "Content:", 0.0, 0.5, content, 1, false);
-
-      Entry entry = new Entry();
-      table.AttachAligned(0, 1, "Custom Text:", 0.0, 0.5, entry, 1, true);
-#if false
-      GimpFontSelectWidget font = new GimpFontSelectWidget(null, 
-							   "Monospace");
-      table.AttachAligned(0, 2, "Font:", 0.0, 0.5, font, 1, true);
-#endif
-      RGB rgb = new RGB(0, 0, 0);
-
-      GimpColorButton color = new GimpColorButton("", 16, 16, rgb.GimpRGB,
-						  ColorAreaType.COLOR_AREA_FLAT);
-      table.AttachAligned(0, 2, "Color:", 0.0, 0.5, color, 1, true);
-
-      OptionMenu position = new OptionMenu();
-      menu = new Menu();
-      menu.Append(new MenuItem("Centered"));
-      menu.Append(new MenuItem("Top Left"));
-      menu.Append(new MenuItem("Bottom Left"));
-      menu.Append(new MenuItem("Top Right"));
-      menu.Append(new MenuItem("Bottom Right"));
-      position.Menu = menu;
-      table.AttachAligned(0, 3, "Position:", 0.0, 0.5, position, 1, false);
-
-      OptionMenu rotate = new OptionMenu();
-      menu = new Menu();
-      menu.Append(new MenuItem("None"));
-      menu.Append(new MenuItem("45 Degrees Right"));
-      menu.Append(new MenuItem("90 Degrees Right"));
-      menu.Append(new MenuItem("45 Degrees Left"));
-      menu.Append(new MenuItem("90 Degrees Left"));
-      rotate.Menu = menu;
-      table.AttachAligned(0, 4, "Rotate:", 0.0, 0.5, rotate, 1, false);
-    }
-
     override protected void DoSomething(Image image)
     {
-      double resolution = double.Parse(_resolution.Text);
+      _flatten = _df.Flatten;
 
-      int width = (int) (_selectedLayout.Width * resolution);
-      int height = (int) (_selectedLayout.Height * resolution);
+      // double resolution = double.Parse(_resolution.Text);
+      Layout layout = _layoutSet.Selected;
+
+      int width = (int) (layout.Width * _resolution);
+      int height = (int) (layout.Height * _resolution);
       Image composed = new Image(width, height, ImageBaseType.RGB);
 
-      _selectedLayout.Render(composed, image, resolution);
+      layout.Render(new ImageRenderer(composed, image, _resolution));
 
       if (_flatten)
 	{
 	composed.Flatten();
 	}
 
-      Display display = new Display(composed);
+      new Display(composed);
       Display.DisplaysFlush();
     }
   }

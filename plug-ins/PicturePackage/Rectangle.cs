@@ -26,11 +26,6 @@ namespace Gimp.PicturePackage
       _h = (h == null) ? 0 :  Convert.ToDouble(h.Value);
     }
 
-    public void Draw(Painter painter)
-    {
-      painter.DrawPreview(_x, _y, _w, _h);
-    }
-
     public void Render(Renderer renderer)
     {
       renderer.Render(_x, _y, _w, _h);

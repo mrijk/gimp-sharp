@@ -1,3 +1,13 @@
+2004-11-25    <maurits@Mau>
+
+	* plug-ins/PicturePackage/Makefile.am
+	* plug-ins/PicturePackage/DocumentFrame.cs
+	* plug-ins/PicturePackage/SourceFrame.cs
+	* plug-ins/PicturePackage/LabelFrame.cs: new files
+
+	* lib/Makefile.am
+	* lib/GimpDialog.cs: new file
+
 2004-11-24    <maurits@Mau>
 
 	* plug-ins/PicturePackage/Makefile.am

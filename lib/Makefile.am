@@ -11,6 +11,7 @@ SOURCES = 			\
 	Drawable.cs		\
 	FileEntry.cs		\
 	GimpColorButton.cs	\
+	GimpDialog.cs		\
 	GimpEnums.cs		\
 	GimpFontSelectWidget.cs	\
 	GimpFrame.cs		\

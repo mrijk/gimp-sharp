@@ -34,7 +34,7 @@ namespace Gimp.Ministeck
 			 "(C) Maurits Rijk",
 			 "2004",
 			 "Ministeck...",
-			 "RGB*",
+			 "RGB*, GRAY*",
 			 null);
 
 	MenuRegister("plug_in_ministeck", "<Image>/Filters/Artistic");

@@ -1,6 +1,7 @@
 using System;
 using System.Runtime.InteropServices;
 
+using GLib;
 using Gtk;
 
 namespace Gimp
@@ -74,12 +75,6 @@ namespace Gimp
 	    }
       }
 
-      [DllImport("libgimpwidgets-2.0.so")]
-      extern static void gimp_color_button_set_update(IntPtr button,
-						      bool continuous);
-      [DllImport("libgimpwidgets-2.0.so")]
-      extern static bool gimp_color_button_get_update(IntPtr button);
-
       public bool Update
       {
 	get
@@ -91,5 +86,48 @@ namespace Gimp
 	    gimp_color_button_set_update(Handle, value);
 	    }
       }
+
+      [GLib.Signal("color-changed")]
+      public event EventHandler ColorChanged
+      {
+	add 
+	    {
+#if false
+	    if (value.Method.GetCustomAttributes(
+		  typeof(GLib.ConnectBeforeAttribute), false).Length > 0) 
+	      {
+	      if (BeforeHandlers["color-changed"] == null)
+		BeforeSignals["color-changed"] = 
+		  new GtkSharp.voidObjectObjectSignal(
+		    this, "color-changed", value, 
+		    typeof (EventArgs), 0);
+	      else
+		((SignalCallback) BeforeSignals ["color-changed"]).AddDelegate (value);
+	      BeforeHandlers.AddHandler("color-changed", value);
+	      } 
+	    else 
+	      {
+	      if (AfterHandlers["color-changed"] == null)
+		AfterSignals["color-changed"] = 
+		  new GtkSharp.voidObjectObjectSignal(
+		    this, "color-changed", value, 
+		    typeof (EventArgs), 1);					else
+		      ((SignalCallback) AfterSignals ["color-changed"]).AddDelegate (value);
+	      AfterHandlers.AddHandler("color-changed", value);
+	      }
+#endif
+	    }
+	
+	remove
+	    {
+	    }
+      }
+
+      [DllImport("libgimpwidgets-2.0.so")]
+      extern static void gimp_color_button_set_update(IntPtr button,
+						      bool continuous);
+      [DllImport("libgimpwidgets-2.0.so")]
+      extern static bool gimp_color_button_get_update(IntPtr button);
+
     }
   }

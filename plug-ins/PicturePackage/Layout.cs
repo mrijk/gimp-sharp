@@ -63,14 +63,9 @@ namespace Gimp.PicturePackage
       return _rectangles.Find(x, y);
     }
 
-    public void Draw(Painter painter)
+    public void Render(Renderer renderer)
     {
-      _rectangles.Draw(painter);
-    }
-
-    public void Render(Image composed, Image source, double resolution)
-    {
-      _rectangles.Render(new Renderer(composed, source, resolution));
+      _rectangles.Render(renderer);
     }
 
     public PageSize GetPageSize(int resolution)

@@ -5,7 +5,6 @@ using System.Runtime.InteropServices;
 using System.Runtime.Serialization.Formatters.Binary;
 
 using Gtk;
-using GtkSharp;
 
 namespace Gimp
   {
@@ -40,24 +39,6 @@ namespace Gimp
     [DllImport("libgimpwrapper.so")]
     public static extern int fnInitGimp(ref GimpPlugInInfo info, 
 					int argc, string[] args);
-
-    protected delegate void GimpHelpFunc(string help_id);
-
-    [DllImport("libgimpwidgets-2.0.so")]
-    static extern IntPtr gimp_dialog_new(
-      string title,
-      string role,
-      IntPtr parent,
-      Gtk.DialogFlags  flags,
-      GimpHelpFunc    help_func,
-      string    help_id,
-      string button1, Gtk.ResponseType acion1,
-      string button2, Gtk.ResponseType action2,
-      string end);
-
-    [DllImport("libgimpwidgets-2.0.so")]
-    static extern Gtk.ResponseType gimp_dialog_run(IntPtr dialog);
-
     [DllImport("libgimp-2.0.so")]
     public static extern bool gimp_plugin_menu_register(string procedure_name,
 							string menu_path);
@@ -65,8 +46,6 @@ namespace Gimp
 
     static GimpPlugInInfo _info = new GimpPlugInInfo();
     static string[] myArgs = new String[6];
-
-    IntPtr _dialogPtr;
 
     public Plugin(string[] args)
     {
@@ -298,20 +277,24 @@ namespace Gimp
 	}
     }
 
+    GimpDialog _dialog;
+
     protected Dialog DialogNew( string title,
 				string role,
 				IntPtr parent,
 				Gtk.DialogFlags flags,
 				GimpHelpFunc help_func,
 				string help_id,
-				string button1, Gtk.ResponseType action1,
-				string button2, Gtk.ResponseType action2)
+				// string button1, Gtk.ResponseType action1,
+				string button2, Gtk.ResponseType action2,
+				string button3, Gtk.ResponseType action3)
     {
-      _dialogPtr = gimp_dialog_new(title, role, parent, flags, 
-				   help_func, help_id, 
-				   button1, action1,
-				   button2, action2, null);
-      return new Dialog(_dialogPtr);
+      _dialog = new GimpDialog(title, role, parent, flags, 
+			       help_func, help_id, 
+			       // button1, action1,
+			       button2, action2, 
+			       button3, action3);
+      return _dialog;
     }
 
     protected Dialog DialogNew( string title,
@@ -322,6 +305,7 @@ namespace Gimp
 				string help_id)
     {
       return DialogNew (title, role, parent, flags, help_func, help_id,
+			// Stock.Help, ResponseType.Help,
 			Stock.Cancel, ResponseType.Cancel,
 			Stock.Ok, ResponseType.Ok);
     }
@@ -357,13 +341,24 @@ namespace Gimp
 
     protected bool DialogRun()
     {
-      if (gimp_dialog_run(_dialogPtr) == ResponseType.Ok)
+      while (true)
 	{
-	GetParameters();
-	CallDoSomething();
-	return true;
+	ResponseType type = _dialog.Run();
+	if (type == ResponseType.Ok)
+	  {
+	  GetParameters();
+	  CallDoSomething();
+	  return true;
+	  } 
+	else if (type == ResponseType.Cancel)
+	  {
+	  return false;
+	  }
+	else if (type == ResponseType.Help)
+	  {
+	  Console.WriteLine("Show help here!");
+	  }
 	}
-      return false;
     }
 
     [DllImport("libgimp-2.0.so")]
