@@ -1,5 +1,7 @@
 using System;
 
+using Gimp;
+
 namespace Ministeck
   {
     public class TwoByTwoShape : Shape
@@ -13,6 +15,12 @@ namespace Ministeck
 
 	_set = new ShapeSet[1];
 	_set[0] = new ShapeSet(shape);
+      }
+
+      protected override void Fill(PixelRgn PR, int x, int y,
+				   ShapeDescription shape)
+      {
+	Rectangle(PR, x, y, 2, 2);
       }
     }
   }

@@ -9,6 +9,8 @@ namespace Ministeck
   {
     protected ShapeSet[] _set;
     Random _random = new Random();
+    byte[] _color = new byte[3]{3, 3, 3};
+
     public int _match = 0;
 
     public Shape()
@@ -22,7 +24,10 @@ namespace Ministeck
       foreach (ShapeDescription shape in _set[index])
 	{
 	if (Fits(PR, A, x, y, shape))
+	  {
+	  Fill(PR, A, x, y, shape);
 	  return true;
+	  }
 	}
       return false;
     }
@@ -40,9 +45,10 @@ namespace Ministeck
 	{
 	int cx = x + c.X;
 	int cy = y + c.Y;
-	if (cx < 0 || cx >= width || cy < 0 || cy >= height)
+	if (cx < 0 || cx >= width || cy < 0 || cy >= height || A[x, y])
+	  {
 	  return false;
-
+	  }
 	cx *= 16;
 	cy *= 16;
 
@@ -54,23 +60,79 @@ namespace Ministeck
 	  }
 	}
 
-      Fill(PR, A, x, y, shape);
       _match++;
       return true;
     }
 
+    abstract protected void Fill(PixelRgn PR, int x, int y,
+				 ShapeDescription shape) ;
+
     void Fill(PixelRgn PR, bool[,] A, int x, int y, ShapeDescription shape)
     {
-      byte[] color = new byte[3]{3, 3, 3};
-
+      Fill(PR, x, y, shape);
       A[x, y] = true;
       foreach (Coordinate c in shape)
 	{
 	int cx = x + c.X;
 	int cy = y + c.Y;
 	A[cx, cy] = true;
-	PR.SetPixel(color, cx * 16, cy * 16);
 	}
+    }
+
+    PixelRgn _PR;
+    int _x, _y;
+
+    protected void LineStart(PixelRgn PR, int x, int y)
+    {
+      _PR = PR;
+      _x = x * 16;
+      _y = y * 16;
+    }
+
+    protected void Rectangle(PixelRgn PR, int x, int y, int w, int h)
+    {
+      w *= 16;
+      h *= 16;
+
+      LineStart(PR, x, y);
+      HLine(w);
+      VLine(h);
+      HLine(-w);
+      VLine(-h);
+    }
+
+    protected void HLine(int len)
+    {
+      int dx = 1;
+      if (len < 0)
+	{
+	len = -len;
+	dx = -1;
+	}
+
+      for (int i = 0; i < len; i++)
+	{
+	_PR.SetPixel(_color, _x, _y);
+	_x += dx;
+	}
+      _x -= dx;
+    }
+
+    protected void VLine(int len)
+    {
+      int dy = 1;
+      if (len < 0)
+	{
+	len = -len;
+	dy = -1;
+	}
+
+      for (int i = 0; i < len; i++)
+	{
+	_PR.SetPixel(_color, _x, _y);
+	_y += dy;
+	}
+      _y -= dy;
     }
   }
   }

@@ -98,7 +98,6 @@ namespace Ministeck
 				      drawable.Width, drawable.Height,
 				      true, false);
 	bool[,] A = new bool[width, height];
-	byte[] buf = new byte[4];
 
 	for (int i = 0; i < width; i++)
 	  {
@@ -117,9 +116,9 @@ namespace Ministeck
 	shapes.Add(new CornerShape());
 	shapes.Add(new OneByOneShape());
 
-	for (int x = 0; x < width; x++)
+	for (int y = 0; y < height; y++)
 	  {
-	  for (int y = 0; y < height; y++)
+	  for (int x = 0; x < width; x++)
 	    {
 	    if (!A[x, y])
 	      {
@@ -138,8 +137,8 @@ namespace Ministeck
 	    }
 	  }
 
-	// foreach (Shape shape in shapes)
-	//  Console.WriteLine(shape._match);
+	foreach (Shape shape in shapes)
+	  Console.WriteLine(shape._match);
 	drawable.Flush();
 	drawable.Update(0, 0, drawable.Width, drawable.Height);
 
