@@ -22,6 +22,11 @@ namespace Gimp.SliceTool
     Entry _target;
     Entry _xy;
 
+    Label _left;
+    Label _right;
+    Label _top;
+    Label _bottom;
+
     Slice _slice;
     PreviewRenderer _renderer;
     Rectangle _rectangle;
@@ -72,8 +77,76 @@ namespace Gimp.SliceTool
       HBox hbox = new HBox();
       vbox.PackStart(hbox, true, true, 0);
 
+      Widget toolbar = CreateToolbar();
+      hbox.PackStart(toolbar, false, true, 0);
+
+      Widget preview = CreatePreview();
+      hbox.PackStart(preview, true, true, 0);
+
+      // Create coordinates
+      _xy = new Entry();
+      _xy.Editable = false;
+      vbox.Add(_xy);
+
+      hbox = new HBox(false, 24);
+      vbox.PackStart(hbox, true, true, 0);
+
+      Widget properties = CreateCellProperties();
+      hbox.PackStart(properties, false, true, 0);
+
+      vbox = new VBox(false, 12);
+      hbox.PackStart(vbox, false, true, 0);
+
+      Widget rollover = CreateRollover();
+      vbox.PackStart(rollover, false, true, 0);
+
+      Widget format = CreateFormat();
+      vbox.PackStart(format, false, true, 0);
+
+      CreateInitialSlices();
+
+      dialog.ShowAll();
+      return DialogRun();
+    }
+
+    void CreateInitialSlices()
+    {
+      int width = _drawable.Width;
+      int height = _drawable.Height;
+
+      VerticalSlice left = new VerticalSlice(0, 0, height - 1);
+      VerticalSlice right = new VerticalSlice(width - 1, 0, height - 1);
+      HorizontalSlice top = new HorizontalSlice(0, width - 1, 0);
+      HorizontalSlice bottom = new HorizontalSlice(0, width - 1, height - 1);
+      _verticalSlices.Add(left);
+      _verticalSlices.Add(right);
+      _horizontalSlices.Add(top);
+      _horizontalSlices.Add(bottom);
+      Rectangle rectangle = new Rectangle(left, right, top, bottom);
+      _rectangles.Add(rectangle);
+    }
+
+    Widget CreatePreview()
+    {
+      ScrolledWindow window = new ScrolledWindow();
+      window.SetSizeRequest(600, 400);
+
+      _preview = new Preview(_drawable, this);
+      _preview.WidthRequest = _drawable.Width;
+      _preview.HeightRequest = _drawable.Height;
+      _preview.ButtonPressEvent += new ButtonPressEventHandler(OnButtonPress);
+      
+      //      _preview.MotionNotifyEvent +=
+      // 	new MotionNotifyEventHandler(OnShowCoordinates);
+
+      window.AddWithViewport(_preview);
+
+      return window;
+    }
+
+    Widget CreateToolbar()
+    {
       HandleBox handle = new HandleBox();
-      hbox.PackStart(handle, false, true, 0);
 
       Toolbar tools = new Toolbar();
       tools.Orientation = Gtk.Orientation.Vertical;
@@ -94,7 +167,7 @@ namespace Gimp.SliceTool
       button.Clicked += new EventHandler(OnCreateSlice);
 
       button = new Button();
-      image = new Gtk.Image(Stock.Delete, IconSize.SmallToolbar);
+      image = new Gtk.Image("gimp-tool-eraser", IconSize.SmallToolbar);
       button.Add(image);
       tools.AppendWidget(button, "Remove Slice", "delete");
       button.Clicked += new EventHandler(OnRemoveSlice);
@@ -105,57 +178,76 @@ namespace Gimp.SliceTool
       tools.AppendWidget(button, "Insert Table", "grid");
       button.Clicked += new EventHandler(OnCreateTable);
 
-      int width = _drawable.Width;
-      int height = _drawable.Height;
+      return handle;
+    }
 
-      ScrolledWindow window = new ScrolledWindow();
-      window.SetSizeRequest(600, 400);
-      hbox.PackStart(window, true, true, 0);
-
-      _preview = new Preview(_drawable, this);
-      _preview.WidthRequest = width;
-      _preview.HeightRequest = height;
-      _preview.ButtonPressEvent += new ButtonPressEventHandler(OnButtonPress);
-      
-      //      _preview.MotionNotifyEvent +=
-      // 	new MotionNotifyEventHandler(OnShowCoordinates);
-
-      window.AddWithViewport(_preview);
-
-      _xy = new Entry();
-      _xy.Editable = false;
-      vbox.Add(_xy);
-
+    Widget CreateCellProperties()
+    {
       GimpFrame frame = new GimpFrame("Cell Properties");
-      vbox.PackStart(frame, false, true, 0);
-      GimpTable table = new GimpTable(3, 2, false);
+      GimpTable table = new GimpTable(5, 4, false);
       table.ColumnSpacing = 6;
       table.RowSpacing = 6;
 
       frame.Add(table);
 
       _url = new Entry();
-      table.AttachAligned(0, 0, "URL:", 0.0, 0.5, _url, 1, false);
+      table.AttachAligned(0, 0, "URL:", 0.0, 0.5, _url, 3, false);
 
       _altText = new Entry();
-      table.AttachAligned(0, 1, "Alt text:", 0.0, 0.5, _altText, 1, false);
+      table.AttachAligned(0, 1, "Alt text:", 0.0, 0.5, _altText, 3, false);
 
       _target = new Entry();
-      table.AttachAligned(0, 2, "Target:", 0.0, 0.5, _target, 1, false);
+      table.AttachAligned(0, 2, "Target:", 0.0, 0.5, _target, 3, false);
 
-      VerticalSlice left = new VerticalSlice(0, 0, height - 1);
-      VerticalSlice right = new VerticalSlice(width - 1, 0, height - 1);
-      HorizontalSlice top = new HorizontalSlice(0, width - 1, 0);
-      HorizontalSlice bottom = new HorizontalSlice(0, width - 1, height - 1);
-      _verticalSlices.Add(left);
-      _verticalSlices.Add(right);
-      _horizontalSlices.Add(top);
-      _horizontalSlices.Add(bottom);
-      Rectangle rectangle = new Rectangle(left, right, top, bottom);
-      _rectangles.Add(rectangle);
+      _left = new Label("    ");
+      table.AttachAligned(0, 3, "Left:", 0.0, 0.5, _left, 1, false);
 
-      dialog.ShowAll();
-      return DialogRun();
+      _right = new Label("    ");
+      table.AttachAligned(0, 4, "Right:", 0.0, 0.5, _right, 1, false);
+
+      _top = new Label("    ");
+      table.AttachAligned(2, 3, "Top:", 0.0, 0.5, _top, 1, false);
+
+      _bottom = new Label("    ");
+      table.AttachAligned(2, 4, "Bottom:", 0.0, 0.5, _bottom, 1, false);
+
+      CheckButton _include = new CheckButton("_Include cell in table");
+      _include.Active = true;
+      table.Attach(_include, 0, 2, 5, 6);
+
+      return frame;
+    }
+
+    Widget CreateRollover()
+    {
+      GimpFrame frame = new GimpFrame("Rollovers");
+
+      VBox vbox = new VBox(false, 12);
+      frame.Add(vbox);
+
+      Button button = new Button("Rollover Creator...");
+      vbox.Add(button);
+
+      Label label = new Label("Rollover enabled: no");
+      vbox.Add(label);
+
+      return frame;
+    }
+
+    Widget CreateFormat()
+    {
+      GimpFrame frame = new GimpFrame("Format");
+
+      OptionMenu format = new OptionMenu();
+      frame.Add(format);
+
+      Menu menu = new Menu();
+      menu.Append(new MenuItem("jpg"));
+      menu.Append(new MenuItem("gif"));
+      menu.Append(new MenuItem("png"));
+      format.Menu = menu;
+
+      return frame;
     }
 
     void AddStockIcon(IconFactory factory, string stockId, string filename)
@@ -186,6 +278,10 @@ namespace Gimp.SliceTool
     {
       _horizontalSlices.Draw(renderer);
       _verticalSlices.Draw(renderer);
+      if (_rectangle != null)
+	{
+	_rectangle.Draw(_preview.Renderer);
+	}
     }
 
     void OnSelect(object o, EventArgs args)
@@ -211,12 +307,17 @@ namespace Gimp.SliceTool
 	    _rectangle.AltText = _altText.Text;
 	    _rectangle.Target = _target.Text;
 	    }
-	  Redraw(_preview.Renderer);
-	  rectangle.Draw(_preview.Renderer);
 	  _rectangle = rectangle;
+	  Redraw(_preview.Renderer);
+
 	  _url.Text = _rectangle.URL;
 	  _altText.Text = _rectangle.AltText;
 	  _target.Text = _rectangle.Target;
+	  
+	  _left.Text = string.Format("{0}", _rectangle.X1);
+	  _right.Text = string.Format("{0}", _rectangle.Y1);
+	  _top.Text = string.Format("{0}", _rectangle.X2);
+	  _bottom.Text = string.Format("{0}", _rectangle.Y2);
 	  }
 	}
       else
