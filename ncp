@@ -1,5 +1,6 @@
 #!/bin/bash
 
-LD_LIBRARY_PATH=~/.gimp-2.1/plug-ins/:$LD_LIBRARY_PATH
+THISDIR=`dirname $0`
+LD_LIBRARY_PATH=$THISDIR:$LD_LIBRARY_PATH
 
-mono ~/.gimp-2.1/plug-ins/ncp.exe "$@"
+mono $THISDIR/ncp.exe "$@"

@@ -85,8 +85,13 @@ namespace Gimp
 	frame.HeightRequest = 300;
 	hbox.PackStart(frame, true, true, 0);
 
+	Preview preview = new Preview();
+	// preview.WidthRequest = 240;
+	// preview.HeightRequest = 300;
+	frame.Add(preview);
 
 	dialog.ShowAll();
+
 	DialogRun();
       }
 

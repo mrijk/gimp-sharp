@@ -1,6 +1,6 @@
 MCS = mcs
 
-VERSION = 0.1.1
+VERSION = 0.2
 
 # Fill in GIMP version here.
 # GIMPVERSION = 2.0
@@ -24,6 +24,13 @@ SOURCES = \
 	RgnIterator.cs		\
 	ScaleEntry.cs
 
+NCP_SOURCES = \
+	ncp.cs
+
+PICTURE_PACKAGE_SOURCES = 	\
+	PicturePackage.cs	\
+	PP-preview.cs
+
 EXTRADIST =		\
 	AUTHORS		\
 	COPYING		\
@@ -35,16 +42,16 @@ EXTRADIST =		\
 	PicturePackage	\
 	picture-package.xml	\
 	gimp.c			\
-	ncp.cs			\
-	PicturePackage.cs
+	$(NCP_SOURCES)		\
+	$(PICTURE_PACKAGE_SOURCES)
 
 all: ncp.exe PicturePackage.exe
 
-ncp.exe: ncp.cs $(SOURCES) gimpwrapper.so
-	$(MCS) -2 ncp.cs $(RESOURCES) -o $@ $(SOURCES) $(REFERENCES)
+ncp.exe: $(NCP_SOURCES) $(SOURCES) gimpwrapper.so
+	$(MCS) -2 $(NCP_SOURCES) $(RESOURCES) -o $@ $(SOURCES) $(REFERENCES)
 
-PicturePackage.exe: PicturePackage.cs  $(SOURCES) gimpwrapper.so
-	$(MCS) -2 PicturePackage.cs $(RESOURCES) -o $@ $(SOURCES) $(REFERENCES)
+PicturePackage.exe: $(PICTURE_PACKAGE_SOURCES) $(SOURCES) gimpwrapper.so
+	$(MCS) -2 $(PICTURE_PACKAGE_SOURCES) $(RESOURCES) -o $@ $(SOURCES) $(REFERENCES)
 
 gimp.o: gimp.c
 	gcc `gimptool-$(GIMPVERSION) --cflags` -fPIC -c -o gimp.o gimp.c
