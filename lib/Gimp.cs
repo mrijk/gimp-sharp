@@ -5,10 +5,22 @@ namespace Gimp
   {
     public class Gimp
     {
-      static public string Directory()
+      static public string Directory
       {
-	IntPtr tmp = gimp_directory();
-	return Marshal.PtrToStringAuto(tmp);
+	get
+	    {
+	    IntPtr tmp = gimp_directory();
+	    return Marshal.PtrToStringAuto(tmp);
+	    }
+      }
+
+      static public string Version
+      {
+	get
+	    {
+	    IntPtr tmp = gimp_version();
+	    return Marshal.PtrToStringAuto(tmp);
+	    }
       }
 
       static public void RegisterLoadHandler(string procedural_name,
@@ -33,6 +45,8 @@ namespace Gimp
 	  }
       }
 
+      [DllImport("libgimp-2.0.so")]
+      static extern IntPtr gimp_version();
       [DllImport("libgimpbase-2.0.so")]
       static extern IntPtr gimp_directory();
       [DllImport("libgimp-2.0.so")]

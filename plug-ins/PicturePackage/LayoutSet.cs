@@ -37,7 +37,7 @@ namespace Gimp.PicturePackage
       // Next read from gimpdir
       try
 	{
-	string filename = Gimp.Directory() + "/" + "picture-package.xml";
+	string filename = Gimp.Directory + "/" + "picture-package.xml";
 	doc.Load(filename);
 	LoadXmlDocument(doc);
 	}

@@ -21,6 +21,11 @@ namespace Gimp.SliceTool
       _set.Add(rectangle);
     }
 
+    Rectangle this[int index]
+    {
+      get {return (Rectangle) _set[index];}
+    }
+
     public void Slice(Slice slice)
     {
       RectangleSet created = new RectangleSet();
@@ -53,12 +58,23 @@ namespace Gimp.SliceTool
 
     public void WriteHTML()
     {
-      Console.WriteLine("#Rectangles: " + _set.Count);
       _set.Sort();
-      foreach (Rectangle rectangle in _set)
+
+      Console.WriteLine("<tr>");
+      Rectangle prev = this[0];
+      prev.WriteHTML(0);
+      for (int i = 1; i < _set.Count; i++)
 	{
-	rectangle.WriteHTML();
+	if (this[i].Top.Index != prev.Top.Index)
+	  {
+	  Console.WriteLine("/<tr>");
+	  Console.WriteLine("");
+	  Console.WriteLine("<tr>");
+	  }
+	prev = this[i];
+	prev.WriteHTML(i);
 	}
+      Console.WriteLine("</tr>");
     }
   }
   }

@@ -66,9 +66,16 @@ namespace Gimp.SliceTool
       return new VerticalSlice(x, Y1, Y2);
     }
 
-    public void WriteHTML()
+    public void WriteHTML(int index)
     {
-      Console.WriteLine("{0} {1}", Top.Index, Left.Index);
+      int width = X2 - X1 + 1;
+      int height = Y2 - Y1 + 1;
+
+      Console.WriteLine("<td rowspan=\"{0}\" colspan = \"{1}\" width=\"{2}\" height=\"{3}\">",
+			Bottom.Index - Top.Index, Right.Index - Left.Index, 
+			width, height);
+      Console.WriteLine("\t<img name=\"Image1{0}\" src=\"Image1_{1}x{2}.gif\" width=\"{3}\" height=\"{4}\" border=\"0\" alt=\"\"/></td>", 
+			index, Top.Index, Left.Index, width, height); 
     }
 
     public VerticalSlice Left

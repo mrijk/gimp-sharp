@@ -16,7 +16,7 @@ namespace Gimp.SliceTool
       _slices.Add(slice);
     }
 
-    public Slice this[int index]
+    Slice this[int index]
     {
       get {return (Slice) _slices[index];}
     }

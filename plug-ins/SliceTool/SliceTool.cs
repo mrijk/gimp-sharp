@@ -208,11 +208,34 @@ namespace Gimp.SliceTool
       args.RetVal = true;
     }
 
-    override protected void DoSomething(Drawable drawable)
+    override protected void DoSomething(Image image, Drawable drawable)
     {
       _horizontalSlices.Sort();
       _verticalSlices.Sort();
+
+      Console.WriteLine("Name: " + image.Name);
+      Console.WriteLine("Filename: " + image.Filename);
+
+      Console.WriteLine("<html>");
+      Console.WriteLine("<head>");
+      Console.WriteLine("<meta name=\"Author\" content=\"{0}\">",
+			Environment.UserName);
+      Console.WriteLine("<meta name=\"Generator\" content=\"GIMP {0}\">",
+			Gimp.Version);
+      Console.WriteLine("<title></title>");
+      Console.WriteLine("</head>");
+      Console.WriteLine("<body");
+      Console.WriteLine("");
+      Console.WriteLine("<!-- Begin Table -->");
+      Console.WriteLine("<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"{0}\">", drawable.Width);
+
       _rectangles.WriteHTML();
+
+      Console.WriteLine("</table>");
+      Console.WriteLine("<!-- End Table -->");
+      Console.WriteLine("");
+      Console.WriteLine("</body");
+      Console.WriteLine("</html>");
     }
   }
   }
