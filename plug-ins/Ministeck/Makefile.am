@@ -3,16 +3,16 @@ all: Ministeck.exe
 ASSEMBLIES = -r $(top_builddir)/lib/gimp-sharp.dll /pkg:gtk-sharp
 
 SOURCES =			\
+	Coordinate.cs		\
+	CornerShape.cs		\
 	Ministeck.cs		\
-	MS-Coordinate.cs	\
-	MS-CornerShape.cs	\
-	MS-OneByOneShape.cs	\
-	MS-Shape.cs		\
-	MS-ShapeDescription.cs	\
-	MS-ShapeSet.cs		\
-	MS-ThreeByOneShape.cs	\
-	MS-TwoByOneShape.cs	\
-	MS-TwoByTwoShape.cs
+	OneByOneShape.cs	\
+	Shape.cs		\
+	ShapeDescription.cs	\
+	ShapeSet.cs		\
+	ThreeByOneShape.cs	\
+	TwoByOneShape.cs	\
+	TwoByTwoShape.cs
 
 EXTRA_DIST = $(SOURCES)
 
