@@ -5,10 +5,17 @@ namespace Gimp
   {
     public class Layout
     {
+      enum Unit
+      {
+	INCHES,
+	PIXELS
+      };
+
       RectangleSet _rectangles = new RectangleSet();
       string _name;
       double _width;
       double _height;
+      Unit   _units;
 
       public Layout(XmlNode node)
       {
@@ -22,7 +29,22 @@ namespace Gimp
 	  XmlAttribute height = (XmlAttribute) attributes.GetNamedItem("height");
 	  _height = (height == null) ? 0 : Convert.ToDouble(height.Value);
 
-	  // Fix me: read units
+	  XmlAttribute units = (XmlAttribute) attributes.GetNamedItem("units");
+	  if (units == null)
+	    {
+	    _units = Unit.INCHES;
+	    }
+	  else 
+	    {
+	    if (units.Value == "inches")
+	      {
+	      _units = Unit.INCHES;
+	      }
+	    else if (units.Value == "pixels")
+	      {
+	      _units = Unit.PIXELS;
+	      }
+	    }
 	  
 	  XmlNodeList nodeList = node.SelectNodes("picture");
 	  foreach (XmlNode rectangle in nodeList)

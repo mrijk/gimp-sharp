@@ -7,7 +7,6 @@ namespace Gimp
   {
     public class PicturePackage : Plugin
     {
-      GimpParam[] values = new GimpParam[1];
       LayoutSet _layoutSet = new LayoutSet();
 
       [STAThread]
@@ -41,7 +40,7 @@ namespace Gimp
 			 "Picture package",
 			 "Maurits Rijk",
 			 "Maurits Rijk",
-			 "Today",
+			 "2004",
 			 "Picture Package...",
 			 "RGB*, GRAY*",
 			 args);
@@ -216,6 +215,15 @@ namespace Gimp
 	table.AttachAligned(0, 2, "Font:", 0.0, 0.5,
 			    font, 1, true);
 #endif
+	RGB rgb = new RGB();
+	rgb.r = rgb.g = rgb.b = 0;
+	rgb.a = 255;
+
+	GimpColorButton color = new GimpColorButton("", 16, 16, rgb, 
+						    ColorAreaType.COLOR_AREA_FLAT);
+	table.AttachAligned(0, 2, "Color:", 0.0, 0.5,
+			    color, 1, true);
+
 	OptionMenu position = new OptionMenu();
 	menu = new Menu();
 	menu.Append(new MenuItem("Centered"));
@@ -237,7 +245,6 @@ namespace Gimp
 	rotate.Menu = menu;
 	table.AttachAligned(0, 4, "Rotate:", 0.0, 0.5,
 			    rotate, 1, false);
-
       }
 
       override protected void DoSomething(Drawable drawable,

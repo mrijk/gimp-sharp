@@ -1,19 +1,23 @@
-2004-10-30    <maurits@Mau>
+2004-10-31  Maurits  <m.rijk@chello.nl>
+
+	* GimpColorButton.cs: completed API
+
+2004-10-30  Maurits  <m.rijk@chello.nl>
 
 	* GimpColorButton.cs: new file
 
-2004-10-29    <maurits@Mau>
+2004-10-29  Maurits  <m.rijk@chello.nl>
 
 	* SaveAttribute.cs: new file
 
-2004-10-20    <maurits@Mau>
+2004-10-20  Maurits  <m.rijk@chello.nl>
 
 	* PP-preview.cs: new file
 
 	* ncp
 	* PicturePackage: Slightly improved scripts
 
-2004-10-16    <maurits@Mau>
+2004-10-16  Maurits  <m.rijk@chello.nl>
 
 	* PicturePackage.cs: new plug-in started
 

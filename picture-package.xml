@@ -8,6 +8,10 @@
 <layout name ="(1)5x7 (2)2.5x3.5 (4)2x2.5" units="pixels" width="576" 
 	height="720">
 	<picture x="36" y="0" width="504" height="360"/>
+</layout>
+
+<layout name ="temp" units="pixels" width="576" 
+	height="720">
 	<picture x="36" y="360" width="252" height="180"/>
 	<picture x="36" y="540" width="252" height="180"/>
 	<picture x="288" y="360" width="144" height="180"/>

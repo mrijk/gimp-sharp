@@ -43,7 +43,12 @@ namespace Gimp
 
       void OnButtonPress(object o, ButtonPressEventArgs args)
       {
-	Console.WriteLine("OnButtonPress");
+	Rectangle rectangle = _layout.Find((int) args.Event.X, 
+					   (int) args.Event.Y);
+	if (rectangle == null)
+	  Console.WriteLine("No rectangle!");
+	else
+	  Console.WriteLine("Rectangle found");
       }
     }
   }
