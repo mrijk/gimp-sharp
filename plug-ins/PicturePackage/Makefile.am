@@ -10,7 +10,7 @@ SOURCES =			\
 	PP-Rectangle.cs		\
 	PP-RectangleSet.cs
 
-EXTRA_DIST = $(SOURCES)
+EXTRA_DIST = $(SOURCES) picture-package.xml
 
 PicturePackage.exe : $(SOURCES)
 	$(CSC) $(SOURCES) /resource:picture-package.xml -o $@ $(ASSEMBLIES)

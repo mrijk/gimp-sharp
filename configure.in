@@ -45,7 +45,10 @@ fi
 
 dnl set GIMP plug-in path
 
-GIMPPLUGINDIR=/usr/local/lib/gimp/2.0/plug-ins
+dnl GIMPPLUGINDIR=/usr/local/lib/gimp/2.0/plug-ins
+
+GIMPPLUGINDIR=`gimptool -n --install-admin README | head -1 | sed "s/\(.* \)\\(.*\\)/\2/g"`
+
 AC_SUBST(GIMPPLUGINDIR)
 
 AC_SUBST(CSC)

@@ -149,7 +149,7 @@ SOURCES = \
 	PP-RectangleSet.cs
 
 
-EXTRA_DIST = $(SOURCES)
+EXTRA_DIST = $(SOURCES) picture-package.xml
 subdir = plug-ins/PicturePackage
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = $(top_builddir)/config.h
