@@ -157,7 +157,7 @@ namespace Gimp
     virtual protected bool CreateDialog() {return true;}
 
     Image _image;
-    protected Drawable _drawable;
+    Drawable _drawable;
     GimpParam[] _origParam;
     GimpParam[] _values = new GimpParam[1];
 

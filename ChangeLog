@@ -1,3 +1,8 @@
+2004-11-11    <maurits@Mau>
+
+	* plug-ins/PicturePackage/PicturePackage.cs: include 
+	picture-package.xml file in resource.
+
 2004-11-10    <maurits@Mau>
 
 	* lib/ParamDef.cs: new file

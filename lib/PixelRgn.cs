@@ -79,6 +79,17 @@ namespace Gimp
 	gimp_pixel_rgn_get_pixel(ref pr, buf, x, y);
       }
 
+      [DllImport("libgimp-2.0.so")]
+      static extern void gimp_pixel_rgn_set_pixel (ref GimpPixelRgn  pr,
+						   byte[] buf,
+						   int        x,
+						   int        y);
+
+      public void SetPixel(byte[] buf, int x, int y)
+      {
+	gimp_pixel_rgn_set_pixel(ref pr, buf, x, y);
+      }
+
       public int X
       {
 	get {return (int) pr.x;}

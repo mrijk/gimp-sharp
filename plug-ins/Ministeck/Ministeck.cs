@@ -91,21 +91,20 @@ namespace Ministeck
 	// And finally calculate the Ministeck pieces
 	
 	Random random = new Random();
-	int width = _drawable.Width / 16;
-	int height = _drawable.Height / 16;
+	int width = drawable.Width / 16;
+	int height = drawable.Height / 16;
 
-	PixelRgn srcPR = new PixelRgn(_drawable, 0, 0, 
-				      _drawable.Width, _drawable.Height,
-				      false, false);
-	int[,] A = new int[width, height];
+	PixelRgn srcPR = new PixelRgn(drawable, 0, 0, 
+				      drawable.Width, drawable.Height,
+				      true, false);
+	bool[,] A = new bool[width, height];
 	byte[] buf = new byte[4];
 
 	for (int i = 0; i < width; i++)
 	  {
 	  for (int j = 0; j < height; j++)
 	    {
-	    srcPR.GetPixel(buf, i * 16, j * 16);
-	    A[i, j] = buf[0];
+	    A[i, j] = false;
 	    }
 	  }
 
@@ -122,14 +121,14 @@ namespace Ministeck
 	  {
 	  for (int y = 0; y < height; y++)
 	    {
-	    if (A[x, y] > 0)
+	    if (!A[x, y])
 	      {
 	      ArrayList copy = (ArrayList) shapes.Clone();
 	      while (copy.Count > 0)
 		{
 		int index = random.Next(copy.Count);
 		Shape shape = (Shape) copy[index];
-		if (shape.Fits(A, x, y))
+		if (shape.Fits(srcPR, A, x, y))
 		  {
 		  break;
 		  }
@@ -141,6 +140,8 @@ namespace Ministeck
 
 	// foreach (Shape shape in shapes)
 	//  Console.WriteLine(shape._match);
+	drawable.Flush();
+	drawable.Update(0, 0, drawable.Width, drawable.Height);
 
 	Display.DisplaysFlush();
       }

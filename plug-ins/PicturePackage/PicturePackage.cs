@@ -1,4 +1,6 @@
 using System;
+using System.IO;
+using System.Reflection;
 using System.Xml;
 
 using Gtk;
@@ -86,7 +88,11 @@ namespace Gimp
       void ReadConfiguration()
       {
 	XmlDocument doc = new XmlDocument();
-	doc.Load(GimpDirectory() + "/plug-ins/picture-package.xml");
+
+	Assembly myAssembly = Assembly.GetExecutingAssembly();
+	Stream myStream = 
+	  myAssembly.GetManifestResourceStream("picture-package.xml");
+	doc.Load(myStream);
 
 	XmlNodeList nodeList;
 	XmlElement root = doc.DocumentElement;
@@ -179,9 +185,9 @@ namespace Gimp
 	OptionMenu layout = new OptionMenu();
 	menu = new Menu();
 	foreach (Layout l in _layoutSet)
-	    {
-		menu.Append(new MenuItem(l.Name));
-	    }
+	  {
+	  menu.Append(new MenuItem(l.Name));
+	  }
 	layout.Menu = menu;
 	table.AttachAligned(0, 1, "Layout:", 0.0, 0.5,
 			    layout, 2, false);
