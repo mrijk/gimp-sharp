@@ -66,8 +66,8 @@ namespace Gimp.Ministeck
 	table.AttachAligned(0, 0, "_Size:", 0.0, 0.5, size, 2, true);
 	size.ValueChanged += new EventHandler(SizeChanged);
 
-	GC.Collect();
-	GC.Collect();
+	// GC.Collect();
+	// GC.Collect();
 
 	_colorButton = new GimpColorButton(
 	  "", 16, 16, _color.GimpRGB, ColorAreaType.COLOR_AREA_FLAT);
@@ -93,9 +93,7 @@ namespace Gimp.Ministeck
       void UpdatePreview(object sender, EventArgs e)
       {
 	int x, y, width, height;
-	
-	Console.WriteLine("UpdatePreview");
-	
+ 	
 	_preview.GetPosition(out x, out y);
 	_preview.GetSize(out width, out height);
 	Image clone = new Image(_image);

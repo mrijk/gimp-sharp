@@ -29,6 +29,8 @@ SOURCES = 			\
 	Mask.cs			\
 	Message.cs		\
 	Palette.cs		\
+	PaletteEntry.cs		\
+	PaletteEnumerator.cs	\
 	ParamDef.cs		\
 	ParamDefList.cs		\
 	PixelFetcher.cs		\

@@ -8,6 +8,7 @@ namespace Gimp.ncp
   public class ncp : Plugin
   {
     AspectPreview _preview;
+    ScaleEntry _closestEntry;
 
     UInt32 _seed;
     bool _random_seed;
@@ -88,15 +89,15 @@ namespace Gimp.ncp
       Widget label = table.AttachAligned(0, 0, "Random _Seed:", 0.0, 0.5,
 					 seed, 2, true);
 
-      ScaleEntry entry = new ScaleEntry(table, 0, 1, "_Points:", 150, 3,
+      ScaleEntry entry = new ScaleEntry(table, 0, 1, "Po_ints:", 150, 3,
 					_points, 1.0, 256.0, 1.0, 8.0, 0,
 					true, 0, 0, null, null);
       entry.ValueChanged += new EventHandler(PointsUpdate);
 
-      entry = new ScaleEntry(table, 0, 2, "C_lose to:", 150, 3,
-			     _closest, 1.0, 256.0, 1.0, 8.0, 0,
-			     true, 0, 0, null, null);
-      entry.ValueChanged += new EventHandler(CloseToUpdate);
+      _closestEntry = new ScaleEntry(table, 0, 2, "C_lose to:", 150, 3,
+				     _closest, 1.0, _points, 1.0, 8.0, 0,
+				     true, 0, 0, null, null);
+      _closestEntry.ValueChanged += new EventHandler(CloseToUpdate);
 
       CheckButton color = new CheckButton("_Use color");
       color.Active = _color;
@@ -137,7 +138,21 @@ namespace Gimp.ncp
     void PointsUpdate(object sender, EventArgs e)
     {
       _points = (int) (sender as Adjustment).Value;
-      _preview.Invalidate();
+      if (_points > _closestEntry.Upper)
+	{
+	_closestEntry.Upper = _points;
+	}
+
+      if (_points < _closest)
+	{
+	_closest = _points;
+	_closestEntry.Upper = _closest;
+	_closestEntry.Value = _closest;
+	}
+      else
+	{
+	_preview.Invalidate();
+	}
     }
 
     void CloseToUpdate(object sender, EventArgs e)

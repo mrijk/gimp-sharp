@@ -212,7 +212,6 @@ namespace Gimp
 		       (int) memoryStream.Length);		    
     }
 
-
     protected void GetData()
     {
       int size = wrapper_get_data_size(_name);
