@@ -7,8 +7,13 @@ namespace Gimp.Ministeck
   {
     public class Ministeck : Plugin
     {
+      GimpColorButton _colorButton;
+
       [SaveAttribute]
       int _size = 16;
+
+      // [SaveAttribute]
+      RGB _color;
 
       [STAThread]
       static void Main(string[] args)
@@ -72,9 +77,9 @@ namespace Gimp.Ministeck
 
 	RGB rgb = new RGB(0, 0, 0);
 
-	GimpColorButton color = new GimpColorButton(
+	_colorButton = new GimpColorButton(
 	  "", 16, 16, rgb.GimpRGB, ColorAreaType.COLOR_AREA_FLAT);
-	table.AttachAligned(0, 1, "C_olor:", 0.0, 0.5, color, 1, true);
+	table.AttachAligned(0, 1, "C_olor:", 0.0, 0.5, _colorButton, 1, true);
 
 	dialog.ShowAll();
 	return DialogRun();
@@ -83,6 +88,11 @@ namespace Gimp.Ministeck
       void SizeChanged(object sender, EventArgs e)
       {
 	_size = (sender as SpinButton).ValueAsInt;
+      }
+
+      override protected void GetParameters()
+      {
+	_color = _colorButton.Color;
       }
 
       override protected void DoSomething(Drawable drawable, Image image)
@@ -106,7 +116,7 @@ namespace Gimp.Ministeck
 	int width = drawable.Width / _size;
 	int height = drawable.Height / _size;
 
-	Painter painter = new Painter(drawable, _size);
+	Painter painter = new Painter(drawable, _size, _color);
 	Shape.Painter = painter;
 
 	bool[,] A = new bool[width, height];
@@ -158,7 +168,7 @@ namespace Gimp.Ministeck
       void CreatePalette()
       {
 	_palette = new Palette("Ministeck");
-
+#if true
 	_palette.AddEntry("", new RGB(253, 254, 253));
 	_palette.AddEntry("", new RGB(206, 153,  50));
 	_palette.AddEntry("", new RGB(155, 101,  52));
@@ -186,6 +196,12 @@ namespace Gimp.Ministeck
 	_palette.AddEntry("", new RGB(254, 254, 202));
 	_palette.AddEntry("", new RGB(  4,   2,   2));
 	_palette.AddEntry("", new RGB(206, 206, 206));
+#else
+	_palette.AddEntry("black"     , new RGB(  7,   7,   7));
+	_palette.AddEntry("dark blue" , new RGB( 64,  10, 121));
+	_palette.AddEntry("light blue", new RGB( 59, 138, 207));
+	_palette.AddEntry("light blue", new RGB( 59, 138, 207));
+#endif
       }
       
       void DeletePalette()

@@ -7,10 +7,15 @@ namespace Gimp.Ministeck
       PixelFetcher _pf;
       int _size;
       int _x, _y;
-      byte[] _color = new byte[3]{3, 3, 3};
+      byte[] _color;
 
-      public Painter(Drawable drawable, int size)
+      public Painter(Drawable drawable, int size, RGB color)
       {
+	byte r, g, b;
+
+	color.GetUChar(out r, out g, out b);
+	_color = new byte[]{r, g, b};
+
 	_pf = new PixelFetcher(drawable, false);
 	_size = size;
       }

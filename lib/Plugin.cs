@@ -294,10 +294,13 @@ namespace Gimp
     abstract protected void DoSomething(Drawable drawable,
 					Image image);
 
+    virtual protected void GetParameters() {}
+
     protected bool DialogRun()
     {
       if (gimp_dialog_run(_dialogPtr) == ResponseType.Ok)
 	{
+	GetParameters();
 	DoSomething(_drawable, _image);
 	return true;
 	}

@@ -36,18 +36,20 @@ namespace Gimp
 						     ref GimpRGB color);
       [DllImport("libgimpwidgets-2.0.so")]
       extern static void gimp_color_button_get_color(IntPtr button,
-						     out GimpRGB color);
-      public GimpRGB Color
+						     ref GimpRGB color);
+
+      public RGB Color
       {
 	get
 	    {
 	    GimpRGB rgb = new GimpRGB();
-	    gimp_color_button_get_color(Handle, out rgb);
-	    return rgb;
+	    gimp_color_button_get_color(Handle, ref rgb);
+	    return new RGB(rgb);
 	    }
 	set
 	    {
-	    gimp_color_button_set_color(Handle, ref value);
+	    GimpRGB rgb = value.GimpRGB;
+	    gimp_color_button_set_color(Handle, ref rgb);
 	    }
       }
 
