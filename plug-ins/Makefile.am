@@ -1,2 +1,2 @@
 AUTOMAKE_OPTIONS = gnu
-SUBDIRS = ncp
+SUBDIRS = Ministeck ncp PicturePackage
