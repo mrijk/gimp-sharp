@@ -20,15 +20,17 @@ namespace Gimp
       {
 	foreach (Rectangle rectangle in _set)
 	  {
+	      if (rectangle.Inside(x, y))
+		  return rectangle;
 	  }
 	return null;
       }
 
-      public void Draw(Gdk.GC gc)
+      public void Draw(Preview preview, double zoom)
       {
 	foreach (Rectangle rectangle in _set)
 	  {
-	  rectangle.Draw(gc);
+	  rectangle.Draw(preview, zoom);
 	  }
       }
     }

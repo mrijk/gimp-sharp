@@ -7,4 +7,4 @@ export LD_LIBRARY_PATH=$THISDIR:$LD_LIBRARY_PATH
 
 echo $LD_LIBRARY_PATH
 
-mono $THISDIR/ncp.exe "$@"
+mono $THISDIR/Ministeck.exe "$@"

@@ -1,6 +1,7 @@
 using System;
 using Gtk;
- 
+using Gdk;
+
 namespace Gimp
   {
     public class Preview : DrawingArea
@@ -12,6 +13,9 @@ namespace Gimp
       {
 	Realized += OnRealized;
 	ExposeEvent += OnExposed;
+	ButtonPressEvent += OnButtonPress;
+
+	Events = EventMask.ButtonPressMask;
       }
 
       public Layout Layout
@@ -21,16 +25,25 @@ namespace Gimp
 
       void OnExposed (object o, ExposeEventArgs args)
       {
-	// GdkWindow.DrawLine (_gc, 10, 10, 100, 100);
 	if (_layout != null)
 	  {
-	  _layout.Draw(_gc);
+	  _layout.Draw(this, 240, 300);	// Fix me!
 	  }
       }
+
+      public void DrawRectangle(int x, int y, int w, int h)
+	{
+	  GdkWindow.DrawRectangle (_gc, false, x, y, x + w, y + h);
+	}
  
       void OnRealized (object o, EventArgs args)
       {
 	_gc = new Gdk.GC(this.GdkWindow);
+      }
+
+      void OnButtonPress(object o, ButtonPressEventArgs args)
+      {
+	Console.WriteLine("OnButtonPress");
       }
     }
   }

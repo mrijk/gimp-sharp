@@ -30,6 +30,9 @@ SOURCES = \
 NCP_SOURCES = \
 	ncp.cs
 
+MINISTECK_SOURCES = \
+	Ministeck.cs
+
 PICTURE_PACKAGE_SOURCES = 	\
 	PicturePackage.cs	\
 	PP-Layout.cs		\
@@ -52,7 +55,7 @@ EXTRADIST =		\
 	$(NCP_SOURCES)		\
 	$(PICTURE_PACKAGE_SOURCES)
 
-all: gimp-sharp.dll ncp.exe PicturePackage.exe
+all: gimp-sharp.dll ncp.exe PicturePackage.exe Ministeck.exe
 
 gimp-sharp.dll: $(SOURCES)
 	$(MCS) $(SOURCES) -t:library -o $@ $(REFERENCES)
@@ -63,6 +66,9 @@ ncp.exe: $(NCP_SOURCES) gimpwrapper.so
 PicturePackage.exe: $(PICTURE_PACKAGE_SOURCES) gimpwrapper.so
 	$(MCS) -2 $(PICTURE_PACKAGE_SOURCES) -o $@ $(REFERENCES) -r:gimp-sharp.dll
 
+Ministeck.exe: $(MINISTECK_SOURCES) gimpwrapper.so
+	$(MCS) -2 $(MINISTECK_SOURCES) -o $@ $(REFERENCES) -r:gimp-sharp.dll
+
 gimp.o: gimp.c
 	gcc `gimptool-$(GIMPVERSION) --cflags` -fPIC -c -o gimp.o gimp.c
 
@@ -71,6 +77,7 @@ gimpwrapper.so: gimp.o
 
 install: *.exe ncp PicturePackage gimpwrapper.so gimp-sharp.dll
 	chmod +x ncp PicturePackage
+	gimptool-$(GIMPVERSION) --install-bin Ministeck
 	gimptool-$(GIMPVERSION) --install-bin ncp
 	gimptool-$(GIMPVERSION) --install-bin PicturePackage
 	chmod -x *.exe gimpwrapper.so gimp-sharp.dll

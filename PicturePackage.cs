@@ -1,6 +1,5 @@
 using System;
 using System.Xml;
-using System.Collections;
 
 using Gtk;
 
@@ -9,7 +8,7 @@ namespace Gimp
     public class PicturePackage : Plugin
     {
       GimpParam[] values = new GimpParam[1];
-      ArrayList _layouts = new ArrayList();
+      LayoutSet _layoutSet = new LayoutSet();
 
       [STAThread]
       static void Main(string[] args)
@@ -79,12 +78,11 @@ namespace Gimp
 	BuildLabelFrame(vbox);
 
 	Frame frame = new Frame();
-	// frame.WidthRequest = 240;
-	// frame.HeightRequest = 300;
 	hbox.PackStart(frame, true, true, 0);
 
 	Preview preview = new Preview();
 	preview.WidthRequest = 240;
+	preview.Layout = _layoutSet.GetLayout(1);		// Fix me!
 	// preview.HeightRequest = 300;
 	frame.Add(preview);
 
@@ -107,7 +105,7 @@ namespace Gimp
 	  {
 	  XmlAttributeCollection attributes = layout.Attributes;
 	  XmlAttribute name = (XmlAttribute) attributes.GetNamedItem("name");
-	  _layouts.Add(name.Value);
+	  _layoutSet.Add(new Layout(layout));
 	  }
       }
 
@@ -157,10 +155,10 @@ namespace Gimp
 
 	OptionMenu layout = new OptionMenu();
 	menu = new Menu();
-	foreach (string l in _layouts)
-	  {
-	  menu.Append(new MenuItem(l));
-	  }
+	foreach (Layout l in _layoutSet)
+	    {
+		menu.Append(new MenuItem(l.Name));
+	    }
 	layout.Menu = menu;
 	table.AttachAligned(0, 1, "Layout:", 0.0, 0.5,
 			    layout, 2, false);
@@ -226,6 +224,10 @@ namespace Gimp
 	OptionMenu position = new OptionMenu();
 	menu = new Menu();
 	menu.Append(new MenuItem("Centered"));
+	menu.Append(new MenuItem("Top Left"));
+	menu.Append(new MenuItem("Bottom Left"));
+	menu.Append(new MenuItem("Top Right"));
+	menu.Append(new MenuItem("Bottom Right"));
 	position.Menu = menu;
 	table.AttachAligned(0, 3, "Position:", 0.0, 0.5,
 			    position, 1, false);
@@ -233,6 +235,10 @@ namespace Gimp
 	OptionMenu rotate = new OptionMenu();
 	menu = new Menu();
 	menu.Append(new MenuItem("None"));
+	menu.Append(new MenuItem("45 Degrees Right"));
+	menu.Append(new MenuItem("90 Degrees Right"));
+	menu.Append(new MenuItem("45 Degrees Left"));
+	menu.Append(new MenuItem("90 Degrees Left"));
 	rotate.Menu = menu;
 	table.AttachAligned(0, 4, "Rotate:", 0.0, 0.5,
 			    rotate, 1, false);

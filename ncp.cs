@@ -53,7 +53,7 @@ namespace Gimp
 			 "Generates 2D textures",
 			 "Maurits Rijk",
 			 "Maurits Rijk",
-			 "Today",
+			 "2004",
 			 "NCP...",
 			 "RGB*, GRAY*",
 			 args);
