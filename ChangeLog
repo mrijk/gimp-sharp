@@ -1,3 +1,7 @@
+2004-10-30    <maurits@Mau>
+
+	* GimpColorButton.cs: new file
+
 2004-10-29    <maurits@Mau>
 
 	* SaveAttribute.cs: new file

@@ -14,7 +14,8 @@ namespace Gimp
       int _points = 12;
       [SaveAttribute]
       int _closest = 1;
-      const bool color = true;
+      [SaveAttribute]
+      bool _color = true;
 
       [STAThread]
       static void Main(string[] args)
@@ -75,7 +76,7 @@ namespace Gimp
 	vbox.BorderWidth = 12;
 	dialog.VBox.PackStart(vbox, true, true, 0);
 
-	GimpTable table = new GimpTable(3, 3, false);
+	GimpTable table = new GimpTable(4, 3, false);
 	table.ColumnSpacing = 6;
 	table.RowSpacing = 6;
 	vbox.PackStart(table, false, false, 0);
@@ -93,6 +94,11 @@ namespace Gimp
 			       _closest, 1.0, 256.0, 1.0, 8.0, 0,
 			       true, 0, 0, null, null);
 	entry.ValueChanged += new EventHandler(CloseToUpdate);
+
+	CheckButton color = new CheckButton("_Use color");
+	color.Active = _color;
+	color.Toggled += new EventHandler(ColorToggled);
+	table.Attach(color, 0, 1, 3, 4);
 			       
 	dialog.ShowAll();
 	return DialogRun();
@@ -105,7 +111,12 @@ namespace Gimp
 
       void CloseToUpdate(object sender, EventArgs e)
       {
-	_closest = (int) ((Adjustment)sender).Value;
+	_closest = (int) ((Adjustment) sender).Value;
+      }
+
+      void ColorToggled (object sender, EventArgs args)
+      {
+	_color = ((CheckButton) sender).Active;
       }
 		
       Point[,] vp;
@@ -223,7 +234,7 @@ namespace Gimp
 
 	  // invert
 	  val = (byte) (255 - val);
-	  if (color) 
+	  if (_color) 
 	    { 
 	    dest[b] = val;
 	    }
