@@ -16,10 +16,10 @@ SOURCES =			\
 	TwoByOneShape.cs	\
 	TwoByTwoShape.cs
 
-EXTRA_DIST = $(SOURCES) Ministeck
+EXTRA_DIST = $(SOURCES) Ministeck Ministeck.png
 
-Ministeck.exe : $(SOURCES)
-	$(CSC) $(SOURCES) -o $@ $(ASSEMBLIES)
+Ministeck.exe : $(SOURCES) Ministeck.png
+	$(CSC) $(SOURCES) /resource:Ministeck.png -o $@ $(ASSEMBLIES)
 
 install:
 	$(INSTALL_DATA) Ministeck.exe $(DESTDIR)/$(GIMPPLUGINDIR)

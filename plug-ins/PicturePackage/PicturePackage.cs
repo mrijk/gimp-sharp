@@ -56,7 +56,8 @@ namespace Gimp.PicturePackage
 		       "",
 		       null);
 
-      MenuRegister("plug_in_picture_package", "<Toolbox>/Xtns/Extensions");
+      MenuRegister("<Toolbox>/Xtns/Extensions");
+      IconRegister("PicturePackage.png");
     }
 
     override protected bool CreateDialog()

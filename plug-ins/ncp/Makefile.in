@@ -142,7 +142,7 @@ ASSEMBLIES = -r $(top_builddir)/lib/gimp-sharp.dll /pkg:gtk-sharp
 
 SOURCES = ncp.cs
 
-EXTRA_DIST = $(SOURCES) ncp
+EXTRA_DIST = $(SOURCES) ncp ncp.png
 subdir = plug-ins/ncp
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = $(top_builddir)/config.h
@@ -291,8 +291,8 @@ uninstall-am: uninstall-info-am
 
 all: ncp.exe
 
-ncp.exe : $(SOURCES)
-	$(CSC) $(SOURCES) -o $@ $(ASSEMBLIES)
+ncp.exe : $(SOURCES) ncp.png
+	$(CSC) $(SOURCES) /resource:ncp.png -o $@ $(ASSEMBLIES)
 
 install:
 	$(INSTALL_DATA) ncp.exe $(DESTDIR)/$(GIMPPLUGINDIR)

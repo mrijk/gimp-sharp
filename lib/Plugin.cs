@@ -1,7 +1,9 @@
 using System;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Reflection;
 
+using Gdk;
 using Gtk;
 
 namespace Gimp
@@ -68,6 +70,7 @@ namespace Gimp
 				    GimpParamDef[] _params, 
 				    GimpParamDef[] return_vals)
     {
+      _name = name;
       gimp_install_procedure(name, blurb, help, author, copyright, date, 
 			     menu_path, image_types, PDBProcType.PLUGIN, 
 			     _params.Length, return_vals.Length, _params, 
@@ -80,6 +83,7 @@ namespace Gimp
 				    string image_types,
 				    GimpParamDef[] _params)
     {
+      _name = name;
       GetRequiredParameters();
       
       int len = (_params == null) ? 0 : _params.Length;
@@ -134,6 +138,35 @@ namespace Gimp
     protected bool MenuRegister(string procedure_name, string menu_path)
     {
       return gimp_plugin_menu_register(procedure_name, menu_path);
+    }
+
+    protected bool MenuRegister(string menu_path)
+    {
+      return MenuRegister(_name, menu_path);
+    }
+
+    protected void IconRegister(string fileName)
+    {
+      Assembly myAssembly = Assembly.GetCallingAssembly();
+      
+      Stream imageStream = myAssembly.GetManifestResourceStream(fileName);
+
+      PixbufLoader pixbufLoader = new Gdk.PixbufLoader();
+      BinaryReader reader = new BinaryReader(imageStream);
+      
+      while (reader.PeekChar() != -1)
+	{
+	byte[] bytes = reader.ReadBytes(256);
+	pixbufLoader.Write (bytes, (uint) bytes.Length);
+	}
+      
+      Pixbuf pixbuf = pixbufLoader.Pixbuf;
+      pixbufLoader.Close();
+      
+      Pixdata data = new Pixdata();
+      data.FromPixbuf(pixbuf, false);
+      gimp_plugin_icon_register(_name, IconType.INLINE_PIXBUF, 
+				data.Serialize());
     }
 
     abstract protected void Query();
@@ -394,6 +427,10 @@ namespace Gimp
     [DllImport("libgimp-2.0.so")]
     public static extern bool gimp_plugin_menu_register(string procedure_name,
 							string menu_path);
+    [DllImport("libgimp-2.0.so")]
+    public static extern bool gimp_plugin_icon_register(string procedure_name,
+							IconType icon_type, 
+							byte[] icon_data);
     [DllImport("libgimp-2.0.so")]
     public static extern void gimp_install_procedure(
       string name,

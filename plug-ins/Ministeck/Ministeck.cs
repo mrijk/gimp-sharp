@@ -38,7 +38,8 @@ namespace Gimp.Ministeck
 			 "RGB*, GRAY*",
 			 null);
 
-	MenuRegister("plug_in_ministeck", "<Image>/Filters/Artistic");
+	MenuRegister("<Image>/Filters/Artistic");
+	IconRegister("Ministeck.png");
       }
 
       override protected bool CreateDialog()
@@ -114,7 +115,7 @@ namespace Gimp.Ministeck
 
 	MinisteckPalette palette = new MinisteckPalette();
 	image.ConvertIndexed(ConvertDitherType.NO_DITHER, 
-			     ConvertPaletteType.CUSTOM_PALETTE, 
+			     ConvertPaletteType.CUSTOM,
 			     0, false, false, "Ministeck");
 	palette.Delete();
 

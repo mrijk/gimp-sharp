@@ -61,15 +61,15 @@ namespace Gimp.ncp
 		       "RGB*, GRAY*",
 		       args);
 
-      MenuRegister("plug_in_ncp", "<Image>/Filters/Render");
+      MenuRegister("<Image>/Filters/Render");
+      IconRegister("ncp.png");
     }
 
     override protected bool CreateDialog()
     {
       gimp_ui_init("ncp", true);
 
-      Dialog dialog = DialogNew("ncp", "ncp",
-				IntPtr.Zero, 0, null, "ncp");
+      Dialog dialog = DialogNew("ncp", "ncp", IntPtr.Zero, 0, null, "ncp");
 
       VBox vbox = new VBox(false, 12);
       vbox.BorderWidth = 12;
@@ -119,7 +119,7 @@ namespace Gimp.ncp
       _preview.GetSize(out width, out height);
 
       byte[] buffer = new byte[width * height * 3];
-      byte[] dest = new byte[3]{100, 100, 150};
+      byte[] dest = new byte[3]; // {100, 100, 150};
       for (int y = 0; y < height; y++)
 	{
 	int y_orig = _height * y / height;

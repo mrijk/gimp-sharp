@@ -165,7 +165,7 @@ SOURCES = \
 	SourceFrame.cs
 
 
-EXTRA_DIST = $(SOURCES) PicturePackage picture-package.xml
+EXTRA_DIST = $(SOURCES) PicturePackage picture-package.xml PicturePackage.png
 subdir = plug-ins/PicturePackage
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = $(top_builddir)/config.h
@@ -337,8 +337,8 @@ uninstall-am: uninstall-info-am
 
 all: PicturePackage.exe
 
-PicturePackage.exe : $(SOURCES) picture-package.xml
-	$(CSC) $(SOURCES) /resource:picture-package.xml -o $@ $(ASSEMBLIES)
+PicturePackage.exe : $(SOURCES) picture-package.xml PicturePackage.png
+	$(CSC) $(SOURCES) /resource:picture-package.xml /resource:PicturePackage.png -o $@ $(ASSEMBLIES)
 
 clean:
 	rm -f PicturePackage.exe
