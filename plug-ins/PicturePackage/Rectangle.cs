@@ -5,46 +5,34 @@ using Gtk;
 
 namespace Gimp.PicturePackage
 {
-  public class Rectangle
-  {
-    ImageProvider _provider;
-    double _x, _y, _w, _h;
+	public class Rectangle
+	{
+		double _x, _y, _w, _h;
 
-    public Rectangle(XmlNode node)
-    {
-      XmlAttributeCollection attributes = node.Attributes;
-      _x = GetAttribute(attributes, "x");
-      _y = GetAttribute(attributes, "y");
-      _w = GetAttribute(attributes, "width");
-      _h = GetAttribute(attributes, "height");
-    }
+		public Rectangle(XmlNode node)
+		{
+			XmlAttributeCollection attributes = node.Attributes;
+			_x = GetAttribute(attributes, "x");
+			_y = GetAttribute(attributes, "y");
+			_w = GetAttribute(attributes, "width");
+			_h = GetAttribute(attributes, "height");
+		}
 
-    double GetAttribute(XmlAttributeCollection attributes, string name)
-    {
-      XmlAttribute val = (XmlAttribute) attributes.GetNamedItem(name);
-      return (val == null) ? 0 :  Convert.ToDouble(val.Value);      
-    }
+		double GetAttribute(XmlAttributeCollection attributes, string name)
+		{
+			XmlAttribute val = (XmlAttribute) attributes.GetNamedItem(name);
+			return (val == null) ? 0 :  Convert.ToDouble(val.Value);      
+		}
 
-    public ImageProvider Provider
-    {
-      set {_provider = value;}
-    }
+		public void Render(Image image, Renderer renderer)
+		{
+			renderer.Render(image, _x, _y, _w, _h);
+		}
 
-    public void Render(Image image, Renderer renderer)
-    {
-      renderer.Render(image, _x, _y, _w, _h);
-    }
-
-    public void Render(Renderer renderer)
-    {
-      Image image = _provider.GetImage();
-      renderer.Render(image, _x, _y, _w, _h);
-    }
-
-    public bool Inside(int x, int y)
-    {
-      return x >= _x && x <= _x + _w
-	&& y >= _y && y <= _y + _h;
-    }
-  }
-  }
+		public bool Inside(int x, int y)
+		{
+			return x >= _x && x <= _x + _w
+				&& y >= _y && y <= _y + _h;
+		}
+	}
+}

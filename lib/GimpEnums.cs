@@ -171,6 +171,12 @@ namespace Gimp
 	FLATTEN_IMAGE
       }
 
+    public enum MaskApplyMode
+      {
+	APPLY,
+	DISCARD
+      }
+
     public enum OrientationType
       {
 	HORIZONTAL,

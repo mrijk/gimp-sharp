@@ -2,24 +2,28 @@ all: PicturePackage.exe
 
 ASSEMBLIES = -r $(top_builddir)/lib/gimp-sharp.dll /pkg:gtk-sharp
 
-SOURCES =			\
-	DocumentFrame.cs	\
-	FileImageProvider.cs	\
-	FrontImageProvider.cs	\
-	ImageProvider.cs	\
-	ImageRenderer.cs	\
-	LabelFrame.cs		\
-	Layout.cs		\
-	LayoutSet.cs		\
-	PageSize.cs		\
-	PageSizeSet.cs		\
-	PicturePackage.cs	\
-	PicturePackageFrame.cs	\
-	Preview.cs		\
-	PreviewRenderer.cs	\
-	Rectangle.cs		\
-	RectangleSet.cs		\
-	Renderer.cs		\
+SOURCES =				\
+	DirImageProviderFactory.cs	\
+	DocumentFrame.cs		\
+	FileImageProvider.cs		\
+	FileImageProviderFactory.cs	\
+	FrontImageProvider.cs		\
+	FrontImageProviderFactory.cs	\
+	ImageProvider.cs		\
+	ImageRenderer.cs		\
+	LabelFrame.cs			\
+	Layout.cs			\
+	LayoutSet.cs			\
+	PageSize.cs			\
+	PageSizeSet.cs			\
+	PicturePackage.cs		\
+	PicturePackageFrame.cs		\
+	Preview.cs			\
+	PreviewRenderer.cs		\
+	ProviderFactory.cs		\
+	Rectangle.cs			\
+	RectangleSet.cs			\
+	Renderer.cs			\
 	SourceFrame.cs
 
 EXTRA_DIST = $(SOURCES) PicturePackage picture-package.xml

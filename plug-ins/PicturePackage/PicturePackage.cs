@@ -1,160 +1,189 @@
 using System;
-using System.IO;
 
-using Gdk;
 using Gtk;
 
 namespace Gimp.PicturePackage
 {
-  public class PicturePackage : Plugin
-  {
-    LayoutSet _layoutSet = new LayoutSet();
+	public class PicturePackage : Plugin
+	{
+		LayoutSet _layoutSet = new LayoutSet();
+		Layout _layout;
 
-    DocumentFrame _df;
-    Preview _preview;
+		ProviderFactory _loader;
 
-    [SaveAttribute]
-    bool _flatten = false;
+		DocumentFrame _df;
+		Preview _preview;
 
-    [SaveAttribute]
-    int _resolution = 72;
+		[SaveAttribute]
+		bool _flatten = false;
 
-    // [SaveAttribute]
-    string _label;
+		[SaveAttribute]
+		int _resolution = 72;
 
-    [SaveAttribute]
-    int _position;
+		// [SaveAttribute]
+		string _label;
 
-    [STAThread]
-    static void Main(string[] args)
-    {
-      new PicturePackage(args);
-    }
+		[SaveAttribute]
+		int _position;
 
-    public PicturePackage(string[] args) : base(args)
-    {
-    }
+		[STAThread]
+		static void Main(string[] args)
+		{
+			new PicturePackage(args);
+		}
 
-    override protected void Query()
-    {
-      InstallProcedure("plug_in_picture_package",
-		       "Picture package",
-		       "Picture package",
-		       "Maurits Rijk",
-		       "Maurits Rijk",
-		       "2004",
-		       "Picture Package...",
-		       "RGB*, GRAY*",
-		       null);
+		public PicturePackage(string[] args) : base(args)
+		{
+		}
 
-      MenuRegister("plug_in_picture_package", "<Image>/Filters/Render");
-    }
+		override protected void Query()
+		{
+			InstallProcedure("plug_in_picture_package",
+				"Picture package",
+				"Picture package",
+				"Maurits Rijk",
+				"Maurits Rijk",
+				"2004",
+				"Picture Package...",
+				"RGB*, GRAY*",
+				null);
 
-    override protected bool CreateDialog()
-    {
-      gimp_ui_init("PicturePackage", true);
+			MenuRegister("plug_in_picture_package", "<Image>/Filters/Render");
+		}
 
-      _layoutSet.Load();
+		override protected bool CreateDialog()
+		{
+			gimp_ui_init("PicturePackage", true);
 
-      Dialog dialog = DialogNew("Picture Package", "PicturePackage",
+			_layoutSet.Load();
+			_loader = new FrontImageProviderFactory(_image);
+
+			Dialog dialog = DialogNew("Picture Package", "PicturePackage",
 				IntPtr.Zero, 0, null, "PicturePackage");
 
-      HBox hbox = new HBox(false, 12);
-      hbox.BorderWidth = 12;
-      dialog.VBox.PackStart(hbox, true, true, 0);
+			HBox hbox = new HBox(false, 12);
+			hbox.BorderWidth = 12;
+			dialog.VBox.PackStart(hbox, true, true, 0);
 
-      VBox vbox = new VBox(false, 12);
-      hbox.PackStart(vbox, false, false, 0);
+			VBox vbox = new VBox(false, 12);
+			hbox.PackStart(vbox, false, false, 0);
 
-      SourceFrame sf = new SourceFrame(this);
-      vbox.PackStart(sf, false, false, 0);
+			SourceFrame sf = new SourceFrame(this);
+			vbox.PackStart(sf, false, false, 0);
 
-      _df = new DocumentFrame(this, _layoutSet);
-      vbox.PackStart(_df, false, false, 0);
+			_df = new DocumentFrame(this, _layoutSet);
+			vbox.PackStart(_df, false, false, 0);
 
-      LabelFrame lf = new LabelFrame(this);
-      vbox.PackStart(lf, false, false, 0);
+			LabelFrame lf = new LabelFrame(this);
+			vbox.PackStart(lf, false, false, 0);
 
-      Frame frame = new Frame();
-      hbox.PackStart(frame, true, true, 0);
+			Frame frame = new Frame();
+			hbox.PackStart(frame, true, true, 0);
 
-      VBox fbox = new VBox();
-      fbox.BorderWidth = 12;
-      frame.Add(fbox);
+			VBox fbox = new VBox();
+			fbox.BorderWidth = 12;
+			frame.Add(fbox);
 
-      _preview = new Preview();
-      _preview.WidthRequest = 400;
-      _preview.HeightRequest = 500;
-      _preview.Image = _image;
-      fbox.Add(_preview);
+			_preview = new Preview(this);
+			_preview.WidthRequest = 400;
+			_preview.HeightRequest = 500;
 
-      _layoutSet.SelectEvent += new SelectHandler(_preview.SetLayout);
+			fbox.Add(_preview);
 
-      _layoutSet.Selected = _layoutSet[0];
+			_layoutSet.Selected = _layoutSet[0];
+			_layout = _layoutSet[0];
+			_layoutSet.SelectEvent += new SelectHandler(SetLayout);
 
-      dialog.ShowAll();
+			dialog.ShowAll();
 	
-      return DialogRun();
-    }
+			return DialogRun();
+		}
 
-    override protected void DoSomething(Image image)
-    {
-      _flatten = _df.Flatten;
+		void SetLayout(Layout layout)
+		{
+			_layout = layout;
+			RedrawPreview();
+		}
 
-      Layout layout = _layoutSet.Selected;
-      PageSize size = layout.GetPageSizeInPixels(_resolution);
+		bool RenderOne()
+		{
+			Console.WriteLine("RenderOne");
+			bool val = _layout.Render(_loader, _preview.GetRenderer(_layout), false);
+			if (!val) _preview.QueueDraw();
+			return val;
+		}
+		public void RenderX()
+		{
+			GLib.Idle.Add(new GLib.IdleHandler(RenderOne));
+		}
 
-      int width = (int) size.Width;
-      int height = (int) size.Height;
-      Image composed = new Image(width, height, ImageBaseType.RGB);
+		public void Render()
+		{
+			_layout.Render(_loader, _preview.GetRenderer(_layout));
+		}
 
-      layout.Render(new ImageRenderer(layout, composed, _resolution));
+		void RedrawPreview()
+		{
+			Render();
+			_preview.QueueDraw();
+		}
 
-      if (_flatten)
-	{
-	composed.Flatten();
+		override protected void DoSomething(Image image)
+		{
+			_flatten = _df.Flatten;
+
+			PageSize size = _layout.GetPageSizeInPixels(_resolution);
+
+			int width = (int) size.Width;
+			int height = (int) size.Height;
+			Image composed = new Image(width, height, ImageBaseType.RGB);
+
+			_layout.Render(_loader, new ImageRenderer(_layout, composed, _resolution));
+
+			if (_flatten)
+			{
+				composed.Flatten();
+			}
+
+			new Display(composed);
+			Display.DisplaysFlush();
+		}
+
+		public ProviderFactory Loader
+		{
+			set 
+			{
+				_loader = value;
+				RedrawPreview();
+			}
+		}
+
+		public Image Image
+		{
+			get {return _image;}
+		}
+
+		public string Label
+		{
+			set
+			{
+				_label = value;
+				_preview.DrawLabel(_position, _label);
+			}
+		}
+
+		public int Position
+		{
+			set
+			{
+				_position = value;
+				_preview.DrawLabel(_position, _label);
+			}
+		}
+
+		public int Resolution
+		{
+			set {_resolution = value;}
+		}
 	}
-
-      new Display(composed);
-      Display.DisplaysFlush();
-    }
-
-    public void LoadFromDirectory(string directory, bool recursive)
-    {
-      _preview.LoadFromDirectory(directory, recursive);
-    }
-
-    public void LoadFromFile(string file)
-    {
-      _preview.LoadFromFile(file);
-    }
-
-    public void LoadFromFrontImage()
-    {
-      _preview.LoadFromFrontImage();
-    }
-
-    public string Label
-    {
-      set
-	  {
-	  _label = value;
-	  _preview.DrawLabel(_position, _label);
-	  }
-    }
-
-    public int Position
-    {
-      set
-	  {
-	  _position = value;
-	  _preview.DrawLabel(_position, _label);
-	  }
-    }
-
-    public int Resolution
-    {
-      set {_resolution = value;}
-    }
-  }
-  }
+}

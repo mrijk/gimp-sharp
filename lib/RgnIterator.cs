@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.InteropServices;
 
 namespace Gimp
   {
@@ -13,13 +12,11 @@ namespace Gimp
       int x1, y1, x2, y2;
       RunMode _runmode;
       Progress _progress;
-      int _bpp;
 
       public RgnIterator(Drawable drawable, RunMode runmode)
       {
 	_drawable = drawable;
 	_runmode = runmode;
-	_bpp = drawable.Bpp;
 	drawable.MaskBounds(out x1, out y1, out x2, out y2);
       }
 
@@ -95,8 +92,5 @@ namespace Gimp
 	_drawable.MergeShadow(true);
 	_drawable.Update(x1, y1, x2 - x1, y2 - y1);
       }
-
-      [DllImport("libgimp-2.0.so")]
-      public static extern bool gimp_progress_update(double percentage);
     }
   }

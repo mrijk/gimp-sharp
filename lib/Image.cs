@@ -126,7 +126,7 @@ namespace Gimp
       {
 	return gimp_image_lower_layer(_imageID, layer.ID);
       }
-
+#if false
       public bool AddChannel(Channel channel, int position)
       {
 	return gimp_image_add_channel(_imageID, channel.ID, position);
@@ -146,7 +146,7 @@ namespace Gimp
       {
 	return gimp_image_lower_channel(_imageID, channel.ID);
       }
-
+#endif
       public Layer Flatten()
       {
 	return new Layer(gimp_image_flatten (_imageID));
@@ -165,9 +165,12 @@ namespace Gimp
 						merge_type));
       }
 
-      public bool CleanAll()
+      public void CleanAll()
       {
-	return gimp_image_clean_all (_imageID);
+	if (!gimp_image_clean_all (_imageID))
+	  {
+	  throw new Exception();
+	  }
       }
 
       public bool IsDirty
@@ -178,21 +181,64 @@ namespace Gimp
       public Layer ActiveLayer
       {
 	get {return new Layer(gimp_image_get_active_layer (_imageID));}
-	set {gimp_image_set_active_layer (_imageID, value.ID);}
-	// Fix me: exception handling
+	set 
+	    {
+	    if (!gimp_image_set_active_layer (_imageID, value.ID))
+	      {
+	      throw new Exception();
+	      }
+	    }
       }
 
       public Channel ActiveChannel
       {
 	get {return new Channel(gimp_image_get_active_channel (_imageID));}
-	set {gimp_image_set_active_channel (_imageID, value.ID);}
-	// Fix me: exception handling
+	set 
+	    {
+	    if (!gimp_image_set_active_channel (_imageID, value.ID))
+	      {
+	      throw new Exception();
+	      }
+	    }
+      }
+
+      public string Name
+      {
+	get {return gimp_image_get_name (_imageID);}
+      }
+
+      public string Filename
+      {
+	get {return gimp_image_get_filename(_imageID);}
+	set
+	    {
+	    if (!gimp_image_set_filename(_imageID, value))
+	      {
+	      throw new Exception();
+	      }
+	    }
       }
 
       public Unit Unit
       {
 	get {return gimp_image_get_unit (_imageID);}
-	set {gimp_image_set_unit (_imageID, value);}
+	set 
+	    {
+	    if (!gimp_image_set_unit (_imageID, value))
+	      {
+	      throw new Exception();
+	      }
+	    }
+      }
+
+      public Layer GetLayerByTattoo(Tattoo tattoo)
+      {
+	return new Layer(gimp_image_get_layer_by_tattoo(_imageID, tattoo.ID));
+      }
+
+      public Channel GetChannelByTattoo(Tattoo tattoo)
+      {
+	return new Channel(gimp_image_get_channel_by_tattoo(_imageID, tattoo.ID));
       }
 
       public bool ConvertRgb()
@@ -355,18 +401,30 @@ namespace Gimp
       [DllImport("libgimp-2.0.so")]
       static extern Int32 gimp_image_get_active_layer (Int32 image_ID);
       [DllImport("libgimp-2.0.so")]
-      static extern Int32 gimp_image_set_active_layer (Int32 image_ID,
-						       Int32 active_layer_ID);
+      static extern bool gimp_image_set_active_layer (Int32 image_ID,
+						      Int32 active_layer_ID);
       [DllImport("libgimp-2.0.so")]
       static extern Int32 gimp_image_get_active_channel (Int32 image_ID);
       [DllImport("libgimp-2.0.so")]
-      static extern Int32 gimp_image_set_active_channel (Int32 image_ID,
-							 Int32 active_channel_ID);
+      static extern bool gimp_image_set_active_channel (Int32 image_ID,
+							Int32 active_channel_ID);
+      [DllImport("libgimp-2.0.so")]
+      static extern string gimp_image_get_filename (Int32 image_ID);
+      [DllImport("libgimp-2.0.so")]
+      static extern bool gimp_image_set_filename (Int32 image_ID, 
+						  string filename);
+      [DllImport("libgimp-2.0.so")]
+      static extern string gimp_image_get_name (Int32 image_ID);
       [DllImport("libgimp-2.0.so")]
       static extern Unit gimp_image_get_unit (Int32 image_ID);
       [DllImport("libgimp-2.0.so")]
       static extern bool gimp_image_set_unit (Int32 image_ID, Unit unit);
-
+      [DllImport("libgimp-2.0.so")]
+      static extern Int32 gimp_image_get_layer_by_tattoo (Int32 image_ID, 
+							  int tattoo);
+      [DllImport("libgimp-2.0.so")]
+      static extern Int32 gimp_image_get_channel_by_tattoo (Int32 image_ID, 
+							    int tattoo);
       [DllImport("libgimp-2.0.so")]
       static extern bool gimp_image_convert_rgb (Int32 image_ID);
       [DllImport("libgimp-2.0.so")]

@@ -141,23 +141,27 @@ target_alias = @target_alias@
 ASSEMBLIES = -r $(top_builddir)/lib/gimp-sharp.dll /pkg:gtk-sharp
 
 SOURCES = \
-	DocumentFrame.cs	\
-	FileImageProvider.cs	\
-	FrontImageProvider.cs	\
-	ImageProvider.cs	\
-	ImageRenderer.cs	\
-	LabelFrame.cs		\
-	Layout.cs		\
-	LayoutSet.cs		\
-	PageSize.cs		\
-	PageSizeSet.cs		\
-	PicturePackage.cs	\
-	PicturePackageFrame.cs	\
-	Preview.cs		\
-	PreviewRenderer.cs	\
-	Rectangle.cs		\
-	RectangleSet.cs		\
-	Renderer.cs		\
+	DirImageProviderFactory.cs	\
+	DocumentFrame.cs		\
+	FileImageProvider.cs		\
+	FileImageProviderFactory.cs	\
+	FrontImageProvider.cs		\
+	FrontImageProviderFactory.cs	\
+	ImageProvider.cs		\
+	ImageRenderer.cs		\
+	LabelFrame.cs			\
+	Layout.cs			\
+	LayoutSet.cs			\
+	PageSize.cs			\
+	PageSizeSet.cs			\
+	PicturePackage.cs		\
+	PicturePackageFrame.cs		\
+	Preview.cs			\
+	PreviewRenderer.cs		\
+	ProviderFactory.cs		\
+	Rectangle.cs			\
+	RectangleSet.cs			\
+	Renderer.cs			\
 	SourceFrame.cs
 
 
@@ -169,23 +173,27 @@ CONFIG_CLEAN_FILES =
 DIST_SOURCES =
 DIST_COMMON = Makefile.am Makefile.in
 SOURCES = \
-	DocumentFrame.cs	\
-	FileImageProvider.cs	\
-	FrontImageProvider.cs	\
-	ImageProvider.cs	\
-	ImageRenderer.cs	\
-	LabelFrame.cs		\
-	Layout.cs		\
-	LayoutSet.cs		\
-	PageSize.cs		\
-	PageSizeSet.cs		\
-	PicturePackage.cs	\
-	PicturePackageFrame.cs	\
-	Preview.cs		\
-	PreviewRenderer.cs	\
-	Rectangle.cs		\
-	RectangleSet.cs		\
-	Renderer.cs		\
+	DirImageProviderFactory.cs	\
+	DocumentFrame.cs		\
+	FileImageProvider.cs		\
+	FileImageProviderFactory.cs	\
+	FrontImageProvider.cs		\
+	FrontImageProviderFactory.cs	\
+	ImageProvider.cs		\
+	ImageRenderer.cs		\
+	LabelFrame.cs			\
+	Layout.cs			\
+	LayoutSet.cs			\
+	PageSize.cs			\
+	PageSizeSet.cs			\
+	PicturePackage.cs		\
+	PicturePackageFrame.cs		\
+	Preview.cs			\
+	PreviewRenderer.cs		\
+	ProviderFactory.cs		\
+	Rectangle.cs			\
+	RectangleSet.cs			\
+	Renderer.cs			\
 	SourceFrame.cs
 
 

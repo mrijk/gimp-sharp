@@ -26,6 +26,7 @@ SOURCES = 			\
 	Guide.cs		\
 	Layer.cs		\
 	Image.cs		\
+	ImageList.cs		\
 	Mask.cs			\
 	Message.cs		\
 	Palette.cs		\
@@ -45,6 +46,7 @@ SOURCES = 			\
 	ScaleEntry.cs		\
 	ScrolledPreview.cs	\
 	Selection.cs		\
+	Tattoo.cs		\
 	VoidObjectSignal.cs
 
 EXTRA_DIST = $(SOURCES)
