@@ -21,6 +21,7 @@ SOURCES = 			\
 	GimpFontSelectWidget.cs	\
 	GimpFrame.cs		\
 	GimpPreview.cs		\
+	GimpStock.cs		\
 	GimpTable.cs		\
 	GimpTypes.cs		\
 	Gimp.cs			\

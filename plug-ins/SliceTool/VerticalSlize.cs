@@ -1,7 +1,5 @@
 using System;
 
-using Gdk;
-
 namespace Gimp.SliceTool
 {
   public class VerticalSlice : Slice

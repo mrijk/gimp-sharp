@@ -17,10 +17,13 @@ namespace Gimp.SliceTool
     ClickHandler _onClick;
 
     Preview _preview;
+    Entry _xy;
+
     Entry _url;
     Entry _altText;
     Entry _target;
-    Entry _xy;
+    CheckButton _include;
+    Format _format;
 
     Label _left;
     Label _right;
@@ -48,7 +51,7 @@ namespace Gimp.SliceTool
     {
       InstallProcedure("plug_in_slice_tool",
 		       "Slice Tool",
-		       "Slice Tool",
+		       "The Image Slice Tool is used to apply image slicing and rollovers.",
 		       "Maurits Rijk",
 		       "(C) Maurits Rijk",
 		       "2005",
@@ -58,6 +61,7 @@ namespace Gimp.SliceTool
 
       MenuRegister("<Image>/Filters/Web");
       IconRegister("SliceTool.png");
+      // IconRegister("SliceTool.SliceTool.png"); // Win32
     }
 
     override protected bool CreateDialog()
@@ -100,8 +104,9 @@ namespace Gimp.SliceTool
       Widget rollover = CreateRollover();
       vbox.PackStart(rollover, false, true, 0);
 
-      Widget format = CreateFormat();
-      vbox.PackStart(format, false, true, 0);
+      _format = new Format();
+      _format.Exension = System.IO.Path.GetExtension(_image.Name).ToLower();
+      vbox.PackStart(_format, false, true, 0);
 
       CreateInitialSlices();
 
@@ -161,19 +166,19 @@ namespace Gimp.SliceTool
       button.Clicked += new EventHandler(OnSelect);
 
       button = new Button();
-      image = new Gtk.Image("gimp-tool-crop", IconSize.SmallToolbar);
+      image = new Gtk.Image(GimpStock.TOOL_CROP, IconSize.SmallToolbar);
       button.Add(image);
       tools.AppendWidget(button, "Create a new Slice", "create");
       button.Clicked += new EventHandler(OnCreateSlice);
 
       button = new Button();
-      image = new Gtk.Image("gimp-tool-eraser", IconSize.SmallToolbar);
+      image = new Gtk.Image(GimpStock.TOOL_ERASER, IconSize.SmallToolbar);
       button.Add(image);
       tools.AppendWidget(button, "Remove Slice", "delete");
       button.Clicked += new EventHandler(OnRemoveSlice);
 
       button = new Button();
-      image = new Gtk.Image("gimp-grid", IconSize.SmallToolbar);
+      image = new Gtk.Image(GimpStock.GRID, IconSize.SmallToolbar);
       button.Add(image);
       tools.AppendWidget(button, "Insert Table", "grid");
       button.Clicked += new EventHandler(OnCreateTable);
@@ -211,7 +216,7 @@ namespace Gimp.SliceTool
       _bottom = new Label("    ");
       table.AttachAligned(2, 4, "Bottom:", 0.0, 0.5, _bottom, 1, false);
 
-      CheckButton _include = new CheckButton("_Include cell in table");
+      _include = new CheckButton("_Include cell in table");
       _include.Active = true;
       table.Attach(_include, 0, 2, 5, 6);
 
@@ -230,22 +235,6 @@ namespace Gimp.SliceTool
 
       Label label = new Label("Rollover enabled: no");
       vbox.Add(label);
-
-      return frame;
-    }
-
-    Widget CreateFormat()
-    {
-      GimpFrame frame = new GimpFrame("Format");
-
-      OptionMenu format = new OptionMenu();
-      frame.Add(format);
-
-      Menu menu = new Menu();
-      menu.Append(new MenuItem("jpg"));
-      menu.Append(new MenuItem("gif"));
-      menu.Append(new MenuItem("png"));
-      format.Menu = menu;
 
       return frame;
     }
@@ -289,6 +278,22 @@ namespace Gimp.SliceTool
       _onClick = new ClickHandler(Select);
     }
 
+    void SetRectangleData(Rectangle rectangle)
+    {
+      rectangle.URL = _url.Text;
+      rectangle.AltText = _altText.Text;
+      rectangle.Target = _target.Text;
+      rectangle.Include = _include.Active;
+    }
+
+    void GetRectangleData(Rectangle rectangle)
+    {
+      _url.Text = rectangle.URL;
+      _altText.Text = rectangle.AltText;
+      _target.Text = rectangle.Target;
+      _include.Active = rectangle.Include;		
+    }
+
     void Select(int x, int y)
     {
       Slice slice = _horizontalSlices.Find(x, y);
@@ -303,21 +308,17 @@ namespace Gimp.SliceTool
 	  {
 	  if (_rectangle != null)
 	    {
-	    _rectangle.URL = _url.Text;
-	    _rectangle.AltText = _altText.Text;
-	    _rectangle.Target = _target.Text;
+	    SetRectangleData(_rectangle);
 	    }
 	  _rectangle = rectangle;
 	  Redraw(_preview.Renderer);
 
-	  _url.Text = _rectangle.URL;
-	  _altText.Text = _rectangle.AltText;
-	  _target.Text = _rectangle.Target;
+	  GetRectangleData(rectangle);
 	  
-	  _left.Text = string.Format("{0}", _rectangle.X1);
-	  _right.Text = string.Format("{0}", _rectangle.Y1);
-	  _top.Text = string.Format("{0}", _rectangle.X2);
-	  _bottom.Text = string.Format("{0}", _rectangle.Y2);
+	  _left.Text = _rectangle.X1.ToString();
+	  _right.Text = _rectangle.Y1.ToString();
+	  _top.Text = _rectangle.X2.ToString();
+	  _bottom.Text = _rectangle.Y2.ToString();
 	  }
 	}
       else
@@ -381,11 +382,43 @@ namespace Gimp.SliceTool
       ResponseType type = dialog.Run();
       if (type == ResponseType.Ok)
 	{
+	Rectangle rectangle = _rectangles.Find(x, y);
+	int width = rectangle.Width;
+	int height = rectangle.Height;
+	int x1 = rectangle.X1;
+	int x2 = rectangle.X2;
+	int y1 = rectangle.Y1;
+	int y2 = rectangle.Y2;
+
+	SliceSet horizontalSlices = new SliceSet();
+	for (int row = 1; row < dialog.Rows; row++)
+	  {
+	  int ypos = y1 + row * height / dialog.Rows;
+	  horizontalSlices.Add(new HorizontalSlice(x1, x2, ypos));
+	  }
+
+	foreach (Slice slice in horizontalSlices)
+	  {
+	  _rectangles.Slice(slice);
+	  _horizontalSlices.Add(slice);
+	  }
+
+	SliceSet verticalSlices = new SliceSet();
+	for (int col = 1; col < dialog.Columns; col++)
+	  {
+	  int xpos = x1 + col * width / dialog.Columns;
+	  verticalSlices.Add(new VerticalSlice(xpos, y1, y2));
+	  }
+
+	foreach (Slice slice in verticalSlices)
+	  {
+	  _rectangles.Slice(slice);
+	  _verticalSlices.Add(slice);
+	  }
+
+	Redraw(_preview.Renderer);
 	}
-      else
-	{
-	}
-      dialog.Hide();
+      dialog.Destroy();
     }
 
     Slice GetSlice(int x, int y)
@@ -476,6 +509,8 @@ namespace Gimp.SliceTool
 
     override protected void DoSomething(Image image, Drawable drawable)
     {
+      SetRectangleData(_rectangle);
+
       _horizontalSlices.Sort();
       _verticalSlices.Sort();
 
@@ -499,7 +534,7 @@ namespace Gimp.SliceTool
       w.WriteLine("<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"{0}\">", 
 		  drawable.Width);
       
-      _rectangles.WriteHTML(w, name);
+      _rectangles.WriteHTML(w, name, _format.Exension);
 
       w.WriteLine("</table>");
       w.WriteLine("<!-- End Table -->");
@@ -508,7 +543,7 @@ namespace Gimp.SliceTool
       w.WriteLine("</html>");
       w.Close();
 
-      _rectangles.Slice(image, name);
+      _rectangles.Slice(image, name, _format.Exension);
     }
   }
   }

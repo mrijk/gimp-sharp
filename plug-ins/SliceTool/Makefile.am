@@ -3,6 +3,7 @@ all: SliceTool.exe
 ASSEMBLIES = -r $(top_builddir)/lib/gimp-sharp.dll /pkg:gtk-sharp
 
 SOURCES =			\
+	Format.cs		\
 	HorizontalSlice.cs	\
 	Preview.cs		\
 	PreviewRenderer.cs	\

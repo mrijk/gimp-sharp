@@ -1,3 +1,9 @@
+2005-01-10    <maurits@Mau>
+
+	* plug-ins/SliceTool/Format.cs: new file
+
+	* lib/GimpStock.cs: new file
+
 2005-01-08    <maurits@Mau>
 
 	* plug-ins/SliceTool/TableDialog.cs: new file

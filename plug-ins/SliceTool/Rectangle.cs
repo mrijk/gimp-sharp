@@ -11,6 +11,7 @@ namespace Gimp.SliceTool
     string _url = "";
     string _altText = "";
     string _target = "";
+    bool _include = true;
 
     public Rectangle(VerticalSlice left, VerticalSlice right,
 		     HorizontalSlice top, HorizontalSlice bottom)
@@ -76,28 +77,28 @@ namespace Gimp.SliceTool
       return new VerticalSlice(x, Y1, Y2);
     }
 
-    string GetFilename(string name)
+    string GetFilename(string name, string extension)
     {
-      return  string.Format("{0}_{1}x{2}.jpg", name, Top.Index, Left.Index);
+      return  string.Format("{0}_{1}x{2}.{3}", name, Top.Index, Left.Index, extension);
     }
 
-    public void WriteHTML(StreamWriter w, string name, int index)
+    public void WriteHTML(StreamWriter w, string name, string extension, int index)
     {
-      int width = X2 - X1 + 1;
-      int height = Y2 - Y1 + 1;
+      if (!_include)
+	return;
 
       w.WriteLine("<td rowspan=\"{0}\" colspan = \"{1}\" width=\"{2}\" height=\"{3}\">",
 		  Bottom.Index - Top.Index, Right.Index - Left.Index, 
-		  width, height);
+		  Width, Height);
       w.WriteLine("\t<img name=\"{0}\" src=\"{1}\" width=\"{2}\" height=\"{3}\" border=\"0\" alt=\"\"/></td>", 
-		  name + index, GetFilename(name), width, height); 
+		  name + index, GetFilename(name, extension), Width, Height); 
     }
 
-    public void Slice(Image image, string name)
+    public void Slice(Image image, string name, string extension)
     {
       Image clone = new Image(image);
-      clone.Crop(X2 - X1 + 1, Y2 - Y1 + 1, X1, Y1);
-      string filename = GetFilename(name);
+      clone.Crop(Width, Height + 1, X1, Y1);
+      string filename = GetFilename(name, extension);
       clone.Save(RunMode.NONINTERACTIVE, filename, filename);
       clone.Delete();
     }
@@ -146,6 +147,16 @@ namespace Gimp.SliceTool
       get {return _bottom.Y;}
     }
 
+    public int Width
+    {
+      get {return X2 - X1 + 1;}
+    }
+
+    public int Height
+    {
+      get {return Y2 - Y1 + 1;}
+    }
+
     public string URL
     {
       get {return _url;}
@@ -162,6 +173,12 @@ namespace Gimp.SliceTool
     {
       get {return _target;}
       set {_target = value;}
+    }
+
+    public bool Include
+    {
+      get {return _include;}
+      set {_include = value;}
     }
   }
   }

@@ -4,7 +4,7 @@ using System.IO;
 
 namespace Gimp.SliceTool
 {
-  public class RectangleSet: IEnumerable
+  public class RectangleSet : IEnumerable
   {
     ArrayList _set = new ArrayList();
 
@@ -57,13 +57,13 @@ namespace Gimp.SliceTool
       return null;
     }
 
-    public void WriteHTML(StreamWriter w, string name)
+    public void WriteHTML(StreamWriter w, string name, string extension)
     {
       _set.Sort();
 
       w.WriteLine("<tr>");
       Rectangle prev = this[0];
-      prev.WriteHTML(w, name, 0);
+      prev.WriteHTML(w, name, extension, 0);
       for (int i = 1; i < _set.Count; i++)
 	{
 	if (this[i].Top.Index != prev.Top.Index)
@@ -73,17 +73,22 @@ namespace Gimp.SliceTool
 	  w.WriteLine("<tr>");
 	  }
 	prev = this[i];
-	prev.WriteHTML(w, name, i);
+	prev.WriteHTML(w, name, extension, i);
 	}
       w.WriteLine("</tr>");
     }
 
-    public void Slice(Image image, string name)
+    public void Slice(Image image, string name, string extension)
     {
       foreach (Rectangle rectangle in _set)
 	{
-	rectangle.Slice(image, name);
+	rectangle.Slice(image, name, extension);
 	}
+    }
+
+    public void InsertGrid(int x, int y, int rows, int columns)
+    {
+      Rectangle rectangle = Find(x, y);
     }
   }
   }

@@ -24,5 +24,16 @@ namespace Gimp.SliceTool
 		     _rows, 1.0, 16.0, 1.0, 1.0, 0,
 		     true, 0, 0, null, null);
     }
+
+    public int Columns
+    {
+      get {return _columns;}
+    }
+
+    public int Rows
+    {
+      get {return _rows;}
+    }
+
   }
   }
