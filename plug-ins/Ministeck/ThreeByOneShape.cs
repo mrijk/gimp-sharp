@@ -15,9 +15,7 @@ namespace Gimp.Ministeck
 	_shape2.Add(1, 0);
 	_shape2.Add(2, 0);
 
-	_set = new ShapeSet[2];
-	_set[0] = new ShapeSet(_shape1, _shape2);
-	_set[1] = new ShapeSet(_shape2, _shape1);
+	Combine(_shape1, _shape2);
       }
 
       protected override void Fill(PixelFetcher PR, int x, int y,

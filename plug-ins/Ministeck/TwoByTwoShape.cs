@@ -11,8 +11,7 @@ namespace Gimp.Ministeck
 	shape.Add(1, 0);
 	shape.Add(1, 1);
 
-	_set = new ShapeSet[1];
-	_set[0] = new ShapeSet(shape);
+	Combine(shape);
       }
 
       protected override void Fill(PixelFetcher PR, int x, int y,

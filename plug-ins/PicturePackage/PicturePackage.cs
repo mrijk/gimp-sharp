@@ -127,9 +127,8 @@ namespace Gimp
 	menu.Append(new MenuItem("Frontmost Document"));
 	use.Menu = menu;
 	use.SetHistory(2);
-	table.AttachAligned(0, 0, "Use:", 0.0, 0.5,
-			    use, 1, false);
-	use.Changed += new EventHandler(OnUseChanged);
+	table.AttachAligned(0, 0, "Use:", 0.0, 0.5, use, 1, false);
+	use.Changed += OnUseChanged;
 
 	_include = new CheckButton("Include All Subfolders");
 	table.Attach(_include, 1, 2, 1, 2);

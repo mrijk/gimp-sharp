@@ -5,8 +5,7 @@ namespace Gimp.Ministeck
   {
   abstract public class Shape
   {
-    protected ShapeSet[] _set;
-    protected ArrayList _set2 = new ArrayList(); 
+    public ArrayList _set = new ArrayList(); 
     protected int _size;
 
     Random _random = new Random();
@@ -22,12 +21,12 @@ namespace Gimp.Ministeck
     protected void Combine(params ShapeDescription[] list)
     {
       ShapeSet empty = new ShapeSet();
-      _set2.Add(empty);
+      _set.Add(empty);
 
       foreach (ShapeDescription val in list)
 	{
 	ArrayList copy = new ArrayList();
-	foreach (ShapeSet ele in _set2)
+	foreach (ShapeSet ele in _set)
 	  {
 	  for (int i = 0; i <= ele.Count; i++)
 	    {
@@ -36,16 +35,15 @@ namespace Gimp.Ministeck
 	    copy.Add(tmp);
 	    }
 	  }
-	_set2 = copy;
+	_set = copy;
 	}
-      Console.WriteLine("Count: " + _set2.Count);
     }
 
     public bool Fits(PixelFetcher pf, bool[,] A, int x, int y)
     {
-      int index = _random.Next(0, _set.Length);
+      int index = _random.Next(0, _set.Count);
 
-      foreach (ShapeDescription shape in _set[index])
+      foreach (ShapeDescription shape in (ShapeSet) _set[index])
 	{
 	if (Fits(pf, A, x, y, shape))
 	  {

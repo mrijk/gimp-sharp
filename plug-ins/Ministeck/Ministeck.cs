@@ -74,8 +74,7 @@ namespace Gimp.Ministeck
 
 	GimpColorButton color = new GimpColorButton(
 	  "", 16, 16, rgb.GimpRGB, ColorAreaType.COLOR_AREA_FLAT);
-	table.AttachAligned(0, 1, "C_olor:", 0.0, 0.5,
-			    color, 1, true);
+	table.AttachAligned(0, 1, "C_olor:", 0.0, 0.5, color, 1, true);
 
 	dialog.ShowAll();
 	return DialogRun();

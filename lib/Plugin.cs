@@ -32,7 +32,8 @@ namespace Gimp
     }
 
     [DllImport("libgimp-2.0.so")]
-    public static extern int gimp_main(ref IntPtr info, int argc, string[] args);
+    public static extern int gimp_main(ref IntPtr info, int argc, 
+				       string[] args);
 
     [DllImport("libgimpui-2.0.so")]
     public static extern void gimp_ui_init(string prog_name, bool preview);
@@ -83,17 +84,11 @@ namespace Gimp
       args.CopyTo (progargs, 1);
 
       fnInitGimp(ref _info, progargs.Length, progargs);
-
-      Close();		
     }
 
     void GimpMain(ref IntPtr info)
     {	
       gimp_main(ref info, myArgs.Length, myArgs);
-    }
-
-    public void Close()
-    {
     }
 
     protected virtual void Init() 
