@@ -14,14 +14,23 @@ namespace Gimp
 	WITH_LAST_VALS
       }
 
+    public enum PDBStatusType
+      {
+	PDB_EXECUTION_ERROR,
+	PDB_CALLING_ERROR,
+	PDB_PASS_THROUGH,
+	PDB_SUCCESS,
+	PDB_CANCEL
+      }
+
   [StructLayout(LayoutKind.Sequential)]
-    public struct GimpRGB
+    public struct RGB
     {
-      double r, g, b, a;
+      public double r, g, b, a;
     }
 
   [StructLayout(LayoutKind.Sequential)]
-    public struct GimpParamRegion
+    public struct ParamRegion
     {
       public Int32 x;
       public Int32 y;
@@ -30,16 +39,16 @@ namespace Gimp
     };
 
   [StructLayout(LayoutKind.Sequential)]
-    public struct GimpParasite
+    public struct Parasite
     {
-      Int32 name;  
+      string  name;  
       Int32   flags; 
       Int32   size;  
       IntPtr  data;  
     };
 
   [StructLayout(LayoutKind.Explicit)]
-    public struct GimpParamData
+    public struct ParamData
     {
       [FieldOffset(0)]
       public Int32	d_int32;
@@ -48,19 +57,23 @@ namespace Gimp
       [FieldOffset(0)]
       public byte	d_int8;
       [FieldOffset(0)]
-      public float d_float;
+      public double 	d_float;
       [FieldOffset(0)]
-      GimpRGB         d_color;
+      public RGB    d_color;
+#if _FIXME_
       [FieldOffset(0)]
-      public GimpParamRegion d_region;
+      public ParamRegion d_region;
+#endif
       [FieldOffset(0)]
       public Int32    d_image;
       [FieldOffset(0)]
       public Int32    d_drawable;
+#if _FIXME_
       [FieldOffset(0)]
-      GimpParasite    d_parasite;
+      Parasite    d_parasite;
+#endif
       [FieldOffset(0)]
-      public Int32	d_status;	// Fix me!
+      public PDBStatusType	d_status;
     };
 
     public enum PDBProcType
@@ -71,7 +84,7 @@ namespace Gimp
       TEMPORARY
     }
 
-    public enum GimpPDBArgType
+    public enum PDBArgType
       {
 	INT32,
 	INT16,
@@ -101,8 +114,8 @@ namespace Gimp
   [StructLayout(LayoutKind.Sequential)]
   public struct GimpParam
   {
-    public GimpPDBArgType type;
-    public GimpParamData  data;
+    public PDBArgType type;
+    public ParamData  data;
   };
 
   abstract public class Plugin
@@ -116,7 +129,6 @@ namespace Gimp
 				 IntPtr param,
 				 ref int n_return_vals, 
 				 out GimpParam[] return_vals);
-
     [StructLayout(LayoutKind.Sequential)]
     public struct GimpPlugInInfo
     {
@@ -159,7 +171,7 @@ namespace Gimp
     [StructLayout(LayoutKind.Sequential)]
     public struct GimpParamDef
     {
-      public GimpPDBArgType type;
+      public PDBArgType type;
       public string name;
       public string description;
     };
@@ -280,16 +292,15 @@ namespace Gimp
     public void Run(string name, int n_params, IntPtr paramPtr,
 		    ref int n_return_vals, out GimpParam[] return_vals)
     {
-      // Get parameters
       GimpParam[] param = new GimpParam[n_params];
+      // Get parameters
       for (int i = 0; i < n_params; i++)
 	{
 	param[i] = (GimpParam) Marshal.PtrToStructure(paramPtr,
-						      typeof(GimpParam));
+	 					      typeof(GimpParam));
 	Console.WriteLine(param[i].type);
 	paramPtr = (IntPtr)((int)paramPtr + Marshal.SizeOf(param[i]));
 	}
-
       Run(name, param, out return_vals);
       n_return_vals = return_vals.Length;
     }

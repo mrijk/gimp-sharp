@@ -3,12 +3,16 @@ using System.Collections;
 using System.IO;
 
 using Gtk;
-// using GtkSharp;
 
 namespace Gimp
   {
     public class TestPlugin : Plugin
     {
+      Drawable drawable;
+      GimpParam[] values = new GimpParam[1];
+      UInt32 _seed;
+      bool _random_seed;
+
       [STAThread]
       static void Main(string[] args)
       {
@@ -25,32 +29,30 @@ namespace Gimp
 	public int y;
       }
 
-      Drawable drawable;
-      GimpParam[] values = new GimpParam[1];
-
       override protected void Query()
       {
 	GimpParamDef[] args = new GimpParamDef[3];
-	args[0].type = GimpPDBArgType.INT32;
+
+	args[0].type = PDBArgType.INT32;
 	args[0].name = "run_mode";
 	args[0].description = "Interactive, non-interactive";
 
-	args[1].type = GimpPDBArgType.IMAGE;
+	args[1].type = PDBArgType.IMAGE;
 	args[1].name = "image";
 	args[1].description = "Input image (unused)";
 
-	args[2].type = GimpPDBArgType.DRAWABLE;
+	args[2].type = PDBArgType.DRAWABLE;
 	args[2].name = "drawable";
 	args[2].description = "Input drawable";
 
 	InstallProcedure("plug_in_ncp",
-			 "blurb",
-			 "help me too",
+			 "Generates 2D textures",
+			 "Generates 2D textures",
 			 "Maurits Rijk",
 			 "Maurits Rijk",
 			 "Today",
 			 "NCP...",
-			 "RGB*",
+			 "RGB*, GRAY*",
 			 args);
 
 	MenuRegister("plug_in_ncp",
@@ -60,25 +62,11 @@ namespace Gimp
       override protected void Run(string name, GimpParam[] param,
 				  out GimpParam[] return_vals)
       {
-	values[0].type = GimpPDBArgType.STATUS;
-	values[0].data.d_status = 3;
+	values[0].type = PDBArgType.STATUS;
+	values[0].data.d_status = PDBStatusType.PDB_SUCCESS;
 	return_vals = values;
 
 	drawable = new Drawable(param[2].data.d_drawable);
-
-	// image.Scale(image.Width / 2, image.Height / 2);
-	// image.Crop(100, 100, 0, 0);
-
-	// Fill area
-	int x1, y1, x2, y2;
-	drawable.MaskBounds(out x1, out y1, out x2, out y2);
-	// drawable.Fill(FillType.PATTERN_FILL);
-	//			drawable.Flush();
-	//			drawable.Update(x1, y1, x2 - x1, y2 - y1);
-
-	// Add a new layer
-	//			Layer layer = new Layer(image, "test", 100, 100, ImageType.RGB_IMAGE, 1.0, LayerModeEffects.NORMAL_MODE);
-	//			image.AddLayer(layer, 0);
 
 	gimp_ui_init("ncp", true);
 
@@ -88,43 +76,36 @@ namespace Gimp
 				     Stock.Ok, ResponseType.Ok);
 
 	Dialog dialog = new Dialog(dialogPtr);
-	// dialog.AddButton("Dummy", 13);
 
-	// dialog.VBox.PackStart(new Label("Bla"), true, true, 0);
-	// stream.WriteLine("vbox: " + dialog.VBox);
-	// Combo combo = new Combo();
-	// hbox.Add(combo);
-	// combo.Show();
-	// hbox.Show();
+	VBox vbox = new VBox(false, 12);
+	vbox.BorderWidth = 12;
+	dialog.VBox.PackStart(vbox, true, true, 0);
+	vbox.Show();
 
+	GimpTable table = new GimpTable(3, 3, false);
+	table.ColumnSpacing = 6;
+	table.RowSpacing = 6;
+	vbox.PackStart(table, false, false, 0);
+	table.Show();
+
+	RandomSeed seed = new RandomSeed(ref _seed, ref _random_seed);
+	Widget label = table.AttachAligned(0, 0, "Random _Seed:", 0.0, 0.5,
+					  seed, 2, true);
+
+	ScaleEntry entry = new ScaleEntry(table, 0, 1, "_Points:", 150, 3,
+					  1, 1.0, 256.0, 1.0, 8.0, 0,
+					  true, 0, 0, null, null);
+
+	entry = new ScaleEntry(table, 0, 2, "C_lose to:", 150, 3,
+			       1, 1.0, 256.0, 1.0, 8.0, 0,
+			       true, 0, 0, null, null);
+			       
 	dialog.Show();
 	DialogRun(dialogPtr);
 
 	drawable.Detach();
       }
 		
-      /* override */ protected void DoSomething2()
-      {
-	Image image = drawable.Image;
-	Image copy = image.Duplicate();
-	copy.Scale(copy.Width / 2, copy.Height / 2);
-	Display display = new Display(copy);
-
-	int count = 0;
-	foreach (Guide guide in image.Guides)
-	  {
-	  count++;
-	  }
-
-	// Write some pixel data
-	RgnIterator iter = new RgnIterator(drawable, RunMode.INTERACTIVE);
-	iter.Iterate(new RgnIterator.IterFuncSrcDest(Foo));
-
-	// Read some pixel data
-	iter.Iterate(new RgnIterator.IterFuncSrc(Foo));		
-	Display.DisplaysFlush();
-      }
-
       const int _points = 12;
       const int _closest = 2;
       const bool color = true;
@@ -183,14 +164,13 @@ namespace Gimp
 	    }
 	  }
 				
-	ProgressInit("TestPlugin");
+	ProgressInit("NCP");
 	RgnIterator iter = new RgnIterator(drawable, RunMode.INTERACTIVE);
 	iter.Iterate(new RgnIterator.IterFuncDest(DoNCP));
 			
 	Display.DisplaysFlush();
       }
 
-      //      void DoNCP(int x, int y, ref byte[] dest)
       void DoNCP(int x, int y, ref byte[] dest)
       {
 	for (int b = 0; b < bpp; b++) 
@@ -222,17 +202,6 @@ namespace Gimp
 	  }
 	if (has_alpha) 
 	  dest[bpp]= 255;
-      }
-
-      void Foo(byte[] from)
-      {
-      }
-
-      void Foo(int x, int y, byte[] from, ref byte[] to)
-      {
-	to[0] = from[1];
-	to[1] = from[2];
-	to[2] = from[0];
       }
     }
   }

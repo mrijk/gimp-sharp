@@ -30,7 +30,15 @@ static void wrap_quit(void)
 static void wrap_run(const char *name, int n_params, const GimpParam *param, 
 		     int *n_return_vals, GimpParam **return_vals)
 {
+#ifndef _OLD_
   ((void (STDCALL *)(const char*, int, const GimpParam*, int*, GimpParam**)) _info.run_proc)(name, n_params, param, n_return_vals, return_vals);
+#else
+  static GimpParam dummy[2];
+
+  ((void (STDCALL *)(int, const GimpParam*)) _info.run_proc)(n_params, param);
+  *n_return_vals = 0;
+  return_vals = NULL;
+#endif
 }
 
 int fnInitGimp(GimpPlugInInfo *info, int argc, char *args[])

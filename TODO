@@ -1,6 +1,5 @@
 Release 0.1
 -----------
-- Fix UTF-8 problem
 - Create homepage
 - Robust install procedure
 - Initial version of picture package [just GUI, no functionality]

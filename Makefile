@@ -5,13 +5,16 @@ REFERENCES = -pkg:gtk-sharp
 SOURCES = \
 	Display.cs		\
 	Drawable.cs		\
+	GimpTable.cs		\
 	GuideCollection.cs	\
 	Guide.cs		\
 	Layer.cs		\
 	Image.cs		\
 	PixelRgn.cs		\
 	Plugin.cs		\
+	RandomSeed.cs		\
 	RgnIterator.cs		\
+	ScaleEntry.cs		\
 	TestPlugin.cs
 
 all: gimp-sharp.exe
