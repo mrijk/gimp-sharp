@@ -13,18 +13,16 @@ namespace Gimp.PicturePackage
     public Rectangle(XmlNode node)
     {
       XmlAttributeCollection attributes = node.Attributes;
+      _x = GetAttribute(attributes, "x");
+      _y = GetAttribute(attributes, "y");
+      _w = GetAttribute(attributes, "width");
+      _h = GetAttribute(attributes, "height");
+    }
 
-      XmlAttribute x = (XmlAttribute) attributes.GetNamedItem("x");
-      _x = (x == null) ? 0 :  Convert.ToDouble(x.Value);
-
-      XmlAttribute y = (XmlAttribute) attributes.GetNamedItem("y");
-      _y = (y == null) ? 0 :  Convert.ToDouble(y.Value);
-
-      XmlAttribute w = (XmlAttribute) attributes.GetNamedItem("width");
-      _w = (w == null) ? 0 :  Convert.ToDouble(w.Value);
-
-      XmlAttribute h = (XmlAttribute) attributes.GetNamedItem("height");
-      _h = (h == null) ? 0 :  Convert.ToDouble(h.Value);
+    double GetAttribute(XmlAttributeCollection attributes, string name)
+    {
+      XmlAttribute val = (XmlAttribute) attributes.GetNamedItem(name);
+      return (val == null) ? 0 :  Convert.ToDouble(val.Value);      
     }
 
     public ImageProvider Provider

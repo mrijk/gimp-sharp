@@ -10,6 +10,7 @@ namespace Gimp.PicturePackage
     CheckButton _include;
     FileEntry _choose;
 
+    bool _recursive = false;
     uint _useHistory = 2;
 
     public SourceFrame(PicturePackage parent) : base(2, 3, "Source")
@@ -22,6 +23,8 @@ namespace Gimp.PicturePackage
       use.Changed += new EventHandler(OnUseChanged);
 
       _include = new CheckButton("_Include All Subfolders");
+      _include.Active = _recursive;
+      _include.Toggled += new EventHandler(OnIncludeToggled);
       Table.Attach(_include, 1, 2, 1, 2);
 
       SetFileEntry(false);
@@ -32,13 +35,11 @@ namespace Gimp.PicturePackage
     {
       if (_useHistory == 0)
 	{
-	SetFileEntry(false);
 	_include.Sensitive = false;
 	_choose.Sensitive = true;
 	}
       else if (_useHistory == 1)
 	{
-	SetFileEntry(true);
 	_include.Sensitive = true;
 	_choose.Sensitive = true;
 	}
@@ -75,7 +76,26 @@ namespace Gimp.PicturePackage
     void OnUseChanged (object o, EventArgs args) 
     {
       _useHistory = (uint) (o as OptionMenu).History;
+
       SetSourceFrameSensitivity();
+
+      if (_useHistory == 0)
+	{
+	SetFileEntry(false);
+	}
+      else if (_useHistory == 1)
+	{
+	SetFileEntry(true);
+	}
+      else
+	{
+	_parent.LoadFromFrontImage();
+	}
+    }
+
+    void OnIncludeToggled (object o, EventArgs args) 
+    {
+      _recursive = (o as CheckButton).Active;
     }
 
     void OnFileNameChanged (object o, EventArgs args) 
@@ -92,7 +112,7 @@ namespace Gimp.PicturePackage
       string directory = _choose.FileName;
       if (directory.Length > 0)
 	{
-	_parent.LoadFromDirectory(directory);
+	_parent.LoadFromDirectory(directory, _recursive);
 	}
     }
   }

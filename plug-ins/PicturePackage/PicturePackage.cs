@@ -119,14 +119,19 @@ namespace Gimp.PicturePackage
       Display.DisplaysFlush();
     }
 
-    public void LoadFromDirectory(string directory)
+    public void LoadFromDirectory(string directory, bool recursive)
     {
-      _preview.LoadFromDirectory(directory);
+      _preview.LoadFromDirectory(directory, recursive);
     }
 
     public void LoadFromFile(string file)
     {
       _preview.LoadFromFile(file);
+    }
+
+    public void LoadFromFrontImage()
+    {
+      _preview.LoadFromFrontImage();
     }
 
     public string Label

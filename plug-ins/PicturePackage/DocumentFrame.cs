@@ -94,9 +94,9 @@ namespace Gimp.PicturePackage
       _parent.Resolution = (o as SpinButton).ValueAsInt;
     }
 
-    void FlattenToggled (object sender, EventArgs args)
+    void FlattenToggled (object o, EventArgs args)
     {
-      _flatten = (sender as CheckButton).Active;
+      _flatten = (o as CheckButton).Active;
     }
 
     public bool Flatten

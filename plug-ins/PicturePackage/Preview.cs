@@ -73,29 +73,31 @@ namespace Gimp.PicturePackage
       RenderPixmap();
     }
 
+    Renderer GetRenderer()
+    {
+      return new PreviewRenderer(this, _layout, _pixmap, _gc);
+    }
+
     void RenderPixmap()
     {
-      _layout.Render(_image, new PreviewRenderer(this, _layout, _pixmap, _gc));
+      _layout.Render(_image, GetRenderer());
     }
 
     public void LoadFromFrontImage()
     {
-      _layout.LoadFromFrontImage(_image, new PreviewRenderer(this, _layout, 
-							     _pixmap, _gc));
+      _layout.LoadFromFrontImage(_image, GetRenderer());
       QueueDraw();
     }
 
-    public void LoadFromDirectory(string directory)
+    public void LoadFromDirectory(string directory, bool recursive)
     {
-      _layout.LoadFromDirectory(directory, new PreviewRenderer(this, _layout, 
-							       _pixmap, _gc));
+      _layout.LoadFromDirectory(directory, recursive, GetRenderer());
       QueueDraw();
     }
 
     public void LoadFromFile(string file)
     {
-      _layout.LoadFromFile(file, new PreviewRenderer(this, _layout, 
-						     _pixmap, _gc));
+      _layout.LoadFromFile(file, GetRenderer());
       QueueDraw();
     }
 

@@ -75,18 +75,19 @@ namespace Gimp.PicturePackage
       provider.Release();
     }
 
-    public void LoadFromDirectory(string directory, Renderer renderer)
+    public void LoadFromDirectory(string parent, bool recursive,
+				  Renderer renderer)
     {
       int count = _rectangles.Count;
       int i = 0;
 
-      foreach	(string	file in	Directory.GetFiles(directory))
+      foreach (string file in Directory.GetFiles(parent))
 	{
 	if (i >= count)
 	  break;
 
 	FileImageProvider provider = 
-	  new FileImageProvider(file, directory + "/" + file);
+	  new FileImageProvider(file, parent + "/" + file);
 	if (provider.GetImage() != null)
 	  {
 	  Rectangle rectangle = _rectangles[i];
@@ -96,12 +97,14 @@ namespace Gimp.PicturePackage
 	  i++;
 	  }
 	}
-#if false
-      foreach	(string	directory in Directory.GetDirectories(parent))
+
+      if (recursive)
 	{
-	Iterate(directory);
+	foreach	(string	directory in Directory.GetDirectories(parent))
+	  {
+	  // Fixme: recursive into directory
+	  }
 	}
-#endif
     }
 
     public void LoadFromFile(string file, Renderer renderer)

@@ -1,8 +1,16 @@
-2004-12-02    <maurits@Mau>
+2004-12-03  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/PicturePackage/*.cs: major enhancements
+
+	* lib/Makefile.am: changed accordingly
+
+	* lib/PaletteList.cs: new file
+
+2004-12-02  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/ncp/ncp.cs: major speed-up, now 20 times as fast.
 
-2004-11-29    <maurits@Mau>
+2004-11-29  Maurits  <m.rijk@chello.nl>
 
 	* lib/Makefile.am: changed accordingly
 
@@ -11,7 +19,7 @@
 	* lib/DrawablePreview.cs
 	* lib/AspectPreview.cs: new files
 
-2004-11-25    <maurits@Mau>
+2004-11-25  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/PicturePackage/Makefile.am
 	* plug-ins/PicturePackage/DocumentFrame.cs
@@ -21,7 +29,7 @@
 	* lib/Makefile.am
 	* lib/GimpDialog.cs: new file
 
-2004-11-24    <maurits@Mau>
+2004-11-24  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/PicturePackage/Makefile.am
 	* plug-ins/PicturePackage/PageSize.cs: 
@@ -30,14 +38,14 @@
 	* lib/Makefile.am
 	* lib/FileEntry.cs: new file
 
-2004-11-21    <maurits@Mau>
+2004-11-21  Maurits  <m.rijk@chello.nl>
 
 	* lib/Image.cs: added more functions.
 
 	* lib/Makefile.am
 	* lib/Channel.cs: new file
 
-2004-11-20    <maurits@Mau>
+2004-11-20  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/Ministeck/Ministeck.cs: added progress indicator
 
@@ -60,7 +68,7 @@
 	* plug-ins/PicturePackage/PicturePackage.cs: include 
 	picture-package.xml file in resource.
 
-2004-11-10    <maurits@Mau>
+2004-11-10  Maurits  <m.rijk@chello.nl>
 
 	* lib/ParamDef.cs: new file
 

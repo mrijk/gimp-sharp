@@ -31,6 +31,7 @@ SOURCES = 			\
 	Palette.cs		\
 	PaletteEntry.cs		\
 	PaletteEnumerator.cs	\
+	PaletteList.cs		\
 	ParamDef.cs		\
 	ParamDefList.cs		\
 	PixelFetcher.cs		\

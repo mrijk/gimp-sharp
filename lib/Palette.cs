@@ -13,6 +13,11 @@ namespace Gimp
 	_name = gimp_palette_new(name);
       }
 
+      internal Palette(string name, bool unused)
+      {
+	_name = name;
+      }
+
       public Palette(Palette palette)
       {
 	_name = gimp_palette_duplicate(palette._name);
