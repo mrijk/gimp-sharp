@@ -11,6 +11,7 @@ REFERENCES = -pkg:gtk-sharp
 SOURCES = \
 	Display.cs		\
 	Drawable.cs		\
+	GimpFontSelectWidget.cs	\
 	GimpFrame.cs		\
 	GimpTable.cs		\
 	GuideCollection.cs	\

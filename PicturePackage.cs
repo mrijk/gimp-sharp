@@ -68,12 +68,18 @@ namespace Gimp
 	hbox.BorderWidth = 12;
 	dialog.VBox.PackStart(hbox, true, true, 0);
 
-	VBox vbox = new VBox(false, 1);
+	VBox vbox = new VBox(false, 12);
 	hbox.PackStart(vbox, true, true, 0);
 
 	BuildSourceFrame(vbox);
 	BuildDocumentFrame(vbox);
 	BuildLabelFrame(vbox);
+
+	Frame frame = new Frame();
+	frame.WidthRequest = 240;
+	frame.HeightRequest = 300;
+	hbox.PackStart(frame, true, true, 0);
+
 
 	dialog.ShowAll();
 	DialogRun();
@@ -83,6 +89,25 @@ namespace Gimp
       {
 	GimpFrame frame = new GimpFrame("Source");
 	vbox.PackStart(frame, true, true, 0);
+
+	GimpTable table = new GimpTable(2, 3, false);
+	table.ColumnSpacing = 6;
+	table.RowSpacing = 6;
+	frame.Add(table);
+
+	OptionMenu use = new OptionMenu();
+	Menu menu = new Menu();
+	menu.Append(new MenuItem("Frontmost Document"));
+	use.Menu = menu;
+	table.AttachAligned(0, 0, "Use:", 0.0, 0.5,
+			    use, 1, true);
+
+	CheckButton include = new CheckButton("Include All Subfolders");
+	table.Attach(include, 1, 2, 1, 2);
+
+	Button choose = new Button("Choose...");
+	table.Attach(choose, 1, 2, 2, 3, AttachOptions.Shrink,
+		     AttachOptions.Fill, 0, 0);	
       }
 
       void BuildDocumentFrame(VBox vbox)
@@ -115,6 +140,10 @@ namespace Gimp
 	mode.Menu = menu;
 	table.AttachAligned(0, 2, "Mode:", 0.0, 0.5,
 			    mode, 1, true);
+
+	CheckButton flatten = new CheckButton("Flatten All Layers");
+	table.Attach(flatten, 0, 2, 3, 4);
+
       }
 
       void BuildLabelFrame(VBox vbox)
@@ -134,18 +163,27 @@ namespace Gimp
 	table.AttachAligned(0, 0, "Content:", 0.0, 0.5,
 			    content, 1, true);
 
+	Entry entry = new Entry();
+	table.AttachAligned(0, 1, "Custom Text:", 0.0, 0.5,
+			    entry, 1, true);
+#if false
+	GimpFontSelectWidget font = new GimpFontSelectWidget(null, 
+							     "Monospace");
+	table.AttachAligned(0, 2, "Font:", 0.0, 0.5,
+			    font, 1, true);
+#endif
 	OptionMenu position = new OptionMenu();
 	menu = new Menu();
 	menu.Append(new MenuItem("Centered"));
 	position.Menu = menu;
-	table.AttachAligned(0, 1, "Position:", 0.0, 0.5,
+	table.AttachAligned(0, 3, "Position:", 0.0, 0.5,
 			    position, 1, true);
 
 	OptionMenu rotate = new OptionMenu();
 	menu = new Menu();
 	menu.Append(new MenuItem("None"));
 	rotate.Menu = menu;
-	table.AttachAligned(0, 2, "Rotate:", 0.0, 0.5,
+	table.AttachAligned(0, 4, "Rotate:", 0.0, 0.5,
 			    rotate, 1, true);
 
       }
