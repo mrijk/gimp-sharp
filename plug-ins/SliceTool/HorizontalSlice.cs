@@ -30,6 +30,11 @@ namespace Gimp.SliceTool
 	&& _x1 <= rectangle.X1 && _x2 >= rectangle.X2;
     }
 
+    override public bool IsPartOf(Rectangle rectangle)
+    {
+      return rectangle.HasHorizontalSlice(this);
+    }
+
     override public Rectangle SliceRectangle(Rectangle rectangle)
     {
       Rectangle copy = new Rectangle(rectangle);
@@ -52,6 +57,16 @@ namespace Gimp.SliceTool
     {
       get {return _y;}
       set {_y = value;}
+    }
+
+    public int X1
+    {
+      get {return _x1;}
+    }
+
+    public int X2
+    {
+      get {return _x2;}
     }
   }
   }

@@ -3,13 +3,19 @@ all: SliceTool.exe
 ASSEMBLIES = -r $(top_builddir)/lib/gimp-sharp.dll /pkg:gtk-sharp
 
 SOURCES =			\
+	CreateFunc.cs		\
+	CreateTableFunc.cs	\
 	Format.cs		\
 	HorizontalSlice.cs	\
+	MouseFunc.cs		\
 	Preview.cs		\
 	PreviewRenderer.cs	\
 	Rectangle.cs		\
 	RectangleSet.cs		\
+	RemoveFunc.cs		\
+	SelectFunc.cs		\
 	Slice.cs		\
+	SliceData.cs		\
 	SliceSet.cs		\
 	SliceTool.cs		\
 	TableDialog.cs		\

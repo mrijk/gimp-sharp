@@ -12,6 +12,7 @@ namespace Gimp.SliceTool
     
     abstract public void Draw(PreviewRenderer renderer);
     abstract public bool IntersectsWith(Rectangle rectangle);
+    abstract public bool IsPartOf(Rectangle rectangle);
     abstract public Rectangle SliceRectangle(Rectangle rectangle);
     abstract public void SetPosition(int x, int y);
     abstract public int CompareTo(object obj);

@@ -4,7 +4,7 @@ using System.IO;
 
 namespace Gimp.SliceTool
 {
-  public class RectangleSet : IEnumerable
+  public class RectangleSet: IEnumerable
   {
     ArrayList _set = new ArrayList();
 
@@ -78,17 +78,48 @@ namespace Gimp.SliceTool
       w.WriteLine("</tr>");
     }
 
-    public void Slice(Image image, string name, string extension)
+    public void WriteSlices(Image image, string name, string extension)
     {
       foreach (Rectangle rectangle in _set)
 	{
-	rectangle.Slice(image, name, extension);
+	rectangle.WriteSlice(image, name, extension);
 	}
     }
 
-    public void InsertGrid(int x, int y, int rows, int columns)
+    public bool Remove(int x, int y, Slice slice)
     {
-      Rectangle rectangle = Find(x, y);
+      Rectangle found = null;
+      bool merged = false;
+
+      foreach (Rectangle rectangle in _set)
+	{
+	Slice piece = rectangle.Contains(x, y, slice);
+	if (piece != null)
+	  {
+	  if (found == null)
+	    {
+	    Console.WriteLine("Found first slicepiece");
+	    found = rectangle;
+	    }
+	  else
+	    {
+	    Console.WriteLine("Found second slicepiece!");
+	    if (piece.IsPartOf(found))
+	      {
+	      Console.WriteLine("... and it's the same!");
+	      rectangle.Merge(found);
+	      merged = true;
+	      break;
+	      }
+	    }
+	  }
+	}
+      if (merged)
+	{
+	_set.Remove(found);
+	}
+
+      return merged;
     }
   }
   }

@@ -270,13 +270,13 @@ namespace Gimp
 				Gtk.DialogFlags flags,
 				GimpHelpFunc help_func,
 				string help_id,
-				// string button1, Gtk.ResponseType action1,
+				string button1, Gtk.ResponseType action1,
 				string button2, Gtk.ResponseType action2,
 				string button3, Gtk.ResponseType action3)
     {
       _dialog = new GimpDialog(title, role, parent, flags, 
 			       help_func, help_id, 
-			       // button1, action1,
+			       button1, action1,
 			       button2, action2, 
 			       button3, action3);
       return _dialog;
@@ -290,7 +290,7 @@ namespace Gimp
 				string help_id)
     {
       return DialogNew (title, role, parent, flags, help_func, help_id,
-			// Stock.Help, ResponseType.Help,
+			Stock.Help, ResponseType.Help,
 			Stock.Cancel, ResponseType.Cancel,
 			Stock.Ok, ResponseType.Ok);
     }
@@ -332,6 +332,8 @@ namespace Gimp
 
     virtual protected void GetParameters() {}
 
+    virtual protected void DialogRun(ResponseType type) {}
+
     protected bool DialogRun()
     {
       while (true)
@@ -343,13 +345,18 @@ namespace Gimp
 	  CallDoSomething();
 	  return true;
 	  } 
-	else if (type == ResponseType.Cancel)
+	else if (type == ResponseType.Cancel || type == ResponseType.Close)
 	  {
 	  return false;
 	  }
 	else if (type == ResponseType.Help)
 	  {
 	  Console.WriteLine("Show help here!");
+	  }
+	else if (type >=0)		// User defined response
+	  {
+	  DialogRun(type);
+	  Console.WriteLine("Type: " + type);
 	  }
 	}
     }

@@ -52,9 +52,62 @@ namespace Gimp.SliceTool
       return slice.IntersectsWith(this);
     }
 
+    public bool HasHorizontalSlice(HorizontalSlice slice)
+    {
+      return (slice.Y == Y1 || slice.Y == Y2)
+	&& slice.X1 == X1 && slice.X2 == X2;
+    }
+
+    public bool HasVerticalSlice(VerticalSlice slice)
+    {
+      return (slice.X == X1 || slice.X == X2)
+	&& slice.Y1 == Y1 && slice.Y2 == Y2;
+    }
+
+    public Slice Contains(int x, int y, Slice slice)
+    {
+      if (slice == Left && y >= Y1 && y <= Y2)
+	{
+	return new VerticalSlice(Left.X, Y1, Y2);
+	}
+      else if (slice == Right && y >= Y1 && y <= Y2)
+	{
+	return new VerticalSlice(Right.X, Y1, Y2);
+	}
+      else if (slice == Top && x >= X1 && x <= X2)
+	{
+	return new HorizontalSlice(X1, X2, Top.Y);
+	}
+      else if (slice == Bottom && x >= X1 && x <= X2)
+	{
+	return new HorizontalSlice(X1, X2, Bottom.Y);
+	}
+      return null;
+    }
+
     public Rectangle Slice(Slice slice)
     {
       return slice.SliceRectangle(this);
+    }
+
+    public void Merge(Rectangle rectangle)
+    {
+      if (Left == rectangle.Right)
+	{
+	Left = rectangle.Left;
+	}
+      else if (Right == rectangle.Left)
+	{
+	Right = rectangle.Right;
+	}
+      else if (Top == rectangle.Bottom)
+	{
+	Top = rectangle.Top;
+	}
+      else if (Bottom == rectangle.Top)
+	{
+	Bottom = rectangle.Bottom;
+	}
     }
 
     public bool IsInside(int x, int y)
@@ -79,22 +132,23 @@ namespace Gimp.SliceTool
 
     string GetFilename(string name, string extension)
     {
-      return  string.Format("{0}_{1}x{2}.{3}", name, Top.Index, Left.Index, extension);
+      return  string.Format("{0}_{1}x{2}.{3}", name, Top.Index, Left.Index, 
+			    extension);
     }
 
     public void WriteHTML(StreamWriter w, string name, string extension, int index)
     {
-      if (!_include)
-	return;
-
       w.WriteLine("<td rowspan=\"{0}\" colspan = \"{1}\" width=\"{2}\" height=\"{3}\">",
 		  Bottom.Index - Top.Index, Right.Index - Left.Index, 
 		  Width, Height);
-      w.WriteLine("\t<img name=\"{0}\" src=\"{1}\" width=\"{2}\" height=\"{3}\" border=\"0\" alt=\"\"/></td>", 
-		  name + index, GetFilename(name, extension), Width, Height); 
+      if (_include)
+	{
+	w.WriteLine("\t<img name=\"{0}\" src=\"{1}\" width=\"{2}\" height=\"{3}\" border=\"0\" alt=\"\"/></td>", 
+		    name + index, GetFilename(name, extension), Width, Height); 
+	}
     }
 
-    public void Slice(Image image, string name, string extension)
+    public void WriteSlice(Image image, string name, string extension)
     {
       Image clone = new Image(image);
       clone.Crop(Width, Height, X1, Y1);

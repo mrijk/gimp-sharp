@@ -64,5 +64,10 @@ namespace Gimp.SliceTool
 	}
       return null;
     }
+
+    public void Remove(Slice slice)
+    {
+      _set.Remove(slice);
+    }
   }
   }

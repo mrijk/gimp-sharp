@@ -19,7 +19,7 @@ namespace Gimp.SliceTool
       _format.Menu = menu;
     }
 
-    public string Exension
+    public string Extension
     {
       set
 	  {

@@ -9,12 +9,9 @@ namespace Gimp.SliceTool
 {
   public class SliceTool : Plugin
   {
-    delegate void ClickHandler(int x, int y);
+    ButtonPressEventHandler _onClick;
 
-    RectangleSet _rectangles = new RectangleSet();
-    SliceSet _horizontalSlices = new SliceSet();
-    SliceSet _verticalSlices = new SliceSet();
-    ClickHandler _onClick;
+    SliceData _sliceData = new SliceData();
 
     Preview _preview;
     Entry _xy;
@@ -30,18 +27,13 @@ namespace Gimp.SliceTool
     Label _top;
     Label _bottom;
 
-    Slice _slice;
-    PreviewRenderer _renderer;
-    Rectangle _rectangle;
-    bool _foo;
-
+    string _filename = null;
 
     [STAThread]
     static void Main(string[] args)
     {
       new SliceTool(args);
     }
-
 		
     public SliceTool(string[] args) : base(args)
     {
@@ -68,11 +60,13 @@ namespace Gimp.SliceTool
     {
       gimp_ui_init("SliceTool", true);
 
-      _onClick = new ClickHandler(Select);
       CreateStockIcons();
 
       Dialog dialog = DialogNew("Slice Tool 0.1", "SliceTool",
-				IntPtr.Zero, 0, null, "SliceTool");
+				IntPtr.Zero, 0, null, "SliceTool",
+				Stock.SaveAs, (Gtk.ResponseType) 0,
+				Stock.Save, (Gtk.ResponseType) 1,
+				Stock.Close, ResponseType.Close);
 
       VBox vbox = new VBox(false, 12);
       vbox.BorderWidth = 12;
@@ -105,30 +99,46 @@ namespace Gimp.SliceTool
       vbox.PackStart(rollover, false, true, 0);
 
       _format = new Format();
-      _format.Exension = System.IO.Path.GetExtension(_image.Name).ToLower();
+      _format.Extension = System.IO.Path.GetExtension(_image.Name).ToLower();
       vbox.PackStart(_format, false, true, 0);
 
-      CreateInitialSlices();
+      _sliceData.Init(_drawable);
+
+      SelectFunc func = new SelectFunc(this, _sliceData, _preview);
+      _onClick = new ButtonPressEventHandler(func.OnButtonPress);
 
       dialog.ShowAll();
       return DialogRun();
     }
 
-    void CreateInitialSlices()
+    void Save()
     {
-      int width = _drawable.Width;
-      int height = _drawable.Height;
+      SetRectangleData(_sliceData.Selected);
+      _sliceData.Save(_filename, _format.Extension, _image, _drawable);
+    }
 
-      VerticalSlice left = new VerticalSlice(0, 0, height - 1);
-      VerticalSlice right = new VerticalSlice(width - 1, 0, height - 1);
-      HorizontalSlice top = new HorizontalSlice(0, width - 1, 0);
-      HorizontalSlice bottom = new HorizontalSlice(0, width - 1, height - 1);
-      _verticalSlices.Add(left);
-      _verticalSlices.Add(right);
-      _horizontalSlices.Add(top);
-      _horizontalSlices.Add(bottom);
-      Rectangle rectangle = new Rectangle(left, right, top, bottom);
-      _rectangles.Add(rectangle);
+    override protected void DialogRun(ResponseType type)
+    {
+      if ((int) type == 0 || ((int) type == 1 && _filename == null))
+	{
+	FileSelection fs = new FileSelection("HTML Save As");
+	fs.Response += new ResponseHandler (OnFileSelectionResponse);
+	fs.Run();
+	fs.Hide();
+	}
+      else // type == 1
+	{
+	Save();
+	}
+    }
+
+    void OnFileSelectionResponse (object o, ResponseArgs args)
+    {
+      if (args.ResponseId == ResponseType.Ok)
+	{
+	_filename = (o as FileSelection).Filename;
+	Save();
+	}
     }
 
     Widget CreatePreview()
@@ -147,6 +157,11 @@ namespace Gimp.SliceTool
       window.AddWithViewport(_preview);
 
       return window;
+    }
+
+    void OnButtonPress(object o, ButtonPressEventArgs args)
+    {
+      _onClick(o, args);
     }
 
     Widget CreateToolbar()
@@ -263,22 +278,17 @@ namespace Gimp.SliceTool
       AddStockIcon(factory, "slice-tool-arrow", "stock-arrow.png");
     }
 
+    void Redraw()
+    {
+      _preview.QueueDraw();
+    }
+
     public void Redraw(PreviewRenderer renderer)
     {
-      _horizontalSlices.Draw(renderer);
-      _verticalSlices.Draw(renderer);
-      if (_rectangle != null)
-	{
-	_rectangle.Draw(_preview.Renderer);
-	}
+      _sliceData.Draw(renderer);
     }
 
-    void OnSelect(object o, EventArgs args)
-    {
-      _onClick = new ClickHandler(Select);
-    }
-
-    void SetRectangleData(Rectangle rectangle)
+    public void SetRectangleData(Rectangle rectangle)
     {
       if (rectangle != null)
 	{
@@ -289,202 +299,41 @@ namespace Gimp.SliceTool
 	}
     }
 
-    void GetRectangleData(Rectangle rectangle)
+    public void GetRectangleData(Rectangle rectangle)
     {
       _url.Text = rectangle.URL;
       _altText.Text = rectangle.AltText;
       _target.Text = rectangle.Target;
       _include.Active = rectangle.Include;		
+
+      _left.Text = rectangle.X1.ToString();
+      _right.Text = rectangle.Y1.ToString();
+      _top.Text = rectangle.X2.ToString();
+      _bottom.Text = rectangle.Y2.ToString();
     }
 
-    void Select(int x, int y)
+    void OnSelect(object o, EventArgs args)
     {
-      Slice slice = _horizontalSlices.Find(x, y);
-      if (slice == null)
-	{
-	slice = _verticalSlices.Find(x, y);
-	}
-      if (slice == null)
-	{
-	Rectangle rectangle = _rectangles.Find(x, y);
-	if (rectangle != _rectangle)
-	  {
-	  SetRectangleData(_rectangle);
-	  _rectangle = rectangle;
-	  Redraw(_preview.Renderer);
-
-	  GetRectangleData(rectangle);
-	  
-	  _left.Text = _rectangle.X1.ToString();
-	  _right.Text = _rectangle.Y1.ToString();
-	  _top.Text = _rectangle.X2.ToString();
-	  _bottom.Text = _rectangle.Y2.ToString();
-	  }
-	}
-      else
-	{
-	_slice = slice;
-	_renderer.Function = Gdk.Function.Equiv;
-	_preview.MotionNotifyEvent +=
-	  new MotionNotifyEventHandler(OnMoveSlice);
-	_preview.ButtonReleaseEvent += 
-	  new ButtonReleaseEventHandler(OnMoveDone);
-	}
-    }
-
-    void OnMoveDone(object o, ButtonReleaseEventArgs args)
-    {
-      _preview.MotionNotifyEvent -= new MotionNotifyEventHandler(OnMoveSlice);
-      _preview.ButtonReleaseEvent -= 
-	new ButtonReleaseEventHandler(OnMoveDone);
-      _renderer.Function = Gdk.Function.Copy;
-      _slice.Draw(_renderer);
+      SelectFunc func = new SelectFunc(this, _sliceData, _preview);
+      _onClick = new ButtonPressEventHandler(func.OnButtonPress);
     }
 
     void OnCreateSlice(object o, EventArgs args)
     {
-      _onClick = new ClickHandler(CreateSlice);
-    }
-
-    void CreateSlice(int x, int y)
-    {
-      Console.WriteLine("CreateSlice");
-      _slice = GetSlice(x, y);
-
-      _renderer = _preview.Renderer;
-
-      _renderer.Function = Gdk.Function.Equiv;
-      _slice.Draw(_renderer);
-      _preview.MotionNotifyEvent += new MotionNotifyEventHandler(OnMoveSlice);
-      _preview.ButtonReleaseEvent += 
-	new ButtonReleaseEventHandler(OnButtonRelease);
+      CreateFunc func = new CreateFunc(_sliceData, _preview);
+      _onClick = new ButtonPressEventHandler(func.OnButtonPress);
     }
 
     void OnRemoveSlice(object o, EventArgs args)
     {
-      _onClick = new ClickHandler(RemoveSlice);
-    }
-
-    void RemoveSlice(int x, int y)
-    {
-      Console.WriteLine("RemoveSlice");
+      RemoveFunc func = new RemoveFunc(_sliceData, _preview);
+      _onClick = new ButtonPressEventHandler(func.OnButtonPress);
     }
 
     void OnCreateTable(object o, EventArgs args)
     {
-      _onClick = new ClickHandler(CreateTable);
-    }
-
-    void CreateTable(int x, int y)
-    {
-      TableDialog dialog = new TableDialog();
-      dialog.ShowAll();
-      ResponseType type = dialog.Run();
-      if (type == ResponseType.Ok)
-	{
-	Rectangle rectangle = _rectangles.Find(x, y);
-	int width = rectangle.Width;
-	int height = rectangle.Height;
-	int x1 = rectangle.X1;
-	int x2 = rectangle.X2;
-	int y1 = rectangle.Y1;
-	int y2 = rectangle.Y2;
-
-	SliceSet horizontalSlices = new SliceSet();
-	for (int row = 1; row < dialog.Rows; row++)
-	  {
-	  int ypos = y1 + row * height / dialog.Rows;
-	  horizontalSlices.Add(new HorizontalSlice(x1, x2, ypos));
-	  }
-
-	foreach (Slice slice in horizontalSlices)
-	  {
-	  _rectangles.Slice(slice);
-	  _horizontalSlices.Add(slice);
-	  }
-
-	SliceSet verticalSlices = new SliceSet();
-	for (int col = 1; col < dialog.Columns; col++)
-	  {
-	  int xpos = x1 + col * width / dialog.Columns;
-	  verticalSlices.Add(new VerticalSlice(xpos, y1, y2));
-	  }
-
-	foreach (Slice slice in verticalSlices)
-	  {
-	  _rectangles.Slice(slice);
-	  _verticalSlices.Add(slice);
-	  }
-
-	Redraw(_preview.Renderer);
-	}
-      dialog.Destroy();
-    }
-
-    Slice GetSlice(int x, int y)
-    {
-      Rectangle rectangle = _rectangles.Find(x, y);
-      Slice slice;
-
-      if (rectangle == _rectangle)
-	{
-	slice = _slice;
-	}
-      else
-	{
-	_rectangle = rectangle;
-	if (_foo)
-	  slice = rectangle.CreateVerticalSlice(x);
-	else
-	  slice = rectangle.CreateHorizontalSlice(y);
-	_foo = !_foo;
-	}
-      return slice;
-    }
-
-    void OnButtonPress(object o, ButtonPressEventArgs args)
-    {
-      int x = (int) args.Event.X;
-      int y = (int) args.Event.Y;
-      _onClick(x, y);
-    }
-
-    void OnButtonRelease(object o, ButtonReleaseEventArgs args)
-    {
-      _preview.MotionNotifyEvent -= new MotionNotifyEventHandler(OnMoveSlice);
-      _preview.ButtonReleaseEvent -= 
-	new ButtonReleaseEventHandler(OnButtonRelease);
-      _slice.Draw(_renderer);
-      if (_foo)
-	_horizontalSlices.Add(_slice);
-      else
-	_verticalSlices.Add(_slice);
-      _rectangles.Slice(_slice);
-      _rectangle = null;
-      _renderer.Function = Gdk.Function.Copy;
-      _slice.Draw(_renderer);
-    }
-
-    void OnMoveSlice(object o, MotionNotifyEventArgs args)
-    {
-      int x, y;
-      EventMotion ev = args.Event;
-      
-      if (ev.IsHint) 
-	{
-	ModifierType s;
-	ev.Window.GetPointer (out x, out y, out s);
-	} 
-      else 
-	{
-	x = (int) ev.X;
-	y = (int) ev.Y;
-	}
-
-      _slice.Draw(_renderer);
-      _slice = GetSlice(x, y);
-      _slice.SetPosition(x, y);
-      _slice.Draw(_renderer);
+      CreateTableFunc func = new CreateTableFunc(_sliceData, _preview);
+      _onClick = new ButtonPressEventHandler(func.OnButtonPress);
     }
 
     void OnShowCoordinates(object o, MotionNotifyEventArgs args)
@@ -509,41 +358,7 @@ namespace Gimp.SliceTool
 
     override protected void DoSomething(Image image, Drawable drawable)
     {
-      SetRectangleData(_rectangle);
-
-      _horizontalSlices.Sort();
-      _verticalSlices.Sort();
-
-      string name = System.IO.Path.GetFileNameWithoutExtension(image.Name);
-
-      FileStream fs = new FileStream("slicer.html", FileMode.Create, 
-				     FileAccess.Write);
-      StreamWriter w = new StreamWriter(fs);
-
-      w.WriteLine("<html>");
-      w.WriteLine("<head>");
-      w.WriteLine("<meta name=\"Author\" content=\"{0}\">",
-		  Environment.UserName);
-      w.WriteLine("<meta name=\"Generator\" content=\"GIMP {0}\">",
-		  Gimp.Version);
-      w.WriteLine("<title></title>");
-      w.WriteLine("</head>");
-      w.WriteLine("<body");
-      w.WriteLine("");
-      w.WriteLine("<!-- Begin Table -->");
-      w.WriteLine("<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"{0}\">", 
-		  drawable.Width);
-
-      _rectangles.WriteHTML(w, name, _format.Exension);
-
-      w.WriteLine("</table>");
-      w.WriteLine("<!-- End Table -->");
-      w.WriteLine("");
-      w.WriteLine("</body");
-      w.WriteLine("</html>");
-      w.Close();
-
-      _rectangles.Slice(image, name, _format.Exension);
+      // Fix me. Only used to fill in _image and _drawable;
     }
   }
   }
