@@ -95,5 +95,68 @@ namespace Gimp.Splitter
 
       return frame;
     }
+
+    int foo(int x, int y)
+    {
+      return x - y;
+    }
+
+    override protected void DoSomething(Image image, Drawable drawable)
+    {
+      Image clone = new Image(image);
+
+      Layer layer1 = new Layer(clone, "layer_one", clone.Width, clone.Height,
+			       ImageType.RGB_IMAGE, 100, 
+			       LayerModeEffects.NORMAL_MODE);
+      clone.AddLayer(layer1, 0);
+      // layer1.AddAlpha();
+
+      Layer layer2 = new Layer(clone, "layer_two", clone.Width, clone.Height,
+			       ImageType.RGB_IMAGE, 100, 
+			       LayerModeEffects.NORMAL_MODE);
+      clone.AddLayer(layer2, 0);
+      // layer2.AddAlpha();
+
+      byte[] black = new byte[drawable.Bpp];
+
+      int width = drawable.Width;
+      int height = drawable.Height;
+
+      PixelRgn srcPR = new PixelRgn(drawable, 0, 0, width, height, 
+				    false, false);
+			
+      PixelRgn destPR1 = new PixelRgn(layer1, 0, 0, width, height, 
+				      true, false);
+
+      PixelRgn destPR2 = new PixelRgn(layer2, 0, 0, width, height, 
+				      true, false);
+
+      for (IntPtr pr = PixelRgn.Register(srcPR, destPR1, destPR2); 
+	   pr != IntPtr.Zero; pr = PixelRgn.Process(pr))
+	{
+	for (int y = srcPR.Y; y < srcPR.Y + srcPR.H; y++)
+	  {
+	  for (int x = srcPR.X; x < srcPR.X + srcPR.W; x++)
+	    {
+	    if (foo(x, y) < 0)
+	      {
+	      destPR1[y, x] = srcPR[y, x];
+	      destPR2[y, x] = black;
+	      }
+	    else
+	      {
+	      destPR1[y, x] = black;
+	      destPR2[y, x] = srcPR[y, x];
+	      }
+	    }
+	  }				
+	}
+      layer1.Flush();
+      layer2.Flush();
+
+      new Display(clone);
+
+      Display.DisplaysFlush();
+    }
   }
   }

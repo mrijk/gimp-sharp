@@ -22,7 +22,14 @@ namespace Gimp.ncp
     [STAThread]
     static void Main(string[] args)
     {
-      new ncp(args);
+      try 
+	{
+	new ncp(args);
+	}
+      catch (Exception e)
+	{
+	Console.WriteLine(e.StackTrace);
+	}
     }
 
     public ncp(string[] args) : base(args)
@@ -38,7 +45,7 @@ namespace Gimp.ncp
     override protected void Query()
     {
       GimpParamDef[] args = new GimpParamDef[1];
-	
+
       args[0].type = PDBArgType.INT32;
       args[0].name = "points";
       args[0].description = "Number of points";
@@ -77,35 +84,39 @@ namespace Gimp.ncp
       vbox.PackStart(table, false, false, 0);
 
       RandomSeed seed = new RandomSeed(ref _seed, ref _random_seed);
+
       Widget label = table.AttachAligned(0, 0, "Random _Seed:", 0.0, 0.5,
 					 seed, 2, true);
 
       ScaleEntry entry = new ScaleEntry(table, 0, 1, "_Points:", 150, 3,
 					_points, 1.0, 256.0, 1.0, 8.0, 0,
 					true, 0, 0, null, null);
-      entry.ValueChanged += PointsUpdate;
+      entry.ValueChanged += new EventHandler(PointsUpdate);
 
       entry = new ScaleEntry(table, 0, 2, "C_lose to:", 150, 3,
 			     _closest, 1.0, 256.0, 1.0, 8.0, 0,
 			     true, 0, 0, null, null);
-      entry.ValueChanged += CloseToUpdate;
+      entry.ValueChanged += new EventHandler(CloseToUpdate);
 
       CheckButton color = new CheckButton("_Use color");
       color.Active = _color;
-      color.Toggled += ColorToggled;
+      color.Toggled += new EventHandler(ColorToggled);
       table.Attach(color, 0, 1, 3, 4);
-			       
+			
+      GC.Collect();
+      GC.Collect();
+
       dialog.ShowAll();
       return DialogRun();
     }
-      
+
     void UpdatePreview(object sender, EventArgs e)
     {
       Initialize(_drawable);
-	
+
       int width, height;
       _preview.GetSize(out width, out height);
-	
+
       byte[] buffer = new byte[width * height * 3];
       byte[] dest = new byte[3]{100, 100, 150};
       for (int y = 0; y < height; y++)
@@ -115,8 +126,8 @@ namespace Gimp.ncp
 	  {
 	  long index = 3 * (y * width + x);
 	  int x_orig = _width * x / width;
-	    
-	  DoNCP(x_orig, y_orig, ref dest);
+
+	  dest = DoNCP(x_orig, y_orig);
 	  dest.CopyTo(buffer, index);
 	  }
 	}
@@ -140,10 +151,12 @@ namespace Gimp.ncp
       _color = (sender as CheckButton).Active;
       _preview.Invalidate();
     }
+		
+    Point[,] vp;
 
-    Point[,] vp;    
     int[] _distances;
 
+    byte[] _dest;
     int _bpp;
     bool _has_alpha;
     int _width, _height;
@@ -159,6 +172,7 @@ namespace Gimp.ncp
       _has_alpha = drawable.HasAlpha();
       if (_has_alpha)
 	_bpp--;
+      _dest = new byte[_bpp];
 
       _width = x2 - x1;
       _height = y2 - y1;
@@ -195,8 +209,9 @@ namespace Gimp.ncp
     override protected void DoSomething(Drawable drawable)
     {
       Initialize(drawable);
-      Progress progress = new Progress("NCP...");
+
       RgnIterator iter = new RgnIterator(drawable, RunMode.INTERACTIVE);
+      iter.Progress = new Progress("NCP");
       iter.Iterate(new RgnIterator.IterFuncDest(DoNCP));
 			
       Display.DisplaysFlush();
@@ -242,7 +257,7 @@ namespace Gimp.ncp
       return pivot;
     }
       
-    void DoNCP(int x, int y, ref byte[] dest)
+    byte[] DoNCP(int x, int y)
     {
       for (int b = 0; b < _bpp; b++) 
 	{
@@ -254,8 +269,8 @@ namespace Gimp.ncp
 	  _distances[k] = x2 * x2 + y2 * y2;
 	  }
 #if true
-	// This crashes on Windows, probably because the garbage collector 
-	// frees some memory that is still used in the interop stuff (wrapper).
+	// This crashes on Windows, probably because the garbage collector frees
+	// some memory that is still used in the interop stuff (wrapper).
 	byte val = (byte) (255.0 * Math.Sqrt((double) Select(_closest) / 
 					     (_width * _height)));
 #else
@@ -267,17 +282,19 @@ namespace Gimp.ncp
 	val = (byte) (255 - val);
 	if (_color) 
 	  { 
-	  dest[b] = val;
+	  _dest[b] = val;
 	  }
 	else 
 	  {
 	  for (int l = 0; l < _bpp; l++) 
-	    dest[l] = val;
+	    _dest[l] = val;
 	  break;
 	  }
 	}
       if (_has_alpha) 
-	dest[_bpp]= 255;
+	_dest[_bpp]= 255;
+
+      return _dest;
     }
   }
   }
