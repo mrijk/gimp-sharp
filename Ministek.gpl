@@ -1,0 +1,30 @@
+;; This buffer is for notes you don't want to save, and for Lisp evaluation.
+;; If you want to create a file, visit that file with C-x C-f,
+;; then enter the text in that file's own buffer.
+
+GIMP Palette
+# Ministeck -- GIMP Palette file
+253 254 253 Ministeck-wit
+206 153 50 Ministeck
+155 101 52 Ministeck
+50 50 50 Ministeck-donkergrijs
+4 3 98 Ministeck
+2 102 54 Ministeck
+2 50 154 Ministeck
+254 50 102 Ministeck
+206 154 102 Ministeck
+254 254 50 Ministeck
+250 90 6 Ministeck
+55 101 53 Ministeck
+103 102 101 Ministeck-grijs
+206 2 50 Ministeck
+254 154 54 Ministeck
+102 50 50 Ministeck
+253 154 154 Ministeck
+50 102 206 Ministeck
+3 50 56 Ministeck
+50 2 102 Ministeck
+251 155 101 Ministeck
+254 254 202 Ministeck
+4 2 2 Ministeck-zwart
+206 206 206 Ministeck-lichtgrijs
