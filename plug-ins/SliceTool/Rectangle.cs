@@ -2,7 +2,7 @@ using System;
 
 namespace Gimp.SliceTool
 {
-  public class Rectangle
+  public class Rectangle : IComparable
   {
     VerticalSlice _left, _right;
     HorizontalSlice _top, _bottom;
@@ -22,6 +22,23 @@ namespace Gimp.SliceTool
       _right = rectangle._right;
       _top = rectangle._top;
       _bottom = rectangle._bottom;
+    }
+
+    public int CompareTo(object obj)
+    {
+      Rectangle rectangle = obj as Rectangle;
+      int y1 = Top.Y;
+      int y2 = rectangle.Top.Y;
+      if (y1 == y2)
+	{
+	int x1 = Left.X;
+	int x2 = rectangle.Left.X;
+	return x1 - x2;
+	}
+      else
+	{
+	return y1 - y2;
+	}
     }
 
     public bool IntersectsWith(Slice slice)
@@ -47,6 +64,11 @@ namespace Gimp.SliceTool
     public VerticalSlice CreateVerticalSlice(int x)
     {
       return new VerticalSlice(x, Y1, Y2);
+    }
+
+    public void WriteHTML()
+    {
+      Console.WriteLine("{0} {1}", Top.Index, Left.Index);
     }
 
     public VerticalSlice Left

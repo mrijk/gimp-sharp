@@ -1,5 +1,6 @@
 using System;
 
+using Gdk;
 using Gtk;
 
 namespace Gimp.SliceTool
@@ -141,9 +142,9 @@ namespace Gimp.SliceTool
 	{
 	_rectangle = rectangle;
 	if (_foo)
-	  slice = rectangle.CreateHorizontalSlice(y);
-	else
 	  slice = rectangle.CreateVerticalSlice(x);
+	else
+	  slice = rectangle.CreateHorizontalSlice(y);
 	_foo = !_foo;
 	}
       return slice;
@@ -174,9 +175,6 @@ namespace Gimp.SliceTool
       _rectangle = null;
       _renderer.Function = Gdk.Function.Copy;
       _renderer.Draw(_slice);
-
-      _horizontalSlices.Sort();
-      _verticalSlices.Sort();
     }
 
     void OnMotionNotify(object o, MotionNotifyEventArgs args)
@@ -192,14 +190,29 @@ namespace Gimp.SliceTool
 
     void OnShowCoordinates(object o, MotionNotifyEventArgs args)
     {
-      int x = (int) args.Event.X;
-      int y = (int) args.Event.Y;
-
+      int x, y;
+      EventMotion ev = args.Event;
+      
+      if (ev.IsHint) 
+	{
+	ModifierType s;
+	ev.Window.GetPointer (out x, out y, out s);
+	} 
+      else 
+	{
+	x = (int) ev.X;
+	y = (int) ev.Y;
+	}
+      
       _xy.Text = "x: " + x + ", y: " + y;
+      args.RetVal = true;
     }
 
     override protected void DoSomething(Drawable drawable)
     {
+      _horizontalSlices.Sort();
+      _verticalSlices.Sort();
+      _rectangles.WriteHTML();
     }
   }
   }

@@ -16,12 +16,27 @@ namespace Gimp.SliceTool
       _slices.Add(slice);
     }
 
+    public Slice this[int index]
+    {
+      get {return (Slice) _slices[index];}
+    }
+
     public void Sort()
     {
       _slices.Sort();
-      foreach (Slice slice in _slices)
+
+      int index = 1;
+      Slice prev = this[0];
+      prev.Index = index;
+
+      for (int i = 1; i < _slices.Count; i++)
 	{
-	slice.Dump();
+	if (this[i] != prev)
+	  {
+	  index++;
+	  }
+	prev = this[i];
+	prev.Index = index;
 	}
     }
 

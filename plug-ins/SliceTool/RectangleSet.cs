@@ -50,5 +50,15 @@ namespace Gimp.SliceTool
 	}
       return null;
     }
+
+    public void WriteHTML()
+    {
+      Console.WriteLine("#Rectangles: " + _set.Count);
+      _set.Sort();
+      foreach (Rectangle rectangle in _set)
+	{
+	rectangle.WriteHTML();
+	}
+    }
   }
   }

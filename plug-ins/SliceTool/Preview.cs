@@ -20,7 +20,7 @@ namespace Gimp.SliceTool
       Realized += new EventHandler(OnRealized);
 
       Events = EventMask.ButtonPressMask | EventMask.ButtonReleaseMask | 
-	EventMask.PointerMotionMask;
+	EventMask.PointerMotionHintMask | EventMask.PointerMotionMask;
     }
 
     static bool firstTime = true;

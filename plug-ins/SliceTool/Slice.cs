@@ -5,6 +5,8 @@ namespace Gimp.SliceTool
 {
   abstract public class Slice : IComparable
   {
+    int _index;
+    
     public Slice()
     {
     }
@@ -16,5 +18,11 @@ namespace Gimp.SliceTool
     abstract public int CompareTo(object obj);
     
     abstract public void Dump();
+    
+    public int Index
+    {
+      get {return _index;}
+      set {_index = value;}
+    }
   }
   }

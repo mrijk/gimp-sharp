@@ -53,7 +53,7 @@ namespace Gimp.SliceTool
 
     override public void Dump()
     {
-      Console.WriteLine("y: " + _y);
+      Console.WriteLine("y={0} {1}", _y, Index);
     }
   }
   }
