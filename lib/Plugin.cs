@@ -40,7 +40,7 @@ namespace Gimp
     [DllImport("libgimp-2.0.so")]
     public static extern bool gimp_progress_init (string message);
 
-    [DllImport("gimpwrapper.so")]
+    [DllImport("libgimpwrapper.so")]
     public static extern int fnInitGimp(ref GimpPlugInInfo info, 
 					int argc, string[] args);
 
@@ -223,14 +223,14 @@ namespace Gimp
       n_return_vals = _values.Length;
     }
 
-    [DllImport("gimpwrapper.so")]
+    [DllImport("libgimpwrapper.so")]
     public static extern bool wrapper_set_data(string identifier,
 					       byte[] data,
 					       int bytes);
-    [DllImport("gimpwrapper.so")]
+    [DllImport("libgimpwrapper.so")]
     public static extern bool wrapper_get_data(string identifier,
 					       byte[] data);
-    [DllImport("gimpwrapper.so")]
+    [DllImport("libgimpwrapper.so")]
     public static extern int wrapper_get_data_size(string identifier);
 
 

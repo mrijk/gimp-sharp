@@ -9,3 +9,4 @@ ncp.exe : $(SOURCES)
 
 install:
 	install -m='u=rw,g=r,o=r' ncp.exe /usr/local/lib/gimp/2.0/plug-ins
+	install ncp /usr/local/lib/gimp/2.0/plug-ins

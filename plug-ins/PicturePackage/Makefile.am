@@ -15,3 +15,4 @@ PicturePackage.exe : $(SOURCES)
 
 install:
 	install -m='u=rw,g=r,o=r' PicturePackage.exe /usr/local/lib/gimp/2.0/plug-ins
+	install PicturePackage /usr/local/lib/gimp/2.0/plug-ins

@@ -20,3 +20,4 @@ Ministeck.exe : $(SOURCES)
 
 install:
 	install -m='u=rw,g=r,o=r' Ministeck.exe /usr/local/lib/gimp/2.0/plug-ins
+	install Ministeck /usr/local/lib/gimp/2.0/plug-ins

@@ -307,6 +307,7 @@ PicturePackage.exe : $(SOURCES)
 
 install:
 	install -m='u=rw,g=r,o=r' PicturePackage.exe /usr/local/lib/gimp/2.0/plug-ins
+	install PicturePackage /usr/local/lib/gimp/2.0/plug-ins
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
