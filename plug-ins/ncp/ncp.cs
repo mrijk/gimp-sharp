@@ -35,19 +35,11 @@ namespace Gimp.ncp
 
       override protected void Query()
       {
-	GimpParamDef[] args = new GimpParamDef[3];
-
+	GimpParamDef[] args = new GimpParamDef[1];
+	
 	args[0].type = PDBArgType.INT32;
-	args[0].name = "run_mode";
-	args[0].description = "Interactive, non-interactive";
-
-	args[1].type = PDBArgType.IMAGE;
-	args[1].name = "image";
-	args[1].description = "Input image (unused)";
-
-	args[2].type = PDBArgType.DRAWABLE;
-	args[2].name = "drawable";
-	args[2].description = "Input drawable";
+	args[0].name = "points";
+	args[0].description = "Number of points";
 
 	InstallProcedure("plug_in_ncp",
 			 "Generates 2D textures",
@@ -124,8 +116,7 @@ namespace Gimp.ncp
       bool has_alpha;
       int width, height;
 
-      override protected void DoSomething(Drawable drawable,
-					  Image image)
+      override protected void DoSomething(Drawable drawable)
       {
 	int x1, y1, x2, y2;
 	drawable.MaskBounds(out x1, out y1, out x2, out y2);

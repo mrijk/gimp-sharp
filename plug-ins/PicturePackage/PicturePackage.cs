@@ -1,7 +1,4 @@
 using System;
-using System.IO;
-using System.Reflection;
-using System.Xml;
 
 using Gtk;
 
@@ -24,20 +21,6 @@ namespace Gimp.PicturePackage
 
     override protected void Query()
     {
-      GimpParamDef[] args = new GimpParamDef[3];
-
-      args[0].type = PDBArgType.INT32;
-      args[0].name = "run_mode";
-      args[0].description = "Interactive, non-interactive";
-
-      args[1].type = PDBArgType.IMAGE;
-      args[1].name = "image";
-      args[1].description = "Input image (unused)";
-
-      args[2].type = PDBArgType.DRAWABLE;
-      args[2].name = "drawable";
-      args[2].description = "Input drawable";
-
       InstallProcedure("plug_in_picture_package",
 		       "Picture package",
 		       "Picture package",
@@ -46,17 +29,16 @@ namespace Gimp.PicturePackage
 		       "2004",
 		       "Picture Package...",
 		       "RGB*, GRAY*",
-		       args);
+		       null);
 
-      MenuRegister("plug_in_picture_package",
-		   "<Image>/Filters/Render");
+      MenuRegister("plug_in_picture_package", "<Image>/Filters/Render");
     }
 
     override protected bool CreateDialog()
     {
       gimp_ui_init("PicturePackage", true);
 
-      ReadConfiguration();
+      _layoutSet.Load();
 
       Dialog dialog = DialogNew("Picture Package", "PicturePackage",
 				IntPtr.Zero, 0, null, "PicturePackage");
@@ -90,32 +72,6 @@ namespace Gimp.PicturePackage
       return DialogRun();
     }
 
-    void ReadConfiguration()
-    {
-      XmlDocument doc = new XmlDocument();
-
-      Assembly myAssembly = Assembly.GetExecutingAssembly();
-      // Stream myStream = 
-      //	myAssembly.GetManifestResourceStream("picture-package.xml");
-      String[] names = myAssembly.GetManifestResourceNames();
-      Console.WriteLine(myAssembly.GetName().Name);
-      Stream myStream = myAssembly.GetManifestResourceStream("PicturePackage.picture-package.xml");
-
-      doc.Load(myStream);
-
-      XmlNodeList nodeList;
-      XmlElement root = doc.DocumentElement;
-
-      nodeList = root.SelectNodes("/picture-package/layout");
-
-      foreach (XmlNode layout in nodeList)
-	{
-	XmlAttributeCollection attributes = layout.Attributes;
-	XmlAttribute name = (XmlAttribute) attributes.GetNamedItem("name");
-	_layoutSet.Add(new Layout(layout));
-	}
-    }
-
     CheckButton _include;
     Button _choose;
 
@@ -136,10 +92,10 @@ namespace Gimp.PicturePackage
       menu.Append(new MenuItem("Frontmost Document"));
       use.Menu = menu;
       use.SetHistory(2);
-      table.AttachAligned(0, 0, "Use:", 0.0, 0.5, use, 1, false);
+      table.AttachAligned(0, 0, "_Use:", 0.0, 0.5, use, 1, false);
       use.Changed += new EventHandler(OnUseChanged);
 
-      _include = new CheckButton("Include All Subfolders");
+      _include = new CheckButton("_Include All Subfolders");
       table.Attach(_include, 1, 2, 1, 2);
 
       _choose = new Button("Choose...");
@@ -187,8 +143,7 @@ namespace Gimp.PicturePackage
       Menu menu = new Menu();
       menu.Append(new MenuItem("8.0 x 10.0 inches"));
       size.Menu = menu;
-      table.AttachAligned(0, 0, "Page Size:", 0.0, 0.5,
-			  size, 2, false);
+      table.AttachAligned(0, 0, "_Page Size:", 0.0, 0.5, size, 2, false);
 
       OptionMenu layout = new OptionMenu();
       menu = new Menu();
@@ -198,13 +153,12 @@ namespace Gimp.PicturePackage
 	}
       layout.Menu = menu;
       layout.Changed += new EventHandler(OnLayoutChanged);
-      table.AttachAligned(0, 1, "Layout:", 0.0, 0.5,
+      table.AttachAligned(0, 1, "_Layout:", 0.0, 0.5,
 			  layout, 2, false);
 
       Entry resolution = new Entry();
       resolution.WidthChars = 4;
-      table.AttachAligned(0, 2, "Resolution:", 0.0, 0.5,
-			  resolution, 1, true);
+      table.AttachAligned(0, 2, "_Resolution:", 0.0, 0.5, resolution, 1, true);
 	
       OptionMenu units = new OptionMenu();
       menu = new Menu();
@@ -219,8 +173,8 @@ namespace Gimp.PicturePackage
       menu.Append(new MenuItem("Grayscale"));
       menu.Append(new MenuItem("RGB Color"));
       mode.Menu = menu;
-      table.AttachAligned(0, 3, "Mode:", 0.0, 0.5,
-			  mode, 2, false);
+      mode.SetHistory(1);
+      table.AttachAligned(0, 3, "_Mode:", 0.0, 0.5, mode, 2, false);
 
       CheckButton flatten = new CheckButton("Flatten All Layers");
       table.Attach(flatten, 0, 2, 4, 5);
@@ -295,8 +249,7 @@ namespace Gimp.PicturePackage
 			  rotate, 1, false);
     }
 
-    override protected void DoSomething(Drawable drawable,
-					Image image)
+    override protected void DoSomething(Drawable drawable)
     {
     }
   }

@@ -5,7 +5,11 @@ Release 0.4
 Release 0.5
 -----------
 - Fully functional version of picture package
-- Add preview stuff
+
+Release 0.6
+-----------
+- Add preview for NCP and Ministeck
+- Generic Lense plug-in
 
 Release 0.9
 -----------
@@ -16,3 +20,8 @@ Release 1.0
 -----------
 - Complete release
 
+
+
+Not planned yet
+---------------
+- Port/convert to Mono 1.2

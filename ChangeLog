@@ -1,12 +1,16 @@
-2004-11-16    <maurits@Mau>
+2004-11-19  Maurits  <m.rijk@chello.nl>
+
+	* Made 0.3 release
+
+2004-11-16  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/Ministeck/MinisteckPalette.cs: new file
 
-2004-11-13    <maurits@Mau>
+2004-11-13  Maurits  <m.rijk@chello.nl>
 
 	* lib/PixelFetcher.cs: new file
 
-2004-11-11    <maurits@Mau>
+2004-11-11  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/PicturePackage/PicturePackage.cs: include 
 	picture-package.xml file in resource.

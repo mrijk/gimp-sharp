@@ -7,7 +7,7 @@ SOURCES =			\
 	PicturePackage.cs	\
 	Layout.cs		\
 	LayoutSet.cs		\
-	preview.cs		\
+	Preview.cs		\
 	Rectangle.cs		\
 	RectangleSet.cs
 

@@ -1,5 +1,8 @@
 using System;
 using System.Collections;
+using System.IO;
+using System.Reflection;
+using System.Xml;
 
 namespace Gimp.PicturePackage
 {
@@ -10,10 +13,33 @@ namespace Gimp.PicturePackage
     public LayoutSet()
     {
     }
-    
-    public void Add(Layout layout)
+
+    public void Load()
     {
-      _set.Add(layout);
+      XmlDocument doc = new XmlDocument();
+
+      Assembly myAssembly = Assembly.GetExecutingAssembly();
+      String[] names = myAssembly.GetManifestResourceNames();
+      // Console.WriteLine(names[0]);
+      // Stream myStream = 
+      //	myAssembly.GetManifestResourceStream("PicturePackage.picture-package.xml");
+      Stream myStream = 
+      	myAssembly.GetManifestResourceStream("picture-package.xml");
+
+      doc.Load(myStream);
+
+      XmlNodeList nodeList;
+      XmlElement root = doc.DocumentElement;
+
+      nodeList = root.SelectNodes("/picture-package/layout");
+
+      foreach (XmlNode layout in nodeList)
+	{
+	XmlAttributeCollection attributes = layout.Attributes;
+	XmlAttribute name = (XmlAttribute) attributes.GetNamedItem("name");
+	_set.Add(new Layout(layout));
+	}
+      
     }
     
     public IEnumerator GetEnumerator()

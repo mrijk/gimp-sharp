@@ -12,6 +12,11 @@ namespace Gimp
   abstract public class Plugin
   {
     protected string _name;
+    bool _usesDrawable = false;
+    bool _usesImage = false;
+    
+    Image _image;
+    Drawable _drawable;
 
     public delegate void InitProc();
     public delegate void QuitProc();
@@ -123,9 +128,55 @@ namespace Gimp
 				    string image_types,
 				    GimpParamDef[] _params)
     {
+      GetRequiredParameters();
+      
+      int len = (_params == null) ? 0 : _params.Length;
+      GimpParamDef[] args = new GimpParamDef[3 + len];
+      
+      args[0].type = PDBArgType.INT32;
+      args[0].name = "run_mode";
+      args[0].description = "Interactive, non-interactive";
+      
+      args[1].type = PDBArgType.IMAGE;
+      args[1].name = "image";
+      args[1].description = "Input image" + 
+	((_usesImage) ?  "" : " (unused)");
+      
+      args[2].type = PDBArgType.DRAWABLE;
+      args[2].name = "drawable";
+      args[2].description = "Input drawable" + 
+	((_usesDrawable) ?  "" : " (unused)");
+      
+      if (_params != null)
+	_params.CopyTo(args, 3);
+      
       gimp_install_procedure(name, blurb, help, author, copyright, date, 
 			     menu_path, image_types, PDBProcType.PLUGIN, 
-			     _params.Length, 0, _params, null);
+			     args.Length, 0, args, null);
+    }
+    
+    void GetRequiredParameters()
+    {
+      foreach (MethodInfo method in 
+	       GetType().GetMethods(BindingFlags.DeclaredOnly |
+				    BindingFlags.NonPublic | 
+				    BindingFlags.Instance))
+	{
+	if (method.Name.Equals("DoSomething"))
+	  {
+	  foreach (ParameterInfo parameter in method.GetParameters())
+	    {
+	    if (parameter.ParameterType == typeof(Drawable))
+	      {
+	      _usesDrawable = true;
+	      }
+	    if (parameter.ParameterType == typeof(Image))
+	      {
+	      _usesImage = true;
+	      }
+	    }
+	  }
+	}
     }
 
     protected bool MenuRegister(string procedure_name, string menu_path)
@@ -140,8 +191,6 @@ namespace Gimp
 
     virtual protected bool CreateDialog() {return true;}
 
-    Image _image;
-    Drawable _drawable;
     GimpParam[] _origParam;
     GimpParam[] _values = new GimpParam[1];
 
@@ -179,7 +228,7 @@ namespace Gimp
       else if (run_mode == RunMode.WITH_LAST_VALS)
 	{
 	GetData();
-	DoSomething(_drawable, _image);
+	CallDoSomething();
 	}
 
       _drawable.Detach();
@@ -280,8 +329,32 @@ namespace Gimp
 			Stock.Ok, ResponseType.Ok);
     }
 
-    abstract protected void DoSomething(Drawable drawable,
-					Image image);
+    void CallDoSomething()
+    {
+      GetRequiredParameters();
+      
+      if (_usesDrawable && _usesImage)
+	{
+	DoSomething(_drawable, _image);
+	}
+      else if (_usesDrawable)
+	{
+	DoSomething(_drawable);
+	}
+      else if (_usesImage)
+	{
+	DoSomething(_image);
+	}
+      else
+	{
+	DoSomething();
+	}
+    }
+    
+    virtual protected void DoSomething() {}
+    virtual protected void DoSomething(Drawable drawable) {}
+    virtual protected void DoSomething(Image image) {}
+    virtual protected void DoSomething(Drawable drawable, Image image) {}
 
     virtual protected void GetParameters() {}
 
@@ -290,7 +363,7 @@ namespace Gimp
       if (gimp_dialog_run(_dialogPtr) == ResponseType.Ok)
 	{
 	GetParameters();
-	DoSomething(_drawable, _image);
+	CallDoSomething();
 	return true;
 	}
       return false;

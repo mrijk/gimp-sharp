@@ -27,20 +27,6 @@ namespace Gimp.Ministeck
 
       override protected void Query()
       {
-	GimpParamDef[] args = new GimpParamDef[3];
-
-	args[0].type = PDBArgType.INT32;
-	args[0].name = "run_mode";
-	args[0].description = "Interactive, non-interactive";
-
-	args[1].type = PDBArgType.IMAGE;
-	args[1].name = "image";
-	args[1].description = "Input image";
-
-	args[2].type = PDBArgType.DRAWABLE;
-	args[2].name = "drawable";
-	args[2].description = "Input drawable";
-
 	InstallProcedure("plug_in_ministeck",
 			 "Generates Ministeck",
 			 "Generates Ministeck",
@@ -49,7 +35,7 @@ namespace Gimp.Ministeck
 			 "2004",
 			 "Ministeck...",
 			 "RGB*",
-			 args);
+			 null);
 
 	MenuRegister("plug_in_ministeck", "<Image>/Filters/Artistic");
       }
