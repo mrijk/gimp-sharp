@@ -81,12 +81,12 @@ namespace Gimp
 	BuildLabelFrame(vbox);
 
 	Frame frame = new Frame();
-	frame.WidthRequest = 240;
-	frame.HeightRequest = 300;
+	// frame.WidthRequest = 240;
+	// frame.HeightRequest = 300;
 	hbox.PackStart(frame, true, true, 0);
 
 	Preview preview = new Preview();
-	// preview.WidthRequest = 240;
+	preview.WidthRequest = 240;
 	// preview.HeightRequest = 300;
 	frame.Add(preview);
 
@@ -125,6 +125,8 @@ namespace Gimp
 
 	OptionMenu use = new OptionMenu();
 	Menu menu = new Menu();
+	menu.Append(new MenuItem("File"));
+	menu.Append(new MenuItem("Folder"));
 	menu.Append(new MenuItem("Frontmost Document"));
 	use.Menu = menu;
 	table.AttachAligned(0, 0, "Use:", 0.0, 0.5,
@@ -171,6 +173,7 @@ namespace Gimp
 	
 	OptionMenu mode = new OptionMenu();
 	menu = new Menu();
+	menu.Append(new MenuItem("Grayscale"));
 	menu.Append(new MenuItem("RGB Color"));
 	mode.Menu = menu;
 	table.AttachAligned(0, 3, "Mode:", 0.0, 0.5,
