@@ -221,7 +221,9 @@ namespace Gimp.SliceTool
 
     void OnButtonPress(object o, ButtonPressEventArgs args)
     {
-      _func.OnButtonPress(o, args);
+      MouseFunc func = _func.GetActualFunc(this, (int) args.Event.X,
+					   (int) args.Event.Y);
+      func.OnButtonPress(o, args);
     }
 
     ToggleButton CreateToggle(string stock)
