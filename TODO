@@ -1,9 +1,10 @@
 Release 0.1
 -----------
+- Fix UTF-8 problem
 - Create homepage
 - Robust install procedure
-- Initial version of picture package
-- Port of ncp plug-in?
+- Initial version of picture package [just GUI, no functionality]
+- Port of ncp plug-in [almost done]
 - Freshmeat announcement
 
 Release 0.2
@@ -17,6 +18,10 @@ Release 0.3
 - Fully functional version of picture package
 - More demo plug-ins?
 - Generate class from PDB.
+
+Release 0.4
+-----------
+- Add preview stuff
 
 Release 0.9
 -----------

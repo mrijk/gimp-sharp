@@ -7,6 +7,13 @@ using GtkSharp;
 
 namespace Gimp
   {
+    public enum RunMode
+      {
+	INTERACTIVE,
+	NONINTERACTIVE,
+	WITH_LAST_VALS
+      }
+
   [StructLayout(LayoutKind.Sequential)]
     public struct GimpRGB
     {
@@ -125,6 +132,9 @@ namespace Gimp
     [DllImport("libgimpui-2.0.so")]
     public static extern void gimp_ui_init(string prog_name, bool preview);
 
+    [DllImport("libgimp-2.0.so")]
+    public static extern bool gimp_progress_init (string message);
+
     [DllImport("gimpwrapper.so")]
     public static extern int fnInitGimp(ref GimpPlugInInfo info, 
 					int argc, string[] args);
@@ -176,6 +186,11 @@ namespace Gimp
       GimpParamDef[] _params,
       GimpParamDef[] return_vals);
 
+    [DllImport("libgimp-2.0.so")]
+    public static extern bool gimp_plugin_menu_register(string procedure_name,
+							string menu_path);
+
+
     static GimpPlugInInfo _info = new GimpPlugInInfo();
     static string[] myArgs = new String[6];
 
@@ -212,7 +227,7 @@ namespace Gimp
     {
     }
 
-    [DllImport("libgimp-2.0-0.dll")]
+    [DllImport("libgimp-2.0.so")]
     public static extern void gimp_install_procedure(
       string name,
       string blurb,
@@ -250,6 +265,11 @@ namespace Gimp
       gimp_install_procedure(name, blurb, help, author, copyright, date, 
 			     menu_path, image_types, PDBProcType.PLUGIN, 
 			     _params.Length, 0, _params, null);
+    }
+
+    protected bool MenuRegister(string procedure_name, string menu_path)
+    {
+      return gimp_plugin_menu_register(procedure_name, menu_path);
     }
 
     abstract protected void Query();
@@ -296,6 +316,11 @@ namespace Gimp
 	{
 	DoSomething();
 	}
+    }
+
+    protected void ProgressInit(string message)
+    {
+      gimp_progress_init(message);
     }
   }
   }

@@ -1,8 +1,9 @@
 using System;
 using System.Collections;
+using System.IO;
 
 using Gtk;
-using GtkSharp;
+// using GtkSharp;
 
 namespace Gimp
   {
@@ -42,15 +43,18 @@ namespace Gimp
 	args[2].name = "drawable";
 	args[2].description = "Input drawable";
 
-	InstallProcedure("gimp#",
+	InstallProcedure("plug_in_ncp",
 			 "blurb",
 			 "help me too",
 			 "Maurits Rijk",
 			 "Maurits Rijk",
 			 "Today",
-			 "<Image>/Filters/Web/Gimp#",
+			 "NCP...",
 			 "RGB*",
 			 args);
+
+	MenuRegister("plug_in_ncp",
+		     "<Image>/Filters/Web");
       }
 
       override protected void Run(string name, GimpParam[] param,
@@ -61,7 +65,6 @@ namespace Gimp
 	return_vals = values;
 
 	drawable = new Drawable(param[2].data.d_drawable);
-	drawable.Name = "Foo";
 
 	// image.Scale(image.Width / 2, image.Height / 2);
 	// image.Crop(100, 100, 0, 0);
@@ -77,10 +80,10 @@ namespace Gimp
 	//			Layer layer = new Layer(image, "test", 100, 100, ImageType.RGB_IMAGE, 1.0, LayerModeEffects.NORMAL_MODE);
 	//			image.AddLayer(layer, 0);
 
-	gimp_ui_init("gimp#", true);
+	gimp_ui_init("ncp", true);
 
-	IntPtr dialogPtr = DialogNew("gimp#", "gimp#",
-				     IntPtr.Zero, 0, null, "plug-in-gimp#", 
+	IntPtr dialogPtr = DialogNew("ncp", "ncp",
+				     IntPtr.Zero, 0, null, "ncp", 
 				     Stock.Cancel, ResponseType.Cancel,
 				     Stock.Ok, ResponseType.Ok);
 
@@ -88,6 +91,7 @@ namespace Gimp
 	// dialog.AddButton("Dummy", 13);
 
 	// dialog.VBox.PackStart(new Label("Bla"), true, true, 0);
+	// stream.WriteLine("vbox: " + dialog.VBox);
 	// Combo combo = new Combo();
 	// hbox.Add(combo);
 	// combo.Show();
@@ -113,7 +117,7 @@ namespace Gimp
 	  }
 
 	// Write some pixel data
-	RgnIterator iter = new RgnIterator(drawable);
+	RgnIterator iter = new RgnIterator(drawable, RunMode.INTERACTIVE);
 	iter.Iterate(new RgnIterator.IterFuncSrcDest(Foo));
 
 	// Read some pixel data
@@ -122,7 +126,7 @@ namespace Gimp
       }
 
       const int _points = 12;
-      const int _closest = 1;
+      const int _closest = 2;
       const bool color = true;
 
       Point[,] vp;
@@ -131,7 +135,6 @@ namespace Gimp
 
       int bpp;
       bool has_alpha;
-      int xmid, ymid;
       int width, height;
 
       // Try to implement the ncp plug-in
@@ -149,13 +152,11 @@ namespace Gimp
 	if (has_alpha)
 	  bpp--;
 
-	Console.WriteLine("bpp: " + bpp);
-
 	width = x2 - x1;
 	height = y2 - y1;
 
-	xmid = width / 2;
-	ymid = height / 2;
+	int xmid = width / 2;
+	int ymid = height / 2;
 
 	_distances = new int[4 * _points];
 	vp = new Point[bpp, 4 * _points];
@@ -166,8 +167,9 @@ namespace Gimp
 	    {
 	    int px = random.Next(0, width - 1);
 	    int py = random.Next(0, height - 1);
-	    vp[b, i].x = px + xmid;
-	    vp[b, i].y = py + ymid;
+
+	    vp[b, i].x = px;
+	    vp[b, i].y = py ;
 	    vp[b, i + _points].x = (px < xmid) ? (vp[b, i].x + width) 
 	      : (vp[b, i].x - width);
 	    vp[b, i + _points].y = vp[b, i].y;
@@ -181,32 +183,30 @@ namespace Gimp
 	    }
 	  }
 				
-	RgnIterator iter = new RgnIterator(drawable);
+	ProgressInit("TestPlugin");
+	RgnIterator iter = new RgnIterator(drawable, RunMode.INTERACTIVE);
 	iter.Iterate(new RgnIterator.IterFuncDest(DoNCP));
 			
 	Display.DisplaysFlush();
       }
 
+      //      void DoNCP(int x, int y, ref byte[] dest)
       void DoNCP(int x, int y, ref byte[] dest)
       {
 	for (int b = 0; b < bpp; b++) 
 	  {
-#if _EMPTY_
 	  /* compute distance to each point */
 	  for (int k = 0; k < _points * 4; k++) 
 	    {
-	    int x2 = x + xmid - vp[b, k].x;
-	    int y2 = y + ymid - vp[b, k].y;
+	    int x2 = x - vp[b, k].x;
+	    int y2 = y - vp[b, k].y;
 	    _distances[k] = x2 * x2 + y2 * y2;
 	    }
+
 	  Array.Sort(_distances);
 
-	  // Console.WriteLine("2b");
-
 	  byte val = (byte) (255.0 * Math.Sqrt((double) _distances[_closest - 1] / (width * height)));
-#else
-	  byte val = 128;
-#endif
+
 	  /* invert */ 
 	  val = (byte) (255 - val);
 	  if (color) 
