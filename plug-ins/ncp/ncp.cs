@@ -20,7 +20,7 @@ namespace Gimp.ncp
       [STAThread]
       static void Main(string[] args)
       {
-	ncp plugin = new ncp(args);
+	new ncp(args);
       }
 
       public ncp(string[] args) : base(args)
@@ -95,17 +95,17 @@ namespace Gimp.ncp
 
       void PointsUpdate(object sender, EventArgs e)
       {
-	_points = (int) ((Adjustment)sender).Value;
+	_points = (int) (sender as Adjustment).Value;
       }
 
       void CloseToUpdate(object sender, EventArgs e)
       {
-	_closest = (int) ((Adjustment) sender).Value;
+	_closest = (int) (sender as Adjustment).Value;
       }
 
       void ColorToggled (object sender, EventArgs args)
       {
-	_color = ((CheckButton) sender).Active;
+	_color = (sender as CheckButton).Active;
       }
 		
       Point[,] vp;

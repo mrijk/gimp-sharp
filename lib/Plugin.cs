@@ -15,7 +15,7 @@ namespace Gimp
     bool _usesImage = false;
     
     protected Image _image;
-    Drawable _drawable;
+    protected Drawable _drawable;
 
     public delegate void InitProc();
     public delegate void QuitProc();
@@ -32,17 +32,6 @@ namespace Gimp
       public QueryProc Query;
       public RunProc Run;
     }
-
-    [DllImport("libgimpui-2.0.so")]
-    public static extern void gimp_ui_init(string prog_name, bool preview);
-
-    [DllImport("libgimpwrapper.so")]
-    public static extern int fnInitGimp(ref GimpPlugInInfo info, 
-					int argc, string[] args);
-    [DllImport("libgimp-2.0.so")]
-    public static extern bool gimp_plugin_menu_register(string procedure_name,
-							string menu_path);
-
 
     static GimpPlugInInfo _info = new GimpPlugInInfo();
     static string[] myArgs = new String[6];
@@ -68,22 +57,6 @@ namespace Gimp
     protected virtual void Quit() 
     {
     }
-
-    [DllImport("libgimp-2.0.so")]
-    public static extern void gimp_install_procedure(
-      string name,
-      string blurb,
-      string help,
-      string author,
-      string copyright,
-      string date,
-      string menu_path,
-      string image_types,
-      PDBProcType	   type,
-      int    n_params,
-      int    n_return_vals,
-      GimpParamDef[] _params,
-      GimpParamDef[] return_vals);
 
     protected void InstallProcedure(string name, string blurb, string help, 
 				    string author, string copyright, 
@@ -216,17 +189,6 @@ namespace Gimp
       n_return_vals = _values.Length;
     }
 
-    [DllImport("libgimpwrapper.so")]
-    public static extern bool wrapper_set_data(string identifier,
-					       byte[] data,
-					       int bytes);
-    [DllImport("libgimpwrapper.so")]
-    public static extern bool wrapper_get_data(string identifier,
-					       byte[] data);
-    [DllImport("libgimpwrapper.so")]
-    public static extern int wrapper_get_data_size(string identifier);
-
-
     BinaryFormatter _formatter = new BinaryFormatter();
 
     protected void SetData()
@@ -316,7 +278,7 @@ namespace Gimp
       
       if (_usesDrawable && _usesImage)
 	{
-	DoSomething(_drawable, _image);
+	DoSomething(_image, _drawable);
 	}
       else if (_usesDrawable)
 	{
@@ -335,7 +297,7 @@ namespace Gimp
     virtual protected void DoSomething() {}
     virtual protected void DoSomething(Drawable drawable) {}
     virtual protected void DoSomething(Image image) {}
-    virtual protected void DoSomething(Drawable drawable, Image image) {}
+    virtual protected void DoSomething(Image image, Drawable drawable) {}
 
     virtual protected void GetParameters() {}
 
@@ -361,35 +323,18 @@ namespace Gimp
 	}
     }
 
-    [DllImport("libgimp-2.0.so")]
-    public static extern string gimp_directory();
-
     protected string GimpDirectory()
     {
       return gimp_directory();
     }
 
-    [DllImport("libgimp-2.0.so")]
-    public static extern IntPtr gimp_run_procedure2(string name,
-						    out int n_return_vals,
-						    int n_params,
-						    GimpParam[] _params);
-
-    [DllImport("libgimp-2.0.so")]
-    public static extern bool gimp_procedural_db_proc_info (
-      string procedure,
-      out string blurb,
-      out string help,
-      out string author,
-      out string copyright,
-      out string date,
-      out PDBProcType proc_type,
-      out int num_args,
-      out int num_values,
-      out IntPtr args,
-      out GimpParamDef[] return_vals);
-
     protected void RunProcedure(string name, params object[] list)
+    {
+      RunProcedure(name, _image, _drawable, list);
+    }
+
+    protected void RunProcedure(string name, Image image, Drawable drawable,
+				params object[] list)
     {
       string blurb;
       string help;
@@ -422,8 +367,10 @@ namespace Gimp
 
 	_params[0].type = PDBArgType.INT32;
 	_params[0].data.d_int32 = (Int32) RunMode.NONINTERACTIVE;	
-	_params[1] = _origParam[1];
-	_params[2] = _origParam[2];
+	_params[1].type = PDBArgType.IMAGE;
+	_params[1].data.d_image = image.ID;
+	_params[2].type = PDBArgType.DRAWABLE;
+	_params[2].data.d_drawable = drawable.ID;
 
 	int i;
 
@@ -458,5 +405,60 @@ namespace Gimp
 	Console.WriteLine(name + " not found!");
 	}
     }
+
+    [DllImport("libgimpui-2.0.so")]
+    public static extern void gimp_ui_init(string prog_name, bool preview);
+    [DllImport("libgimp-2.0.so")]
+    public static extern bool gimp_plugin_menu_register(string procedure_name,
+							string menu_path);
+    [DllImport("libgimp-2.0.so")]
+    public static extern void gimp_install_procedure(
+      string name,
+      string blurb,
+      string help,
+      string author,
+      string copyright,
+      string date,
+      string menu_path,
+      string image_types,
+      PDBProcType	   type,
+      int    n_params,
+      int    n_return_vals,
+      GimpParamDef[] _params,
+      GimpParamDef[] return_vals);
+
+    [DllImport("libgimp-2.0.so")]
+    public static extern IntPtr gimp_run_procedure2(string name,
+						    out int n_return_vals,
+						    int n_params,
+						    GimpParam[] _params);
+    [DllImport("libgimp-2.0.so")]
+    public static extern bool gimp_procedural_db_proc_info (
+      string procedure,
+      out string blurb,
+      out string help,
+      out string author,
+      out string copyright,
+      out string date,
+      out PDBProcType proc_type,
+      out int num_args,
+      out int num_values,
+      out IntPtr args,
+      out GimpParamDef[] return_vals);
+    [DllImport("libgimp-2.0.so")]
+    public static extern string gimp_directory();
+
+    [DllImport("libgimpwrapper.so")]
+    public static extern int fnInitGimp(ref GimpPlugInInfo info, 
+					int argc, string[] args);
+    [DllImport("libgimpwrapper.so")]
+    public static extern bool wrapper_set_data(string identifier,
+					       byte[] data,
+					       int bytes);
+    [DllImport("libgimpwrapper.so")]
+    public static extern bool wrapper_get_data(string identifier,
+					       byte[] data);
+    [DllImport("libgimpwrapper.so")]
+    public static extern int wrapper_get_data_size(string identifier);
   }
   }

@@ -143,15 +143,18 @@ LIBRARY = $(LIBRARY_NAME).dll
 ASSEMBLIES = /pkg:gtk-sharp
 
 SOURCES = \
+	AspectPreview.cs	\
 	Channel.cs		\
 	Display.cs		\
 	Drawable.cs		\
+	DrawablePreview.cs	\
 	FileEntry.cs		\
 	GimpColorButton.cs	\
 	GimpDialog.cs		\
 	GimpEnums.cs		\
 	GimpFontSelectWidget.cs	\
 	GimpFrame.cs		\
+	GimpPreview.cs		\
 	GimpTable.cs		\
 	GimpTypes.cs		\
 	GuideCollection.cs	\
@@ -168,7 +171,8 @@ SOURCES = \
 	RandomSeed.cs		\
 	RgnIterator.cs		\
 	SaveAttribute.cs	\
-	ScaleEntry.cs
+	ScaleEntry.cs		\
+	ScrolledPreview.cs
 
 
 EXTRA_DIST = $(SOURCES)
@@ -179,15 +183,18 @@ CONFIG_CLEAN_FILES =
 DIST_SOURCES =
 DIST_COMMON = Makefile.am Makefile.in
 SOURCES = \
+	AspectPreview.cs	\
 	Channel.cs		\
 	Display.cs		\
 	Drawable.cs		\
+	DrawablePreview.cs	\
 	FileEntry.cs		\
 	GimpColorButton.cs	\
 	GimpDialog.cs		\
 	GimpEnums.cs		\
 	GimpFontSelectWidget.cs	\
 	GimpFrame.cs		\
+	GimpPreview.cs		\
 	GimpTable.cs		\
 	GimpTypes.cs		\
 	GuideCollection.cs	\
@@ -204,7 +211,8 @@ SOURCES = \
 	RandomSeed.cs		\
 	RgnIterator.cs		\
 	SaveAttribute.cs	\
-	ScaleEntry.cs
+	ScaleEntry.cs		\
+	ScrolledPreview.cs
 
 
 all: all-am

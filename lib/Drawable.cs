@@ -14,6 +14,12 @@ namespace Gimp
 	_drawable = gimp_drawable_get (_drawableID);
       }
 
+      public Drawable(IntPtr drawable)
+      {
+	_drawable = drawable;
+	Console.WriteLine(" Fix me: set _drawableID!");
+      }
+
       public void Detach()
       {
 	gimp_drawable_detach (_drawable);

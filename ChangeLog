@@ -1,3 +1,12 @@
+2004-11-29    <maurits@Mau>
+
+	* lib/Makefile.am: changed accordingly
+
+	* lib/ScrolledPreview.cs
+	* lib/GimpPreview.cs
+	* lib/DrawablePreview.cs
+	* lib/AspectPreview.cs: new files
+
 2004-11-25    <maurits@Mau>
 
 	* plug-ins/PicturePackage/Makefile.am

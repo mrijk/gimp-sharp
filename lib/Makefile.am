@@ -6,15 +6,18 @@ ASSEMBLIES=	/pkg:gtk-sharp
 all: $(LIBRARY)
 
 SOURCES = 			\
+	AspectPreview.cs	\
 	Channel.cs		\
 	Display.cs		\
 	Drawable.cs		\
+	DrawablePreview.cs	\
 	FileEntry.cs		\
 	GimpColorButton.cs	\
 	GimpDialog.cs		\
 	GimpEnums.cs		\
 	GimpFontSelectWidget.cs	\
 	GimpFrame.cs		\
+	GimpPreview.cs		\
 	GimpTable.cs		\
 	GimpTypes.cs		\
 	GuideCollection.cs	\
@@ -31,7 +34,8 @@ SOURCES = 			\
 	RandomSeed.cs		\
 	RgnIterator.cs		\
 	SaveAttribute.cs	\
-	ScaleEntry.cs
+	ScaleEntry.cs		\
+	ScrolledPreview.cs
 
 EXTRA_DIST = $(SOURCES)
 

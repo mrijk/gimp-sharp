@@ -8,6 +8,7 @@ namespace Gimp.Ministeck
     public class Ministeck : Plugin
     {
       GimpColorButton _colorButton;
+      DrawablePreview _preview;
 
       [SaveAttribute]
       int _size = 16;
@@ -51,6 +52,9 @@ namespace Gimp.Ministeck
 	vbox.BorderWidth = 12;
 	dialog.VBox.PackStart(vbox, true, true, 0);
 
+	_preview = new DrawablePreview(_drawable, false);
+	vbox.PackStart(_preview, true, true, 0);
+
 	GimpTable table = new GimpTable(2, 2, false);
 	table.ColumnSpacing = 6;
 	table.RowSpacing = 6;
@@ -75,6 +79,7 @@ namespace Gimp.Ministeck
       void SizeChanged(object sender, EventArgs e)
       {
 	_size = (sender as SpinButton).ValueAsInt;
+	// UpdatePreview();
       }
 
       override protected void GetParameters()
@@ -82,18 +87,38 @@ namespace Gimp.Ministeck
 	_color = _colorButton.Color;
       }
 
-      override protected void DoSomething(Drawable drawable, Image image)
+      void UpdatePreview()
+      {
+	int x, y, width, height;
+	
+	Console.WriteLine("UpdatePreview");
+	
+	_preview.GetPosition(out x, out y);
+	_preview.GetSize(out width, out height);
+	Image clone = new Image(_image);
+	clone.Crop(width, height, x, y);
+	
+	GetParameters();
+	
+	DoSomething(clone, clone.ActiveDrawable);
+	PixelRgn rgn = new PixelRgn(clone.ActiveDrawable, 0, 0, width, height, 
+				    false, false);
+	_preview.DrawRegion(rgn);
+	
+	clone.Delete();
+      }
+
+      override protected void DoSomething(Image image, Drawable drawable)
       {
 	image.UndoGroupStart();
+	RunProcedure("plug_in_pixelize", image, drawable, _size);
 
 	MinisteckPalette palette = new MinisteckPalette();
-
-	RunProcedure("plug_in_pixelize", _size);
-
 	image.ConvertIndexed(ConvertDitherType.NO_DITHER, 
 			     ConvertPaletteType.CUSTOM_PALETTE, 
 			     0, false, false, "Ministeck");
 	palette.Delete();
+
 	image.ConvertRgb();
 	image.UndoGroupEnd();
 
