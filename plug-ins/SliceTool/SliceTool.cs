@@ -275,7 +275,16 @@ namespace Gimp.SliceTool
 
     void CreateTable(int x, int y)
     {
-      Console.WriteLine("CreateTable");
+      TableDialog dialog = new TableDialog();
+      dialog.ShowAll();
+      ResponseType type = dialog.Run();
+      if (type == ResponseType.Ok)
+	{
+	}
+      else
+	{
+	}
+      dialog.Hide();
     }
 
     Slice GetSlice(int x, int y)

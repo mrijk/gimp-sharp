@@ -11,6 +11,7 @@ SOURCES =			\
 	Slice.cs		\
 	SliceSet.cs		\
 	SliceTool.cs		\
+	TableDialog.cs		\
 	VerticalSlize.cs
 
 EXTRA_DIST = $(SOURCES) SliceTool SliceTool.png stock-arrow.png

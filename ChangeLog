@@ -1,3 +1,7 @@
+2005-01-08    <maurits@Mau>
+
+	* plug-ins/SliceTool/TableDialog.cs: new file
+
 2005-01-05    <maurits@Mau>
 
 	* plug-ins/SliceTool/*: new plug-in
