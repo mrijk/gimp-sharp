@@ -66,6 +66,7 @@ EGREP = grep -E
 EXEEXT = 
 F77 = g77
 FFLAGS = -g -O2
+GIMPPLUGINDIR = /usr/local/lib/gimp/2.0/plug-ins
 INSTALL_DATA = ${INSTALL} -m 644
 INSTALL_PROGRAM = ${INSTALL}
 INSTALL_SCRIPT = ${INSTALL}

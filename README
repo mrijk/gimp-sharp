@@ -1,5 +1,14 @@
 Gimp#
 
+- I have only tested my code with Gimp 2.1.x. Please report back if there are 
+any issues with using Gimp# and Gimp 2.0.
+
+At the moment Gimp# will install 3 plug-ins for you:
+
+/Filters/Artistic/Ministeck
+/Filters/Render/NCP
+/Filters/Render/Picture Package
+
 - Gimp# is an API wrapper around GIMP, written in C#. However, it's
 not just a wrapper. It also adds a thin layer which adds C# specific
 features, like iterating through a collection.  An example of this is

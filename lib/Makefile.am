@@ -27,5 +27,7 @@ SOURCES = 			\
 	SaveAttribute.cs	\
 	ScaleEntry.cs
 
+EXTRA_DIST = $(SOURCES)
+
 $(LIBRARY): $(SOURCES)
 	$(CSC) --target library $(ASSEMBLIES) $(SOURCES) -o $(LIBRARY)

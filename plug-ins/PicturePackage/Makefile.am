@@ -10,9 +10,12 @@ SOURCES =			\
 	PP-Rectangle.cs		\
 	PP-RectangleSet.cs
 
+EXTRA_DIST = $(SOURCES)
+
 PicturePackage.exe : $(SOURCES)
 	$(CSC) $(SOURCES) -o $@ $(ASSEMBLIES)
 
 install:
-	install -m='u=rw,g=r,o=r' PicturePackage.exe /usr/local/lib/gimp/2.0/plug-ins
-	install PicturePackage /usr/local/lib/gimp/2.0/plug-ins
+	$(INSTALL_DATA) PicturePackage.exe $(GIMPPLUGINDIR)
+	$(INSTALL) PicturePackage $(GIMPPLUGINDIR)
+

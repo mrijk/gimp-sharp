@@ -43,6 +43,11 @@ if test x$CSC = "xno"; then
 fi
 fi
 
+dnl set GIMP plug-in path
+
+GIMPPLUGINDIR=/usr/local/lib/gimp/2.0/plug-ins
+AC_SUBST(GIMPPLUGINDIR)
+
 AC_SUBST(CSC)
 
 dnl read Makefile.in and write Makefile

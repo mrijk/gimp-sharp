@@ -14,10 +14,11 @@ SOURCES =			\
 	MS-TwoByOneShape.cs	\
 	MS-TwoByTwoShape.cs
 
+EXTRA_DIST = $(SOURCES)
 
 Ministeck.exe : $(SOURCES)
 	$(CSC) $(SOURCES) -o $@ $(ASSEMBLIES)
 
 install:
-	install -m='u=rw,g=r,o=r' Ministeck.exe /usr/local/lib/gimp/2.0/plug-ins
-	install Ministeck /usr/local/lib/gimp/2.0/plug-ins
+	$(INSTALL_DATA) Ministeck.exe $(GIMPPLUGINDIR)
+	$(INSTALL) Ministeck $(GIMPPLUGINDIR)

@@ -66,6 +66,7 @@ EGREP = @EGREP@
 EXEEXT = @EXEEXT@
 F77 = @F77@
 FFLAGS = @FFLAGS@
+GIMPPLUGINDIR = @GIMPPLUGINDIR@
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
@@ -147,6 +148,8 @@ SOURCES = \
 	PP-Rectangle.cs		\
 	PP-RectangleSet.cs
 
+
+EXTRA_DIST = $(SOURCES)
 subdir = plug-ins/PicturePackage
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = $(top_builddir)/config.h
@@ -306,8 +309,8 @@ PicturePackage.exe : $(SOURCES)
 	$(CSC) $(SOURCES) -o $@ $(ASSEMBLIES)
 
 install:
-	install -m='u=rw,g=r,o=r' PicturePackage.exe /usr/local/lib/gimp/2.0/plug-ins
-	install PicturePackage /usr/local/lib/gimp/2.0/plug-ins
+	$(INSTALL_DATA) PicturePackage.exe $(GIMPPLUGINDIR)
+	$(INSTALL) PicturePackage $(GIMPPLUGINDIR)
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
