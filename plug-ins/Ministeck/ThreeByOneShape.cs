@@ -9,7 +9,7 @@ namespace Ministeck
       ShapeDescription _shape1 = new ShapeDescription();
       ShapeDescription _shape2 = new ShapeDescription();
 
-      public ThreeByOneShape()
+      public ThreeByOneShape(int size) : base(size)
       {
 	_shape1.Add(0, 1);
 	_shape1.Add(0, 2);

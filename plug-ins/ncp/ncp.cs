@@ -85,16 +85,16 @@ namespace Gimp.ncp
 	ScaleEntry entry = new ScaleEntry(table, 0, 1, "_Points:", 150, 3,
 					  _points, 1.0, 256.0, 1.0, 8.0, 0,
 					  true, 0, 0, null, null);
-	entry.ValueChanged += new EventHandler(PointsUpdate);
+	entry.ValueChanged += PointsUpdate;
 
 	entry = new ScaleEntry(table, 0, 2, "C_lose to:", 150, 3,
 			       _closest, 1.0, 256.0, 1.0, 8.0, 0,
 			       true, 0, 0, null, null);
-	entry.ValueChanged += new EventHandler(CloseToUpdate);
+	entry.ValueChanged += CloseToUpdate;
 
 	CheckButton color = new CheckButton("_Use color");
 	color.Active = _color;
-	color.Toggled += new EventHandler(ColorToggled);
+	color.Toggled += ColorToggled;
 	table.Attach(color, 0, 1, 3, 4);
 			       
 	dialog.ShowAll();

@@ -8,6 +8,9 @@ namespace Ministeck
   {
     public class Ministeck : Plugin
     {
+      [SaveAttribute]
+      int _size = 16;
+
       [STAThread]
       static void Main(string[] args)
       {
@@ -58,16 +61,30 @@ namespace Ministeck
 	vbox.BorderWidth = 12;
 	dialog.VBox.PackStart(vbox, true, true, 0);
 
-	GimpTable table = new GimpTable(4, 3, false);
+	GimpTable table = new GimpTable(2, 2, false);
 	table.ColumnSpacing = 6;
 	table.RowSpacing = 6;
 	vbox.PackStart(table, false, false, 0);
 
 	SpinButton size = new SpinButton(3, 100, 1);
-	table.AttachAligned(0, 0, "_Size", 0.0, 0.5, size, 2, true);
+	size.Value = _size;
+	table.AttachAligned(0, 0, "_Size:", 0.0, 0.5, size, 2, true);
+	size.ValueChanged += SizeChanged;
+
+	RGB rgb = new RGB(0, 0, 0);
+
+	GimpColorButton color = new GimpColorButton(
+	  "", 16, 16, rgb.GimpRGB, ColorAreaType.COLOR_AREA_FLAT);
+	table.AttachAligned(0, 1, "C_olor:", 0.0, 0.5,
+			    color, 1, true);
 
 	dialog.ShowAll();
 	return DialogRun();
+      }
+
+      void SizeChanged(object sender, EventArgs e)
+      {
+	_size = (sender as SpinButton).ValueAsInt;
       }
 
       override protected void DoSomething(Drawable drawable,
@@ -77,10 +94,8 @@ namespace Ministeck
 
 	CreatePalette();
 
-	// First apply Pixelize plug-in
-	RunProcedure("plug_in_pixelize", 16);
+	RunProcedure("plug_in_pixelize", _size);
 
-	// Next convert to indexed
 	image.ConvertIndexed(ConvertDitherType.NO_DITHER, 
 			     ConvertPaletteType.CUSTOM_PALETTE, 
 			     0, false, false, "Ministeck");
@@ -91,15 +106,10 @@ namespace Ministeck
 	// And finally calculate the Ministeck pieces
 	
 	Random random = new Random();
-	int width = drawable.Width / 16;
-	int height = drawable.Height / 16;
-#if false
-	PixelRgn srcPR = new PixelRgn(drawable, 0, 0, 
-				      drawable.Width, drawable.Height,
-				      true, false);
-#else
+	int width = drawable.Width / _size;
+	int height = drawable.Height / _size;
+
 	PixelFetcher pf = new PixelFetcher(drawable, false);
-#endif
 	bool[,] A = new bool[width, height];
 
 	for (int i = 0; i < width; i++)
@@ -113,11 +123,11 @@ namespace Ministeck
 	// Fill in shapes
 	
 	ArrayList shapes = new ArrayList();
-	shapes.Add(new TwoByTwoShape());
-	shapes.Add(new ThreeByOneShape());
-	shapes.Add(new TwoByOneShape());
-	shapes.Add(new CornerShape());
-	shapes.Add(new OneByOneShape());
+	shapes.Add(new TwoByTwoShape(_size));
+	shapes.Add(new ThreeByOneShape(_size));
+	shapes.Add(new TwoByOneShape(_size));
+	shapes.Add(new CornerShape(_size));
+	shapes.Add(new OneByOneShape(_size));
 
 	for (int y = 0; y < height; y++)
 	  {
@@ -130,7 +140,6 @@ namespace Ministeck
 		{
 		int index = random.Next(copy.Count - 1);
 		Shape shape = (Shape) copy[index];
-		// if (shape.Fits(srcPR, A, x, y))
 		if (shape.Fits(pf, A, x, y))
 		  {
 		  break;
@@ -143,8 +152,8 @@ namespace Ministeck
 	
 	pf.Destroy();
 
-	foreach (Shape shape in shapes)
-	  Console.WriteLine(shape._match);
+	// foreach (Shape shape in shapes)
+	//   Console.WriteLine(shape._match);
 	
 	drawable.Flush();
 	drawable.Update(0, 0, drawable.Width, drawable.Height);

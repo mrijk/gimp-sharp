@@ -6,7 +6,7 @@ namespace Ministeck
   {
     public class TwoByTwoShape : Shape
     {
-      public TwoByTwoShape()
+      public TwoByTwoShape(int size) : base(size)
       {
 	ShapeDescription shape = new ShapeDescription();
 	shape.Add(0, 1);

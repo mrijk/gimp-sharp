@@ -6,7 +6,7 @@ namespace Ministeck
   {
     public class OneByOneShape : Shape
     {
-      public OneByOneShape()
+      public OneByOneShape(int size) : base(size)
       {
 	ShapeDescription shape = new ShapeDescription();
 

@@ -8,35 +8,38 @@ namespace Ministeck
   abstract public class Shape
   {
     protected ShapeSet[] _set;
+    protected int _size;
+
     Random _random = new Random();
     byte[] _color = new byte[3]{3, 3, 3};
 
     public int _match = 0;
 
-    public Shape()
+    public Shape(int size)
     {
+      _size = size;
     }
 
-    public bool Fits(PixelFetcher PR, bool[,] A, int x, int y)
+    public bool Fits(PixelFetcher pf, bool[,] A, int x, int y)
     {
       int index = _random.Next(0, _set.Length);
 
       foreach (ShapeDescription shape in _set[index])
 	{
-	if (Fits(PR, A, x, y, shape))
+	if (Fits(pf, A, x, y, shape))
 	  {
-	  Fill(PR, A, x, y, shape);
+	  Fill(pf, A, x, y, shape);
 	  return true;
 	  }
 	}
       return false;
     }
 
-    bool Fits(PixelFetcher PR, bool[,] A, int x, int y, ShapeDescription shape)
+    bool Fits(PixelFetcher pf, bool[,] A, int x, int y, ShapeDescription shape)
     {
       byte[] color = new byte[3];
       byte[] buf = new byte[3];
-      PR.GetPixel(x * 16, y * 16, color);
+      pf.GetPixel(x * _size, y * _size, color);
 
       int width = A.GetLength(0);
       int height = A.GetLength(1);
@@ -49,10 +52,10 @@ namespace Ministeck
 	  {
 	  return false;
 	  }
-	cx *= 16;
-	cy *= 16;
+	cx *= _size;
+	cy *= _size;
 
-	PR.GetPixel(cx, cy, buf);
+	pf.GetPixel(cx, cy, buf);
 	for (int b = 0; b < 3; b++)
 	  {
 	  if (color[b] != buf[b])
@@ -64,12 +67,12 @@ namespace Ministeck
       return true;
     }
 
-    abstract protected void Fill(PixelFetcher PR, int x, int y,
+    abstract protected void Fill(PixelFetcher pf, int x, int y,
 				 ShapeDescription shape) ;
 
-    void Fill(PixelFetcher PR, bool[,] A, int x, int y, ShapeDescription shape)
+    void Fill(PixelFetcher pf, bool[,] A, int x, int y, ShapeDescription shape)
     {
-      Fill(PR, x, y, shape);
+      Fill(pf, x, y, shape);
       A[x, y] = true;
       foreach (Coordinate c in shape)
 	{
@@ -79,22 +82,22 @@ namespace Ministeck
 	}
     }
 
-    PixelFetcher _PR;
+    PixelFetcher _pf;
     int _x, _y;
 
-    protected void LineStart(PixelFetcher PR, int x, int y)
+    protected void LineStart(PixelFetcher pf, int x, int y)
     {
-      _PR = PR;
-      _x = x * 16;
-      _y = y * 16;
+      _pf = pf;
+      _x = x * _size;
+      _y = y * _size;
     }
 
-    protected void Rectangle(PixelFetcher PR, int x, int y, int w, int h)
+    protected void Rectangle(PixelFetcher pf, int x, int y, int w, int h)
     {
-      w *= 16;
-      h *= 16;
+      w *= _size;
+      h *= _size;
 
-      LineStart(PR, x, y);
+      LineStart(pf, x, y);
       HLine(w);
       VLine(h);
       HLine(-w);
@@ -112,7 +115,7 @@ namespace Ministeck
 
       for (int i = 0; i < len; i++)
 	{
-	_PR.PutPixel(_x, _y, _color);
+	_pf.PutPixel(_x, _y, _color);
 	_x += dx;
 	}
       _x -= dx;
@@ -129,7 +132,7 @@ namespace Ministeck
 
       for (int i = 0; i < len; i++)
 	{
-	_PR.PutPixel(_x, _y, _color);
+	_pf.PutPixel(_x, _y, _color);
 	_y += dy;
 	}
       _y -= dy;
