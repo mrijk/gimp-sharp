@@ -33,6 +33,7 @@ EXTRADIST =		\
 	Makefile	\
 	ncp		\
 	PicturePackage	\
+	picture-package.xml	\
 	gimp.c
 
 all: ncp.exe PicturePackage.exe
@@ -57,6 +58,7 @@ install: *.exe ncp PicturePackage gimpwrapper.so
 	cp -f *.exe ~/.gimp-$(GIMPVERSION)/plug-ins/
 	chmod -x gimpwrapper.so
 	cp -f gimpwrapper.so ~/.gimp-$(GIMPVERSION)/plug-ins/
+	cp -f picture-package.xml ~/.gimp-$(GIMPVERSION)/plug-ins/
 
 dist: 
 	rm -rf gimp-sharp-$(VERSION)

@@ -1,5 +1,7 @@
 using System;
-// using System.Collections;
+using System.Xml;
+using System.Collections;
+
 // using System.IO;
 
 using Gtk;
@@ -9,6 +11,7 @@ namespace Gimp
     public class PicturePackage : Plugin
     {
       GimpParam[] values = new GimpParam[1];
+      ArrayList _layouts = new ArrayList();
 
       [STAThread]
       static void Main(string[] args)
@@ -59,6 +62,8 @@ namespace Gimp
 
 	gimp_ui_init("PicturePackage", true);
 
+	ReadConfiguration();
+
 	Dialog dialog = DialogNew("Picture Package", "PicturePackage",
 				  IntPtr.Zero, 0, null, "PicturePackage", 
 				  Stock.Cancel, ResponseType.Cancel,
@@ -83,6 +88,24 @@ namespace Gimp
 
 	dialog.ShowAll();
 	DialogRun();
+      }
+
+      void ReadConfiguration()
+      {
+	XmlDocument doc = new XmlDocument();
+	doc.Load("picture-package.xml");
+
+	XmlNodeList nodeList;
+	XmlElement root = doc.DocumentElement;
+
+	nodeList = root.SelectNodes("/picture-package/layout");
+
+	foreach (XmlNode layout in nodeList)
+	  {
+	  XmlAttributeCollection attributes = layout.Attributes;
+	  XmlAttribute name = (XmlAttribute) attributes.GetNamedItem("name");
+	  _layouts.Add(name.Value);
+	  }
       }
 
       void BuildSourceFrame(VBox vbox)
@@ -115,7 +138,7 @@ namespace Gimp
 	Frame frame = new GimpFrame("Document");
 	vbox.PackStart(frame, true, true, 0);
 
-	GimpTable table = new GimpTable(3, 3, false);
+	GimpTable table = new GimpTable(5, 3, false);
 	table.ColumnSpacing = 6;
 	table.RowSpacing = 6;
 	frame.Add(table);
@@ -129,20 +152,27 @@ namespace Gimp
 
 	OptionMenu layout = new OptionMenu();
 	menu = new Menu();
-	menu.Append(new MenuItem("(2)5x7)"));
+	foreach (string l in _layouts)
+	  {
+	  menu.Append(new MenuItem(l));
+	  }
 	layout.Menu = menu;
 	table.AttachAligned(0, 1, "Layout:", 0.0, 0.5,
 			    layout, 1, true);
 
+	Entry resolution = new Entry();
+	table.AttachAligned(0, 2, "Resolution:", 0.0, 0.5,
+			    resolution, 1, true);
+	
 	OptionMenu mode = new OptionMenu();
 	menu = new Menu();
 	menu.Append(new MenuItem("RGB Color"));
 	mode.Menu = menu;
-	table.AttachAligned(0, 2, "Mode:", 0.0, 0.5,
+	table.AttachAligned(0, 3, "Mode:", 0.0, 0.5,
 			    mode, 1, true);
 
 	CheckButton flatten = new CheckButton("Flatten All Layers");
-	table.Attach(flatten, 0, 2, 3, 4);
+	table.Attach(flatten, 0, 2, 4, 5);
 
       }
 
@@ -159,6 +189,12 @@ namespace Gimp
 	OptionMenu content = new OptionMenu();
 	Menu menu = new Menu();
 	menu.Append(new MenuItem("None"));
+	menu.Append(new MenuItem("Custom Text"));
+	menu.Append(new MenuItem("Filename"));
+	menu.Append(new MenuItem("Copyright"));
+	menu.Append(new MenuItem("Caption"));
+	menu.Append(new MenuItem("Credits"));
+	menu.Append(new MenuItem("Title"));
 	content.Menu = menu;
 	table.AttachAligned(0, 0, "Content:", 0.0, 0.5,
 			    content, 1, true);

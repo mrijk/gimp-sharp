@@ -1,0 +1,30 @@
+<picture-package>
+
+<layout name ="(2)5x7" units="inches">
+</layout>
+
+<layout name ="(1)5x7 (2)2.5x3.5 (4)2x2.5" units="inches">
+</layout>
+
+<layout name="(1)5x7 (2)3.5x5" unit="inches" width="8" height="10">
+	<picture x="0" y="0" width="7" height="5"/>
+	<picture x="0" y="5" width="3.5" height="5"/>
+	<picture x="3.5" y="5" width="3.5" height="5"/>
+</layout>
+
+<layout name ="(1)5x7 (8)2.5x5" units="inches">
+</layout>
+
+<layout name ="(4)4x5" units="inches">
+</layout>
+
+<layout name ="(4)3.5x5" units="inches">
+</layout>
+
+<layout name ="(20)2x2" units="inches">
+</layout>
+
+<layout name ="(16)2x2.5" units="inches">
+</layout>
+
+</picture-package>
