@@ -9,7 +9,8 @@ SOURCES =			\
 	LayoutSet.cs		\
 	Preview.cs		\
 	Rectangle.cs		\
-	RectangleSet.cs
+	RectangleSet.cs		\
+	Renderer.cs
 
 EXTRA_DIST = $(SOURCES) PicturePackage picture-package.xml
 

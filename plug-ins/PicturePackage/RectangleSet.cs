@@ -33,5 +33,13 @@ namespace Gimp.PicturePackage
 	rectangle.Draw(painter);
 	}
     }
+
+    public void Render(Renderer renderer)
+    {
+      foreach (Rectangle rectangle in _set)
+	{
+	rectangle.Render(renderer);
+	}
+    }
   }
   }

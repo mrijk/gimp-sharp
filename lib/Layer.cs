@@ -19,6 +19,11 @@ namespace Gimp
       _layerID = gimp_layer_copy(layer.ID);
     }
 
+    public Layer(Drawable drawable, Image dest_image)
+    {
+      _layerID = gimp_layer_new_from_drawable(drawable.ID, dest_image.ID);
+    }
+
     public Layer(Int32 layerID)
     {
       _layerID = layerID;
@@ -28,6 +33,11 @@ namespace Gimp
     {
       get {return gimp_layer_get_opacity (_layerID);}
       set {gimp_layer_set_opacity (_layerID, value);}
+    }
+
+    public bool Translate(int offx, int offy)
+    {
+      return gimp_layer_translate (_layerID, offx, offy);
     }
   
     public Int32 ID
@@ -50,5 +60,11 @@ namespace Gimp
     [DllImport("libgimp-2.0.so")]
     static extern bool gimp_layer_set_opacity (Int32 layer_ID,
 					       double opacity);
+    [DllImport("libgimp-2.0.so")]
+    static extern Int32 gimp_layer_new_from_drawable (Int32 drawable_ID,
+						      Int32 dest_image_ID);
+    [DllImport("libgimp-2.0.so")]
+    static extern bool gimp_layer_translate (Int32 layer_ID, int offx, 
+					     int offy);
   }
   }

@@ -6,13 +6,15 @@ namespace Gimp.PicturePackage
   public class Painter
   {
     Preview _preview;
+    Image _image;
     Gdk.GC _gc;
     double _zoom;
     int _pw, _ph;
 
-    public Painter(Preview preview, Layout layout, Gdk.GC gc)
+    public Painter(Preview preview, Layout layout, Image image, Gdk.GC gc)
     {
       _preview = preview;
+      _image = image;
       _gc = gc;
 
       _pw = preview.WidthRequest;
@@ -22,8 +24,9 @@ namespace Gimp.PicturePackage
 		       (double) _ph / layout.Height);
     }
 
-    public void DrawRectangle(double x, double y, double w, double h)
+    public void DrawPreview(double x, double y, double w, double h)
     {
+      // Draw rectangle
       x *= _zoom;
       y *= _zoom;
       w *= _zoom;
@@ -40,6 +43,29 @@ namespace Gimp.PicturePackage
 	ih--;
 
       _preview.GdkWindow.DrawRectangle (_gc, false, ix, iy, iw, ih);
+
+      // Draw image
+      Image clone = new Image(_image);
+
+      if ((double) iw / ih < 1 ^ (double) clone.Width / clone.Height < 1)
+	{
+	clone.Rotate(RotationType.ROTATE_90);
+	}
+
+      double zoom = Math.Min((double) iw / clone.Width, (double) ih / clone.Height);
+      int tw = (int) (clone.Width * zoom);
+      int th = (int) (clone.Height * zoom);
+
+      ix += (iw - tw) / 2;
+      iy += (ih - th) / 2;
+
+      clone.Scale(tw, th);
+      Pixbuf pixbuf = clone.GetThumbnail(tw, th, Transparency.KEEP_ALPHA);
+      clone.Delete();
+
+      pixbuf.RenderToDrawable(_preview.GdkWindow, _gc, 0, 0, ix, iy, -1, -1, 
+			      RgbDither.Normal, 0, 0);
+      pixbuf.Dispose();
     }
   }
   }

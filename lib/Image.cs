@@ -14,7 +14,17 @@ namespace Gimp
       {
 	_imageID = imageID;
       }
-       
+
+      public Image(int width, int height, ImageBaseType type)
+      {
+	_imageID = gimp_image_new (width, height, type);
+      }
+      
+      public Image(Image image)
+      {
+	_imageID = gimp_image_duplicate(image._imageID);
+      }
+
       public Image Duplicate()
       {
 	return new Image(gimp_image_duplicate(_imageID));
@@ -246,6 +256,9 @@ namespace Gimp
 
       // All the dll imports
 
+      [DllImport("libgimp-2.0.so")]
+      static extern Int32 gimp_image_new (int width, int height, 
+					  ImageBaseType type);
       [DllImport("libgimp-2.0.so")]
       static extern Int32 gimp_image_duplicate (Int32 image_ID);
       [DllImport("libgimp-2.0.so")]

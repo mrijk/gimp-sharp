@@ -74,12 +74,12 @@ namespace Gimp
   
     public enum ImageBaseType
       {
-	RGB_IMAGE,    
-	RGBA_IMAGE,   
-	GRAY_IMAGE,   
-	GRAYA_IMAGE,  
-	INDEXED_IMAGE,
-	INDEXEDA_IMAGE
+	RGB,
+	RGBA,
+	GRAY,
+	GRAYA,
+	INDEXED,
+	INDEXEDA,
       }
 
     public enum PDBArgType

@@ -28,7 +28,12 @@ namespace Gimp.PicturePackage
 
     public void Draw(Painter painter)
     {
-      painter.DrawRectangle(_x, _y, _w, _h);
+      painter.DrawPreview(_x, _y, _w, _h);
+    }
+
+    public void Render(Renderer renderer)
+    {
+      renderer.Render(_x, _y, _w, _h);
     }
 
     public bool Inside(int x, int y)

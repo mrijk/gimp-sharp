@@ -68,6 +68,11 @@ namespace Gimp.PicturePackage
       _rectangles.Draw(painter);
     }
 
+    public void Render(Image composed, Image source, double resolution)
+    {
+      _rectangles.Render(new Renderer(composed, source, resolution));
+    }
+
     public string Name
     {
       get {return _name;}

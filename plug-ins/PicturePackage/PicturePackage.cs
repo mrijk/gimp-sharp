@@ -8,7 +8,11 @@ namespace Gimp.PicturePackage
   public class PicturePackage : Plugin
   {
     LayoutSet _layoutSet = new LayoutSet();
+    Layout _selectedLayout;
     Preview _preview;
+
+    [SaveAttribute]
+    bool _flatten = true;
 
     [STAThread]
     static void Main(string[] args)
@@ -40,6 +44,7 @@ namespace Gimp.PicturePackage
       gimp_ui_init("PicturePackage", true);
 
       _layoutSet.Load();
+      _selectedLayout = _layoutSet[0];
 
       Dialog dialog = DialogNew("Picture Package", "PicturePackage",
 				IntPtr.Zero, 0, null, "PicturePackage");
@@ -65,7 +70,8 @@ namespace Gimp.PicturePackage
       _preview = new Preview();
       _preview.WidthRequest = 400;
       _preview.HeightRequest = 500;
-      _preview.Layout = _layoutSet[0];		// Fix me!
+      _preview.Layout = _selectedLayout;
+      _preview.Image = _image;
       fbox.Add(_preview);
 
       dialog.ShowAll();
@@ -130,6 +136,8 @@ namespace Gimp.PicturePackage
       SetSourceFrameSensitivity((o as OptionMenu).History);
     }
 
+    Entry _resolution;
+
     void BuildDocumentFrame(VBox vbox)
     {
       Frame frame = new GimpFrame("Document");
@@ -157,9 +165,10 @@ namespace Gimp.PicturePackage
       table.AttachAligned(0, 1, "_Layout:", 0.0, 0.5,
 			  layout, 2, false);
 
-      Entry resolution = new Entry();
-      resolution.WidthChars = 4;
-      table.AttachAligned(0, 2, "_Resolution:", 0.0, 0.5, resolution, 1, true);
+      _resolution = new Entry();
+      _resolution.WidthChars = 4;
+      _resolution.Text = "72";
+      table.AttachAligned(0, 2, "_Resolution:", 0.0, 0.5, _resolution, 1, true);
 	
       OptionMenu units = new OptionMenu();
       menu = new Menu();
@@ -178,25 +187,22 @@ namespace Gimp.PicturePackage
       table.AttachAligned(0, 3, "_Mode:", 0.0, 0.5, mode, 2, false);
 
       CheckButton flatten = new CheckButton("Flatten All Layers");
+      flatten.Toggled += new EventHandler(FlattenToggled);
+      flatten.Active = _flatten;
       table.Attach(flatten, 0, 2, 4, 5);
     }
 
     void OnLayoutChanged (object o, EventArgs args) 
     {
       int nr = (o as OptionMenu).History;
-      _preview.Layout = _layoutSet[nr];
-      // _preview.QueueDraw();
+      _selectedLayout = _layoutSet[nr];
+      _preview.Layout = _selectedLayout;
+      _preview.QueueDraw();
+    }
 
-      // Fix me: temp test code
-      Image clone = _image.Duplicate();
-
-      clone.Rotate(RotationType.ROTATE_90);
-      clone.Resize(128, 128, 0, 0);
-
-      Pixbuf pixbuf = clone.GetThumbnail(128, 128, Transparency.KEEP_ALPHA);
-
-      Console.WriteLine("DoSomething: {0} {1}", pixbuf.Width, pixbuf.Height);
-      _preview.DrawPixbuf(pixbuf);
+    void FlattenToggled (object sender, EventArgs args)
+    {
+      _flatten = (sender as CheckButton).Active;
     }
 
     void BuildLabelFrame(VBox vbox)
@@ -263,6 +269,21 @@ namespace Gimp.PicturePackage
 
     override protected void DoSomething(Image image)
     {
+      double resolution = double.Parse(_resolution.Text);
+
+      int width = (int) (_selectedLayout.Width * resolution);
+      int height = (int) (_selectedLayout.Height * resolution);
+      Image composed = new Image(width, height, ImageBaseType.RGB);
+
+      _selectedLayout.Render(composed, image, resolution);
+
+      if (_flatten)
+	{
+	composed.Flatten();
+	}
+
+      Display display = new Display(composed);
+      Display.DisplaysFlush();
     }
   }
   }
