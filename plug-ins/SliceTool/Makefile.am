@@ -14,6 +14,7 @@ SOURCES =			\
 	RectangleSet.cs		\
 	RemoveFunc.cs		\
 	RolloverDialog.cs	\
+	RolloverEntry.cs	\
 	SelectFunc.cs		\
 	Slice.cs		\
 	SliceData.cs		\

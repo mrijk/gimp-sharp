@@ -6,12 +6,12 @@ namespace Gimp.SliceTool
 {
   public class RolloverDialog : GimpDialog
   {
-    FileEntry _mouseOver;
-    FileEntry _mouseOut;
-    FileEntry _mouseClick;
-    FileEntry _mouseDoubleClick;
-    FileEntry _mouseUp;
-    FileEntry _mouseDown;
+    RolloverEntry _mouseOver;
+    RolloverEntry _mouseOut;
+    RolloverEntry _mouseClick;
+    RolloverEntry _mouseDoubleClick;
+    RolloverEntry _mouseUp;
+    RolloverEntry _mouseDown;
 
     public RolloverDialog() : base("Rollover Creator", "SliceTool",
 				   IntPtr.Zero, 0, null, "SliceTool")
@@ -22,76 +22,15 @@ namespace Gimp.SliceTool
       table.RowSpacing = 6;
       VBox.PackStart(table, true, true, 0);
 
-      _mouseOver = CreateEntry(table, "_Mouse over", 0, 
-			       new EventHandler(OnMouseOver));
-      _mouseOut = CreateEntry(table, "Mo_use out", 1,
-			       new EventHandler(OnMouseOut));
-      _mouseClick = CreateEntry(table, "Mous_e click", 2,
-			       new EventHandler(OnMouseClick));
-      _mouseDoubleClick = CreateEntry(table, "Mouse dou_ble click", 3,
-			       new EventHandler(OnMouseDoubleClick));
-      _mouseUp = CreateEntry(table, "Mouse _up", 4,
-			       new EventHandler(OnMouseUp));
-      _mouseDown = CreateEntry(table, "Mouse _down", 5,
-			       new EventHandler(OnMouseDown));
+      _mouseOver = new RolloverEntry(table, "_Mouse over", 0);
+      _mouseOut = new RolloverEntry(table, "Mo_use out", 1);
+      _mouseClick = new RolloverEntry(table, "Mous_e click", 2);
+      _mouseDoubleClick = new RolloverEntry(table, "Mouse dou_ble click", 3);
+      _mouseUp = new RolloverEntry(table, "Mouse _up", 4);
+      _mouseDown = new RolloverEntry(table, "Mouse _down", 5);
 
       Label label = new Label("If a file is not given for the rollover, the original file will be used.");
       table.Attach(label, 0, 2, 6, 7);
-    }
-
-    FileEntry CreateEntry(GimpTable table, string label, uint row,
-			  EventHandler clicked)
-    {
-      CheckButton button = new CheckButton(label);
-      button.Clicked += clicked;
-      table.Attach(button, 0, 1, row, row + 1);
-
-      FileEntry entry = new FileEntry("Select Image", "", false, true);
-      entry.Sensitive = false;
-      table.Attach(entry, 1, 2, row, row + 1);
-
-      return entry;
-    }
-
-    void SetFileEntry(object o, FileEntry entry)
-    {
-      bool active = (o as CheckButton).Active;
-      entry.Sensitive = active;
-
-      if (!active)
-	{
-	entry.FileName = "";
-	}
-    }
-
-    void OnMouseOver(object o, EventArgs args)
-    {
-      SetFileEntry(o, _mouseOver);
-    }
-
-    void OnMouseOut(object o, EventArgs args)
-    {
-      SetFileEntry(o, _mouseOut);
-    }
-
-    void OnMouseClick(object o, EventArgs args)
-    {
-      SetFileEntry(o, _mouseClick);
-    }
-
-    void OnMouseDoubleClick(object o, EventArgs args)
-    {
-      SetFileEntry(o, _mouseDoubleClick);
-    }
-
-    void OnMouseUp(object o, EventArgs args)
-    {
-      SetFileEntry(o, _mouseUp);
-    }
-
-    void OnMouseDown(object o, EventArgs args)
-    {
-      SetFileEntry(o, _mouseDown);
     }
 
     public string MouseOver
