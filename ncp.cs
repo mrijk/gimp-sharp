@@ -73,23 +73,19 @@ namespace Gimp
 
 	gimp_ui_init("ncp", true);
 
-	IntPtr dialogPtr = DialogNew("ncp", "ncp",
-				     IntPtr.Zero, 0, null, "ncp", 
-				     Stock.Cancel, ResponseType.Cancel,
-				     Stock.Ok, ResponseType.Ok);
-
-	Dialog dialog = new Dialog(dialogPtr);
+	Dialog dialog = DialogNew("ncp", "ncp",
+				  IntPtr.Zero, 0, null, "ncp", 
+				  Stock.Cancel, ResponseType.Cancel,
+				  Stock.Ok, ResponseType.Ok);
 
 	VBox vbox = new VBox(false, 12);
 	vbox.BorderWidth = 12;
 	dialog.VBox.PackStart(vbox, true, true, 0);
-	vbox.Show();
 
 	GimpTable table = new GimpTable(3, 3, false);
 	table.ColumnSpacing = 6;
 	table.RowSpacing = 6;
 	vbox.PackStart(table, false, false, 0);
-	table.Show();
 
 	RandomSeed seed = new RandomSeed(ref _seed, ref _random_seed);
 	Widget label = table.AttachAligned(0, 0, "Random _Seed:", 0.0, 0.5,
@@ -105,8 +101,8 @@ namespace Gimp
 			       true, 0, 0, null, null);
 	entry.ValueChanged += new EventHandler(CloseToUpdate);
 			       
-	dialog.Show();
-	DialogRun(dialogPtr);
+	dialog.ShowAll();
+	DialogRun();
 
 	drawable.Detach();
       }

@@ -206,6 +206,8 @@ namespace Gimp
     static GimpPlugInInfo _info = new GimpPlugInInfo();
     static string[] myArgs = new String[6];
 
+    IntPtr _dialogPtr;
+
     public Plugin(string[] args)
     {
       _info.Init = new InitProc(Init);
@@ -305,7 +307,7 @@ namespace Gimp
       n_return_vals = return_vals.Length;
     }
 
-    protected IntPtr DialogNew( string title,
+    protected Dialog DialogNew( string title,
 				string role,
 				IntPtr parent,
 				Gtk.DialogFlags flags,
@@ -314,16 +316,19 @@ namespace Gimp
 				string button1, Gtk.ResponseType action1,
 				string button2, Gtk.ResponseType action2)
     {
-      return gimp_dialog_new(title, role, parent, flags, help_func, help_id, 
-			     button1, action1,
-			     button2, action2, null);
+      _dialogPtr = gimp_dialog_new(title, role, parent, flags, 
+				   help_func, help_id, 
+				   button1, action1,
+				   button2, action2, null);
+      return new Dialog(_dialogPtr);
     }
 
     abstract protected void DoSomething();
 
-    protected void DialogRun(IntPtr dialog)
+    protected void DialogRun()
     {
-      if (gimp_dialog_run(dialog) == ResponseType.Ok)
+
+      if (gimp_dialog_run(_dialogPtr) == ResponseType.Ok)
 	{
 	DoSomething();
 	}

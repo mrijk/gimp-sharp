@@ -9,15 +9,15 @@ namespace Gimp
     {
       [DllImport("libgimpwidgets-2.0.so")]
       extern static IntPtr gimp_table_attach_aligned (
-	IntPtr table,
-	int             column,
-	int             row,
-	string label_text,
-	float           xalign,
-	float           yalign,
-	IntPtr widget,
-	int             colspan,
-	bool         left_align);
+	IntPtr 	table,
+	int	column,
+	int     row,
+	string 	label_text,
+	float   xalign,
+	float   yalign,
+	IntPtr  widget,
+	int     colspan,
+	bool    left_align);
 
       public GimpTable(uint rows, uint columns, bool homogeneous) :
 	base(rows, columns, homogeneous)
