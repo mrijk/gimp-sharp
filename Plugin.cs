@@ -338,5 +338,13 @@ namespace Gimp
     {
       gimp_progress_init(message);
     }
+
+    [DllImport("libgimp-2.0.so")]
+    public static extern string gimp_directory();
+
+    protected string GimpDirectory()
+    {
+      return gimp_directory();
+    }
   }
   }

@@ -1,6 +1,6 @@
 MCS = mcs
 
-VERSION = 0.2
+VERSION = 0.1.1
 
 # Fill in GIMP version here.
 # GIMPVERSION = 2.0
@@ -34,7 +34,9 @@ EXTRADIST =		\
 	ncp		\
 	PicturePackage	\
 	picture-package.xml	\
-	gimp.c
+	gimp.c			\
+	ncp.cs			\
+	PicturePackage.cs
 
 all: ncp.exe PicturePackage.exe
 

@@ -93,7 +93,7 @@ namespace Gimp
       void ReadConfiguration()
       {
 	XmlDocument doc = new XmlDocument();
-	doc.Load("picture-package.xml");
+	doc.Load(GimpDirectory() + "/plug-ins/picture-package.xml");
 
 	XmlNodeList nodeList;
 	XmlElement root = doc.DocumentElement;

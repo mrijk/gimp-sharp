@@ -1,4 +1,5 @@
-Overview of Changes in Gimp# 0.2
-================================
+Overview of Changes in Gimp# 0.1.1
+==================================
 
+- Bug-fix in installation procedure
 - Started implementation of picture package
