@@ -21,7 +21,8 @@ namespace Gimp
       static extern string gimp_drawable_get_name(Int32 drawable_ID);
 
       [DllImport("libgimp-2.0.so")]
-      static extern bool gimp_drawable_set_name(Int32 drawable_ID, string name);
+      static extern bool gimp_drawable_set_name(Int32 drawable_ID, 
+						string name);
 
       [DllImport("libgimp-2.0.so")]
       static extern void gimp_drawable_flush(IntPtr drawable);
@@ -79,7 +80,8 @@ namespace Gimp
 
       public bool MaskBounds(out int x1, out int y1, out int x2, out int y2)
       {
-	return gimp_drawable_mask_bounds(_drawableID, out x1, out y1, out x2, out y2);
+	return gimp_drawable_mask_bounds(_drawableID, out x1, out y1, 
+					 out x2, out y2);
       }
 
       public bool MergeShadow(bool undo)
@@ -106,6 +108,14 @@ namespace Gimp
       {
 	get {return gimp_drawable_get_name(_drawableID);}
 	set {gimp_drawable_set_name(_drawableID, "foo");}
+      }
+
+      [DllImport("libgimp-2.0.so")]
+      static extern bool gimp_drawable_has_alpha (Int32 drawable_ID);
+      
+      public bool HasAlpha()
+      {
+	return gimp_drawable_has_alpha(_drawableID);
       }
 
       public int Bpp

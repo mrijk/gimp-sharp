@@ -56,6 +56,14 @@ namespace Gimp
       public Int32	d_status;	// Fix me!
     };
 
+    public enum PDBProcType
+    {
+      INTERNAL,
+      PLUGIN,
+      EXTENSION,
+      TEMPORARY
+    }
+
     public enum GimpPDBArgType
       {
 	INT32,
@@ -200,40 +208,51 @@ namespace Gimp
     {
     }
 
-    public void Quit() 
+    protected virtual void Quit() 
     {
     }
 
-    public void Query() 
+    [DllImport("libgimp-2.0-0.dll")]
+    public static extern void gimp_install_procedure(
+      string name,
+      string blurb,
+      string help,
+      string author,
+      string copyright,
+      string date,
+      string menu_path,
+      string image_types,
+      PDBProcType	   type,
+      int    n_params,
+      int    n_return_vals,
+      GimpParamDef[] _params,
+      GimpParamDef[] return_vals);
+
+    protected void InstallProcedure(string name, string blurb, string help, 
+				    string author, string copyright, 
+				    string date, string menu_path, 
+				    string image_types,
+				    GimpParamDef[] _params, 
+				    GimpParamDef[] return_vals)
     {
-      GimpParamDef[] args = new GimpParamDef[3];
-      args[0].type = GimpPDBArgType.INT32;
-      args[0].name = "run_mode";
-      args[0].description = "Interactive, non-interactive";
-
-      args[1].type = GimpPDBArgType.IMAGE;
-      args[1].name = "image";
-      args[1].description = "Input image (unused)";
-
-      args[2].type = GimpPDBArgType.DRAWABLE;
-      args[2].name = "drawable";
-      args[2].description = "Input drawable";
-
-      gimp_install_procedure(
-	"gimp#",
-	"blurb",
-	"help me",
-	"Maurits Rijk",
-	"Maurits Rijk",
-	"Today",
-	"<Image>/Filters/Web/Gimp#",
-	"RGB*",
-	1,
-	args.Length,
-	0,
-	args,
-	null);
+      gimp_install_procedure(name, blurb, help, author, copyright, date, 
+			     menu_path, image_types, PDBProcType.PLUGIN, 
+			     _params.Length, return_vals.Length, _params, 
+			     return_vals);
     }
+
+    protected void InstallProcedure(string name, string blurb, string help, 
+				    string author, string copyright, 
+				    string date, string menu_path, 
+				    string image_types,
+				    GimpParamDef[] _params)
+    {
+      gimp_install_procedure(name, blurb, help, author, copyright, date, 
+			     menu_path, image_types, PDBProcType.PLUGIN, 
+			     _params.Length, 0, _params, null);
+    }
+
+    abstract protected void Query();
 
     abstract protected void Run(string name, GimpParam[] param,
 				out GimpParam[] return_vals);
