@@ -28,7 +28,7 @@ SOURCES =				\
 
 EXTRA_DIST = $(SOURCES) PicturePackage picture-package.xml
 
-PicturePackage.exe : $(SOURCES)
+PicturePackage.exe : $(SOURCES) picture-package.xml
 	$(CSC) $(SOURCES) /resource:picture-package.xml -o $@ $(ASSEMBLIES)
 
 install:

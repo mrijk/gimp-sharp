@@ -32,7 +32,23 @@ namespace Gimp.PicturePackage
       	myAssembly.GetManifestResourceStream("picture-package.xml");
 #endif
       doc.Load(myStream);
+      LoadXmlDocument(doc);
 
+      // Next read from gimpdir
+      try
+	{
+	string filename = Gimp.Directory() + "/" + "picture-package.xml";
+	doc.Load(filename);
+	LoadXmlDocument(doc);
+	}
+      catch (Exception e)
+	{
+	Console.WriteLine("Nothing to read! " + e.Message);
+	}
+    }
+    
+    void LoadXmlDocument(XmlDocument doc)
+    {
       XmlNodeList nodeList;
       XmlElement root = doc.DocumentElement;
 
@@ -45,7 +61,7 @@ namespace Gimp.PicturePackage
 	Add(new Layout(layout));
 	}
     }
-    
+
     public void Add(Layout layout)
     {
       _set.Add(layout);

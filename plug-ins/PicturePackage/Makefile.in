@@ -337,7 +337,7 @@ uninstall-am: uninstall-info-am
 
 all: PicturePackage.exe
 
-PicturePackage.exe : $(SOURCES)
+PicturePackage.exe : $(SOURCES) picture-package.xml
 	$(CSC) $(SOURCES) /resource:picture-package.xml -o $@ $(ASSEMBLIES)
 
 install:

@@ -62,7 +62,7 @@ namespace Gimp.PicturePackage
       _layoutSet.Load();
       _loader = new FrontImageProviderFactory(_image);
 
-      Dialog dialog = DialogNew("Picture Package 0.4", "PicturePackage",
+      Dialog dialog = DialogNew("Picture Package 0.5", "PicturePackage",
 				IntPtr.Zero, 0, null, "PicturePackage");
 
       HBox hbox = new HBox(false, 12);
