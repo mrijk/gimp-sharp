@@ -60,7 +60,7 @@ namespace Gimp
 			 args);
 
 	MenuRegister("plug_in_ncp",
-		     "<Image>/Filters/Web");
+		     "<Image>/Filters/Render");
       }
 
       override protected void Run(string name, GimpParam[] param,
@@ -184,6 +184,45 @@ namespace Gimp
 	Display.DisplaysFlush();
       }
 
+      int Select(int n)
+      {
+	int pivot = 0;
+	ArrayList data = new ArrayList(_distances);
+	
+	while (true)
+	  {
+	  ArrayList under = new ArrayList();
+	  ArrayList over = new ArrayList();
+	  int pcount = 0;
+	  
+	  pivot = (int) data[0];
+	  foreach (int elem in data)
+	    {
+	    if (elem < pivot)
+	      under.Add(elem);
+	    else if (elem > pivot)
+	      over.Add(elem);
+	    else
+	      pcount++;
+	    }
+	  
+	  if (n < under.Count)
+	    {
+	    data = under;
+	    }
+	  else if (n < under.Count + pcount)
+	    {
+	    return pivot;
+	    }
+	  else
+	    {
+	    data = over;
+	    n -= under.Count + pcount;
+	    }
+	  }
+	return pivot;
+      }
+      
       void DoNCP(int x, int y, ref byte[] dest)
       {
 	for (int b = 0; b < bpp; b++) 
@@ -196,9 +235,13 @@ namespace Gimp
 	    _distances[k] = x2 * x2 + y2 * y2;
 	    }
 
+#if _OLD_
 	  Array.Sort(_distances);
-
+	  
 	  byte val = (byte) (255.0 * Math.Sqrt((double) _distances[_closest - 1] / (width * height)));
+#else
+	  byte val = (byte) (255.0 * Math.Sqrt((double) Select(_closest) / (width * height)));
+#endif
 
 	  /* invert */ 
 	  val = (byte) (255 - val);
