@@ -3,6 +3,7 @@ Overview of Changes in Gimp# 0.4
 
 - First working version of Picture Package plug-in
 - Preview added for NCP and Ministeck
+- NCP plug-in is much (20x) faster than previous version
 - Much more Gimp API coverage
 
 Overview of Changes in Gimp# 0.3

@@ -12,6 +12,8 @@ SOURCES = 			\
 	Drawable.cs		\
 	DrawablePreview.cs	\
 	FileEntry.cs		\
+	FloatingSelection.cs	\
+	GimpBaseEnums.cs	\
 	GimpColorButton.cs	\
 	GimpDialog.cs		\
 	GimpEnums.cs		\
@@ -24,8 +26,11 @@ SOURCES = 			\
 	Guide.cs		\
 	Layer.cs		\
 	Image.cs		\
+	Mask.cs			\
+	Message.cs		\
 	Palette.cs		\
 	ParamDef.cs		\
+	ParamDefList.cs		\
 	PixelFetcher.cs		\
 	PixelRgn.cs		\
 	Plugin.cs		\
@@ -36,6 +41,7 @@ SOURCES = 			\
 	SaveAttribute.cs	\
 	ScaleEntry.cs		\
 	ScrolledPreview.cs	\
+	Selection.cs		\
 	VoidObjectSignal.cs
 
 EXTRA_DIST = $(SOURCES)
