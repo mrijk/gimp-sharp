@@ -161,7 +161,8 @@ namespace Gimp.SliceTool
 			    extension);
     }
 
-    public void WriteHTML(StreamWriter w, string name, string extension, int index)
+    public void WriteHTML(StreamWriter w, string name, string extension, 
+			  int index)
     {
       w.WriteLine("<td rowspan=\"{0}\" colspan=\"{1}\" width=\"{2}\" height=\"{3}\">",
 		  Bottom.Index - Top.Index, Right.Index - Left.Index, 
@@ -178,19 +179,21 @@ namespace Gimp.SliceTool
 		    name + index, GetFilename(name, extension), Width, Height, _altText); 
 	}
 
-	if (_url.Length > 0)
-	  {
-	  w.Write("</a>");
-	  }
+      if (_url.Length > 0)
+	{
+	w.Write("</a>");
+	}
 
-	w.WriteLine("</td>");
+      w.WriteLine("</td>");
     }
 
-    public void WriteSlice(Image image, string path, string name, string extension)
+    public void WriteSlice(Image image, string path, string name, 
+			   string extension)
     {
       Image clone = new Image(image);
       clone.Crop(Width, Height, X1, Y1);
-      string filename = path + "/" + GetFilename(name, extension);
+      string filename = path + System.IO.Path.DirectorySeparatorChar + 
+	GetFilename(name, extension);
       clone.Save(RunMode.NONINTERACTIVE, filename, filename);
       clone.Delete();
     }

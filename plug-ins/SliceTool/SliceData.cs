@@ -9,10 +9,6 @@ namespace Gimp.SliceTool
     SliceSet _horizontalSlices = new SliceSet();
     SliceSet _verticalSlices = new SliceSet();
 
-    bool _foo; // fix me!
-    Rectangle _rectangle;
-    Slice _slice;
-
     public SliceData()
     {
     }
@@ -23,12 +19,19 @@ namespace Gimp.SliceTool
       int height = drawable.Height;
 
       VerticalSlice left = new VerticalSlice(null, null, 0);
-      VerticalSlice right = new VerticalSlice(null, null, width);
-      HorizontalSlice top = new HorizontalSlice(left, right, 0);
-      HorizontalSlice bottom = new HorizontalSlice(left, right, height);
+      left.Locked = true;
       _verticalSlices.Add(left);
+
+      VerticalSlice right = new VerticalSlice(null, null, width);
+      right.Locked = true;
       _verticalSlices.Add(right);
+
+      HorizontalSlice top = new HorizontalSlice(left, right, 0);
+      top.Locked = true;
       _horizontalSlices.Add(top);
+
+      HorizontalSlice bottom = new HorizontalSlice(left, right, height);
+      bottom.Locked = true;
       _horizontalSlices.Add(bottom);
 
       left.Begin = right.Begin = top;
@@ -39,33 +42,11 @@ namespace Gimp.SliceTool
 
     public void AddSlice(Slice slice)
     {
-      if (_foo)
+      if (slice is HorizontalSlice)
 	_horizontalSlices.Add(slice);
       else
 	_verticalSlices.Add(slice);
       _rectangles.Slice(slice);
-    }
-
-    public Slice GetSlice(int x, int y)
-    {
-      Rectangle rectangle = _rectangles.Find(x, y);
-      Slice slice;
-
-      if (rectangle == _rectangle)
-	{
-	slice = _slice;
-	}
-      else
-	{
-	_rectangle = rectangle;
-	if (_foo)
-	  slice = rectangle.CreateVerticalSlice(x);
-	else
-	  slice = rectangle.CreateHorizontalSlice(y);
-	_foo = !_foo;
-	}
-      _slice = slice;
-      return slice;
     }
 
     public Rectangle FindRectangle(int x, int y)
@@ -105,38 +86,22 @@ namespace Gimp.SliceTool
 
     public void CreateTable(int x, int y, int rows, int columns)
     {
-      Rectangle rectangle = _rectangles.Find(x, y);
+      Rectangle rectangle = new Rectangle(_rectangles.Find(x, y));
       int width = rectangle.Width;
       int height = rectangle.Height;
       int x1 = rectangle.X1;
-      int x2 = rectangle.X2;
       int y1 = rectangle.Y1;
-      int y2 = rectangle.Y2;
 
-      SliceSet horizontalSlices = new SliceSet();
       for (int row = 1; row < rows; row++)
 	{
 	int ypos = y1 + row * height / rows;
-	horizontalSlices.Add(rectangle.CreateHorizontalSlice(ypos));
+	AddSlice(rectangle.CreateHorizontalSlice(ypos));
 	}
 
-      foreach (Slice slice in horizontalSlices)
-	{
-	_rectangles.Slice(slice);
-	_horizontalSlices.Add(slice);
-	}
-
-      SliceSet verticalSlices = new SliceSet();
       for (int col = 1; col < columns; col++)
 	{
 	int xpos = x1 + col * width / columns;
-	verticalSlices.Add(rectangle.CreateVerticalSlice(xpos));
-	}
-
-      foreach (Slice slice in verticalSlices)
-	{
-	_rectangles.Slice(slice);
-	_verticalSlices.Add(slice);
+	AddSlice(rectangle.CreateVerticalSlice(xpos));
 	}
     }
 

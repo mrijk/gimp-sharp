@@ -13,6 +13,7 @@ SOURCES =			\
 	Rectangle.cs		\
 	RectangleSet.cs		\
 	RemoveFunc.cs		\
+	RolloverDialog.cs	\
 	SelectFunc.cs		\
 	Slice.cs		\
 	SliceData.cs		\

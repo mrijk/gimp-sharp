@@ -8,6 +8,7 @@ namespace Gimp.SliceTool
     protected Slice _end;
     protected int _position;
     int _index;
+    bool _locked;
     
     public Slice(Slice begin, Slice end, int position)
     {
@@ -49,6 +50,12 @@ namespace Gimp.SliceTool
     {
       get {return _position;}
       set {_position = value;}
+    }
+
+    public bool Locked
+    {
+      get {return _locked;}
+      set {_locked = value;}
     }
   }
   }

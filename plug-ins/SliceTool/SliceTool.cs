@@ -13,6 +13,7 @@ namespace Gimp.SliceTool
 
     SliceData _sliceData = new SliceData();
 
+    ToggleButton _toggle;
     Preview _preview;
     Entry _xy;
 
@@ -103,6 +104,7 @@ namespace Gimp.SliceTool
       vbox.PackStart(_format, false, true, 0);
 
       _sliceData.Init(_drawable);
+      GetRectangleData(_sliceData.Selected);
 
       _func = new SelectFunc(this, _sliceData, _preview);
 
@@ -116,8 +118,7 @@ namespace Gimp.SliceTool
       Stream input = assembly.GetManifestResourceStream("blank.png");
       BinaryReader reader = new BinaryReader(input);
       byte[] buffer = reader.ReadBytes((int) input.Length);
-      FileStream fs = new FileStream(path + "/blank.png", FileMode.Create, 
-				     FileAccess.Write);
+      FileStream fs = new FileStream(path + "/blank.png", FileMode.Create, FileAccess.Write);
       BinaryWriter writer = new BinaryWriter(fs);
       writer.Write(buffer);
       writer.Close();
@@ -177,6 +178,15 @@ namespace Gimp.SliceTool
       _func.OnButtonPress(o, args);
     }
 
+    ToggleButton CreateToggle(string stock)
+    {
+      ToggleButton toggle = new ToggleButton();
+      Gtk.Image image = new Gtk.Image(stock,
+				      IconSize.SmallToolbar);
+      toggle.Add(image);
+      return toggle;
+    }
+
     Widget CreateToolbar()
     {
       HandleBox handle = new HandleBox();
@@ -186,30 +196,23 @@ namespace Gimp.SliceTool
       tools.ToolbarStyle = Gtk.ToolbarStyle.Icons;
       handle.Add(tools);
 
-      Button button = new Button();
-      Gtk.Image image = new Gtk.Image("slice-tool-arrow", 
-				      IconSize.SmallToolbar);
-      button.Add(image);
-      tools.AppendWidget(button, "Select Rectangle", "arrow");
-      button.Clicked += new EventHandler(OnSelect);
+      ToggleButton toggle = CreateToggle("slice-tool-arrow");
+      _toggle = toggle;
+      toggle.Active = true;
+      tools.AppendWidget(toggle, "Select Rectangle", "arrow");
+      toggle.Clicked += new EventHandler(OnSelect);
 
-      button = new Button();
-      image = new Gtk.Image(GimpStock.TOOL_CROP, IconSize.SmallToolbar);
-      button.Add(image);
-      tools.AppendWidget(button, "Create a new Slice", "create");
-      button.Clicked += new EventHandler(OnCreateSlice);
+      toggle = CreateToggle(GimpStock.TOOL_CROP);
+      tools.AppendWidget(toggle, "Create a new Slice", "create");
+      toggle.Clicked += new EventHandler(OnCreateSlice);
 
-      button = new Button();
-      image = new Gtk.Image(GimpStock.TOOL_ERASER, IconSize.SmallToolbar);
-      button.Add(image);
-      tools.AppendWidget(button, "Remove Slice", "delete");
-      button.Clicked += new EventHandler(OnRemoveSlice);
+      toggle = CreateToggle(GimpStock.TOOL_ERASER);
+      tools.AppendWidget(toggle, "Remove Slice", "delete");
+      toggle.Clicked += new EventHandler(OnRemoveSlice);
 
-      button = new Button();
-      image = new Gtk.Image(GimpStock.GRID, IconSize.SmallToolbar);
-      button.Add(image);
-      tools.AppendWidget(button, "Insert Table", "grid");
-      button.Clicked += new EventHandler(OnCreateTable);
+      toggle = CreateToggle(GimpStock.GRID);
+      tools.AppendWidget(toggle, "Insert Table", "grid");
+      toggle.Clicked += new EventHandler(OnCreateTable);
 
       return handle;
     }
@@ -259,12 +262,25 @@ namespace Gimp.SliceTool
       frame.Add(vbox);
 
       Button button = new Button("Rollover Creator...");
+      button.Clicked += new EventHandler(OnRolloverCreate);
       vbox.Add(button);
 
       Label label = new Label("Rollover enabled: no");
       vbox.Add(label);
 
       return frame;
+    }
+
+    void OnRolloverCreate(object o, EventArgs args)
+    {
+      RolloverDialog dialog = new RolloverDialog();
+      dialog.ShowAll();
+      ResponseType type = dialog.Run();
+      if (type == ResponseType.Ok)
+	{
+	// Fix me: do something
+	}
+      dialog.Destroy();
     }
 
     void AddStockIcon(IconFactory factory, string stockId, string filename)
@@ -325,24 +341,45 @@ namespace Gimp.SliceTool
       _bottom.Text = rectangle.Y2.ToString();
     }
 
+    bool _lock;
+    void OnFunc(object o, MouseFunc func)
+    {
+      if (!_lock)
+	{
+	_lock = true;
+	ToggleButton toggle = (o as ToggleButton);
+	if (toggle != _toggle)
+	  {
+	  _toggle.Active = false;
+	  _toggle = toggle;
+	  _func = func;
+	  } 
+	else
+	  {
+	  _toggle.Active = true;
+	  }
+	_lock = false;
+	}
+    }
+
     void OnSelect(object o, EventArgs args)
     {
-      _func = new SelectFunc(this, _sliceData, _preview);
+      OnFunc(o, new SelectFunc(this, _sliceData, _preview));
     }
 
     void OnCreateSlice(object o, EventArgs args)
     {
-      _func = new CreateFunc(_sliceData, _preview);
+      OnFunc(o, new CreateFunc(_sliceData, _preview));
     }
 
     void OnRemoveSlice(object o, EventArgs args)
     {
-      _func = new RemoveFunc(_sliceData, _preview);
+      OnFunc(o, new RemoveFunc(_sliceData, _preview));
     }
 
     void OnCreateTable(object o, EventArgs args)
     {
-      _func = new CreateTableFunc(_sliceData, _preview);
+      OnFunc(o, new CreateTableFunc(_sliceData, _preview));
     }
 
     void OnShowCoordinates(object o, MotionNotifyEventArgs args)
