@@ -53,7 +53,7 @@ namespace Gimp.ncp
 			 "Generates 2D textures",
 			 "Generates 2D textures",
 			 "Maurits Rijk",
-			 "Maurits Rijk",
+			 "(C) Maurits Rijk",
 			 "2004",
 			 "NCP...",
 			 "RGB*, GRAY*",
@@ -203,7 +203,7 @@ namespace Gimp.ncp
 	    }
 	  else if (n < under.Count + pcount)
 	    {
-	    return pivot;
+	    break;
 	    }
 	  else
 	    {

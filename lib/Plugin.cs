@@ -62,22 +62,6 @@ namespace Gimp
     static extern Gtk.ResponseType gimp_dialog_run(IntPtr dialog);
 
     [DllImport("libgimp-2.0.so")]
-    public static extern void gimp_install_procedure(
-      string name,
-      string blurb,
-      string help,
-      string author,
-      string copyright,
-      string date,
-      string menu_path,
-      string image_types,
-      int    type,	// Fix me!
-      int    n_params,
-      int    n_return_vals,
-      GimpParamDef[] _params,
-      GimpParamDef[] return_vals);
-
-    [DllImport("libgimp-2.0.so")]
     public static extern bool gimp_plugin_menu_register(string procedure_name,
 							string menu_path);
 

@@ -19,6 +19,7 @@ SOURCES = 			\
 	Layer.cs		\
 	Image.cs		\
 	Palette.cs		\
+	ParamDef.cs		\
 	PixelRgn.cs		\
 	Plugin.cs		\
 	RGB.cs			\
