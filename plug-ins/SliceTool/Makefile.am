@@ -8,6 +8,7 @@ SOURCES =			\
 	FileExistsDialog.cs	\
 	Format.cs		\
 	HorizontalSlice.cs	\
+	JavaScriptProperty.cs	\
 	MouseFunc.cs		\
 	PreferencesDialog.cs	\
 	Preview.cs		\
@@ -33,6 +34,7 @@ SliceTool.exe : $(SOURCES) SliceTool.png
 	$(CSC) $(SOURCES) /resource:SliceTool.png	\
 			  /resource:blank.png		\
 			  /resource:stock-arrow.png	\
+			  /resource:javascript.html	\
 		-o $@ $(ASSEMBLIES)
 
 install:
