@@ -8,6 +8,7 @@ SOURCES =			\
 	Format.cs		\
 	HorizontalSlice.cs	\
 	MouseFunc.cs		\
+	PreferencesDialog.cs	\
 	Preview.cs		\
 	PreviewRenderer.cs	\
 	Rectangle.cs		\

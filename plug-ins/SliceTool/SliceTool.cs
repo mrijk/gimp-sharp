@@ -54,11 +54,12 @@ namespace Gimp.SliceTool
 
       MenuRegister("<Image>/Filters/Web");
       IconRegister("SliceTool.png");
-      // IconRegister("SliceTool.SliceTool.png"); // Win32
     }
 
     override protected bool CreateDialog()
     {
+      _sliceData.Init(_drawable);
+ 
       gimp_ui_init("SliceTool", true);
 
       CreateStockIcons();
@@ -100,7 +101,7 @@ namespace Gimp.SliceTool
 
       Widget rollover = CreateRollover();
       vbox.PackStart(rollover, false, true, 0);
-
+ 
       _format = new Format();
       _format.Extension = System.IO.Path.GetExtension(_image.Name).ToLower();
       vbox.PackStart(_format, false, true, 0);
@@ -116,7 +117,10 @@ namespace Gimp.SliceTool
       load.Clicked += new EventHandler(OnLoadSettings);
       vbox.PackStart(load, false, true, 0);
 
-      _sliceData.Init(_drawable);
+      Button preferences = new Button("Preferences");
+      preferences.Clicked += new EventHandler(OnPreferences);
+      vbox.PackStart(preferences, false, true, 0);
+
       GetRectangleData(_sliceData.Selected);
 
       _func = new SelectFunc(this, _sliceData, _preview);
@@ -189,8 +193,8 @@ namespace Gimp.SliceTool
       _preview.HeightRequest = _drawable.Height;
       _preview.ButtonPressEvent += new ButtonPressEventHandler(OnButtonPress);
       
-      //      _preview.MotionNotifyEvent +=
-      // 	new MotionNotifyEventHandler(OnShowCoordinates);
+      _preview.MotionNotifyEvent +=
+       	new MotionNotifyEventHandler(OnShowCoordinates);
 
       window.AddWithViewport(_preview);
 
@@ -252,7 +256,7 @@ namespace Gimp.SliceTool
 
       _url = new Entry();
       table.AttachAligned(0, 0, "URL:", 0.0, 0.5, _url, 3, false);
-
+ 
       _altText = new Entry();
       table.AttachAligned(0, 1, "Alt text:", 0.0, 0.5, _altText, 3, false);
 
@@ -274,7 +278,7 @@ namespace Gimp.SliceTool
       _include = new CheckButton("_Include cell in table");
       _include.Active = true;
       table.Attach(_include, 0, 2, 5, 6);
-
+ 
       return frame;
     }
 
@@ -330,6 +334,20 @@ namespace Gimp.SliceTool
       fs.Response += new ResponseHandler(LoadSettings);
       fs.Run();
       fs.Destroy();
+    }
+
+    void OnPreferences(object o, EventArgs args)
+    {
+      PreferencesDialog dialog = new PreferencesDialog();
+      dialog.ShowAll();
+      ResponseType type = dialog.Run();
+      if (type == ResponseType.Ok)
+	{
+	_preview.Renderer.ActiveColor = dialog.ActiveColor;
+	_preview.Renderer.InactiveColor = dialog.InactiveColor;
+	Redraw();
+	}
+      dialog.Destroy();
     }
 
     void LoadSettings (object o, ResponseArgs args)
@@ -458,6 +476,23 @@ namespace Gimp.SliceTool
       
       _xy.Text = "x: " + x + ", y: " + y;
       args.RetVal = true;
+
+      SetCursorType(x, y);
+    }
+
+    void SetCursorType(int x, int y)
+    {
+      CursorType type;
+      Slice slice = _sliceData.FindSlice(x, y);
+      if (slice != null && !slice.Locked)
+	{
+	type = slice.CursorType;
+	}
+      else
+	{
+	type = CursorType.Hand2;
+	}
+      _preview.SetCursor(type);
     }
 
     override protected void DoSomething(Image image, Drawable drawable)

@@ -24,14 +24,14 @@ namespace Gimp
       {
       }
 
-      public Widget AttachAligned(int column, int row, string label_text,
+      public void AttachAligned(int column, int row, string label_text,
 				  double xalign, double yalign, Widget widget,
 				  int colspan, bool left_align)
       {
 	IntPtr ptr = gimp_table_attach_aligned(
 	  Handle, column, row, label_text, (float) xalign, (float) yalign,
 	  widget.Handle, colspan, left_align);
-	return new Widget(ptr);
+	// return new Widget(ptr);
       }
     }
   }

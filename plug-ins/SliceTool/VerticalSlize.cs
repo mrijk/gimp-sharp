@@ -1,6 +1,7 @@
 using System;
 using System.IO;
-using System.Xml;
+
+using Gdk;
 
 namespace Gimp.SliceTool
 {
@@ -71,6 +72,11 @@ namespace Gimp.SliceTool
 		public int Y2
 		{
 			get {return _end.Position;}
+		}
+
+		override public CursorType CursorType
+		{
+			get {return CursorType.SbHDoubleArrow;}
 		}
 	}
 }

@@ -6,17 +6,25 @@ namespace Gimp.SliceTool
   public class Format : GimpFrame
   {
     OptionMenu _format;
+    CheckButton _apply;
 
     public Format() : base("Format")
     {
+      Table table = new Table(2, 2, true);
+      table.RowSpacing = 6;
+      Add(table);
+
       _format = new OptionMenu();
-      Add(_format);
+      table.Attach(_format, 0, 1, 0, 1);
 
       Menu menu = new Menu();
       menu.Append(new MenuItem("gif"));
       menu.Append(new MenuItem("jpg"));
       menu.Append(new MenuItem("png"));
       _format.Menu = menu;
+
+      _apply = new CheckButton("Apply to whole image");
+      table.Attach(_apply, 0, 2, 1, 2);
     }
 
     public string Extension
