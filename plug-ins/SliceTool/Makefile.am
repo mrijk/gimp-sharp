@@ -5,6 +5,7 @@ ASSEMBLIES = -r $(top_builddir)/lib/gimp-sharp.dll /pkg:gtk-sharp
 SOURCES =			\
 	CreateFunc.cs		\
 	CreateTableFunc.cs	\
+	FileExistsDialog.cs	\
 	Format.cs		\
 	HorizontalSlice.cs	\
 	MouseFunc.cs		\

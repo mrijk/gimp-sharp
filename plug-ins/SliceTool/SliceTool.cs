@@ -157,8 +157,20 @@ namespace Gimp.SliceTool
     void Save()
     {
       SetRectangleData(_sliceData.Selected);
-      _sliceData.Save(_filename, _format.Extension, _image, _drawable);
-      SaveBlank(System.IO.Path.GetDirectoryName(_filename));
+      try
+	{
+	_sliceData.Save(_filename, _format.Extension, _image, _drawable);
+	SaveBlank(System.IO.Path.GetDirectoryName(_filename));
+	}
+      catch (Exception e)
+	{
+	MessageDialog message = 
+	  new MessageDialog(null, DialogFlags.DestroyWithParent,
+			    MessageType.Error, ButtonsType.Close,
+			    "Can't save to " + _filename);
+	message.Run();
+	message.Destroy();
+	}
     }
 
     override protected bool OnClose()
@@ -182,21 +194,25 @@ namespace Gimp.SliceTool
       if ((int) type == 0 || ((int) type == 1 && _filename == null))
 	{
 	FileSelection fs = new FileSelection("HTML Save As");
-	fs.Response += new ResponseHandler (OnFileSelectionResponse);
-	fs.Run();
-	fs.Hide();
+	ResponseType response = (ResponseType) fs.Run();
+	if (response == ResponseType.Ok)
+	  {
+	  string filename = fs.Filename;
+	  if (System.IO.File.Exists(filename))
+	    {
+	    FileExistsDialog message = new FileExistsDialog(filename);
+	    if (!message.IsYes())
+	      {
+	      return;
+	      }
+	    }
+	  SetTitle(filename);
+	  Save();
+	  }
+	fs.Destroy();
 	}
       else // type == 1
 	{
-	Save();
-	}
-    }
-
-    void OnFileSelectionResponse (object o, ResponseArgs args)
-    {
-      if (args.ResponseId == ResponseType.Ok)
-	{
-	SetTitle((o as FileSelection).Filename);
 	Save();
 	}
     }
@@ -335,24 +351,23 @@ namespace Gimp.SliceTool
     void OnSaveSettings(object o, EventArgs args)
     {
       FileSelection fs = new FileSelection("Save Settings");
-      fs.Response += new ResponseHandler(SaveSettings);
-      fs.Run();
-      fs.Hide();
-    }
-
-    void SaveSettings (object o, ResponseArgs args)
-    {
-      if (args.ResponseId == ResponseType.Ok)
+      ResponseType type = (ResponseType) fs.Run();
+      if (type == ResponseType.Ok)
 	{
-	_sliceData.SaveSettings((o as FileSelection).Filename);
+	_sliceData.SaveSettings(fs.Filename);
 	}
+      fs.Destroy();
     }
 
     void OnLoadSettings(object o, EventArgs args)
     {
       FileSelection fs = new FileSelection("Load Settings");
-      fs.Response += new ResponseHandler(LoadSettings);
-      fs.Run();
+      ResponseType type = (ResponseType) fs.Run();
+      if (type == ResponseType.Ok)
+	{
+	_sliceData.LoadSettings(fs.Filename);
+	Redraw();
+	}
       fs.Destroy();
     }
 

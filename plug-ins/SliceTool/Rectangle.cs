@@ -200,15 +200,25 @@ namespace Gimp.SliceTool
 	  w.Write("<a href=\"{0}\">", _url);
 	  }
 
-	w.WriteLine("<img name=\"{0}\" src=\"{1}\" width=\"{2}\" height=\"{3}\" border=\"0\" alt=\"{4}\"/></td>", 
-		    name + index, GetFilename(name, extension), Width, Height, _altText); 
-	}
+	w.Write("<img name=\"{0}\"", name + index);
+	w.Write(" src=\"{0}\"", GetFilename(name, extension));
+	w.Write(" width=\"{0}\"", Width);
+	w.Write(" height=\"{0}\"", Height);
+	w.Write(" border=\"0\"");
+	w.Write(" alt=\"{0}\"", _altText);
 
-      if (_url.Length > 0)
-	{
-	w.Write("</a>");
+	if (_target.Length > 0)
+	  {
+	  w.WriteLine("target=\"{0}\"", _target);
+	  }
+	
+	w.WriteLine("/></td>");
+	
+	if (_url.Length > 0)
+	  {
+	  w.Write("</a>");
+	  }
 	}
-
       w.WriteLine("</td>");
     }
 

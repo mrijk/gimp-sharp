@@ -1,6 +1,10 @@
 Overview of Changes in Gimp# 0.6
 ================================
 
+- Many improvements for the Slicer Tool.
+- Added plug-in that can read wbmp (wireless bitmaps) format.
+- Many bug fixes.
+
 Overview of Changes in Gimp# 0.5
 ================================
 
