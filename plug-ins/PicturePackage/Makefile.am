@@ -5,6 +5,7 @@ ASSEMBLIES = -r $(top_builddir)/lib/gimp-sharp.dll /pkg:gtk-sharp
 SOURCES =				\
 	DirImageProviderFactory.cs	\
 	DocumentFrame.cs		\
+	Enums.cs			\
 	FileImageProvider.cs		\
 	FileImageProviderFactory.cs	\
 	FrontImageProvider.cs		\

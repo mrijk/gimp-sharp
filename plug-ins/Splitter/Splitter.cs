@@ -29,7 +29,7 @@ namespace Gimp.Splitter
 		       "RGB*",
 		       null);
 
-      MenuRegister("plug_in_splitter", "<Image>/Filters/Generic");
+      MenuRegister("<Image>/Filters/Generic");
     }
 
     override protected bool CreateDialog()

@@ -42,23 +42,15 @@ namespace Gimp.PicturePackage
       _color = new GimpColorButton("", 16, 16, rgb.GimpRGB,
 				   ColorAreaType.COLOR_AREA_FLAT);
       _color.Update = true;
-#if false
-      Table.AttachAligned(0, 2, "Color:", 0.0, 0.5,
-			  _color, 1, true);
-#else
       hbox.Add(_color);
-#endif
+
       _opacity = new SpinButton(0, 100, 1);
-#if false
-      Table.AttachAligned(2, 2, "Opacity:", 0.0, 0.5,
-			  _opacity, 1, true);
-#else
       hbox.Add(new Label("Opacity:"));
       hbox.Add(_opacity);
       hbox.Add(new Label("%"));
       Table.AttachAligned(0, 2, "Color:", 0.0, 0.5,
 			  hbox, 1, true);
-#endif
+
       _position = CreateOptionMenu(
 	"Centered", "Top Left", "Bottom Left",
 	"Top Right", "Bottom Right");

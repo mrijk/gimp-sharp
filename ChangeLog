@@ -1,3 +1,7 @@
+2004-12-22    <maurits@Mau>
+
+	* plug-ins/ncp/ncp.cs: Minor clean-up
+
 2004-12-20    <maurits@Mau>
 
 	* lib/Plugin.cs: split of get/set data stuff into...

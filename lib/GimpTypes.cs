@@ -50,6 +50,7 @@ namespace Gimp
       public ParamData  data;
     };
   
+  [Serializable]
   [StructLayout(LayoutKind.Sequential)]
     public struct GimpRGB
     {

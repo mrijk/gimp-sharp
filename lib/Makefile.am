@@ -28,6 +28,7 @@ SOURCES = 			\
 	Guide.cs		\
 	ImageComboBox.cs	\
 	IntComboBox.cs		\
+	IntStore.cs		\
 	Layer.cs		\
 	Image.cs		\
 	ImageList.cs		\

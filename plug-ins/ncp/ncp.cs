@@ -10,9 +10,10 @@ namespace Gimp.ncp
     AspectPreview _preview;
     ScaleEntry _closestEntry;
 
+    [SaveAttribute]
     UInt32 _seed;
+    [SaveAttribute]
     bool _random_seed;
-
     [SaveAttribute]
     int _points = 12;
     [SaveAttribute]
@@ -23,14 +24,7 @@ namespace Gimp.ncp
     [STAThread]
     static void Main(string[] args)
     {
-      try 
-	{
-	new ncp(args);
-	}
-      catch (Exception e)
-	{
-	Console.WriteLine(e.StackTrace);
-	}
+      new ncp(args);
     }
 
     public ncp(string[] args) : base(args)
@@ -104,9 +98,6 @@ namespace Gimp.ncp
       color.Toggled += new EventHandler(ColorToggled);
       table.Attach(color, 0, 1, 3, 4);
 			
-      GC.Collect();
-      GC.Collect();
-
       dialog.ShowAll();
       return DialogRun();
     }
@@ -119,7 +110,7 @@ namespace Gimp.ncp
       _preview.GetSize(out width, out height);
 
       byte[] buffer = new byte[width * height * 3];
-      byte[] dest = new byte[3]; // {100, 100, 150};
+      byte[] dest = new byte[3];
       for (int y = 0; y < height; y++)
 	{
 	int y_orig = _height * y / height;

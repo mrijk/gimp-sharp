@@ -26,7 +26,10 @@ namespace Gimp.PicturePackage
     int _resolution = 72;
 
     [SaveAttribute]
-    uint _units = 0;		// Fix me: should become an enum
+    int _units = 0;		// Fix me: should become an enum
+
+    [SaveAttribute]
+    int _colorMode = 1;		// ColorMode.COLOR;
 
     [SaveAttribute]
     string _label = "";
@@ -273,6 +276,11 @@ namespace Gimp.PicturePackage
 	composed.Flatten();
 	}
 
+      if (_colorMode == 0) // ColorMode.GRAY)
+	{
+	composed.ConvertGrayscale();
+	}
+
       new Display(composed);
       Display.DisplaysFlush();
     }
@@ -311,10 +319,16 @@ namespace Gimp.PicturePackage
       get {return _resolution;}
     }
 
-    public uint Units
+    public int Units
     {
       set {_units = value;}
       get {return _units;}
+    }
+
+    public int ColorMode
+    {
+      set {_colorMode = value;}
+      get {return _colorMode;}
     }
 
     public bool Flatten

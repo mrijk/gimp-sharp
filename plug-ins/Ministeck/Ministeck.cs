@@ -12,8 +12,7 @@ namespace Gimp.Ministeck
 
       [SaveAttribute]
       int _size = 16;
-
-      // [SaveAttribute]
+      [SaveAttribute]
       RGB _color = new RGB(0, 0, 0);
 
       [STAThread]
@@ -67,9 +66,6 @@ namespace Gimp.Ministeck
 	table.AttachAligned(0, 0, "_Size:", 0.0, 0.5, size, 2, true);
 	size.ValueChanged += new EventHandler(SizeChanged);
 
-	// GC.Collect();
-	// GC.Collect();
-
 	_colorButton = new GimpColorButton(
 	  "", 16, 16, _color.GimpRGB, ColorAreaType.COLOR_AREA_FLAT);
 	_colorButton.Update = true;
@@ -99,8 +95,8 @@ namespace Gimp.Ministeck
 	_preview.GetSize(out width, out height);
 	Image clone = new Image(_image);
 	clone.Crop(width, height, x, y);
-	
-	DoSomething(clone, clone.ActiveDrawable);
+
+	RenderMinisteck(clone, clone.ActiveDrawable, true);
 	PixelRgn rgn = new PixelRgn(clone.ActiveDrawable, 0, 0, width, height, 
 				    false, false);
 	_preview.DrawRegion(rgn);
@@ -108,7 +104,7 @@ namespace Gimp.Ministeck
 	clone.Delete();
       }
 
-      override protected void DoSomething(Image image, Drawable drawable)
+      void RenderMinisteck(Image image, Drawable drawable, bool preview)
       {
 	image.UndoGroupStart();
 	RunProcedure("plug_in_pixelize", image, drawable, _size);
@@ -143,7 +139,10 @@ namespace Gimp.Ministeck
 	shapes.Add(new CornerShape());
 	shapes.Add(new OneByOneShape());
 
-	Progress progress = new Progress("Ministeck...");
+	Progress progress = null;
+	if (!preview)
+	  progress = new Progress("Ministeck...");
+
 	for (int y = 0; y < height; y++)
 	  {
 	  for (int x = 0; x < width; x++)
@@ -163,7 +162,8 @@ namespace Gimp.Ministeck
 		}
 	      }
 	    }
-	  progress.Update((double) y / height);
+	  if (!preview)
+	    progress.Update((double) y / height);
 	  }
 	
 	painter.Destroy();
@@ -174,7 +174,13 @@ namespace Gimp.Ministeck
 	drawable.Flush();
 	drawable.Update(0, 0, drawable.Width, drawable.Height);
 
-	Display.DisplaysFlush();
+	if (!preview)
+	  Display.DisplaysFlush();
+      }
+
+      override protected void DoSomething(Image image, Drawable drawable)
+      {
+	RenderMinisteck(image, drawable, false);
       }
     }
 }

@@ -40,12 +40,13 @@ namespace Gimp.PicturePackage
 
       OptionMenu units = CreateOptionMenu("pixels/inch", "pixels/cm",
 					  "pixels/mm");
-      units.SetHistory(parent.Units);
+      units.SetHistory((uint) parent.Units);
       units.Changed += new EventHandler(OnUnitsChanged);
       Table.Attach(units, 2, 3, 2, 3);	
 
       OptionMenu mode = CreateOptionMenu("Grayscale", "RGB Color");
-      mode.SetHistory(1);
+      mode.SetHistory((uint) _parent.ColorMode);
+      mode.Changed += new EventHandler(OnModeChanged);
       Table.AttachAligned(0, 3, "_Mode:", 0.0, 0.5, mode, 2, false);
 
       CheckButton flatten = new CheckButton("Flatten All Layers");
@@ -98,6 +99,11 @@ namespace Gimp.PicturePackage
     void OnUnitsChanged (object o, EventArgs args) 
     {
       _parent.Resolution = (o as OptionMenu).History;
+    }
+
+    void OnModeChanged (object o, EventArgs args) 
+    {
+      _parent.ColorMode = (o as OptionMenu).History;
     }
 
     void FlattenToggled (object sender, EventArgs args)

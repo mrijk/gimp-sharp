@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 namespace Gimp
   {
     [Serializable]
-    public class RGB : ISerializable
+    public class RGB
     {
       GimpRGB _rgb = new GimpRGB();
 
@@ -27,12 +27,6 @@ namespace Gimp
       public GimpRGB GimpRGB
       {
 	get {return _rgb;}
-      }
-
-      public void GetObjectData(SerializationInfo info, 
-				StreamingContext context)
-      {
-	Console.WriteLine("Fixme: serialize RGB!");
       }
 
       public void GetUChar(out byte red, out byte green, out byte blue)

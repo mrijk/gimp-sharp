@@ -33,6 +33,12 @@ namespace Gimp
 	    }
       }
 
+      public void Append(string label, int value)
+      {
+	gimp_int_combo_box_append(Handle, IntStoreColumns.LABEL, label,
+				  IntStoreColumns.VALUE, value, -1);
+      }
+
       [Signal("changed")]
       public event EventHandler Changed
       {
@@ -91,5 +97,12 @@ namespace Gimp
       [DllImport("libgimpwidgets-2.0.so")]
       extern static bool gimp_int_combo_box_set_active (IntPtr combo_box,
 							int value);
+      [DllImport("libgimpwidgets-2.0.so")]
+      extern static bool gimp_int_combo_box_append (IntPtr combo_box,
+						    IntStoreColumns col1,
+						    string label,
+						    IntStoreColumns col2,
+						    int value,
+						    int minus_one);
     }
   }
