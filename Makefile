@@ -65,6 +65,7 @@ EXTRADIST =		\
 	NEWS		\
 	TODO		\
 	Makefile	\
+	Ministeck	\
 	ncp		\
 	PicturePackage	\
 	picture-package.xml	\
