@@ -34,7 +34,6 @@ namespace Gimp.PicturePackage
       Gtk.Drag.DestSet(this, DestDefaults.All, targets, 
 		       DragAction.Copy | DragAction.Move);
       DragDataReceived += new DragDataReceivedHandler(OnDragDataReceived);
-      DragDrop += new DragDropHandler(OnDragDrop);
 
       Events = EventMask.ButtonPressMask;
     }
@@ -124,12 +123,9 @@ namespace Gimp.PicturePackage
 
     void OnDragDataReceived(object o, DragDataReceivedArgs args)
     {
-      Console.WriteLine("OnDragDataReceived");
-    }
-
-    void OnDragDrop(object o, DragDropArgs args)
-    {
-      Console.WriteLine("OnDragDataReceived");
+      SelectionData data = args.SelectionData;
+      string text = (new System.Text.ASCIIEncoding()).GetString(data.Data);
+      Console.WriteLine("OnDragDataReceived " + text);
     }
   }
   }
