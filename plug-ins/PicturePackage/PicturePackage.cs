@@ -14,6 +14,7 @@ namespace Gimp.PicturePackage
 
     ProviderFactory _loader;
 
+    SourceFrame _sf;
     DocumentFrame _df;
     Preview _preview;
     Thread _renderThread;
@@ -23,6 +24,9 @@ namespace Gimp.PicturePackage
 
     [SaveAttribute]
     int _resolution = 72;
+
+    [SaveAttribute]
+    uint _units = 0;		// Fix me: should become an enum
 
     [SaveAttribute]
     string _label = "";
@@ -72,8 +76,8 @@ namespace Gimp.PicturePackage
       VBox vbox = new VBox(false, 12);
       hbox.PackStart(vbox, false, false, 0);
 
-      SourceFrame sf = new SourceFrame(this);
-      vbox.PackStart(sf, false, false, 0);
+      _sf = new SourceFrame(this);
+      vbox.PackStart(_sf, false, false, 0);
 
       _df = new DocumentFrame(this, _layoutSet);
       vbox.PackStart(_df, false, false, 0);
@@ -118,7 +122,17 @@ namespace Gimp.PicturePackage
 
     public void Render()
     {
-      if (_loader != null) // Hack
+      if (_loader == null)
+	{
+	Image image = _sf.Image;
+
+	if (image != null)
+	  {
+	  _loader = new FrontImageProviderFactory(image);
+	  }
+	}
+
+      if (_loader != null)
 	{
 	_preview.Clear();
 	_layout.Render(_loader, _preview.GetRenderer(_layout));
@@ -294,6 +308,12 @@ namespace Gimp.PicturePackage
     {
       set {_resolution = value;}
       get {return _resolution;}
+    }
+
+    public uint Units
+    {
+      set {_units = value;}
+      get {return _units;}
     }
 
     public bool Flatten

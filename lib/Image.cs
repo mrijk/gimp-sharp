@@ -36,9 +36,12 @@ namespace Gimp
 	return (imageID >= 0) ? new Image(imageID) : null;
       }
 
-      public bool Delete()
+      public void Delete()
       {
-	return gimp_image_delete(_imageID);
+	if (!gimp_image_delete(_imageID))
+	  {
+	  throw new Exception();
+	  }
       }
        
       public ImageBaseType BaseType
@@ -56,40 +59,60 @@ namespace Gimp
 	get {return gimp_image_height(_imageID);}
       }
        
-      public bool FreeShadow()
+      public void FreeShadow()
       {
-	return gimp_image_free_shadow(_imageID);
+	if (!gimp_image_free_shadow(_imageID))
+	  {
+	  throw new Exception();
+	  }
       }
 
-      public bool Flip(OrientationType flip_type)
+      public void Flip(OrientationType flip_type)
       {
-	return gimp_image_flip(_imageID, flip_type);
+	if (!gimp_image_flip(_imageID, flip_type))
+	  {
+	  throw new Exception();
+	  }
       }
 
-      public bool Rotate(RotationType rotate_type)
+      public void Rotate(RotationType rotate_type)
       {
-	return gimp_image_rotate(_imageID, rotate_type);
+	if (!gimp_image_rotate(_imageID, rotate_type))
+	  {
+	  throw new Exception();
+	  }
       }
 
-      public bool Resize(int new_width, int new_height, int offx, int offy)
+      public void Resize(int new_width, int new_height, int offx, int offy)
       {
-	return gimp_image_resize (_imageID, new_width, new_height, offx, offy);
+	if (!gimp_image_resize (_imageID, new_width, new_height, offx, offy))
+	  {
+	  throw new Exception();
+	  }
       }
 
-      public bool ResizeToLayers()
+      public void ResizeToLayers()
       {
-	return gimp_image_resize_to_layers (_imageID);
+	if (!gimp_image_resize_to_layers (_imageID))
+	  {
+	  throw new Exception();
+	  }
       }
        
-      public bool Scale(int new_width, int new_height)
+      public void Scale(int new_width, int new_height)
       {
-	return gimp_image_scale(_imageID, new_width, new_height);
+	if (!gimp_image_scale(_imageID, new_width, new_height))
+	  {
+	  throw new Exception();
+	  }
       }
        
-      public bool Crop(int new_width, int new_height,
-		       int offx, int offy)
+      public void Crop(int new_width, int new_height, int offx, int offy)
       {
-	return gimp_image_crop(_imageID, new_width, new_height, offx, offy);
+	if (!gimp_image_crop(_imageID, new_width, new_height, offx, offy))
+	  {
+	  throw new Exception();
+	  }
       }
               
       public Drawable ActiveDrawable
@@ -97,34 +120,52 @@ namespace Gimp
 	get {return new Drawable(gimp_image_get_active_drawable (_imageID));}
       }
 
-      public bool AddLayer(Layer layer, int position)
+      public void AddLayer(Layer layer, int position)
       {
-	return gimp_image_add_layer(_imageID, layer.ID, position);
+	if (!gimp_image_add_layer(_imageID, layer.ID, position))
+	  {
+	  throw new Exception();
+	  }
       }
 
-      public bool RemoveLayer(Layer layer)
+      public void RemoveLayer(Layer layer)
       {
-	return gimp_image_remove_layer(_imageID, layer.ID);
+	if (!gimp_image_remove_layer(_imageID, layer.ID))
+	  {
+	  throw new Exception();
+	  }
       }
 
-      public bool RaiseLayer(Layer layer)
+      public void RaiseLayer(Layer layer)
       {
-	return gimp_image_raise_layer(_imageID, layer.ID);
+	if (!gimp_image_raise_layer(_imageID, layer.ID))
+	  {
+	  throw new Exception();
+	  }
       }
        
-      public bool LowerLayer(Layer layer)
+      public void LowerLayer(Layer layer)
       {
-	return gimp_image_lower_layer(_imageID, layer.ID);
+	if (!gimp_image_lower_layer(_imageID, layer.ID))
+	  {
+	  throw new Exception();
+	  }
       }
 
-      public bool RaiseLayerToTop(Layer layer)
+      public void RaiseLayerToTop(Layer layer)
       {
-	return gimp_image_raise_layer(_imageID, layer.ID);
+	if (!gimp_image_raise_layer(_imageID, layer.ID))
+	  {
+	  throw new Exception();
+	  }
       }
        
-      public bool LowerLayerToBottom(Layer layer)
+      public void LowerLayerToBottom(Layer layer)
       {
-	return gimp_image_lower_layer(_imageID, layer.ID);
+	if (!gimp_image_lower_layer(_imageID, layer.ID))
+	  {
+	  throw new Exception();
+	  }
       }
 #if false
       public bool AddChannel(Channel channel, int position)
@@ -433,7 +474,8 @@ namespace Gimp
       [DllImport("libgimp-2.0.so")]
       static extern string gimp_image_get_filename (Int32 image_ID);
       [DllImport("libgimp-2.0.so")]
-      static extern bool gimp_image_set_filename (Int32 image_ID, string filename);
+      static extern bool gimp_image_set_filename (Int32 image_ID, 
+						  string filename);
       [DllImport("libgimp-2.0.so")]
       static extern string gimp_image_get_name (Int32 image_ID);
       [DllImport("libgimp-2.0.so")]

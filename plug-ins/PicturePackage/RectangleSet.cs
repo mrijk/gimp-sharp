@@ -50,7 +50,15 @@ namespace Gimp.PicturePackage
 	    {
 	    break;
 	    }
-	  rectangle.Render(provider.GetImage(), renderer);
+	  Image image = provider.GetImage();
+	  if (image == null)
+	    {
+	    Console.WriteLine("Couldn't load image!");
+	    }
+	  else
+	    {
+	    rectangle.Render(image, renderer);
+	    }
 	  factory.Cleanup(provider);
 	  }
 	else

@@ -14,6 +14,6 @@ example in /usr/local/lib/gimp/2.0/plug-ins/
 
 At the moment Gimp# will install 3 plug-ins for you:
 
+/Xtns/Picture Package
 /Filters/Artistic/Ministeck
 /Filters/Render/NCP
-/Filters/Render/Picture Package

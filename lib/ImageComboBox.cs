@@ -16,7 +16,8 @@ namespace Gimp
       {
 	get 
 	  {
-	  return new Image(base.Active);
+	  int imageID = base.Active;
+	  return (imageID == -1) ? null : new Image(imageID);
 	  }
       }
 

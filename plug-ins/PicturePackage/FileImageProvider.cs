@@ -31,8 +31,11 @@ namespace Gimp.PicturePackage
 
     override public void Release()
     {
-      _image.Delete();
-      _image = null;
+      if (_image != null)
+	{
+	_image.Delete();
+	_image = null;
+	}
     }
   }
   }

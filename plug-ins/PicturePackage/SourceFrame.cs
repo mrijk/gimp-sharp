@@ -37,10 +37,12 @@ namespace Gimp.PicturePackage
 
       _include = new CheckButton("_Include All Subfolders");
       _include.Active = _recursive;
+      _include.Sensitive = false;
       _include.Toggled += new EventHandler(OnIncludeToggled);
       Table.Attach(_include, 1, 2, 2, 3);
 
       SetFileEntry(false);
+      _choose.Sensitive = false;
     }
 
     void SetFileEntry(bool isDir)
@@ -116,6 +118,11 @@ namespace Gimp.PicturePackage
 	{
 	_parent.Loader = new DirImageProviderFactory(directory, _recursive);
 	}
+    }
+
+    public Image Image
+    {
+      get {return _imageBox.Active;}
     }
   }
   }

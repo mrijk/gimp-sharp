@@ -40,6 +40,8 @@ namespace Gimp.PicturePackage
 
       OptionMenu units = CreateOptionMenu("pixels/inch", "pixels/cm",
 					  "pixels/mm");
+      units.SetHistory(parent.Units);
+      units.Changed += new EventHandler(OnUnitsChanged);
       Table.Attach(units, 2, 3, 2, 3);	
 
       OptionMenu mode = CreateOptionMenu("Grayscale", "RGB Color");
@@ -91,6 +93,11 @@ namespace Gimp.PicturePackage
     void OnResolutionChanged (object o, EventArgs args) 
     {
       _parent.Resolution = (o as SpinButton).ValueAsInt;
+    }
+
+    void OnUnitsChanged (object o, EventArgs args) 
+    {
+      _parent.Resolution = (o as OptionMenu).History;
     }
 
     void FlattenToggled (object sender, EventArgs args)
