@@ -1,11 +1,20 @@
 using System;
+using System.IO;
+using System.Xml;
 
 namespace Gimp.SliceTool
 {
   public class HorizontalSlice : Slice
   {
-    public HorizontalSlice(Slice left, Slice right, int y) : 
-      base(left, right, y)
+    public HorizontalSlice(Slice left, Slice right, int y) : base(left, right, y)
+    {
+    }
+
+    public HorizontalSlice()
+    {
+    }
+
+    public HorizontalSlice(int index) : base(index)
     {
     }
 
@@ -40,9 +49,14 @@ namespace Gimp.SliceTool
 
     override public bool PointOn(int x, int y)
     {
-      return x >= X1 && x <= X2 && Math.Abs(y - Y) < 5;
+       return x >= X1 && x <= X2 && Math.Abs(y - Y) < 5;
     }
  
+    override public void Save(StreamWriter w)
+    {
+      Save(w, "horizontal");
+    }
+
     public int Y
     {
       get {return Position;}

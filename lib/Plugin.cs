@@ -303,6 +303,11 @@ namespace Gimp
 #endif
     }
 
+    protected GimpDialog Dialog
+    {
+      get {return _dialog;}
+    }
+
     void CallDoSomething()
     {
       int m_start = Environment.TickCount;

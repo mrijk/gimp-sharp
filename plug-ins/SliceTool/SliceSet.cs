@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.IO;
 
 namespace Gimp.SliceTool
 {
@@ -24,6 +25,11 @@ namespace Gimp.SliceTool
     public Slice this[int index]
     {
       get {return (Slice) _set[index];}
+    }
+
+    public void Clear()
+    {
+      _set.Clear();
     }
 
     public void Sort()
@@ -68,6 +74,31 @@ namespace Gimp.SliceTool
     public void Remove(Slice slice)
     {
       _set.Remove(slice);
+    }
+
+    public void SetIndex()
+    {
+      int index = 0;
+      foreach (Slice slice in _set)
+	{
+	slice.Index = index++;
+	}
+    }
+
+    public void Save(StreamWriter w)
+    {
+      foreach (Slice slice in _set)
+	{
+	slice.Save(w);
+	}
+    }
+
+    public void Resolve(SliceSet slices)
+    {
+      foreach (Slice slice in _set)
+	{
+	slice.Resolve(slices);
+	}
     }
   }
   }

@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Xml;
 
 namespace Gimp.SliceTool
 {
@@ -190,6 +191,72 @@ namespace Gimp.SliceTool
     public Rectangle Selected
     {
       get {return _rectangles.Selected;}
+    }
+
+    public void LoadSettings(string filename)
+    {
+      XmlDocument doc = new XmlDocument();
+      doc.Load(filename);
+
+      _horizontalSlices.Clear();
+      _verticalSlices.Clear();
+      _rectangles.Clear();
+
+      XmlElement root = doc.DocumentElement;
+      XmlNodeList nodeList = root.SelectNodes("/settings/slices/slice");
+
+      foreach (XmlNode node in nodeList)
+	{
+	XmlAttributeCollection attributes = node.Attributes;
+	XmlAttribute type = (XmlAttribute) attributes.GetNamedItem("type");
+
+	if (type.Value == "horizontal")
+	  {
+	  HorizontalSlice slice = new HorizontalSlice();
+	  slice.Load(node);
+	  _horizontalSlices.Add(slice);
+	  }
+	else
+	  {
+	  VerticalSlice slice = new VerticalSlice();
+	  slice.Load(node);
+	  _verticalSlices.Add(slice);
+	  }
+	}
+
+      nodeList = root.SelectNodes("/settings/rectangles/rectangle");
+
+      foreach (XmlNode node in nodeList)
+	{
+	_rectangles.Add(new Rectangle(node));
+	}
+
+      _verticalSlices.Resolve(_horizontalSlices);
+      _horizontalSlices.Resolve(_verticalSlices);
+      _rectangles.Resolve(_horizontalSlices, _verticalSlices);
+    }
+
+    public void SaveSettings(string filename)
+    {
+      _horizontalSlices.SetIndex();
+      _verticalSlices.SetIndex();
+
+      FileStream fs = new FileStream(filename, FileMode.Create,
+				     FileAccess.Write);
+      StreamWriter w = new StreamWriter(fs);
+
+      w.WriteLine("<settings>");
+      w.WriteLine("<slices>");
+      _horizontalSlices.Save(w);
+      _verticalSlices.Save(w);
+      w.WriteLine("</slices>");
+      w.WriteLine("");
+      w.WriteLine("<rectangles>");
+      _rectangles.Save(w);
+      w.WriteLine("</rectangles>");
+      w.WriteLine("</settings>");
+
+      w.Close();
     }
   }
   }

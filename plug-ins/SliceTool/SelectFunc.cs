@@ -15,7 +15,6 @@ namespace Gimp.SliceTool
     {
       _parent = parent;
       _sliceData = sliceData;
-      _renderer = preview.Renderer;
     }
 
     override protected void OnPress(int x, int y) 
@@ -34,6 +33,7 @@ namespace Gimp.SliceTool
 	}
       else if (!slice.Locked)
 	{
+	_renderer = _preview.Renderer;
 	_slice = slice;
 	_renderer.Function = Gdk.Function.Equiv;
 	AddReleaseEvent();

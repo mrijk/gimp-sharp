@@ -3,11 +3,12 @@ Gimp#
 - I have only tested my code with Gimp 2.1.x and Gimp 2.2-pre. Gimp#
   will NOT work with Gimp 2.0.x!
 
-At the moment Gimp# will install 3 plug-ins for you:
+At the moment Gimp# will install 4 plug-ins for you:
 
+/Xtns/Picture Package
 /Filters/Artistic/Ministeck
 /Filters/Render/NCP
-/Filters/Render/Picture Package
+/Filters/Web/Slice Tool
 
 - Gimp# is an API wrapper around GIMP, written in C#. However, it's
 not just a wrapper. It also adds a thin layer which adds C# specific

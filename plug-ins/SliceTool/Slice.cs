@@ -1,4 +1,6 @@
 using System;
+using System.IO;
+using System.Xml;
 
 namespace Gimp.SliceTool
 {
@@ -10,13 +12,22 @@ namespace Gimp.SliceTool
     int _index;
     bool _locked;
     
-    public Slice(Slice begin, Slice end, int position)
+    protected Slice(Slice begin, Slice end, int position)
     {
       _begin = begin;
       _end = end;
       _position = position;
     }
     
+    protected Slice()
+    {
+    }
+
+    protected Slice(int index)
+    {
+      _index = index;
+    }
+
     public int CompareTo(object obj)
     {
       Slice slice = obj as Slice;
@@ -29,6 +40,7 @@ namespace Gimp.SliceTool
     abstract public Rectangle SliceRectangle(Rectangle rectangle);
     abstract public void SetPosition(int x, int y);
     abstract public bool PointOn(int x, int y);
+    abstract public void Save(StreamWriter w);
     
     public int Index
     {
@@ -56,6 +68,33 @@ namespace Gimp.SliceTool
     {
       get {return _locked;}
       set {_locked = value;}
+    }
+
+    protected void Save(StreamWriter w, string type)
+    {
+      w.WriteLine("\t<slice type=\"{0}\" position=\"{1}\" index=\"{2}\" begin=\"{3}\" end=\"{4}\"/>", 
+		  type, Position, Index, _begin.Index, _end.Index);
+    }
+
+    public void Load(XmlNode slice)
+    {
+      _position = GetValueOfNode(slice, "position");
+      _index = GetValueOfNode(slice, "index");
+      _begin = new HorizontalSlice(GetValueOfNode(slice, "begin"));
+      _end = new HorizontalSlice(GetValueOfNode(slice, "end"));
+    }
+
+    int GetValueOfNode(XmlNode slice, string item)
+    {
+      XmlAttributeCollection attributes = slice.Attributes;
+      XmlAttribute position = (XmlAttribute) attributes.GetNamedItem(item);
+      return (int) Convert.ToDouble(position.Value);
+    }
+
+    public void Resolve(SliceSet slices)
+    {
+      _begin = slices[_begin.Index];
+      _end = slices[_end.Index];
     }
   }
   }

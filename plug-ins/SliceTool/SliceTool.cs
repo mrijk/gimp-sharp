@@ -63,11 +63,13 @@ namespace Gimp.SliceTool
 
       CreateStockIcons();
 
-      Dialog dialog = DialogNew("Slice Tool 0.1", "SliceTool",
+      Dialog dialog = DialogNew("Slice Tool", "SliceTool",
 				IntPtr.Zero, 0, null, "SliceTool",
 				Stock.SaveAs, (Gtk.ResponseType) 0,
 				Stock.Save, (Gtk.ResponseType) 1,
 				Stock.Close, ResponseType.Close);
+
+      SetTitle(null);
 
       VBox vbox = new VBox(false, 12);
       vbox.BorderWidth = 12;
@@ -103,6 +105,17 @@ namespace Gimp.SliceTool
       _format.Extension = System.IO.Path.GetExtension(_image.Name).ToLower();
       vbox.PackStart(_format, false, true, 0);
 
+      vbox = new VBox(false, 12);
+      hbox.PackStart(vbox, false, true, 0);
+
+      Button save = new Button("Save Settings...");
+      save.Clicked += new EventHandler(OnSaveSettings);
+      vbox.PackStart(save, false, true, 0);
+
+      Button load = new Button("Load Settings...");
+      load.Clicked += new EventHandler(OnLoadSettings);
+      vbox.PackStart(load, false, true, 0);
+
       _sliceData.Init(_drawable);
       GetRectangleData(_sliceData.Selected);
 
@@ -112,13 +125,24 @@ namespace Gimp.SliceTool
       return DialogRun();
     }
 
+    // Fix me: move this to Plugin class?!
+    void SetTitle(string filename)
+    {
+      _filename = filename;
+      string p = (filename == null) 
+	? "<Untitled>" : System.IO.Path.GetFileName(filename);
+      string title = string.Format("Slice Tool 0.2 - {0}", p);
+      Dialog.Title = title;
+    }
+
     void SaveBlank(string path)
     {
       Assembly assembly = Assembly.GetExecutingAssembly();
       Stream input = assembly.GetManifestResourceStream("blank.png");
       BinaryReader reader = new BinaryReader(input);
       byte[] buffer = reader.ReadBytes((int) input.Length);
-      FileStream fs = new FileStream(path + "/blank.png", FileMode.Create, FileAccess.Write);
+      FileStream fs = new FileStream(path + "/blank.png", FileMode.Create, 
+				     FileAccess.Write);
       BinaryWriter writer = new BinaryWriter(fs);
       writer.Write(buffer);
       writer.Close();
@@ -150,7 +174,7 @@ namespace Gimp.SliceTool
     {
       if (args.ResponseId == ResponseType.Ok)
 	{
-	_filename = (o as FileSelection).Filename;
+	SetTitle((o as FileSelection).Filename);
 	Save();
 	}
     }
@@ -281,6 +305,39 @@ namespace Gimp.SliceTool
 	// Fix me: do something
 	}
       dialog.Destroy();
+    }
+
+    void OnSaveSettings(object o, EventArgs args)
+    {
+      FileSelection fs = new FileSelection("Save Settings");
+      fs.Response += new ResponseHandler(SaveSettings);
+      fs.Run();
+      fs.Hide();
+    }
+
+    void SaveSettings (object o, ResponseArgs args)
+    {
+      if (args.ResponseId == ResponseType.Ok)
+	{
+	_sliceData.SaveSettings((o as FileSelection).Filename);
+	}
+    }
+
+    void OnLoadSettings(object o, EventArgs args)
+    {
+      FileSelection fs = new FileSelection("Load Settings");
+      fs.Response += new ResponseHandler(LoadSettings);
+      fs.Run();
+      fs.Destroy();
+    }
+
+    void LoadSettings (object o, ResponseArgs args)
+    {
+      if (args.ResponseId == ResponseType.Ok)
+	{
+	_sliceData.LoadSettings((o as FileSelection).Filename);
+	Redraw();
+	}
     }
 
     void AddStockIcon(IconFactory factory, string stockId, string filename)
