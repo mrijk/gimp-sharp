@@ -1,17 +1,39 @@
-<picture-package>
+﻿<picture-package>
+
+<layout name ="(9)2.5x3.25" units="inches" width="8" height="10">
+	<picture x="0.0" y="0.0" width="2.5" height="3.25"/>
+	<picture x="2.5" y="0.0" width="2.5" height="3.25"/>
+	<picture x="5.0" y="0.0" width="2.5" height="3.25"/>
+	<picture x="0.0" y="3.25" width="2.5" height="3.25"/>
+	<picture x="2.5" y="3.25" width="2.5" height="3.25"/>
+	<picture x="5" y="3.25" width="2.5" height="3.25"/>
+	<picture x="0.0" y="6.5" width="2.5" height="3.25"/>
+	<picture x="2.5" y="6.5" width="2.5" height="3.25"/>
+	<picture x="5" y="6.5" width="2.5" height="3.25"/>
+</layout>
+
+<layout name ="(4)2.5x3.5 (8)2x2.5" units="pixels" width="576" height="720">
+	<picture x="36" y="0" width="252" height="180"/>
+	<picture x="36" y="180" width="252" height="180"/>
+	<picture x="288" y="0" width="252" height="180"/>
+	<picture x="288" y="180" width="252" height="180"/>
+	<picture x="0" y="360" width="144" height="180"/>
+	<picture x="0" y="540" width="144" height="180"/>
+	<picture x="144" y="360" width="144" height="180"/>
+	<picture x="144" y="540" width="144" height="180"/>
+	<picture x="288" y="360" width="144" height="180"/>
+	<picture x="288" y="540" width="144" height="180"/>
+	<picture x="432" y="360" width="144" height="180"/>
+	<picture x="432" y="540" width="144" height="180"/>
+</layout>
 
 <layout name ="(2)5x7" units="inches" width="8" height="10">
 	<picture x="0.5" y="0" width="7" height="5"/>
 	<picture x="0.5" y="5" width="7" height="5"/>
 </layout>
 
-<layout name ="(1)5x7 (2)2.5x3.5 (4)2x2.5" units="pixels" width="576" 
-	height="720">
+<layout name ="(1)5x7 (2)2.5x3.5 (4)2x2.5" units="pixels" width="576" height="720">
 	<picture x="36" y="0" width="504" height="360"/>
-</layout>
-
-<layout name ="temp" units="pixels" width="576" 
-	height="720">
 	<picture x="36" y="360" width="252" height="180"/>
 	<picture x="36" y="540" width="252" height="180"/>
 	<picture x="288" y="360" width="144" height="180"/>
@@ -20,22 +42,123 @@
 	<picture x="432" y="540" width="144" height="180"/>
 </layout>
 
+<layout name="(2)8x10" unit="inches" width="10" height="16">
+	<picture x="0" y="0" width="10" height="8"/>
+	<picture x="0" y="8" width="10" height="8"/>
+</layout>
+
 <layout name="(1)5x7 (2)3.5x5" unit="inches" width="8" height="10">
 	<picture x="0" y="0" width="7" height="5"/>
 	<picture x="0" y="5" width="3.5" height="5"/>
 	<picture x="3.5" y="5" width="3.5" height="5"/>
 </layout>
 
-<layout name ="(1)5x7 (8)2.5x5" units="inches">
+<layout name ="(2)4x5 (8)2x2.5" units="pixels" width="576" height="720">
+	<picture x="0" y="0" width="288" height="360"/>
+	<picture x="0" y="360" width="288" height="360"/>
+	<picture x="288" y="0" width="144" height="180"/>
+	<picture x="288" y="180" width="144" height="180"/>
+	<picture x="288" y="360" width="144" height="180"/>
+	<picture x="288" y="540" width="144" height="180"/>
+	<picture x="432" y="0" width="144" height="180"/>
+	<picture x="432" y="180" width="144" height="180"/>
+	<picture x="432" y="360" width="144" height="180"/>
+	<picture x="432" y="540" width="144" height="180"/>
 </layout>
 
-<layout name ="(4)4x5" units="inches">
+<layout name ="(2)4x5 (2)2.5x3.5 (4)2x2.5" units="pixels" width="576" height="720">
+	<picture x="0" y="0" width="288" height="360"/>
+	<picture x="0" y="360" width="288" height="360"/>
+	<picture x="288" y="0" width="252" height="180"/>
+	<picture x="288" y="180" width="252" height="180"/>
+	<picture x="288" y="360" width="144" height="180"/>
+	<picture x="288" y="540" width="144" height="180"/>
+	<picture x="432" y="360" width="144" height="180"/>
+	<picture x="432" y="540" width="144" height="180"/>
 </layout>
 
-<layout name ="(2)4x5 (4)2.5x3.5" units="inches">
+<layout name ="(4)4x5" units="pixels" width="576" height="720">
+	<picture x="0" y="0" width="288" height="360"/>
+	<picture x="288" y="0" width="288" height="360"/>
+	<picture x="0" y="360" width="288" height="360"/>
+	<picture x="288" y="360" width="288" height="360"/>
 </layout>
 
-<layout name ="(4)3.5x5" units="inches">
+<layout name ="(1)5x7 (4)2.5x3.5" units="pixels" width="576" height="720">
+	<picture x="36" y="0" width="504" height="360"/>
+	<picture x="36" y="360" width="252" height="180"/>
+	<picture x="36" y="540" width="252" height="180"/>
+	<picture x="288" y="360" width="252" height="180"/>
+	<picture x="288" y="540" width="252" height="180"/>
+</layout>
+
+<layout name ="(1)5x7 (4)2.5x3.25 (2)1.5x2" units="inches" width="8" height="10">
+	<picture x="0" y="0" width="7" height="5"/>
+	<picture x="0" y="5" width="3.25" height="2.5"/>
+	<picture x="3.25" y="5" width="3.25" height="2.5"/>
+	<picture x="0" y="7.5" width="3.25" height="2.5"/>
+	<picture x="3.25" y="7.5" width="3.25" height="2.5"/>
+	<picture x="6.5" y="5" width="1.5" height="2"/>
+	<picture x="6.5" y="7.5" width="1.5" height="2"/>
+</layout>
+
+<layout name ="(1)5x7 (8)2x2.5" units="pixels" width="576" height="720">
+	<picture x="36" y="0" width="504" height="360"/>
+	<picture x="0" y="360" width="144" height="180"/>
+	<picture x="0" y="540" width="144" height="180"/>
+	<picture x="144" y="360" width="144" height="180"/>
+	<picture x="144" y="540" width="144" height="180"/>
+	<picture x="288" y="360" width="144" height="180"/>
+	<picture x="288" y="540" width="144" height="180"/>
+	<picture x="432" y="360" width="144" height="180"/>
+	<picture x="432" y="540" width="144" height="180"/>
+</layout>
+
+<layout name ="(2)5x7 (6)3x3.5 (8)2x2.5" units="inches" width="11" height="17">
+	<picture x="0.5" y="0" width="5" height="7"/>
+	<picture x="5.5" y="0" width="5" height="7"/>
+	<picture x="0" y="7" width="3.5" height="3"/>
+	<picture x="3.5" y="7" width="3.5" height="3"/>
+	<picture x="7" y="7" width="3.5" height="3"/>
+	<picture x="0" y="10" width="3.5" height="3"/>
+	<picture x="3.5" y="10" width="3.5" height="3"/>
+	<picture x="7" y="10" width="3.5" height="3"/>
+	<picture x="0" y="13" width="2.5" height="2"/>
+	<picture x="2.5" y="13" width="2.5" height="2"/>
+	<picture x="5" y="13" width="2.5" height="2"/>
+	<picture x="7.5" y="13" width="2.5" height="2"/>
+	<picture x="0" y="15" width="2.5" height="2"/>
+	<picture x="2.5" y="15" width="2.5" height="2"/>
+	<picture x="5" y="15" width="2.5" height="2"/>
+	<picture x="7.5" y="15" width="2.5" height="2"/>
+</layout>
+
+<layout name ="(1)5x7 (4)3x5" units="inches" width="10" height="16">
+	<picture x="0" y="0.5" width="5" height="3"/>
+	<picture x="5" y="0.5" width="5" height="3"/>
+	<picture x="1.5" y="5.5" width="7" height="5"/>
+	<picture x="0" y="12.5" width="5" height="3"/>
+	<picture x="5" y="12.5" width="5" height="3"/>
+</layout>
+
+<layout name ="(2)4x5 (4)2.5x3.5" units="pixels" width="576" height="720">
+	<picture x="0" y="0" width="288" height="360"/>
+	<picture x="0" y="360" width="288" height="360"/>
+	<picture x="288" y="0" width="252" height="180"/>
+	<picture x="288" y="180" width="252" height="180"/>
+	<picture x="288" y="360" width="252" height="180"/>
+	<picture x="288" y="540" width="252" height="180"/>
+</layout>
+
+<layout name ="(4)3.5x5" units="inches" width="8" height="10">
+	<picture x="0" y="0" width="3.5" height="5"/>
+	<picture x="3.5" y="0" width="3.5" height="5"/>
+	<picture x="0" y="5" width="3.5" height="5"/>
+	<picture x="3.5" y="5" width="3.5" height="5"/>
+</layout>
+
+<layout name ="(1)10x13" units="inches" width="10" height="16">
+	<picture x="0" y="0" width="10" height="13"/>
 </layout>
 
 <layout name ="(20)2x2" units="inches" width="8" height="10">
@@ -61,7 +184,23 @@
 	<picture x="6" y="8" width="2" height="2"/>
 </layout>
 
-<layout name ="(16)2x2.5" units="inches">
+<layout name ="(16)2x2.5" units="pixels" width="576" height="720">
+	<picture x="0" y="0" width="144" height="180"/>
+	<picture x="0" y="180" width="144" height="180"/>
+	<picture x="0" y="360" width="144" height="180"/>
+	<picture x="0" y="540" width="144" height="180"/>
+	<picture x="144" y="0" width="144" height="180"/>
+	<picture x="144" y="180" width="144" height="180"/>
+	<picture x="144" y="360" width="144" height="180"/>
+	<picture x="144" y="540" width="144" height="180"/>
+	<picture x="288" y="0" width="144" height="180"/>
+	<picture x="288" y="180" width="144" height="180"/>
+	<picture x="288" y="360" width="144" height="180"/>
+	<picture x="288" y="540" width="144" height="180"/>
+	<picture x="432" y="0" width="144" height="180"/>
+	<picture x="432" y="180" width="144" height="180"/>
+	<picture x="432" y="360" width="144" height="180"/>
+	<picture x="432" y="540" width="144" height="180"/>
 </layout>
 
 <layout name ="(8)2.5x3.5" units="pixels" width="576" height="720">

@@ -3,12 +3,13 @@ all: PicturePackage.exe
 ASSEMBLIES = -r $(top_builddir)/lib/gimp-sharp.dll /pkg:gtk-sharp
 
 SOURCES =			\
+	Painter.cs		\
 	PicturePackage.cs	\
-	PP-Layout.cs		\
-	PP-LayoutSet.cs		\
-	PP-preview.cs		\
-	PP-Rectangle.cs		\
-	PP-RectangleSet.cs
+	Layout.cs		\
+	LayoutSet.cs		\
+	preview.cs		\
+	Rectangle.cs		\
+	RectangleSet.cs
 
 EXTRA_DIST = $(SOURCES) picture-package.xml
 
