@@ -28,7 +28,8 @@ SOURCES =			\
 	TableDialog.cs		\
 	VerticalSlize.cs
 
-EXTRA_DIST = $(SOURCES) SliceTool SliceTool.png blank.png stock-arrow.png
+EXTRA_DIST = $(SOURCES) SliceTool SliceTool.png blank.png stock-arrow.png \
+	javascript.html
 
 SliceTool.exe : $(SOURCES) SliceTool.png
 	$(CSC) $(SOURCES) /resource:SliceTool.png	\

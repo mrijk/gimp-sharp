@@ -1,10 +1,10 @@
-To install Gimp# you will need Mono. Gimp# will with GIMP 2.1.x, 
+To install Gimp# you will need Mono. Gimp# will workk with GIMP 2.1.x, 
 GIMP 2.2 (pre) and GIMP 2.3.x.
 
 Building Gimp# is easy:
 
 1) unpack the archive
-2) % cd gimp-sharp-0.6
+2) % cd gimp-sharp-0.7
 3) % make
 4) become root
 5) % make install
@@ -18,3 +18,6 @@ At the moment Gimp# will install 4 plug-ins for you:
 /Filters/Artistic/Ministeck
 /Filters/Render/NCP
 /Filters/Web/Slice Tool
+
+You will also get plug-ins to read wbmp (wireless bitmap) and
+KoaloaPaint (old CBM64 format) files.

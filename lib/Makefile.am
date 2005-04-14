@@ -40,6 +40,7 @@ SOURCES = AspectPreview.cs 	\
 	PaletteList.cs		\
 	ParamDef.cs		\
 	ParamDefList.cs		\
+	Parasite.cs		\
 	PersistentStorage.cs	\
 	PixelFetcher.cs		\
 	PixelRgn.cs		\
@@ -54,12 +55,16 @@ SOURCES = AspectPreview.cs 	\
 	ScrolledPreview.cs	\
 	Selection.cs		\
 	Tattoo.cs		\
+	Tile.cs			\
 	VoidObjectSignal.cs
 
 EXTRA_DIST = $(SOURCES)
 
 $(LIBRARY): $(SOURCES)
 	$(CSC) --target library $(ASSEMBLIES) $(SOURCES) -o $(LIBRARY)
+
+clean:
+	rm -f gimp-sharp.dll
 
 install:
 	$(INSTALL_DATA) $(LIBRARY) $(DESTDIR)/$(GIMPPLUGINDIR)

@@ -1769,7 +1769,7 @@ fi
 
 # Define the identity of the package.
  PACKAGE=gimp-sharp
- VERSION=0.6
+ VERSION=0.7
 
 
 cat >>confdefs.h <<_ACEOF

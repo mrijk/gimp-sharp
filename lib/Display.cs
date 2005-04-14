@@ -1,37 +1,49 @@
 using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace Gimp
   {
-    public class Display
+  public class Display
     {
-      [DllImport("libgimp-2.0.so")]
-      static extern Int32 gimp_display_new(Int32 image_ID);
+    Int32 _displayID = -1;
 
-      Int32 _displayID;
-
-      public Display(Image image)
+    public Display(Image image)
       {
-	_displayID = gimp_display_new(image.ID);
+      Debug.Assert(image != null);
+      _displayID = gimp_display_new(image.ID);
       }
 
-      [DllImport("libgimp-2.0.so")]
-      static extern void gimp_displays_flush();
-
-      public static void DisplaysFlush()
+    public void Delete()
       {
-	gimp_displays_flush();
+      Debug.Assert(_displayID != -1);
+      if (!gimp_display_delete(_displayID))
+        {
+        throw new Exception();
+        }
       }
 
-      [DllImport("libgimp-2.0.so")]
-      static extern bool gimp_display_delete(Int32 display_ID);
-
-      public void Delete()
+    public static void DisplaysFlush()
       {
-	if (!gimp_display_delete(_displayID))
-	  {
-	  // Fix me: throw exception
-	  }
+      gimp_displays_flush();
       }
+
+    public static bool DisplaysReconnect(
+      Image oldImage, Image newImage)
+      {
+      Debug.Assert(oldImage != null && newImage != null);
+      return gimp_displays_reconnect(oldImage.ID,
+                                     newImage.ID);
+      }
+
+    [DllImport("libgimp-2.0.so")]
+    static extern Int32 gimp_display_new(Int32 image_ID);
+    [DllImport("libgimp-2.0.so")]
+    static extern bool gimp_display_delete(Int32 display_ID);
+    [DllImport("libgimp-2.0.so")]
+    static extern void gimp_displays_flush();
+    [DllImport("libgimp-2.0.so")]
+    static extern bool gimp_displays_reconnect(Int32 old_image_ID,
+                                               Int32 new_image_ID);
     }
   }
