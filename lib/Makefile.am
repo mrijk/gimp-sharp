@@ -7,6 +7,7 @@ all: $(LIBRARY)
 
 SOURCES = AspectPreview.cs 	\
 	Channel.cs 		\
+	Context.cs		\
 	Display.cs 		\
 	Drawable.cs		\
 	DrawablePreview.cs	\
