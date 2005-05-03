@@ -145,6 +145,7 @@ ASSEMBLIES = /pkg:gtk-sharp
 
 SOURCES = AspectPreview.cs 	\
 	Channel.cs 		\
+	ChannelList.cs 		\
 	Context.cs		\
 	Display.cs 		\
 	Drawable.cs		\
@@ -169,6 +170,7 @@ SOURCES = AspectPreview.cs 	\
 	IntComboBox.cs		\
 	IntStore.cs		\
 	Layer.cs		\
+	LayerList.cs		\
 	Image.cs		\
 	ImageList.cs		\
 	Mask.cs			\
@@ -198,7 +200,7 @@ SOURCES = AspectPreview.cs 	\
 	VoidObjectSignal.cs
 
 
-EXTRA_DIST = $(SOURCES)
+EXTRA_DIST = $(SOURCES) $(LIBRARY).config
 subdir = lib
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
@@ -208,6 +210,7 @@ DIST_SOURCES =
 DIST_COMMON = $(srcdir)/Makefile.in Makefile.am
 SOURCES = AspectPreview.cs 	\
 	Channel.cs 		\
+	ChannelList.cs 		\
 	Context.cs		\
 	Display.cs 		\
 	Drawable.cs		\
@@ -232,6 +235,7 @@ SOURCES = AspectPreview.cs 	\
 	IntComboBox.cs		\
 	IntStore.cs		\
 	Layer.cs		\
+	LayerList.cs		\
 	Image.cs		\
 	ImageList.cs		\
 	Mask.cs			\
@@ -410,6 +414,7 @@ clean:
 
 install:
 	$(INSTALL_DATA) $(LIBRARY) $(DESTDIR)/$(GIMPPLUGINDIR)
+	$(INSTALL_DATA) $(LIBRARY).config $(DESTDIR)/$(GIMPPLUGINDIR)
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:

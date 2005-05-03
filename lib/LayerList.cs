@@ -25,30 +25,36 @@ using System.Runtime.InteropServices;
 
 namespace Gimp
   {
-    public class ImageList : IEnumerable
+  public class LayerList : IEnumerable
     {
-      ArrayList _list = new ArrayList();
+    ArrayList _list = new ArrayList();
 
-      public ImageList()
+    public LayerList(Image image)
       {
-	int num_images;
-	IntPtr list = gimp_image_list(out num_images);
+      int num_layers;
+      IntPtr list = gimp_image_get_layers(image.ID, out num_layers);
 
-	int[] dest = new int[num_images];
-	Marshal.Copy(list, dest, 0, num_images);
+      int[] dest = new int[num_layers];
+      Marshal.Copy(list, dest, 0, num_layers);
 
-	foreach (int imageID in dest)
-	  {
-	  _list.Add(new Image(imageID));
-	  }
+      foreach (int layerID in dest)
+        {
+        _list.Add(new Layer(layerID));
+        }
       }
 
-      public virtual IEnumerator GetEnumerator()
+    public virtual IEnumerator GetEnumerator()
       {
-	return _list.GetEnumerator();
+      return _list.GetEnumerator();
       }
 
-      [DllImport("libgimp-2.0.so")]
-      static extern IntPtr gimp_image_list(out int num_images);
+    public int Count
+      {
+      get {return _list.Count;}
+      }
+
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern IntPtr gimp_image_get_layers(Int32 image_ID, 
+                                               out int num_layers);
     }
   }

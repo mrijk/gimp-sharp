@@ -7,6 +7,7 @@ all: $(LIBRARY)
 
 SOURCES = AspectPreview.cs 	\
 	Channel.cs 		\
+	ChannelList.cs 		\
 	Context.cs		\
 	Display.cs 		\
 	Drawable.cs		\
@@ -31,6 +32,7 @@ SOURCES = AspectPreview.cs 	\
 	IntComboBox.cs		\
 	IntStore.cs		\
 	Layer.cs		\
+	LayerList.cs		\
 	Image.cs		\
 	ImageList.cs		\
 	Mask.cs			\
@@ -59,7 +61,7 @@ SOURCES = AspectPreview.cs 	\
 	Tile.cs			\
 	VoidObjectSignal.cs
 
-EXTRA_DIST = $(SOURCES)
+EXTRA_DIST = $(SOURCES) $(LIBRARY).config
 
 $(LIBRARY): $(SOURCES)
 	$(CSC) --target library $(ASSEMBLIES) $(SOURCES) -o $(LIBRARY)
@@ -69,3 +71,4 @@ clean:
 
 install:
 	$(INSTALL_DATA) $(LIBRARY) $(DESTDIR)/$(GIMPPLUGINDIR)
+	$(INSTALL_DATA) $(LIBRARY).config $(DESTDIR)/$(GIMPPLUGINDIR)

@@ -1,6 +1,7 @@
 2005-04-18  Maurits  <maurits@localhost>
 
-	* lib/Context.cs: new file
+	* lib/gimp-sharp.dll.config
+	* lib/Context.cs: new files
 
 2005-04-14  Maurits  <maurits@localhost>
 
