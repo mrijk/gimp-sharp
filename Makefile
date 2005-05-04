@@ -50,7 +50,7 @@ CCDEPMODE = depmode=gcc3
 CFLAGS = -g -O2
 CPP = gcc -E
 CPPFLAGS = 
-CSC = /usr/local/bin/mcs
+CSC = /usr/bin/mcs
 CXX = g++
 CXXCPP = g++ -E
 CXXDEPMODE = depmode=gcc3

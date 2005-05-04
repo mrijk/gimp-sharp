@@ -1,7 +1,7 @@
 // GIMP# - A C# wrapper around the GIMP Library
 // Copyright (C) 2004-2005 Maurits Rijk
 //
-// ChannelList.cs
+// Pattern.cs
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -20,40 +20,40 @@
 //
 
 using System;
-using System.Collections;
 using System.Runtime.InteropServices;
 
 namespace Gimp
   {
-  public class ChannelList : IEnumerable
+  public class Pattern
     {
-    ArrayList _list = new ArrayList();
+    string _name;
 
-    public ChannelList(Image image)
+    public Pattern(string name)
       {
-      int num_channels;
-      IntPtr list = gimp_image_get_channels(image.ID, out num_channels);
+      _name = name;
+      }
 
-      int[] dest = new int[num_channels];
-      Marshal.Copy(list, dest, 0, num_channels);
+    internal Pattern(string name, bool unused)
+      {
+      _name = name;
+      }
 
-      foreach (int ChannelID in dest)
+    public string Name
+      {
+      get {return _name;}
+      }
+
+    public void GetInfo(out int width, out int height, out int bpp)
+      {
+      if (!gimp_pattern_get_info(_name, out width, out height,
+                                 out bpp))
         {
-        _list.Add(new Channel(ChannelID));
+        throw new Exception();
         }
       }
 
-    public virtual IEnumerator GetEnumerator()
-      {
-      return _list.GetEnumerator();
-      }
-
-    public int Count
-      {
-      get {return _list.Count;}
-      }
-
     [DllImport("libgimp-2.0-0.dll")]
-    static extern IntPtr gimp_image_get_channels(Int32 image_ID, out int num_channels);
+    extern static bool gimp_pattern_get_info(string name,
+                                             out int width, out int height, out int bpp);
     }
   }

@@ -6,6 +6,7 @@ ASSEMBLIES=	/pkg:gtk-sharp
 all: $(LIBRARY)
 
 SOURCES = AspectPreview.cs 	\
+	Brush.cs		\
 	Channel.cs 		\
 	ChannelList.cs 		\
 	Context.cs		\
@@ -26,6 +27,7 @@ SOURCES = AspectPreview.cs 	\
 	GimpTable.cs		\
 	GimpTypes.cs		\
 	Gimp.cs			\
+	Gradient.cs		\
 	GuideCollection.cs	\
 	Guide.cs		\
 	ImageComboBox.cs	\
@@ -44,6 +46,9 @@ SOURCES = AspectPreview.cs 	\
 	ParamDef.cs		\
 	ParamDefList.cs		\
 	Parasite.cs		\
+	Path.cs			\
+	Pattern.cs		\
+	PatternList.cs		\
 	PersistentStorage.cs	\
 	PixelFetcher.cs		\
 	PixelRgn.cs		\

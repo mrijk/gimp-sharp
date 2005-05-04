@@ -1,7 +1,7 @@
 // GIMP# - A C# wrapper around the GIMP Library
 // Copyright (C) 2004-2005 Maurits Rijk
 //
-// FloatingSelection.cs
+// Gradient.cs
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -24,58 +24,59 @@ using System.Runtime.InteropServices;
 
 namespace Gimp
   {
-  public class FloatingSelection : Layer
+  public class Gradient
     {
-    public FloatingSelection(Int32 floatingSelID) : base(floatingSelID)
+    string _name;
+
+    public Gradient(string name)
       {
+      _name = gimp_gradient_new(name);
       }
 
-    public void Remove()
+    internal Gradient(string name, bool unused)
       {
-      if (!gimp_floating_sel_remove (_ID))
+      _name = name;
+      }
+
+    public Gradient(Gradient gradient)
+      {
+      _name = gimp_gradient_duplicate(gradient._name);
+      }
+
+    public string Rename(string new_name)
+      {
+      _name = gimp_gradient_rename(_name, new_name);
+      return _name;
+      }
+
+    public string Name
+      {
+      get {return _name;}
+      set {Rename(value);}
+      }
+
+    public void Delete()
+      {
+      if (!gimp_gradient_delete(_name))
         {
         throw new Exception();
         }
       }
 
-    public void Anchor()
+    public bool Editable
       {
-      if (!gimp_floating_sel_anchor (_ID))
-        {
-        throw new Exception();
-        }
-      }
-
-    public void Rigor(bool undo)
-      {
-      if (!gimp_floating_sel_rigor (_ID, undo))
-        {
-        throw new Exception();
-        }
-      }
-
-    public void Relax(bool undo)
-      {
-      if (!gimp_floating_sel_relax (_ID, undo))
-        {
-        throw new Exception();
-        }
+      get {return gimp_gradient_is_editable(_name);}
       }
 
     [DllImport("libgimp-2.0-0.dll")]
-    extern static bool gimp_floating_sel_remove (Int32 floating_sel_ID);
+    extern static string gimp_gradient_new(string name);
     [DllImport("libgimp-2.0-0.dll")]
-    extern static bool gimp_floating_sel_anchor (Int32 floating_sel_ID);
+    extern static string gimp_gradient_duplicate(string name);
     [DllImport("libgimp-2.0-0.dll")]
-    extern static bool gimp_floating_sel_to_layer (Int32 floating_sel_ID);
+    extern static string gimp_gradient_rename(string name, string new_name);
     [DllImport("libgimp-2.0-0.dll")]
-    extern static bool gimp_floating_sel_attach (Int32 floating_sel_ID,
-                                                 Int32 drawable_ID);
+    extern static bool gimp_gradient_delete(string name);
     [DllImport("libgimp-2.0-0.dll")]
-    extern static bool gimp_floating_sel_rigor (Int32 floating_sel_ID,
-                                                bool undo);
-    [DllImport("libgimp-2.0-0.dll")]
-    extern static bool gimp_floating_sel_relax (Int32 floating_sel_ID,
-                                                bool undo);
+    extern static bool gimp_gradient_is_editable(string name);
     }
   }
