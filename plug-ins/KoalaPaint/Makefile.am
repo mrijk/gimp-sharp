@@ -6,7 +6,7 @@ SOURCES = KoalaPaint.cs
 
 EXTRA_DIST = $(SOURCES) KoalaPaint
 
-KoalaPaint.exe : $(SOURCES)
+KoalaPaint.exe: $(SOURCES)
 	$(CSC) $(SOURCES) -o $@ $(ASSEMBLIES)
 
 clean:

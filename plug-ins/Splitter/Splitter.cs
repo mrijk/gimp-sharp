@@ -24,7 +24,7 @@ namespace Gimp.Splitter
 		       "Splits an image in separate parts using a formula of the form f(x, y) = 0",
 		       "Maurits Rijk",
 		       "(C) Maurits Rijk",
-		       "1999 - 2004",
+		       "1999 - 2005",
 		       "Splitter...",
 		       "RGB*",
 		       null);
@@ -107,13 +107,13 @@ namespace Gimp.Splitter
 
       Layer layer1 = new Layer(clone, "layer_one", clone.Width, clone.Height,
 			       ImageType.RGB, 100, 
-			       LayerModeEffects.NORMAL_MODE);
+			       LayerModeEffects.NORMAL);
       clone.AddLayer(layer1, 0);
       // layer1.AddAlpha();
 
       Layer layer2 = new Layer(clone, "layer_two", clone.Width, clone.Height,
 			       ImageType.RGB, 100, 
-			       LayerModeEffects.NORMAL_MODE);
+			       LayerModeEffects.NORMAL);
       clone.AddLayer(layer2, 0);
       // layer2.AddAlpha();
 

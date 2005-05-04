@@ -78,7 +78,7 @@ namespace Gimp.wbmp
 
 	Layer layer = new Layer(image, "Background", width, height,
 				ImageType.GRAY, 100, 
-				LayerModeEffects.NORMAL_MODE);
+				LayerModeEffects.NORMAL);
 	image.AddLayer(layer, 0);
  
 	image.Filename = filename;

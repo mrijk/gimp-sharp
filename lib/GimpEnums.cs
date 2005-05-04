@@ -1,180 +1,134 @@
+// GIMP# - A C# wrapper around the GIMP Library
+// Copyright (C) 2004-2005 Maurits Rijk
+//
+// GimpEnums.cs
+//
+// This library is free software; you can redistribute it and/or
+// modify it under the terms of the GNU Lesser General Public
+// License as published by the Free Software Foundation; either
+// version 2 of the License, or (at your option) any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public
+// License along with this library; if not, write to the
+// Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+// Boston, MA 02111-1307, USA.
+//
+
 namespace Gimp
   {
-  public enum AddMaskType
-    {
-      ADD_WHITE_MASK,
-      ADD_BLACK_MASK,
-      ADD_ALPHA_MASK,
-      ADD_ALPHA_TRANSFER_MASK,
-      ADD_SELECTION_MASK,
-      ADD_COPY_MASK
-    }
-
-  public enum BlendMode
-    {
-      FG_BG_RGB_MODE,
-      FG_BG_HSV_MODE,
-      FG_TRANSPARENT_MODE,
-      CUSTOM_MODE
-    }
 
   public enum BrushApplicationMode
     {
-      BRUSH_HARD,
-      BRUSH_SOFT
-    }
-
-  public enum BucketFillMode
-    {
-      FG_BUCKET_FILL,
-      BG_BUCKET_FILL,
-      PATTERN_BUCKET_FILL
-    }
-
-  public enum ChannelOps
-    {
-      ADD,
-      SUBTRACT,
-      REPLACE,
-      INTERSECT
-    }
-
-  public enum ChannelType
-    {
-      RED,
-      GREEN,
-      BLUE,
-      GRAY,
-      INDEXED,
-      ALPHA
-    }
-
-  public enum FillType
-    {
-      FOREGROUND_FILL,
-      BACKGROUND_FILL,
-      WHITE_FILL,
-      TRANSPARENT_FILL,
-      PATTERN_FILL
-    }
-
-  public enum RunMode
-    {
-      INTERACTIVE,
-      NONINTERACTIVE,
-      WITH_LAST_VALS
-    }
-
-  public enum PDBStatusType
-    {
-      EXECUTION_ERROR,
-      CALLING_ERROR,
-      PASS_THROUGH,
-      SUCCESS,
-      CANCEL
-    }
-
-  public enum PDBProcType
-    {
-      INTERNAL,
-      PLUGIN,
-      EXTENSION,
-      TEMPORARY
-    }
-  
-  public enum ImageBaseType
-    {
-      RGB,
-      GRAY,
-      INDEXED
-    }
-
-  public enum PDBArgType
-    {
-      INT32,
-      INT16,
-      INT8,
-      FLOAT,
-      STRING,
-      INT32ARRAY,
-      INT16ARRAY,
-      INT8ARRAY,
-      FLOATARRAY,
-      STRINGARRAY,
-      COLOR,
-      REGION,
-      DISPLAY,
-      IMAGE,
-      LAYER,
-      CHANNEL,
-      DRAWABLE,
-      SELECTION,
-      BOUNDARY,
-      PATH,
-      PARASITE,
-      STATUS,
-      END
+      HARD,
+      SOFT
     }
 
   public enum ConvertDitherType
     {
-      NO_DITHER,
-      FS_DITHER,
-      FSLOWBLEED_DITHER,
-      FIXED_DITHER
+      NO,
+      FS,
+      FSLOWBLEED,
+      FIXED
     }
 
   public enum ConvertPaletteType
     {
-      MAKE_PALETTE,
-      REUSE_PALETTE,
-      WEB_PALETTE,
-      MONO_PALETTE,
-      CUSTOM_PALETTE
+      MAKE,
+      REUSE,
+      WEB,
+      MONO,
+      CUSTOM
     }
 
-  public enum ImageType
+  public enum ConvolutionType
+    {
+      NORMAL,
+      ABSOLUTE,
+      NEGATIVE
+    }
+
+  public enum ConvolveType
+    {
+      BLUR,
+      SHARPEN
+    }
+
+  public enum FillType
+    {
+      FOREGROUND,
+      BACKGROUND,
+      WHITE,
+      TRANSPARENT,
+      PATTERN
+    }
+
+  public enum GradientSegmentColor
     {
       RGB,
-      RGBA,
-      GRAY,
-      GRAYA,
-      INDEXED,
-      INDEXEDA
+      HSV_CCW,
+      HSV_CW
     }
-  
-  public enum IconType
+
+  public enum GradientSegmentType
     {
-      STOCK_ID,
-      INLINE_PIXBUF,
-      IMAGE_FILE
-    };
+      LINEAR,
+      CURVED,
+      SINE,
+      SPHERE_INCREASING,
+      SPHERE_DECREASING
+    }
+
+  public enum HistogramChannel
+    {
+      VALUE,
+      RED,
+      GREEN,
+      BLUE,
+      ALPHA
+    }
+
+  public enum HueRange
+    {
+      
+      ALL,
+      RED,
+      YELLOW,
+      GREEN,
+      CYAN,
+      BLUE,
+      MAGENTA
+    }
 
   public enum LayerModeEffects
     {
-      NORMAL_MODE,
-      DISSOLVE_MODE,
-      BEHIND_MODE,
-      MULTIPLY_MODE,
-      SCREEN_MODE,
-      OVERLAY_MODE,
-      DIFFERENCE_MODE,
-      ADDITION_MODE,
-      SUBTRACT_MODE,
-      DARKEN_ONLY_MODE,
-      LIGHTEN_ONLY_MODE,
-      HUE_MODE,
-      SATURATION_MODE,
-      COLOR_MODE,
-      VALUE_MODE,
-      DIVIDE_MODE,
-      DODGE_MODE,
-      BURN_MODE,
-      HARDLIGHT_MODE,
-      SOFTLIGHT_MODE,
-      GRAIN_EXTRACT_MODE,
-      GRAIN_MERGE_MODE,
-      COLOR_ERASE_MODE
+      NORMAL,
+      DISSOLVE,
+      BEHIND,
+      MULTIPLY,
+      SCREEN,
+      OVERLAY,
+      DIFFERENCE,
+      ADDITION,
+      SUBTRACT,
+      DARKEN_ONLY,
+      LIGHTEN_ONLY,
+      HUE,
+      SATURATION,
+      COLOR,
+      VALUE,
+      DIVIDE,
+      DODGE,
+      BURN,
+      HARDLIGHT,
+      SOFTLIGHT,
+      GRAIN_EXTRACT,
+      GRAIN_MERGE,
+      COLOR_ERASE
     }
 
   public enum MaskApplyMode
@@ -193,8 +147,8 @@ namespace Gimp
 
   public enum OffsetType
     {
-      OFFSET_BACKGROUND,
-      OFFSET_TRANSPARENT
+      BACKGROUND,
+      TRANSPARENT
     }
 
   public enum OrientationType
@@ -209,6 +163,13 @@ namespace Gimp
       ROTATE_90,
       ROTATE_180,
       ROTATE_270
+    }
+
+  public enum RunMode
+    {
+      INTERACTIVE,
+      NONINTERACTIVE,
+      WITH_LAST_VALS
     }
 
   public enum Transparency
