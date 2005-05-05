@@ -1,4 +1,8 @@
-2005-05-04  Maurits  <maurits@localhost>
+2005-05-05  Maurits  <m.rijk@chello.nl>
+
+	* lib/*.cs: added LPGL header in all files
+
+2005-05-04  Maurits  <m.rijk@chello.nl>
 
 	* lib/Makefile.am: added new files 
 
@@ -8,25 +12,25 @@
 	* lib/Pattern.cs
 	* lib/PatternList.cs: new files
 
-2005-04-18  Maurits  <maurits@localhost>
+2005-04-18  Maurits  <m.rijk@chello.nl>
 
 	* lib/gimp-sharp.dll.config
 	* lib/Context.cs: new files
 
-2005-04-14  Maurits  <maurits@localhost>
+2005-04-14  Maurits  <m.rijk@chello.nl>
 
 	* lib/Parasite.cs
 	* lib/Tile.cs: new files
 
-2005-04-05  Maurits  <maurits@localhost>
+2005-04-05  Maurits  <m.rijk@chello.nl>
 
 	* Made 0.6 release
 
-2005-01-27    <maurits@Mau>
+2005-01-27  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/wbmp/*: new plug-in to read wbmp files.
 
-2005-01-16    <maurits@Mau>
+2005-01-16  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/SliceTool/RolloverEntry.cs: new file
 

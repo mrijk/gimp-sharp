@@ -39,13 +39,6 @@ namespace Gimp
         _list.Add(new Pattern(Marshal.PtrToStringAnsi(tmp), false));
         ptr = (IntPtr)((int)ptr + Marshal.SizeOf(tmp));
         }
-
-      foreach (Pattern pattern in this)
-        {
-        int width, height, bpp;
-        pattern.GetInfo(out width, out height, out bpp);
-        Console.WriteLine("{0}: {1} x {2}", pattern.Name, width, height);
-        }
       }
 
     public virtual IEnumerator GetEnumerator()
@@ -61,6 +54,7 @@ namespace Gimp
     [DllImport("libgimp-2.0-0.dll")]
     extern static void gimp_patterns_refresh();
     [DllImport("libgimp-2.0-0.dll")]
-    extern static IntPtr gimp_patterns_get_list(string filter, out int num_patterns);
+    extern static IntPtr gimp_patterns_get_list(string filter, 
+                                                out int num_patterns);
     }
   }
