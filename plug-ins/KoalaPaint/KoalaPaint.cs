@@ -96,7 +96,7 @@ namespace Gimp.KoalaPaint
 
 	Layer layer = new Layer(image, "Background", KOALA_WIDTH, 
 				KOALA_HEIGHT, ImageType.INDEXED, 100, 
-				LayerModeEffects.NORMAL_MODE);
+				LayerModeEffects.NORMAL);
 	image.AddLayer(layer, 0);
  
 	image.Filename = filename;

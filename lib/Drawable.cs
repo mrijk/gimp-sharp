@@ -115,22 +115,14 @@ namespace Gimp
         }
       }
 
-    public void MaskBounds(out int x1, out int y1, out int x2, out int y2)
+    public bool MaskBounds(out int x1, out int y1, out int x2, out int y2)
       {
-      if (!gimp_drawable_mask_bounds(_ID, out x1, out y1, 
-                                     out x2, out y2))
-        {
-        throw new Exception();
-        }
+      return gimp_drawable_mask_bounds(_ID, out x1, out y1, out x2, out y2);
       }
 
-    public void MaskIntersect(out int x1, out int y1, out int x2, out int y2)
+    public bool MaskIntersect(out int x1, out int y1, out int x2, out int y2)
       {
-      if (!gimp_drawable_mask_intersect(_ID, out x1, out y1, 
-                                        out x2, out y2))
-        {
-        throw new Exception();
-        }
+      return gimp_drawable_mask_intersect(_ID, out x1, out y1, out x2, out y2);
       }
 
     public Image Image
@@ -272,121 +264,121 @@ namespace Gimp
       get {return _drawable;}
       }
 
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern IntPtr gimp_drawable_get(Int32 drawable_ID);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern void gimp_drawable_detach(IntPtr drawable);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern void gimp_drawable_flush(IntPtr drawable);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_drawable_delete(Int32 drawable_ID);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern string gimp_drawable_get_name(Int32 drawable_ID);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_drawable_set_name(Int32 drawable_ID, 
                                               string name);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_drawable_get_visible(Int32 drawable_ID);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_drawable_set_visible(Int32 drawable_ID,
                                                  bool visible);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_drawable_get_linked(Int32 drawable_ID);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_drawable_set_linked(Int32 drawable_ID,
                                                 bool linked);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern int gimp_drawable_get_tattoo(Int32 drawable_ID);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_drawable_set_tattoo(Int32 drawable_ID, 
                                                 int tattoo);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern IntPtr gimp_drawable_get_tile(Int32 drawable_ID,
                                                 bool shadow, int row, int col);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern IntPtr gimp_drawable_get_tile2(Int32 drawable_ID,
                                                  bool shadow, int x, int y);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern IntPtr gimp_drawable_get_thumbnail_data(Int32 drawable_ID,
                                                           ref int width, 
                                                           ref int height, 
                                                           out int bpp);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_drawable_merge_shadow(Int32 drawable_ID,
                                                   bool undo);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_drawable_fill(Int32 drawable_ID,
                                           FillType fill_type);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_drawable_update(Int32 drawable_ID,
                                             int x,
                                             int y,
                                             int width,
                                             int height);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_drawable_mask_bounds(Int32 drawable_ID,
                                                  out int x1,
                                                  out int y1,
                                                  out int x2,
                                                  out int y2);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_drawable_mask_intersect(Int32 drawable_ID,
                                                     out int x1,
                                                     out int y1,
                                                     out int x2,
                                                     out int y2);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern Int32 gimp_drawable_get_image(Int32 drawable_ID);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_drawable_has_alpha (Int32 drawable_ID);      
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_drawable_is_rgb (Int32 drawable_ID);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_drawable_is_gray (Int32 drawable_ID);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_drawable_is_indexed (Int32 drawable_ID);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern int gimp_drawable_bpp (Int32 drawable_ID);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern int gimp_drawable_width(Int32 drawable_ID);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern int gimp_drawable_height(Int32 drawable_ID);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_drawable_offsets(Int32 drawable_ID,
                                              out int offset_x,
                                              out int offset_y);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_drawable_is_layer(Int32 drawable_ID);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_drawable_is_layer_mask(Int32 drawable_ID);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_drawable_is_channel(Int32 drawable_ID);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_drawable_offset(Int32 drawable_ID,
                                             bool wrap_around,
                                             OffsetType fill_type,
                                             int offset_x,
                                             int offset_y);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern IntPtr gimp_drawable_parasite_find(Int32 drawable_ID,
                                                      string name);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_drawable_parasite_attach(Int32 drawable_ID,
                                                      IntPtr parasite);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_drawable_parasite_detach(Int32 drawable_ID,
                                                      string name);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_drawable_attach_new_parasite(Int32 drawable_ID,
                                                          string name, 
                                                          int flags,
                                                          int size,
                                                          object data);
 
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_desaturate (Int32 drawable_ID);
 
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_fuzzy_select (Int32 drawable_ID,
                                           double x,
                                           double y,

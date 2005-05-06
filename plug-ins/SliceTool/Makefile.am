@@ -38,6 +38,9 @@ SliceTool.exe : $(SOURCES) SliceTool.png
 			  /resource:javascript.html	\
 		-o $@ $(ASSEMBLIES)
 
+clean:
+	rm -f SliceTool.exe
+
 install:
 	$(INSTALL_DATA) SliceTool.exe $(DESTDIR)/$(GIMPPLUGINDIR)
 	$(INSTALL) SliceTool $(DESTDIR)/$(GIMPPLUGINDIR)

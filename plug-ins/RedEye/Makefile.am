@@ -9,6 +9,9 @@ EXTRA_DIST = $(SOURCES) RedEye RedEye.png
 RedEye.exe : $(SOURCES) RedEye.png
 	$(CSC) $(SOURCES) /resource:RedEye.png -o $@ $(ASSEMBLIES)
 
+clean:
+	rm -f RedEye.exe
+
 install:
 	$(INSTALL_DATA) RedEye.exe $(DESTDIR)/$(GIMPPLUGINDIR)
 	$(INSTALL) RedEye $(DESTDIR)/$(GIMPPLUGINDIR)

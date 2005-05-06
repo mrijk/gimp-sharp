@@ -21,6 +21,9 @@ EXTRA_DIST = $(SOURCES) Ministeck Ministeck.png
 Ministeck.exe : $(SOURCES) Ministeck.png
 	$(CSC) $(SOURCES) /resource:Ministeck.png -o $@ $(ASSEMBLIES)
 
+clean:
+	rm -f Ministeck.exe
+
 install:
 	$(INSTALL_DATA) Ministeck.exe $(DESTDIR)/$(GIMPPLUGINDIR)
 	$(INSTALL) Ministeck $(DESTDIR)/$(GIMPPLUGINDIR)

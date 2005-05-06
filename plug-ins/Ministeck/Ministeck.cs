@@ -110,7 +110,7 @@ namespace Gimp.Ministeck
 	RunProcedure("plug_in_pixelize", image, drawable, _size);
 
 	MinisteckPalette palette = new MinisteckPalette();
-	image.ConvertIndexed(ConvertDitherType.NO_DITHER, 
+	image.ConvertIndexed(ConvertDitherType.NO, 
 			     ConvertPaletteType.CUSTOM,
 			     0, false, false, "Ministeck");
 	palette.Delete();

@@ -1,6 +1,6 @@
 2005-05-05  Maurits  <m.rijk@chello.nl>
 
-	* lib/*.cs: added LPGL header in all files
+	* lib/*.cs: added LGPL header in all files
 
 2005-05-04  Maurits  <m.rijk@chello.nl>
 

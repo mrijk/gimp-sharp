@@ -1,14 +1,14 @@
-Release 0.7
+Release 0.8
 -----------
 - Fully functional version of picture package
 - Working version of Red Eye correction
 
-Release 0.8
+Release 0.9
 -----------
 - Generic Lense plug-in
 - Splitter plug-in
 
-Release 0.9
+Release 0.10
 -----------
 - Full API coverage
 - Improve speed
