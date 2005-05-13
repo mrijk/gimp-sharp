@@ -1,6 +1,6 @@
 Gimp#
 
-- I have only tested my code with Gimp 2.1.x and Gimp 2.2-pre. Gimp#
+- I have only tested my code with GIMP 2.2 and GIMP 2.3.x Gimp#
   will NOT work with Gimp 2.0.x!
 
 At the moment Gimp# will install 4 plug-ins for you:
