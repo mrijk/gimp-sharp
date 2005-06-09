@@ -22,9 +22,19 @@
 namespace Gimp
 {
   public class GimpStock
-  {
-    public const string GRID = "gimp-grid";
-    public const string TOOL_CROP = "gimp-tool-crop";
-    public const string TOOL_ERASER = "gimp-tool-eraser";
-  }
+    {
+    public const string ANCHOR          = "gimp-anchor";
+    public const string CENTER          = "gimp-center";
+    public const string DUPLICATE       = "gimp-duplicate";
+    public const string EDIT            = "gimp-edit";
+    public const string LINKED          = "gimp-linked";
+    public const string PASTE_AS_NEW    = "gimp-paste-as-new";
+    public const string PASTE_INTO      = "gimp-paste-into";
+    public const string Reset           = "gimp-reset";
+    public const string VISIBLE         = "gimp-visible";
+
+    public const string GRID 		= "gimp-grid";
+    public const string TOOL_CROP 	= "gimp-tool-crop";
+    public const string TOOL_ERASER 	= "gimp-tool-eraser";
+    }
 }

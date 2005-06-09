@@ -216,6 +216,11 @@ namespace Gimp.ncp
 	}		
     }
 
+    override protected void Reset()
+    {
+      Console.WriteLine("Reset!");
+    }
+
     override protected void DoSomething(Drawable drawable)
     {
       Initialize(drawable);

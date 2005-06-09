@@ -329,6 +329,7 @@ namespace Gimp
 #else
       _dialog = new GimpDialog(title, role, parent, flags, 
 			       help_func, help_id, 
+                               GimpStock.Reset, (ResponseType) 1,
 			       Stock.Cancel, ResponseType.Cancel,
 			       Stock.Ok, ResponseType.Ok);
       return _dialog;
@@ -370,6 +371,7 @@ namespace Gimp
 			(double)m_time / 1000 );
     }
     
+    virtual protected void Reset() {}
     virtual protected void DoSomething() {}
     virtual protected void DoSomething(Drawable drawable) {}
     virtual protected void DoSomething(Image image) {}
@@ -406,6 +408,10 @@ namespace Gimp
 	  {
 	  Console.WriteLine("Show help here!");
 	  }
+        else if (type == (ResponseType) 1)
+          {
+          Reset();
+          }
 	else if (type >=0)		// User defined response
 	  {
 	  DialogRun(type);
