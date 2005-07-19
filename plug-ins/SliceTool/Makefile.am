@@ -2,7 +2,7 @@ all: SliceTool.exe
 
 ASSEMBLIES = -r $(top_builddir)/lib/gimp-sharp.dll /pkg:gtk-sharp
 
-SOURCES =			\
+MYSOURCES =			\
 	CreateFunc.cs		\
 	CreateTableFunc.cs	\
 	FileExistsDialog.cs	\
@@ -28,15 +28,15 @@ SOURCES =			\
 	TableDialog.cs		\
 	VerticalSlize.cs
 
-EXTRA_DIST = $(SOURCES) SliceTool SliceTool.png blank.png stock-arrow.png \
+EXTRA_DIST = $(MYSOURCES) SliceTool SliceTool.png blank.png stock-arrow.png \
 	javascript.html
 
-SliceTool.exe : $(SOURCES) SliceTool.png
-	$(CSC) $(SOURCES) /resource:SliceTool.png	\
+SliceTool.exe : $(MYSOURCES) SliceTool.png
+	$(CSC) $(MYSOURCES) /resource:SliceTool.png	\
 			  /resource:blank.png		\
 			  /resource:stock-arrow.png	\
 			  /resource:javascript.html	\
-		-o $@ $(ASSEMBLIES)
+		--output $@ $(ASSEMBLIES)
 
 clean:
 	rm -f SliceTool.exe

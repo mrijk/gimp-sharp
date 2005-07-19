@@ -2,7 +2,7 @@ all: Ministeck.exe
 
 ASSEMBLIES = -r $(top_builddir)/lib/gimp-sharp.dll /pkg:gtk-sharp
 
-SOURCES =			\
+MYSOURCES =			\
 	Coordinate.cs		\
 	CornerShape.cs		\
 	Ministeck.cs		\
@@ -16,10 +16,10 @@ SOURCES =			\
 	TwoByOneShape.cs	\
 	TwoByTwoShape.cs
 
-EXTRA_DIST = $(SOURCES) Ministeck Ministeck.png
+EXTRA_DIST = $(MYSOURCES) Ministeck Ministeck.png
 
-Ministeck.exe : $(SOURCES) Ministeck.png
-	$(CSC) $(SOURCES) /resource:Ministeck.png -o $@ $(ASSEMBLIES)
+Ministeck.exe : $(MYSOURCES) Ministeck.png
+	$(CSC) $(MYSOURCES) /resource:Ministeck.png -o $@ $(ASSEMBLIES)
 
 clean:
 	rm -f Ministeck.exe

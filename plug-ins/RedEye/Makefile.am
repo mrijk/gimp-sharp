@@ -1,13 +1,13 @@
 all: RedEye.exe
 
-ASSEMBLIES = -r $(top_builddir)/lib/gimp-sharp.dll /pkg:gtk-sharp
+ASSEMBLIES = -r:$(top_builddir)/lib/gimp-sharp.dll /pkg:gtk-sharp
 
-SOURCES = RedEye.cs
+MYSOURCES = RedEye.cs
 
-EXTRA_DIST = $(SOURCES) RedEye RedEye.png
+EXTRA_DIST = $(MYMYSOURCES) RedEye RedEye.png
 
-RedEye.exe : $(SOURCES) RedEye.png
-	$(CSC) $(SOURCES) /resource:RedEye.png -o $@ $(ASSEMBLIES)
+RedEye.exe : $(MYSOURCES) RedEye.png
+	$(CSC) $(MYSOURCES) /resource:RedEye.png -out:$@ $(ASSEMBLIES)
 
 clean:
 	rm -f RedEye.exe

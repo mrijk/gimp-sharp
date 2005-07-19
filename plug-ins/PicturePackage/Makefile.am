@@ -1,8 +1,8 @@
 all: PicturePackage.exe
 
-ASSEMBLIES = -r $(top_builddir)/lib/gimp-sharp.dll /pkg:gtk-sharp
+ASSEMBLIES = -r:$(top_builddir)/lib/gimp-sharp.dll /pkg:gtk-sharp
 
-SOURCES =				\
+MYSOURCES =				\
 	DirImageProviderFactory.cs	\
 	DocumentFrame.cs		\
 	Enums.cs			\
@@ -27,10 +27,10 @@ SOURCES =				\
 	Renderer.cs			\
 	SourceFrame.cs
 
-EXTRA_DIST = $(SOURCES) PicturePackage picture-package.xml PicturePackage.png
+EXTRA_DIST = $(MYSOURCES) PicturePackage picture-package.xml PicturePackage.png
 
-PicturePackage.exe : $(SOURCES) picture-package.xml PicturePackage.png
-	$(CSC) $(SOURCES) /resource:picture-package.xml /resource:PicturePackage.png -o $@ $(ASSEMBLIES)
+PicturePackage.exe : $(MYSOURCES) picture-package.xml PicturePackage.png
+	$(CSC) $(MYSOURCES) /resource:picture-package.xml /resource:PicturePackage.png --output $@ $(ASSEMBLIES)
 
 clean:
 	rm -f PicturePackage.exe

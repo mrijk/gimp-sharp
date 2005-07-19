@@ -1,13 +1,13 @@
 all: Splitter.exe
 
-ASSEMBLIES = -r $(top_builddir)/lib/gimp-sharp.dll /pkg:gtk-sharp
+ASSEMBLIES = -r:$(top_builddir)/lib/gimp-sharp.dll /pkg:gtk-sharp
 
-SOURCES = Splitter.cs
+MYSOURCES = Splitter.cs
 
-EXTRA_DIST = $(SOURCES) Splitter
+EXTRA_DIST = $(MYSOURCES) Splitter
 
-Splitter.exe : $(SOURCES)
-	$(CSC) $(SOURCES) -o $@ $(ASSEMBLIES)
+Splitter.exe : $(MYSOURCES)
+	$(CSC) $(MYSOURCES) -out:$@ $(ASSEMBLIES)
 
 clean:
 	rm -f Splitter.exe

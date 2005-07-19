@@ -1,13 +1,13 @@
 all: wbmp.exe
 
-ASSEMBLIES = -r $(top_builddir)/lib/gimp-sharp.dll /pkg:gtk-sharp
+ASSEMBLIES = -r:$(top_builddir)/lib/gimp-sharp.dll /pkg:gtk-sharp
 
-SOURCES = wbmp.cs
+MYSOURCES = wbmp.cs
 
-EXTRA_DIST = $(SOURCES) wbmp
+EXTRA_DIST = $(MYSOURCES) wbmp
 
-wbmp.exe : $(SOURCES)
-	$(CSC) $(SOURCES) -o $@ $(ASSEMBLIES)
+wbmp.exe : $(MYSOURCES)
+	$(CSC) $(MYSOURCES) -out:$@ $(ASSEMBLIES)
 
 clean:
 	rm -f wbmp.exe

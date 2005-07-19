@@ -3,9 +3,7 @@ LIBRARY=	$(LIBRARY_NAME).dll
 
 ASSEMBLIES=	/pkg:gtk-sharp
 
-all: $(LIBRARY)
-
-SOURCES = AspectPreview.cs 	\
+MYSOURCES = AspectPreview.cs 	\
 	Brush.cs		\
 	Channel.cs 		\
 	ChannelList.cs 		\
@@ -66,10 +64,12 @@ SOURCES = AspectPreview.cs 	\
 	Tile.cs			\
 	VoidObjectSignal.cs
 
-EXTRA_DIST = $(SOURCES) $(LIBRARY).config
+EXTRA_DIST = $(MYSOURCES) $(LIBRARY).config
 
-$(LIBRARY): $(SOURCES)
-	$(CSC) --target library $(ASSEMBLIES) $(SOURCES) -o $(LIBRARY)
+all: $(LIBRARY)
+
+$(LIBRARY): $(MYSOURCES)
+	$(CSC) --target library $(ASSEMBLIES) $(MYSOURCES) -o $(LIBRARY)
 
 clean:
 	rm -f gimp-sharp.dll
