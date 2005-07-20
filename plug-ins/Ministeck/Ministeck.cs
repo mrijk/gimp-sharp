@@ -18,7 +18,7 @@ namespace Gimp.Ministeck
       [STAThread]
       static void Main(string[] args)
       {
-	Ministeck plugin = new Ministeck(args);
+	new Ministeck(args);
       }
 
       public Ministeck(string[] args) : base(args)

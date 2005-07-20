@@ -1,6 +1,8 @@
+## Process this file with automake to produce Makefile.in
+
 all: Ministeck.exe
 
-ASSEMBLIES = -r $(top_builddir)/lib/gimp-sharp.dll /pkg:gtk-sharp
+ASSEMBLIES = -r:$(top_builddir)/lib/gimp-sharp.dll /pkg:gtk-sharp
 
 MYSOURCES =			\
 	Coordinate.cs		\
@@ -19,7 +21,7 @@ MYSOURCES =			\
 EXTRA_DIST = $(MYSOURCES) Ministeck Ministeck.png
 
 Ministeck.exe : $(MYSOURCES) Ministeck.png
-	$(CSC) $(MYSOURCES) /resource:Ministeck.png -o $@ $(ASSEMBLIES)
+	$(CSC) $(MYSOURCES) /resource:Ministeck.png -out:$@ $(ASSEMBLIES)
 
 clean:
 	rm -f Ministeck.exe

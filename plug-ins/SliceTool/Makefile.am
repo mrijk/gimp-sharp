@@ -1,6 +1,8 @@
+## Process this file with automake to produce Makefile.in
+
 all: SliceTool.exe
 
-ASSEMBLIES = -r $(top_builddir)/lib/gimp-sharp.dll /pkg:gtk-sharp
+ASSEMBLIES = -r:$(top_builddir)/lib/gimp-sharp.dll /pkg:gtk-sharp
 
 MYSOURCES =			\
 	CreateFunc.cs		\
@@ -36,7 +38,7 @@ SliceTool.exe : $(MYSOURCES) SliceTool.png
 			  /resource:blank.png		\
 			  /resource:stock-arrow.png	\
 			  /resource:javascript.html	\
-		--output $@ $(ASSEMBLIES)
+		-out:$@ $(ASSEMBLIES)
 
 clean:
 	rm -f SliceTool.exe

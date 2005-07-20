@@ -1,3 +1,5 @@
+## Process this file with automake to produce Makefile.in
+
 all: PicturePackage.exe
 
 ASSEMBLIES = -r:$(top_builddir)/lib/gimp-sharp.dll /pkg:gtk-sharp
@@ -30,7 +32,7 @@ MYSOURCES =				\
 EXTRA_DIST = $(MYSOURCES) PicturePackage picture-package.xml PicturePackage.png
 
 PicturePackage.exe : $(MYSOURCES) picture-package.xml PicturePackage.png
-	$(CSC) $(MYSOURCES) /resource:picture-package.xml /resource:PicturePackage.png --output $@ $(ASSEMBLIES)
+	$(CSC) $(MYSOURCES) /resource:picture-package.xml /resource:PicturePackage.png -out:$@ $(ASSEMBLIES)
 
 clean:
 	rm -f PicturePackage.exe

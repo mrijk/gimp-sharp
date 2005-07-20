@@ -85,7 +85,7 @@ namespace Gimp.KoalaPaint
 	BinaryReader reader = new BinaryReader(File.Open(filename, 
 							 FileMode.Open));
 	
-	byte[] unused = reader.ReadBytes(2);
+	reader.ReadBytes(2);
 	bitmap = reader.ReadBytes(8000);
 	_mcolor = reader.ReadBytes(1000);
 	_color = reader.ReadBytes(1000);

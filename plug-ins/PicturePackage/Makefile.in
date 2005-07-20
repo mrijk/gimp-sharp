@@ -336,10 +336,11 @@ uninstall-am: uninstall-info-am
 	mostlyclean-libtool pdf pdf-am ps ps-am uninstall uninstall-am \
 	uninstall-info-am
 
+
 all: PicturePackage.exe
 
 PicturePackage.exe : $(MYSOURCES) picture-package.xml PicturePackage.png
-	$(CSC) $(MYSOURCES) /resource:picture-package.xml /resource:PicturePackage.png --output $@ $(ASSEMBLIES)
+	$(CSC) $(MYSOURCES) /resource:picture-package.xml /resource:PicturePackage.png -out:$@ $(ASSEMBLIES)
 
 clean:
 	rm -f PicturePackage.exe

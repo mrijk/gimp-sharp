@@ -152,7 +152,7 @@ sbindir = @sbindir@
 sharedstatedir = @sharedstatedir@
 sysconfdir = @sysconfdir@
 target_alias = @target_alias@
-ASSEMBLIES = -r $(top_builddir)/lib/gimp-sharp.dll /pkg:gtk-sharp
+ASSEMBLIES = -r:$(top_builddir)/lib/gimp-sharp.dll /pkg:gtk-sharp
 MYSOURCES = \
 	Coordinate.cs		\
 	CornerShape.cs		\
@@ -325,10 +325,11 @@ uninstall-am: uninstall-info-am
 	mostlyclean-libtool pdf pdf-am ps ps-am uninstall uninstall-am \
 	uninstall-info-am
 
+
 all: Ministeck.exe
 
 Ministeck.exe : $(MYSOURCES) Ministeck.png
-	$(CSC) $(MYSOURCES) /resource:Ministeck.png -o $@ $(ASSEMBLIES)
+	$(CSC) $(MYSOURCES) /resource:Ministeck.png -out:$@ $(ASSEMBLIES)
 
 clean:
 	rm -f Ministeck.exe

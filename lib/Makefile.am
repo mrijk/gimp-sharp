@@ -1,3 +1,5 @@
+## Process this file with automake to produce Makefile.in
+
 LIBRARY_NAME=	gimp-sharp
 LIBRARY=	$(LIBRARY_NAME).dll
 
@@ -69,7 +71,7 @@ EXTRA_DIST = $(MYSOURCES) $(LIBRARY).config
 all: $(LIBRARY)
 
 $(LIBRARY): $(MYSOURCES)
-	$(CSC) --target library $(ASSEMBLIES) $(MYSOURCES) -o $(LIBRARY)
+	$(CSC) -target:library $(ASSEMBLIES) $(MYSOURCES) -out:$(LIBRARY)
 
 clean:
 	rm -f gimp-sharp.dll

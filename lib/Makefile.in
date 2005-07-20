@@ -378,7 +378,7 @@ uninstall-am: uninstall-info-am
 all: $(LIBRARY)
 
 $(LIBRARY): $(MYSOURCES)
-	$(CSC) --target library $(ASSEMBLIES) $(MYSOURCES) -o $(LIBRARY)
+	$(CSC) -target:library $(ASSEMBLIES) $(MYSOURCES) -out:$(LIBRARY)
 
 clean:
 	rm -f gimp-sharp.dll
