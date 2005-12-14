@@ -25,7 +25,7 @@ if test "x$PKG_CONFIG" = "xno"; then
 fi
 AC_SUBST(MONO)
 
-PKG_CHECK_MODULES(MONO, mono >= 1.0.2)
+PKG_CHECK_MODULES(MONO, mono >= 1.1.0)
 AC_SUBST(MONO_CFLAGS)
 AC_SUBST(MONO_LIBS)
 
@@ -33,7 +33,7 @@ PKG_CHECK_MODULES(MONO_DEPENDENCY, mono, has_mono=true, has_mono=false)
 
 if test "x$has_mono" = "xtrue"; then
     AC_PATH_PROG(RUNTIME, mono, no)
-    AC_PATH_PROG(CSC, mcs, no)
+    AC_PATH_PROG(CSC, gmcs, no)
     LIB_PREFIX=.so
     LIB_SUFFIX=
 else

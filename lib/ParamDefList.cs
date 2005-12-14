@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2005 Maurits Rijk
+// Copyright (C) 2004-2006 Maurits Rijk
 //
 // ParamDefList.cs
 //
@@ -21,16 +21,17 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Gimp
   {
     public class ParamDefList
     {
-      ArrayList _set;
+      List<ParamDef> _set;
 
       public ParamDefList(params ParamDef[] list)
       {
-	_set = new ArrayList(list);
+	_set = new List<ParamDef>(list);
       }
     }
   }

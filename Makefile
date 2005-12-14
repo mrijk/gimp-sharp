@@ -86,7 +86,7 @@ CCDEPMODE = depmode=gcc3
 CFLAGS = -g -O2
 CPP = gcc -E
 CPPFLAGS = 
-CSC = /usr/bin/mcs
+CSC = /usr/bin/gmcs
 CXX = g++
 CXXCPP = g++ -E
 CXXDEPMODE = depmode=gcc3
@@ -115,10 +115,10 @@ LN_S = ln -s
 LTLIBOBJS = 
 MAKEINFO = ${SHELL} /home/maurits/gimp-sharp/missing --run makeinfo
 MONO = /usr/bin/mono
-MONO_CFLAGS = -D_REENTRANT -pthread -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include  
-MONO_DEPENDENCY_CFLAGS = -D_REENTRANT -pthread -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include  
-MONO_DEPENDENCY_LIBS = -Wl,--export-dynamic -pthread -lmono -lpthread -lm -lgmodule-2.0 -ldl -lgthread-2.0 -lglib-2.0  
-MONO_LIBS = -Wl,--export-dynamic -pthread -lmono -lpthread -lm -lgmodule-2.0 -ldl -lgthread-2.0 -lglib-2.0  
+MONO_CFLAGS = -D_REENTRANT -pthread -I/usr/lib/pkgconfig/../../include -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include  
+MONO_DEPENDENCY_CFLAGS = -D_REENTRANT -pthread -I/usr/lib/pkgconfig/../../include -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include  
+MONO_DEPENDENCY_LIBS = -Wl,--export-dynamic -pthread -L/usr/lib/pkgconfig/../../lib -lmono -lpthread -lm -lgmodule-2.0 -ldl -lgthread-2.0 -lglib-2.0  
+MONO_LIBS = -Wl,--export-dynamic -pthread -L/usr/lib/pkgconfig/../../lib -lmono -lpthread -lm -lgmodule-2.0 -ldl -lgthread-2.0 -lglib-2.0  
 OBJEXT = o
 PACKAGE = gimp-sharp
 PACKAGE_BUGREPORT = 

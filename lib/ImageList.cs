@@ -1,7 +1,7 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2005 Maurits Rijk
+// Copyright (C) 2004-2006 Maurits Rijk
 //
-// Image.cs
+// ImageList.cs
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -21,13 +21,14 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace Gimp
   {
     public class ImageList : IEnumerable
     {
-      ArrayList _list = new ArrayList();
+      List<Image> _list = new List<Image>();
 
       public ImageList()
       {
@@ -48,7 +49,7 @@ namespace Gimp
 	return _list.GetEnumerator();
       }
 
-      [DllImport("libgimp-2.0.so")]
+      [DllImport("libgimp-2.0-0.dll")]
       static extern IntPtr gimp_image_list(out int num_images);
     }
   }
