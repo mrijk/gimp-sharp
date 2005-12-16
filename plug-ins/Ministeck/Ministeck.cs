@@ -1,5 +1,27 @@
+// The Ministeck plug-in
+// Copyright (C) 2004-2006 Maurits Rijk
+//
+// Ministeck.cs
+//
+// This library is free software; you can redistribute it and/or
+// modify it under the terms of the GNU Lesser General Public
+// License as published by the Free Software Foundation; either
+// version 2 of the License, or (at your option) any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public
+// License along with this library; if not, write to the
+// Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+// Boston, MA 02111-1307, USA.
+//
+
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 using Gtk;
 
@@ -32,7 +54,7 @@ namespace Gimp.Ministeck
 			 "Generates Ministeck",
 			 "Maurits Rijk",
 			 "(C) Maurits Rijk",
-			 "2004",
+			 "2004-2006",
 			 "Ministeck...",
 			 "RGB*, GRAY*",
 			 null);
@@ -132,7 +154,7 @@ namespace Gimp.Ministeck
 
 	// Fill in shapes
 	
-	ArrayList shapes = new ArrayList();
+	List<Shape> shapes = new List<Shape>();
 	shapes.Add(new TwoByTwoShape());
 	shapes.Add(new ThreeByOneShape());
 	shapes.Add(new TwoByOneShape());
@@ -149,11 +171,11 @@ namespace Gimp.Ministeck
 	    {
 	    if (!A[x, y])
 	      {
-	      ArrayList copy = (ArrayList) shapes.Clone();
+	      List<Shape> copy = new List<Shape>(shapes);
 	      while (copy.Count > 0)
 		{
 		int index = random.Next(copy.Count - 1);
-		Shape shape = (Shape) copy[index];
+		Shape shape = copy[index];
 		if (shape.Fits(A, x, y))
 		  {
 		  break;

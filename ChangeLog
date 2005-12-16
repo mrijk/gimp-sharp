@@ -1,3 +1,7 @@
+2005-12-16  Maurits  <maurits@localhost>
+
+	* plug-ins/Ministeck/*.cs: clean-up Ministeck plug-in
+
 2005-05-09  Maurits  <m.rijk@chello.nl>
 
 	* Made 0.7 release

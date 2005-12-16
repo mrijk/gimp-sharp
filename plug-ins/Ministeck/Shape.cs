@@ -1,15 +1,36 @@
+// The Ministeck plug-in
+// Copyright (C) 2004-2006 Maurits Rijk
+//
+// Shape.cs
+//
+// This library is free software; you can redistribute it and/or
+// modify it under the terms of the GNU Lesser General Public
+// License as published by the Free Software Foundation; either
+// version 2 of the License, or (at your option) any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public
+// License along with this library; if not, write to the
+// Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+// Boston, MA 02111-1307, USA.
+//
+
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Gimp.Ministeck
   {
   abstract public class Shape
   {
-    ArrayList _set = new ArrayList(); 
+    List<ShapeSet> _set = new List<ShapeSet>(); 
     static protected Painter _painter;
 
     Random _random = new Random();
-    byte[] _color = new byte[3]{3, 3, 3};
 
     public int _match = 0;
 
@@ -29,7 +50,7 @@ namespace Gimp.Ministeck
 
       foreach (ShapeDescription val in list)
 	{
-	ArrayList copy = new ArrayList();
+	List<ShapeSet> copy = new List<ShapeSet>();
 	foreach (ShapeSet ele in _set)
 	  {
 	  for (int i = 0; i <= ele.Count; i++)
@@ -47,7 +68,7 @@ namespace Gimp.Ministeck
     {
       int index = _random.Next(0, _set.Count);
 
-      foreach (ShapeDescription shape in (ShapeSet) _set[index])
+      foreach (ShapeDescription shape in _set[index])
 	{
 	if (Fits(A, x, y, shape))
 	  {
