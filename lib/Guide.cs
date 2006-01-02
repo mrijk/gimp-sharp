@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2005 Maurits Rijk
+// Copyright (C) 2004-2006 Maurits Rijk
 //
 // Guide.cs
 //
@@ -66,15 +66,15 @@ namespace Gimp
       get {return gimp_image_get_guide_orientation(_imageID, _guideID);}
       }
 
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_image_delete_guide(Int32 image_ID, Int32 guide_ID);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern int gimp_image_get_guide_position (Int32 image_ID,
                                                      Int32 guide_ID);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern Int32 gimp_image_find_next_guide (Int32 image_ID,
                                                     Int32 guide_ID);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern OrientationType 
     gimp_image_get_guide_orientation (Int32 image_ID, Int32 guide_ID);
     }
@@ -85,7 +85,7 @@ namespace Gimp
       base(image, gimp_image_add_vguide(image.ID, xposition))
       {
       }
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern Int32 gimp_image_add_vguide (Int32 image_ID,
                                                int xposition);
     }
@@ -96,7 +96,7 @@ namespace Gimp
       base(image, gimp_image_add_hguide(image.ID, yposition))
       {
       }
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern Int32 gimp_image_add_hguide (Int32 image_ID,
                                                int yposition);
     }

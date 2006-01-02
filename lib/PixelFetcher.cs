@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2005 Maurits Rijk
+// Copyright (C) 2004-2006 Maurits Rijk
 //
 // PixelFetcher.cs
 //
@@ -47,17 +47,17 @@ namespace Gimp
       {
 	gimp_pixel_fetcher_put_pixel (_ptr, x, y, pixel);
       }
-      [DllImport("libgimp-2.0.so")]
+      [DllImport("libgimp-2.0-0.dll")]
       static extern IntPtr gimp_pixel_fetcher_new (IntPtr drawable,
 						   bool shadow);
-      [DllImport("libgimp-2.0.so")]
+      [DllImport("libgimp-2.0-0.dll")]
       static extern IntPtr gimp_pixel_fetcher_destroy (IntPtr drawable);
-      [DllImport("libgimp-2.0.so")]
+      [DllImport("libgimp-2.0-0.dll")]
       static extern IntPtr gimp_pixel_fetcher_get_pixel (IntPtr pf,
 							 int x,
 							 int y,
 							 byte[] pixel);
-      [DllImport("libgimp-2.0.so")]
+      [DllImport("libgimp-2.0-0.dll")]
       static extern IntPtr gimp_pixel_fetcher_put_pixel (IntPtr pf,
 							 int x,
 							 int y,

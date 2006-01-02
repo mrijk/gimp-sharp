@@ -80,38 +80,3 @@ int gimp_main_wrapper(GimpPlugInInfo *info)
 	info->query_proc();
 	return info == &_wrap;
 }
-
-static int n_return_vals;
-static GimpParam *return_vals;
-
-
-// This is another example of an exported function.
-int fnGimp2(void (*func)(const char*))
-{
-	((void (STDCALL *)(const char*)) func)("foo");
-	return 42;
-}
-
-int fnGimp3(char *fmt, ...)
-{
-	int count = 0;
-	char *val;
-
-	va_list	ap;
-
-	va_start(ap, fmt);
-	while ((val = va_arg(ap, char*)) != NULL)
-		{
-		count++;
-		}
-
-	va_end(ap);
-
-	return count;
-}
-
-// This is an example of an exported function.
-int fnGimp()
-{
-	return fnGimp3("format", "aap", "noot", NULL);
-}

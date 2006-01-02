@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2005 Maurits Rijk
+// Copyright (C) 2004-2006 Maurits Rijk
 //
 // Layer.cs
 //
@@ -177,7 +177,7 @@ namespace Gimp
 	get {return gimp_layer_is_floating_sel (_ID);}
       }
 
-      [DllImport("libgimp-2.0.so")]
+      [DllImport("libgimp-2.0-0.dll")]
       static extern Int32 gimp_layer_new (Int32 image_ID,
 					  string name,
 					  int width,
@@ -185,75 +185,75 @@ namespace Gimp
 					  ImageType type,
 					  double opacity,
 					  LayerModeEffects mode);
-      [DllImport("libgimp-2.0.so")]
+      [DllImport("libgimp-2.0-0.dll")]
       static extern Int32 gimp_layer_copy (Int32 layer_ID);
-      [DllImport("libgimp-2.0.so")]
+      [DllImport("libgimp-2.0-0.dll")]
       static extern bool gimp_layer_scale (Int32 layer_ID,
 					   int new_width,
 					   int new_height,
 					   bool local_origin);
-      [DllImport("libgimp-2.0.so")]
+      [DllImport("libgimp-2.0-0.dll")]
       static extern bool gimp_layer_resize (Int32 layer_ID,
 					    int new_width,
 					    int new_height,
 					    int offx,
 					    int offy);
-      [DllImport("libgimp-2.0.so")]
+      [DllImport("libgimp-2.0-0.dll")]
       static extern bool gimp_layer_resize_to_image_size (Int32 layer_ID);
-      [DllImport("libgimp-2.0.so")]
+      [DllImport("libgimp-2.0-0.dll")]
       static extern bool gimp_layer_translate (Int32 layer_ID, 
 					       int offx, int offy);
-      [DllImport("libgimp-2.0.so")]
+      [DllImport("libgimp-2.0-0.dll")]
       static extern bool gimp_layer_add_alpha (Int32 layer_ID);
-      [DllImport("libgimp-2.0.so")]
+      [DllImport("libgimp-2.0-0.dll")]
       static extern bool gimp_layer_set_offsets (Int32 layer_ID,
 						 int offx,
 						 int offy);
-      [DllImport("libgimp-2.0.so")]
+      [DllImport("libgimp-2.0-0.dll")]
       static extern Int32 gimp_layer_create_mask (Int32 layer_ID,
 						  AddMaskType mask_type);
-      [DllImport("libgimp-2.0.so")]
+      [DllImport("libgimp-2.0-0.dll")]
       static extern Int32 gimp_layer_get_mask (Int32 layer_ID);
-      [DllImport("libgimp-2.0.so")]
+      [DllImport("libgimp-2.0-0.dll")]
       static extern bool gimp_layer_add_mask (Int32 layer_ID,
 					      Int32 mask_ID);
-      [DllImport("libgimp-2.0.so")]
+      [DllImport("libgimp-2.0-0.dll")]
       static extern bool gimp_layer_remove_mask (Int32 layer_ID,
 						 MaskApplyMode mode);
-      [DllImport("libgimp-2.0.so")]
+      [DllImport("libgimp-2.0-0.dll")]
       static extern int gimp_layer_new_from_drawable (Int32 drawable_ID,
 						      Int32 dest_image_ID);
-      [DllImport("libgimp-2.0.so")]
+      [DllImport("libgimp-2.0-0.dll")]
       static extern bool gimp_layer_get_preserve_trans (Int32 layer_ID);
-      [DllImport("libgimp-2.0.so")]
+      [DllImport("libgimp-2.0-0.dll")]
       static extern bool gimp_layer_set_preserve_trans (Int32 layer_ID,
 							bool preserve_trans);
-      [DllImport("libgimp-2.0.so")]
+      [DllImport("libgimp-2.0-0.dll")]
       static extern bool gimp_layer_get_apply_mask (Int32 layer_ID);
-      [DllImport("libgimp-2.0.so")]
+      [DllImport("libgimp-2.0-0.dll")]
       static extern bool gimp_layer_set_apply_mask (Int32 layer_ID,
 						    bool apply_mask);
-      [DllImport("libgimp-2.0.so")]
+      [DllImport("libgimp-2.0-0.dll")]
       static extern bool gimp_layer_get_show_mask (Int32 layer_ID);
-      [DllImport("libgimp-2.0.so")]
+      [DllImport("libgimp-2.0-0.dll")]
       static extern bool gimp_layer_set_show_mask (Int32 layer_ID,
 						   bool show_mask);
-      [DllImport("libgimp-2.0.so")]
+      [DllImport("libgimp-2.0-0.dll")]
       static extern bool gimp_layer_get_edit_mask (Int32 layer_ID);
-      [DllImport("libgimp-2.0.so")]
+      [DllImport("libgimp-2.0-0.dll")]
       static extern bool gimp_layer_set_edit_mask (Int32 layer_ID,
 						   bool edit_mask);
-      [DllImport("libgimp-2.0.so")]
+      [DllImport("libgimp-2.0-0.dll")]
       static extern double gimp_layer_get_opacity (Int32 layer_ID);
-      [DllImport("libgimp-2.0.so")]
+      [DllImport("libgimp-2.0-0.dll")]
       static extern bool gimp_layer_set_opacity (Int32 layer_ID,
 						 double opacity);
-      [DllImport("libgimp-2.0.so")]
+      [DllImport("libgimp-2.0-0.dll")]
       static extern LayerModeEffects gimp_layer_get_mode (Int32 layer_ID);
-      [DllImport("libgimp-2.0.so")]
+      [DllImport("libgimp-2.0-0.dll")]
       static extern bool gimp_layer_set_mode (Int32 layer_ID,
 					      LayerModeEffects mode);
-      [DllImport("libgimp-2.0.so")]
+      [DllImport("libgimp-2.0-0.dll")]
       static extern bool gimp_layer_is_floating_sel (Int32 layer_ID);
     }
   }

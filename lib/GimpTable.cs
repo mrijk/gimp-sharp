@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2005 Maurits Rijk
+// Copyright (C) 2004-2006 Maurits Rijk
 //
 // GimpTable.cs
 //
@@ -43,7 +43,7 @@ namespace Gimp
 	// return new Widget(ptr);
       }
 
-      [DllImport("libgimpwidgets-2.0.so")]
+      [DllImport("libgimpwidgets-2.0-0.dll")]
       extern static IntPtr gimp_table_attach_aligned (
 	IntPtr 	table,
 	int	column,

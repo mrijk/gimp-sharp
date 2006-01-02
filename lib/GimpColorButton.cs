@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2005 Maurits Rijk
+// Copyright (C) 2004-2006 Maurits Rijk
 //
 // GimpColorButton.cs
 //
@@ -133,28 +133,28 @@ namespace Gimp
 	    }
       }
 
-      [DllImport("libgimpwidgets-2.0.so")]
+      [DllImport("libgimpwidgets-2.0-0.dll")]
       extern static IntPtr gimp_color_button_new(
 	string title,
 	int width,
 	int height,
 	ref GimpRGB color,
 	ColorAreaType type);
-      [DllImport("libgimpwidgets-2.0.so")]
+      [DllImport("libgimpwidgets-2.0-0.dll")]
       extern static void gimp_color_button_set_color(IntPtr button,
 						     ref GimpRGB color);
-      [DllImport("libgimpwidgets-2.0.so")]
+      [DllImport("libgimpwidgets-2.0-0.dll")]
       extern static void gimp_color_button_get_color(IntPtr button,
 						     ref GimpRGB color);
-      [DllImport("libgimpwidgets-2.0.so")]
+      [DllImport("libgimpwidgets-2.0-0.dll")]
       extern static bool gimp_color_button_has_alpha(IntPtr button);
-      [DllImport("libgimpwidgets-2.0.so")]
+      [DllImport("libgimpwidgets-2.0-0.dll")]
       extern static void gimp_color_button_set_type(IntPtr button,
 						    ColorAreaType type);
-      [DllImport("libgimpwidgets-2.0.so")]
+      [DllImport("libgimpwidgets-2.0-0.dll")]
       extern static void gimp_color_button_set_update(IntPtr button,
 						      bool continuous);
-      [DllImport("libgimpwidgets-2.0.so")]
+      [DllImport("libgimpwidgets-2.0-0.dll")]
       extern static bool gimp_color_button_get_update(IntPtr button);
     }
   }

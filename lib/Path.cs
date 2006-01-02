@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2005 Maurits Rijk
+// Copyright (C) 2004-2006 Maurits Rijk
 //
 // Path.cs
 //
@@ -111,15 +111,17 @@ namespace Gimp
                                             string name, bool locked);
     [DllImport("libgimp-2.0-0.dll")]
     extern static bool gimp_path_to_selection(Int32 image_ID,
-                                              string name, ChannelOps op, bool antialias,
+                                              string name, ChannelOps op, 
+					      bool antialias,
                                               bool feather,
                                               double feather_radius_x,
                                               double feather_radius_y);
     [DllImport("libgimp-2.0-0.dll")]
-    extern static bool gimp_path_import(Int32 image_ID,
-                                        string filename, bool merge, bool scale);
+    extern static bool gimp_path_import(Int32 image_ID, string filename, 
+					bool merge, bool scale);
     [DllImport("libgimp-2.0-0.dll")]
-    extern static bool gimp_path_import_string(Int32 image_ID,
-                                               string importString, int length, bool merge, bool scale);
+    extern static bool gimp_path_import_string(Int32 image_ID, 
+					       string importString, int length,
+					       bool merge, bool scale);
     }
   }

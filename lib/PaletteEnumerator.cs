@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2005 Maurits Rijk
+// Copyright (C) 2004-2006 Maurits Rijk
 //
 // PaletteEnumerator.cs
 //
@@ -18,6 +18,8 @@
 // Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 // Boston, MA 02111-1307, USA.
 //
+
+// TODO: reimplement this with C# 2.0 yield
 
 using System;
 using System.Collections;

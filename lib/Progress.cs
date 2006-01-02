@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2005 Maurits Rijk
+// Copyright (C) 2004-2006 Maurits Rijk
 //
 // Progress.cs
 //
@@ -39,9 +39,9 @@ namespace Gimp
 	gimp_progress_update (percentage);
       }
 
-      [DllImport("libgimp-2.0.so")]
+      [DllImport("libgimp-2.0-0.dll")]
       public static extern bool gimp_progress_init (string message);
-      [DllImport("libgimp-2.0.so")]
+      [DllImport("libgimp-2.0-0.dll")]
       public static extern bool gimp_progress_update(double percentage);
 
     }

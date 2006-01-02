@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2005 Maurits Rijk
+// Copyright (C) 2004-2006 Maurits Rijk
 //
 // GimpDialog.cs
 //
@@ -88,7 +88,7 @@ namespace Gimp
 	gimp_dialogs_show_help_button(show);
       }
 
-      [DllImport("libgimpwidgets-2.0.so")]
+      [DllImport("libgimpwidgets-2.0-0.dll")]
       static extern IntPtr gimp_dialog_new(
 	string title,
 	string role,
@@ -100,7 +100,7 @@ namespace Gimp
 	string button2, Gtk.ResponseType action2,
 	string end);
 
-      [DllImport("libgimpwidgets-2.0.so")]
+      [DllImport("libgimpwidgets-2.0-0.dll")]
       static extern IntPtr gimp_dialog_new(
 	string title,
 	string role,
@@ -113,10 +113,10 @@ namespace Gimp
 	string button3, Gtk.ResponseType action3,
 	string end);
 
-      [DllImport("libgimpwidgets-2.0.so")]
+      [DllImport("libgimpwidgets-2.0-0.dll")]
       static extern Gtk.ResponseType gimp_dialog_run(IntPtr dialog);
 
-      [DllImport("libgimpwidgets-2.0.so")]
+      [DllImport("libgimpwidgets-2.0-0.dll")]
       static extern void gimp_dialogs_show_help_button(bool show);
     }
   }

@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2005 Maurits Rijk
+// Copyright (C) 2004-2006 Maurits Rijk
 //
 // Plugin.cs
 //
@@ -498,12 +498,12 @@ namespace Gimp
 	}
     }
 
-    [DllImport("libgimpui-2.0.so")]
+    [DllImport("libgimpui-2.0-0.dll")]
     public static extern void gimp_ui_init(string prog_name, bool preview);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     public static extern bool gimp_plugin_menu_register(string procedure_name,
 							string menu_path);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     public static extern bool gimp_plugin_icon_register(string procedure_name,
 							IconType icon_type, 
 							byte[] icon_data);
@@ -523,12 +523,12 @@ namespace Gimp
       GimpParamDef[] _params,
       GimpParamDef[] return_vals);
 
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     public static extern IntPtr gimp_run_procedure2(string name,
 						    out int n_return_vals,
 						    int n_params,
 						    GimpParam[] _params);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     public static extern bool gimp_procedural_db_proc_info (
       string procedure,
       out string blurb,

@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2005 Maurits Rijk
+// Copyright (C) 2004-2006 Maurits Rijk
 //
 // DrawablePreview.cs
 //
@@ -42,12 +42,12 @@ namespace Gimp
 	gimp_drawable_preview_draw_region(Handle, ref pr);
       }
 
-      [DllImport("libgimpui-2.0.so")]
+      [DllImport("libgimpui-2.0-0.dll")]
       extern static IntPtr gimp_drawable_preview_new(IntPtr drawable, 
 						     bool toggle);
-      [DllImport("libgimpui-2.0.so")]
+      [DllImport("libgimpui-2.0-0.dll")]
       extern static IntPtr gimp_drawable_preview_get_drawable(IntPtr preview);
-      [DllImport("libgimpui-2.0.so")]
+      [DllImport("libgimpui-2.0-0.dll")]
       extern static void gimp_drawable_preview_draw_region(IntPtr preview,
 							   ref GimpPixelRgn region);
     }

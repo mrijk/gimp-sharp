@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2005 Maurits Rijk
+// Copyright (C) 2004-2006 Maurits Rijk
 //
 // RandomSeed.cs
 //
@@ -32,7 +32,7 @@ namespace Gimp
 	base(gimp_random_seed_new (ref seed, ref random_seed))
       {
       }
-      [DllImport("libgimpwidgets-2.0.so")]
+      [DllImport("libgimpwidgets-2.0-0.dll")]
       extern static IntPtr gimp_random_seed_new (ref UInt32 seed,
 						 ref bool random_seed);
     }

@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2005 Maurits Rijk
+// Copyright (C) 2004-2006 Maurits Rijk
 //
 // PaletteEntry.cs
 //
@@ -77,19 +77,19 @@ namespace Gimp
 	    }
       }
 
-      [DllImport("libgimp-2.0.so")]
+      [DllImport("libgimp-2.0-0.dll")]
       static extern bool gimp_palette_entry_get_name(string name, 
 						     int entry_num,
 						     out string entry_name);
-      [DllImport("libgimp-2.0.so")]
+      [DllImport("libgimp-2.0-0.dll")]
       static extern bool gimp_palette_entry_set_name(string name, 
 						     int entry_num,
 						     string entry_name);
-      [DllImport("libgimp-2.0.so")]
+      [DllImport("libgimp-2.0-0.dll")]
       static extern bool gimp_palette_entry_get_color(string name, 
 						      int entry_num,
 						      out GimpRGB color);
-      [DllImport("libgimp-2.0.so")]
+      [DllImport("libgimp-2.0-0.dll")]
       static extern bool gimp_palette_entry_set_color(string name, 
 						      int entry_num,
 						      GimpRGB color);

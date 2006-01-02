@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2005 Maurits Rijk
+// Copyright (C) 2004-2006 Maurits Rijk
 //
 // Parasite.cs
 //
@@ -102,29 +102,30 @@ namespace Gimp
       get {return _parasite;}
       }
 
-    [DllImport("libgimp-2.0.so")]
-    static extern IntPtr gimp_parasite_new (string name, UInt32 flags, UInt32 size, object data);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern IntPtr gimp_parasite_new (string name, UInt32 flags, 
+					    UInt32 size, object data);
+    [DllImport("libgimp-2.0-0.dll")]
     static extern void gimp_parasite_free (IntPtr parasite);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern IntPtr gimp_parasite_copy (IntPtr parasite);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_parasite_compare(IntPtr a, IntPtr b);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_parasite_is_type(IntPtr parasite, string name);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_parasite_is_persistent(IntPtr parasite);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_parasite_is_undoable(IntPtr parasite);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_parasite_has_flag(IntPtr parasite, ulong flag);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern ulong gimp_parasite_flags(IntPtr parasite);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern string gimp_parasite_name(IntPtr parasite);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern object gimp_parasite_data(IntPtr parasite);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern long gimp_parasite_data_size(IntPtr parasite);
     }
   }

@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2005 Maurits Rijk
+// Copyright (C) 2004-2006 Maurits Rijk
 //
 // Gimp.cs
 //
@@ -126,41 +126,41 @@ namespace Gimp
         }
       }
 
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern IntPtr gimp_version();
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern uint gimp_tile_width();
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern uint gimp_tile_height();
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern int gimp_shm_ID();
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern IntPtr gimp_shm_addr();
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern double gimp_gamma();
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_install_cmap();
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern int gimp_min_colors();
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_show_tool_tips();
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_show_help_button();
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern CheckSize gimp_check_size();
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern CheckType gimp_check_type();
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern Int32 gimp_default_display();
 
-    [DllImport("libgimpbase-2.0.so")]
+    [DllImport("libgimpbase-2.0-0.dll")]
     static extern IntPtr gimp_directory();
 
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_register_load_handler(string procedural_name,
                                                   string extensions, 
                                                   string prefixes);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_register_save_handler(string procedural_name,
                                                   string extensions, 
                                                   string prefixes);

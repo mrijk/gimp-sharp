@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2005 Maurits Rijk
+// Copyright (C) 2004-2006 Maurits Rijk
 //
 // ImageComboBox.cs
 //
@@ -42,7 +42,7 @@ namespace Gimp
 	  }
       }
 
-      [DllImport("libgimpui-2.0.so")]
+      [DllImport("libgimpui-2.0-0.dll")]
       extern static IntPtr gimp_image_combo_box_new (
 	IntPtr constraint,
 	IntPtr data);

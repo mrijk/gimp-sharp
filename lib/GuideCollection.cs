@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2005 Maurits Rijk
+// Copyright (C) 2004-2006 Maurits Rijk
 //
 // GuideCollection.cs
 //
@@ -21,6 +21,8 @@
 
 using System;
 using System.Collections;
+
+// TODO: Enumerator could be implemented with new C# 2.0 features (yield)
 
 namespace Gimp
   {

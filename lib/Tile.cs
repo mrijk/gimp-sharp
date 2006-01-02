@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2005 Maurits Rijk
+// Copyright (C) 2004-2006 Maurits Rijk
 //
 // Tile.cs
 //
@@ -63,18 +63,18 @@ namespace Gimp
       gimp_tile_cache_ntiles(ntiles);
       }
 
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern void gimp_tile_ref(IntPtr tile);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern void gimp_tile_ref_zero(IntPtr tile);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern void gimp_tile_unref(IntPtr tile,
                                        bool dirty);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern void gimp_tile_flush(IntPtr tile);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern void gimp_tile_cache_size(ulong kilobytes);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern void gimp_tile_cache_ntiles(ulong ntiles);
     }
   }

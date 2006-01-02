@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2005 Maurits Rijk
+// Copyright (C) 2004-2006 Maurits Rijk
 //
 // FileEntry.cs
 //
@@ -96,13 +96,13 @@ namespace Gimp
 	    }
       }
 
-      [DllImport("libgimpwidgets-2.0.so")]
+      [DllImport("libgimpwidgets-2.0-0.dll")]
       extern static IntPtr gimp_file_entry_new (string title, string filename, 
 						bool dir_only, 
 						bool check_valid);
-      [DllImport("libgimpwidgets-2.0.so")]
+      [DllImport("libgimpwidgets-2.0-0.dll")]
       extern static string gimp_file_entry_get_filename (IntPtr entry);
-      [DllImport("libgimpwidgets-2.0.so")]
+      [DllImport("libgimpwidgets-2.0-0.dll")]
       extern static void gimp_file_entry_set_filename (IntPtr entry, 
 						       string filename);
     }

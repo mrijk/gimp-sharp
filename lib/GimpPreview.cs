@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2005 Maurits Rijk
+// Copyright (C) 2004-2006 Maurits Rijk
 //
 // GimpPreview.cs
 //
@@ -120,30 +120,30 @@ namespace Gimp
 	    }
       }
 
-      [DllImport("libgimpwidgets-2.0.so")]
+      [DllImport("libgimpwidgets-2.0-0.dll")]
       extern static void gimp_preview_set_update (IntPtr preview,
 						  bool update);
-      [DllImport("libgimpwidgets-2.0.so")]
+      [DllImport("libgimpwidgets-2.0-0.dll")]
       extern static bool gimp_preview_get_update (IntPtr preview);
-      [DllImport("libgimpwidgets-2.0.so")]
+      [DllImport("libgimpwidgets-2.0-0.dll")]
       extern static void gimp_preview_set_bounds (IntPtr preview,
 						  int xmin, int ymin, 
 						  int xmax, int ymax);
-      [DllImport("libgimpwidgets-2.0.so")]
+      [DllImport("libgimpwidgets-2.0-0.dll")]
       extern static void gimp_preview_get_position(IntPtr preview,
 						   out int x, out int y);
-      [DllImport("libgimpwidgets-2.0.so")]
+      [DllImport("libgimpwidgets-2.0-0.dll")]
       extern static void gimp_preview_get_size(IntPtr preview,
 					       out int width, out int height);
-      [DllImport("libgimpwidgets-2.0.so")]
+      [DllImport("libgimpwidgets-2.0-0.dll")]
       extern static void gimp_preview_draw(IntPtr preview);
-      [DllImport("libgimpwidgets-2.0.so")]
+      [DllImport("libgimpwidgets-2.0-0.dll")]
       extern static void gimp_preview_draw_buffer(IntPtr preview,
 						  byte[] buffer, 
 						  int rowstride);
-      [DllImport("libgimpwidgets-2.0.so")]
+      [DllImport("libgimpwidgets-2.0-0.dll")]
       extern static void gimp_preview_invalidate(IntPtr preview);
-      [DllImport("libgimpwidgets-2.0.so")]
+      [DllImport("libgimpwidgets-2.0-0.dll")]
       extern static void gimp_preview_set_default_cursor(IntPtr preview,
 							 Cursor cursor);
     }

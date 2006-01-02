@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2005 Maurits Rijk
+// Copyright (C) 2004-2006 Maurits Rijk
 //
 // PreviewArea.cs
 //
@@ -39,9 +39,9 @@ namespace Gimp
 			       type, buf, rowstride);
       }
 
-      [DllImport("libgimpwidgets-2.0.so")]
+      [DllImport("libgimpwidgets-2.0-0.dll")]
       extern static IntPtr gimp_preview_area_new ();
-      [DllImport("libgimpwidgets-2.0.so")]
+      [DllImport("libgimpwidgets-2.0-0.dll")]
       extern static void gimp_preview_area_draw(
 	IntPtr area,
 	int x,

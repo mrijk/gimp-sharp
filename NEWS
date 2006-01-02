@@ -1,10 +1,13 @@
 Overview of Changes in Gimp# 0.8
 ================================
+
 - Switched to Mono 1.1.x
 - More Gimp API coverage
+- Ported code to Win32
 
 Overview of Changes in Gimp# 0.7
 ================================
+
 - More Gimp API coverage
 
 Overview of Changes in Gimp# 0.6

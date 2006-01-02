@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2005 Maurits Rijk
+// Copyright (C) 2004-2006 Maurits Rijk
 //
 // ScaleEntry.cs
 //
@@ -49,7 +49,7 @@ namespace Gimp
 				  unconstrained_upper, tooltip, help_id))
       {
       }
-      [DllImport("libgimpwidgets-2.0.so")]
+      [DllImport("libgimpwidgets-2.0-0.dll")]
       extern static IntPtr gimp_scale_entry_new (
 	IntPtr       table,
 	int          column,

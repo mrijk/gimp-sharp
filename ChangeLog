@@ -1,3 +1,13 @@
+2006-01-02  Maurits  <m.rijk@chello.nl>
+
+	* lib/gimp-sharp.dll.config
+	* lib/*.cs: replaced all *.so by *.dll to make the code portable
+	to win32
+
+2006-01-02  Maurits  <m.rijk@chello.nl>
+
+	* AUTHORS: Added Massimo (Max) Perga
+
 2005-12-16  Maurits  <maurits@localhost>
 
 	* plug-ins/Ministeck/*.cs: clean-up Ministeck plug-in

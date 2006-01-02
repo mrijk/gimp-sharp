@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2005 Maurits Rijk
+// Copyright (C) 2004-2006 Maurits Rijk
 //
 // Selection.cs
 //
@@ -163,54 +163,54 @@ namespace Gimp
         }
       }
 
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     extern static bool gimp_selection_bounds (Int32 image_ID,
                                               out bool non_empty,
                                               out int x1,
                                               out int y1,
                                               out int x2,
                                               out int y2);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     extern static bool gimp_selection_all (Int32 image_ID);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     extern static bool gimp_selection_none (Int32 image_ID);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     extern static bool gimp_selection_clear (Int32 image_ID);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     extern static bool gimp_selection_is_empty (Int32 image_ID);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     extern static Int32 gimp_selection_float (Int32 image_ID,
                                               Int32 drawable_ID,
                                               int offx, int offy);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     extern static bool gimp_selection_load (Int32 channel_ID);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     extern static Int32 gimp_selection_save (Int32 image_ID);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     extern static int gimp_selection_value (Int32 image_ID,
                                             int x, int y);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     extern static bool gimp_selection_grow (Int32 image_ID,
                                             int steps);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     extern static bool gimp_selection_shrink (Int32 image_ID,
                                               int radius);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     extern static bool gimp_selection_invert (Int32 image_ID);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     extern static bool gimp_selection_feather (Int32 image_ID,
                                                double radius);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     extern static bool gimp_selection_sharpen (Int32 image_ID);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     extern static bool gimp_selection_border (Int32 image_ID,
                                               int radius);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     extern static bool gimp_selection_translate (Int32 image_ID,
                                                  int offx, int offy);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     extern static bool gimp_selection_layer_alpha (Int32 layer_ID);
-    [DllImport("libgimp-2.0.so")]
+    [DllImport("libgimp-2.0-0.dll")]
     extern static bool gimp_selection_combine (Int32 channel_ID,
                                                ChannelOps operation); 
     }

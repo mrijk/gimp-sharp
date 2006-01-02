@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2005 Maurits Rijk
+// Copyright (C) 2004-2006 Maurits Rijk
 //
 // PersistentStorage.cs
 //
@@ -90,14 +90,14 @@ namespace Gimp
 	  }
       }
 
-      [DllImport("libgimp-2.0.so")]
+      [DllImport("libgimp-2.0-0.dll")]
       public static extern bool gimp_procedural_db_set_data(string identifier, 
 							    byte[] data,
 							    int bytes);
-      [DllImport("libgimp-2.0.so")]
+      [DllImport("libgimp-2.0-0.dll")]
       public static extern bool gimp_procedural_db_get_data(string identifier, 
 							    byte[] data);
-      [DllImport("libgimp-2.0.so")]
+      [DllImport("libgimp-2.0-0.dll")]
       public static extern int gimp_procedural_db_get_data_size(string identifier);
     }
   }

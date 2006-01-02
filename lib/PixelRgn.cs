@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2005 Maurits Rijk
+// Copyright (C) 2004-2006 Maurits Rijk
 //
 // PixelRgn.cs
 //
@@ -150,7 +150,7 @@ namespace Gimp
 	    }
       }
 
-      [DllImport("libgimp-2.0.so")]
+      [DllImport("libgimp-2.0-0.dll")]
       static extern void gimp_pixel_rgn_init (ref GimpPixelRgn pr,
 					      IntPtr drawable,
 					      int x,
@@ -159,38 +159,38 @@ namespace Gimp
 					      int height,
 					      bool dirty,
 					      bool shadow);
-      [DllImport("libgimp-2.0.so")]
+      [DllImport("libgimp-2.0-0.dll")]
       static extern IntPtr gimp_pixel_rgns_register (int nrgns, 
 						     ref GimpPixelRgn pr);
-      [DllImport("libgimp-2.0.so")]
+      [DllImport("libgimp-2.0-0.dll")]
       static extern IntPtr gimp_pixel_rgns_register (int nrgns, 
 						     ref GimpPixelRgn pr1,
 						     ref GimpPixelRgn pr2);
-      [DllImport("libgimp-2.0.so")]
+      [DllImport("libgimp-2.0-0.dll")]
       static extern IntPtr gimp_pixel_rgns_register (int nrgns, 
 						     ref GimpPixelRgn pr1,
 						     ref GimpPixelRgn pr2,
 						     ref GimpPixelRgn pr3);
-      [DllImport("libgimp-2.0.so")]
+      [DllImport("libgimp-2.0-0.dll")]
       static extern IntPtr gimp_pixel_rgns_process (IntPtr pri_ptr);
-      [DllImport("libgimp-2.0.so")]
+      [DllImport("libgimp-2.0-0.dll")]
       static extern void gimp_pixel_rgn_get_pixel (ref GimpPixelRgn  pr,
 						   byte[] buf,
 						   int    x,
 						   int    y);
-      [DllImport("libgimp-2.0.so")]
+      [DllImport("libgimp-2.0-0.dll")]
       static extern void gimp_pixel_rgn_set_pixel (ref GimpPixelRgn  pr,
 						   byte[] buf,
 						   int    x,
 						   int    y);
-      [DllImport("libgimp-2.0.so")]
+      [DllImport("libgimp-2.0-0.dll")]
       static extern void gimp_pixel_rgn_get_rect (ref GimpPixelRgn pr,
 						  byte[] buf,
 						  int x,
 						  int y,
 						  int width,
 						  int height);
-      [DllImport("libgimp-2.0.so")]
+      [DllImport("libgimp-2.0-0.dll")]
       static extern void gimp_pixel_rgn_set_rect (ref GimpPixelRgn pr,
 						  byte[] buf,
 						  int x,
