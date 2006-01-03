@@ -178,7 +178,7 @@ sharedstatedir = @sharedstatedir@
 sysconfdir = @sysconfdir@
 target_alias = @target_alias@
 AUTOMAKE_OPTIONS = gnu
-SUBDIRS = lib plug-ins wrapper
+SUBDIRS = lib plug-ins
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 

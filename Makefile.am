@@ -1,2 +1,2 @@
 AUTOMAKE_OPTIONS = gnu
-SUBDIRS = lib plug-ins wrapper
+SUBDIRS = lib plug-ins

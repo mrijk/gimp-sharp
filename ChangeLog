@@ -1,3 +1,7 @@
+2006-01-03  Maurits  <m.rijk@chello.nl>
+
+	* lib/Plugin.cs: removed wrapper code
+
 2006-01-02  Maurits  <m.rijk@chello.nl>
 
 	* lib/gimp-sharp.dll.config

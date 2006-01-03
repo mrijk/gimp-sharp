@@ -38,9 +38,13 @@ namespace Gimp
     protected Image _image;
     protected Drawable _drawable;
 
+    [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
     public delegate void InitProc();
+    [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
     public delegate void QuitProc();
+    [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
     public delegate void QueryProc();
+    [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
     public delegate void RunProc(string name, int n_params, 
 				 IntPtr param,
 				 ref int n_return_vals, 
@@ -69,7 +73,7 @@ namespace Gimp
       progargs[0] = "gimp-sharp";
       args.CopyTo (progargs, 1);
 
-      fnInitGimp(ref _info, progargs.Length, progargs);
+      gimp_main(ref _info, progargs.Length, progargs);
     }
 
     public string Name
@@ -542,17 +546,8 @@ namespace Gimp
       out IntPtr args,
       out GimpParamDef[] return_vals);
 
-    [DllImport("libgimpwrapper.so")]
-    public static extern int fnInitGimp(ref GimpPlugInInfo info, 
-					int argc, string[] args);
-    [DllImport("libgimpwrapper.so")]
-    public static extern bool wrapper_set_data(string identifier,
-					       byte[] data,
-					       int bytes);
-    [DllImport("libgimpwrapper.so")]
-    public static extern bool wrapper_get_data(string identifier,
-					       byte[] data);
-    [DllImport("libgimpwrapper.so")]
-    public static extern int wrapper_get_data_size(string identifier);
+    [DllImport("libgimp-2.0-0.dll")]
+    public static extern int gimp_main(ref GimpPlugInInfo info, 
+				       int argc, string[] args);
   }
   }
