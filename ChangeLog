@@ -1,3 +1,14 @@
+2006-01-04  Maurits  <m.rijk@chello.nl>
+
+	* configure.in: added check on OS (Win32 or Linux). Contributed by
+	Max Perga
+
+	* lib/gimp-sharp.dll.config: mapping of libgimpcolor added
+
+	* plug-ins/PicturePackage/*.cs
+	* plug-ins/SliceTool/*.cs: introduced generics in a few more
+	places instead of the old ArrayList.
+
 2006-01-03  Maurits  <m.rijk@chello.nl>
 
 	* lib/Plugin.cs: removed wrapper code

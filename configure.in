@@ -25,7 +25,7 @@ if test "x$PKG_CONFIG" = "xno"; then
 fi
 AC_SUBST(MONO)
 
-PKG_CHECK_MODULES(MONO, mono >= 1.1.0)
+PKG_CHECK_MODULES(MONO, mono >= 1.1.7)
 AC_SUBST(MONO_CFLAGS)
 AC_SUBST(MONO_LIBS)
 
@@ -43,13 +43,15 @@ if test x$CSC = "xno"; then
 fi
 fi
 
-dnl set GIMP plug-in path
+if test "x$OS" != "xWindows_NT"; then
+    dnl set GIMP plug-in path
 
-dnl GIMPPLUGINDIR=/usr/local/lib/gimp/2.0/plug-ins
+    dnl GIMPPLUGINDIR=/usr/local/lib/gimp/2.0/plug-ins
 
-GIMPPLUGINDIR=`gimptool-2.0 -n --install-admin README | head -1 | sed "s/\(.* \)\\(.*\\)/\2/g"`
+    GIMPPLUGINDIR=`gimptool-2.0 -n --install-admin README | head -1 | sed "s/\(.* \)\\(.*\\)/\2/g"`
 
-AC_SUBST(GIMPPLUGINDIR)
+    AC_SUBST(GIMPPLUGINDIR)
+fi
 
 AC_SUBST(CSC)
 
