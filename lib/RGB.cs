@@ -60,12 +60,12 @@ namespace Gimp
 				      double red,
 				      double green,
 				      double blue);
-      [DllImport("libgimp-2.0-0.dll")]
+      [DllImport("libgimpcolor-2.0-0.dll")]
       static extern void gimp_rgb_set_uchar (ref GimpRGB rgb,
 					     byte red,
 					     byte green,
 					     byte blue);
-      [DllImport("libgimp-2.0-0.dll")]
+      [DllImport("libgimpcolor-2.0-0.dll")]
       static extern void gimp_rgb_get_uchar (ref GimpRGB rgb,
 					     out byte red,
 					     out byte green,
