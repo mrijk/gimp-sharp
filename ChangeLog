@@ -1,3 +1,8 @@
+2006-01-05  Maurits  <m.rijk@chello.nl>
+
+	* lib/Plugin.cs: replaced LoadImageHelper routine by Pixbuf
+	constructor.
+
 2006-01-04  Maurits  <m.rijk@chello.nl>
 
 	* configure.in: added check on OS (Win32 or Linux). Contributed by
