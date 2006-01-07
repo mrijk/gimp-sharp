@@ -1,5 +1,5 @@
 AC_INIT(README)
-AM_INIT_AUTOMAKE(gimp-sharp, 0.8)
+AM_INIT_AUTOMAKE(gimp-sharp, 0.7.1)
 AM_PROG_LIBTOOL
 AM_CONFIG_HEADER(config.h)
 
@@ -56,4 +56,4 @@ fi
 AC_SUBST(CSC)
 
 dnl read Makefile.in and write Makefile
-AC_OUTPUT(Makefile lib/Makefile plug-ins/Makefile plug-ins/KoalaPaint/Makefile plug-ins/ncp/Makefile plug-ins/Ministeck/Makefile plug-ins/PicturePackage/Makefile plug-ins/RedEye/Makefile plug-ins/SliceTool/Makefile plug-ins/Splitter/Makefile plug-ins/wbmp/Makefile wrapper/Makefile)
+AC_OUTPUT(Makefile lib/Makefile plug-ins/Makefile plug-ins/KoalaPaint/Makefile plug-ins/ncp/Makefile plug-ins/Ministeck/Makefile plug-ins/PicturePackage/Makefile plug-ins/RedEye/Makefile plug-ins/SliceTool/Makefile plug-ins/Splitter/Makefile plug-ins/wbmp/Makefile)

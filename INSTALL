@@ -4,7 +4,7 @@ and GIMP 2.3.x.
 Building Gimp# is easy:
 
 1) unpack the archive
-2) % cd gimp-sharp-0.8
+2) % cd gimp-sharp-0.7.1
 3) % make
 4) become root
 5) % make install

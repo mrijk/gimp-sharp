@@ -1,5 +1,10 @@
 2006-01-07  Maurits  <m.rijk@chello.nl>
 
+	* configure.in: set version to 0.7.1 and removed last traces of
+	the C wrapper code
+
+2006-01-07  Maurits  <m.rijk@chello.nl>
+
 	* wrapper/*: removed since we don't need a wrapper anymore
 
 2006-01-05  Maurits  <m.rijk@chello.nl>
