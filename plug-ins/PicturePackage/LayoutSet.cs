@@ -44,15 +44,8 @@ namespace Gimp.PicturePackage
       XmlDocument doc = new XmlDocument();
 
       Assembly myAssembly = Assembly.GetExecutingAssembly();
-#if false
-      String[] names = myAssembly.GetManifestResourceNames();
-      Console.WriteLine(names[0]);
-      Stream myStream = 
-      myAssembly.GetManifestResourceStream("PicturePackage.picture-package.xml");
-#else
       Stream myStream = 
       	myAssembly.GetManifestResourceStream("picture-package.xml");
-#endif
       doc.Load(myStream);
       LoadXmlDocument(doc);
 
