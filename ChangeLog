@@ -1,3 +1,7 @@
+2006-01-12  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/Ministeck/ShapeSet.cs: code clean-up
+
 2006-01-08  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/PicturePackage/PageSizeSet.cs: reverting a change from

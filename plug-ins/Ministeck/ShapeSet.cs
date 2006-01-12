@@ -31,11 +31,7 @@ namespace Gimp.Ministeck
 
       public ShapeSet(params ShapeDescription[] shapes)
       {
-	_set = new List<ShapeDescription>();
-	foreach (ShapeDescription shape in shapes)
-	  {
-	  _set.Add(shape);
-	  }		
+	_set = new List<ShapeDescription>(shapes);
       }
 
       public ShapeSet(ShapeSet s)

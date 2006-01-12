@@ -30,6 +30,8 @@ namespace Gimp
       {
       get
           {
+	  IntPtr bla = glib_check_version(1, 2, 3);
+
           IntPtr tmp = gimp_directory();
           return Marshal.PtrToStringAuto(tmp);
           }
@@ -125,6 +127,9 @@ namespace Gimp
         throw new Exception();
         }
       }
+
+    [DllImport("libglib.dll")]
+    static extern IntPtr glib_check_version(int x, int y, int z);
 
     [DllImport("libgimp-2.0-0.dll")]
     static extern IntPtr gimp_version();
