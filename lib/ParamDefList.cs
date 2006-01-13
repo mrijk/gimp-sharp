@@ -33,5 +33,37 @@ namespace Gimp
       {
 	_set = new List<ParamDef>(list);
       }
+
+      public void Add(ParamDef p)
+      {
+        _set.Add(p);
+      }
+
+      public ParamDef Lookup(string name)
+      {
+        foreach (ParamDef p in _set)
+	{
+	  if (p.Name == name)
+	  {
+	    return p;
+	  }
+	}
+	return null;
+      }
+
+      public object GetValue(string name)
+      {
+        ParamDef p = Lookup(name);
+        return (p == null) ? null : p.Value;
+      }
+    
+      public void SetValue(string name, object value)
+      {
+        ParamDef p = Lookup(name);
+	if (p != null)
+	{
+	  p.Value = value;
+	}
+      }
     }
   }

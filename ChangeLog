@@ -1,3 +1,9 @@
+2006-01-13  Maurits  <m.rijk@chello.nl>
+
+	* lib/ParamDef.cs
+	* lib/ParamDefList.cs: start with smarter implementation of GIMP
+	parameters.
+
 2006-01-12  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/Ministeck/ShapeSet.cs: code clean-up

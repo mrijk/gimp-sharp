@@ -26,14 +26,43 @@ namespace Gimp
   {
     public class ParamDef
     {
+      string _name;
+      string _description;
+      object _value;
+      Type   _type;
+
       GimpParamDef _paramDef = new GimpParamDef();
 
-      public ParamDef(PDBArgType type, string name, string description)
+      public ParamDef(string name, object value, Type type, string description)
       {
-	_paramDef.type = type;
-	_paramDef.name = name;
-	_paramDef.description = description;
+        _name = name;
+	_value = value;
+	_type = type;
+	_description = description;
       }
+
+      public string GimpType
+      {
+        get 
+	{
+	  if (_type == typeof(int))
+	    return "PDBArgType.INT32";
+	  else
+	    return "unknown";
+	}
+      }
+
+      public string Name
+      {
+        get {return _name;}
+      }
+
+      public object Value
+      {
+        get {return _value;}
+	set {_value = value;}
+      }
+
 
       public GimpParamDef GimpParamDef
       {

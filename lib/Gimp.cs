@@ -30,7 +30,8 @@ namespace Gimp
       {
       get
           {
-	  IntPtr bla = glib_check_version(1, 2, 3);
+	  // IntPtr bla = glib_check_version(1, 2, 3);
+	  // System.Console.WriteLine("version: " + Marshal.PtrToStringAuto(bla));
 
           IntPtr tmp = gimp_directory();
           return Marshal.PtrToStringAuto(tmp);
