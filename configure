@@ -20460,7 +20460,7 @@ _ACEOF
 fi
 
 
-VERSION="0.8"
+VERSION="0.7.1"
 
 
 # Extract the first word of "pkg-config", so it can be a program name with args.
