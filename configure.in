@@ -1,5 +1,5 @@
 AC_INIT(README)
-AM_INIT_AUTOMAKE(gimp-sharp, 0.7.1)
+AM_INIT_AUTOMAKE(gimp-sharp, 0.8)
 AM_PROG_LIBTOOL
 AM_CONFIG_HEADER(config.h)
 
@@ -11,7 +11,7 @@ AC_PROG_MAKE_SET
                
 AC_HEADER_STDC
                   
-VERSION="0.7.1"
+VERSION="0.8"
 AC_SUBST(VERSION)
 
 AC_PATH_PROG(PKG_CONFIG, pkg-config, no)

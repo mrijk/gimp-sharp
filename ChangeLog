@@ -1,3 +1,23 @@
+2006-01-19  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/PicturePackage/DirImageProviderFactory.cs: removed warning
+
+	* plug-ins/PicturePackage/LayoutSet.cs: removed some unused code
+
+	* plug-ins/SliceTool/RectangleSet.cs
+	* plug-ins/SliceTool/SliceSet.cs
+	* plug-ins/SliceTool/PropertySet.cs: use generics
+
+2006-01-19  Maurits  <m.rijk@chello.nl>
+
+	* configure.in
+	* NEWS
+	* INSTALL: updated for 0.8
+
+2006-01-17  Maurits  <m.rijk@chello.nl>
+
+	* Made 0.7.1 release
+
 2006-01-13  Maurits  <m.rijk@chello.nl>
 
 	* lib/ParamDef.cs
