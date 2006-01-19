@@ -24,7 +24,7 @@ namespace Gimp.Splitter
 		       "Splits an image in separate parts using a formula of the form f(x, y) = 0",
 		       "Maurits Rijk",
 		       "(C) Maurits Rijk",
-		       "1999 - 2005",
+		       "1999 - 2006",
 		       "Splitter...",
 		       "RGB*",
 		       null);

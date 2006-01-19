@@ -1,3 +1,10 @@
+2006-01-19  Maurits  <maurits@localhost>
+
+	* plug-ins/Splitter/MathExpressionParster.cs
+	* plug-ins/Splitter/MyClassBase.cs: new files
+
+	* plug-ins/Splitter/Makefile.am: changed accordingly
+
 2006-01-19  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/PicturePackage/DirImageProviderFactory.cs: removed warning

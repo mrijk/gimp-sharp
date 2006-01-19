@@ -2,7 +2,7 @@ all: Splitter.exe
 
 ASSEMBLIES = -r:$(top_builddir)/lib/gimp-sharp.dll /pkg:gtk-sharp
 
-MYSOURCES = Splitter.cs
+MYSOURCES = Splitter.cs MathExpressionParser.cs MyClassBase.cs
 
 EXTRA_DIST = $(MYSOURCES) Splitter
 

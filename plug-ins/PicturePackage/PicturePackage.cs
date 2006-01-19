@@ -1,3 +1,23 @@
+// The PicturePackage plug-in
+// Copyright (C) 2004-2006 Maurits Rijk
+//
+// PicturePackage.cs
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+//
+
 using System;
 using System.IO;
 using System.Net;
@@ -54,7 +74,7 @@ namespace Gimp.PicturePackage
 		       "Picture package",
 		       "Maurits Rijk",
 		       "Maurits Rijk",
-		       "2004",
+		       "2004-2006",
 		       "Picture Package...",
 		       "",
 		       null);
@@ -69,7 +89,7 @@ namespace Gimp.PicturePackage
 
       _layoutSet.Load();
 
-      Dialog dialog = DialogNew("Picture Package 0.5", "PicturePackage",
+      Dialog dialog = DialogNew("Picture Package 0.6", "PicturePackage",
 				IntPtr.Zero, 0, null, "PicturePackage");
 
       HBox hbox = new HBox(false, 12);
@@ -233,14 +253,13 @@ namespace Gimp.PicturePackage
 	}
       else if (text.StartsWith("http://"))
 	{
-#if false
+#if true
 	HttpWebRequest request = (HttpWebRequest) WebRequest.Create(text);
 	request.KeepAlive = false;
-	/*
+
 	WebResponse response = request.GetResponse();
 	Console.WriteLine("Length: " + response.ContentLength);
 	response.Close();
-	*/
 #else
 	Console.WriteLine("Implement this!");
 #endif
