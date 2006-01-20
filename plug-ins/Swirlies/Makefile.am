@@ -4,10 +4,10 @@ ASSEMBLIES = -r:$(top_builddir)/lib/gimp-sharp.dll /pkg:gtk-sharp
 
 MYSOURCES = Swirlies.cs
 
-EXTRA_DIST = $(MYSOURCES) Swirlies
+EXTRA_DIST = $(MYSOURCES) Swirlies Swirlies.png
 
 Swirlies.exe : $(MYSOURCES)
-	$(CSC) $(MYSOURCES) -out:$@ $(ASSEMBLIES)
+	$(CSC) $(MYSOURCES) /resource:Swirlies.png -out:$@ $(ASSEMBLIES)
 
 clean:
 	rm -f Swirlies.exe

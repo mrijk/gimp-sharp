@@ -41,8 +41,6 @@ namespace Gimp.Swirlies
 
     override protected void Query()
     {
-      GimpParamDef[] args = new GimpParamDef[1];
-
       InstallProcedure("plug_in_swirlies",
 		       "Generates 2D textures",
 		       "Generates 2D textures",
@@ -51,10 +49,10 @@ namespace Gimp.Swirlies
 		       "2006",
 		       "Swirlies...",
 		       "RGB*, GRAY*",
-		       args);
+		       null);
 
       MenuRegister("<Image>/Filters/Render");
-      // IconRegister("Swirlies.png");
+      IconRegister("Swirlies.png");
     }
 
     override protected bool CreateDialog()

@@ -1,3 +1,9 @@
+2006-01-20  Maurits  <maurits@localhost>
+
+	* plug-ins/Splitter/Splitter.png: new file
+	
+	* plug-ins/Splitter/Makefile.am: changed accordingly
+	
 2006-01-20  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/Swirlies/Makefile.am

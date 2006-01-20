@@ -52,6 +52,7 @@ namespace Gimp.Splitter
 		       null);
 
       MenuRegister("<Image>/Filters/Generic");
+      IconRegister("Splitter.png");
     }
 
     override protected bool CreateDialog()
