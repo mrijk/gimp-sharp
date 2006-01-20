@@ -1,4 +1,16 @@
-2006-01-19  Maurits  <maurits@localhost>
+2006-01-20  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/Swirlies/Makefile.am
+	* plug-ins/Swirlies/Swirlies
+	* plug-ins/Swirlies/Swirlies.cs: new files for new Swirlies
+	plug-in
+
+	* configure.in
+	* plug-ins/Makefile.am: changed accordingly
+
+2006-01-19  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/Splitter/Splitter.cs: call new parser 
 
 	* plug-ins/Splitter/MathExpressionParster.cs
 	* plug-ins/Splitter/MyClassBase.cs: new files

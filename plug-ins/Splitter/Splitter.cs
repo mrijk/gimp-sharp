@@ -1,3 +1,23 @@
+// The Splitter plug-in
+// Copyright (C) 2004-2006 Maurits Rijk
+//
+// Splitter.cs
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+//
+
 using System;
 
 using Gimp;
@@ -7,6 +27,8 @@ namespace Gimp.Splitter
 {
   public class Splitter : Plugin
   {
+    Entry _formula;
+
     [STAThread]
     static void Main(string[] args)
     {
@@ -52,8 +74,8 @@ namespace Gimp.Splitter
       table.Attach(hbox, 0, 2, 0, 1);
 
       hbox.Add(new Label("f(x, y):"));
-      Entry entry = new Entry();
-      hbox.Add(entry);
+      _formula = new Entry();
+      hbox.Add(_formula);
       hbox.Add(new Label("= 0"));
 
       GimpFrame frame1 = CreateLayerFrame("Layer 1");
@@ -96,13 +118,11 @@ namespace Gimp.Splitter
       return frame;
     }
 
-    int foo(int x, int y)
-    {
-      return x - y;
-    }
-
     override protected void DoSomething(Image image, Drawable drawable)
     {
+      MathExpressionParser parser = new MathExpressionParser();
+      parser.Init(_formula.Text);
+
       Image clone = new Image(image);
 
       Layer layer1 = new Layer(clone, "layer_one", clone.Width, clone.Height,
@@ -138,7 +158,7 @@ namespace Gimp.Splitter
 	  {
 	  for (int x = srcPR.X; x < srcPR.X + srcPR.W; x++)
 	    {
-	    if (foo(x, y) < 0)
+	    if (parser.Eval(x, y) < 0)
 	      {
 	      destPR1[y, x] = srcPR[y, x];
 	      destPR2[y, x] = black;

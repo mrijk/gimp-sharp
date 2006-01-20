@@ -1,3 +1,23 @@
+// The Splitter plug-in
+// Copyright (C) 2004-2006 Maurits Rijk
+//
+// MathExpressionParser.cs
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+//
+
 using System;
 using System.Reflection;
 
@@ -9,7 +29,7 @@ namespace Gimp.Splitter
     public MathExpressionParser()
       {
       }
-    public bool init(string expr)
+    public bool Init(string expr)
       {
       Microsoft.CSharp.CSharpCodeProvider cp
 	= new Microsoft.CSharp.CSharpCodeProvider();
@@ -18,10 +38,10 @@ namespace Gimp.Splitter
 	= new System.CodeDom.Compiler.CompilerParameters();
       cpar.GenerateInMemory = true;
       cpar.GenerateExecutable = false;
-      cpar.ReferencedAssemblies.Add("system.dll");
-      cpar.ReferencedAssemblies.Add("matheval.exe"); 
+      cpar.ReferencedAssemblies.Add("System.dll");
+      cpar.ReferencedAssemblies.Add("Splitter.exe"); 
       string src = "using System;"+
-	"class myclass:MathEval.MyClassBase" + 
+	"class myclass:Gimp.Splitter.MyClassBase" + 
 	"{"+
 	"public myclass(){}"+
 	"public override double eval(double x,double y)"+
@@ -54,7 +74,7 @@ namespace Gimp.Splitter
 	return false;
       }
 
-    public double eval(double x,double y)
+    public double Eval(double x, double y)
       {
       double val = 0.0;
       if (myobj != null)
