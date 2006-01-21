@@ -29,6 +29,20 @@ namespace Gimp.Splitter
   {
     Entry _formula;
 
+    [SaveAttribute]
+    int _translate_1_x;
+    [SaveAttribute]
+    int _translate_1_y;
+    [SaveAttribute]
+    int _rotate_1;
+
+    [SaveAttribute]
+    int _translate_2_x;
+    [SaveAttribute]
+    int _translate_2_y;
+    [SaveAttribute]
+    int _rotate_2;
+
     [STAThread]
     static void Main(string[] args)
     {
@@ -79,22 +93,25 @@ namespace Gimp.Splitter
       hbox.Add(_formula);
       hbox.Add(new Label("= 0"));
 
-      GimpFrame frame1 = CreateLayerFrame("Layer 1");
+      GimpFrame frame1 = CreateLayerFrame1();
       table.Attach(frame1, 0, 1, 1, 2);
 
-      GimpFrame frame2 = CreateLayerFrame("Layer 2");
+      GimpFrame frame2 = CreateLayerFrame2();
       table.Attach(frame2, 1, 2, 1, 2);
 
       CheckButton merge = new CheckButton("Merge visible layers");
       table.Attach(merge, 0, 1, 3, 4);
 
+      Button advanced = new Button("Advanced Options...");
+      table.Attach(advanced, 1, 2, 3, 4);
+
       dialog.ShowAll();
       return DialogRun();
     }
 
-    GimpFrame CreateLayerFrame(string title)
+  GimpFrame CreateLayerFrame1()
     {
-      GimpFrame frame = new GimpFrame(title);
+      GimpFrame frame = new GimpFrame("Layer 1");
 
       GimpTable table = new GimpTable(3, 3, false);
       table.BorderWidth = 12;
@@ -102,19 +119,78 @@ namespace Gimp.Splitter
       table.ColumnSpacing = 12;
       frame.Add(table);
 
-      SpinButton translateX = new SpinButton(int.MinValue, int.MaxValue, 1);
-      translateX.Value = 0;
-      translateX.WidthChars = 4;
-      table.AttachAligned(0, 0, "Translate X:", 0.0, 0.5, translateX, 1, true);
+      SpinButton spinner = new SpinButton(int.MinValue, int.MaxValue, 1);
+      spinner.ValueChanged += 
+	delegate(object source, System.EventArgs args)
+	{
+	  _translate_1_x = spinner.ValueAsInt;
+	};
+      spinner.Value = 0;
+      spinner.WidthChars = 4;
+      table.AttachAligned(0, 0, "Translate X:", 0.0, 0.5, spinner, 1, true);
 
-      SpinButton translateY = new SpinButton(int.MinValue, int.MaxValue, 1);
-      translateY.Value = 0;
-      translateY.WidthChars = 4;
-      table.AttachAligned(0, 1, "Translate Y:", 0.0, 0.5, translateY, 1, true);
+      spinner = new SpinButton(int.MinValue, int.MaxValue, 1);
+      spinner.ValueChanged += 
+	delegate(object source, System.EventArgs args)
+	{
+	  _translate_1_y = spinner.ValueAsInt;
+	};
+      spinner.Value = 0;
+      spinner.WidthChars = 4;
+      table.AttachAligned(0, 1, "Translate Y:", 0.0, 0.5, spinner, 1, true);
 
-      SpinButton rotate = new SpinButton(0, 360, 1);
-      rotate.WidthChars = 4;
-      table.AttachAligned(0, 2, "Rotate:", 0.0, 0.5, rotate, 1, true);
+      spinner = new SpinButton(0, 360, 1);
+      spinner.ValueChanged += 
+	delegate(object source, System.EventArgs args)
+	{
+	  _rotate_1 = spinner.ValueAsInt;
+	};
+      spinner.WidthChars = 4;
+      table.AttachAligned(0, 2, "Rotate:", 0.0, 0.5, spinner, 1, true);
+
+      return frame;
+    }
+
+  // TODO: find a way to avoid this code duplication. Anymous methods
+  // however can't address ref or out parameters :(
+  GimpFrame CreateLayerFrame2()
+    {
+      GimpFrame frame = new GimpFrame("Layer 2");
+
+      GimpTable table = new GimpTable(3, 3, false);
+      table.BorderWidth = 12;
+      table.RowSpacing = 12;
+      table.ColumnSpacing = 12;
+      frame.Add(table);
+
+      SpinButton spinner = new SpinButton(int.MinValue, int.MaxValue, 1);
+      spinner.ValueChanged += 
+	delegate(object source, System.EventArgs args)
+	{
+	  _translate_2_x = spinner.ValueAsInt;
+	};
+      spinner.Value = 0;
+      spinner.WidthChars = 4;
+      table.AttachAligned(0, 0, "Translate X:", 0.0, 0.5, spinner, 1, true);
+
+      spinner = new SpinButton(int.MinValue, int.MaxValue, 1);
+      spinner.ValueChanged += 
+	delegate(object source, System.EventArgs args)
+	{
+	  _translate_2_y = spinner.ValueAsInt;
+	};
+      spinner.Value = 0;
+      spinner.WidthChars = 4;
+      table.AttachAligned(0, 1, "Translate Y:", 0.0, 0.5, spinner, 1, true);
+
+      spinner = new SpinButton(0, 360, 1);
+      spinner.ValueChanged += 
+	delegate(object source, System.EventArgs args)
+	{
+	  _rotate_2 = spinner.ValueAsInt;
+	};
+      spinner.WidthChars = 4;
+      table.AttachAligned(0, 2, "Rotate:", 0.0, 0.5, spinner, 1, true);
 
       return frame;
     }

@@ -1,0 +1,57 @@
+The GIMP# FAQ
+-------------
+
+Q: why C#?
+
+A: because there was a niche for such a language for programming GIMP
+plug-ins. Either you could create slow but easy to write plug-ins in
+Script-fu (Scheme), Perl or Python. Or you can write a plug-in in C
+which is fast, but also harder to write. C# fills in the gap in
+between. It's not as fast as native C, but a lot easier to write,
+especially since GIMP# provides a base class plugin that takes care of
+all the ugly stuff.
+
+
+Q: why not Java?
+
+A: hm, I have to think about a politically correct answer. But the
+real reason is that I had to learn C# and .NET couple of years ago and
+I needed a fun project. Besides, C# is quite a nice language.
+
+
+Q: how often will you release?
+
+A: this of course depends on the number of volunteers. At the moment
+there are 2 people actively involved with GIMP#. We try to release
+once a month.
+
+
+Q: when is GIMP# finished?
+
+A: short answer: never. Somewhat long answer: as soon as we have 100 %
+coverage of the GIMP API we could consider the library part of GIMP#
+as being finished. That is the point where we are probably going to
+release 1.0. The plug-ins that are part of GIMP# will of course evolve.
+
+
+Q: is there a version of GIMP# for Windows?
+
+A: yes, starting with version 0.7.1 we provide a Windows installer.
+
+
+Q: is there a version of GIMP# for Mac OS-X?
+
+A: no, not yet. Mono runs on Max OS X and GIMP# is very portable, so
+it shouldn't be too difficult to come up with a working version.
+
+
+Q: why doesn't GIMP# work with Mono 1.1.13?
+
+A: in that particular version of Mono an error was introduced with
+marshalling unions. This is solved in 1.1.14.
+
+
+Q: can I help?
+
+A: sure! We need more documentation and more plug-ins. And of course
+donating hardware always helps :) Just contact us if you want to help.
