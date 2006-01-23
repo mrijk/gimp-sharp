@@ -111,6 +111,14 @@ namespace Gimp.Swirlies
 
     override protected void DoSomething(Drawable drawable)
     {
+    double Fr = 0.0, Fg = 0.0, Fb = 0.0;
+    Swirly swirly = Swirly.CreateRandom();
+    for (int x = 0; x < 600; x++)
+      {
+      swirly.CalculateOnePoint(5, 600, 400, 1, x, 200, ref Fr, ref Fg,
+			       ref Fb);
+      Console.WriteLine("{0} {1} {2}", Fr, Fg, Fb);
+      }
     }
     }
-}
+  }

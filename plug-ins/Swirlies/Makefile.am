@@ -2,7 +2,7 @@ all: Swirlies.exe
 
 ASSEMBLIES = -r:$(top_builddir)/lib/gimp-sharp.dll /pkg:gtk-sharp
 
-MYSOURCES = Swirlies.cs
+MYSOURCES = Swirlies.cs Swirly.cs
 
 EXTRA_DIST = $(MYSOURCES) Swirlies Swirlies.png
 

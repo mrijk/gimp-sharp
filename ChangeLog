@@ -1,3 +1,8 @@
+2006-01-23  Maurits  <maurits@localhost>
+
+	* plug-ins/Swirlies/Swirlies.cs 
+	* plug-ins/Swirlies/Swirly.cs: algorithm almost complete
+
 2006-01-20  Maurits  <maurits@localhost>
 
 	* plug-ins/Splitter/Splitter.png: new file
