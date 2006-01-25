@@ -1,3 +1,10 @@
+2006-01-25  Maurits  <maurits@localhost>
+
+	* NEWS: updated
+	
+	* plug-ins/Swirlies/Swirlies.cs: first working version, including
+	a nice preview. It's still very very slow.
+
 2006-01-23  Maurits  <maurits@localhost>
 
 	* plug-ins/Swirlies/Swirlies.cs 

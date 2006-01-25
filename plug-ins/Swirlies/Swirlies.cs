@@ -19,7 +19,7 @@
 //
 
 using System;
-using System.Collections;
+using System.Collections.Generic;
 
 using Gtk;
 
@@ -27,7 +27,20 @@ namespace Gimp.Swirlies
 {
   public class Swirlies : Plugin
   {
+    Random _random;
+    byte[] _dest = new byte[3];
+    int _width;
+    int _height;
+    List<Swirly> _swirlies = new List<Swirly>();
+
     AspectPreview _preview;
+
+    [SaveAttribute]
+    UInt32 _seed;
+    [SaveAttribute]
+    bool _random_seed;
+    [SaveAttribute]
+    int _points = 3;
 
     [STAThread]
     static void Main(string[] args)
@@ -48,7 +61,7 @@ namespace Gimp.Swirlies
 		       "(C) Maurits Rijk",
 		       "2006",
 		       "Swirlies...",
-		       "RGB*, GRAY*",
+		       "RGB",
 		       null);
 
       MenuRegister("<Image>/Filters/Render");
@@ -67,18 +80,27 @@ namespace Gimp.Swirlies
       dialog.VBox.PackStart(vbox, true, true, 0);
 
       _preview = new AspectPreview(_drawable, false);
-      // _preview.Invalidated += new EventHandler(UpdatePreview);
+      _preview.Invalidated += new EventHandler(UpdatePreview);
       vbox.PackStart(_preview, true, true, 0);
 
       GimpTable table = new GimpTable(4, 3, false);
       table.ColumnSpacing = 6;
       table.RowSpacing = 6;
       vbox.PackStart(table, false, false, 0);
+
+      RandomSeed seed = new RandomSeed(ref _seed, ref _random_seed);
+
+      table.AttachAligned(0, 0, "Random _Seed:", 0.0, 0.5, seed, 2, true);
+
+      ScaleEntry entry = new ScaleEntry(table, 0, 1, "Po_ints:", 150, 3,
+					_points, 1.0, 16.0, 1.0, 8.0, 0,
+					true, 0, 0, null, null);
+      entry.ValueChanged += new EventHandler(PointsUpdate);
 			
       dialog.ShowAll();
       return DialogRun();
     }
-  /*
+
     void UpdatePreview(object sender, EventArgs e)
     {
       Initialize(_drawable);
@@ -102,23 +124,87 @@ namespace Gimp.Swirlies
 	}
       _preview.DrawBuffer(buffer, width * 3);
     }
-  */
+
+    void PointsUpdate(object sender, EventArgs e)
+    {
+      _points = (int) (sender as Adjustment).Value;
+      _preview.Invalidate();
+    }
 
     override protected void Reset()
     {
       Console.WriteLine("Reset!");
     }
 
+    void Initialize(Drawable drawable)
+    {
+
+      _random = new Random((int) _seed);
+      Swirly.Random = _random;
+
+      _width = drawable.Width;
+      _height = drawable.Height;
+
+      _swirlies.Clear();
+      for (int i = 0; i < _points; i++)
+	_swirlies.Add(Swirly.CreateRandom());
+    }
+
     override protected void DoSomething(Drawable drawable)
     {
-    double Fr = 0.0, Fg = 0.0, Fb = 0.0;
-    Swirly swirly = Swirly.CreateRandom();
-    for (int x = 0; x < 600; x++)
-      {
-      swirly.CalculateOnePoint(5, 600, 400, 1, x, 200, ref Fr, ref Fg,
-			       ref Fb);
-      Console.WriteLine("{0} {1} {2}", Fr, Fg, Fb);
-      }
+      Initialize(drawable);
+      RgnIterator iter = new RgnIterator(drawable, RunMode.INTERACTIVE);
+      iter.Progress = new Progress("Swirlies");
+      iter.Iterate(new RgnIterator.IterFuncDest(DoSwirlies));
+      
+      Display.DisplaysFlush();
     }
+
+    byte[] DoSwirlies(int x, int y)
+    {
+      double Fr = 0.0, Fg = 0.0, Fb = 0.0;
+
+      double zoom = 0.5;
+      int terms = 5;
+
+      foreach (Swirly swirly in _swirlies)
+	{
+	swirly.CalculateOnePoint(terms, _width, _height, zoom, x, y, 
+				 ref Fr, ref Fg, ref Fb);
+	_dest[0] = FloatToIntPixel(RemapColorRange(Fr));
+	_dest[1] = FloatToIntPixel(RemapColorRange(Fg));
+	_dest[2] = FloatToIntPixel(RemapColorRange(Fb));
+	}
+      return _dest;
+    }
+    
+    double RemapColorRange(double val)
+    {
+      double _post_gain = 0.35;
+      double _pre_gain = 10000;
+
+      val = Math.Abs(val);
+      return Math.Tanh(_post_gain * Math.Log(1 + _pre_gain * val));
+    }
+
+    byte FloatToIntPixel(double val)
+    {
+      val *= 255;
+      val += 1 - 2 * _random.NextDouble();
+      val += 1 - 2 * _random.NextDouble();
+
+      if (val < 0)
+	{
+	return 0;
+	}
+      else if (val > 255)
+	{
+	return 255;
+	}
+      else
+	{
+	return (byte) val;
+	}
     }
   }
+}

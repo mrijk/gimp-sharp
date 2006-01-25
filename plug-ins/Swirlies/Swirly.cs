@@ -24,7 +24,7 @@ namespace Gimp.Swirlies
   {
   public class Swirly
     {
-    static Random random = new Random();
+    static Random random;
     
     const double ANGLE_MULTIPLIER_MAX = 3.0;
     
@@ -242,6 +242,11 @@ namespace Gimp.Swirlies
       swirly.Dszz = rand_linear_phase_shift(1, 2);
 
       return swirly;
+      }
+
+    static public Random Random
+      {
+      set {random = value;}
       }
 
     public void CalculateOnePoint(int terms, int width, int height, 
