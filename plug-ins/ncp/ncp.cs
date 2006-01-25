@@ -58,11 +58,9 @@ namespace Gimp.ncp
 
     override protected void Query()
     {
-      GimpParamDef[] args = new GimpParamDef[1];
-
-      args[0].type = PDBArgType.INT32;
-      args[0].name = "points";
-      args[0].description = "Number of points";
+      ParamDefList in_params = new ParamDefList();
+      in_params.Add(new ParamDef("points", 12, typeof(int),
+				 "Number of points"));
 
       InstallProcedure("plug_in_ncp",
 		       "Generates 2D textures",
@@ -72,7 +70,7 @@ namespace Gimp.ncp
 		       "2004-2006",
 		       "NCP...",
 		       "RGB*, GRAY*",
-		       args);
+		       in_params);
 
       MenuRegister("<Image>/Filters/Render");
       IconRegister("ncp.png");

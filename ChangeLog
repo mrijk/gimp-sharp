@@ -1,5 +1,11 @@
 2006-01-25  Maurits  <maurits@localhost>
 
+	* lib/ParamDef.cs
+	* lib/ParamDefList.cs
+	* lib/Plugin.cs: first bunch of changes to do decent GIMP
+	parameter handling so we can call our GIMP# plug-ins from other
+	plug-ins or scripts.
+
 	* NEWS: updated
 	
 	* plug-ins/Swirlies/Swirlies.cs: first working version, including

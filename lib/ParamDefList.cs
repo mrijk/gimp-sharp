@@ -65,5 +65,37 @@ namespace Gimp
 	  p.Value = value;
 	}
       }
+
+      public GimpParamDef[] GetGimpParamDef(bool uses_image,
+					    bool uses_drawable)
+      {
+        int len = _set.Count;
+	GimpParamDef[] args = new GimpParamDef[3 + len];
+	
+	args[0].type = PDBArgType.INT32;
+	args[0].name = "run_mode";
+	args[0].description = "Interactive, non-interactive";
+	
+	args[1].type = PDBArgType.IMAGE;
+	args[1].name = "image";
+	args[1].description = "Input image" + 
+	  ((uses_image) ?  "" : " (unused)");
+	
+	args[2].type = PDBArgType.DRAWABLE;
+	args[2].name = "drawable";
+	args[2].description = "Input drawable" + 
+	  ((uses_drawable) ?  "" : " (unused)");
+
+	int i = 3;
+	foreach (ParamDef def in _set)
+	  {
+	  args[i].type = def.GetGimpType();
+	  args[i].name = def.Name;
+	  args[i].description = def.Description;
+	  i++;
+	  }
+      
+	return args;
+      }
     }
   }

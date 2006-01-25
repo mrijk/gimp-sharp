@@ -103,6 +103,7 @@ namespace Gimp
 			     return_vals);
     }
 
+    // Will soon be obsolete
     protected void InstallProcedure(string name, string blurb, string help, 
 				    string author, string copyright, 
 				    string date, string menu_path, 
@@ -131,6 +132,23 @@ namespace Gimp
       
       if (_params != null)
 	_params.CopyTo(args, 3);
+      
+      gimp_install_procedure(name, blurb, help, author, copyright, date, 
+			     menu_path, image_types, PDBProcType.PLUGIN, 
+			     args.Length, 0, args, null);
+    }
+
+    protected void InstallProcedure(string name, string blurb, string help, 
+				    string author, string copyright, 
+				    string date, string menu_path, 
+				    string image_types,
+				    ParamDefList in_params)
+    {
+      _name = name;
+      GetRequiredParameters();
+      
+      GimpParamDef[] args = in_params.GetGimpParamDef(_usesImage, 
+						      _usesDrawable);
       
       gimp_install_procedure(name, blurb, help, author, copyright, date, 
 			     menu_path, image_types, PDBProcType.PLUGIN, 

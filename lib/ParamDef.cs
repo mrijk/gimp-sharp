@@ -41,15 +41,12 @@ namespace Gimp
 	_description = description;
       }
 
-      public string GimpType
+      public PDBArgType GetGimpType()
       {
-        get 
-	{
 	  if (_type == typeof(int))
-	    return "PDBArgType.INT32";
+	    return PDBArgType.INT32;
 	  else
-	    return "unknown";
-	}
+	    return PDBArgType.END;
       }
 
       public string Name
@@ -63,6 +60,10 @@ namespace Gimp
 	set {_value = value;}
       }
 
+      public string Description
+      {
+        get {return _description;}
+      }
 
       public GimpParamDef GimpParamDef
       {
