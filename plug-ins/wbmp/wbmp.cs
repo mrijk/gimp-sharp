@@ -3,20 +3,19 @@
 //
 // wbmp.cs
 //
-// This library is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Lesser General Public
-// License as published by the Free Software Foundation; either
-// version 2 of the License, or (at your option) any later version.
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
 //
-// This library is distributed in the hope that it will be useful,
+// This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-// Lesser General Public License for more details.
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
 //
-// You should have received a copy of the GNU Lesser General Public
-// License along with this library; if not, write to the
-// Free Software Foundation, Inc., 59 Temple Place - Suite 330,
-// Boston, MA 02111-1307, USA.
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
 using System;
@@ -38,32 +37,13 @@ namespace Gimp.wbmp
 
     override protected void Query()
     {
-      GimpParamDef[] load_args = new GimpParamDef[3];
-      load_args[0].type = PDBArgType.INT32;
-      load_args[0].name = "run_mode";
-      load_args[0].description = "Interactive, non-interactive";
-      load_args[1].type = PDBArgType.STRING;
-      load_args[1].name = "filename";
-      load_args[1].description = "The name of the file to load";
-      load_args[2].type = PDBArgType.STRING;
-      load_args[2].name = "raw_filename";
-      load_args[2].description = "The name entered";
-
-      GimpParamDef[] load_return_vals = new GimpParamDef[1];
-      load_return_vals[0].type = PDBArgType.IMAGE;
-      load_return_vals[0].name = "image";
-      load_return_vals[0].description = "output image";
-
-      InstallProcedure("file_wbmp_load",
-		       "Loads wbmp images",
-		       "This plug-in loads wbmp images.",
-		       "Maurits Rijk",
-		       "(C) Maurits Rijk",
-		       "2005-2006",
-		       "wbmp Image",
-		       null,
-		       load_args,
-		       load_return_vals);
+      InstallFileProcedure("file_wbmp_load",
+			   "Loads wbmp images",
+			   "This plug-in loads wbmp images.",
+			   "Maurits Rijk",
+			   "(C) Maurits Rijk",
+			   "2005-2006",
+			   "wbmp Image");
 
       Gimp.RegisterLoadHandler("file_wbmp_load", "wbmp", "");
     }

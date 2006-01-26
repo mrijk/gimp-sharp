@@ -61,8 +61,7 @@ namespace Gimp.Swirlies
 		       "(C) Maurits Rijk",
 		       "2006",
 		       "Swirlies...",
-		       "RGB",
-		       null);
+		       "RGB");
 
       MenuRegister("<Image>/Filters/Render");
       IconRegister("Swirlies.png");

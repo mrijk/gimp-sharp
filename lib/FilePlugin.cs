@@ -51,6 +51,32 @@ namespace Gimp
 	  }
       }
 
+      protected void InstallFileProcedure(string name, string blurb, 
+					  string help, string author, 
+					  string copyright, string date, 
+					  string menu_path)
+      {
+        GimpParamDef[] load_args = new GimpParamDef[3];
+	load_args[0].type = PDBArgType.INT32;
+	load_args[0].name = "run_mode";
+	load_args[0].description = "Interactive, non-interactive";
+	load_args[1].type = PDBArgType.STRING;
+	load_args[1].name = "filename";
+	load_args[1].description = "The name of the file to load";
+	load_args[2].type = PDBArgType.STRING;
+	load_args[2].name = "raw_filename";
+	load_args[2].description = "The name entered";
+	
+	GimpParamDef[] load_return_vals = new GimpParamDef[1];
+	load_return_vals[0].type = PDBArgType.IMAGE;
+	load_return_vals[0].name = "image";
+	load_return_vals[0].description = "output image";
+
+	InstallProcedure(name, blurb, help, author, copyright, date,
+			 menu_path, null, load_args, load_return_vals);
+      } 
+
+
       virtual protected Image Load(string filename)
       {
 	return null;

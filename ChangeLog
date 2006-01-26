@@ -1,3 +1,10 @@
+2006-01-26  Maurits  <maurits@localhost>
+
+	* lib/FilePlugin.cs
+	* plug-ins/KoalaPaint/KoalaPaint
+	* plug-ins/wbmp/wbmp.cs: registering of load procedure now done in
+	base class FilePlugin.
+
 2006-01-25  Maurits  <maurits@localhost>
 
 	* lib/ParamDef.cs

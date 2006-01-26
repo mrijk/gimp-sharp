@@ -76,8 +76,7 @@ namespace Gimp.PicturePackage
 		       "Maurits Rijk",
 		       "2004-2006",
 		       "Picture Package...",
-		       "",
-		       null);
+		       "");
 
       MenuRegister("<Toolbox>/Xtns/Extensions");
       IconRegister("PicturePackage.png");

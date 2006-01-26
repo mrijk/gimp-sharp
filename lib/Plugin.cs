@@ -103,41 +103,6 @@ namespace Gimp
 			     return_vals);
     }
 
-    // Will soon be obsolete
-    protected void InstallProcedure(string name, string blurb, string help, 
-				    string author, string copyright, 
-				    string date, string menu_path, 
-				    string image_types,
-				    GimpParamDef[] _params)
-    {
-      _name = name;
-      GetRequiredParameters();
-      
-      int len = (_params == null) ? 0 : _params.Length;
-      GimpParamDef[] args = new GimpParamDef[3 + len];
-      
-      args[0].type = PDBArgType.INT32;
-      args[0].name = "run_mode";
-      args[0].description = "Interactive, non-interactive";
-      
-      args[1].type = PDBArgType.IMAGE;
-      args[1].name = "image";
-      args[1].description = "Input image" + 
-	((_usesImage) ?  "" : " (unused)");
-      
-      args[2].type = PDBArgType.DRAWABLE;
-      args[2].name = "drawable";
-      args[2].description = "Input drawable" + 
-	((_usesDrawable) ?  "" : " (unused)");
-      
-      if (_params != null)
-	_params.CopyTo(args, 3);
-      
-      gimp_install_procedure(name, blurb, help, author, copyright, date, 
-			     menu_path, image_types, PDBProcType.PLUGIN, 
-			     args.Length, 0, args, null);
-    }
-
     protected void InstallProcedure(string name, string blurb, string help, 
 				    string author, string copyright, 
 				    string date, string menu_path, 
@@ -153,6 +118,15 @@ namespace Gimp
       gimp_install_procedure(name, blurb, help, author, copyright, date, 
 			     menu_path, image_types, PDBProcType.PLUGIN, 
 			     args.Length, 0, args, null);
+    }
+
+    protected void InstallProcedure(string name, string blurb, string help, 
+				    string author, string copyright, 
+				    string date, string menu_path, 
+				    string image_types)
+    {
+      InstallProcedure(name, blurb, help, author, copyright, date,
+		       menu_path, image_types, new ParamDefList());
     }
     
     void GetRequiredParameters()

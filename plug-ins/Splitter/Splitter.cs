@@ -62,8 +62,7 @@ namespace Gimp.Splitter
 		       "(C) Maurits Rijk",
 		       "1999 - 2006",
 		       "Splitter...",
-		       "RGB*",
-		       null);
+		       "RGB*");
 
       MenuRegister("<Image>/Filters/Generic");
       IconRegister("Splitter.png");

@@ -69,8 +69,7 @@ namespace Gimp.SliceTool
 		       "(C) Maurits Rijk",
 		       "2005-2006",
 		       "Slice Tool...",
-		       "RGB*, GRAY*",
-		       null);
+		       "RGB*, GRAY*");
       
       MenuRegister("<Image>/Filters/Web");
       IconRegister("SliceTool.png");
