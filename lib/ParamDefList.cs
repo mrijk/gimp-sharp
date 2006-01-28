@@ -22,80 +22,96 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 namespace Gimp
+{
+  public class ParamDefList
   {
-    public class ParamDefList
+    List<ParamDef> _set;
+
+    public ParamDefList(params ParamDef[] list)
     {
-      List<ParamDef> _set;
+      _set = new List<ParamDef>(list);
+    }
 
-      public ParamDefList(params ParamDef[] list)
-      {
-	_set = new List<ParamDef>(list);
-      }
+    //
+    // Used for marshalling
+    //
 
-      public void Add(ParamDef p)
-      {
-        _set.Add(p);
-      }
+    public void Fill(IntPtr paramPtr, int n_params)
+    {
+      for (int i = 0; i < n_params; i++)
+	{
+	  GimpParam param = (GimpParam) 
+	    Marshal.PtrToStructure(paramPtr, typeof(GimpParam));
+	  paramPtr = (IntPtr)((int)paramPtr + Marshal.SizeOf(param));
+	  Console.WriteLine("{} {}", i, param.type);
+	}
+    }
 
-      public ParamDef Lookup(string name)
-      {
-        foreach (ParamDef p in _set)
+    public void Add(ParamDef p)
+    {
+      _set.Add(p);
+    }
+
+    public ParamDef Lookup(string name)
+    {
+      foreach (ParamDef p in _set)
 	{
 	  if (p.Name == name)
-	  {
-	    return p;
-	  }
+	    {
+	      return p;
+	    }
 	}
-	return null;
-      }
+      return null;
+    }
 
-      public object GetValue(string name)
-      {
-        ParamDef p = Lookup(name);
-        return (p == null) ? null : p.Value;
-      }
+    public object GetValue(string name)
+    {
+      ParamDef p = Lookup(name);
+      return (p == null) ? null : p.Value;
+    }
     
-      public void SetValue(string name, object value)
-      {
-        ParamDef p = Lookup(name);
-	if (p != null)
+    public void SetValue(string name, object value)
+    {
+      ParamDef p = Lookup(name);
+      if (p != null)
 	{
 	  p.Value = value;
 	}
-      }
+    }
 
-      public GimpParamDef[] GetGimpParamDef(bool uses_image,
-					    bool uses_drawable)
-      {
-        int len = _set.Count;
-	GimpParamDef[] args = new GimpParamDef[3 + len];
+    public GimpParamDef[] GetGimpParamDef(bool uses_image,
+					  bool uses_drawable)
+    {
+      int len = _set.Count;
+      GimpParamDef[] args = new GimpParamDef[3 + len];
 	
-	args[0].type = PDBArgType.INT32;
-	args[0].name = "run_mode";
-	args[0].description = "Interactive, non-interactive";
+      args[0].type = PDBArgType.INT32;
+      args[0].name = "run_mode";
+      args[0].description = "Interactive, non-interactive";
 	
-	args[1].type = PDBArgType.IMAGE;
-	args[1].name = "image";
-	args[1].description = "Input image" + 
-	  ((uses_image) ?  "" : " (unused)");
+      args[1].type = PDBArgType.IMAGE;
+      args[1].name = "image";
+      args[1].description = "Input image" + 
+	((uses_image) ?  "" : " (unused)");
 	
-	args[2].type = PDBArgType.DRAWABLE;
-	args[2].name = "drawable";
-	args[2].description = "Input drawable" + 
-	  ((uses_drawable) ?  "" : " (unused)");
+      args[2].type = PDBArgType.DRAWABLE;
+      args[2].name = "drawable";
+      args[2].description = "Input drawable" + 
+	((uses_drawable) ?  "" : " (unused)");
 
-	int i = 3;
-	foreach (ParamDef def in _set)
-	  {
+      int i = 3;
+      foreach (ParamDef def in _set)
+	{
 	  args[i].type = def.GetGimpType();
 	  args[i].name = def.Name;
 	  args[i].description = def.Description;
 	  i++;
-	  }
+	}
       
-	return args;
-      }
+      return args;
     }
   }
+}

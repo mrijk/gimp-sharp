@@ -1,6 +1,7 @@
 2006-01-26  Maurits  <maurits@localhost>
 
-	* lib/FilePlugin.cs
+	* lib/FilePlugin.cs: initial work on adding save procedure
+
 	* plug-ins/KoalaPaint/KoalaPaint
 	* plug-ins/wbmp/wbmp.cs: registering of load procedure now done in
 	base class FilePlugin.

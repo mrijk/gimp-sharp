@@ -23,9 +23,12 @@ using System;
 using System.Runtime.InteropServices;
 
 namespace Gimp
-  {
+{
     public abstract class FilePlugin : Plugin
     {
+      string _load_procedure_name;
+      string _save_procedure_name;
+
       public FilePlugin(string[] args) : base(args)
       {
       }
@@ -33,29 +36,43 @@ namespace Gimp
       override protected void Run(string name, GimpParam[] inParam,
 				  ref GimpParam[] outParam)
       {
-	outParam = new GimpParam[2];
-	outParam[0].type = PDBArgType.STATUS;
-	outParam[0].data.d_status = PDBStatusType.SUCCESS;
-	outParam[1].type = PDBArgType.IMAGE;
+        if (name == _load_procedure_name)
+	{
+          string filename = Marshal.PtrToStringAuto(inParam[1].data.d_string);
 
-	string filename = Marshal.PtrToStringAuto(inParam[1].data.d_string);
-
-	Image image = Load(filename);
-	if (image == null)
-	  {
-	  outParam[0].data.d_status = PDBStatusType.EXECUTION_ERROR;
-	  }
+	  outParam = new GimpParam[2];
+	  outParam[0].type = PDBArgType.STATUS;
+	  outParam[0].data.d_status = PDBStatusType.SUCCESS;
+	  outParam[1].type = PDBArgType.IMAGE;
+	  
+	  Image image = Load(filename);
+	  if (image == null)
+	    {
+	    outParam[0].data.d_status = PDBStatusType.EXECUTION_ERROR;
+	    }
+	  else
+	    { 
+	    outParam[1].data.d_image = image.ID;
+	    }
+	}
 	else
-	  { 
-	  outParam[1].data.d_image = image.ID;
-	  }
+	{
+          string filename = Marshal.PtrToStringAuto(inParam[3].data.d_string);
+
+	  outParam = new GimpParam[1];
+	  outParam[0].type = PDBArgType.STATUS;
+	  outParam[0].data.d_status = PDBStatusType.SUCCESS;
+	  Save(filename);
+	}
       }
 
-      protected void InstallFileProcedure(string name, string blurb, 
-					  string help, string author, 
-					  string copyright, string date, 
-					  string menu_path)
+      protected void InstallFileLoadProcedure(string name, string blurb, 
+					      string help, string author, 
+					      string copyright, string date, 
+					      string menu_path)
       {
+        _load_procedure_name = name;
+
         GimpParamDef[] load_args = new GimpParamDef[3];
 	load_args[0].type = PDBArgType.INT32;
 	load_args[0].name = "run_mode";
@@ -76,10 +93,31 @@ namespace Gimp
 			 menu_path, null, load_args, load_return_vals);
       } 
 
+      protected void InstallFileSaveProcedure(string name, string blurb, 
+					      string help, string author, 
+					      string copyright, string date, 
+					      string menu_path,
+					      string image_types)
+      {
+        _save_procedure_name = name;
+
+        ParamDefList in_params = new ParamDefList();
+	in_params.Add(new ParamDef("filename", null, typeof(string),
+				   "The name of the file to save"));
+	in_params.Add(new ParamDef("raw_filename", null, typeof(string),
+				   "The name entered"));
+	InstallProcedure(name, blurb, help, author, copyright, date,
+			 menu_path, image_types, in_params);
+      }
 
       virtual protected Image Load(string filename)
       {
 	return null;
+      }
+
+      virtual protected bool Save(string filename)
+      {
+        return false;
       }
     }
   }

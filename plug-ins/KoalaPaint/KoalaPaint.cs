@@ -64,13 +64,13 @@ namespace Gimp.KoalaPaint
 
     override protected void Query()
     {
-      InstallFileProcedure("file_koala_paint_load",
-			   "loads images of the Koala Paint file format",
-			   "This plug-in loads images of the Koala Paint file format.",
-			   "Maurits Rijk",
-			   "(C) Maurits Rijk",
-			   "1999 - 2004",
-			   "KoalaPaint Image");
+    InstallFileLoadProcedure("file_koala_paint_load",
+			     "loads images of the Koala Paint file format",
+			     "This plug-in loads images of the Koala Paint file format.",
+			     "Maurits Rijk",
+			     "(C) Maurits Rijk",
+			     "1999 - 2004",
+			     "KoalaPaint Image");
 
       Gimp.RegisterLoadHandler("file_koala_paint_load", "koa", "");
     }

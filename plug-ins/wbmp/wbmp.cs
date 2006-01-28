@@ -37,15 +37,25 @@ namespace Gimp.wbmp
 
     override protected void Query()
     {
-      InstallFileProcedure("file_wbmp_load",
-			   "Loads wbmp images",
-			   "This plug-in loads wbmp images.",
-			   "Maurits Rijk",
-			   "(C) Maurits Rijk",
-			   "2005-2006",
-			   "wbmp Image");
+      InstallFileLoadProcedure("file_wbmp_load",
+			       "Loads wbmp images",
+			       "This plug-in loads wbmp images.",
+			       "Maurits Rijk",
+			       "(C) Maurits Rijk",
+			       "2005-2006",
+			       "wbmp Image");
+
+      InstallFileSaveProcedure("file_wbmp_save",
+			       "Savess wbmp images",
+			       "This plug-in saves wbmp images.",
+			       "Maurits Rijk",
+			       "(C) Maurits Rijk",
+			       "2006",
+			       "wbmp Image",
+			       "RGB*");
 
       Gimp.RegisterLoadHandler("file_wbmp_load", "wbmp", "");
+      Gimp.RegisterSaveHandler("file_wbmp_save", "wbmp", "");
     }
 
     override protected Image Load(string filename)
@@ -114,6 +124,12 @@ namespace Gimp.wbmp
 	return image;
 	}
       return null;
+    }
+
+    override protected bool Save(string filename)
+    {
+    Console.WriteLine("Saving: " + filename);
+    return false;
     }
   }
   }

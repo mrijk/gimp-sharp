@@ -28,7 +28,7 @@ using Gdk;
 using Gtk;
 
 namespace Gimp
-  {
+{
   abstract public class Plugin
   {
     protected string _name;
@@ -49,7 +49,7 @@ namespace Gimp
 				 IntPtr param,
 				 ref int n_return_vals, 
 				 out IntPtr return_vals);
-
+    
     [StructLayout(LayoutKind.Sequential)]
     public struct GimpPlugInInfo
     {
@@ -58,7 +58,7 @@ namespace Gimp
       public QueryProc Query;
       public RunProc Run;
     }
-
+    
     static GimpPlugInInfo _info = new GimpPlugInInfo();
     static string[] myArgs = new String[6];
 
@@ -77,7 +77,7 @@ namespace Gimp
     }
 
     public string Name
-    {
+      {
       get {return _name;}
     }
 
@@ -136,20 +136,20 @@ namespace Gimp
 				    BindingFlags.NonPublic | 
 				    BindingFlags.Instance))
 	{
-	if (method.Name.Equals("DoSomething"))
-	  {
-	  foreach (ParameterInfo parameter in method.GetParameters())
+	  if (method.Name.Equals("DoSomething"))
 	    {
-	    if (parameter.ParameterType == typeof(Drawable))
-	      {
-	      _usesDrawable = true;
-	      }
-	    if (parameter.ParameterType == typeof(Image))
-	      {
-	      _usesImage = true;
-	      }
+	      foreach (ParameterInfo parameter in method.GetParameters())
+		{
+		  if (parameter.ParameterType == typeof(Drawable))
+		    {
+		      _usesDrawable = true;
+		    }
+		  if (parameter.ParameterType == typeof(Image))
+		    {
+		      _usesImage = true;
+		    }
+		}
 	    }
-	  }
 	}
     }
 
@@ -186,34 +186,34 @@ namespace Gimp
       RunMode run_mode = (RunMode) inParam[0].data.d_int32;
       if (_usesImage)
 	{
-	_image = new Image(inParam[1].data.d_image);
+	  _image = new Image(inParam[1].data.d_image);
 	}
       if (_usesDrawable)
 	{
-	_drawable = new Drawable(inParam[2].data.d_drawable);
+	  _drawable = new Drawable(inParam[2].data.d_drawable);
 	}
       
       if (run_mode == RunMode.INTERACTIVE)
 	{
-	GetData();
-	if (CreateDialog())
-	  {
+	  GetData();
+	  if (CreateDialog())
+	    {
 	  SetData();
-	  }
+	    }
 	}
       else if (run_mode == RunMode.NONINTERACTIVE)
 	{
-	Console.WriteLine("RunMode.NONINTERACTIVE not implemented yet!");
+	  Console.WriteLine("RunMode.NONINTERACTIVE not implemented yet!");
 	}
       else if (run_mode == RunMode.WITH_LAST_VALS)
 	{
-	GetData();
-	CallDoSomething();
+	  GetData();
+	  CallDoSomething();
 	}
       
       if (_usesDrawable)
 	{
-	_drawable.Detach();
+	  _drawable.Detach();
 	}
       
       outParam = new GimpParam[1];
