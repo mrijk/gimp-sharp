@@ -1,4 +1,9 @@
-2006-01-26  Maurits  <maurits@localhost>
+2006-01-29  Maurits  <m.rijk@chello.nl>
+
+	* lib/Procedure
+	* lib/ProcedureSet.cs: new files for procedure abstraction.
+
+2006-01-26  Maurits  <m.rijk@chello.nl>
 
 	* lib/FilePlugin.cs: initial work on adding save procedure
 
@@ -6,7 +11,7 @@
 	* plug-ins/wbmp/wbmp.cs: registering of load procedure now done in
 	base class FilePlugin.
 
-2006-01-25  Maurits  <maurits@localhost>
+2006-01-25  Maurits  <m.rijk@chello.nl>
 
 	* lib/ParamDef.cs
 	* lib/ParamDefList.cs
@@ -19,12 +24,12 @@
 	* plug-ins/Swirlies/Swirlies.cs: first working version, including
 	a nice preview. It's still very very slow.
 
-2006-01-23  Maurits  <maurits@localhost>
+2006-01-23  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/Swirlies/Swirlies.cs 
 	* plug-ins/Swirlies/Swirly.cs: algorithm almost complete
 
-2006-01-20  Maurits  <maurits@localhost>
+2006-01-20  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/Splitter/Splitter.png: new file
 	
@@ -123,7 +128,7 @@
 
 	* AUTHORS: Added Massimo (Max) Perga
 
-2005-12-16  Maurits  <maurits@localhost>
+2005-12-16  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/Ministeck/*.cs: clean-up Ministeck plug-in
 

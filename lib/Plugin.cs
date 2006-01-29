@@ -31,6 +31,9 @@ namespace Gimp
 {
   abstract public class Plugin
   {
+    // Set of registered procedures
+    ProcedureSet _procedures;
+
     protected string _name;
     bool _usesDrawable = false;
     bool _usesImage = false;
@@ -87,6 +90,11 @@ namespace Gimp
 
     protected virtual void Quit() 
     {
+    }
+
+    protected virtual ProcedureSet GetProcedureSet()
+    {
+      return null;
     }
 
     protected void InstallProcedure(string name, string blurb, string help, 
@@ -224,23 +232,27 @@ namespace Gimp
     
     virtual protected bool CreateDialog() {return true;}
 
-    GimpParam[] _origParam;
-
     public void Run(string name, int n_params, IntPtr paramPtr,
 		    ref int n_return_vals, out IntPtr return_vals)
     {
+      GimpParam[] _origParam;
+
       _name = name;
       
       GetRequiredParameters();
+
+      ParamDefList dummy = new ParamDefList();
+      dummy.Fill(paramPtr, n_params);
       
       // Get parameters
       _origParam = new GimpParam[n_params];
       for (int i = 0; i < n_params; i++)
 	{
-	_origParam[i] = (GimpParam) Marshal.PtrToStructure(paramPtr,
-							   typeof(GimpParam));
-	// Console.WriteLine(_origParam[i].type);
-	paramPtr = (IntPtr)((int)paramPtr + Marshal.SizeOf(_origParam[i]));
+	  _origParam[i] = 
+	    (GimpParam) Marshal.PtrToStructure(paramPtr,
+					       typeof(GimpParam));
+	  // Console.WriteLine(_origParam[i].type);
+	  paramPtr = (IntPtr)((int)paramPtr + Marshal.SizeOf(_origParam[i]));
 	}
 
       GimpParam[] my_return_vals;

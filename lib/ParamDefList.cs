@@ -45,8 +45,17 @@ namespace Gimp
 	{
 	  GimpParam param = (GimpParam) 
 	    Marshal.PtrToStructure(paramPtr, typeof(GimpParam));
+
+	  switch (param.type)
+	    {
+	    case PDBArgType.INT32:
+	      
+	      break;
+	    default:
+	      break;
+	    }
+
 	  paramPtr = (IntPtr)((int)paramPtr + Marshal.SizeOf(param));
-	  Console.WriteLine("{} {}", i, param.type);
 	}
     }
 
@@ -108,6 +117,7 @@ namespace Gimp
 	  args[i].type = def.GetGimpType();
 	  args[i].name = def.Name;
 	  args[i].description = def.Description;
+	  Console.WriteLine("Add: " + args[i].type);
 	  i++;
 	}
       

@@ -56,6 +56,29 @@ namespace Gimp.ncp
       public int y;
     }
 
+    override protected  ProcedureSet GetProcedureSet()
+    {
+      ProcedureSet set = new ProcedureSet();
+
+      ParamDefList in_params = new ParamDefList();
+      in_params.Add(new ParamDef("points", 12, typeof(int),
+				 "Number of points"));
+
+      Procedure procedure = new Procedure("plug_in_ncp",
+					  "Generates 2D textures",
+					  "Generates 2D textures",
+					  "Maurits Rijk",
+					  "(C) Maurits Rijk",
+					  "2004-2006",
+					  "NCP...",
+					  "RGB*, GRAY*",
+					  in_params);
+
+      set.Add(procedure);
+
+      return set;
+    }
+
     override protected void Query()
     {
       ParamDefList in_params = new ParamDefList();

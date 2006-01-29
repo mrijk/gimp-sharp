@@ -54,6 +54,8 @@ MYSOURCES = AspectPreview.cs 	\
 	PixelRgn.cs		\
 	Plugin.cs		\
 	PreviewArea.cs		\
+	Procedure.cs		\
+	ProcedureSet.cs		\
 	Progress.cs		\
 	RGB.cs			\
 	RandomSeed.cs		\
