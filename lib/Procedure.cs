@@ -20,7 +20,10 @@
 //
 
 using System;
+using System.Reflection;
 using System.Runtime.InteropServices;
+
+using Gdk;
 
 namespace Gimp
 {
@@ -34,6 +37,9 @@ namespace Gimp
     string _date;
     string _menu_path;
     string _image_types;
+
+    string _menuPath;	// Fix me: this name looks to much like _menu_path
+    string _iconFile;
 
     ParamDefList _in_params;
     ParamDefList _return_vals;
@@ -63,13 +69,34 @@ namespace Gimp
       gimp_install_procedure(_name, _blurb, _help, _author, _copyright, _date, 
 			     _menu_path, _image_types, PDBProcType.PLUGIN, 
 			     args.Length, 0, args, null);
+      MenuRegister();
+      IconRegister();
     }
 
-    public void MenuRegister(string menu_path)
+    public void MenuRegister()
     {
-      if (!gimp_plugin_menu_register(_name, menu_path))
+      if (_menuPath != null)
 	{
-	  throw new Exception();
+	  if (!gimp_plugin_menu_register(_name, _menuPath))
+	    {
+	      throw new Exception();
+	    }
+	}
+    }
+
+    public void IconRegister()
+    {
+      if (_iconFile != null)
+	{
+	  Pixbuf pixbuf = new Pixbuf(Assembly.GetEntryAssembly(), _iconFile);
+	  
+	  Pixdata data = new Pixdata();
+	  data.FromPixbuf(pixbuf, false);
+	  if (!gimp_plugin_icon_register(_name, IconType.INLINE_PIXBUF, 
+					 data.Serialize()))
+	    {
+	      throw new Exception();
+	    }
 	}
     }
 
@@ -79,6 +106,16 @@ namespace Gimp
       set {_name = value;}
     }
 
+    public string MenuPath
+    {
+      set {_menuPath = value;}
+    }
+
+    public string IconFile
+    {
+      set {_iconFile = value;}
+    }
+    
     [DllImport("libgimp-2.0-0.dll")]
     public static extern void gimp_install_procedure(
       string name,
@@ -97,5 +134,9 @@ namespace Gimp
     [DllImport("libgimp-2.0-0.dll")]
     public static extern bool gimp_plugin_menu_register(string procedure_name,
 							string menu_path);
+    [DllImport("libgimp-2.0-0.dll")]
+    public static extern bool gimp_plugin_icon_register(string procedure_name,
+							IconType icon_type, 
+							byte[] icon_data);
   }
 }

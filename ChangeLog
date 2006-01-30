@@ -1,3 +1,12 @@
+2006-01-30  Maurits  <maurits@localhost>
+
+	* lib/Procedure.cs
+	* lib/ProcedureSet.cs
+	* lib/Plugin.cs
+	* plug-ins/ncp/ncp.cs
+	* plug-ins/Ministeck/Ministeck.cs
+	* plug-ins/RedEye/RedEye.cs: refactoring procedures
+
 2006-01-29  Maurits  <m.rijk@chello.nl>
 
 	* lib/Procedure

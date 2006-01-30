@@ -31,5 +31,13 @@ namespace Gimp
     {
       _set[procedure.Name] = procedure;
     }
+
+    public void Install(bool usesImage, bool usesDrawable)
+    {
+      foreach (Procedure procedure in _set.Values)
+	{
+	  procedure.Install(usesImage, usesDrawable);
+	}
+    }
   }
 }

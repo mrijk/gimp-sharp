@@ -46,19 +46,29 @@ namespace Gimp.Ministeck
       {
       }
 
-      override protected void Query()
+      override protected  ProcedureSet GetProcedureSet()
       {
-	InstallProcedure("plug_in_ministeck",
-			 "Generates Ministeck",
-			 "Generates Ministeck",
-			 "Maurits Rijk",
-			 "(C) Maurits Rijk",
-			 "2004-2006",
-			 "Ministeck...",
-			 "RGB*, GRAY*");
+	ProcedureSet set = new ProcedureSet();
 
-	MenuRegister("<Image>/Filters/Artistic");
-	IconRegister("Ministeck.png");
+	ParamDefList in_params = new ParamDefList();
+	in_params.Add(new ParamDef("size", 16, typeof(int),
+				   "Default size"));
+
+	Procedure procedure = new Procedure("plug_in_ministeck",
+					    "Generates Ministeck",
+					    "Generates Ministeck",
+					    "Maurits Rijk",
+					    "(C) Maurits Rijk",
+					    "2004-2006",
+					    "Ministeck...",
+					    "RGB*, GRAY*",
+					    in_params);
+	procedure.MenuPath = "<Image>/Filters/Artistic";
+	procedure.IconFile = "Ministeck.png";
+	
+	set.Add(procedure);
+	
+	return set;
       }
 
       override protected bool CreateDialog()
@@ -188,9 +198,6 @@ namespace Gimp.Ministeck
 	
 	painter.Destroy();
 
-	// foreach (Shape shape in shapes)
-	//   Console.WriteLine(shape._match);
-	
 	drawable.Flush();
 	drawable.Update(0, 0, drawable.Width, drawable.Height);
 

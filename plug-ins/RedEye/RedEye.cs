@@ -44,21 +44,33 @@ namespace Gimp.RedEye
     {
     }
 
-    override protected void Query()
+    override protected  ProcedureSet GetProcedureSet()
     {
-      InstallProcedure("plug_in_red_eye",
-		       "Red eye correction",
-		       "Red eye correction",
-		       "Maurits Rijk",
-		       "(C) Maurits Rijk",
-		       "2004-2005",
-		       "Red Eye Removal...",
-		       "RGB*");
-
-      MenuRegister("<Image>/Filters/Enhance");
-      IconRegister("RedEye.png");
+      ProcedureSet set = new ProcedureSet();
+      
+      ParamDefList in_params = new ParamDefList();
+      in_params.Add(new ParamDef("radius", 6, typeof(int),
+				 "insert description"));
+      in_params.Add(new ParamDef("threshold", 40, typeof(int),
+				 "insert description"));
+      
+      Procedure procedure = new Procedure("plug_in_red_eye",
+					  "Red eye correction",
+					  "Red eye correction",
+					  "Maurits Rijk",
+					  "(C) Maurits Rijk",
+					  "2004-2006",
+					  "Red Eye Removal...",
+					  "RGB*",
+					  in_params);
+      procedure.MenuPath = "<Image>/Filters/Enhance";
+      procedure.IconFile = "RedEye.png";
+      
+      set.Add(procedure);
+      
+      return set;
     }
-
+    
     override protected bool CreateDialog()
     {
       gimp_ui_init("red_eye", true);

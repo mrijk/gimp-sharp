@@ -186,7 +186,13 @@ namespace Gimp
 				data.Serialize());
     }
 
-    abstract protected void Query();
+    virtual protected void Query()
+    {
+      GetRequiredParameters();
+
+      ProcedureSet procedures = GetProcedureSet();
+      procedures.Install(_usesImage, _usesDrawable);
+    }
 
     virtual protected void Run(string name, GimpParam[] inParam,
 			       out GimpParam[] outParam)

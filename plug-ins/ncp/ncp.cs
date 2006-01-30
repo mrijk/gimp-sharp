@@ -73,30 +73,12 @@ namespace Gimp.ncp
 					  "NCP...",
 					  "RGB*, GRAY*",
 					  in_params);
+      procedure.MenuPath = "<Image>/Filters/Render";
+      procedure.IconFile = "ncp.png";
 
       set.Add(procedure);
 
       return set;
-    }
-
-    override protected void Query()
-    {
-      ParamDefList in_params = new ParamDefList();
-      in_params.Add(new ParamDef("points", 12, typeof(int),
-				 "Number of points"));
-
-      InstallProcedure("plug_in_ncp",
-		       "Generates 2D textures",
-		       "Generates 2D textures",
-		       "Maurits Rijk",
-		       "(C) Maurits Rijk",
-		       "2004-2006",
-		       "NCP...",
-		       "RGB*, GRAY*",
-		       in_params);
-
-      MenuRegister("<Image>/Filters/Render");
-      IconRegister("ncp.png");
     }
 
     override protected bool CreateDialog()
