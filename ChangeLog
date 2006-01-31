@@ -1,4 +1,17 @@
-2006-01-30  Maurits  <maurits@localhost>
+2006-01-31  Maurits  <m.rijk@chello.nl>
+
+	* lib/FilePlugin.cs
+	* lib/ParamDef.cs
+	* lib/ParamDefList.cs
+	* lib/Plugin.cs
+	* lib/Procedure.cs
+	* lib/ProcedureSet.cs
+	* plug-ins/PicturePackage/PicturePackage.cs
+	* plug-ins/SliceTool/SliceTool.cs
+	* plug-ins/Splitter/Splitter.cs
+	* plug-ins/Swirlies/Swirlies.cs: more refactoring
+
+2006-01-30  Maurits  <m.rijk@chello.nl>
 
 	* lib/Procedure.cs
 	* lib/ProcedureSet.cs

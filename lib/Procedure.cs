@@ -41,14 +41,14 @@ namespace Gimp
     string _menuPath;	// Fix me: this name looks to much like _menu_path
     string _iconFile;
 
-    ParamDefList _in_params;
+    ParamDefList _inParams;
     ParamDefList _return_vals;
 
     public Procedure(string name, string blurb, string help, 
 		     string author, string copyright, 
 		     string date, string menu_path, 
 		     string image_types,
-		     ParamDefList in_params)
+		     ParamDefList inParams)
     {
       _name = name;
       _blurb = blurb;
@@ -58,13 +58,13 @@ namespace Gimp
       _date = date;
       _menu_path = menu_path;
       _image_types = image_types;
-      _in_params = in_params;
+      _inParams = inParams;
     }
 
     public void Install(bool usesImage, bool usesDrawable)
     {
-      GimpParamDef[] args = _in_params.GetGimpParamDef(usesImage, 
-						       usesDrawable);
+      GimpParamDef[] args = _inParams.GetGimpParamDef(usesImage, 
+						      usesDrawable);
       
       gimp_install_procedure(_name, _blurb, _help, _author, _copyright, _date, 
 			     _menu_path, _image_types, PDBProcType.PLUGIN, 
@@ -114,6 +114,11 @@ namespace Gimp
     public string IconFile
     {
       set {_iconFile = value;}
+    }
+
+    public ParamDefList InParams
+    {
+      get {return _inParams;}
     }
     
     [DllImport("libgimp-2.0-0.dll")]

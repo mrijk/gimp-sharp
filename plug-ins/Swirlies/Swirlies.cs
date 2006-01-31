@@ -52,19 +52,28 @@ namespace Gimp.Swirlies
     {
     }
 
-    override protected void Query()
+    override protected ProcedureSet GetProcedureSet()
     {
-      InstallProcedure("plug_in_swirlies",
-		       "Generates 2D textures",
-		       "Generates 2D textures",
-		       "Maurits Rijk",
-		       "(C) Maurits Rijk",
-		       "2006",
-		       "Swirlies...",
-		       "RGB");
+      ProcedureSet set = new ProcedureSet();
+      
+      ParamDefList in_params = new ParamDefList();
 
-      MenuRegister("<Image>/Filters/Render");
-      IconRegister("Swirlies.png");
+      Procedure procedure = new Procedure("plug_in_swirlies",
+					  "Generates 2D textures",
+					  "Generates 2D textures",
+					  "Maurits Rijk",
+					  "(C) Maurits Rijk",
+					  "2006",
+					  "Swirlies...",
+					  "RGB",
+					  in_params);
+
+      procedure.MenuPath = "<Image>/Filters/Render";
+      procedure.IconFile = "Swirlies.png";
+
+      set.Add(procedure);
+      
+      return set;
     }
 
     override protected bool CreateDialog()

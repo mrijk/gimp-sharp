@@ -32,7 +32,7 @@ namespace Gimp
       public FilePlugin(string[] args) : base(args)
       {
       }
-
+#if false
       override protected void Run(string name, GimpParam[] inParam,
 				  ref GimpParam[] outParam)
       {
@@ -65,7 +65,12 @@ namespace Gimp
 	  Save(filename);
 	}
       }
-
+#else
+      override protected void Run(string name, ParamDefList inParam,
+				  ref GimpParam[] outParam)
+      {
+      }
+#endif
       protected void InstallFileLoadProcedure(string name, string blurb, 
 					      string help, string author, 
 					      string copyright, string date, 

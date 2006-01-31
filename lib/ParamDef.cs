@@ -41,6 +41,11 @@ namespace Gimp
 	_description = description;
       }
 
+      public ParamDef(string name, Type type, string description) : 
+	this(name, null, type, description)
+      {
+      }
+
       public PDBArgType GetGimpType()
       {
 	  if (_type == typeof(int))

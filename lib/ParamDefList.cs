@@ -26,13 +26,39 @@ using System.Runtime.InteropServices;
 
 namespace Gimp
 {
-  public class ParamDefList
+  public class ParamDefList : IEnumerable
   {
     List<ParamDef> _set;
+
+    public ParamDefList(bool usesImage, bool usesDrawable)
+    {
+      _set = new List<ParamDef>();
+      Add(new ParamDef("run_mode", typeof(Int32), 
+		       "Interactive, non-interactive"));
+      Add(new ParamDef("image", typeof(Image), 
+		       "Input image"));
+      Add(new ParamDef("drawable", typeof(Drawable), 
+		       "Input drawable"));
+      Console.WriteLine("Construct: " + _set.Count);
+    }
+
+    public ParamDefList() : this(true, true)
+    {
+    }
 
     public ParamDefList(params ParamDef[] list)
     {
       _set = new List<ParamDef>(list);
+    }
+
+    public IEnumerator GetEnumerator()
+    {
+      return _set.GetEnumerator();
+    }
+
+    public ParamDef this[int index]
+    {
+      get {return _set[index];}
     }
 
     //
@@ -49,9 +75,16 @@ namespace Gimp
 	  switch (param.type)
 	    {
 	    case PDBArgType.INT32:
-	      
+	      this[i].Value = (Int32) param.data.d_int32;
+	      break;
+	    case PDBArgType.IMAGE:
+	      this[i].Value = (Int32) param.data.d_image;
+	      break;
+	    case PDBArgType.DRAWABLE:
+	      this[i].Value = (Int32) param.data.d_drawable;
 	      break;
 	    default:
+	      Console.WriteLine("Fill: parameter " + param.type + " not supported yet!");
 	      break;
 	    }
 
@@ -94,30 +127,14 @@ namespace Gimp
     public GimpParamDef[] GetGimpParamDef(bool uses_image,
 					  bool uses_drawable)
     {
-      int len = _set.Count;
-      GimpParamDef[] args = new GimpParamDef[3 + len];
-	
-      args[0].type = PDBArgType.INT32;
-      args[0].name = "run_mode";
-      args[0].description = "Interactive, non-interactive";
-	
-      args[1].type = PDBArgType.IMAGE;
-      args[1].name = "image";
-      args[1].description = "Input image" + 
-	((uses_image) ?  "" : " (unused)");
-	
-      args[2].type = PDBArgType.DRAWABLE;
-      args[2].name = "drawable";
-      args[2].description = "Input drawable" + 
-	((uses_drawable) ?  "" : " (unused)");
+      GimpParamDef[] args = new GimpParamDef[_set.Count];
+      int i = 0;
 
-      int i = 3;
       foreach (ParamDef def in _set)
 	{
 	  args[i].type = def.GetGimpType();
 	  args[i].name = def.Name;
 	  args[i].description = def.Description;
-	  Console.WriteLine("Add: " + args[i].type);
 	  i++;
 	}
       

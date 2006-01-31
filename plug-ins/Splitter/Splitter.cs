@@ -53,19 +53,27 @@ namespace Gimp.Splitter
     {
     }
 
-    override protected void Query()
+    override protected ProcedureSet GetProcedureSet()
     {
-      InstallProcedure("plug_in_splitter",
-		       "Splits an image.",
-		       "Splits an image in separate parts using a formula of the form f(x, y) = 0",
-		       "Maurits Rijk",
-		       "(C) Maurits Rijk",
-		       "1999 - 2006",
-		       "Splitter...",
-		       "RGB*");
+      ProcedureSet set = new ProcedureSet();
+      
+      ParamDefList in_params = new ParamDefList();
 
-      MenuRegister("<Image>/Filters/Generic");
-      IconRegister("Splitter.png");
+      Procedure procedure = new Procedure("plug_in_splitter",
+					  "Splits an image.",
+					  "Splits an image in separate parts using a formula of the form f(x, y) = 0",
+					  "Maurits Rijk",
+					  "(C) Maurits Rijk",
+					  "1999 - 2006",
+					  "Splitter...",
+					  "RGB*",
+					  in_params);
+      procedure.MenuPath = "<Image>/Filters/Generic";
+      procedure.IconFile = "Splitter.png";
+      
+      set.Add(procedure);
+      
+      return set;
     }
 
     override protected bool CreateDialog()
@@ -108,7 +116,7 @@ namespace Gimp.Splitter
       return DialogRun();
     }
 
-  GimpFrame CreateLayerFrame1()
+    GimpFrame CreateLayerFrame1()
     {
       GimpFrame frame = new GimpFrame("Layer 1");
 
@@ -150,9 +158,9 @@ namespace Gimp.Splitter
       return frame;
     }
 
-  // TODO: find a way to avoid this code duplication. Anymous methods
-  // however can't address ref or out parameters :(
-  GimpFrame CreateLayerFrame2()
+    // TODO: find a way to avoid this code duplication. Anymous methods
+    // however can't address ref or out parameters :(
+    GimpFrame CreateLayerFrame2()
     {
       GimpFrame frame = new GimpFrame("Layer 2");
 
@@ -230,29 +238,29 @@ namespace Gimp.Splitter
       for (IntPtr pr = PixelRgn.Register(srcPR, destPR1, destPR2); 
 	   pr != IntPtr.Zero; pr = PixelRgn.Process(pr))
 	{
-	for (int y = srcPR.Y; y < srcPR.Y + srcPR.H; y++)
-	  {
-	  for (int x = srcPR.X; x < srcPR.X + srcPR.W; x++)
+	  for (int y = srcPR.Y; y < srcPR.Y + srcPR.H; y++)
 	    {
-	    if (parser.Eval(x, y) < 0)
-	      {
-	      destPR1[y, x] = srcPR[y, x];
-	      destPR2[y, x] = black;
-	      }
-	    else
-	      {
-	      destPR1[y, x] = black;
-	      destPR2[y, x] = srcPR[y, x];
-	      }
-	    }
-	  }				
+	      for (int x = srcPR.X; x < srcPR.X + srcPR.W; x++)
+		{
+		  if (parser.Eval(x, y) < 0)
+		    {
+		      destPR1[y, x] = srcPR[y, x];
+		      destPR2[y, x] = black;
+		    }
+		  else
+		    {
+		      destPR1[y, x] = black;
+		      destPR2[y, x] = srcPR[y, x];
+		    }
+		}
+	    }				
 	}
       layer1.Flush();
       layer2.Flush();
-
+      
       new Display(clone);
-
+      
       Display.DisplaysFlush();
     }
   }
-  }
+}

@@ -80,7 +80,7 @@ namespace Gimp
     }
 
     public string Name
-      {
+    {
       get {return _name;}
     }
 
@@ -161,29 +161,9 @@ namespace Gimp
 	}
     }
 
-    protected bool MenuRegister(string procedure_name, string menu_path)
-    {
-      return gimp_plugin_menu_register(procedure_name, menu_path);
-    }
-
-    protected bool MenuRegister(string menu_path)
-    {
-      return MenuRegister(_name, menu_path);
-    }
-
     protected Pixbuf LoadImage(string filename)
     {
       return new Pixbuf(Assembly.GetCallingAssembly(), filename);
-    }
-
-    protected void IconRegister(string filename)
-    {
-      Pixbuf pixbuf = new Pixbuf(Assembly.GetCallingAssembly(), filename);
-      
-      Pixdata data = new Pixdata();
-      data.FromPixbuf(pixbuf, false);
-      gimp_plugin_icon_register(_name, IconType.INLINE_PIXBUF, 
-				data.Serialize());
     }
 
     virtual protected void Query()
@@ -194,17 +174,17 @@ namespace Gimp
       procedures.Install(_usesImage, _usesDrawable);
     }
 
-    virtual protected void Run(string name, GimpParam[] inParam,
+    virtual protected void Run(string name, ParamDefList inParam,
 			       out GimpParam[] outParam)
     {
-      RunMode run_mode = (RunMode) inParam[0].data.d_int32;
+      RunMode run_mode = (RunMode) inParam[0].Value;
       if (_usesImage)
 	{
-	  _image = new Image(inParam[1].data.d_image);
+	  _image = new Image((Int32) inParam[1].Value);
 	}
       if (_usesDrawable)
 	{
-	  _drawable = new Drawable(inParam[2].data.d_drawable);
+	  _drawable = new Drawable((Int32) inParam[2].Value);
 	}
       
       if (run_mode == RunMode.INTERACTIVE)
@@ -235,7 +215,7 @@ namespace Gimp
       outParam[0].type = PDBArgType.STATUS;
       outParam[0].data.d_status = PDBStatusType.SUCCESS;
     }
-    
+
     virtual protected bool CreateDialog() {return true;}
 
     public void Run(string name, int n_params, IntPtr paramPtr,
@@ -244,26 +224,20 @@ namespace Gimp
       GimpParam[] _origParam;
 
       _name = name;
-      
+
       GetRequiredParameters();
 
-      ParamDefList dummy = new ParamDefList();
+      ProcedureSet procedures = GetProcedureSet();
+      Procedure procedure = procedures[name];
+      ParamDefList dummy = procedure.InParams;
       dummy.Fill(paramPtr, n_params);
-      
+
       // Get parameters
       _origParam = new GimpParam[n_params];
-      for (int i = 0; i < n_params; i++)
-	{
-	  _origParam[i] = 
-	    (GimpParam) Marshal.PtrToStructure(paramPtr,
-					       typeof(GimpParam));
-	  // Console.WriteLine(_origParam[i].type);
-	  paramPtr = (IntPtr)((int)paramPtr + Marshal.SizeOf(_origParam[i]));
-	}
 
       GimpParam[] my_return_vals;
       
-      Run(name, _origParam, out my_return_vals);
+      Run(name, dummy, out my_return_vals);
       
       n_return_vals = my_return_vals.Length;
       return_vals = Marshal.AllocCoTaskMem(n_return_vals * 
@@ -495,13 +469,6 @@ namespace Gimp
 
     [DllImport("libgimpui-2.0-0.dll")]
     public static extern void gimp_ui_init(string prog_name, bool preview);
-    [DllImport("libgimp-2.0-0.dll")]
-    public static extern bool gimp_plugin_menu_register(string procedure_name,
-							string menu_path);
-    [DllImport("libgimp-2.0-0.dll")]
-    public static extern bool gimp_plugin_icon_register(string procedure_name,
-							IconType icon_type, 
-							byte[] icon_data);
     [DllImport("libgimp-2.0-0.dll")]
     public static extern void gimp_install_procedure(
       string name,

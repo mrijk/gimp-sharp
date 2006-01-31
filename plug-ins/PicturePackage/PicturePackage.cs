@@ -67,19 +67,28 @@ namespace Gimp.PicturePackage
     {
     }
 
-    override protected void Query()
+    override protected ProcedureSet GetProcedureSet()
     {
-      InstallProcedure("plug_in_picture_package",
-		       "Picture package",
-		       "Picture package",
-		       "Maurits Rijk",
-		       "Maurits Rijk",
-		       "2004-2006",
-		       "Picture Package...",
-		       "");
+      ProcedureSet set = new ProcedureSet();
+      
+      ParamDefList in_params = new ParamDefList();
 
-      MenuRegister("<Toolbox>/Xtns/Extensions");
-      IconRegister("PicturePackage.png");
+      Procedure procedure = new Procedure("plug_in_picture_package",
+					  "Picture package",
+					  "Picture package",
+					  "Maurits Rijk",
+					  "Maurits Rijk",
+					  "2004-2006",
+					  "Picture Package...",
+					  "",
+					  in_params);
+
+      procedure.MenuPath = "<Toolbox>/Xtns/Extensions";
+      procedure.IconFile = "PicturePackage.png";
+
+      set.Add(procedure);
+      
+      return set;
     }
 
     override protected bool CreateDialog()

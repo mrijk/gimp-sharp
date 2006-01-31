@@ -19,19 +19,30 @@
 // Boston, MA 02111-1307, USA.
 //
 
+using System.Collections;
 using System.Collections.Generic;
 
 namespace Gimp
 {
-  public class ProcedureSet
+  public class ProcedureSet : IEnumerable
   {
     Dictionary<string, Procedure> _set = new Dictionary<string, Procedure>();
+
+    public IEnumerator GetEnumerator()
+    {
+      return _set.GetEnumerator();
+    }
+
+    public Procedure this[string name]
+    {
+      get {return _set[name];}
+    }
 
     public void Add(Procedure procedure)
     {
       _set[procedure.Name] = procedure;
     }
-
+    
     public void Install(bool usesImage, bool usesDrawable)
     {
       foreach (Procedure procedure in _set.Values)

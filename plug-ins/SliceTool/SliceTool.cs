@@ -28,7 +28,7 @@ using Gtk;
 namespace Gimp.SliceTool
 {
   public class SliceTool : Plugin
-    {
+  {
     MouseFunc _func;
     
     SliceData _sliceData = new SliceData();
@@ -52,31 +52,40 @@ namespace Gimp.SliceTool
     
     [STAThread]
     static void Main(string[] args)
-      {
+    {
       new SliceTool(args);
-      }
+    }
     
     public SliceTool(string[] args) : base(args)
-      {
-      }
-    
-    override protected void Query()
-      {
-      InstallProcedure("plug_in_slice_tool",
-		       "Slice Tool",
-		       "The Image Slice Tool is used to apply image slicing and rollovers.",
-		       "Maurits Rijk",
-		       "(C) Maurits Rijk",
-		       "2005-2006",
-		       "Slice Tool...",
-		       "RGB*, GRAY*");
-      
-      MenuRegister("<Image>/Filters/Web");
-      IconRegister("SliceTool.png");
-      }
+    {
+    }
 
+    override protected ProcedureSet GetProcedureSet()
+    {
+      ProcedureSet set = new ProcedureSet();
+      
+      ParamDefList in_params = new ParamDefList();
+
+      Procedure procedure = new Procedure("plug_in_slice_tool",
+					  "Slice Tool",
+					  "The Image Slice Tool is used to apply image slicing and rollovers.",
+					  "Maurits Rijk",
+					  "(C) Maurits Rijk",
+					  "2005-2006",
+					  "Slice Tool...",
+					  "RGB*, GRAY*",
+					  in_params);
+
+      procedure.MenuPath = "<Toolbox>/Filters/Web";
+      procedure.IconFile = "SliceTool.png";
+
+      set.Add(procedure);
+      
+      return set;
+    }
+    
     override protected bool CreateDialog()
-      {
+    {
       gimp_ui_init("SliceTool", true);
       
       CreateStockIcons();
@@ -148,20 +157,20 @@ namespace Gimp.SliceTool
       
       dialog.ShowAll();
       return DialogRun();
-      }
+    }
     
     // Fix me: move this to Plugin class?!
     void SetTitle(string filename)
-      {
+    {
       _filename = filename;
       string p = (filename == null) 
 	? "<Untitled>" : System.IO.Path.GetFileName(filename);
       string title = string.Format("Slice Tool 0.2 - {0}", p);
       Dialog.Title = title;
-      }
+    }
     
     void SaveBlank(string path)
-      {
+    {
       Assembly assembly = Assembly.GetExecutingAssembly();
       Stream input = assembly.GetManifestResourceStream("blank.png");
       BinaryReader reader = new BinaryReader(input);
@@ -171,70 +180,70 @@ namespace Gimp.SliceTool
       BinaryWriter writer = new BinaryWriter(fs);
       writer.Write(buffer);
       writer.Close();
-      }
+    }
     
     void Save()
-      {
+    {
       SetRectangleData(_sliceData.Selected);
       try
 	{
-	_sliceData.Save(_filename, _format.Apply, _image, _drawable);
-	SaveBlank(System.IO.Path.GetDirectoryName(_filename));
+	  _sliceData.Save(_filename, _format.Apply, _image, _drawable);
+	  SaveBlank(System.IO.Path.GetDirectoryName(_filename));
 	}
       catch (Exception e)
 	{
-	MessageDialog message = new MessageDialog(null, DialogFlags.DestroyWithParent,
-						  MessageType.Error, ButtonsType.Close,
-						  "Can't save to " + _filename);
-	message.Run();
-	message.Destroy();
+	  MessageDialog message = new MessageDialog(null, DialogFlags.DestroyWithParent,
+						    MessageType.Error, ButtonsType.Close,
+						    "Can't save to " + _filename);
+	  message.Run();
+	  message.Destroy();
 	}
-      }
+    }
     
     override protected bool OnClose()
-      {
+    {
       if (_sliceData.Changed)
 	{
-	MessageDialog message = new MessageDialog(null, DialogFlags.DestroyWithParent,
-						  MessageType.Warning, ButtonsType.YesNo, 
-						  "Some data has been changed!\n" + 
-						  "Do you really want to discard your changes?");
-	ResponseType response = (ResponseType) message.Run();
-	return response == ResponseType.Yes;
+	  MessageDialog message = new MessageDialog(null, DialogFlags.DestroyWithParent,
+						    MessageType.Warning, ButtonsType.YesNo, 
+						    "Some data has been changed!\n" + 
+						    "Do you really want to discard your changes?");
+	  ResponseType response = (ResponseType) message.Run();
+	  return response == ResponseType.Yes;
 	}
       return true;
-      }
+    }
     
     override protected void DialogRun(ResponseType type)
-      {
+    {
       if ((int) type == 0 || ((int) type == 1 && _filename == null))
 	{
-	FileSelection fs = new FileSelection("HTML Save As");
-	ResponseType response = (ResponseType) fs.Run();
-	if (response == ResponseType.Ok)
-	  {
-	  string filename = fs.Filename;
-	  if (System.IO.File.Exists(filename))
+	  FileSelection fs = new FileSelection("HTML Save As");
+	  ResponseType response = (ResponseType) fs.Run();
+	  if (response == ResponseType.Ok)
 	    {
-	    FileExistsDialog message = new FileExistsDialog(filename);
-	    if (!message.IsYes())
-	      {
-	      return;
-	      }
+	      string filename = fs.Filename;
+	      if (System.IO.File.Exists(filename))
+		{
+		  FileExistsDialog message = new FileExistsDialog(filename);
+		  if (!message.IsYes())
+		    {
+		      return;
+		    }
+		}
+	      SetTitle(filename);
+	      Save();
 	    }
-	  SetTitle(filename);
-	  Save();
-	  }
-	fs.Destroy();
+	  fs.Destroy();
 	}
       else // type == 1
 	{
-	Save();
+	  Save();
 	}
-      }
+    }
     
     Widget CreatePreview()
-      {
+    {
       ScrolledWindow window = new ScrolledWindow();
       window.SetSizeRequest(600, 400);
       
@@ -249,25 +258,25 @@ namespace Gimp.SliceTool
       window.AddWithViewport(_preview);
       
       return window;
-      }
+    }
     
     void OnButtonPress(object o, ButtonPressEventArgs args)
-      {
+    {
       MouseFunc func = _func.GetActualFunc(this, (int) args.Event.X,
 					   (int) args.Event.Y);
       func.OnButtonPress(o, args);
-      }
+    }
     
     ToggleButton CreateToggle(string stock)
-      {
+    {
       ToggleButton toggle = new ToggleButton();
       Gtk.Image image = new Gtk.Image(stock, IconSize.SmallToolbar);
       toggle.Add(image);
       return toggle;
-      }
+    }
     
     Widget CreateToolbar()
-      {
+    {
       HandleBox handle = new HandleBox();
       
       Toolbar tools = new Toolbar();
@@ -294,10 +303,10 @@ namespace Gimp.SliceTool
       toggle.Clicked += new EventHandler(OnCreateTable);
       
       return handle;
-      }
+    }
     
     Widget CreateCellProperties()
-      {
+    {
       GimpFrame frame = new GimpFrame("Cell Properties");
       GimpTable table = new GimpTable(5, 4, false);
       table.ColumnSpacing = 6;
@@ -331,10 +340,10 @@ namespace Gimp.SliceTool
       table.Attach(_include, 0, 2, 5, 6);
       
       return frame;
-      }
+    }
     
     Widget CreateRollover()
-      {
+    {
       GimpFrame frame = new GimpFrame("Rollovers");
 
       VBox vbox = new VBox(false, 12);
@@ -348,60 +357,60 @@ namespace Gimp.SliceTool
       vbox.Add(label);
 
       return frame;
-      }
+    }
 
     void OnRolloverCreate(object o, EventArgs args)
-      {
+    {
       RolloverDialog dialog = new RolloverDialog();
       dialog.SetRectangleData(_sliceData.Selected);
       dialog.ShowAll();
       ResponseType type = dialog.Run();
       if (type == ResponseType.Ok)
 	{
-	dialog.GetRectangleData(_sliceData.Selected);
+	  dialog.GetRectangleData(_sliceData.Selected);
 	}
       dialog.Destroy();
-      }
+    }
 
     void OnSaveSettings(object o, EventArgs args)
-      {
+    {
       FileSelection fs = new FileSelection("Save Settings");
       ResponseType type = (ResponseType) fs.Run();
       if (type == ResponseType.Ok)
 	{
-	_sliceData.SaveSettings(fs.Filename);
+	  _sliceData.SaveSettings(fs.Filename);
 	}
       fs.Destroy();
-      }
+    }
 
     void OnLoadSettings(object o, EventArgs args)
-      {
+    {
       FileSelection fs = new FileSelection("Load Settings");
       ResponseType type = (ResponseType) fs.Run();
       if (type == ResponseType.Ok)
 	{
-	_sliceData.LoadSettings(fs.Filename);
-	Redraw();
+	  _sliceData.LoadSettings(fs.Filename);
+	  Redraw();
 	}
       fs.Destroy();
-      }
+    }
 
     void OnPreferences(object o, EventArgs args)
-      {
+    {
       PreferencesDialog dialog = new PreferencesDialog();
       dialog.ShowAll();
       ResponseType type = dialog.Run();
       if (type == ResponseType.Ok)
 	{
-	_preview.Renderer.ActiveColor = dialog.ActiveColor;
-	_preview.Renderer.InactiveColor = dialog.InactiveColor;
-	Redraw();
+	  _preview.Renderer.ActiveColor = dialog.ActiveColor;
+	  _preview.Renderer.InactiveColor = dialog.InactiveColor;
+	  Redraw();
 	}
       dialog.Destroy();
-      }
+    }
 
     void AddStockIcon(IconFactory factory, string stockId, string filename)
-      {
+    {
       Pixbuf pixbuf = LoadImage(filename);
 
       IconSource source = new IconSource();
@@ -415,129 +424,129 @@ namespace Gimp.SliceTool
 
       factory.Add(stockId, set);
       set.Unref();
-      }
+    }
 
     void CreateStockIcons()
-      {
+    {
       IconFactory factory = new IconFactory();
       factory.AddDefault();
       AddStockIcon(factory, "slice-tool-arrow", "stock-arrow.png");
-      }
+    }
 
     void Redraw()
-      {
+    {
       _preview.QueueDraw();
-      }
+    }
 
     public void Redraw(PreviewRenderer renderer)
-      {
+    {
       _sliceData.Draw(renderer);
-      }
+    }
 
     public void SetRectangleData(Rectangle rectangle)
-      {
+    {
       if (rectangle != null)
 	{
-	rectangle.SetProperty("href", _url.Text);
-	rectangle.SetProperty("AltText", _altText.Text);
-	rectangle.SetProperty("Target", _target.Text);
-	rectangle.Include = _include.Active;
-	if (!_format.Apply)
-	  {
-	  rectangle.Extension = _format.Extension;
-	  }
+	  rectangle.SetProperty("href", _url.Text);
+	  rectangle.SetProperty("AltText", _altText.Text);
+	  rectangle.SetProperty("Target", _target.Text);
+	  rectangle.Include = _include.Active;
+	  if (!_format.Apply)
+	    {
+	      rectangle.Extension = _format.Extension;
+	    }
 	}
-      }
+    }
 
     public void GetRectangleData(Rectangle rectangle)
-      {
+    {
       _url.Text = rectangle.GetProperty("href");
       _altText.Text = rectangle.GetProperty("AltText");
       _target.Text = rectangle.GetProperty("Target");
       _include.Active = rectangle.Include;		
       if (!_format.Apply)
 	{
-	_format.Extension = rectangle.Extension;
+	  _format.Extension = rectangle.Extension;
 	}
 
       _left.Text = rectangle.X1.ToString();
       _right.Text = rectangle.X2.ToString();
       _top.Text = rectangle.Y1.ToString();
       _bottom.Text = rectangle.Y2.ToString();
-      }
+    }
 
     bool _lock;
     void OnFunc(object o, MouseFunc func)
-      {
+    {
       if (!_lock)
 	{
-	_lock = true;
-	ToggleButton toggle = (o as ToggleButton);
-	if (toggle != _toggle)
-	  {
-	  _toggle.Active = false;
-	  _toggle = toggle;
-	  _func = func;
-	  } 
-	else
-	  {
-	  _toggle.Active = true;
-	  }
-	_lock = false;
+	  _lock = true;
+	  ToggleButton toggle = (o as ToggleButton);
+	  if (toggle != _toggle)
+	    {
+	      _toggle.Active = false;
+	      _toggle = toggle;
+	      _func = func;
+	    } 
+	  else
+	    {
+	      _toggle.Active = true;
+	    }
+	  _lock = false;
 	}
-      }
+    }
 
     void OnSelect(object o, EventArgs args)
-      {
+    {
       OnFunc(o, new SelectFunc(this, _sliceData, _preview));
-      }
+    }
 
     void OnCreateSlice(object o, EventArgs args)
-      {
+    {
       OnFunc(o, new CreateFunc(_sliceData, _preview));
-      }
+    }
 
     void OnRemoveSlice(object o, EventArgs args)
-      {
+    {
       OnFunc(o, new RemoveFunc(_sliceData, _preview));
-      }
+    }
 
     void OnCreateTable(object o, EventArgs args)
-      {
+    {
       OnFunc(o, new CreateTableFunc(_sliceData, _preview));
-      }
+    }
 
     void OnShowCoordinates(object o, MotionNotifyEventArgs args)
-      {
+    {
       int x, y;
       EventMotion ev = args.Event;
       
       if (ev.IsHint) 
 	{
-	ModifierType s;
-	ev.Window.GetPointer (out x, out y, out s);
+	  ModifierType s;
+	  ev.Window.GetPointer (out x, out y, out s);
 	} 
       else 
 	{
-	x = (int) ev.X;
-	y = (int) ev.Y;
+	  x = (int) ev.X;
+	  y = (int) ev.Y;
 	}
       
       _xy.Text = "x: " + x + ", y: " + y;
       args.RetVal = true;
 
       SetCursorType(x, y);
-      }
+    }
 
     void SetCursorType(int x, int y)
-      {
+    {
       CursorType type = _func.GetCursorType(x, y);
       _preview.SetCursor(type);
-      }
+    }
 
     override protected void DoSomething(Image image, Drawable drawable)
-      {
+    {
       // Fix me. Only used to fill in _image and _drawable;
-      }
     }
   }
+}
