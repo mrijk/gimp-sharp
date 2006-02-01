@@ -45,10 +45,23 @@ A: no, not yet. Mono runs on Max OS X and GIMP# is very portable, so
 it shouldn't be too difficult to come up with a working version.
 
 
+Q: I want to write a plug-in. Where do I find the documentation?
+
+A: there is no documentation yet. However, the API closely resembles
+the original GIMP API with some syntactical C# sugar. Look at
+http://developer.gimp.org for the GIMP API.
+
+
 Q: why doesn't GIMP# work with Mono 1.1.13?
 
 A: in that particular version of Mono an error was introduced with
 marshalling unions. This is solved in 1.1.14.
+
+
+Q: can I use Mono 1.0.x?
+
+A: until GIMP# 0.7 you can. Later versions, starting with 0.7.1,
+require Mono 1.1.x or a more recent version.
 
 
 Q: can I help?

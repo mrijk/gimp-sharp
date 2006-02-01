@@ -46,6 +46,11 @@ namespace Gimp
       {
       }
 
+      public ParamDef(object value, Type type) :
+	this(null, value, type, null)
+      {
+      }
+
       public PDBArgType GetGimpType()
       {
 	  if (_type == typeof(int))
@@ -56,8 +61,32 @@ namespace Gimp
 	    return PDBArgType.DRAWABLE;
 	  else if (_type == typeof(Image))
 	    return PDBArgType.IMAGE;
+	  else if (_type == typeof(PDBStatusType))
+	    return PDBArgType.STATUS;
 	  else
 	    return PDBArgType.END;
+      }
+
+      // Can this be done by a casting overload?
+      public GimpParam GetGimpParam()
+      {
+	GimpParam param = new GimpParam();
+
+	param.type = GetGimpType();
+	switch (param.type)
+	  {
+	  case PDBArgType.INT32:
+	    param.data.d_int32 = (Int32) _value;
+	    break;
+	  case PDBArgType.STATUS:
+	    param.data.d_status = (PDBStatusType) _value;
+	    break;
+	  default:
+	    Console.WriteLine("GetGimpParam: couldn't create");
+	    break;
+	  }
+
+	return param;
       }
 
       public string Name

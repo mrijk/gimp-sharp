@@ -136,7 +136,7 @@ namespace Gimp
       InstallProcedure(name, blurb, help, author, copyright, date,
 		       menu_path, image_types, new ParamDefList());
     }
-    
+
     void GetRequiredParameters()
     {
       foreach (MethodInfo method in 
@@ -175,16 +175,16 @@ namespace Gimp
     }
 
     virtual protected void Run(string name, ParamDefList inParam,
-			       out GimpParam[] outParam)
+			       out ParamDefList outParam)
     {
       RunMode run_mode = (RunMode) inParam[0].Value;
       if (_usesImage)
 	{
-	  _image = new Image((Int32) inParam[1].Value);
+	  _image = (Image) inParam[1].Value;
 	}
       if (_usesDrawable)
 	{
-	  _drawable = new Drawable((Int32) inParam[2].Value);
+	  _drawable = (Drawable) inParam[2].Value;
 	}
       
       if (run_mode == RunMode.INTERACTIVE)
@@ -192,7 +192,7 @@ namespace Gimp
 	  GetData();
 	  if (CreateDialog())
 	    {
-	  SetData();
+	      SetData();
 	    }
 	}
       else if (run_mode == RunMode.NONINTERACTIVE)
@@ -209,11 +209,9 @@ namespace Gimp
 	{
 	  _drawable.Detach();
 	}
-      
-      outParam = new GimpParam[1];
-      
-      outParam[0].type = PDBArgType.STATUS;
-      outParam[0].data.d_status = PDBStatusType.SUCCESS;
+
+      outParam = new ParamDefList(true);
+      outParam.Add(new ParamDef(PDBStatusType.SUCCESS, typeof(PDBStatusType)));
     }
 
     virtual protected bool CreateDialog() {return true;}
@@ -221,34 +219,18 @@ namespace Gimp
     public void Run(string name, int n_params, IntPtr paramPtr,
 		    ref int n_return_vals, out IntPtr return_vals)
     {
-      GimpParam[] _origParam;
-
       _name = name;
 
       GetRequiredParameters();
 
       ProcedureSet procedures = GetProcedureSet();
       Procedure procedure = procedures[name];
-      ParamDefList dummy = procedure.InParams;
-      dummy.Fill(paramPtr, n_params);
+      ParamDefList inParam = procedure.InParams;
+      inParam.Marshall(paramPtr, n_params);
 
-      // Get parameters
-      _origParam = new GimpParam[n_params];
-
-      GimpParam[] my_return_vals;
-      
-      Run(name, dummy, out my_return_vals);
-      
-      n_return_vals = my_return_vals.Length;
-      return_vals = Marshal.AllocCoTaskMem(n_return_vals * 
-					   Marshal.SizeOf(_origParam[0]));
-
-      paramPtr = return_vals;
-      for (int i = 0; i < n_return_vals; i++)
-	{
-	Marshal.StructureToPtr(my_return_vals[i], paramPtr, false);
-	paramPtr = (IntPtr)((int)paramPtr + Marshal.SizeOf(my_return_vals[i]));
-	}
+      ParamDefList outParam;
+      Run(name, inParam, out outParam);
+      outParam.Marshall(out return_vals, out n_return_vals);
     }
 
     protected void SetData()
@@ -318,19 +300,19 @@ namespace Gimp
       
       if (_usesDrawable && _usesImage)
 	{
-	DoSomething(_image, _drawable);
+	  DoSomething(_image, _drawable);
 	}
       else if (_usesDrawable)
 	{
-	DoSomething(_drawable);
+	  DoSomething(_drawable);
 	}
       else if (_usesImage)
 	{
-	DoSomething(_image);
+	  DoSomething(_image);
 	}
       else
 	{
-	DoSomething();
+	  DoSomething();
 	}
 
       int m_time= Environment.TickCount - m_start;
@@ -359,33 +341,33 @@ namespace Gimp
     {
       while (true)
 	{
-	ResponseType type = _dialog.Run();
-	if (type == ResponseType.Ok)
-	  {
-	  GetParameters();
-	  CallDoSomething();
-	  return true;
-	  } 
-	else if (type == ResponseType.Cancel || type == ResponseType.Close)
-	  {
-	  if (OnClose())
+	  ResponseType type = _dialog.Run();
+	  if (type == ResponseType.Ok)
 	    {
-	    return false;
+	      GetParameters();
+	      CallDoSomething();
+	      return true;
+	    } 
+	  else if (type == ResponseType.Cancel || type == ResponseType.Close)
+	    {
+	      if (OnClose())
+	    {
+	      return false;
 	    }
-	  }
-	else if (type == ResponseType.Help)
-	  {
-	  Console.WriteLine("Show help here!");
-	  }
-        else if (type == (ResponseType) 1)
-          {
-          Reset();
-          }
-	else if (type >=0)		// User defined response
-	  {
-	  DialogRun(type);
-	  Console.WriteLine("Type: " + type);
-	  }
+	    }
+	  else if (type == ResponseType.Help)
+	    {
+	      Console.WriteLine("Show help here!");
+	    }
+	  else if (type == (ResponseType) 1)
+	    {
+	      Reset();
+	    }
+	  else if (type >=0)		// User defined response
+	    {
+	      DialogRun(type);
+	      Console.WriteLine("Type: " + type);
+	    }
 	}
     }
 
@@ -463,7 +445,7 @@ namespace Gimp
 	}
       else
 	{
-	Console.WriteLine(name + " not found!");
+	  Console.WriteLine(name + " not found!");
 	}
     }
 

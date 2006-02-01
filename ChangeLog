@@ -1,3 +1,12 @@
+2006-02-01  Maurits  <m.rijk@chello.nl>
+
+	* lib/FilePlugin.cs
+	* lib/ParamDef.cs
+	* lib/ParamDefList.cs
+	* lib/Plugin.cs: more refactoring
+
+	* docs/FAQ: Updated
+
 2006-01-31  Maurits  <m.rijk@chello.nl>
 
 	* lib/FilePlugin.cs

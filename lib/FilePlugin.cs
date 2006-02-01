@@ -67,8 +67,11 @@ namespace Gimp
       }
 #else
       override protected void Run(string name, ParamDefList inParam,
-				  ref GimpParam[] outParam)
+				  out ParamDefList outParam)
       {
+	outParam = new ParamDefList();
+	outParam.Add(new ParamDef(PDBStatusType.SUCCESS, 
+				  typeof(PDBStatusType)));
       }
 #endif
       protected void InstallFileLoadProcedure(string name, string blurb, 

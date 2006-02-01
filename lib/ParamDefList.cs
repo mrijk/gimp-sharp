@@ -39,11 +39,15 @@ namespace Gimp
 		       "Input image"));
       Add(new ParamDef("drawable", typeof(Drawable), 
 		       "Input drawable"));
-      Console.WriteLine("Construct: " + _set.Count);
     }
 
     public ParamDefList() : this(true, true)
     {
+    }
+
+    public ParamDefList(bool foo)
+    {
+      _set = new List<ParamDef>();
     }
 
     public ParamDefList(params ParamDef[] list)
@@ -65,7 +69,7 @@ namespace Gimp
     // Used for marshalling
     //
 
-    public void Fill(IntPtr paramPtr, int n_params)
+    public void Marshall(IntPtr paramPtr, int n_params)
     {
       for (int i = 0; i < n_params; i++)
 	{
@@ -78,10 +82,10 @@ namespace Gimp
 	      this[i].Value = (Int32) param.data.d_int32;
 	      break;
 	    case PDBArgType.IMAGE:
-	      this[i].Value = (Int32) param.data.d_image;
+	      this[i].Value = new Image((Int32) param.data.d_image);
 	      break;
 	    case PDBArgType.DRAWABLE:
-	      this[i].Value = (Int32) param.data.d_drawable;
+	      this[i].Value = new Drawable((Int32) param.data.d_drawable);
 	      break;
 	    default:
 	      Console.WriteLine("Fill: parameter " + param.type + " not supported yet!");
@@ -89,6 +93,23 @@ namespace Gimp
 	    }
 
 	  paramPtr = (IntPtr)((int)paramPtr + Marshal.SizeOf(param));
+	}
+    }
+
+    public void Marshall(out IntPtr return_vals, out int n_return_vals)
+    {
+      GimpParam foo = new GimpParam();
+
+      n_return_vals = _set.Count;
+      return_vals = Marshal.AllocCoTaskMem(n_return_vals * 
+					   Marshal.SizeOf(foo));
+
+      IntPtr paramPtr = return_vals;
+      for (int i = 0; i < n_return_vals; i++)
+	{
+	  foo = this[i].GetGimpParam();
+	  Marshal.StructureToPtr(foo, paramPtr, false);
+	  paramPtr = (IntPtr)((int)paramPtr + Marshal.SizeOf(foo));
 	}
     }
 

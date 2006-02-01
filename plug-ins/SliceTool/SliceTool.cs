@@ -76,7 +76,7 @@ namespace Gimp.SliceTool
 					  "RGB*, GRAY*",
 					  in_params);
 
-      procedure.MenuPath = "<Toolbox>/Filters/Web";
+      procedure.MenuPath = "<Image>/Filters/Web";
       procedure.IconFile = "SliceTool.png";
 
       set.Add(procedure);

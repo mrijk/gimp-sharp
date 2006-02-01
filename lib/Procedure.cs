@@ -143,5 +143,18 @@ namespace Gimp
     public static extern bool gimp_plugin_icon_register(string procedure_name,
 							IconType icon_type, 
 							byte[] icon_data);
+    [DllImport("libgimp-2.0-0.dll")]
+    public static extern bool gimp_procedural_db_proc_info (
+      string procedure,
+      out string blurb,
+      out string help,
+      out string author,
+      out string copyright,
+      out string date,
+      out PDBProcType proc_type,
+      out int num_args,
+      out int num_values,
+      out IntPtr args,
+      out GimpParamDef[] return_vals);
   }
 }
