@@ -1,3 +1,10 @@
+2006-02-02  Maurits  <m.rijk@chello.nl>
+
+	* lib/FilePlugin.cs
+	* lib/Plugin.cs
+	* plug-ins/KoalaPaint/KoalaPaint.cs
+	* plug-ins/wbmp/wbmp.cs: loading files almost ready in new framework
+
 2006-02-01  Maurits  <m.rijk@chello.nl>
 
 	* lib/FilePlugin.cs

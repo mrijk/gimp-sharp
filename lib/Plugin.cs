@@ -32,7 +32,7 @@ namespace Gimp
   abstract public class Plugin
   {
     // Set of registered procedures
-    ProcedureSet _procedures;
+    protected ProcedureSet _procedures = new ProcedureSet();
 
     protected string _name;
     bool _usesDrawable = false;
@@ -92,50 +92,7 @@ namespace Gimp
     {
     }
 
-    protected virtual ProcedureSet GetProcedureSet()
-    {
-      return null;
-    }
-
-    protected void InstallProcedure(string name, string blurb, string help, 
-				    string author, string copyright, 
-				    string date, string menu_path, 
-				    string image_types,
-				    GimpParamDef[] _params, 
-				    GimpParamDef[] return_vals)
-    {
-      _name = name;
-      gimp_install_procedure(name, blurb, help, author, copyright, date, 
-			     menu_path, image_types, PDBProcType.PLUGIN, 
-			     _params.Length, return_vals.Length, _params, 
-			     return_vals);
-    }
-
-    protected void InstallProcedure(string name, string blurb, string help, 
-				    string author, string copyright, 
-				    string date, string menu_path, 
-				    string image_types,
-				    ParamDefList in_params)
-    {
-      _name = name;
-      GetRequiredParameters();
-      
-      GimpParamDef[] args = in_params.GetGimpParamDef(_usesImage, 
-						      _usesDrawable);
-      
-      gimp_install_procedure(name, blurb, help, author, copyright, date, 
-			     menu_path, image_types, PDBProcType.PLUGIN, 
-			     args.Length, 0, args, null);
-    }
-
-    protected void InstallProcedure(string name, string blurb, string help, 
-				    string author, string copyright, 
-				    string date, string menu_path, 
-				    string image_types)
-    {
-      InstallProcedure(name, blurb, help, author, copyright, date,
-		       menu_path, image_types, new ParamDefList());
-    }
+    protected abstract ProcedureSet GetProcedureSet();
 
     void GetRequiredParameters()
     {
@@ -170,8 +127,8 @@ namespace Gimp
     {
       GetRequiredParameters();
 
-      ProcedureSet procedures = GetProcedureSet();
-      procedures.Install(_usesImage, _usesDrawable);
+      _procedures = GetProcedureSet();
+      _procedures.Install(_usesImage, _usesDrawable);
     }
 
     virtual protected void Run(string name, ParamDefList inParam,

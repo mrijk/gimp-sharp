@@ -62,16 +62,23 @@ namespace Gimp.KoalaPaint
     {
     }
 
-    override protected void Query()
+    override protected  ProcedureSet GetProcedureSet()
     {
-    InstallFileLoadProcedure("file_koala_paint_load",
+      ProcedureSet set = new ProcedureSet();
+
+      set.Add(FileLoadProcedure("file_koala_paint_load",
 			     "loads images of the Koala Paint file format",
 			     "This plug-in loads images of the Koala Paint file format.",
 			     "Maurits Rijk",
 			     "(C) Maurits Rijk",
 			     "1999 - 2004",
-			     "KoalaPaint Image");
+				"KoalaPaint Image"));
+      return set;
+    }
 
+    override protected void Query()
+    {
+      base.Query();
       Gimp.RegisterLoadHandler("file_koala_paint_load", "koa", "");
     }
 

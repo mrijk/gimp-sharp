@@ -20,14 +20,13 @@
 //
 
 using System;
-using System.Runtime.InteropServices;
 
 namespace Gimp
 {
     public abstract class FilePlugin : Plugin
     {
-      string _load_procedure_name;
-      string _save_procedure_name;
+      Procedure _loadProcedure;
+      Procedure _saveProcedure;
 
       public FilePlugin(string[] args) : base(args)
       {
@@ -72,50 +71,56 @@ namespace Gimp
 	outParam = new ParamDefList();
 	outParam.Add(new ParamDef(PDBStatusType.SUCCESS, 
 				  typeof(PDBStatusType)));
+
+	if (_loadProcedure != null && _loadProcedure.Name == name)
+	  {
+	  }
+	else
+	  {
+	  }
       }
 #endif
-      protected void InstallFileLoadProcedure(string name, string blurb, 
-					      string help, string author, 
-					      string copyright, string date, 
-					      string menu_path)
+      protected Procedure FileLoadProcedure(string name, string blurb, 
+					    string help, string author, 
+					    string copyright, string date, 
+					    string menu_path)
       {
-        _load_procedure_name = name;
+	ParamDefList inParams = new ParamDefList(true);
+	inParams.Add(new ParamDef("run_mode", typeof(Int32), 
+				  "Interactive, non-interactive"));
+	inParams.Add(new ParamDef("filename", typeof(string), 
+				  "The name of the file to load"));
+	inParams.Add(new ParamDef("raw_filename", typeof(string), 
+				  "The name entered"));
 
-        GimpParamDef[] load_args = new GimpParamDef[3];
-	load_args[0].type = PDBArgType.INT32;
-	load_args[0].name = "run_mode";
-	load_args[0].description = "Interactive, non-interactive";
-	load_args[1].type = PDBArgType.STRING;
-	load_args[1].name = "filename";
-	load_args[1].description = "The name of the file to load";
-	load_args[2].type = PDBArgType.STRING;
-	load_args[2].name = "raw_filename";
-	load_args[2].description = "The name entered";
-	
-	GimpParamDef[] load_return_vals = new GimpParamDef[1];
-	load_return_vals[0].type = PDBArgType.IMAGE;
-	load_return_vals[0].name = "image";
-	load_return_vals[0].description = "output image";
+	ParamDefList outParams = new ParamDefList(true);
+	outParams.Add(new ParamDef("image", typeof(Image), 
+				   "Output image"));
 
-	InstallProcedure(name, blurb, help, author, copyright, date,
-			 menu_path, null, load_args, load_return_vals);
+	_loadProcedure = new Procedure(name, blurb, help, author, copyright, 
+				       date, menu_path, null, 
+				       inParams, outParams);
+	// _loadProcedure.Install(false, false);
+
+	return _loadProcedure;
       } 
 
-      protected void InstallFileSaveProcedure(string name, string blurb, 
-					      string help, string author, 
-					      string copyright, string date, 
-					      string menu_path,
-					      string image_types)
+      protected Procedure FileSaveProcedure(string name, string blurb, 
+					    string help, string author, 
+					    string copyright, string date, 
+					    string menu_path,
+					    string image_types)
       {
-        _save_procedure_name = name;
+        ParamDefList inParams = new ParamDefList();
+	inParams.Add(new ParamDef("filename", null, typeof(string),
+				  "The name of the file to save"));
+	inParams.Add(new ParamDef("raw_filename", null, typeof(string),
+				  "The name entered"));
 
-        ParamDefList in_params = new ParamDefList();
-	in_params.Add(new ParamDef("filename", null, typeof(string),
-				   "The name of the file to save"));
-	in_params.Add(new ParamDef("raw_filename", null, typeof(string),
-				   "The name entered"));
-	InstallProcedure(name, blurb, help, author, copyright, date,
-			 menu_path, image_types, in_params);
+	_saveProcedure = new Procedure(name, blurb, help, author, copyright, 
+				       date, menu_path, null, inParams);
+
+	return _saveProcedure;
       }
 
       virtual protected Image Load(string filename)

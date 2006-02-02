@@ -42,13 +42,14 @@ namespace Gimp
     string _iconFile;
 
     ParamDefList _inParams;
-    ParamDefList _return_vals;
+    ParamDefList _outParams;
 
     public Procedure(string name, string blurb, string help, 
 		     string author, string copyright, 
 		     string date, string menu_path, 
 		     string image_types,
-		     ParamDefList inParams)
+		     ParamDefList inParams,
+		     ParamDefList outParams)
     {
       _name = name;
       _blurb = blurb;
@@ -59,16 +60,39 @@ namespace Gimp
       _menu_path = menu_path;
       _image_types = image_types;
       _inParams = inParams;
+      _outParams = outParams;
+    }
+
+    public Procedure(string name, string blurb, string help, 
+		     string author, string copyright, 
+		     string date, string menu_path, 
+		     string image_types,
+		     ParamDefList inParams) : 
+      this(name, blurb, help, author, copyright, date, menu_path,
+	   image_types, inParams, null)
+    {
     }
 
     public void Install(bool usesImage, bool usesDrawable)
     {
       GimpParamDef[] args = _inParams.GetGimpParamDef(usesImage, 
 						      usesDrawable);
+      GimpParamDef[] returnVals;
+      int returnLen;
+      if (_outParams == null)
+	{
+	  returnVals = null;
+	  returnLen = 0;
+	}
+      else
+	{
+	  returnVals = _outParams.GetGimpParamDef(usesImage, usesDrawable);
+	  returnLen = returnVals.Length;
+	}
       
       gimp_install_procedure(_name, _blurb, _help, _author, _copyright, _date, 
 			     _menu_path, _image_types, PDBProcType.PLUGIN, 
-			     args.Length, 0, args, null);
+			     args.Length, returnLen, args, returnVals);
       MenuRegister();
       IconRegister();
     }

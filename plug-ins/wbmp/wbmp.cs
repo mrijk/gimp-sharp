@@ -35,25 +35,32 @@ namespace Gimp.wbmp
     {
     }
 
+    override protected  ProcedureSet GetProcedureSet()
+    {
+      ProcedureSet set = new ProcedureSet();
+
+      set.Add(FileLoadProcedure("file_wbmp_load",
+				"Loads wbmp images",
+				"This plug-in loads wbmp images.",
+				"Maurits Rijk",
+				"(C) Maurits Rijk",
+				"2005-2006",
+				"wbmp Image"));
+
+      set.Add(FileSaveProcedure("file_wbmp_save",
+				"Savess wbmp images",
+				"This plug-in saves wbmp images.",
+				"Maurits Rijk",
+				"(C) Maurits Rijk",
+				"2006",
+				"wbmp Image",
+				"RGB*"));
+      return set;
+    }
+
     override protected void Query()
     {
-      InstallFileLoadProcedure("file_wbmp_load",
-			       "Loads wbmp images",
-			       "This plug-in loads wbmp images.",
-			       "Maurits Rijk",
-			       "(C) Maurits Rijk",
-			       "2005-2006",
-			       "wbmp Image");
-
-      InstallFileSaveProcedure("file_wbmp_save",
-			       "Savess wbmp images",
-			       "This plug-in saves wbmp images.",
-			       "Maurits Rijk",
-			       "(C) Maurits Rijk",
-			       "2006",
-			       "wbmp Image",
-			       "RGB*");
-
+      base.Query();
       Gimp.RegisterLoadHandler("file_wbmp_load", "wbmp", "");
       Gimp.RegisterSaveHandler("file_wbmp_save", "wbmp", "");
     }
