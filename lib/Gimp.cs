@@ -23,111 +23,129 @@ using System;
 using System.Runtime.InteropServices;
 
 namespace Gimp
-  {
+{
   public class Gimp
-    {
+  {
     static public string Directory
-      {
+    {
       get
-          {
+	{
 	  // IntPtr bla = glib_check_version(1, 2, 3);
 	  // System.Console.WriteLine("version: " + Marshal.PtrToStringAuto(bla));
 
           IntPtr tmp = gimp_directory();
           return Marshal.PtrToStringAuto(tmp);
-          }
-      }
+	}
+    }
 
     static public string Version
-      {
+    {
       get
-          {
+	{
           IntPtr tmp = gimp_version();
           return Marshal.PtrToStringAuto(tmp);
-          }
-      }
+	}
+    }
 
     static public uint TileWidth
-      {
+    {
       get {return gimp_tile_width();}
-      }
+    }
 
     static public uint TileHeight
-      {
+    {
       get {return gimp_tile_height();}
-      }
+    }
 
     static public int ShmID
-      {
+    {
       get {return gimp_shm_ID();}
-      }
+    }
 
     static public IntPtr ShmAddr
-      {
+    {
       get {return gimp_shm_addr();}
-      }
+    }
 
     static public double Gamma
-      {
+    {
       get {return gimp_gamma();}
-      }
+    }
 
     static public bool InstallCmap
-      {
+    {
       get {return gimp_install_cmap();}
-      }
+    }
 
     static public int Mincolors
-      {
+    {
       get {return gimp_min_colors();}
-      }
+    }
 
     static public bool ShowToolTips
-      {
+    {
       get {return gimp_show_tool_tips();}
-      }
+    }
 
     static public bool ShowHelpButton
-      {
+    {
       get {return gimp_show_help_button();}
-      }
+    }
 
     static public CheckSize CheckSize
-      {
+    {
       get {return gimp_check_size();}
-      }
+    }
 
     static public CheckType CheckType
-      {
+    {
       get {return gimp_check_type();}
-      }
+    }
 
     static public Int32 DefaultDisplay
-      {
+    {
       get {return gimp_default_display();}
-      }
+    }
 
     static public void RegisterLoadHandler(string procedural_name,
                                            string extensions, 
                                            string prefixes)
-      {
+    {
       if (!gimp_register_load_handler(procedural_name, extensions,
                                       prefixes))
         {
-        throw new Exception();
+	  throw new Exception();
         }
-      }
+    }
 
     static public void RegisterSaveHandler(string procedural_name,
                                            string extensions, 
                                            string prefixes)
-      {
+    {
       if (!gimp_register_save_handler(procedural_name, extensions,
                                       prefixes))
         {
-        throw new Exception();
+	  throw new Exception();
         }
-      }
+    }
+
+    static public void RegisterFileHandlerMime(string procedural_name,
+					       string mime_type)
+    {
+      if (!gimp_register_file_handler_mime(procedural_name, mime_type))
+        {
+	  throw new Exception();
+        }
+    }
+
+    static public void RegisterThumbnailLoader(string load_proc,
+					       string thumb_proc)
+    {
+      if (!gimp_register_thumbnail_loader(load_proc, thumb_proc))
+        {
+	  throw new Exception();
+        }
+    }
 
     [DllImport("libglib.dll")]
     static extern IntPtr glib_check_version(int x, int y, int z);
@@ -170,5 +188,11 @@ namespace Gimp
     static extern bool gimp_register_save_handler(string procedural_name,
                                                   string extensions, 
                                                   string prefixes);
-    }
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_register_file_handler_mime(string procedural_name,
+						       string mime_type);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_register_thumbnail_loader(string load_proc,
+						      string thumb_proc);
   }
+}

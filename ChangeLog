@@ -1,3 +1,12 @@
+2006-02-03  Maurits  <m.rijk@chello.nl>
+
+	* lib/FilePlugin.cs
+	* lib/ParamDef.cs
+	* lib/ParamDefList.cs
+	* lib/Plugin.cs
+	* plug-ins/KoalaPaint/KoalaPaint.cs
+	* plug-ins/wbmp/wbmp.cs: loading files works again.
+
 2006-02-02  Maurits  <m.rijk@chello.nl>
 
 	* lib/FilePlugin.cs

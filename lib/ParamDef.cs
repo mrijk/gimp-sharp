@@ -21,6 +21,7 @@
 
 using System;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace Gimp
   {
@@ -73,10 +74,17 @@ namespace Gimp
 	GimpParam param = new GimpParam();
 
 	param.type = GetGimpType();
+
 	switch (param.type)
 	  {
 	  case PDBArgType.INT32:
 	    param.data.d_int32 = (Int32) _value;
+	    break;
+	  case PDBArgType.STRING:
+	    param.data.d_string = Marshal.StringToHGlobalAuto((string) _value);
+	    break;
+	  case PDBArgType.IMAGE:
+	    param.data.d_image = ((Image) _value).ID;
 	    break;
 	  case PDBArgType.STATUS:
 	    param.data.d_status = (PDBStatusType) _value;

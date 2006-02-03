@@ -31,55 +31,39 @@ namespace Gimp
       public FilePlugin(string[] args) : base(args)
       {
       }
-#if false
-      override protected void Run(string name, GimpParam[] inParam,
-				  ref GimpParam[] outParam)
-      {
-        if (name == _load_procedure_name)
-	{
-          string filename = Marshal.PtrToStringAuto(inParam[1].data.d_string);
 
-	  outParam = new GimpParam[2];
-	  outParam[0].type = PDBArgType.STATUS;
-	  outParam[0].data.d_status = PDBStatusType.SUCCESS;
-	  outParam[1].type = PDBArgType.IMAGE;
-	  
-	  Image image = Load(filename);
-	  if (image == null)
-	    {
-	    outParam[0].data.d_status = PDBStatusType.EXECUTION_ERROR;
-	    }
-	  else
-	    { 
-	    outParam[1].data.d_image = image.ID;
-	    }
-	}
-	else
-	{
-          string filename = Marshal.PtrToStringAuto(inParam[3].data.d_string);
-
-	  outParam = new GimpParam[1];
-	  outParam[0].type = PDBArgType.STATUS;
-	  outParam[0].data.d_status = PDBStatusType.SUCCESS;
-	  Save(filename);
-	}
-      }
-#else
       override protected void Run(string name, ParamDefList inParam,
 				  out ParamDefList outParam)
       {
-	outParam = new ParamDefList();
+	outParam = new ParamDefList(true);
 	outParam.Add(new ParamDef(PDBStatusType.SUCCESS, 
 				  typeof(PDBStatusType)));
 
 	if (_loadProcedure != null && _loadProcedure.Name == name)
 	  {
+	    string filename = (string) inParam[1].Value;
+
+	    Image image = Load(filename);
+	    if (image == null)
+	      {
+		outParam[0].Value = PDBStatusType.EXECUTION_ERROR;
+	      }
+	    else
+	      {
+		outParam.Add(new ParamDef(image, typeof(Image)));
+	      }
 	  }
-	else
+	else if (_saveProcedure != null && _saveProcedure.Name == name)
 	  {
+	    string filename = (string) inParam[3].Value;
+
+	    if (!Save(filename))
+	      {
+		outParam[0].Value = PDBStatusType.EXECUTION_ERROR;
+	      }
 	  }
       }
-#endif
+
       protected Procedure FileLoadProcedure(string name, string blurb, 
 					    string help, string author, 
 					    string copyright, string date, 
@@ -100,7 +84,6 @@ namespace Gimp
 	_loadProcedure = new Procedure(name, blurb, help, author, copyright, 
 				       date, menu_path, null, 
 				       inParams, outParams);
-	// _loadProcedure.Install(false, false);
 
 	return _loadProcedure;
       } 
@@ -131,6 +114,22 @@ namespace Gimp
       virtual protected bool Save(string filename)
       {
         return false;
+      }
+
+      protected void RegisterLoadHandler(string extensions, string prefixes)
+      {
+	Gimp.RegisterLoadHandler(_loadProcedure.Name, extensions, prefixes);
+      }
+
+      protected void RegisterSaveHandler(string extensions, string prefixes)
+      {
+	Gimp.RegisterSaveHandler(_saveProcedure.Name, extensions, prefixes);
+      }
+
+      protected void RegisterFileHandlerMime(string procedural_name,
+					     string mime_type)
+      {
+	Gimp.RegisterFileHandlerMime(procedural_name, mime_type);
       }
     }
   }

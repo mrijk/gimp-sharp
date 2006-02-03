@@ -61,8 +61,8 @@ namespace Gimp.wbmp
     override protected void Query()
     {
       base.Query();
-      Gimp.RegisterLoadHandler("file_wbmp_load", "wbmp", "");
-      Gimp.RegisterSaveHandler("file_wbmp_save", "wbmp", "");
+      RegisterLoadHandler("wbmp", "");
+      RegisterSaveHandler("wbmp", "");
     }
 
     override protected Image Load(string filename)

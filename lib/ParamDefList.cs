@@ -84,6 +84,9 @@ namespace Gimp
 	    case PDBArgType.IMAGE:
 	      this[i].Value = new Image((Int32) param.data.d_image);
 	      break;
+	    case PDBArgType.STRING:
+	      this[i].Value = Marshal.PtrToStringAuto(param.data.d_string);
+	      break;
 	    case PDBArgType.DRAWABLE:
 	      this[i].Value = new Drawable((Int32) param.data.d_drawable);
 	      break;
@@ -101,6 +104,7 @@ namespace Gimp
       GimpParam foo = new GimpParam();
 
       n_return_vals = _set.Count;
+
       return_vals = Marshal.AllocCoTaskMem(n_return_vals * 
 					   Marshal.SizeOf(foo));
 
