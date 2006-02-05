@@ -147,6 +147,11 @@ namespace Gimp
         }
     }
 
+    static public void StandardHelpFunc(string help_id, IntPtr help_data)
+    {
+      gimp_standard_help_func(help_id, help_data);
+    }
+
     [DllImport("libglib.dll")]
     static extern IntPtr glib_check_version(int x, int y, int z);
 
@@ -194,5 +199,8 @@ namespace Gimp
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_register_thumbnail_loader(string load_proc,
 						      string thumb_proc);
+    [DllImport("libgimpwidgets-2.0-0.dll")]
+    static extern void gimp_standard_help_func(string help_id,
+					       IntPtr help_data);
   }
 }

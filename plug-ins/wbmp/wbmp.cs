@@ -48,7 +48,7 @@ namespace Gimp.wbmp
 				"wbmp Image"));
 
       set.Add(FileSaveProcedure("file_wbmp_save",
-				"Savess wbmp images",
+				"Saves wbmp images",
 				"This plug-in saves wbmp images.",
 				"Maurits Rijk",
 				"(C) Maurits Rijk",
@@ -69,74 +69,103 @@ namespace Gimp.wbmp
     {
       if (File.Exists(filename))
 	{
-	BinaryReader reader = new BinaryReader(File.Open(filename, 
-							 FileMode.Open));
+	  BinaryReader reader = new BinaryReader(File.Open(filename, 
+							   FileMode.Open));
 
-	byte type = reader.ReadByte();
-	if (type != 0)
-	  {
-	  Console.WriteLine("Type should be zero!");
-	  return null;
-	  }
-
-	byte header = reader.ReadByte();
-	if (header != 0)
-	  {
-	  Console.WriteLine("Fixed header should be zero!");
-	  return null;
-	  }
-
-	byte width = reader.ReadByte();
-	byte height = reader.ReadByte();
-
-	// Fix me: check high bit here for larger sizes
-
-	Image image = new Image(width, height,
-				ImageBaseType.GRAY);
-
-	Layer layer = new Layer(image, "Background", width, height,
-				ImageType.GRAY, 100, 
-				LayerModeEffects.NORMAL);
-	image.AddLayer(layer, 0);
- 
-	image.Filename = filename;
-
-	PixelRgn rgn = new PixelRgn(layer, 0, 0, width, height, true, false);
-	byte[] buf = new byte[width * height];
-	int bufp = 0;
-
-	for (int row = 0; row < height; row++) 
-	  {
-	  byte[] src = reader.ReadBytes((width + 7) / 8);
-
-	  for (int col = 0; col < width; col++) 
+	  byte type = reader.ReadByte();
+	  if (type != 0)
 	    {
-	    if (((src[col / 8] >> (7 - col % 8)) & 1) == 1)
-	      {
-	      buf[bufp] = 255;
-	      }
-	    else
-	      {
-	      buf[bufp] = 0;
-	      }
-	    bufp++;
+	      Console.WriteLine("Type should be zero!");
+	      return null;
 	    }
-	  }
 
-	rgn.SetRect(buf, 0, 0, width, height);
-	layer.Flush();
+	  byte header = reader.ReadByte();
+	  if (header != 0)
+	    {
+	      Console.WriteLine("Fixed header should be zero!");
+	      return null;
+	    }
 
-	reader.Close();
+	  byte width = reader.ReadByte();
+	  byte height = reader.ReadByte();
 
-	return image;
+	  // Fix me: check high bit here for larger sizes
+
+	  Image image = new Image(width, height,
+				  ImageBaseType.GRAY);
+
+	  Layer layer = new Layer(image, "Background", width, height,
+				  ImageType.GRAY, 100, 
+				  LayerModeEffects.NORMAL);
+	  image.AddLayer(layer, 0);
+ 
+	  image.Filename = filename;
+
+	  PixelRgn rgn = new PixelRgn(layer, 0, 0, width, height, true, false);
+	  byte[] buf = new byte[width * height];
+	  int bufp = 0;
+
+	  for (int row = 0; row < height; row++) 
+	    {
+	      byte[] src = reader.ReadBytes((width + 7) / 8);
+
+	      for (int col = 0; col < width; col++) 
+		{
+		  if (((src[col / 8] >> (7 - col % 8)) & 1) == 1)
+		    {
+		      buf[bufp] = 255;
+		    }
+		  else
+		    {
+		      buf[bufp] = 0;
+		    }
+		  bufp++;
+		}
+	    }
+
+	  rgn.SetRect(buf, 0, 0, width, height);
+	  layer.Flush();
+
+	  reader.Close();
+
+	  return image;
 	}
       return null;
     }
 
-    override protected bool Save(string filename)
+    override protected bool Save(Image image, Drawable drawable, 
+				 string filename)
     {
-    Console.WriteLine("Saving: " + filename);
-    return false;
+      // First check size
+      int width = drawable.Width;
+      int height = drawable.Height;
+
+      if (width > 127 || height > 127)
+	{
+	  Console.WriteLine("width > 127 or height > 127 not supported yet!");
+	  return false;
+	}
+
+      // Convert image to B&W picture
+      if (!image.ConvertIndexed(ConvertDitherType.NO, 
+				ConvertPaletteType.MONO,
+				0, false, false, ""))
+	{
+	  Console.WriteLine("Conversion to B&W failed");
+	  return false;
+	}
+
+      BinaryWriter writer = new BinaryWriter(File.Open(filename, 
+						       FileMode.Create));
+
+      writer.Write((byte) 0);	// Write type
+      writer.Write((byte) 0);	// Fixed header
+      writer.Write((byte) width);
+      writer.Write((byte) height);
+
+      writer.Close();
+
+      return true;
     }
   }
-  }
+}

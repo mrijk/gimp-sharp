@@ -85,7 +85,8 @@ namespace Gimp.ncp
     {
       gimp_ui_init("ncp", true);
 
-      Dialog dialog = DialogNew("ncp", "ncp", IntPtr.Zero, 0, null, "ncp");
+      Dialog dialog = DialogNew("ncp", "ncp", IntPtr.Zero, 0,
+				Gimp.StandardHelpFunc, "ncp");
 
       VBox vbox = new VBox(false, 12);
       vbox.BorderWidth = 12;

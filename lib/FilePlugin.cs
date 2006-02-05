@@ -55,9 +55,11 @@ namespace Gimp
 	  }
 	else if (_saveProcedure != null && _saveProcedure.Name == name)
 	  {
+	    Image image = (Image) inParam[1].Value;
+	    Drawable drawable = (Drawable) inParam[2].Value;
 	    string filename = (string) inParam[3].Value;
 
-	    if (!Save(filename))
+	    if (!Save(image, drawable, filename))
 	      {
 		outParam[0].Value = PDBStatusType.EXECUTION_ERROR;
 	      }
@@ -94,11 +96,17 @@ namespace Gimp
 					    string menu_path,
 					    string image_types)
       {
-        ParamDefList inParams = new ParamDefList();
-	inParams.Add(new ParamDef("filename", null, typeof(string),
-				  "The name of the file to save"));
-	inParams.Add(new ParamDef("raw_filename", null, typeof(string),
-				  "The name entered"));
+        ParamDefList inParams = new ParamDefList(true);
+	inParams.Add(new ParamDef("run_mode", typeof(Int32), 
+				  "Interactive, non-interactive"));
+	inParams.Add(new ParamDef("image", typeof(Image), 
+				  "Input image"));
+	inParams.Add(new ParamDef("drawable", typeof(Drawable), 
+				  "Drawable to save"));
+	inParams.Add(new ParamDef("filename", typeof(string),
+				  "The name of the file to save the image in"));
+	inParams.Add(new ParamDef("raw_filename", typeof(string),
+				  "The name of the file to save the image in"));
 
 	_saveProcedure = new Procedure(name, blurb, help, author, copyright, 
 				       date, menu_path, null, inParams);
@@ -111,7 +119,8 @@ namespace Gimp
 	return null;
       }
 
-      virtual protected bool Save(string filename)
+      virtual protected bool Save(Image image, Drawable drawable, 
+				  string filename)
       {
         return false;
       }

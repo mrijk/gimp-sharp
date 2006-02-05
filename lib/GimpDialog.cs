@@ -26,7 +26,7 @@ using Gtk;
 
 namespace Gimp
   {
-    public delegate void GimpHelpFunc(string help_id);
+    public delegate void GimpHelpFunc(string help_id, IntPtr obj_data);
 
     public class GimpDialog : Dialog
     {
@@ -57,6 +57,7 @@ namespace Gimp
 			     button3, action3, null))
       {
       }
+
       public GimpDialog(string title, string role, IntPtr parent,
 			Gtk.DialogFlags flags,
 			GimpHelpFunc help_func, string help_id) : 
@@ -73,12 +74,12 @@ namespace Gimp
       {
 	try 
 	  {
-	  return gimp_dialog_run(Handle);
+	    return gimp_dialog_run(Handle);
 	  }
 	catch (Exception e)
 	  {
-	  Console.WriteLine("GimpDialog.Run");
-	  Console.WriteLine(e.StackTrace);
+	    Console.WriteLine("GimpDialog.Run");
+	    Console.WriteLine(e.StackTrace);
 	  }
 	return ResponseType.None;
       }
@@ -95,7 +96,7 @@ namespace Gimp
 	IntPtr parent,
 	Gtk.DialogFlags  flags,
 	GimpHelpFunc    help_func,
-	string    help_id,
+	string help_id,
 	string button1, Gtk.ResponseType action1,
 	string button2, Gtk.ResponseType action2,
 	string end);
@@ -107,7 +108,7 @@ namespace Gimp
 	IntPtr parent,
 	Gtk.DialogFlags  flags,
 	GimpHelpFunc    help_func,
-	string    help_id,
+	string help_id,
 	string button1, Gtk.ResponseType action1,
 	string button2, Gtk.ResponseType action2,
 	string button3, Gtk.ResponseType action3,

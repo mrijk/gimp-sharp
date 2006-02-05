@@ -63,7 +63,6 @@ namespace Gimp
     }
     
     static GimpPlugInInfo _info = new GimpPlugInInfo();
-    static string[] myArgs = new String[6];
 
     public Plugin(string[] args)
     {
@@ -229,19 +228,13 @@ namespace Gimp
 				GimpHelpFunc help_func,
 				string help_id)
     {
-#if false
-      return DialogNew (title, role, parent, flags, help_func, help_id,
-			Stock.Help, ResponseType.Help,
-			Stock.Cancel, ResponseType.Cancel,
-			Stock.Ok, ResponseType.Ok);
-#else
-      _dialog = new GimpDialog(title, role, parent, flags, 
-			       help_func, help_id, 
+      _dialog = new GimpDialog(title, role, parent, flags,
+			       help_func, help_id,
                                GimpStock.Reset, (ResponseType) 1,
 			       Stock.Cancel, ResponseType.Cancel,
 			       Stock.Ok, ResponseType.Ok);
+      // GimpDialog.ShowHelpButton(true);
       return _dialog;
-#endif
     }
 
     protected GimpDialog Dialog

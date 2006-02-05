@@ -1,3 +1,9 @@
+2006-02-05  Maurits  <m.rijk@chello.nl>
+
+	* lib/Gimp.cs
+	* lib/GimpDialog.cs
+	* lib/Plugin.cs: support for help
+
 2006-02-03  Maurits  <m.rijk@chello.nl>
 
 	* lib/FilePlugin.cs
