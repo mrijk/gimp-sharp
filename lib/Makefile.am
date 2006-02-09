@@ -3,7 +3,7 @@
 LIBRARY_NAME=	gimp-sharp
 LIBRARY=	$(LIBRARY_NAME).dll
 
-ASSEMBLIES=	/pkg:gtk-sharp
+ASSEMBLIES=	/pkg:gtk-sharp-2.0
 
 MYSOURCES = AspectPreview.cs 	\
 	Brush.cs		\

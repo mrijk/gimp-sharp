@@ -22,6 +22,8 @@
 using System;
 using System.Runtime.InteropServices;
 
+using GLib;
+
 namespace Gimp
 {
   public class Gimp
@@ -30,11 +32,8 @@ namespace Gimp
     {
       get
 	{
-	  // IntPtr bla = glib_check_version(1, 2, 3);
-	  // System.Console.WriteLine("version: " + Marshal.PtrToStringAuto(bla));
-
           IntPtr tmp = gimp_directory();
-          return Marshal.PtrToStringAuto(tmp);
+	  return Marshaller.Utf8PtrToString(tmp);
 	}
     }
 
@@ -152,9 +151,6 @@ namespace Gimp
       gimp_standard_help_func(help_id, help_data);
     }
 
-    [DllImport("libglib.dll")]
-    static extern IntPtr glib_check_version(int x, int y, int z);
-
     [DllImport("libgimp-2.0-0.dll")]
     static extern IntPtr gimp_version();
     [DllImport("libgimp-2.0-0.dll")]
@@ -182,7 +178,7 @@ namespace Gimp
     [DllImport("libgimp-2.0-0.dll")]
     static extern Int32 gimp_default_display();
 
-    [DllImport("libgimpbase-2.0-0.dll")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern IntPtr gimp_directory();
 
     [DllImport("libgimp-2.0-0.dll")]

@@ -57,7 +57,8 @@ namespace Gimp.PicturePackage
 	}
       catch (Exception e)
 	{
-	Console.WriteLine("Nothing to read! " + e.Message);
+	  // No user defined picture package file
+	  // Console.WriteLine("Nothing to read! " + e.Message);
 	}
     }
     
