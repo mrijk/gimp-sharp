@@ -1,3 +1,23 @@
+// The PicturePackage plug-in
+// Copyright (C) 2004-2006 Maurits Rijk
+//
+// DocumentFrame.cs
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+//
+
 using System;
 
 using Gtk;
@@ -8,8 +28,8 @@ namespace Gimp.PicturePackage
   {
     PicturePackage _parent;
     Entry _entry;
-    OptionMenu _position;
-    OptionMenu _rotate;
+    ComboBox _position;
+    ComboBox _rotate;
     GimpColorButton _color;
     SpinButton _opacity;
 
@@ -17,22 +37,20 @@ namespace Gimp.PicturePackage
     {
       _parent = parent;
 
-      OptionMenu content = CreateOptionMenu(
+      ComboBox content = CreateComboBox(
 	"None", "Custom Text", "Filename",
 	"Copyright", "Caption", "Credits",
 	"Title");
-      content.SetHistory(0);
-      content.Changed += new EventHandler(OnContentChanged);
-      Table.AttachAligned(0, 0, "Content:", 0.0, 0.5,
-			  content, 1, false);
+      content.Active = 0;
+      content.Changed += OnContentChanged;
+      Table.AttachAligned(0, 0, "Content:", 0.0, 0.5, content, 1, false);
 
       _entry = new Entry();
-      _entry.Changed += new EventHandler(OnCustomTextChanged);
-      Table.AttachAligned(0, 1, "Custom Text:", 0.0, 0.5,
-			  _entry, 1, true);
+      _entry.Changed += OnCustomTextChanged;
+      Table.AttachAligned(0, 1, "Custom Text:", 0.0, 0.5, _entry, 1, true);
 
       Button font = new Button(Stock.SelectFont);
-      font.Clicked += new EventHandler(OnFontClicked);
+      font.Clicked += OnFontClicked;
       Table.AttachAligned(0, 2, "Font:", 0.0, 0.5, font, 1, true);
 
       HBox hbox = new HBox(false, 12);
@@ -48,22 +66,19 @@ namespace Gimp.PicturePackage
       hbox.Add(new Label("Opacity:"));
       hbox.Add(_opacity);
       hbox.Add(new Label("%"));
-      Table.AttachAligned(0, 3, "Color:", 0.0, 0.5,
-			  hbox, 1, true);
+      Table.AttachAligned(0, 3, "Color:", 0.0, 0.5, hbox, 1, true);
 
-      _position = CreateOptionMenu(
+      _position = CreateComboBox(
 	"Centered", "Top Left", "Bottom Left",
 	"Top Right", "Bottom Right");
       _position.Changed += new EventHandler(OnPositionChanged);
-      Table.AttachAligned(0, 4, "Position:", 0.0, 0.5,
-			  _position, 1, false);
+      Table.AttachAligned(0, 4, "Position:", 0.0, 0.5, _position, 1, false);
 
-      _rotate = CreateOptionMenu(
+      _rotate = CreateComboBox(
 	"None", "45 Degrees Right",
 	"90 Degrees Right", "45 Degrees Left",
 	"90 Degrees Left");
-      Table.AttachAligned(0, 5, "Rotate:", 0.0, 0.5,
-			  _rotate, 1, false);
+      Table.AttachAligned(0, 5, "Rotate:", 0.0, 0.5, _rotate, 1, false);
 
       SetLabelFrameSensitivity(0);
     }
@@ -81,7 +96,7 @@ namespace Gimp.PicturePackage
 
     void OnContentChanged (object o, EventArgs args) 
     {
-      SetLabelFrameSensitivity((o as OptionMenu).History);
+      SetLabelFrameSensitivity((o as ComboBox).Active);
     }
 
     void OnCustomTextChanged (object o, EventArgs args) 
@@ -91,7 +106,7 @@ namespace Gimp.PicturePackage
 
     void OnPositionChanged (object o, EventArgs args) 
     {
-      _parent.Position = (o as OptionMenu).History;
+      _parent.Position = (o as ComboBox).Active;
     }
 
     void OnFontClicked (object o, EventArgs args) 
@@ -101,4 +116,4 @@ namespace Gimp.PicturePackage
       fs.Hide();
     }
   }
-  }
+}

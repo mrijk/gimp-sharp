@@ -1,4 +1,9 @@
-2006-02-09  Maurits  <maurits@localhost>
+2006-02-10  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/PicturePackage/*.cs: added copyright in header and
+	replaced OptionMenu by ComboBox.
+
+2006-02-09  Maurits  <m.rijk@chello.nl>
 
 	* lib/Gimp.cs: hopefully gimp_directory() is now marshalled
 	correctly on Windows.

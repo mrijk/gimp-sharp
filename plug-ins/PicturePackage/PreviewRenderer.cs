@@ -82,4 +82,4 @@ namespace Gimp.PicturePackage
       // _preview.QueueDrawArea(ix, iy, tw, th);
     }
   }
-  }
+}

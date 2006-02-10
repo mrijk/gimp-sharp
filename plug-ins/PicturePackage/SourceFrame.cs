@@ -1,3 +1,23 @@
+// The PicturePackage plug-in
+// Copyright (C) 2004-2006 Maurits Rijk
+//
+// SourceFrame.cs
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+//
+
 using System;
 
 using Gtk;
@@ -23,34 +43,34 @@ namespace Gimp.PicturePackage
       _table.ColumnSpacing = 12;
 
       RadioButton button = new RadioButton("_Image");
-      button.Clicked += new EventHandler(OnImageClicked);
+      button.Clicked += OnImageClicked;
       Table.Attach(button, 0, 1, 0, 1);
 
       HBox hbox = new HBox();
       Table.Attach(hbox, 1, 2, 0, 1);
 
       _imageBox = new ImageComboBox();
-      _imageBox.Changed += new EventHandler(OnImageChanged);
+      _imageBox.Changed += OnImageChanged;
       hbox.Add(_imageBox);
 
       _refresh = new Button();
       Gtk.Image image = new Gtk.Image(Stock.Refresh, IconSize.Button);
       _refresh.Add(image);
-      _refresh.Clicked += new EventHandler(OnRefreshClicked);
+      _refresh.Clicked += OnRefreshClicked;
       hbox.PackEnd(_refresh, false, false, 0);
 
       button = new RadioButton(button, "_File");
-      button.Clicked += new EventHandler(OnFileClicked);
+      button.Clicked += OnFileClicked;
       Table.Attach(button, 0, 1, 1, 2);
 
       button = new RadioButton(button, "Fol_der");
-      button.Clicked += new EventHandler(OnFolderClicked);
+      button.Clicked += OnFolderClicked;
       Table.Attach(button, 0, 1, 2, 3);
 
       _include = new CheckButton("_Include All Subfolders");
       _include.Active = _recursive;
       _include.Sensitive = false;
-      _include.Toggled += new EventHandler(OnIncludeToggled);
+      _include.Toggled += OnIncludeToggled;
       Table.Attach(_include, 1, 2, 2, 3);
 
       SetFileEntry(false);
@@ -61,20 +81,20 @@ namespace Gimp.PicturePackage
     {
       if (_choose != null)
 	{
-	_choose.Hide();
+	  _choose.Hide();
 	}
 
       if (isDir)
 	{
-	_choose = new FileEntry("Open...", "", true, true);
-	_choose.FilenameChanged += new EventHandler(OnDirNameChanged);
-	_choose.FileName = _directory;
+	  _choose = new FileEntry("Open...", "", true, true);
+	  _choose.FilenameChanged += OnDirNameChanged;
+	  _choose.FileName = _directory;
 	}
       else
 	{
-	_choose = new FileEntry("Open...", "", false, true);
-	_choose.FilenameChanged += new EventHandler(OnFileNameChanged);
-	_choose.FileName = _fileName;
+	  _choose = new FileEntry("Open...", "", false, true);
+	  _choose.FilenameChanged += OnFileNameChanged;
+	  _choose.FileName = _fileName;
 	}
 
       _choose.Show();
@@ -135,7 +155,7 @@ namespace Gimp.PicturePackage
       _fileName = _choose.FileName;
       if (_fileName.Length > 0)
 	{
-	_parent.Loader = new FileImageProviderFactory(_fileName);
+	  _parent.Loader = new FileImageProviderFactory(_fileName);
 	}
     }
 
@@ -144,7 +164,7 @@ namespace Gimp.PicturePackage
       _directory = _choose.FileName;
       if (_directory.Length > 0)
 	{
-	_parent.Loader = new DirImageProviderFactory(_directory, _recursive);
+	  _parent.Loader = new DirImageProviderFactory(_directory, _recursive);
 	}
     }
 
@@ -153,4 +173,4 @@ namespace Gimp.PicturePackage
       get {return _imageBox.Active;}
     }
   }
-  }
+}

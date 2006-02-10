@@ -51,9 +51,8 @@ namespace Gimp.PicturePackage
       // Next read from gimpdir
       try
 	{
-	string filename = Gimp.Directory + "/" + "picture-package.xml";
-	doc.Load(filename);
-	LoadXmlDocument(doc);
+	  doc.Load(Gimp.Directory + "/" + "picture-package.xml");
+	  LoadXmlDocument(doc);
 	}
       catch (Exception e)
 	{
@@ -71,7 +70,7 @@ namespace Gimp.PicturePackage
 
       foreach (XmlNode layout in nodeList)
 	{
-	Add(new Layout(layout));
+	  Add(new Layout(layout));
 	}
     }
 
@@ -95,13 +94,13 @@ namespace Gimp.PicturePackage
     public Layout Selected
     {
       set
-	  {
+	{
 	  _selected = value;
 	  if (SelectEvent != null)
 	    {
-	    SelectEvent(value);
+	      SelectEvent(value);
 	    }
-	  }
+	}
 
       get {return _selected;}
     }
@@ -112,7 +111,7 @@ namespace Gimp.PicturePackage
 
       foreach (Layout layout in _set)
 	{
-	set.Add(layout.GetPageSize(resolution));
+	  set.Add(layout.GetPageSize(resolution));
 	}
       return set;
     }
@@ -123,12 +122,12 @@ namespace Gimp.PicturePackage
 
       foreach (Layout layout in _set)
 	{
-	if (layout.GetPageSize(resolution).CompareTo(pageSize) == 0)
-	  {
-	  set.Add(layout);
-	  }
+	  if (layout.GetPageSize(resolution).CompareTo(pageSize) == 0)
+	    {
+	      set.Add(layout);
+	    }
 	}
       return set;
     }
   }
-  }
+}

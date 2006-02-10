@@ -1,3 +1,23 @@
+// The PicturePackage plug-in
+// Copyright (C) 2004-2006 Maurits Rijk
+//
+// Preview.cs
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+//
+
 using System;
 
 using Gtk;
@@ -27,7 +47,6 @@ namespace Gimp.PicturePackage
       TargetEntry[] targets = new TargetEntry[]{
 	new TargetEntry("image/jpeg", 0, 0),
 	new TargetEntry("image/png", 0, 0),
-	// new TargetEntry("image/pjpeg", 0, 0),
 	new TargetEntry("text/plain", 0, 1),
 	new TargetEntry("STRING", 0, 2)};
 
@@ -41,17 +60,17 @@ namespace Gimp.PicturePackage
     {
       if (_firstTime)
 	{
-	_firstTime = false;
-	_pixmap.DrawRectangle(_gc, true, 0, 0, _width, _height);
-	_parent.Render();
-	GdkWindow.Cursor = new Cursor(CursorType.Hand2);
+	  _firstTime = false;
+	  _pixmap.DrawRectangle(_gc, true, 0, 0, _width, _height);
+	  _parent.Render();
+	  GdkWindow.Cursor = new Cursor(CursorType.Hand2);
 	}
 
       GdkWindow.DrawDrawable(_gc, _pixmap, 0, 0, 0, 0, -1, -1);
       if (_labelPixmap != null)
 	{
-	GdkWindow.DrawDrawable(_gc, _labelPixmap, 0, 0, _labelX, _labelY, 
-			       -1, -1);
+	  GdkWindow.DrawDrawable(_gc, _labelPixmap, 0, 0, _labelX, _labelY, 
+				 -1, -1);
 	}
     }
 
@@ -84,13 +103,13 @@ namespace Gimp.PicturePackage
       layout.GetPixelSize(out width, out height);
       if (width != 0 && height != 0)
 	{
-	_labelPixmap = new Pixmap(GdkWindow, width, height, -1);
-	CalculateXandY(position, width, height);
-	_labelPixmap.DrawDrawable(_gc, _pixmap, _labelX, _labelY, 0, 0, 
-				  width, height);
-	_labelPixmap.DrawLayout(_gc, 0, 0, layout);
+	  _labelPixmap = new Pixmap(GdkWindow, width, height, -1);
+	  CalculateXandY(position, width, height);
+	  _labelPixmap.DrawDrawable(_gc, _pixmap, _labelX, _labelY, 0, 0, 
+				    width, height);
+	  _labelPixmap.DrawLayout(_gc, 0, 0, layout);
 
-	QueueDraw();
+	  QueueDraw();
 	}
     }
 
@@ -121,4 +140,4 @@ namespace Gimp.PicturePackage
 	}		
     }
   }
-  }
+}
