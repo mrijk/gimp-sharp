@@ -59,19 +59,19 @@ namespace Gimp.SliceTool
     public bool Changed
     {
       get 
-	  {
+	{
 	  if (_changed == false)
 	    {
-	    foreach (Slice slice in _set)
-	      {
-	      if (slice.Changed)
+	      foreach (Slice slice in _set)
 		{
-		return true;
+		  if (slice.Changed)
+		    {
+		      return true;
+		    }
 		}
-	      }
 	    }
 	  return _changed;
-	  }
+	}
       set {_changed = value;}
     }
 
@@ -85,12 +85,12 @@ namespace Gimp.SliceTool
 
       for (int i = 1; i < _set.Count; i++)
 	{
-	if (this[i] != prev)
-	  {
-	  index++;
-	  }
-	prev = this[i];
-	prev.Index = index;
+	  if (this[i] != prev)
+	    {
+	      index++;
+	    }
+	  prev = this[i];
+	  prev.Index = index;
 	}
     }
 
@@ -108,10 +108,10 @@ namespace Gimp.SliceTool
     {
       foreach (Slice slice in _set)
 	{
-	if (slice.Begin == s || slice.End == s)
-	  {
-	  return true;
-	  }
+	  if (slice.Begin == s || slice.End == s)
+	    {
+	      return true;
+	    }
 	}
       return false;
     }
@@ -138,4 +138,4 @@ namespace Gimp.SliceTool
       _set.ForEach(delegate(Slice slice) {slice.Resolve(slices);});
     }
   }
-  }
+}

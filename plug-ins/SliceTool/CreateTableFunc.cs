@@ -42,8 +42,8 @@ namespace Gimp.SliceTool
       ResponseType type = dialog.Run();
       if (type == ResponseType.Ok)
 	{
-	_sliceData.CreateTable(x, y, dialog.Rows, dialog.Columns);
-	Redraw();
+	  _sliceData.CreateTable(x, y, dialog.Rows, dialog.Columns);
+	  Redraw();
 	}
       dialog.Destroy();
     }
@@ -53,11 +53,11 @@ namespace Gimp.SliceTool
       Slice slice = _sliceData.FindSlice(x, y);
       if (slice != null && !slice.Locked)
 	{
-	return slice.CursorType;
+	  return slice.CursorType;
 	}
       else
 	{
-	return CursorType.RtlLogo;	// Fix me!
+	  return CursorType.RtlLogo;	// Fix me!
 	}
     }
 
@@ -66,12 +66,12 @@ namespace Gimp.SliceTool
       Slice slice = _sliceData.FindSlice(x, y);
       if (slice == null || slice.Locked)
 	{
-	return this;
+	  return this;
 	}
       else
 	{
-	return new SelectFunc(parent, _sliceData, _preview);
+	  return new SelectFunc(parent, _sliceData, _preview);
 	}
     }
   }
-  }
+}

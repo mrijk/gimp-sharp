@@ -23,13 +23,13 @@ using System.Diagnostics;
 using System.IO;
 
 namespace Gimp.SliceTool
-  {
+{
   public class PropertySet
-    {
+  {
     Dictionary<string, Property> _set = new Dictionary<string, Property>();
 
     public PropertySet()
-      {
+    {
       Add("href");
       Add("AltText");
       Add("Target");
@@ -40,66 +40,66 @@ namespace Gimp.SliceTool
       AddJavaScript("MouseDoubleClick");
       AddJavaScript("MouseUp");
       AddJavaScript("MouseDown");
-      }
+    }
 
     void Add(string name)
-      {
+    {
       _set[name] = new Property(name);
-      }
+    }
 
     void AddJavaScript(string name)
-      {
+    {
       _set[name] = new JavaScriptProperty(name);
-      }
+    }
 
     Property GetProperty(string name)
-      {
+    {
       Property property = _set[name];
       Debug.Assert(property != null, "Property not in hashset!");
       return property;
-      }
+    }
 
     public void Set(string name, string value)
-      {
+    {
       GetProperty(name).Value = value;
-      }
+    }
 
     public string Get(string name)
-      {
+    {
       return GetProperty(name).Value;
-      }
+    }
 
     public bool Exists(string name)
-      {
+    {
       return Get(name).Length > 0;
-      }
+    }
 
     public void WriteHTML(StreamWriter w, string name)
-      {
+    {
       GetProperty(name).WriteHTML(w);
-      }
+    }
 
     public bool Changed
-      {
+    {
       get
-          {
+	{
           foreach (Property property in _set.Values)
             {
-            if (property.Changed)
-              {
-              return true;
-              }
+	      if (property.Changed)
+		{
+		  return true;
+		}
             }
           return false;
-          }
+	}
 
       set
-          {
+	{
           foreach (Property property in _set.Values)
             {
-            property.Changed = value;
+	      property.Changed = value;
             }
-          }
-      }
+	}
     }
   }
+}

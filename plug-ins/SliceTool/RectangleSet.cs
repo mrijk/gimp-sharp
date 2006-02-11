@@ -26,89 +26,89 @@ using System.IO;
 namespace Gimp.SliceTool
 {
   public class RectangleSet: IEnumerable
-    {
+  {
     List<Rectangle> _set = new List<Rectangle>();
     Rectangle _selected;
     bool _changed = false;
     
     public RectangleSet()
-      {
-      }
+    {
+    }
     
     public IEnumerator GetEnumerator()
-      {
+    {
       return _set.GetEnumerator();
-      }
+    }
 
     public void Add(Rectangle rectangle)
-      {
+    {
       _changed = true;
       _set.Add(rectangle);
       if (_selected == null)
 	{
-	_selected = rectangle;
+	  _selected = rectangle;
 	}
-      }
+    }
     
     public void Remove(Rectangle rectangle)
-      {
+    {
       _changed = true;
       _set.Remove(rectangle);
-      }
+    }
     
     public Rectangle this[int index]
-      {
+    {
       get {return _set[index];}
-      }
+    }
     
     public void Clear()
-      {
+    {
       _changed = true;
       _set.Clear();
-      }
+    }
     
     public Rectangle Selected
-      {
+    {
       get {return _selected;}
-      }
+    }
     
     public bool Changed
-      {
+    {
       get {return _changed;}
-      }
+    }
     
     public void Slice(Slice slice)
-      {
+    {
       RectangleSet created = new RectangleSet();
       
       foreach (Rectangle rectangle in _set)
 	{
-	if (rectangle.IntersectsWith(slice))
-	  {
-	  created.Add(rectangle.Slice(slice));
-	  }
+	  if (rectangle.IntersectsWith(slice))
+	    {
+	      created.Add(rectangle.Slice(slice));
+	    }
 	}
       
       foreach (Rectangle rectangle in created)
 	{
-	Add(rectangle);
+	  Add(rectangle);
 	}
-      }
+    }
     
     public Rectangle Find(int x, int y)
-      {
+    {
       return _set.Find(delegate(Rectangle rectangle) 
-	{return rectangle.IsInside(x, y);});
-      }
+      {return rectangle.IsInside(x, y);});
+    }
     
     public Rectangle Select(int x, int y)
-      {
+    {
       _selected = Find(x, y);
       return _selected;
-      }
+    }
     
     public void WriteHTML(StreamWriter w, string name, bool useGlobalExtension)
-      {
+    {
       _set.Sort();
       
       w.WriteLine("<tr>");
@@ -116,37 +116,37 @@ namespace Gimp.SliceTool
       prev.WriteHTML(w, name, useGlobalExtension, 0);
       for (int i = 1; i < _set.Count; i++)
 	{
-	if (this[i].Top.Index != prev.Top.Index)
-	  {
-	  w.WriteLine("</tr>");
-	  w.WriteLine("");
-	  w.WriteLine("<tr>");
-	  }
-	prev = this[i];
-	prev.WriteHTML(w, name, useGlobalExtension, i);
+	  if (this[i].Top.Index != prev.Top.Index)
+	    {
+	      w.WriteLine("</tr>");
+	      w.WriteLine("");
+	      w.WriteLine("<tr>");
+	    }
+	  prev = this[i];
+	  prev.WriteHTML(w, name, useGlobalExtension, i);
 	}
       w.WriteLine("</tr>");
-      }
+    }
     
     public void WriteSlices(Image image, string path, string name, 
 			    bool useGlobalExtension)
-      {
+    {
       foreach (Rectangle rectangle in _set)
 	{
-	rectangle.WriteSlice(image, path, name, useGlobalExtension);
+	  rectangle.WriteSlice(image, path, name, useGlobalExtension);
 	}
-      }
+    }
     
     public void Save(StreamWriter w)
-      {
+    {
       _set.ForEach(delegate(Rectangle rectangle) {rectangle.Save(w);}); 
       _changed = false;
-      }
+    }
     
     public void Resolve(SliceSet hslices, SliceSet vslices)
-      {
+    {
       _set.ForEach(delegate(Rectangle rectangle) 
-	{rectangle.Resolve(hslices, vslices);});
-      }
+      {rectangle.Resolve(hslices, vslices);});
     }
+  }
 }

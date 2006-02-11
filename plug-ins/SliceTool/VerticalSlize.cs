@@ -1,3 +1,23 @@
+// The Slice Tool plug-in
+// Copyright (C) 2004-2006 Maurits Rijk  m.rijk@chello.nl
+//
+// VerticalSlice.cs
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+//
+
 using System;
 using System.IO;
 
@@ -5,78 +25,78 @@ using Gdk;
 
 namespace Gimp.SliceTool
 {
-	public class VerticalSlice : Slice
-	{
-		public VerticalSlice(Slice top, Slice bottom, int x) : base(top, bottom, x)
-		{
-		}
+  public class VerticalSlice : Slice
+  {
+    public VerticalSlice(Slice top, Slice bottom, int x) : base(top, bottom, x)
+    {
+    }
 
-		public VerticalSlice()
-		{
-		}
+    public VerticalSlice()
+    {
+    }
 
-		public VerticalSlice(int index) : base(index)
-		{
-		}
+    public VerticalSlice(int index) : base(index)
+    {
+    }
 
-		override public void Draw(PreviewRenderer renderer)
-		{
-			renderer.DrawLine(X, Y1, X, Y2);
-		}
+    override public void Draw(PreviewRenderer renderer)
+    {
+      renderer.DrawLine(X, Y1, X, Y2);
+    }
 
-		override public bool IntersectsWith(Rectangle rectangle)
-		{
-			return X > rectangle.X1 && X < rectangle.X2
-				&& Y1 <= rectangle.Y1 && Y2 >= rectangle.Y2;
-		}
+    override public bool IntersectsWith(Rectangle rectangle)
+    {
+      return X > rectangle.X1 && X < rectangle.X2
+	&& Y1 <= rectangle.Y1 && Y2 >= rectangle.Y2;
+    }
 
-		override public bool IsPartOf(Rectangle rectangle)
-		{
-			return rectangle.HasVerticalSlice(this);
-		}
+    override public bool IsPartOf(Rectangle rectangle)
+    {
+      return rectangle.HasVerticalSlice(this);
+    }
 
-		override public Rectangle SliceRectangle(Rectangle rectangle)
-		{
-			Rectangle copy = new Rectangle(rectangle);
-			rectangle.Right = this;
-			copy.Left = this;
-			return copy;		
-		}
+    override public Rectangle SliceRectangle(Rectangle rectangle)
+    {
+      Rectangle copy = new Rectangle(rectangle);
+      rectangle.Right = this;
+      copy.Left = this;
+      return copy;		
+    }
 
-		override public void SetPosition(int x, int y)
-		{
-			X = x;
-		}
+    override public void SetPosition(int x, int y)
+    {
+      X = x;
+    }
 
-		override public bool PointOn(int x, int y)
-		{
-			return y >= Y1 && y <= Y2 && Math.Abs(x - X) < 5;
-		}
+    override public bool PointOn(int x, int y)
+    {
+      return y >= Y1 && y <= Y2 && Math.Abs(x - X) < 5;
+    }
  
-		override public void Save(StreamWriter w)
-		{
-			Save(w, "vertical");
-		}
+    override public void Save(StreamWriter w)
+    {
+      Save(w, "vertical");
+    }
 
-		public int X
-		{
-			get {return Position;}
-			set {Position = value;}
-		}
+    public int X
+    {
+      get {return Position;}
+      set {Position = value;}
+    }
 
-		public int Y1
-		{
-			get {return _begin.Position;}
-		}
+    public int Y1
+    {
+      get {return _begin.Position;}
+    }
 
-		public int Y2
-		{
-			get {return _end.Position;}
-		}
+    public int Y2
+    {
+      get {return _end.Position;}
+    }
 
-		override public CursorType CursorType
-		{
-			get {return CursorType.SbHDoubleArrow;}
-		}
-	}
+    override public CursorType CursorType
+    {
+      get {return CursorType.SbHDoubleArrow;}
+    }
+  }
 }

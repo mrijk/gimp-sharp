@@ -1,3 +1,7 @@
+2006-02-11  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/SliceTool/*.cs: reformat + added copyright in all headers.
+
 2006-02-10  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/PicturePackage/*.cs: added copyright in header and
