@@ -33,7 +33,7 @@ namespace Gimp.SliceTool
     
     SliceData _sliceData = new SliceData();
     
-    ToggleButton _toggle;
+    ToggleToolButton _toggle;
     Preview _preview;
     Entry _xy;
     
@@ -165,7 +165,7 @@ namespace Gimp.SliceTool
       _filename = filename;
       string p = (filename == null) 
 	? "<Untitled>" : System.IO.Path.GetFileName(filename);
-      string title = string.Format("Slice Tool 0.2 - {0}", p);
+      string title = string.Format("Slice Tool 0.3 - {0}", p);
       Dialog.Title = title;
     }
     
@@ -266,15 +266,7 @@ namespace Gimp.SliceTool
 					   (int) args.Event.Y);
       func.OnButtonPress(o, args);
     }
-    
-    ToggleButton CreateToggle(string stock)
-    {
-      ToggleButton toggle = new ToggleButton();
-      Gtk.Image image = new Gtk.Image(stock, IconSize.SmallToolbar);
-      toggle.Add(image);
-      return toggle;
-    }
-    
+
     Widget CreateToolbar()
     {
       HandleBox handle = new HandleBox();
@@ -283,25 +275,32 @@ namespace Gimp.SliceTool
       tools.Orientation = Gtk.Orientation.Vertical;
       tools.ToolbarStyle = Gtk.ToolbarStyle.Icons;
       handle.Add(tools);
-      
-      ToggleButton toggle = CreateToggle("slice-tool-arrow");
+
+      Tooltips tooltips = new Tooltips();
+      // TODO: tootips don't work anymore :(
+
+      ToggleToolButton toggle = new ToggleToolButton("slice-tool-arrow");
       _toggle = toggle;
       toggle.Active = true;
-      tools.AppendWidget(toggle, "Select Rectangle", "arrow");
-      toggle.Clicked += new EventHandler(OnSelect);
+      toggle.SetTooltip(tooltips, "Select Rectangle", "arrow");
+      tools.Insert(toggle, -1);
+      toggle.Clicked += OnSelect;
       
-      toggle = CreateToggle(GimpStock.TOOL_CROP);
-      tools.AppendWidget(toggle, "Create a new Slice", "create");
-      toggle.Clicked += new EventHandler(OnCreateSlice);
+      toggle = new ToggleToolButton(GimpStock.TOOL_CROP);
+      toggle.SetTooltip(tooltips, "Create a new Slice", "create");
+      tools.Insert(toggle, -1);
+      toggle.Clicked += OnCreateSlice;
       
-      toggle = CreateToggle(GimpStock.TOOL_ERASER);
-      tools.AppendWidget(toggle, "Remove Slice", "delete");
-      toggle.Clicked += new EventHandler(OnRemoveSlice);
-      
-      toggle = CreateToggle(GimpStock.GRID);
-      tools.AppendWidget(toggle, "Insert Table", "grid");
-      toggle.Clicked += new EventHandler(OnCreateTable);
-      
+      toggle = new ToggleToolButton(GimpStock.TOOL_ERASER);
+      toggle.SetTooltip(tooltips, "Remove Slice", "delete");
+      tools.Insert(toggle, -1);
+      toggle.Clicked += OnRemoveSlice;
+
+      toggle = new ToggleToolButton(GimpStock.GRID);
+      toggle.SetTooltip(tooltips, "Insert Table", "grid");
+      tools.Insert(toggle, -1);
+      toggle.Clicked += OnCreateTable;
+
       return handle;
     }
     
@@ -481,7 +480,7 @@ namespace Gimp.SliceTool
       if (!_lock)
 	{
 	  _lock = true;
-	  ToggleButton toggle = (o as ToggleButton);
+	  ToggleToolButton toggle = (o as ToggleToolButton);
 	  if (toggle != _toggle)
 	    {
 	      _toggle.Active = false;

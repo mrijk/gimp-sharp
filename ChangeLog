@@ -1,3 +1,12 @@
+2006-02-12  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/PicturePackage/DocumentFrame.cs: clear ComboBox before
+	filling with new items.
+
+	* plug-ins/SliceTool/Format.cs: removed deprecated use of OptionMenu.
+
+	* plug-ins/SliceTool/SliceTool.cs: replaced more deprecated functions.
+
 2006-02-11  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/SliceTool/*.cs: reformat + added copyright in all headers.

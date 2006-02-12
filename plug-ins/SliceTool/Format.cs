@@ -25,7 +25,7 @@ namespace Gimp.SliceTool
 {
   public class Format : GimpFrame
   {
-    OptionMenu _format;
+    ComboBox _format;
     CheckButton _apply;
 
     public Format() : base("Format")
@@ -34,17 +34,15 @@ namespace Gimp.SliceTool
       table.RowSpacing = 6;
       Add(table);
 
-      _format = new OptionMenu();
+      _format = ComboBox.NewText();
       table.Attach(_format, 0, 1, 0, 1);
 
-      Menu menu = new Menu();
-      menu.Append(new MenuItem("gif"));
-      menu.Append(new MenuItem("jpg"));
-      menu.Append(new MenuItem("png"));
-      _format.Menu = menu;
+      _format.AppendText("gif");
+      _format.AppendText("jpg");
+      _format.AppendText("png");
 
       _apply = new CheckButton("Apply to whole image");
-      _apply.Activated += new EventHandler(OnApply);
+      _apply.Activated += OnApply;
       table.Attach(_apply, 0, 2, 1, 2);
     }
 
@@ -62,19 +60,19 @@ namespace Gimp.SliceTool
 	{
 	  if (value == ".gif")
 	    {
-	      _format.SetHistory(0);
+	      _format.Active = 0;
 	    }
 	  else if (value == ".jpg" || value == ".jpeg")
 	    {
-	      _format.SetHistory(1);
+	      _format.Active = 1;
 	    }
 	  else if (value == ".png")
 	    {
-	      _format.SetHistory(2);
+	      _format.Active = 2;
 	    }
 	  else
 	    {
-	      _format.SetHistory(2);
+	      _format.Active = 2;
 	    }
 
 	  if (_apply.Active)
@@ -85,7 +83,7 @@ namespace Gimp.SliceTool
 
       get
 	{
-	  switch (_format.History)
+	  switch (_format.Active)
 	    {
 	    case 0:
 	      return "gif";

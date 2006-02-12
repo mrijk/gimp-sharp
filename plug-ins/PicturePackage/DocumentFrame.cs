@@ -77,7 +77,7 @@ namespace Gimp.PicturePackage
     void FillPageSizeMenu(LayoutSet layoutSet)
     {
       _sizes = layoutSet.GetPageSizeSet(_resolution);
-      // TODO: clear previous entries
+      (_size.Model as ListStore).Clear();
       foreach (PageSize size in _sizes)
 	{
 	  _size.AppendText(String.Format("{0,1:f1} x {1,1:f1} inches", 
@@ -88,7 +88,7 @@ namespace Gimp.PicturePackage
 
     void FillLayoutMenu(LayoutSet layoutSet)
     {
-      // TODO: clear previous entries
+      (_layout.Model as ListStore).Clear();
       foreach (Layout layout in layoutSet)
 	{
 	  _layout.AppendText(layout.Name);
