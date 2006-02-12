@@ -1,5 +1,21 @@
 2006-02-12  Maurits  <m.rijk@chello.nl>
 
+	* lib/Image.cs: fixed incorrect calls in RaiseLayerToTop and
+	LowerLayerToBottom. 
+
+	* lib/Layer.cs: Implemented a few more methods.
+
+2006-02-12  Maurits  <m.rijk@chello.nl>
+
+	* lib/Makefile.am
+	* lib/VoidObjectSignal.cs: deleted
+
+	* lib/FileEntry.cs
+	* lib/GimpColorButton.cs
+	* lib/GimpPreview.cs: simplified signal handling
+
+2006-02-12  Maurits  <m.rijk@chello.nl>
+
 	* plug-ins/PicturePackage/DocumentFrame.cs: clear ComboBox before
 	filling with new items.
 

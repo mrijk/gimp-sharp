@@ -25,468 +25,469 @@ using System.Runtime.InteropServices;
 using Gdk;
 
 namespace Gimp
-  {
+{
   public class Image
-    {
+  {
     Int32 _imageID;
      
     public Image(Int32 imageID)
-      {
+    {
       _imageID = imageID;
-      }
+    }
        
     public Image(int width, int height, ImageBaseType type)
-      {
+    {
       _imageID = gimp_image_new (width, height, type);
-      }
+    }
 
     public Image(Image image)
-      {
+    {
       _imageID = gimp_image_duplicate(image._imageID);
-      }
+    }
 
     public Image Duplicate()
-      {
+    {
       return new Image(gimp_image_duplicate(_imageID));
-      }
+    }
 
     public static Image Load(RunMode run_mode, string filename, 
                              string raw_filename)
-      {
+    {
       Int32 imageID = gimp_file_load(run_mode, filename, raw_filename);
       return (imageID >= 0) ? new Image(imageID) : null;
-      }
+    }
 
     public bool Save(RunMode run_mode, string filename, string raw_filename)
-      {
+    {
       Int32 drawableID = ActiveDrawable.ID;	// Check this!
       return gimp_file_save(run_mode, _imageID, drawableID, filename,
                             raw_filename);
-      }
+    }
 
     public void Delete()
-      {
+    {
       if (!gimp_image_delete(_imageID))
         {
-        throw new Exception();
+	  throw new Exception();
         }
-      }
+    }
        
     public ImageBaseType BaseType
-      {
+    {
       get {return gimp_image_base_type (_imageID);}
-      }
+    }
 
     public int Width
-      {
+    {
       get {return gimp_image_width(_imageID);}
-      }
+    }
        
     public int Height
-      {
+    {
       get {return gimp_image_height(_imageID);}
-      }
+    }
        
     public void FreeShadow()
-      {
+    {
       if (!gimp_image_free_shadow(_imageID))
         {
-        throw new Exception();
+	  throw new Exception();
         }
-      }
+    }
 
     public void Flip(OrientationType flip_type)
-      {
+    {
       if (!gimp_image_flip(_imageID, flip_type))
         {
-        throw new Exception();
+	  throw new Exception();
         }
-      }
+    }
 
     public void Rotate(RotationType rotate_type)
-      {
+    {
       if (!gimp_image_rotate(_imageID, rotate_type))
         {
-        throw new Exception();
+	  throw new Exception();
         }
-      }
+    }
 
     public void Resize(int new_width, int new_height, int offx, int offy)
-      {
+    {
       if (!gimp_image_resize (_imageID, new_width, new_height, offx, offy))
         {
-        throw new Exception();
+	  throw new Exception();
         }
-      }
+    }
 
     public void ResizeToLayers()
-      {
+    {
       if (!gimp_image_resize_to_layers (_imageID))
         {
-        throw new Exception();
+	  throw new Exception();
         }
-      }
+    }
        
     public void Scale(int new_width, int new_height)
-      {
+    {
       if (!gimp_image_scale(_imageID, new_width, new_height))
         {
-        throw new Exception();
+	  throw new Exception();
         }
-      }
+    }
        
     public void Crop(int new_width, int new_height, int offx, int offy)
-      {
+    {
       if (!gimp_image_crop(_imageID, new_width, new_height, offx, offy))
         {
-        throw new Exception();
+	  throw new Exception();
         }
-      }
+    }
       
     public LayerList Layers
-      {
+    {
       get {return new LayerList(this);}
-      }
+    }
 
     public ChannelList Channels
-      {
+    {
       get {return new ChannelList(this);}
-      }
+    }
 
     public Drawable ActiveDrawable
-      {
+    {
       get {return new Drawable(gimp_image_get_active_drawable (_imageID));}
-      }
+    }
 
     public FloatingSelection FloatingSelection
-      {
+    {
       get
-          {
+	{
           Int32 layerID = gimp_image_get_floating_sel(_imageID);
           return (layerID == -1) ? null : new FloatingSelection(layerID);
-          }
-      }
+	}
+    }
 
     public Drawable FloatingSelectionAttachedTo
-      {
+    {
       get
-          {
+	{
           Int32 drawableID = gimp_image_floating_sel_attached_to(_imageID);
           return (drawableID == -1) ? null : new Drawable(drawableID);
-          }
-      }
+	}
+    }
 
     public RGB PickColor(Drawable drawable, double x, double y,
-                         bool sample_merged, bool sample_average, double average_radius)
-      {
+                         bool sample_merged, bool sample_average, 
+			 double average_radius)
+    {
       GimpRGB color;
       if (!gimp_image_pick_color(_imageID, drawable.ID, x, y, sample_merged,
                                  sample_average, average_radius, out color))
         {
-        return null;
+	  return null;
         }
       return new RGB(color);
-      }
+    }
 
     public Layer PickCorrelateLayer(int x, int y)
-      {
+    {
       Int32 layerID = gimp_image_pick_correlate_layer(_imageID, x, y);
       return (layerID == -1) ? null : new Layer(layerID);
-      }
+    }
 
     public void AddLayer(Layer layer, int position)
-      {
+    {
       if (!gimp_image_add_layer(_imageID, layer.ID, position))
         {
-        throw new Exception();
+	  throw new Exception();
         }
-      }
+    }
 
     public void RemoveLayer(Layer layer)
-      {
+    {
       if (!gimp_image_remove_layer(_imageID, layer.ID))
         {
-        throw new Exception();
+	  throw new Exception();
         }
-      }
+    }
 
     public void RaiseLayer(Layer layer)
-      {
+    {
       if (!gimp_image_raise_layer(_imageID, layer.ID))
         {
-        throw new Exception();
+	  throw new Exception();
         }
-      }
+    }
        
     public void LowerLayer(Layer layer)
-      {
+    {
       if (!gimp_image_lower_layer(_imageID, layer.ID))
         {
-        throw new Exception();
+	  throw new Exception();
         }
-      }
+    }
 
     public void RaiseLayerToTop(Layer layer)
-      {
-      if (!gimp_image_raise_layer(_imageID, layer.ID))
+    {
+      if (!gimp_image_raise_layer_to_top(_imageID, layer.ID))
         {
-        throw new Exception();
+	  throw new Exception();
         }
-      }
+    }
        
     public void LowerLayerToBottom(Layer layer)
-      {
-      if (!gimp_image_lower_layer(_imageID, layer.ID))
+    {
+      if (!gimp_image_lower_layer_to_bottom(_imageID, layer.ID))
         {
-        throw new Exception();
+	  throw new Exception();
         }
-      }
+    }
 
     public void AddChannel(Channel channel, int position)
-      {
+    {
       if (!gimp_image_add_channel(_imageID, channel.ID, position))
         {
-        throw new Exception();			  
+	  throw new Exception();			  
         }
-      }
+    }
 
     public void RemoveChannel(Channel channel)
-      {
+    {
       if (!gimp_image_remove_channel(_imageID, channel.ID))
         {
-        throw new Exception();			  
+	  throw new Exception();			  
         }
-      }
+    }
 
     public void RaiseChannel(Channel channel)
-      {
+    {
       if (!gimp_image_raise_channel(_imageID, channel.ID))
         {
-        throw new Exception();			  
+	  throw new Exception();			  
         }
-      }
+    }
        
     public void LowerChannel(Channel channel)
-      {
+    {
       if (!gimp_image_lower_channel(_imageID, channel.ID))
         {
-        throw new Exception();			  
+	  throw new Exception();			  
         }
-      }
+    }
 
     public Layer Flatten()
-      {
+    {
       return new Layer(gimp_image_flatten (_imageID));
-      }
+    }
 
     public Layer MergeVisibleLayers(MergeType merge_type)
-      {
+    {
       return new Layer(gimp_image_merge_visible_layers (_imageID,
                                                         merge_type));
-      }
+    }
 
     public Layer MergeDown(Layer layer, MergeType merge_type)
-      {
+    {
       return new Layer(gimp_image_merge_down (_imageID,
                                               layer.ID,
                                               merge_type));
-      }
+    }
 
     public void CleanAll()
-      {
+    {
       if (!gimp_image_clean_all (_imageID))
         {
-        throw new Exception();
+	  throw new Exception();
         }
-      }
+    }
 
     public bool IsDirty
-      {
+    {
       get {return gimp_image_is_dirty (_imageID);}
-      }
+    }
 
     public Layer ActiveLayer
-      {
+    {
       get {return new Layer(gimp_image_get_active_layer (_imageID));}
       set 
-          {
+	{
           if (!gimp_image_set_active_layer (_imageID, value.ID))
             {
-            throw new Exception();
+	      throw new Exception();
             }
-          }
-      }
+	}
+    }
 
     public Channel ActiveChannel
-      {
+    {
       get {return new Channel(gimp_image_get_active_channel (_imageID));}
       set 
-          {
+	{
           if (!gimp_image_set_active_channel (_imageID, value.ID))
             {
-            throw new Exception();
+	      throw new Exception();
             }
-          }
-      }
+	}
+    }
 
     public Selection Selection
-      {
+    {
       get {return new Selection(gimp_image_get_selection(_imageID));}
-      }
+    }
 
     public bool GetComponentActive(ChannelType component)
-      {
+    {
       return gimp_image_get_component_active(_imageID, component);
-      }
+    }
 
     public void SetComponentActive(ChannelType component, bool active)
-      {
+    {
       if (!gimp_image_set_component_active(_imageID, component, active))
         {
-        throw new Exception();
+	  throw new Exception();
         }
-      }
+    }
 
     public bool GetComponentVisible(ChannelType component)
-      {
+    {
       return gimp_image_get_component_visible(_imageID, component);
-      }
+    }
 
     public void SetComponentVisible(ChannelType component, bool visible)
-      {
+    {
       if (!gimp_image_set_component_visible(_imageID, component, visible))
         {
-        throw new Exception();
+	  throw new Exception();
         }
-      }
+    }
 
     public string Filename
-      {
+    {
       get {return gimp_image_get_filename(_imageID);}
       set
-          {
+	{
           if (!gimp_image_set_filename(_imageID, value))
             {
-            throw new Exception();
+	      throw new Exception();
             }
-          }
-      }
+	}
+    }
 
     public string Name
-      {
+    {
       get {return gimp_image_get_name (_imageID);}
-      }
+    }
 
     public void GetResolution(out double xresolution, out double yresolution)
-      {
+    {
       if (!gimp_image_get_resolution(_imageID, out xresolution, out yresolution))
         {
-        throw new Exception();
+	  throw new Exception();
         }
-      }
+    }
 
     public void SetResolution(double xresolution, double yresolution)
-      {
+    {
       if (!gimp_image_set_resolution(_imageID, xresolution, yresolution))
         {
-        throw new Exception();
+	  throw new Exception();
         }
-      }
+    }
 
     public Unit Unit
-      {
+    {
       get {return gimp_image_get_unit (_imageID);}
       set 
-          {
+	{
           if (!gimp_image_set_unit (_imageID, value))
             {
-            throw new Exception();
+	      throw new Exception();
             }
-          }
-      }
+	}
+    }
 
     public int TattooState
-      {
+    {
       get {return gimp_image_get_tattoo_state(_imageID);}
       set 
-          {
+	{
           if (!gimp_image_set_tattoo_state(_imageID, value))
             {
-            throw new Exception();
+	      throw new Exception();
             }
-          }
-      }
+	}
+    }
 
     public Layer GetLayerByTattoo(Tattoo tattoo)
-      {
+    {
       return new Layer(gimp_image_get_layer_by_tattoo(_imageID, tattoo.ID));
-      }
+    }
 
     public Channel GetChannelByTattoo(Tattoo tattoo)
-      {
+    {
       return new Channel(gimp_image_get_channel_by_tattoo(_imageID, 
                                                           tattoo.ID));
-      }
+    }
 
     public byte[] Colormap
-      {
+    {
       get
-          {
+	{
           int num_colors;
           IntPtr cmap = gimp_image_get_colormap(_imageID, out num_colors);
           byte[] colormap = new byte[num_colors];
           Marshal.Copy(cmap, colormap, 0, num_colors);
           // Free cmap!
           return colormap;
-          }
+	}
 
       set
-          {
+	{
           if (!gimp_image_set_colormap(_imageID, value, value.Length / 3))
             {
-            throw new Exception();
+	      throw new Exception();
             }
-          }
-      }
+	}
+    }
 
     public Parasite ParasiteFind(string name)
-      {
+    {
       return new Parasite(gimp_image_parasite_find(_imageID, name));
-      }
+    }
 
     public void ParasiteAttach(Parasite parasite)
-      {
+    {
       if (!gimp_image_parasite_attach(_imageID, parasite.Ptr))
         {
-        throw new Exception();
+	  throw new Exception();
         }
-      }
+    }
 
     public void ParasiteDetach(string name)
-      {
+    {
       if (!gimp_image_parasite_detach(_imageID, name))
         {
-        throw new Exception();
+	  throw new Exception();
         }
-      }
+    }
 
     public void AttachNewParasite(string name, int flags, int size, object data)
-      {
+    {
       if (!gimp_image_attach_new_parasite(_imageID, name, flags, size, data))
         {
-        throw new Exception();
+	  throw new Exception();
         }
-      }
+    }
 
     public bool ConvertRgb()
-      {
+    {
       return gimp_image_convert_rgb(_imageID);
-      }
+    }
        
     public bool ConvertGrayscale()
-      {
+    {
       return gimp_image_convert_grayscale(_imageID);
-      }
+    }
        
        
     public bool ConvertIndexed(ConvertDitherType dither_type,
@@ -495,7 +496,7 @@ namespace Gimp
                                bool alpha_dither,
                                bool remove_unused,
                                string palette)
-      {
+    {
       return gimp_image_convert_indexed(_imageID,
                                         dither_type,
                                         palette_type,
@@ -503,7 +504,7 @@ namespace Gimp
                                         alpha_dither,
                                         remove_unused,
                                         palette);
-      }
+    }
 
     // Implementation of ...
 
@@ -514,78 +515,78 @@ namespace Gimp
                                                    Transparency alpha);
 
     public Pixbuf GetThumbnail (int width, int height, Transparency alpha)
-      {
+    {
       return new Pixbuf (gimp_image_get_thumbnail (_imageID, width, height,
                                                    alpha));
-      }
+    }
 
     // Implementation of gimpundo_pdb.h
        
 
     public void UndoGroupStart()
-      {
+    {
       if (!gimp_image_undo_group_start (_imageID))
         {
-        throw new Exception();
+	  throw new Exception();
         }
-      }
+    }
 
     public bool Enabled
-      {
+    {
       get {return gimp_image_undo_is_enabled(_imageID);}
-      }
+    }
 
     public void UndoGroupEnd()
-      {
+    {
       if (!gimp_image_undo_group_end (_imageID))
         {
-        throw new Exception();
+	  throw new Exception();
         }
-      }
+    }
 
     public void UndoDisable()
-      {
+    {
       if (!gimp_image_undo_disable (_imageID))
         {
-        throw new Exception();
+	  throw new Exception();
         }
-      }
+    }
 
     public void UndoEnable()
-      {
+    {
       if (!gimp_image_undo_enable (_imageID))
         {
-        throw new Exception();
+	  throw new Exception();
         }
-      }
+    }
 
     public void UndoFreeze()
-      {
+    {
       if (!gimp_image_undo_freeze (_imageID))
         {
-        throw new Exception();
+	  throw new Exception();
         }
-      }
+    }
 
     public void UndoThaw()
-      {
+    {
       if (!gimp_image_undo_thaw (_imageID))
         {
-        throw new Exception();
+	  throw new Exception();
         }
-      }
+    }
 
     // Misc functions
 
     public Int32 ID
-      {
+    {
       get {return _imageID;}
-      }
+    }
        
     public GuideCollection Guides
-      {
+    {
       get {return new GuideCollection(this);}
-      }
+    }
 
     // All the dll imports
 
@@ -659,7 +660,7 @@ namespace Gimp
     static extern bool gimp_image_raise_layer_to_top (Int32 image_ID,
                                                       Int32 layer_ID);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_raise_layer_to_bottom (Int32 image_ID,
+    static extern bool gimp_image_lower_layer_to_bottom (Int32 image_ID,
                                                          Int32 layer_ID);
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_image_add_channel (Int32 image_ID,
@@ -795,5 +796,5 @@ namespace Gimp
     static extern bool gimp_image_undo_freeze (Int32 image_ID);
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_image_undo_thaw (Int32 image_ID);
-    }
   }
+}

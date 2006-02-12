@@ -65,8 +65,7 @@ MYSOURCES = AspectPreview.cs 	\
 	ScrolledPreview.cs	\
 	Selection.cs		\
 	Tattoo.cs		\
-	Tile.cs			\
-	VoidObjectSignal.cs
+	Tile.cs
 
 EXTRA_DIST = $(MYSOURCES) $(LIBRARY).config
 

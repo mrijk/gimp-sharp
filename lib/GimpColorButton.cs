@@ -90,55 +90,15 @@ namespace Gimp
     }
 
     [GLib.Signal("color_changed")]
-    public event EventHandler ColorChanged
-    {
-      add 
-	{
-	  if (value.Method.GetCustomAttributes(typeof(ConnectBeforeAttribute), 
-					       false).Length > 0) 
-	    {
-	      if (BeforeHandlers["color_changed"] == null)
-		BeforeSignals["color_changed"] = 
-		  new voidObjectSignal(this, "color_changed", value, 
-				       typeof (System.EventArgs), 0);
-	      else
-		((SignalCallback) BeforeSignals ["color_changed"]).AddDelegate (value);
-	      BeforeHandlers.AddHandler("color_changed", value);
-	    } 
-	  else 
-	    {
-	      if (AfterHandlers["color_changed"] == null)
-		AfterSignals["color_changed"] = 
-		  new voidObjectSignal(this, "color_changed", value, 
-				       typeof (System.EventArgs), 1); 
-	      else
-		((SignalCallback) AfterSignals ["color_changed"]).AddDelegate (value);
-	      AfterHandlers.AddHandler("color_changed", value);
-	    }
-	}
-      remove 
-	{
-	  System.ComponentModel.EventHandlerList event_list = AfterHandlers;
-	  Hashtable signals = AfterSignals;
-	  if (value.Method.GetCustomAttributes(typeof(ConnectBeforeAttribute), 
-					       false).Length > 0) 
-	    {
-	      event_list = BeforeHandlers;
-	      signals = BeforeSignals;
-	    }
-	  SignalCallback cb = signals ["color_changed"] as SignalCallback;
-	  event_list.RemoveHandler("color_changed", value);
-	  if (cb == null)
-	    return;
-
-	  cb.RemoveDelegate (value);
-
-	  if (event_list["color_changed"] == null) 
-	    {
-	      signals.Remove("color_changed");
-	      cb.Dispose ();
-	    }
-	}
+    public event EventHandler ColorChanged {
+      add {
+	GLib.Signal sig = GLib.Signal.Lookup (this, "color_changed");
+	sig.AddDelegate (value);
+      }
+      remove {
+	GLib.Signal sig = GLib.Signal.Lookup (this, "color_changed");
+	sig.RemoveDelegate (value);     
+      }
     }
 
     [DllImport("libgimpwidgets-2.0-0.dll")]

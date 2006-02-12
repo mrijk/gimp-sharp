@@ -76,48 +76,15 @@ namespace Gimp
 	set {gimp_preview_set_default_cursor(Handle, value);}
       }
 
-      [Signal("invalidated")]
-      public event EventHandler Invalidated
-      {
-	add 
-	    {
-	    if (value.Method.GetCustomAttributes(typeof(ConnectBeforeAttribute), false).Length > 0) 
-	      {
-	      if (BeforeHandlers["invalidated"] == null)
-		BeforeSignals["invalidated"] = new voidObjectSignal(this, "invalidated", value, typeof (System.EventArgs), 0);		 		 		 		 		 else
-		  ((SignalCallback) BeforeSignals ["invalidated"]).AddDelegate (value);
-	      BeforeHandlers.AddHandler("invalidated", value);
-	      } 
-	    else 
-	      {
-	      if (AfterHandlers["invalidated"] == null)
-		AfterSignals["invalidated"] = new voidObjectSignal(this, "invalidated", value, typeof (System.EventArgs), 1);		 		 		 		 		 else
-		  ((SignalCallback) AfterSignals ["invalidated"]).AddDelegate (value);
-	      AfterHandlers.AddHandler("invalidated", value);
-	      }
-	    }
-	remove 
-	    {
-	    System.ComponentModel.EventHandlerList event_list = AfterHandlers;
-	    Hashtable signals = AfterSignals;
-	    if (value.Method.GetCustomAttributes(typeof(ConnectBeforeAttribute), false).Length > 0) 
-	      {
-	      event_list = BeforeHandlers;
-	      signals = BeforeSignals;
-	      }
-	    SignalCallback cb = signals ["invalidated"] as SignalCallback;
-	    event_list.RemoveHandler("invalidated", value);
-	    if (cb == null)
-	      return;
-
-	    cb.RemoveDelegate (value);
-
-	    if (event_list["invalidated"] == null) 
-	      {
-	      signals.Remove("invalidated");
-	      cb.Dispose ();
-	      }
-	    }
+      [GLib.Signal("invalidated")]
+      public event EventHandler Invalidated {
+	add {
+	  GLib.Signal sig = GLib.Signal.Lookup (this, "invalidated");
+	  sig.AddDelegate (value);
+	}
+	remove {
+	  GLib.Signal sig = GLib.Signal.Lookup (this, "invalidated");
+	  sig.RemoveDelegate (value);                        }
       }
 
       [DllImport("libgimpwidgets-2.0-0.dll")]
