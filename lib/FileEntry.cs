@@ -42,7 +42,7 @@ namespace Gimp
     }
 
     [GLib.Signal("filename_changed")]
-    public event EventHandler ColorChanged {
+    public event EventHandler FilenameChanged {
       add {
 	GLib.Signal sig = GLib.Signal.Lookup (this, "filename_changed");
 	sig.AddDelegate (value);
