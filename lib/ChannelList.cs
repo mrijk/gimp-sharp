@@ -25,13 +25,13 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace Gimp
+{
+  public class ChannelList : IEnumerable<Channel>
   {
-  public class ChannelList : IEnumerable
-    {
     List<Channel> _list = new List<Channel>();
 
     public ChannelList(Image image)
-      {
+    {
       int num_channels;
       IntPtr list = gimp_image_get_channels(image.ID, out num_channels);
 
@@ -40,22 +40,27 @@ namespace Gimp
 
       foreach (int ChannelID in dest)
         {
-        _list.Add(new Channel(ChannelID));
+	  _list.Add(new Channel(ChannelID));
         }
-      }
+    }
 
-    public virtual IEnumerator GetEnumerator()
-      {
+    IEnumerator<Channel> IEnumerable<Channel>.GetEnumerator()
+    {
       return _list.GetEnumerator();
-      }
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+      return _list.GetEnumerator();
+    }
 
     public int Count
-      {
+    {
       get {return _list.Count;}
-      }
+    }
 
     [DllImport("libgimp-2.0-0.dll")]
     static extern IntPtr gimp_image_get_channels(Int32 image_ID, 
 						 out int num_channels);
-    }
   }
+}

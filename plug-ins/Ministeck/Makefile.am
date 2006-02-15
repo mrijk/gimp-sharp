@@ -2,7 +2,9 @@
 
 all: Ministeck.exe
 
-ASSEMBLIES = -r:$(top_builddir)/lib/gimp-sharp.dll /pkg:gtk-sharp-2.0
+GIMPSHARPLIB = $(top_builddir)/lib/gimp-sharp.dll
+
+ASSEMBLIES = -r:$(GIMPSHARPLIB) /pkg:gtk-sharp-2.0
 
 MYSOURCES =			\
 	Coordinate.cs		\
@@ -20,7 +22,7 @@ MYSOURCES =			\
 
 EXTRA_DIST = $(MYSOURCES) Ministeck Ministeck.png
 
-Ministeck.exe : $(MYSOURCES) Ministeck.png
+Ministeck.exe : $(MYSOURCES) Ministeck.png $(GIMPSHARPLIB)
 	$(CSC) $(MYSOURCES) /resource:Ministeck.png -out:$@ $(ASSEMBLIES)
 
 clean:

@@ -1,12 +1,16 @@
+## Process this file with automake to produce Makefile.in
+
 all: Swirlies.exe
 
-ASSEMBLIES = -r:$(top_builddir)/lib/gimp-sharp.dll /pkg:gtk-sharp-2.0
+GIMPSHARPLIB = $(top_builddir)/lib/gimp-sharp.dll
+
+ASSEMBLIES = -r:$(GIMPSHARPLIB) /pkg:gtk-sharp-2.0
 
 MYSOURCES = Swirlies.cs Swirly.cs
 
 EXTRA_DIST = $(MYSOURCES) Swirlies Swirlies.png
 
-Swirlies.exe : $(MYSOURCES)
+Swirlies.exe : $(MYSOURCES) Swirlies.png $(GIMPSHARPLIB)
 	$(CSC) $(MYSOURCES) /resource:Swirlies.png -out:$@ $(ASSEMBLIES)
 
 clean:

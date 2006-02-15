@@ -2,7 +2,9 @@
 
 all: PicturePackage.exe
 
-ASSEMBLIES = -r:$(top_builddir)/lib/gimp-sharp.dll /pkg:gtk-sharp-2.0
+GIMPSHARPLIB = $(top_builddir)/lib/gimp-sharp.dll
+
+ASSEMBLIES = -r:$(GIMPSHARPLIB) /pkg:gtk-sharp-2.0
 
 MYSOURCES =				\
 	DirImageProviderFactory.cs	\
@@ -31,7 +33,7 @@ MYSOURCES =				\
 
 EXTRA_DIST = $(MYSOURCES) PicturePackage picture-package.xml PicturePackage.png
 
-PicturePackage.exe : $(MYSOURCES) picture-package.xml PicturePackage.png
+PicturePackage.exe : $(MYSOURCES) picture-package.xml PicturePackage.png $(GIMPSHARPLIB)
 	$(CSC) $(MYSOURCES) /resource:picture-package.xml /resource:PicturePackage.png -out:$@ $(ASSEMBLIES)
 
 clean:

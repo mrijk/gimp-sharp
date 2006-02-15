@@ -1,3 +1,17 @@
+2006-02-15  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/*/Makefile.am: made Makefiles slightly more robust.
+
+	* plug-ins/Ministeck/*.cs: added copyright notices + minor cleanup.
+
+	* lib/ProcedureSet.cs
+	* lib/ParamDefList.cs
+	* lib/PaletteList.cs 
+	* lib/ImageList.cs 
+	* lib/LayerList.cs
+	* lib/ChannelList.cs: added generic enumerator, making this
+	classes more strongly typed.
+
 2006-02-14  Maurits  <m.rijk@chello.nl>
 
 	* lib/FileEntry.cs 

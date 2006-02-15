@@ -25,31 +25,36 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace Gimp
+{
+  public class ImageList : IEnumerable<Image>
   {
-    public class ImageList : IEnumerable
+    List<Image> _list = new List<Image>();
+
+    public ImageList()
     {
-      List<Image> _list = new List<Image>();
+      int num_images;
+      IntPtr list = gimp_image_list(out num_images);
 
-      public ImageList()
-      {
-	int num_images;
-	IntPtr list = gimp_image_list(out num_images);
+      int[] dest = new int[num_images];
+      Marshal.Copy(list, dest, 0, num_images);
 
-	int[] dest = new int[num_images];
-	Marshal.Copy(list, dest, 0, num_images);
-
-	foreach (int imageID in dest)
-	  {
+      foreach (int imageID in dest)
+	{
 	  _list.Add(new Image(imageID));
-	  }
-      }
-
-      public virtual IEnumerator GetEnumerator()
-      {
-	return _list.GetEnumerator();
-      }
-
-      [DllImport("libgimp-2.0-0.dll")]
-      static extern IntPtr gimp_image_list(out int num_images);
+	}
     }
+
+    IEnumerator<Image> IEnumerable<Image>.GetEnumerator()
+    {
+      return _list.GetEnumerator();
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+      return _list.GetEnumerator();
+    }
+
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern IntPtr gimp_image_list(out int num_images);
   }
+}

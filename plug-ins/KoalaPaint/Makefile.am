@@ -2,13 +2,15 @@
 
 all: KoalaPaint.exe
 
-ASSEMBLIES = -r:$(top_builddir)/lib/gimp-sharp.dll /pkg:gtk-sharp-2.0
+GIMPSHARPLIB = $(top_builddir)/lib/gimp-sharp.dll
+
+ASSEMBLIES = -r:$(GIMPSHARPLIB) /pkg:gtk-sharp-2.0
 
 SOURCES = KoalaPaint.cs
 
 EXTRA_DIST = $(SOURCES) KoalaPaint
 
-KoalaPaint.exe: $(SOURCES)
+KoalaPaint.exe: $(SOURCES) $(GIMPSHARPLIB)
 	$(CSC) $(SOURCES) -out:$@ $(ASSEMBLIES)
 
 clean:

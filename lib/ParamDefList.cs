@@ -26,7 +26,7 @@ using System.Runtime.InteropServices;
 
 namespace Gimp
 {
-  public class ParamDefList : IEnumerable
+  public class ParamDefList : IEnumerable<ParamDef>
   {
     List<ParamDef> _set;
 
@@ -55,7 +55,12 @@ namespace Gimp
       _set = new List<ParamDef>(list);
     }
 
-    public IEnumerator GetEnumerator()
+    IEnumerator<ParamDef> IEnumerable<ParamDef>.GetEnumerator()
+    {
+      return _set.GetEnumerator();
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
     {
       return _set.GetEnumerator();
     }

@@ -3,20 +3,19 @@
 //
 // Shape.cs
 //
-// This library is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Lesser General Public
-// License as published by the Free Software Foundation; either
-// version 2 of the License, or (at your option) any later version.
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
 //
-// This library is distributed in the hope that it will be useful,
+// This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-// Lesser General Public License for more details.
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
 //
-// You should have received a copy of the GNU Lesser General Public
-// License along with this library; if not, write to the
-// Free Software Foundation, Inc., 59 Temple Place - Suite 330,
-// Boston, MA 02111-1307, USA.
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
 using System;
@@ -24,15 +23,13 @@ using System.Collections;
 using System.Collections.Generic;
 
 namespace Gimp.Ministeck
-  {
+{
   abstract public class Shape
   {
     List<ShapeSet> _set = new List<ShapeSet>(); 
     static protected Painter _painter;
 
     Random _random = new Random();
-
-    public int _match = 0;
 
     public Shape()
     {
@@ -50,17 +47,17 @@ namespace Gimp.Ministeck
 
       foreach (ShapeDescription val in list)
 	{
-	List<ShapeSet> copy = new List<ShapeSet>();
-	foreach (ShapeSet ele in _set)
-	  {
-	  for (int i = 0; i <= ele.Count; i++)
+	  List<ShapeSet> copy = new List<ShapeSet>();
+	  foreach (ShapeSet ele in _set)
 	    {
-	    ShapeSet tmp = new ShapeSet(ele);
-	    tmp.Insert(i, val);
-	    copy.Add(tmp);
+	      for (int i = 0; i <= ele.Count; i++)
+		{
+		  ShapeSet tmp = new ShapeSet(ele);
+		  tmp.Insert(i, val);
+		  copy.Add(tmp);
+		}
 	    }
-	  }
-	_set = copy;
+	  _set = copy;
 	}
     }
 
@@ -70,11 +67,11 @@ namespace Gimp.Ministeck
 
       foreach (ShapeDescription shape in _set[index])
 	{
-	if (Fits(A, x, y, shape))
-	  {
-	  Fill(A, x, y, shape);
-	  return true;
-	  }
+	  if (Fits(A, x, y, shape))
+	    {
+	      Fill(A, x, y, shape);
+	      return true;
+	    }
 	}
       return false;
     }
@@ -90,22 +87,20 @@ namespace Gimp.Ministeck
 
       foreach (Coordinate c in shape)
 	{
-	int cx = x + c.X;
-	int cy = y + c.Y;
-	if (cx < 0 || cx >= width || cy < 0 || cy >= height || A[cx, cy])
-	  {
-	  return false;
-	  }
+	  int cx = x + c.X;
+	  int cy = y + c.Y;
+	  if (cx < 0 || cx >= width || cy < 0 || cy >= height || A[cx, cy])
+	    {
+	      return false;
+	    }
 
-	_painter.GetPixel(cx, cy, buf);
-	for (int b = 0; b < 3; b++)
-	  {
-	  if (color[b] != buf[b])
-	    return false;
-	  }
+	  _painter.GetPixel(cx, cy, buf);
+	  for (int b = 0; b < 3; b++)
+	    {
+	      if (color[b] != buf[b])
+		return false;
+	    }
 	}
-
-      _match++;
       return true;
     }
 
@@ -117,9 +112,9 @@ namespace Gimp.Ministeck
       A[x, y] = true;
       foreach (Coordinate c in shape)
 	{
-	int cx = x + c.X;
-	int cy = y + c.Y;
-	A[cx, cy] = true;
+	  int cx = x + c.X;
+	  int cy = y + c.Y;
+	  A[cx, cy] = true;
 	}
     }
 
@@ -143,4 +138,4 @@ namespace Gimp.Ministeck
       _painter.VLine(len);
     }
   }
-  }
+}

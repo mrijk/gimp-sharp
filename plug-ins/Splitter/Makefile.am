@@ -1,12 +1,16 @@
+## Process this file with automake to produce Makefile.in
+
 all: Splitter.exe
 
-ASSEMBLIES = -r:$(top_builddir)/lib/gimp-sharp.dll /pkg:gtk-sharp-2.0
+GIMPSHARPLIB = $(top_builddir)/lib/gimp-sharp.dll
+
+ASSEMBLIES = -r:$(GIMPSHARPLIB) /pkg:gtk-sharp-2.0
 
 MYSOURCES = Splitter.cs MathExpressionParser.cs MyClassBase.cs
 
 EXTRA_DIST = $(MYSOURCES) Splitter Splitter.png
 
-Splitter.exe : $(MYSOURCES)
+Splitter.exe : $(MYSOURCES) Splitter.png $(GIMPSHARPLIB)
 	$(CSC) $(MYSOURCES) /resource:Splitter.png -out:$@ $(ASSEMBLIES)
 
 clean:

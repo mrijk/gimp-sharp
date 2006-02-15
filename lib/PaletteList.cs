@@ -25,42 +25,47 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace Gimp
+{
+  public class PaletteList : IEnumerable<Palette>
   {
-    public class PaletteList : IEnumerable
+    List<Palette> _list = new List<Palette>();
+
+    public PaletteList(string filter)
     {
-      List<Palette> _list = new List<Palette>();
+      int num_palettes;
+      IntPtr ptr = gimp_palettes_get_list(filter, out num_palettes);
 
-      public PaletteList(string filter)
-      {
-	int num_palettes;
-	IntPtr ptr = gimp_palettes_get_list(filter, out num_palettes);
-
-	for (int i = 0; i < num_palettes; i++)
-	  {
+      for (int i = 0; i < num_palettes; i++)
+	{
           IntPtr tmp = (IntPtr) Marshal.PtrToStructure(ptr, typeof(IntPtr));
           _list.Add(new Palette(Marshal.PtrToStringAnsi(tmp), false));
           ptr = (IntPtr)((int)ptr + Marshal.SizeOf(tmp));
-	  }
-      }
-
-      public PaletteList()
-      {
-      }
-
-      public virtual IEnumerator GetEnumerator()
-      {
-	return _list.GetEnumerator();
-      }
-
-      static public void Refresh()
-      {
-	gimp_palettes_refresh();
-      }
-
-      [DllImport("libgimp-2.0-0.dll")]
-      static extern void gimp_palettes_refresh();
-      [DllImport("libgimp-2.0-0.dll")]
-      static extern IntPtr gimp_palettes_get_list (string filter,
-						   out int num_palettes);
+	}
     }
+
+    public PaletteList()
+    {
+    }
+
+    IEnumerator<Palette> IEnumerable<Palette>.GetEnumerator()
+    {
+      return _list.GetEnumerator();
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+      return _list.GetEnumerator();
+    }
+
+    static public void Refresh()
+    {
+      gimp_palettes_refresh();
+    }
+
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern void gimp_palettes_refresh();
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern IntPtr gimp_palettes_get_list (string filter,
+						 out int num_palettes);
   }
+}

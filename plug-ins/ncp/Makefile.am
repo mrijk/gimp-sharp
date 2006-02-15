@@ -1,12 +1,14 @@
 all: ncp.exe
 
-ASSEMBLIES = -r:$(top_builddir)/lib/gimp-sharp.dll /pkg:gtk-sharp-2.0
+GIMPSHARPLIB = $(top_builddir)/lib/gimp-sharp.dll
+
+ASSEMBLIES = -r:$(GIMPSHARPLIB) /pkg:gtk-sharp-2.0
 
 MYSOURCES = ncp.cs
 
 EXTRA_DIST = $(MYSOURCES) ncp ncp.png
 
-ncp.exe : $(MYSOURCES) ncp.png
+ncp.exe : $(MYSOURCES) ncp.png $(GIMPSHARPLIB)
 	$(CSC) $(MYSOURCES) /resource:ncp.png -out:$@ $(ASSEMBLIES)
 
 clean:

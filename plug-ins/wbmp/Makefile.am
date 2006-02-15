@@ -1,12 +1,16 @@
+## Process this file with automake to produce Makefile.in
+
 all: wbmp.exe
 
-ASSEMBLIES = -r:$(top_builddir)/lib/gimp-sharp.dll /pkg:gtk-sharp-2.0
+GIMPSHARPLIB = $(top_builddir)/lib/gimp-sharp.dll
+
+ASSEMBLIES = -r:$(GIMPSHARPLIB) /pkg:gtk-sharp-2.0
 
 MYSOURCES = wbmp.cs
 
 EXTRA_DIST = $(MYSOURCES) wbmp
 
-wbmp.exe : $(MYSOURCES)
+wbmp.exe : $(MYSOURCES) $(GIMPSHARPLIB)
 	$(CSC) $(MYSOURCES) -out:$@ $(ASSEMBLIES)
 
 clean:

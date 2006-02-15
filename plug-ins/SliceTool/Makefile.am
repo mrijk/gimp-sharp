@@ -2,7 +2,9 @@
 
 all: SliceTool.exe
 
-ASSEMBLIES = -r:$(top_builddir)/lib/gimp-sharp.dll /pkg:gtk-sharp-2.0
+GIMPSHARPLIB = $(top_builddir)/lib/gimp-sharp.dll
+
+ASSEMBLIES = -r:$(GIMPSHARPLIB) /pkg:gtk-sharp-2.0
 
 MYSOURCES =			\
 	CreateFunc.cs		\
@@ -33,7 +35,7 @@ MYSOURCES =			\
 EXTRA_DIST = $(MYSOURCES) SliceTool SliceTool.png blank.png stock-arrow.png \
 	javascript.html
 
-SliceTool.exe : $(MYSOURCES) SliceTool.png
+SliceTool.exe : $(MYSOURCES) SliceTool.png $(GIMPSHARPLIB)
 	$(CSC) $(MYSOURCES) /resource:SliceTool.png	\
 			  /resource:blank.png		\
 			  /resource:stock-arrow.png	\

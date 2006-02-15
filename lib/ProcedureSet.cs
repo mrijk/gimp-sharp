@@ -28,7 +28,7 @@ namespace Gimp
   {
     Dictionary<string, Procedure> _set = new Dictionary<string, Procedure>();
 
-    public IEnumerator GetEnumerator()
+    IEnumerator IEnumerable.GetEnumerator()
     {
       return _set.GetEnumerator();
     }

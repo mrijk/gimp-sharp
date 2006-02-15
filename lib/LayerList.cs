@@ -25,13 +25,13 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace Gimp
+{
+  public class LayerList : IEnumerable<Layer>
   {
-  public class LayerList : IEnumerable
-    {
     List<Layer> _list = new List<Layer>();
 
     public LayerList(Image image)
-      {
+    {
       int num_layers;
       IntPtr list = gimp_image_get_layers(image.ID, out num_layers);
 
@@ -40,22 +40,27 @@ namespace Gimp
 
       foreach (int layerID in dest)
         {
-        _list.Add(new Layer(layerID));
+	  _list.Add(new Layer(layerID));
         }
-      }
+    }
 
-    public virtual IEnumerator GetEnumerator()
-      {
+    IEnumerator<Layer> IEnumerable<Layer>.GetEnumerator()
+    {
       return _list.GetEnumerator();
-      }
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+      return _list.GetEnumerator();
+    }
 
     public int Count
-      {
+    {
       get {return _list.Count;}
-      }
+    }
 
     [DllImport("libgimp-2.0-0.dll")]
     static extern IntPtr gimp_image_get_layers(Int32 image_ID, 
                                                out int num_layers);
-    }
   }
+}

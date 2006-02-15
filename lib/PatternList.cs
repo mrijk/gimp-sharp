@@ -25,37 +25,42 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace Gimp
+{
+  public class PatternList : IEnumerable<Pattern>
   {
-  public class PatternList : IEnumerable
-    {
     List<Pattern> _list = new List<Pattern>();
 
     public PatternList(string filter)
-      {
+    {
       int num_patterns;
       IntPtr ptr = gimp_patterns_get_list(filter, out num_patterns);
       for (int i = 0; i < num_patterns; i++)
         {
-        IntPtr tmp = (IntPtr) Marshal.PtrToStructure(ptr, typeof(IntPtr));
-        _list.Add(new Pattern(Marshal.PtrToStringAnsi(tmp), false));
-        ptr = (IntPtr)((int)ptr + Marshal.SizeOf(tmp));
+	  IntPtr tmp = (IntPtr) Marshal.PtrToStructure(ptr, typeof(IntPtr));
+	  _list.Add(new Pattern(Marshal.PtrToStringAnsi(tmp), false));
+	  ptr = (IntPtr)((int)ptr + Marshal.SizeOf(tmp));
         }
-      }
+    }
 
-    public virtual IEnumerator GetEnumerator()
-      {
+    IEnumerator<Pattern> IEnumerable<Pattern>.GetEnumerator()
+    {
       return _list.GetEnumerator();
-      }
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+      return _list.GetEnumerator();
+    }
 
     static public void Refresh()
-      {
+    {
       gimp_patterns_refresh();
-      }
+    }
 
     [DllImport("libgimp-2.0-0.dll")]
     extern static void gimp_patterns_refresh();
     [DllImport("libgimp-2.0-0.dll")]
     extern static IntPtr gimp_patterns_get_list(string filter, 
                                                 out int num_patterns);
-    }
   }
+}

@@ -2,13 +2,15 @@
 
 all: RedEye.exe
 
-ASSEMBLIES = -r:$(top_builddir)/lib/gimp-sharp.dll /pkg:gtk-sharp-2.0
+GIMPSHARPLIB = $(top_builddir)/lib/gimp-sharp.dll
+
+ASSEMBLIES = -r:$(GIMPSHARPLIB) /pkg:gtk-sharp-2.0
 
 MYSOURCES = RedEye.cs
 
 EXTRA_DIST = $(MYSOURCES) RedEye RedEye.png
 
-RedEye.exe : $(MYSOURCES) RedEye.png
+RedEye.exe : $(MYSOURCES) RedEye.png $(GIMPSHARPLIB)
 	$(CSC) $(MYSOURCES) /resource:RedEye.png -out:$@ $(ASSEMBLIES)
 
 clean:
