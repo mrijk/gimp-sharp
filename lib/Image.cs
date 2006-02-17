@@ -47,7 +47,7 @@ namespace Gimp
 
     public Image Duplicate()
     {
-      return new Image(gimp_image_duplicate(_imageID));
+      return new Image(this);
     }
 
     public static Image Load(RunMode run_mode, string filename, 

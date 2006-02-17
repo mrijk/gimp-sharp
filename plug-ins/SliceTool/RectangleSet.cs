@@ -25,7 +25,7 @@ using System.IO;
 
 namespace Gimp.SliceTool
 {
-  public class RectangleSet: IEnumerable
+  public class RectangleSet: IEnumerable<Rectangle>
   {
     List<Rectangle> _set = new List<Rectangle>();
     Rectangle _selected;
@@ -34,8 +34,13 @@ namespace Gimp.SliceTool
     public RectangleSet()
     {
     }
+
+    IEnumerator<Rectangle> IEnumerable<Rectangle>.GetEnumerator()
+    {
+      return _set.GetEnumerator();
+    }
     
-    public IEnumerator GetEnumerator()
+    IEnumerator IEnumerable.GetEnumerator()
     {
       return _set.GetEnumerator();
     }

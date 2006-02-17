@@ -23,38 +23,38 @@ using System;
 using System.Runtime.InteropServices;
 
 namespace Gimp
-  {
+{
   public class Pattern
-    {
+  {
     string _name;
 
     public Pattern(string name)
-      {
+    {
       _name = name;
-      }
+    }
 
     internal Pattern(string name, bool unused)
-      {
+    {
       _name = name;
-      }
+    }
 
     public string Name
-      {
+    {
       get {return _name;}
-      }
+    }
 
     public void GetInfo(out int width, out int height, out int bpp)
-      {
+    {
       if (!gimp_pattern_get_info(_name, out width, out height,
                                  out bpp))
         {
-        throw new Exception();
+	  throw new Exception();
         }
-      }
+    }
 
     [DllImport("libgimp-2.0-0.dll")]
     extern static bool gimp_pattern_get_info(string name,
                                              out int width, out int height, 
 					     out int bpp);
-    }
   }
+}

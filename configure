@@ -20895,7 +20895,7 @@ fi
 
 
 
-                                                                                                                        ac_config_files="$ac_config_files Makefile lib/Makefile plug-ins/Makefile plug-ins/KoalaPaint/Makefile plug-ins/ncp/Makefile plug-ins/Ministeck/Makefile plug-ins/PicturePackage/Makefile plug-ins/RedEye/Makefile plug-ins/SliceTool/Makefile plug-ins/Splitter/Makefile plug-ins/Swirlies/Makefile plug-ins/wbmp/Makefile"
+                                                                                                                                  ac_config_files="$ac_config_files Makefile lib/Makefile plug-ins/Makefile plug-ins/KoalaPaint/Makefile plug-ins/ncp/Makefile plug-ins/Ministeck/Makefile plug-ins/PicturePackage/Makefile plug-ins/RedEye/Makefile plug-ins/SliceTool/Makefile plug-ins/Splitter/Makefile plug-ins/Swirlies/Makefile plug-ins/UnitTest/Makefile plug-ins/wbmp/Makefile"
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
 # tests run on this system so they can be shared between configure
@@ -21470,6 +21470,7 @@ do
   "plug-ins/SliceTool/Makefile" ) CONFIG_FILES="$CONFIG_FILES plug-ins/SliceTool/Makefile" ;;
   "plug-ins/Splitter/Makefile" ) CONFIG_FILES="$CONFIG_FILES plug-ins/Splitter/Makefile" ;;
   "plug-ins/Swirlies/Makefile" ) CONFIG_FILES="$CONFIG_FILES plug-ins/Swirlies/Makefile" ;;
+  "plug-ins/UnitTest/Makefile" ) CONFIG_FILES="$CONFIG_FILES plug-ins/UnitTest/Makefile" ;;
   "plug-ins/wbmp/Makefile" ) CONFIG_FILES="$CONFIG_FILES plug-ins/wbmp/Makefile" ;;
   "depfiles" ) CONFIG_COMMANDS="$CONFIG_COMMANDS depfiles" ;;
   "config.h" ) CONFIG_HEADERS="$CONFIG_HEADERS config.h" ;;
