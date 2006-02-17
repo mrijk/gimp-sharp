@@ -26,7 +26,7 @@ using System.Runtime.InteropServices;
 
 namespace Gimp
 {
-  public class PatternList : IEnumerable<Pattern>
+  public sealed class PatternList : IEnumerable<Pattern>
   {
     List<Pattern> _list = new List<Pattern>();
 

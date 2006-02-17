@@ -1,8 +1,11 @@
 Overview of Changes in Gimp# 0.8
 ================================
 
+- Framework largely refactored and redesigned, making it easier to
+  derive new plug-ins.
 - First fully functional release of Splitter plug-in
 - New plug-in to generate Swirlies
+- GIMP# is now fully unit tested with NUnit, leading to higher quality
 - Many bug fixes and smaller improvements
 
 Overview of Changes in Gimp# 0.7.1

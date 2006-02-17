@@ -23,44 +23,44 @@ using System;
 using System.Runtime.InteropServices;
 
 namespace Gimp
+{
+  public sealed class FloatingSelection : Layer
   {
-  public class FloatingSelection : Layer
-    {
     public FloatingSelection(Int32 floatingSelID) : base(floatingSelID)
-      {
-      }
+    {
+    }
 
     public void Remove()
-      {
+    {
       if (!gimp_floating_sel_remove (_ID))
         {
-        throw new Exception();
+	  throw new Exception();
         }
-      }
+    }
 
     public void Anchor()
-      {
+    {
       if (!gimp_floating_sel_anchor (_ID))
         {
-        throw new Exception();
+	  throw new Exception();
         }
-      }
+    }
 
     public void Rigor(bool undo)
-      {
+    {
       if (!gimp_floating_sel_rigor (_ID, undo))
         {
-        throw new Exception();
+	  throw new Exception();
         }
-      }
+    }
 
     public void Relax(bool undo)
-      {
+    {
       if (!gimp_floating_sel_relax (_ID, undo))
         {
-        throw new Exception();
+	  throw new Exception();
         }
-      }
+    }
 
     [DllImport("libgimp-2.0-0.dll")]
     extern static bool gimp_floating_sel_remove (Int32 floating_sel_ID);
@@ -77,5 +77,5 @@ namespace Gimp
     [DllImport("libgimp-2.0-0.dll")]
     extern static bool gimp_floating_sel_relax (Int32 floating_sel_ID,
                                                 bool undo);
-    }
   }
+}

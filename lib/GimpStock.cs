@@ -21,8 +21,8 @@
 
 namespace Gimp
 {
-  public class GimpStock
-    {
+  public sealed class GimpStock
+  {
     public const string ANCHOR          = "gimp-anchor";
     public const string CENTER          = "gimp-center";
     public const string DUPLICATE       = "gimp-duplicate";
@@ -36,5 +36,5 @@ namespace Gimp
     public const string GRID 		= "gimp-grid";
     public const string TOOL_CROP 	= "gimp-tool-crop";
     public const string TOOL_ERASER 	= "gimp-tool-eraser";
-    }
+  }
 }

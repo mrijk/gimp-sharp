@@ -26,7 +26,7 @@ using GLib;
 
 namespace Gimp
 {
-  public class Gimp
+  public sealed class Gimp
   {
     static public string Directory
     {

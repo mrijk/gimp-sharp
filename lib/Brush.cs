@@ -23,121 +23,121 @@ using System;
 using System.Runtime.InteropServices;
 
 namespace Gimp
+{
+  public sealed class Brush
   {
-  public class Brush
-    {
     string _name;
 
     public Brush(string name)
-      {
+    {
       _name = gimp_brush_new(name);
-      }
+    }
 
     internal Brush(string name, bool unused)
-      {
+    {
       _name = name;
-      }
+    }
 
     public Brush(Brush brush)
-      {
+    {
       _name = gimp_brush_duplicate(brush._name);
-      }
+    }
 
     public string Rename(string new_name)
-      {
+    {
       _name = gimp_brush_rename(_name, new_name);
       return _name;
-      }
+    }
 
     public string Name
-      {
+    {
       get {return _name;}
       set {Rename(value);}
-      }
+    }
 
     public void Delete()
-      {
+    {
       if (!gimp_brush_delete(_name))
         {
-        throw new Exception();
+	  throw new Exception();
         }
-      }
+    }
 
     public void GetInfo(out int width, out int height, out int mask_bpp,
 			out int color_bpp)
-      {
+    {
       if (!gimp_brush_get_info(_name, out width, out height, out mask_bpp,
                                out color_bpp))
         {
-        throw new Exception();
+	  throw new Exception();
         }
-      }
+    }
 
     public int Spacing
-      {
+    {
       get
-          {
+	{
           int spacing;
           if (!gimp_brush_get_spacing(_name, out spacing))
             {
-            throw new Exception();
+	      throw new Exception();
             }
           return spacing;
-          }
+	}
       set
-          {
+	{
           if (!gimp_brush_set_spacing(_name, value))
             {
-            throw new Exception();
+	      throw new Exception();
             }
-          }
-      }
+	}
+    }
 	
     public int Shape
-      {
+    {
       get {return gimp_brush_get_shape(_name);}
       set {gimp_brush_set_shape(_name, value);}
-      }
+    }
 
     public int Spikes
-      {
+    {
       get {return gimp_brush_get_spikes(_name);}
       set {gimp_brush_set_spikes(_name, value);}
-      }
+    }
 
     public double Angle
-      {
+    {
       get {return gimp_brush_get_angle(_name);}
       set {gimp_brush_set_angle(_name, value);}
-      }
+    }
 
     public double Radius
-      {
+    {
       get {return gimp_brush_get_radius(_name);}
       set {gimp_brush_set_radius(_name, value);}
-      }
+    }
 
     public double AspectRatio
-      {
+    {
       get {return gimp_brush_get_aspect_ratio(_name);}
       set {gimp_brush_set_aspect_ratio(_name, value);}
-      }
+    }
 
     public double Hardness
-      {
+    {
       get {return gimp_brush_get_hardness(_name);}
       set {gimp_brush_set_hardness(_name, value);}
-      }
+    }
 
     public bool Generated
-      {
+    {
       get {return gimp_brush_is_generated(_name);}
-      }
+    }
 
     public bool Editable
-      {
+    {
       get {return gimp_brush_is_editable(_name);}
-      }
+    }
 
     [DllImport("libgimp-2.0-0.dll")]
     extern static string gimp_brush_new(string name);
@@ -149,7 +149,8 @@ namespace Gimp
     extern static bool gimp_brush_delete(string name);
     [DllImport("libgimp-2.0-0.dll")]
     extern static bool gimp_brush_get_info(string name, out int width,
-                                           out int height, out int mask_bpp, out int color_bpp);
+                                           out int height, out int mask_bpp, 
+					   out int color_bpp);
     [DllImport("libgimp-2.0-0.dll")]
     extern static bool gimp_brush_get_spacing(string name, out int spacing);
     [DllImport("libgimp-2.0-0.dll")]
@@ -173,14 +174,16 @@ namespace Gimp
     [DllImport("libgimp-2.0-0.dll")]
     extern static double gimp_brush_get_aspect_ratio(string name);
     [DllImport("libgimp-2.0-0.dll")]
-    extern static double gimp_brush_set_aspect_ratio(string name, double aspect_ratio_in);
+    extern static double gimp_brush_set_aspect_ratio(string name, 
+						     double aspect_ratio_in);
     [DllImport("libgimp-2.0-0.dll")]
     extern static double gimp_brush_get_hardness(string name);
     [DllImport("libgimp-2.0-0.dll")]
-    extern static double gimp_brush_set_hardness(string name, double hardness_in);
+    extern static double gimp_brush_set_hardness(string name, 
+						 double hardness_in);
     [DllImport("libgimp-2.0-0.dll")]
     extern static bool gimp_brush_is_generated(string name);
     [DllImport("libgimp-2.0-0.dll")]
     extern static bool gimp_brush_is_editable(string name);
-    }
   }
+}

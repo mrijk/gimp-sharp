@@ -26,7 +26,7 @@ using System.Runtime.InteropServices;
 
 namespace Gimp
 {
-  public class LayerList : IEnumerable<Layer>
+  public sealed class LayerList : IEnumerable<Layer>
   {
     List<Layer> _list = new List<Layer>();
 

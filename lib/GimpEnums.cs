@@ -20,174 +20,174 @@
 //
 
 namespace Gimp
-  {
+{
 
   public enum BrushApplicationMode
-    {
-      HARD,
-      SOFT
-    }
+  {
+    HARD,
+    SOFT
+  }
 
   public enum ConvertDitherType
-    {
-      NO,
-      FS,
-      FSLOWBLEED,
-      FIXED
-    }
+  {
+    NO,
+    FS,
+    FSLOWBLEED,
+    FIXED
+  }
 
   public enum ConvertPaletteType
-    {
-      MAKE,
-      REUSE,
-      WEB,
-      MONO,
-      CUSTOM
-    }
+  {
+    MAKE,
+    REUSE,
+    WEB,
+    MONO,
+    CUSTOM
+  }
 
   public enum ConvolutionType
-    {
-      NORMAL,
-      ABSOLUTE,
-      NEGATIVE
-    }
+  {
+    NORMAL,
+    ABSOLUTE,
+    NEGATIVE
+  }
 
   public enum ConvolveType
-    {
-      BLUR,
-      SHARPEN
-    }
+  {
+    BLUR,
+    SHARPEN
+  }
 
   public enum FillType
-    {
-      FOREGROUND,
-      BACKGROUND,
-      WHITE,
-      TRANSPARENT,
-      PATTERN
-    }
+  {
+    FOREGROUND,
+    BACKGROUND,
+    WHITE,
+    TRANSPARENT,
+    PATTERN
+  }
 
   public enum GradientSegmentColor
-    {
-      RGB,
-      HSV_CCW,
-      HSV_CW
-    }
+  {
+    RGB,
+    HSV_CCW,
+    HSV_CW
+  }
 
   public enum GradientSegmentType
-    {
-      LINEAR,
-      CURVED,
-      SINE,
-      SPHERE_INCREASING,
-      SPHERE_DECREASING
-    }
+  {
+    LINEAR,
+    CURVED,
+    SINE,
+    SPHERE_INCREASING,
+    SPHERE_DECREASING
+  }
 
   public enum HistogramChannel
-    {
-      VALUE,
-      RED,
-      GREEN,
-      BLUE,
-      ALPHA
-    }
+  {
+    VALUE,
+    RED,
+    GREEN,
+    BLUE,
+    ALPHA
+  }
 
   public enum HueRange
-    {
+  {
       
-      ALL,
-      RED,
-      YELLOW,
-      GREEN,
-      CYAN,
-      BLUE,
-      MAGENTA
-    }
+    ALL,
+    RED,
+    YELLOW,
+    GREEN,
+    CYAN,
+    BLUE,
+    MAGENTA
+  }
 
   public enum LayerModeEffects
-    {
-      NORMAL,
-      DISSOLVE,
-      BEHIND,
-      MULTIPLY,
-      SCREEN,
-      OVERLAY,
-      DIFFERENCE,
-      ADDITION,
-      SUBTRACT,
-      DARKEN_ONLY,
-      LIGHTEN_ONLY,
-      HUE,
-      SATURATION,
-      COLOR,
-      VALUE,
-      DIVIDE,
-      DODGE,
-      BURN,
-      HARDLIGHT,
-      SOFTLIGHT,
-      GRAIN_EXTRACT,
-      GRAIN_MERGE,
-      COLOR_ERASE
-    }
+  {
+    NORMAL,
+    DISSOLVE,
+    BEHIND,
+    MULTIPLY,
+    SCREEN,
+    OVERLAY,
+    DIFFERENCE,
+    ADDITION,
+    SUBTRACT,
+    DARKEN_ONLY,
+    LIGHTEN_ONLY,
+    HUE,
+    SATURATION,
+    COLOR,
+    VALUE,
+    DIVIDE,
+    DODGE,
+    BURN,
+    HARDLIGHT,
+    SOFTLIGHT,
+    GRAIN_EXTRACT,
+    GRAIN_MERGE,
+    COLOR_ERASE
+  }
 
   public enum MaskApplyMode
-    {
-      APPLY,
-      DISCARD
-    }
+  {
+    APPLY,
+    DISCARD
+  }
 
   public enum MergeType
-    {
-      EXPAND_AS_NECESSARY,
-      CLIP_TO_IMAGE,
-      CLIP_TO_BOTTOM_LAYER,
-      FLATTEN_IMAGE
-    }
+  {
+    EXPAND_AS_NECESSARY,
+    CLIP_TO_IMAGE,
+    CLIP_TO_BOTTOM_LAYER,
+    FLATTEN_IMAGE
+  }
 
   public enum OffsetType
-    {
-      BACKGROUND,
-      TRANSPARENT
-    }
+  {
+    BACKGROUND,
+    TRANSPARENT
+  }
 
   public enum OrientationType
-    {
-      HORIZONTAL,
-      VERTICAL,
-      UNKNOWN
-    }
+  {
+    HORIZONTAL,
+    VERTICAL,
+    UNKNOWN
+  }
 
   public enum RotationType
-    {
-      ROTATE_90,
-      ROTATE_180,
-      ROTATE_270
-    }
+  {
+    ROTATE_90,
+    ROTATE_180,
+    ROTATE_270
+  }
 
   public enum RunMode
-    {
-      INTERACTIVE,
-      NONINTERACTIVE,
-      WITH_LAST_VALS
-    }
+  {
+    INTERACTIVE,
+    NONINTERACTIVE,
+    WITH_LAST_VALS
+  }
 
   public enum Transparency
-    {
-      KEEP_ALPHA,
-      SMALL_CHECKS,
-      LARGE_CHECKS
-    }
+  {
+    KEEP_ALPHA,
+    SMALL_CHECKS,
+    LARGE_CHECKS
+  }
 
   public enum Unit
-    {
-      PIXEL   = 0,
-      INCH    = 1,
-      MM      = 2,
-      POINT   = 3,
-      PICA    = 4,
-      END     = 5,
+  {
+    PIXEL   = 0,
+    INCH    = 1,
+    MM      = 2,
+    POINT   = 3,
+    PICA    = 4,
+    END     = 5,
 
-      PERCENT = 65536 
-    }
+    PERCENT = 65536 
   }
+}

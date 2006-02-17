@@ -26,7 +26,7 @@ using System.Runtime.InteropServices;
 
 namespace Gimp
 {
-  public class ChannelList : IEnumerable<Channel>
+  public sealed class ChannelList : IEnumerable<Channel>
   {
     List<Channel> _list = new List<Channel>();
 

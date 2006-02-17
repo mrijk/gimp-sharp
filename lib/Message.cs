@@ -23,22 +23,22 @@ using System;
 using System.Runtime.InteropServices;
 
 namespace Gimp
-  {
+{
   public class Message
-    {
+  {
     public Message(string message)
-      {
+    {
       if (!gimp_message(message))
         {
-        throw new Exception();
+	  throw new Exception();
         }
-      }
+    }
 
     static MessageHandlerType Handler
-      {
+    {
       get {return gimp_message_get_handler();}
       set {gimp_message_set_handler(value);}
-      }
+    }
 
     [DllImport("libgimpwidgets-2.0-0.dll")]
     static extern bool gimp_message (string message);
@@ -46,5 +46,5 @@ namespace Gimp
     static extern MessageHandlerType gimp_message_get_handler();
     [DllImport("libgimpwidgets-2.0-0.dll")]
     static extern void gimp_message_set_handler(MessageHandlerType handler);
-    }
   }
+}

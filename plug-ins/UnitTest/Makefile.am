@@ -11,7 +11,10 @@ EXTRA_DIST = $(MYSOURCES) UnitTest
 UnitTest.exe : $(MYSOURCES) $(GIMPSHARPLIB)
 	$(CSC) $(MYSOURCES) -out:$@ $(ASSEMBLIES)
 
-TESTSOURCES = TestImage.cs
+TESTSOURCES = 	TestBrush.cs 		\
+		TestChannel.cs		\
+		TestChannelList.cs	\
+		TestImage.cs		
 
 gimptest.dll : $(TESTSOURCES) $(GIMPSHARPLIB)
 	$(CSC) -target:library $(ASSEMBLIES) $(TESTSOURCES) -out:gimptest.dll

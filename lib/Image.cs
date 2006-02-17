@@ -26,7 +26,7 @@ using Gdk;
 
 namespace Gimp
 {
-  public class Image
+  public sealed class Image
   {
     Int32 _imageID;
      
@@ -380,7 +380,8 @@ namespace Gimp
 
     public void GetResolution(out double xresolution, out double yresolution)
     {
-      if (!gimp_image_get_resolution(_imageID, out xresolution, out yresolution))
+      if (!gimp_image_get_resolution(_imageID, out xresolution, 
+				     out yresolution))
         {
 	  throw new Exception();
         }
@@ -637,7 +638,8 @@ namespace Gimp
     static extern bool  gimp_image_pick_color (Int32 image_ID,
                                                Int32 drawable_ID,
                                                double x, double y,
-                                               bool sample_merged, bool sample_average,
+                                               bool sample_merged, 
+					       bool sample_average,
                                                double average_radius,
                                                out GimpRGB color);
     [DllImport("libgimp-2.0-0.dll")]
@@ -705,13 +707,15 @@ namespace Gimp
                                                         ChannelType component);
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_image_set_component_active (Int32 image_ID,
-                                                        ChannelType component, bool active);
+                                                        ChannelType component,
+							bool active);
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_image_get_component_visible (Int32 image_ID,
                                                          ChannelType component);
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_image_set_component_visible (Int32 image_ID,
-                                                         ChannelType component, bool visible);
+                                                         ChannelType component,
+							 bool visible);
     [DllImport("libgimp-2.0-0.dll")]
     static extern string gimp_image_get_filename (Int32 image_ID);
     [DllImport("libgimp-2.0-0.dll")]
@@ -721,16 +725,19 @@ namespace Gimp
     static extern string gimp_image_get_name (Int32 image_ID);
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_image_get_resolution (Int32 image_ID,
-                                                  out double xresolution, out double yresolution);
+                                                  out double xresolution, 
+						  out double yresolution);
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_image_set_resolution (Int32 image_ID, 
-                                                  double xresolution, double yresolution);
+                                                  double xresolution, 
+						  double yresolution);
     [DllImport("libgimp-2.0-0.dll")]
     static extern Unit gimp_image_get_unit (Int32 image_ID);
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_image_set_unit (Int32 image_ID, Unit unit);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_set_tattoo_state(Int32 image_ID, int tattoo_state);
+    static extern bool gimp_image_set_tattoo_state(Int32 image_ID, 
+						   int tattoo_state);
     [DllImport("libgimp-2.0-0.dll")]
     static extern int gimp_image_get_tattoo_state(Int32 image_ID);
     [DllImport("libgimp-2.0-0.dll")]
@@ -743,7 +750,8 @@ namespace Gimp
     static extern IntPtr gimp_image_get_colormap(Int32 image_ID, 
                                                  out int num_colors);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_set_colormap(Int32 image_ID, byte[] colormap, 
+    static extern bool gimp_image_set_colormap(Int32 image_ID, 
+					       byte[] colormap, 
                                                int num_colors);
     [DllImport("libgimp-2.0-0.dll")]
     static extern IntPtr gimp_image_parasite_find(Int32 drawable_ID,

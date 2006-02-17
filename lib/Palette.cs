@@ -25,7 +25,7 @@ using System.Runtime.InteropServices;
 
 namespace Gimp
 {
-  public class Palette : IEnumerable
+  public sealed class Palette : IEnumerable
   {
     string _name;
 
@@ -49,7 +49,7 @@ namespace Gimp
       get {return _name;}
     }
 
-    public virtual IEnumerator GetEnumerator()
+    public IEnumerator GetEnumerator()
     {
       return new PaletteEnumerator(this);
     }

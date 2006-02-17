@@ -23,7 +23,7 @@ using System;
 
 namespace Gimp
 {
-  public class Mask
+  public sealed class Mask
   {
     Int32 _maskID;
     
@@ -36,5 +36,5 @@ namespace Gimp
     {
       get {return _maskID;}
     }
-    }
+  }
 }

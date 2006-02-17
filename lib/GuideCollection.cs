@@ -25,47 +25,47 @@ using System.Collections;
 // TODO: Enumerator could be implemented with new C# 2.0 features (yield)
 
 namespace Gimp
+{
+  public sealed class GuideCollection : IEnumerable
   {
-    public class GuideCollection : IEnumerable
+    Image _image;
+
+    public GuideCollection(Image image)
     {
+      _image = image;
+    }
+
+    public IEnumerator GetEnumerator()
+    {
+      return new GuideEnumerator(_image);
+    }
+
+    public sealed class GuideEnumerator : IEnumerator
+    {
+      Guide _current;
       Image _image;
 
-      public GuideCollection(Image image)
+      public GuideEnumerator(Image image)
       {
 	_image = image;
+	Reset();
       }
 
-      public virtual IEnumerator GetEnumerator()
+      public bool MoveNext()
       {
-	return new GuideEnumerator(_image);
+	_current = _current.FindNext();
+	return _current != null;
       }
 
-      public class GuideEnumerator : IEnumerator
+      public object Current
       {
-	Guide _current;
-	Image _image;
+	get {return _current;}
+      }
 
-	public GuideEnumerator(Image image)
-	{
-	  _image = image;
-	  Reset();
-	}
-
-	public bool MoveNext()
-	{
-	  _current = _current.FindNext();
-	  return _current != null;
-	}
-
-	public object Current
-	{
-	  get {return _current;}
-	}
-
-	public void Reset()
-	{
-	  _current = new Guide(_image, 0);
-	}
+      public void Reset()
+      {
+	_current = new Guide(_image, 0);
       }
     }
   }
+}

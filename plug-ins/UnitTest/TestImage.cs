@@ -95,5 +95,18 @@ namespace Gimp
 
       image.Delete();
     }
+
+    // [Test]
+    public void Channels()
+    {
+      int width = 64;
+      int height = 128;
+      ImageBaseType type = ImageBaseType.RGB;
+      Image image = new Image(width, height, type);
+
+      ChannelList channels = image.Channels;
+      
+      image.Delete();
+    }
   }
 }

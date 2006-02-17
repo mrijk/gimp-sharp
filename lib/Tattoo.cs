@@ -22,19 +22,19 @@
 using System;
 
 namespace Gimp
+{
+  public sealed class Tattoo
   {
-    public class Tattoo
+    int _tattooID;
+
+    public Tattoo(int tattooID)
     {
-      int _tattooID;
+      _tattooID = tattooID;
+    }
 
-      public Tattoo(int tattooID)
-      {
-	_tattooID = tattooID;
-      }
-
-      public int ID
-      {
-	get {return _tattooID;}
-      }
+    public int ID
+    {
+      get {return _tattooID;}
     }
   }
+}

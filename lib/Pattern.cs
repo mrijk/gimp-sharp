@@ -24,7 +24,7 @@ using System.Runtime.InteropServices;
 
 namespace Gimp
 {
-  public class Pattern
+  public sealed class Pattern
   {
     string _name;
 
