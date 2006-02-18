@@ -23,8 +23,6 @@ using System.IO;
 using NUnit.Core;
 using NUnit.Util;
 
-// using NUnit.Framework;
-
 using Gtk;
 
 namespace Gimp.UnitTest
@@ -157,12 +155,12 @@ namespace Gimp.UnitTest
 
     public void TestStarted(TestCase testCase)
     {
-      // Console.WriteLine("TestStarted");
+      Console.Write(testCase.Name + ": ");
     }
 
     public void SuiteStarted(TestSuite suite) 
     {
-      Console.WriteLine("SuiteStarted");
+      // Console.WriteLine("SuiteStarted");
     }
 
     public void SuiteFinished(TestSuiteResult suiteResult) 

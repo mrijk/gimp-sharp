@@ -1,3 +1,11 @@
+2006-02-18  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/UnitTest/TestContext.cs
+	* plug-ins/UnitTest/TestDisplay.cs 
+	* plug-ins/UnitTest/TestDrawable.cs: new test cases
+
+	* plug-ins/UnitTest/Makefile.am: changed accordingly
+
 2006-02-17  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/UnitTest/TestBrush.cs

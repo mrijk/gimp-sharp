@@ -14,6 +14,9 @@ UnitTest.exe : $(MYSOURCES) $(GIMPSHARPLIB)
 TESTSOURCES = 	TestBrush.cs 		\
 		TestChannel.cs		\
 		TestChannelList.cs	\
+		TestContext.cs		\
+		TestDisplay.cs		\
+		TestDrawable.cs		\
 		TestImage.cs		
 
 gimptest.dll : $(TESTSOURCES) $(GIMPSHARPLIB)
