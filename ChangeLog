@@ -1,5 +1,14 @@
 2006-02-18  Maurits  <m.rijk@chello.nl>
 
+	* plug-ins/UnitTest/EventCollector.cs
+	* plug-ins/UnitTest/UnitTester.cs: new files
+
+	* plug-ins/UnitTest/UnitTester.cs: moved classes to new files
+
+	* plug-ins/UnitTest/Makefile.am: changed accordingly
+
+2006-02-18  Maurits  <m.rijk@chello.nl>
+
 	* lib/Guide.cs 
 	* lib/HorizontalGuide.cs
 	* lib/VerticalGuide.cs: put classes in seperate files.

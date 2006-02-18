@@ -85,5 +85,14 @@ namespace Gimp
     {
       Assert.IsFalse(_drawable.HasAlpha());
     }
+
+    [Test]
+    public void Offsets()
+    {
+      int offset_x, offset_y;
+      _drawable.Offsets(out offset_x, out offset_y);
+      Assert.AreEqual(offset_x, 0);
+      Assert.AreEqual(offset_y, 0);      
+    }
   }
 }
