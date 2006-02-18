@@ -30,6 +30,7 @@ MYSOURCES = AspectPreview.cs 	\
 	Gradient.cs		\
 	GuideCollection.cs	\
 	Guide.cs		\
+	HorizontalGuide.cs	\
 	ImageComboBox.cs	\
 	IntComboBox.cs		\
 	IntStore.cs		\
@@ -65,7 +66,8 @@ MYSOURCES = AspectPreview.cs 	\
 	ScrolledPreview.cs	\
 	Selection.cs		\
 	Tattoo.cs		\
-	Tile.cs
+	Tile.cs			\
+	VerticalGuide.cs
 
 EXTRA_DIST = $(MYSOURCES) $(LIBRARY).config
 

@@ -60,7 +60,6 @@ namespace Gimp
       return (next == 0) ? null : new Guide(_imageID, next);
     }
 
-
     public OrientationType Orientation
     {
       get {return gimp_image_get_guide_orientation(_imageID, _guideID);}
@@ -77,27 +76,5 @@ namespace Gimp
     [DllImport("libgimp-2.0-0.dll")]
     static extern OrientationType 
     gimp_image_get_guide_orientation (Int32 image_ID, Int32 guide_ID);
-  }
-
-  public class VerticalGuide : Guide
-  {
-    public VerticalGuide(Image image, int xposition) : 
-      base(image, gimp_image_add_vguide(image.ID, xposition))
-    {
-    }
-    [DllImport("libgimp-2.0-0.dll")]
-    static extern Int32 gimp_image_add_vguide (Int32 image_ID,
-                                               int xposition);
-  }
-
-  public class HorizontalGuide : Guide
-  {
-    public HorizontalGuide(Image image, int yposition) : 
-      base(image, gimp_image_add_hguide(image.ID, yposition))
-    {
-    }
-    [DllImport("libgimp-2.0-0.dll")]
-    static extern Int32 gimp_image_add_hguide (Int32 image_ID,
-                                               int yposition);
   }
 }

@@ -28,17 +28,17 @@ namespace Gimp
   [TestFixture]
   public class TestDrawable
   {
+    int _width = 64;
+    int _height = 128;
     Image _image;
     Drawable _drawable;
 
     [SetUp]
     public void Init()
     {
-      int width = 64;
-      int height = 128;
-      _image = new Image(width, height, ImageBaseType.RGB);
+      _image = new Image(_width, _height, ImageBaseType.RGB);
 
-      Layer layer = new Layer(_image, "test", width, height,
+      Layer layer = new Layer(_image, "test", _width, _height,
 			      ImageType.RGB, 100, 
 			      LayerModeEffects.NORMAL);
       _image.AddLayer(layer, 0);
@@ -56,6 +56,34 @@ namespace Gimp
     public void NewDrawable()
     {
       Assert.IsNotNull(_drawable);
+      Assert.AreEqual(_image.ID, _drawable.Image.ID);
+    }
+
+    [Test]
+    public void WidthAndHeight()
+    {
+      Assert.AreEqual(_drawable.Width, _width);
+      Assert.AreEqual(_drawable.Height, _height);
+    }
+
+    [Test]
+    public void IsColorType()
+    {
+      Assert.IsTrue(_drawable.IsRGB);
+      Assert.IsFalse(_drawable.IsGray);
+      Assert.IsFalse(_drawable.IsIndexed);
+    }
+
+    [Test]
+    public void Name()
+    {
+      Assert.AreEqual(_drawable.Name, "test");
+    }
+
+    [Test]
+    public void HasAlpha()
+    {
+      Assert.IsFalse(_drawable.HasAlpha());
     }
   }
 }
