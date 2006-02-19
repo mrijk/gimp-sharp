@@ -44,7 +44,6 @@ namespace Gimp.UnitTest
       NUnitProject project;
 
       project = NUnitProject.FromAssemblies(new string[]{"/tmp/gimptest.dll"});
-      Console.WriteLine("project: " + project);
 
       return testDomain.Load("/tmp/gimptest.dll" );
     }

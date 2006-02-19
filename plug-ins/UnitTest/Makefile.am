@@ -19,7 +19,11 @@ TESTSOURCES = 	TestBrush.cs 		\
 		TestContext.cs		\
 		TestDisplay.cs		\
 		TestDrawable.cs		\
-		TestImage.cs		
+		TestImage.cs		\
+		TestPalette.cs		\
+		TestPaletteEntry.cs	\
+		TestPaletteList.cs	\
+		TestPatternList.cs
 
 gimptest.dll : $(TESTSOURCES) $(GIMPSHARPLIB)
 	$(CSC) -target:library $(ASSEMBLIES) $(TESTSOURCES) -out:gimptest.dll

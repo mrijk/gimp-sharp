@@ -1,3 +1,13 @@
+2006-02-19  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/UnitTest/TestPalette.cs
+	* plug-ins/UnitTest/TestPaletteEntry.cs
+	* plug-ins/UnitTest/TestPaletteList.cs: new files 
+
+	* plug-ins/UnitTest/Makefile.am: changed accordingly
+
+	* plug-ins/UnitTest/TestPatternList.cs: added testcases
+
 2006-02-18  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/UnitTest/EventCollector.cs

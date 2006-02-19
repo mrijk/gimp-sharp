@@ -29,6 +29,9 @@ namespace Gimp.UnitTest
 {
   public class EventCollector : LongLivingMarshalByRefObject, EventListener
   {
+    int _nr_ok = 0;
+    int _nr_failed = 0;
+
     public EventCollector( TextWriter outWriter, TextWriter errorWriter )
     {
     }
@@ -39,6 +42,8 @@ namespace Gimp.UnitTest
 
     public void RunFinished(TestResult[] results)
     {
+      Console.WriteLine("Succesful tests: " + _nr_ok);
+      Console.WriteLine("Failed tests   : " + _nr_failed);
     }
 
     public void RunFinished(Exception exception)
@@ -52,18 +57,18 @@ namespace Gimp.UnitTest
 	{
 	  if(testResult.IsFailure)
 	    {
-	      Console.WriteLine("Failure!");
+	      Console.WriteLine(testResult.ToString() + " failed");
+	      _nr_failed++;
 	    }
 	  else
 	    {
-	      Console.WriteLine("Ok!");
+	      _nr_ok++;
 	    }
 	}
     }
 
     public void TestStarted(TestCase testCase)
     {
-      Console.Write(testCase.Name + ": ");
     }
 
     public void SuiteStarted(TestSuite suite) 

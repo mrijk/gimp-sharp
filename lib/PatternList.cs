@@ -52,6 +52,11 @@ namespace Gimp
       return _list.GetEnumerator();
     }
 
+    public int Count
+    {
+      get {return _list.Count;}
+    }
+
     static public void Refresh()
     {
       gimp_patterns_refresh();
