@@ -36,15 +36,13 @@ namespace Gimp.SliceTool
       table.RowSpacing = 6;
       VBox.PackStart(table, true, true, 0);
 
-      RGB rgb = new RGB(255, 0, 0);
-      _active = new GimpColorButton("", 16, 16, rgb.GimpRGB,
+      _active = new GimpColorButton("", 16, 16, new RGB(255, 0, 0),
 				    ColorAreaType.COLOR_AREA_FLAT);
       _active.Update = true;
       table.AttachAligned(0, 0, "Active tile border color:", 0.0, 0.5, 
 			  _active, 1, true);
 
-      rgb = new RGB(0, 255, 0);
-      _inactive = new GimpColorButton("", 16, 16, rgb.GimpRGB,
+      _inactive = new GimpColorButton("", 16, 16, new RGB(0, 255, 0),
 				      ColorAreaType.COLOR_AREA_FLAT);
       _inactive.Update = true;
       table.AttachAligned(0, 1, "Inactive tile border color:", 0.0, 0.5, 

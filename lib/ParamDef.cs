@@ -69,7 +69,7 @@ namespace Gimp
       }
 
       // Can this be done by a casting overload?
-      public GimpParam GetGimpParam()
+      internal GimpParam GetGimpParam()
       {
 	GimpParam param = new GimpParam();
 

@@ -96,7 +96,7 @@ namespace Gimp.Ministeck
       table.AttachAligned(0, 0, "_Size:", 0.0, 0.5, size, 2, true);
       size.ValueChanged += SizeChanged;
 
-      _colorButton = new GimpColorButton("", 16, 16, _color.GimpRGB, 
+      _colorButton = new GimpColorButton("", 16, 16, _color, 
 					 ColorAreaType.COLOR_AREA_FLAT);
       _colorButton.Update = true;
       _colorButton.ColorChanged += ColorChanged;

@@ -81,6 +81,8 @@ AUTOCONF = ${SHELL} /home/maurits/gimp-sharp/missing --run autoconf
 AUTOHEADER = ${SHELL} /home/maurits/gimp-sharp/missing --run autoheader
 AUTOMAKE = ${SHELL} /home/maurits/gimp-sharp/missing --run automake-1.9
 AWK = gawk
+BUILD_UNITTEST_FALSE = #
+BUILD_UNITTEST_TRUE = 
 CC = gcc
 CCDEPMODE = depmode=gcc3
 CFLAGS = -g -O2

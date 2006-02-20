@@ -1,15 +1,17 @@
+dnl Process this file with autoconf to produce a configure script.
+
 AC_INIT(README)
 AM_INIT_AUTOMAKE(gimp-sharp, 0.8)
 AM_PROG_LIBTOOL
 AM_CONFIG_HEADER(config.h)
 
 dnl find and test the C compiler
-AC_PROG_CC
-AC_LANG_C
+# AC_PROG_CC
+# AC_LANG_C
 AC_PROG_INSTALL
 AC_PROG_MAKE_SET
-               
-AC_HEADER_STDC
+   
+# AC_HEADER_STDC
                   
 VERSION="0.8"
 AC_SUBST(VERSION)
@@ -55,5 +57,24 @@ fi
 
 AC_SUBST(CSC)
 
+#
+# Check if we want to build unit test plug-in.
+#
+
+unittest=no
+AC_ARG_WITH(unittest,[  --with-unittest         build unittest plug-in (default-no)])
+if test "x$with_unittest" == xyes; then
+   unittest=yes
+fi
+
+AM_CONDITIONAL(BUILD_UNITTEST, test x$unittest = xyes)
+
 dnl read Makefile.in and write Makefile
 AC_OUTPUT(Makefile lib/Makefile plug-ins/Makefile plug-ins/KoalaPaint/Makefile plug-ins/ncp/Makefile plug-ins/Ministeck/Makefile plug-ins/PicturePackage/Makefile plug-ins/RedEye/Makefile plug-ins/SliceTool/Makefile plug-ins/Splitter/Makefile plug-ins/Swirlies/Makefile plug-ins/UnitTest/Makefile plug-ins/wbmp/Makefile)
+
+dnl Print a summary of features enabled/disabled:
+AC_MSG_RESULT([
+Building GIMP-SHARP with prefix=$prefix
+GIMP-SHARP Features:
+  unittest: $unittest
+]);

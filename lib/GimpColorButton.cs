@@ -37,12 +37,21 @@ namespace Gimp
 
   public class GimpColorButton : Button
   {
-    public GimpColorButton(string title,
+    internal GimpColorButton(string title,
 			   int width,
 			   int height,
 			   GimpRGB color,
 			   ColorAreaType type) : 
       base(gimp_color_button_new(title, width, height, ref color, type))
+    {
+    }
+
+    public GimpColorButton(string title,
+			   int width,
+			   int height,
+			   RGB color,
+			   ColorAreaType type) : 
+      this(title, width, height, color.GimpRGB, type)
     {
     }
 

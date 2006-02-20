@@ -40,12 +40,12 @@ namespace Gimp
       gimp_rgb_set_uchar(ref _rgb, red, green, blue);
     }
 
-    public RGB(GimpRGB rgb)
+    internal RGB(GimpRGB rgb)
     {
       _rgb = rgb;
     }
 
-    public GimpRGB GimpRGB
+    internal GimpRGB GimpRGB
     {
       get {return _rgb;}
     }

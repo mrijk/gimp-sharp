@@ -55,9 +55,7 @@ namespace Gimp.PicturePackage
 
       HBox hbox = new HBox(false, 12);
 
-      RGB rgb = new RGB(0, 0, 0);
-
-      _color = new GimpColorButton("", 16, 16, rgb.GimpRGB,
+      _color = new GimpColorButton("", 16, 16, new RGB(0, 0, 0),
 				   ColorAreaType.COLOR_AREA_FLAT);
       _color.Update = true;
       hbox.Add(_color);
