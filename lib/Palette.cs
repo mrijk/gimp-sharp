@@ -21,11 +21,12 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace Gimp
 {
-  public sealed class Palette : IEnumerable
+  public sealed class Palette : IEnumerable<PaletteEntry>
   {
     string _name;
 
@@ -48,15 +49,29 @@ namespace Gimp
     {
       get {return _name;}
     }
-
-    public IEnumerator GetEnumerator()
+ 
+    IEnumerator IEnumerable.GetEnumerator()
     {
-      return new PaletteEnumerator(this);
+      int numColors = NumberOfColors;
+      for (int i = 0; i < numColors; i++)
+	{
+	  yield return this[i];
+	}
+    }
+ 
+    IEnumerator<PaletteEntry> IEnumerable<PaletteEntry>.GetEnumerator()
+    {
+      int numColors = NumberOfColors;
+      for (int i = 0; i < numColors; i++)
+	{
+	  yield return this[i];
+	}
     }
 
     public string Rename(string new_name)
     {
-      return gimp_palette_rename(_name, new_name);
+      _name = gimp_palette_rename(_name, new_name);
+      return _name;
     }
 
     public void Delete()
@@ -73,6 +88,16 @@ namespace Gimp
         {
 	  throw new Exception();
         }
+    }
+
+    public int NumberOfColors
+    {
+      get 
+	{
+	  int num_colors;
+	  GetInfo(out num_colors);
+	  return num_colors;
+	}
     }
 
     public void AddEntry(string entry_name, RGB color, out int entry_num)

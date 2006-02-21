@@ -1,3 +1,20 @@
+2006-02-21  Maurits  <m.rijk@chello.nl>
+
+	* NEWS: updated
+
+2006-02-21  Maurits  <m.rijk@chello.nl>
+
+	* lib/Palette.cs: fixed bug in Rename method (thanks to unit testing!)
+	Implemented enumerator with yield keyword
+
+	* lib/PaletteEnumerator.cs: now obsolete
+	
+	* lib/Makefile: changed accordingly
+
+2006-02-20  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/UnitTest/TestPalette.cs: added a few tests.
+
 2006-02-20  Maurits  <m.rijk@chello.nl>
 
 	* lib/RGB.cs

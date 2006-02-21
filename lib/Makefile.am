@@ -42,7 +42,6 @@ MYSOURCES = AspectPreview.cs 	\
 	Message.cs		\
 	Palette.cs		\
 	PaletteEntry.cs		\
-	PaletteEnumerator.cs	\
 	PaletteList.cs		\
 	ParamDef.cs		\
 	ParamDefList.cs		\

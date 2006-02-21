@@ -29,8 +29,74 @@ namespace Gimp
   public class TestPalette
   {
     [Test]
-    public void FirstTest()
+    public void NewPalette()
     {
+      Palette palette = new Palette("UnitTestPalette");
+      palette.Delete();
+    }
+
+    [Test]
+    public void Rename()
+    {
+      Palette palette = new Palette("UnitTestPalette");
+      string name = palette.Rename("UnitTestPaletteTwo");
+      Assert.AreEqual(name, "UnitTestPaletteTwo");
+      Assert.IsTrue(palette.Name == "UnitTestPaletteTwo");
+      palette.Delete();
+    }
+
+    [Test]
+    public void GetInfo()
+    {
+      Palette palette = new Palette("UnitTestPalette");
+      int num_colors;
+      palette.GetInfo(out num_colors);
+      Assert.AreEqual(num_colors, 0);
+      palette.Delete();
+    }
+
+    [Test]
+    public void AddEntry()
+    {
+      Palette palette = new Palette("UnitTestPalette");
+      palette.AddEntry("black", new RGB(0, 0, 0));
+      Assert.AreEqual(palette.NumberOfColors, 1);
+      palette.Delete();
+    }
+
+    [Test]
+    public void DeleteEntry()
+    {
+      Palette palette = new Palette("UnitTestPalette");
+      palette.AddEntry("black", new RGB(0, 0, 0));
+      palette.DeleteEntry(0);
+      Assert.AreEqual(palette.NumberOfColors, 0);
+      palette.Delete();
+    }
+
+    [Test]
+    public void This()
+    {
+      Palette palette = new Palette("UnitTestPalette");
+      palette.AddEntry("black", new RGB(0, 0, 0));
+      PaletteEntry black = palette[0];
+      Assert.IsNotNull(black);
+      palette.Delete();
+    }
+
+    [Test]
+    public void GetEnumerator()
+    {
+      Palette palette = new Palette("UnitTestPalette");
+      palette.AddEntry("black", new RGB(0, 0, 0));
+      int count = 0;
+      foreach (PaletteEntry entry in palette)
+	{
+	  count++;
+	  Assert.AreEqual(entry.Name, "black");
+	}
+      Assert.AreEqual(count, 1);
+      palette.Delete();
     }
   }
 }
