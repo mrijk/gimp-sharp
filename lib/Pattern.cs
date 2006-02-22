@@ -26,7 +26,7 @@ namespace Gimp
 {
   public sealed class Pattern
   {
-    string _name;
+    readonly string _name;
 
     public Pattern(string name)
     {

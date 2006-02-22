@@ -1,3 +1,33 @@
+2006-02-22  Maurits  <m.rijk@chello.nl>
+
+	* lib/Layer.cs: marked constructor internal
+
+	* lib/Context.cs: made class static and implement Pop method.
+	
+	* lib/Gimp.cs: made class static
+
+	* lib/Parasite.cs: implemented Equals method based on
+	gimp_parasite_compare
+
+	* lib/Channel.cs
+	* lib/ChannelList.cs
+	* lib/Display.cs
+	* lib/Drawable.cs 
+	* lib/Gradient.cs
+	* lib/Image.cs
+	* lib/LayerList.cs
+	* lib/PaletteEntry.cs
+	* lib/PaletteList.cs
+	* lib/Path.cs
+	* lib/Pattern.cs
+	* lib/PatternList.cs
+	* lib/PersistentStorage.cs
+	* lib/PixelRgn.cs
+	* lib/RgnIterator.cs
+	* lib/Selection.cs
+	* lib/Tattoo.cs
+	* lib/Tile.cs: made some variables readonly
+
 2006-02-21  Maurits  <m.rijk@chello.nl>
 
 	* NEWS: updated

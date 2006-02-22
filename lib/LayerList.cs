@@ -28,7 +28,7 @@ namespace Gimp
 {
   public sealed class LayerList : IEnumerable<Layer>
   {
-    List<Layer> _list = new List<Layer>();
+    readonly List<Layer> _list = new List<Layer>();
 
     public LayerList(Image image)
     {

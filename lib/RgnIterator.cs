@@ -29,9 +29,10 @@ namespace Gimp
     public delegate byte[] IterFuncDest(int x, int y);
     public delegate byte[] IterFuncSrcDest(int x, int y, byte[] src);
 
-    Drawable _drawable;
-    int x1, y1, x2, y2;
-    RunMode _runmode;
+    readonly int x1, y1, x2, y2;
+
+    readonly Drawable _drawable;
+    readonly RunMode _runmode;
     Progress _progress;
 
     public RgnIterator(Drawable drawable, RunMode runmode)

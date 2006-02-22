@@ -26,8 +26,8 @@ namespace Gimp
 {
   public sealed class PaletteEntry
   {
-    string _paletteName;
-    int _index;
+    readonly string _paletteName;
+    readonly int _index;
 
     public PaletteEntry(Palette palette, int index)
     {

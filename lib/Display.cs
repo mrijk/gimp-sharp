@@ -27,7 +27,7 @@ namespace Gimp
 {
   public sealed class Display
   {
-    Int32 _displayID = -1;
+    readonly Int32 _displayID = -1;
 
     public Display(Image image)
     {

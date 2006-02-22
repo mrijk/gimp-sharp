@@ -42,7 +42,7 @@ namespace Gimp
     {
     }
 
-    public Layer(Int32 layerID) : base(layerID)
+    internal Layer(Int32 layerID) : base(layerID)
     {
     }
 

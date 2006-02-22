@@ -26,11 +26,13 @@ namespace Gimp
 {
   public sealed class PixelFetcher
   {
-    IntPtr _ptr;
+    readonly IntPtr _ptr;
+    readonly byte[] _dummy;
 
     public PixelFetcher(Drawable drawable, bool shadow)
     {
       _ptr = gimp_pixel_fetcher_new (drawable.Ptr, shadow);
+      _dummy = new byte[drawable.Bpp];
     }
 
     public void Destroy()
@@ -47,6 +49,21 @@ namespace Gimp
     {
       gimp_pixel_fetcher_put_pixel (_ptr, x, y, pixel);
     }
+
+    public byte[] this[int row, int col]
+    {
+      set 
+	{
+	  PutPixel(col, row, value);
+	}
+
+      get
+	{
+	  GetPixel(col, row, _dummy);
+	  return _dummy;
+	}
+    }
+
     [DllImport("libgimp-2.0-0.dll")]
     static extern IntPtr gimp_pixel_fetcher_new (IntPtr drawable,
 						 bool shadow);

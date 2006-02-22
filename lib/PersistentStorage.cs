@@ -29,8 +29,8 @@ namespace Gimp
 {
   public sealed class PersistentStorage
   {
-    Plugin _plugin;
-    string _name;
+    readonly Plugin _plugin;
+    readonly string _name;
 
     public PersistentStorage(Plugin plugin)
     {

@@ -26,7 +26,7 @@ namespace Gimp
 {
   public sealed class Tile
   {
-    IntPtr _tile;
+    readonly IntPtr _tile;
 
     public Tile(IntPtr tile)
     {

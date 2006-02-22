@@ -25,7 +25,7 @@ namespace Gimp
 {
   public sealed class Tattoo
   {
-    int _tattooID;
+    readonly int _tattooID;
 
     public Tattoo(int tattooID)
     {

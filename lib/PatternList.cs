@@ -28,7 +28,7 @@ namespace Gimp
 {
   public sealed class PatternList : IEnumerable<Pattern>
   {
-    List<Pattern> _list = new List<Pattern>();
+    readonly List<Pattern> _list = new List<Pattern>();
 
     public PatternList(string filter)
     {

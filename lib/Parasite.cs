@@ -23,10 +23,10 @@ using System;
 using System.Runtime.InteropServices;
 
 namespace Gimp
-  {
+{
   public class Parasite
-    {
-    IntPtr _parasite;
+  {
+    readonly IntPtr _parasite;
 
     public const int PERSISTENT = 1;
     public const int UNDOABLE = 2;
@@ -38,69 +38,78 @@ namespace Gimp
     public const int GRANDPARENT_UNDOABLE = UNDOABLE << 16;
 
     public Parasite(string name, UInt32 flags, UInt32 size, object data)
-      {
+    {
       _parasite = gimp_parasite_new (name, flags, size, data);
-      }
+    }
 
     public Parasite(Parasite parasite)
-      {
+    {
       _parasite = gimp_parasite_copy(parasite._parasite);
-      }
+    }
 
     public Parasite(IntPtr parasite)
-      {
+    {
       _parasite = parasite;
-      }
+    }
+
+    public override bool Equals(object o)
+    {
+      if (o is Parasite)
+	{
+	  return gimp_parasite_compare(_parasite, (o as Parasite)._parasite);
+	}
+      return false;
+    }
 
     public void Free()
-      {
+    {
       gimp_parasite_free(_parasite);
-      }
+    }
 
     public bool IsType(string name)
-      {
+    {
       return gimp_parasite_is_type(_parasite, name);
-      }
+    }
 
     public bool IsPersistent()
-      {
+    {
       return gimp_parasite_is_persistent(_parasite);
-      }
+    }
 
     public bool IsUndoable()
-      {
+    {
       return gimp_parasite_is_undoable(_parasite);
-      }
+    }
 
     public bool HasFlag(ulong flag)
-      {
+    {
       return gimp_parasite_has_flag(_parasite, flag);
-      }
+    }
 
     public ulong Flags
-      {
+    {
       get {return gimp_parasite_flags(_parasite);}
-      }
+    }
 
     public string Name
-      {
+    {
       get {return gimp_parasite_name(_parasite);}
-      }
+    }
 
     public object Data
-      {
+    {
       get {return gimp_parasite_data(_parasite);}
-      }
+    }
 
     public long DataSize
-      {
+    {
       get {return gimp_parasite_data_size(_parasite);}
-      }
+    }
 
-    public IntPtr Ptr
-      {
+    internal IntPtr Ptr
+    {
       get {return _parasite;}
-      }
+    }
 
     [DllImport("libgimp-2.0-0.dll")]
     static extern IntPtr gimp_parasite_new (string name, UInt32 flags, 
@@ -127,5 +136,5 @@ namespace Gimp
     static extern object gimp_parasite_data(IntPtr parasite);
     [DllImport("libgimp-2.0-0.dll")]
     static extern long gimp_parasite_data_size(IntPtr parasite);
-    }
   }
+}

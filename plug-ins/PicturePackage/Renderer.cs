@@ -40,6 +40,7 @@ namespace Gimp.PicturePackage
 
     protected Image RotateAndScale(Image image, double w, double h)
     {
+      // Fixme: remove check on ID's
       if (_cachedID != image.ID || _w != w || _h != h)
 	{
 	  _cachedID = image.ID;

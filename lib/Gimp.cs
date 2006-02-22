@@ -26,13 +26,14 @@ using GLib;
 
 namespace Gimp
 {
-  public sealed class Gimp
+  public static class Gimp
   {
     static public string Directory
     {
       get
 	{
           IntPtr tmp = gimp_directory();
+	  // return Marshaller.FilenamePtrToString(tmp);
 	  return Marshaller.Utf8PtrToString(tmp);
 	}
     }

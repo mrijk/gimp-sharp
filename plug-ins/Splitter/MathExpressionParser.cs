@@ -22,15 +22,15 @@ using System;
 using System.Reflection;
 
 namespace Gimp.Splitter
-  {
+{
   public class MathExpressionParser
-    {
+  {
     MyClassBase myobj = null;
     public MathExpressionParser()
-      {
-      }
+    {
+    }
     public bool Init(string expr)
-      {
+    {
       Microsoft.CSharp.CSharpCodeProvider cp
 	= new Microsoft.CSharp.CSharpCodeProvider();
       System.CodeDom.Compiler.ICodeCompiler ic = cp.CreateCompiler();
@@ -39,9 +39,11 @@ namespace Gimp.Splitter
       cpar.GenerateInMemory = true;
       cpar.GenerateExecutable = false;
       cpar.ReferencedAssemblies.Add("System.dll");
+      // FIXME: next line fails if GIMP not executed in plug-in directory
       cpar.ReferencedAssemblies.Add("Splitter.exe"); 
-      string src = "using System;"+
-	"class myclass:Gimp.Splitter.MyClassBase" + 
+      string src = 
+	"using System;"+
+	"class myclass : Gimp.Splitter.MyClassBase" + 
 	"{"+
 	"public myclass(){}"+
 	"public override double eval(double x,double y)"+
@@ -56,32 +58,32 @@ namespace Gimp.Splitter
 
       if (cr.Errors.Count == 0 && cr.CompiledAssembly != null)
 	{
-	Type ObjType = cr.CompiledAssembly.GetType("myclass");
-	try
-	  {
-	  if (ObjType != null)
+	  Type ObjType = cr.CompiledAssembly.GetType("myclass");
+	  try
 	    {
-	    myobj = (MyClassBase)Activator.CreateInstance(ObjType);
+	      if (ObjType != null)
+		{
+		  myobj = (MyClassBase)Activator.CreateInstance(ObjType);
+		}
 	    }
-	  }
-	catch (Exception ex)
-	  {
-	  Console.WriteLine(ex.Message);
-	  }
-	return true;
+	  catch (Exception ex)
+	    {
+	      Console.WriteLine(ex.Message);
+	    }
+	  return true;
 	}
       else 
 	return false;
-      }
+    }
 
     public double Eval(double x, double y)
-      {
+    {
       double val = 0.0;
       if (myobj != null)
 	{
-	val = myobj.eval(x,y);
+	  val = myobj.eval(x,y);
 	}
       return val;
-      }
     }
   }
+}

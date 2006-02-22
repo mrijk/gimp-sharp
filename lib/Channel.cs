@@ -26,7 +26,7 @@ namespace Gimp
 {
   public sealed class Channel
   {
-    Int32 _channelID;
+    readonly Int32 _channelID;
 
     public Channel(Image image, string name, int width, int height,
                    double opacity, RGB color)

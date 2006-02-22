@@ -24,11 +24,19 @@ using System.Runtime.InteropServices;
 
 namespace Gimp
 {
-  public sealed class Context
+  public static class Context
   {
     static public void Push()
     {
       if (!gimp_context_push())
+	{
+	  throw new Exception();
+	}
+    }
+
+    static public void Pop()
+    {
+      if (!gimp_context_pop())
 	{
 	  throw new Exception();
 	}

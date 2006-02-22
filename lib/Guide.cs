@@ -26,8 +26,8 @@ namespace Gimp
 {
   public class Guide
   {
-    protected Int32 _imageID;
-    protected Int32 _guideID;
+    protected internal Int32 _imageID;
+    protected internal Int32 _guideID;
 
     public Guide(Image image, Int32 guideID)
     {

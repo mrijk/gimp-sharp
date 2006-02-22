@@ -28,7 +28,7 @@ namespace Gimp
 {
   public sealed class ChannelList : IEnumerable<Channel>
   {
-    List<Channel> _list = new List<Channel>();
+    readonly List<Channel> _list = new List<Channel>();
 
     public ChannelList(Image image)
     {

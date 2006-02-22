@@ -24,98 +24,98 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace Gimp
+{
+  public class ParamDef
   {
-    public class ParamDef
+    readonly string _name;
+    readonly string _description;
+    readonly Type   _type;
+    object _value;
+
+    GimpParamDef _paramDef = new GimpParamDef();
+
+    public ParamDef(string name, object value, Type type, string description)
     {
-      string _name;
-      string _description;
-      object _value;
-      Type   _type;
+      _name = name;
+      _value = value;
+      _type = type;
+      _description = description;
+    }
 
-      GimpParamDef _paramDef = new GimpParamDef();
+    public ParamDef(string name, Type type, string description) : 
+      this(name, null, type, description)
+    {
+    }
 
-      public ParamDef(string name, object value, Type type, string description)
-      {
-        _name = name;
-	_value = value;
-	_type = type;
-	_description = description;
-      }
+    public ParamDef(object value, Type type) :
+      this(null, value, type, null)
+    {
+    }
 
-      public ParamDef(string name, Type type, string description) : 
-	this(name, null, type, description)
-      {
-      }
+    public PDBArgType GetGimpType()
+    {
+      if (_type == typeof(int))
+	return PDBArgType.INT32;
+      else if (_type == typeof(string))
+	return PDBArgType.STRING;
+      else if (_type == typeof(Drawable))
+	return PDBArgType.DRAWABLE;
+      else if (_type == typeof(Image))
+	return PDBArgType.IMAGE;
+      else if (_type == typeof(PDBStatusType))
+	return PDBArgType.STATUS;
+      else
+	return PDBArgType.END;
+    }
 
-      public ParamDef(object value, Type type) :
-	this(null, value, type, null)
-      {
-      }
+    // Can this be done by a casting overload?
+    internal GimpParam GetGimpParam()
+    {
+      GimpParam param = new GimpParam();
 
-      public PDBArgType GetGimpType()
-      {
-	  if (_type == typeof(int))
-	    return PDBArgType.INT32;
-	  else if (_type == typeof(string))
-	    return PDBArgType.STRING;
-	  else if (_type == typeof(Drawable))
-	    return PDBArgType.DRAWABLE;
-	  else if (_type == typeof(Image))
-	    return PDBArgType.IMAGE;
-	  else if (_type == typeof(PDBStatusType))
-	    return PDBArgType.STATUS;
-	  else
-	    return PDBArgType.END;
-      }
+      param.type = GetGimpType();
 
-      // Can this be done by a casting overload?
-      internal GimpParam GetGimpParam()
-      {
-	GimpParam param = new GimpParam();
+      switch (param.type)
+	{
+	case PDBArgType.INT32:
+	  param.data.d_int32 = (Int32) _value;
+	  break;
+	case PDBArgType.STRING:
+	  param.data.d_string = Marshal.StringToHGlobalAuto((string) _value);
+	  break;
+	case PDBArgType.IMAGE:
+	  param.data.d_image = ((Image) _value).ID;
+	  break;
+	case PDBArgType.STATUS:
+	  param.data.d_status = (PDBStatusType) _value;
+	  break;
+	default:
+	  Console.WriteLine("GetGimpParam: couldn't create");
+	  break;
+	}
 
-	param.type = GetGimpType();
+      return param;
+    }
 
-	switch (param.type)
-	  {
-	  case PDBArgType.INT32:
-	    param.data.d_int32 = (Int32) _value;
-	    break;
-	  case PDBArgType.STRING:
-	    param.data.d_string = Marshal.StringToHGlobalAuto((string) _value);
-	    break;
-	  case PDBArgType.IMAGE:
-	    param.data.d_image = ((Image) _value).ID;
-	    break;
-	  case PDBArgType.STATUS:
-	    param.data.d_status = (PDBStatusType) _value;
-	    break;
-	  default:
-	    Console.WriteLine("GetGimpParam: couldn't create");
-	    break;
-	  }
+    public string Name
+    {
+      get {return _name;}
+    }
 
-	return param;
-      }
+    public object Value
+    {
+      get {return _value;}
+      set {_value = value;}
+    }
 
-      public string Name
-      {
-        get {return _name;}
-      }
+    public string Description
+    {
+      get {return _description;}
+    }
 
-      public object Value
-      {
-        get {return _value;}
-	set {_value = value;}
-      }
-
-      public string Description
-      {
-        get {return _description;}
-      }
-
-      public GimpParamDef GimpParamDef
-      {
-	get {return _paramDef;}
-      }
+    public GimpParamDef GimpParamDef
+    {
+      get {return _paramDef;}
     }
   }
+}

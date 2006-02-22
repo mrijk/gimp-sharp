@@ -26,13 +26,13 @@ namespace Gimp
 {
   public sealed class Selection
   {
-    Int32 _imageID;
+    readonly Int32 _imageID;
 
     public Selection(Image image) : this(image.ID)
     {
     }
 
-    public Selection(Int32 imageID)
+    internal Selection(Int32 imageID)
     {
       _imageID = imageID;
     }

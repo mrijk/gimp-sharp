@@ -32,6 +32,7 @@ namespace Gimp
     public void NewPalette()
     {
       Palette palette = new Palette("UnitTestPalette");
+      // TODO: Check if number of palettes has increased by 1
       palette.Delete();
     }
 
@@ -81,6 +82,15 @@ namespace Gimp
       palette.AddEntry("black", new RGB(0, 0, 0));
       PaletteEntry black = palette[0];
       Assert.IsNotNull(black);
+
+      // TODO: no range check yet
+      PaletteEntry white = palette[1];
+      try {
+	// string name = white.Name;
+	Assert.IsTrue(false);
+      } catch {
+      }
+      
       palette.Delete();
     }
 

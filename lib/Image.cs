@@ -28,9 +28,9 @@ namespace Gimp
 {
   public sealed class Image
   {
-    Int32 _imageID;
+    internal Int32 _imageID;
      
-    public Image(Int32 imageID)
+    internal Image(Int32 imageID)
     {
       _imageID = imageID;
     }
@@ -579,6 +579,7 @@ namespace Gimp
 
     // Misc functions
 
+    // Fix me: this should become internal
     public Int32 ID
     {
       get {return _imageID;}

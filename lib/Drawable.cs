@@ -26,8 +26,8 @@ namespace Gimp
 {
   public class Drawable
   {
-    IntPtr _drawable;
-    protected Int32 _ID;
+    readonly IntPtr _drawable;
+    readonly protected Int32 _ID;
 
     public Drawable(Int32 drawableID)
     {
@@ -390,12 +390,12 @@ namespace Gimp
 
     // Misc routines
 
-    public Int32 ID
+    internal Int32 ID
     {
       get {return _ID;}
     }
 
-    public IntPtr Ptr
+    internal IntPtr Ptr
     {
       get {return _drawable;}
     }

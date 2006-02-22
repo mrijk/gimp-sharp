@@ -28,7 +28,7 @@ namespace Gimp
 {
   public class ParamDefList : IEnumerable<ParamDef>
   {
-    List<ParamDef> _set;
+    readonly List<ParamDef> _set;
 
     public ParamDefList(bool usesImage, bool usesDrawable)
     {

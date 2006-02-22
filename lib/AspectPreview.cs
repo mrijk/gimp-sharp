@@ -23,16 +23,16 @@ using System;
 using System.Runtime.InteropServices;
 
 namespace Gimp
+{
+  public class AspectPreview : GimpPreview
   {
-    public class AspectPreview : GimpPreview
+    public AspectPreview(Drawable drawable, bool toggle) : 
+      base(gimp_aspect_preview_new(drawable.Ptr, toggle))
     {
-      public AspectPreview(Drawable drawable, bool toggle) : 
-	base(gimp_aspect_preview_new(drawable.Ptr, toggle))
-      {
-      }
-
-      [DllImport("libgimpui-2.0-0.dll")]
-      extern static IntPtr gimp_aspect_preview_new (IntPtr drawable,
-						    bool toggle);
     }
+
+    [DllImport("libgimpui-2.0-0.dll")]
+    extern static IntPtr gimp_aspect_preview_new (IntPtr drawable,
+						  bool toggle);
   }
+}
