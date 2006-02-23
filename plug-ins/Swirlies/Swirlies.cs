@@ -20,6 +20,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Threading;
 
 using Gtk;
 
@@ -34,6 +35,9 @@ namespace Gimp.Swirlies
     List<Swirly> _swirlies = new List<Swirly>();
 
     AspectPreview _preview;
+    ProgressBar _progress;
+
+    Thread _renderThread;
 
     [SaveAttribute]
     UInt32 _seed;
@@ -88,9 +92,12 @@ namespace Gimp.Swirlies
       dialog.VBox.PackStart(vbox, true, true, 0);
 
       _preview = new AspectPreview(_drawable, false);
-      _preview.Invalidated += new EventHandler(UpdatePreview);
+      _preview.Invalidated += UpdatePreview;
       vbox.PackStart(_preview, true, true, 0);
 
+      _progress = new ProgressBar();
+      vbox.PackStart(_progress, false, false, 0);
+      
       GimpTable table = new GimpTable(4, 3, false);
       table.ColumnSpacing = 6;
       table.RowSpacing = 6;
@@ -103,13 +110,28 @@ namespace Gimp.Swirlies
       ScaleEntry entry = new ScaleEntry(table, 0, 1, "Po_ints:", 150, 3,
 					_points, 1.0, 16.0, 1.0, 8.0, 0,
 					true, 0, 0, null, null);
-      entry.ValueChanged += new EventHandler(PointsUpdate);
+      entry.ValueChanged += PointsUpdate;
 			
       dialog.ShowAll();
       return DialogRun();
     }
 
     void UpdatePreview(object sender, EventArgs e)
+    {
+      if (_renderThread != null)
+	{
+	  _renderThread.Abort();
+	  _renderThread.Join();
+	}
+      else 
+	{
+	  _renderThread = new Thread(new ThreadStart(MyUpdatePreview));
+	  _renderThread.Start();
+	}
+    }
+
+    // void UpdatePreview(object sender, EventArgs e)
+    void MyUpdatePreview()
     {
       Initialize(_drawable);
 
@@ -120,19 +142,22 @@ namespace Gimp.Swirlies
       byte[] dest = new byte[3];
       for (int y = 0; y < height; y++)
 	{
-	int y_orig = _height * y / height;
-	for (int x = 0; x < width; x++)
-	  {
-	  long index = 3 * (y * width + x);
-	  int x_orig = _width * x / width;
+	  int y_orig = _height * y / height;
+	  for (int x = 0; x < width; x++)
+	    {
+	      long index = 3 * (y * width + x);
+	      int x_orig = _width * x / width;
 
-	  dest = DoSwirlies(x_orig, y_orig);
-	  dest.CopyTo(buffer, index);
-	  }
+	      dest = DoSwirlies(x_orig, y_orig);
+	      dest.CopyTo(buffer, index);
+	    }
+	  Application.Invoke (delegate {
+	    _progress.Update((double) y / height);
+	  });
 	}
       _preview.DrawBuffer(buffer, width * 3);
     }
-
+    
     void PointsUpdate(object sender, EventArgs e)
     {
       _points = (int) (sender as Adjustment).Value;
@@ -177,11 +202,11 @@ namespace Gimp.Swirlies
 
       foreach (Swirly swirly in _swirlies)
 	{
-	swirly.CalculateOnePoint(terms, _width, _height, zoom, x, y, 
-				 ref Fr, ref Fg, ref Fb);
-	_dest[0] = FloatToIntPixel(RemapColorRange(Fr));
-	_dest[1] = FloatToIntPixel(RemapColorRange(Fg));
-	_dest[2] = FloatToIntPixel(RemapColorRange(Fb));
+	  swirly.CalculateOnePoint(terms, _width, _height, zoom, x, y, 
+				   ref Fr, ref Fg, ref Fb);
+	  _dest[0] = FloatToIntPixel(RemapColorRange(Fr));
+	  _dest[1] = FloatToIntPixel(RemapColorRange(Fg));
+	  _dest[2] = FloatToIntPixel(RemapColorRange(Fb));
 	}
       return _dest;
     }
@@ -203,15 +228,15 @@ namespace Gimp.Swirlies
 
       if (val < 0)
 	{
-	return 0;
+	  return 0;
 	}
       else if (val > 255)
 	{
-	return 255;
+	  return 255;
 	}
       else
 	{
-	return (byte) val;
+	  return (byte) val;
 	}
     }
   }

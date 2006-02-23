@@ -1,5 +1,19 @@
 2006-02-23  Maurits  <m.rijk@chello.nl>
 
+	* plug-ins/Makefile.am: UnitTest plug-in is now built optionally
+
+	* INSTALL: install instructions updated for building the UnitTest
+	plug-in
+
+2006-02-23  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/Swirlies/Swirlies.cs: first try at putting preview
+	update in a thread
+
+	* plug-ins/PicturePackage/Preview.cs: minor code clean-up
+
+2006-02-23  Maurits  <m.rijk@chello.nl>
+
 	* plug-ins/UnitTest/UnitTest.png: new file
 	
 	* plug-ins/UnitTest/UnitTest.cs: menu icon added

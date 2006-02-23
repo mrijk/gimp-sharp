@@ -41,8 +41,8 @@ namespace Gimp.PicturePackage
     {
       _parent = parent;
 
-      Realized += new EventHandler(OnRealized);
-      ExposeEvent += new ExposeEventHandler(OnExposed);
+      Realized += OnRealized;
+      ExposeEvent += OnExposed;
 
       TargetEntry[] targets = new TargetEntry[]{
 	new TargetEntry("image/jpeg", 0, 0),
