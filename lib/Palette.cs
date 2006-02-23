@@ -20,13 +20,12 @@
 //
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace Gimp
 {
-  public sealed class Palette : IEnumerable<PaletteEntry>
+  public sealed class Palette
   {
     string _name;
 
@@ -49,17 +48,8 @@ namespace Gimp
     {
       get {return _name;}
     }
- 
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-      int numColors = NumberOfColors;
-      for (int i = 0; i < numColors; i++)
-	{
-	  yield return this[i];
-	}
-    }
- 
-    IEnumerator<PaletteEntry> IEnumerable<PaletteEntry>.GetEnumerator()
+
+    public IEnumerator<PaletteEntry> GetEnumerator()
     {
       int numColors = NumberOfColors;
       for (int i = 0; i < numColors; i++)

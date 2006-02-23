@@ -26,13 +26,11 @@ namespace Gimp
 {
   public class Guide
   {
-    protected internal Int32 _imageID;
-    protected internal Int32 _guideID;
+    protected readonly Int32 _imageID;
+    protected readonly Int32 _guideID;
 
-    public Guide(Image image, Int32 guideID)
+    internal Guide(Image image, Int32 guideID) : this(image.ID, guideID)
     {
-      _imageID = image.ID;
-      _guideID = guideID;
     }
 
     Guide(Int32 imageID, Int32 guideID)

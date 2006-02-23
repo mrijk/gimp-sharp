@@ -19,6 +19,7 @@ TESTSOURCES = 	TestBrush.cs 		\
 		TestContext.cs		\
 		TestDisplay.cs		\
 		TestDrawable.cs		\
+		TestGuide.cs		\
 		TestImage.cs		\
 		TestPalette.cs		\
 		TestPaletteEntry.cs	\
