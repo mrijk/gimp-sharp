@@ -8,10 +8,10 @@ MYSOURCES = 	EventCollector.cs	\
 		UnitTest.cs		\
 		UnitTester.cs
 
-EXTRA_DIST = $(MYSOURCES) UnitTest
+EXTRA_DIST = $(MYSOURCES) UnitTest UnitTest.png
 
 UnitTest.exe : $(MYSOURCES) $(GIMPSHARPLIB)
-	$(CSC) $(MYSOURCES) -out:$@ $(ASSEMBLIES)
+	$(CSC) $(MYSOURCES) /resource:UnitTest.png -out:$@ $(ASSEMBLIES)
 
 TESTSOURCES = 	TestBrush.cs 		\
 		TestChannel.cs		\

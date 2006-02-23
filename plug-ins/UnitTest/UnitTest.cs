@@ -55,6 +55,7 @@ namespace Gimp.UnitTest
 					  "",
 					  in_params);
       procedure.MenuPath = "<Toolbox>/Xtns/Extensions";
+      procedure.IconFile = "UnitTest.png";
 
       set.Add(procedure);
 
