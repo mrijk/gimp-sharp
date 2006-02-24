@@ -192,9 +192,10 @@ namespace Gimp.SliceTool
 	}
       catch (Exception e)
 	{
-	  MessageDialog message = new MessageDialog(null, DialogFlags.DestroyWithParent,
-						    MessageType.Error, ButtonsType.Close,
-						    "Can't save to " + _filename);
+	  MessageDialog message = 
+	    new MessageDialog(null, DialogFlags.DestroyWithParent,
+			      MessageType.Error, ButtonsType.Close,
+			      "Can't save to " + _filename);
 	  message.Run();
 	  message.Destroy();
 	}
@@ -204,10 +205,11 @@ namespace Gimp.SliceTool
     {
       if (_sliceData.Changed)
 	{
-	  MessageDialog message = new MessageDialog(null, DialogFlags.DestroyWithParent,
-						    MessageType.Warning, ButtonsType.YesNo, 
-						    "Some data has been changed!\n" + 
-						    "Do you really want to discard your changes?");
+	  MessageDialog message = 
+	    new MessageDialog(null, DialogFlags.DestroyWithParent,
+			      MessageType.Warning, ButtonsType.YesNo, 
+			      "Some data has been changed!\n" + 
+			      "Do you really want to discard your changes?");
 	  ResponseType response = (ResponseType) message.Run();
 	  return response == ResponseType.Yes;
 	}
@@ -418,10 +420,8 @@ namespace Gimp.SliceTool
 
       IconSet set = new IconSet();
       set.AddSource(source);
-      source.Free();
 
       factory.Add(stockId, set);
-      set.Unref();
     }
 
     void CreateStockIcons()

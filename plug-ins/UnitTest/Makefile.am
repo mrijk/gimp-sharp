@@ -1,3 +1,5 @@
+## Process this file with automake to produce Makefile.in
+
 all: UnitTest.exe gimptest.dll
 
 GIMPSHARPLIB = $(top_builddir)/lib/gimp-sharp.dll
@@ -24,7 +26,8 @@ TESTSOURCES = 	TestBrush.cs 		\
 		TestPalette.cs		\
 		TestPaletteEntry.cs	\
 		TestPaletteList.cs	\
-		TestPatternList.cs
+		TestPatternList.cs	\
+		TestProcedure.cs
 
 gimptest.dll : $(TESTSOURCES) $(GIMPSHARPLIB)
 	$(CSC) -target:library $(ASSEMBLIES) $(TESTSOURCES) -out:gimptest.dll

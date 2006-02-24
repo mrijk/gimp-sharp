@@ -38,9 +38,9 @@ namespace Gimp.SliceTool
       _drawable = drawable;
       _parent = parent;
 
-      ExposeEvent += new ExposeEventHandler(OnExposed);
-      Realized += new EventHandler(OnRealized);
-      SizeAllocated += new SizeAllocatedHandler(OnSizeAllocated);
+      ExposeEvent += OnExposed;
+      Realized += OnRealized;
+      SizeAllocated += OnSizeAllocated;
 
       Events = EventMask.ButtonPressMask | EventMask.ButtonReleaseMask | 
 	EventMask.PointerMotionHintMask | EventMask.PointerMotionMask;
@@ -88,7 +88,6 @@ namespace Gimp.SliceTool
 	  _type = type;
 	  Cursor cursor = new Cursor(type);
 	  GdkWindow.Cursor = cursor;
-	  cursor.Unref();
 	}
     }
   }

@@ -1,5 +1,18 @@
 2006-02-24  Maurits  <m.rijk@chello.nl>
 
+	* plug-ins/UnitTest/TestProcedure.cs: new file
+
+	* plug-ins/UnitTest/Makefile.am: changed accordingly
+
+	* lib/Plugin.cs 
+	* lib/Procedure.cs: more procedure execution implementation
+
+	* plug-ins/SliceTool/Preview.cs
+	* plug-ins/SliceTool/SliceTool.cs: removed obsolete calls to Unref
+	and Free for IconSource and Iconset.
+
+2006-02-24  Maurits  <m.rijk@chello.nl>
+
 	* plug-ins/Ministeck/ShapeSet.cs
 
 	* plug-ins/SliceTool/RectangleSet.cs

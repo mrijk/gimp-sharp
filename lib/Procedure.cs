@@ -73,6 +73,11 @@ namespace Gimp
     {
     }
 
+    public Procedure(string name)
+    {
+      _name = name;
+    }
+
     public void Install(bool usesImage, bool usesDrawable)
     {
       GimpParamDef[] args = _inParams.GetGimpParamDef(usesImage, 
@@ -95,6 +100,73 @@ namespace Gimp
 			     args.Length, returnLen, args, returnVals);
       MenuRegister();
       IconRegister();
+    }
+
+    public void Run(Image image, Drawable drawable, params object[] list)
+    {
+      PDBProcType proc_type;
+      int num_args;
+      int num_values;
+      IntPtr argsPtr;
+      GimpParamDef[] return_vals;
+    
+      if (gimp_procedural_db_proc_info(_name, 
+				       out _blurb, 
+				       out _help,
+				       out _author,
+				       out _copyright,
+				       out _date,
+				       out proc_type,
+				       out num_args,
+				       out num_values,
+				       out argsPtr,
+				       out return_vals))
+	{	
+	// Get parameter types
+	GimpParamDef[] paramDef = new GimpParamDef[num_args];
+	GimpParam[] _params = new GimpParam[num_args];
+
+	// First 3 parameters are default
+
+	_params[0].type = PDBArgType.INT32;
+	_params[0].data.d_int32 = (Int32) RunMode.NONINTERACTIVE;	
+	_params[1].type = PDBArgType.IMAGE;
+	_params[1].data.d_image = image.ID;
+	_params[2].type = PDBArgType.DRAWABLE;
+	_params[2].data.d_drawable = drawable.ID;
+
+	int i;
+
+	for (i = 0; i < num_args; i++)
+	  {
+	  paramDef[i] = (GimpParamDef) Marshal.PtrToStructure(
+	    argsPtr, typeof(GimpParamDef));
+	  argsPtr = (IntPtr)((int)argsPtr + Marshal.SizeOf(paramDef[i]));
+	  }
+
+	i = 3;
+	foreach (object obj in list)
+	  {
+	  switch (paramDef[i].type)
+	    {
+	    case PDBArgType.INT32:
+	      _params[i].type = PDBArgType.INT32;
+	      _params[i].data.d_int32 = (Int32) obj;
+	      break;
+	    default:
+	      Console.WriteLine("Implement this!");
+	      break;
+	    }
+	  i++;
+	  }
+
+	int n_return_vals;
+	gimp_run_procedure2(_name, out n_return_vals, num_args, _params);
+	}
+      else
+	{
+	  Console.WriteLine(_name + " not found!");
+	}
     }
 
     public void MenuRegister()
@@ -180,5 +252,10 @@ namespace Gimp
       out int num_values,
       out IntPtr args,
       out GimpParamDef[] return_vals);
+    [DllImport("libgimp-2.0-0.dll")]
+    public static extern IntPtr gimp_run_procedure2(string name,
+						    out int n_return_vals,
+						    int n_params,
+						    GimpParam[] _params);
   }
 }
