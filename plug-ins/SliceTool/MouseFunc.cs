@@ -46,9 +46,9 @@ namespace Gimp.SliceTool
     virtual protected void OnRelease() {}
     virtual protected void OnMove(int x, int y) {}
     
-    virtual public CursorType GetCursorType(int x, int y)
+    virtual public Cursor GetCursor(int x, int y)
     {
-      return CursorType.Arrow;
+      return new Cursor(CursorType.Arrow);
     }
 
     virtual public MouseFunc GetActualFunc(SliceTool parent, int x, int y) 
@@ -75,22 +75,18 @@ namespace Gimp.SliceTool
 
     protected void AddReleaseEvent()
     {
-      _preview.ButtonReleaseEvent += 
-	new ButtonReleaseEventHandler(OnButtonRelease);
+      _preview.ButtonReleaseEvent += OnButtonRelease;
     }
 
     protected void AddMotionNotifyEvent()
     {
-      _preview.MotionNotifyEvent += 
-	new MotionNotifyEventHandler(OnMotionNotify);
+      _preview.MotionNotifyEvent += OnMotionNotify;
     }
 
     void OnButtonRelease(object o, ButtonReleaseEventArgs args)
     {
-      _preview.MotionNotifyEvent -= 
-	new MotionNotifyEventHandler(OnMotionNotify);
-      _preview.ButtonReleaseEvent -= 
-	new ButtonReleaseEventHandler(OnButtonRelease);
+      _preview.MotionNotifyEvent -= OnMotionNotify;
+      _preview.ButtonReleaseEvent -= OnButtonRelease;
       OnRelease();
     }
 

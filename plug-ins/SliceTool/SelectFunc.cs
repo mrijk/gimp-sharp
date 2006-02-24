@@ -77,16 +77,16 @@ namespace Gimp.SliceTool
       _slice.Draw(_renderer);		
     }
 
-    override public CursorType GetCursorType(int x, int y)
+    override public Cursor GetCursor(int x, int y)
     {
       Slice slice = _sliceData.FindSlice(x, y);
       if (slice != null && !slice.Locked)
 	{
-	  return slice.CursorType;
+	  return new Cursor(slice.CursorType);
 	}
       else
 	{
-	  return base.GetCursorType(x, y);
+	  return base.GetCursor(x, y);
 	}
     }
   }

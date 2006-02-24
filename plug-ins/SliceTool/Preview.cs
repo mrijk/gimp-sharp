@@ -81,12 +81,11 @@ namespace Gimp.SliceTool
       get {return _renderer;}
     }
 
-    public void SetCursor(CursorType type)
+    public void SetCursor(Cursor cursor)
     {
-      if (type != _type)
+      if (cursor.Type != _type)
 	{
-	  _type = type;
-	  Cursor cursor = new Cursor(type);
+	  _type = cursor.Type;
 	  GdkWindow.Cursor = cursor;
 	}
     }

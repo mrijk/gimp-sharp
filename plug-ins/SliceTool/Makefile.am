@@ -32,12 +32,24 @@ MYSOURCES =			\
 	TableDialog.cs		\
 	VerticalSlize.cs
 
-EXTRA_DIST = $(MYSOURCES) SliceTool SliceTool.png blank.png stock-arrow.png \
+EXTRA_DIST = $(MYSOURCES) 	\
+	SliceTool 		\
+	SliceTool.png 		\
+	blank.png 		\
+	stock-arrow.png 	\
+	cursor-eraser.png	\
+	cursor-select.png	\
+	cursor-slice.png	\
+	cursor-table.png	\
 	javascript.html
 
 SliceTool.exe : $(MYSOURCES) SliceTool.png $(GIMPSHARPLIB)
 	$(CSC) $(MYSOURCES) /resource:SliceTool.png	\
 			  /resource:blank.png		\
+			  /resource:cursor-eraser.png	\
+			  /resource:cursor-select.png	\
+			  /resource:cursor-slice.png	\
+			  /resource:cursor-table.png	\
 			  /resource:stock-arrow.png	\
 			  /resource:javascript.html	\
 		-out:$@ $(ASSEMBLIES)

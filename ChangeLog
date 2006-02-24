@@ -1,5 +1,22 @@
 2006-02-24  Maurits  <m.rijk@chello.nl>
 
+	* plug-ins/SliceTool/RolloverEntry.cs: moved callback to anonymous
+	delegate
+
+	* plug-ins/SliceTool/cursor-*.png: new cursor files
+
+	* plug-ins/SliceTool/Makefile.am: changed accordingly
+	
+	* plug-ins/SliceTool/CreateFunc.cs
+	* plug-ins/SliceTool/CreateTableFunc.cs
+	* plug-ins/SliceTool/MouseFunc.cs
+	* plug-ins/SliceTool/Preview.cs
+	* plug-ins/SliceTool/RemoveFunc.cs
+	* plug-ins/SliceTool/SelectFunc.cs
+	* plug-ins/SliceTool/SliceTool.cs: support for new cursors
+
+2006-02-24  Maurits  <m.rijk@chello.nl>
+
 	* plug-ins/UnitTest/TestProcedure.cs: new file
 
 	* plug-ins/UnitTest/Makefile.am: changed accordingly

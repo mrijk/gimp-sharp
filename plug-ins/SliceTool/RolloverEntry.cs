@@ -30,22 +30,23 @@ namespace Gimp.SliceTool
       base("Select Image", "", false, true)
     {
       CheckButton button = new CheckButton(label);
-      button.Clicked += new EventHandler(OnClick);
-      table.Attach(button, 0, 1, row, row + 1);
 
+      button.Clicked += 
+	delegate(object o, EventArgs args)
+	{
+	  bool active = button.Active;
+	  Sensitive = active;
+	  
+	  if (!active)
+	  {
+	    FileName = "";
+	  }
+	};
+
+      table.Attach(button, 0, 1, row, row + 1);
+      
       Sensitive = false;
       table.Attach(this, 1, 2, row, row + 1);
-    }
-
-    void OnClick(object o, EventArgs args)
-    {
-      bool active = (o as CheckButton).Active;
-      Sensitive = active;
-
-      if (!active)
-	{
-	  FileName = "";
-	}
     }
   }
 }

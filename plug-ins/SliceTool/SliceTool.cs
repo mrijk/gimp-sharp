@@ -533,13 +533,12 @@ namespace Gimp.SliceTool
       _xy.Text = "x: " + x + ", y: " + y;
       args.RetVal = true;
 
-      SetCursorType(x, y);
+      SetCursor(x, y);
     }
 
-    void SetCursorType(int x, int y)
+    void SetCursor(int x, int y)
     {
-      CursorType type = _func.GetCursorType(x, y);
-      _preview.SetCursor(type);
+      _preview.SetCursor(_func.GetCursor(x, y));
     }
 
     override protected void Render(Image image, Drawable drawable)

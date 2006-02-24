@@ -44,16 +44,16 @@ namespace Gimp.SliceTool
 	}
     }
 
-    override public CursorType GetCursorType(int x, int y)
+    override public Cursor GetCursor(int x, int y)
     {
       Slice slice = _sliceData.MayRemove(x, y);
       if (slice == null)
 	{
-	  return base.GetCursorType(x, y);
+	  return base.GetCursor(x, y);
 	}
       else
 	{
-	  return CursorType.XCursor;
+	  return new Cursor(CursorType.XCursor);
 	}
     }
   }
