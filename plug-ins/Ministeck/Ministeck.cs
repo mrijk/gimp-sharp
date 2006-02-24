@@ -51,8 +51,7 @@ namespace Gimp.Ministeck
       ProcedureSet set = new ProcedureSet();
 
       ParamDefList in_params = new ParamDefList();
-      in_params.Add(new ParamDef("size", 16, typeof(int),
-				 "Default size"));
+      in_params.Add(new ParamDef("size", 16, typeof(int), "Default size"));
 
       Procedure procedure = new Procedure("plug_in_ministeck",
 					  "Generates Ministeck",
@@ -205,7 +204,7 @@ namespace Gimp.Ministeck
 	Display.DisplaysFlush();
     }
 
-    override protected void DoSomething(Image image, Drawable drawable)
+    override protected void Render(Image image, Drawable drawable)
     {
       RenderMinisteck(image, drawable, false);
     }

@@ -72,7 +72,7 @@ namespace Gimp.UnitTest
       return DialogRun();
     }
 
-    override protected void DoSomething()
+    override protected void Render()
     {
       Tester tester = new Tester();
       tester.Test();

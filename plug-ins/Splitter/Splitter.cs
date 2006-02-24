@@ -202,7 +202,7 @@ namespace Gimp.Splitter
       return frame;
     }
 
-    override protected void DoSomething(Image image, Drawable drawable)
+    override protected void Render(Image image, Drawable drawable)
     {
       MathExpressionParser parser = new MathExpressionParser();
       parser.Init(_formula.Text);

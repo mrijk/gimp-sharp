@@ -100,7 +100,7 @@ namespace Gimp
 				    BindingFlags.NonPublic | 
 				    BindingFlags.Instance))
 	{
-	  if (method.Name.Equals("DoSomething"))
+	  if (method.Name.Equals("Render"))
 	    {
 	      foreach (ParameterInfo parameter in method.GetParameters())
 		{
@@ -158,7 +158,7 @@ namespace Gimp
       else if (run_mode == RunMode.WITH_LAST_VALS)
 	{
 	  GetData();
-	  CallDoSomething();
+	  CallRender();
 	}
       
       if (_usesDrawable)
@@ -242,7 +242,7 @@ namespace Gimp
       get {return _dialog;}
     }
 
-    void CallDoSomething()
+    void CallRender()
     {
       int m_start = Environment.TickCount;
 
@@ -250,19 +250,19 @@ namespace Gimp
       
       if (_usesDrawable && _usesImage)
 	{
-	  DoSomething(_image, _drawable);
+	  Render(_image, _drawable);
 	}
       else if (_usesDrawable)
 	{
-	  DoSomething(_drawable);
+	  Render(_drawable);
 	}
       else if (_usesImage)
 	{
-	  DoSomething(_image);
+	  Render(_image);
 	}
       else
 	{
-	  DoSomething();
+	  Render();
 	}
 
       int m_time= Environment.TickCount - m_start;
@@ -273,10 +273,10 @@ namespace Gimp
     }
     
     virtual protected void Reset() {}
-    virtual protected void DoSomething() {}
-    virtual protected void DoSomething(Drawable drawable) {}
-    virtual protected void DoSomething(Image image) {}
-    virtual protected void DoSomething(Image image, Drawable drawable) {}
+    virtual protected void Render() {}
+    virtual protected void Render(Drawable drawable) {}
+    virtual protected void Render(Image image) {}
+    virtual protected void Render(Image image, Drawable drawable) {}
 
     virtual protected void GetParameters() {}
 
@@ -295,7 +295,7 @@ namespace Gimp
 	  if (type == ResponseType.Ok)
 	    {
 	      GetParameters();
-	      CallDoSomething();
+	      CallRender();
 	      return true;
 	    } 
 	  else if (type == ResponseType.Cancel || type == ResponseType.Close)

@@ -139,15 +139,15 @@ namespace Gimp.SliceTool
       hbox.PackStart(vbox, false, true, 0);
       
       Button save = new Button("Save Settings...");
-      save.Clicked += new EventHandler(OnSaveSettings);
+      save.Clicked += OnSaveSettings;
       vbox.PackStart(save, false, true, 0);
       
       Button load = new Button("Load Settings...");
-      load.Clicked += new EventHandler(OnLoadSettings);
+      load.Clicked += OnLoadSettings;
       vbox.PackStart(load, false, true, 0);
       
       Button preferences = new Button("Preferences");
-      preferences.Clicked += new EventHandler(OnPreferences);
+      preferences.Clicked += OnPreferences;
       vbox.PackStart(preferences, false, true, 0);
       
       _sliceData.Init(_drawable);
@@ -250,10 +250,9 @@ namespace Gimp.SliceTool
       _preview = new Preview(_drawable, this);
       _preview.WidthRequest = _drawable.Width;
       _preview.HeightRequest = _drawable.Height;
-      _preview.ButtonPressEvent += new ButtonPressEventHandler(OnButtonPress);
+      _preview.ButtonPressEvent += OnButtonPress;
       
-      _preview.MotionNotifyEvent +=
-	new MotionNotifyEventHandler(OnShowCoordinates);
+      _preview.MotionNotifyEvent += OnShowCoordinates;
       
       window.AddWithViewport(_preview);
       
@@ -349,7 +348,7 @@ namespace Gimp.SliceTool
       frame.Add(vbox);
 
       Button button = new Button("Rollover Creator...");
-      button.Clicked += new EventHandler(OnRolloverCreate);
+      button.Clicked += OnRolloverCreate;
       vbox.Add(button);
 
       Label label = new Label("Rollover enabled: no");
@@ -543,7 +542,7 @@ namespace Gimp.SliceTool
       _preview.SetCursor(type);
     }
 
-    override protected void DoSomething(Image image, Drawable drawable)
+    override protected void Render(Image image, Drawable drawable)
     {
       // Fix me. Only used to fill in _image and _drawable;
     }

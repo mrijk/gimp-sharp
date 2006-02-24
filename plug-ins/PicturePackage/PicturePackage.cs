@@ -132,14 +132,13 @@ namespace Gimp.PicturePackage
       _preview = new Preview(this);
       _preview.WidthRequest = 400;
       _preview.HeightRequest = 500;
-      _preview.ButtonPressEvent += new ButtonPressEventHandler(PreviewClicked);
-      _preview.DragDataReceived += 
-	new DragDataReceivedHandler(OnDragDataReceived);
+      _preview.ButtonPressEvent += PreviewClicked;
+      _preview.DragDataReceived += OnDragDataReceived;
       eventBox.Add(_preview);
 
       _layoutSet.Selected = _layoutSet[0];
       _layout = _layoutSet[0];
-      _layoutSet.SelectEvent += new SelectHandler(SetLayout);
+      _layoutSet.SelectEvent += SetLayout;
 
       dialog.ShowAll();
       return DialogRun();
@@ -151,22 +150,22 @@ namespace Gimp.PicturePackage
       RedrawPreview();
     }
 
-    public void Render()
+    public void RenderLayout()
     {
       if (_loader == null)
 	{
-	Image image = _sf.Image;
+	  Image image = _sf.Image;
 
-	if (image != null)
-	  {
-	  _loader = new FrontImageProviderFactory(image);
-	  }
+	  if (image != null)
+	    {
+	      _loader = new FrontImageProviderFactory(image);
+	    }
 	}
 
       if (_loader != null)
 	{
-	_preview.Clear();
-	_layout.Render(_loader, _preview.GetRenderer(_layout));
+	  _preview.Clear();
+	  _layout.Render(_loader, _preview.GetRenderer(_layout));
 	}
     }
 
@@ -186,16 +185,16 @@ namespace Gimp.PicturePackage
     {
       if (_renderThread != null)
 	{
-	_renderThread.Abort();
-	_renderThread.Join();
+	  _renderThread.Abort();
+	  _renderThread.Join();
 	}
       _preview.Clear();
-      Render();
+      RenderLayout();
     }
 #else
     void RedrawPreview()
     {
-      Render();
+      RenderLayout();
       _preview.QueueDraw();
     }
 #endif
@@ -216,15 +215,15 @@ namespace Gimp.PicturePackage
       Image image = provider.GetImage();
       if (image != null)
 	{
-	Renderer renderer = _preview.GetRenderer(_layout);
-	rectangle.Render(image, renderer);
-	renderer.Cleanup();
-	provider.Release();
+	  Renderer renderer = _preview.GetRenderer(_layout);
+	  rectangle.Render(image, renderer);
+	  renderer.Cleanup();
+	  provider.Release();
 	}
       else
 	{
-	Console.WriteLine("Couldn't load: " + filename);
-	// Error dialog here.
+	  Console.WriteLine("Couldn't load: " + filename);
+	  // Error dialog here.
 	}		
     }
 
@@ -233,7 +232,7 @@ namespace Gimp.PicturePackage
       Rectangle rectangle = FindRectangle(x, y);
       if (rectangle != null)
 	{
-	RenderRectangle(rectangle, filename);
+	  RenderRectangle(rectangle, filename);
 	}
     }
 
@@ -244,9 +243,9 @@ namespace Gimp.PicturePackage
       _rectangle = FindRectangle(args.Event.X, args.Event.Y);
       if (_rectangle != null)
 	{
-	FileSelection selection = new FileSelection("Select image");
-	selection.Response += new ResponseHandler (OnFileSelectionResponse);
-	selection.Run();
+	  FileSelection selection = new FileSelection("Select image");
+	  selection.Response += OnFileSelectionResponse;
+	  selection.Run();
 	}
     }
 
@@ -257,19 +256,19 @@ namespace Gimp.PicturePackage
       // Console.WriteLine("OnDragDataReceived " + text);
       if (text.StartsWith("file:"))
 	{
-	LoadRectangle((double) args.X, (double) args.Y, text.Substring(5));
+	  LoadRectangle((double) args.X, (double) args.Y, text.Substring(5));
 	}
       else if (text.StartsWith("http://"))
 	{
 #if true
-	HttpWebRequest request = (HttpWebRequest) WebRequest.Create(text);
-	request.KeepAlive = false;
+	  HttpWebRequest request = (HttpWebRequest) WebRequest.Create(text);
+	  request.KeepAlive = false;
 
-	WebResponse response = request.GetResponse();
-	Console.WriteLine("Length: " + response.ContentLength);
-	response.Close();
+	  WebResponse response = request.GetResponse();
+	  Console.WriteLine("Length: " + response.ContentLength);
+	  response.Close();
 #else
-	Console.WriteLine("Implement this!");
+	  Console.WriteLine("Implement this!");
 #endif
 	}
       Drag.Finish(args.Context, true, false, args.Time);
@@ -281,13 +280,13 @@ namespace Gimp.PicturePackage
       FileSelection fs = o as FileSelection;
       if (args.ResponseId == ResponseType.Ok)
 	{
-	RenderRectangle(_rectangle, fs.Filename);
+	  RenderRectangle(_rectangle, fs.Filename);
 	}
       fs.Hide();
       _preview.QueueDraw();
     }
 
-    override protected void DoSomething()
+    override protected void Render()
     {
       PageSize size = _layout.GetPageSizeInPixels(_resolution);
 
@@ -300,12 +299,12 @@ namespace Gimp.PicturePackage
 
       if (_flatten)
 	{
-	composed.Flatten();
+	  composed.Flatten();
 	}
 
       if (_colorMode == 0) // ColorMode.GRAY)
 	{
-	composed.ConvertGrayscale();
+	  composed.ConvertGrayscale();
 	}
 
       new Display(composed);
@@ -315,28 +314,28 @@ namespace Gimp.PicturePackage
     public ProviderFactory Loader
     {
       set 
-	  {
+	{
 	  _loader = value;
 	  RedrawPreview();
-	  }
+	}
     }
 
     public string Label
     {
       set
-	  {
+	{
 	  _label = value;
 	  _preview.DrawLabel(_position, _label);
-	  }
+	}
     }
 
     public int Position
     {
       set
-	  {
+	{
 	  _position = value;
 	  _preview.DrawLabel(_position, _label);
-	  }
+	}
       get {return _position;}
     }
 
@@ -364,4 +363,4 @@ namespace Gimp.PicturePackage
       get {return _flatten;}
     }
   }
-  }
+}

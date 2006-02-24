@@ -81,8 +81,8 @@ namespace Gimp.RedEye
       dialog.VBox.PackStart(vbox, true, true, 0);
 
       _preview = new DrawablePreview(_drawable, false);
-      _preview.Invalidated += new EventHandler(UpdatePreview);
-      _preview.ButtonPressEvent += new ButtonPressEventHandler(PreviewClicked);
+      _preview.Invalidated += UpdatePreview;
+      _preview.ButtonPressEvent += PreviewClicked;
       vbox.PackStart(_preview, true, true, 0);
 
       GimpTable table = new GimpTable(2, 2, false);
@@ -93,12 +93,12 @@ namespace Gimp.RedEye
       ScaleEntry entry = new ScaleEntry(table, 0, 0, "_Radius:", 150, 3,
 					_radius, 1.0, 100.0, 1.0, 8.0, 0,
 					true, 0, 0, null, null);
-      entry.ValueChanged += new EventHandler(RadiusUpdate);
+      entry.ValueChanged += RadiusUpdate;
 
       entry = new ScaleEntry(table, 0, 1, "_Threshold:", 150, 3,
 			     _threshold, 1.0, 256.0, 1.0, 8.0, 0,
 			     true, 0, 0, null, null);
-      entry.ValueChanged += new EventHandler(ThresholdUpdate);
+      entry.ValueChanged += ThresholdUpdate;
 
       dialog.ShowAll();
       return DialogRun();
@@ -133,7 +133,7 @@ namespace Gimp.RedEye
       _threshold = (int) (sender as Adjustment).Value;
     }
 
-    override protected void DoSomething(Image image, Drawable drawable)
+    override protected void Render(Image image, Drawable drawable)
     {
       Console.WriteLine("Threshold: " + _threshold);
 
@@ -143,8 +143,8 @@ namespace Gimp.RedEye
       image.SetComponentActive(ChannelType.BLUE, false);
       _x = 827;
       _y = 1508;
-      drawable.FuzzySelect(_x, _y, _threshold, ChannelOps.REPLACE, true, false, 
-			   _radius, false);
+      drawable.FuzzySelect(_x, _y, _threshold, ChannelOps.REPLACE, true, 
+			   false, _radius, false);
       // Desaturate the red channel
       image.SetComponentActive(ChannelType.RED, true);
       image.SetComponentActive(ChannelType.GREEN, false);
@@ -158,4 +158,4 @@ namespace Gimp.RedEye
       Display.DisplaysFlush();
     }
   }
-  }
+}

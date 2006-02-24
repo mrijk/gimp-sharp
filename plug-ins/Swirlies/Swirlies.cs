@@ -183,7 +183,7 @@ namespace Gimp.Swirlies
 	_swirlies.Add(Swirly.CreateRandom());
     }
 
-    override protected void DoSomething(Drawable drawable)
+    override protected void Render(Drawable drawable)
     {
       Initialize(drawable);
       RgnIterator iter = new RgnIterator(drawable, RunMode.INTERACTIVE);

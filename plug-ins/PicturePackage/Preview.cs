@@ -62,7 +62,7 @@ namespace Gimp.PicturePackage
 	{
 	  _firstTime = false;
 	  _pixmap.DrawRectangle(_gc, true, 0, 0, _width, _height);
-	  _parent.Render();
+	  _parent.RenderLayout();
 	  GdkWindow.Cursor = new Cursor(CursorType.Hand2);
 	}
 

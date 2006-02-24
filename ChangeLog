@@ -1,3 +1,16 @@
+2006-02-24  Maurits  <m.rijk@chello.nl>
+
+	* lib/Plugin.cs
+	* plug-ins/Ministeck/Ministeck.cs
+	* plug-ins/ncp/ncp.cs
+	* plug-ins/PicturePackage/PicturePackage.cs
+	* plug-ins/PicturePackage/Preview.cs
+	* plug-ins/Splitter/Splitter.cs
+	* plug-ins/RedEye/RedEye.cs
+	* plug-ins/SliceTool/SliceTool.cs
+	* plug-ins/Swirlies/Swirlies.cs
+	* plug-ins/UnitTest/UnitTest.cs: replaced DoSomething by Render
+
 2006-02-23  Maurits  <m.rijk@chello.nl>
 
 	* lib/Palette.cs: simplified Enumerator

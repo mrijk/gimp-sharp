@@ -23,122 +23,122 @@ using System;
 
 namespace Gimp
 {
-    public abstract class FilePlugin : Plugin
+  public abstract class FilePlugin : Plugin
+  {
+    Procedure _loadProcedure;
+    Procedure _saveProcedure;
+
+    public FilePlugin(string[] args) : base(args)
     {
-      Procedure _loadProcedure;
-      Procedure _saveProcedure;
+    }
 
-      public FilePlugin(string[] args) : base(args)
-      {
-      }
+    override protected void Run(string name, ParamDefList inParam,
+				out ParamDefList outParam)
+    {
+      outParam = new ParamDefList(true);
+      outParam.Add(new ParamDef(PDBStatusType.SUCCESS, 
+				typeof(PDBStatusType)));
 
-      override protected void Run(string name, ParamDefList inParam,
-				  out ParamDefList outParam)
-      {
-	outParam = new ParamDefList(true);
-	outParam.Add(new ParamDef(PDBStatusType.SUCCESS, 
-				  typeof(PDBStatusType)));
+      if (_loadProcedure != null && _loadProcedure.Name == name)
+	{
+	  string filename = (string) inParam[1].Value;
 
-	if (_loadProcedure != null && _loadProcedure.Name == name)
-	  {
-	    string filename = (string) inParam[1].Value;
+	  Image image = Load(filename);
+	  if (image == null)
+	    {
+	      outParam[0].Value = PDBStatusType.EXECUTION_ERROR;
+	    }
+	  else
+	    {
+	      outParam.Add(new ParamDef(image, typeof(Image)));
+	    }
+	}
+      else if (_saveProcedure != null && _saveProcedure.Name == name)
+	{
+	  Image image = (Image) inParam[1].Value;
+	  Drawable drawable = (Drawable) inParam[2].Value;
+	  string filename = (string) inParam[3].Value;
 
-	    Image image = Load(filename);
-	    if (image == null)
-	      {
-		outParam[0].Value = PDBStatusType.EXECUTION_ERROR;
-	      }
-	    else
-	      {
-		outParam.Add(new ParamDef(image, typeof(Image)));
-	      }
-	  }
-	else if (_saveProcedure != null && _saveProcedure.Name == name)
-	  {
-	    Image image = (Image) inParam[1].Value;
-	    Drawable drawable = (Drawable) inParam[2].Value;
-	    string filename = (string) inParam[3].Value;
+	  if (!Save(image, drawable, filename))
+	    {
+	      outParam[0].Value = PDBStatusType.EXECUTION_ERROR;
+	    }
+	}
+    }
 
-	    if (!Save(image, drawable, filename))
-	      {
-		outParam[0].Value = PDBStatusType.EXECUTION_ERROR;
-	      }
-	  }
-      }
+    protected Procedure FileLoadProcedure(string name, string blurb, 
+					  string help, string author, 
+					  string copyright, string date, 
+					  string menu_path)
+    {
+      ParamDefList inParams = new ParamDefList(true);
+      inParams.Add(new ParamDef("run_mode", typeof(Int32), 
+				"Interactive, non-interactive"));
+      inParams.Add(new ParamDef("filename", typeof(string), 
+				"The name of the file to load"));
+      inParams.Add(new ParamDef("raw_filename", typeof(string), 
+				"The name entered"));
 
-      protected Procedure FileLoadProcedure(string name, string blurb, 
-					    string help, string author, 
-					    string copyright, string date, 
-					    string menu_path)
-      {
-	ParamDefList inParams = new ParamDefList(true);
-	inParams.Add(new ParamDef("run_mode", typeof(Int32), 
-				  "Interactive, non-interactive"));
-	inParams.Add(new ParamDef("filename", typeof(string), 
-				  "The name of the file to load"));
-	inParams.Add(new ParamDef("raw_filename", typeof(string), 
-				  "The name entered"));
+      ParamDefList outParams = new ParamDefList(true);
+      outParams.Add(new ParamDef("image", typeof(Image), 
+				 "Output image"));
 
-	ParamDefList outParams = new ParamDefList(true);
-	outParams.Add(new ParamDef("image", typeof(Image), 
-				   "Output image"));
+      _loadProcedure = new Procedure(name, blurb, help, author, copyright, 
+				     date, menu_path, null, 
+				     inParams, outParams);
 
-	_loadProcedure = new Procedure(name, blurb, help, author, copyright, 
-				       date, menu_path, null, 
-				       inParams, outParams);
+      return _loadProcedure;
+    } 
 
-	return _loadProcedure;
-      } 
+    protected Procedure FileSaveProcedure(string name, string blurb, 
+					  string help, string author, 
+					  string copyright, string date, 
+					  string menu_path,
+					  string image_types)
+    {
+      ParamDefList inParams = new ParamDefList(true);
+      inParams.Add(new ParamDef("run_mode", typeof(Int32), 
+				"Interactive, non-interactive"));
+      inParams.Add(new ParamDef("image", typeof(Image), 
+				"Input image"));
+      inParams.Add(new ParamDef("drawable", typeof(Drawable), 
+				"Drawable to save"));
+      inParams.Add(new ParamDef("filename", typeof(string),
+				"The name of the file to save the image in"));
+      inParams.Add(new ParamDef("raw_filename", typeof(string),
+				"The name of the file to save the image in"));
 
-      protected Procedure FileSaveProcedure(string name, string blurb, 
-					    string help, string author, 
-					    string copyright, string date, 
-					    string menu_path,
-					    string image_types)
-      {
-        ParamDefList inParams = new ParamDefList(true);
-	inParams.Add(new ParamDef("run_mode", typeof(Int32), 
-				  "Interactive, non-interactive"));
-	inParams.Add(new ParamDef("image", typeof(Image), 
-				  "Input image"));
-	inParams.Add(new ParamDef("drawable", typeof(Drawable), 
-				  "Drawable to save"));
-	inParams.Add(new ParamDef("filename", typeof(string),
-				  "The name of the file to save the image in"));
-	inParams.Add(new ParamDef("raw_filename", typeof(string),
-				  "The name of the file to save the image in"));
+      _saveProcedure = new Procedure(name, blurb, help, author, copyright, 
+				     date, menu_path, null, inParams);
 
-	_saveProcedure = new Procedure(name, blurb, help, author, copyright, 
-				       date, menu_path, null, inParams);
+      return _saveProcedure;
+    }
 
-	return _saveProcedure;
-      }
+    virtual protected Image Load(string filename)
+    {
+      return null;
+    }
 
-      virtual protected Image Load(string filename)
-      {
-	return null;
-      }
+    virtual protected bool Save(Image image, Drawable drawable, 
+				string filename)
+    {
+      return false;
+    }
 
-      virtual protected bool Save(Image image, Drawable drawable, 
-				  string filename)
-      {
-        return false;
-      }
+    protected void RegisterLoadHandler(string extensions, string prefixes)
+    {
+      Gimp.RegisterLoadHandler(_loadProcedure.Name, extensions, prefixes);
+    }
 
-      protected void RegisterLoadHandler(string extensions, string prefixes)
-      {
-	Gimp.RegisterLoadHandler(_loadProcedure.Name, extensions, prefixes);
-      }
+    protected void RegisterSaveHandler(string extensions, string prefixes)
+    {
+      Gimp.RegisterSaveHandler(_saveProcedure.Name, extensions, prefixes);
+    }
 
-      protected void RegisterSaveHandler(string extensions, string prefixes)
-      {
-	Gimp.RegisterSaveHandler(_saveProcedure.Name, extensions, prefixes);
-      }
-
-      protected void RegisterFileHandlerMime(string procedural_name,
-					     string mime_type)
-      {
-	Gimp.RegisterFileHandlerMime(procedural_name, mime_type);
-      }
+    protected void RegisterFileHandlerMime(string procedural_name,
+					   string mime_type)
+    {
+      Gimp.RegisterFileHandlerMime(procedural_name, mime_type);
     }
   }
+}
