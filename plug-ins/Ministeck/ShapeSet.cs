@@ -24,7 +24,7 @@ using System.Collections.Generic;
 
 namespace Gimp.Ministeck
 {
-  public class ShapeSet : IEnumerable<ShapeDescription>
+  public class ShapeSet
   {
     List<ShapeDescription> _set;
 
@@ -38,12 +38,7 @@ namespace Gimp.Ministeck
       _set = new List<ShapeDescription>(s._set);
     }
 
-    IEnumerator<ShapeDescription> IEnumerable<ShapeDescription>.GetEnumerator()
-    {
-      return _set.GetEnumerator();
-    }
-
-    IEnumerator IEnumerable.GetEnumerator() 
+    public IEnumerator<ShapeDescription> GetEnumerator()
     {
       return _set.GetEnumerator();
     }

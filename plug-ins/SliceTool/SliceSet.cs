@@ -24,7 +24,7 @@ using System.IO;
 
 namespace Gimp.SliceTool
 {
-  public class SliceSet : IEnumerable
+  public class SliceSet
   {
     List<Slice> _set = new List<Slice>();
 
@@ -34,7 +34,7 @@ namespace Gimp.SliceTool
     {
     }
 
-    public IEnumerator GetEnumerator()
+    public IEnumerator<Slice> GetEnumerator()
     {
       return _set.GetEnumerator();
     }

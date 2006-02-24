@@ -26,7 +26,7 @@ using System.Runtime.InteropServices;
 
 namespace Gimp
 {
-  public sealed class ChannelList : IEnumerable<Channel>
+  public sealed class ChannelList
   {
     readonly List<Channel> _list = new List<Channel>();
 
@@ -44,12 +44,7 @@ namespace Gimp
         }
     }
 
-    IEnumerator<Channel> IEnumerable<Channel>.GetEnumerator()
-    {
-      return _list.GetEnumerator();
-    }
-
-    IEnumerator IEnumerable.GetEnumerator()
+    IEnumerator<Channel> GetEnumerator()
     {
       return _list.GetEnumerator();
     }

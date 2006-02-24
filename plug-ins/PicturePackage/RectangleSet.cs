@@ -24,7 +24,7 @@ using System.Collections.Generic;
 
 namespace Gimp.PicturePackage
 {
-  public class RectangleSet : IEnumerable
+  public class RectangleSet 
   {
     List<Rectangle> _set = new List<Rectangle>();
 
@@ -32,7 +32,7 @@ namespace Gimp.PicturePackage
     {
     }
 
-    public IEnumerator GetEnumerator()
+    public IEnumerator<Rectangle> GetEnumerator()
     {
       return _set.GetEnumerator();
     }

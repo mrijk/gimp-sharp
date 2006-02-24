@@ -1,5 +1,21 @@
 2006-02-24  Maurits  <m.rijk@chello.nl>
 
+	* plug-ins/Ministeck/ShapeSet.cs
+
+	* plug-ins/SliceTool/RectangleSet.cs
+	* plug-ins/SliceTool/SliceSet.cs
+
+	* plug-ins/PicturePackage/LayoutSet.cs
+	* plug-ins/PicturePackage/RectangleSet.cs
+
+	* lib/ParamDefList.cs
+	* lib/PaletteList.cs
+	* lib/LayerList.cs
+	* lib/ImageList.cs
+	* lib/ChannelList.cs: simplified GetEnumerator
+
+2006-02-24  Maurits  <m.rijk@chello.nl>
+
 	* lib/Plugin.cs
 	* plug-ins/Ministeck/Ministeck.cs
 	* plug-ins/ncp/ncp.cs

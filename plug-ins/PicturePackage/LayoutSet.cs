@@ -29,7 +29,7 @@ namespace Gimp.PicturePackage
 {
   public delegate void SelectHandler(Layout layout);
 
-  public class LayoutSet : IEnumerable
+  public class LayoutSet
   {
     List<Layout> _set = new List<Layout>();
     Layout _selected = null;
@@ -79,7 +79,7 @@ namespace Gimp.PicturePackage
       _set.Add(layout);
     }
 
-    public IEnumerator GetEnumerator()
+    public IEnumerator<Layout> GetEnumerator()
     {
       return _set.GetEnumerator();
     }
