@@ -33,8 +33,7 @@ namespace Gimp
       get
 	{
           IntPtr tmp = gimp_directory();
-	  // return Marshaller.FilenamePtrToString(tmp);
-	  return Marshaller.Utf8PtrToString(tmp);
+	  return Marshaller.FilenamePtrToString(tmp);
 	}
     }
 

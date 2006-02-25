@@ -288,7 +288,8 @@ namespace Gimp.SliceTool
       toggle.Clicked += OnSelect;
       
       toggle = new ToggleToolButton(GimpStock.TOOL_CROP);
-      toggle.SetTooltip(tooltips, "Create a new Slice", "create");
+      tooltips.SetTip(toggle, "Create a new Slice", "create");
+      // toggle.SetTooltip(tooltips, "Create a new Slice", "create");
       tools.Insert(toggle, -1);
       toggle.Clicked += OnCreateSlice;
       

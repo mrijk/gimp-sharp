@@ -218,6 +218,8 @@ namespace Gimp
 			       button1, action1,
 			       button2, action2, 
 			       button3, action3);
+
+      _dialog.SetTransient();
       return _dialog;
     }
 
@@ -228,13 +230,11 @@ namespace Gimp
 				GimpHelpFunc help_func,
 				string help_id)
     {
-      _dialog = new GimpDialog(title, role, parent, flags,
-			       help_func, help_id,
-                               GimpStock.Reset, (ResponseType) 1,
-			       Stock.Cancel, ResponseType.Cancel,
-			       Stock.Ok, ResponseType.Ok);
-      // GimpDialog.ShowHelpButton(true);
-      return _dialog;
+      return DialogNew(title, role, parent, flags,
+		       help_func, help_id,
+		       GimpStock.Reset, (ResponseType) 1,
+		       Stock.Cancel, ResponseType.Cancel,
+		       Stock.Ok, ResponseType.Ok);
     }
 
     protected GimpDialog Dialog
@@ -298,7 +298,8 @@ namespace Gimp
 	      CallRender();
 	      return true;
 	    } 
-	  else if (type == ResponseType.Cancel || type == ResponseType.Close)
+	  else if (type == ResponseType.Cancel || type == ResponseType.Close
+		   || type == ResponseType.DeleteEvent)
 	    {
 	      if (OnClose())
 		{
@@ -317,6 +318,10 @@ namespace Gimp
 	    {
 	      DialogRun(type);
 	      Console.WriteLine("Type: " + type);
+	    }
+	  else
+	    {
+	      Console.WriteLine("Unknown type: " + type);
 	    }
 	}
     }

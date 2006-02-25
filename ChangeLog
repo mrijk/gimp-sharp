@@ -1,5 +1,10 @@
 2006-02-25  Maurits  <m.rijk@chello.nl>
 
+	* lib/Dialog.cs 
+	* lib/Plugin.cs: the close button on a window now closes the plug-in.
+
+2006-02-25  Maurits  <m.rijk@chello.nl>
+
 	* plug-ins/SliceTool/cursor-*.png: improved cursor files
 
 	* plug-ins/SliceTool/CreateFunc.cs
