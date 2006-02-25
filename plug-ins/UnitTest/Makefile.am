@@ -23,6 +23,7 @@ TESTSOURCES = 	TestBrush.cs 		\
 		TestDrawable.cs		\
 		TestGuide.cs		\
 		TestImage.cs		\
+		TestLayer.cs		\
 		TestPalette.cs		\
 		TestPaletteEntry.cs	\
 		TestPaletteList.cs	\

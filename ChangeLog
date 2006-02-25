@@ -1,5 +1,14 @@
 2006-02-25  Maurits  <m.rijk@chello.nl>
 
+	* plug-ins/Splitter/Splitter.cs: fixed crash after "Re-show
+	filter" and implemented translation.
+
+	* plug-ins/UnitTest/TestLayer.cs: new file
+
+	* plug-ins/UnitTest/Makefile.am: changed accordingly
+
+2006-02-25  Maurits  <m.rijk@chello.nl>
+
 	* plug-ins/UnitTest/TestPalette.cs: make sure we clean up after an
 	exception is thrown
 	

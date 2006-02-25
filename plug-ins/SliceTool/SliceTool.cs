@@ -145,11 +145,11 @@ namespace Gimp.SliceTool
       Button load = new Button("Load Settings...");
       load.Clicked += OnLoadSettings;
       vbox.PackStart(load, false, true, 0);
-      
+
       Button preferences = new Button("Preferences");
       preferences.Clicked += OnPreferences;
       vbox.PackStart(preferences, false, true, 0);
-      
+
       _sliceData.Init(_drawable);
       GetRectangleData(_sliceData.Selected);
       

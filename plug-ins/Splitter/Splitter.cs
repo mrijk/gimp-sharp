@@ -27,7 +27,8 @@ namespace Gimp.Splitter
 {
   public class Splitter : Plugin
   {
-    Entry _formula;
+    [SaveAttribute]
+    string _formula = "";
 
     [SaveAttribute]
     int _translate_1_x;
@@ -96,8 +97,14 @@ namespace Gimp.Splitter
       table.Attach(hbox, 0, 2, 0, 1);
 
       hbox.Add(new Label("f(x, y):"));
-      _formula = new Entry();
-      hbox.Add(_formula);
+      Entry formula = new Entry();
+      formula.Text = _formula;
+      formula.Changed +=
+	delegate(object sender, EventArgs e)
+	{
+	  _formula = formula.Text;
+	};
+      hbox.Add(formula);
       hbox.Add(new Label("= 0"));
 
       GimpFrame frame1 = CreateLayerFrame1();
@@ -205,19 +212,21 @@ namespace Gimp.Splitter
     override protected void Render(Image image, Drawable drawable)
     {
       MathExpressionParser parser = new MathExpressionParser();
-      parser.Init(_formula.Text);
+      parser.Init(_formula);
 
       Image clone = new Image(image);
 
       Layer layer1 = new Layer(clone, "layer_one", clone.Width, clone.Height,
 			       ImageType.RGB, 100, 
 			       LayerModeEffects.NORMAL);
+      layer1.Translate(_translate_1_x, _translate_1_y);
       clone.AddLayer(layer1, 0);
       // layer1.AddAlpha();
 
       Layer layer2 = new Layer(clone, "layer_two", clone.Width, clone.Height,
 			       ImageType.RGB, 100, 
 			       LayerModeEffects.NORMAL);
+      layer1.Translate(_translate_2_x, _translate_2_y);
       clone.AddLayer(layer2, 0);
       // layer2.AddAlpha();
 
