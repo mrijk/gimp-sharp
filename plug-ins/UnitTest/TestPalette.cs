@@ -93,7 +93,13 @@ namespace Gimp
       palette.AddEntry("black", new RGB(0, 0, 0));
       // TODO: no range check yet
       PaletteEntry white = palette[1];
-      string name = white.Name;      
+      try {
+	string name = white.Name;
+      }
+      catch {
+	palette.Delete();
+	throw;
+      }
     }
 
     [Test]

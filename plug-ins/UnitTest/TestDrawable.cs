@@ -56,7 +56,7 @@ namespace Gimp
     public void NewDrawable()
     {
       Assert.IsNotNull(_drawable);
-      Assert.AreEqual(_image.ID, _drawable.Image.ID);
+      Assert.AreEqual(_image, _drawable.Image);
     }
 
     [Test]

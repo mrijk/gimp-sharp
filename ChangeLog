@@ -1,5 +1,16 @@
 2006-02-25  Maurits  <m.rijk@chello.nl>
 
+	* plug-ins/UnitTest/TestPalette.cs: make sure we clean up after an
+	exception is thrown
+	
+	* lib/Image.cs: added Equals method
+
+	* plug-ins/PicturePackage/Renderer.cs
+	* plug-ins/UnitTest/TestDrawable.cs
+	* plug-ins/UnitTest/TestImage.cs: use new Image.Equals method
+
+2006-02-25  Maurits  <m.rijk@chello.nl>
+
 	* lib/Dialog.cs 
 	* lib/Plugin.cs: the close button on a window now closes the plug-in.
 

@@ -50,6 +50,15 @@ namespace Gimp
       return new Image(this);
     }
 
+    public override bool Equals(object o)
+    {
+      if (o is Image)
+	{
+	  return _imageID == (o as Image)._imageID;
+	}
+      return false;
+    }
+
     public static Image Load(RunMode run_mode, string filename, 
                              string raw_filename)
     {
@@ -580,7 +589,7 @@ namespace Gimp
     // Misc functions
 
     // Fix me: this should become internal
-    public Int32 ID
+    internal Int32 ID
     {
       get {return _imageID;}
     }

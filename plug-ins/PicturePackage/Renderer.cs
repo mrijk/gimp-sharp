@@ -27,7 +27,6 @@ namespace Gimp.PicturePackage
   abstract public class Renderer
   {
     Image _cache;
-    Int32 _cachedID = -1;
     double _w = double.NaN;
     double _h = double.NaN;
 
@@ -40,10 +39,8 @@ namespace Gimp.PicturePackage
 
     protected Image RotateAndScale(Image image, double w, double h)
     {
-      // Fixme: remove check on ID's
-      if (_cachedID != image.ID || _w != w || _h != h)
+      if (_cache != image || _w != w || _h != h)
 	{
-	  _cachedID = image.ID;
 	  ClearCache();
 
 	  _cache = new Image(image);

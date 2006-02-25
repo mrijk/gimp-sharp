@@ -34,7 +34,7 @@ namespace Gimp
       int width = 64;
       int height = 128;
       Image image = new Image(width, height, ImageBaseType.RGB);
-      Assert.IsTrue(image.ID > 0);
+      // Fix me: this if there is a new image
       image.Delete();
     }
 
