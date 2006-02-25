@@ -2,7 +2,7 @@ all: ncp.exe
 
 GIMPSHARPLIB = $(top_builddir)/lib/gimp-sharp.dll
 
-ASSEMBLIES = -r:$(GIMPSHARPLIB) /pkg:gtk-sharp-2.0
+ASSEMBLIES = -r:$(GIMPSHARPLIB) /pkg:gtk-sharp-2.0 /target:winexe
 
 MYSOURCES = ncp.cs
 
