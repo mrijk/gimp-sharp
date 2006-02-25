@@ -82,16 +82,18 @@ namespace Gimp
       palette.AddEntry("black", new RGB(0, 0, 0));
       PaletteEntry black = palette[0];
       Assert.IsNotNull(black);
+      palette.Delete();
+    }
 
+    [Test]
+    [ExpectedException(typeof(Exception))]
+    public void ThisOutOfRange()
+    {
+      Palette palette = new Palette("UnitTestPalette");
+      palette.AddEntry("black", new RGB(0, 0, 0));
       // TODO: no range check yet
       PaletteEntry white = palette[1];
-      try {
-	// string name = white.Name;
-	Assert.IsTrue(false);
-      } catch {
-      }
-      
-      palette.Delete();
+      string name = white.Name;      
     }
 
     [Test]

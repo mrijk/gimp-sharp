@@ -82,7 +82,7 @@ namespace Gimp.SliceTool
       Slice slice = _sliceData.FindSlice(x, y);
       if (slice != null && !slice.Locked)
 	{
-	  return new Cursor(slice.CursorType);
+	  return slice.Cursor;
 	}
       else
 	{

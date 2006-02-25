@@ -26,12 +26,18 @@ namespace Gimp.SliceTool
 {
   public class RemoveFunc : MouseFunc
   {
+    static readonly Cursor _cursor;
     SliceData _sliceData;
 
     public RemoveFunc(SliceData sliceData, Preview preview) : 
       base(preview, false, false)
     {
       _sliceData = sliceData;
+    }
+
+    static RemoveFunc()
+    {
+      _cursor = LoadCursor("cursor-eraser.png");
     }
 
     override protected void OnPress(int x, int y) 
@@ -53,7 +59,7 @@ namespace Gimp.SliceTool
 	}
       else
 	{
-	  return new Cursor(CursorType.XCursor);
+	  return _cursor;
 	}
     }
   }

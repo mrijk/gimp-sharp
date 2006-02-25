@@ -26,6 +26,8 @@ namespace Gimp.SliceTool
 {
   public class CreateFunc : MouseFunc
   {
+    static readonly Cursor _cursor;
+
     PreviewRenderer _renderer;
     SliceData _sliceData;
     Rectangle _rectangle, _endRectangle;
@@ -38,6 +40,11 @@ namespace Gimp.SliceTool
     {
       _sliceData = sliceData;
       _renderer = preview.Renderer;
+    }
+
+    static CreateFunc()
+    {
+      _cursor = LoadCursor("cursor-slice.png");
     }
 
     override protected void OnPress(int x, int y) 
@@ -122,11 +129,11 @@ namespace Gimp.SliceTool
       Slice slice = _sliceData.FindSlice(x, y);
       if (slice != null && !slice.Locked)
 	{
-	  return new Cursor(slice.CursorType);
+	  return slice.Cursor;
 	}
       else
 	{
-	  return new Cursor(CursorType.Pencil);
+	  return _cursor;
 	}
     }
 

@@ -1,3 +1,15 @@
+2006-02-25  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/SliceTool/cursor-*.png: improved cursor files
+
+	* plug-ins/SliceTool/CreateFunc.cs
+	* plug-ins/SliceTool/CreateTableFunc.cs
+	* plug-ins/SliceTool/MouseFunc.cs
+	* plug-ins/SliceTool/Preview.cs
+	* plug-ins/SliceTool/RemoveFunc.cs
+	* plug-ins/SliceTool/SelectFunc.cs
+	* plug-ins/SliceTool/SliceTool.cs: added nicer icons
+
 2006-02-25  Max      <massimo.perga@gmail.com>
 
 	* plug-ins/KoalaPaint/Makefile.am 

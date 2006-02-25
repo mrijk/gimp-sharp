@@ -19,6 +19,7 @@
 //
 
 using System;
+using System.Reflection;
 
 using Gdk;
 using Gtk;
@@ -27,6 +28,8 @@ namespace Gimp.SliceTool
 {
   public class MouseFunc
   {
+    static readonly Cursor _defaultCursor;
+
     protected Preview _preview;
     bool _useRelease, _useMove;
 
@@ -35,6 +38,18 @@ namespace Gimp.SliceTool
       _preview = preview;
       _useRelease = useRelease;
       _useMove = useMove;
+    }
+
+    static MouseFunc()
+    {
+      _defaultCursor = LoadCursor("cursor-select.png");
+    }
+
+    protected static Cursor LoadCursor(string cursorFile)
+    {
+      Pixbuf pixbuf = new Pixbuf(Assembly.GetExecutingAssembly(),
+				 cursorFile);
+      return new Cursor(Gdk.Display.Default, pixbuf, 0, 0);
     }
 
     protected void Redraw()
@@ -48,7 +63,7 @@ namespace Gimp.SliceTool
     
     virtual public Cursor GetCursor(int x, int y)
     {
-      return new Cursor(CursorType.Arrow);
+      return _defaultCursor;
     }
 
     virtual public MouseFunc GetActualFunc(SliceTool parent, int x, int y) 

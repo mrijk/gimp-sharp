@@ -31,7 +31,8 @@ namespace Gimp.SliceTool
     Drawable _drawable;
     SliceTool _parent;
     PreviewRenderer _renderer;
-    CursorType _type = CursorType.LastCursor;
+
+    Cursor _cursor;
 
     public Preview(Drawable drawable, SliceTool parent)
     {
@@ -83,9 +84,9 @@ namespace Gimp.SliceTool
 
     public void SetCursor(Cursor cursor)
     {
-      if (cursor.Type != _type)
+      if (cursor != _cursor)
 	{
-	  _type = cursor.Type;
+	  _cursor = cursor;
 	  GdkWindow.Cursor = cursor;
 	}
     }

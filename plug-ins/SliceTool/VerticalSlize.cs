@@ -27,6 +27,8 @@ namespace Gimp.SliceTool
 {
   public class VerticalSlice : Slice
   {
+    static Cursor _cursor = new Cursor(CursorType.SbHDoubleArrow);
+
     public VerticalSlice(Slice top, Slice bottom, int x) : base(top, bottom, x)
     {
     }
@@ -94,9 +96,9 @@ namespace Gimp.SliceTool
       get {return _end.Position;}
     }
 
-    override public CursorType CursorType
+    override public Cursor Cursor
     {
-      get {return CursorType.SbHDoubleArrow;}
+      get {return _cursor;}
     }
   }
 }

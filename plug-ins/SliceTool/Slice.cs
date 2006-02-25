@@ -104,7 +104,7 @@ namespace Gimp.SliceTool
       get {return _changed;}
     }
 
-    abstract public CursorType CursorType
+    abstract public Cursor Cursor
     {
       get ;
     }

@@ -19,7 +19,6 @@
 //
 
 using System;
-using System.Reflection;
 
 using Gdk;
 using Gtk;
@@ -28,8 +27,8 @@ namespace Gimp.SliceTool
 {
   public class CreateTableFunc : MouseFunc
   {
-    SliceData _sliceData;
     static readonly Cursor _cursor;
+    SliceData _sliceData;
 
     public CreateTableFunc(SliceData sliceData, Preview preview) : 
       base(preview, false, false)
@@ -39,10 +38,7 @@ namespace Gimp.SliceTool
 
     static CreateTableFunc()
     {
-      Pixbuf pixbuf = new Pixbuf(Assembly.GetExecutingAssembly(),
-				 "cursor-table.png");
-
-      _cursor = new Cursor(Gdk.Display.Default, pixbuf, 0, 0);
+      _cursor = LoadCursor("cursor-table.png");
     }
 
     override protected void OnPress(int x, int y) 
@@ -63,7 +59,7 @@ namespace Gimp.SliceTool
       Slice slice = _sliceData.FindSlice(x, y);
       if (slice != null && !slice.Locked)
 	{
-	  return new Cursor(slice.CursorType);
+	  return slice.Cursor;
 	}
       else
 	{
