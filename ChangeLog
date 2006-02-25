@@ -1,3 +1,16 @@
+2006-02-25  Max      <massimo.perga@gmail.com>
+
+	* plug-ins/KoalaPaint/Makefile.am 
+	* plug-ins/Ministeck/Makefile.am
+	* plug-ins/ncp/Makefile.am
+	* plug-ins/PicturePackage/Makefile.am
+	* plug-ins/RedEye/Makefile.am
+	* plug-ins/SliceTool/Makefile.am
+	* plug-ins/Splitter/Makefile.am
+	* plug-ins/Swirlies/Makefile.am
+	* plug-ins/wbmp/Makefile.am: added /target:winexe to hide Win 
+	console window
+
 2006-02-24  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/SliceTool/RolloverEntry.cs: moved callback to anonymous
