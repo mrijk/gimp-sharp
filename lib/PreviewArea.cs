@@ -25,31 +25,39 @@ using System.Runtime.InteropServices;
 using Gtk;
 
 namespace Gimp
+{
+  public class PreviewArea : DrawingArea
   {
-    public class PreviewArea : DrawingArea
+    public PreviewArea() : base(gimp_preview_area_new())
     {
-      public PreviewArea() : base(gimp_preview_area_new())
-      {
-      }
-
-      public void Draw(int x, int y, int width, int height,
-		       ImageType type, byte[] buf, int rowstride)
-      {
-	gimp_preview_area_draw(Handle, x, y, width, height, 
-			       type, buf, rowstride);
-      }
-
-      [DllImport("libgimpwidgets-2.0-0.dll")]
-      extern static IntPtr gimp_preview_area_new ();
-      [DllImport("libgimpwidgets-2.0-0.dll")]
-      extern static void gimp_preview_area_draw(
-	IntPtr area,
-	int x,
-	int y,
-	int width,
-	int height,
-	ImageType type,
-	byte[] buf,
-	int rowstride);
     }
+
+    public void Draw(int x, int y, int width, int height,
+		     ImageType type, byte[] buf, int rowstride)
+    {
+      gimp_preview_area_draw(Handle, x, y, width, height, 
+			     type, buf, rowstride);
+    }
+
+    public void SetMaxSize(int width, int height)
+    {
+      gimp_preview_area_set_max_size(Handle, width, height);
+    }
+
+    [DllImport("libgimpwidgets-2.0-0.dll")]
+    extern static IntPtr gimp_preview_area_new ();
+    [DllImport("libgimpwidgets-2.0-0.dll")]
+    extern static void gimp_preview_area_draw(IntPtr area,
+					      int x,
+					      int y,
+					      int width,
+					      int height,
+					      ImageType type,
+					      byte[] buf,
+					      int rowstride);
+    [DllImport("libgimpwidgets-2.0-0.dll")]
+    extern static void gimp_preview_area_set_max_size(IntPtr area,
+						      int width,
+						      int height);
   }
+}

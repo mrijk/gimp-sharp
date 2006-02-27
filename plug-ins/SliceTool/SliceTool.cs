@@ -248,16 +248,24 @@ namespace Gimp.SliceTool
     {
       ScrolledWindow window = new ScrolledWindow();
       window.SetSizeRequest(600, 400);
-      
+
+      Alignment alignment = new Alignment(0.5f, 0.5f, 0, 0);
+
       _preview = new Preview(_drawable, this);
       _preview.WidthRequest = _drawable.Width;
       _preview.HeightRequest = _drawable.Height;
-      _preview.ButtonPressEvent += OnButtonPress;
-      
+
+      _preview.ButtonPressEvent += OnButtonPress;      
       _preview.MotionNotifyEvent += OnShowCoordinates;
+      _preview.LeaveNotifyEvent += 
+	delegate(object o, LeaveNotifyEventArgs args)
+	{
+	  _xy.Text = "";
+	};
       
-      window.AddWithViewport(_preview);
-      
+      alignment.Add(_preview);
+      window.AddWithViewport(alignment);
+
       return window;
     }
     

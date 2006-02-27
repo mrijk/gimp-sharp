@@ -1,3 +1,12 @@
+2006-02-27  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/SliceTool/Preview.cs
+	* plug-ins/SliceTool/SliceTool.cs: center preview area
+
+2006-02-25  Maurits  <maurits@localhost>
+
+	* lib/PreviewArea.cs: gimp_preview_area_set_max_size wrapped.
+
 2006-02-25  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/Splitter/Splitter.cs: fixed crash after "Re-show

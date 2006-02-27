@@ -36,6 +36,8 @@ namespace Gimp.SliceTool
 
     public Preview(Drawable drawable, SliceTool parent)
     {
+      SetMaxSize(drawable.Width, drawable.Height);
+
       _drawable = drawable;
       _parent = parent;
 
@@ -44,7 +46,8 @@ namespace Gimp.SliceTool
       SizeAllocated += OnSizeAllocated;
 
       Events = EventMask.ButtonPressMask | EventMask.ButtonReleaseMask | 
-	EventMask.PointerMotionHintMask | EventMask.PointerMotionMask;
+	EventMask.PointerMotionHintMask | EventMask.PointerMotionMask |
+	EventMask.LeaveNotifyMask;
     }
 
     void OnExposed (object o, ExposeEventArgs args)
