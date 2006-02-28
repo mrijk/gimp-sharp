@@ -24,6 +24,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
+using GLib;
+
 namespace Gimp
 {
   public class ParamDefList
@@ -76,6 +78,8 @@ namespace Gimp
 	  GimpParam param = (GimpParam) 
 	    Marshal.PtrToStructure(paramPtr, typeof(GimpParam));
 
+	  Console.WriteLine("type: " + param.type + " " + this[i].Type);
+
 	  switch (param.type)
 	    {
 	    case PDBArgType.INT32:
@@ -85,7 +89,10 @@ namespace Gimp
 	      this[i].Value = new Image((Int32) param.data.d_image);
 	      break;
 	    case PDBArgType.STRING:
-	      this[i].Value = Marshal.PtrToStringAuto(param.data.d_string);
+	      if (this[i].Type == typeof(string))
+		this[i].Value = Marshal.PtrToStringAuto(param.data.d_string);
+	      else
+		this[i].Value = Marshaller.FilenamePtrToString(param.data.d_string);
 	      break;
 	    case PDBArgType.DRAWABLE:
 	      this[i].Value = new Drawable((Int32) param.data.d_drawable);

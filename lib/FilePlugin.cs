@@ -74,9 +74,9 @@ namespace Gimp
       ParamDefList inParams = new ParamDefList(true);
       inParams.Add(new ParamDef("run_mode", typeof(Int32), 
 				"Interactive, non-interactive"));
-      inParams.Add(new ParamDef("filename", typeof(string), 
+      inParams.Add(new ParamDef("filename", typeof(FileName), 
 				"The name of the file to load"));
-      inParams.Add(new ParamDef("raw_filename", typeof(string), 
+      inParams.Add(new ParamDef("raw_filename", typeof(FileName), 
 				"The name entered"));
 
       ParamDefList outParams = new ParamDefList(true);
@@ -103,9 +103,9 @@ namespace Gimp
 				"Input image"));
       inParams.Add(new ParamDef("drawable", typeof(Drawable), 
 				"Drawable to save"));
-      inParams.Add(new ParamDef("filename", typeof(string),
+      inParams.Add(new ParamDef("filename", typeof(FileName),
 				"The name of the file to save the image in"));
-      inParams.Add(new ParamDef("raw_filename", typeof(string),
+      inParams.Add(new ParamDef("raw_filename", typeof(FileName),
 				"The name of the file to save the image in"));
 
       _saveProcedure = new Procedure(name, blurb, help, author, copyright, 

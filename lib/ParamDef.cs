@@ -64,6 +64,8 @@ namespace Gimp
 	return PDBArgType.IMAGE;
       else if (_type == typeof(PDBStatusType))
 	return PDBArgType.STATUS;
+      else if (_type == typeof(FileName))
+	return PDBArgType.STRING;
       else
 	return PDBArgType.END;
     }
@@ -113,9 +115,18 @@ namespace Gimp
       get {return _description;}
     }
 
+    public Type Type
+    {
+      get {return _type;}
+    }
+
     public GimpParamDef GimpParamDef
     {
       get {return _paramDef;}
     }
+  }
+
+  internal class FileName
+  {
   }
 }
