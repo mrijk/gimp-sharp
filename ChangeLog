@@ -1,9 +1,18 @@
+2006-02-28  Maurits  <m.rijk@chello.nl>
+
+	* lib/RGB.cs: added convenience routine
+	* plug-ins/Ministeck/Painter.cs: and use it
+
+2006-02-28  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/Ministeck/ShapeDescription.cs: Minor clean-up
+
 2006-02-27  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/SliceTool/Preview.cs
 	* plug-ins/SliceTool/SliceTool.cs: center preview area
 
-2006-02-25  Maurits  <maurits@localhost>
+2006-02-25  Maurits  <m.rijk@chello.nl>
 
 	* lib/PreviewArea.cs: gimp_preview_area_set_max_size wrapped.
 

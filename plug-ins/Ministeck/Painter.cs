@@ -31,11 +31,7 @@ namespace Gimp.Ministeck
 
     public Painter(Drawable drawable, int size, RGB color)
     {
-      byte r, g, b;
-
-      color.GetUChar(out r, out g, out b);
-      _color = new byte[]{r, g, b};
-
+      _color = color.Bytes;
       _pf = new PixelFetcher(drawable, false);
       _size = size;
     }

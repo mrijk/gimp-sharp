@@ -55,6 +55,17 @@ namespace Gimp
       gimp_rgb_get_uchar(ref _rgb, out red, out green, out blue);
     }
 
+    public byte[] Bytes
+    {
+      get
+	{
+	  byte r, g, b;
+	  
+	  GetUChar(out r, out g, out b);
+	  return new byte[]{r, g, b};
+	}
+    }
+
     [DllImport("libgimpcolor-2.0-0.dll")]
     static extern void gimp_rgb_set(ref GimpRGB rgb,
 				    double red,

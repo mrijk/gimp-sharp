@@ -18,13 +18,11 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace Gimp.Ministeck
 {
-  public class ShapeDescription : IEnumerable<Coordinate>
+  public class ShapeDescription
   {
     List<Coordinate> _shape = new List<Coordinate>();
 
@@ -37,12 +35,7 @@ namespace Gimp.Ministeck
       _shape.Add(new Coordinate(x, y));
     }
 
-    IEnumerator<Coordinate> IEnumerable<Coordinate>.GetEnumerator()
-    {
-      return _shape.GetEnumerator();
-    }
-
-    IEnumerator IEnumerable.GetEnumerator() 
+    public IEnumerator<Coordinate> GetEnumerator()
     {
       return _shape.GetEnumerator();
     }
