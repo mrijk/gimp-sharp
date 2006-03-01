@@ -15,6 +15,7 @@ MYSOURCES =			\
 	Painter.cs		\
 	Shape.cs		\
 	ShapeDescription.cs	\
+	ShapeDescriptionSet.cs	\
 	ShapeSet.cs		\
 	ThreeByOneShape.cs	\
 	TwoByOneShape.cs	\

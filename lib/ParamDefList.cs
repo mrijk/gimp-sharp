@@ -78,8 +78,6 @@ namespace Gimp
 	  GimpParam param = (GimpParam) 
 	    Marshal.PtrToStructure(paramPtr, typeof(GimpParam));
 
-	  Console.WriteLine("type: " + param.type + " " + this[i].Type);
-
 	  switch (param.type)
 	    {
 	    case PDBArgType.INT32:

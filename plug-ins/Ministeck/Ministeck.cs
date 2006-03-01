@@ -28,9 +28,10 @@ namespace Gimp.Ministeck
 {
   public class Ministeck : Plugin
   {
-    GimpColorButton _colorButton;
     DrawablePreview _preview;
 
+    [SaveAttribute]
+    bool _limit = true;
     [SaveAttribute]
     int _size = 16;
     [SaveAttribute]
@@ -95,19 +96,26 @@ namespace Gimp.Ministeck
       table.AttachAligned(0, 0, "_Size:", 0.0, 0.5, size, 2, true);
       size.ValueChanged += SizeChanged;
 
-      _colorButton = new GimpColorButton("", 16, 16, _color, 
-					 ColorAreaType.COLOR_AREA_FLAT);
-      _colorButton.Update = true;
-      _colorButton.ColorChanged += ColorChanged;
-      table.AttachAligned(0, 1, "C_olor:", 0.0, 0.5, _colorButton, 1, true);
+      CheckButton limit = new CheckButton("_Limit Shapes");
+      table.Attach(limit, 2, 3, 0, 1);
+      limit.Active = _limit;
+      limit.Toggled += delegate(object sender, EventArgs args)
+	{
+	  _limit = limit.Active;
+	};
+
+      GimpColorButton colorButton = 
+	new GimpColorButton("", 16, 16, _color, ColorAreaType.COLOR_AREA_FLAT);
+      colorButton.Update = true;
+      colorButton.ColorChanged += delegate(object sender, EventArgs e)
+	{
+	  _color = colorButton.Color;
+	  _preview.Invalidate();
+	};
+      table.AttachAligned(0, 1, "C_olor:", 0.0, 0.5, colorButton, 1, true);
 
       dialog.ShowAll();
       return DialogRun();
-    }
-
-    void ColorChanged(object sender, EventArgs e)
-    {
-      _color = (sender as GimpColorButton).Color;
     }
 
     void SizeChanged(object sender, EventArgs e)
@@ -149,7 +157,6 @@ namespace Gimp.Ministeck
 
       // And finally calculate the Ministeck pieces
 	
-      Random random = new Random();
       int width = drawable.Width / _size;
       int height = drawable.Height / _size;
 
@@ -160,13 +167,25 @@ namespace Gimp.Ministeck
       Array.Clear(A, 0, width * height);
 
       // Fill in shapes
-	
-      List<Shape> shapes = new List<Shape>();
-      shapes.Add(new TwoByTwoShape());
-      shapes.Add(new ThreeByOneShape());
-      shapes.Add(new TwoByOneShape());
-      shapes.Add(new CornerShape());
-      shapes.Add(new OneByOneShape());
+      
+      ShapeSet shapes = new ShapeSet();
+
+      if (_limit)
+	{
+	  shapes.Add(2, new TwoByTwoShape());
+	  shapes.Add(8, new ThreeByOneShape());
+	  shapes.Add(3, new TwoByOneShape());
+	  shapes.Add(2, new CornerShape());
+	  shapes.Add(1, new OneByOneShape());
+	}
+      else
+	{
+	  shapes.Add(new TwoByTwoShape());
+	  shapes.Add(new ThreeByOneShape());
+	  shapes.Add(new TwoByOneShape());
+	  shapes.Add(new CornerShape());
+	  shapes.Add(new OneByOneShape());
+	}
 
       Progress progress = null;
       if (!preview)
@@ -178,16 +197,12 @@ namespace Gimp.Ministeck
 	    {
 	      if (!A[x, y])
 		{
-		  List<Shape> copy = new List<Shape>(shapes);
-		  while (copy.Count > 0)
+		  foreach (Shape shape in shapes)
 		    {
-		      int index = random.Next(copy.Count - 1);
-		      Shape shape = copy[index];
 		      if (shape.Fits(A, x, y))
 			{
 			  break;
 			}
-		      copy.RemoveAt(index);
 		    }
 		}
 	    }

@@ -26,7 +26,7 @@ namespace Gimp.Ministeck
 {
   abstract public class Shape
   {
-    List<ShapeSet> _set = new List<ShapeSet>(); 
+    List<ShapeDescriptionSet> _set = new List<ShapeDescriptionSet>(); 
     static protected Painter _painter;
 
     Random _random = new Random();
@@ -42,17 +42,17 @@ namespace Gimp.Ministeck
 
     protected void Combine(params ShapeDescription[] list)
     {
-      ShapeSet empty = new ShapeSet();
+      ShapeDescriptionSet empty = new ShapeDescriptionSet();
       _set.Add(empty);
 
       foreach (ShapeDescription val in list)
 	{
-	  List<ShapeSet> copy = new List<ShapeSet>();
-	  foreach (ShapeSet ele in _set)
+	  List<ShapeDescriptionSet> copy = new List<ShapeDescriptionSet>();
+	  foreach (ShapeDescriptionSet ele in _set)
 	    {
 	      for (int i = 0; i <= ele.Count; i++)
 		{
-		  ShapeSet tmp = new ShapeSet(ele);
+		  ShapeDescriptionSet tmp = new ShapeDescriptionSet(ele);
 		  tmp.Insert(i, val);
 		  copy.Add(tmp);
 		}

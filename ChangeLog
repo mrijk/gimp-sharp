@@ -1,3 +1,16 @@
+2006-03-01  Maurits  <m.rijk@chello.nl>
+
+	* lib/ParamDefList.cs: removed debugging output
+
+	* plug-ins/Ministeck/ShapeDescriptionSet.cs: new file
+
+	* plug-ins/Ministeck/Makefile.am: changed accordingly
+
+	* plug-ins/Ministeck/Ministeck.cs
+	* plug-ins/Ministeck/Shape.cs
+	* plug-ins/Ministeck/ShapeSet.cs: add option to select realistic
+	number of shapes
+
 2006-02-28  Maurits  <m.rijk@chello.nl>
 
 	* lib/FilePlugin.cs

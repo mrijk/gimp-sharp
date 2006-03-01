@@ -26,31 +26,63 @@ namespace Gimp.Ministeck
 {
   public class ShapeSet
   {
-    List<ShapeDescription> _set;
+    readonly List<Shape> _set = new List<Shape>();
+    readonly Random _random = new Random();
+    long _combinations = 1;
 
-    public ShapeSet(params ShapeDescription[] shapes)
+    public void Add(Shape shape)
     {
-      _set = new List<ShapeDescription>(shapes);
+      _set.Add(shape);
+      _combinations *= _set.Count;
     }
 
-    public ShapeSet(ShapeSet s)
+    public void Add(int nr, Shape shape)
     {
-      _set = new List<ShapeDescription>(s._set);
+      for (; nr > 0; nr--)
+	{
+	  Add(shape);
+	}
     }
 
-    public IEnumerator<ShapeDescription> GetEnumerator()
+    public IEnumerator<Shape> GetEnumerator()
     {
-      return _set.GetEnumerator();
+      long index = (long) (_random.NextDouble() * _combinations);
+
+      List<Shape> permutation = GeneratePermutation(index);
+      foreach (Shape shape in permutation)
+	yield return shape;
     }
 
-    public void Insert(int index, ShapeDescription val)
+    List<Shape> GeneratePermutation(long index)
     {
-      _set.Insert(index, val);
-    }
+      List<Shape> permutation = _set;
+      int len = _set.Count;
+      long[] fac = new long[len];
+      int[] idn = new int[len];
 
-    public int Count
-    {
-      get {return _set.Count;}
+      fac[len - 1] = 1;
+      idn[len - 1] = len - 1;
+      for (int j = len - 2; j >= 0; j--)
+	{
+	  fac[j] = fac[j + 1] * (len - 1 - j);
+	  idn[j] = j;
+	}
+      
+      for (int j = 0; j < len; j++)
+	{
+	  int idx = (int) (index / fac[j]);
+	  
+	  int tmp = idn[j];
+	  idn[j] = idn[j + idx];
+	  idn[j + idx] = tmp;
+
+	  Shape tmp1 = permutation[j];
+	  permutation[j] = permutation[j + idx];
+	  permutation[j + idx] = tmp1;
+	  
+	  index -= (idx * fac[j]);
+	}
+      return permutation; 
     }
   }
 }
