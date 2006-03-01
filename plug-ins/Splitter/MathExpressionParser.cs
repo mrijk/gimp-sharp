@@ -39,8 +39,7 @@ namespace Gimp.Splitter
       cpar.GenerateInMemory = true;
       cpar.GenerateExecutable = false;
       cpar.ReferencedAssemblies.Add("System.dll");
-      // FIXME: next line fails if GIMP not executed in plug-in directory
-      cpar.ReferencedAssemblies.Add("Splitter.exe"); 
+      cpar.ReferencedAssemblies.Add(Assembly.GetExecutingAssembly().Location); 
       string src = 
 	"using System;"+
 	"class myclass : Gimp.Splitter.MyClassBase" + 

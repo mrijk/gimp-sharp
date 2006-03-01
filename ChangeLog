@@ -1,5 +1,9 @@
 2006-03-01  Maurits  <m.rijk@chello.nl>
 
+	* plug-ins/Splitter/MathExpressionParser.cs: fixed #1436895
+
+2006-03-01  Maurits  <m.rijk@chello.nl>
+
 	* lib/ParamDefList.cs: removed debugging output
 
 	* plug-ins/Ministeck/ShapeDescriptionSet.cs: new file
