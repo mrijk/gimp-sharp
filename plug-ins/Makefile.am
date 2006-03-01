@@ -9,6 +9,7 @@ SUBDIRS = 		\
 	KoalaPaint 	\
 	Ministeck	\
 	ncp 		\
+	Pdn			\
 	PicturePackage 	\
 	RedEye 		\
 	SliceTool 	\

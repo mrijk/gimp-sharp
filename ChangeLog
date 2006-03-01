@@ -1,3 +1,18 @@
+2006-02-25  Max      <massimo.perga@gmail.com>
+
+	* plug-ins/Pdn/Makefile.am 
+	* plug-ins/Pdn/Pdn.cs
+	* plug-ins/Pdn/PaintDotNet.Data.dll
+	* plug-ins/Pdn/PaintDotNet.Effects.dll
+	* plug-ins/Pdn/PaintDotNet.Resources.dll
+	* plug-ins/Pdn/PaintDotNet.StylusReader.dll
+	* plug-ins/Pdn/PaintDotNet.SystemLayer.dll
+	* plug-ins/Pdn/PdnLib.dll: added to the repository for 
+	feature #1425883
+
+	* ./configure.in
+	* plug-ins/Makefile.am: added support for Pdn plug-in
+
 2006-03-01  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/Splitter/MathExpressionParser.cs: fixed #1436895

@@ -70,7 +70,8 @@ fi
 AM_CONDITIONAL(BUILD_UNITTEST, test x$unittest = xyes)
 
 dnl read Makefile.in and write Makefile
-AC_OUTPUT(Makefile lib/Makefile plug-ins/Makefile plug-ins/KoalaPaint/Makefile plug-ins/ncp/Makefile plug-ins/Ministeck/Makefile plug-ins/PicturePackage/Makefile plug-ins/RedEye/Makefile plug-ins/SliceTool/Makefile plug-ins/Splitter/Makefile plug-ins/Swirlies/Makefile plug-ins/UnitTest/Makefile plug-ins/wbmp/Makefile)
+AC_OUTPUT(Makefile lib/Makefile plug-ins/Makefile plug-ins/KoalaPaint/Makefile
+plug-ins/ncp/Makefile plug-ins/Ministeck/Makefile plug-ins/Pdn/Makefile plug-ins/PicturePackage/Makefile plug-ins/RedEye/Makefile plug-ins/SliceTool/Makefile plug-ins/Splitter/Makefile plug-ins/Swirlies/Makefile plug-ins/UnitTest/Makefile plug-ins/wbmp/Makefile)
 
 dnl Print a summary of features enabled/disabled:
 AC_MSG_RESULT([
