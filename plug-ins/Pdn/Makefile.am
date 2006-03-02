@@ -21,8 +21,8 @@ Pdn.exe: $(SOURCES) $(GIMPSHARPLIB)
 	$(CSC) $(SOURCES) -out:$@ $(ASSEMBLIES)
 
 clean:
-	rm -f pdn.exe
+	rm -f Pdn.exe
 
 install:
-	$(INSTALL_DATA) pdn.exe $(DESTDIR)/$(GIMPPLUGINDIR)
-	$(INSTALL) pdn $(DESTDIR)/$(GIMPPLUGINDIR)
+	$(INSTALL_DATA) Pdn.exe $(DESTDIR)/$(GIMPPLUGINDIR)
+	$(INSTALL) Pdn $(DESTDIR)/$(GIMPPLUGINDIR)
