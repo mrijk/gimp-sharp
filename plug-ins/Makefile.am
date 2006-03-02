@@ -9,8 +9,9 @@ SUBDIRS = 		\
 	KoalaPaint 	\
 	Ministeck	\
 	ncp 		\
-	Pdn			\
+	Pdn		\
 	PicturePackage 	\
+	Raindrops	\
 	RedEye 		\
 	SliceTool 	\
 	Splitter 	\
