@@ -2,7 +2,8 @@ Overview of Changes in Gimp# 0.8
 ================================
 
 - Framework largely refactored and redesigned, making it easier to
-  derive new plug-ins.
+  derive new plug-ins
+- Improved support for running GIMP# on win32
 - Better use of .NET 2.0 features
 - First fully functional release of Splitter plug-in
 - New plug-in to generate Swirlies

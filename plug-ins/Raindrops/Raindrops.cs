@@ -26,6 +26,15 @@ namespace Gimp.Raindrops
 {
   public class Raindrops : Plugin
   {
+    DrawablePreview _preview;
+
+    [SaveAttribute]
+    int _dropSize = 80;
+    [SaveAttribute]
+    int _number = 80;
+    [SaveAttribute]
+    int _fishEye = 30;
+
     [STAThread]
     static void Main(string[] args)
     {
@@ -72,9 +81,49 @@ namespace Gimp.Raindrops
       VBox vbox = new VBox(false, 12);
       vbox.BorderWidth = 12;
       dialog.VBox.PackStart(vbox, true, true, 0);
+
+      _preview = new DrawablePreview(_drawable, false);
+      _preview.Invalidated += UpdatePreview;
+      vbox.PackStart(_preview, true, true, 0);
+
+      GimpTable table = new GimpTable(2, 2, false);
+      table.ColumnSpacing = 6;
+      table.RowSpacing = 6;
+      vbox.PackStart(table, false, false, 0);
+
+      ScaleEntry entry = new ScaleEntry(table, 0, 1, "_Drop size:", 150, 3,
+					_dropSize, 1.0, 256.0, 1.0, 8.0, 0,
+					true, 0, 0, null, null);
+
+      entry = new ScaleEntry(table, 0, 2, "_Number:", 150, 3,
+			     _number, 1.0, 256.0, 1.0, 8.0, 0,
+			     true, 0, 0, null, null);
+
+
+      entry = new ScaleEntry(table, 0, 3, "_Fish eye:", 150, 3,
+			     _fishEye, 1.0, 256.0, 1.0, 8.0, 0,
+			     true, 0, 0, null, null);
+
+      // entry.ValueChanged += PointsUpdate;
 			
       dialog.ShowAll();
       return DialogRun();
+    }
+
+    void UpdatePreview(object sender, EventArgs e)
+    {
+      int x, y, width, height;
+ 	
+      _preview.GetPosition(out x, out y);
+      _preview.GetSize(out width, out height);
+      Image clone = new Image(_image);
+      clone.Crop(width, height, x, y);
+
+      PixelRgn rgn = new PixelRgn(clone.ActiveDrawable, 0, 0, width, height, 
+				  false, false);
+      _preview.DrawRegion(rgn);
+	
+      clone.Delete();
     }
 
     override protected void Reset()
@@ -82,7 +131,7 @@ namespace Gimp.Raindrops
       Console.WriteLine("Reset!");
     }
 
-    override protected void Render(Drawable drawable)
+    override protected void Render(Image image, Drawable drawable)
     {
       Display.DisplaysFlush();
     }

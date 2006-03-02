@@ -1,5 +1,12 @@
 2006-03-02  Maurits  <m.rijk@chello.nl>
 
+	* NEWS: update
+
+	* plug-ins/Raindrops/Raindrops.cs: basic dialog ready. Still have
+	to port from Krita filter.
+
+2006-03-02  Maurits  <m.rijk@chello.nl>
+
 	* lib/Gimp.cs: added properties for GIMP major, minor and micro version
 
 	* plug-ins/UnitTest/TestGimp.cs: new tests
