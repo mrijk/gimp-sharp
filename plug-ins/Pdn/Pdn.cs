@@ -32,59 +32,6 @@ namespace Gimp.Pdn
 //		private const string headerXmlSkeleton =
 //			"<pdnImage><custom></custom></pdnImage>";
 
-		const int KOALA_WIDTH = 320;
-		const int KOALA_HEIGHT = 200;
-
-		byte[] _mcolor;
-		byte[] _color;
-		byte _background;
-
-		byte[] _colormap = new byte[]
-		{
-			0x00, 0x00, 0x00,
-				0xff, 0xff, 0xff,
-				0x88, 0x00, 0x00,
-				0xaa,
-				0xff,
-				0xee,
-				0xcc,
-				0x44,
-				0xcc,
-				0x00,
-				0xcc,
-				0x55,
-				0x00,
-				0x00,
-				0xaa,
-				0xee,
-				0xee,
-				0x77,
-				0xdd,
-				0x88,
-				0x55,
-				0x66,
-				0x44,
-				0x00,
-				0xff,
-				0x77,
-				0x77,
-				0x33,
-				0x33,
-				0x33,
-				0x77,
-				0x77,
-				0x77,
-				0xaa,
-				0xff,
-				0x66,
-				0x00,
-				0x88,
-				0xff,
-				0xbb,
-				0xbb,
-				0xbb
-		};
-
 		[STAThread]
 			static void Main(string[] args)
 			{
@@ -121,6 +68,9 @@ namespace Gimp.Pdn
 			Image image = null;
 			Console.WriteLine("Filename = " +filename);
 			Console.ReadLine();
+			int layerPosition = 0;
+			int colorOffset = 0;
+
 			//		StreamReader stream = new Stream
 			if (File.Exists(/*filename*/filename))
 			{
@@ -135,7 +85,8 @@ namespace Gimp.Pdn
 				Console.WriteLine("height : " + document.Height);
 
 				image = new Image(document.Width, document.Height,
-													ImageBaseType.INDEXED); // Is it the best type ?
+													ImageBaseType.RGB); // Is it the best type ?
+				image.Filename = filename;
 
 				PaintDotNet.LayerList layers = document.Layers;
 				Console.WriteLine("#layers: " + layers.Count);
@@ -148,9 +99,11 @@ namespace Gimp.Pdn
 					Console.ReadLine();
 					Layer layer = new Layer(image, readLayer.Name,
 							document.Width, document.Height,
-							ImageType.INDEXED,  
+							ImageType.RGBA,  
 							(readLayer.Opacity / 255) * 100, // 100 what means ?
 							LayerModeEffects.NORMAL);
+		  		Console.WriteLine("11");
+					image.AddLayer(layer, layerPosition++);
 
 					Console.WriteLine("1");
 
@@ -158,20 +111,45 @@ namespace Gimp.Pdn
 							document.Width, document.Height,
 							true, false);
 
-					byte[] buf = new byte[document.Width * document.Height];
+					byte[] buf = new byte[document.Width * document.Height * 4];
+					byte[] color_conv_ary = new byte[4];
+					int lastPixelConverted = 0;
+					colorOffset = 0;
 					Surface surf = (readLayer as BitmapLayer).Surface;
 
+					
 					for(int row = 0; row < document.Height; row++)
 					{
 						MemoryBlock memory = surf.GetRow(row);
 						byte[] bitmapBytes = memory.ToByteArray();
-						for(int col = 0; col < document.Width; col++)
+						lastPixelConverted = 0;
+						colorOffset = 0;
+						for(int col = 0; col < document.Width * 4; col++)
 						{
-							buf[row * document.Height + col] =  bitmapBytes[col]; //0x7F;
+							color_conv_ary[colorOffset++] = bitmapBytes[col];
+//							Console.WriteLine("ColorOffset = " + colorOffset);
+
+							if(colorOffset >= 4)
+							{
+								byte[] tmpArray = FromBGRAToRGBA(color_conv_ary);
+									
+								for(int j = 0; j < colorOffset; j++)
+								{
+//									buf[row * document.Height + (lastPixelConverted++)] = tmpArray[j];
+									buf[(row * document.Width * 4) + (lastPixelConverted++)] = tmpArray[j];
+
+/*										Console.WriteLine("Scritto il byte[" + ((row *
+										document.Width * 4) + (lastPixelConverted-1)) + "] : " +
+										tmpArray[j]);*/
+								}
+								colorOffset = 0;
+							}
+
+//							buf[row * document.Height + col] =  bitmapBytes[col]; //0x7F;
 						}
-						Console.WriteLine(memory.Length);
+//						Console.WriteLine(memory.Length);
 					}
-					Console.ReadLine();
+//					Console.ReadLine();
 
 					rgn.SetRect(buf, 0, 0, 
 							document.Width, document.Height);
@@ -183,22 +161,39 @@ namespace Gimp.Pdn
 						e.StackTrace);
 					}
 				}
-				image.Filename = filename;
 				// missing colormap, mcolor and background
 
 				Console.WriteLine("2");
 
-				Surface surface =
+/*				Surface surface =
 					(layers[0] as
 					 BitmapLayer).Surface;
 				MemoryBlock memory1 =
 					surface.GetRow(13);
 				byte[] bytes =
 					memory1.ToByteArray();
-				Console.WriteLine("length: " + bytes.Length);
+				Console.WriteLine("length: " + bytes.Length);*/
 			}	
 			Console.ReadLine();
 			return image;
+		}
+
+		public byte [] FromBGRAToRGBA(byte[] bgra)
+		{
+			byte r, g, b, a;
+
+//			Console.Write("From BGRAToRGBA called");
+			a = bgra[3];
+			r = bgra[2];
+			g = bgra[1];
+			b = bgra[0];
+
+/*			if(a == 0xFF)
+			{
+				Console.WriteLine(": Alpha opaque r=" + r + " g=" + g + " b=" + b );
+			}*/
+
+			return new byte[]{r, g, b, a};
 		}
 	}
 }

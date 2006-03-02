@@ -1,3 +1,10 @@
+2006-03-02  Max      <massimo.perga@gmail.com>
+
+	* plug-ins/Pdn/Pdn: added the file to the repository
+
+	* plug-ins/Pdn/Pdn.cs: added basic support to PDN file format 
+	for feature #1425883
+
 2006-03-02  Maurits  <m.rijk@chello.nl>
 
 	* NEWS: update
@@ -27,7 +34,7 @@
 
 	* configure.in: changed accordingly + some clean-up
 
-2006-02-25  Max      <massimo.perga@gmail.com>
+2006-03-01  Max      <massimo.perga@gmail.com>
 
 	* plug-ins/Pdn/Makefile.am 
 	* plug-ins/Pdn/Pdn.cs
