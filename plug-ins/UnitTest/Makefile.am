@@ -21,6 +21,7 @@ TESTSOURCES = 	TestBrush.cs 		\
 		TestContext.cs		\
 		TestDisplay.cs		\
 		TestDrawable.cs		\
+		TestGimp.cs		\
 		TestGuide.cs		\
 		TestImage.cs		\
 		TestLayer.cs		\

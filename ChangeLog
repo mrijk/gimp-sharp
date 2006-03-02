@@ -1,5 +1,15 @@
 2006-03-02  Maurits  <m.rijk@chello.nl>
 
+	* lib/Gimp.cs: added properties for GIMP major, minor and micro version
+
+	* plug-ins/UnitTest/TestGimp.cs: new tests
+
+	* plug-ins/UnitTest/Makefile.am: changed accordingly
+
+	* plug-ins/Raindrops/Raindrops.png: nicer icon
+
+2006-03-02  Maurits  <m.rijk@chello.nl>
+
 	* plug-ins/Raindrops/Makefile.am
 	* plug-ins/Raindrops/Raindrops
 	* plug-ins/Raindrops/Raindrops.cs 
