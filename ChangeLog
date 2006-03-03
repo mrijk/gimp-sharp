@@ -1,3 +1,9 @@
+2006-03-03  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/Pdn/Pdn: replaced reference to ncp plug-in
+	
+	* plug-ins/Pdn/Makefile.am: try to install minimal set of .dll's
+
 2006-03-02  Max      <massimo.perga@gmail.com>
 
 	* plug-ins/Pdn/Pdn: added the file to the repository

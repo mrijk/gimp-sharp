@@ -15,7 +15,7 @@ ASSEMBLIES = -r:$(GIMPSHARPLIB) /pkg:gtk-sharp-2.0 \
 
 SOURCES = Pdn.cs
 
-EXTRA_DIST = $(SOURCES) Pdn
+EXTRA_DIST = $(SOURCES) Pdn PaintDotNet.Data.dll PdnLib.dll
 
 Pdn.exe: $(SOURCES) $(GIMPSHARPLIB)
 	$(CSC) $(SOURCES) -out:$@ $(ASSEMBLIES)
@@ -26,3 +26,6 @@ clean:
 install:
 	$(INSTALL_DATA) Pdn.exe $(DESTDIR)/$(GIMPPLUGINDIR)
 	$(INSTALL) Pdn $(DESTDIR)/$(GIMPPLUGINDIR)
+	$(INSTALL_DATA) PaintDotNet.Data.dll $(DESTDIR)/$(GIMPPLUGINDIR)
+	$(INSTALL_DATA) PaintDotNet.SystemLayer.dll $(DESTDIR)/$(GIMPPLUGINDIR)
+	$(INSTALL_DATA) PdnLib.dll $(DESTDIR)/$(GIMPPLUGINDIR)
