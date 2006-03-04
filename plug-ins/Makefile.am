@@ -17,4 +17,5 @@ SUBDIRS = 		\
 	Splitter 	\
 	Swirlies 	\
 	$(UnitTest) 	\
+	UpdateCheck	\
 	wbmp

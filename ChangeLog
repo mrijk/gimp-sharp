@@ -1,3 +1,15 @@
+2006-03-04  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/UpdateCheck/Makefile.am
+	* plug-ins/UpdateCheck/UpdateCheck
+	* plug-ins/UpdateCheck/UpdateCheck.cs 
+	* plug-ins/UpdateCheck/UpdateCheck.png: new files for UpdateCheck
+	filter, mostly placeholders at the moment
+
+	* plug-ins/Makefile.am: changed accordingly
+
+	* configure.in: changed accordingly
+
 2006-03-03  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/Pdn/Pdn: replaced reference to ncp plug-in

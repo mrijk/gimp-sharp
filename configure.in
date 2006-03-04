@@ -84,6 +84,7 @@ plug-ins/SliceTool/Makefile
 plug-ins/Splitter/Makefile 
 plug-ins/Swirlies/Makefile 
 plug-ins/UnitTest/Makefile 
+plug-ins/UpdateCheck/Makefile 
 plug-ins/wbmp/Makefile
 ])
 
