@@ -19,6 +19,9 @@
 //
 
 using System;
+using System.IO;
+using System.Net;
+using System.Xml;
 
 using Gtk;
 
@@ -59,8 +62,51 @@ namespace Gimp.UpdateCheck
       return set;
     }
 
+    override protected bool CreateDialog()
+    {
+      gimp_ui_init("UpdateCheck", true);
+
+      Dialog dialog = DialogNew("UpdateCheck", "UpdateCheck", IntPtr.Zero, 0,
+				Gimp.StandardHelpFunc, "UpdateCheck");
+
+      VBox vbox = new VBox(false, 12);
+      vbox.BorderWidth = 12;
+      dialog.VBox.PackStart(vbox, true, true, 0);
+      dialog.ShowAll();
+      return DialogRun();
+    }
+
     override protected void Render(Image image, Drawable drawable)
     {
+      XmlDocument doc = new XmlDocument();
+
+      try {
+	WebRequest myRequest = 
+	  WebRequest.Create("http://gimp-sharp.sourceforge.net/version.xml");
+      
+	WebResponse myResponse = myRequest.GetResponse();
+	
+	Stream stream = myResponse.GetResponseStream();
+	doc.Load(stream);
+
+	myResponse.Close();
+      } catch (Exception e) {
+	Console.WriteLine("Exception!");
+	Console.WriteLine(e.StackTrace);
+	return;
+      }
+
+      XmlElement root = doc.DocumentElement;
+      XmlNodeList nodeList = root.SelectNodes("/packages/package");
+      
+      foreach (XmlNode node in nodeList)
+	{
+	  XmlAttributeCollection attributes = node.Attributes;
+	  XmlAttribute version = (XmlAttribute)
+	    attributes.GetNamedItem("version");
+	  Console.WriteLine(version.Value);
+	}
+      
     }
   }
 }

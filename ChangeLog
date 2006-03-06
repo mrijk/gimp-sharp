@@ -1,3 +1,8 @@
+2006-03-05  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/UpdateCheck/UpdateCheck.cs: added some code to read
+	version information from a .xml file on our sourceforge account.
+
 2006-03-04  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/UpdateCheck/Makefile.am
