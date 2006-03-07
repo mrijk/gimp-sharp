@@ -29,6 +29,10 @@ namespace Gimp.UpdateCheck
 {
   public class UpdateCheck : Plugin
   {
+    bool _checkGimp = true;
+    bool _checkGimpSharp = true;
+    bool _checkUnstable = false;
+
     [STAThread]
     static void Main(string[] args)
     {
@@ -72,6 +76,33 @@ namespace Gimp.UpdateCheck
       VBox vbox = new VBox(false, 12);
       vbox.BorderWidth = 12;
       dialog.VBox.PackStart(vbox, true, true, 0);
+
+      GimpTable table = new GimpTable(4, 3, false);
+      table.ColumnSpacing = 6;
+      table.RowSpacing = 6;
+      vbox.PackStart(table, true, true, 0);
+
+      CheckButton checkGimp = new CheckButton("Check _GIMP");
+      checkGimp.Active = _checkGimp;
+      checkGimp.Toggled += delegate(object sender, EventArgs args) {
+	_checkGimp = checkGimp.Active;
+      };
+      table.Attach(checkGimp, 0, 1, 0, 1);
+
+      CheckButton checkGimpSharp = new CheckButton("Check G_IMP#");
+      checkGimpSharp.Active = _checkGimpSharp;
+      checkGimpSharp.Toggled += delegate(object sender, EventArgs args) {
+	_checkGimpSharp = checkGimpSharp.Active;
+      };
+      table.Attach(checkGimpSharp, 0, 1, 1, 2);
+
+      CheckButton checkUnstable = new CheckButton("Check _Unstable Releases");
+      checkUnstable.Active = _checkUnstable;
+      checkUnstable.Toggled += delegate(object sender, EventArgs args) {
+	_checkUnstable = checkUnstable.Active;
+      };
+      table.Attach(checkUnstable, 0, 1, 2, 3);
+
       dialog.ShowAll();
       return DialogRun();
     }

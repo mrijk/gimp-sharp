@@ -1,3 +1,14 @@
+2006-03-07  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/UpdateCheck/UpdateCheck.cs: implemented dialog
+
+	* plug-ins/UnitTest/TestGimp.cs
+	* lib/Gimp.cs: use new Version class
+
+	* lib/Version.cs: new class to hold versioning information
+
+	* lib/Makefile.am: changed accordingly
+
 2006-03-05  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/UpdateCheck/UpdateCheck.cs: added some code to read

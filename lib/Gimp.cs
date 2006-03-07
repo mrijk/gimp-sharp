@@ -28,27 +28,6 @@ namespace Gimp
 {
   public static class Gimp
   {
-    static public int MajorVersion
-      {
-	get {return GetVersion(0);}
-      }
-
-    static public int MinorVersion
-      {
-	get {return GetVersion(1);}
-      }
-
-    static public int MicroVersion
-      {
-	get {return GetVersion(2);}
-      }
-
-    static int GetVersion(int index)
-      {
-	string[] numbers = Version.Split('.');
-	return Convert.ToInt32(numbers[index]);
-      }
-
     static public string Directory
     {
       get
@@ -58,12 +37,12 @@ namespace Gimp
 	}
     }
 
-    static public string Version
+    static public Version Version
     {
       get
 	{
           IntPtr tmp = gimp_version();
-          return Marshal.PtrToStringAuto(tmp);
+          return new Version(Marshal.PtrToStringAuto(tmp));
 	}
     }
 

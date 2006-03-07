@@ -66,6 +66,7 @@ MYSOURCES = AspectPreview.cs 	\
 	Selection.cs		\
 	Tattoo.cs		\
 	Tile.cs			\
+	Version.cs		\
 	VerticalGuide.cs
 
 EXTRA_DIST = $(MYSOURCES) $(LIBRARY).config

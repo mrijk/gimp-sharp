@@ -1,7 +1,7 @@
 // GIMP# - A C# wrapper around the GIMP Library
 // Copyright (C) 2004-2006 Maurits Rijk
 //
-// TestGimp.cs
+// Version.cs
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -19,39 +19,51 @@
 // Boston, MA 02111-1307, USA.
 //
 
-using NUnit.Framework;
+using System;
 
 namespace Gimp
 {
-  [TestFixture]
-  public class TestGimp
+  public class Version : IComparable
   {
-    [Test]
-    public void Version()
+    readonly int _major;
+    readonly int _minor;
+    readonly int _micro;
+
+    internal Version(string version)
     {
-      Version version = Gimp.Version;
-      Assert.IsTrue(version != null);
+	string[] numbers = version.Split('.');
+	_major = Convert.ToInt32(numbers[0]);
+	_minor = Convert.ToInt32(numbers[1]);
+	_micro = Convert.ToInt32(numbers[2]);
     }
 
-    [Test]
-    public void MajorVersion()
+    public int CompareTo(object obj)
     {
-      Version version = Gimp.Version;
-      Assert.IsTrue(version.Major >= 2);
+      Version version = obj as Version;
+
+      int cmp = _major - version._major;
+      if (cmp == 0) {
+	cmp = _minor - version._minor;
+	if (cmp == 0) {
+	  cmp = _micro - version._micro;
+	}
+      }
+      return cmp;
     }
 
-    [Test]
-    public void MinorVersion()
+    public uint Major
     {
-      Version version = Gimp.Version;
-      Assert.IsTrue(version.Minor >= 0);
+      get {return (uint) _major;}
     }
 
-    [Test]
-    public void MicroVersion()
+    public uint Minor
     {
-      Version version = Gimp.Version;
-      Assert.IsTrue(version.Micro >= 0);
+      get {return (uint) _minor;}
+    }
+
+    public uint Micro
+    {
+      get {return (uint) _micro;}
     }
   }
 }
