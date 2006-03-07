@@ -109,7 +109,7 @@ namespace Gimp
 				"The name of the file to save the image in"));
 
       _saveProcedure = new Procedure(name, blurb, help, author, copyright, 
-				     date, menu_path, null, inParams);
+				     date, menu_path, image_types, inParams);
 
       return _saveProcedure;
     }
