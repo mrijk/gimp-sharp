@@ -1,3 +1,8 @@
+2006-03-08  Maurits  <m.rijk@chello.nl>
+
+	* lib/Drawable.cs: complete coverage of gimpdrawabletransform
+	routines, soon needed by Splitter plug-in.
+
 2006-03-07  Maurits  <m.rijk@chello.nl>
 
 	* lib/Procedure.cs: fixed #1436462 (FilePlugin generates warning

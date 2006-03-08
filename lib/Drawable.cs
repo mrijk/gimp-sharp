@@ -388,6 +388,221 @@ namespace Gimp
         }
     }
 
+    // gimpdrawabletransform
+
+    public Drawable TransformFlipSimple(OrientationType flip_type,
+					bool auto_center, double axis,
+					bool clip_result)
+    {
+      return new Drawable(gimp_drawable_transform_flip_simple(_ID, flip_type,
+							      auto_center,
+							      axis,
+							      clip_result));
+    }
+
+    public Drawable TransformFlip(double x0,
+				  double y0,
+				  double x1,
+				  double y1,
+				  TransformDirection transform_direction,
+				  InterpolationType interpolation,
+				  bool supersample,
+				  int recursion_level,
+				  bool clip_result)
+    {
+      return new Drawable(gimp_drawable_transform_flip
+			  (_ID, x0, y0, x1, y1, transform_direction,
+			   interpolation, supersample, recursion_level,
+			   clip_result));
+    }
+
+    public Drawable TransformFlipDefault(double x0,
+					 double y0,
+					 double x1,
+					 double y1,
+					 bool interpolate,
+					 bool clip_result)
+    {
+      return new Drawable(gimp_drawable_transform_flip_default
+			  (_ID, x0, y0, x1, y1, interpolate, clip_result));
+    }
+
+    public Drawable TransformPerspective(double x0,
+					 double y0,
+					 double x1,
+					 double y1,
+					 double x2,
+					 double y2,
+					 double x3,
+					 double y3,
+					 TransformDirection transform_direction,
+					 InterpolationType interpolation,
+					 bool supersample,
+					 int recursion_level,
+					 bool clip_result)
+    {
+      return new Drawable(gimp_drawable_transform_perspective
+			  (_ID, x0, y0, x1, y1, x2, y2, x3, y3,
+			   transform_direction, interpolation, supersample,
+			   recursion_level, clip_result));
+    }
+
+    public Drawable TransformPerspectiveDefault(double x0,
+						double y0,
+						double x1,
+						double y1,
+						double x2,
+						double y2,
+						double x3,
+						double y3,
+						bool interpolate,
+						bool clip_result)
+    {
+      return new Drawable(gimp_drawable_transform_perspective_default
+			  (_ID, x0, y0, x1, y1, x2, y2, x3, y3,
+			   interpolate, clip_result));
+    }
+
+    public Drawable TransformRotateSimple(RotationType rotate_type, 
+					  bool auto_center,
+					  int center_x, int center_y,
+					  bool clip_result)
+    {
+      return new Drawable(gimp_drawable_transform_rotate_simple
+			  (_ID, rotate_type, auto_center, center_x, center_y,
+			   clip_result));
+    }
+
+    public Drawable TransformRotate(double angle,
+				    bool auto_center,
+				    int center_x, int center_y,
+				    TransformDirection transform_direction,
+				    InterpolationType interpolation,
+				    bool supersample,
+				    int recursion_level,
+				    bool clip_result)
+    {
+      return new Drawable(gimp_drawable_transform_rotate
+			  (_ID, angle, auto_center, center_x, center_y,
+			   transform_direction, interpolation, supersample,
+			   recursion_level, clip_result));
+    }
+
+    public Drawable TransformRotateDefault(double angle,
+					   bool auto_center,
+					   int center_x, int center_y,
+					   bool interpolate,
+					   bool clip_result)
+    {
+      return new Drawable(gimp_drawable_transform_rotate_default
+			  (_ID, angle, auto_center, center_x, center_y,
+			   interpolate, clip_result));
+    }
+
+    public Drawable TransformScale(double x0, double y0,
+				   double x1, double y1,
+				   TransformDirection transform_direction,
+				   InterpolationType interpolation,
+				   bool supersample,
+				   int recursion_level,
+				   bool clip_result)
+    {
+      return new Drawable(gimp_drawable_transform_scale
+			  (_ID, x0, y0, x1, y1, transform_direction, 
+			   interpolation, supersample, recursion_level, 
+			   clip_result));
+    }
+
+    public Drawable TransformScaleDefault(double x0, double y0,
+					  double x1, double y1,
+					  bool interpolate,
+					  bool clip_result)
+    {
+      return new Drawable(gimp_drawable_transform_scale_default
+			  (_ID, x0, y0, x1, y1, interpolate, clip_result));
+    }
+
+    public Drawable TransformShear(OrientationType shear_type,
+				   double magnitude,
+				   TransformDirection transform_direction,
+				   InterpolationType interpolation,
+				   bool supersample,
+				   int recursion_level,
+				   bool clip_result)
+    {
+      return new Drawable(gimp_drawable_transform_shear
+			  (_ID, shear_type, magnitude, transform_direction,
+			   interpolation, supersample, recursion_level,
+			   clip_result));
+    }
+
+    public Drawable TransformShearDefault(OrientationType shear_type,
+					  double magnitude,
+					  bool interpolate,
+					  bool clip_result)
+    {
+      return new Drawable(gimp_drawable_transform_shear_default
+			  (_ID, shear_type, magnitude, interpolate,
+			   clip_result));
+    }
+
+    public Drawable Transform2d(double source_x, double source_y,
+				double scale_x, double scale_y,
+				double angle, double dest_x, double dest_y,
+				TransformDirection transform_direction,
+				InterpolationType interpolation,
+				bool supersample, int recursion_level,
+				bool clip_result)
+    {
+      return new Drawable(gimp_drawable_transform_2d
+			  (ID, source_x, source_y, scale_x, scale_y,
+			   angle, dest_x, dest_y, transform_direction,
+			   interpolation, supersample, recursion_level,
+			   clip_result));
+    }
+
+    public Drawable Transform2dDefault(double source_x, double source_y,
+				       double scale_x, double scale_y,
+				       double angle, 
+				       double dest_x, double dest_y,
+				       bool interpolate, bool clip_result)
+    {
+      return new Drawable(gimp_drawable_transform_2d_default
+			  (ID, source_x, source_y, scale_x, scale_y,
+			   angle, dest_x, dest_y, interpolate, clip_result));
+    }
+
+    public Drawable TransformMatrix(double coeff_0_0, double coeff_0_1,
+				    double coeff_0_2, double coeff_1_0,
+				    double coeff_1_1, double coeff_1_2,
+				    double coeff_2_0, double coeff_2_1,
+				    double coeff_2_2,
+				    TransformDirection transform_direction,
+				    InterpolationType interpolation,
+				    bool supersample,
+				    int recursion_level,
+				    bool clip_result)
+    {
+      return new Drawable(gimp_drawable_transform_matrix
+			  (_ID, coeff_0_0, coeff_0_1, coeff_0_2, coeff_1_0,
+			   coeff_1_1, coeff_1_2, coeff_2_0, coeff_2_1,
+			   coeff_2_2, transform_direction, interpolation,
+			   supersample, recursion_level, clip_result));
+    }
+
+    public Drawable TransformMatrixDefault(double coeff_0_0, double coeff_0_1,
+					   double coeff_0_2, double coeff_1_0,
+					   double coeff_1_1, double coeff_1_2,
+					   double coeff_2_0, double coeff_2_1,
+					   double coeff_2_2,
+					   bool interpolate, bool clip_result)
+    {
+      return new Drawable(gimp_drawable_transform_matrix_default
+			  (_ID, coeff_0_0, coeff_0_1, coeff_0_2, coeff_1_0,
+			   coeff_1_1, coeff_1_2, coeff_2_0, coeff_2_1,
+			   coeff_2_2, interpolate, clip_result));
+    }
+
     // Misc routines
 
     internal Int32 ID
@@ -591,5 +806,201 @@ namespace Gimp
                                           bool feather,
                                           double feather_radius,
                                           bool sample_merged);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern Int32
+    gimp_drawable_transform_flip_simple (Int32 drawable_ID,
+					 OrientationType flip_type,
+					 bool auto_center,
+					 double axis,
+					 bool clip_result);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern Int32
+    gimp_drawable_transform_flip (Int32 drawable_ID,
+				  double x0,
+				  double y0,
+				  double x1,
+				  double y1,
+				  TransformDirection transform_direction,
+				  InterpolationType interpolation,
+				  bool supersample,
+				  int recursion_level,
+				  bool clip_result);
+
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern Int32
+    gimp_drawable_transform_flip_default (Int32 drawable_ID,
+					  double x0,
+					  double y0,
+					  double x1,
+					  double y1,
+					  bool interpolate,
+					  bool clip_result);
+
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern Int32
+    gimp_drawable_transform_perspective (Int32 drawable_ID,
+					 double x0,
+					 double y0,
+					 double x1,
+					 double y1,
+					 double x2,
+					 double y2,
+					 double x3,
+					 double y3,
+					 TransformDirection transform_direction,
+					 InterpolationType interpolation,
+					 bool supersample,
+					 int recursion_level,
+					 bool clip_result);
+
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern Int32
+    gimp_drawable_transform_perspective_default (Int32 drawable_ID,
+						 double x0,
+						 double y0,
+						 double x1,
+						 double y1,
+						 double x2,
+						 double y2,
+						 double x3,
+						 double y3,
+						 bool interpolate,
+						 bool clip_result);
+
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern Int32
+    gimp_drawable_transform_rotate_simple (Int32 drawable_ID,
+					   RotationType rotate_type,
+					   bool auto_center,
+					   int center_x,
+					   int center_y,
+					   bool clip_result);
+
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern Int32
+    gimp_drawable_transform_rotate (Int32 drawable_ID,
+				    double angle,
+				    bool auto_center,
+				    int center_x,
+				    int center_y,
+				    TransformDirection transform_direction,
+				    InterpolationType interpolation,
+				    bool supersample,
+				    int recursion_level,
+				    bool clip_result);
+
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern Int32
+    gimp_drawable_transform_rotate_default (Int32 drawable_ID,
+					    double angle,
+					    bool auto_center,
+					    int center_x,
+					    int center_y,
+					    bool interpolate,
+					    bool clip_result);
+
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern Int32
+    gimp_drawable_transform_scale (Int32 drawable_ID,
+				   double x0,
+				   double y0,
+				   double x1,
+				   double y1,
+				   TransformDirection transform_direction,
+				   InterpolationType interpolation,
+				   bool supersample,
+				   int recursion_level,
+				   bool clip_result);
+
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern Int32
+    gimp_drawable_transform_scale_default (Int32 drawable_ID,
+					   double x0,
+					   double y0,
+					   double x1,
+					   double y1,
+					   bool interpolate,
+					   bool clip_result);
+
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern Int32 
+    gimp_drawable_transform_shear (Int32 drawable_ID,
+				   OrientationType shear_type,
+				   double magnitude,
+				   TransformDirection transform_direction,
+				   InterpolationType interpolation,
+				   bool supersample,
+				   int recursion_level,
+				   bool clip_result);
+
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern Int32 
+    gimp_drawable_transform_shear_default (Int32 drawable_ID,
+					   OrientationType shear_type,
+					   double magnitude,
+					   bool interpolate,
+					   bool clip_result);
+
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern Int32
+    gimp_drawable_transform_2d (Int32 drawable_ID,
+				double source_x,
+				double source_y,
+				double scale_x,
+				double scale_y,
+				double angle,
+				double dest_x,
+				double dest_y,
+				TransformDirection transform_direction,
+				InterpolationType interpolation,
+				bool supersample,
+				int recursion_level,
+				bool clip_result);
+    
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern Int32
+    gimp_drawable_transform_2d_default (Int32 drawable_ID,
+					double source_x,
+					double source_y,
+					double scale_x,
+					double scale_y,
+					double angle,
+					double dest_x,
+					double dest_y,
+					bool interpolate,
+					bool clip_result);
+
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern Int32
+    gimp_drawable_transform_matrix (Int32 drawable_ID,
+				    double coeff_0_0,
+				    double coeff_0_1,
+				    double coeff_0_2,
+				    double coeff_1_0,
+				    double coeff_1_1,
+				    double coeff_1_2,
+				    double coeff_2_0,
+				    double coeff_2_1,
+				    double coeff_2_2,
+				    TransformDirection transform_direction,
+				    InterpolationType interpolation,
+				    bool supersample,
+				    int recursion_level,
+				    bool clip_result);
+
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern Int32
+    gimp_drawable_transform_matrix_default (Int32 drawable_ID,
+					    double coeff_0_0,
+					    double coeff_0_1,
+					    double coeff_0_2,
+					    double coeff_1_0,
+					    double coeff_1_1,
+					    double coeff_1_2,
+					    double coeff_2_0,
+					    double coeff_2_1,
+					    double coeff_2_2,
+					    bool interpolate,
+					    bool clip_result);
   }
 }

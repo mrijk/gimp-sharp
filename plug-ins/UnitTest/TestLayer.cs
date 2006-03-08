@@ -80,5 +80,16 @@ namespace Gimp
       Assert.AreEqual(-10, off_x);
       Assert.AreEqual(10, off_y);
     }
+
+    [Test]
+    public void AddAlpha()
+    {
+      Layer layer = new Layer(_image, "test", _width, _height,
+			      ImageType.RGB, 100, 
+			      LayerModeEffects.NORMAL);
+      _image.AddLayer(layer, 0);
+      layer.AddAlpha();
+      Assert.AreEqual(ImageType.RGBA, _image.BaseType);
+    }
   }
 }

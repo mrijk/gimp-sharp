@@ -220,8 +220,8 @@ namespace Gimp.Splitter
 			       ImageType.RGB, 100, 
 			       LayerModeEffects.NORMAL);
       layer1.Translate(_translate_1_x, _translate_1_y);
-      clone.AddLayer(layer1, 0);
       // layer1.AddAlpha();
+      clone.AddLayer(layer1, 0);
 
       Layer layer2 = new Layer(clone, "layer_two", clone.Width, clone.Height,
 			       ImageType.RGB, 100, 
@@ -267,6 +267,10 @@ namespace Gimp.Splitter
       layer1.Flush();
       layer2.Flush();
       
+      if (_rotate_1 != 0) 
+	{
+	}
+
       new Display(clone);
       
       Display.DisplaysFlush();
