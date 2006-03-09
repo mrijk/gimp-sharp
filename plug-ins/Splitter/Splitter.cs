@@ -20,7 +20,6 @@
 
 using System;
 
-using Gimp;
 using Gtk;
 
 namespace Gimp.Splitter
@@ -43,6 +42,11 @@ namespace Gimp.Splitter
     int _translate_2_y;
     [SaveAttribute]
     int _rotate_2;
+    [SaveAttribute]
+    int _keepLayer = 0;
+
+    [SaveAttribute]
+    bool _merge = true;
 
     [STAThread]
     static void Main(string[] args)
@@ -114,10 +118,27 @@ namespace Gimp.Splitter
       table.Attach(frame2, 1, 2, 1, 2);
 
       CheckButton merge = new CheckButton("Merge visible layers");
+      merge.Active = _merge;
+      merge.Toggled += delegate(object sender, EventArgs args)
+	{
+	  _merge = merge.Active;
+	};
       table.Attach(merge, 0, 1, 3, 4);
 
       Button advanced = new Button("Advanced Options...");
       table.Attach(advanced, 1, 2, 3, 4);
+
+      ComboBox keep = ComboBox.NewText();
+
+      keep.AppendText("Both Layers");
+      keep.AppendText("Layer 1");
+      keep.AppendText("Layer 2");
+      keep.Active = _keepLayer;
+      keep.Changed += delegate(object o, EventArgs args) 
+	{
+	  _keepLayer = keep.Active;
+	};
+      table.AttachAligned(0, 5, "Keep:", 0.0, 0.5, keep, 1, true);
 
       dialog.ShowAll();
       return DialogRun();
@@ -134,26 +155,27 @@ namespace Gimp.Splitter
       frame.Add(table);
 
       SpinButton spinner = new SpinButton(int.MinValue, int.MaxValue, 1);
+      spinner.Value = _translate_1_x;
       spinner.ValueChanged += 
 	delegate(object source, System.EventArgs args)
 	{
 	  _translate_1_x = spinner.ValueAsInt;
 	};
-      spinner.Value = 0;
       spinner.WidthChars = 4;
       table.AttachAligned(0, 0, "Translate X:", 0.0, 0.5, spinner, 1, true);
 
       spinner = new SpinButton(int.MinValue, int.MaxValue, 1);
+      spinner.Value = _translate_1_y;
       spinner.ValueChanged += 
 	delegate(object source, System.EventArgs args)
 	{
 	  _translate_1_y = spinner.ValueAsInt;
 	};
-      spinner.Value = 0;
       spinner.WidthChars = 4;
       table.AttachAligned(0, 1, "Translate Y:", 0.0, 0.5, spinner, 1, true);
 
       spinner = new SpinButton(0, 360, 1);
+      spinner.Value = _rotate_1;
       spinner.ValueChanged += 
 	delegate(object source, System.EventArgs args)
 	{
@@ -178,26 +200,27 @@ namespace Gimp.Splitter
       frame.Add(table);
 
       SpinButton spinner = new SpinButton(int.MinValue, int.MaxValue, 1);
+      spinner.Value = _translate_2_x;
       spinner.ValueChanged += 
 	delegate(object source, System.EventArgs args)
 	{
 	  _translate_2_x = spinner.ValueAsInt;
 	};
-      spinner.Value = 0;
       spinner.WidthChars = 4;
       table.AttachAligned(0, 0, "Translate X:", 0.0, 0.5, spinner, 1, true);
 
       spinner = new SpinButton(int.MinValue, int.MaxValue, 1);
+      spinner.Value = _translate_2_y;
       spinner.ValueChanged += 
 	delegate(object source, System.EventArgs args)
 	{
 	  _translate_2_y = spinner.ValueAsInt;
 	};
-      spinner.Value = 0;
       spinner.WidthChars = 4;
       table.AttachAligned(0, 1, "Translate Y:", 0.0, 0.5, spinner, 1, true);
 
       spinner = new SpinButton(0, 360, 1);
+      spinner.Value = _rotate_2;
       spinner.ValueChanged += 
 	delegate(object source, System.EventArgs args)
 	{
@@ -214,26 +237,27 @@ namespace Gimp.Splitter
       MathExpressionParser parser = new MathExpressionParser();
       parser.Init(_formula);
 
-      Image clone = new Image(image);
+      int width = image.Width;
+      int height = image.Height;
 
-      Layer layer1 = new Layer(clone, "layer_one", clone.Width, clone.Height,
-			       ImageType.RGB, 100, 
-			       LayerModeEffects.NORMAL);
+      Image newImage = new Image(width, height, image.BaseType);
+
+      Layer layer1 = new Layer(newImage, "layer_one", width, height,
+			       ImageType.RGB, 100, LayerModeEffects.NORMAL);
       layer1.Translate(_translate_1_x, _translate_1_y);
       // layer1.AddAlpha();
-      clone.AddLayer(layer1, 0);
+      newImage.AddLayer(layer1, 0);
 
-      Layer layer2 = new Layer(clone, "layer_two", clone.Width, clone.Height,
-			       ImageType.RGB, 100, 
-			       LayerModeEffects.NORMAL);
-      layer1.Translate(_translate_2_x, _translate_2_y);
-      clone.AddLayer(layer2, 0);
+      Layer layer2 = new Layer(newImage, "layer_two", width, height,
+			       ImageType.RGB, 100, LayerModeEffects.NORMAL);
+      layer2.Translate(_translate_2_x, _translate_2_y);
+      newImage.AddLayer(layer2, 0);
       // layer2.AddAlpha();
 
       byte[] black = new byte[drawable.Bpp];
 
-      int width = drawable.Width;
-      int height = drawable.Height;
+      width = drawable.Width;
+      height = drawable.Height;
 
       PixelRgn srcPR = new PixelRgn(drawable, 0, 0, width, height, 
 				    false, false);
@@ -264,14 +288,28 @@ namespace Gimp.Splitter
 		}
 	    }				
 	}
-      layer1.Flush();
-      layer2.Flush();
-      
+
       if (_rotate_1 != 0) 
 	{
+	  layer1.TransformRotateDefault(_rotate_1 * Math.PI / 180.0,
+					true, 0, 0, true, false);
 	}
 
-      new Display(clone);
+      if (_rotate_2 != 0) 
+	{
+	  layer2.TransformRotateDefault(_rotate_2 * Math.PI / 180.0,
+					true, 0, 0, true, false);
+	}
+
+      if (_merge) 
+	{
+	  Layer merged = 
+	    newImage.MergeVisibleLayers(MergeType.EXPAND_AS_NECESSARY);
+	  merged.SetOffsets(0, 0);
+	  newImage.Resize(merged.Width, merged.Height, 0, 0);
+	}
+
+      new Display(newImage);
       
       Display.DisplaysFlush();
     }

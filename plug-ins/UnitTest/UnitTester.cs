@@ -27,33 +27,33 @@ using Gtk;
 
 namespace Gimp.UnitTest
 {
-  public class Tester
+  public class UnitTester
   {
     TestDomain testDomain;
     TestRunner testRunner;
 
-    public Tester()
+    public UnitTester()
     {
       testDomain = new TestDomain();
       testRunner = testDomain;
     }
 
-
-    private static Test MakeTestFromCommandLine(TestDomain testDomain)
+    private static Test MakeTestFromCommandLine(TestDomain testDomain,
+						string testDll)
     {
       NUnitProject project;
 
-      project = NUnitProject.FromAssemblies(new string[]{"/tmp/gimptest.dll"});
+      project = NUnitProject.FromAssemblies(new string[]{testDll});
 
-      return testDomain.Load("/tmp/gimptest.dll" );
+      return testDomain.Load(testDll);
     }
 
-    public void Test()
+    public void Test(string testDll)
     {
       TextWriter outWriter = Console.Out;
-      TextWriter errorWriter = Console.Error;
+      TextWriter errorWriter = Console.Out; // Console.Error;
 
-      Test test = MakeTestFromCommandLine(testDomain);
+      Test test = MakeTestFromCommandLine(testDomain, testDll);
 
       if (test == null)
 	{

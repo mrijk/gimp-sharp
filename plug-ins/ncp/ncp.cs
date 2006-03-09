@@ -113,11 +113,19 @@ namespace Gimp.ncp
       _closestEntry = new ScaleEntry(table, 0, 2, "C_lose to:", 150, 3,
 				     _closest, 1.0, _points, 1.0, 8.0, 0,
 				     true, 0, 0, null, null);
-      _closestEntry.ValueChanged += CloseToUpdate;
+      _closestEntry.ValueChanged += delegate(object sender, EventArgs e)
+	{
+	  _closest = (int) _closestEntry.Value;
+	  _preview.Invalidate();
+	};
 
       CheckButton color = new CheckButton("_Use color");
       color.Active = _color;
-      color.Toggled += ColorToggled;
+      color.Toggled += delegate(object sender, EventArgs args)
+	{
+	  _color = color.Active;
+	  _preview.Invalidate();
+	};
       table.Attach(color, 0, 1, 3, 4);
 			
       dialog.ShowAll();
@@ -168,18 +176,6 @@ namespace Gimp.ncp
 	}
     }
 
-    void CloseToUpdate(object sender, EventArgs e)
-    {
-      _closest = (int) (sender as Adjustment).Value;
-      _preview.Invalidate();
-    }
-
-    void ColorToggled (object sender, EventArgs args)
-    {
-      _color = (sender as CheckButton).Active;
-      _preview.Invalidate();
-    }
-		
     Point[,] vp;
 
     int[] _distances;

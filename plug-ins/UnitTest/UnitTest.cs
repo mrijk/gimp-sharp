@@ -29,6 +29,9 @@ namespace Gimp.UnitTest
 {
   public class UnitTest : Plugin
   {
+    [SaveAttribute]
+    string _testDll;
+
     [STAThread]
     static void Main(string[] args)
     {
@@ -68,14 +71,28 @@ namespace Gimp.UnitTest
 
       Dialog dialog = DialogNew("UnitTest", "UnitTest", IntPtr.Zero, 0,
 				Gimp.StandardHelpFunc, "UnitTest");
+
+      VBox vbox = new VBox(false, 12);
+      vbox.BorderWidth = 12;
+      dialog.VBox.PackStart(vbox, true, true, 0);
+
+      FileEntry entry = new FileEntry("Open...", "", false, true);
+      entry.FileName = _testDll;
+      entry.FilenameChanged += delegate(object o, EventArgs args)
+	{
+	  _testDll = entry.FileName;
+	};
+
+      vbox.PackStart(entry, false, false, 0);
+
       dialog.ShowAll();
       return DialogRun();
     }
 
     override protected void Render()
     {
-      Tester tester = new Tester();
-      tester.Test();
+      UnitTester tester = new UnitTester();
+      tester.Test(_testDll);
     }
   }
 }

@@ -1,3 +1,14 @@
+2006-03-09  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/UnitTest/UnitTester.cs: renamed class
+
+	* plug-ins/UnitTest/UnitTest.cs: file selection added
+
+	* plug-ins/Splitter/Splitter.cs: implemented rotation
+
+	* plug-ins/ncp/ncp.cs
+	* plug-ins/PicturePackage/LabelFrame.cs: minor clean-up
+
 2006-03-08  Maurits  <m.rijk@chello.nl>
 
 	* lib/Drawable.cs: complete coverage of gimpdrawabletransform
