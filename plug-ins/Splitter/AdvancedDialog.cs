@@ -1,7 +1,7 @@
 // The Splitter plug-in
 // Copyright (C) 2004-2006 Maurits Rijk
 //
-// MyClassBase.cs
+// AdvancedDialog.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,17 +18,42 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
+using System;
+
+using Gtk;
+
 namespace Gimp.Splitter
 {
-  public class MyClassBase
+  public class AdvancedDialog : GimpDialog
   {
-    public MyClassBase()
+    UInt32 _seed;
+    bool _randomSeed;
+
+    public AdvancedDialog(UInt32 seed, bool randomSeed) : 
+      base("Advanced Settings", "Splitter", IntPtr.Zero, 0, null, "Splitter")
     {
+      _seed = seed;
+      _randomSeed = randomSeed;
+
+      GimpTable table = new GimpTable(1, 2, false);
+      table.BorderWidth = 12;
+      table.ColumnSpacing = 6;
+      table.RowSpacing = 6;
+      VBox.PackStart(table, true, true, 0);
+
+      RandomSeed random = new RandomSeed(ref _seed, ref _randomSeed);
+      
+      table.AttachAligned(0, 0, "Random _Seed:", 0.0, 0.5, random, 2, true);
     }
 
-    public virtual double eval(double x,double y)
+    public UInt32 Seed
     {
-      return 0.0;
+      get {return _seed;}
+    }
+
+    public bool RandomSeed
+    {
+      get {return _randomSeed;}
     }
   }
 }

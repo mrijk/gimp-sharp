@@ -1,3 +1,15 @@
+2006-03-11  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/Splitter/Splitter.cs: use advanced dialog 
+
+2006-03-10  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/Splitter/MyClassBase.cs: fixed indentation
+
+	* plug-ins/Splitter/AdvancedDialog.cs: new file
+
+	* plug-ins/Splitter/Makefile.am: changed accordingly
+
 2006-03-09  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/UnitTest/UnitTester.cs: renamed class

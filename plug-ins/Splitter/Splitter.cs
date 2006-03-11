@@ -48,6 +48,11 @@ namespace Gimp.Splitter
     [SaveAttribute]
     bool _merge = true;
 
+    [SaveAttribute]
+    UInt32 _seed;
+    [SaveAttribute]
+    bool _randomSeed;
+
     [STAThread]
     static void Main(string[] args)
     {
@@ -126,6 +131,18 @@ namespace Gimp.Splitter
       table.Attach(merge, 0, 1, 3, 4);
 
       Button advanced = new Button("Advanced Options...");
+      advanced.Clicked += delegate(object sender, EventArgs args)
+	{
+	  AdvancedDialog advancedDialog = new AdvancedDialog(_seed, 
+							     _randomSeed);
+	  advancedDialog.ShowAll();
+	  if (advancedDialog.Run() == ResponseType.Ok)
+	  {
+	    _seed = advancedDialog.Seed;
+	    _randomSeed = advancedDialog.RandomSeed;
+	  }
+	  advancedDialog.Destroy();
+	};
       table.Attach(advanced, 1, 2, 3, 4);
 
       ComboBox keep = ComboBox.NewText();

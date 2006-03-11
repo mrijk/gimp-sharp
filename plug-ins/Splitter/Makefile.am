@@ -6,7 +6,11 @@ GIMPSHARPLIB = $(top_builddir)/lib/gimp-sharp.dll
 
 ASSEMBLIES = -r:$(GIMPSHARPLIB) /pkg:gtk-sharp-2.0 /target:winexe
 
-MYSOURCES = Splitter.cs MathExpressionParser.cs MyClassBase.cs
+MYSOURCES = 			\
+	AdvancedDialog.cs	\
+	MathExpressionParser.cs \
+	MyClassBase.cs		\
+	Splitter.cs
 
 EXTRA_DIST = $(MYSOURCES) Splitter Splitter.png
 
