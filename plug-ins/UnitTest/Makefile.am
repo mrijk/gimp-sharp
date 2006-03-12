@@ -29,13 +29,14 @@ TESTSOURCES = 	TestBrush.cs 		\
 		TestPaletteEntry.cs	\
 		TestPaletteList.cs	\
 		TestPatternList.cs	\
-		TestProcedure.cs
+		TestProcedure.cs	\
+		TestRgnIterator.cs
 
 gimptest.dll : $(TESTSOURCES) $(GIMPSHARPLIB)
 	$(CSC) -target:library $(ASSEMBLIES) $(TESTSOURCES) -out:gimptest.dll
 
 clean:
-	rm -f UnitTest.exe
+	rm -f UnitTest.exe gimptest.dll
 
 install:
 	$(INSTALL_DATA) UnitTest.exe $(DESTDIR)/$(GIMPPLUGINDIR)
