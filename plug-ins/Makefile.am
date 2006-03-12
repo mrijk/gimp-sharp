@@ -4,12 +4,16 @@ if BUILD_UNITTEST
 UnitTest = UnitTest
 endif
 
+if BUILD_PDN
+Pdn = Pdn
+endif
+
 AUTOMAKE_OPTIONS = gnu
 SUBDIRS = 		\
 	KoalaPaint 	\
 	Ministeck	\
 	ncp 		\
-	Pdn		\
+	$(Pdn)		\
 	PicturePackage 	\
 	Raindrops	\
 	RedEye 		\

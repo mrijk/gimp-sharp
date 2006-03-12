@@ -1,3 +1,10 @@
+2006-03-12  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/Pdn/Pdn.cs: default indentation
+
+	* plug-ins/Makefile.am
+	* configure.in: made building Paint.NET plug-in optional
+
 2006-03-11  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/Splitter/Splitter.cs: use advanced dialog 

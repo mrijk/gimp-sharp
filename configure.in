@@ -67,7 +67,18 @@ if test "x$with_unittest" == xyes; then
    unittest=yes
 fi
 
+#
+# Check if we want to build the Paint.NET plug-in.
+#
+
+pdn=no
+AC_ARG_WITH(pdn,[  --with-pdn              build Paint.NET plug-in (default-no)])
+if test "x$with_pdn" == xyes; then
+   pdn=yes
+fi
+
 AM_CONDITIONAL(BUILD_UNITTEST, test x$unittest = xyes)
+AM_CONDITIONAL(BUILD_PDN, test x$pdn = xyes)
 
 dnl read Makefile.in and write Makefile
 AC_CONFIG_FILES([
@@ -95,4 +106,5 @@ AC_MSG_RESULT([
 Building GIMP-SHARP with prefix=$prefix
 GIMP-SHARP Features:
   unittest: $unittest
+  pdn: $pdn
 ]);
