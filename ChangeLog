@@ -1,3 +1,16 @@
+2006-03-14  Maurits  <m.rijk@chello.nl>
+
+	* lib/AssemblyInfo.cs: new file
+
+	* lib/Makefile.am: changed accordingly
+
+	* plug-ins/UpdateCheck/UpdateCheck.cs: implemented asynchronous
+	reading. 
+
+	* plug-ins/UpdateCheck/RequestState.cs: new file
+	
+	* plug-ins/UpdateCheck/Makefile.am: changed accordingly
+
 2006-03-13  Maurits  <m.rijk@chello.nl>
 
 	* configure.in: check for mono >= 1.1.13.4 which has quite a few

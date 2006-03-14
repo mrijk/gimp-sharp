@@ -92,6 +92,7 @@ namespace Gimp.Swirlies
       dialog.VBox.PackStart(vbox, true, true, 0);
 
       _preview = new AspectPreview(_drawable, false);
+      // _preview.SetBounds(0, 0, 50, 50);
       _preview.Invalidated += UpdatePreview;
       vbox.PackStart(_preview, true, true, 0);
 

@@ -244,8 +244,12 @@ namespace Gimp
 
     void CallRender()
     {
+#if true
       int m_start = Environment.TickCount;
-
+#else
+      // Fixme: not implemented in Mono yet :(
+      Stopwatch stopWatch = new Stopwatch();
+#endif
       GetRequiredParameters();
       
       if (_usesDrawable && _usesImage)
@@ -264,12 +268,14 @@ namespace Gimp
 	{
 	  Render();
 	}
-
+#if true
       int m_time= Environment.TickCount - m_start;
       if (m_time<0)
 	m_time &=0x7FFFFFFF;
       Console.WriteLine("Processing time {0:0.0} seconds.", 
 			(double)m_time / 1000 );
+#else
+#endif
     }
     
     virtual protected void Reset() {}

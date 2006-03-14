@@ -5,7 +5,9 @@ LIBRARY=	$(LIBRARY_NAME).dll
 
 ASSEMBLIES=	/pkg:gtk-sharp-2.0
 
-MYSOURCES = AspectPreview.cs 	\
+MYSOURCES = 			\
+	AspectPreview.cs 	\
+	AssemblyInfo.cs		\
 	Brush.cs		\
 	Channel.cs 		\
 	ChannelList.cs 		\

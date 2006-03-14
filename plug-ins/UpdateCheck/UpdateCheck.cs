@@ -21,6 +21,8 @@
 using System;
 using System.IO;
 using System.Net;
+using System.Text;
+using System.Threading;
 using System.Xml;
 
 using Gtk;
@@ -29,6 +31,10 @@ namespace Gimp.UpdateCheck
 {
   public class UpdateCheck : Plugin
   {
+    static ManualResetEvent allDone= new ManualResetEvent(false);
+    const int BUFFER_SIZE = 1024;
+    const int DefaultTimeout = 2 * 60 * 1000; // 2 minutes timeout
+
     bool _checkGimp = true;
     bool _checkGimpSharp = true;
     bool _checkUnstable = false;
@@ -112,32 +118,123 @@ namespace Gimp.UpdateCheck
       XmlDocument doc = new XmlDocument();
 
       try {
-	WebRequest myRequest = 
+	HttpWebRequest myRequest = (HttpWebRequest) 
 	  WebRequest.Create("http://gimp-sharp.sourceforge.net/version.xml");
-      
-	WebResponse myResponse = myRequest.GetResponse();
-	
-	Stream stream = myResponse.GetResponseStream();
-	doc.Load(stream);
 
-	myResponse.Close();
-      } catch (Exception e) {
-	Console.WriteLine("Exception!");
-	Console.WriteLine(e.StackTrace);
-	return;
-      }
-
-      XmlElement root = doc.DocumentElement;
-      XmlNodeList nodeList = root.SelectNodes("/packages/package");
+	// Create a proxy object, needed for mono behind a firewall?!
+	// WebProxy myProxy = new WebProxy();
+	// myProxy.Address = new Uri("myProxy");
+	// myRequest.Proxy=myProxy;
       
-      foreach (XmlNode node in nodeList)
+	RequestState requestState = new RequestState(myRequest);
+
+	// Start the asynchronous request.
+	IAsyncResult result= (IAsyncResult) myRequest.BeginGetResponse
+	  (new AsyncCallback(RespCallback), requestState);
+
+	// this line implements the timeout, if there is a timeout, 
+	// the callback fires and the request becomes aborted
+	ThreadPool.RegisterWaitForSingleObject
+	  (result.AsyncWaitHandle, new WaitOrTimerCallback(TimeoutCallback), 
+	   myRequest, DefaultTimeout, true);
+
+	// The response came in the allowed time. The work processing will 
+	// happen in the callback function.
+	allDone.WaitOne();
+      
+	// Release the HttpWebResponse resource.
+	requestState.Response.Close();
+      } catch (Exception e) 
 	{
-	  XmlAttributeCollection attributes = node.Attributes;
-	  XmlAttribute version = (XmlAttribute)
-	    attributes.GetNamedItem("version");
-	  Console.WriteLine(version.Value);
+	  Console.WriteLine("Exception!");
+	  Console.WriteLine(e.StackTrace);
+	  return;
 	}
-      
+    }
+
+    // Abort the request if the timer fires.
+    static void TimeoutCallback(object state, bool timedOut) 
+    { 
+      if (timedOut) 
+	{
+	  HttpWebRequest request = state as HttpWebRequest;
+	  if (request != null) 
+	    {
+	      request.Abort();
+	    }
+	}
+    }
+
+    static void RespCallback(IAsyncResult asynchronousResult)
+    {  
+      try
+	{
+	  // State of request is asynchronous.
+	  RequestState requestState = 
+	    (RequestState) asynchronousResult.AsyncState;
+	  HttpWebRequest myHttpWebRequest = requestState.Request;
+	  requestState.Response = (HttpWebResponse) 
+	    myHttpWebRequest.EndGetResponse(asynchronousResult);
+	  
+	  // Read the response into a Stream object.
+	  Stream responseStream = requestState.Response.GetResponseStream();
+	  requestState.StreamResponse = responseStream;
+	  
+	  IAsyncResult asynchronousInputRead = 
+	    responseStream.BeginRead(requestState.BufferRead, 0, 
+				     BUFFER_SIZE, 
+				     new AsyncCallback(ReadCallBack), 
+				     requestState);
+	  return;
+	}
+      catch(WebException e)
+	{
+	  Console.WriteLine("\nRespCallback Exception raised!");
+	  Console.WriteLine("\nMessage:{0}",e.Message);
+	  Console.WriteLine("\nStatus:{0}",e.Status);
+	}
+      allDone.Set();
+    }
+
+    static void ReadCallBack(IAsyncResult asyncResult)
+    {
+      try
+	{
+	  RequestState requestState = (RequestState) asyncResult.AsyncState;
+	  Stream responseStream = requestState.StreamResponse;
+	  int read = responseStream.EndRead(asyncResult);
+	  // Read the HTML page and then print it to the console.
+	  if (read > 0)
+	    {
+	      requestState.RequestData.Append
+		(Encoding.ASCII.GetString(requestState.BufferRead, 0, read));
+	      IAsyncResult asynchronousResult = 
+		responseStream.BeginRead(requestState.BufferRead, 0, 
+					 BUFFER_SIZE, 
+					 new AsyncCallback(ReadCallBack), 
+					 requestState);
+	      return;
+	    }
+	  else
+	    {
+	      Console.WriteLine("\nThe contents of the Html page are : ");
+	      if (requestState.RequestData.Length>1)
+		{
+		  string stringContent = requestState.RequestData.ToString();
+		  Console.WriteLine(stringContent);
+		  
+		  // DumpVersion(stringContent);
+		}
+	      responseStream.Close();
+	    }
+	}
+      catch(WebException e)
+	{
+	  Console.WriteLine("\nReadCallBack Exception raised!");
+	  Console.WriteLine("\nMessage:{0}",e.Message);
+	  Console.WriteLine("\nStatus:{0}",e.Status);
+	}
+      allDone.Set();
     }
   }
 }
