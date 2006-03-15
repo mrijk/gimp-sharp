@@ -75,6 +75,7 @@ namespace Gimp.SliceTool
     public bool Changed
     {
       get {return _changed;}
+      set {_changed = value;}
     }
     
     public void Slice(Slice slice)

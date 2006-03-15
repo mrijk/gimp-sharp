@@ -23,32 +23,58 @@ using System;
 
 namespace Gimp
 {
-  public class Version : IComparable
+  public class Version
   {
     readonly int _major;
     readonly int _minor;
     readonly int _micro;
 
-    internal Version(string version)
+    public Version(string version)
     {
-	string[] numbers = version.Split('.');
+      string[] numbers = version.Split('.');
+      if (numbers.Length > 0)
 	_major = Convert.ToInt32(numbers[0]);
+      if (numbers.Length > 1)
 	_minor = Convert.ToInt32(numbers[1]);
+      if (numbers.Length > 2)
 	_micro = Convert.ToInt32(numbers[2]);
     }
 
-    public int CompareTo(object obj)
+    public static bool operator==(Version v1, Version v2)
     {
-      Version version = obj as Version;
+      return v1.Major == v2.Major &&
+	v1.Minor == v2.Minor &&
+	v1.Micro == v2.Micro;
+    }
 
-      int cmp = _major - version._major;
-      if (cmp == 0) {
-	cmp = _minor - version._minor;
-	if (cmp == 0) {
-	  cmp = _micro - version._micro;
+    public static bool operator!=(Version v1, Version v2)
+    {
+      return !(v1 == v2);
+    }
+
+    public static bool operator>(Version v1, Version v2)
+    {
+      if (v1.Major > v2.Major)
+	{
+	  return true;
 	}
-      }
-      return cmp;
+      else if (v1.Major == v2.Major)
+	{
+	  if (v1.Minor > v2.Minor)
+	    {
+	      return true;
+	    }
+	  else if (v1.Minor == v2.Minor)
+	    {
+	      return v1.Micro > v2.Micro;
+	    }
+	}
+      return false;
+    }
+
+    public static bool operator<(Version v1, Version v2)
+    {
+      return !(v1 > v2 || v1 == v2);
     }
 
     public uint Major

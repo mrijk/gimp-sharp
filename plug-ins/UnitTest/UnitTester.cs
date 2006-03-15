@@ -51,7 +51,7 @@ namespace Gimp.UnitTest
     public void Test(string testDll)
     {
       TextWriter outWriter = Console.Out;
-      TextWriter errorWriter = Console.Out; // Console.Error;
+      TextWriter errorWriter = Console.Error;
 
       Test test = MakeTestFromCommandLine(testDomain, testDll);
 
@@ -62,6 +62,7 @@ namespace Gimp.UnitTest
 	}
 
       EventListener collector = new EventCollector( outWriter, errorWriter );
+
       TestResult result = testRunner.Run(collector);
     }
   }

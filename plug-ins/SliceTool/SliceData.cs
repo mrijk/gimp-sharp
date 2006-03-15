@@ -61,6 +61,8 @@ namespace Gimp.SliceTool
       left.End = right.End = bottom;
 
       _rectangles.Add(new Rectangle(left, right, top, bottom));
+
+      Changed = false;
     }
 
     public void AddSlice(Slice slice)
@@ -301,6 +303,12 @@ namespace Gimp.SliceTool
           return _rectangles.Changed
             || _horizontalSlices.Changed
             || _verticalSlices.Changed;
+	}
+      set
+	{
+	  _verticalSlices.Changed = value;
+	  _horizontalSlices.Changed = value;
+	  _rectangles.Changed = value;
 	}
     }
 

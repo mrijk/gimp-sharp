@@ -1,3 +1,16 @@
+2006-03-15  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/SliceTool/SliceData.cs: reset changed to false after
+	initialization. Fixes #1439261.
+
+2006-03-14  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/UnitTest/TestVersion.cs: new file to test Version class
+
+	* plug-ins/UnitTest/Makefile.am: changed accordingly
+
+	* lib/Version.cs: made a bit more robust
+
 2006-03-14  Maurits  <m.rijk@chello.nl>
 
 	* lib/AssemblyInfo.cs: new file

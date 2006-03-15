@@ -21,7 +21,6 @@ TESTSOURCES = 	TestBrush.cs 		\
 		TestContext.cs		\
 		TestDisplay.cs		\
 		TestDrawable.cs		\
-		TestGimp.cs		\
 		TestGuide.cs		\
 		TestImage.cs		\
 		TestLayer.cs		\
@@ -30,7 +29,10 @@ TESTSOURCES = 	TestBrush.cs 		\
 		TestPaletteList.cs	\
 		TestPatternList.cs	\
 		TestProcedure.cs	\
-		TestRgnIterator.cs
+		TestRgnIterator.cs	\
+		TestVersion.cs
+
+#		TestGimp.cs		
 
 gimptest.dll : $(TESTSOURCES) $(GIMPSHARPLIB)
 	$(CSC) -target:library $(ASSEMBLIES) $(TESTSOURCES) -out:gimptest.dll

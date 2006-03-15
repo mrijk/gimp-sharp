@@ -21,6 +21,7 @@
 using System;
 using System.IO;
 using System.Net;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Xml;
@@ -115,6 +116,9 @@ namespace Gimp.UpdateCheck
 
     override protected void Render(Image image, Drawable drawable)
     {
+      Assembly assembly = Assembly.GetAssembly(typeof(Plugin));
+      Console.WriteLine(assembly.GetName().Version);
+
       XmlDocument doc = new XmlDocument();
 
       try {

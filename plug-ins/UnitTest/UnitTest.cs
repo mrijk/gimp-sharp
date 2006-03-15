@@ -76,8 +76,7 @@ namespace Gimp.UnitTest
       vbox.BorderWidth = 12;
       dialog.VBox.PackStart(vbox, true, true, 0);
 
-      FileEntry entry = new FileEntry("Open...", "", false, true);
-      entry.FileName = _testDll;
+      FileEntry entry = new FileEntry("Open...", _testDll, false, true);
       entry.FilenameChanged += delegate(object o, EventArgs args)
 	{
 	  _testDll = entry.FileName;
