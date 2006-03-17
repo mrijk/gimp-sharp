@@ -1,5 +1,13 @@
 2006-03-17  Maurits  <m.rijk@chello.nl>
 
+	* plug-ins/UnitTest/TestGimp.cs: new tests for gimprc functions
+
+	* plug-ins/UnitTest/Makefile.am: enable TestGimp.cs
+
+	* lib/Gimp.cs: new gimprc functions
+
+2006-03-17  Maurits  <m.rijk@chello.nl>
+
 	* INSTALL: updated to describe new configuration flag.
 
 	* configure.in

@@ -151,6 +151,51 @@ namespace Gimp
       gimp_standard_help_func(help_id, help_data);
     }
 
+    // Implementation of gimprc
+
+    static public string RcQuery(string token)
+    {
+      return gimp_gimprc_query(token);
+    }
+
+    static public void RcSet(string token, string value)
+    {
+      IntPtr tmp = Marshaller.StringToPtrGStrdup(value);
+      if (!gimp_gimprc_set(token, tmp))
+	{
+	  Marshaller.Free(tmp);
+	  throw new Exception();
+	}
+      Marshaller.Free(tmp);
+    }
+
+    static public string DefaultComment
+    {
+      get {return gimp_get_default_comment();}
+    }
+
+    static public string ModuleLoadInhibit
+    {
+      get {return gimp_get_module_load_inhibit();}
+    }
+
+    static public void GetMonitorResolution(out double xres, out double yres)
+    {
+      if (!gimp_get_monitor_resolution(out xres, out yres))
+	{
+	  throw new Exception();
+	}
+    }
+
+    static public string ThemeDirectory
+    {
+      get
+	{
+          IntPtr tmp = gimp_get_theme_dir();
+	  return Marshaller.FilenamePtrToString(tmp);
+	}
+    }
+
     [DllImport("libgimp-2.0-0.dll")]
     static extern IntPtr gimp_version();
     [DllImport("libgimp-2.0-0.dll")]
@@ -198,5 +243,19 @@ namespace Gimp
     [DllImport("libgimpwidgets-2.0-0.dll")]
     static extern void gimp_standard_help_func(string help_id,
 					       IntPtr help_data);
+
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern string gimp_gimprc_query(string token);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_gimprc_set(string token, IntPtr value);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern string gimp_get_default_comment();
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern string gimp_get_module_load_inhibit();
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_get_monitor_resolution(out double xres,
+						   out double yres);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern IntPtr gimp_get_theme_dir();
   }
 }
