@@ -77,8 +77,20 @@ if test "x$with_pdn" == xyes; then
    pdn=yes
 fi
 
+#
+# Check if we want to build incomplete plug-ins
+#
+
+incomplete=no
+AC_ARG_WITH(incomplete,[  --with-incomplete              build incomplete plug-ins (default-no)])
+if test "x$with_incomplete" == xyes; then
+   incomplete=yes
+fi
+
+
 AM_CONDITIONAL(BUILD_UNITTEST, test x$unittest = xyes)
 AM_CONDITIONAL(BUILD_PDN, test x$pdn = xyes)
+AM_CONDITIONAL(BUILD_INCOMPLETE, test x$incomplete = xyes)
 
 dnl read Makefile.in and write Makefile
 AC_CONFIG_FILES([
@@ -107,4 +119,5 @@ Building GIMP-SHARP with prefix=$prefix
 GIMP-SHARP Features:
   unittest: $unittest
   pdn: $pdn
+  incomplete: $incomplete
 ]);

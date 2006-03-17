@@ -1,3 +1,10 @@
+2006-03-17  Maurits  <m.rijk@chello.nl>
+
+	* INSTALL: updated to describe new configuration flag.
+
+	* configure.in
+	* plug-ins/Makefile.am: make building incomplete plug-ins optional
+
 2006-03-15  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/SliceTool/SliceData.cs: reset changed to false after

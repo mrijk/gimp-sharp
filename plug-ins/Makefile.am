@@ -8,6 +8,11 @@ if BUILD_PDN
 Pdn = Pdn
 endif
 
+if BUILD_INCOMPLETE
+Raindrops = Raindrops
+RedEye = RedEye
+endif
+
 AUTOMAKE_OPTIONS = gnu
 SUBDIRS = 		\
 	KoalaPaint 	\
@@ -15,8 +20,8 @@ SUBDIRS = 		\
 	ncp 		\
 	$(Pdn)		\
 	PicturePackage 	\
-	Raindrops	\
-	RedEye 		\
+	$(Raindrops)	\
+	$(RedEye)	\
 	SliceTool 	\
 	Splitter 	\
 	Swirlies 	\
