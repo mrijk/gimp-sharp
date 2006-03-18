@@ -110,45 +110,74 @@ namespace Gimp.UpdateCheck
       };
       table.Attach(checkUnstable, 0, 1, 2, 3);
 
+      Expander expander = new Expander("Proxy settings");
+      VBox proxyBox = new VBox(false, 12);
+
+      CheckButton enableProxy = new CheckButton("Manual proxy configuration");
+      enableProxy.Active = false;
+      proxyBox.Add(enableProxy);
+
+      HBox hbox = new HBox(false, 12);
+      hbox.Sensitive = false;
+      hbox.Add(new Label("HTTP Proxy:"));
+
+      Entry httpProxy = new Entry();
+      hbox.Add(httpProxy);
+      proxyBox.Add(hbox);
+
+      hbox.Add(new Label("Port:"));
+      Entry port = new Entry();
+      port.WidthChars = 4;
+      hbox.Add(port);
+
+      enableProxy.Toggled += delegate(object sender, EventArgs args) {
+	hbox.Sensitive = enableProxy.Active;
+      };
+
+      expander.Add(proxyBox);
+      table.Attach(expander, 0, 1, 3, 4);
+
       dialog.ShowAll();
       return DialogRun();
     }
 
-    override protected void Render(Image image, Drawable drawable)
+    override protected void Render()
     {
       Assembly assembly = Assembly.GetAssembly(typeof(Plugin));
       Console.WriteLine(assembly.GetName().Version);
 
       XmlDocument doc = new XmlDocument();
 
-      try {
-	HttpWebRequest myRequest = (HttpWebRequest) 
-	  WebRequest.Create("http://gimp-sharp.sourceforge.net/version.xml");
-
-	// Create a proxy object, needed for mono behind a firewall?!
-	// WebProxy myProxy = new WebProxy();
-	// myProxy.Address = new Uri("myProxy");
-	// myRequest.Proxy=myProxy;
+      try 
+	{
+	  HttpWebRequest myRequest = (HttpWebRequest) 
+	    WebRequest.Create("http://gimp-sharp.sourceforge.net/version.xml");
+	  
+	  // Create a proxy object, needed for mono behind a firewall?!
+	  // WebProxy myProxy = new WebProxy();
+	  // myProxy.Address = new Uri("myProxy");
+	  // myRequest.Proxy=myProxy;
       
-	RequestState requestState = new RequestState(myRequest);
-
-	// Start the asynchronous request.
-	IAsyncResult result= (IAsyncResult) myRequest.BeginGetResponse
-	  (new AsyncCallback(RespCallback), requestState);
-
-	// this line implements the timeout, if there is a timeout, 
-	// the callback fires and the request becomes aborted
-	ThreadPool.RegisterWaitForSingleObject
-	  (result.AsyncWaitHandle, new WaitOrTimerCallback(TimeoutCallback), 
-	   myRequest, DefaultTimeout, true);
-
-	// The response came in the allowed time. The work processing will 
-	// happen in the callback function.
-	allDone.WaitOne();
-      
-	// Release the HttpWebResponse resource.
-	requestState.Response.Close();
-      } catch (Exception e) 
+	  RequestState requestState = new RequestState(myRequest);
+	  
+	  // Start the asynchronous request.
+	  IAsyncResult result= (IAsyncResult) myRequest.BeginGetResponse
+	    (new AsyncCallback(RespCallback), requestState);
+	  
+	  // this line implements the timeout, if there is a timeout, 
+	  // the callback fires and the request becomes aborted
+	  ThreadPool.RegisterWaitForSingleObject
+	    (result.AsyncWaitHandle, new WaitOrTimerCallback(TimeoutCallback), 
+	     myRequest, DefaultTimeout, true);
+	  
+	  // The response came in the allowed time. The work processing will 
+	  // happen in the callback function.
+	  allDone.WaitOne();
+	  
+	  // Release the HttpWebResponse resource.
+	  requestState.Response.Close();
+	} 
+      catch (Exception e) 
 	{
 	  Console.WriteLine("Exception!");
 	  Console.WriteLine(e.StackTrace);

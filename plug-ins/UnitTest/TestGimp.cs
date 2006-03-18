@@ -26,7 +26,7 @@ namespace Gimp
   [TestFixture]
   public class TestGimp
   {
-    // [Test]
+    [Test]
     public void Version()
     {
       Version version = Gimp.Version;

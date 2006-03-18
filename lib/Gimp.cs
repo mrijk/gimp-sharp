@@ -42,6 +42,7 @@ namespace Gimp
       get
 	{
           IntPtr tmp = gimp_version();
+	  Console.WriteLine("one: " + tmp);
           return new Version(Marshal.PtrToStringAuto(tmp));
 	}
     }
