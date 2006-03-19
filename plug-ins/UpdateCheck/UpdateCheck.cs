@@ -40,6 +40,10 @@ namespace Gimp.UpdateCheck
     bool _checkGimpSharp = true;
     bool _checkUnstable = false;
 
+    bool _enableProxy = false;
+    string _httpProxy;
+    string _port;
+
     [STAThread]
     static void Main(string[] args)
     {
@@ -110,25 +114,43 @@ namespace Gimp.UpdateCheck
       };
       table.Attach(checkUnstable, 0, 1, 2, 3);
 
+      string tmp = Gimp.RcQuery("update-enable-proxy");
+      _enableProxy = (tmp != null || tmp == "true");
+      tmp = Gimp.RcQuery("update-http-proxy");
+      _httpProxy = (tmp == null) ? "" : tmp;
+      tmp = Gimp.RcQuery("update-port");
+      _port = (tmp == null) ? "" : tmp;
+
       Expander expander = new Expander("Proxy settings");
       VBox proxyBox = new VBox(false, 12);
 
       CheckButton enableProxy = new CheckButton("Manual proxy configuration");
-      enableProxy.Active = false;
+      enableProxy.Active = _enableProxy;
+      enableProxy.Toggled += delegate(object sender, EventArgs args) {
+	_enableProxy = enableProxy.Active;
+      };
       proxyBox.Add(enableProxy);
 
       HBox hbox = new HBox(false, 12);
-      hbox.Sensitive = false;
+      hbox.Sensitive = _enableProxy;
       hbox.Add(new Label("HTTP Proxy:"));
 
       Entry httpProxy = new Entry();
+      httpProxy.Text = _httpProxy;
       hbox.Add(httpProxy);
       proxyBox.Add(hbox);
+      httpProxy.Changed += delegate(object sender, EventArgs args) {
+	_httpProxy = httpProxy.Text;
+      };
 
       hbox.Add(new Label("Port:"));
       Entry port = new Entry();
+      port.Text = _port;
       port.WidthChars = 4;
       hbox.Add(port);
+      port.Changed += delegate(object sender, EventArgs args) {
+	_port = port.Text;
+      };
 
       enableProxy.Toggled += delegate(object sender, EventArgs args) {
 	hbox.Sensitive = enableProxy.Active;
@@ -143,6 +165,13 @@ namespace Gimp.UpdateCheck
 
     override protected void Render()
     {
+      if (_enableProxy)
+	{
+	  Gimp.RcSet("update-enable-proxy", (_enableProxy) ? "true" : "false");
+	  Gimp.RcSet("update-http-proxy", _httpProxy);
+	  Gimp.RcSet("update-port", _port);
+	}
+
       Assembly assembly = Assembly.GetAssembly(typeof(Plugin));
       Console.WriteLine(assembly.GetName().Version);
 
@@ -154,9 +183,12 @@ namespace Gimp.UpdateCheck
 	    WebRequest.Create("http://gimp-sharp.sourceforge.net/version.xml");
 	  
 	  // Create a proxy object, needed for mono behind a firewall?!
-	  // WebProxy myProxy = new WebProxy();
-	  // myProxy.Address = new Uri("myProxy");
-	  // myRequest.Proxy=myProxy;
+	  if (_enableProxy)
+	    {
+	      WebProxy myProxy = new WebProxy();
+	      myProxy.Address = new Uri(_httpProxy + ":" + _port);
+	      myRequest.Proxy=myProxy;
+	    }
       
 	  RequestState requestState = new RequestState(myRequest);
 	  

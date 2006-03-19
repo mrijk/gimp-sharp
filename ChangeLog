@@ -1,3 +1,7 @@
+2006-03-19  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/UpdateCheck/UpdateCheck.cs: implemented proxy support.
+
 2006-03-18  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/UpdateCheck/UpdateCheck.cs: added UI for proxy support.
