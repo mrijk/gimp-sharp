@@ -78,6 +78,24 @@ if test "x$with_pdn" == xyes; then
 fi
 
 #
+# Check if we want to build ECW plug-in.
+#
+
+have_libecw=no
+AC_ARG_WITH(libecw,  [  --without-ecw            do not build the ECW plug-in])
+if test x$with_ecw != xno && test -z "$LIBECW"; then
+  have_libecw=yes
+  AC_CHECK_LIB(NCSEcw, NCSecwInit,
+    [AC_CHECK_HEADER(NCSEcw.h,
+      ECW='ecw$(EXEEXT)'; LIBECW='-lNCSEcw',
+      [have_libecw="no (ECW header file not found)"])],
+    [have_libecw="no (ECW library not found)"], -lNCSUtil -lNCSCnet)
+fi
+
+AC_SUBST(ECW)
+AC_SUBST(LIBECW)
+
+#
 # Check if we want to build incomplete plug-ins
 #
 
@@ -91,14 +109,17 @@ fi
 AM_CONDITIONAL(BUILD_UNITTEST, test x$unittest = xyes)
 AM_CONDITIONAL(BUILD_PDN, test x$pdn = xyes)
 AM_CONDITIONAL(BUILD_INCOMPLETE, test x$incomplete = xyes)
+AM_CONDITIONAL(BUILD_ECW, test x$have_libecw = xyes)
 
 dnl read Makefile.in and write Makefile
 AC_CONFIG_FILES([
 Makefile lib/Makefile 
 plug-ins/Makefile 
+plug-ins/ecw/Makefile
 plug-ins/KoalaPaint/Makefile
 plug-ins/ncp/Makefile 
 plug-ins/Ministeck/Makefile 
+plug-ins/neo/Makefile
 plug-ins/Pdn/Makefile 
 plug-ins/PicturePackage/Makefile 
 plug-ins/Raindrops/Makefile 
@@ -117,7 +138,8 @@ dnl Print a summary of features enabled/disabled:
 AC_MSG_RESULT([
 Building GIMP-SHARP with prefix=$prefix
 GIMP-SHARP Features:
-  unittest: $unittest
-  pdn: $pdn
-  incomplete: $incomplete
+  Unit Tests	: $unittest
+  Paint.NET	: $pdn
+  Incomplete	: $incomplete
+  ECW		: $have_libecw
 ]);

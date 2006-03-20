@@ -463,7 +463,7 @@ ac_includes_default="\
 # include <unistd.h>
 #endif"
 
-ac_subst_vars='SHELL PATH_SEPARATOR PACKAGE_NAME PACKAGE_TARNAME PACKAGE_VERSION PACKAGE_STRING PACKAGE_BUGREPORT exec_prefix prefix program_transform_name bindir sbindir libexecdir datadir sysconfdir sharedstatedir localstatedir libdir includedir oldincludedir infodir mandir build_alias host_alias target_alias DEFS ECHO_C ECHO_N ECHO_T LIBS INSTALL_PROGRAM INSTALL_SCRIPT INSTALL_DATA CYGPATH_W PACKAGE VERSION ACLOCAL AUTOCONF AUTOMAKE AUTOHEADER MAKEINFO install_sh STRIP ac_ct_STRIP INSTALL_STRIP_PROGRAM mkdir_p AWK SET_MAKE am__leading_dot AMTAR am__tar am__untar build build_cpu build_vendor build_os host host_cpu host_vendor host_os CC CFLAGS LDFLAGS CPPFLAGS ac_ct_CC EXEEXT OBJEXT DEPDIR am__include am__quote AMDEP_TRUE AMDEP_FALSE AMDEPBACKSLASH CCDEPMODE am__fastdepCC_TRUE am__fastdepCC_FALSE EGREP LN_S ECHO AR ac_ct_AR RANLIB ac_ct_RANLIB CPP CXX CXXFLAGS ac_ct_CXX CXXDEPMODE am__fastdepCXX_TRUE am__fastdepCXX_FALSE CXXCPP F77 FFLAGS ac_ct_F77 LIBTOOL PKG_CONFIG MONO MONO_CFLAGS MONO_LIBS MONO_DEPENDENCY_CFLAGS MONO_DEPENDENCY_LIBS RUNTIME CSC GIMPPLUGINDIR BUILD_UNITTEST_TRUE BUILD_UNITTEST_FALSE BUILD_PDN_TRUE BUILD_PDN_FALSE BUILD_INCOMPLETE_TRUE BUILD_INCOMPLETE_FALSE LIBOBJS LTLIBOBJS'
+ac_subst_vars='SHELL PATH_SEPARATOR PACKAGE_NAME PACKAGE_TARNAME PACKAGE_VERSION PACKAGE_STRING PACKAGE_BUGREPORT exec_prefix prefix program_transform_name bindir sbindir libexecdir datadir sysconfdir sharedstatedir localstatedir libdir includedir oldincludedir infodir mandir build_alias host_alias target_alias DEFS ECHO_C ECHO_N ECHO_T LIBS INSTALL_PROGRAM INSTALL_SCRIPT INSTALL_DATA CYGPATH_W PACKAGE VERSION ACLOCAL AUTOCONF AUTOMAKE AUTOHEADER MAKEINFO install_sh STRIP ac_ct_STRIP INSTALL_STRIP_PROGRAM mkdir_p AWK SET_MAKE am__leading_dot AMTAR am__tar am__untar build build_cpu build_vendor build_os host host_cpu host_vendor host_os CC CFLAGS LDFLAGS CPPFLAGS ac_ct_CC EXEEXT OBJEXT DEPDIR am__include am__quote AMDEP_TRUE AMDEP_FALSE AMDEPBACKSLASH CCDEPMODE am__fastdepCC_TRUE am__fastdepCC_FALSE EGREP LN_S ECHO AR ac_ct_AR RANLIB ac_ct_RANLIB CPP CXX CXXFLAGS ac_ct_CXX CXXDEPMODE am__fastdepCXX_TRUE am__fastdepCXX_FALSE CXXCPP F77 FFLAGS ac_ct_F77 LIBTOOL PKG_CONFIG MONO MONO_CFLAGS MONO_LIBS MONO_DEPENDENCY_CFLAGS MONO_DEPENDENCY_LIBS RUNTIME CSC GIMPPLUGINDIR ECW LIBECW BUILD_UNITTEST_TRUE BUILD_UNITTEST_FALSE BUILD_PDN_TRUE BUILD_PDN_FALSE BUILD_INCOMPLETE_TRUE BUILD_INCOMPLETE_FALSE BUILD_ECW_TRUE BUILD_ECW_FALSE LIBOBJS LTLIBOBJS'
 ac_subst_files=''
 
 # Initialize some variables set by options.
@@ -1043,6 +1043,7 @@ Optional Packages:
                           include additional configurations [automatic]
   --with-unittest         build unittest plug-in (default-no)
   --with-pdn              build Paint.NET plug-in (default-no)
+  --without-ecw            do not build the ECW plug-in
   --with-incomplete              build incomplete plug-ins (default-no)
 
 Some influential environment variables:
@@ -3644,7 +3645,7 @@ ia64-*-hpux*)
   ;;
 *-*-irix6*)
   # Find out which ABI we are using.
-  echo '#line 3647 "configure"' > conftest.$ac_ext
+  echo '#line 3648 "configure"' > conftest.$ac_ext
   if { (eval echo "$as_me:$LINENO: \"$ac_compile\"") >&5
   (eval $ac_compile) 2>&5
   ac_status=$?
@@ -5223,7 +5224,7 @@ fi
 
 
 # Provide some information about the compiler.
-echo "$as_me:5226:" \
+echo "$as_me:5227:" \
      "checking for Fortran 77 compiler version" >&5
 ac_compiler=`set X $ac_compile; echo $2`
 { (eval echo "$as_me:$LINENO: \"$ac_compiler --version </dev/null >&5\"") >&5
@@ -6292,11 +6293,11 @@ else
    -e 's:.*FLAGS}? :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:6295: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:6296: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:6299: \$? = $ac_status" >&5
+   echo "$as_me:6300: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings
@@ -6547,11 +6548,11 @@ else
    -e 's:.*FLAGS}? :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:6550: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:6551: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:6554: \$? = $ac_status" >&5
+   echo "$as_me:6555: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings
@@ -6607,11 +6608,11 @@ else
    -e 's:.*FLAGS}? :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:6610: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:6611: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "$as_me:6614: \$? = $ac_status" >&5
+   echo "$as_me:6615: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized
@@ -7957,7 +7958,7 @@ linux*)
   libsuff=
   case "$host_cpu" in
   x86_64*|s390x*|powerpc64*)
-    echo '#line 7960 "configure"' > conftest.$ac_ext
+    echo '#line 7961 "configure"' > conftest.$ac_ext
     if { (eval echo "$as_me:$LINENO: \"$ac_compile\"") >&5
   (eval $ac_compile) 2>&5
   ac_status=$?
@@ -8828,7 +8829,7 @@ else
   lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
   lt_status=$lt_dlunknown
   cat > conftest.$ac_ext <<EOF
-#line 8831 "configure"
+#line 8832 "configure"
 #include "confdefs.h"
 
 #if HAVE_DLFCN_H
@@ -8926,7 +8927,7 @@ else
   lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
   lt_status=$lt_dlunknown
   cat > conftest.$ac_ext <<EOF
-#line 8929 "configure"
+#line 8930 "configure"
 #include "confdefs.h"
 
 #if HAVE_DLFCN_H
@@ -11146,11 +11147,11 @@ else
    -e 's:.*FLAGS}? :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:11149: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:11150: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:11153: \$? = $ac_status" >&5
+   echo "$as_me:11154: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings
@@ -11206,11 +11207,11 @@ else
    -e 's:.*FLAGS}? :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:11209: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:11210: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "$as_me:11213: \$? = $ac_status" >&5
+   echo "$as_me:11214: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized
@@ -11719,7 +11720,7 @@ linux*)
   libsuff=
   case "$host_cpu" in
   x86_64*|s390x*|powerpc64*)
-    echo '#line 11722 "configure"' > conftest.$ac_ext
+    echo '#line 11723 "configure"' > conftest.$ac_ext
     if { (eval echo "$as_me:$LINENO: \"$ac_compile\"") >&5
   (eval $ac_compile) 2>&5
   ac_status=$?
@@ -12590,7 +12591,7 @@ else
   lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
   lt_status=$lt_dlunknown
   cat > conftest.$ac_ext <<EOF
-#line 12593 "configure"
+#line 12594 "configure"
 #include "confdefs.h"
 
 #if HAVE_DLFCN_H
@@ -12688,7 +12689,7 @@ else
   lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
   lt_status=$lt_dlunknown
   cat > conftest.$ac_ext <<EOF
-#line 12691 "configure"
+#line 12692 "configure"
 #include "confdefs.h"
 
 #if HAVE_DLFCN_H
@@ -13543,11 +13544,11 @@ else
    -e 's:.*FLAGS}? :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:13546: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:13547: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:13550: \$? = $ac_status" >&5
+   echo "$as_me:13551: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings
@@ -13603,11 +13604,11 @@ else
    -e 's:.*FLAGS}? :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:13606: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:13607: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "$as_me:13610: \$? = $ac_status" >&5
+   echo "$as_me:13611: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized
@@ -14933,7 +14934,7 @@ linux*)
   libsuff=
   case "$host_cpu" in
   x86_64*|s390x*|powerpc64*)
-    echo '#line 14936 "configure"' > conftest.$ac_ext
+    echo '#line 14937 "configure"' > conftest.$ac_ext
     if { (eval echo "$as_me:$LINENO: \"$ac_compile\"") >&5
   (eval $ac_compile) 2>&5
   ac_status=$?
@@ -15680,11 +15681,11 @@ else
    -e 's:.*FLAGS}? :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:15683: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:15684: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:15687: \$? = $ac_status" >&5
+   echo "$as_me:15688: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings
@@ -15935,11 +15936,11 @@ else
    -e 's:.*FLAGS}? :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:15938: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:15939: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:15942: \$? = $ac_status" >&5
+   echo "$as_me:15943: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings
@@ -15995,11 +15996,11 @@ else
    -e 's:.*FLAGS}? :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:15998: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:15999: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "$as_me:16002: \$? = $ac_status" >&5
+   echo "$as_me:16003: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized
@@ -17345,7 +17346,7 @@ linux*)
   libsuff=
   case "$host_cpu" in
   x86_64*|s390x*|powerpc64*)
-    echo '#line 17348 "configure"' > conftest.$ac_ext
+    echo '#line 17349 "configure"' > conftest.$ac_ext
     if { (eval echo "$as_me:$LINENO: \"$ac_compile\"") >&5
   (eval $ac_compile) 2>&5
   ac_status=$?
@@ -18216,7 +18217,7 @@ else
   lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
   lt_status=$lt_dlunknown
   cat > conftest.$ac_ext <<EOF
-#line 18219 "configure"
+#line 18220 "configure"
 #include "confdefs.h"
 
 #if HAVE_DLFCN_H
@@ -18314,7 +18315,7 @@ else
   lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
   lt_status=$lt_dlunknown
   cat > conftest.$ac_ext <<EOF
-#line 18317 "configure"
+#line 18318 "configure"
 #include "confdefs.h"
 
 #if HAVE_DLFCN_H
@@ -19922,6 +19923,237 @@ if test "x$with_pdn" == xyes; then
 fi
 
 #
+# Check if we want to build ECW plug-in.
+#
+
+have_libecw=no
+
+# Check whether --with-libecw or --without-libecw was given.
+if test "${with_libecw+set}" = set; then
+  withval="$with_libecw"
+
+fi;
+if test x$with_ecw != xno && test -z "$LIBECW"; then
+  have_libecw=yes
+  echo "$as_me:$LINENO: checking for NCSecwInit in -lNCSEcw" >&5
+echo $ECHO_N "checking for NCSecwInit in -lNCSEcw... $ECHO_C" >&6
+if test "${ac_cv_lib_NCSEcw_NCSecwInit+set}" = set; then
+  echo $ECHO_N "(cached) $ECHO_C" >&6
+else
+  ac_check_lib_save_LIBS=$LIBS
+LIBS="-lNCSEcw -lNCSUtil -lNCSCnet $LIBS"
+cat >conftest.$ac_ext <<_ACEOF
+/* confdefs.h.  */
+_ACEOF
+cat confdefs.h >>conftest.$ac_ext
+cat >>conftest.$ac_ext <<_ACEOF
+/* end confdefs.h.  */
+
+/* Override any gcc2 internal prototype to avoid an error.  */
+#ifdef __cplusplus
+extern "C"
+#endif
+/* We use char because int might match the return type of a gcc2
+   builtin and then its argument prototype would still apply.  */
+char NCSecwInit ();
+int
+main ()
+{
+NCSecwInit ();
+  ;
+  return 0;
+}
+_ACEOF
+rm -f conftest.$ac_objext conftest$ac_exeext
+if { (eval echo "$as_me:$LINENO: \"$ac_link\"") >&5
+  (eval $ac_link) 2>conftest.er1
+  ac_status=$?
+  grep -v '^ *+' conftest.er1 >conftest.err
+  rm -f conftest.er1
+  cat conftest.err >&5
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); } &&
+	 { ac_try='test -z "$ac_c_werror_flag"
+			 || test ! -s conftest.err'
+  { (eval echo "$as_me:$LINENO: \"$ac_try\"") >&5
+  (eval $ac_try) 2>&5
+  ac_status=$?
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); }; } &&
+	 { ac_try='test -s conftest$ac_exeext'
+  { (eval echo "$as_me:$LINENO: \"$ac_try\"") >&5
+  (eval $ac_try) 2>&5
+  ac_status=$?
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); }; }; then
+  ac_cv_lib_NCSEcw_NCSecwInit=yes
+else
+  echo "$as_me: failed program was:" >&5
+sed 's/^/| /' conftest.$ac_ext >&5
+
+ac_cv_lib_NCSEcw_NCSecwInit=no
+fi
+rm -f conftest.err conftest.$ac_objext \
+      conftest$ac_exeext conftest.$ac_ext
+LIBS=$ac_check_lib_save_LIBS
+fi
+echo "$as_me:$LINENO: result: $ac_cv_lib_NCSEcw_NCSecwInit" >&5
+echo "${ECHO_T}$ac_cv_lib_NCSEcw_NCSecwInit" >&6
+if test $ac_cv_lib_NCSEcw_NCSecwInit = yes; then
+  if test "${ac_cv_header_NCSEcw_h+set}" = set; then
+  echo "$as_me:$LINENO: checking for NCSEcw.h" >&5
+echo $ECHO_N "checking for NCSEcw.h... $ECHO_C" >&6
+if test "${ac_cv_header_NCSEcw_h+set}" = set; then
+  echo $ECHO_N "(cached) $ECHO_C" >&6
+fi
+echo "$as_me:$LINENO: result: $ac_cv_header_NCSEcw_h" >&5
+echo "${ECHO_T}$ac_cv_header_NCSEcw_h" >&6
+else
+  # Is the header compilable?
+echo "$as_me:$LINENO: checking NCSEcw.h usability" >&5
+echo $ECHO_N "checking NCSEcw.h usability... $ECHO_C" >&6
+cat >conftest.$ac_ext <<_ACEOF
+/* confdefs.h.  */
+_ACEOF
+cat confdefs.h >>conftest.$ac_ext
+cat >>conftest.$ac_ext <<_ACEOF
+/* end confdefs.h.  */
+$ac_includes_default
+#include <NCSEcw.h>
+_ACEOF
+rm -f conftest.$ac_objext
+if { (eval echo "$as_me:$LINENO: \"$ac_compile\"") >&5
+  (eval $ac_compile) 2>conftest.er1
+  ac_status=$?
+  grep -v '^ *+' conftest.er1 >conftest.err
+  rm -f conftest.er1
+  cat conftest.err >&5
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); } &&
+	 { ac_try='test -z "$ac_c_werror_flag"
+			 || test ! -s conftest.err'
+  { (eval echo "$as_me:$LINENO: \"$ac_try\"") >&5
+  (eval $ac_try) 2>&5
+  ac_status=$?
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); }; } &&
+	 { ac_try='test -s conftest.$ac_objext'
+  { (eval echo "$as_me:$LINENO: \"$ac_try\"") >&5
+  (eval $ac_try) 2>&5
+  ac_status=$?
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); }; }; then
+  ac_header_compiler=yes
+else
+  echo "$as_me: failed program was:" >&5
+sed 's/^/| /' conftest.$ac_ext >&5
+
+ac_header_compiler=no
+fi
+rm -f conftest.err conftest.$ac_objext conftest.$ac_ext
+echo "$as_me:$LINENO: result: $ac_header_compiler" >&5
+echo "${ECHO_T}$ac_header_compiler" >&6
+
+# Is the header present?
+echo "$as_me:$LINENO: checking NCSEcw.h presence" >&5
+echo $ECHO_N "checking NCSEcw.h presence... $ECHO_C" >&6
+cat >conftest.$ac_ext <<_ACEOF
+/* confdefs.h.  */
+_ACEOF
+cat confdefs.h >>conftest.$ac_ext
+cat >>conftest.$ac_ext <<_ACEOF
+/* end confdefs.h.  */
+#include <NCSEcw.h>
+_ACEOF
+if { (eval echo "$as_me:$LINENO: \"$ac_cpp conftest.$ac_ext\"") >&5
+  (eval $ac_cpp conftest.$ac_ext) 2>conftest.er1
+  ac_status=$?
+  grep -v '^ *+' conftest.er1 >conftest.err
+  rm -f conftest.er1
+  cat conftest.err >&5
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); } >/dev/null; then
+  if test -s conftest.err; then
+    ac_cpp_err=$ac_c_preproc_warn_flag
+    ac_cpp_err=$ac_cpp_err$ac_c_werror_flag
+  else
+    ac_cpp_err=
+  fi
+else
+  ac_cpp_err=yes
+fi
+if test -z "$ac_cpp_err"; then
+  ac_header_preproc=yes
+else
+  echo "$as_me: failed program was:" >&5
+sed 's/^/| /' conftest.$ac_ext >&5
+
+  ac_header_preproc=no
+fi
+rm -f conftest.err conftest.$ac_ext
+echo "$as_me:$LINENO: result: $ac_header_preproc" >&5
+echo "${ECHO_T}$ac_header_preproc" >&6
+
+# So?  What about this header?
+case $ac_header_compiler:$ac_header_preproc:$ac_c_preproc_warn_flag in
+  yes:no: )
+    { echo "$as_me:$LINENO: WARNING: NCSEcw.h: accepted by the compiler, rejected by the preprocessor!" >&5
+echo "$as_me: WARNING: NCSEcw.h: accepted by the compiler, rejected by the preprocessor!" >&2;}
+    { echo "$as_me:$LINENO: WARNING: NCSEcw.h: proceeding with the compiler's result" >&5
+echo "$as_me: WARNING: NCSEcw.h: proceeding with the compiler's result" >&2;}
+    ac_header_preproc=yes
+    ;;
+  no:yes:* )
+    { echo "$as_me:$LINENO: WARNING: NCSEcw.h: present but cannot be compiled" >&5
+echo "$as_me: WARNING: NCSEcw.h: present but cannot be compiled" >&2;}
+    { echo "$as_me:$LINENO: WARNING: NCSEcw.h:     check for missing prerequisite headers?" >&5
+echo "$as_me: WARNING: NCSEcw.h:     check for missing prerequisite headers?" >&2;}
+    { echo "$as_me:$LINENO: WARNING: NCSEcw.h: see the Autoconf documentation" >&5
+echo "$as_me: WARNING: NCSEcw.h: see the Autoconf documentation" >&2;}
+    { echo "$as_me:$LINENO: WARNING: NCSEcw.h:     section \"Present But Cannot Be Compiled\"" >&5
+echo "$as_me: WARNING: NCSEcw.h:     section \"Present But Cannot Be Compiled\"" >&2;}
+    { echo "$as_me:$LINENO: WARNING: NCSEcw.h: proceeding with the preprocessor's result" >&5
+echo "$as_me: WARNING: NCSEcw.h: proceeding with the preprocessor's result" >&2;}
+    { echo "$as_me:$LINENO: WARNING: NCSEcw.h: in the future, the compiler will take precedence" >&5
+echo "$as_me: WARNING: NCSEcw.h: in the future, the compiler will take precedence" >&2;}
+    (
+      cat <<\_ASBOX
+## ------------------------------------------ ##
+## Report this to the AC_PACKAGE_NAME lists.  ##
+## ------------------------------------------ ##
+_ASBOX
+    ) |
+      sed "s/^/$as_me: WARNING:     /" >&2
+    ;;
+esac
+echo "$as_me:$LINENO: checking for NCSEcw.h" >&5
+echo $ECHO_N "checking for NCSEcw.h... $ECHO_C" >&6
+if test "${ac_cv_header_NCSEcw_h+set}" = set; then
+  echo $ECHO_N "(cached) $ECHO_C" >&6
+else
+  ac_cv_header_NCSEcw_h=$ac_header_preproc
+fi
+echo "$as_me:$LINENO: result: $ac_cv_header_NCSEcw_h" >&5
+echo "${ECHO_T}$ac_cv_header_NCSEcw_h" >&6
+
+fi
+if test $ac_cv_header_NCSEcw_h = yes; then
+  ECW='ecw$(EXEEXT)'; LIBECW='-lNCSEcw'
+else
+  have_libecw="no (ECW header file not found)"
+fi
+
+
+else
+  have_libecw="no (ECW library not found)"
+fi
+
+fi
+
+
+
+
+#
 # Check if we want to build incomplete plug-ins
 #
 
@@ -19968,7 +20200,17 @@ else
 fi
 
 
-                                                                                                                                                                ac_config_files="$ac_config_files Makefile lib/Makefile plug-ins/Makefile plug-ins/KoalaPaint/Makefile plug-ins/ncp/Makefile plug-ins/Ministeck/Makefile plug-ins/Pdn/Makefile plug-ins/PicturePackage/Makefile plug-ins/Raindrops/Makefile plug-ins/RedEye/Makefile plug-ins/SliceTool/Makefile plug-ins/Splitter/Makefile plug-ins/Swirlies/Makefile plug-ins/UnitTest/Makefile plug-ins/UpdateCheck/Makefile plug-ins/wbmp/Makefile"
+
+if test x$have_libecw = xyes; then
+  BUILD_ECW_TRUE=
+  BUILD_ECW_FALSE='#'
+else
+  BUILD_ECW_TRUE='#'
+  BUILD_ECW_FALSE=
+fi
+
+
+                                                                                                                                                                                    ac_config_files="$ac_config_files Makefile lib/Makefile plug-ins/Makefile plug-ins/ecw/Makefile plug-ins/KoalaPaint/Makefile plug-ins/ncp/Makefile plug-ins/Ministeck/Makefile plug-ins/neo/Makefile plug-ins/Pdn/Makefile plug-ins/PicturePackage/Makefile plug-ins/Raindrops/Makefile plug-ins/RedEye/Makefile plug-ins/SliceTool/Makefile plug-ins/Splitter/Makefile plug-ins/Swirlies/Makefile plug-ins/UnitTest/Makefile plug-ins/UpdateCheck/Makefile plug-ins/wbmp/Makefile"
 
 
 cat >confcache <<\_ACEOF
@@ -20101,6 +20343,13 @@ if test -z "${BUILD_INCOMPLETE_TRUE}" && test -z "${BUILD_INCOMPLETE_FALSE}"; th
   { { echo "$as_me:$LINENO: error: conditional \"BUILD_INCOMPLETE\" was never defined.
 Usually this means the macro was only invoked conditionally." >&5
 echo "$as_me: error: conditional \"BUILD_INCOMPLETE\" was never defined.
+Usually this means the macro was only invoked conditionally." >&2;}
+   { (exit 1); exit 1; }; }
+fi
+if test -z "${BUILD_ECW_TRUE}" && test -z "${BUILD_ECW_FALSE}"; then
+  { { echo "$as_me:$LINENO: error: conditional \"BUILD_ECW\" was never defined.
+Usually this means the macro was only invoked conditionally." >&5
+echo "$as_me: error: conditional \"BUILD_ECW\" was never defined.
 Usually this means the macro was only invoked conditionally." >&2;}
    { (exit 1); exit 1; }; }
 fi
@@ -20551,9 +20800,11 @@ do
   "Makefile" ) CONFIG_FILES="$CONFIG_FILES Makefile" ;;
   "lib/Makefile" ) CONFIG_FILES="$CONFIG_FILES lib/Makefile" ;;
   "plug-ins/Makefile" ) CONFIG_FILES="$CONFIG_FILES plug-ins/Makefile" ;;
+  "plug-ins/ecw/Makefile" ) CONFIG_FILES="$CONFIG_FILES plug-ins/ecw/Makefile" ;;
   "plug-ins/KoalaPaint/Makefile" ) CONFIG_FILES="$CONFIG_FILES plug-ins/KoalaPaint/Makefile" ;;
   "plug-ins/ncp/Makefile" ) CONFIG_FILES="$CONFIG_FILES plug-ins/ncp/Makefile" ;;
   "plug-ins/Ministeck/Makefile" ) CONFIG_FILES="$CONFIG_FILES plug-ins/Ministeck/Makefile" ;;
+  "plug-ins/neo/Makefile" ) CONFIG_FILES="$CONFIG_FILES plug-ins/neo/Makefile" ;;
   "plug-ins/Pdn/Makefile" ) CONFIG_FILES="$CONFIG_FILES plug-ins/Pdn/Makefile" ;;
   "plug-ins/PicturePackage/Makefile" ) CONFIG_FILES="$CONFIG_FILES plug-ins/PicturePackage/Makefile" ;;
   "plug-ins/Raindrops/Makefile" ) CONFIG_FILES="$CONFIG_FILES plug-ins/Raindrops/Makefile" ;;
@@ -20725,12 +20976,16 @@ s,@MONO_DEPENDENCY_LIBS@,$MONO_DEPENDENCY_LIBS,;t t
 s,@RUNTIME@,$RUNTIME,;t t
 s,@CSC@,$CSC,;t t
 s,@GIMPPLUGINDIR@,$GIMPPLUGINDIR,;t t
+s,@ECW@,$ECW,;t t
+s,@LIBECW@,$LIBECW,;t t
 s,@BUILD_UNITTEST_TRUE@,$BUILD_UNITTEST_TRUE,;t t
 s,@BUILD_UNITTEST_FALSE@,$BUILD_UNITTEST_FALSE,;t t
 s,@BUILD_PDN_TRUE@,$BUILD_PDN_TRUE,;t t
 s,@BUILD_PDN_FALSE@,$BUILD_PDN_FALSE,;t t
 s,@BUILD_INCOMPLETE_TRUE@,$BUILD_INCOMPLETE_TRUE,;t t
 s,@BUILD_INCOMPLETE_FALSE@,$BUILD_INCOMPLETE_FALSE,;t t
+s,@BUILD_ECW_TRUE@,$BUILD_ECW_TRUE,;t t
+s,@BUILD_ECW_FALSE@,$BUILD_ECW_FALSE,;t t
 s,@LIBOBJS@,$LIBOBJS,;t t
 s,@LTLIBOBJS@,$LTLIBOBJS,;t t
 CEOF
@@ -21452,14 +21707,16 @@ fi
 echo "$as_me:$LINENO: result:
 Building GIMP-SHARP with prefix=$prefix
 GIMP-SHARP Features:
-  unittest: $unittest
-  pdn: $pdn
-  incomplete: $incomplete
+  Unit Tests	: $unittest
+  Paint.NET	: $pdn
+  Incomplete	: $incomplete
+  ECW		: $have_libecw
 " >&5
 echo "${ECHO_T}
 Building GIMP-SHARP with prefix=$prefix
 GIMP-SHARP Features:
-  unittest: $unittest
-  pdn: $pdn
-  incomplete: $incomplete
+  Unit Tests	: $unittest
+  Paint.NET	: $pdn
+  Incomplete	: $incomplete
+  ECW		: $have_libecw
 " >&6;

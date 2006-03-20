@@ -7,6 +7,7 @@ Overview of Changes in Gimp# 0.8
 - Better use of .NET 2.0 features
 - First fully functional release of Splitter plug-in
 - New plug-in to generate Swirlies
+- Port of abandoned Neochrome plug-in (Atari ST file format)
 - GIMP# is now fully unit tested with NUnit, leading to higher quality
 - Many bug fixes and smaller improvements
 
