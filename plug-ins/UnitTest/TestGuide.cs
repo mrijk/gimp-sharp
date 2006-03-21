@@ -64,7 +64,7 @@ namespace Gimp
     public void Position()
     {
       HorizontalGuide guide = new HorizontalGuide(_image, _height / 2);
-      Assert.AreEqual(OrientationType.HORIZONTAL, guide.Orientation);
+      Assert.AreEqual(OrientationType.Horizontal, guide.Orientation);
       Assert.AreEqual(_height / 2, guide.Position);
     }
 

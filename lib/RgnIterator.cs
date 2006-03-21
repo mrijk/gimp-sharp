@@ -81,7 +81,7 @@ namespace Gimp
 		  destPR[y, x] = func(x, y);
 		}
 	    }
-	  if (_runmode != RunMode.NONINTERACTIVE)
+	  if (_runmode != RunMode.Noninteractive)
 	    {
 	      area_so_far += destPR.W * destPR.H;
 	      _progress.Update ((double) area_so_far / (double) total_area);

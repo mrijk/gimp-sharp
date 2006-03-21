@@ -40,7 +40,7 @@ namespace Gimp
 
       Layer layer = new Layer(_image, "test", _width, _height,
 			      ImageType.RGB, 100, 
-			      LayerModeEffects.NORMAL);
+			      LayerModeEffects.Normal);
       _image.AddLayer(layer, 0);
 
       _drawable = _image.ActiveDrawable;
@@ -56,7 +56,7 @@ namespace Gimp
     public void TestCount()
     {
       RgnIterator iterator = new RgnIterator(_drawable, 
-					     RunMode.NONINTERACTIVE);
+					     RunMode.Noninteractive);
       int count = 0;
       iterator.Iterate(delegate(byte[] src) 
       {
@@ -71,7 +71,7 @@ namespace Gimp
       byte[] color = new byte[]{12, 13, 14};
 
       RgnIterator iterator = new RgnIterator(_drawable, 
-					     RunMode.NONINTERACTIVE);
+					     RunMode.Noninteractive);
       iterator.Iterate(delegate(int x, int y)
       {
 	return color;

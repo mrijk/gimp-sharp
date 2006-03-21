@@ -139,8 +139,8 @@ namespace Gimp.wbmp
 	}
 
       // Convert image to B&W picture
-      if (!image.ConvertIndexed(ConvertDitherType.NO, 
-				ConvertPaletteType.MONO,
+      if (!image.ConvertIndexed(ConvertDitherType.No, 
+				ConvertPaletteType.Mono,
 				0, false, false, ""))
 	{
 	  Console.WriteLine("Conversion to B&W failed");

@@ -30,7 +30,7 @@ namespace Gimp.PicturePackage
 
     public ImageRenderer(Layout layout, Image composed, double resolution)
     {
-      _convert = (layout.Unit == Unit.INCH);
+      _convert = (layout.Unit == Unit.Inch);
       _composed = composed;
       _resolution = resolution;
     }

@@ -47,17 +47,17 @@ namespace Gimp.PicturePackage
       XmlAttribute units = (XmlAttribute) attributes.GetNamedItem("units");
       if (units == null)
 	{
-	  _unit = Unit.INCH;
+	  _unit = Unit.Inch;
 	}
       else 
 	{
 	  if (units.Value == "inches")
 	    {
-	      _unit = Unit.INCH;
+	      _unit = Unit.Inch;
 	    }
 	  else if (units.Value == "pixels")
 	    {
-	      _unit = Unit.PIXEL;
+	      _unit = Unit.Pixel;
 	    }
 	}
 	  
@@ -85,7 +85,7 @@ namespace Gimp.PicturePackage
 
     public PageSize GetPageSize(int resolution)
     {
-      if (_unit == Unit.INCH)
+      if (_unit == Unit.Inch)
 	{
 	  return new PageSize(_width, _height);
 	}
@@ -98,7 +98,7 @@ namespace Gimp.PicturePackage
 
     public PageSize GetPageSizeInPixels(int resolution)
     {
-      if (_unit == Unit.INCH)
+      if (_unit == Unit.Inch)
 	{
 	  return new PageSize(_width * resolution, _height * resolution);
 	}

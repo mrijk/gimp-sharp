@@ -1,5 +1,31 @@
 2006-03-21  Maurits  <m.rijk@chello.nl>
 
+	* plug-ins/wbmp/wbmp.cs
+	* plug-ins/UnitTest/TestRgnIterator.cs
+	* plug-ins/UnitTest/TestLayer.cs
+	* plug-ins/UnitTest/TestImage.cs
+	* plug-ins/UnitTest/TestGuide.cs
+	* plug-ins/UnitTest/TestDrawable.cs
+	* plug-ins/Swirlies/Swirlies.cs
+	* plug-ins/Splitter/Splitter.cs
+	* plug-ins/SliceTool/Rectangle.cs
+	* plug-ins/PicturePackage/PreviewRenderer.cs
+	* plug-ins/PicturePackage/Renderer.cs
+	* plug-ins/PicturePackage/ImageRenderer.cs
+	* plug-ins/PicturePackage/Layout.cs
+	* plug-ins/PicturePackage/FileImageProvider.cs
+	* plug-ins/Pdn/Pdn.cs
+	* plug-ins/ncp/ncp.cs
+	* plug-ins/Ministeck/Ministeck.cs
+	* lib/RgnIterator.cs
+	* lib/Procedure.cs
+	* lib/FilePlugin.cs
+	* lib/Plugin.cs
+	* lib/GimpEnums.cs: changed lots of enums to capitalized instead of
+	uppercase.
+
+2006-03-21  Maurits  <m.rijk@chello.nl>
+
 	* lib/PixelRgn.cs: new constructor
 
 	* lib/LayerList.cs: added index method

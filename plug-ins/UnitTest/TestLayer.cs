@@ -49,7 +49,7 @@ namespace Gimp
     {
       Layer layer = new Layer(_image, "test", _width, _height,
 			      ImageType.RGB, 100, 
-			      LayerModeEffects.NORMAL);
+			      LayerModeEffects.Normal);
       _image.AddLayer(layer, 0);
       Assert.AreEqual(1, _image.Layers.Count);
     }
@@ -59,7 +59,7 @@ namespace Gimp
     {
       Layer layer = new Layer(_image, "test", _width, _height,
 			      ImageType.RGB, 100, 
-			      LayerModeEffects.NORMAL);
+			      LayerModeEffects.Normal);
       _image.AddLayer(layer, 0);
       layer.Resize(2 * _width, 2 * _height, 0, 0);
       Assert.AreEqual(2 * _width, layer.Width);
@@ -71,7 +71,7 @@ namespace Gimp
     {
       Layer layer = new Layer(_image, "test", _width, _height,
 			      ImageType.RGB, 100, 
-			      LayerModeEffects.NORMAL);
+			      LayerModeEffects.Normal);
       _image.AddLayer(layer, 0);
       layer.Translate(-10, 10);
 
@@ -86,7 +86,7 @@ namespace Gimp
     {
       Layer layer = new Layer(_image, "test", _width, _height,
 			      ImageType.RGB, 100, 
-			      LayerModeEffects.NORMAL);
+			      LayerModeEffects.Normal);
       _image.AddLayer(layer, 0);
       layer.AddAlpha();
       Assert.AreEqual(ImageType.RGBA, _image.BaseType);

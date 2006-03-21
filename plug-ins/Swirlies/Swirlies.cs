@@ -187,7 +187,7 @@ namespace Gimp.Swirlies
     override protected void Render(Drawable drawable)
     {
       Initialize(drawable);
-      RgnIterator iter = new RgnIterator(drawable, RunMode.INTERACTIVE);
+      RgnIterator iter = new RgnIterator(drawable, RunMode.Interactive);
       iter.Progress = new Progress("Swirlies");
       iter.Iterate(new RgnIterator.IterFuncDest(DoSwirlies));
       

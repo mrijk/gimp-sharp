@@ -252,7 +252,7 @@ namespace Gimp.SliceTool
       clone.Crop(Width, Height, X1, Y1);
       string filename = path + System.IO.Path.DirectorySeparatorChar + 
         GetFilename(name, useGlobalExtension);
-      clone.Save(RunMode.NONINTERACTIVE, filename, filename);
+      clone.Save(RunMode.Noninteractive, filename, filename);
       clone.Delete();
     }
 

@@ -143,7 +143,7 @@ namespace Gimp
 	  _drawable = (Drawable) inParam[2].Value;
 	}
       
-      if (run_mode == RunMode.INTERACTIVE)
+      if (run_mode == RunMode.Interactive)
 	{
 	  GetData();
 	  if (CreateDialog())
@@ -151,11 +151,11 @@ namespace Gimp
 	      SetData();
 	    }
 	}
-      else if (run_mode == RunMode.NONINTERACTIVE)
+      else if (run_mode == RunMode.Noninteractive)
 	{
 	  Console.WriteLine("RunMode.NONINTERACTIVE not implemented yet!");
 	}
-      else if (run_mode == RunMode.WITH_LAST_VALS)
+      else if (run_mode == RunMode.WithLastVals)
 	{
 	  GetData();
 	  CallRender();

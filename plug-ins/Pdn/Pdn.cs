@@ -101,7 +101,7 @@ namespace Gimp.Pdn
 					  document.Width, document.Height,
 					  ImageType.RGBA,  
 					  (readLayer.Opacity / 255) * 100, // 100 what means ?
-					  LayerModeEffects.NORMAL);
+					  LayerModeEffects.Normal);
 		  Console.WriteLine("11");
 		  image.AddLayer(layer, layerPosition++);
 

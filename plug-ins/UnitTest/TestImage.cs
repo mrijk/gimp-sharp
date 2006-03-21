@@ -74,7 +74,7 @@ namespace Gimp
       ImageBaseType type = ImageBaseType.RGB;
       Image image = new Image(width, height, type);
 
-      image.Rotate(RotationType.ROTATE_90);
+      image.Rotate(RotationType.Rotate90);
       Assert.AreEqual(width, image.Height);
       Assert.AreEqual(height, image.Width);
 

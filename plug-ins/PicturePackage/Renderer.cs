@@ -49,7 +49,7 @@ namespace Gimp.PicturePackage
 
 	  if (w < h ^ _cache.Width < _cache.Height)
 	    {
-	      _cache.Rotate(RotationType.ROTATE_90);
+	      _cache.Rotate(RotationType.Rotate90);
 	    }
 
 	  double zoom = Math.Min(w / _cache.Width, h / _cache.Height);

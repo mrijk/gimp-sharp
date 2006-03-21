@@ -130,7 +130,7 @@ namespace Gimp
     {
       Image image = new Image(width, height, baseType);
       Layer layer = new Layer(image, "Background", width, height, type,
-			      100, LayerModeEffects.NORMAL);
+			      100, LayerModeEffects.Normal);
       image.AddLayer(layer, 0);
       image.Filename = filename;
 

@@ -21,173 +21,171 @@
 
 namespace Gimp
 {
-
   public enum BrushApplicationMode
   {
-    HARD,
-    SOFT
+    Hard,
+    Soft
   }
 
   public enum ConvertDitherType
   {
-    NO,
-    FS,
-    FSLOWBLEED,
-    FIXED
+    No,
+    Fs,
+    FslowBleed,
+    Fixed
   }
 
   public enum ConvertPaletteType
   {
-    MAKE,
-    REUSE,
-    WEB,
-    MONO,
-    CUSTOM
+    Make,
+    Reuse,
+    Web,
+    Mono,
+    Custom
   }
 
   public enum ConvolutionType
   {
-    NORMAL,
-    ABSOLUTE,
-    NEGATIVE
+    Normal,
+    Absolute,
+    Negative
   }
 
   public enum ConvolveType
   {
-    BLUR,
-    SHARPEN
+    Blur,
+    Sharpen
   }
 
   public enum FillType
   {
-    FOREGROUND,
-    BACKGROUND,
-    WHITE,
-    TRANSPARENT,
-    PATTERN
+    Foreground,
+    Background,
+    White,
+    Transparent,
+    Pattern
   }
 
   public enum GradientSegmentColor
   {
-    RGB,
-    HSV_CCW,
-    HSV_CW
+    Rgb,
+    HsvCcw,
+    HsvCw
   }
 
   public enum GradientSegmentType
   {
-    LINEAR,
-    CURVED,
-    SINE,
-    SPHERE_INCREASING,
-    SPHERE_DECREASING
+    Linear,
+    Curved,
+    Sine,
+    SphereIncreasing,
+    SphereDecreasing
   }
 
   public enum HistogramChannel
   {
-    VALUE,
-    RED,
-    GREEN,
-    BLUE,
-    ALPHA
+    Value,
+    Red,
+    Green,
+    Blue,
+    Alpha
   }
 
   public enum HueRange
   {
-      
-    ALL,
-    RED,
-    YELLOW,
-    GREEN,
-    CYAN,
-    BLUE,
-    MAGENTA
+    All,
+    Red,
+    Yellow,
+    Green,
+    Cyan,
+    Blue,
+    Magenta
   }
 
   public enum LayerModeEffects
   {
-    NORMAL,
-    DISSOLVE,
-    BEHIND,
-    MULTIPLY,
-    SCREEN,
-    OVERLAY,
-    DIFFERENCE,
-    ADDITION,
-    SUBTRACT,
-    DARKEN_ONLY,
-    LIGHTEN_ONLY,
-    HUE,
-    SATURATION,
-    COLOR,
-    VALUE,
-    DIVIDE,
-    DODGE,
-    BURN,
-    HARDLIGHT,
-    SOFTLIGHT,
-    GRAIN_EXTRACT,
-    GRAIN_MERGE,
-    COLOR_ERASE
+    Normal,
+    Dissolve,
+    Behind,
+    Multiply,
+    Screen,
+    Overlay,
+    Difference,
+    Addition,
+    Subtract,
+    DarkenOnly,
+    LightenOnly,
+    Hue,
+    Saturation,
+    Color,
+    Value,
+    Divide,
+    Dodge,
+    Burn,
+    Hardlight,
+    Softlight,
+    GrainExtract,
+    GrainMerge,
+    ColorErase
   }
 
   public enum MaskApplyMode
   {
-    APPLY,
-    DISCARD
+    Apply,
+    Discard
   }
 
   public enum MergeType
   {
-    EXPAND_AS_NECESSARY,
-    CLIP_TO_IMAGE,
-    CLIP_TO_BOTTOM_LAYER,
-    FLATTEN_IMAGE
+    ExpandAsNecessary,
+    ClipToImage,
+    ClipToBottomLayer,
+    FlattenImage
   }
 
   public enum OffsetType
   {
-    BACKGROUND,
-    TRANSPARENT
+    Background,
+    Transparent
   }
 
   public enum OrientationType
   {
-    HORIZONTAL,
-    VERTICAL,
-    UNKNOWN
+    Horizontal,
+    Vertical,
+    Unknown
   }
 
   public enum RotationType
   {
-    ROTATE_90,
-    ROTATE_180,
-    ROTATE_270
+    Rotate90,
+    Rotate180,
+    Rotate270
   }
 
   public enum RunMode
   {
-    INTERACTIVE,
-    NONINTERACTIVE,
-    WITH_LAST_VALS
+    Interactive,
+    Noninteractive,
+    WithLastVals
   }
 
   public enum Transparency
   {
-    KEEP_ALPHA,
-    SMALL_CHECKS,
-    LARGE_CHECKS
+    KeepAlpha,
+    SmallChecks,
+    LargeChecks
   }
 
   public enum Unit
   {
-    PIXEL   = 0,
-    INCH    = 1,
-    MM      = 2,
-    POINT   = 3,
-    PICA    = 4,
-    END     = 5,
+    Pixel   = 0,
+    Inch    = 1,
+    Mm      = 2,
+    Point   = 3,
+    Pica    = 4,
+    End     = 5,
 
-    PERCENT = 65536 
+    Percent = 65536 
   }
 }

@@ -260,13 +260,13 @@ namespace Gimp.Splitter
       Image newImage = new Image(width, height, image.BaseType);
 
       Layer layer1 = new Layer(newImage, "layer_one", width, height,
-			       ImageType.RGB, 100, LayerModeEffects.NORMAL);
+			       ImageType.RGB, 100, LayerModeEffects.Normal);
       layer1.Translate(_translate_1_x, _translate_1_y);
       // layer1.AddAlpha();
       newImage.AddLayer(layer1, 0);
 
       Layer layer2 = new Layer(newImage, "layer_two", width, height,
-			       ImageType.RGB, 100, LayerModeEffects.NORMAL);
+			       ImageType.RGB, 100, LayerModeEffects.Normal);
       layer2.Translate(_translate_2_x, _translate_2_y);
       newImage.AddLayer(layer2, 0);
       // layer2.AddAlpha();
@@ -321,7 +321,7 @@ namespace Gimp.Splitter
       if (_merge) 
 	{
 	  Layer merged = 
-	    newImage.MergeVisibleLayers(MergeType.EXPAND_AS_NECESSARY);
+	    newImage.MergeVisibleLayers(MergeType.ExpandAsNecessary);
 	  merged.SetOffsets(0, 0);
 	  newImage.Resize(merged.Width, merged.Height, 0, 0);
 	}

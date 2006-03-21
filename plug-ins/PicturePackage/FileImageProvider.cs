@@ -44,7 +44,7 @@ namespace Gimp.PicturePackage
     {
       if (_image == null)
 	{
-	  _image = Image.Load(RunMode.NONINTERACTIVE, _filename, _rawFilename);
+	  _image = Image.Load(RunMode.Noninteractive, _filename, _rawFilename);
 	}
       return _image;
     }

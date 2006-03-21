@@ -74,7 +74,7 @@ namespace Gimp.PicturePackage
       ix += (iw - tw) / 2;
       iy += (ih - th) / 2;
 
-      Pixbuf pixbuf = clone.GetThumbnail(tw, th, Transparency.KEEP_ALPHA);
+      Pixbuf pixbuf = clone.GetThumbnail(tw, th, Transparency.KeepAlpha);
 
       pixbuf.RenderToDrawable(_pixmap, _gc, 0, 0, ix, iy, -1, -1, 
 			      RgbDither.Normal, 0, 0);

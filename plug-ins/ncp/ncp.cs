@@ -243,7 +243,7 @@ namespace Gimp.ncp
     override protected void Render(Drawable drawable)
     {
       Initialize(drawable);
-      RgnIterator iter = new RgnIterator(drawable, RunMode.INTERACTIVE);
+      RgnIterator iter = new RgnIterator(drawable, RunMode.Interactive);
       iter.Progress = new Progress("NCP");
       iter.Iterate(new RgnIterator.IterFuncDest(DoNCP));
 			

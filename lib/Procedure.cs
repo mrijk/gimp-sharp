@@ -129,7 +129,7 @@ namespace Gimp
 	// First 3 parameters are default
 
 	_params[0].type = PDBArgType.INT32;
-	_params[0].data.d_int32 = (Int32) RunMode.NONINTERACTIVE;	
+	_params[0].data.d_int32 = (Int32) RunMode.Noninteractive;	
 	_params[1].type = PDBArgType.IMAGE;
 	_params[1].data.d_image = image.ID;
 	_params[2].type = PDBArgType.DRAWABLE;

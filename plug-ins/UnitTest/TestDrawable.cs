@@ -40,7 +40,7 @@ namespace Gimp
 
       Layer layer = new Layer(_image, "test", _width, _height,
 			      ImageType.RGB, 100, 
-			      LayerModeEffects.NORMAL);
+			      LayerModeEffects.Normal);
       _image.AddLayer(layer, 0);
 
       _drawable = _image.ActiveDrawable;
