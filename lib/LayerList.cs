@@ -54,6 +54,11 @@ namespace Gimp
       get {return _list.Count;}
     }
 
+    public Layer this[int index]
+    {
+      get {return _list[index];}
+    }
+
     [DllImport("libgimp-2.0-0.dll")]
     static extern IntPtr gimp_image_get_layers(Int32 image_ID, 
                                                out int num_layers);

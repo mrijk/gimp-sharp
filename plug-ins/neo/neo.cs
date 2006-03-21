@@ -26,9 +26,6 @@ namespace Gimp.neo
 {	
   class neo : FilePlugin
   {
-    const int NEO_WIDTH = 320;
-    const int NEO_HEIGHT = 200;
-
     [STAThread]
     static void Main(string[] args)
     {
@@ -87,19 +84,15 @@ namespace Gimp.neo
 	      cmap[j++] = tab[(col >> 0) & 7];
 	    }
 
-	  Image image = new Image(NEO_WIDTH, NEO_HEIGHT, 
-				  ImageBaseType.INDEXED);
-	  
-	  Layer layer = new Layer(image, "Background", NEO_WIDTH, 
-				  NEO_HEIGHT, ImageType.INDEXED, 100, 
-				  LayerModeEffects.NORMAL);
-	  image.AddLayer(layer, 0);
-	  
-	  image.Filename = filename;
+	  const int NEO_WIDTH = 320;
+	  const int NEO_HEIGHT = 200;
+
+	  Image image = NewImage(NEO_WIDTH, NEO_HEIGHT, ImageBaseType.INDEXED,
+				 ImageType.INDEXED, filename);
 	  image.Colormap = cmap;
 
-	  PixelRgn rgn = new PixelRgn(layer, 0, 0, NEO_WIDTH, NEO_HEIGHT, 
-				      true, false);
+	  PixelRgn rgn = new PixelRgn(image.Layers[0], true, false);
+
 	  byte[] buf = new byte[NEO_WIDTH * NEO_HEIGHT];
 	  int bufp = 0;
 	  

@@ -125,6 +125,18 @@ namespace Gimp
       return false;
     }
 
+    protected Image NewImage(int width, int height, ImageBaseType baseType,
+			     ImageType type, string filename)
+    {
+      Image image = new Image(width, height, baseType);
+      Layer layer = new Layer(image, "Background", width, height, type,
+			      100, LayerModeEffects.NORMAL);
+      image.AddLayer(layer, 0);
+      image.Filename = filename;
+
+      return image;
+    }
+
     protected void RegisterLoadHandler(string extensions, string prefixes)
     {
       Gimp.RegisterLoadHandler(_loadProcedure.Name, extensions, prefixes);

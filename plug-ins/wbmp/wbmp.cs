@@ -91,17 +91,10 @@ namespace Gimp.wbmp
 
 	  // Fix me: check high bit here for larger sizes
 
-	  Image image = new Image(width, height,
-				  ImageBaseType.GRAY);
+	  Image image = NewImage(width, height, ImageBaseType.GRAY,
+				 ImageType.GRAY, filename);
 
-	  Layer layer = new Layer(image, "Background", width, height,
-				  ImageType.GRAY, 100, 
-				  LayerModeEffects.NORMAL);
-	  image.AddLayer(layer, 0);
- 
-	  image.Filename = filename;
-
-	  PixelRgn rgn = new PixelRgn(layer, 0, 0, width, height, true, false);
+	  PixelRgn rgn = new PixelRgn(image.Layers[0], true, false);
 	  byte[] buf = new byte[width * height];
 	  int bufp = 0;
 
@@ -124,7 +117,6 @@ namespace Gimp.wbmp
 	    }
 
 	  rgn.SetRect(buf, 0, 0, width, height);
-	  layer.Flush();
 
 	  reader.Close();
 

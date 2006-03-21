@@ -71,7 +71,7 @@ namespace Gimp.KoalaPaint
 				"This plug-in loads images of the Koala Paint file format.",
 				"Maurits Rijk",
 				"(C) Maurits Rijk",
-				"1999 - 2004",
+				"1999 - 2006",
 				"KoalaPaint Image"));
       return set;
     }
@@ -88,52 +88,45 @@ namespace Gimp.KoalaPaint
 
       if (File.Exists(filename))
 	{
-	BinaryReader reader = new BinaryReader(File.Open(filename, 
-							 FileMode.Open));
+	  BinaryReader reader = new BinaryReader(File.Open(filename, 
+							   FileMode.Open));
 	
-	reader.ReadBytes(2);
-	bitmap = reader.ReadBytes(8000);
-	_mcolor = reader.ReadBytes(1000);
-	_color = reader.ReadBytes(1000);
-	_background = reader.ReadByte();
+	  reader.ReadBytes(2);
+	  bitmap = reader.ReadBytes(8000);
+	  _mcolor = reader.ReadBytes(1000);
+	  _color = reader.ReadBytes(1000);
+	  _background = reader.ReadByte();
 
-	Image image = new Image(KOALA_WIDTH, KOALA_HEIGHT, 
-				ImageBaseType.INDEXED);
+	  Image image = NewImage(KOALA_WIDTH, KOALA_HEIGHT, 
+				 ImageBaseType.INDEXED, ImageType.INDEXED, 
+				 filename);
+	  image.Colormap = _colormap;
 
-	Layer layer = new Layer(image, "Background", KOALA_WIDTH, 
-				KOALA_HEIGHT, ImageType.INDEXED, 100, 
-				LayerModeEffects.NORMAL);
-	image.AddLayer(layer, 0);
- 
-	image.Filename = filename;
-	image.Colormap = _colormap;
+	  PixelRgn rgn = new PixelRgn(image.Layers[0], true, false);
 
-	PixelRgn rgn = new PixelRgn(layer, 0, 0, KOALA_WIDTH, KOALA_HEIGHT, 
-				    true, false);
-	byte[] buf = new byte[KOALA_WIDTH * KOALA_HEIGHT];
-	int bufp = 8;
+	  byte[] buf = new byte[KOALA_WIDTH * KOALA_HEIGHT];
+	  int bufp = 8;
 
-	for (int row = 0; row < KOALA_HEIGHT; row++) 
-	  {
-	  for (int col = 0; col < KOALA_WIDTH / 8; col++) 
+	  for (int row = 0; row < KOALA_HEIGHT; row++) 
 	    {
-	    byte p = bitmap[(row / 8) * KOALA_WIDTH + row % 8 + col * 8];
+	      for (int col = 0; col < KOALA_WIDTH / 8; col++) 
+		{
+		  byte p = bitmap[(row / 8) * KOALA_WIDTH + row % 8 + col * 8];
 
-	    for (int i = 0; i < 4; i++) 
-	      {
-	      byte index = GetColor(row / 8, col, p & 3);
-	      buf[--bufp] = index;
-	      buf[--bufp] = index;
-	      p >>= 2;
-	      }
-	    bufp += 16;
+		  for (int i = 0; i < 4; i++) 
+		    {
+		      byte index = GetColor(row / 8, col, p & 3);
+		      buf[--bufp] = index;
+		      buf[--bufp] = index;
+		      p >>= 2;
+		    }
+		  bufp += 16;
+		}
 	    }
-	  }
 
-	rgn.SetRect(buf, 0, 0, KOALA_WIDTH, KOALA_HEIGHT);
-	layer.Flush();
+	  rgn.SetRect(buf, 0, 0, KOALA_WIDTH, KOALA_HEIGHT);
 
-	return image;
+	  return image;
 	}
       return null;
     }
@@ -160,4 +153,4 @@ namespace Gimp.KoalaPaint
       return (byte) ((val >> 4) & 0x0f);
     }
   }
-  }
+}

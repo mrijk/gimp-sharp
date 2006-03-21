@@ -42,7 +42,7 @@ namespace Gimp
   public sealed class PixelRgn
   {
     GimpPixelRgn pr = new GimpPixelRgn();
-    byte[] _dummy;
+    readonly byte[] _dummy;
 
     public PixelRgn(Drawable drawable, int x,
 		    int y,
@@ -54,6 +54,11 @@ namespace Gimp
       gimp_pixel_rgn_init (ref pr, drawable.Ptr, x, y, width, height, dirty, 
 			   shadow);
       _dummy = new byte[pr.bpp];
+    }
+
+    public PixelRgn(Drawable drawable,  bool dirty, bool shadow) :
+      this(drawable, 0, 0, drawable.Width, drawable.Height, dirty, shadow)
+    {
     }
 
     public static IntPtr Register(PixelRgn rgn)
