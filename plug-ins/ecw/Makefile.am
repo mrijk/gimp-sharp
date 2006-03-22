@@ -8,6 +8,12 @@ MYSOURCES = ecw.cs
 
 EXTRA_DIST = $(MYSOURCES) ecw
 
+lib_LTLIBRARIES = libecwwrapper.la
+
+libecwwrapper_la_SOURCES = ecwwrapper.c
+
+libecwwrapper_la_LDFLAGS = -version-info 0 -lNCSEcw -lNCSUtil -lNCSCnet
+
 ecw.exe : $(MYSOURCES) $(GIMPSHARPLIB)
 	$(CSC) $(MYSOURCES) -out:$@ $(ASSEMBLIES)
 
@@ -17,3 +23,4 @@ clean:
 install:
 	$(INSTALL_DATA) ecw.exe $(DESTDIR)/$(GIMPPLUGINDIR)
 	$(INSTALL) ecw $(DESTDIR)/$(GIMPPLUGINDIR)
+	$(INSTALL) .libs/libecwwrapper.so $(DESTDIR)/$(GIMPPLUGINDIR)

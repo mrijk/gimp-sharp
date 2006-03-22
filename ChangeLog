@@ -1,3 +1,12 @@
+2006-03-22  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/ecw/ecwwrapper.c: new small wrapper to make sure that all
+	ECW libraries are loaded
+
+	* plug-ins/ecw/Makefile.am: changed accordingly
+	
+	* plug-ins/ecw/ecw.cs: some initial hacking on this plug-in
+
 2006-03-21  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/wbmp/wbmp.cs
