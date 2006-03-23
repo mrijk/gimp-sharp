@@ -57,6 +57,19 @@ namespace Gimp.PicturePackage
     [SaveAttribute]
     int _position;
 
+		Dialog _dialog = null;
+
+		public enum DialogStateType
+		{
+						SrcImgValid,  	 // Source combo, Image selected, No image
+						SrcImgInvalid,	 // Source combo, Image selected, With image
+						SrcFileValid, 	 // Source combo, File selected, No file
+						SrcFileInvalid   // Source combo, File selected, With file 
+		};
+
+		[SaveAttribute]
+		DialogStateType _currentDialogState = DialogStateType.SrcImgInvalid;
+
     [STAThread]
     static void Main(string[] args)
     {
@@ -76,8 +89,8 @@ namespace Gimp.PicturePackage
       Procedure procedure = new Procedure("plug_in_picture_package",
 					  "Picture package",
 					  "Picture package",
-					  "Maurits Rijk",
-					  "Maurits Rijk",
+					  "Maurits Rijk, Massimo Perga",
+					  "Maurits Rijk, Massimo Perga",
 					  "2004-2006",
 					  "Picture Package...",
 					  "",
@@ -97,7 +110,7 @@ namespace Gimp.PicturePackage
 
       _layoutSet.Load();
 
-      Dialog dialog = DialogNew("Picture Package 0.6", "PicturePackage",
+      Dialog dialog = DialogNew("Picture Package 0.6.1", "PicturePackage",
 				IntPtr.Zero, 0, null, "PicturePackage");
 
       HBox hbox = new HBox(false, 12);
@@ -140,6 +153,10 @@ namespace Gimp.PicturePackage
       _layout = _layoutSet[0];
       _layoutSet.SelectEvent += SetLayout;
 
+			_dialog = dialog;
+
+			DialogState = DialogStateType.SrcImgInvalid;
+
       dialog.ShowAll();
       return DialogRun();
     }
@@ -165,8 +182,13 @@ namespace Gimp.PicturePackage
       if (_loader != null)
 	{
 	  _preview.Clear();
-	  _layout.Render(_loader, _preview.GetRenderer(_layout));
+	  if(_layout.Render(_loader, _preview.GetRenderer(_layout)))
+				DialogState = DialogStateType.SrcFileValid;
+		else
+				DialogState = DialogStateType.SrcFileInvalid;
+			
 	}
+
     }
 
     public void RenderX()
@@ -178,7 +200,10 @@ namespace Gimp.PicturePackage
     void RenderThread()
 
     {
-      _layout.Render(_loader, _preview.GetRenderer(_layout));
+      if(_layout.Render(_loader, _preview.GetRenderer(_layout)))
+				DialogState = DialogStateType.SrcImgValid;
+		else
+				DialogState = DialogStateType.SrcImgInvalid;
     }
 #if false
     void RedrawPreview()
@@ -282,6 +307,7 @@ namespace Gimp.PicturePackage
 	{
 	  RenderRectangle(_rectangle, fs.Filename);
 	}
+
       fs.Hide();
       _preview.QueueDraw();
     }
@@ -294,8 +320,11 @@ namespace Gimp.PicturePackage
       int height = (int) size.Height;
       Image composed = new Image(width, height, ImageBaseType.RGB);
 
-      _layout.Render(_loader, new ImageRenderer(_layout, composed, 
-						_resolution));
+      if(_layout.Render(_loader, new ImageRenderer(_layout, composed, 
+						_resolution)))
+				DialogState = DialogStateType.SrcImgValid;
+		else
+				DialogState = DialogStateType.SrcImgInvalid;
 
       if (_flatten)
 	{
@@ -362,5 +391,29 @@ namespace Gimp.PicturePackage
       set {_flatten = value;}
       get {return _flatten;}
     }
+
+		public DialogStateType DialogState
+		{
+			set
+			{
+				_currentDialogState = value;
+				if(_dialog != null)
+				{
+					if((_currentDialogState == DialogStateType.SrcImgValid) ||
+						 (_currentDialogState == DialogStateType.SrcFileValid))
+					{
+						_dialog.SetResponseSensitive(ResponseType.Ok, true);
+					}
+					else
+					{
+						_dialog.SetResponseSensitive(ResponseType.Ok, false);
+					}
+				}
+			}
+			get
+			{
+				return _currentDialogState;
+			}
+		}
   }
 }
