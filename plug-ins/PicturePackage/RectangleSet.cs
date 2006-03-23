@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2006 Maurits Rijk, Massimo Perga
 //
 // RectangleSet.cs
 //
@@ -57,8 +57,9 @@ namespace Gimp.PicturePackage
       return null;
     }
 
-    public void Render(ProviderFactory factory, Renderer renderer)
+    public bool Render(ProviderFactory factory, Renderer renderer)
     {
+			bool retVal = false;
       factory.Reset();
       foreach (Rectangle rectangle in _set)
 	{
@@ -79,6 +80,7 @@ namespace Gimp.PicturePackage
 	      else
 		{
 		  rectangle.Render(image, renderer);
+			retVal = true;
 		}
 	      factory.Cleanup(provider);
 	    }
@@ -86,10 +88,12 @@ namespace Gimp.PicturePackage
 	    {
 	      rectangle.Render(provider.GetImage(), renderer);
 	      provider.Release();
+				retVal = true;
 	    }
 	}
       factory.Cleanup();
       renderer.Cleanup();
+			return retVal;
     }
 
     public int Count
