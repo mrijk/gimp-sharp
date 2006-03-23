@@ -78,9 +78,9 @@ namespace Gimp.PicturePackage
       return _rectangles.Find(x, y);
     }
 
-    public void Render(ProviderFactory factory, Renderer renderer)
+    public bool Render(ProviderFactory factory, Renderer renderer)
     {
-      _rectangles.Render(factory, renderer);
+      return _rectangles.Render(factory, renderer);
     }
 
     public PageSize GetPageSize(int resolution)
