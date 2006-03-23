@@ -105,6 +105,18 @@ namespace Gimp
       gimp_pixel_rgn_set_rect(ref pr, buf, x, y, width, height);
     }
 
+    public byte[] GetRow(int x, int y, int width)
+    {
+      byte[] buf = new byte[width * pr.bpp];
+      gimp_pixel_rgn_get_row(ref pr, buf, x, y, width);
+      return buf;
+    }
+
+    public void SetRow(byte[] buf, int x, int y, int width)
+    {
+      gimp_pixel_rgn_set_row(ref pr, buf, x, y, width);
+    }
+
     public int X
     {
       get {return (int) pr.x;}
@@ -202,5 +214,17 @@ namespace Gimp
 						int y,
 						int width,
 						int height);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern void  gimp_pixel_rgn_get_row (ref GimpPixelRgn pr,
+						byte[] buf,
+						int x,
+						int y,
+						int width);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern void  gimp_pixel_rgn_set_row (ref GimpPixelRgn pr,
+						byte[] buf,
+						int x,
+						int y,
+						int width);
   }
 }
