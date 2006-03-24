@@ -1,3 +1,12 @@
+2006-03-24  Maurits  <m.rijk@chello.nl>
+
+	* lib/RgnIterator.cs: added iterator functions implemented by Max
+
+	* plug-ins/ncp/ncp.cs
+	* plug-ins/UnitTest/TestRgnIterator.cs: changed accordingly
+
+	* plug-ins/ecw/ecw.cs: added jp2 as fileextension
+
 2006-03-23  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/ecw/ecw.cs: read jpeg2000 files

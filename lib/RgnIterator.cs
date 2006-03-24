@@ -26,8 +26,11 @@ namespace Gimp
   public sealed class RgnIterator
   {
     public delegate void IterFuncSrc(byte[] src);
-    public delegate byte[] IterFuncDest(int x, int y);
-    public delegate byte[] IterFuncSrcDest(int x, int y, byte[] src);
+    public delegate void IterFuncSrcFull(int x, int y, byte[] src);
+    public delegate byte[] IterFuncDest();
+    public delegate byte[] IterFuncDestFull(int x, int y);
+    public delegate byte[] IterFuncSrcDest(byte[] src);
+    public delegate byte[] IterFuncSrcDestFull(int x, int y, byte[] src);
 
     readonly int x1, y1, x2, y2;
 
@@ -47,7 +50,7 @@ namespace Gimp
       set {_progress = value;}
     }
 
-    public void Iterate(IterFuncSrc func)
+    public void IterateSrc(IterFuncSrc func)
     {
       PixelRgn srcPR = new PixelRgn(_drawable, x1, y1, x2 - x1, y2 - y1, 
 				    false, false);
@@ -64,7 +67,52 @@ namespace Gimp
 	}
     }
 
-    public void Iterate(IterFuncDest func)
+    public void IterateSrc(IterFuncSrcFull func)
+    {
+      PixelRgn srcPR = new PixelRgn(_drawable, x1, y1, x2 - x1, y2 - y1, 
+				    false, false);
+      for (IntPtr pr = PixelRgn.Register(srcPR); pr != IntPtr.Zero; 
+	   pr = PixelRgn.Process(pr))
+	{
+	  for (int y = srcPR.Y; y < srcPR.Y + srcPR.H; y++)
+	    {
+	      for (int x = srcPR.X; x < srcPR.X + srcPR.W; x++)
+		{
+		  func(x, y, srcPR[y, x]);
+		}
+	    }
+	}
+    }
+
+    public void IterateDest(IterFuncDest func)
+    {
+      int total_area = (x2 - x1) * (y2 - y1);
+      int area_so_far = 0;
+
+      PixelRgn destPR = new PixelRgn(_drawable, x1, y1, x2 - x1, y2 - y1, 
+				     true, true);
+      for (IntPtr pr = PixelRgn.Register(destPR); pr != IntPtr.Zero; 
+	   pr = PixelRgn.Process(pr))
+	{
+	  for (int y = destPR.Y; y < destPR.Y + destPR.H; y++)
+	    {
+	      for (int x = destPR.X; x < destPR.X + destPR.W; x++)
+		{
+		  destPR[y, x] = func();
+		}
+	    }
+	  if (_runmode != RunMode.Noninteractive)
+	    {
+	      area_so_far += destPR.W * destPR.H;
+	      _progress.Update ((double) area_so_far / (double) total_area);
+	    }
+	}
+      _drawable.Flush();
+      _drawable.MergeShadow(true);
+      _drawable.Update(x1, y1, x2 - x1, y2 - y1);
+    }
+
+    public void IterateDest(IterFuncDestFull func)
     {
       int total_area = (x2 - x1) * (y2 - y1);
       int area_so_far = 0;
@@ -92,7 +140,30 @@ namespace Gimp
       _drawable.Update(x1, y1, x2 - x1, y2 - y1);
     }
 
-    public void Iterate(IterFuncSrcDest func)
+    public void IterateSrcDest(IterFuncSrcDest func)
+    {
+      PixelRgn srcPR = new PixelRgn(_drawable, x1, y1, x2 - x1, y2 - y1, 
+				    false, false);
+      PixelRgn destPR = new PixelRgn(_drawable, x1, y1, x2 - x1, y2 - y1, 
+				     true, true);
+
+      for (IntPtr pr = PixelRgn.Register(srcPR, destPR); pr != IntPtr.Zero; 
+	   pr = PixelRgn.Process(pr))
+	{
+	  for (int y = srcPR.Y; y < srcPR.Y + srcPR.H; y++)
+	    {
+	      for (int x = srcPR.X; x < srcPR.X + srcPR.W; x++)
+		{
+		  destPR[y, x] = func(srcPR[y, x]);
+		}
+	    }				
+	}
+      _drawable.Flush();
+      _drawable.MergeShadow(true);
+      _drawable.Update(x1, y1, x2 - x1, y2 - y1);
+    }
+
+    public void IterateSrcDest(IterFuncSrcDestFull func)
     {
       PixelRgn srcPR = new PixelRgn(_drawable, x1, y1, x2 - x1, y2 - y1, 
 				    false, false);

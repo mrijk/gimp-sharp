@@ -62,7 +62,7 @@ namespace Gimp.ecw
     override protected void Query()
     {
       base.Query();
-      RegisterLoadHandler("ecw", "");
+      RegisterLoadHandler("ecw,jp2", "");
       RegisterSaveHandler("ecw", "");
     }
 

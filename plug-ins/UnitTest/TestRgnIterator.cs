@@ -58,7 +58,7 @@ namespace Gimp
       RgnIterator iterator = new RgnIterator(_drawable, 
 					     RunMode.Noninteractive);
       int count = 0;
-      iterator.Iterate(delegate(byte[] src) 
+      iterator.IterateSrc(delegate(byte[] src) 
       {
 	count++;
       });
@@ -72,12 +72,12 @@ namespace Gimp
 
       RgnIterator iterator = new RgnIterator(_drawable, 
 					     RunMode.Noninteractive);
-      iterator.Iterate(delegate(int x, int y)
+      iterator.IterateDest(delegate(int x, int y)
       {
 	return color;
       });
 
-      iterator.Iterate(delegate(byte[] src)
+      iterator.IterateSrc(delegate(byte[] src)
       {
 	Assert.AreEqual(color[0], src[0]);
 	Assert.AreEqual(color[1], src[1]);

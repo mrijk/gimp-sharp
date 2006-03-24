@@ -189,7 +189,7 @@ namespace Gimp.Swirlies
       Initialize(drawable);
       RgnIterator iter = new RgnIterator(drawable, RunMode.Interactive);
       iter.Progress = new Progress("Swirlies");
-      iter.Iterate(new RgnIterator.IterFuncDest(DoSwirlies));
+      iter.IterateDest(new RgnIterator.IterFuncDestFull(DoSwirlies));
       
       Display.DisplaysFlush();
     }

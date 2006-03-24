@@ -39,7 +39,8 @@ namespace Gimp.ecw
     {
       IntPtr ptr;
       int error = NCScbmOpenFileView(filename, out ptr, IntPtr.Zero);
-      // Add exception handling here.
+      if (error != 0)
+	Console.WriteLine("FileView.Open: " + error);
 
       return new FileView(ptr);
     }
