@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2006 Maurits Rijk, Massimo Perga
 //
 // GimpDialog.cs
 //
@@ -86,7 +86,7 @@ namespace Gimp
 
     public void SetTransient()
     {
-      gimp_window_set_transient((this as Window).Handle);
+//      gimp_window_set_transient((this as Window).Handle);
     }
 
     static public void ShowHelpButton(bool show)
@@ -124,7 +124,7 @@ namespace Gimp
 
     [DllImport("libgimpwidgets-2.0-0.dll")]
     static extern void gimp_dialogs_show_help_button(bool show);
-    [DllImport("libgimpui-2.0-0.dll")]
-    public static extern void gimp_window_set_transient(IntPtr window);
+//    [DllImport("libgimpui-2.0-0.dll")]
+//    public static extern void gimp_window_set_transient(IntPtr window);
   }
 }

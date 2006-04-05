@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2006 Maurits Rijk, Massimo Perga
 //
 // ParamDefList.cs
 //
@@ -75,8 +75,12 @@ namespace Gimp
     {
       for (int i = 0; i < n_params; i++)
 	{
-	  GimpParam param = (GimpParam) 
-	    Marshal.PtrToStructure(paramPtr, typeof(GimpParam));
+	  GimpParamCust paramCust = (GimpParamCust) 
+	    Marshal.PtrToStructure(paramPtr, typeof(GimpParamCust));
+		
+		GimpParam param = new GimpParam();
+		param.type = (PDBArgType) paramCust.cust;
+		param.data = paramCust.data;
 
 	  switch (param.type)
 	    {
@@ -100,25 +104,32 @@ namespace Gimp
 	      break;
 	    }
 
-	  paramPtr = (IntPtr)((int)paramPtr + Marshal.SizeOf(param));
+	  	paramPtr = (IntPtr)((int)paramPtr + Marshal.SizeOf(paramCust));
+
 	}
     }
 
     public void Marshall(out IntPtr return_vals, out int n_return_vals)
     {
       GimpParam foo = new GimpParam();
+	    GimpParamCust fooCust = new GimpParamCust();
 
       n_return_vals = _set.Count;
 
       return_vals = Marshal.AllocCoTaskMem(n_return_vals * 
-					   Marshal.SizeOf(foo));
+					   Marshal.SizeOf(fooCust));
 
       IntPtr paramPtr = return_vals;
+
+
       for (int i = 0; i < n_return_vals; i++)
 	{
 	  foo = this[i].GetGimpParam();
-	  Marshal.StructureToPtr(foo, paramPtr, false);
-	  paramPtr = (IntPtr)((int)paramPtr + Marshal.SizeOf(foo));
+		fooCust = new GimpParamCust();
+		fooCust.cust = (IntPtr)foo.type;
+		fooCust.data = foo.data;
+	  Marshal.StructureToPtr(fooCust, paramPtr, false);
+	  paramPtr = (IntPtr)((int)paramPtr + Marshal.SizeOf(fooCust));
 	}
     }
 
