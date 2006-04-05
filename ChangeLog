@@ -1,3 +1,10 @@
+2006-04-05  Max      <massimo.perga@gmail.com>
+	
+	* lib/GimpDialog.cs: commented calls to gimp_window_set_transient()
+
+	* lib/GimpTypes.cs
+	* lib/ParamDefList.cs: added GimpParamCust structure for 64-bit support
+
 2006-03-24  Maurits  <m.rijk@chello.nl>
 
 	* lib/RgnIterator.cs: added iterator functions implemented by Max
