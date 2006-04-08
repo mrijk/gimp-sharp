@@ -26,12 +26,7 @@ namespace Gimp.PicturePackage
 {
   public class PageSizeSet
   {
-    // Fix me: we have to wait for mono 1.1.14 where this is fixed.
-#if false
     List<PageSize> _set = new List<PageSize>();
-#else
-    ArrayList _set = new ArrayList();
-#endif
 
     public PageSizeSet()
     {
@@ -40,12 +35,10 @@ namespace Gimp.PicturePackage
     public void Add(PageSize size)
     {
       int index = _set.BinarySearch(size);
-      // Console.WriteLine("index: " + index);
       if (index < 0)
 	{
 	  _set.Insert(-index - 1, size);
 	}
-      // Console.WriteLine("Size: " + _set.Count);
     }
 
     public IEnumerator GetEnumerator()

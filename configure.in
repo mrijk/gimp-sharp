@@ -27,7 +27,7 @@ if test "x$PKG_CONFIG" = "xno"; then
 fi
 AC_SUBST(MONO)
 
-PKG_CHECK_MODULES(MONO, mono >= 1.1.13.4)
+PKG_CHECK_MODULES(MONO, mono >= 1.1.13.6)
 AC_SUBST(MONO_CFLAGS)
 AC_SUBST(MONO_LIBS)
 
@@ -82,7 +82,7 @@ fi
 #
 
 have_libecw=no
-AC_ARG_WITH(libecw,  [  --without-ecw            do not build the ECW plug-in])
+AC_ARG_WITH(libecw,  [  --without-ecw           do not build the ECW plug-in])
 if test x$with_ecw != xno && test -z "$LIBECW"; then
   have_libecw=yes
   AC_CHECK_LIB(NCSEcw, NCSecwInit,
@@ -100,7 +100,7 @@ AC_SUBST(LIBECW)
 #
 
 incomplete=no
-AC_ARG_WITH(incomplete,[  --with-incomplete              build incomplete plug-ins (default-no)])
+AC_ARG_WITH(incomplete,[  --with-incomplete       build incomplete plug-ins (default-no)])
 if test "x$with_incomplete" == xyes; then
    incomplete=yes
 fi

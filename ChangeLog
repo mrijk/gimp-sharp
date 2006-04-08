@@ -5,6 +5,14 @@
 	* lib/GimpTypes.cs
 	* lib/ParamDefList.cs: added GimpParamCust structure for 64-bit support
 
+2006-04-01  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/PicturePackage/PageSizeSet.cs: use generics since bug
+	in binsearch is fixed in Mono 1.1.13.6
+
+	* configure.in: small alignment improvement and check for Mono
+	1.1.13.6
+	
 2006-03-24  Maurits  <m.rijk@chello.nl>
 
 	* lib/RgnIterator.cs: added iterator functions implemented by Max

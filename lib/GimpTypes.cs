@@ -32,25 +32,21 @@ namespace Gimp
     [FieldOffset(0)]
     public Int16	d_int16;
     [FieldOffset(0)]
-    public byte	d_int8;
+    public byte		d_int8;
     [FieldOffset(0)]
     public double 	d_float;
     [FieldOffset(0)]
     public IntPtr	d_string;
     [FieldOffset(0)]
     internal GimpRGB  	d_color;
-#if _FIXME_
     [FieldOffset(0)]
-    public ParamRegion d_region;
-#endif
+    internal ParamRegion d_region;
     [FieldOffset(0)]
     public Int32    	d_image;
     [FieldOffset(0)]
     public Int32    	d_drawable;
-#if _FIXME_
     [FieldOffset(0)]
     GimpParasite    	d_parasite;
-#endif
     [FieldOffset(0)]
     public PDBStatusType	d_status;
   };
@@ -97,7 +93,8 @@ namespace Gimp
   [StructLayout(LayoutKind.Sequential)]
   internal struct GimpParasite
   {
-    string  name;  
+    // string  name;  
+    IntPtr  name;
     Int32   flags; 
     Int32   size;  
     IntPtr  data;  

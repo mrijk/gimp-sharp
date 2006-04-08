@@ -82,6 +82,8 @@ namespace Gimp
 		param.type = (PDBArgType) paramCust.cust;
 		param.data = paramCust.data;
 
+	  Console.WriteLine("Size: " + Marshal.SizeOf(param));
+
 	  switch (param.type)
 	    {
 	    case PDBArgType.INT32:
