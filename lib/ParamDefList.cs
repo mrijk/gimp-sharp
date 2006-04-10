@@ -78,12 +78,10 @@ namespace Gimp
 	  GimpParamCust paramCust = (GimpParamCust) 
 	    Marshal.PtrToStructure(paramPtr, typeof(GimpParamCust));
 		
-		GimpParam param = new GimpParam();
-		param.type = (PDBArgType) paramCust.cust;
-		param.data = paramCust.data;
-
-	  Console.WriteLine("Size: " + Marshal.SizeOf(param));
-
+	  GimpParam param = new GimpParam();
+	  param.type = (PDBArgType) paramCust.cust;
+	  param.data = paramCust.data;
+	  
 	  switch (param.type)
 	    {
 	    case PDBArgType.INT32:
@@ -106,8 +104,7 @@ namespace Gimp
 	      break;
 	    }
 
-	  	paramPtr = (IntPtr)((int)paramPtr + Marshal.SizeOf(paramCust));
-
+	  paramPtr = (IntPtr)((int)paramPtr + Marshal.SizeOf(paramCust));
 	}
     }
 

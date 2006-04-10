@@ -1,3 +1,10 @@
+2006-04-10  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/wbmp/wbmp.cs: new code to save in wbmp format from
+	Max. Still needs testing/debugging.
+
+	* lib/ParamDefList.cs: removed some debugging output
+
 2006-04-05  Max      <massimo.perga@gmail.com>
 	
 	* lib/GimpDialog.cs: commented calls to gimp_window_set_transient()
