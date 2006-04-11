@@ -96,7 +96,7 @@ namespace Gimp
 	}
       
       gimp_install_procedure(_name, _blurb, _help, _author, _copyright, _date, 
-			     _menu_path, _image_types, PDBProcType.PLUGIN, 
+			     _menu_path, _image_types, PDBProcType.Plugin, 
 			     args.Length, returnLen, args, returnVals);
       MenuRegister();
       IconRegister();
@@ -128,11 +128,11 @@ namespace Gimp
 
 	// First 3 parameters are default
 
-	_params[0].type = PDBArgType.INT32;
+	_params[0].type = PDBArgType.Int32;
 	_params[0].data.d_int32 = (Int32) RunMode.Noninteractive;	
-	_params[1].type = PDBArgType.IMAGE;
+	_params[1].type = PDBArgType.Image;
 	_params[1].data.d_image = image.ID;
-	_params[2].type = PDBArgType.DRAWABLE;
+	_params[2].type = PDBArgType.Drawable;
 	_params[2].data.d_drawable = drawable.ID;
 
 	int i;
@@ -147,17 +147,17 @@ namespace Gimp
 	i = 3;
 	foreach (object obj in list)
 	  {
-	  switch (paramDef[i].type)
-	    {
-	    case PDBArgType.INT32:
-	      _params[i].type = PDBArgType.INT32;
-	      _params[i].data.d_int32 = (Int32) obj;
-	      break;
-	    default:
-	      Console.WriteLine("Implement this!");
-	      break;
-	    }
-	  i++;
+	    switch (paramDef[i].type)
+	      {
+	      case PDBArgType.Int32:
+		_params[i].type = PDBArgType.Int32;
+		_params[i].data.d_int32 = (Int32) obj;
+		break;
+	      default:
+		Console.WriteLine("Implement this!");
+		break;
+	      }
+	    i++;
 	  }
 
 	int n_return_vals;
@@ -188,7 +188,7 @@ namespace Gimp
 	  
 	  Pixdata data = new Pixdata();
 	  data.FromPixbuf(pixbuf, false);
-	  if (!gimp_plugin_icon_register(_name, IconType.INLINE_PIXBUF, 
+	  if (!gimp_plugin_icon_register(_name, IconType.InlinePixbuf, 
 					 data.Serialize()))
 	    {
 	      throw new Exception();

@@ -57,18 +57,18 @@ namespace Gimp.PicturePackage
     [SaveAttribute]
     int _position;
 
-		Dialog _dialog = null;
+    Dialog _dialog = null;
 
-		public enum DialogStateType
-		{
-						SrcImgValid,  	 // Source combo, Image selected, No image
-						SrcImgInvalid,	 // Source combo, Image selected, With image
-						SrcFileValid, 	 // Source combo, File selected, No file
-						SrcFileInvalid   // Source combo, File selected, With file 
-		};
+    public enum DialogStateType
+    {
+      SrcImgValid,  	 // Source combo, Image selected, No image
+      SrcImgInvalid,	 // Source combo, Image selected, With image
+      SrcFileValid, 	 // Source combo, File selected, No file
+      SrcFileInvalid   // Source combo, File selected, With file 
+    };
 
-		[SaveAttribute]
-		DialogStateType _currentDialogState = DialogStateType.SrcImgInvalid;
+    [SaveAttribute]
+    DialogStateType _currentDialogState = DialogStateType.SrcImgInvalid;
 
     [STAThread]
     static void Main(string[] args)
@@ -153,9 +153,9 @@ namespace Gimp.PicturePackage
       _layout = _layoutSet[0];
       _layoutSet.SelectEvent += SetLayout;
 
-			_dialog = dialog;
+      _dialog = dialog;
 
-			DialogState = DialogStateType.SrcImgInvalid;
+      DialogState = DialogStateType.SrcImgInvalid;
 
       dialog.ShowAll();
       return DialogRun();
@@ -183,9 +183,9 @@ namespace Gimp.PicturePackage
 	{
 	  _preview.Clear();
 	  if(_layout.Render(_loader, _preview.GetRenderer(_layout)))
-				DialogState = DialogStateType.SrcFileValid;
-		else
-				DialogState = DialogStateType.SrcFileInvalid;
+	    DialogState = DialogStateType.SrcFileValid;
+	  else
+	    DialogState = DialogStateType.SrcFileInvalid;
 			
 	}
 
@@ -201,9 +201,9 @@ namespace Gimp.PicturePackage
 
     {
       if(_layout.Render(_loader, _preview.GetRenderer(_layout)))
-				DialogState = DialogStateType.SrcImgValid;
-		else
-				DialogState = DialogStateType.SrcImgInvalid;
+	DialogState = DialogStateType.SrcImgValid;
+      else
+	DialogState = DialogStateType.SrcImgInvalid;
     }
 #if false
     void RedrawPreview()
@@ -318,13 +318,13 @@ namespace Gimp.PicturePackage
 
       int width = (int) size.Width;
       int height = (int) size.Height;
-      Image composed = new Image(width, height, ImageBaseType.RGB);
+      Image composed = new Image(width, height, ImageBaseType.Rgb);
 
       if(_layout.Render(_loader, new ImageRenderer(_layout, composed, 
-						_resolution)))
-				DialogState = DialogStateType.SrcImgValid;
-		else
-				DialogState = DialogStateType.SrcImgInvalid;
+						   _resolution)))
+	DialogState = DialogStateType.SrcImgValid;
+      else
+	DialogState = DialogStateType.SrcImgInvalid;
 
       if (_flatten)
 	{
@@ -392,28 +392,28 @@ namespace Gimp.PicturePackage
       get {return _flatten;}
     }
 
-		public DialogStateType DialogState
+    public DialogStateType DialogState
+    {
+      set
+	{
+	  _currentDialogState = value;
+	  if(_dialog != null)
+	    {
+	      if((_currentDialogState == DialogStateType.SrcImgValid) ||
+		 (_currentDialogState == DialogStateType.SrcFileValid))
 		{
-			set
-			{
-				_currentDialogState = value;
-				if(_dialog != null)
-				{
-					if((_currentDialogState == DialogStateType.SrcImgValid) ||
-						 (_currentDialogState == DialogStateType.SrcFileValid))
-					{
-						_dialog.SetResponseSensitive(ResponseType.Ok, true);
-					}
-					else
-					{
-						_dialog.SetResponseSensitive(ResponseType.Ok, false);
-					}
-				}
-			}
-			get
-			{
-				return _currentDialogState;
-			}
+		  _dialog.SetResponseSensitive(ResponseType.Ok, true);
 		}
+	      else
+		{
+		  _dialog.SetResponseSensitive(ResponseType.Ok, false);
+		}
+	    }
+	}
+      get
+	{
+	  return _currentDialogState;
+	}
+    }
   }
 }

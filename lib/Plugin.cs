@@ -167,7 +167,7 @@ namespace Gimp
 	}
 
       outParam = new ParamDefList(true);
-      outParam.Add(new ParamDef(PDBStatusType.SUCCESS, typeof(PDBStatusType)));
+      outParam.Add(new ParamDef(PDBStatusType.Success, typeof(PDBStatusType)));
     }
 
     virtual protected bool CreateDialog() {return true;}

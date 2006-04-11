@@ -23,220 +23,220 @@ namespace Gimp
 {
   public enum AddMaskType
   {
-    ADD_WHITE_MASK,
-    ADD_BLACK_MASK,
-    ADD_ALPHA_MASK,
-    ADD_ALPHA_TRANSFER_MASK,
-    ADD_SELECTION_MASK,
-    ADD_COPY_MASK
+    White,
+    Black,
+    Alpha,
+    AlphaTransfer,
+    Selection,
+    Copy
   }
 
   public enum BlendMode
   {
-    FG_BG_RGB_MODE,
-    FG_BG_HSV_MODE,
-    FG_TRANSPARENT_MODE,
-    CUSTOM_MODE
+    FgBgRgb,
+    FgBgHsv,
+    FgTransparent,
+    Custom
   }
 
   public enum BucketFillMode
   {
-    FG_BUCKET_FILL,
-    BG_BUCKET_FILL,
-    PATTERN_BUCKET_FILL
+    Fg,
+    Bg,
+    Pattern,
   }
 
   public enum ChannelOps
   {
-    ADD,
-    SUBTRACT,
-    REPLACE,
-    INTERSECT
+    Add,
+    Subtract,
+    Replace,
+    Intersect
   }
 
   public enum ChannelType
   {
-    RED,
-    GREEN,
-    BLUE,
-    GRAY,
-    INDEXED,
-    ALPHA
+    Red,
+    Green,
+    Blue,
+    Gray,
+    Indexed,
+    Alpha
   }
 
   public enum CheckSize
   {
-    SMALL_CHECKS,
-    MEDIUM_CHECKS,
-    LARGE_CHECKS
+    Small,
+    Medium,
+    Large
   }
 
   public enum CheckType
   {
-    LIGHT_CHECKS ,
-    GRAY_CHECKS ,
-    DARK_CHECKS ,
-    WHITE_ONLY ,
-    GRAY_ONLY ,
-    BLACK_ONLY
+    Light,
+    Gray,
+    Dark,
+    WhiteOnly,
+    GrayOnly,
+    BlackOnly
   }
 
   public enum DesaturateMode
   {
-    LIGHTNESS,
-    LUMINOSITY,
-    AVERAGE 
+    Lightness,
+    Luminosity,
+    Average 
   }
 
   public enum DodgeBurnType
   {
-    DODGE,
-    BURN
+    Dodge,
+    Burn
   }
 
   public enum GradientType
   {
-    LINEAR,
-    BILINEAR,
-    RADIAL,
-    SQUARE,
-    CONICAL_SYMMETRIC,
-    CONICAL_ASYMMETRIC,
-    SHAPEBURST_ANGULAR,
-    SHAPEBURST_SPHERICAL,
-    SHAPEBURST_DIMPLED,
-    SPIRAL_CLOCKWISE,
-    SPIRAL_ANTICLOCKWISE
+    Linear,
+    Bilinear,
+    Radial,
+    Square,
+    ConicalSymmetric,
+    ConicalAsymmetric,
+    ShapeburstAngular,
+    ShapeburstSpherical,
+    ShapeburstDimpled,
+    SpiralClockwise,
+    SpiralAnticlockwise
   }
 
   public enum IconType
   {
-    STOCK_ID,
-    INLINE_PIXBUF,
-    IMAGE_FILE
+    StockId,
+    InlinePixbuf,
+    ImageFile
   }
 
   public enum ImageBaseType
   {
-    RGB,
-    GRAY,
-    INDEXED
+    Rgb,
+    Gray,
+    Indexed
   }
 
   public enum ImageType
   {
-    RGB,
-    RGBA,
-    GRAY,
-    GRAYA,
-    INDEXED,
-    INDEXEDA
+    Rgb,
+    Rgba,
+    Gray,
+    Graya,
+    Indexed,
+    Indexeda
   }
   
   public enum InterpolationType
   {
-    NONE,
-    LINEAR,
-    CUBIC,
-    LANCZOS 
+    None,
+    Linear,
+    Cubic,
+    Lanczos 
   }
 
   public enum MessageHandlerType
   {
-    MESSAGE_BOX,
-    CONSOLE,
-    ERROR_CONSOLE
+    MessageBox,
+    Console,
+    ErrorConsole
   }
 
   public enum PaintApplicationMode
   {
-    CONSTANT,
-    INCREMENTAL
+    Constant,
+    Incremental
   }
 
   public enum PDBArgType
   {
-    INT32,
-    INT16,
-    INT8,
-    FLOAT,
-    STRING,
-    INT32ARRAY,
-    INT16ARRAY,
-    INT8ARRAY,
-    FLOATARRAY,
-    STRINGARRAY,
-    COLOR,
-    REGION,
-    DISPLAY,
-    IMAGE,
-    LAYER,
-    CHANNEL,
-    DRAWABLE,
-    SELECTION,
-    BOUNDARY,
-    PATH,
-    PARASITE,
-    STATUS,
-    END
+    Int32,
+    Int16,
+    Int8,
+    Float,
+    String,
+    Int32array,
+    Int16array,
+    Int8array,
+    Floatarray,
+    Stringarray,
+    Color,
+    Region,
+    Display,
+    Image,
+    Layer,
+    Channel,
+    Drawable,
+    Selection,
+    Boundary,
+    Path,
+    Parasite,
+    Status,
+    End
   }
 
   public enum PDBProcType
   {
-    INTERNAL,
-    PLUGIN,
-    EXTENSION,
-    TEMPORARY
+    Internal,
+    Plugin,
+    Extension,
+    Temporary
   }
  
   public enum PDBStatusType
   {
-    EXECUTION_ERROR,
-    CALLING_ERROR,
-    PASS_THROUGH,
-    SUCCESS,
-    CANCEL
+    ExecutionError,
+    CallingError,
+    PassThrough,
+    Success,
+    Cancel
   }
 
   public enum ProgressCommand
   {
-    START,
-    END,
-    SET_TEXT,
-    SET_VALUE,
-    PULSE
+    Start,
+    End,
+    SetText,
+    SetValue,
+    Pulse
   }
 
   public enum RepeatMode
   {
-    NONE,
-    SAWTOOTH,
-    TRIANGULAR
+    None,
+    Sawtooth,
+    Triangular
   }
 
   public enum SizeType
   {
-    PIXELS,
-    POINTS
+    Pixels,
+    Points
   }
  
   public enum StackTraceMode
   {
-    NEVER,
-    QUERY,
-    ALWAYS
+    Never,
+    Query,
+    Always
   }
 
   public enum TransferMode
   {
-    SHADOWS,
-    MIDTONES,
-    HIGHLIGHTS
+    Shadows,
+    Midtones,
+    Highlights
   }
 
   public enum TransformDirection
   {
-    FORWARD,
-    BACKWARD
+    Forward,
+    Backward
   }
 }

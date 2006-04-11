@@ -33,7 +33,7 @@ namespace Gimp
     {
       int width = 64;
       int height = 128;
-      Image image = new Image(width, height, ImageBaseType.RGB);
+      Image image = new Image(width, height, ImageBaseType.Rgb);
       // Fix me: this if there is a new image
       image.Delete();
     }
@@ -43,7 +43,7 @@ namespace Gimp
     {
       int width = 64;
       int height = 128;
-      ImageBaseType type = ImageBaseType.RGB;
+      ImageBaseType type = ImageBaseType.Rgb;
       Image image = new Image(width, height, type);
       Assert.AreEqual(width, image.Width);
       Assert.AreEqual(height, image.Height);
@@ -56,7 +56,7 @@ namespace Gimp
     {
       int width = 64;
       int height = 128;
-      ImageBaseType type = ImageBaseType.RGB;
+      ImageBaseType type = ImageBaseType.Rgb;
       Image image = new Image(width, height, type);
       Image copy = new Image(image);
       Assert.AreEqual(width, copy.Width);
@@ -71,7 +71,7 @@ namespace Gimp
     {
       int width = 64;
       int height = 128;
-      ImageBaseType type = ImageBaseType.RGB;
+      ImageBaseType type = ImageBaseType.Rgb;
       Image image = new Image(width, height, type);
 
       image.Rotate(RotationType.Rotate90);
@@ -86,7 +86,7 @@ namespace Gimp
     {
       int width = 64;
       int height = 128;
-      ImageBaseType type = ImageBaseType.RGB;
+      ImageBaseType type = ImageBaseType.Rgb;
       Image image = new Image(width, height, type);
 
       image.Resize(100, 100, 0, 0);
@@ -101,7 +101,7 @@ namespace Gimp
     {
       int width = 64;
       int height = 128;
-      ImageBaseType type = ImageBaseType.RGB;
+      ImageBaseType type = ImageBaseType.Rgb;
       Image image = new Image(width, height, type);
 
       ChannelList channels = image.Channels;

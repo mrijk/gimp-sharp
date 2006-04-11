@@ -84,19 +84,19 @@ namespace Gimp
 	  
 	  switch (param.type)
 	    {
-	    case PDBArgType.INT32:
+	    case PDBArgType.Int32:
 	      this[i].Value = (Int32) param.data.d_int32;
 	      break;
-	    case PDBArgType.IMAGE:
+	    case PDBArgType.Image:
 	      this[i].Value = new Image((Int32) param.data.d_image);
 	      break;
-	    case PDBArgType.STRING:
+	    case PDBArgType.String:
 	      if (this[i].Type == typeof(string))
 		this[i].Value = Marshal.PtrToStringAuto(param.data.d_string);
 	      else
 		this[i].Value = Marshaller.FilenamePtrToString(param.data.d_string);
 	      break;
-	    case PDBArgType.DRAWABLE:
+	    case PDBArgType.Drawable:
 	      this[i].Value = new Drawable((Int32) param.data.d_drawable);
 	      break;
 	    default:
@@ -111,7 +111,7 @@ namespace Gimp
     public void Marshall(out IntPtr return_vals, out int n_return_vals)
     {
       GimpParam foo = new GimpParam();
-	    GimpParamCust fooCust = new GimpParamCust();
+      GimpParamCust fooCust = new GimpParamCust();
 
       n_return_vals = _set.Count;
 
@@ -124,9 +124,9 @@ namespace Gimp
       for (int i = 0; i < n_return_vals; i++)
 	{
 	  foo = this[i].GetGimpParam();
-		fooCust = new GimpParamCust();
-		fooCust.cust = (IntPtr)foo.type;
-		fooCust.data = foo.data;
+	  fooCust = new GimpParamCust();
+	  fooCust.cust = (IntPtr)foo.type;
+	  fooCust.data = foo.data;
 	  Marshal.StructureToPtr(fooCust, paramPtr, false);
 	  paramPtr = (IntPtr)((int)paramPtr + Marshal.SizeOf(fooCust));
 	}

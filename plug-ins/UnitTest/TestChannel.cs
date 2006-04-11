@@ -33,7 +33,7 @@ namespace Gimp
     {
       int width = 64;
       int height = 128;
-      Image image = new Image(width, height, ImageBaseType.RGB);
+      Image image = new Image(width, height, ImageBaseType.Rgb);
 
       image.Delete();
     }

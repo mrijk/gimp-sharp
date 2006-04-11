@@ -55,19 +55,19 @@ namespace Gimp
     public PDBArgType GetGimpType()
     {
       if (_type == typeof(int))
-	return PDBArgType.INT32;
+	return PDBArgType.Int32;
       else if (_type == typeof(string))
-	return PDBArgType.STRING;
+	return PDBArgType.String;
       else if (_type == typeof(Drawable))
-	return PDBArgType.DRAWABLE;
+	return PDBArgType.Drawable;
       else if (_type == typeof(Image))
-	return PDBArgType.IMAGE;
+	return PDBArgType.Image;
       else if (_type == typeof(PDBStatusType))
-	return PDBArgType.STATUS;
+	return PDBArgType.Status;
       else if (_type == typeof(FileName))
-	return PDBArgType.STRING;
+	return PDBArgType.String;
       else
-	return PDBArgType.END;
+	return PDBArgType.End;
     }
 
     // Can this be done by a casting overload?
@@ -79,16 +79,16 @@ namespace Gimp
 
       switch (param.type)
 	{
-	case PDBArgType.INT32:
+	case PDBArgType.Int32:
 	  param.data.d_int32 = (Int32) _value;
 	  break;
-	case PDBArgType.STRING:
+	case PDBArgType.String:
 	  param.data.d_string = Marshal.StringToHGlobalAuto((string) _value);
 	  break;
-	case PDBArgType.IMAGE:
+	case PDBArgType.Image:
 	  param.data.d_image = ((Image) _value).ID;
 	  break;
-	case PDBArgType.STATUS:
+	case PDBArgType.Status:
 	  param.data.d_status = (PDBStatusType) _value;
 	  break;
 	default:

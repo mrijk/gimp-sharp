@@ -1,3 +1,28 @@
+2006-04-11  Maurits  <m.rijk@chello.nl>
+
+	* lib/GimpBaseEnums.cs: changed all enums to Capitalized iso UPPERCASE.
+
+	* plug-ins/wbmp/wbmp.cs 
+	* plug-ins/UnitTest/TestRgnIterator.cs 
+	* plug-ins/UnitTest/TestLayer.cs 
+	* plug-ins/UnitTest/TestImage.cs 
+	* plug-ins/UnitTest/TestGuide.cs 
+	* plug-ins/UnitTest/TestDrawable.cs 
+	* plug-ins/UnitTest/TestChannel.cs 
+	* plug-ins/Splitter/Splitter.cs 
+	* plug-ins/SliceTool/Preview.cs 
+	* plug-ins/RedEye/RedEye.cs 
+	* plug-ins/PicturePackage/PicturePackage.cs 
+	* plug-ins/Pdn/Pdn.cs 
+	* plug-ins/neo/neo.cs 
+	* plug-ins/KoalaPaint/KoalaPaint.cs 
+	* plug-ins/ecw/ecw.cs 
+	* lib/Procedure.cs 
+	* lib/ParamDefList.cs 
+	* lib/ParamDef.cs 
+	* lib/FilePlugin.cs
+	* lib/Plugin.cs: changed accordingly
+
 2006-04-10  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/wbmp/wbmp.cs: new code to save in wbmp format from

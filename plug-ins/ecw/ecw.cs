@@ -79,8 +79,8 @@ namespace Gimp.ecw
 	  int width = (int) (info.SizeX - 1);
 	  int height = (int) (info.SizeY - 1);
 
-	  Image image = NewImage(width, height, ImageBaseType.RGB,
-				 ImageType.RGB, filename);
+	  Image image = NewImage(width, height, ImageBaseType.Rgb,
+				 ImageType.Rgb, filename);
 
 	  PixelRgn rgn = new PixelRgn(image.Layers[0], true, false);
 

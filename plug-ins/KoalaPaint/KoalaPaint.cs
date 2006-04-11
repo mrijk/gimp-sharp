@@ -98,7 +98,7 @@ namespace Gimp.KoalaPaint
 	  _background = reader.ReadByte();
 
 	  Image image = NewImage(KOALA_WIDTH, KOALA_HEIGHT, 
-				 ImageBaseType.INDEXED, ImageType.INDEXED, 
+				 ImageBaseType.Indexed, ImageType.Indexed, 
 				 filename);
 	  image.Colormap = _colormap;
 

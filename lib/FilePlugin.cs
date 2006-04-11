@@ -36,7 +36,7 @@ namespace Gimp
 				out ParamDefList outParam)
     {
       outParam = new ParamDefList(true);
-      outParam.Add(new ParamDef(PDBStatusType.SUCCESS, 
+      outParam.Add(new ParamDef(PDBStatusType.Success, 
 				typeof(PDBStatusType)));
 
       if (_loadProcedure != null && _loadProcedure.Name == name)
@@ -46,7 +46,7 @@ namespace Gimp
 	  Image image = Load(filename);
 	  if (image == null)
 	    {
-	      outParam[0].Value = PDBStatusType.EXECUTION_ERROR;
+	      outParam[0].Value = PDBStatusType.ExecutionError;
 	    }
 	  else
 	    {
@@ -61,7 +61,7 @@ namespace Gimp
 
 	  if (!Save(image, drawable, filename))
 	    {
-	      outParam[0].Value = PDBStatusType.EXECUTION_ERROR;
+	      outParam[0].Value = PDBStatusType.ExecutionError;
 	    }
 	}
     }

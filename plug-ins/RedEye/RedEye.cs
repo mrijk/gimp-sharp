@@ -139,19 +139,19 @@ namespace Gimp.RedEye
 
       image.UndoGroupStart();
 
-      image.SetComponentActive(ChannelType.RED, false);
-      image.SetComponentActive(ChannelType.BLUE, false);
+      image.SetComponentActive(ChannelType.Red, false);
+      image.SetComponentActive(ChannelType.Blue, false);
       _x = 827;
       _y = 1508;
-      drawable.FuzzySelect(_x, _y, _threshold, ChannelOps.REPLACE, true, 
+      drawable.FuzzySelect(_x, _y, _threshold, ChannelOps.Replace, true, 
 			   false, _radius, false);
       // Desaturate the red channel
-      image.SetComponentActive(ChannelType.RED, true);
-      image.SetComponentActive(ChannelType.GREEN, false);
+      image.SetComponentActive(ChannelType.Red, true);
+      image.SetComponentActive(ChannelType.Green, false);
 
       drawable.Desaturate();
-      image.SetComponentActive(ChannelType.GREEN, true);
-      image.SetComponentActive(ChannelType.BLUE, true);
+      image.SetComponentActive(ChannelType.Green, true);
+      image.SetComponentActive(ChannelType.Blue, true);
 
       image.UndoGroupEnd();
 

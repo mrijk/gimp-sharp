@@ -85,7 +85,7 @@ namespace Gimp.Pdn
 	  Console.WriteLine("height : " + document.Height);
 
 	  image = new Image(document.Width, document.Height,
-			    ImageBaseType.RGB); // Is it the best type ?
+			    ImageBaseType.Rgb); // Is it the best type ?
 	  image.Filename = filename;
 
 	  PaintDotNet.LayerList layers = document.Layers;
@@ -99,7 +99,7 @@ namespace Gimp.Pdn
 		  Console.ReadLine();
 		  Layer layer = new Layer(image, readLayer.Name,
 					  document.Width, document.Height,
-					  ImageType.RGBA,  
+					  ImageType.Rgba,  
 					  (readLayer.Opacity / 255) * 100, // 100 what means ?
 					  LayerModeEffects.Normal);
 		  Console.WriteLine("11");

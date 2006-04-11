@@ -87,8 +87,8 @@ namespace Gimp.neo
 	  const int NEO_WIDTH = 320;
 	  const int NEO_HEIGHT = 200;
 
-	  Image image = NewImage(NEO_WIDTH, NEO_HEIGHT, ImageBaseType.INDEXED,
-				 ImageType.INDEXED, filename);
+	  Image image = NewImage(NEO_WIDTH, NEO_HEIGHT, ImageBaseType.Indexed,
+				 ImageType.Indexed, filename);
 	  image.Colormap = cmap;
 
 	  PixelRgn rgn = new PixelRgn(image.Layers[0], true, false);

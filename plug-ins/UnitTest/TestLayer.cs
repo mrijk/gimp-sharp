@@ -35,7 +35,7 @@ namespace Gimp
     [SetUp]
     public void Init()
     {
-      _image = new Image(_width, _height, ImageBaseType.RGB);
+      _image = new Image(_width, _height, ImageBaseType.Rgb);
     }
 
     [TearDown]
@@ -48,7 +48,7 @@ namespace Gimp
     public void New()
     {
       Layer layer = new Layer(_image, "test", _width, _height,
-			      ImageType.RGB, 100, 
+			      ImageType.Rgb, 100, 
 			      LayerModeEffects.Normal);
       _image.AddLayer(layer, 0);
       Assert.AreEqual(1, _image.Layers.Count);
@@ -58,7 +58,7 @@ namespace Gimp
     public void Resize()
     {
       Layer layer = new Layer(_image, "test", _width, _height,
-			      ImageType.RGB, 100, 
+			      ImageType.Rgb, 100, 
 			      LayerModeEffects.Normal);
       _image.AddLayer(layer, 0);
       layer.Resize(2 * _width, 2 * _height, 0, 0);
@@ -70,7 +70,7 @@ namespace Gimp
     public void Translate()
     {
       Layer layer = new Layer(_image, "test", _width, _height,
-			      ImageType.RGB, 100, 
+			      ImageType.Rgb, 100, 
 			      LayerModeEffects.Normal);
       _image.AddLayer(layer, 0);
       layer.Translate(-10, 10);
@@ -85,11 +85,11 @@ namespace Gimp
     public void AddAlpha()
     {
       Layer layer = new Layer(_image, "test", _width, _height,
-			      ImageType.RGB, 100, 
+			      ImageType.Rgb, 100, 
 			      LayerModeEffects.Normal);
       _image.AddLayer(layer, 0);
       layer.AddAlpha();
-      Assert.AreEqual(ImageType.RGBA, _image.BaseType);
+      Assert.AreEqual(ImageType.Rgba, _image.BaseType);
     }
   }
 }

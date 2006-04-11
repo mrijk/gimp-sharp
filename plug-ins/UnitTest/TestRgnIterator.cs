@@ -36,10 +36,10 @@ namespace Gimp
     [SetUp]
     public void Init()
     {
-      _image = new Image(_width, _height, ImageBaseType.RGB);
+      _image = new Image(_width, _height, ImageBaseType.Rgb);
 
       Layer layer = new Layer(_image, "test", _width, _height,
-			      ImageType.RGB, 100, 
+			      ImageType.Rgb, 100, 
 			      LayerModeEffects.Normal);
       _image.AddLayer(layer, 0);
 

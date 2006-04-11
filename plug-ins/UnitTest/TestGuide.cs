@@ -35,7 +35,7 @@ namespace Gimp
     [SetUp]
     public void Init()
     {
-      _image = new Image(_width, _height, ImageBaseType.RGB);
+      _image = new Image(_width, _height, ImageBaseType.Rgb);
     }
 
     [TearDown]

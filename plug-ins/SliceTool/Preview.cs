@@ -77,7 +77,7 @@ namespace Gimp.SliceTool
 				  false, false);
       
       byte[] buf = rgn.GetRect(0, 0, width, height);
-      Draw(0, 0, width, height, ImageType.RGB, buf, width * _drawable.Bpp);
+      Draw(0, 0, width, height, ImageType.Rgb, buf, width * _drawable.Bpp);
     }
 
     public PreviewRenderer Renderer

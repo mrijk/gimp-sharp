@@ -116,11 +116,10 @@ namespace Gimp.wbmp
 
 	  // Fix me: check high bit here for larger sizes
 
-	  Image image = new Image(width, height,
-				  ImageBaseType.GRAY);
+	  Image image = new Image(width, height, ImageBaseType.Gray);
 
 	  Layer layer = new Layer(image, "Background", width, height,
-				  ImageType.GRAY, 100, 
+				  ImageType.Gray, 100, 
 				  LayerModeEffects.Normal);
 	  image.AddLayer(layer, 0);
 
