@@ -9,6 +9,9 @@ Overview of Changes in Gimp# 0.8
 - New plug-in to generate Swirlies
 - Port of abandoned Neochrome plug-in (Atari ST file format)
 - GIMP# is now fully unit tested with NUnit, leading to higher quality
+- Support for AMD64 native GIMP 
+- Exporting to WBMP file format
+- Support for WBMP images larger than 127x127
 - Many bug fixes and smaller improvements
 
 Overview of Changes in Gimp# 0.7.1
