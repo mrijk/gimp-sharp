@@ -115,10 +115,10 @@ namespace Gimp.wbmp
 				height = (height << 7) + (int)(readByte & 0x7F);
 
 				Image image = new Image(width, height,
-						ImageBaseType.GRAY);
+						ImageBaseType.Gray);
 
 				Layer layer = new Layer(image, "Background", width, height,
-						ImageType.GRAY, 100, 
+						ImageType.Gray, 100, 
 						LayerModeEffects.Normal);
 				image.AddLayer(layer, 0);
 
