@@ -1,3 +1,8 @@
+2006-04-12  Max      <massimo.perga@gmail.com>
+	
+	* plug-ins/wbmp/wbmp.cs: added support for wbmp export and 
+													 images larger than 127x127
+
 2006-04-11  Maurits  <m.rijk@chello.nl>
 
 	* lib/GimpBaseEnums.cs: changed all enums to Capitalized iso UPPERCASE.
