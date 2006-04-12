@@ -18,10 +18,18 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
+using System;
+
 namespace Gimp.Splitter
 {
   public class MyClassBase
   {
+    protected double pi = Math.PI;
+    protected double e = Math.E;
+
+    double _w;		// image width
+    double _h;		// image height
+
     public MyClassBase()
     {
     }
@@ -29,6 +37,108 @@ namespace Gimp.Splitter
     public virtual double eval(double x,double y)
     {
       return 0.0;
+    }
+
+    public double w
+    {
+      set {_w = value;}
+      get {return _w;}
+    }
+
+    public double h
+    {
+      set {_h = value;}
+      get {return _h;}
+    }
+
+    protected double abs(double x)
+    {
+      return Math.Abs(x);
+    }
+
+    protected double acos(double x)
+    {
+      return Math.Acos(x);
+    }
+
+    protected double asin(double x)
+    {
+      return Math.Asin(x);
+    }
+
+    protected double atan(double x)
+    {
+      return Math.Atan(x);
+    }
+
+    protected double atan2(double y, double x)
+    {
+      return Math.Atan2(y, x);
+    }
+
+    protected double cos(double x)
+    {
+      return Math.Cos(x);
+    }
+
+    protected double cosh(double x)
+    {
+      return Math.Cosh(x);
+    }
+
+    protected double exp(double x)
+    {
+      return Math.Exp(x);
+    }
+
+    protected double floor(double x)
+    {
+      return Math.Floor(x);
+    }
+
+    protected double log(double x)
+    {
+      return Math.Log(x);
+    }
+
+    protected double log(double x, double y)
+    {
+      return Math.Log(x, y);
+    }
+
+    protected double log10(double x)
+    {
+      return Math.Log(x);
+    }
+
+    protected double pow(double x, double y)
+    {
+      return Math.Pow(x, y);
+    }
+
+    protected double sin(double x)
+    {
+      return Math.Sin(x);
+    }
+
+    protected double sinh(double x)
+    {
+      return Math.Sinh(x);
+    }
+
+    protected double sqrt(double x)
+    {
+      return Math.Sqrt(x);
+    }
+
+    protected double tan(double x)
+    {
+      return Math.Tan(x);
+    }
+
+    protected double tanh(double x)
+    {
+      return Math.Tanh(x);
     }
   }
 }

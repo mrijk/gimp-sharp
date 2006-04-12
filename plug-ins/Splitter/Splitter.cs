@@ -252,24 +252,47 @@ namespace Gimp.Splitter
     override protected void Render(Image image, Drawable drawable)
     {
       MathExpressionParser parser = new MathExpressionParser();
-      parser.Init(_formula);
 
       int width = image.Width;
       int height = image.Height;
 
+      parser.Init(_formula, width, height);
+
       Image newImage = new Image(width, height, image.BaseType);
 
-      Layer layer1 = new Layer(newImage, "layer_one", width, height,
-			       ImageType.Rgb, 100, LayerModeEffects.Normal);
-      layer1.Translate(_translate_1_x, _translate_1_y);
-      // layer1.AddAlpha();
-      newImage.AddLayer(layer1, 0);
+      Layer layer1;
+      PixelRgn destPR1;
+      if (_keepLayer == 0 || _keepLayer == 2)
+	{
+	  layer1 = new Layer(newImage, "layer_one", width, height,
+			     ImageType.Rgb, 100, LayerModeEffects.Normal);
+	  layer1.Translate(_translate_1_x, _translate_1_y);
+	  newImage.AddLayer(layer1, 0);
 
-      Layer layer2 = new Layer(newImage, "layer_two", width, height,
-			       ImageType.Rgb, 100, LayerModeEffects.Normal);
-      layer2.Translate(_translate_2_x, _translate_2_y);
-      newImage.AddLayer(layer2, 0);
-      // layer2.AddAlpha();
+	  destPR1 = new PixelRgn(layer1, 0, 0, width, height, true, false);
+	}
+      else
+	{
+	  layer1 = null;
+	  destPR1 = null;
+	}
+
+      Layer layer2;
+      PixelRgn destPR2;
+      if (_keepLayer == 1 || _keepLayer == 2)
+	{
+	  layer2 = new Layer(newImage, "layer_two", width, height,
+			     ImageType.Rgb, 100, LayerModeEffects.Normal);
+	  layer2.Translate(_translate_2_x, _translate_2_y);
+	  newImage.AddLayer(layer2, 0);
+
+	  destPR2 = new PixelRgn(layer2, 0, 0, width, height, true, false);
+	}
+      else
+	{
+	  layer2 = null;
+	  destPR2 = null;
+	}
 
       byte[] black = new byte[drawable.Bpp];
 
@@ -279,40 +302,88 @@ namespace Gimp.Splitter
       PixelRgn srcPR = new PixelRgn(drawable, 0, 0, width, height, 
 				    false, false);
 			
-      PixelRgn destPR1 = new PixelRgn(layer1, 0, 0, width, height, 
-				      true, false);
-
-      PixelRgn destPR2 = new PixelRgn(layer2, 0, 0, width, height, 
-				      true, false);
-
-      for (IntPtr pr = PixelRgn.Register(srcPR, destPR1, destPR2); 
-	   pr != IntPtr.Zero; pr = PixelRgn.Process(pr))
+      if (destPR1 != null && destPR2 != null)
 	{
-	  for (int y = srcPR.Y; y < srcPR.Y + srcPR.H; y++)
+	  for (IntPtr pr = PixelRgn.Register(srcPR, destPR1, destPR2); 
+	       pr != IntPtr.Zero; pr = PixelRgn.Process(pr))
 	    {
-	      for (int x = srcPR.X; x < srcPR.X + srcPR.W; x++)
+	      for (int y = srcPR.Y; y < srcPR.Y + srcPR.H; y++)
 		{
-		  if (parser.Eval(x, y) < 0)
+		  for (int x = srcPR.X; x < srcPR.X + srcPR.W; x++)
 		    {
-		      destPR1[y, x] = srcPR[y, x];
-		      destPR2[y, x] = black;
+		      if (parser.Eval(x, y) < 0)
+			{
+			  destPR1[y, x] = srcPR[y, x];
+			  destPR2[y, x] = black;
+			}
+		      else
+			{
+			  destPR1[y, x] = black;
+			  destPR2[y, x] = srcPR[y, x];
+			}
 		    }
-		  else
+		}				
+	    }
+	}
+      else if (destPR1 != null)
+	{
+	  for (IntPtr pr = PixelRgn.Register(srcPR, destPR1); 
+	       pr != IntPtr.Zero; pr = PixelRgn.Process(pr))
+	    {
+	      for (int y = srcPR.Y; y < srcPR.Y + srcPR.H; y++)
+		{
+		  for (int x = srcPR.X; x < srcPR.X + srcPR.W; x++)
 		    {
-		      destPR1[y, x] = black;
-		      destPR2[y, x] = srcPR[y, x];
+		      if (parser.Eval(x, y) < 0)
+			{
+			  destPR1[y, x] = srcPR[y, x];
+			}
+		      else
+			{
+			  destPR1[y, x] = black;
+			}
 		    }
-		}
-	    }				
+		}				
+	    }
+	}
+      else	// destPR2 != null
+	{
+	  for (IntPtr pr = PixelRgn.Register(srcPR, destPR2); 
+	       pr != IntPtr.Zero; pr = PixelRgn.Process(pr))
+	    {
+	      for (int y = srcPR.Y; y < srcPR.Y + srcPR.H; y++)
+		{
+		  for (int x = srcPR.X; x < srcPR.X + srcPR.W; x++)
+		    {
+		      if (parser.Eval(x, y) < 0)
+			{
+			  destPR2[y, x] = black;
+			}
+		      else
+			{
+			  destPR2[y, x] = srcPR[y, x];
+			}
+		    }
+		}				
+	    }
 	}
 
-      if (_rotate_1 != 0) 
+      if (layer1 != null)
+	{
+	  layer1.AddAlpha();
+	}
+      if (layer2 != null)
+	{
+	  layer2.AddAlpha();
+	}
+
+      if (_rotate_1 != 0 && layer1 != null) 
 	{
 	  layer1.TransformRotateDefault(_rotate_1 * Math.PI / 180.0,
 					true, 0, 0, true, false);
 	}
 
-      if (_rotate_2 != 0) 
+      if (_rotate_2 != 0 && layer2 != null)
 	{
 	  layer2.TransformRotateDefault(_rotate_2 * Math.PI / 180.0,
 					true, 0, 0, true, false);

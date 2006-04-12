@@ -26,10 +26,12 @@ namespace Gimp.Splitter
   public class MathExpressionParser
   {
     MyClassBase myobj = null;
+
     public MathExpressionParser()
     {
     }
-    public bool Init(string expr)
+
+    public bool Init(string expr, double width, double height)
     {
       Microsoft.CSharp.CSharpCodeProvider cp
 	= new Microsoft.CSharp.CSharpCodeProvider();
@@ -63,6 +65,8 @@ namespace Gimp.Splitter
 	      if (ObjType != null)
 		{
 		  myobj = (MyClassBase)Activator.CreateInstance(ObjType);
+		  myobj.w = width;
+		  myobj.h = height;
 		}
 	    }
 	  catch (Exception ex)
