@@ -11,6 +11,8 @@
 
 2006-04-12  Max      <massimo.perga@gmail.com>
 	
+	* NEWS: updated
+
 	* plug-ins/wbmp/wbmp.cs: added support for wbmp export and 
 	images larger than 127x127
 
