@@ -110,7 +110,7 @@ namespace Gimp.PicturePackage
 
       _layoutSet.Load();
 
-      Dialog dialog = DialogNew("Picture Package 0.6.1", "PicturePackage",
+      Dialog dialog = DialogNew("Picture Package 0.6.2", "PicturePackage",
 				IntPtr.Zero, 0, null, "PicturePackage");
 
       HBox hbox = new HBox(false, 12);
@@ -242,6 +242,9 @@ namespace Gimp.PicturePackage
 	{
 	  Renderer renderer = _preview.GetRenderer(_layout);
 	  rectangle.Render(image, renderer);
+    // Fix for OK button when Drag & Drop happens
+	  if(DialogState == DialogStateType.SrcImgInvalid)
+      DialogState = DialogStateType.SrcImgValid; 
 	  renderer.Cleanup();
 	  provider.Release();
 	}
@@ -278,10 +281,11 @@ namespace Gimp.PicturePackage
     {
       SelectionData data = args.SelectionData;
       string text = (new System.Text.ASCIIEncoding()).GetString(data.Data);
-      // Console.WriteLine("OnDragDataReceived " + text);
       if (text.StartsWith("file:"))
 	{
-	  LoadRectangle((double) args.X, (double) args.Y, text.Substring(5));
+    string draggedFilename = (text.Substring(7)).Trim('\t',(char)0x0a,(char)0x0d);
+    
+	  LoadRectangle((double) args.X, (double) args.Y, draggedFilename);
 	}
       else if (text.StartsWith("http://"))
 	{
