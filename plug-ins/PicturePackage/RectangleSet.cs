@@ -75,7 +75,7 @@ namespace Gimp.PicturePackage
 	      Image image = provider.GetImage();
 	      if (image == null)
 		{
-		  Console.WriteLine("Couldn't load image!");
+//		  Console.WriteLine("Couldn't load image!");
 		}
 	      else
 		{

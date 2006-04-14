@@ -250,7 +250,7 @@ namespace Gimp.PicturePackage
 	}
       else
 	{
-	  Console.WriteLine("Couldn't load: " + filename);
+//	  Console.WriteLine("Couldn't load: " + filename);
 	  // Error dialog here.
 	}		
     }
@@ -281,25 +281,13 @@ namespace Gimp.PicturePackage
     {
       SelectionData data = args.SelectionData;
       string text = (new System.Text.ASCIIEncoding()).GetString(data.Data);
-      if (text.StartsWith("file:"))
-	{
-    string draggedFilename = (text.Substring(7)).Trim('\t',(char)0x0a,(char)0x0d);
-    
-	  LoadRectangle((double) args.X, (double) args.Y, draggedFilename);
-	}
-      else if (text.StartsWith("http://"))
-	{
-#if true
-	  HttpWebRequest request = (HttpWebRequest) WebRequest.Create(text);
-	  request.KeepAlive = false;
+      string draggedFileName = null;
 
-	  WebResponse response = request.GetResponse();
-	  Console.WriteLine("Length: " + response.ContentLength);
-	  response.Close();
-#else
-	  Console.WriteLine("Implement this!");
-#endif
-	}
+      if (text.StartsWith("file:"))
+        draggedFileName = (text.Substring(7)).Trim('\t',(char)0x0a,(char)0x0d);
+      else if (text.StartsWith("http://"))
+        draggedFileName = (text.Trim('\t',(char)0x0a,(char)0x0d));
+  	  LoadRectangle((double) args.X, (double) args.Y, draggedFileName);
       Drag.Finish(args.Context, true, false, args.Time);
       _preview.QueueDraw();
     }
