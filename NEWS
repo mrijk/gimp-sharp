@@ -12,6 +12,7 @@ Overview of Changes in Gimp# 0.8
 - Support for AMD64 native GIMP 
 - Exporting to WBMP file format
 - Support for WBMP images larger than 127x127
+- Drag & Drop support in PicturePackage plug-in both from browser and from desktop
 - Many bug fixes and smaller improvements
 
 Overview of Changes in Gimp# 0.7.1

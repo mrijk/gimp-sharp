@@ -1,5 +1,12 @@
 2006-04-14  Max      <massimo.perga@gmail.com>
 	
+	* NEWS: updated
+
+	* plug-ins/PicturePackage/PicturePackage.cs: added 
+	support to Drag & Drop from browser.
+
+2006-04-14  Max      <massimo.perga@gmail.com>
+	
 	* plug-ins/PicturePackage/PicturePackage.cs: fixed 
 	issue with Drag & Drop from desktop.
 
