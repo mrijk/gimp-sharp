@@ -88,8 +88,11 @@ namespace Gimp
 			      ImageType.Rgb, 100, 
 			      LayerModeEffects.Normal);
       _image.AddLayer(layer, 0);
+
+      int bpp = layer.Bpp;
       layer.AddAlpha();
-      Assert.AreEqual(ImageType.Rgba, _image.BaseType);
+
+      Assert.AreEqual(bpp + 1, layer.Bpp);
     }
   }
 }

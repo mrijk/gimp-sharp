@@ -38,32 +38,23 @@ namespace Gimp.wbmp
     override protected  ProcedureSet GetProcedureSet()
     {
       ProcedureSet set = new ProcedureSet();
-      try
-	{
 
-	  set.Add(FileLoadProcedure("file_wbmp_load",
-				    "Loads wbmp images",
-				    "This plug-in loads wbmp images.",
-				    "Maurits Rijk, Massimo Perga",
+      set.Add(FileLoadProcedure("file_wbmp_load",
+				"Loads wbmp images",
+				"This plug-in loads wbmp images.",
+				"Maurits Rijk, Massimo Perga",
 				    "(C) Maurits Rijk, Massimo Perga",
-				    "2005-2006",
-				    "wbmp Image"));
-
-	  set.Add(FileSaveProcedure("file_wbmp_save",
-				    "Saves wbmp images",
-				    "This plug-in saves wbmp images.",
-				    "Maurits Rijk, Massimo Perga",
-				    "(C) Maurits Rijk, Massimo Perga",
-				    "2006",
-				    "wbmp Image",
-				    "RGB*"));
-	}
-      catch(Exception e)
-	{
-	  Console.WriteLine("{0} {1}", e.Message, e.StackTrace);
-	  Console.ReadLine();
-	}
-
+				"2005-2006",
+				"wbmp Image"));
+      
+      set.Add(FileSaveProcedure("file_wbmp_save",
+				"Saves wbmp images",
+				"This plug-in saves wbmp images.",
+				"Maurits Rijk, Massimo Perga",
+				"(C) Maurits Rijk, Massimo Perga",
+				"2006",
+				"wbmp Image",
+				"RGB*"));
       return set;
     }
 
@@ -101,24 +92,23 @@ namespace Gimp.wbmp
 
 	  byte readByte;
 	  int width = 0;
-	  while(((readByte = reader.ReadByte()) & 0x80) != 0)
+	  while (((readByte = reader.ReadByte()) & 0x80) != 0)
 	    {
 	      width = (width << 7) + (int)(readByte & 0x7F);
 	    }
 	  width = (width << 7) + (int)(readByte & 0x7F);
 
 	  int height = 0;
-	  while(((readByte = reader.ReadByte()) & 0x80) != 0)
+	  while (((readByte = reader.ReadByte()) & 0x80) != 0)
 	    {
 	      height = (height << 7) + (int)(readByte & 0x7F);
 	    }
 	  height = (height << 7) + (int)(readByte & 0x7F);
 
-	  Image image = new Image(width, height,
-				  ImageBaseType.Gray);
+	  Image image = new Image(width, height, ImageBaseType.Gray);
 
 	  Layer layer = new Layer(image, "Background", width, height,
-				  ImageType.Gray, 100, 
+				  ImageType.Gray, 100,
 				  LayerModeEffects.Normal);
 	  image.AddLayer(layer, 0);
 
@@ -133,7 +123,7 @@ namespace Gimp.wbmp
 	      int ext_copy_of_col = 0;
 	      try
 		{
-		  int bytesToRead = (width+7)/8;
+		  int bytesToRead = (width + 7) / 8;
 		  byte[] src = reader.ReadBytes(bytesToRead);
 
 		  for (int col = 0; col < width; col++) 
@@ -182,9 +172,9 @@ namespace Gimp.wbmp
       if (!drawable.IsIndexed)
 	{
 	  // Convert image to B&W picture if not already B&W
-	  if ( !image.ConvertIndexed(ConvertDitherType.No, 
-				     ConvertPaletteType.Mono,
-				     0, false, false, ""))
+	  if (!image.ConvertIndexed(ConvertDitherType.No, 
+				    ConvertPaletteType.Mono,
+				    0, false, false, ""))
 	    {
 	      Console.WriteLine("Conversion to B&W failed");
 	      Console.ReadLine();
@@ -208,27 +198,27 @@ namespace Gimp.wbmp
 
       // Encode the width on the multi-byte integer
       bytesToEncode = bytesNeededForEncoding(width);
-      if(bytesToEncode > 0)
+      if (bytesToEncode > 0)
 	seqEncoded = new byte[bytesToEncode];
 
       encodeInteger(ref seqEncoded, width);
-      for(int j = 0; j < seqEncoded.Length; j++)
+      for (int j = 0; j < seqEncoded.Length; j++)
 	{
 	  writer.Write(seqEncoded[j]);
 	}
 
       // Encode the height on the multi-byte integer
       bytesToEncode = bytesNeededForEncoding(height);
-      if(bytesToEncode > 0)
+      if (bytesToEncode > 0)
 	seqEncoded = new byte[bytesToEncode];
 
       encodeInteger(ref seqEncoded, height);
-      for(int j = 0; j < seqEncoded.Length; j++)
+      for (int j = 0; j < seqEncoded.Length; j++)
 	writer.Write(seqEncoded[j]);
 
       Layer layer = image.Flatten();
 
-      if(layer == null)
+      if (layer == null)
 	{
 	  Console.WriteLine("No flatten image");
 	  Console.ReadLine();
@@ -237,14 +227,15 @@ namespace Gimp.wbmp
 
       Drawable activeDrawable = image.ActiveDrawable;
 
-      if(activeDrawable == null)
+      if (activeDrawable == null)
 	{
 	  Console.WriteLine("No active drawable");
 	  Console.ReadLine();
 	  return false;
 	}
-      PixelRgn rgn = new PixelRgn(activeDrawable, 0, 0, width, height, true, false);
-      byte[] wbmpImage = new byte[(width+7)/8 * height];
+      PixelRgn rgn = new PixelRgn(activeDrawable, 0, 0, width, height, 
+				  true, false);
+      byte[] wbmpImage = new byte[(width + 7) / 8 * height];
       byte[] buf = rgn.GetRect(0, 0, width, height);
 
       for (int row = 0; row < height; row++) 
@@ -252,7 +243,7 @@ namespace Gimp.wbmp
 	  for (int col = 0; col < width; col++) 
 	    {
 	      int indexInWbmpImage = (col/8) + row*((width+7)/8);
-	      if(buf[row*width+col] != 0)
+	      if (buf[row*width+col] != 0)
 		{
 		  wbmpImage[indexInWbmpImage] |= (byte)(1 << (7 - col % 8));
 		}
@@ -262,7 +253,7 @@ namespace Gimp.wbmp
 		}
 
 	      // Check if it's at the end of the byte...
-	      if( ((col+1)%8 == 0) || ((col+1) == width) )
+	      if (((col + 1) % 8 == 0) || ((col + 1) == width) )
 		writer.Write((byte)wbmpImage[indexInWbmpImage]);
 	    }
 	  _progress.Update((double)(row/height));

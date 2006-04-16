@@ -83,7 +83,7 @@ namespace Gimp
     [Test]
     public void HasAlpha()
     {
-      Assert.IsFalse(_drawable.HasAlpha());
+      Assert.IsFalse(_drawable.HasAlpha);
     }
 
     [Test]

@@ -27,8 +27,8 @@ namespace Gimp
   [StructLayout(LayoutKind.Sequential)]
   public struct GimpPixelRgn
   {
-    public IntPtr	data;  	       /* pointer to region data */
-    IntPtr		drawable;      /* pointer to drawable */
+    public IntPtr     data;  	       /* pointer to region data */
+    IntPtr	      drawable;      /* pointer to drawable */
     public uint       bpp;           /* bytes per pixel */
     public uint       rowstride;     /* bytes per pixel row */
     public uint       x, y;          /* origin */
@@ -154,7 +154,7 @@ namespace Gimp
 	  int bpp = (int) pr.bpp;
 	  IntPtr dest = (IntPtr) ((int) pr.data + (row - Y) * Rowstride + 
 				  (col - X) * bpp);
-	  Marshal.Copy(value, 0, dest, bpp);
+	  Marshal.Copy(value, 0, dest, value.Length);
 	}
 
       get

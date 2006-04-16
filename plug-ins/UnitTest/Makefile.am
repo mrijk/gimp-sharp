@@ -29,6 +29,7 @@ TESTSOURCES = 	TestBrush.cs 		\
 		TestPaletteEntry.cs	\
 		TestPaletteList.cs	\
 		TestPatternList.cs	\
+		TestPixelRgn.cs		\
 		TestProcedure.cs	\
 		TestRgnIterator.cs	\
 		TestVersion.cs

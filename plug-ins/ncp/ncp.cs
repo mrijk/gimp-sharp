@@ -194,7 +194,7 @@ namespace Gimp.ncp
       Random random = new Random((int) _seed);
 
       _bpp = drawable.Bpp;
-      _has_alpha = drawable.HasAlpha();
+      _has_alpha = drawable.HasAlpha;
       if (_has_alpha)
 	_bpp--;
       _dest = new byte[_bpp];

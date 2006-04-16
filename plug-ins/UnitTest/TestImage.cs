@@ -96,6 +96,24 @@ namespace Gimp
       image.Delete();
     }
 
+    [Test]
+    public void ActiveLayer()
+    {
+      int width = 64;
+      int height = 128;
+      ImageBaseType type = ImageBaseType.Rgb;
+      Image image = new Image(width, height, type);
+      Layer layer = new Layer(image, "test", width, height,
+			      ImageType.Rgb, 100, 
+			      LayerModeEffects.Normal);
+      image.AddLayer(layer, 0);
+
+      Layer active = image.ActiveLayer;
+      Assert.AreEqual(layer.Name, active.Name);
+
+      image.Delete();
+    }
+
     // [Test]
     public void Channels()
     {

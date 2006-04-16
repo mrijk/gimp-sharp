@@ -1,3 +1,21 @@
+2006-04-16  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/UnitTest/TestPixelRgn.cs: new test set
+
+	* plug-ins/UnitTest/Makefile.am: changed accordingly
+
+2006-04-14  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/UnitTest/TestLayer.cs
+	* plug-ins/UnitTest/TestImage.cs: added new testcase
+
+	* lib/Drawable.cs: changed HasAlpha() to property
+
+	* plug-ins/UnitTest/TestDrawable.cs
+	* plug-ins/ncp/ncp.cs: changed accordingly
+
+	* plug-ins/wbmp/wbmp.cs: minor layout changes
+
 2006-04-14  Max      <massimo.perga@gmail.com>
 	
 	* NEWS: updated

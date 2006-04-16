@@ -255,6 +255,9 @@ namespace Gimp.Splitter
 
       int width = image.Width;
       int height = image.Height;
+      bool hasAlpha = drawable.HasAlpha;
+
+      int bpp = drawable.Bpp + (hasAlpha ? 0 : 1);
 
       parser.Init(_formula, width, height);
 
@@ -262,14 +265,14 @@ namespace Gimp.Splitter
 
       Layer layer1;
       PixelRgn destPR1;
-      if (_keepLayer == 0 || _keepLayer == 2)
+      if (_keepLayer == 0 || _keepLayer == 1)
 	{
 	  layer1 = new Layer(newImage, "layer_one", width, height,
-			     ImageType.Rgb, 100, LayerModeEffects.Normal);
+			     ImageType.Rgba, 100, LayerModeEffects.Normal);
 	  layer1.Translate(_translate_1_x, _translate_1_y);
 	  newImage.AddLayer(layer1, 0);
 
-	  destPR1 = new PixelRgn(layer1, 0, 0, width, height, true, false);
+	  destPR1 = new PixelRgn(layer1, 0, 0, width, height, false, false);
 	}
       else
 	{
@@ -279,14 +282,14 @@ namespace Gimp.Splitter
 
       Layer layer2;
       PixelRgn destPR2;
-      if (_keepLayer == 1 || _keepLayer == 2)
+      if (_keepLayer == 0 || _keepLayer == 2)
 	{
 	  layer2 = new Layer(newImage, "layer_two", width, height,
-			     ImageType.Rgb, 100, LayerModeEffects.Normal);
+			     ImageType.Rgba, 100, LayerModeEffects.Normal);
 	  layer2.Translate(_translate_2_x, _translate_2_y);
 	  newImage.AddLayer(layer2, 0);
 
-	  destPR2 = new PixelRgn(layer2, 0, 0, width, height, true, false);
+	  destPR2 = new PixelRgn(layer2, 0, 0, width, height, false, false);
 	}
       else
 	{
@@ -294,14 +297,11 @@ namespace Gimp.Splitter
 	  destPR2 = null;
 	}
 
-      byte[] black = new byte[drawable.Bpp];
-
-      width = drawable.Width;
-      height = drawable.Height;
+      byte[] transparent = new byte[4];
 
       PixelRgn srcPR = new PixelRgn(drawable, 0, 0, width, height, 
 				    false, false);
-			
+
       if (destPR1 != null && destPR2 != null)
 	{
 	  for (IntPtr pr = PixelRgn.Register(srcPR, destPR1, destPR2); 
@@ -314,15 +314,19 @@ namespace Gimp.Splitter
 		      if (parser.Eval(x, y) < 0)
 			{
 			  destPR1[y, x] = srcPR[y, x];
-			  destPR2[y, x] = black;
+			  if (!hasAlpha)
+			    destPR1[y, x][3] = 255;
+			  destPR2[y, x] = transparent;
 			}
 		      else
 			{
-			  destPR1[y, x] = black;
+			  destPR1[y, x] = transparent;
 			  destPR2[y, x] = srcPR[y, x];
+			  if (!hasAlpha)
+			    destPR2[y, x][3] = 255;
 			}
 		    }
-		}				
+		}
 	    }
 	}
       else if (destPR1 != null)
@@ -340,7 +344,7 @@ namespace Gimp.Splitter
 			}
 		      else
 			{
-			  destPR1[y, x] = black;
+			  destPR1[y, x] = transparent;
 			}
 		    }
 		}				
@@ -357,7 +361,7 @@ namespace Gimp.Splitter
 		    {
 		      if (parser.Eval(x, y) < 0)
 			{
-			  destPR2[y, x] = black;
+			  destPR2[y, x] = transparent;
 			}
 		      else
 			{
@@ -366,15 +370,6 @@ namespace Gimp.Splitter
 		    }
 		}				
 	    }
-	}
-
-      if (layer1 != null)
-	{
-	  layer1.AddAlpha();
-	}
-      if (layer2 != null)
-	{
-	  layer2.AddAlpha();
 	}
 
       if (_rotate_1 != 0 && layer1 != null) 

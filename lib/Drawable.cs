@@ -135,9 +135,9 @@ namespace Gimp
       return gimp_drawable_merge_shadow(_ID, undo);
     }
 
-    public bool HasAlpha()
+    public bool HasAlpha
     {
-      return gimp_drawable_has_alpha(_ID);
+      get {return gimp_drawable_has_alpha(_ID);}
     }
 
     public bool IsRGB

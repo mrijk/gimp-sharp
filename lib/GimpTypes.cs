@@ -60,19 +60,19 @@ namespace Gimp
   };
   
 
-	[StructLayout(LayoutKind.Sequential)]
-	public struct GimpParam
-	{
-		public PDBArgType type;
-		public ParamData	data;
+  [StructLayout(LayoutKind.Sequential)]
+  public struct GimpParam
+  {
+    public PDBArgType type;
+    public ParamData data;
 	}
-	
-	[StructLayout(LayoutKind.Sequential)]
-	public struct GimpParamCust
-	{
-		public IntPtr			cust; 
-		public ParamData	data;
-	}
+  
+  [StructLayout(LayoutKind.Sequential)]
+  public struct GimpParamCust
+  {
+    public IntPtr	cust; 
+    public ParamData	data;
+  }
   
   [Serializable]
   [StructLayout(LayoutKind.Sequential)]
