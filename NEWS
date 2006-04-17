@@ -6,13 +6,14 @@ Overview of Changes in Gimp# 0.8
 - Improved support for running GIMP# on win32
 - Better use of .NET 2.0 features
 - First fully functional release of Splitter plug-in
-- New plug-in to generate Swirlies
+- New plug-in to generate Swirlies (experimental)
 - Port of abandoned Neochrome plug-in (Atari ST file format)
 - GIMP# is now fully unit tested with NUnit, leading to higher quality
 - Support for AMD64 native GIMP 
 - Exporting to WBMP file format
 - Support for WBMP images larger than 127x127
-- Drag & Drop support in PicturePackage plug-in both from browser and from desktop
+- Drag & Drop support in PicturePackage plug-in both from browser and
+  from desktop
 - Many bug fixes and smaller improvements
 
 Overview of Changes in Gimp# 0.7.1

@@ -272,7 +272,7 @@ namespace Gimp.Splitter
 	  layer1.Translate(_translate_1_x, _translate_1_y);
 	  newImage.AddLayer(layer1, 0);
 
-	  destPR1 = new PixelRgn(layer1, 0, 0, width, height, false, false);
+	  destPR1 = new PixelRgn(layer1, 0, 0, width, height, true, false);
 	}
       else
 	{
@@ -289,7 +289,7 @@ namespace Gimp.Splitter
 	  layer2.Translate(_translate_2_x, _translate_2_y);
 	  newImage.AddLayer(layer2, 0);
 
-	  destPR2 = new PixelRgn(layer2, 0, 0, width, height, false, false);
+	  destPR2 = new PixelRgn(layer2, 0, 0, width, height, true, false);
 	}
       else
 	{
@@ -298,6 +298,7 @@ namespace Gimp.Splitter
 	}
 
       byte[] transparent = new byte[4];
+      byte[] tmp = new byte[4];
 
       PixelRgn srcPR = new PixelRgn(drawable, 0, 0, width, height, 
 				    false, false);
@@ -313,17 +314,31 @@ namespace Gimp.Splitter
 		    {
 		      if (parser.Eval(x, y) < 0)
 			{
-			  destPR1[y, x] = srcPR[y, x];
-			  if (!hasAlpha)
-			    destPR1[y, x][3] = 255;
+			  if (hasAlpha)
+			    {
+			      destPR1[y, x] = srcPR[y, x];
+			    }
+			  else
+			    {
+			      srcPR[y, x].CopyTo(tmp, 0);
+			      tmp[3] = 255;
+			      destPR1[y, x] = tmp;
+			    }
 			  destPR2[y, x] = transparent;
 			}
 		      else
 			{
+			  if (hasAlpha)
+			    {
+			      destPR2[y, x] = srcPR[y, x];
+			    }
+			  else
+			    {
+			      srcPR[y, x].CopyTo(tmp, 0);
+			      tmp[3] = 255;
+			      destPR2[y, x] = tmp;
+			    }
 			  destPR1[y, x] = transparent;
-			  destPR2[y, x] = srcPR[y, x];
-			  if (!hasAlpha)
-			    destPR2[y, x][3] = 255;
 			}
 		    }
 		}
@@ -340,7 +355,16 @@ namespace Gimp.Splitter
 		    {
 		      if (parser.Eval(x, y) < 0)
 			{
-			  destPR1[y, x] = srcPR[y, x];
+			  if (hasAlpha)
+			    {
+			      destPR1[y, x] = srcPR[y, x];
+			    }
+			  else
+			    {
+			      srcPR[y, x].CopyTo(tmp, 0);
+			      tmp[3] = 255;
+			      destPR1[y, x] = tmp;
+			    }
 			}
 		      else
 			{
@@ -365,7 +389,16 @@ namespace Gimp.Splitter
 			}
 		      else
 			{
-			  destPR2[y, x] = srcPR[y, x];
+			  if (hasAlpha)
+			    {
+			      destPR2[y, x] = srcPR[y, x];
+			    }
+			  else
+			    {
+			      srcPR[y, x].CopyTo(tmp, 0);
+			      tmp[3] = 255;
+			      destPR2[y, x] = tmp;
+			    }
 			}
 		    }
 		}				

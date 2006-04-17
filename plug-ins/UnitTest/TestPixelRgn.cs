@@ -197,7 +197,7 @@ namespace Gimp
     }
      
     [Test]
-    public void Copy()
+    public void CopyRgb2Rgb()
     {
       // Fill src region
 
@@ -242,6 +242,61 @@ namespace Gimp
 		  Assert.AreEqual(pixel, srcRgn[y, x]);
 		  Assert.AreEqual(pixel, destRgn[y, x]);
 		  Assert.AreEqual(srcRgn[y, x], destRgn[y, x]);
+		}
+	    }
+	}
+    }
+
+    [Test]
+    public void CopyRgb2Rgba()
+    {
+      // Fill src region
+
+      byte[] pixel = new byte[]{13, 24, 35};
+      byte[] tmp = new byte[4];
+      FillDrawable(_drawable, pixel);
+
+      // Copy to dest region
+      Image image = new Image(_width, _height, ImageBaseType.Rgb);
+    
+      Layer layer = new Layer(image, "test", _width, _height,
+			      ImageType.Rgba, 100, 
+			      LayerModeEffects.Normal);
+      image.AddLayer(layer, 0);
+      Drawable drawable = image.ActiveDrawable;
+
+      PixelRgn srcRgn = new PixelRgn(_drawable, false, false);
+      PixelRgn destRgn = new PixelRgn(drawable, true, false);
+
+      for (IntPtr pr = PixelRgn.Register(srcRgn, destRgn); pr != IntPtr.Zero; 
+	   pr = PixelRgn.Process(pr))
+	{
+	  for (int y = srcRgn.Y; y < srcRgn.Y + srcRgn.H; y++)
+	    {
+	      for (int x = srcRgn.X; x < srcRgn.X + srcRgn.W; x++)
+		{
+		  srcRgn[y, x].CopyTo(tmp, 0);
+		  tmp[3] = 255;
+		  destRgn[y, x] = tmp;
+		}
+	    }
+	}
+
+      // Check results
+
+      byte[] pixel2 = new byte[]{13, 24, 35, 255};
+
+      srcRgn = new PixelRgn(_drawable, false, false);
+      destRgn = new PixelRgn(drawable, false, false);
+      for (IntPtr pr = PixelRgn.Register(srcRgn, destRgn); pr != IntPtr.Zero; 
+	   pr = PixelRgn.Process(pr))
+	{
+	  for (int y = srcRgn.Y; y < srcRgn.Y + srcRgn.H; y++)
+	    {
+	      for (int x = srcRgn.X; x < srcRgn.X + srcRgn.W; x++)
+		{
+		  Assert.AreEqual(pixel, srcRgn[y, x]);
+		  Assert.AreEqual(pixel2, destRgn[y, x]);
 		}
 	    }
 	}
