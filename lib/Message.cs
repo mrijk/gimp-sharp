@@ -40,11 +40,11 @@ namespace Gimp
       set {gimp_message_set_handler(value);}
     }
 
-    [DllImport("libgimpwidgets-2.0-0.dll")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_message (string message);
-    [DllImport("libgimpwidgets-2.0-0.dll")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern MessageHandlerType gimp_message_get_handler();
-    [DllImport("libgimpwidgets-2.0-0.dll")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern void gimp_message_set_handler(MessageHandlerType handler);
   }
 }

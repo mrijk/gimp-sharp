@@ -55,7 +55,7 @@ namespace Gimp.Splitter
       System.CodeDom.Compiler.CompilerResults cr
 	= ic.CompileAssemblyFromSource(cpar,src);
       foreach (System.CodeDom.Compiler.CompilerError ce in cr.Errors)
-	Console.WriteLine(ce.ErrorText);
+	new Message(ce.ErrorText);
 
       if (cr.Errors.Count == 0 && cr.CompiledAssembly != null)
 	{

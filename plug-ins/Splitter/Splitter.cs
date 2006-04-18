@@ -257,8 +257,6 @@ namespace Gimp.Splitter
       int height = image.Height;
       bool hasAlpha = drawable.HasAlpha;
 
-      int bpp = drawable.Bpp + (hasAlpha ? 0 : 1);
-
       parser.Init(_formula, width, height);
 
       Image newImage = new Image(width, height, image.BaseType);
