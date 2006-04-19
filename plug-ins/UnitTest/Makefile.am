@@ -15,23 +15,26 @@ EXTRA_DIST = $(MYSOURCES) UnitTest UnitTest.png
 UnitTest.exe : $(MYSOURCES) $(GIMPSHARPLIB)
 	$(CSC) $(MYSOURCES) /resource:UnitTest.png -out:$@ $(ASSEMBLIES)
 
-TESTSOURCES = 	TestBrush.cs 		\
-		TestChannel.cs		\
-		TestChannelList.cs	\
-		TestContext.cs		\
-		TestDisplay.cs		\
-		TestDrawable.cs		\
-		TestGimp.cs		\
-		TestGuide.cs		\
-		TestImage.cs		\
-		TestLayer.cs		\
-		TestPalette.cs		\
-		TestPaletteEntry.cs	\
-		TestPaletteList.cs	\
-		TestPatternList.cs	\
-		TestPixelRgn.cs		\
-		TestProcedure.cs	\
-		TestRgnIterator.cs	\
+TESTSOURCES = 	TestBrush.cs 			\
+		TestChannel.cs			\
+		TestChannelList.cs		\
+		TestContext.cs			\
+		TestDisplay.cs			\
+		TestDrawable.cs			\
+		TestFloatingSelection.cs	\
+		TestGimp.cs			\
+		TestGuide.cs			\
+		TestImage.cs			\
+		TestLayer.cs			\
+		TestPalette.cs			\
+		TestPaletteEntry.cs		\
+		TestPaletteList.cs		\
+		TestParasite.cs			\
+		TestPatternList.cs		\
+		TestPixelRgn.cs			\
+		TestProcedure.cs		\
+		TestRGB.cs			\
+		TestRgnIterator.cs		\
 		TestVersion.cs
 
 gimptest.dll : $(TESTSOURCES) $(GIMPSHARPLIB)

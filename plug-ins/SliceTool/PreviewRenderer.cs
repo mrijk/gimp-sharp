@@ -77,7 +77,7 @@ namespace Gimp.SliceTool
       Colormap colormap = Colormap.System;
       colormap.FreeColors(colors, 1);
       byte red, green, blue;
-      rgb.GetUChar(out red, out green, out blue);
+      rgb.GetUchar(out red, out green, out blue);
       color = new Gdk.Color(red, green, blue);
       colormap.AllocColor (ref color, true, true);
     }
