@@ -17,5 +17,5 @@ clean:
 	rm -f wbmp.exe
 
 install:
-	$(INSTALL_DATA) wbmp.exe $(DESTDIR)/$(GIMPPLUGINDIR)
-	$(INSTALL) wbmp $(DESTDIR)/$(GIMPPLUGINDIR)
+	$(INSTALL_DATA) wbmp.exe $(DESTDIR)$(GIMPPLUGINDIR)
+	$(INSTALL) wbmp $(DESTDIR)$(GIMPPLUGINDIR)

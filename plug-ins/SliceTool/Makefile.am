@@ -58,5 +58,5 @@ clean:
 	rm -f SliceTool.exe
 
 install:
-	$(INSTALL_DATA) SliceTool.exe $(DESTDIR)/$(GIMPPLUGINDIR)
-	$(INSTALL) SliceTool $(DESTDIR)/$(GIMPPLUGINDIR)
+	$(INSTALL_DATA) SliceTool.exe $(DESTDIR)$(GIMPPLUGINDIR)
+	$(INSTALL) SliceTool $(DESTDIR)$(GIMPPLUGINDIR)

@@ -9,14 +9,13 @@ Pdn = Pdn
 endif
 
 if BUILD_INCOMPLETE
-ecw = ecw
 Raindrops = Raindrops
 RedEye = RedEye
 endif
 
 AUTOMAKE_OPTIONS = gnu
 SUBDIRS = 		\
-	$(ecw)		\
+	ecw		\
 	KoalaPaint 	\
 	Ministeck	\
 	ncp 		\

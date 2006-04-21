@@ -40,6 +40,6 @@ clean:
 	rm -f PicturePackage.exe
 
 install:
-	$(INSTALL_DATA) PicturePackage.exe $(GIMPPLUGINDIR)
-	$(INSTALL) PicturePackage $(GIMPPLUGINDIR)
+	$(INSTALL_DATA) PicturePackage.exe $(DESTDIR)$(GIMPPLUGINDIR)
+	$(INSTALL) PicturePackage $(DESTDIR)$(GIMPPLUGINDIR)
 

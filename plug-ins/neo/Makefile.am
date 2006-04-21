@@ -1,3 +1,5 @@
+## Process this file with automake to produce Makefile.in
+
 all: neo.exe
 
 GIMPSHARPLIB = $(top_builddir)/lib/gimp-sharp.dll
@@ -15,5 +17,5 @@ clean:
 	rm -f neo.exe
 
 install:
-	$(INSTALL_DATA) neo.exe $(DESTDIR)/$(GIMPPLUGINDIR)
-	$(INSTALL) neo $(DESTDIR)/$(GIMPPLUGINDIR)
+	$(INSTALL_DATA) neo.exe $(DESTDIR)$(GIMPPLUGINDIR)
+	$(INSTALL) neo $(DESTDIR)$(GIMPPLUGINDIR)

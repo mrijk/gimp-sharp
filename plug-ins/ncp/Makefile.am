@@ -1,3 +1,5 @@
+## Process this file with automake to produce Makefile.in
+
 all: ncp.exe
 
 GIMPSHARPLIB = $(top_builddir)/lib/gimp-sharp.dll
@@ -15,5 +17,5 @@ clean:
 	rm -f ncp.exe
 
 install:
-	$(INSTALL_DATA) ncp.exe $(DESTDIR)/$(GIMPPLUGINDIR)
-	$(INSTALL) ncp $(DESTDIR)/$(GIMPPLUGINDIR)
+	$(INSTALL_DATA) ncp.exe $(DESTDIR)$(GIMPPLUGINDIR)
+	$(INSTALL) ncp $(DESTDIR)$(GIMPPLUGINDIR)

@@ -30,5 +30,5 @@ clean:
 	rm -f Ministeck.exe
 
 install:
-	$(INSTALL_DATA) Ministeck.exe $(DESTDIR)/$(GIMPPLUGINDIR)
-	$(INSTALL) Ministeck $(DESTDIR)/$(GIMPPLUGINDIR)
+	$(INSTALL_DATA) Ministeck.exe $(DESTDIR)$(GIMPPLUGINDIR)
+	$(INSTALL) Ministeck $(DESTDIR)$(GIMPPLUGINDIR)

@@ -19,5 +19,5 @@ clean:
 	rm -f UpdateCheck.exe
 
 install:
-	$(INSTALL_DATA) UpdateCheck.exe $(DESTDIR)/$(GIMPPLUGINDIR)
-	$(INSTALL) UpdateCheck $(DESTDIR)/$(GIMPPLUGINDIR)
+	$(INSTALL_DATA) UpdateCheck.exe $(DESTDIR)$(GIMPPLUGINDIR)
+	$(INSTALL) UpdateCheck $(DESTDIR)$(GIMPPLUGINDIR)

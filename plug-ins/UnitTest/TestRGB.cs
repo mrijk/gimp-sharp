@@ -101,8 +101,65 @@ namespace Gimp
     [Test]
     public void ParseHex()
     {
-      // Fix me: create test
+      RGB rgb = new RGB(0, 0, 0);
+      rgb.ParseHex("#0a1b2c");
+      Assert.AreEqual(new RGB(10, 27, 44), rgb);
     }    
+
+    [Test]
+    [ExpectedException(typeof(Exception))]
+    public void ParseInvalidHex()
+    {
+      RGB rgb = new RGB(0, 0, 0);
+      rgb.ParseHex("#nonsense");
+    }
+
+    [Test]
+    public void ParseCss()
+    {
+      RGB rgb = new RGB(0, 0, 0);
+      rgb.ParseCss("rgb(10, 27, 44)");
+      Assert.AreEqual(new RGB(10, 27, 44), rgb);
+    }    
+
+    [Test]
+    public void ParseCssHex()
+    {
+      RGB rgb = new RGB(0, 0, 0);
+      rgb.ParseCss("#0a1b2c");
+      Assert.AreEqual(new RGB(10, 27, 44), rgb);
+    }    
+
+    [Test]
+    [ExpectedException(typeof(Exception))]
+    public void ParseInvalidCss()
+    {
+      RGB rgb = new RGB(0, 0, 0);
+      rgb.ParseCss("#nonsense");
+    }
+
+    [Test]
+    public void Add()
+    {
+      double red = 0.13;
+      double green = 0.24;
+      double blue = 0.35;
+      RGB rgb = new RGB(red, green, blue);
+      rgb.Add(new RGB(0, 0, 0));
+      Assert.AreEqual(new RGB(red, green, blue), rgb);
+    }
+
+    [Test]
+    public void Subtract()
+    {
+      double red = 0.13;
+      double green = 0.24;
+      double blue = 0.35;
+      RGB rgb = new RGB(red, green, blue);
+      RGB tmp = new RGB(red, green, blue);
+      rgb.Subtract(new RGB(0, 0, 0));
+      Assert.AreEqual(tmp, rgb);
+    }
 
     [Test]
     public void Multiply()
@@ -121,6 +178,72 @@ namespace Gimp
     }
 
     [Test]
+    public void AddOperator()
+    {
+      double red = 0.13;
+      double green = 0.24;
+      double blue = 0.35;
+      RGB rgb = new RGB(red, green, blue);
+      RGB result = rgb + new RGB(0, 0, 0);
+      Assert.AreEqual(rgb, result);
+    }
+
+    [Test]
+    public void SubstractOperator()
+    {
+      double red = 0.13;
+      double green = 0.24;
+      double blue = 0.35;
+      RGB rgb = new RGB(red, green, blue);
+      RGB result = rgb - new RGB(0, 0, 0);
+      Assert.AreEqual(rgb, result);
+    }
+
+    [Test]
+    public void EqualsTrue()
+    {
+      double red = 0.13;
+      double green = 0.24;
+      double blue = 0.35;
+      RGB rgb1 = new RGB(red, green, blue);
+      RGB rgb2 = new RGB(red, green, blue);
+      Assert.IsTrue(rgb1.Equals(rgb2));
+    }
+
+    [Test]
+    public void EqualsFalse()
+    {
+      double red = 0.13;
+      double green = 0.24;
+      double blue = 0.35;
+      RGB rgb1 = new RGB(red, green, blue);
+      RGB rgb2 = new RGB(red + 0.1, green, blue);
+      Assert.IsFalse(rgb1.Equals(rgb2));
+    }
+
+    [Test]
+    public void EqualsOperator()
+    {
+      double red = 0.13;
+      double green = 0.24;
+      double blue = 0.35;
+      RGB rgb1 = new RGB(red, green, blue);
+      RGB rgb2 = new RGB(red, green, blue);
+      Assert.IsTrue(rgb1 == rgb2);
+    }
+
+    [Test]
+    public void NotEqualsOperator()
+    {
+      double red = 0.13;
+      double green = 0.24;
+      double blue = 0.35;
+      RGB rgb1 = new RGB(red, green, blue);
+      RGB rgb2 = new RGB(red + 0.1, green, blue);
+      Assert.IsTrue(rgb1 != rgb2);
+    }
+
+    [Test]
     public void Distance()
     {
       double red = 0.13;
@@ -129,6 +252,18 @@ namespace Gimp
       RGB rgb = new RGB(red, green, blue);
       
       Assert.AreEqual(0.0, rgb.Distance(rgb));
+    }
+
+    [Test]
+    public void DistanceGreen()
+    {
+      double red = 0.13;
+      double green = 0.24;
+      double blue = 0.35;
+      RGB rgb1 = new RGB(red, green, blue);
+      RGB rgb2 = new RGB(red, green + 0.11, blue);
+
+      Assert.AreEqual(0.11, rgb1.Distance(rgb2));
     }
 
     [Test]

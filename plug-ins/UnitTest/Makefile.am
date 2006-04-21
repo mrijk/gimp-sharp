@@ -44,5 +44,5 @@ clean:
 	rm -f UnitTest.exe gimptest.dll
 
 install:
-	$(INSTALL_DATA) UnitTest.exe $(DESTDIR)/$(GIMPPLUGINDIR)
-	$(INSTALL) UnitTest $(DESTDIR)/$(GIMPPLUGINDIR)
+	$(INSTALL_DATA) UnitTest.exe $(DESTDIR)$(GIMPPLUGINDIR)
+	$(INSTALL) UnitTest $(DESTDIR)$(GIMPPLUGINDIR)

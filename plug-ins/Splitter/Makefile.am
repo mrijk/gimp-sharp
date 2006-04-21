@@ -21,5 +21,5 @@ clean:
 	rm -f Splitter.exe
 
 install:
-	$(INSTALL_DATA) Splitter.exe $(DESTDIR)/$(GIMPPLUGINDIR)
-	$(INSTALL) Splitter $(DESTDIR)/$(GIMPPLUGINDIR)
+	$(INSTALL_DATA) Splitter.exe $(DESTDIR)$(GIMPPLUGINDIR)
+	$(INSTALL) Splitter $(DESTDIR)$(GIMPPLUGINDIR)

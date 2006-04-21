@@ -17,5 +17,5 @@ clean:
 	rm -f RedEye.exe
 
 install:
-	$(INSTALL_DATA) RedEye.exe $(DESTDIR)/$(GIMPPLUGINDIR)
-	$(INSTALL) RedEye $(DESTDIR)/$(GIMPPLUGINDIR)
+	$(INSTALL_DATA) RedEye.exe $(DESTDIR)$(GIMPPLUGINDIR)
+	$(INSTALL) RedEye $(DESTDIR)$(GIMPPLUGINDIR)

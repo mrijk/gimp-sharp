@@ -40,6 +40,11 @@ namespace Gimp
       SetUchar(red, green, blue);
     }
 
+    public RGB(RGB rgb)
+    {
+      _rgb = rgb._rgb;
+    }
+
     internal RGB(GimpRGB rgb)
     {
       _rgb = rgb;
@@ -48,6 +53,25 @@ namespace Gimp
     internal GimpRGB GimpRGB
     {
       get {return _rgb;}
+    }
+
+    public override bool Equals(object o)
+    {
+      if (o is RGB)
+	{
+	  return _rgb.Equals((o as RGB)._rgb);
+	}
+      return false;
+    }
+
+    public static bool operator==(RGB rgb1, RGB rgb2)
+    {
+      return rgb1._rgb.Equals(rgb2._rgb);
+    }
+
+    public static bool operator!=(RGB rgb1, RGB rgb2)
+    {
+      return !(rgb1 == rgb2);
     }
 
     public double R
@@ -96,9 +120,41 @@ namespace Gimp
 	}
     }
 
+    public void ParseCss(string css)
+    {
+      if (!gimp_rgb_parse_css(ref _rgb, css, -1))
+	{
+	  throw new Exception();
+	}
+    }
+
+    public void Add(RGB rgb)
+    {
+      gimp_rgb_add(ref _rgb, ref rgb._rgb);
+    }
+
+    public void Subtract(RGB rgb)
+    {
+      gimp_rgb_subtract(ref _rgb, ref rgb._rgb);
+    }
+
     public void Multiply(double factor)
     {
       gimp_rgb_multiply(ref _rgb, factor);
+    }
+
+    public static RGB operator-(RGB rgb1, RGB rgb2)
+    {
+      RGB result = new RGB(rgb1);
+      result.Subtract(rgb2);
+      return result;
+    }
+
+    public static RGB operator+(RGB rgb1, RGB rgb2)
+    {
+      RGB result = new RGB(rgb1);
+      result.Add(rgb2);
+      return result;
     }
 
     public double Distance(RGB rgb)
@@ -119,6 +175,33 @@ namespace Gimp
     public void Clamp()
     {
       gimp_rgb_clamp(ref _rgb);
+    }
+
+    public void Gamma(double gamma)
+    {
+      gimp_rgb_gamma(ref _rgb, gamma);
+    }
+
+    // depends on GIMP 2.4
+    public double Luminance
+    {
+      get {return gimp_rgb_luminance(ref _rgb);}
+    }
+
+    // depends on GIMP 2.4
+    public double LuminanceUchar
+    {
+      get {return gimp_rgb_luminance_uchar(ref _rgb);}
+    }
+    
+    public double Intensity
+    {
+      get {return gimp_rgb_luminance(ref _rgb);}
+    }
+
+    public double IntensityUchar
+    {
+      get {return gimp_rgb_luminance_uchar(ref _rgb);}
     }
 
     public byte[] Bytes
@@ -159,6 +242,16 @@ namespace Gimp
 					   string hex,
 					   int len);
     [DllImport("libgimpcolor-2.0-0.dll")]
+    static extern bool gimp_rgb_parse_css (ref GimpRGB rgb,
+					   string css,
+					   int len);
+    [DllImport("libgimpcolor-2.0-0.dll")]
+    static extern double gimp_rgb_add (ref GimpRGB rgb1,
+				       ref GimpRGB rgb2);
+    [DllImport("libgimpcolor-2.0-0.dll")]
+    static extern double gimp_rgb_subtract (ref GimpRGB rgb1,
+					    ref GimpRGB rgb2);
+    [DllImport("libgimpcolor-2.0-0.dll")]
     static extern void gimp_rgb_multiply (ref GimpRGB rgb,
 					  double factor);
     [DllImport("libgimpcolor-2.0-0.dll")]
@@ -170,5 +263,16 @@ namespace Gimp
     static extern double gimp_rgb_min (ref GimpRGB rgb);
     [DllImport("libgimpcolor-2.0-0.dll")]
     static extern void gimp_rgb_clamp (ref GimpRGB rgb);
+    [DllImport("libgimpcolor-2.0-0.dll")]
+    static extern void gimp_rgb_gamma (ref GimpRGB rgb,
+				       double gamma);
+    [DllImport("libgimpcolor-2.0-0.dll")]
+    static extern double gimp_rgb_luminance (ref GimpRGB rgb);
+    [DllImport("libgimpcolor-2.0-0.dll")]
+    static extern byte gimp_rgb_luminance_uchar (ref GimpRGB rgb);
+    [DllImport("libgimpcolor-2.0-0.dll")]
+    static extern double gimp_rgb_intensity (ref GimpRGB rgb);
+    [DllImport("libgimpcolor-2.0-0.dll")]
+    static extern byte gimp_rgb_intensity_uchar (ref GimpRGB rgb);
   }
 }

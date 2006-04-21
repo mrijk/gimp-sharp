@@ -17,5 +17,5 @@ clean:
 	rm -f KoalaPaint.exe
 
 install:
-	$(INSTALL_DATA) KoalaPaint.exe $(DESTDIR)/$(GIMPPLUGINDIR)
-	$(INSTALL) KoalaPaint $(DESTDIR)/$(GIMPPLUGINDIR)
+	$(INSTALL_DATA) KoalaPaint.exe $(DESTDIR)$(GIMPPLUGINDIR)
+	$(INSTALL) KoalaPaint $(DESTDIR)$(GIMPPLUGINDIR)

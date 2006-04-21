@@ -1,3 +1,5 @@
+## Process this file with automake to produce Makefile.in
+
 all: ecw.exe
 
 GIMPSHARPLIB = $(top_builddir)/lib/gimp-sharp.dll
@@ -24,6 +26,6 @@ clean:
 	rm -f ecw.exe
 
 install:
-	$(INSTALL_DATA) ecw.exe $(DESTDIR)/$(GIMPPLUGINDIR)
-	$(INSTALL) ecw $(DESTDIR)/$(GIMPPLUGINDIR)
-	$(INSTALL) .libs/libecwwrapper.so $(DESTDIR)/$(GIMPPLUGINDIR)
+	$(INSTALL_DATA) ecw.exe $(DESTDIR)$(GIMPPLUGINDIR)
+	$(INSTALL) ecw $(DESTDIR)$(GIMPPLUGINDIR)
+	$(INSTALL) .libs/libecwwrapper.so $(DESTDIR)$(GIMPPLUGINDIR)

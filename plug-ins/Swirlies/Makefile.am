@@ -17,5 +17,5 @@ clean:
 	rm -f Swirlies.exe
 
 install:
-	$(INSTALL_DATA) Swirlies.exe $(DESTDIR)/$(GIMPPLUGINDIR)
-	$(INSTALL) Swirlies $(DESTDIR)/$(GIMPPLUGINDIR)
+	$(INSTALL_DATA) Swirlies.exe $(DESTDIR)$(GIMPPLUGINDIR)
+	$(INSTALL) Swirlies $(DESTDIR)$(GIMPPLUGINDIR)

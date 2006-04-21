@@ -1,3 +1,5 @@
+## Process this file with automake to produce Makefile.in
+
 all: Raindrops.exe
 
 GIMPSHARPLIB = $(top_builddir)/lib/gimp-sharp.dll
@@ -15,5 +17,5 @@ clean:
 	rm -f Raindrops.exe
 
 install:
-	$(INSTALL_DATA) Raindrops.exe $(DESTDIR)/$(GIMPPLUGINDIR)
-	$(INSTALL) Raindrops $(DESTDIR)/$(GIMPPLUGINDIR)
+	$(INSTALL_DATA) Raindrops.exe $(DESTDIR)$(GIMPPLUGINDIR)
+	$(INSTALL) Raindrops $(DESTDIR)$(GIMPPLUGINDIR)

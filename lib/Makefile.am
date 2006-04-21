@@ -25,6 +25,7 @@ MYSOURCES = 			\
 	GimpFontSelectWidget.cs	\
 	GimpFrame.cs		\
 	GimpPreview.cs		\
+	GimpSharpException.cs	\
 	GimpStock.cs		\
 	GimpTable.cs		\
 	GimpTypes.cs		\
@@ -82,5 +83,5 @@ clean:
 	rm -f gimp-sharp.dll
 
 install:
-	$(INSTALL_DATA) $(LIBRARY) $(DESTDIR)/$(GIMPPLUGINDIR)
-	$(INSTALL_DATA) $(LIBRARY).config $(DESTDIR)/$(GIMPPLUGINDIR)
+	$(INSTALL_DATA) $(LIBRARY) $(DESTDIR)$(GIMPPLUGINDIR)
+	$(INSTALL_DATA) $(LIBRARY).config $(DESTDIR)$(GIMPPLUGINDIR)
