@@ -287,5 +287,41 @@ namespace Gimp
       RGB rgb = new RGB(red, green, blue);
       Assert.AreEqual(red, rgb.Min);
     }
+
+    [Test]
+    public void ClampNothing()
+    {
+      double red = 0.13;
+      double green = 0.24;
+      double blue = 0.35;
+
+      RGB rgb = new RGB(red, green, blue);
+      rgb.Clamp();
+      Assert.AreEqual(new RGB(red, green, blue), rgb);
+    }
+
+    [Test]
+    public void ClampUpper()
+    {
+      double red = 0.13;
+      double green = 1.24;
+      double blue = 0.35;
+
+      RGB rgb = new RGB(red, green, blue);
+      rgb.Clamp();
+      Assert.AreEqual(new RGB(red, 1.0, blue), rgb);
+    }
+
+    [Test]
+    public void ClampLower()
+    {
+      double red = 0.13;
+      double green = -0.24;
+      double blue = 0.35;
+
+      RGB rgb = new RGB(red, green, blue);
+      rgb.Clamp();
+      Assert.AreEqual(new RGB(red, 0.0, blue), rgb);
+    }
   }
 }

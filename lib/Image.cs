@@ -59,6 +59,11 @@ namespace Gimp
       return false;
     }
 
+    public override int GetHashCode()
+    {
+      return _imageID.GetHashCode();
+    }
+
     public static Image Load(RunMode run_mode, string filename, 
                              string raw_filename)
     {

@@ -64,6 +64,11 @@ namespace Gimp
       return false;
     }
 
+    public override int GetHashCode()
+    {
+      return _rgb.GetHashCode();
+    }
+
     public static bool operator==(RGB rgb1, RGB rgb2)
     {
       return rgb1._rgb.Equals(rgb2._rgb);
@@ -193,15 +198,17 @@ namespace Gimp
     {
       get {return gimp_rgb_luminance_uchar(ref _rgb);}
     }
-    
+
+    // Obsolete, replaced by Luminance
     public double Intensity
     {
-      get {return gimp_rgb_luminance(ref _rgb);}
+      get {return gimp_rgb_intensity(ref _rgb);}
     }
 
+    // Obsolete, replaced by LuminanceUchar
     public double IntensityUchar
     {
-      get {return gimp_rgb_luminance_uchar(ref _rgb);}
+      get {return gimp_rgb_intensity_uchar(ref _rgb);}
     }
 
     public byte[] Bytes

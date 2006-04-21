@@ -24,6 +24,7 @@ TESTSOURCES = 	TestBrush.cs 			\
 		TestFloatingSelection.cs	\
 		TestGimp.cs			\
 		TestGuide.cs			\
+		TestHSV.cs			\
 		TestImage.cs			\
 		TestLayer.cs			\
 		TestPalette.cs			\

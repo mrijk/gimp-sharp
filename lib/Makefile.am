@@ -34,6 +34,7 @@ MYSOURCES = 			\
 	GuideCollection.cs	\
 	Guide.cs		\
 	HorizontalGuide.cs	\
+	HSV.cs			\
 	ImageComboBox.cs	\
 	IntComboBox.cs		\
 	IntStore.cs		\

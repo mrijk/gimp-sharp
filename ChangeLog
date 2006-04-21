@@ -1,3 +1,17 @@
+2006-04-21  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/UnitTest/EventCollector.cs: put statistics in message
+	dialog instead of console so it's easier to read in win32.
+
+	* lib/Image.cs
+	* lib/RGB.cs: added GetHashCode() to avoid compiler warnings.
+
+	* plug-ins/UnitTest/TestHSV.cs: new file
+	* plug-ins/UnitTest/Makefile.am: changed accordingly
+
+	* lib/HSV.cs: new file
+	* lib/Makefile.am: changed accordingly
+
 2006-04-20  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/Makefile.am: always build ecw (jpeg2000) plug-in

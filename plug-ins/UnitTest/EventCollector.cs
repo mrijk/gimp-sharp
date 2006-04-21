@@ -42,8 +42,10 @@ namespace Gimp.UnitTest
 
     public void RunFinished(TestResult[] results)
     {
-      Console.WriteLine("Succesful tests: " + _nr_ok);
-      Console.WriteLine("Failed tests   : " + _nr_failed);
+      // Console.WriteLine("Succesful tests: " + _nr_ok);
+      // Console.WriteLine("Failed tests   : " + _nr_failed);
+      new Message("Succesful tests: " + _nr_ok + "\n" +
+		  "Failed tests   : " + _nr_failed);
     }
 
     public void RunFinished(Exception exception)
