@@ -40,6 +40,23 @@ namespace Gimp
 	_micro = Convert.ToInt32(numbers[2]);
     }
 
+    public override bool Equals(object o)
+    {
+      if (o is Version)
+	{
+	  Version v = o as Version;
+	  return v._major == _major &&
+	    v._minor == _minor &&
+	    v._micro == _micro;
+	}
+      return false;
+    }
+
+    public override int GetHashCode()
+    {
+      return _major ^ _minor ^ _micro;
+    }
+
     public static bool operator==(Version v1, Version v2)
     {
       return v1.Major == v2.Major &&

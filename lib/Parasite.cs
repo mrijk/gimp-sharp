@@ -28,18 +28,19 @@ namespace Gimp
   {
     readonly IntPtr _parasite;
 
-    public const int PERSISTENT = 1;
-    public const int UNDOABLE = 2;
-    public const int ATTACH_PARENT = 0x80 << 8;
-    public const int PARENT_PERSISTENT = PERSISTENT << 8;
-    public const int PARENT_UNDOABLE = UNDOABLE << 8;
-    public const int ATTACH_GRANDPARENT = 0x80 << 16;
-    public const int GRANDPARENT_PERSISTENT = PERSISTENT << 16;
-    public const int GRANDPARENT_UNDOABLE = UNDOABLE << 16;
+    public const int Persistent = 1;
+    public const int Undoable = 2;
+    public const int AttachParent = 0x80 << 8;
+    public const int ParentPersistent = Persistent << 8;
+    public const int ParentUndoable = Undoable << 8;
+    public const int AttachGrandparent = 0x80 << 16;
+    public const int GrandparentPersistent = Persistent << 16;
+    public const int GrandparentUndoable = Undoable << 16;
 
     public Parasite(string name, UInt32 flags, UInt32 size, object data)
     {
-      _parasite = gimp_parasite_new (name, flags, size, data);
+      // Fix me: this doesn't work!
+      _parasite = gimp_parasite_new (name, flags, size, (IntPtr) data);
     }
 
     public Parasite(Parasite parasite)
@@ -59,6 +60,21 @@ namespace Gimp
 	  return gimp_parasite_compare(_parasite, (o as Parasite)._parasite);
 	}
       return false;
+    }
+
+    public override int GetHashCode()
+    {
+      return _parasite.GetHashCode();
+    }
+
+    public static bool operator==(Parasite parasite1, Parasite parasite2)
+    {
+      return parasite1._parasite.Equals(parasite2._parasite);
+    }
+
+    public static bool operator!=(Parasite parasite1, Parasite parasite2)
+    {
+      return !(parasite1 == parasite2);
     }
 
     public void Free()
@@ -113,7 +129,8 @@ namespace Gimp
 
     [DllImport("libgimp-2.0-0.dll")]
     static extern IntPtr gimp_parasite_new (string name, UInt32 flags, 
-					    UInt32 size, object data);
+					    UInt32 size, IntPtr data);
+    //					    UInt32 size, object data);
     [DllImport("libgimp-2.0-0.dll")]
     static extern void gimp_parasite_free (IntPtr parasite);
     [DllImport("libgimp-2.0-0.dll")]

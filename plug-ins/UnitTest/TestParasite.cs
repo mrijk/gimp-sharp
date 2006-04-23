@@ -29,8 +29,11 @@ namespace Gimp
   public class TestParasite
   {
     [Test]
-    public void FirstTest()
+    public void Constructor()
     {
+      // string name = "parasite1";
+      // Parasite parasite = new Parasite(name, 0, 0, null);
+      // Assert.AreEqual(name, parasite.Name);
     }
   }
 }

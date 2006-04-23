@@ -1,3 +1,26 @@
+2006-04-23  Maurits  <m.rijk@chello.nl>
+
+	* configure.in
+	* plug-ins/Makefile.am
+	* plug-ins/RedEye/*: removed RedEye plug-in since GIMP now
+	comes with it's own red eye removal tool.
+
+2006-04-22  Maurits  <m.rijk@chello.nl>
+
+	* lib/Parasite.cs: capitalized flag values.
+
+	* plug-ins/UnitTest/TestVersion.cs: added a few more tests.
+
+	* lib/Version.cs: added GetHashCode() and Equals() to avoid compiler
+	warnings.
+
+	* lib/Parasite.cs: added GetHashCode() to avoid compiler
+	warnings. Also overloaded == and != operator.
+
+2006-04-21  Maurits  <m.rijk@chello.nl>
+
+	* lib/FloatingSelection.cs: added Attach method
+
 2006-04-21  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/UnitTest/EventCollector.cs: put statistics in message

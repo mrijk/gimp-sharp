@@ -27,7 +27,23 @@ namespace Gimp
   public class TestVersion
   {
     [Test]
-    public void TestEqual()
+    public void EqualsTrue()
+    {
+      Version v1 = new Version("1.2.3");
+      Version v2 = new Version("1.2.3");
+      Assert.IsTrue(v1.Equals(v2));
+    }
+
+    [Test]
+    public void EqualsFalse()
+    {
+      Version v1 = new Version("1.2.3");
+      Version v2 = new Version("1.2.4");
+      Assert.IsFalse(v1.Equals(v2));
+    }
+
+    [Test]
+    public void EqualsOperator()
     {
       Version v1 = new Version("1.2.3");
       Version v2 = new Version("1.2.3");
@@ -35,7 +51,7 @@ namespace Gimp
     }
 
     [Test]
-    public void TestNotEqual()
+    public void NotEqualsOperator()
     {
       Version v1 = new Version("1.2.3");
       Version v2 = new Version("1.2.4");
@@ -43,7 +59,7 @@ namespace Gimp
     }
 
     [Test]
-    public void TestGreaterThan()
+    public void GreaterThan()
     {
       Version v1 = new Version("1.2.3");
       Version v2 = new Version("1.2.4");
@@ -51,7 +67,7 @@ namespace Gimp
     }
 
     [Test]
-    public void TestLessThan()
+    public void LessThan()
     {
       Version v1 = new Version("1.2.3");
       Version v2 = new Version("1.2.4");

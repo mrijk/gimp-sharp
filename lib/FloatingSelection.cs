@@ -46,6 +46,14 @@ namespace Gimp
         }
     }
 
+    public void Attach(Drawable drawable)
+    {
+      if (!gimp_floating_sel_attach (_ID, drawable.ID))
+	{
+	  throw new GimpSharpException();
+	}
+    }
+
     public void Rigor(bool undo)
     {
       if (!gimp_floating_sel_rigor (_ID, undo))

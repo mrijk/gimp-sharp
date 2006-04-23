@@ -10,7 +10,6 @@ endif
 
 if BUILD_INCOMPLETE
 Raindrops = Raindrops
-RedEye = RedEye
 endif
 
 AUTOMAKE_OPTIONS = gnu
@@ -23,7 +22,6 @@ SUBDIRS = 		\
 	$(Pdn)		\
 	PicturePackage 	\
 	$(Raindrops)	\
-	$(RedEye)	\
 	SliceTool 	\
 	Splitter 	\
 	Swirlies 	\

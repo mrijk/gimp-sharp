@@ -123,7 +123,6 @@ plug-ins/neo/Makefile
 plug-ins/Pdn/Makefile 
 plug-ins/PicturePackage/Makefile 
 plug-ins/Raindrops/Makefile 
-plug-ins/RedEye/Makefile 
 plug-ins/SliceTool/Makefile 
 plug-ins/Splitter/Makefile 
 plug-ins/Swirlies/Makefile 
