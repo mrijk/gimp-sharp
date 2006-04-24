@@ -46,4 +46,5 @@ clean:
 
 install:
 	$(INSTALL_DATA) UnitTest.exe $(DESTDIR)$(GIMPPLUGINDIR)
+	$(INSTALL_DATA) gimptest.dll $(DESTDIR)$(GIMPPLUGINDIR)
 	$(INSTALL) UnitTest $(DESTDIR)$(GIMPPLUGINDIR)
