@@ -16,6 +16,7 @@ UnitTest.exe : $(MYSOURCES) $(GIMPSHARPLIB)
 	$(CSC) $(MYSOURCES) /resource:UnitTest.png -out:$@ $(ASSEMBLIES)
 
 TESTSOURCES = 	TestBrush.cs 			\
+		TestBrushList.cs		\
 		TestChannel.cs			\
 		TestChannelList.cs		\
 		TestContext.cs			\

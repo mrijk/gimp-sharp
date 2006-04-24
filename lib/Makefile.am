@@ -9,6 +9,7 @@ MYSOURCES = 			\
 	AspectPreview.cs 	\
 	AssemblyInfo.cs		\
 	Brush.cs		\
+	BrushList.cs		\
 	Channel.cs 		\
 	ChannelList.cs 		\
 	Context.cs		\

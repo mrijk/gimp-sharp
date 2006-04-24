@@ -1,7 +1,7 @@
 // GIMP# - A C# wrapper around the GIMP Library
 // Copyright (C) 2004-2006 Maurits Rijk
 //
-// TestBrush.cs
+// TestBrushList.cs
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -26,30 +26,33 @@ using NUnit.Framework;
 namespace Gimp
 {
   [TestFixture]
-  public class TestBrush
+  public class TestBrushList
   {
     [Test]
-    public void New()
+    public void CountAll()
     {
-      string brushName = "Gimp#Brush";
-      int count = new BrushList(null).Count;
-      Brush brush = new Brush(brushName);
-      Assert.AreEqual(brushName, brush.Name);
-      Assert.AreEqual(count + 1, new BrushList(null).Count);
-      brush.Delete();
+      BrushList brushs = new BrushList(null);
+      Assert.IsTrue(brushs.Count > 0);
     }
 
     [Test]
-    public void GetInfo()
+    public void CountNone()
     {
-      string brushName = "Gimp#Brush";
-      Brush brush = new Brush(brushName);
-      int width, height, mask_bpp, color_bpp;
-      brush.GetInfo(out width, out height, out mask_bpp, out color_bpp);
-      Assert.AreEqual(brushName, brush.Name);
-      // Assert.AreEqual(0, width);
-      // Fix me: insert more Asserts here!
-      brush.Delete();
+      // Test for non-existing brushs
+      BrushList brushs = new BrushList("nonsense");
+      Assert.IsTrue(brushs.Count == 0);
+    }
+
+    [Test]
+    public void GetEnumerator()
+    {
+      BrushList brushs = new BrushList(null);
+      int count = 0;
+      foreach (Brush brush in brushs)
+	{
+	  count++;
+	}
+      Assert.IsTrue(brushs.Count == count);
     }
   }
 }

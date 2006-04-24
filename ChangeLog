@@ -1,3 +1,14 @@
+2006-04-24  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/Makefile.am: only build ecw when libecw is
+	available. Fixes #1474636
+
+	* plug-ins/UnitTest/TestBrushList.cs: new file
+
+	* lib/BrushList.cs: new file
+
+	* lib/Makefile.am: changed accordingly
+
 2006-04-24  Max      <massimo.perga@gmail.com>
 
 	* plug-ins/UnitTest/Makefile.am: now installing gimptest.dll as well.
