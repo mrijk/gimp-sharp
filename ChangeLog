@@ -1,3 +1,19 @@
+2006-04-25  Maurits  <m.rijk@chello.nl>
+
+	* Made 0.8 release
+
+2006-04-25  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/UnitTest/Makefile.am: make sure that testcase are also
+	distributed.
+
+	* TODO: updated
+
+2006-04-24  Maurits  <m.rijk@chello.nl>
+	
+	* INSTALL : updated with information on how to build the jpeg2000
+	plug-in.
+
 2006-04-24  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/Makefile.am: only build ecw when libecw is

@@ -28,3 +28,6 @@ At the moment Gimp# will install 6 plug-ins for you:
 
 You will also get plug-ins to read wbmp (wireless bitmap) and
 KoaloaPaint (old CBM64 format) files.
+
+If you want to have jpeg2000 support (the ecw plug-in) you will have
+to install the ecw jpeg 2000 SDK first (http://www.ermapper.com/ecw/).
