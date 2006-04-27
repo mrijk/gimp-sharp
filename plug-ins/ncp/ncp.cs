@@ -29,15 +29,15 @@ namespace Gimp.ncp
     AspectPreview _preview;
     ScaleEntry _closestEntry;
 
-    [SaveAttribute]
+    [SaveAttribute("seed")]
     UInt32 _seed;
-    [SaveAttribute]
+    [SaveAttribute("random_seed")]
     bool _random_seed;
-    [SaveAttribute]
+    [SaveAttribute("points")]
     int _points = 12;
-    [SaveAttribute]
+    [SaveAttribute("closest")]
     int _closest = 1;
-    [SaveAttribute]
+    [SaveAttribute("color")]
     bool _color = true;
 
     [STAThread]
@@ -63,6 +63,8 @@ namespace Gimp.ncp
       ParamDefList in_params = new ParamDefList();
       in_params.Add(new ParamDef("points", 12, typeof(int),
 				 "Number of points"));
+      in_params.Add(new ParamDef("closest", 1, typeof(int),
+				 "Closest point"));
 
       Procedure procedure = new Procedure("plug_in_ncp",
 					  "Generates 2D textures",

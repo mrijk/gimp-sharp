@@ -22,11 +22,23 @@
 using System;
 
 namespace Gimp
+{
+  public class SaveAttribute : Attribute
   {
-    public class SaveAttribute : Attribute
+    string _name;
+
+    public SaveAttribute()
     {
-      public SaveAttribute()
-      {
-      }
+    }
+
+    public SaveAttribute(string name)
+    {
+      _name = name;
+    }
+
+    public string Name
+    {
+      get {return _name;}
     }
   }
+}

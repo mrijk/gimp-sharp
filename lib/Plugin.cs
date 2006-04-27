@@ -153,7 +153,10 @@ namespace Gimp
 	}
       else if (run_mode == RunMode.Noninteractive)
 	{
-	  Console.WriteLine("RunMode.NONINTERACTIVE not implemented yet!");
+	  if (ValidateParameters(inParam))
+	    {
+	      CallRender();
+	    }
 	}
       else if (run_mode == RunMode.WithLastVals)
 	{
@@ -168,6 +171,34 @@ namespace Gimp
 
       outParam = new ParamDefList(true);
       outParam.Add(new ParamDef(PDBStatusType.Success, typeof(PDBStatusType)));
+    }
+
+    virtual protected bool ValidateParameters(ParamDefList inParam)
+    {
+      Type type = GetType();
+      
+      foreach (FieldInfo field in type.GetFields(BindingFlags.Instance |  
+						 BindingFlags.NonPublic | 
+						 BindingFlags.Public))
+	{
+	  foreach (object attribute in field.GetCustomAttributes(true))
+	    {
+	      if (attribute is SaveAttribute)
+		{
+		  string name = (attribute as SaveAttribute).Name;
+		  if (name != null)
+		    {
+		      object value = inParam.GetValue(name);
+		      if (value != null)
+			{
+			  Console.WriteLine("Setting " + name + ": " + value);
+			  field.SetValue(this, value);
+			}
+		    }
+		}
+	    }
+	}
+      return true;
     }
 
     virtual protected bool CreateDialog() {return true;}

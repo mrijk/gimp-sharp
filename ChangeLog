@@ -1,3 +1,10 @@
+2006-04-27  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/ncp/ncp.cs: use named attributes
+
+	* lib/Plugin.cs
+	* lib/SaveAttribute.cs: added names to attributes
+
 2006-04-27  Maurits  <m.rijk>
 
 	* plug-ins/ecw/ecw.cs: start implementing save feature
