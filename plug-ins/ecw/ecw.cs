@@ -104,6 +104,13 @@ namespace Gimp.ecw
     {
       BinaryWriter writer = new BinaryWriter(File.Open(filename, 
 						       FileMode.Create));
+
+      PixelRgn rgn = new PixelRgn(drawable, false, false);
+      for (IntPtr pr = PixelRgn.Register(rgn); pr != IntPtr.Zero; 
+	   pr = PixelRgn.Process(pr))
+	{
+	}
+
       writer.Close();
 
       return true;
