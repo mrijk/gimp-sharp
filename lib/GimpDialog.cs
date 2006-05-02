@@ -33,6 +33,19 @@ namespace Gimp
     public GimpDialog(string title, string role, IntPtr parent,
 		      Gtk.DialogFlags flags,
 		      GimpHelpFunc help_func, string help_id,
+		      string button1, Gtk.ResponseType action1) :
+
+      base(gimp_dialog_new(title, role, parent, flags, 
+			   help_func, help_id, 
+			   // Stock.Help, ResponseType.Help,
+			   //Stock.Cancel, ResponseType.Cancel,
+			   button1, action1, null))
+    {
+    }
+
+    public GimpDialog(string title, string role, IntPtr parent,
+		      Gtk.DialogFlags flags,
+		      GimpHelpFunc help_func, string help_id,
 		      string button1, Gtk.ResponseType action1,
 		      string button2, Gtk.ResponseType action2) :
 
@@ -93,6 +106,17 @@ namespace Gimp
     {
       gimp_dialogs_show_help_button(show);
     }
+
+    [DllImport("libgimpwidgets-2.0-0.dll")]
+    static extern 
+    IntPtr gimp_dialog_new(string title,
+			   string role,
+			   IntPtr parent,
+			   Gtk.DialogFlags  flags,
+			   GimpHelpFunc    help_func,
+			   string help_id,
+			   string button1, Gtk.ResponseType action1,
+			   string end);
 
     [DllImport("libgimpwidgets-2.0-0.dll")]
     static extern 
