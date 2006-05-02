@@ -1,3 +1,11 @@
+2006-05-02  Maurits  <m.rijk@chello.nl>
+
+	* lib/Procedure.cs: fixed bug with Ministeck plug-in (1480556)
+
+	* plug-ins/UnitTest/TestPlugins.cs: new file
+
+	* plug-ins/UnitTest/Makefile.am: changed accordingly
+
 2006-04-27  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/ncp/ncp.cs: use named attributes

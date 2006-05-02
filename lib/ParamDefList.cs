@@ -82,25 +82,34 @@ namespace Gimp
 	  param.type = (PDBArgType) paramCust.cust;
 	  param.data = paramCust.data;
 	  
+	  Type type = this[i].Type;
+
 	  switch (param.type)
 	    {
 	    case PDBArgType.Int32:
-	      this[i].Value = (Int32) param.data.d_int32;
+	      if (type == typeof(int))
+		this[i].Value = (Int32) param.data.d_int32;
+	      else if (type == typeof(bool))
+		this[i].Value = ((Int32) param.data.d_int32 == 0) 
+		  ? false 
+		  : true;
 	      break;
 	    case PDBArgType.Image:
 	      this[i].Value = new Image((Int32) param.data.d_image);
 	      break;
 	    case PDBArgType.String:
-	      if (this[i].Type == typeof(string))
+	      if (type == typeof(string))
 		this[i].Value = Marshal.PtrToStringAuto(param.data.d_string);
 	      else
-		this[i].Value = Marshaller.FilenamePtrToString(param.data.d_string);
+		this[i].Value = Marshaller.FilenamePtrToString
+		  (param.data.d_string);
 	      break;
 	    case PDBArgType.Drawable:
 	      this[i].Value = new Drawable((Int32) param.data.d_drawable);
 	      break;
 	    default:
-	      Console.WriteLine("Fill: parameter " + param.type + " not supported yet!");
+	      Console.WriteLine("Fill: parameter " + param.type + 
+				" not supported yet!");
 	      break;
 	    }
 

@@ -29,6 +29,7 @@ TESTSOURCES = 	TestBrush.cs 			\
 		TestParasite.cs			\
 		TestPatternList.cs		\
 		TestPixelRgn.cs			\
+		TestPlugins.cs			\
 		TestProcedure.cs		\
 		TestRGB.cs			\
 		TestRgnIterator.cs		\

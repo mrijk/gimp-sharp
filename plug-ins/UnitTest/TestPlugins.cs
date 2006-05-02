@@ -1,7 +1,7 @@
 // GIMP# - A C# wrapper around the GIMP Library
 // Copyright (C) 2004-2006 Maurits Rijk
 //
-// TestProcedure.cs
+// TestPlugins.cs
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -26,24 +26,26 @@ using NUnit.Framework;
 namespace Gimp
 {
   [TestFixture]
-  public class TestProcedure
+  public class TestPlugins
   {
     [Test]
-    public void New()
+    public void TestNCP()
     {
-      string name = "name";
-      Procedure procedure = new Procedure(name, "blurb", "help", 
-					  "author", "copyright", 
-					  "date", "menu_path", 
-					  "RGB", null, null);
-      Assert.AreEqual(name, procedure.Name);
-    }
+      int width = 129;
+      int height = 65;
 
-    [Test]
-    public void Run()
-    {
-      Procedure procedure = new Procedure("plug_in_pixelize");
-      // procedure.Run(image, drawable, 10);
+      Image image = new Image(width, height, ImageBaseType.Rgb);
+
+      Layer layer = new Layer(image, "test", width, height,
+			      ImageType.Rgb, 100, LayerModeEffects.Normal);
+      image.AddLayer(layer, 0);
+
+      Drawable drawable = image.ActiveDrawable;
+
+      Procedure procedure = new Procedure("plug_in_ncp");
+      procedure.Run(image, drawable, 12, 2);
+
+      image.Delete();
     }
   }
 }
