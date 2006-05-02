@@ -65,6 +65,8 @@ namespace Gimp.ncp
 				 "Number of points"));
       in_params.Add(new ParamDef("closest", 1, typeof(int),
 				 "Closest point"));
+      in_params.Add(new ParamDef("color", 1, typeof(bool),
+				 "Color (true), B&W (false)"));
 
       Procedure procedure = new Procedure("plug_in_ncp",
 					  "Generates 2D textures",

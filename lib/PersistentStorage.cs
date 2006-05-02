@@ -43,21 +43,15 @@ namespace Gimp
     public void SetData()
     {
       MemoryStream memoryStream = new MemoryStream();
+
       Type type = _plugin.GetType();
 
-      foreach (FieldInfo field 
-	       in type.GetFields(BindingFlags.Instance |  
-				 BindingFlags.NonPublic | 
-				 BindingFlags.Public))
+      foreach (SaveAttribute attribute in new SaveAttributeSet(type))
 	{
-	  foreach (object attribute in field.GetCustomAttributes(true))
-	    {
-	      if (attribute is SaveAttribute)
-		{
-		  _formatter.Serialize(memoryStream, field.GetValue(_plugin));
-		}
-	    }
+	  FieldInfo field = attribute.Field;
+	  _formatter.Serialize(memoryStream, field.GetValue(_plugin));
 	}
+
       gimp_procedural_db_set_data(_name, memoryStream.GetBuffer(),
 				  (int) memoryStream.Length);		    
     }
@@ -74,19 +68,11 @@ namespace Gimp
 	  MemoryStream memoryStream = new MemoryStream(data);
 	  Type type = _plugin.GetType();
 
-	  foreach (FieldInfo field 
-		   in type.GetFields(BindingFlags.Instance |  
-				     BindingFlags.NonPublic | 
-				     BindingFlags.Public))
+	  foreach (SaveAttribute attribute in new SaveAttributeSet(type))
 	    {
-	      foreach (object attribute in field.GetCustomAttributes(true))
-		{
-		  if (attribute is SaveAttribute)
-		    {
-		      field.SetValue(_plugin, 
-				     _formatter.Deserialize(memoryStream));
-		    }
-		}
+	      FieldInfo field = attribute.Field;
+	      field.SetValue(_plugin, _formatter.Deserialize(memoryStream));
+
 	    }
 	}
     }

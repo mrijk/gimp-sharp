@@ -175,26 +175,16 @@ namespace Gimp
 
     virtual protected bool ValidateParameters(ParamDefList inParam)
     {
-      Type type = GetType();
-      
-      foreach (FieldInfo field in type.GetFields(BindingFlags.Instance |  
-						 BindingFlags.NonPublic | 
-						 BindingFlags.Public))
+      foreach (SaveAttribute attribute in new SaveAttributeSet(GetType()))
 	{
-	  foreach (object attribute in field.GetCustomAttributes(true))
+	  string name = attribute.Name;
+	  if (name != null)
 	    {
-	      if (attribute is SaveAttribute)
+	      object value = inParam.GetValue(name);
+	      if (value != null)
 		{
-		  string name = (attribute as SaveAttribute).Name;
-		  if (name != null)
-		    {
-		      object value = inParam.GetValue(name);
-		      if (value != null)
-			{
-			  Console.WriteLine("Setting " + name + ": " + value);
-			  field.SetValue(this, value);
-			}
-		    }
+		  Console.WriteLine("Setting " + name + ": " + value);
+		  attribute.Field.SetValue(this, value);
 		}
 	    }
 	}

@@ -43,7 +43,7 @@ namespace Gimp
       Drawable drawable = image.ActiveDrawable;
 
       Procedure procedure = new Procedure("plug_in_ncp");
-      procedure.Run(image, drawable, 12, 2);
+      procedure.Run(image, drawable, 12, 2, true);
 
       image.Delete();
     }

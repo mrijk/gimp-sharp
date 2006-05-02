@@ -1,5 +1,25 @@
 2006-05-02  Maurits  <m.rijk@chello.nl>
 
+	* NEWS: update
+
+	* lib/SaveAttribute.cs: added FieldInfo attribute
+
+	* lib/PersistentStorage.cs
+	* lib/Plugin.cs: use new SaveAttributeSet class
+	
+	* lib/SaveAttributeSet.cs: new file
+	* lib/Makefile.am: changed accordingly
+
+2006-05-02  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/ncp/ncp.cs: added parameters
+	
+	* plug-ins/UnitTest/TestPlugins.cs: changed accordingly
+
+	* lib/ParamDef.cs: marshal/unmarshall bool to PDBArgType.Int32
+
+2006-05-02  Maurits  <m.rijk@chello.nl>
+
 	* lib/Procedure.cs: fixed bug with Ministeck plug-in (1480556)
 
 	* plug-ins/UnitTest/TestPlugins.cs: new file

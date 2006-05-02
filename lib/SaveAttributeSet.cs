@@ -1,7 +1,7 @@
 // GIMP# - A C# wrapper around the GIMP Library
 // Copyright (C) 2004-2006 Maurits Rijk
 //
-// SaveAttribute.cs
+// SaveAttributeSet.cs
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -20,33 +20,37 @@
 //
 
 using System;
+using System.Collections.Generic;
+using System.Collections;
 using System.Reflection;
 
 namespace Gimp
 {
-  public class SaveAttribute : Attribute
+  public sealed class SaveAttributeSet
   {
-    FieldInfo _field;
-    string _name;
+    internal Type _type;
 
-    public SaveAttribute()
+    public SaveAttributeSet(Type type)
     {
+      _type = type;
     }
 
-    public SaveAttribute(string name)
+    public IEnumerator<SaveAttribute> GetEnumerator()
     {
-      _name = name;
-    }
-
-    public string Name
-    {
-      get {return _name;}
-    }
-
-    internal FieldInfo Field
-    {
-      get {return _field;}
-      set {_field = value;}
+      foreach (FieldInfo field in _type.GetFields(BindingFlags.Instance |  
+						  BindingFlags.NonPublic | 
+						  BindingFlags.Public))
+	{
+	  foreach (object attribute in field.GetCustomAttributes(true))
+	    {
+	      if (attribute is SaveAttribute)
+		{
+		  SaveAttribute saveAttribute = attribute as SaveAttribute;
+		  saveAttribute.Field = field;
+		  yield return attribute as SaveAttribute;
+		}
+	    }
+	}
     }
   }
 }

@@ -66,6 +66,7 @@ MYSOURCES = 			\
 	RandomSeed.cs		\
 	RgnIterator.cs		\
 	SaveAttribute.cs	\
+	SaveAttributeSet.cs	\
 	ScaleEntry.cs		\
 	ScrolledPreview.cs	\
 	Selection.cs		\
