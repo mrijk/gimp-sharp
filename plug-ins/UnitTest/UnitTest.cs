@@ -31,6 +31,10 @@ namespace Gimp.UnitTest
   {
     [SaveAttribute]
     string _testDll;
+    Progress _progress;
+    int    testsPerformed;
+    int    _testCasesTotalNumber;
+
 
     [STAThread]
     static void Main(string[] args)
@@ -40,6 +44,9 @@ namespace Gimp.UnitTest
 
     public UnitTest(string[] args) : base(args)
     {
+      // Initialize the parameters
+      testsPerformed = 0;
+      _testCasesTotalNumber = 0;
     }
 
     override protected  ProcedureSet GetProcedureSet()
@@ -51,8 +58,8 @@ namespace Gimp.UnitTest
       Procedure procedure = new Procedure("plug_in_unit_test",
 					  "Unit Test",
 					  "Unit Test",
-					  "Maurits Rijk",
-					  "(C) Maurits Rijk",
+					  "Maurits Rijk, Massimo Perga",
+					  "(C) Maurits Rijk, Massimo Perga",
 					  "2004-2006",
 					  "Unit Test...",
 					  "",
@@ -90,8 +97,38 @@ namespace Gimp.UnitTest
 
     override protected void Render()
     {
-      UnitTester tester = new UnitTester();
+      UnitTester tester = new UnitTester(this);
+
+      _progress  = new Progress("UnitTest execution progress :");
+
       tester.Test(_testDll);
+    }
+
+    public void UpdateProgressStatus()
+    {
+      testsPerformed++;
+      double ratio = (double)((double)testsPerformed/(double)_testCasesTotalNumber);
+      if(_progress != null)
+      {
+        _progress.Update(ratio);
+/*
+        if(testsPerformed == _testCasesTotalNumber)
+        {
+        }
+        */
+      }
+    }
+
+    public int TestCasesTotalNumber
+    {
+      set
+      {
+        _testCasesTotalNumber = value;
+      }
+      get
+      {
+        return _testCasesTotalNumber;
+      }
     }
   }
 }

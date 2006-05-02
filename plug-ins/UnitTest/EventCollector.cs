@@ -1,5 +1,5 @@
 // The UnitTest plug-in
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2006 Maurits Rijk, Massimo Perga
 //
 // EventCollector.cs
 //
@@ -19,6 +19,7 @@
 //
 
 using System;
+using System.Collections;
 using System.IO;
 using NUnit.Core;
 using NUnit.Util;
@@ -31,9 +32,18 @@ namespace Gimp.UnitTest
   {
     int _nr_ok = 0;
     int _nr_failed = 0;
+    UnitTest  _unitTestPlugin;
+    ArrayList resultsAL;
+
+    public EventCollector( TextWriter outWriter, TextWriter errorWriter, UnitTest unitTestPlugin ) :
+      this(outWriter, errorWriter)
+    {
+      _unitTestPlugin = unitTestPlugin;
+    }
 
     public EventCollector( TextWriter outWriter, TextWriter errorWriter )
     {
+      resultsAL = new ArrayList();
     }
 
     public void RunStarted(Test[] tests)
@@ -42,10 +52,16 @@ namespace Gimp.UnitTest
 
     public void RunFinished(TestResult[] results)
     {
-      // Console.WriteLine("Succesful tests: " + _nr_ok);
-      // Console.WriteLine("Failed tests   : " + _nr_failed);
-      new Message("Succesful tests: " + _nr_ok + "\n" +
-		  "Failed tests   : " + _nr_failed);
+      TestReportDialog dialog = new TestReportDialog(_nr_ok, _nr_failed, resultsAL);
+      TestReportDialog.ShowHelpButton(false);
+      dialog.ShowAll();
+      ResponseType type = dialog.Run();
+      /*
+         if (type == ResponseType.Ok)
+         {
+         }
+         */
+      dialog.Destroy();
     }
 
     public void RunFinished(Exception exception)
@@ -54,19 +70,22 @@ namespace Gimp.UnitTest
 
     public void TestFinished(TestCaseResult testResult)
     {
-      // Console.WriteLine("TestFinished");
       if (testResult.Executed)
-	{
-	  if(testResult.IsFailure)
-	    {
-	      Console.WriteLine(testResult.ToString() + " failed");
-	      _nr_failed++;
-	    }
-	  else
-	    {
-	      _nr_ok++;
-	    }
-	}
+      {
+        if(testResult.IsFailure)
+        {
+          //Console.WriteLine(testResult.ToString() + " failed");
+          //new Message (testResult.ToString() + " failed");
+          resultsAL.Add(testResult.ToString());
+          _nr_failed++;
+        }
+        else
+        {
+          resultsAL.Add(testResult.ToString() + "OK");
+          _nr_ok++;
+        }
+        _unitTestPlugin.UpdateProgressStatus();
+      }
     }
 
     public void TestStarted(TestCase testCase)
@@ -75,7 +94,7 @@ namespace Gimp.UnitTest
 
     public void SuiteStarted(TestSuite suite) 
     {
-      // Console.WriteLine("SuiteStarted");
+      //				Console.WriteLine("SuiteStarted");
     }
 
     public void SuiteFinished(TestSuiteResult suiteResult) 

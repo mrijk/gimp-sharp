@@ -31,11 +31,13 @@ namespace Gimp.UnitTest
   {
     TestDomain testDomain;
     TestRunner testRunner;
+    UnitTest   _unitTestPlugin;
 
-    public UnitTester()
+    public UnitTester(UnitTest unitTestPlugin)
     {
       testDomain = new TestDomain();
       testRunner = testDomain;
+      _unitTestPlugin = unitTestPlugin;
     }
 
     private static Test MakeTestFromCommandLine(TestDomain testDomain,
@@ -52,16 +54,27 @@ namespace Gimp.UnitTest
     {
       TextWriter outWriter = Console.Out;
       TextWriter errorWriter = Console.Error;
+      Test test = null;
 
-      Test test = MakeTestFromCommandLine(testDomain, testDll);
+      try
+      {        
+        test = MakeTestFromCommandLine(testDomain, testDll);
+      }
+      catch(System.IO.FileNotFoundException fnfe)
+      {
+        new Message("Failed opening " + testDll);
+        return;
+      }
+
 
       if (test == null)
 	{
 	  Console.Error.WriteLine("Unable to locate fixture");
 	  return;
 	}
+      _unitTestPlugin.TestCasesTotalNumber = testRunner.CountTestCases();
 
-      EventListener collector = new EventCollector( outWriter, errorWriter );
+      EventListener collector = new EventCollector( outWriter, errorWriter, _unitTestPlugin );
 
       TestResult result = testRunner.Run(collector);
     }
