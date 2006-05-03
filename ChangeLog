@@ -1,3 +1,12 @@
+2006-05-03  Maurits  <m.rijk@chello.nl>
+
+	* lib/ParamDef.cs: added support for parameters of type RGB
+
+	* plug-ins/Ministeck/Ministeck.cs: add parameters
+
+	* plug-ins/UnitTest/TestPlugins.cs: added testcase for Ministeck
+	plug-in.
+
 2006-05-02  Maurits  <m.rijk@chello.nl>
 
 	* NEWS: update
@@ -33,7 +42,7 @@
 	* lib/Plugin.cs
 	* lib/SaveAttribute.cs: added names to attributes
 
-2006-04-27  Maurits  <m.rijk>
+2006-04-27  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/ecw/ecw.cs: start implementing save feature
 

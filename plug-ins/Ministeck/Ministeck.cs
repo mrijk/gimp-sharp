@@ -30,11 +30,11 @@ namespace Gimp.Ministeck
   {
     DrawablePreview _preview;
 
-    [SaveAttribute]
+    [SaveAttribute("limit")]
     bool _limit = true;
-    [SaveAttribute]
+    [SaveAttribute("size")]
     int _size = 16;
-    [SaveAttribute]
+    [SaveAttribute("color")]
     RGB _color = new RGB(0, 0, 0);
 
     [STAThread]
@@ -52,7 +52,11 @@ namespace Gimp.Ministeck
       ProcedureSet set = new ProcedureSet();
 
       ParamDefList in_params = new ParamDefList();
+      in_params.Add(new ParamDef("limit", true, typeof(bool), 
+				 "Use real life ratio for number of pieces if true"));
       in_params.Add(new ParamDef("size", 16, typeof(int), "Default size"));
+      in_params.Add(new ParamDef("color", new RGB(0, 0, 0), typeof(RGB), 
+				 "Color for the outline"));
 
       Procedure procedure = new Procedure("plug_in_ministeck",
 					  "Generates Ministeck",
@@ -94,7 +98,11 @@ namespace Gimp.Ministeck
       SpinButton size = new SpinButton(3, 100, 1);
       size.Value = _size;
       table.AttachAligned(0, 0, "_Size:", 0.0, 0.5, size, 2, true);
-      size.ValueChanged += SizeChanged;
+      size.ValueChanged += delegate(object sender, EventArgs e)
+	{
+	  _size = size.ValueAsInt;
+	  _preview.Invalidate();
+	};
 
       CheckButton limit = new CheckButton("_Limit Shapes");
       table.Attach(limit, 2, 3, 0, 1);
@@ -116,12 +124,6 @@ namespace Gimp.Ministeck
 
       dialog.ShowAll();
       return DialogRun();
-    }
-
-    void SizeChanged(object sender, EventArgs e)
-    {
-      _size = (sender as SpinButton).ValueAsInt;
-      _preview.Invalidate();
     }
 
     void UpdatePreview(object sender, EventArgs e)

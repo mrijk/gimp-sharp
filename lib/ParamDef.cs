@@ -60,6 +60,8 @@ namespace Gimp
 	return PDBArgType.Int32;
       else if (_type == typeof(string))
 	return PDBArgType.String;
+      else if (_type == typeof(RGB))
+	return PDBArgType.Color;
       else if (_type == typeof(Drawable))
 	return PDBArgType.Drawable;
       else if (_type == typeof(Image))

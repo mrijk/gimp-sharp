@@ -28,24 +28,42 @@ namespace Gimp
   [TestFixture]
   public class TestPlugins
   {
+    int _width = 129;
+    int _height = 65;
+    Image _image;
+    Drawable _drawable;
+
+    [SetUp]
+    public void Init()
+    {
+      _image = new Image(_width, _height, ImageBaseType.Rgb);
+
+      Layer layer = new Layer(_image, "test", _width, _height,
+			      ImageType.Rgb, 100, 
+			      LayerModeEffects.Normal);
+      _image.AddLayer(layer, 0);
+
+      _drawable = _image.ActiveDrawable;
+    }
+
+    [TearDown]
+    public void Exit()
+    {
+      _image.Delete();
+    }
+
     [Test]
     public void TestNCP()
     {
-      int width = 129;
-      int height = 65;
-
-      Image image = new Image(width, height, ImageBaseType.Rgb);
-
-      Layer layer = new Layer(image, "test", width, height,
-			      ImageType.Rgb, 100, LayerModeEffects.Normal);
-      image.AddLayer(layer, 0);
-
-      Drawable drawable = image.ActiveDrawable;
-
       Procedure procedure = new Procedure("plug_in_ncp");
-      procedure.Run(image, drawable, 12, 2, true);
+      procedure.Run(_image, _drawable, 12, 2, true);
+    }
 
-      image.Delete();
+    [Test]
+    public void TestMinisteck()
+    {
+      Procedure procedure = new Procedure("plug_in_ministeck");
+      procedure.Run(_image, _drawable, true, 16, new RGB(0, 255, 0));
     }
   }
 }
