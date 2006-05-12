@@ -35,7 +35,7 @@ namespace Gimp
       _dummy = new byte[drawable.Bpp];
     }
 
-    public void Destroy()
+    ~PixelFetcher()
     {
       gimp_pixel_fetcher_destroy (_ptr);
     }

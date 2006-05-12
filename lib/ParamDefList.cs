@@ -35,12 +35,10 @@ namespace Gimp
     public ParamDefList(bool usesImage, bool usesDrawable)
     {
       _set = new List<ParamDef>();
-      Add(new ParamDef("run_mode", typeof(Int32), 
+      Add(new ParamDef("run_mode", typeof(Int32),
 		       "Interactive, non-interactive"));
-      Add(new ParamDef("image", typeof(Image), 
-		       "Input image"));
-      Add(new ParamDef("drawable", typeof(Drawable), 
-		       "Input drawable"));
+      Add(new ParamDef("image", typeof(Image), "Input image"));
+      Add(new ParamDef("drawable", typeof(Drawable), "Input drawable"));
     }
 
     public ParamDefList() : this(true, true)
@@ -93,6 +91,9 @@ namespace Gimp
 		this[i].Value = ((Int32) param.data.d_int32 == 0) 
 		  ? false 
 		  : true;
+	      break;
+	    case PDBArgType.Color:
+	      this[i].Value = new RGB(param.data.d_color);
 	      break;
 	    case PDBArgType.Image:
 	      this[i].Value = new Image((Int32) param.data.d_image);

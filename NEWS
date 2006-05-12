@@ -1,7 +1,8 @@
 Overview of Changes in Gimp# 0.9
 ================================
 - GIMP# plug-ins can now be called non-interactively, for example from
-  within a script-fu.
+  within a script-fu
+- More unit tests (currently about 200)
 - Many bug fixes and smaller improvements
 
 Overview of Changes in Gimp# 0.8

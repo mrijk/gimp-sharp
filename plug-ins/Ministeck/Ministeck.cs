@@ -19,8 +19,6 @@
 //
 
 using System;
-using System.Collections;
-using System.Collections.Generic;
 
 using Gtk;
 
@@ -149,8 +147,7 @@ namespace Gimp.Ministeck
       RunProcedure("plug_in_pixelize", image, drawable, _size);
 
       MinisteckPalette palette = new MinisteckPalette();
-      image.ConvertIndexed(ConvertDitherType.No, 
-			   ConvertPaletteType.Custom,
+      image.ConvertIndexed(ConvertDitherType.No, ConvertPaletteType.Custom,
 			   0, false, false, "Ministeck");
       palette.Delete();
 
@@ -162,11 +159,9 @@ namespace Gimp.Ministeck
       int width = drawable.Width / _size;
       int height = drawable.Height / _size;
 
-      Painter painter = new Painter(drawable, _size, _color);
-      Shape.Painter = painter;
+      Shape.Painter = new Painter(drawable, _size, _color);
 
       bool[,] A = new bool[width, height];
-      Array.Clear(A, 0, width * height);
 
       // Fill in shapes
       
@@ -211,8 +206,6 @@ namespace Gimp.Ministeck
 	  if (!preview)
 	    progress.Update((double) y / height);
 	}
-	
-      painter.Destroy();
 
       drawable.Flush();
       drawable.Update(0, 0, drawable.Width, drawable.Height);

@@ -1,3 +1,29 @@
+2006-05-12  Maurits  <m.rijk@chello.nl>
+
+	* lib/PixelFetcher.cs: put gimp_pixel_fetcher_destroy in Finalize
+	function.
+
+	* plug-ins/Ministeck/Ministeck.cs
+	* plug-ins/Ministeck/Painter.cs
+	* plug-ins/UnitTest/TestPixelFetcher.cs: changed accordingly
+
+2006-05-10  Maurits  <m.rijk@chello.nl>
+
+	* NEWS: updated
+
+	* plug-ins/ecw/Makefile.am: make sure libecwwrapper is installed
+	with executable flag off.
+
+	* plug-ins/UnitTest/TestPixelFetcher.cs: new file
+
+	* plug-ins/UnitTest/Makefile.am: changed accordingly
+
+2006-05-08  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/Ministeck/Ministeck.cs: minor clean-up
+
+	* lib/ParamDefList.cs: support for Color parameters.
+
 2006-05-03  Maurits  <m.rijk@chello.nl>
 
 	* lib/ParamDef.cs: added support for parameters of type RGB

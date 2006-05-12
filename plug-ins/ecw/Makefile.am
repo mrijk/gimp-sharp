@@ -28,4 +28,4 @@ clean:
 install:
 	$(INSTALL_DATA) ecw.exe $(DESTDIR)$(GIMPPLUGINDIR)
 	$(INSTALL) ecw $(DESTDIR)$(GIMPPLUGINDIR)
-	$(INSTALL) .libs/libecwwrapper.so $(DESTDIR)$(GIMPPLUGINDIR)
+	$(INSTALL_DATA) .libs/libecwwrapper.so $(DESTDIR)$(GIMPPLUGINDIR)
