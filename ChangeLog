@@ -1,7 +1,16 @@
 2006-05-12  Maurits  <m.rijk@chello.nl>
 
+	* lib/ScaleEntry.cs: added ValueAsInt property...
+	* plug-ins/ncp/ncp.cs: ... and use it
+
+	* plug-ins/Raindrops/Raindrops.cs: imported code from Max and added 
+	named parameters so this plug-in can now be called from other 
+	scripts. Some minor clean-up.
+
+2006-05-12  Maurits  <m.rijk@chello.nl>
+
 	* lib/PixelFetcher.cs: put gimp_pixel_fetcher_destroy in Finalize
-	function.
+	function
 
 	* plug-ins/Ministeck/Ministeck.cs
 	* plug-ins/Ministeck/Painter.cs

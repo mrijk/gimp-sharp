@@ -119,7 +119,7 @@ namespace Gimp.ncp
 				     true, 0, 0, null, null);
       _closestEntry.ValueChanged += delegate(object sender, EventArgs e)
 	{
-	  _closest = (int) _closestEntry.Value;
+	  _closest = _closestEntry.ValueAsInt;
 	  _preview.Invalidate();
 	};
 

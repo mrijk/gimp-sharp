@@ -49,24 +49,30 @@ namespace Gimp
 				  unconstrained_upper, tooltip, help_id))
       {
       }
+
+      public int ValueAsInt
+      {
+	get {return (int) Value;}
+      }
+
       [DllImport("libgimpwidgets-2.0-0.dll")]
       extern static IntPtr gimp_scale_entry_new (
-	IntPtr       table,
-	int          column,
-	int          row,
-	string	text,
-	int          scale_width,
-	int          spinbutton_width,
-	double       value,
-	double       lower,
-	double       upper,
-	double       step_increment,
-	double       page_increment,
-	uint         digits,
-	bool         constrain,
-	double       unconstrained_lower,
-	double       unconstrained_upper,
-	string 	tooltip,
-	string 	help_id);
+						 IntPtr table,
+						 int    column,
+						 int    row,
+						 string	text,
+						 int    scale_width,
+						 int    spinbutton_width,
+						 double value,
+						 double lower,
+						 double upper,
+						 double step_increment,
+						 double page_increment,
+						 uint   digits,
+						 bool   constrain,
+						 double	unconstrained_lower,
+						 double unconstrained_upper,
+						 string tooltip,
+						 string help_id);
     }
-  }
+}
