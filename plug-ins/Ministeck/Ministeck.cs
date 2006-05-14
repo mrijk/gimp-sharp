@@ -159,52 +159,55 @@ namespace Gimp.Ministeck
       int width = drawable.Width / _size;
       int height = drawable.Height / _size;
 
-      Shape.Painter = new Painter(drawable, _size, _color);
+      using (Painter painter = new Painter(drawable, _size, _color))
+	{
+	  Shape.Painter = painter;
 
-      bool[,] A = new bool[width, height];
+	  bool[,] A = new bool[width, height];
 
-      // Fill in shapes
+	  // Fill in shapes
       
-      ShapeSet shapes = new ShapeSet();
+	  ShapeSet shapes = new ShapeSet();
 
-      if (_limit)
-	{
-	  shapes.Add(2, new TwoByTwoShape());
-	  shapes.Add(8, new ThreeByOneShape());
-	  shapes.Add(3, new TwoByOneShape());
-	  shapes.Add(2, new CornerShape());
-	  shapes.Add(1, new OneByOneShape());
-	}
-      else
-	{
-	  shapes.Add(new TwoByTwoShape());
-	  shapes.Add(new ThreeByOneShape());
-	  shapes.Add(new TwoByOneShape());
-	  shapes.Add(new CornerShape());
-	  shapes.Add(new OneByOneShape());
-	}
-
-      Progress progress = null;
-      if (!preview)
-	progress = new Progress("Ministeck...");
-
-      for (int y = 0; y < height; y++)
-	{
-	  for (int x = 0; x < width; x++)
+	  if (_limit)
 	    {
-	      if (!A[x, y])
+	      shapes.Add(2, new TwoByTwoShape());
+	      shapes.Add(8, new ThreeByOneShape());
+	      shapes.Add(3, new TwoByOneShape());
+	      shapes.Add(2, new CornerShape());
+	      shapes.Add(1, new OneByOneShape());
+	    }
+	  else
+	    {
+	      shapes.Add(new TwoByTwoShape());
+	      shapes.Add(new ThreeByOneShape());
+	      shapes.Add(new TwoByOneShape());
+	      shapes.Add(new CornerShape());
+	      shapes.Add(new OneByOneShape());
+	    }
+
+	  Progress progress = null;
+	  if (!preview)
+	    progress = new Progress("Ministeck...");
+
+	  for (int y = 0; y < height; y++)
+	    {
+	      for (int x = 0; x < width; x++)
 		{
-		  foreach (Shape shape in shapes)
+		  if (!A[x, y])
 		    {
-		      if (shape.Fits(A, x, y))
+		      foreach (Shape shape in shapes)
 			{
-			  break;
+			  if (shape.Fits(A, x, y))
+			    {
+			      break;
+			    }
 			}
 		    }
 		}
+	      if (!preview)
+		progress.Update((double) y / height);
 	    }
-	  if (!preview)
-	    progress.Update((double) y / height);
 	}
 
       drawable.Flush();

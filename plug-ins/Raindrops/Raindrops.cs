@@ -173,7 +173,7 @@ namespace Gimp.Raindrops
       if (!isPreview)
         _progress = new Progress("Raindrops...");
 
-      PixelFetcher _pf = new PixelFetcher(drawable, false);
+      PixelFetcher pf = new PixelFetcher(drawable, false);
 
       // Create a new matrix containing where to place raindrops
       bool [,] boolMatrix = new bool[width, height];
@@ -278,14 +278,14 @@ namespace Gimp.Raindrops
 
 			      boolMatrix[n, m] = true;
 
-			      _pf.GetPixel(l, k, originalColor);
+			      pf.GetPixel(l, k, originalColor);
 
 			      for (int b = 0; b < bpp; b++)
 				newColor[b] = 
 				  (byte) Clamp(originalColor[b] + bright, 
 					      0, 255);
 
-			      _pf.PutPixel(l, k, newColor);
+			      pf.PutPixel(l, k, newColor);
 			    }
 			}
 		    }
@@ -321,7 +321,7 @@ namespace Gimp.Raindrops
 				if (m >= 0 && m < height && 
 				    n >= 0 && n < width)
 				  {
-				    _pf.GetPixel(n, m, originalColor);
+				    pf.GetPixel(n, m, originalColor);
 				    for (int b = 0; b < bpp; b++)
 				      RGB_components[b] += originalColor[b];
 				    
@@ -339,7 +339,7 @@ namespace Gimp.Raindrops
 			  for (int b = 0; b < bpp; b++)
 			    newColor[b] = 
 			      (byte) (RGB_components[b] / BlurPixels);
-			  _pf.PutPixel(n, m, newColor);
+			  pf.PutPixel(n, m, newColor);
 			}
 		    }
 		}
@@ -347,6 +347,8 @@ namespace Gimp.Raindrops
 	  if (!isPreview)
 	    _progress.Update((double) NumBlurs / _number);
 	}
+
+      pf.Dispose();
 
       drawable.Flush();
       drawable.Update(0, 0, drawable.Width, drawable.Height);

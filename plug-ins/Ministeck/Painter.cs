@@ -18,9 +18,11 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
+using System;
+
 namespace Gimp.Ministeck
 {
-  public class Painter
+  public class Painter : IDisposable
   {
     PixelFetcher _pf;
     int _size;
@@ -32,6 +34,12 @@ namespace Gimp.Ministeck
       _color = color.Bytes;
       _pf = new PixelFetcher(drawable, false);
       _size = size;
+    }
+
+    public void Dispose()
+    {
+      _pf.Dispose();
+      GC.SuppressFinalize(this);
     }
 
     public int Size

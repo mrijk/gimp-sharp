@@ -24,7 +24,7 @@ using System.Runtime.InteropServices;
 
 namespace Gimp
 {
-  public sealed class PixelFetcher
+  public sealed class PixelFetcher: IDisposable
   {
     readonly IntPtr _ptr;
     readonly byte[] _dummy;
@@ -37,6 +37,7 @@ namespace Gimp
 
     ~PixelFetcher()
     {
+      Dispose(false);
     }
 
     public void GetPixel(int x, int y, byte[] pixel)
@@ -49,8 +50,18 @@ namespace Gimp
       gimp_pixel_fetcher_put_pixel (_ptr, x, y, pixel);
     }
 
-    public void Destroy()
+    public void Dispose()
     {
+      Dispose(true);
+      GC.SuppressFinalize(this);
+    }
+
+    protected void Dispose(bool disposing) 
+    {
+      if (disposing)
+	{
+	  // _dummy.Dispose();
+	}
       gimp_pixel_fetcher_destroy (_ptr);
     }
 

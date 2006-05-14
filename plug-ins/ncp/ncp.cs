@@ -24,9 +24,9 @@ using Gtk;
 
 namespace Gimp.ncp
 {
-  public class ncp : Plugin
+  public class ncp : PluginWithPreview
   {
-    AspectPreview _preview;
+    //    AspectPreview _preview;
     ScaleEntry _closestEntry;
 
     [SaveAttribute("seed")]
@@ -87,23 +87,13 @@ namespace Gimp.ncp
 
     override protected bool CreateDialog()
     {
-      gimp_ui_init("ncp", true);
-
       Dialog dialog = DialogNew("ncp", "ncp", IntPtr.Zero, 0,
 				Gimp.StandardHelpFunc, "ncp");
-
-      VBox vbox = new VBox(false, 12);
-      vbox.BorderWidth = 12;
-      dialog.VBox.PackStart(vbox, true, true, 0);
-
-      _preview = new AspectPreview(_drawable, false);
-      _preview.Invalidated += UpdatePreview;
-      vbox.PackStart(_preview, true, true, 0);
 
       GimpTable table = new GimpTable(4, 3, false);
       table.ColumnSpacing = 6;
       table.RowSpacing = 6;
-      vbox.PackStart(table, false, false, 0);
+      Vbox.PackStart(table, false, false, 0);
 
       RandomSeed seed = new RandomSeed(ref _seed, ref _random_seed);
 
@@ -120,7 +110,7 @@ namespace Gimp.ncp
       _closestEntry.ValueChanged += delegate(object sender, EventArgs e)
 	{
 	  _closest = _closestEntry.ValueAsInt;
-	  _preview.Invalidate();
+	  InvalidatePreview();
 	};
 
       CheckButton color = new CheckButton("_Use color");
@@ -128,7 +118,7 @@ namespace Gimp.ncp
       color.Toggled += delegate(object sender, EventArgs args)
 	{
 	  _color = color.Active;
-	  _preview.Invalidate();
+	  InvalidatePreview();
 	};
       table.Attach(color, 0, 1, 3, 4);
 			
@@ -136,12 +126,12 @@ namespace Gimp.ncp
       return DialogRun();
     }
 
-    void UpdatePreview(object sender, EventArgs e)
+    override protected void UpdatePreview(AspectPreview preview)
     {
       Initialize(_drawable);
 
       int width, height;
-      _preview.GetSize(out width, out height);
+      preview.GetSize(out width, out height);
 
       byte[] buffer = new byte[width * height * 3];
       byte[] dest = new byte[3];
@@ -157,7 +147,7 @@ namespace Gimp.ncp
 	      dest.CopyTo(buffer, index);
 	    }
 	}
-      _preview.DrawBuffer(buffer, width * 3);
+      preview.DrawBuffer(buffer, width * 3);
     }
 
     void PointsUpdate(object sender, EventArgs e)
@@ -176,7 +166,7 @@ namespace Gimp.ncp
 	}
       else
 	{
-	  _preview.Invalidate();
+	  InvalidatePreview();
 	}
     }
 

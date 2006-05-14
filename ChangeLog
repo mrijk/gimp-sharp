@@ -1,9 +1,28 @@
+2006-05-14  Maurits  <m.rijk@chello.nl>
+
+	* lib/PixelFetcher.cs: : implemented IDisposable
+	* plug-ins/Raindrops/Raindrops.cs: using Dispose method
+
+	* plug-ins/Ministeck/Painter.cs: implemented IDisposable
+	* plug-ins/Ministeck/Ministeck.cs: using Dispose method
+
 2006-05-14  Max      <massimo.perga@gmail.com>
 
 	* NEWS: updated
 	* lib/PixelFetcher.cs: added Destroy() method again.
 	* plug-ins/Raindrops/Raindrops.cs: added explicit pixel fetcher 
 	Destroy.
+
+2006-05-12  Maurits  <m.rijk@chello.nl>
+
+	* lib/PluginWithPreview.cs: new file
+	
+	* lib/Makefile.am: changed accordingly
+
+	* lib/Plugin.cs: made NewDialog virtual
+
+	* plug-ins/ncp/ncp.cs
+	* plug-ins/Swirlies/Swirlies.cs: derive from PluginWithPreview
 
 2006-05-12  Maurits  <m.rijk@chello.nl>
 

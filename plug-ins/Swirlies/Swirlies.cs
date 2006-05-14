@@ -26,7 +26,7 @@ using Gtk;
 
 namespace Gimp.Swirlies
 {
-  public class Swirlies : Plugin
+  public class Swirlies : PluginWithPreview
   {
     Random _random;
     byte[] _dest = new byte[3];
@@ -34,16 +34,15 @@ namespace Gimp.Swirlies
     int _height;
     List<Swirly> _swirlies = new List<Swirly>();
 
-    AspectPreview _preview;
     ProgressBar _progress;
 
     Thread _renderThread;
 
-    [SaveAttribute]
+    [SaveAttribute("seed")]
     UInt32 _seed;
-    [SaveAttribute]
+    [SaveAttribute("random_seed")]
     bool _random_seed;
-    [SaveAttribute]
+    [SaveAttribute("points")]
     int _points = 3;
 
     [STAThread]
@@ -82,27 +81,17 @@ namespace Gimp.Swirlies
 
     override protected bool CreateDialog()
     {
-      gimp_ui_init("Swirlies", true);
-
       Dialog dialog = DialogNew("Swirlies", "swirlies", IntPtr.Zero, 0, null, 
 				"swirlies");
-
-      VBox vbox = new VBox(false, 12);
-      vbox.BorderWidth = 12;
-      dialog.VBox.PackStart(vbox, true, true, 0);
-
-      _preview = new AspectPreview(_drawable, false);
       // _preview.SetBounds(0, 0, 50, 50);
-      _preview.Invalidated += UpdatePreview;
-      vbox.PackStart(_preview, true, true, 0);
 
       _progress = new ProgressBar();
-      vbox.PackStart(_progress, false, false, 0);
+      Vbox.PackStart(_progress, false, false, 0);
       
       GimpTable table = new GimpTable(4, 3, false);
       table.ColumnSpacing = 6;
       table.RowSpacing = 6;
-      vbox.PackStart(table, false, false, 0);
+      Vbox.PackStart(table, false, false, 0);
 
       RandomSeed seed = new RandomSeed(ref _seed, ref _random_seed);
 
@@ -111,14 +100,19 @@ namespace Gimp.Swirlies
       ScaleEntry entry = new ScaleEntry(table, 0, 1, "Po_ints:", 150, 3,
 					_points, 1.0, 16.0, 1.0, 8.0, 0,
 					true, 0, 0, null, null);
-      entry.ValueChanged += PointsUpdate;
+      entry.ValueChanged += delegate(object sender, EventArgs e)
+	{
+	  _points = entry.ValueAsInt;
+	  InvalidatePreview();
+	};
 			
       dialog.ShowAll();
       return DialogRun();
     }
 
-    void UpdatePreview(object sender, EventArgs e)
+    override protected void UpdatePreview(AspectPreview preview)
     {
+      return;
       if (_renderThread != null)
 	{
 	  _renderThread.Abort();
@@ -137,7 +131,7 @@ namespace Gimp.Swirlies
       Initialize(_drawable);
 
       int width, height;
-      _preview.GetSize(out width, out height);
+      Preview.GetSize(out width, out height);
 
       byte[] buffer = new byte[width * height * 3];
       byte[] dest = new byte[3];
@@ -156,15 +150,9 @@ namespace Gimp.Swirlies
 	    _progress.Update((double) y / height);
 	  });
 	}
-      _preview.DrawBuffer(buffer, width * 3);
+      Preview.DrawBuffer(buffer, width * 3);
     }
     
-    void PointsUpdate(object sender, EventArgs e)
-    {
-      _points = (int) (sender as Adjustment).Value;
-      _preview.Invalidate();
-    }
-
     override protected void Reset()
     {
       Console.WriteLine("Reset!");
@@ -172,7 +160,6 @@ namespace Gimp.Swirlies
 
     void Initialize(Drawable drawable)
     {
-
       _random = new Random((int) _seed);
       Swirly.Random = _random;
 
@@ -180,6 +167,7 @@ namespace Gimp.Swirlies
       _height = drawable.Height;
 
       _swirlies.Clear();
+
       for (int i = 0; i < _points; i++)
 	_swirlies.Add(Swirly.CreateRandom());
     }

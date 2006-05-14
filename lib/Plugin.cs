@@ -224,15 +224,15 @@ namespace Gimp
 
     GimpDialog _dialog;
 
-    protected Dialog DialogNew( string title,
-				string role,
-				IntPtr parent,
-				Gtk.DialogFlags flags,
-				GimpHelpFunc help_func,
-				string help_id,
-				string button1, Gtk.ResponseType action1,
-				string button2, Gtk.ResponseType action2,
-				string button3, Gtk.ResponseType action3)
+    virtual protected Dialog DialogNew(string title,
+				       string role,
+				       IntPtr parent,
+				       Gtk.DialogFlags flags,
+				       GimpHelpFunc help_func,
+				       string help_id,
+				       string button1, ResponseType action1,
+				       string button2, ResponseType action2,
+				       string button3, ResponseType action3)
     {
       _dialog = new GimpDialog(title, role, parent, flags, 
 			       help_func, help_id, 
@@ -244,12 +244,12 @@ namespace Gimp
       return _dialog;
     }
 
-    protected Dialog DialogNew( string title,
-				string role,
-				IntPtr parent,
-				Gtk.DialogFlags flags,
-				GimpHelpFunc help_func,
-				string help_id)
+    virtual protected Dialog DialogNew( string title,
+					string role,
+					IntPtr parent,
+					Gtk.DialogFlags flags,
+					GimpHelpFunc help_func,
+					string help_id)
     {
       return DialogNew(title, role, parent, flags,
 		       help_func, help_id,

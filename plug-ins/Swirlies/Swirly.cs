@@ -21,9 +21,9 @@
 using System;
 
 namespace Gimp.Swirlies
-  {
+{
   public class Swirly
-    {
+  {
     static Random random;
     
     const double ANGLE_MULTIPLIER_MAX = 3.0;
@@ -59,7 +59,7 @@ namespace Gimp.Swirlies
       Aszs, Dszs, Pszk, Aszk, Dszk, Pszz, Aszz, Dszz;
 
     static public Swirly CreateRandom() 
-      {
+    {
       Swirly swirly = new Swirly();
       
       swirly._x = random.NextDouble();
@@ -136,14 +136,15 @@ namespace Gimp.Swirlies
       swirly.Ssk = rand_secondary_coefficient(1, 1);
       swirly.Ksk = rand_mixed_coefficient(1, 1);
       swirly.Zsk = rand_mixed_coefficient(1, 1);
+      // Crash on the next line??????????
       swirly.Psz = rand_phase_shift();
       swirly.Asz = rand_angle_multiplier(1, 1);
+return swirly;
       swirly.Dsz = rand_linear_phase_shift(1, 1);
       swirly.Csz = rand_secondary_coefficient(1, 1);
       swirly.Ssz = rand_secondary_coefficient(1, 1);
       swirly.Ksz = rand_mixed_coefficient(1, 1);
       swirly.Zsz = rand_mixed_coefficient(1, 1);
-
       swirly.Pccc = rand_phase_shift();
       swirly.Accc = rand_angle_multiplier(3, 0);
       swirly.Dccc = rand_linear_phase_shift(3, 0);
@@ -242,133 +243,133 @@ namespace Gimp.Swirlies
       swirly.Dszz = rand_linear_phase_shift(1, 2);
 
       return swirly;
-      }
+    }
 
     static public Random Random
-      {
+    {
       set {random = value;}
-      }
+    }
 
     public void CalculateOnePoint(int terms, int width, int height, 
 				  double zoom, double x, double y, 
 				  ref double Fr, ref double Fg, ref double Fb) 
-      {
+    {
 
       for (int tx = -terms; tx <= terms; ++tx) 
 	{
-	double dx = zoom * (x - width * ((double) tx + _x));
+	  double dx = zoom * (x - width * ((double) tx + _x));
 
-	for (int ty = -terms; ty <= terms; ++ty) 
-	  {
-	  double dy = zoom * (y - height * ((double) ty + _y));
-	  double d2 = dx * dx + dy * dy;
-	  double angle = Math.Atan2(dy, dx);
-	  double d = Math.Sqrt(d2);
+	  for (int ty = -terms; ty <= terms; ++ty) 
+	    {
+	      double dy = zoom * (y - height * ((double) ty + _y));
+	      double d2 = dx * dx + dy * dy;
+	      double angle = Math.Atan2(dy, dx);
+	      double d = Math.Sqrt(d2);
 
 
-	  double Eccc = Pccc + Accc * angle + Dccc * d;
-	  double Eccs = Pccs + Accs * angle + Dccs * d;
-	  double Ecck = Pcck + Acck * angle + Dcck * d;
-	  double Eccz = Pccz + Accz * angle + Dccz * d;
-	  double Ecsc = Pcsc + Acsc * angle + Dcsc * d;
-	  double Ecss = Pcss + Acss * angle + Dcss * d;
-	  double Ecsk = Pcsk + Acsk * angle + Dcsk * d;
-	  double Ecsz = Pcsz + Acsz * angle + Dcsz * d;
-	  double Eckc = Pckc + Ackc * angle + Dckc * d;
-	  double Ecks = Pcks + Acks * angle + Dcks * d;
-	  double Eckk = Pckk + Ackk * angle + Dckk * d;
-	  double Eckz = Pckz + Ackz * angle + Dckz * d;
-	  double Eczc = Pczc + Aczc * angle + Dczc * d;
-	  double Eczs = Pczs + Aczs * angle + Dczs * d;
-	  double Eczk = Pczk + Aczk * angle + Dczk * d;
-	  double Eczz = Pczz + Aczz * angle + Dczz * d;
-	  double Escc = Pscc + Ascc * angle + Dscc * d;
-	  double Escs = Pscs + Ascs * angle + Dscs * d;
-	  double Esck = Psck + Asck * angle + Dsck * d;
-	  double Escz = Pscz + Ascz * angle + Dscz * d;
-	  double Essc = Pssc + Assc * angle + Dssc * d;
-	  double Esss = Psss + Asss * angle + Dsss * d;
-	  double Essk = Pssk + Assk * angle + Dssk * d;
-	  double Essz = Pssz + Assz * angle + Dssz * d;
-	  double Eskc = Pskc + Askc * angle + Dskc * d;
-	  double Esks = Psks + Asks * angle + Dsks * d;
-	  double Eskk = Pskk + Askk * angle + Dskk * d;
-	  double Eskz = Pskz + Askz * angle + Dskz * d;
-	  double Eszc = Pszc + Aszc * angle + Dszc * d;
-	  double Eszs = Pszs + Aszs * angle + Dszs * d;
-	  double Eszk = Pszk + Aszk * angle + Dszk * d;
-	  double Eszz = Pszz + Aszz * angle + Dszz * d;
+	      double Eccc = Pccc + Accc * angle + Dccc * d;
+	      double Eccs = Pccs + Accs * angle + Dccs * d;
+	      double Ecck = Pcck + Acck * angle + Dcck * d;
+	      double Eccz = Pccz + Accz * angle + Dccz * d;
+	      double Ecsc = Pcsc + Acsc * angle + Dcsc * d;
+	      double Ecss = Pcss + Acss * angle + Dcss * d;
+	      double Ecsk = Pcsk + Acsk * angle + Dcsk * d;
+	      double Ecsz = Pcsz + Acsz * angle + Dcsz * d;
+	      double Eckc = Pckc + Ackc * angle + Dckc * d;
+	      double Ecks = Pcks + Acks * angle + Dcks * d;
+	      double Eckk = Pckk + Ackk * angle + Dckk * d;
+	      double Eckz = Pckz + Ackz * angle + Dckz * d;
+	      double Eczc = Pczc + Aczc * angle + Dczc * d;
+	      double Eczs = Pczs + Aczs * angle + Dczs * d;
+	      double Eczk = Pczk + Aczk * angle + Dczk * d;
+	      double Eczz = Pczz + Aczz * angle + Dczz * d;
+	      double Escc = Pscc + Ascc * angle + Dscc * d;
+	      double Escs = Pscs + Ascs * angle + Dscs * d;
+	      double Esck = Psck + Asck * angle + Dsck * d;
+	      double Escz = Pscz + Ascz * angle + Dscz * d;
+	      double Essc = Pssc + Assc * angle + Dssc * d;
+	      double Esss = Psss + Asss * angle + Dsss * d;
+	      double Essk = Pssk + Assk * angle + Dssk * d;
+	      double Essz = Pssz + Assz * angle + Dssz * d;
+	      double Eskc = Pskc + Askc * angle + Dskc * d;
+	      double Esks = Psks + Asks * angle + Dsks * d;
+	      double Eskk = Pskk + Askk * angle + Dskk * d;
+	      double Eskz = Pskz + Askz * angle + Dskz * d;
+	      double Eszc = Pszc + Aszc * angle + Dszc * d;
+	      double Eszs = Pszs + Aszs * angle + Dszs * d;
+	      double Eszk = Pszk + Aszk * angle + Dszk * d;
+	      double Eszz = Pszz + Aszz * angle + Dszz * d;
 
-	  double Ecc = Pcc + Acc * angle + Dcc * d + Ccc * Math.Cos(Eccc)
-	    + Scc * Math.Sin(Eccs) + Kcc * d * Math.Cos(Ecck) + Zcc
-	    * d * Math.Sin(Eccz);
-	  double Ecs = Pcs + Acs * angle + Dcs * d + Ccs * Math.Cos(Ecsc)
-	    + Scs * Math.Sin(Ecss) + Kcs * d * Math.Cos(Ecsk) + Zcs
-	    * d * Math.Sin(Ecsz);
-	  double Eck = Pck + Ack * angle + Dck * d + Cck * Math.Cos(Eckc)
-	    + Sck * Math.Sin(Ecks) + Kck * d * Math.Cos(Eckk) + Zck
-	    * d * Math.Sin(Eckz);
-	  double Ecz = Pcz + Acz * angle + Dcz * d + Ccz * Math.Cos(Eczc)
-	    + Scz * Math.Sin(Eczs) + Kcz * d * Math.Cos(Eczk) + Zcz
-	    * d * Math.Sin(Eczz);
-	  double Esc = Psc + Asc * angle + Dsc * d + Csc * Math.Cos(Escc)
-	    + Ssc * Math.Sin(Escs) + Ksc * d * Math.Cos(Esck) + Zsc
-	    * d * Math.Sin(Escz);
-	  double Ess = Pss + Ass * angle + Dss * d + Css * Math.Cos(Essc)
-	    + Sss * Math.Sin(Esss) + Kss * d * Math.Cos(Essk) + Zss
-	    * d * Math.Sin(Essz);
-	  double Esk = Psk + Ask * angle + Dsk * d + Csk * Math.Cos(Eskc)
-	    + Ssk * Math.Sin(Esks) + Ksk * d * Math.Cos(Eskk) + Zsk
-	    * d * Math.Sin(Eskz);
-	  double Esz = Psz + Asz * angle + Dsz * d + Csz * Math.Cos(Eszc)
-	    + Ssz * Math.Sin(Eszs) + Ksz * d * Math.Cos(Eszk) + Zsz
-	    * d * Math.Sin(Eszz);
+	      double Ecc = Pcc + Acc * angle + Dcc * d + Ccc * Math.Cos(Eccc)
+		+ Scc * Math.Sin(Eccs) + Kcc * d * Math.Cos(Ecck) + Zcc
+		* d * Math.Sin(Eccz);
+	      double Ecs = Pcs + Acs * angle + Dcs * d + Ccs * Math.Cos(Ecsc)
+		+ Scs * Math.Sin(Ecss) + Kcs * d * Math.Cos(Ecsk) + Zcs
+		* d * Math.Sin(Ecsz);
+	      double Eck = Pck + Ack * angle + Dck * d + Cck * Math.Cos(Eckc)
+		+ Sck * Math.Sin(Ecks) + Kck * d * Math.Cos(Eckk) + Zck
+		* d * Math.Sin(Eckz);
+	      double Ecz = Pcz + Acz * angle + Dcz * d + Ccz * Math.Cos(Eczc)
+		+ Scz * Math.Sin(Eczs) + Kcz * d * Math.Cos(Eczk) + Zcz
+		* d * Math.Sin(Eczz);
+	      double Esc = Psc + Asc * angle + Dsc * d + Csc * Math.Cos(Escc)
+		+ Ssc * Math.Sin(Escs) + Ksc * d * Math.Cos(Esck) + Zsc
+		* d * Math.Sin(Escz);
+	      double Ess = Pss + Ass * angle + Dss * d + Css * Math.Cos(Essc)
+		+ Sss * Math.Sin(Esss) + Kss * d * Math.Cos(Essk) + Zss
+		* d * Math.Sin(Essz);
+	      double Esk = Psk + Ask * angle + Dsk * d + Csk * Math.Cos(Eskc)
+		+ Ssk * Math.Sin(Esks) + Ksk * d * Math.Cos(Eskk) + Zsk
+		* d * Math.Sin(Eskz);
+	      double Esz = Psz + Asz * angle + Dsz * d + Csz * Math.Cos(Eszc)
+		+ Ssz * Math.Sin(Eszs) + Ksz * d * Math.Cos(Eszk) + Zsz
+		* d * Math.Sin(Eszz);
 
-	  double Ec = Pc + Ac * angle + Dc * d + Cc * Math.Cos(Ecc) + Sc
-	    * Math.Sin(Ecs) + Kc * d * Math.Cos(Eck) + Zc * d
-	    * Math.Sin(Ecz);
-	  double Es = Ps + As * angle + Ds * d + Cs * Math.Cos(Esc) + Ss
-	    * Math.Sin(Ess) + Ks * d * Math.Cos(Esk) + Zs * d
-	    * Math.Sin(Esz);
+	      double Ec = Pc + Ac * angle + Dc * d + Cc * Math.Cos(Ecc) + Sc
+		* Math.Sin(Ecs) + Kc * d * Math.Cos(Eck) + Zc * d
+		* Math.Sin(Ecz);
+	      double Es = Ps + As * angle + Ds * d + Cs * Math.Cos(Esc) + Ss
+		* Math.Sin(Ess) + Ks * d * Math.Cos(Esk) + Zs * d
+		* Math.Sin(Esz);
 
-	  double F = (C * Math.Cos(Ec) + S * Math.Sin(Es)) / d2;
+	      double F = (C * Math.Cos(Ec) + S * Math.Sin(Es)) / d2;
 
-	  Fr += F * r;
-	  Fg += F * g;
-	  Fb += F * b;
-	  }
+	      Fr += F * r;
+	      Fg += F * g;
+	      Fb += F * b;
+	    }
 	}
-      }
+    }
 
     private static double drand48s() 
-      {
+    {
       return 1.0 - 2.0 * random.NextDouble();
-      }
+    }
     
     private static double rand_phase_shift() 
-      {
+    {
       return 2.0 * Math.PI * random.NextDouble();
-      }
+    }
     
     private static double rand_angle_multiplier(double m, double n) 
-      {
+    {
       return n - m + 1.0
 	+ Math.Floor(ANGLE_MULTIPLIER_MAX * random.NextDouble());
-      }
+    }
     
     private static double rand_linear_phase_shift(double m, double n) 
-      {
+    {
       return LINEAR_PHASE_SHIFT_MAX * drand48s() / (m + n);
-      }
+    }
     
     private static double rand_secondary_coefficient(double m, double n) 
-      {
+    {
       return (m + 2.0 * n) * SECONDARY_COEFFICIENT_MAX * drand48s();
-      }
+    }
     
     private static double rand_mixed_coefficient(double m, double n) 
-      {
+    {
       return (2.0 * m + n) * MIXED_COEFFICIENT_MAX * drand48s();
-      }
     }
   }
+}
