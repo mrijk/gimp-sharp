@@ -4,6 +4,7 @@ Overview of Changes in Gimp# 0.9
   within a script-fu
 - More unit tests (currently about 200)
 - Many bug fixes and smaller improvements
+- New plug-in to generate Raindrops
 
 Overview of Changes in Gimp# 0.8
 ================================

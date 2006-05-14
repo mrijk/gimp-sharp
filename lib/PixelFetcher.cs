@@ -37,7 +37,6 @@ namespace Gimp
 
     ~PixelFetcher()
     {
-      gimp_pixel_fetcher_destroy (_ptr);
     }
 
     public void GetPixel(int x, int y, byte[] pixel)
@@ -48,6 +47,11 @@ namespace Gimp
     public void PutPixel(int x, int y, byte[] pixel)
     {
       gimp_pixel_fetcher_put_pixel (_ptr, x, y, pixel);
+    }
+
+    public void Destroy()
+    {
+      gimp_pixel_fetcher_destroy (_ptr);
     }
 
     public byte[] this[int row, int col]

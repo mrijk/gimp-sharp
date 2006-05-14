@@ -1,3 +1,10 @@
+2006-05-14  Max      <massimo.perga@gmail.com>
+
+	* NEWS: updated
+	* lib/PixelFetcher.cs: added Destroy() method again.
+	* plug-ins/Raindrops/Raindrops.cs: added explicit pixel fetcher 
+	Destroy.
+
 2006-05-12  Maurits  <m.rijk@chello.nl>
 
 	* lib/ScaleEntry.cs: added ValueAsInt property...
@@ -69,6 +76,38 @@
 	* plug-ins/UnitTest/TestPlugins.cs: new file
 
 	* plug-ins/UnitTest/Makefile.am: changed accordingly
+
+2006-05-02  Max      <massimo.perga@gmail.com>
+
+	* plug-ins/UnitTest/Makefile.am: added the /target:winexe directive
+	for UnitTest.exe generation.
+
+2006-05-01  Max      <massimo.perga@gmail.com>
+
+	* plug-ins/UnitTest/TestReportDialog.cs: now it uses just one button. 
+
+	* lib/GimpDialog.cs: added support for GIMP Dialog with just one button.
+	
+	* plug-ins/UnitTest/EventCollector: removed Help button from the 
+	report dialog.
+
+2006-04-30  Max      <massimo.perga@gmail.com>
+
+	* plug-ins/UnitTest/UnitTester.cs: added support for NUnit DLL opening 
+	failure. Fixes #1471187 
+
+2006-04-30  Max      <massimo.perga@gmail.com>
+
+	* plug-ins/UnitTest/EventCollector.cs:
+	* plug-ins/UnitTest/UnitTest.cs: added support for native 
+	GIMP Progress bar. Fixes #126396
+
+	* plug-ins/UnitTest/Makefile.am: added support for TestReportDialog.cs
+	
+	* plug-ins/UnitTest/TestReportDialog.cs: new file 
+
+	* plug-ins/UnitTest/EventCollector.cs:
+	* plug-ins/UnitTest/UnitTester.cs: GUI support 
 
 2006-04-27  Maurits  <m.rijk@chello.nl>
 
