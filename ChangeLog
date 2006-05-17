@@ -1,3 +1,7 @@
+2006-05-17  Max      <massimo.perga@gmail.com>
+
+	* plug-ins/Raindrops/Raindrops.cs: added Undo support 
+
 2006-05-14  Maurits  <m.rijk@chello.nl>
 
 	* lib/PixelFetcher.cs: : implemented IDisposable

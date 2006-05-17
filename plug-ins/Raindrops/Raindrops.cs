@@ -141,6 +141,7 @@ namespace Gimp.Raindrops
       clone.Crop(width, height, x, y);
 
       RenderRaindrops(clone, clone.ActiveDrawable, true);
+
       PixelRgn rgn = new PixelRgn(clone.ActiveDrawable, 0, 0, width, height, 
 				  false, false);
       _preview.DrawRegion(rgn);
@@ -158,9 +159,31 @@ namespace Gimp.Raindrops
       Console.WriteLine("Reset!");
     }
 
-    override protected void Render(Image image, Drawable drawable)
+    override protected void Render(Image image, Drawable original_drawable)
     {
-      RenderRaindrops(image, drawable, false);
+      // TODO:still missing check on gimp_drawable_type (just layers are allowed)
+      Layer active_layer = image.ActiveLayer;
+      string original_layer_name =  active_layer.Name;
+
+      Layer new_layer = new Layer(active_layer);
+      new_layer.Name = "_raindrops_dummy_" + original_layer_name;      
+      new_layer.Visible = false;
+      new_layer.Mode = active_layer.Mode;
+      new_layer.Opacity = active_layer.Opacity;
+      
+            
+/*      if(!active_layer.HasAlpha)
+        active_layer.AddAlpha();*/
+    
+      RenderRaindrops(image, new_layer, false);
+      image.UndoGroupStart();
+      image.AddLayer(new_layer, -1); 
+      image.RemoveLayer(active_layer);
+      new_layer.Name = original_layer_name;
+      new_layer.Visible = true;
+      image.ActiveLayer = new_layer;
+      image.UndoGroupEnd();
+      Display.DisplaysFlush();
     }
 
     void RenderRaindrops(Image image, Drawable drawable, bool isPreview)
@@ -169,6 +192,7 @@ namespace Gimp.Raindrops
       int width = image.Width;
       int height = image.Height;
       Progress    _progress = null;
+      Tile.CacheNtiles((ulong) (2 * (drawable.Width / Gimp.TileWidth + 1))); 
 
       if (!isPreview)
         _progress = new Progress("Raindrops...");
@@ -202,7 +226,7 @@ namespace Gimp.Raindrops
       byte[] originalColor = new byte[bpp];
       byte[] newColor = new byte[bpp];
       Random _random = new Random();
-      
+     
       // TODO: find an upper bound so that
       // speed on big drop would be improved
       //int upper_bound = ; // upper bound for iteration in  blur search process
@@ -355,6 +379,7 @@ namespace Gimp.Raindrops
 
       if (!isPreview)
         Display.DisplaysFlush();
+
     }
 
     int GetBright(double Radius, double OldRadius, double a)
