@@ -140,6 +140,12 @@ namespace Gimp.Raindrops
       Image clone = new Image(_image);
       clone.Crop(width, height, x, y);
 
+      if(!clone.ActiveDrawable.IsLayer())
+      {
+        Message m = new Message("This filter can be applied just over layers");
+        return;
+      }
+
       RenderRaindrops(clone, clone.ActiveDrawable, true);
 
       PixelRgn rgn = new PixelRgn(clone.ActiveDrawable, 0, 0, width, height, 
@@ -161,7 +167,13 @@ namespace Gimp.Raindrops
 
     override protected void Render(Image image, Drawable original_drawable)
     {
-      // TODO:still missing check on gimp_drawable_type (just layers are allowed)
+      // Just layers are allowed
+      if(!original_drawable.IsLayer())
+      {
+        Message m = new Message("This filter can be applied just over layers");
+        return;
+      }
+
       Layer active_layer = image.ActiveLayer;
       string original_layer_name =  active_layer.Name;
 
