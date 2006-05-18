@@ -55,7 +55,8 @@ namespace Gimp
 	}
       set
 	{
-	  if (!gimp_context_set_foreground(value.GimpRGB))
+	  GimpRGB rgb = value.GimpRGB;
+	  if (!gimp_context_set_foreground(ref rgb))
 	    {
 	      throw new Exception();
 	    }
@@ -75,7 +76,8 @@ namespace Gimp
 	}
       set
 	{
-	  if (!gimp_context_set_background(value.GimpRGB))
+	  GimpRGB rgb = value.GimpRGB;
+	  if (!gimp_context_set_background(ref rgb))
 	    {
 	      throw new Exception();
 	    }
@@ -189,11 +191,11 @@ namespace Gimp
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_context_get_foreground(out GimpRGB foreground);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_context_set_foreground(GimpRGB foreground);
+    static extern bool gimp_context_set_foreground(ref GimpRGB foreground);
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_context_get_background(out GimpRGB background);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_context_set_background(GimpRGB background);
+    static extern bool gimp_context_set_background(ref GimpRGB background);
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_context_set_default_colors();
     [DllImport("libgimp-2.0-0.dll")]

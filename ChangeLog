@@ -1,6 +1,19 @@
+2006-05-18  Maurits  <m.rijk@chello.nl>
+
+	* lib/Context.cs: fixed bug with passing GimpRGB structs
+	* lib/PixelFetcher.cs: completed coverage of gimp_pixel_fetcher API
+
+	* plug-ins/UnitTest/TestPixelFetcher.cs
+	* plug-ins/UnitTest/TestContext.cs: testcases added
+	
 2006-05-17  Max      <massimo.perga@gmail.com>
 
 	* plug-ins/Raindrops/Raindrops.cs: added Undo support 
+
+2006-05-16  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/Raindrops/Raindrops.cs: added call to CacheNtiles which
+	makes this plug-in a lot faster.
 
 2006-05-14  Maurits  <m.rijk@chello.nl>
 

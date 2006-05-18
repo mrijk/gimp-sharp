@@ -24,6 +24,15 @@ using System.Runtime.InteropServices;
 
 namespace Gimp
 {
+  public enum EdgeMode
+  {
+    None,
+    Wrap,
+    Smear,
+    Black,
+    Background
+  }
+
   public sealed class PixelFetcher: IDisposable
   {
     readonly IntPtr _ptr;
@@ -38,6 +47,16 @@ namespace Gimp
     ~PixelFetcher()
     {
       Dispose(false);
+    }
+
+    public EdgeMode EdgeMode
+    {
+      set {gimp_pixel_fetcher_set_edge_mode(_ptr, value);}
+    }
+
+    public RGB BackgroundColor
+    {
+      set {gimp_pixel_fetcher_set_bg_color(_ptr, value.GimpRGB);}
     }
 
     public void GetPixel(int x, int y, byte[] pixel)
@@ -82,6 +101,12 @@ namespace Gimp
     [DllImport("libgimp-2.0-0.dll")]
     static extern IntPtr gimp_pixel_fetcher_new (IntPtr drawable,
 						 bool shadow);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern void gimp_pixel_fetcher_set_edge_mode (IntPtr pf,
+							 EdgeMode mode);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern void gimp_pixel_fetcher_set_bg_color (IntPtr pf,
+							GimpRGB color);
     [DllImport("libgimp-2.0-0.dll")]
     static extern IntPtr gimp_pixel_fetcher_destroy (IntPtr drawable);
     [DllImport("libgimp-2.0-0.dll")]

@@ -29,8 +29,50 @@ namespace Gimp
   public class TestContext
   {
     [Test]
-    public void FirstTest()
+    public void Foreground()
     {
+      Context.Push();
+      RGB foreground = new RGB(11, 12, 13);
+      Context.Foreground = foreground;
+      RGB result = Context.Foreground;
+      Assert.AreEqual(foreground.R, result.R);
+      Assert.AreEqual(foreground.G, result.G);
+      Assert.AreEqual(foreground.B, result.B);
+      // Fix me: why doesn't Assert.AreEqual(foreground, result) just work?
+      Context.Pop();
+    }
+
+    [Test]
+    public void Background()
+    {
+      Context.Push();
+      RGB background = new RGB(11, 12, 13);
+      Context.Background = background;
+      RGB result = Context.Background;
+      Assert.AreEqual(background.R, result.R);
+      Assert.AreEqual(background.G, result.G);
+      Assert.AreEqual(background.B, result.B);
+      // Fix me: why doesn't Assert.AreEqual(background, result) just work?
+      Context.Pop();
+    }
+
+    [Test]
+    public void Opacity()
+    {
+      Context.Push();
+      double opacity = 0.13;
+      Context.Opacity = opacity;
+      Assert.AreEqual(opacity, Context.Opacity);
+      Context.Pop();
+    }
+
+    [Test]
+    public void PaintMode()
+    {
+      Context.Push();
+      Context.PaintMode = LayerModeEffects.Multiply;
+      Assert.AreEqual(LayerModeEffects.Multiply, Context.PaintMode);
+      Context.Pop();
     }
   }
 }

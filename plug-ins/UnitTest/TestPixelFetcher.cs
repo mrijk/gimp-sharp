@@ -55,17 +55,19 @@ namespace Gimp
     [Test]
     public void PutGetPixel()
     {
-      PixelFetcher pf = new PixelFetcher(_drawable, false);
-      byte[] pixel = new byte[_drawable.Bpp];
-      byte[] expected = new byte[]{33, 66, 99};
-
-      for (int y = 0; y < _height; y++)
+      using (PixelFetcher pf = new PixelFetcher(_drawable, false))
 	{
-	  for (int x = 0; x < _width; x++)
+	  byte[] pixel = new byte[_drawable.Bpp];
+	  byte[] expected = new byte[]{33, 66, 99};
+	  
+	  for (int y = 0; y < _height; y++)
 	    {
-	      pf.PutPixel(x, y, expected);
-	      pf.GetPixel(x, y, pixel);
-	      Assert.AreEqual(expected, pixel);
+	      for (int x = 0; x < _width; x++)
+		{
+		  pf.PutPixel(x, y, expected);
+		  pf.GetPixel(x, y, pixel);
+		  Assert.AreEqual(expected, pixel);
+		}
 	    }
 	}
     }
@@ -73,18 +75,71 @@ namespace Gimp
     [Test]
     public void This()
     {
-      PixelFetcher pf = new PixelFetcher(_drawable, false);
-      byte[] pixel = new byte[_drawable.Bpp];
-      byte[] expected = new byte[]{33, 66, 99};
-
-      for (int y = 0; y < _height; y++)
+      using (PixelFetcher pf = new PixelFetcher(_drawable, false))
 	{
-	  for (int x = 0; x < _width; x++)
+	  byte[] pixel = new byte[_drawable.Bpp];
+	  byte[] expected = new byte[]{33, 66, 99};
+	  
+	  for (int y = 0; y < _height; y++)
 	    {
-	      pf[x, y] = expected;
-	      Assert.AreEqual(expected, pf[x, y]);
+	      for (int x = 0; x < _width; x++)
+		{
+		  pf[x, y] = expected;
+		  Assert.AreEqual(expected, pf[x, y]);
+		}
 	    }
 	}
     }
+
+    [Test]
+    public void PutGetPixel2()
+    {
+      // Fill with some color
+      RGB foreground = new RGB(22, 55, 77);
+      Context.Push();
+      Context.Foreground = foreground;
+      _drawable.Fill(FillType.Foreground);
+      Context.Pop();
+
+      byte[] expected = new byte[]{33, 66, 99};
+
+      // Fill with different color, using shadow
+      using (PixelFetcher pf = new PixelFetcher(_drawable, true))
+	{
+	  for (int y = 0; y < _height; y++)
+	    {
+	      for (int x = 0; x < _width; x++)
+		{
+		  pf[x, y] = expected;
+		}
+	    }
+	}
+
+      // check that original hasn't changed
+      using (PixelFetcher pf = new PixelFetcher(_drawable, false))
+	{
+	  for (int y = 0; y < _height; y++)
+	    {
+	      for (int x = 0; x < _width; x++)
+		{
+		  Assert.AreEqual(foreground.Bytes, pf[x, y]);
+		}
+	    }
+	}
+
+      _drawable.MergeShadow(true);
+
+      // and now the orginal should be changed
+      using (PixelFetcher pf = new PixelFetcher(_drawable, false))
+	{
+	  for (int y = 0; y < _height; y++)
+	    {
+	      for (int x = 0; x < _width; x++)
+		{
+		  Assert.AreEqual(expected, pf[x, y]);
+		}
+	    }
+	}
+    }   
   }
 }
