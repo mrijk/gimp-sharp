@@ -1,5 +1,5 @@
 // The Shatter plug-in
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2006 Maurits Rijk
 //
 // Shatter.cs
 //
@@ -26,7 +26,9 @@ namespace Gimp.Shatter
 {
   public class Shatter : PluginWithPreview
   {
-    [STAThread]
+    [SaveAttribute("pieces")]
+    int _pieces = 4;
+
     static void Main(string[] args)
     {
       new Shatter(args);
@@ -41,6 +43,8 @@ namespace Gimp.Shatter
       ProcedureSet set = new ProcedureSet();
 
       ParamDefList in_params = new ParamDefList();
+      in_params.Add(new ParamDef("pieces", 4, typeof(int),
+				 "Number of shards"));
 
       Procedure procedure = new Procedure("plug_in_shatter",
 					  "Shatter an image",
@@ -68,13 +72,33 @@ namespace Gimp.Shatter
       table.ColumnSpacing = 6;
       table.RowSpacing = 6;
       Vbox.PackStart(table, false, false, 0);
-			
+      
+      ScaleEntry entry = new ScaleEntry(table, 0, 1, "Pieces:", 150, 3,
+					_pieces, 1.0, 256.0, 1.0, 8.0, 0,
+					true, 0, 0, null, null);
+      entry.ValueChanged += delegate(object sender, EventArgs e)
+	{
+	  _pieces = entry.ValueAsInt;
+	  // InvalidatePreview();
+	};
+      
       dialog.ShowAll();
       return DialogRun();
     }
 
     override protected void Render(Drawable drawable)
     {
+      // Break up image in pieces
+      Coord ul = new Coord(0, 0);
+      Coord lr = new Coord(drawable.Width, drawable.Height);
+      ShardSet shards = new ShardSet(ul, lr, _pieces);
+
+      // 
+      foreach (Shard shard in shards)
+	{
+	  // Use gimp_free_select tool to create polygonal selection
+	}
+
       Display.DisplaysFlush();
     }
   }

@@ -26,7 +26,6 @@ namespace Gimp.ncp
 {
   public class ncp : PluginWithPreview
   {
-    //    AspectPreview _preview;
     ScaleEntry _closestEntry;
 
     [SaveAttribute("seed")]

@@ -1,3 +1,27 @@
+2006-05-23  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/UnitTest/TestPath.cs: new file with unit test for
+	Path. The Path class is needed for the Shatter plut-in.
+
+	* plug-ins/UnitTest/Makefile.am: changed accordingly
+
+2006-05-23  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/Shatter/ShardSet.cs: new file
+
+	* plug-ins/Shatter/Makefile.am: changed accordingly
+
+	* plug-ins/Shatter/Shatter.cs: initial GUI
+
+2006-05-22  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/ncp/ncp.cs: minor clean-up
+
+	* plug-ins/Shatter/*: new files for Shatter plug-in
+
+	* configure.in
+	* plug-ins/Makefile.am: changed accordingly
+	
 2006-05-18  Maurits  <m.rijk@chello.nl>
 
 	* lib/Context.cs: fixed bug with passing GimpRGB structs

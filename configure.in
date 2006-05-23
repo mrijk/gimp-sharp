@@ -6,12 +6,8 @@ AM_PROG_LIBTOOL
 AM_CONFIG_HEADER(config.h)
 
 dnl find and test the C compiler
-# AC_PROG_CC
-# AC_LANG_C
 AC_PROG_INSTALL
 AC_PROG_MAKE_SET
-
-# AC_HEADER_STDC
       
 VERSION="0.9"
 AC_SUBST(VERSION)
@@ -123,6 +119,7 @@ plug-ins/neo/Makefile
 plug-ins/Pdn/Makefile 
 plug-ins/PicturePackage/Makefile 
 plug-ins/Raindrops/Makefile 
+plug-ins/Shatter/Makefile
 plug-ins/SliceTool/Makefile 
 plug-ins/Splitter/Makefile 
 plug-ins/Swirlies/Makefile 

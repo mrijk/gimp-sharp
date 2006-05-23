@@ -19344,8 +19344,6 @@ LIBTOOL='$(SHELL) $(top_builddir)/libtool'
           ac_config_headers="$ac_config_headers config.h"
 
 
-# AC_PROG_CC
-# AC_LANG_C
 # Find a good install program.  We prefer a C program (faster),
 # so one script is as good as another.  But avoid the broken or
 # incompatible versions:
@@ -19454,8 +19452,6 @@ echo "${ECHO_T}no" >&6
   SET_MAKE="MAKE=${MAKE-make}"
 fi
 
-
-# AC_HEADER_STDC
 
 VERSION="0.9"
 
@@ -20210,7 +20206,7 @@ else
 fi
 
 
-                                                                                                                                                                          ac_config_files="$ac_config_files Makefile lib/Makefile plug-ins/Makefile plug-ins/ecw/Makefile plug-ins/KoalaPaint/Makefile plug-ins/ncp/Makefile plug-ins/Ministeck/Makefile plug-ins/neo/Makefile plug-ins/Pdn/Makefile plug-ins/PicturePackage/Makefile plug-ins/Raindrops/Makefile plug-ins/SliceTool/Makefile plug-ins/Splitter/Makefile plug-ins/Swirlies/Makefile plug-ins/UnitTest/Makefile plug-ins/UpdateCheck/Makefile plug-ins/wbmp/Makefile"
+                                                                                                                                                                                    ac_config_files="$ac_config_files Makefile lib/Makefile plug-ins/Makefile plug-ins/ecw/Makefile plug-ins/KoalaPaint/Makefile plug-ins/ncp/Makefile plug-ins/Ministeck/Makefile plug-ins/neo/Makefile plug-ins/Pdn/Makefile plug-ins/PicturePackage/Makefile plug-ins/Raindrops/Makefile plug-ins/Shatter/Makefile plug-ins/SliceTool/Makefile plug-ins/Splitter/Makefile plug-ins/Swirlies/Makefile plug-ins/UnitTest/Makefile plug-ins/UpdateCheck/Makefile plug-ins/wbmp/Makefile"
 
 
 cat >confcache <<\_ACEOF
@@ -20808,6 +20804,7 @@ do
   "plug-ins/Pdn/Makefile" ) CONFIG_FILES="$CONFIG_FILES plug-ins/Pdn/Makefile" ;;
   "plug-ins/PicturePackage/Makefile" ) CONFIG_FILES="$CONFIG_FILES plug-ins/PicturePackage/Makefile" ;;
   "plug-ins/Raindrops/Makefile" ) CONFIG_FILES="$CONFIG_FILES plug-ins/Raindrops/Makefile" ;;
+  "plug-ins/Shatter/Makefile" ) CONFIG_FILES="$CONFIG_FILES plug-ins/Shatter/Makefile" ;;
   "plug-ins/SliceTool/Makefile" ) CONFIG_FILES="$CONFIG_FILES plug-ins/SliceTool/Makefile" ;;
   "plug-ins/Splitter/Makefile" ) CONFIG_FILES="$CONFIG_FILES plug-ins/Splitter/Makefile" ;;
   "plug-ins/Swirlies/Makefile" ) CONFIG_FILES="$CONFIG_FILES plug-ins/Swirlies/Makefile" ;;

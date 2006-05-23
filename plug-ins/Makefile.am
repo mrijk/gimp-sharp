@@ -6,6 +6,7 @@ endif
 
 if BUILD_INCOMPLETE
 Raindrops = Raindrops
+Shatter = Shatter
 endif
 
 if BUILD_PDN
@@ -26,6 +27,7 @@ SUBDIRS = 		\
 	$(Pdn)		\
 	PicturePackage 	\
 	$(Raindrops)	\
+	$(Shatter)	\
 	SliceTool 	\
 	Splitter 	\
 	Swirlies 	\
