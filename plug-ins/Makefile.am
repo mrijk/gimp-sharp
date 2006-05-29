@@ -5,6 +5,7 @@ ecw = ecw
 endif
 
 if BUILD_INCOMPLETE
+PhotoshopActions = PhotoshopActions
 Raindrops = Raindrops
 Shatter = Shatter
 endif
@@ -18,19 +19,20 @@ UnitTest = UnitTest
 endif
 
 AUTOMAKE_OPTIONS = gnu
-SUBDIRS = 		\
-	$(ecw)		\
-	KoalaPaint 	\
-	Ministeck	\
-	ncp 		\
-	neo		\
-	$(Pdn)		\
-	PicturePackage 	\
-	$(Raindrops)	\
-	$(Shatter)	\
-	SliceTool 	\
-	Splitter 	\
-	Swirlies 	\
-	$(UnitTest) 	\
-	UpdateCheck	\
+SUBDIRS = 			\
+	$(ecw)			\
+	KoalaPaint 		\
+	Ministeck		\
+	ncp 			\
+	neo			\
+	$(Pdn)			\
+	$(PhotoshopActions)	\
+	PicturePackage 		\
+	$(Raindrops)		\
+	$(Shatter)		\
+	SliceTool 		\
+	Splitter 		\
+	Swirlies 		\
+	$(UnitTest) 		\
+	UpdateCheck		\
 	wbmp

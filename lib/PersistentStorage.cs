@@ -52,10 +52,12 @@ namespace Gimp
 	  _formatter.Serialize(memoryStream, field.GetValue(_plugin));
 	}
 
-      gimp_procedural_db_set_data(_name, memoryStream.GetBuffer(),
-				  (int) memoryStream.Length);		    
+      int length = (int) memoryStream.Length;
+      if (length != 0)
+	{
+	  gimp_procedural_db_set_data(_name, memoryStream.GetBuffer(), length);
+	}
     }
-
 
     public void GetData()
     {
@@ -72,7 +74,6 @@ namespace Gimp
 	    {
 	      FieldInfo field = attribute.Field;
 	      field.SetValue(_plugin, _formatter.Deserialize(memoryStream));
-
 	    }
 	}
     }

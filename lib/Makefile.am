@@ -19,6 +19,7 @@ MYSOURCES = 			\
 	FileEntry.cs		\
 	FilePlugin.cs		\
 	FloatingSelection.cs	\
+	FreeSelectTool.cs	\
 	GimpBaseEnums.cs	\
 	GimpColorButton.cs	\
 	GimpDialog.cs		\

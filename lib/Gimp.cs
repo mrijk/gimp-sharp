@@ -224,7 +224,7 @@ namespace Gimp
     [DllImport("libgimp-2.0-0.dll")]
     static extern Int32 gimp_default_display();
 
-    [DllImport("libgimpbase-2.0-0.dll")]
+    [DllImport("libgimp-2.0-0.dll")]
     static extern IntPtr gimp_directory();
 
     [DllImport("libgimp-2.0-0.dll")]

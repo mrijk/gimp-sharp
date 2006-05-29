@@ -1,3 +1,18 @@
+2006-05-29  Maurits  <m.rijk@chello.nl>
+
+	* lib/Gimp.cs: corrected wrong .dll import for gimp_directory()
+
+	* plug-ins/PhotoshopActions: placeholder for new plug-in
+
+	* plug-ins/Makefile.am: changed accordingly
+	* configure.in: 
+
+2006-05-24  Maurits  <m.rijk@chello.nl>
+
+	* lib/FreeSelectTool.cs: new file
+
+	* lib/Makefile.am: changed accordingly
+	
 2006-05-24  Max      <massimo.perga@gmail.com>
 
 	* plug-ins/Forge/Forge.cs: new file 

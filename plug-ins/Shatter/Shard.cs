@@ -56,5 +56,11 @@ namespace Gimp.Shatter
 	  s2 = new Shard(c1, _ur, c2, _lr);
 	}		
     }
+
+    public double[] GetValues()
+    {
+      return new double[] {_ul.X, _ul.Y, _ur.X, _ur.Y, _lr.X, _lr.Y,
+			   _ll.X, _ll.Y};
+    }
   }
 }

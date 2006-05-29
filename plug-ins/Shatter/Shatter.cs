@@ -86,7 +86,7 @@ namespace Gimp.Shatter
       return DialogRun();
     }
 
-    override protected void Render(Drawable drawable)
+    override protected void Render(Image image, Drawable drawable)
     {
       // Break up image in pieces
       Coord ul = new Coord(0, 0);
@@ -94,9 +94,12 @@ namespace Gimp.Shatter
       ShardSet shards = new ShardSet(ul, lr, _pieces);
 
       // 
+      
+      FreeSelectTool tool = new FreeSelectTool(image);
+
       foreach (Shard shard in shards)
 	{
-	  // Use gimp_free_select tool to create polygonal selection
+	  tool.Select(shard.GetValues(), ChannelOps.Replace);
 	}
 
       Display.DisplaysFlush();
