@@ -75,28 +75,94 @@ namespace Gimp.PhotoshopActions
       int index = ReadInt16();
       Console.WriteLine("Index: " + index);
       
-      byte shiftKey = ReadByte();
-      Console.WriteLine("ShiftKey: " + shiftKey);
-      
-      byte commandKey = ReadByte();
-      Console.WriteLine("CommandKey: " + commandKey);
-      
-      int colorIndex = ReadInt16();
-      Console.WriteLine("ColorIndex: " + colorIndex);
-
+      action.ShiftKey = ReadByte();
+      action.CommandKey = ReadByte();
+      action.ColorIndex = ReadInt16();
       action.Name = ReadUnicodeString();
-      Console.WriteLine("ActionName: " + action.Name);
-      
       action.Expanded = ReadByte();
-      Console.WriteLine("Expanded: " + action.Expanded);
       
       int children = ReadInt32();
       Console.WriteLine("Children: " + children);
 
+      for (int i = 0; i < 2; i++)
+	{
+	  ActionEvent actionEvent = ReadActionEvent();
+	  if (actionEvent != null)
+	    {
+	      action.Add(actionEvent);
+	    }
+	}
+
       return action;
     }
 
-    byte ReadByte()
+    ActionEvent ReadActionEvent()
+    {
+      byte expanded = ReadByte();
+      byte enabled = ReadByte();
+      byte withDialog = ReadByte();
+      byte dialogOptions = ReadByte();
+
+      char[] identifier = _binReader.ReadChars(4);
+      if (identifier[0] != 'T' || identifier[1] != 'E' ||
+	  identifier[2] != 'X' || identifier[3] != 'T')
+	{
+	  Console.WriteLine("Couldn't parse event: " + identifier);
+	  return null;
+	}
+
+      string eventName = ReadString();
+
+      string eventForDisplay = ReadString();
+      Console.WriteLine("\tEventForDisplay: " + eventForDisplay);
+      
+      int hasDescriptor = ReadInt32();
+      Console.WriteLine("\tHasDescriptor: " + hasDescriptor);
+      
+      string classID = ReadUnicodeString();
+      Console.WriteLine("\tClassID: " + classID);
+
+      ActionEvent actionEvent;
+
+      int length = ReadInt32();
+      if (length == 0)
+	{
+	  string classID2 = ReadFourByteString();
+	  Console.WriteLine("\tClassID2: " + classID2);
+
+	  // TODO: this should be put into a hash table
+	  if (classID2 == "Stop")
+	    {
+	      actionEvent = new StopEvent();
+	    }
+	  else if (classID2 == "Mk  ")
+	    {
+	      actionEvent = new MakeEvent();
+	    }
+	  else
+	    {
+	      Console.WriteLine("Event unsupported");
+	      return null;
+	    }
+
+	  int numberOfItems = ReadInt32();
+	  Console.WriteLine("\tNumberOfItems: " + numberOfItems);
+	}
+      else
+	{
+	  Console.WriteLine("*** length != 0: not implemented yet");
+	  return null;
+	}
+
+      // TODO: set expanded, enabled, withDialog, dialogOptions
+      actionEvent.EventForDisplay = eventForDisplay;
+
+      actionEvent.Parse(this);
+
+      return actionEvent;
+    }
+
+    public byte ReadByte()
     {
       return _binReader.ReadByte();
     }
@@ -108,14 +174,29 @@ namespace Gimp.PhotoshopActions
       return val[1] + 256 * val[0];
     }
 
-    int ReadInt32()
+    public int ReadInt32()
     {
       byte[] val = _binReader.ReadBytes(4);
       
       return val[3] + 256 * (val[2] + 256 * (val[1] + 256 * val[0]));
     }
 
-    string ReadUnicodeString()
+    public string ReadFourByteString()
+    {
+      byte[] buffer = _binReader.ReadBytes(4);
+      Encoding encoding = Encoding.ASCII;
+      return encoding.GetString(buffer);
+    }
+
+    string ReadString()
+    {
+      int length = ReadInt32();
+      byte[] buffer = _binReader.ReadBytes(length);
+      Encoding encoding = Encoding.ASCII;
+      return encoding.GetString(buffer);
+    }
+
+    public string ReadUnicodeString()
     {
       int length = ReadInt32();
       byte[] buffer = _binReader.ReadBytes(2 * length);

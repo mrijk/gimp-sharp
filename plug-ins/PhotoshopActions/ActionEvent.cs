@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// Action.cs
+// ActionEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,60 +19,29 @@
 //
 
 using System;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace Gimp.PhotoshopActions
 {
-  public class Action
+  abstract public class ActionEvent
   {
-    List<ActionEvent> _set = new List<ActionEvent>();
-
-    string _name;
-    byte _shiftKey;
-    byte _commandKey;
-    int _colorIndex;
-    byte _expanded;
-
-    public Action()
+    /*
+    readonly byte _expanded;
+    readonly byte _enabled;
+    readonly byte _withDialog;
+    readonly byte _dialogOptions;
+    */
+    string _eventForDisplay;
+    
+    public ActionEvent()
     {
     }
 
-    public byte ShiftKey
+    public string EventForDisplay
     {
-      set {_shiftKey = value;}
+      get {return _eventForDisplay;}
+      set {_eventForDisplay = value;}
     }
 
-    public byte CommandKey
-    {
-      set {_commandKey = value;}
-    }
-
-    public int ColorIndex
-    {
-      set {_colorIndex = value;}
-    }
-
-    public byte Expanded
-    {
-      get {return _expanded;}
-      set {_expanded = value;}
-    }
-
-    public string Name
-    {
-      get {return _name;}
-      set {_name = value;}
-    }
-
-    public void Add(ActionEvent actionEvent)
-    {
-      _set.Add(actionEvent);
-    }
-
-    public IEnumerator<ActionEvent> GetEnumerator()
-    {
-      return _set.GetEnumerator();
-    }
+    public abstract bool Parse(ActionParser parser);
   }
 }

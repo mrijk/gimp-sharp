@@ -1,3 +1,7 @@
+2006-05-30  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/PhotoshopActions/*: lots of changes
+
 2006-05-29  Maurits  <m.rijk@chello.nl>
 
 	* lib/Gimp.cs: corrected wrong .dll import for gimp_directory()

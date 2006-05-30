@@ -103,7 +103,12 @@ namespace Gimp.PhotoshopActions
 		  TreeIter iter = store.AppendValues(actions.Name);
 		  foreach (Action action in actions)
 		    {
-		      store.AppendValues(iter, action.Name);
+		      TreeIter iter1 = store.AppendValues(iter, action.Name);
+		      foreach (ActionEvent actionEvent in action)
+			{
+			  store.AppendValues(iter1, 
+					     actionEvent.EventForDisplay);
+			}
 		    }
 		}
 	    }

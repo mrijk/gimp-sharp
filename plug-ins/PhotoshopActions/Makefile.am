@@ -8,9 +8,12 @@ ASSEMBLIES = -r:$(GIMPSHARPLIB) /pkg:gtk-sharp-2.0 /target:winexe
 
 MYSOURCES = 			\
 	Action.cs		\
+	ActionEvent.cs		\
 	ActionParser.cs		\
 	ActionSet.cs		\
-	PhotoshopActions.cs
+	MakeEvent.cs		\
+	PhotoshopActions.cs	\
+	StopEvent.cs
 
 EXTRA_DIST = $(MYSOURCES) PhotoshopActions PhotoshopActions.png
 
