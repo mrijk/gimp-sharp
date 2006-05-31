@@ -1,3 +1,11 @@
+2006-05-31  Max      <massimo.perga@gmail.com>
+
+	* plug-ins/Raindrops/Raindrops.cs: minor changes on version
+
+	* plug-ins/Makefile.am: added rule to build Forge plug-in
+	* plug-ins/Forge/Forge: added to the repository
+	* plug-ins/Forge/Forge.cs: fixed issue on planet generation
+
 2006-05-30  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/PhotoshopActions/*: lots of changes
