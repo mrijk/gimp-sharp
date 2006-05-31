@@ -10,7 +10,7 @@ MYSOURCES = Forge.cs
 
 EXTRA_DIST = $(MYSOURCES) Forge Forge.png
 
-Raindrops.exe : $(MYSOURCES) Forge.png $(GIMPSHARPLIB)
+Forge.exe : $(MYSOURCES) Forge.png $(GIMPSHARPLIB)
 	$(CSC) $(MYSOURCES) /resource:Forge.png -out:$@ $(ASSEMBLIES)
 
 clean:
