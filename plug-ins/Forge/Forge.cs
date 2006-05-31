@@ -955,12 +955,14 @@ namespace Gimp.Forge
           bxc[j] = bxf[j] + 1;
           u[j] = bx - bxf[j];
           u1[j] = 1 - u[j];
-          Console.WriteLine("bxf[{0}] = {1}\tbxf[{0}] = {2}\tu[{0}] = {3:e}\tu1[{0}] = {4:e}\n",
+/*
+ * Console.WriteLine("bxf[{0}] = {1}\tbxf[{0}] = {2}\tu[{0}] = {3:e}\tu1[{0}] = {4:e}\n",
             j, bxf[j], bxc[j], u[j], u1[j]);
+            */
         }
       }
-      Console.ReadLine();
-      Console.WriteLine("Before g_new(pixel");
+//      Console.ReadLine();
+//      Console.WriteLine("Before g_new(pixel");
 
       //pixels = g_new(pixel, screenxsize);
       //      uint [,]pixels = new uint[screenxsize,3];
@@ -1009,15 +1011,26 @@ namespace Gimp.Forge
 //        Console.WriteLine("Before Clouds {0} {1}", clouds, stars);
 
         if (clouds) {
-          Console.WriteLine("In clouds");
+//          Console.WriteLine("In clouds");
 
           /* Render the FFT output as clouds. */
 
           for (j = 0; j < width; j++) {
+            /*
             double r = t1 * u1[j] * cp[byf + bxf[j]] +
               t  * u1[j] * cp[byc + bxf[j]] +
               t  * u[j]  * cp[byc + bxc[j]] +
               t1 * u[j]  * cp[byf + bxc[j]];
+              */
+              double r = 0;
+              if((byf + bxf[j]) < cp.Length)
+                r += t1 * u1[j] * cp[byf + bxf[j]]; 
+              if((byc + bxf[j]) < cp.Length)
+                r += t * u1[j] * cp[byc + bxf[j]]; 
+              if((byc + bxc[j]) < cp.Length)
+                r += t * u[j] * cp[byc + bxc[j]]; 
+              if((byf + bxc[j]) < cp.Length)
+                r += t1 * u[j] * cp[byf + bxc[j]]; 
             byte w = (byte)((r > 127.0) ? (rgbQuant * ((r - 127.0) / 128.0)) : 0);
 
             //            PPM_ASSIGN(*(pixels + j), w, w, RGBQuant);
@@ -1029,9 +1042,9 @@ namespace Gimp.Forge
             pixels[j][0] = w;
             pixels[j][1] = w;
             pixels[j][2] = (byte)rgbQuant;
-            Console.WriteLine("pixels[{0}][0] = {1}\tpixels[{0}][1] = {2}\tpixels[{0}][2] = {3}\tw = {4}\trgbQuant{5}\n", 
+/*            Console.WriteLine("pixels[{0}][0] = {1}\tpixels[{0}][1] = {2}\tpixels[{0}][2] = {3}\tw = {4}\trgbQuant{5}\n", 
               pixels[j][0], pixels[j][1], pixels[j][2], w, rgbQuant);
-            Console.ReadLine();
+            Console.ReadLine();*/
           }
         } else if (stars) {
 
