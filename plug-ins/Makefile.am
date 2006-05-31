@@ -20,20 +20,21 @@ UnitTest = UnitTest
 endif
 
 AUTOMAKE_OPTIONS = gnu
-SUBDIRS = 		\
-	$(ecw)		\
-	$(Forge) 	\
-	KoalaPaint 	\
-	Ministeck	\
-	ncp 		\
-	neo		\
-	$(Pdn)		\
-	PicturePackage 	\
-	$(Raindrops)	\
+SUBDIRS = 			\
+	$(ecw)			\
+	$(Forge) 		\
+	KoalaPaint 		\
+	Ministeck		\
+	ncp 			\
+	neo			\
+	$(Pdn)			\
+	$(PhotoshopActions)	\
+	PicturePackage 		\
+	$(Raindrops)		\
 	$(Shatter)		\
-	SliceTool 	\
-	Splitter 	\
-	Swirlies 	\
-	$(UnitTest) 	\
-	UpdateCheck	\
+	SliceTool 		\
+	Splitter 		\
+	Swirlies 		\
+	$(UnitTest) 		\
+	UpdateCheck		\
 	wbmp

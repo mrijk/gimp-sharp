@@ -30,20 +30,32 @@ namespace Gimp.PhotoshopActions
     
     override public bool Parse(ActionParser parser)
     {
-      int length = parser.ReadInt32();
-      Console.WriteLine("\tLength: " + length);
+      parser.ParseToken("Nw");
+      parser.ParseFourByteString("Objc");
 
-      if (length == 0)
-	{
-	  // Should be "Nw  "
-	  string key = parser.ReadFourByteString();
-	  Console.WriteLine("\tkey: " + key);
-	}
-      else
-	{
-	  Console.WriteLine("Keylength != 0 not supported yet!");
-	  return false;
-	}
+      string classID = parser.ReadUnicodeString();
+      string classID2 = parser.ReadTokenOrString();
+      Console.WriteLine("\tClassID2: " + classID2);
+
+      int numberOfItems = parser.ReadInt32();
+      Console.WriteLine("\tNumberOfItems: " + numberOfItems);
+
+      // TODO: hardcoded for guide
+      parser.ParseToken("Pstn");
+      parser.ParseFourByteString("UntF");
+
+      string units = parser.ReadFourByteString();
+      Console.WriteLine("\tunits: " + units);
+
+      double value = parser.ReadDouble();
+      Console.WriteLine("\tvalue: " + value);
+
+      parser.ParseToken("Ornt");
+      parser.ParseFourByteString("enum");
+      parser.ParseToken("Ornt");
+
+      string orientation = parser.ReadTokenOrString();
+      Console.WriteLine("\torientation: " + orientation);
 
       return true;
     }

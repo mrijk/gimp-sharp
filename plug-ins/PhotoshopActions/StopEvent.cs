@@ -24,55 +24,17 @@ namespace Gimp.PhotoshopActions
 {
   public class StopEvent : ActionEvent
   {
+    string _message;
+    bool _continue;
+
     public StopEvent()
     {
     }
     
     override public bool Parse(ActionParser parser)
     {
-      int length = parser.ReadInt32();
-      Console.WriteLine("\tLength: " + length);
-
-      if (length == 0)
-	{
-	  // Should be "Msge"
-	  string key = parser.ReadFourByteString();
-	  Console.WriteLine("\tkey: " + key);
-
-	  // Should be "TEXT"
-	  string type = parser.ReadFourByteString();
-	  Console.WriteLine("\ttype: " + type);
-
-	  string item = parser.ReadUnicodeString();
-	  Console.WriteLine("\titem: " + item);
-	}
-      else
-	{
-	  Console.WriteLine("Keylength != 0 not supported yet!");
-	  return false;
-	}
-
-      length = parser.ReadInt32();
-      Console.WriteLine("\tLength: " + length);
-
-      if (length == 0)
-	{
-	  // Should be "Cntn"
-	  string key = parser.ReadFourByteString();
-	  Console.WriteLine("\tkey: " + key);
-
-	  // Should be "bool"
-	  string type = parser.ReadFourByteString();
-	  Console.WriteLine("\ttype: " + type);
-
-	  byte item = parser.ReadByte();
-	  Console.WriteLine("\titem: " + item);
-	}
-      else
-	{
-	  Console.WriteLine("Keylength != 0 not supported yet!");
-	  return false;
-	}
+      _message = parser.ParseString("Msge");
+      _continue = parser.ParseBool("Cntn");
 
       return true;
     }
