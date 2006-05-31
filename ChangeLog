@@ -1,3 +1,7 @@
+2006-05-31  Max      <massimo.perga@gmail.com>
+
+	* plug-ins/Forge/Forge.cs: fixed clouds generation bug 
+
 2006-05-31  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/PhotoshopActions/*.cs: lots and lots of changes
