@@ -79,7 +79,7 @@ namespace Gimp.Raindrops
     {
       gimp_ui_init("Raindrops", true);
 
-      Dialog dialog = DialogNew("Raindrops", "Raindrops", IntPtr.Zero, 0,
+      Dialog dialog = DialogNew("Raindrops 0.1", "Raindrops", IntPtr.Zero, 0,
 				Gimp.StandardHelpFunc, "Raindrops");
 
       VBox vbox = new VBox(false, 12);

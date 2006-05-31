@@ -7,6 +7,7 @@ endif
 if BUILD_INCOMPLETE
 PhotoshopActions = PhotoshopActions
 Raindrops = Raindrops
+Forge = Forge
 Shatter = Shatter
 endif
 
@@ -19,20 +20,20 @@ UnitTest = UnitTest
 endif
 
 AUTOMAKE_OPTIONS = gnu
-SUBDIRS = 			\
-	$(ecw)			\
-	KoalaPaint 		\
-	Ministeck		\
-	ncp 			\
-	neo			\
-	$(Pdn)			\
-	$(PhotoshopActions)	\
-	PicturePackage 		\
-	$(Raindrops)		\
+SUBDIRS = 		\
+	$(ecw)		\
+	$(Forge) 	\
+	KoalaPaint 	\
+	Ministeck	\
+	ncp 		\
+	neo		\
+	$(Pdn)		\
+	PicturePackage 	\
+	$(Raindrops)	\
 	$(Shatter)		\
-	SliceTool 		\
-	Splitter 		\
-	Swirlies 		\
-	$(UnitTest) 		\
-	UpdateCheck		\
+	SliceTool 	\
+	Splitter 	\
+	Swirlies 	\
+	$(UnitTest) 	\
+	UpdateCheck	\
 	wbmp
