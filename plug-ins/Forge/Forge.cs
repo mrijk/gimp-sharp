@@ -874,6 +874,9 @@ namespace Gimp.Forge
 
       bool flipped = false;
       double shang, siang;
+      double r;
+      int drawableBpp = drawable.Bpp;
+			byte []tempArray = new byte[drawableBpp * width];
 
       Console.WriteLine("Inside GenPlanet height = {0} width = {1}",
           height, width);
@@ -1017,20 +1020,20 @@ namespace Gimp.Forge
 
           for (j = 0; j < width; j++) {
             /*
-            double r = t1 * u1[j] * cp[byf + bxf[j]] +
-              t  * u1[j] * cp[byc + bxf[j]] +
-              t  * u[j]  * cp[byc + bxc[j]] +
-              t1 * u[j]  * cp[byf + bxc[j]];
-              */
-              double r = 0;
-              if((byf + bxf[j]) < cp.Length)
-                r += t1 * u1[j] * cp[byf + bxf[j]]; 
-              if((byc + bxf[j]) < cp.Length)
-                r += t * u1[j] * cp[byc + bxf[j]]; 
-              if((byc + bxc[j]) < cp.Length)
-                r += t * u[j] * cp[byc + bxc[j]]; 
-              if((byf + bxc[j]) < cp.Length)
-                r += t1 * u[j] * cp[byf + bxc[j]]; 
+               double r = t1 * u1[j] * cp[byf + bxf[j]] +
+               t  * u1[j] * cp[byc + bxf[j]] +
+               t  * u[j]  * cp[byc + bxc[j]] +
+               t1 * u[j]  * cp[byf + bxc[j]];
+               */
+            r = 0;
+            if((byf + bxf[j]) < cp.Length)
+              r += t1 * u1[j] * cp[byf + bxf[j]]; 
+            if((byc + bxf[j]) < cp.Length)
+              r += t * u1[j] * cp[byc + bxf[j]]; 
+            if((byc + bxc[j]) < cp.Length)
+              r += t * u[j] * cp[byc + bxc[j]]; 
+            if((byf + bxc[j]) < cp.Length)
+              r += t1 * u[j] * cp[byf + bxc[j]]; 
             byte w = (byte)((r > 127.0) ? (rgbQuant * ((r - 127.0) / 128.0)) : 0);
 
             //            PPM_ASSIGN(*(pixels + j), w, w, RGBQuant);
@@ -1079,7 +1082,7 @@ namespace Gimp.Forge
               j <= (int)((width / 2) + lcos); 
               j++) 
           {
-            double r = 0.0;
+            r = 0.0;
             byte ir = 0, ig = 0, ib = 0;
 
             try
@@ -1266,10 +1269,10 @@ namespace Gimp.Forge
             */
 //          rgn.SetRow(pixels, 0, i, width);
 
-					byte []tempArray = new byte[drawable.Bpp * width];
+					//byte []tempArray = new byte[drawable.Bpp * width];
 //          Console.WriteLine("+-- TempArray --+");
 					for(int x = 0, dummy_i = 0; x < width; x++)
-						for(int y = 0; y < drawable.Bpp; y++)
+						for(int y = 0; y < drawableBpp; y++)
             {
 							tempArray[dummy_i++] = pixels[x][y];
             //  Console.Write("{0} ", tempArray[dummy_i-1]);
