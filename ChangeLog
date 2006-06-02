@@ -1,3 +1,7 @@
+2006-06-02  Max      <massimo.perga@gmail.com>
+
+	* plug-ins/Forge/Forge.cs: included InitParameters function 
+
 2006-06-01  Max      <massimo.perga@gmail.com>
 
 	* plug-ins/Forge/Forge.cs: significantly improved performances 

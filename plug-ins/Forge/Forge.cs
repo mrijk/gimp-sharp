@@ -478,6 +478,7 @@ namespace Gimp.Forge
       new_layer.Visible = false;
       new_layer.Mode = active_layer.Mode;
       new_layer.Opacity = active_layer.Opacity;
+      InitParameters();
       Planet(new_layer);
 
 
@@ -523,6 +524,7 @@ namespace Gimp.Forge
       /*   for (i = 0; i < 7; i++) {
            V random();
            }*/
+      //Console.WriteLine("starspec = {0}", starspec);
       if(!dimspec)
         fracdim = clouds ? Cast(1.9, 2.3) : Cast(2.0, 2.7);
       if(!powerspec)
@@ -532,7 +534,14 @@ namespace Gimp.Forge
       if(!glacspec)
         glaciers = Cast(0.6, 0.85);
       if(!starspec)
+      /*
+      {
+        Console.WriteLine("+++ starspec = {0} +++", starspec);*/
         starfraction = Cast(75, 125);
+        /*
+        Console.WriteLine("+++ starfraction = {0} +++", starfraction);
+      }
+      */
       if (!starcspec) 
         starcolour = Cast(100, 150);
     }
@@ -801,7 +810,8 @@ namespace Gimp.Forge
       double starQuality = 0.5;	      /* Brightness distribution exponent */
       double starIntensity = 8;	      /* Brightness scale factor */
       double starTintExp =	0.5;	      /* Tint distribution exponent */
-      if ((_random.Next() % 1000) < starfraction) {
+      double dummy = 0;
+      if ((dummy=(_random.Next() % 1000)) < starfraction) {
         double v = starIntensity * Math.Pow(1 / (1 - Cast(0, 0.9999)), starQuality);
         double temp;
         //r, g, b; 
@@ -815,6 +825,7 @@ namespace Gimp.Forge
            that if you specify no star colour, you never get more than
            256 shades in the image. */
 
+//        Console.Write("starcolour = {0}\t", starcolour);
         if (starcolour == 0) 
         {
           /*          uint vi = (uint)v;
@@ -845,6 +856,7 @@ namespace Gimp.Forge
         //        PPM_ASSIGN(*pix, 0, 0, 0);
         pix[0] = pix[1] = pix[2] = 0;
       }
+//      Console.Write("starfraction = {0:e} dummy = {1:e}\t",starfraction, dummy);
     }
 
     /*  GENPLANET  --  Generate planet from elevation array.  */
@@ -878,8 +890,7 @@ namespace Gimp.Forge
       int drawableBpp = drawable.Bpp;
 			byte []tempArray = new byte[drawableBpp * width];
 
-      Console.WriteLine("Inside GenPlanet height = {0} width = {1}",
-          height, width);
+      Console.WriteLine("Inside GenPlanet height = {0} width = {1}", height, width);
 
       //      GimpPixelRgn pixel_rgn;
       PixelRgn rgn = new PixelRgn(drawable, 0, 0, width,
@@ -1050,13 +1061,16 @@ namespace Gimp.Forge
             Console.ReadLine();*/
           }
         } else if (stars) {
+          Console.WriteLine("Dentro Stars");
 
           /* Generate a starry sky.  Note  that no FFT is performed;
              the output is  generated  directly  from  a  power  law
              mapping	of  a  pseudorandom sequence into intensities. */
 
           for (j = 0; j < width; j++) {
+//            Console.Write("pixels[{0}][2] = {1}\t", j, pixels[j][2]);
             Etoile(ref pixels[j]);
+//            Console.WriteLine("pixels[{0}][2] = {1}", j, pixels[j][2]);
           }
         } 
         else 
@@ -1271,6 +1285,7 @@ namespace Gimp.Forge
 
 					//byte []tempArray = new byte[drawable.Bpp * width];
 //          Console.WriteLine("+-- TempArray --+");
+          // TODO: improving this cycle reduces 1.0 secs on 4000x2000 image
 					for(int x = 0, dummy_i = 0; x < width; x++)
 						for(int y = 0; y < drawableBpp; y++)
             {
