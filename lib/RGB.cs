@@ -45,6 +45,12 @@ namespace Gimp
       _rgb = rgb._rgb;
     }
 
+    public RGB(HSV hsv)
+    {
+      GimpHSV tmp = hsv.GimpHSV;
+      gimp_hsv_to_rgb(ref tmp, ref _rgb);
+    }
+
     internal RGB(GimpRGB rgb)
     {
       _rgb = rgb;
@@ -221,6 +227,11 @@ namespace Gimp
 	  return new byte[]{r, g, b};
 	}
     }
+
+    [DllImport("libgimpcolor-2.0-0.dll")]
+    static extern void gimp_hsv_to_rgb(ref GimpHSV hsv,
+				       ref GimpRGB rgb);
+
 
     [DllImport("libgimpcolor-2.0-0.dll")]
     static extern void gimp_rgb_set(ref GimpRGB rgb,

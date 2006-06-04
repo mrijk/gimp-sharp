@@ -1,3 +1,21 @@
+2006-06-03  Maurits  <m.rijk@chello.nl>
+
+	* lib/RGB.cs: added constructor using HSV
+
+	* lib/HSV.cs: renamed (r, g, b) to (h, s, v)
+
+	* NEWS: updated
+
+	* plug-ins/PhotoshopActions/EventMap.cs
+	* plug-ins/PhotoshopActions/ExchangeEvent
+	* plug-ins/PhotoshopActions/GaussianBlurEvent.cs
+	* plug-ins/PhotoshopActions/LevelsEvent
+	* plug-ins/PhotoshopActions/SetBackgroundColorEvent.cs
+	* plug-ins/PhotoshopActions/SetForegroundColorEvent.cs
+	* plug-ins/PhotoshopActions/FillEvent.cs: new files
+
+	* plug-ins/PhotoshopActions/Makefile: changed accordingly
+	
 2006-06-02  Max      <massimo.perga@gmail.com>
 
 	* plug-ins/Forge/Forge.cs: included InitParameters function 

@@ -31,9 +31,16 @@ namespace Gimp.PhotoshopActions
     readonly byte _dialogOptions;
     */
     string _eventForDisplay;
-    
+    protected int _numberOfItems;
+
     public ActionEvent()
     {
+    }
+    
+    public ActionEvent(ActionEvent srcEvent)
+    {
+      _eventForDisplay = srcEvent._eventForDisplay;
+      _numberOfItems = srcEvent._numberOfItems;
     }
 
     public string EventForDisplay
@@ -42,6 +49,12 @@ namespace Gimp.PhotoshopActions
       set {_eventForDisplay = value;}
     }
 
-    public abstract bool Parse(ActionParser parser);
+    public int NumberOfItems
+    {
+      get {return _numberOfItems;}
+      set {_numberOfItems = value;}
+    }
+
+    public abstract ActionEvent Parse(ActionParser parser);
   }
 }

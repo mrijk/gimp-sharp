@@ -27,6 +27,7 @@ namespace Gimp.PhotoshopActions
   public class ActionParser
   {
     BinaryReader _binReader;
+    EventMap _map = new EventMap();
 
     public ActionParser()
     {
@@ -91,6 +92,10 @@ namespace Gimp.PhotoshopActions
 	    {
 	      action.Add(actionEvent);
 	    }
+	  else
+	    {
+	      break;
+	    }
 	}
 
       return action;
@@ -106,50 +111,37 @@ namespace Gimp.PhotoshopActions
       ParseFourByteString("TEXT");
 
       string eventName = ReadString();
-
-      string eventForDisplay = ReadString();
-      Console.WriteLine("\tEventForDisplay: " + eventForDisplay);
-      
-      int hasDescriptor = ReadInt32();
-      Console.WriteLine("\tHasDescriptor: " + hasDescriptor);
-      
-      string classID = ReadUnicodeString();
-      Console.WriteLine("\tClassID: " + classID);
-
-      string classID2 = ReadTokenOrString();
-      Console.WriteLine("\tClassID2: " + classID2);
-
-      ActionEvent actionEvent;
-      // TODO: this should be put into a hash table
-      if (classID2 == "Stop")
-	{
-	  actionEvent = new StopEvent();
-	}
-      else if (classID2 == "Mk")
-	{
-	  actionEvent = new MakeEvent();
-	}
-      else
-	{
-	  Console.WriteLine("Event {0} unsupported", classID2);
-	  return null;
-	}
-      
-      int numberOfItems = ReadInt32();
-      Console.WriteLine("\tNumberOfItems: " + numberOfItems);
-
-      actionEvent.EventForDisplay = eventForDisplay;
+      Console.WriteLine("\tEventName: " + eventName);
 
       try 
 	{
-	  actionEvent.Parse(this);
+	  ActionEvent actionEvent = _map.Lookup(eventName);
+	  actionEvent.EventForDisplay = ReadString();
+
+	  int hasDescriptor = ReadInt32();
+	  if (hasDescriptor != -1)
+	    {
+	      Console.WriteLine("\tHasDescriptor: " + hasDescriptor);
+	      return actionEvent;
+	    }
+	  string classID = ReadUnicodeString();
+	  Console.WriteLine("\tClassID: " + classID);
+	  
+	  string classID2 = ReadTokenOrString();
+	  Console.WriteLine("\tClassID2: " + classID2);
+	  
+	  actionEvent.NumberOfItems = ReadInt32();
+	  Console.WriteLine("\tNumberOfItems: " + actionEvent.NumberOfItems);
+	  
+	  actionEvent = actionEvent.Parse(this);
+
+	  return actionEvent;
 	} 
       catch (GimpSharpException e)
 	{
 	  Console.WriteLine("Parsing failed");
 	  return null;
 	}
-      return actionEvent;
     }
 
     public byte ReadByte()
@@ -171,6 +163,18 @@ namespace Gimp.PhotoshopActions
       return val[3] + 256 * (val[2] + 256 * (val[1] + 256 * val[0]));
     }
 
+    public int ReadLong(string expected)
+    {
+      ParseToken(expected);
+      return ReadLong();
+    }
+
+    public int ReadLong()
+    {
+      ParseFourByteString("long");
+      return ReadInt32();
+    }
+
     public double ReadDouble()
     {
       byte[] buffer = new byte[8];
@@ -181,6 +185,72 @@ namespace Gimp.PhotoshopActions
       MemoryStream memoryStream = new MemoryStream(buffer);
       BinaryReader reader = new BinaryReader(memoryStream);
       return reader.ReadDouble();
+    }
+
+    public double ReadDouble(string expected, out string units)
+    {
+      ParseToken(expected);
+      ParseFourByteString("UntF");
+      units = ReadFourByteString();
+
+      return ReadDouble();
+    }
+
+    public double ReadDouble(string expected)
+    {
+      ParseToken(expected);
+      ParseFourByteString("doub");
+      return ReadDouble();
+    }
+
+    public RGB ReadRGB()
+    {
+      double red = ReadDouble("Rd");
+      double green = ReadDouble("Grn");
+      double blue = ReadDouble("Bl");
+      return new RGB(red, green, blue);
+    }
+
+    public RGB ReadHSBC()
+    {
+      string units;
+      double hue = ReadDouble("H", out units);
+      double saturation = ReadDouble("Strt");
+      double brightness = ReadDouble("Brgh");
+      return new RGB(new HSV(hue, saturation, brightness));
+    }
+
+    public RGB ReadColor()
+    {
+      ParseFourByteString("Objc");
+      /* string classID = */ ReadUnicodeString();
+      string classID2 = ReadTokenOrString();
+      ParseInt32(3);
+
+      if (classID2 == "RGBC")
+	{
+	  return ReadRGB();
+	}
+      else if (classID2 == "HSBC")
+	{
+	  return ReadHSBC();
+	}
+      else
+	{
+	  Console.WriteLine("*** Color {0} not supported", classID2);
+	  throw new GimpSharpException();
+	}
+    }
+
+    public void ParseInt32(int expected)
+    {
+      int val = ReadInt32();
+      if (val != expected)
+	{
+	  Console.WriteLine("ParseInt32: found: {0}, expected: {1}", val, 
+			    expected);
+	  throw new GimpSharpException();
+	}
     }
 
     public void ParseToken(string expected)
@@ -209,15 +279,20 @@ namespace Gimp.PhotoshopActions
       if (length == 0)
 	{
 	  ParseFourByteString(expected);
-	  ParseFourByteString("bool");
-
-	  return (ReadByte() == 0) ? false : true;
+	  // ParseFourByteString("bool");
 	}
       else
 	{
-	  Console.WriteLine("Keylength != 0 not supported yet!");
-	  return false;
+	  string result = ReadString(length);
+	  if (result != expected)
+	    {
+	      Console.WriteLine("ParseBool: found: {0}, expected: {1}", result,
+				expected);
+	      throw new GimpSharpException();
+	    }
 	}
+      ParseFourByteString("bool");
+      return (ReadByte() == 0) ? false : true;
     }
 
     public void ParseFourByteString(string expected)
@@ -225,9 +300,19 @@ namespace Gimp.PhotoshopActions
       string token = ReadFourByteString();
       if (token != expected)
 	{
-	  Console.WriteLine("Found: {0}, expected: {1}", token, expected);
+	  Console.WriteLine("***ParseFourByteStringFound: {0}, expected: {1}", 
+			    token, expected);
 	  throw new GimpSharpException();
 	}
+    }
+
+    public int ParseObjc()
+    {
+      ParseFourByteString("Objc");
+      /* string classID = */ ReadUnicodeString();
+      /* string classID2 = */ ReadTokenOrString();
+
+      return ReadInt32();
     }
 
     public string ReadFourByteString()
@@ -237,31 +322,32 @@ namespace Gimp.PhotoshopActions
       return encoding.GetString(buffer).Trim();
     }
 
-    string ReadString()
+    string ReadString(int length)
     {
-      int length = ReadInt32();
       byte[] buffer = _binReader.ReadBytes(length);
       Encoding encoding = Encoding.ASCII;
       return encoding.GetString(buffer);
     }
 
+    string ReadString()
+    {
+      return ReadString(ReadInt32());
+    }
+
     public string ReadTokenOrString()
     {
       int length = ReadInt32();
-      if (length == 0)
-	{
-	  return ReadFourByteString();
-	}
-      else
-	{
-	  Console.WriteLine("Keylength != 0 not supported yet!");
-	  return null;
-	}
+      return (length == 0) ? ReadFourByteString() : ReadString(length);
     }
 
-    public string ReadUnicodeString()
+    public string ReadTokenOrUnicodeString()
     {
       int length = ReadInt32();
+      return (length == 0) ? ReadFourByteString() : ReadUnicodeString(length);
+    }
+
+    string ReadUnicodeString(int length)
+    {
       byte[] buffer = _binReader.ReadBytes(2 * length);
       
       for (int i = 0; i < 2 * length; i += 2)
@@ -272,6 +358,11 @@ namespace Gimp.PhotoshopActions
 	}
       Encoding encoding = Encoding.Unicode;
       return encoding.GetString(buffer);
+    }
+
+    public string ReadUnicodeString()
+    {
+      return ReadUnicodeString(ReadInt32());
     }
   }
 }

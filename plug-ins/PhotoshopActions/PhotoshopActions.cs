@@ -74,12 +74,19 @@ namespace Gimp.PhotoshopActions
       TreeStore store = CreateActionTree();
 
       ScrolledWindow sw = new ScrolledWindow();
-      vbox.Add(sw);
+      vbox.PackStart(sw, true, true, 0);
       
       TreeView view = new TreeView(store);
       sw.Add(view);        
 
       view.AppendColumn("SetName", new CellRendererText(), "text", 0);
+
+      Button play = new Button("Play");
+      play.Activated += delegate(object sender, EventArgs args)
+	{
+	  TreeSelection selection = view.Selection;
+	};      
+      vbox.PackStart(play, false, true, 0);
 
       dialog.ShowAll();
       return DialogRun();

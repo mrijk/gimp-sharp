@@ -6,13 +6,30 @@ GIMPSHARPLIB = $(top_builddir)/lib/gimp-sharp.dll
 
 ASSEMBLIES = -r:$(GIMPSHARPLIB) /pkg:gtk-sharp-2.0 /target:winexe
 
-MYSOURCES = 			\
-	Action.cs		\
-	ActionEvent.cs		\
-	ActionParser.cs		\
-	ActionSet.cs		\
-	MakeEvent.cs		\
-	PhotoshopActions.cs	\
+MYSOURCES = 				\
+	Action.cs			\
+	ActionEvent.cs			\
+	ActionParser.cs			\
+	ActionSet.cs			\
+	AddLayerEvent.cs		\
+	DeleteEvent.cs			\
+	DeleteLayerEvent.cs		\
+	DuplicateDocumentEvent.cs	\
+	EventMap.cs			\
+	ExchangeEvent.cs		\
+	FillEvent.cs			\
+	FindEdgesEvent.cs		\
+	GaussianBlurEvent.cs		\
+	HideEvent.cs			\
+	HueSaturationEvent.cs		\
+	InvertEvent.cs			\
+	LevelsEvent.cs			\
+	MakeEvent.cs			\
+	PhotoshopActions.cs		\
+	SelectionEvent.cs		\
+	SetBackgroundColorEvent.cs	\
+	SetForegroundColorEvent.cs	\
+	SetEvent.cs			\
 	StopEvent.cs
 
 EXTRA_DIST = $(MYSOURCES) PhotoshopActions PhotoshopActions.png

@@ -28,14 +28,19 @@ namespace Gimp
   {
     GimpHSV _hsv = new GimpHSV();
 
-    public HSV(double red, double green, double blue)
+    public HSV(double hue, double saturation, double value)
     {
-      gimp_hsv_set(ref _hsv, red, green, blue);
+      gimp_hsv_set(ref _hsv, hue, saturation, value);
     }
 
     public HSV(HSV hsv)
     {
       _hsv = hsv._hsv;
+    }
+
+    internal GimpHSV GimpHSV
+    {
+      get {return _hsv;}
     }
 
     public override bool Equals(object o)

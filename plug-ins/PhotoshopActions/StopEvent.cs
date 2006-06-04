@@ -31,12 +31,14 @@ namespace Gimp.PhotoshopActions
     {
     }
     
-    override public bool Parse(ActionParser parser)
+    override public ActionEvent Parse(ActionParser parser)
     {
       _message = parser.ParseString("Msge");
-      _continue = parser.ParseBool("Cntn");
-
-      return true;
+      if (NumberOfItems == 2)
+	{
+	  _continue = parser.ParseBool("Cntn");
+	}
+      return this;
     }
   }
 }

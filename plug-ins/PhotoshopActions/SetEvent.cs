@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// MakeEvent.cs
+// SetEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,47 +22,54 @@ using System;
 
 namespace Gimp.PhotoshopActions
 {
-  public class MakeEvent : ActionEvent
+  public class SetEvent : ActionEvent
   {
-    public MakeEvent()
+    public SetEvent()
     {
     }
     
     override public ActionEvent Parse(ActionParser parser)
     {
-      string token = parser.ReadTokenOrString();
-      if (token == "Nw")
-	{
-	  return ParseNw(parser);
-	}
-      else if (token == "null")
-	{
-	  return new AddLayerEvent(this).Parse(parser);
-	}
-      return this;
-    }
-
-    ActionEvent ParseNw(ActionParser parser)
-    {
-      parser.ParseFourByteString("Objc");
-
-      string classID = parser.ReadUnicodeString();
-      string classID2 = parser.ReadTokenOrString();
-      Console.WriteLine("\tClassID2: " + classID2);
-
+      parser.ParseToken("null");
+      parser.ParseFourByteString("obj");
+      
       int numberOfItems = parser.ReadInt32();
       Console.WriteLine("\tNumberOfItems: " + numberOfItems);
 
-      // TODO: hardcoded for guide
-      string units;
-      double position = parser.ReadDouble("Pstn", out units);
+      string type = parser.ReadFourByteString();
+      Console.WriteLine("\ttype: " + type);
 
-      parser.ParseToken("Ornt");
-      parser.ParseFourByteString("enum");
-      parser.ParseToken("Ornt");
+      if (type == "prop")
+	{
+	  string classID = parser.ReadTokenOrUnicodeString();
+	  Console.WriteLine("\tClassID: " + classID);
 
-      string orientation = parser.ReadTokenOrString();
-      Console.WriteLine("\torientation: " + orientation);
+	  classID = parser.ReadTokenOrString();
+	  Console.WriteLine("\tClassID: " + classID);
+
+	  string keyID = parser.ReadTokenOrString();
+	  if (keyID == "fsel")
+	    {
+	      return new SelectionEvent().Parse(parser);
+	    }
+	  else if (keyID == "BckC")
+	    {
+	      return new SetBackgroundColorEvent(this).Parse(parser);
+	    }
+	  else if (keyID == "FrgC")
+	    {
+	      return new SetForegroundColorEvent(this).Parse(parser);
+	    }
+	  else
+	    {
+	      Console.WriteLine("*** Unknown keyID: " + keyID);
+	      throw new GimpSharpException();
+	    }
+	}
+      else
+	{
+	  Console.WriteLine("*** Unknown type: " + type);
+	}
 
       return this;
     }

@@ -573,7 +573,7 @@ namespace Gimp.Forge
     {
       return ((low)+(((high)-(low)) * (_random.Next() & 0x7FFF) / arand));
     }
-
+    /*
     double Max(double a, double b)
     {
       return ((a > b) ? a : b);
@@ -583,7 +583,7 @@ namespace Gimp.Forge
     {
       return ((a < b) ? a : b);
     }
-
+    */
     double Planck(double temperature, double lambda)  
     {
       double c1 = 3.7403e10;
@@ -612,7 +612,7 @@ namespace Gimp.Forge
       eg = Planck(temp, 0.5461);
       eb = Planck(temp, 0.4358);
 
-      es = (double)(1.0 / Max(er, Max(eg, eb)));
+      es = (double)(1.0 / Math.Max(er, Math.Max(eg, eb)));
 
       /*
        *r = er * es;
@@ -840,7 +840,7 @@ namespace Gimp.Forge
             (((_random.Next() & 7) != 0) ? -1 : 1);
           /* Constrain temperature to a reasonable value: >= 2600K
              (S Cephei/R Andromedae), <= 28,000 (Spica). */
-          temp = Max(2600, Min(28000, temp));
+          temp = Math.Max(2600, Math.Min(28000, temp));
           TempRGB(temp, rgbDoubleArray);//&r, &g, &b);
           /*
              PPM_ASSIGN(*pix, (int) (r * v + 0.499),
@@ -1170,7 +1170,8 @@ namespace Gimp.Forge
             /* Generate polar ice caps. */
 
 //            Console.Write("Polar ice caps icet{0:e} glaciers {1} r {2}", icet, glaciers, r);
-            ice = Max(0.0, (icet + glaciers * Max(-0.5, (r - 128) / 128.0)));
+            ice = Math.Max(0.0, (icet + glaciers * 
+				 Math.Max(-0.5, (r - 128) / 128.0)));
 //            Console.WriteLine(" ice = {0}", ice);
             if  (ice > 0.125) {
               ir = ig = ib = 255;
@@ -1189,10 +1190,10 @@ namespace Gimp.Forge
               //#define 	    PlanetAmbient  0.05
               if (di < 0)
                 di = 0;
-              di = Min(1.0, di);
+              di = Math.Min(1.0, di);
 
               ds = Math.Sqrt(dxsq + dysq);
-              ds = Min(1.0, ds);
+              ds = Math.Min(1.0, ds);
               /* Calculate  atmospheric absorption  based on the
                  thickness of atmosphere traversed by  light  on
                  its way to the surface. */
@@ -1391,8 +1392,8 @@ namespace Gimp.Forge
             //	    double r = Real(a, i, j);
             double r = a[1 + ((i *meshsize) + j) * 2];
 
-            rmin = Min(rmin, r);
-            rmax = Max(rmax, r);
+            rmin = Math.Min(rmin, r);
+            rmax = Math.Max(rmax, r);
           }
         }
         rmean = (rmin + rmax) / 2;
