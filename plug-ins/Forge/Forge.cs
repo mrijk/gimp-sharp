@@ -25,18 +25,154 @@ using Gtk;
 
 namespace Gimp.Forge
 {
-  public class Forge : Plugin
+  public class Pixel
   {
-    DrawablePreview _preview;
+    public const int MONO = 1;
+    public const int RGB  = 3;
+    public const int RGBA = 4;
 
-    [SaveAttribute("drop_size")]
-      int _dropSize = 80;
-    [SaveAttribute("number")]
-      int _number = 80;
-    [SaveAttribute("fish_eye")]
-      int _fishEye = 30;
+    public enum ColorName {
+      Red,
+        Green,
+        Blue,
+        Alpha,
+        MaxColorName,
+        Grey = 0
+    };
 
-    int nrand = 4; // Gauss() sample count
+    private byte _grey, _red, _green, _blue, _alpha;
+    private int _bpp;
+
+    public Pixel() : this(0,0,0)
+    {
+    }
+
+    public Pixel(byte grey)
+    {
+      _bpp = MONO;
+      _grey = grey;
+    }
+
+    public Pixel(byte red, byte green, byte blue)
+    {
+      _bpp = RGB;
+      _red = red;
+      _green = green;
+      _blue = blue;
+    }
+
+    public Pixel(byte red, byte green, byte blue, byte alpha) : this(red,green,blue)
+    {
+      _bpp = RGBA;
+      _alpha = alpha;
+    }
+
+    public int Bpp 
+    {
+      get { return _bpp; }
+      set { _bpp = value;}
+    }
+
+    public byte[] ToByte()
+    {
+      byte[] retArray = new byte[_bpp];
+      switch(_bpp)
+      {
+        case MONO:
+          retArray[0] = _grey;
+          break;
+        case RGBA:
+          retArray[0] = _red;
+          retArray[1] = _green;
+          retArray[2] = _blue;
+          retArray[3] = _alpha;
+          break;
+        case RGB:
+          retArray[0] = _red;
+          retArray[1] = _green;
+          retArray[2] = _blue;
+          break;
+      }
+      return retArray;
+    }
+
+    public void SetColor(ColorName colorIndex, byte colorValue)
+    {
+      if(_bpp == RGB || _bpp == RGBA)
+      {
+        switch(colorIndex)
+        {
+          case ColorName.Red:
+            _red = colorValue;
+            break;
+          case ColorName.Green:
+            _green = colorValue;
+            break;
+          case ColorName.Blue:
+            _blue = colorValue;
+            break;
+          case ColorName.Alpha:
+            _alpha = colorValue;
+            break;
+        }
+      }
+      else if(_bpp == MONO && colorIndex == ColorName.Grey)
+        _grey = colorValue;
+    }
+
+    public byte Red
+    {
+      get { return _red; }
+      set { _red = value; }
+    }
+
+    public byte Green
+    {
+      get { return _green; }
+      set { _green = value; }
+    }
+
+    public byte Blue
+    {
+      get { return _blue; }
+      set { _blue = value; }
+    }
+
+    public byte Alpha
+    {
+      get { return _alpha; }
+      set { _alpha = value; }
+    }
+
+    public byte Grey
+    {
+      get { return _grey; }
+      set { _grey = value; }
+    }
+
+    public void SetColor(byte grey)
+    {
+      _grey = grey;
+    }
+
+    public void SetColor(byte red, byte green, byte blue)
+    {
+      _red = red;
+      _green = green;
+      _blue = blue;
+    }
+
+    public void SetColor(byte red, byte green, byte blue, byte alpha)
+    {
+      SetColor(red, green, blue);
+      _alpha = alpha;
+    }
+  }
+
+  public class Forge : PluginWithPreview
+  {
+    public const int nRand = 4; // Gauss() sample count
+    public const double planetAmbient = 0.05;
     Random _random;
 
     RadioButton _PlanetRadioButton;
@@ -119,13 +255,6 @@ namespace Gimp.Forge
 
       ParamDefList in_params = new ParamDefList();
 
-      in_params.Add(new ParamDef("drop_size", 80, typeof(int),
-            "Size of raindrops"));
-      in_params.Add(new ParamDef("number", 80, typeof(int),
-            "Number of raindrops"));
-      in_params.Add(new ParamDef("fish_eye", 30, typeof(int),
-            "Fisheye effect"));
-
       Procedure procedure = new Procedure("plug_in_forge",
           "Creates an artificial world.",
           "Creates an artificial world.",
@@ -154,11 +283,8 @@ namespace Gimp.Forge
       vbox.BorderWidth = 12;
       dialog.VBox.PackStart(vbox, true, true, 0);
 
-      /*
-         _preview = new DrawablePreview(_drawable, false);
-         _preview.Invalidated += UpdatePreview;
-         vbox.PackStart(_preview, true, true, 0);
-         */
+
+      //         vbox.PackStart(_preview, true, true, 0);
 
       // Create the table widget
       GimpTable table = new GimpTable(11, 3, false);
@@ -173,12 +299,6 @@ namespace Gimp.Forge
       HBox hbox = new HBox(false,1);
       frame.Add(hbox);
 
-      /*
-         _PlanetRadioButton = new RadioButton(null, "Planet");
-         _PlanetRadioButton.GroupChanged += 
-         new EventHandler(PlanetRadioButtonEventHandler);
-         hbox.PackStart(_PlanetRadioButton, true, true, 10);
-         */
       _PlanetRadioButton = CreateRadioButtonInHBox(hbox, null,
           PlanetRadioButtonEventHandler, "Planet");
 
@@ -243,12 +363,6 @@ namespace Gimp.Forge
         GenericEventHandler radioButtonEventHandler, 
         string radioButtonLabel)
     { 
-      /*
-         _PlanetRadioButton = new RadioButton(null, "Planet");
-         _PlanetRadioButton.GroupChanged += 
-         new EventHandler(PlanetRadioButtonEventHandler);
-         hbox.PackStart(_PlanetRadioButton, true, true, 10);
-         */
       RadioButton radioButton = new RadioButton(radioButtonGroup, 
           radioButtonLabel);
       radioButton.Clicked += new EventHandler(radioButtonEventHandler);
@@ -306,6 +420,7 @@ namespace Gimp.Forge
       else
         dimspec = true;
       fracdim = _DimensionSpinButton.Value;
+      InvalidatePreview();
     }
 
     void PowerSpinButtonEventHandler(object source, EventArgs e)
@@ -315,6 +430,7 @@ namespace Gimp.Forge
       else
         powerspec = true;
       powscale = _PowerSpinButton.Value;
+      InvalidatePreview();
     }
 
     void PlanetRadioButtonEventHandler(object source, EventArgs e)
@@ -332,6 +448,7 @@ namespace Gimp.Forge
           _PowerSpinButton.Value = 1.2;
         }
       }
+      InvalidatePreview();
     }
 
     void CloudsRadioButtonEventHandler(object source, EventArgs e)
@@ -349,6 +466,7 @@ namespace Gimp.Forge
           _PowerSpinButton.Value = 0.75;
         }
       }
+      InvalidatePreview();
     }
 
     void NightRadioButtonEventHandler(object source, EventArgs e)
@@ -366,48 +484,56 @@ namespace Gimp.Forge
           _PowerSpinButton.Value = 1.2;
         }
       }
+      InvalidatePreview();
     }
 
     void GlaciersSpinButtonEventHandler(object source, EventArgs e)
     {
       glacspec = true;
       glaciers = _GlaciersSpinButton.Value;
+      InvalidatePreview();
     }
 
     void IceSpinButtonEventHandler(object source, EventArgs e)
     {
       icespec = true;
       icelevel = _IceSpinButton.Value;
+      InvalidatePreview();
     }
 
     void HourSpinButtonEventHandler(object source, EventArgs e)
     {
       hourspec = true;
       hourangle = _HourSpinButton.Value;
+      InvalidatePreview();
     }
 
     void InclinationSpinButtonEventHandler(object source, EventArgs e)
     {
       inclspec = true;
       inclangle = _InclinationSpinButton.Value;  
+      InvalidatePreview();
     }
 
     void StarsSpinButtonEventHandler(object source, EventArgs e)
     {
       starspec = true;
       starfraction = _StarsSpinButton.Value;
+      InvalidatePreview();
     }
 
     void SaturationSpinButtonEventHandler(object source, EventArgs e)
     {
       starcspec = true;
       starcolour = _SaturationSpinButton.Value;
+      InvalidatePreview();
     }
 
     void SeedSpinButtonEventHandler(object source, EventArgs e)
     {
       seedspec = true;
       rseed = (uint)_SeedSpinButton.ValueAsInt;
+      InvalidatePreview();
     }
 
     Label CreateLabelInTable(Table table, uint row, uint col, string text) 
@@ -419,67 +545,52 @@ namespace Gimp.Forge
       return label;
     }
 
-    void UpdatePreview(object sender, EventArgs e)
+    override protected void UpdatePreview(AspectPreview preview)
     {
-      int x, y, width, height;
+      int width, height;
+      preview.GetSize(out width, out height);
 
-      _preview.GetPosition(out x, out y);
-      _preview.GetSize(out width, out height);
-      Image clone = new Image(_image);
-      clone.Crop(width, height, x, y);
+      byte []pixelArray = new byte[width * height * 3];
+      RenderForge(null, ref pixelArray, width, height);
 
-      if(!clone.ActiveDrawable.IsLayer())
-      {
-        new Message("This filter can be applied just over layers");
-        return;
-      }
-
-      //RenderRaindrops(clone, clone.ActiveDrawable, true);
-
-      PixelRgn rgn = new PixelRgn(clone.ActiveDrawable, 0, 0, width, height, 
-          false, false);
-      _preview.DrawRegion(rgn);
-
-      clone.Delete();
-    }
-
-    private int Clamp(int x, int l, int u)
-    {
-      return (x < l) ? l : ((x > u) ? u : x);
+      preview.DrawBuffer(pixelArray, width * 3);
+      pixelArray = null;
     }
 
     override protected void Reset()
     {
       SetDefaultValues(); 
-      //      Console.WriteLine("Reset!");
     }
 
     override protected void Render(Image image, Drawable original_drawable)
     {
-      Console.WriteLine("Render !");
       Tile.CacheNtiles((ulong) (2 * (original_drawable.Width / Gimp.TileWidth + 1)));
       if(_progress == null)
         _progress = new Progress("Forge...");
 
       // Just layers are allowed
-      /*
-         if(!original_drawable.IsLayer())
-         {
-         new Message("This filter can be applied just over layers");
-         return;
-         }
-         */
+      if(!original_drawable.IsLayer())
+      {
+        new Message("This filter can be applied just over layers");
+        return;
+      }
+      if(original_drawable.Width < original_drawable.Height)
+      {
+        new Message("This filter can be applied just if height <= width");
+        return;
+      }
 
       Layer active_layer = image.ActiveLayer;
-      //string original_layer_name =  active_layer.Name;
-
       Layer new_layer = new Layer(active_layer);
       new_layer.Name = "_Forge_";      
       new_layer.Visible = false;
       new_layer.Mode = active_layer.Mode;
       new_layer.Opacity = active_layer.Opacity;
-      InitParameters();
-      Planet(new_layer);
+      byte []pixelArray = null;
+      RenderForge(new_layer, ref pixelArray, new_layer.Width, new_layer.Height);
+
+      new_layer.Flush();
+      new_layer.Update(0, 0, new_layer.Width, new_layer.Height);
 
 
       /*      if(!active_layer.HasAlpha)
@@ -497,15 +608,20 @@ namespace Gimp.Forge
       Display.DisplaysFlush();
     }
 
+    void RenderForge(Drawable new_layer, ref byte[] pixelArray, int width, int height)
+    {
+      InitParameters();
+      Planet(new_layer, ref pixelArray, width, height);
+    }
+
     /*  INITGAUSS  --  Initialise random number generators.  As given in
         Peitgen & Saupe, page 77. */
     void InitGauss(uint seed)
     {
       /* Range of random generator */
       arand = Math.Pow(2.0, 15.0) - 1.0;
-      gaussadd = Math.Sqrt(3.0 * nrand);
-      gaussfac = 2 * gaussadd / (nrand * arand);
-      //   srandom(seed);
+      gaussadd = Math.Sqrt(3.0 * nRand);
+      gaussfac = 2 * gaussadd / (nRand * arand);
       _random = new Random((int)seed);
     }
 
@@ -516,15 +632,9 @@ namespace Gimp.Forge
          The  default  fractal  dimension  and  power  scale depend upon
          whether we're generating a planet or clouds. */
       arand = Math.Pow(2.0, 15.0) - 1.0;
-      // TODO: // is // it // the // best // solution // for // Random // ?
       _random = new Random((int)((DateTime.Now).Ticks ^ 0xF37C));
-      //   V srandom((int) (time((long *) 0) ^ 0xF37C));
       for(int i = 0; i < 7; i++)
         _random.Next();
-      /*   for (i = 0; i < 7; i++) {
-           V random();
-           }*/
-      //Console.WriteLine("starspec = {0}", starspec);
       if(!dimspec)
         fracdim = clouds ? Cast(1.9, 2.3) : Cast(2.0, 2.7);
       if(!powerspec)
@@ -534,18 +644,10 @@ namespace Gimp.Forge
       if(!glacspec)
         glaciers = Cast(0.6, 0.85);
       if(!starspec)
-      /*
-      {
-        Console.WriteLine("+++ starspec = {0} +++", starspec);*/
         starfraction = Cast(75, 125);
-        /*
-        Console.WriteLine("+++ starfraction = {0} +++", starfraction);
-      }
-      */
       if (!starcspec) 
         starcolour = Cast(100, 150);
     }
-
 
     /*  GAUSS  --  Return a Gaussian random number.  As given in Peitgen
         & Saupe, page 77. */
@@ -554,7 +656,7 @@ namespace Gimp.Forge
       int i;
       double sum = 0.0;
 
-      for (i = 1; i <= nrand; i++) {
+      for (i = 1; i <= nRand; i++) {
         sum += (_random.Next() & 0x7FFF);
       }
       return gaussfac * sum - gaussadd;
@@ -569,21 +671,18 @@ namespace Gimp.Forge
       rseed = (uint)rseedRandom.Next();
     }
 
+    void Swap(ref double a, ref double b)
+    {
+      double tempSwap = a;
+      a = b;
+      b = tempSwap;
+    }
+
     double Cast(double low, double high)
     {
       return ((low)+(((high)-(low)) * (_random.Next() & 0x7FFF) / arand));
     }
-    /*
-    double Max(double a, double b)
-    {
-      return ((a > b) ? a : b);
-    }
 
-    double Min(double a, double b)
-    {
-      return ((a < b) ? a : b);
-    }
-    */
     double Planck(double temperature, double lambda)  
     {
       double c1 = 3.7403e10;
@@ -614,11 +713,6 @@ namespace Gimp.Forge
 
       es = (double)(1.0 / Math.Max(er, Math.Max(eg, eb)));
 
-      /*
-       *r = er * es;
-       *g = eg * es;
-       *b = eb * es;
-       */
       rgb[0] = er*es;
       rgb[1] = eg*es;
       rgb[2] = eb*es;
@@ -662,7 +756,6 @@ namespace Gimp.Forge
       uint ntot;
       double tempi, tempr;
       double theta, wi, wpi, wpr, wr, wtemp;
-      double dummy_swap;
 
       ntot = 1;
       for (idim = 1; idim <= ndim; idim++)
@@ -680,18 +773,10 @@ namespace Gimp.Forge
             for (i1 = i2; i1 <= i2 + ip1 - 2; i1 += 2) {
               for (i3 = i1; i3 <= ip3; i3 += ip2) {
                 i3rev = i2rev + i3 - i2;
-                /*
-                   SWAP(data[i3], data[i3rev]);
-                   SWAP(data[i3 + 1], data[i3rev + 1]);
-                   */
                 // Swap data[i3] with data[i3rev]
-                dummy_swap = data[i3];
-                data[i3] = data[i3rev];
-                data[i3rev] = dummy_swap;
+                Swap(ref data[i3], ref data[i3rev]);
                 // Swap data[i3 + 1] with data[i3rev + 1]
-                dummy_swap = data[i3+1];
-                data[i3+1] = data[i3rev+1];
-                data[i3rev+1] = dummy_swap;
+                Swap(ref data[i3+1], ref data[i3rev+1]);
               }
             }
           }
@@ -743,15 +828,11 @@ namespace Gimp.Forge
       uint bl;
       uint i, j, i0, j0;
       double rad, phase, rcos, rsin;
-      //   float *a;
       double []a;
       uint []nsize = new uint[3];
 
       bl = ((n * n) + 1) * 2 ;
-      //   a = (float *) g_malloc0(bl);
       a = new double[bl];
-
-      //   *x = a;
       x = a;
 
       for (i = 0; i <= n / 2; i++) {
@@ -805,13 +886,12 @@ namespace Gimp.Forge
     }
 
     /*  ETOILE  --	Set a pixel in the starry sky.	*/
-    void Etoile(ref byte []pix)
+    void Etoile(ref Pixel rgbPixel)
     {
-      double starQuality = 0.5;	      /* Brightness distribution exponent */
-      double starIntensity = 8;	      /* Brightness scale factor */
-      double starTintExp =	0.5;	      /* Tint distribution exponent */
-      double dummy = 0;
-      if ((dummy=(_random.Next() % 1000)) < starfraction) {
+      const double starQuality = 0.5;	      /* Brightness distribution exponent */
+      const double starIntensity = 8;	      /* Brightness scale factor */
+      const double starTintExp =	0.5;	      /* Tint distribution exponent */
+      if ((_random.Next() % 1000) < starfraction) {
         double v = starIntensity * Math.Pow(1 / (1 - Cast(0, 0.9999)), starQuality);
         double temp;
         //r, g, b; 
@@ -825,13 +905,9 @@ namespace Gimp.Forge
            that if you specify no star colour, you never get more than
            256 shades in the image. */
 
-//        Console.Write("starcolour = {0}\t", starcolour);
         if (starcolour == 0) 
         {
-          /*          uint vi = (uint)v;
-
-          //PPM_ASSIGN(*pix, vi, vi, vi);*/
-          pix[0] = pix[1] = pix[2] = (byte)v;
+          rgbPixel = new Pixel((byte)v, (byte)v, (byte)v);
         } 
         else 
         {
@@ -841,33 +917,26 @@ namespace Gimp.Forge
           /* Constrain temperature to a reasonable value: >= 2600K
              (S Cephei/R Andromedae), <= 28,000 (Spica). */
           temp = Math.Max(2600, Math.Min(28000, temp));
-          TempRGB(temp, rgbDoubleArray);//&r, &g, &b);
-          /*
-             PPM_ASSIGN(*pix, (int) (r * v + 0.499),
-             (int) (g * v + 0.499),
-             (int) (b * v + 0.499));
-             */
+          TempRGB(temp, rgbDoubleArray);
+          rgbPixel = new Pixel();
           for(int dummy_i = 0; dummy_i < 3; dummy_i++)
-            pix[dummy_i] = (byte)(rgbDoubleArray[dummy_i] * v + 0.499);
+            rgbPixel.SetColor((Pixel.ColorName)dummy_i, 
+                (byte)(rgbDoubleArray[dummy_i] * v + 0.499));
         }
       } 
       else 
       {
-        //        PPM_ASSIGN(*pix, 0, 0, 0);
-        pix[0] = pix[1] = pix[2] = 0;
+        rgbPixel = new Pixel(); // automatically constructs Pixel(0,0,0)
       }
-//      Console.Write("starfraction = {0:e} dummy = {1:e}\t",starfraction, dummy);
     }
 
     /*  GENPLANET  --  Generate planet from elevation array.  */
-    void GenPlanet(Drawable drawable, double []a, uint n)
+    void GenPlanet(Drawable drawable, ref byte[] pixelArray, int width, int height, double []a, uint n)
     {
       int i, j;
       double rgbQuant = 255; 
       double atthick = 1.03;   /* Atmosphere thickness as a 
                                   percentage of planet's diameter */
-      int height = drawable.Height;
-      int width = drawable.Width;
       byte []cp = null;
       byte []ap = null;
       double []u = null;
@@ -876,44 +945,44 @@ namespace Gimp.Forge
       uint []bxc = null;
       uint ap_index = 0;
 
-      byte  []pixel = new byte[3];		      /* Pixel vector */
-      //      uint  rpix = new uint[3];		      /* Current pixel pointer */
       uint  rpix_offset = 0; // Offset to simulate the pointer for rpix
       double athfac = Math.Sqrt(atthick * atthick - 1.0);
       double []sunvec = new double[3];
-      double starClose = 2;
-      double atSatFac = 1.0;
+      const double starClose = 2;
+      const double atSatFac = 1.0;
 
-      bool flipped = false;
       double shang, siang;
       double r;
-      int drawableBpp = drawable.Bpp;
-			byte []tempArray = new byte[drawableBpp * width];
+      double t = 0;
+      double t1 = 0;
+      double by, dy;
+      double dysq = 0;
+      double sqomdysq, icet;
+      double svx = 0;
+      double svy = 0; 
+      double svz = 0; 
+      double azimuth;
+      int byf = 0;
+      int byc = 0;
+      int lcos = 0;
+      double dx; 
+      double dxsq;
+      double ds, di, inx;
+      double dsq, dsat;
+      byte ir, ig, ib;
+      PixelFetcher pf = null; 
 
-      Console.WriteLine("Inside GenPlanet height = {0} width = {1}", height, width);
-
-      //      GimpPixelRgn pixel_rgn;
-      PixelRgn rgn = new PixelRgn(drawable, 0, 0, width,
-          height, false, false);
-
-      /*
-       * gimp_pixel_rgn_init(&pixel_rgn, _drawable, 0, 0, _image_width,
-       _image_height, FALSE, FALSE);
-       */
+      if(drawable != null)
+        pf = new PixelFetcher(drawable, false);
 
       if (!stars) {
-        //u = g_new(double, screenxsize);
         u = new double[width];
-        //u1 = g_new(double, screenxsize);
         u1 = new double[width];
-        //bxf = g_new(unsigned int, screenxsize);
         bxf = new uint[width];
-        // bxc = g_new(unsigned int, screenxsize);
         bxc = new uint[width];
 
         /* Compute incident light direction vector. */
 
-        //        shang = hourspec ? hourangle : Cast(-(M_PI * 5) / 8, (M_PI * 5) / 8);
         shang = hourspec ? hourangle : Cast(0, 2 * Math.PI);
         siang = inclspec ? inclangle : Cast(-Math.PI * 0.12, Math.PI * 0.12);
 
@@ -924,15 +993,11 @@ namespace Gimp.Forge
         /* Allow only 25% of random pictures to be crescents */
 
         if (!hourspec && ((_random.Next() % 100) < 75)) {
-          flipped = (sunvec[2] < 0) ? true : false;
           sunvec[2] = Math.Abs(sunvec[2]);
         }
 
-        Console.WriteLine("After Allow only 25%");
-
         /* Prescale the grid points into intensities. */
 
-        //        cp = g_new(unsigned char, n * n);
         cp = new byte[n*n];
 
         ap = cp;
@@ -940,13 +1005,8 @@ namespace Gimp.Forge
           for (j = 0; j < n; j++) {
             ap[ap_index++] = (byte)(255.0 *  (a[1 + ((i * meshsize) + j) * 2]
                   + 1.0) / 2.0);
-
-
-            //            *ap++ = (255.0 * (Real(a, i, j) + 1.0)) / 2.0;
           }
         }
-
-        Console.WriteLine("Before Fill the screen");
 
         /* Fill the screen from the computed  intensity  grid  by  mapping
            screen  points onto the grid, then calculating each pixel value
@@ -969,73 +1029,42 @@ namespace Gimp.Forge
           bxc[j] = bxf[j] + 1;
           u[j] = bx - bxf[j];
           u1[j] = 1 - u[j];
-/*
- * Console.WriteLine("bxf[{0}] = {1}\tbxf[{0}] = {2}\tu[{0}] = {3:e}\tu1[{0}] = {4:e}\n",
-            j, bxf[j], bxc[j], u[j], u1[j]);
-            */
         }
       }
-//      Console.ReadLine();
-//      Console.WriteLine("Before g_new(pixel");
-
-      //pixels = g_new(pixel, screenxsize);
-      //      uint [,]pixels = new uint[screenxsize,3];
-      byte [][]pixels = new byte[width][];
-      for(int dummy_i = 0; dummy_i < width; dummy_i++)
-        pixels[dummy_i] = new byte[3];
+      Pixel []pixels = new Pixel[width];
 
       for (i = 0; i < height; i++) {
-        double t = 0;
-        double t1 = 0;
-        double by, dy;
-        double dysq = 0;
-        double sqomdysq, icet;
-        double svx = 0;
-        double svy = 0; 
-        double svz = 0; 
-        double azimuth;
-        int byf = 0;
-        int byc = 0;
-        int lcos = 0;
+        t = 0;
+        t1 = 0;
+        dysq = 0;
+        svx = 0;
+        svy = 0; 
+        svz = 0; 
+        byf = 0;
+        byc = 0;
+        lcos = 0;
 
         if (!stars) {		      /* Skip all this setup if just stars */
           //#define UPRJ(a,size) ((a)/((size)-1.0))
           //          by = (n - 1) * UPRJ(i, screenysize);
           by = (n - 1) * ((double)i / ((double)height-1.0));
-/*          by = (double)i;
-          by /= ((double)height - 1.0);
-          Console.WriteLine("by = i / (height - 1.0) = {0} and i = {1}", by, i);
-          by *= (n - 1);*/
-//          Console.WriteLine("by = (n - 1) * (i / (height - 1.0)) = {0}", by);
-//          Console.WriteLine("by = {0} n = {1} i = {2} height = {3}", by, n, i, height);
-//          Console.ReadLine();
           dy = 2 * (((height / 2) - i) / ((double) height));
           dysq = dy * dy;
           sqomdysq = Math.Sqrt(1.0 - dysq);
           svx = sunvec[0];
           svy = sunvec[1] * dy;
-//          Console.WriteLine("by = {0:e} n = {1} i = {2} height = {3}", by, n, i, height); 
-//          Console.ReadLine();
           svz = sunvec[2] * sqomdysq;
           byf = (int)(Math.Floor(by) * n);
           byc = byf + (int)n;
           t = by - Math.Floor(by);
           t1 = 1 - t;
         }
-//        Console.WriteLine("Before Clouds {0} {1}", clouds, stars);
 
         if (clouds) {
-//          Console.WriteLine("In clouds");
 
           /* Render the FFT output as clouds. */
 
           for (j = 0; j < width; j++) {
-            /*
-               double r = t1 * u1[j] * cp[byf + bxf[j]] +
-               t  * u1[j] * cp[byc + bxf[j]] +
-               t  * u[j]  * cp[byc + bxc[j]] +
-               t1 * u[j]  * cp[byf + bxc[j]];
-               */
             r = 0;
             if((byf + bxf[j]) < cp.Length)
               r += t1 * u1[j] * cp[byf + bxf[j]]; 
@@ -1047,93 +1076,47 @@ namespace Gimp.Forge
               r += t1 * u[j] * cp[byf + bxc[j]]; 
             byte w = (byte)((r > 127.0) ? (rgbQuant * ((r - 127.0) / 128.0)) : 0);
 
-            //            PPM_ASSIGN(*(pixels + j), w, w, RGBQuant);
-            /*
-               pixels[j*3] = w;           
-               pixels[j*3 + 1] = w;           
-               pixels[j*3 + 2] = rgbQuant;           
-               */
-            pixels[j][0] = w;
-            pixels[j][1] = w;
-            pixels[j][2] = (byte)rgbQuant;
-/*            Console.WriteLine("pixels[{0}][0] = {1}\tpixels[{0}][1] = {2}\tpixels[{0}][2] = {3}\tw = {4}\trgbQuant{5}\n", 
-              pixels[j][0], pixels[j][1], pixels[j][2], w, rgbQuant);
-            Console.ReadLine();*/
+            pixels[j] = new Pixel(w, w, (byte)rgbQuant);
           }
         } else if (stars) {
-          Console.WriteLine("Dentro Stars");
 
           /* Generate a starry sky.  Note  that no FFT is performed;
              the output is  generated  directly  from  a  power  law
              mapping	of  a  pseudorandom sequence into intensities. */
 
-          for (j = 0; j < width; j++) {
-//            Console.Write("pixels[{0}][2] = {1}\t", j, pixels[j][2]);
+          for (j = 0; j < pixels.Length; j++) {
             Etoile(ref pixels[j]);
-//            Console.WriteLine("pixels[{0}][2] = {1}", j, pixels[j][2]);
           }
         } 
         else 
         {
-//          Console.WriteLine("In the 'else' branch");
-          for (j = 0; j < width; j++) {
-            //            PPM_ASSIGN(*(pixels + j), 0, 0, 0);
-            pixels[j][0] = pixels[j][1] = pixels[j][2] = 0;           
-          }
+          for (j = 0; j < width; j++) pixels[j] = new Pixel(); // Pixel(0,0,0)
+
           azimuth = Math.Asin((((double)i / (height - 1)) * 2) - 1);
           icet = Math.Pow(Math.Abs(Math.Sin(azimuth)), 1.0 / icelevel) - 0.5;
-//          Console.WriteLine("azimuth = {0:e} cos = {1:e} abs = {2:e}", azimuth, Math.Cos(azimuth), Math.Abs(Math.Cos(azimuth)));
-//          Console.ReadLine();
           lcos = (int)((height / 2) * Math.Abs(Math.Cos(azimuth)));
-//          Console.WriteLine("After lcos (= {0}) assignment ; width = {1}", lcos, width);
-          //          rpix = pixels + (screenxsize / 2) - lcos;
-          /*          for(i = 0; i < 3; i++)
-                      rpix[i] = pixels[screensize/2 - lcos + rpix_offset];*/
           rpix_offset = (uint)(width/2 - lcos);
-//          Console.WriteLine("rpix_offset = {0} azimuth = {1:e} icet = {2:e}", rpix_offset, azimuth, icet);
 
           for (j = (int)((width / 2) - lcos); 
               j <= (int)((width / 2) + lcos); 
               j++) 
           {
             r = 0.0;
-            byte ir = 0, ig = 0, ib = 0;
+            ir = 0;
+            ig = 0;
+            ib = 0;
 
-            try
-            {
-              // Bugged version
-              /*
-                 r = t1 * u1[j] * cp[byf + bxf[j]] +
-                 t  * u1[j] * cp[byc + bxf[j]] +
-                 t  * u[j]  * cp[byc + bxc[j]] +
-                 t1 * u[j]  * cp[byf + bxc[j]];
-                 */
-              r = 0;
-              if((byf + bxf[j]) < cp.Length)
-                r += t1 * u1[j] * cp[byf + bxf[j]]; 
-              if((byc + bxf[j]) < cp.Length)
-                r += t * u1[j] * cp[byc + bxf[j]]; 
-              if((byc + bxc[j]) < cp.Length)
-                r += t * u[j] * cp[byc + bxc[j]]; 
-              if((byf + bxc[j]) < cp.Length)
-                r += t1 * u[j] * cp[byf + bxc[j]]; 
-            }
-            catch(Exception e)
-            {
-              Console.WriteLine("e.Message = {0}", e.Message);
-              Console.WriteLine("r = {0:e} t1 = {1} t = {2}", r, t1, t);
-              Console.WriteLine("cp.Length = {0}", cp.Length);
-              Console.WriteLine("byf+bxf[j] = {0} byc+bxf[j] = {1}", (byf+bxf[j]), (byc+bxf[j])  );
-              Console.WriteLine("byc+bxc[j] = {0} byf+bxc[j] = {1}", (byc+bxc[j]), (byf+bxc[j])  );
-              Console.WriteLine("Qua cp.Length = {5}, byc = {0} byf = {1} bxc[j] = {2} bxf[j] = {3} j = {4}", byc, byf, bxc[j], bxf[j], j, cp.Length);
-              Console.ReadLine();
-            }
- //           Console.WriteLine("NonQua byc = {0} byf = {1} bxc[j] = {2} bxf[j] = {3} j = {4}", byc, byf, bxc[j], bxf[j], j);
+            r = 0;
+            if((byf + bxf[j]) < cp.Length)
+              r += t1 * u1[j] * cp[byf + bxf[j]]; 
+            if((byc + bxf[j]) < cp.Length)
+              r += t * u1[j] * cp[byc + bxf[j]]; 
+            if((byc + bxc[j]) < cp.Length)
+              r += t * u[j] * cp[byc + bxc[j]]; 
+            if((byf + bxc[j]) < cp.Length)
+              r += t1 * u[j] * cp[byf + bxc[j]]; 
 
             double ice;
-//            Console.WriteLine("After pgnd assignment");
-
-
 
             if (r >= 128) {
               //#define ELEMENTS(array) (sizeof(array)/sizeof((array)[0]))
@@ -1142,19 +1125,9 @@ namespace Gimp.Forge
 
               /* Land area.  Look up colour based on elevation from
                  precomputed colour map table. */
-
-              try
-              {
-                ir = pgnd[ix,0];
-                ig = pgnd[ix,1];
-                ib = pgnd[ix,2];
-              }
-              catch(Exception e)
-              {
-                Console.WriteLine("Qui");
-                Console.ReadLine();
-              }
-//              Console.WriteLine("Land");
+              ir = pgnd[ix,0];
+              ig = pgnd[ix,1];
+              ib = pgnd[ix,2];
             } 
             else {
 
@@ -1164,28 +1137,20 @@ namespace Gimp.Forge
               ir = (byte)((r > 64) ? (r - 64) * 4 : 0);
               ig = ir;
               ib = 255;
-//              Console.WriteLine("Water");
             }
 
             /* Generate polar ice caps. */
 
-//            Console.Write("Polar ice caps icet{0:e} glaciers {1} r {2}", icet, glaciers, r);
-            ice = Math.Max(0.0, (icet + glaciers * 
-				 Math.Max(-0.5, (r - 128) / 128.0)));
-//            Console.WriteLine(" ice = {0}", ice);
+            ice = Math.Max(0.0, (icet + glaciers * Math.Max(-0.5, (r - 128) / 128.0)));
             if  (ice > 0.125) {
               ir = ig = ib = 255;
-//              Console.WriteLine("Ice");
             }
 
             /* Apply limb darkening by cosine rule. */
 
             {   
-              double dx = 2 * (((width / 2) - j) / ((double) height));
-              double dxsq = dx * dx;
-              double ds, di, inx;
-              double dsq, dsat;
-              double planetAmbient = 0.05;
+              dx = 2 * (((width / 2) - j) / ((double) height));
+              dxsq = dx * dx;
               di = svx * dx + svy + svz * Math.Sqrt(1.0 - dxsq);
               //#define 	    PlanetAmbient  0.05
               if (di < 0)
@@ -1218,119 +1183,47 @@ namespace Gimp.Forge
               ib = (byte)(ib * inx);
             }
 
-            /*
-               pixels[rpix_offset++] = ir;
-               pixels[rpix_offset++] = ig;
-               pixels[rpix_offset++] = ib;
-               */
-            pixels[rpix_offset][0] = ir;
-            pixels[rpix_offset][1] = ig;
-            pixels[rpix_offset][2] = ib;
-/*            Console.WriteLine("pixels[{0}][0] = {1}\tpixels[{0}][1] = {2}\tpixels[{0}][2] = {3}\tir = {4}\tig= {5}\tib = {6}\n", 
-                rpix_offset, pixels[j][0], pixels[j][1], pixels[j][2], ir, ig, ib);*/
-//            Console.ReadLine();
-            rpix_offset++;
-//            Console.WriteLine("After using rpix; lcos = {0}", lcos);
-            //            PPM_ASSIGN(*rpix, ir, ig, ib);
-            //            rpix++;
-            /*
-               rpix_index += 3;
-               for(i = 0; i < 3; i++)
-               rpix[i] = pixels[screensize/2 - lcos + rpix_offset];
-               */
-//            Console.WriteLine("Limb rpix_offset =  {0}", rpix_offset );
+            pixels[rpix_offset++].SetColor(ir, ig, ib);
           }
 
           /* Left stars */
-
-          try
-          {
           //#define StarClose	2
           for (j = 0; j < (width / 2) - (lcos + starClose); j++) {
             Etoile(ref pixels[j]);
           }
-          }
-          catch(Exception e)
-          {
-            Console.WriteLine("xXX1 {1} {0} {2}", j, e.Message, i);
-          }
 
           /* Right stars */
-
-          try
-          {
           for (j = (int)((width / 2) + (lcos + starClose)); j < width; j++) {
             Etoile(ref pixels[j]);
           }
-          }
-          catch(Exception e)
-          {
-            Console.WriteLine("xXX2 {1} {0} {2}", j, i, e.Message);
-          }
 
         }
-//        Console.WriteLine("After Etoile i = {0} width = {1}", i, width);
-        /*
-           gimp_pixel_rgn_set_row(&pixel_rgn, (guchar*) pixels, 0, i,
-           _image_width);
-           */
-        // TODO: change pixels to byte[][]
-        //          Console.WriteLine("Setting {0} pixels. i = {1}", pixels[j].Length, i); 
-        try
+
+        if(drawable != null)
         {
-          /*
-          for(int x = 0; x < width; x++)
-            rgn.SetPixel(pixels[x], x, i); 
-            */
-//          rgn.SetRow(pixels, 0, i, width);
+          for(int x = 0; x < pixels.Length; x++) 
+            pf.PutPixel(x, i, pixels[x].ToByte());
 
-					//byte []tempArray = new byte[drawable.Bpp * width];
-//          Console.WriteLine("+-- TempArray --+");
-          // TODO: improving this cycle reduces 1.0 secs on 4000x2000 image
-					for(int x = 0, dummy_i = 0; x < width; x++)
-						for(int y = 0; y < drawableBpp; y++)
-            {
-							tempArray[dummy_i++] = pixels[x][y];
-            //  Console.Write("{0} ", tempArray[dummy_i-1]);
-            }
-//          Console.WriteLine();
-
-          rgn.SetRow(tempArray, 0, i, width);
           _progress.Update((double)i/height);
-
         }
-        catch(Exception e)
+        else
         {
-          Console.WriteLine("Catched j = {0} i = {1} width = {2} height = {3}", j, i, width, height);
-          Console.ReadLine();
+          for(int x = 0; x < pixels.Length; x++) 
+            pixels[x].ToByte().CopyTo(pixelArray, 3*(i*width+x));
         }
-
-        //        TODO !!!!
-//        Console.WriteLine("After SetRow {0}", i);
-
-
       }
 
-      //g_free(pixels);
       pixels = null;
-      /*
-         gimp_drawable_update(_drawable->id, 0, 0, screenxsize, screenysize);
-         gimp_drawable_flush(_drawable); 
-         gimp_displays_flush();
-         */
-      drawable.Flush();
-      drawable.Update(0, 0, width, height);
-      Display.DisplaysFlush();
+      if(drawable != null)
+      {
+        pf.Dispose();
 
+        drawable.Flush();
+        drawable.Update(0, 0, width, height);
+        Display.DisplaysFlush();
+      }
 
       if (!stars) {
-        /*
-           g_free(cp);
-           g_free(u);
-           g_free(u1);
-           g_free(bxf);
-           g_free(bxc);
-           */
         cp = null;
         u = null;
         u1 = null;
@@ -1340,35 +1233,25 @@ namespace Gimp.Forge
     }
 
     /*  PLANET  --	Make a planet.	*/
-    bool Planet(Drawable drawable)
+    bool Planet(Drawable drawable, ref byte[] pixelArray, int width, int height)
     {
-      //   float *a = (float *) 0;
       double []a = null;
       int i, j;
       double rmin = 1e50, rmax = -1e50, rmean, rrange;
-
-      Console.WriteLine("Inside Planet");
 
       if (!seedspec) {
         InitSeed();
       }
       InitGauss(rseed);
 
-      Console.WriteLine("After InitGauss. stars = {0}", stars);
-
       if (!stars) {
 
         SpectralSynth(ref a, meshsize, 3.0 - fracdim);
 
-        Console.WriteLine("After SpectralSynth (a == null) ? {0}", (a == null));
-
-        //     if (a == (float *) 0) {
         if(a == null)
           return false;
-        //}
 
         /* Apply power law scaling if non-unity scale is requested. */
-
         if (powscale != 1.0) {
           for (i = 0; i < meshsize; i++) {
             for (j = 0; j < meshsize; j++) {
@@ -1382,8 +1265,6 @@ namespace Gimp.Forge
             }
           }
         }
-
-        Console.WriteLine("After powscale {0:e}", powscale);
 
         /* Compute extrema for autoscaling. */
 
@@ -1405,26 +1286,13 @@ namespace Gimp.Forge
           }
         }
       }
-      Console.WriteLine("After powscale {0:e}", powscale);
 
-      // TODO: remove comment
-      GenPlanet(drawable, a, meshsize);
-      /*
-       * if (a != (float *) 0) {
-       free((char *) a);
-       }
-       */
+      GenPlanet(drawable, ref pixelArray, width, height, a, meshsize);
       if (a != null) a = null;
       return true;
     }
 
 
   }
-
-      /*
-       *
-       *
-       *
-       */
-    }
+}
 

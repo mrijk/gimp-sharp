@@ -1,3 +1,9 @@
+2006-06-03  Max      <massimo.perga@gmail.com>
+
+	* plug-ins/Forge/Forge.png: updated icon 
+
+	* NEWS: updated
+
 2006-06-03  Maurits  <m.rijk@chello.nl>
 
 	* lib/RGB.cs: added constructor using HSV
