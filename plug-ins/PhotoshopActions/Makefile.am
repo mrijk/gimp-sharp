@@ -12,6 +12,8 @@ MYSOURCES = 				\
 	ActionParser.cs			\
 	ActionSet.cs			\
 	AddLayerEvent.cs		\
+	BrightnessEvent.cs		\
+	CloudsEvent.cs			\
 	DeleteEvent.cs			\
 	DeleteLayerEvent.cs		\
 	DuplicateDocumentEvent.cs	\
@@ -26,6 +28,7 @@ MYSOURCES = 				\
 	LevelsEvent.cs			\
 	MakeEvent.cs			\
 	PhotoshopActions.cs		\
+	ReplaceColorEvent.cs		\
 	SelectionEvent.cs		\
 	SetBackgroundColorEvent.cs	\
 	SetForegroundColorEvent.cs	\

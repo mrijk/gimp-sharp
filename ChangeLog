@@ -1,3 +1,29 @@
+2006-06-05  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/Forge/Pixel.cs: new file, reusable code split from
+	Forge so we can later move it to the GIMP# library.
+
+	* plug-ins/Forge/Makefile.am: changed accordingly
+
+2006-06-05  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/UnitTest/TestRGB.cs: new test
+
+	* plug-ins/Forge/Forge.cs: minor clean-up
+
+	* plug-ins/PhotoshopActions/ReplaceColorEvent.cs: new file
+
+	* plug-ins/PhotoshopActions/EventMap.cs
+	* plug-ins/PhotoshopActions/Makefile: changed accordingly
+
+2006-06-04  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/PhotoshopActions/BrightnessEvent.cs
+	* plug-ins/PhotoshopActions/CloudsEvent.cs: new files
+
+	* plug-ins/PhotoshopActions/EventMap.cs
+	* plug-ins/PhotoshopActions/Makefile: changed accordingly
+
 2006-06-03  Max      <massimo.perga@gmail.com>
 
 	* plug-ins/Forge/Forge.png: updated icon 

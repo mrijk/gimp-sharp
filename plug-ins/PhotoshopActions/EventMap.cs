@@ -45,6 +45,7 @@ namespace Gimp.PhotoshopActions
       _map["hueSaturation"] = "HueSaturationEvent";
       _map["levels"] = "LevelsEvent";
       _map["make"] = "MakeEvent";
+      _map["replaceColor"] = "ReplaceColorEvent";
       _map["set"] = "SetEvent";
       _map["stop"] = "StopEvent";
     }

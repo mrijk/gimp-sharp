@@ -43,6 +43,14 @@ namespace Gimp
     }
 
     [Test]
+    public void ConstructorWithHSV()
+    {
+      HSV hsv = new HSV(0, 0, 0);
+      RGB rgb = new RGB(hsv);
+      Assert.AreEqual(new RGB(0, 0, 0), rgb);
+    }
+
+    [Test]
     public void Alpha()
     {
       double red = 0.13;
