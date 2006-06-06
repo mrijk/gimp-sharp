@@ -30,6 +30,8 @@ namespace Gimp.Forge
     public const int nRand = 4; // Gauss() sample count
     public const double planetAmbient = 0.05;
     Random _random;
+    UInt32 _seed;
+    bool _random_seed;
 
     RadioButton _PlanetRadioButton;
     RadioButton _CloudsRadioButton;
@@ -42,7 +44,6 @@ namespace Gimp.Forge
     SpinButton _InclinationSpinButton;
     SpinButton _StarsSpinButton;
     SpinButton _SaturationSpinButton;
-    SpinButton _SeedSpinButton;
     Progress _progress = null;
     // Flag for spin buttons values specified by the user
     private bool dimspec, powerspec;
@@ -146,7 +147,7 @@ namespace Gimp.Forge
       table.BorderWidth = 10;
 
       // Create the frame widget 
-      Frame frame = new Frame("Type");
+      GimpFrame frame = new GimpFrame("Type");
       table.Attach(frame, 0, 2, 0, 1);
 
       HBox hbox = new HBox(false,1);
@@ -198,9 +199,8 @@ namespace Gimp.Forge
           SaturationSpinButtonEventHandler);
 
       CreateLabelInTable(table, 10, 0, "Seed:");
-      _SeedSpinButton = CreateIntSpinButtonInTable(table, 10, 1, 0, 0,  
-          Int32.MaxValue, 
-          SeedSpinButtonEventHandler);
+      RandomSeed seed = new RandomSeed(ref _seed, ref _random_seed);
+      table.Attach(seed, 1, 2, 10, 11);
 
       // Set default values
       SetDefaultValues(); 
@@ -379,13 +379,6 @@ namespace Gimp.Forge
     {
       starcspec = true;
       starcolour = _SaturationSpinButton.Value;
-      InvalidatePreview();
-    }
-
-    void SeedSpinButtonEventHandler(object source, EventArgs e)
-    {
-      seedspec = true;
-      rseed = (uint)_SeedSpinButton.ValueAsInt;
       InvalidatePreview();
     }
 
