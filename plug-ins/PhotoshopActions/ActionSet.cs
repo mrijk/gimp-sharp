@@ -61,5 +61,10 @@ namespace Gimp.PhotoshopActions
     {
       return _set.GetEnumerator();
     }
+
+    public void Execute(int action)
+    {
+      _set[action].Execute();
+    }
   }
 }

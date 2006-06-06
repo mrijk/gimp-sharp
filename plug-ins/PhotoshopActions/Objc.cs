@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// StopEvent.cs
+// Objc.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,30 +18,37 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
+using System;
+
 namespace Gimp.PhotoshopActions
 {
-  public class StopEvent : ActionEvent
+  public class Objc
   {
-    string _message;
-    bool _continue;
+    string _classId;
+    string _classId2;
+    int _numberOfItems;
 
-    public StopEvent()
+    public string ClassId
     {
+      get {return _classId;}
     }
     
-    override public ActionEvent Parse(ActionParser parser)
+    public string ClassId2
     {
-      _message = parser.ParseString("Msge");
-      if (NumberOfItems == 2)
-	{
-	  _continue = parser.ParseBool("Cntn");
-	}
-      return this;
+      get {return _classId2;}
     }
-
-    override public void Execute()
+    
+    public int NumberOfItems
     {
-      new Message(_message);
+      get {return _numberOfItems;}
+    }
+    
+    public void Parse(ActionParser parser)
+    {
+      parser.ParseFourByteString("Objc");
+      _classId = parser.ReadUnicodeString();
+      _classId2 = parser.ReadTokenOrString();
+      _numberOfItems = parser.ReadInt32();
     }
   }
 }

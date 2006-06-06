@@ -24,13 +24,40 @@ namespace Gimp.PhotoshopActions
 {
   public class ReplaceColorEvent : ActionEvent
   {
+    double _luminance;
+    int _hue, _saturation, _lightness;
+
     public ReplaceColorEvent()
     {
     }
     
     override public ActionEvent Parse(ActionParser parser)
     {
-      int unknown1 = parser.ReadLong("Fzns");
+      int unknownFzns = parser.ReadLong("Fzns");
+
+      // Minimum
+      parser.ParseToken("Mnm");
+      
+      Objc objc = parser.ParseObjc();
+
+      _luminance = parser.ReadDouble("Lmnc");
+
+      double unknownA = parser.ReadDouble("A");
+      double unknownB = parser.ReadDouble("B");
+
+      // Maximum
+      parser.ParseToken("Mxm");
+
+      objc = parser.ParseObjc();
+
+      _luminance = parser.ReadDouble("Lmnc");
+
+      unknownA = parser.ReadDouble("A");
+      unknownB = parser.ReadDouble("B");
+
+      _hue = parser.ReadLong("H");
+      _saturation = parser.ReadLong("Strt");
+      _lightness = parser.ReadLong("Lght");
 
       return this;
     }

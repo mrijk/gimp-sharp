@@ -37,5 +37,10 @@ namespace Gimp.PhotoshopActions
 
       return this;
     }
+
+    override public void Execute()
+    {
+      Context.Foreground = _color;
+    }
   }
 }

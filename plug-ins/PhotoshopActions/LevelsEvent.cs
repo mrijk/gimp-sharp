@@ -34,7 +34,7 @@ namespace Gimp.PhotoshopActions
       parser.ParseFourByteString("VlLs");
       parser.ParseInt32(1);
 
-      int numberOfItems = parser.ParseObjc();
+      Objc objc = parser.ParseObjc();
 
       parser.ParseToken("Chnl");
       parser.ParseFourByteString("obj");

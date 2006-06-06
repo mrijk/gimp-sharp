@@ -19,6 +19,8 @@
 //
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 
 using Gtk;
@@ -27,6 +29,8 @@ namespace Gimp.PhotoshopActions
 {
   public class PhotoshopActions : Plugin
   {
+    List<ActionSet> _set = new List<ActionSet>();
+
     static void Main(string[] args)
     {
       new PhotoshopActions(args);
@@ -82,9 +86,16 @@ namespace Gimp.PhotoshopActions
       view.AppendColumn("SetName", new CellRendererText(), "text", 0);
 
       Button play = new Button("Play");
-      play.Activated += delegate(object sender, EventArgs args)
+      play.Clicked += delegate(object sender, EventArgs args)
 	{
 	  TreeSelection selection = view.Selection;
+	  
+
+	  TreePath[] paths = selection.GetSelectedRows();
+	  int[] indices = paths[0].Indices;
+
+	  ActionSet actions = _set[indices[0]];
+	  actions.Execute(indices[1]);
 	};      
       vbox.PackStart(play, false, true, 0);
 
@@ -107,6 +118,8 @@ namespace Gimp.PhotoshopActions
 	      ActionSet actions = parser.Parse(fileName);
 	      if (actions != null)
 		{
+		  _set.Add(actions);
+
 		  TreeIter iter = store.AppendValues(actions.Name);
 		  foreach (Action action in actions)
 		    {

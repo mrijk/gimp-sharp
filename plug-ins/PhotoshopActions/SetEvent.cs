@@ -50,7 +50,7 @@ namespace Gimp.PhotoshopActions
 	  string keyID = parser.ReadTokenOrString();
 	  if (keyID == "fsel")
 	    {
-	      return new SelectionEvent().Parse(parser);
+	      return new SelectionEvent(this).Parse(parser);
 	    }
 	  else if (keyID == "BckC")
 	    {

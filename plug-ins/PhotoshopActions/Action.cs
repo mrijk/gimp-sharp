@@ -70,6 +70,11 @@ namespace Gimp.PhotoshopActions
       _set.Add(actionEvent);
     }
 
+    public void Execute()
+    {
+      _set.ForEach(delegate(ActionEvent actionEvent) {actionEvent.Execute();});
+    }
+
     public IEnumerator<ActionEvent> GetEnumerator()
     {
       return _set.GetEnumerator();

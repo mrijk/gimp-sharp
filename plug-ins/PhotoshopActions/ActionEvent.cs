@@ -56,5 +56,10 @@ namespace Gimp.PhotoshopActions
     }
 
     public abstract ActionEvent Parse(ActionParser parser);
+
+    public virtual void Execute()
+    {
+      Console.WriteLine("Execute {0} not implemented", _eventForDisplay);
+    }
   }
 }

@@ -28,10 +28,21 @@ namespace Gimp
   [TestFixture]
   public class TestContext
   {
+    [SetUp]
+    public void Init()
+    {
+      Context.Push();
+    }
+
+    [TearDown]
+    public void Exit()
+    {
+      Context.Pop();
+    }
+
     [Test]
     public void Foreground()
     {
-      Context.Push();
       RGB foreground = new RGB(11, 12, 13);
       Context.Foreground = foreground;
       RGB result = Context.Foreground;
@@ -39,13 +50,19 @@ namespace Gimp
       Assert.AreEqual(foreground.G, result.G);
       Assert.AreEqual(foreground.B, result.B);
       // Fix me: why doesn't Assert.AreEqual(foreground, result) just work?
-      Context.Pop();
+    }
+
+    [Test]
+    [ExpectedException(typeof(Exception))]
+    public void ForegroundTwo()
+    {
+      RGB foreground = new RGB(11, 12, 13.44);
+      Context.Foreground = foreground;
     }
 
     [Test]
     public void Background()
     {
-      Context.Push();
       RGB background = new RGB(11, 12, 13);
       Context.Background = background;
       RGB result = Context.Background;
@@ -53,26 +70,21 @@ namespace Gimp
       Assert.AreEqual(background.G, result.G);
       Assert.AreEqual(background.B, result.B);
       // Fix me: why doesn't Assert.AreEqual(background, result) just work?
-      Context.Pop();
     }
 
     [Test]
     public void Opacity()
     {
-      Context.Push();
       double opacity = 0.13;
       Context.Opacity = opacity;
       Assert.AreEqual(opacity, Context.Opacity);
-      Context.Pop();
     }
 
     [Test]
     public void PaintMode()
     {
-      Context.Push();
       Context.PaintMode = LayerModeEffects.Multiply;
       Assert.AreEqual(LayerModeEffects.Multiply, Context.PaintMode);
-      Context.Pop();
     }
   }
 }

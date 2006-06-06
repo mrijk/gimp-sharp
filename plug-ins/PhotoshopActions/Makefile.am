@@ -12,6 +12,7 @@ MYSOURCES = 				\
 	ActionParser.cs			\
 	ActionSet.cs			\
 	AddLayerEvent.cs		\
+	AddGuideEvent.cs		\
 	BrightnessEvent.cs		\
 	CloudsEvent.cs			\
 	DeleteEvent.cs			\
@@ -27,6 +28,7 @@ MYSOURCES = 				\
 	InvertEvent.cs			\
 	LevelsEvent.cs			\
 	MakeEvent.cs			\
+	Objc.cs				\
 	PhotoshopActions.cs		\
 	ReplaceColorEvent.cs		\
 	SelectionEvent.cs		\

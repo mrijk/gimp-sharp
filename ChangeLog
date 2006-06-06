@@ -1,3 +1,22 @@
+2006-06-06  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/PhotoshopActions/AddGuideEvent.cs
+	* plug-ins/PhotoshopActions/Objc.cs: new file
+
+	* plug-ins/PhotoshopActions/Makefile: changed accordingly
+
+	* plug-ins/PhotoshopActions/ExchangeEvent.cs
+	* plug-ins/PhotoshopActions/SetBackgroundColorEvent.cs
+	* plug-ins/PhotoshopActions/SetForegroundColorEvent.cs
+	* plug-ins/PhotoshopActions/StopEvent.cs: 
+	implemented action
+
+	* plug-ins/PhotoshopActions/Action.cs
+	* plug-ins/PhotoshopActions/ActionEvent.cs
+	* plug-ins/PhotoshopActions/ActionSet.cs
+	* plug-ins/PhotoshopActions/PhotoshopActions.cs: add support for
+	actually playing the actions
+
 2006-06-05  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/Forge/Pixel.cs: new file, reusable code split from

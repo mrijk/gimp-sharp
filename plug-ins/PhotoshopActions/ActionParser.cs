@@ -205,9 +205,9 @@ namespace Gimp.PhotoshopActions
 
     public RGB ReadRGB()
     {
-      double red = ReadDouble("Rd");
-      double green = ReadDouble("Grn");
-      double blue = ReadDouble("Bl");
+      double red = ReadDouble("Rd") / 255.0;
+      double green = ReadDouble("Grn") / 255.0;
+      double blue = ReadDouble("Bl") / 255.0;
       return new RGB(red, green, blue);
     }
 
@@ -300,19 +300,17 @@ namespace Gimp.PhotoshopActions
       string token = ReadFourByteString();
       if (token != expected)
 	{
-	  Console.WriteLine("***ParseFourByteStringFound: {0}, expected: {1}", 
+	  Console.WriteLine("***ParseFourByteString Found: {0}, expected: {1}", 
 			    token, expected);
 	  throw new GimpSharpException();
 	}
     }
 
-    public int ParseObjc()
+    public Objc ParseObjc()
     {
-      ParseFourByteString("Objc");
-      /* string classID = */ ReadUnicodeString();
-      /* string classID2 = */ ReadTokenOrString();
-
-      return ReadInt32();
+      Objc objc = new Objc();
+      objc.Parse(this);
+      return objc;
     }
 
     public string ReadFourByteString()

@@ -26,7 +26,7 @@ namespace Gimp.PhotoshopActions
   {
     double _top, _left, _bottom, _right;
 
-    public SelectionEvent()
+    public SelectionEvent(ActionEvent srcEvent) : base(srcEvent)
     {
     }
     

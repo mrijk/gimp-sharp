@@ -33,37 +33,22 @@ namespace Gimp.PhotoshopActions
       string token = parser.ReadTokenOrString();
       if (token == "Nw")
 	{
-	  return ParseNw(parser);
+	  Objc objc = parser.ParseObjc();
+	  if (objc.ClassId2 == "Gd")
+	    {
+	      return new AddGuideEvent(this).Parse(parser);
+	    }
+	  else
+	    {
+	      Console.WriteLine("MakeEvent: {0} not implemented", 
+				objc.ClassId2);
+	      throw new GimpSharpException();
+	    }
 	}
       else if (token == "null")
 	{
 	  return new AddLayerEvent(this).Parse(parser);
 	}
-      return this;
-    }
-
-    ActionEvent ParseNw(ActionParser parser)
-    {
-      parser.ParseFourByteString("Objc");
-
-      string classID = parser.ReadUnicodeString();
-      string classID2 = parser.ReadTokenOrString();
-      Console.WriteLine("\tClassID2: " + classID2);
-
-      int numberOfItems = parser.ReadInt32();
-      Console.WriteLine("\tNumberOfItems: " + numberOfItems);
-
-      // TODO: hardcoded for guide
-      string units;
-      double position = parser.ReadDouble("Pstn", out units);
-
-      parser.ParseToken("Ornt");
-      parser.ParseFourByteString("enum");
-      parser.ParseToken("Ornt");
-
-      string orientation = parser.ReadTokenOrString();
-      Console.WriteLine("\torientation: " + orientation);
-
       return this;
     }
   }

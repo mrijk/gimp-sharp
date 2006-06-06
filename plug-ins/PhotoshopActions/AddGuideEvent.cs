@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// StopEvent.cs
+// AddGuideEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,30 +18,44 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
+using System;
+
 namespace Gimp.PhotoshopActions
 {
-  public class StopEvent : ActionEvent
+  public class AddGuideEvent : ActionEvent
   {
-    string _message;
-    bool _continue;
+    string _orientation;
 
-    public StopEvent()
+    public AddGuideEvent(ActionEvent srcEvent) : base(srcEvent) 
     {
     }
     
     override public ActionEvent Parse(ActionParser parser)
     {
-      _message = parser.ParseString("Msge");
-      if (NumberOfItems == 2)
-	{
-	  _continue = parser.ParseBool("Cntn");
-	}
+      string units;
+      double position = parser.ReadDouble("Pstn", out units);
+
+      parser.ParseToken("Ornt");
+      parser.ParseFourByteString("enum");
+      parser.ParseToken("Ornt");
+
+      _orientation = parser.ReadTokenOrString();
+
       return this;
     }
 
     override public void Execute()
     {
-      new Message(_message);
+      if (_orientation == "Vrtc")
+	{
+	}
+      else if (_orientation == "Hrzn")
+	{
+	}
+      else
+	{
+	  throw new GimpSharpException();
+	}
     }
   }
 }
