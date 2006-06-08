@@ -1,3 +1,8 @@
+2006-06-08  Max      <massimo.perga@gmail.com>
+
+	* plug-ins/Forge/Forge.cs: improved Preview generation and added
+	support for scripting
+
 2006-06-07  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/PhotoshopActions/Action.cs
