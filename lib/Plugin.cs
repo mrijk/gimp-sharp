@@ -164,7 +164,7 @@ namespace Gimp
 	  CallRender();
 	}
       
-      if (_usesDrawable)
+      if (_usesDrawable && _drawable != null)
 	{
 	  _drawable.Detach();
 	}

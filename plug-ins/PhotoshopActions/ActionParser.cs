@@ -29,8 +29,10 @@ namespace Gimp.PhotoshopActions
     BinaryReader _binReader;
     EventMap _map = new EventMap();
 
-    public ActionParser()
+    public ActionParser(Image image, Drawable drawable)
     {
+      ActionEvent.Image = image;
+      ActionEvent.Drawable = drawable;
     }
 
     public ActionSet Parse(string fileName)
@@ -58,7 +60,7 @@ namespace Gimp.PhotoshopActions
 	  actions.Add(action);
 	  return actions;
 	}
-      catch(EndOfStreamException e)
+      catch (EndOfStreamException e)
 	{	
 	  Console.WriteLine("{0} caught.", e.GetType().Name);
 	}

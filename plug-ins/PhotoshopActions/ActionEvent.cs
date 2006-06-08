@@ -33,6 +33,9 @@ namespace Gimp.PhotoshopActions
     string _eventForDisplay;
     protected int _numberOfItems;
 
+    static Drawable _drawable;
+    static Image _image;
+
     public ActionEvent()
     {
     }
@@ -41,6 +44,18 @@ namespace Gimp.PhotoshopActions
     {
       _eventForDisplay = srcEvent._eventForDisplay;
       _numberOfItems = srcEvent._numberOfItems;
+    }
+
+    public static Drawable Drawable
+    {
+      get {return _drawable;}
+      set {_drawable = value;}
+    }
+
+    public static Image Image
+    {
+      get {return _image;}
+      set {_image = value;}
     }
 
     public string EventForDisplay
@@ -57,9 +72,10 @@ namespace Gimp.PhotoshopActions
 
     public abstract ActionEvent Parse(ActionParser parser);
 
-    public virtual void Execute()
+    public virtual bool Execute()
     {
       Console.WriteLine("Execute {0} not implemented", _eventForDisplay);
+      return true;
     }
   }
 }

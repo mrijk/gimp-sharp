@@ -109,7 +109,7 @@ namespace Gimp.PhotoshopActions
 
       string scriptDir = Gimp.Directory + "/scripts";
 
-      ActionParser parser = new ActionParser();
+      ActionParser parser = new ActionParser(_image, _drawable);
 
       foreach (string fileName in Directory.GetFiles(scriptDir))
 	{
@@ -137,7 +137,7 @@ namespace Gimp.PhotoshopActions
       return store;
     }
 
-    override protected void Render()
+    override protected void Render(Image image, Drawable drawable)
     {
     }
   }

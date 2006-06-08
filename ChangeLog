@@ -1,3 +1,12 @@
+2006-06-07  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/PhotoshopActions/Action.cs
+	* plug-ins/PhotoshopActions/ActionEvent.cs: actions can now stop
+	the execution.
+
+	* plug-ins/PhotoshopActions/StopEvent.cs: 
+	* plug-ins/PhotoshopActions/AddGuideEvent.cs: implemented
+
 2006-06-06  Max      <massimo.perga@gmail.com>
 
 	* plug-ins/Forge/Forge.cs: added standard Random button support 

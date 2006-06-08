@@ -18,6 +18,8 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
+using Gtk;
+
 namespace Gimp.PhotoshopActions
 {
   public class StopEvent : ActionEvent
@@ -39,9 +41,22 @@ namespace Gimp.PhotoshopActions
       return this;
     }
 
-    override public void Execute()
+    override public bool Execute()
     {
-      new Message(_message);
+      MessageDialog message = 
+	new MessageDialog(null, DialogFlags.DestroyWithParent,
+			  MessageType.Warning, ButtonsType.None, 
+			  _message);
+      if (_continue)
+	{
+	  message.AddButton("Continue", ResponseType.Ok);
+	}
+      message.AddButton("Stop", ResponseType.Cancel);
+
+      ResponseType response = (ResponseType) message.Run();
+      message.Destroy();
+
+      return response == ResponseType.Ok;
     }
   }
 }

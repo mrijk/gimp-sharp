@@ -25,6 +25,8 @@ namespace Gimp.PhotoshopActions
   public class AddGuideEvent : ActionEvent
   {
     string _orientation;
+    string _units;
+    double _position;
 
     public AddGuideEvent(ActionEvent srcEvent) : base(srcEvent) 
     {
@@ -32,8 +34,7 @@ namespace Gimp.PhotoshopActions
     
     override public ActionEvent Parse(ActionParser parser)
     {
-      string units;
-      double position = parser.ReadDouble("Pstn", out units);
+      _position = parser.ReadDouble("Pstn", out _units);
 
       parser.ParseToken("Ornt");
       parser.ParseFourByteString("enum");
@@ -44,18 +45,36 @@ namespace Gimp.PhotoshopActions
       return this;
     }
 
-    override public void Execute()
+    override public bool Execute()
     {
+      if (Image == null)
+	{
+	  Console.WriteLine("Please open image first");
+	  return false;
+	}
+
+      if (_units != "#Prc")
+	{
+	  Console.WriteLine("Unit type {0} not supported", _units);
+	  throw new GimpSharpException();
+	}
+
       if (_orientation == "Vrtc")
 	{
+	  int position = (int) (_position * Image.Width / 100);
+	  new VerticalGuide(Image, position);
 	}
       else if (_orientation == "Hrzn")
 	{
+	  int position = (int) (_position * Image.Height / 100);
+	  new HorizontalGuide(Image, position);
 	}
       else
 	{
 	  throw new GimpSharpException();
 	}
+
+      return true;
     }
   }
 }
