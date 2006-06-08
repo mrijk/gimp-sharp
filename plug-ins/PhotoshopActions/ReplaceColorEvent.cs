@@ -31,6 +31,14 @@ namespace Gimp.PhotoshopActions
     {
     }
     
+    public override bool IsExecutable
+    {
+      get 
+	{
+	  return false;
+	}
+    }
+
     override public ActionEvent Parse(ActionParser parser)
     {
       int unknownFzns = parser.ReadLong("Fzns");

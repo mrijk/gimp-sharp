@@ -41,11 +41,15 @@ namespace Gimp.PhotoshopActions
       _map["findEdges"] = "FindEdgesEvent";
       _map["gaussianBlur"] = "GaussianBlurEvent";
       _map["hide"] = "HideEvent";
-      _map["invert"] = "InvertEvent";
       _map["hueSaturation"] = "HueSaturationEvent";
+      _map["imageSize"] = "ImageSizeEvent";
+      _map["invert"] = "InvertEvent";
       _map["levels"] = "LevelsEvent";
       _map["make"] = "MakeEvent";
+      _map["move"] = "MakeEvent";
       _map["replaceColor"] = "ReplaceColorEvent";
+      _map["reset"] = "ResetEvent";
+      _map["select"] = "SelectEvent";
       _map["set"] = "SetEvent";
       _map["stop"] = "StopEvent";
     }

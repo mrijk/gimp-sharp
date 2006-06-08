@@ -28,6 +28,14 @@ namespace Gimp.PhotoshopActions
     {
     }
     
+    public override bool IsExecutable
+    {
+      get 
+	{
+	  return false;
+	}
+    }
+
     override public ActionEvent Parse(ActionParser parser)
     {
       parser.ParseToken("Adjs");

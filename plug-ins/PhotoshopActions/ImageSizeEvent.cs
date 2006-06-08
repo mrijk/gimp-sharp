@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// HideEvent.cs
+// ImageSizeEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,9 +22,12 @@ using System;
 
 namespace Gimp.PhotoshopActions
 {
-  public class HideEvent : ActionEvent
+  public class ImageSizeEvent : ActionEvent
   {
-    public HideEvent()
+    double _width;
+    string _units;
+
+    public ImageSizeEvent()
     {
     }
 
@@ -38,30 +41,12 @@ namespace Gimp.PhotoshopActions
     
     override public ActionEvent Parse(ActionParser parser)
     {
-      parser.ParseToken("null");
-      parser.ParseFourByteString("VlLs");
+      Console.WriteLine("-------------------------");
 
-      int numberOfItems = parser.ReadInt32();
+      _width = parser.ReadDouble("Wdth", out _units);
 
-      parser.ParseFourByteString("obj");
-      parser.ParseInt32(1);
-      parser.ParseFourByteString("Enmr");
-
-      string classID = parser.ReadTokenOrUnicodeString();
-      Console.WriteLine("\tClassID: " + classID);
-
-      string keyID = parser.ReadTokenOrString();
-      if (keyID == "Lyr")
-	{
-	  parser.ParseToken("Ordn");
-	  parser.ParseToken("Trgt");
-	  // return new DeleteLayerEvent().Parse(parser);
-	}
-      else
-	{
-	  Console.WriteLine("Can't hide: " + keyID);
-	  throw new GimpSharpException();
-	}
+      bool _scaleStyles = parser.ParseBool("scaleStyles");
+      bool _cnsP = parser.ParseBool("cnsP");
 
       return this;
     }

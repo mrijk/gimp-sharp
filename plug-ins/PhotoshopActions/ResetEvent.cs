@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// HideEvent.cs
+// ResetEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,9 +22,9 @@ using System;
 
 namespace Gimp.PhotoshopActions
 {
-  public class HideEvent : ActionEvent
+  public class ResetEvent : ActionEvent
   {
-    public HideEvent()
+    public ResetEvent()
     {
     }
 
@@ -38,30 +38,20 @@ namespace Gimp.PhotoshopActions
     
     override public ActionEvent Parse(ActionParser parser)
     {
-      parser.ParseToken("null");
-      parser.ParseFourByteString("VlLs");
-
-      int numberOfItems = parser.ReadInt32();
-
+       parser.ParseToken("null");
       parser.ParseFourByteString("obj");
+
       parser.ParseInt32(1);
-      parser.ParseFourByteString("Enmr");
+
+      parser.ParseFourByteString("prop");
 
       string classID = parser.ReadTokenOrUnicodeString();
       Console.WriteLine("\tClassID: " + classID);
+      
+      classID = parser.ReadTokenOrString();
+      Console.WriteLine("\tClassID: " + classID);
 
-      string keyID = parser.ReadTokenOrString();
-      if (keyID == "Lyr")
-	{
-	  parser.ParseToken("Ordn");
-	  parser.ParseToken("Trgt");
-	  // return new DeleteLayerEvent().Parse(parser);
-	}
-      else
-	{
-	  Console.WriteLine("Can't hide: " + keyID);
-	  throw new GimpSharpException();
-	}
+      parser.ParseToken("Clrs");
 
       return this;
     }

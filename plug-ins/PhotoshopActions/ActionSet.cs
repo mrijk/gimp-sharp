@@ -66,5 +66,26 @@ namespace Gimp.PhotoshopActions
     {
       _set[action].Execute();
     }
+
+    public bool IsExecutable
+    {
+      get
+	{
+	  if (_setChildren != _set.Count)
+	    {
+	      return false;	// Not fully parsed
+	    }
+
+	  // TODO: there are smarter constructs for this!
+	  foreach (Action action in _set)
+	    {
+	      if (!action.IsExecutable)
+		{
+		  return false;
+		}
+	    }
+	  return true;
+	}
+    }
   }
 }

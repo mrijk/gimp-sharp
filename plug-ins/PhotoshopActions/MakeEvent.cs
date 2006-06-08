@@ -28,15 +28,28 @@ namespace Gimp.PhotoshopActions
     {
     }
     
+    public override bool IsExecutable
+    {
+      get 
+	{
+	  return false;
+	}
+    }
+
     override public ActionEvent Parse(ActionParser parser)
     {
       string token = parser.ReadTokenOrString();
       if (token == "Nw")
 	{
 	  Objc objc = parser.ParseObjc();
+	  
 	  if (objc.ClassId2 == "Gd")
 	    {
 	      return new AddGuideEvent(this).Parse(parser);
+	    }
+	  else if (objc.ClassId2 == "Dcmn")
+	    {
+	      return new NewDocumentEvent(this).Parse(parser);
 	    }
 	  else
 	    {

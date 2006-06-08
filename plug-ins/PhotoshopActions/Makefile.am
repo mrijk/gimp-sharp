@@ -25,12 +25,17 @@ MYSOURCES = 				\
 	GaussianBlurEvent.cs		\
 	HideEvent.cs			\
 	HueSaturationEvent.cs		\
+	ImageSizeEvent.cs		\
 	InvertEvent.cs			\
 	LevelsEvent.cs			\
 	MakeEvent.cs			\
+	MoveEvent.cs			\
+	NewDocumentEvent.cs		\
 	Objc.cs				\
 	PhotoshopActions.cs		\
 	ReplaceColorEvent.cs		\
+	ResetEvent.cs			\
+	SelectEvent.cs			\
 	SelectionEvent.cs		\
 	SetBackgroundColorEvent.cs	\
 	SetForegroundColorEvent.cs	\

@@ -30,6 +30,14 @@ namespace Gimp.PhotoshopActions
     public BrightnessEvent()
     {
     }
+
+    public override bool IsExecutable
+    {
+      get 
+	{
+	  return false;
+	}
+    }
     
     override public ActionEvent Parse(ActionParser parser)
     {

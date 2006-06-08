@@ -111,10 +111,14 @@ namespace Gimp.PhotoshopActions
 
       ActionParser parser = new ActionParser(_image, _drawable);
 
+      int nrScripts = 0;
+
       foreach (string fileName in Directory.GetFiles(scriptDir))
 	{
 	  if (fileName.EndsWith(".atn"))
 	    {
+	      nrScripts++;
+
 	      ActionSet actions = parser.Parse(fileName);
 	      if (actions != null)
 		{
@@ -132,7 +136,29 @@ namespace Gimp.PhotoshopActions
 		    }
 		}
 	    }
-	}    
+	}
+
+      // Dump some statistics
+
+      int nrExecutable = 0;
+      foreach (ActionSet actions in _set)
+	{
+	  if (actions.IsExecutable)
+	    {
+	      nrExecutable++;
+	    }
+	}
+
+      double percParsed = (nrScripts - parser.ParsingFailed) * 100.0 / 
+	nrScripts;
+      double percExecutable = nrExecutable * 100.0 / nrScripts;
+
+      Console.WriteLine("#Total      : " + nrScripts++);
+      Console.WriteLine("#Parsed     : " + _set.Count);
+      Console.WriteLine("#Failed     : " + parser.ParsingFailed);
+      Console.WriteLine("#Executable : " + nrExecutable);
+      Console.WriteLine("% parsed    : " + percParsed);
+      Console.WriteLine("% executable: " + percExecutable);
 
       return store;
     }

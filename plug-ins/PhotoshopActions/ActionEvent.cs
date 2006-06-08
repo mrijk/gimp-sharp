@@ -46,6 +46,11 @@ namespace Gimp.PhotoshopActions
       _numberOfItems = srcEvent._numberOfItems;
     }
 
+    public virtual bool IsExecutable
+    {
+      get {return true;}
+    }
+
     public static Drawable Drawable
     {
       get {return _drawable;}

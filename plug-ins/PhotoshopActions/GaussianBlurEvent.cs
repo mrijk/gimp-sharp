@@ -29,6 +29,14 @@ namespace Gimp.PhotoshopActions
     public GaussianBlurEvent()
     {
     }
+
+    public override bool IsExecutable
+    {
+      get 
+	{
+	  return false;
+	}
+    }
     
     override public ActionEvent Parse(ActionParser parser)
     {

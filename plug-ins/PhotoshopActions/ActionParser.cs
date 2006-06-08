@@ -29,10 +29,17 @@ namespace Gimp.PhotoshopActions
     BinaryReader _binReader;
     EventMap _map = new EventMap();
 
+    int _parsingFailed;
+
     public ActionParser(Image image, Drawable drawable)
     {
       ActionEvent.Image = image;
       ActionEvent.Drawable = drawable;
+    }
+
+    public int ParsingFailed
+    {
+      get {return _parsingFailed;}
     }
 
     public ActionSet Parse(string fileName)
@@ -43,6 +50,7 @@ namespace Gimp.PhotoshopActions
 	  int version = ReadInt32();
 	  if (version != 16 && version != 12)
 	    {
+	      _parsingFailed++;
 	      return null;
 	    }
 
@@ -84,10 +92,10 @@ namespace Gimp.PhotoshopActions
       action.Name = ReadUnicodeString();
       action.Expanded = ReadByte();
       
-      int children = ReadInt32();
-      Console.WriteLine("Children: " + children);
+      action.NrOfChildren = ReadInt32();
+      Console.WriteLine("{0} ({1})", action.Name, action.NrOfChildren);
 
-      for (int i = 0; i < children; i++)
+      for (int i = 0; i < action.NrOfChildren; i++)
 	{
 	  ActionEvent actionEvent = ReadActionEvent();
 	  if (actionEvent != null)
@@ -96,6 +104,7 @@ namespace Gimp.PhotoshopActions
 	    }
 	  else
 	    {
+	      _parsingFailed++;
 	      break;
 	    }
 	}
@@ -110,13 +119,13 @@ namespace Gimp.PhotoshopActions
       byte withDialog = ReadByte();
       byte dialogOptions = ReadByte();
 
-      ParseFourByteString("TEXT");
-
-      string eventName = ReadString();
-      Console.WriteLine("\tEventName: " + eventName);
-
       try 
 	{
+	  ParseFourByteString("TEXT");
+	  
+	  string eventName = ReadString();
+	  Console.WriteLine("\tEventName: " + eventName);
+	  
 	  ActionEvent actionEvent = _map.Lookup(eventName);
 	  actionEvent.EventForDisplay = ReadString();
 

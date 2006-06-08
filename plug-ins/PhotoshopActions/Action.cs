@@ -33,6 +33,7 @@ namespace Gimp.PhotoshopActions
     byte _commandKey;
     int _colorIndex;
     byte _expanded;
+    int _nrOfChildren;
 
     public Action()
     {
@@ -59,10 +60,36 @@ namespace Gimp.PhotoshopActions
       set {_expanded = value;}
     }
 
+    public int NrOfChildren
+    {
+      get {return _nrOfChildren;}
+      set {_nrOfChildren = value;}
+    }
+
     public string Name
     {
       get {return _name;}
       set {_name = value;}
+    }
+
+    public bool IsExecutable
+    {
+      get
+	{
+	  if (_set.Count != _nrOfChildren)
+	    {
+	      return false;
+	    }
+
+	  foreach (ActionEvent actionEvent in _set)
+	    {
+	      if (!actionEvent.IsExecutable)
+		{
+		  return false;
+		}
+	    }
+	  return true;
+	}
     }
 
     public void Add(ActionEvent actionEvent)

@@ -45,6 +45,14 @@ namespace Gimp.PhotoshopActions
       return this;
     }
 
+    public override bool IsExecutable
+    {
+      get 
+	{
+	  return _units == "#Prc";
+	}
+    }
+
     override public bool Execute()
     {
       if (Image == null)
