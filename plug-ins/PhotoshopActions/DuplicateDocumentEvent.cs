@@ -26,7 +26,7 @@ namespace Gimp.PhotoshopActions
   {
     string _name;
 
-    public DuplicateDocumentEvent()
+    public DuplicateDocumentEvent(ActionEvent srcEvent) : base(srcEvent) 
     {
     }
     
@@ -40,19 +40,6 @@ namespace Gimp.PhotoshopActions
 
     override public ActionEvent Parse(ActionParser parser)
     {
-      parser.ParseToken("null");
-      parser.ParseFourByteString("obj");
-
-      int numberOfItems = parser.ReadInt32();
-
-      parser.ParseFourByteString("Enmr");
-
-      string classID = parser.ReadTokenOrUnicodeString();
-      Console.WriteLine("\tClassID: " + classID);
-
-      string keyID = parser.ReadTokenOrString();
-      Console.WriteLine("\tkeyID: " + keyID);
-
       string typeID = parser.ReadTokenOrString();
       Console.WriteLine("\ttypeID: " + typeID);
 

@@ -75,7 +75,10 @@ namespace Gimp.PhotoshopActions
       set {_numberOfItems = value;}
     }
 
-    public abstract ActionEvent Parse(ActionParser parser);
+    public virtual ActionEvent Parse(ActionParser parser)
+    {
+      return this;
+    }
 
     public virtual bool Execute()
     {

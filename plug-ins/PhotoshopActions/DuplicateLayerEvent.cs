@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// InvertEvent.cs
+// DuplicateLayerEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,9 +22,11 @@ using System;
 
 namespace Gimp.PhotoshopActions
 {
-  public class InvertEvent : ActionEvent
+  public class DuplicateLayerEvent : ActionEvent
   {
-    public InvertEvent()
+    string _name;
+
+    public DuplicateLayerEvent(ActionEvent srcEvent) : base(srcEvent) 
     {
     }
     
@@ -34,6 +36,17 @@ namespace Gimp.PhotoshopActions
 	{
 	  return false;
 	}
+    }
+
+    override public ActionEvent Parse(ActionParser parser)
+    {
+      string typeID = parser.ReadTokenOrString();
+      Console.WriteLine("\ttypeID: " + typeID);
+
+      string enumID = parser.ReadTokenOrString();
+      Console.WriteLine("\tenum: " + enumID);
+
+      return this;
     }
   }
 }

@@ -153,6 +153,10 @@ namespace Gimp
 		  _params[i].type = PDBArgType.Int32;
 		  _params[i].data.d_int32 = (Int32) obj;
 		  break;
+		case PDBArgType.Float:
+		  _params[i].type = PDBArgType.Float;
+		  _params[i].data.d_float = (double) obj;
+		  break;
 		default:
 		  Console.WriteLine("Implement this!");
 		  break;

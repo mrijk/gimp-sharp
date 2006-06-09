@@ -66,6 +66,19 @@ namespace Gimp.PhotoshopActions
 	      throw new GimpSharpException();
 	    }
 	}
+      else if (type == "Enmr")
+	{
+	  string keyID = parser.ParseEnmr();
+	  if (keyID == "Lyr")
+	    {
+	      return new SetLayerEvent(this).Parse(parser);
+	    }
+	  else
+	    {
+	      Console.WriteLine("*** Unknown keyID: " + keyID);
+	      throw new GimpSharpException();	      
+	    }
+	}
       else
 	{
 	  Console.WriteLine("*** Unknown type: " + type);

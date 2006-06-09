@@ -30,14 +30,6 @@ namespace Gimp.PhotoshopActions
     {
     }
 
-    public override bool IsExecutable
-    {
-      get 
-	{
-	  return false;
-	}
-    }
-    
     override public ActionEvent Parse(ActionParser parser)
     {
       string units;
@@ -45,6 +37,14 @@ namespace Gimp.PhotoshopActions
       Console.WriteLine("\tRadius: " + _radius);
 
       return this;
+    }
+
+    override public bool Execute()
+    {
+      Procedure procedure = new Procedure("plug_in_gauss");
+      procedure.Run(Image, Drawable, _radius, _radius, 0);
+
+      return true;
     }
   }
 }

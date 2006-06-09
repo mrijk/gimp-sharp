@@ -41,12 +41,10 @@ namespace Gimp.PhotoshopActions
     
     override public ActionEvent Parse(ActionParser parser)
     {
-      Console.WriteLine("-------------------------");
-
       _width = parser.ReadDouble("Wdth", out _units);
 
       bool _scaleStyles = parser.ParseBool("scaleStyles");
-      bool _cnsP = parser.ParseBool("cnsP");
+      bool _cnsP = parser.ParseBool("CnsP");
 
       return this;
     }

@@ -48,7 +48,7 @@ namespace Gimp.PhotoshopActions
       try 
 	{
 	  int version = ReadInt32();
-	  if (version != 16 && version != 12)
+	  if (version != 16)
 	    {
 	      _parsingFailed++;
 	      return null;
@@ -59,16 +59,19 @@ namespace Gimp.PhotoshopActions
 	  actions.Expanded = ReadByte();
 	  actions.SetChildren = ReadInt32();
 
-	  Action action = ReadAction();
-	  if (action == null)
+	  for (int i = 0; i < actions.SetChildren; i++)
 	    {
-	      return null;
+	      Action action = ReadAction();
+	      if (action == null)
+		{
+		  return null;
+		}
+	      actions.Add(action);
 	    }
 
-	  actions.Add(action);
 	  return actions;
 	}
-      catch (EndOfStreamException e)
+      catch (Exception e)
 	{	
 	  Console.WriteLine("{0} caught.", e.GetType().Name);
 	}
@@ -274,6 +277,7 @@ namespace Gimp.PhotoshopActions
       else
 	{
 	  Console.WriteLine("Keylength != 0 not supported yet!");
+	  throw new GimpSharpException();
 	}
     }
 
@@ -284,13 +288,27 @@ namespace Gimp.PhotoshopActions
       return ReadUnicodeString();
     }
 
+    public bool ParseBool(out string name)
+    {
+      int length = ReadInt32();
+      if (length == 0)
+	{
+	  name = ReadFourByteString();
+	}
+      else
+	{
+	  name = ReadString(length);
+	}
+      ParseFourByteString("bool");
+      return (ReadByte() == 0) ? false : true;
+    }
+
     public bool ParseBool(string expected)
     {
       int length = ReadInt32();
       if (length == 0)
 	{
 	  ParseFourByteString(expected);
-	  // ParseFourByteString("bool");
 	}
       else
 	{
@@ -322,6 +340,23 @@ namespace Gimp.PhotoshopActions
       Objc objc = new Objc();
       objc.Parse(this);
       return objc;
+    }
+
+    public string ParseEnmr()
+    {
+      string classID = ReadTokenOrUnicodeString();
+      Console.WriteLine("\t\tclassID: " + classID);
+      
+      string keyID = ReadTokenOrString();
+      Console.WriteLine("\t\tkeyID: " + keyID);
+      
+      string typeID = ReadTokenOrString();
+      Console.WriteLine("\t\ttypeID: " + typeID);
+      
+      string val = ReadTokenOrString();
+      Console.WriteLine("\t\tvalue: " + val);
+
+      return keyID;
     }
 
     public string ReadFourByteString()

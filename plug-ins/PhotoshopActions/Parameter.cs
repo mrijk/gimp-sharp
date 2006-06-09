@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// InvertEvent.cs
+// Parameter.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,18 +22,7 @@ using System;
 
 namespace Gimp.PhotoshopActions
 {
-  public class InvertEvent : ActionEvent
+  public abstract class Parameter
   {
-    public InvertEvent()
-    {
-    }
-    
-    public override bool IsExecutable
-    {
-      get 
-	{
-	  return false;
-	}
-    }
   }
 }

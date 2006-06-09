@@ -44,6 +44,7 @@ namespace Gimp.PhotoshopActions
 
     public int SetChildren
     {
+      get {return _setChildren;}
       set {_setChildren = value;}
     }
 

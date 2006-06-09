@@ -35,10 +35,13 @@ namespace Gimp.PhotoshopActions
       _map["brightnessEvent"] = "BrightnessEvent";
       _map["clouds"] = "CloudsEvent";
       _map["delete"] = "DeleteEvent";
-      _map["duplicate"] = "DuplicateDocumentEvent";
+      _map["desaturate"] = "DesaturateEvent";
+      _map["duplicate"] = "DuplicateEvent";
       _map["exchange"] = "ExchangeEvent";
+      _map["facet"] = "FacetEvent";
       _map["fill"] = "FillEvent";
       _map["findEdges"] = "FindEdgesEvent";
+      _map["flattenImage"] = "FlattenImageEvent";
       _map["gaussianBlur"] = "GaussianBlurEvent";
       _map["hide"] = "HideEvent";
       _map["hueSaturation"] = "HueSaturationEvent";
@@ -51,6 +54,7 @@ namespace Gimp.PhotoshopActions
       _map["reset"] = "ResetEvent";
       _map["select"] = "SelectEvent";
       _map["set"] = "SetEvent";
+      _map["sharpen"] = "SharpenEvent";
       _map["stop"] = "StopEvent";
     }
 
@@ -61,7 +65,7 @@ namespace Gimp.PhotoshopActions
       if (!_map.TryGetValue(eventName, out eventType))
 	{
 	  Console.WriteLine("Event {0} unsupported", eventName);
-	  throw new GimpSharpException();
+	  return new UnimplementedEvent();
 	}
 
       eventType = "Gimp.PhotoshopActions." + eventType;

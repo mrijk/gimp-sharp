@@ -38,6 +38,21 @@ namespace Gimp.PhotoshopActions
 
     override public ActionEvent Parse(ActionParser parser)
     {
+      if (NumberOfItems == 1)
+	{
+	  string token;
+	  bool val = parser.ParseBool(out token);
+	  return this;
+	}
+
+      if (NumberOfItems == 2)
+	{
+	  string token;
+	  bool autoBlackWhite = parser.ParseBool(out token);
+	  bool autoNeutral = parser.ParseBool(out token);
+	  return this;
+	}
+
       parser.ParseToken("Adjs");
       parser.ParseFourByteString("VlLs");
       parser.ParseInt32(1);

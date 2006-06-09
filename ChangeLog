@@ -1,3 +1,24 @@
+2006-06-09  Maurits  <m.rijk@chello.nl>
+
+	* lib/Procedure.cs: implemented double parameter
+
+	* plug-ins/PhotoshopActions/DesaturateEvent.cs
+	* plug-ins/PhotoshopActions/DuplicateEvent.cs
+	* plug-ins/PhotoshopActions/DuplicateLayerEvent.cs
+	* plug-ins/PhotoshopActions/FacetEvent.cs
+	* plug-ins/PhotoshopActions/FlattenImageEvent.cs
+	* plug-ins/PhotoshopActions/Parameter.cs
+	* plug-ins/PhotoshopActions/SetLayerEvent.cs
+	* plug-ins/PhotoshopActions/SharpenEvent.cs
+	* plug-ins/PhotoshopActions/UnimplementedEvent.cs: new file
+
+	* plug-ins/PhotoshopActions/Makefile: changed accordingly
+
+2006-06-08  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/PhotoshopActions/*.cs: many changes to collect
+	statistics on succesful parsings and executable code.
+
 2006-06-08  Max      <massimo.perga@gmail.com>
 
 	* plug-ins/Forge/Forge.cs: improved Preview generation and added

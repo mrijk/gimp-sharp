@@ -17,11 +17,16 @@ MYSOURCES = 				\
 	CloudsEvent.cs			\
 	DeleteEvent.cs			\
 	DeleteLayerEvent.cs		\
+	DesaturateEvent.cs		\
+	DuplicateEvent.cs		\
 	DuplicateDocumentEvent.cs	\
+	DuplicateLayerEvent.cs		\
 	EventMap.cs			\
 	ExchangeEvent.cs		\
+	FacetEvent.cs			\
 	FillEvent.cs			\
 	FindEdgesEvent.cs		\
+	FlattenImageEvent.cs		\
 	GaussianBlurEvent.cs		\
 	HideEvent.cs			\
 	HueSaturationEvent.cs		\
@@ -32,15 +37,19 @@ MYSOURCES = 				\
 	MoveEvent.cs			\
 	NewDocumentEvent.cs		\
 	Objc.cs				\
+	Parameter.cs			\
 	PhotoshopActions.cs		\
 	ReplaceColorEvent.cs		\
 	ResetEvent.cs			\
 	SelectEvent.cs			\
 	SelectionEvent.cs		\
 	SetBackgroundColorEvent.cs	\
-	SetForegroundColorEvent.cs	\
 	SetEvent.cs			\
-	StopEvent.cs
+	SetForegroundColorEvent.cs	\
+	SetLayerEvent.cs		\
+	SharpenEvent.cs			\
+	StopEvent.cs			\
+	UnimplementedEvent.cs
 
 EXTRA_DIST = $(MYSOURCES) PhotoshopActions PhotoshopActions.png
 

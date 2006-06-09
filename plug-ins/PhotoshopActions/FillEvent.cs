@@ -45,7 +45,8 @@ namespace Gimp.PhotoshopActions
       parser.ParseToken("Usng");
       parser.ParseFourByteString("enum");
       parser.ParseToken("FlCn");
-      parser.ParseToken("FrgC");
+
+      string myEnum = parser.ReadTokenOrString();
 
       // 2: opactity
       string units;

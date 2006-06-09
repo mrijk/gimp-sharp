@@ -46,7 +46,7 @@ namespace Gimp.PhotoshopActions
       if (token == "enum")
 	{
 	  parser.ParseToken("Ordn");
-	  parser.ParseToken("Al");
+	  string mode = parser.ReadTokenOrString();
 	}
       else if (token == "Objc")
 	{
