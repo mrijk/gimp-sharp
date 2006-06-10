@@ -19,6 +19,7 @@
 //
 
 using System;
+using System.Reflection;
 
 namespace Gimp.PhotoshopActions
 {
@@ -26,14 +27,19 @@ namespace Gimp.PhotoshopActions
   {
     bool _value;
 
+    public bool Value
+    {
+      get {return _value;}
+    }
+
     public override void Parse(ActionParser parser)
     {
       _value = (parser.ReadByte() == 0) ? false : true;
     }
 
-    public bool Value
+    public override void Fill(Object obj, FieldInfo field)
     {
-      get {return _value;}
+      field.SetValue(obj, _value);
     }
   }
 }

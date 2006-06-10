@@ -37,6 +37,7 @@ MYSOURCES = 				\
 	ImageSizeEvent.cs		\
 	InvertEvent.cs			\
 	LevelsEvent.cs			\
+	ListParameter.cs		\
 	MakeEvent.cs			\
 	MoveEvent.cs			\
 	NewDocumentEvent.cs		\

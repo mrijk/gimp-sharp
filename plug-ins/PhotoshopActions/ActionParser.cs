@@ -364,6 +364,74 @@ namespace Gimp.PhotoshopActions
       return objc;
     }
 
+    public void ReadDescriptor()
+    {
+      string classID = ReadUnicodeString();
+      Console.WriteLine("\tClassID: " + classID);
+      
+      string classID2 = ReadTokenOrString();
+      Console.WriteLine("\tClassID2: " + classID2);
+
+      int numberOfItems = ReadInt32();
+      Console.WriteLine("\tNumberOfItems: " + numberOfItems);
+	  
+      for (int i = 0; i < numberOfItems; i++)
+	{
+	  ReadItem();
+	}
+    }
+
+    public Parameter ReadItem()
+    {
+      string key = ReadTokenOrString();
+      Console.WriteLine("\t\tkey: " + key);
+		
+      string type = ReadFourByteString();
+      Console.WriteLine("\t\ttype: " + type);
+
+      Parameter parameter = null;
+
+      if (type == "UntF")
+	{
+	  parameter = new DoubleParameter();
+	  parameter.Parse(this);
+	}
+      else if (type == "bool")
+	{
+	  parameter = new BoolParameter();
+	  parameter.Parse(this);
+	}
+      else if (type == "enum")
+	{
+	  parameter = new EnumParameter();
+	  parameter.Parse(this);
+	}
+      else if (type == "VlLs")
+	{
+	  parameter = new ListParameter();
+	  parameter.Parse(this);
+	}
+      /*
+      else if (type == "Enmr")
+	{
+	  parser.ParseEnmr();
+	}
+      else if (type == "long")
+	{
+	  int val = parser.ReadInt32();
+	  Console.WriteLine("\t\tval: " + val);
+	}
+      else
+	{
+	  Console.WriteLine("ReadItem: type {0} unknown!", type);
+	  throw new GimpSharpException();
+	}
+
+      parameter.Name = key;
+
+      return parameter;
+    }
+
     public string ParseEnmr()
     {
       string classID = ReadTokenOrUnicodeString();

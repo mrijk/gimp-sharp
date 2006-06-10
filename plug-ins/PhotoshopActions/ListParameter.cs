@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// EnumParameter.cs
+// ListParameter.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,31 +23,31 @@ using System.Reflection;
 
 namespace Gimp.PhotoshopActions
 {
-  public class EnumParameter : Parameter
+  public class ListParameter : Parameter
   {
-    string _type;
-    string _value;
-
-    public string Type
-    {
-      get {return _type;}
-    }
-
-    public string Value
-    {
-      get {return _value;}
-    }
-
     public override void Parse(ActionParser parser)
     {
-      _type = parser.ReadTokenOrUnicodeString();
-      _value = parser.ReadTokenOrString();
+      int number = parser.ReadInt32();
+      Console.WriteLine("\t\tnumber: " + number);
+      
+      for (int i = 0; i < number; i++)
+	{
+	  string type = parser.ReadFourByteString();
+	  Console.WriteLine("\t\ttype: " + type);
+	  if (type == "Objc")
+	    {
+	      parser.ReadDescriptor();
+	    }
+	  else
+	    {
+	      Console.WriteLine("ReadVlLs: type {0} unknown!", type);
+	      return;
+	    }
+	}
     }
 
     public override void Fill(Object obj, FieldInfo field)
     {
-      field.SetValue(obj, _value);
-      // TODO: also fill the type?
     }
   }
 }

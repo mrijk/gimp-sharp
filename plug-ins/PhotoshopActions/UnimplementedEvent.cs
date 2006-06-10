@@ -39,7 +39,7 @@ namespace Gimp.PhotoshopActions
     override public ActionEvent Parse(ActionParser parser)
     {
       ParameterSet set = new ParameterSet();
-      set.Parse(parser, typeof(UnimplementedEvent), NumberOfItems);
+      set.Parse(parser, this, typeof(UnimplementedEvent), NumberOfItems);
       return this;
     }
   }

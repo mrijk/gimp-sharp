@@ -38,6 +38,7 @@ namespace Gimp.PhotoshopActions
 
     override public ActionEvent Parse(ActionParser parser)
     {
+#if false
       if (NumberOfItems == 1)
 	{
 	  string token;
@@ -84,7 +85,11 @@ namespace Gimp.PhotoshopActions
 	  Console.WriteLine("LevelsEvent: " + keyID);
 	  throw new GimpSharpException();
 	}
+#else
+      ParameterSet set = new ParameterSet();
+      set.Parse(parser, this, typeof(LevelsEvent), NumberOfItems);
 
+#endif
       return this;
     }
   }

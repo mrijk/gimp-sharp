@@ -34,17 +34,22 @@ namespace Gimp.PhotoshopActions
       get {return _set[name];}
     }
 
-    public void Parse(ActionParser parser, Type type, int numberOfItems)
+    public void Parse(ActionParser parser, Object obj, Type type, 
+		      int numberOfItems)
     {
       for (int i = 0; i < numberOfItems; i++)
 	{
-	  ReadItem(parser);
+	  Parameter parameter = parser.ReadItem();
+	  if (parameter != null)
+	    {
+	      _set[parameter.Name] = parameter;
+	    }
 	}
 
-      Fill(type);
+      Fill(obj, type);
     }
 
-    void Fill(Type type)
+    void Fill(Object obj, Type type)
     {
       foreach (FieldInfo field in type.GetFields(BindingFlags.Instance |  
 						 BindingFlags.NonPublic | 
@@ -56,105 +61,19 @@ namespace Gimp.PhotoshopActions
 		{
 		  ParameterAttribute parameterAttribute = 
 		    attribute as ParameterAttribute;
-		  Console.WriteLine("Parameter: " + parameterAttribute.Name);
+		  Parameter parameter = _set[parameterAttribute.Name];
+		  if (parameter != null)
+		    {
+		      parameter.Fill(obj, field);
+		    }
+		  else
+		    {
+		      Console.WriteLine("ParameterSet::Fill " 
+					+ parameterAttribute.Name);
+		    }
 		}
 	    }
 	}    
-    }
-
-    void ReadItem(ActionParser parser)
-    {
-      string key = parser.ReadTokenOrString();
-      Console.WriteLine("\t\tkey: " + key);
-		
-      string type = parser.ReadFourByteString();
-      Console.WriteLine("\t\ttype: " + type);
-
-      Parameter parameter = null;
-
-      if (type == "UntF")
-	{
-	  parameter = new DoubleParameter();
-	  parameter.Parse(parser);
-
-	  Console.WriteLine("\t\tval: " +(parameter as DoubleParameter).Value);
-
-	}
-      else if (type == "bool")
-	{
-	  parameter = new BoolParameter();
-	  parameter.Parse(parser);
-
-	  Console.WriteLine("\t\tval: " + (parameter as BoolParameter).Value);
-	}
-      else if (type == "enum")
-	{
-	  parameter = new EnumParameter();
-	  parameter.Parse(parser);
-
-	  Console.WriteLine("\t\tval: " + (parameter as EnumParameter).Value);
-	}
-      else if (type == "Enmr")
-	{
-	  parser.ParseEnmr();
-	}
-      else if (type == "long")
-	{
-	  int val = parser.ReadInt32();
-	  Console.WriteLine("\t\tval: " + val);
-	}
-      else if (type == "VlLs")
-	{
-	  ReadVlLs(parser);
-	}
-      else
-	{
-	  Console.WriteLine("ReadItem: type {0} unknown!", type);
-	  throw new GimpSharpException();
-	}
-
-      if (parameter != null)
-	{
-	  _set[key] = parameter;
-	}
-    }
-
-    void ReadVlLs(ActionParser parser)
-    {
-      int number = parser.ReadInt32();
-      Console.WriteLine("\t\tnumber: " + number);
-      
-      for (int i = 0; i < number; i++)
-	{
-	  string type = parser.ReadFourByteString();
-	  Console.WriteLine("\t\ttype: " + type);
-	  if (type == "Objc")
-	    {
-	      ReadDescriptor(parser);
-	    }
-	  else
-	    {
-	      Console.WriteLine("ReadVlLs: type {0} unknown!", type);
-	      return;
-	    }
-	}
-    }
-
-    void ReadDescriptor(ActionParser parser)
-    {
-      string classID = parser.ReadUnicodeString();
-      Console.WriteLine("\tClassID: " + classID);
-      
-      string classID2 = parser.ReadTokenOrString();
-      Console.WriteLine("\tClassID2: " + classID2);
-
-      int numberOfItems = parser.ReadInt32();
-      Console.WriteLine("\tNumberOfItems: " + numberOfItems);
-	  
-      for (int i = 0; i < numberOfItems; i++)
-	{
-	  ReadItem(parser);
-	}
     }
   }
 }

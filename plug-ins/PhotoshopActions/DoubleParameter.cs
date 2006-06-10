@@ -19,6 +19,7 @@
 //
 
 using System;
+using System.Reflection;
 
 namespace Gimp.PhotoshopActions
 {
@@ -26,12 +27,6 @@ namespace Gimp.PhotoshopActions
   {
     double _value;
     string _units;
-
-    public override void Parse(ActionParser parser)
-    {
-      _units = parser.ReadFourByteString();
-      _value = parser.ReadDouble();
-    }
 
     public double Value
     {
@@ -41,6 +36,18 @@ namespace Gimp.PhotoshopActions
     public string Units
     {
       get {return _units;}
+    }
+
+    public override void Parse(ActionParser parser)
+    {
+      _units = parser.ReadFourByteString();
+      _value = parser.ReadDouble();
+    }
+
+    public override void Fill(Object obj, FieldInfo field)
+    {
+      field.SetValue(obj, _value);
+      // TODO: also fill the units!?
     }
   }
 }

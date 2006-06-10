@@ -46,11 +46,7 @@ namespace Gimp.PhotoshopActions
     override public ActionEvent Parse(ActionParser parser)
     {
       ParameterSet set = new ParameterSet();
-      set.Parse(parser, typeof(AddNoiseEvent), NumberOfItems);
-
-      _distribution = (set["Dstr"] as EnumParameter).Value;
-      _noise = (set["Nose"] as DoubleParameter).Value;
-      _monochrome = (set["Mnch"] as BoolParameter).Value;
+      set.Parse(parser, this, typeof(AddNoiseEvent), NumberOfItems);
 
       return this;
     }

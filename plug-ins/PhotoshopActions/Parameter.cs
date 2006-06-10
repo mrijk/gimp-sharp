@@ -19,11 +19,21 @@
 //
 
 using System;
+using System.Reflection;
 
 namespace Gimp.PhotoshopActions
 {
   public abstract class Parameter
   {
+    string _name;
+
+    public string Name
+    {
+      get {return _name;}
+      set {_name = value;}
+    }
+
     public abstract void Parse(ActionParser parser);
+    public abstract void Fill(Object obj, FieldInfo field);
   }
 }
