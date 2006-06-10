@@ -143,24 +143,33 @@ namespace Gimp.PhotoshopActions
       // Dump some statistics
 
       int nrExecutable = 0;
+      int nrEvents = 0;
+      int nrExecutableEvents = 0;
+
       foreach (ActionSet actions in _set)
 	{
 	  if (actions.IsExecutable)
 	    {
 	      nrExecutable++;
 	    }
+	  nrEvents += actions.ActionEvents;
+	  nrExecutableEvents += actions.ExecutableActionEvents;
 	}
 
       double percParsed = (nrScripts - parser.ParsingFailed) * 100.0 / 
 	nrScripts;
       double percExecutable = nrExecutable * 100.0 / nrScripts;
+      double percExecutableEvents = nrExecutableEvents * 100.0 / nrEvents;
 
-      Console.WriteLine("#Total      : " + nrScripts++);
-      Console.WriteLine("#Parsed     : " + _set.Count);
-      Console.WriteLine("#Failed     : " + parser.ParsingFailed);
-      Console.WriteLine("#Executable : " + nrExecutable);
+      Console.WriteLine("#Total              : " + nrScripts);
+      Console.WriteLine("#Total events       : " + nrEvents);
+      Console.WriteLine("#Parsed             : " + _set.Count);
+      Console.WriteLine("#Failed             : " + parser.ParsingFailed);
+      Console.WriteLine("#Scripts executable : " + nrExecutable);
+      Console.WriteLine("#Events executable  : " + nrExecutableEvents);
       Console.WriteLine("% parsed    : " + percParsed);
       Console.WriteLine("% executable: " + percExecutable);
+      Console.WriteLine("% executable: " + percExecutableEvents);
 
       return store;
     }

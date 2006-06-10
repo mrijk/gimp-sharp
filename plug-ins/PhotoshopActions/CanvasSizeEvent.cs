@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// ExchangeEvent.cs
+// CanvasSizeEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,19 +22,25 @@ using System;
 
 namespace Gimp.PhotoshopActions
 {
-  public class ExchangeEvent : ActionEvent
+  public class CanvasSizeEvent : ActionEvent
   {
-    override public ActionEvent Parse(ActionParser parser)
-    {
-      ParameterSet set = new ParameterSet();
-      set.Parse(parser, this, NumberOfItems);
+    [Parameter("Wdth")]
+    double _width;
+    [Parameter("Hrzn")]
+    string _horizontal;
+    [Parameter("canvasExtensionColorType")]
+    string _extensionColorType;
 
-      return this;
+    public override bool IsExecutable
+    {
+      get 
+	{
+	  return false;
+	}
     }
 
     override public bool Execute()
     {
-      Context.SwapColors();
       return true;
     }
   }

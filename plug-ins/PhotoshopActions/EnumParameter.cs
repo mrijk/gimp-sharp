@@ -40,7 +40,7 @@ namespace Gimp.PhotoshopActions
 
     public override void Parse(ActionParser parser)
     {
-      _type = parser.ReadTokenOrUnicodeString();
+      _type = parser.ReadTokenOrString();
       _value = parser.ReadTokenOrString();
     }
 

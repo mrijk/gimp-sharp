@@ -24,21 +24,15 @@ namespace Gimp.PhotoshopActions
 {
   public class DesaturateEvent : ActionEvent
   {
-    public DesaturateEvent()
+    override public bool Execute()
     {
-    }
-
-    public override bool IsExecutable
-    {
-      get 
+      if (Drawable == null)
 	{
+	  Console.WriteLine("Please open image first");
 	  return false;
 	}
-    }
-    
-    override public ActionEvent Parse(ActionParser parser)
-    {
-      return this;
+      Drawable.Desaturate();
+      return true;
     }
   }
 }

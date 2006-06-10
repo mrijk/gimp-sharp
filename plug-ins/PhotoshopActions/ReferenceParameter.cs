@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// ExchangeEvent.cs
+// ReferenceParameter.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,23 +19,37 @@
 //
 
 using System;
+using System.Reflection;
 
 namespace Gimp.PhotoshopActions
 {
-  public class ExchangeEvent : ActionEvent
+  public class ReferenceParameter : Parameter
   {
-    override public ActionEvent Parse(ActionParser parser)
+    public override void Parse(ActionParser parser)
     {
-      ParameterSet set = new ParameterSet();
-      set.Parse(parser, this, NumberOfItems);
+      int number = parser.ReadInt32();
 
-      return this;
+      for (int i = 0; i < number; i++)
+	{
+	  string type = parser.ReadFourByteString();
+	  if (type == "Enmr")
+	    {
+	      parser.ParseEnmr();
+	    }
+	  else if (type == "prop")
+	    {
+	      parser.ParseProp();
+	    }
+	  else
+	    {
+	      Console.WriteLine("ReadObj: type {0} unknown!", type);
+	      return;
+	    }
+	}
     }
 
-    override public bool Execute()
+    public override void Fill(Object obj, FieldInfo field)
     {
-      Context.SwapColors();
-      return true;
     }
   }
 }

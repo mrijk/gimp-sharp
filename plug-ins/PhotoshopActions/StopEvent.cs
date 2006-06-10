@@ -24,22 +24,10 @@ namespace Gimp.PhotoshopActions
 {
   public class StopEvent : ActionEvent
   {
+    [Parameter("Msge")]
     string _message;
+    [Parameter("Cntn")]
     bool _continue;
-
-    public StopEvent()
-    {
-    }
-    
-    override public ActionEvent Parse(ActionParser parser)
-    {
-      _message = parser.ParseString("Msge");
-      if (NumberOfItems == 2)
-	{
-	  _continue = parser.ParseBool("Cntn");
-	}
-      return this;
-    }
 
     override public bool Execute()
     {

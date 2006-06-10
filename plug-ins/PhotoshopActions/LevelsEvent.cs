@@ -87,7 +87,7 @@ namespace Gimp.PhotoshopActions
 	}
 #else
       ParameterSet set = new ParameterSet();
-      set.Parse(parser, this, typeof(LevelsEvent), NumberOfItems);
+      set.Parse(parser, this, NumberOfItems);
 
 #endif
       return this;

@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// ExchangeEvent.cs
+// PhotocopyEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,19 +22,30 @@ using System;
 
 namespace Gimp.PhotoshopActions
 {
-  public class ExchangeEvent : ActionEvent
+  public class PhotocopyEvent : ActionEvent
   {
-    override public ActionEvent Parse(ActionParser parser)
+    [Parameter("GEfk")]
+    string _gefk;
+    [Parameter("Dtl")]
+    int detail;
+    [Parameter("Drkn")]
+    int _darken;
+
+    public override bool IsExecutable
     {
-      ParameterSet set = new ParameterSet();
-      set.Parse(parser, this, NumberOfItems);
-
-      return this;
+      get 
+	{
+	  return false;
+	}
     }
-
+    
     override public bool Execute()
     {
-      Context.SwapColors();
+      if (Image == null)
+	{
+	  Console.WriteLine("Please open image first");
+	  return false;
+	}
       return true;
     }
   }

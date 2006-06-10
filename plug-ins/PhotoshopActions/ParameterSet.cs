@@ -34,8 +34,7 @@ namespace Gimp.PhotoshopActions
       get {return _set[name];}
     }
 
-    public void Parse(ActionParser parser, Object obj, Type type, 
-		      int numberOfItems)
+    public void Parse(ActionParser parser, Object obj, int numberOfItems)
     {
       for (int i = 0; i < numberOfItems; i++)
 	{
@@ -46,11 +45,13 @@ namespace Gimp.PhotoshopActions
 	    }
 	}
 
-      Fill(obj, type);
+      Fill(obj);
     }
 
-    void Fill(Object obj, Type type)
+    void Fill(Object obj)
     {
+      Type type = obj.GetType();
+
       foreach (FieldInfo field in type.GetFields(BindingFlags.Instance |  
 						 BindingFlags.NonPublic | 
 						 BindingFlags.Public))
@@ -61,15 +62,16 @@ namespace Gimp.PhotoshopActions
 		{
 		  ParameterAttribute parameterAttribute = 
 		    attribute as ParameterAttribute;
-		  Parameter parameter = _set[parameterAttribute.Name];
-		  if (parameter != null)
+
+		  string name = parameterAttribute.Name;
+		  if (_set.ContainsKey(name))
 		    {
+		      Parameter parameter = _set[name];
 		      parameter.Fill(obj, field);
 		    }
 		  else
 		    {
-		      Console.WriteLine("ParameterSet::Fill " 
-					+ parameterAttribute.Name);
+		      Console.WriteLine("ParameterSet::Fill " + name);
 		    }
 		}
 	    }

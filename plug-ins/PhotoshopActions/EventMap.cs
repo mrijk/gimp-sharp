@@ -34,10 +34,12 @@ namespace Gimp.PhotoshopActions
     {
       _map["addNoise"] = "AddNoiseEvent";
       _map["brightnessEvent"] = "BrightnessEvent";
+      _map["canvasSize"] = "CanvasSizeEvent";
       _map["clouds"] = "CloudsEvent";
       _map["delete"] = "DeleteEvent";
       _map["desaturate"] = "DesaturateEvent";
       _map["duplicate"] = "DuplicateEvent";
+      _map["emboss"] = "EmbossEvent";
       _map["exchange"] = "ExchangeEvent";
       _map["facet"] = "FacetEvent";
       _map["fill"] = "FillEvent";
@@ -51,12 +53,15 @@ namespace Gimp.PhotoshopActions
       _map["levels"] = "LevelsEvent";
       _map["make"] = "MakeEvent";
       _map["move"] = "MakeEvent";
+      _map["photocopy"] = "PhotocopyEvent";
       _map["replaceColor"] = "ReplaceColorEvent";
       _map["reset"] = "ResetEvent";
+      _map["rotateEventEnum"] = "RotateEvent";
       _map["select"] = "SelectEvent";
       _map["set"] = "SetEvent";
       _map["sharpen"] = "SharpenEvent";
       _map["stop"] = "StopEvent";
+      _map["unsharpMask"] = "UnsharpMaskEvent";
 
       // Pre-6 events
       _map["Clds"] = "CloudsEvent";

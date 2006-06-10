@@ -88,5 +88,31 @@ namespace Gimp.PhotoshopActions
 	  return true;
 	}
     }
+
+    public int ActionEvents
+    {
+      get 
+	{
+	  int sum = 0;
+	  foreach (Action action in _set)
+	    {
+	      sum += action.ActionEvents;
+	    }
+	  return sum;
+	}
+    }
+    
+    public int ExecutableActionEvents
+    {
+      get 
+	{
+	  int sum = 0;
+	  foreach (Action action in _set)
+	    {
+	      sum += action.ExecutableActionEvents;
+	    }
+	  return sum;
+	}
+    }
   }
 }

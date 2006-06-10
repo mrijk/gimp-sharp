@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// ExchangeEvent.cs
+// TextParameter.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -14,28 +14,32 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
+// atext with this program; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
 using System;
+using System.Reflection;
 
 namespace Gimp.PhotoshopActions
 {
-  public class ExchangeEvent : ActionEvent
+  public class TextParameter : Parameter
   {
-    override public ActionEvent Parse(ActionParser parser)
-    {
-      ParameterSet set = new ParameterSet();
-      set.Parse(parser, this, NumberOfItems);
+    string _value;
 
-      return this;
+    public string Value
+    {
+      get {return _value;}
     }
 
-    override public bool Execute()
+    public override void Parse(ActionParser parser)
     {
-      Context.SwapColors();
-      return true;
+      _value = parser.ReadUnicodeString();
+    }
+
+    public override void Fill(Object obj, FieldInfo field)
+    {
+      field.SetValue(obj, _value);
     }
   }
 }

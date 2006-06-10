@@ -16,6 +16,7 @@ MYSOURCES = 				\
 	AddNoiseEvent.cs		\
 	BoolParameter.cs		\
 	BrightnessEvent.cs		\
+	CanvasSizeEvent.cs		\
 	CloudsEvent.cs			\
 	DeleteEvent.cs			\
 	DeleteLayerEvent.cs		\
@@ -24,6 +25,7 @@ MYSOURCES = 				\
 	DuplicateEvent.cs		\
 	DuplicateDocumentEvent.cs	\
 	DuplicateLayerEvent.cs		\
+	EmbossEvent.cs			\
 	EnumParameter.cs		\
 	EventMap.cs			\
 	ExchangeEvent.cs		\
@@ -38,6 +40,7 @@ MYSOURCES = 				\
 	InvertEvent.cs			\
 	LevelsEvent.cs			\
 	ListParameter.cs		\
+	LongParameter.cs		\
 	MakeEvent.cs			\
 	MoveEvent.cs			\
 	NewDocumentEvent.cs		\
@@ -45,8 +48,11 @@ MYSOURCES = 				\
 	Parameter.cs			\
 	ParameterAttribute.cs		\
 	ParameterSet.cs			\
+	PhotocopyEvent.cs		\
 	PhotoshopActions.cs		\
+	ReferenceParameter.cs		\
 	ReplaceColorEvent.cs		\
+	RotateEvent.cs			\
 	ResetEvent.cs			\
 	SelectEvent.cs			\
 	SelectionEvent.cs		\
@@ -56,7 +62,9 @@ MYSOURCES = 				\
 	SetLayerEvent.cs		\
 	SharpenEvent.cs			\
 	StopEvent.cs			\
-	UnimplementedEvent.cs
+	TextParameter.cs		\
+	UnimplementedEvent.cs		\
+	UnsharpMaskEvent.cs
 
 EXTRA_DIST = $(MYSOURCES) PhotoshopActions PhotoshopActions.png
 

@@ -85,6 +85,9 @@ namespace Gimp.PhotoshopActions
 
     public virtual ActionEvent Parse(ActionParser parser)
     {
+      ParameterSet set = new ParameterSet();
+      set.Parse(parser, this, NumberOfItems);
+
       return this;
     }
 
@@ -92,6 +95,12 @@ namespace Gimp.PhotoshopActions
     {
       Console.WriteLine("Execute {0} not implemented", _eventForDisplay);
       return true;
+    }
+
+    protected void RunProcedure(string name, params object[] list)
+    {
+      Procedure procedure = new Procedure(name);
+      procedure.Run(_image, _drawable, list);
     }
   }
 }

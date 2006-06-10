@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// ExchangeEvent.cs
+// RotateEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,19 +22,21 @@ using System;
 
 namespace Gimp.PhotoshopActions
 {
-  public class ExchangeEvent : ActionEvent
+  public class RotateEvent : ActionEvent
   {
-    override public ActionEvent Parse(ActionParser parser)
-    {
-      ParameterSet set = new ParameterSet();
-      set.Parse(parser, this, NumberOfItems);
+    [Parameter("Angl")]
+    double _angle;
 
-      return this;
+    public override bool IsExecutable
+    {
+      get 
+	{
+	  return false;
+	}
     }
 
     override public bool Execute()
     {
-      Context.SwapColors();
       return true;
     }
   }

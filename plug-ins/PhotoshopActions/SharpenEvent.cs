@@ -24,16 +24,10 @@ namespace Gimp.PhotoshopActions
 {
   public class SharpenEvent : ActionEvent
   {
-    public SharpenEvent()
+    override public bool Execute()
     {
-    }
-    
-    public override bool IsExecutable
-    {
-      get 
-	{
-	  return false;
-	}
+      RunProcedure("plug_in_sharpen", 10);
+      return true;
     }
   }
 }

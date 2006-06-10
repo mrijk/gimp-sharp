@@ -38,6 +38,10 @@ namespace Gimp.PhotoshopActions
 	    {
 	      parser.ReadDescriptor();
 	    }
+	  else if (type == "long")
+	    {
+	      parser.ReadInt32();
+	    }
 	  else
 	    {
 	      Console.WriteLine("ReadVlLs: type {0} unknown!", type);

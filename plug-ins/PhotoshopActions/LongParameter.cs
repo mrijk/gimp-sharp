@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// ExchangeEvent.cs
+// LongParameter.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,23 +19,27 @@
 //
 
 using System;
+using System.Reflection;
 
 namespace Gimp.PhotoshopActions
 {
-  public class ExchangeEvent : ActionEvent
+  public class LongParameter : Parameter
   {
-    override public ActionEvent Parse(ActionParser parser)
-    {
-      ParameterSet set = new ParameterSet();
-      set.Parse(parser, this, NumberOfItems);
+    int _value;
 
-      return this;
+    public int Value
+    {
+      get {return _value;}
     }
 
-    override public bool Execute()
+    public override void Parse(ActionParser parser)
     {
-      Context.SwapColors();
-      return true;
+      _value = parser.ReadInt32();
+    }
+
+    public override void Fill(Object obj, FieldInfo field)
+    {
+      field.SetValue(obj, _value);
     }
   }
 }

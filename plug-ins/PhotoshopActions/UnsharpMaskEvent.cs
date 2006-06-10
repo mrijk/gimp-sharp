@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// ExchangeEvent.cs
+// UnsharpMaskEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,19 +22,25 @@ using System;
 
 namespace Gimp.PhotoshopActions
 {
-  public class ExchangeEvent : ActionEvent
+  public class UnsharpMaskEvent : ActionEvent
   {
-    override public ActionEvent Parse(ActionParser parser)
-    {
-      ParameterSet set = new ParameterSet();
-      set.Parse(parser, this, NumberOfItems);
-
-      return this;
-    }
+    [Parameter("Amnt")]
+    double _amount;
+    [Parameter("Rds")]
+    double _radius;
+    [Parameter("Thsh")]
+    double _threshold;
 
     override public bool Execute()
     {
-      Context.SwapColors();
+      if (Image == null)
+	{
+	  Console.WriteLine("Please open image first");
+	  return false;
+	}
+
+      RunProcedure("plug_in_unsharp_mask", _radius, _amount, (int) _threshold);
+
       return true;
     }
   }

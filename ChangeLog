@@ -1,5 +1,22 @@
 2006-06-10  Maurits  <m.rijk@chello.nl>
 
+	* plug-ins/PhotoshopActions/SharpenEvent.cs
+	* plug-ins/PhotoshopActions/DesaturateEvent.cs: implemented
+
+	* plug-ins/PhotoshopActions/CanvasSizeEvent.cs
+	* plug-ins/PhotoshopActions/EmbossEvent.cs
+	* plug-ins/PhotoshopActions/LongParameter.cs
+	* plug-ins/PhotoshopActions/PhotocopyEvent.cs
+	* plug-ins/PhotoshopActions/RotateEvent.cs
+	* plug-ins/PhotoshopActions/TextParameter.cs
+	* plug-ins/PhotoshopActions/UnsharpMaskEvent.cs
+	* plug-ins/PhotoshopActions/ReferenceParameter.cs: new files
+
+	* plug-ins/PhotoshopActions/EventMap.cs
+	* plug-ins/PhotoshopActions/Makefile: changed accordingly
+
+2006-06-10  Maurits  <m.rijk@chello.nl>
+
 	* plug-ins/PhotoshopActions/ListParameter.cs: new file
 
 	* plug-ins/PhotoshopActions/Makefile: changed accordingly

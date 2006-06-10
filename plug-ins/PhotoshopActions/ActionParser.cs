@@ -74,6 +74,7 @@ namespace Gimp.PhotoshopActions
       catch (Exception e)
 	{	
 	  Console.WriteLine("{0} caught.", e.GetType().Name);
+	  Console.WriteLine(e.StackTrace);
 	}
       finally
 	{
@@ -394,32 +395,30 @@ namespace Gimp.PhotoshopActions
       if (type == "UntF")
 	{
 	  parameter = new DoubleParameter();
-	  parameter.Parse(this);
 	}
       else if (type == "bool")
 	{
 	  parameter = new BoolParameter();
-	  parameter.Parse(this);
 	}
       else if (type == "enum")
 	{
 	  parameter = new EnumParameter();
-	  parameter.Parse(this);
+	}
+      else if (type == "obj")
+	{
+	  parameter = new ReferenceParameter();
 	}
       else if (type == "VlLs")
 	{
 	  parameter = new ListParameter();
-	  parameter.Parse(this);
-	}
-      /*
-      else if (type == "Enmr")
-	{
-	  parser.ParseEnmr();
 	}
       else if (type == "long")
 	{
-	  int val = parser.ReadInt32();
-	  Console.WriteLine("\t\tval: " + val);
+	  parameter = new LongParameter();
+	}
+      else if (type == "TEXT")
+	{
+	  parameter = new TextParameter();
 	}
       else
 	{
@@ -427,6 +426,7 @@ namespace Gimp.PhotoshopActions
 	  throw new GimpSharpException();
 	}
 
+      parameter.Parse(this);
       parameter.Name = key;
 
       return parameter;
@@ -449,6 +449,18 @@ namespace Gimp.PhotoshopActions
       return keyID;
     }
 
+    public void ParseProp()
+    {
+      string classID = ReadTokenOrUnicodeString();
+      Console.WriteLine("\t\tprop:classID: " + classID);
+
+      string classID2 = ReadTokenOrString();
+      Console.WriteLine("\t\tprop:classID2: " + classID2);
+
+      string keyID = ReadTokenOrString();
+      Console.WriteLine("\t\tprop:keyID: " + keyID);
+    }
+
     public string ReadFourByteString()
     {
       byte[] buffer = _binReader.ReadBytes(4);
@@ -463,7 +475,7 @@ namespace Gimp.PhotoshopActions
       return encoding.GetString(buffer);
     }
 
-    string ReadString()
+    public string ReadString()
     {
       return ReadString(ReadInt32());
     }
@@ -483,13 +495,14 @@ namespace Gimp.PhotoshopActions
     string ReadUnicodeString(int length)
     {
       byte[] buffer = _binReader.ReadBytes(2 * length);
-      
+
       for (int i = 0; i < 2 * length; i += 2)
 	{
 	  byte tmp = buffer[i];
 	  buffer[i] = buffer[i + 1];
 	  buffer[i + 1] = tmp;
 	}
+
       Encoding encoding = Encoding.Unicode;
       return encoding.GetString(buffer);
     }

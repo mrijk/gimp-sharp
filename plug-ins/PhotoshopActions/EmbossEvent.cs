@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// ExchangeEvent.cs
+// EmbossEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,19 +22,28 @@ using System;
 
 namespace Gimp.PhotoshopActions
 {
-  public class ExchangeEvent : ActionEvent
+  public class EmbossEvent : ActionEvent
   {
-    override public ActionEvent Parse(ActionParser parser)
-    {
-      ParameterSet set = new ParameterSet();
-      set.Parse(parser, this, NumberOfItems);
-
-      return this;
-    }
+    [Parameter("Angl")]
+    int _angle;
+    [Parameter("Hght")]
+    int _height;
+    [Parameter("Amnt")]
+    int _amount;
 
     override public bool Execute()
     {
-      Context.SwapColors();
+      if (Image == null)
+	{
+	  Console.WriteLine("Please open image first");
+	  return false;
+	}
+
+      // Fix me: do something with _amount and check parameters
+
+      RunProcedure("plug_in_emboss", (double) _angle, 0.0, _height,
+		   0);
+
       return true;
     }
   }

@@ -24,8 +24,14 @@ namespace Gimp.PhotoshopActions
 {
   public class ImageSizeEvent : ActionEvent
   {
+    [Parameter("Wdth")]
     double _width;
-    string _units;
+    [Parameter("scaleStyles")]
+    bool _scaleStyles;
+    [Parameter("CnsP")]
+    bool _cnsp;	// Fix me!
+    [Parameter("Intr")]
+    string _intr;
 
     public ImageSizeEvent()
     {
@@ -41,10 +47,8 @@ namespace Gimp.PhotoshopActions
     
     override public ActionEvent Parse(ActionParser parser)
     {
-      _width = parser.ReadDouble("Wdth", out _units);
-
-      bool _scaleStyles = parser.ParseBool("scaleStyles");
-      bool _cnsP = parser.ParseBool("CnsP");
+      ParameterSet set = new ParameterSet();
+      set.Parse(parser, this, NumberOfItems);
 
       return this;
     }
