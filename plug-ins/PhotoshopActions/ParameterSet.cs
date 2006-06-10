@@ -21,6 +21,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace Gimp.PhotoshopActions
 {
@@ -33,12 +34,32 @@ namespace Gimp.PhotoshopActions
       get {return _set[name];}
     }
 
-    public void Parse(ActionParser parser, int numberOfItems)
+    public void Parse(ActionParser parser, Type type, int numberOfItems)
     {
       for (int i = 0; i < numberOfItems; i++)
 	{
 	  ReadItem(parser);
 	}
+
+      Fill(type);
+    }
+
+    void Fill(Type type)
+    {
+      foreach (FieldInfo field in type.GetFields(BindingFlags.Instance |  
+						 BindingFlags.NonPublic | 
+						 BindingFlags.Public))
+	{
+	  foreach (object attribute in field.GetCustomAttributes(true))
+	    {
+	      if (attribute is ParameterAttribute)
+		{
+		  ParameterAttribute parameterAttribute = 
+		    attribute as ParameterAttribute;
+		  Console.WriteLine("Parameter: " + parameterAttribute.Name);
+		}
+	    }
+	}    
     }
 
     void ReadItem(ActionParser parser)

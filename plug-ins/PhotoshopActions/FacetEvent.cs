@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// UnimplementedEvent.cs
+// FacetEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,9 +22,9 @@ using System;
 
 namespace Gimp.PhotoshopActions
 {
-  public class UnimplementedEvent : ActionEvent
+  public class FacetEvent : ActionEvent
   {
-    public UnimplementedEvent()
+    public FacetEvent()
     {
     }
 
@@ -34,13 +34,6 @@ namespace Gimp.PhotoshopActions
 	{
 	  return false;
 	}
-    }
-    
-    override public ActionEvent Parse(ActionParser parser)
-    {
-      ParameterSet set = new ParameterSet();
-      set.Parse(parser, typeof(UnimplementedEvent), NumberOfItems);
-      return this;
     }
   }
 }
