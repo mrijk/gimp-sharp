@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// UnimplementedEvent.cs
+// AddNoiseEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,9 +22,16 @@ using System;
 
 namespace Gimp.PhotoshopActions
 {
-  public class UnimplementedEvent : ActionEvent
+  public class AddNoiseEvent : ActionEvent
   {
-    public UnimplementedEvent()
+    [Parameter("Dstr")]
+    string _distribution;
+    [Parameter("Nose")]
+    double _noise;
+    [Parameter("Mnch")]
+    bool _monochrome;
+
+    public AddNoiseEvent()
     {
     }
 
@@ -32,7 +39,7 @@ namespace Gimp.PhotoshopActions
     {
       get 
 	{
-	  return false;
+	  return _monochrome;
 	}
     }
     
@@ -40,7 +47,35 @@ namespace Gimp.PhotoshopActions
     {
       ParameterSet set = new ParameterSet();
       set.Parse(parser, NumberOfItems);
+
+      _distribution = (set["Dstr"] as EnumParameter).Value;
+      _noise = (set["Nose"] as DoubleParameter).Value;
+      _monochrome = (set["Mnch"] as BoolParameter).Value;
+
       return this;
+    }
+
+    override public bool Execute()
+    {
+      if (Image == null)
+	{
+	  Console.WriteLine("Please open image first");
+	  return false;
+	}
+
+      if (_monochrome)
+	{
+	  double noise = _noise / 100;
+	  Procedure procedure = new Procedure("plug_in_rgb_noise");
+	  procedure.Run(Image, Drawable, 0, 0, noise, noise, noise, 
+			1.0);
+	}
+      else
+	{
+	  Console.WriteLine("AddNoiseEvent: implement non-monochromatic noise");
+	  return false;
+	}
+      return true;
     }
   }
 }

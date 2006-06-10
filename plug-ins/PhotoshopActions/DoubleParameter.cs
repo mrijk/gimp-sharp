@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// UnimplementedEvent.cs
+// DoubleParameter.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,25 +22,25 @@ using System;
 
 namespace Gimp.PhotoshopActions
 {
-  public class UnimplementedEvent : ActionEvent
+  public class DoubleParameter : Parameter
   {
-    public UnimplementedEvent()
+    double _value;
+    string _units;
+
+    public override void Parse(ActionParser parser)
     {
+      _units = parser.ReadFourByteString();
+      _value = parser.ReadDouble();
     }
 
-    public override bool IsExecutable
+    public double Value
     {
-      get 
-	{
-	  return false;
-	}
+      get {return _value;}
     }
-    
-    override public ActionEvent Parse(ActionParser parser)
+
+    public string Units
     {
-      ParameterSet set = new ParameterSet();
-      set.Parse(parser, NumberOfItems);
-      return this;
+      get {return _units;}
     }
   }
 }

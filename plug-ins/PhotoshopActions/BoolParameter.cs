@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// UnimplementedEvent.cs
+// BoolParameter.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,25 +22,18 @@ using System;
 
 namespace Gimp.PhotoshopActions
 {
-  public class UnimplementedEvent : ActionEvent
+  public class BoolParameter : Parameter
   {
-    public UnimplementedEvent()
+    bool _value;
+
+    public override void Parse(ActionParser parser)
     {
+      _value = (parser.ReadByte() == 0) ? false : true;
     }
 
-    public override bool IsExecutable
+    public bool Value
     {
-      get 
-	{
-	  return false;
-	}
-    }
-    
-    override public ActionEvent Parse(ActionParser parser)
-    {
-      ParameterSet set = new ParameterSet();
-      set.Parse(parser, NumberOfItems);
-      return this;
+      get {return _value;}
     }
   }
 }

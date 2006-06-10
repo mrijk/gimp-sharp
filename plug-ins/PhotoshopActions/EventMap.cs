@@ -32,6 +32,7 @@ namespace Gimp.PhotoshopActions
 
     public EventMap()
     {
+      _map["addNoise"] = "AddNoiseEvent";
       _map["brightnessEvent"] = "BrightnessEvent";
       _map["clouds"] = "CloudsEvent";
       _map["delete"] = "DeleteEvent";
@@ -56,6 +57,9 @@ namespace Gimp.PhotoshopActions
       _map["set"] = "SetEvent";
       _map["sharpen"] = "SharpenEvent";
       _map["stop"] = "StopEvent";
+
+      // Pre-6 events
+      _map["Clds"] = "CloudsEvent";
     }
 
     public ActionEvent Lookup(string eventName)

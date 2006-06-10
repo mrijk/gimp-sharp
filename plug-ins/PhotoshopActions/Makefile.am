@@ -11,16 +11,20 @@ MYSOURCES = 				\
 	ActionEvent.cs			\
 	ActionParser.cs			\
 	ActionSet.cs			\
-	AddLayerEvent.cs		\
 	AddGuideEvent.cs		\
+	AddLayerEvent.cs		\
+	AddNoiseEvent.cs		\
+	BoolParameter.cs		\
 	BrightnessEvent.cs		\
 	CloudsEvent.cs			\
 	DeleteEvent.cs			\
 	DeleteLayerEvent.cs		\
 	DesaturateEvent.cs		\
+	DoubleParameter.cs		\
 	DuplicateEvent.cs		\
 	DuplicateDocumentEvent.cs	\
 	DuplicateLayerEvent.cs		\
+	EnumParameter.cs		\
 	EventMap.cs			\
 	ExchangeEvent.cs		\
 	FacetEvent.cs			\
@@ -38,6 +42,8 @@ MYSOURCES = 				\
 	NewDocumentEvent.cs		\
 	Objc.cs				\
 	Parameter.cs			\
+	ParameterAttribute.cs		\
+	ParameterSet.cs			\
 	PhotoshopActions.cs		\
 	ReplaceColorEvent.cs		\
 	ResetEvent.cs			\

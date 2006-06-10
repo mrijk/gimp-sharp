@@ -30,6 +30,8 @@ namespace Gimp.PhotoshopActions
     readonly byte _withDialog;
     readonly byte _dialogOptions;
     */
+    bool _preSix;
+
     string _eventForDisplay;
     protected int _numberOfItems;
 
@@ -44,6 +46,12 @@ namespace Gimp.PhotoshopActions
     {
       _eventForDisplay = srcEvent._eventForDisplay;
       _numberOfItems = srcEvent._numberOfItems;
+    }
+
+    public bool PreSix
+    {
+      get {return _preSix;}
+      set {_preSix = value;}
     }
 
     public virtual bool IsExecutable

@@ -96,6 +96,8 @@ namespace Gimp.PhotoshopActions
 
 	  ActionSet actions = _set[indices[0]];
 	  actions.Execute(indices[1]);
+
+	  Display.DisplaysFlush();
 	};      
       vbox.PackStart(play, false, true, 0);
 

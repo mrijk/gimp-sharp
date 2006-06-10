@@ -1,3 +1,19 @@
+2006-06-10  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/Makefile.am: enable some plug-ins by default
+
+	* plug-ins/PhotoshopActions/ParameterAttribute.cs
+	* plug-ins/PhotoshopActions/AddNoiseEvent.cs
+	* plug-ins/PhotoshopActions/BoolParameter.cs
+	* plug-ins/PhotoshopActions/DoubleParameter.cs
+	* plug-ins/PhotoshopActions/EnumParameter.cs: new files
+
+	* plug-ins/PhotoshopActions/Makefile: changed accordingly
+
+	* plug-ins/PhotoshopActions/UnimplementedEvent.cs
+	* plug-ins/PhotoshopActions/ActionParser.cs: initial support for older
+	(pre 6) Photosohp action files
+
 2006-06-09  Maurits  <m.rijk@chello.nl>
 
 	* lib/Procedure.cs: implemented double parameter

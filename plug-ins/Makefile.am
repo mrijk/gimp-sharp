@@ -5,9 +5,6 @@ ecw = ecw
 endif
 
 if BUILD_INCOMPLETE
-PhotoshopActions = PhotoshopActions
-Raindrops = Raindrops
-Forge = Forge
 Shatter = Shatter
 endif
 
@@ -22,15 +19,15 @@ endif
 AUTOMAKE_OPTIONS = gnu
 SUBDIRS = 			\
 	$(ecw)			\
-	$(Forge) 		\
+	Forge	 		\
 	KoalaPaint 		\
 	Ministeck		\
 	ncp 			\
 	neo			\
 	$(Pdn)			\
-	$(PhotoshopActions)	\
+	PhotoshopActions	\
 	PicturePackage 		\
-	$(Raindrops)		\
+	Raindrops		\
 	$(Shatter)		\
 	SliceTool 		\
 	Splitter 		\

@@ -24,5 +24,6 @@ namespace Gimp.PhotoshopActions
 {
   public abstract class Parameter
   {
+    public abstract void Parse(ActionParser parser);
   }
 }

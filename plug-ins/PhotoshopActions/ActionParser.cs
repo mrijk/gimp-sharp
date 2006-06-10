@@ -48,7 +48,7 @@ namespace Gimp.PhotoshopActions
       try 
 	{
 	  int version = ReadInt32();
-	  if (version != 16)
+	  if (version != 16)	//  && version != 12)
 	    {
 	      _parsingFailed++;
 	      return null;
@@ -124,9 +124,26 @@ namespace Gimp.PhotoshopActions
 
       try 
 	{
-	  ParseFourByteString("TEXT");
-	  
-	  string eventName = ReadString();
+	  string text = ReadFourByteString();
+	  string eventName;
+
+	  bool preSix;
+
+	  if (text == "TEXT")
+	    {
+	      eventName = ReadString();
+	      preSix = false;
+	    }
+	  else if (text == "long")
+	    {
+	      eventName = ReadFourByteString();
+	      preSix = true;
+	    }
+	  else
+	    {
+	      return null;
+	    }
+
 	  Console.WriteLine("\tEventName: " + eventName);
 	  
 	  ActionEvent actionEvent = _map.Lookup(eventName);
@@ -138,12 +155,17 @@ namespace Gimp.PhotoshopActions
 	      Console.WriteLine("\tHasDescriptor: " + hasDescriptor);
 	      return actionEvent;
 	    }
-	  string classID = ReadUnicodeString();
-	  Console.WriteLine("\tClassID: " + classID);
-	  
-	  string classID2 = ReadTokenOrString();
-	  Console.WriteLine("\tClassID2: " + classID2);
-	  
+
+	  if (preSix == false)
+	    {
+	      string classID = ReadUnicodeString();
+	      Console.WriteLine("\tClassID: " + classID);
+	      
+	      string classID2 = ReadTokenOrString();
+	      Console.WriteLine("\tClassID2: " + classID2);
+	    }
+
+	  actionEvent.PreSix = preSix;
 	  actionEvent.NumberOfItems = ReadInt32();
 	  Console.WriteLine("\tNumberOfItems: " + actionEvent.NumberOfItems);
 	  

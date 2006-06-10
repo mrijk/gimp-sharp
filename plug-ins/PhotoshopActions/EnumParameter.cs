@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// UnimplementedEvent.cs
+// EnumParameter.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,25 +22,25 @@ using System;
 
 namespace Gimp.PhotoshopActions
 {
-  public class UnimplementedEvent : ActionEvent
+  public class EnumParameter : Parameter
   {
-    public UnimplementedEvent()
+    string _type;
+    string _value;
+
+    public override void Parse(ActionParser parser)
     {
+      _type = parser.ReadTokenOrUnicodeString();
+      _value = parser.ReadTokenOrString();
     }
 
-    public override bool IsExecutable
+    public string Type
     {
-      get 
-	{
-	  return false;
-	}
+      get {return _type;}
     }
-    
-    override public ActionEvent Parse(ActionParser parser)
+
+    public string Value
     {
-      ParameterSet set = new ParameterSet();
-      set.Parse(parser, NumberOfItems);
-      return this;
+      get {return _value;}
     }
   }
 }
