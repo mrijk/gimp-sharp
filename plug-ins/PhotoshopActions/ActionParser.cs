@@ -444,6 +444,15 @@ namespace Gimp.PhotoshopActions
       return parameter;
     }
 
+    public void ParseClss()
+    {
+      string classID = ReadTokenOrUnicodeString();
+      Console.WriteLine("\t\tClss:classID: " + classID);
+
+      string classID2 = ReadTokenOrString();
+      Console.WriteLine("\t\tClss:classID2: " + classID2);
+    }
+
     public string ParseEnmr()
     {
       string classID = ReadTokenOrUnicodeString();

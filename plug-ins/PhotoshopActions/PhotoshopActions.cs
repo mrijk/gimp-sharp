@@ -67,7 +67,7 @@ namespace Gimp.PhotoshopActions
     {
       gimp_ui_init("PhotoshopActions", true);
 
-      Dialog dialog = DialogNew("Photoshop Actions", "PhotoshopActions",
+      Dialog dialog = DialogNew("Photoshop Actions 0.1", "PhotoshopActions",
 				IntPtr.Zero, 0, Gimp.StandardHelpFunc, 
 				"PhotoshopActions");
 
@@ -78,20 +78,21 @@ namespace Gimp.PhotoshopActions
       TreeStore store = CreateActionTree();
 
       ScrolledWindow sw = new ScrolledWindow();
+      sw.HeightRequest = 400;
       vbox.PackStart(sw, true, true, 0);
       
       TreeView view = new TreeView(store);
       sw.Add(view);        
 
-      view.AppendColumn("SetName", new CellRendererText(), "text", 0);
+      view.AppendColumn("Set Name", new CellRendererText(), "text", 0);
 
-      Button play = new Button("Play");
+      HBox hbox = new HBox();
+      vbox.PackStart(hbox, false, true, 0);
+
+      Button play = new Button(Stock.JumpTo);
       play.Clicked += delegate(object sender, EventArgs args)
 	{
-	  TreeSelection selection = view.Selection;
-	  
-
-	  TreePath[] paths = selection.GetSelectedRows();
+	  TreePath[] paths = view.Selection.GetSelectedRows();
 	  int[] indices = paths[0].Indices;
 
 	  ActionSet actions = _set[indices[0]];
@@ -99,7 +100,16 @@ namespace Gimp.PhotoshopActions
 
 	  Display.DisplaysFlush();
 	};      
-      vbox.PackStart(play, false, true, 0);
+      hbox.PackStart(play, false, true, 0);
+
+      view.Selection.Changed += delegate(object sender, EventArgs args)
+	{
+	  TreePath[] paths = view.Selection.GetSelectedRows();
+	  int[] indices = paths[0].Indices;
+
+	  play.Sensitive = (indices.Length > 1);
+	};
+
 
       dialog.ShowAll();
       return DialogRun();

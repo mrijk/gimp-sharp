@@ -27,7 +27,7 @@ namespace Gimp.PhotoshopActions
     public SetEvent()
     {
     }
-    
+#if false    
     override public ActionEvent Parse(ActionParser parser)
     {
       parser.ParseToken("null");
@@ -86,5 +86,6 @@ namespace Gimp.PhotoshopActions
 
       return this;
     }
+#endif
   }
 }

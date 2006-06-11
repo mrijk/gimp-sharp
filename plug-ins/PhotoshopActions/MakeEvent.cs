@@ -35,7 +35,7 @@ namespace Gimp.PhotoshopActions
 	  return false;
 	}
     }
-
+#if false
     override public ActionEvent Parse(ActionParser parser)
     {
       string token = parser.ReadTokenOrString();
@@ -64,5 +64,6 @@ namespace Gimp.PhotoshopActions
 	}
       return this;
     }
+#endif
   }
 }

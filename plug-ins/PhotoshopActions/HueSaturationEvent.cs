@@ -26,18 +26,6 @@ namespace Gimp.PhotoshopActions
   {
     bool _colorization;
     int _hue, _saturation, _lightness;
-
-    public HueSaturationEvent()
-    {
-    }
-
-    public override bool IsExecutable
-    {
-      get 
-	{
-	  return false;
-	}
-    }
     
     override public ActionEvent Parse(ActionParser parser)
     {
@@ -63,6 +51,19 @@ namespace Gimp.PhotoshopActions
       _lightness = parser.ReadLong("Lght");
 
       return this;
+    }
+
+    override public bool Execute()
+    {
+      if (Drawable == null)
+	{
+	  Console.WriteLine("Please open image first");
+	  return false;
+	}
+
+      Drawable.HueSaturation(HueRange.All, (double) _hue, (double) _saturation,
+			     (double) _lightness);
+      return true;
     }
   }
 }

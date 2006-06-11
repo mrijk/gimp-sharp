@@ -24,16 +24,16 @@ namespace Gimp.PhotoshopActions
 {
   public class InvertEvent : ActionEvent
   {
-    public InvertEvent()
+    override public bool Execute()
     {
-    }
-    
-    public override bool IsExecutable
-    {
-      get 
+      if (Drawable == null)
 	{
+	  Console.WriteLine("Please open image first");
 	  return false;
 	}
+
+      Drawable.Invert();
+      return true;
     }
   }
 }

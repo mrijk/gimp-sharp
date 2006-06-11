@@ -24,21 +24,17 @@ namespace Gimp.PhotoshopActions
 {
   public class FindEdgesEvent : ActionEvent
   {
-    public FindEdgesEvent()
+    override public bool Execute()
     {
-    }
-    
-    public override bool IsExecutable
-    {
-      get 
+      if (Drawable == null)
 	{
+	  Console.WriteLine("Please open image first");
 	  return false;
 	}
-    }
 
-    override public ActionEvent Parse(ActionParser parser)
-    {
-      return this;
+      RunProcedure("plug_in_sobel", 1, 1, 1);
+      Drawable.Invert();
+      return true;
     }
   }
 }

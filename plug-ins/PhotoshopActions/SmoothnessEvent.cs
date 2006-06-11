@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// ReferenceParameter.cs
+// SmoothnessEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,46 +19,30 @@
 //
 
 using System;
-using System.Reflection;
 
 namespace Gimp.PhotoshopActions
 {
-  public class ReferenceParameter : Parameter
+  public class SmoothnessEvent : ActionEvent
   {
-    public override void Parse(ActionParser parser)
-    {
-      int number = parser.ReadInt32();
+    [Parameter("Rds")]
+    double _radius;
 
-      for (int i = 0; i < number; i++)
+    public override bool IsExecutable
+    {
+      get 
 	{
-	  string type = parser.ReadFourByteString();
-	  if (type == "Clss")
-	    {
-	      parser.ParseClss();
-	    }
-	  else if (type == "Enmr")
-	    {
-	      parser.ParseEnmr();
-	    }
-	  /*
-	  else if (type == "name")
-	    {
-	    }
-	  */
-	  else if (type == "prop")
-	    {
-	      parser.ParseProp();
-	    }
-	  else
-	    {
-	      Console.WriteLine("ReadObj: type {0} unknown!", type);
-	      return;
-	    }
+	  return false;
 	}
     }
-
-    public override void Fill(Object obj, FieldInfo field)
+    
+    override public bool Execute()
     {
+      if (Image == null)
+	{
+	  Console.WriteLine("Please open image first");
+	  return false;
+	}
+      return true;
     }
   }
 }

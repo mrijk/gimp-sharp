@@ -24,27 +24,15 @@ namespace Gimp.PhotoshopActions
 {
   public class BrightnessEvent : ActionEvent
   {
+    [Parameter("Brgh")]
     int _brightness;
+    [Parameter("Cntr")]
     int _contrast;
 
-    public BrightnessEvent()
+    public override bool Execute()
     {
-    }
-
-    public override bool IsExecutable
-    {
-      get 
-	{
-	  return false;
-	}
-    }
-    
-    override public ActionEvent Parse(ActionParser parser)
-    {
-      _brightness = parser.ReadLong("Brgh");
-      _contrast = parser.ReadLong("Cntr");
-
-      return this;
+      Drawable.BrightnessContrast(_brightness, _contrast);
+      return true;
     }
   }
 }

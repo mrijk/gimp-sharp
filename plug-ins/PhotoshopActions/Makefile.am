@@ -65,6 +65,7 @@ MYSOURCES = 				\
 	SetForegroundColorEvent.cs	\
 	SetLayerEvent.cs		\
 	SharpenEvent.cs			\
+	SmoothnessEvent.cs		\
 	StopEvent.cs			\
 	TextParameter.cs		\
 	TypeParameter.cs		\
