@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// SelectEvent.cs
+// ConvertModeEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,14 +22,31 @@ using System;
 
 namespace Gimp.PhotoshopActions
 {
-  public class SelectEvent : ActionEvent
+  public class ConvertModeEvent : ActionEvent
   {
+    [Parameter("T")]
+    string _type;
+
     public override bool IsExecutable
     {
       get 
 	{
-	  return false;
+	  return _type == "RGBM";
 	}
+    }
+
+    override public bool Execute()
+    {
+      if (_type == "RGBM")
+	{
+	  Image.ConvertRgb();
+	}
+      else
+	{
+	  Console.WriteLine("ConvertModeEvent: can't convert: " + _type);
+	}
+
+      return true;
     }
   }
 }

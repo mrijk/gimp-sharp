@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// SelectEvent.cs
+// TypeParameter.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,17 +19,34 @@
 //
 
 using System;
+using System.Reflection;
 
 namespace Gimp.PhotoshopActions
 {
-  public class SelectEvent : ActionEvent
+  public class TypeParameter : Parameter
   {
-    public override bool IsExecutable
+    string _type;
+    string _value;
+
+    public string Type
     {
-      get 
-	{
-	  return false;
-	}
+      get {return _type;}
+    }
+
+    public string Value
+    {
+      get {return _value;}
+    }
+
+    public override void Parse(ActionParser parser)
+    {
+      _type = parser.ReadUnicodeString();
+      _value = parser.ReadTokenOrString();
+    }
+
+    public override void Fill(Object obj, FieldInfo field)
+    {
+      field.SetValue(obj, _value);
     }
   }
 }

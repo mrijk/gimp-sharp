@@ -25,8 +25,14 @@ namespace Gimp.PhotoshopActions
 {
   public class DoubleParameter : Parameter
   {
+    bool _hasUnits;
     double _value;
     string _units;
+
+    public DoubleParameter(bool hasUnits)
+    {
+      _hasUnits = hasUnits;
+    }
 
     public double Value
     {
@@ -40,7 +46,10 @@ namespace Gimp.PhotoshopActions
 
     public override void Parse(ActionParser parser)
     {
-      _units = parser.ReadFourByteString();
+      if (_hasUnits)
+	{
+	  _units = parser.ReadFourByteString();
+	}
       _value = parser.ReadDouble();
     }
 

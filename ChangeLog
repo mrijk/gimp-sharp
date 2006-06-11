@@ -1,3 +1,24 @@
+2006-06-11  Maurits  <m.rijk@chello.nl>
+
+	* lib/Image.cs: small API changes
+	* plug-ins/wbmp/wbmp.cs: changed accordingly
+
+	* plug-ins/PhotoshopActions/CloudsEvent.cs
+	* plug-ins/PhotoshopActions/FlattenImageEvent.cs: implemented
+
+	* plug-ins/PhotoshopActions/ConvertModeEvent.cs
+	* plug-ins/PhotoshopActions/TypeParameter.cs: new files
+	* plug-ins/PhotoshopActions/Makefile: changed accordingly
+
+2006-06-11  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/PhotoshopActions/MedianEvent.cs
+	* plug-ins/PhotoshopActions/MotionBlurEvent.cs
+	* plug-ins/PhotoshopActions/ObjcParameter.cs: new files
+
+	* plug-ins/PhotoshopActions/EventMap.cs
+	* plug-ins/PhotoshopActions/Makefile: changed accordingly
+
 2006-06-10  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/PhotoshopActions/SharpenEvent.cs

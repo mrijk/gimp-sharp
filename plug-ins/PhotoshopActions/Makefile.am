@@ -18,6 +18,7 @@ MYSOURCES = 				\
 	BrightnessEvent.cs		\
 	CanvasSizeEvent.cs		\
 	CloudsEvent.cs			\
+	ConvertModeEvent.cs		\
 	DeleteEvent.cs			\
 	DeleteLayerEvent.cs		\
 	DesaturateEvent.cs		\
@@ -42,9 +43,12 @@ MYSOURCES = 				\
 	ListParameter.cs		\
 	LongParameter.cs		\
 	MakeEvent.cs			\
+	MedianEvent.cs			\
+	MotionBlurEvent.cs		\
 	MoveEvent.cs			\
 	NewDocumentEvent.cs		\
 	Objc.cs				\
+	ObjcParameter.cs		\
 	Parameter.cs			\
 	ParameterAttribute.cs		\
 	ParameterSet.cs			\
@@ -63,6 +67,7 @@ MYSOURCES = 				\
 	SharpenEvent.cs			\
 	StopEvent.cs			\
 	TextParameter.cs		\
+	TypeParameter.cs		\
 	UnimplementedEvent.cs		\
 	UnsharpMaskEvent.cs
 

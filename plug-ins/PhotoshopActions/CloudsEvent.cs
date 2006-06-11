@@ -18,27 +18,16 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-
 namespace Gimp.PhotoshopActions
 {
   public class CloudsEvent : ActionEvent
   {
-    public CloudsEvent()
+    override public bool Execute()
     {
-    }
-    
-    public override bool IsExecutable
-    {
-      get 
-	{
-	  return false;
-	}
-    }
+      RunProcedure("plug_in_plasma", 0, 15.0);
+      Drawable.Desaturate();
 
-    override public ActionEvent Parse(ActionParser parser)
-    {
-      return this;
+      return true;
     }
   }
 }

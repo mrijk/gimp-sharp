@@ -82,7 +82,7 @@ namespace Gimp
     {
       if (!gimp_image_delete(_imageID))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
        
@@ -105,7 +105,7 @@ namespace Gimp
     {
       if (!gimp_image_free_shadow(_imageID))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
 
@@ -113,7 +113,7 @@ namespace Gimp
     {
       if (!gimp_image_flip(_imageID, flip_type))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
 
@@ -121,7 +121,7 @@ namespace Gimp
     {
       if (!gimp_image_rotate(_imageID, rotate_type))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
 
@@ -129,7 +129,7 @@ namespace Gimp
     {
       if (!gimp_image_resize (_imageID, new_width, new_height, offx, offy))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
 
@@ -137,7 +137,7 @@ namespace Gimp
     {
       if (!gimp_image_resize_to_layers (_imageID))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
        
@@ -145,7 +145,7 @@ namespace Gimp
     {
       if (!gimp_image_scale(_imageID, new_width, new_height))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
        
@@ -153,7 +153,7 @@ namespace Gimp
     {
       if (!gimp_image_crop(_imageID, new_width, new_height, offx, offy))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
       
@@ -213,7 +213,7 @@ namespace Gimp
     {
       if (!gimp_image_add_layer(_imageID, layer.ID, position))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
 
@@ -221,7 +221,7 @@ namespace Gimp
     {
       if (!gimp_image_remove_layer(_imageID, layer.ID))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
 
@@ -229,7 +229,7 @@ namespace Gimp
     {
       if (!gimp_image_raise_layer(_imageID, layer.ID))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
        
@@ -237,7 +237,7 @@ namespace Gimp
     {
       if (!gimp_image_lower_layer(_imageID, layer.ID))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
 
@@ -245,7 +245,7 @@ namespace Gimp
     {
       if (!gimp_image_raise_layer_to_top(_imageID, layer.ID))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
        
@@ -253,7 +253,7 @@ namespace Gimp
     {
       if (!gimp_image_lower_layer_to_bottom(_imageID, layer.ID))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
 
@@ -261,7 +261,7 @@ namespace Gimp
     {
       if (!gimp_image_add_channel(_imageID, channel.ID, position))
         {
-	  throw new Exception();			  
+	  throw new GimpSharpException();			  
         }
     }
 
@@ -269,7 +269,7 @@ namespace Gimp
     {
       if (!gimp_image_remove_channel(_imageID, channel.ID))
         {
-	  throw new Exception();			  
+	  throw new GimpSharpException();			  
         }
     }
 
@@ -277,7 +277,7 @@ namespace Gimp
     {
       if (!gimp_image_raise_channel(_imageID, channel.ID))
         {
-	  throw new Exception();			  
+	  throw new GimpSharpException();			  
         }
     }
        
@@ -285,7 +285,7 @@ namespace Gimp
     {
       if (!gimp_image_lower_channel(_imageID, channel.ID))
         {
-	  throw new Exception();			  
+	  throw new GimpSharpException();			  
         }
     }
 
@@ -311,7 +311,7 @@ namespace Gimp
     {
       if (!gimp_image_clean_all (_imageID))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
 
@@ -327,7 +327,7 @@ namespace Gimp
 	{
           if (!gimp_image_set_active_layer (_imageID, value.ID))
             {
-	      throw new Exception();
+	      throw new GimpSharpException();
             }
 	}
     }
@@ -339,7 +339,7 @@ namespace Gimp
 	{
           if (!gimp_image_set_active_channel (_imageID, value.ID))
             {
-	      throw new Exception();
+	      throw new GimpSharpException();
             }
 	}
     }
@@ -358,7 +358,7 @@ namespace Gimp
     {
       if (!gimp_image_set_component_active(_imageID, component, active))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
 
@@ -371,7 +371,7 @@ namespace Gimp
     {
       if (!gimp_image_set_component_visible(_imageID, component, visible))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
 
@@ -382,7 +382,7 @@ namespace Gimp
 	{
           if (!gimp_image_set_filename(_imageID, value))
             {
-	      throw new Exception();
+	      throw new GimpSharpException();
             }
 	}
     }
@@ -397,7 +397,7 @@ namespace Gimp
       if (!gimp_image_get_resolution(_imageID, out xresolution, 
 				     out yresolution))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
 
@@ -405,7 +405,7 @@ namespace Gimp
     {
       if (!gimp_image_set_resolution(_imageID, xresolution, yresolution))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
 
@@ -416,7 +416,7 @@ namespace Gimp
 	{
           if (!gimp_image_set_unit (_imageID, value))
             {
-	      throw new Exception();
+	      throw new GimpSharpException();
             }
 	}
     }
@@ -428,7 +428,7 @@ namespace Gimp
 	{
           if (!gimp_image_set_tattoo_state(_imageID, value))
             {
-	      throw new Exception();
+	      throw new GimpSharpException();
             }
 	}
     }
@@ -460,7 +460,7 @@ namespace Gimp
 	{
           if (!gimp_image_set_colormap(_imageID, value, value.Length / 3))
             {
-	      throw new Exception();
+	      throw new GimpSharpException();
             }
 	}
     }
@@ -474,7 +474,7 @@ namespace Gimp
     {
       if (!gimp_image_parasite_attach(_imageID, parasite.Ptr))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
 
@@ -482,7 +482,7 @@ namespace Gimp
     {
       if (!gimp_image_parasite_detach(_imageID, name))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
 
@@ -490,35 +490,44 @@ namespace Gimp
     {
       if (!gimp_image_attach_new_parasite(_imageID, name, flags, size, data))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
 
-    public bool ConvertRgb()
+    public void ConvertRgb()
     {
-      return gimp_image_convert_rgb(_imageID);
+      if (!gimp_image_convert_rgb(_imageID))
+	{
+	  throw new GimpSharpException();
+	}
     }
        
-    public bool ConvertGrayscale()
+    public void ConvertGrayscale()
     {
-      return gimp_image_convert_grayscale(_imageID);
+      if (!gimp_image_convert_grayscale(_imageID))
+	{
+	  throw new GimpSharpException();
+	}
     }
        
        
-    public bool ConvertIndexed(ConvertDitherType dither_type,
+    public void ConvertIndexed(ConvertDitherType dither_type,
                                ConvertPaletteType palette_type,
                                int num_cols,
                                bool alpha_dither,
                                bool remove_unused,
                                string palette)
     {
-      return gimp_image_convert_indexed(_imageID,
-                                        dither_type,
-                                        palette_type,
-                                        num_cols,
-                                        alpha_dither,
-                                        remove_unused,
-                                        palette);
+      if (!gimp_image_convert_indexed(_imageID,
+				      dither_type,
+				      palette_type,
+				      num_cols,
+				      alpha_dither,
+				      remove_unused,
+				      palette))
+	{
+	  throw new GimpSharpException();
+	}
     }
 
     // Implementation of ...
@@ -542,7 +551,7 @@ namespace Gimp
     {
       if (!gimp_image_undo_group_start (_imageID))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
 
@@ -555,7 +564,7 @@ namespace Gimp
     {
       if (!gimp_image_undo_group_end (_imageID))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
 
@@ -563,7 +572,7 @@ namespace Gimp
     {
       if (!gimp_image_undo_disable (_imageID))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
 
@@ -571,7 +580,7 @@ namespace Gimp
     {
       if (!gimp_image_undo_enable (_imageID))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
 
@@ -579,7 +588,7 @@ namespace Gimp
     {
       if (!gimp_image_undo_freeze (_imageID))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
 
@@ -587,7 +596,7 @@ namespace Gimp
     {
       if (!gimp_image_undo_thaw (_imageID))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
 

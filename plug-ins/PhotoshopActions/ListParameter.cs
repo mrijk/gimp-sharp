@@ -42,6 +42,11 @@ namespace Gimp.PhotoshopActions
 	    {
 	      parser.ReadInt32();
 	    }
+	  else if (type == "obj")
+	    {
+	      Parameter parameter = new ReferenceParameter();
+	      parameter.Parse(parser);
+	    }	  
 	  else
 	    {
 	      Console.WriteLine("ReadVlLs: type {0} unknown!", type);

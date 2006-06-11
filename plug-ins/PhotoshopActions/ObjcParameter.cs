@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// SelectEvent.cs
+// ObjcParameter.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,17 +19,20 @@
 //
 
 using System;
+using System.Reflection;
 
 namespace Gimp.PhotoshopActions
 {
-  public class SelectEvent : ActionEvent
+  public class ObjcParameter : Parameter
   {
-    public override bool IsExecutable
+    public override void Parse(ActionParser parser)
     {
-      get 
-	{
-	  return false;
-	}
+      parser.ReadDescriptor();
+    }
+
+    public override void Fill(Object obj, FieldInfo field)
+    {
+      // TODO: implement
     }
   }
 }

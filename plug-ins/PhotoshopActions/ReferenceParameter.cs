@@ -36,6 +36,11 @@ namespace Gimp.PhotoshopActions
 	    {
 	      parser.ParseEnmr();
 	    }
+	  /*
+	  else if (type == "name")
+	    {
+	    }
+	  */
 	  else if (type == "prop")
 	    {
 	      parser.ParseProp();

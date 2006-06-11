@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// SelectEvent.cs
+// MedianEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,14 +22,16 @@ using System;
 
 namespace Gimp.PhotoshopActions
 {
-  public class SelectEvent : ActionEvent
+  public class MedianEvent : ActionEvent
   {
-    public override bool IsExecutable
+    [Parameter("Rds")]
+    double _radius;
+
+    override public bool Execute()
     {
-      get 
-	{
-	  return false;
-	}
+      RunProcedure("plug_in_despeckle", (int) _radius, 0, 7, 248);
+
+      return true;
     }
   }
 }

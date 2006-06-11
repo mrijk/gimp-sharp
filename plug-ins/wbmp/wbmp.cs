@@ -172,14 +172,9 @@ namespace Gimp.wbmp
       if (!drawable.IsIndexed)
 	{
 	  // Convert image to B&W picture if not already B&W
-	  if (!image.ConvertIndexed(ConvertDitherType.No, 
-				    ConvertPaletteType.Mono,
-				    0, false, false, ""))
-	    {
-	      Console.WriteLine("Conversion to B&W failed");
-	      Console.ReadLine();
-	      return false;
-	    }
+	  image.ConvertIndexed(ConvertDitherType.No, 
+			       ConvertPaletteType.Mono,
+			       0, false, false, "");
 	}
       // Image already indexed
       /* else
@@ -193,11 +188,10 @@ namespace Gimp.wbmp
       writer.Write((byte) 0);	// Write type
       writer.Write((byte) 0);	// Fixed header
 
-      int bytesToEncode;
       byte[] seqEncoded = null;
 
       // Encode the width on the multi-byte integer
-      bytesToEncode = bytesNeededForEncoding(width);
+      int bytesToEncode = bytesNeededForEncoding(width);
       if (bytesToEncode > 0)
 	seqEncoded = new byte[bytesToEncode];
 

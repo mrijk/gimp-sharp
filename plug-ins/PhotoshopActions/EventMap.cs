@@ -36,6 +36,7 @@ namespace Gimp.PhotoshopActions
       _map["brightnessEvent"] = "BrightnessEvent";
       _map["canvasSize"] = "CanvasSizeEvent";
       _map["clouds"] = "CloudsEvent";
+      _map["convertMode"] = "ConvertModeEvent";
       _map["delete"] = "DeleteEvent";
       _map["desaturate"] = "DesaturateEvent";
       _map["duplicate"] = "DuplicateEvent";
@@ -52,7 +53,9 @@ namespace Gimp.PhotoshopActions
       _map["invert"] = "InvertEvent";
       _map["levels"] = "LevelsEvent";
       _map["make"] = "MakeEvent";
-      _map["move"] = "MakeEvent";
+      _map["median"] = "MedianEvent";
+      _map["move"] = "MoveEvent";
+      _map["motionBlur"] = "MotionBlurEvent";
       _map["photocopy"] = "PhotocopyEvent";
       _map["replaceColor"] = "ReplaceColorEvent";
       _map["reset"] = "ResetEvent";

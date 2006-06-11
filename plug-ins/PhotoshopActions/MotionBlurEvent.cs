@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// SelectEvent.cs
+// MotionBlurEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,14 +22,18 @@ using System;
 
 namespace Gimp.PhotoshopActions
 {
-  public class SelectEvent : ActionEvent
+  public class MotionBlurEvent : ActionEvent
   {
-    public override bool IsExecutable
+    [Parameter("Angl")]
+    int _angle;
+    [Parameter("Dstn")]
+    double _distance;
+
+    override public bool Execute()
     {
-      get 
-	{
-	  return false;
-	}
+      RunProcedure("plug_in_mblur", 0, (int) _distance, _angle);
+
+      return true;
     }
   }
 }

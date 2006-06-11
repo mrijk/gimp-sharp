@@ -394,11 +394,15 @@ namespace Gimp.PhotoshopActions
 
       if (type == "UntF")
 	{
-	  parameter = new DoubleParameter();
+	  parameter = new DoubleParameter(true);
 	}
       else if (type == "bool")
 	{
 	  parameter = new BoolParameter();
+	}
+      else if (type == "doub")
+	{
+	  parameter = new DoubleParameter(false);
 	}
       else if (type == "enum")
 	{
@@ -419,6 +423,14 @@ namespace Gimp.PhotoshopActions
       else if (type == "TEXT")
 	{
 	  parameter = new TextParameter();
+	}
+      else if (type == "Objc")
+	{
+	  parameter = new ObjcParameter();
+	}
+      else if (type == "type")
+	{
+	  parameter = new TypeParameter();
 	}
       else
 	{
