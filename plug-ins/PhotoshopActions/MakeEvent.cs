@@ -24,10 +24,6 @@ namespace Gimp.PhotoshopActions
 {
   public class MakeEvent : ActionEvent
   {
-    public MakeEvent()
-    {
-    }
-    
     public override bool IsExecutable
     {
       get 

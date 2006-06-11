@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// ReferenceParameter.cs
+// TwirlEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,45 +19,18 @@
 //
 
 using System;
-using System.Reflection;
 
 namespace Gimp.PhotoshopActions
 {
-  public class ReferenceParameter : Parameter
+  public class TwirlEvent : ActionEvent
   {
-    public override void Parse(ActionParser parser)
-    {
-      int number = parser.ReadInt32();
+    [Parameter("Angl")]
+    double _angle;
 
-      for (int i = 0; i < number; i++)
-	{
-	  string type = parser.ReadFourByteString();
-	  if (type == "Clss")
-	    {
-	      parser.ParseClss();
-	    }
-	  else if (type == "Enmr")
-	    {
-	      parser.ParseEnmr();
-	    }
-	  else if (type == "name")
-	    {
-	      parser.ParseName();
-	    }
-	  else if (type == "prop")
-	    {
-	      parser.ParseProp();
-	    }
-	  else
-	    {
-	      Console.WriteLine("ReadObj: type {0} unknown!", type);
-	      return;
-	    }
-	}
-    }
-
-    public override void Fill(Object obj, FieldInfo field)
+    override public bool Execute()
     {
+      RunProcedure("plug_in_whirl_pinch", _angle, 0.0, 1.0);
+      return true;
     }
   }
 }

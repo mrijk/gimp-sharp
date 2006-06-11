@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// ReferenceParameter.cs
+// RadialBlurEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,45 +19,23 @@
 //
 
 using System;
-using System.Reflection;
 
 namespace Gimp.PhotoshopActions
 {
-  public class ReferenceParameter : Parameter
+  public class RadialBlurEvent : ActionEvent
   {
-    public override void Parse(ActionParser parser)
-    {
-      int number = parser.ReadInt32();
+    [Parameter("Amnt")]
+    int _amount;
+    [Parameter("BlrM")]
+    string _blurMode;
+    [Parameter("BlrQ")]
+    string _blurQuality;
 
-      for (int i = 0; i < number; i++)
-	{
-	  string type = parser.ReadFourByteString();
-	  if (type == "Clss")
-	    {
-	      parser.ParseClss();
-	    }
-	  else if (type == "Enmr")
-	    {
-	      parser.ParseEnmr();
-	    }
-	  else if (type == "name")
-	    {
-	      parser.ParseName();
-	    }
-	  else if (type == "prop")
-	    {
-	      parser.ParseProp();
-	    }
-	  else
-	    {
-	      Console.WriteLine("ReadObj: type {0} unknown!", type);
-	      return;
-	    }
-	}
-    }
-
-    public override void Fill(Object obj, FieldInfo field)
+    override public bool Execute()
     {
+      RunProcedure("plug_in_mblur", 1, _amount, 0);
+
+      return true;
     }
   }
 }

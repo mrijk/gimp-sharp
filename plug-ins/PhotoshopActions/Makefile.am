@@ -19,6 +19,7 @@ MYSOURCES = 				\
 	CanvasSizeEvent.cs		\
 	CloudsEvent.cs			\
 	ConvertModeEvent.cs		\
+	CopyToLayerEvent.cs		\
 	DeleteEvent.cs			\
 	DeleteLayerEvent.cs		\
 	DesaturateEvent.cs		\
@@ -44,6 +45,8 @@ MYSOURCES = 				\
 	LongParameter.cs		\
 	MakeEvent.cs			\
 	MedianEvent.cs			\
+	MergeLayersEvent.cs		\
+	MergeVisibleEvent.cs		\
 	MotionBlurEvent.cs		\
 	MoveEvent.cs			\
 	NewDocumentEvent.cs		\
@@ -54,6 +57,7 @@ MYSOURCES = 				\
 	ParameterSet.cs			\
 	PhotocopyEvent.cs		\
 	PhotoshopActions.cs		\
+	RadialBlurEvent.cs		\
 	ReferenceParameter.cs		\
 	ReplaceColorEvent.cs		\
 	RotateEvent.cs			\
@@ -69,6 +73,7 @@ MYSOURCES = 				\
 	StopEvent.cs			\
 	TextParameter.cs		\
 	TypeParameter.cs		\
+	TwirlEvent.cs			\
 	UnimplementedEvent.cs		\
 	UnsharpMaskEvent.cs
 

@@ -144,11 +144,12 @@ namespace Gimp.PhotoshopActions
 	    {
 	      return null;
 	    }
-
-	  Console.WriteLine("\tEventName: " + eventName);
 	  
 	  ActionEvent actionEvent = _map.Lookup(eventName);
 	  actionEvent.EventForDisplay = ReadString();
+
+	  Console.WriteLine("\tEventName: {0} ({1})", eventName,
+			    actionEvent.IsExecutable);
 
 	  int hasDescriptor = ReadInt32();
 	  if (hasDescriptor != -1)
@@ -468,6 +469,18 @@ namespace Gimp.PhotoshopActions
       Console.WriteLine("\t\tvalue: " + val);
 
       return keyID;
+    }
+
+    public void ParseName()
+    {
+      string classID = ReadTokenOrUnicodeString();
+      Console.WriteLine("\t\tname::classID: " + classID);
+
+      string classID2 = ReadTokenOrString();
+      Console.WriteLine("\t\tname:classID2: " + classID2);
+
+      string keyID = ReadTokenOrUnicodeString();
+      Console.WriteLine("\t\tname:keyID: " + keyID);
     }
 
     public void ParseProp()

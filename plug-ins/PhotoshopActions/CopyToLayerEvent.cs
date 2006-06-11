@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// ReferenceParameter.cs
+// CopyToLayerEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,45 +19,22 @@
 //
 
 using System;
-using System.Reflection;
 
 namespace Gimp.PhotoshopActions
 {
-  public class ReferenceParameter : Parameter
+  public class CopyToLayerEvent : ActionEvent
   {
-    public override void Parse(ActionParser parser)
+    public override bool IsExecutable
     {
-      int number = parser.ReadInt32();
-
-      for (int i = 0; i < number; i++)
+      get 
 	{
-	  string type = parser.ReadFourByteString();
-	  if (type == "Clss")
-	    {
-	      parser.ParseClss();
-	    }
-	  else if (type == "Enmr")
-	    {
-	      parser.ParseEnmr();
-	    }
-	  else if (type == "name")
-	    {
-	      parser.ParseName();
-	    }
-	  else if (type == "prop")
-	    {
-	      parser.ParseProp();
-	    }
-	  else
-	    {
-	      Console.WriteLine("ReadObj: type {0} unknown!", type);
-	      return;
-	    }
+	  return false;
 	}
     }
 
-    public override void Fill(Object obj, FieldInfo field)
+    override public bool Execute()
     {
+      return true;
     }
   }
 }

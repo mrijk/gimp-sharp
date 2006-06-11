@@ -24,9 +24,8 @@ namespace Gimp.PhotoshopActions
 {
   public class ResetEvent : ActionEvent
   {
-    public ResetEvent()
-    {
-    }
+    [Parameter("Clrs")]
+    string _key;
 
     public override bool IsExecutable
     {
@@ -35,7 +34,7 @@ namespace Gimp.PhotoshopActions
 	  return false;
 	}
     }
-    
+
     override public ActionEvent Parse(ActionParser parser)
     {
        parser.ParseToken("null");

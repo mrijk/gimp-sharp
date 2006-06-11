@@ -31,14 +31,6 @@ namespace Gimp.PhotoshopActions
     [Parameter("Mnch")]
     bool _monochrome;
 
-    public override bool IsExecutable
-    {
-      get 
-	{
-	  return _monochrome;
-	}
-    }
- 
     override public bool Execute()
     {
       if (Image == null)
@@ -47,16 +39,11 @@ namespace Gimp.PhotoshopActions
 	  return false;
 	}
 
-      if (_monochrome)
-	{
-	  double noise = _noise / 100;
-	  RunProcedure("plug_in_rgb_noise", 0, 0, noise, noise, noise, 1.0);
-	}
-      else
-	{
-	  Console.WriteLine("AddNoiseEvent: implement non-monochromatic noise");
-	  return false;
-	}
+      double noise = _noise / 100;
+      int independant = (_monochrome) ? 0 : 1;
+      RunProcedure("plug_in_rgb_noise", independant, 0, noise, noise, noise, 
+		   1.0);
+
       return true;
     }
   }

@@ -1,5 +1,16 @@
 2006-06-11  Maurits  <m.rijk@chello.nl>
 
+	* plug-ins/PhotoshopActions/CopyToLayerEvent.cs
+	* plug-ins/PhotoshopActions/MergeLayersEvent.cs
+	* plug-ins/PhotoshopActions/MergeVisibleEvent.cs
+	* plug-ins/PhotoshopActions/RadialBlurEvent.cs
+	* plug-ins/PhotoshopActions/TwirlEvent.cs: new files
+
+	* plug-ins/PhotoshopActions/EventMap.cs
+	* plug-ins/PhotoshopActions/Makefile: changed accordingly
+
+2006-06-11  Maurits  <m.rijk@chello.nl>
+
 	* plug-ins/PhotoshopActions/SmoothnessEvent.cs: 
 	* plug-ins/PhotoshopActions/Makefile: changed accordingly
 

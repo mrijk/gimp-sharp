@@ -89,7 +89,7 @@ namespace Gimp.PhotoshopActions
       HBox hbox = new HBox();
       vbox.PackStart(hbox, false, true, 0);
 
-      Button play = new Button(Stock.JumpTo);
+      Button play = new Button(Stock.Execute);
       play.Clicked += delegate(object sender, EventArgs args)
 	{
 	  TreePath[] paths = view.Selection.GetSelectedRows();

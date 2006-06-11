@@ -27,6 +27,15 @@ namespace Gimp.PhotoshopActions
     public SetEvent()
     {
     }
+
+    public override bool IsExecutable
+    {
+      get 
+	{
+	  return false;
+	}
+    }
+
 #if false    
     override public ActionEvent Parse(ActionParser parser)
     {

@@ -37,6 +37,7 @@ namespace Gimp.PhotoshopActions
       _map["canvasSize"] = "CanvasSizeEvent";
       _map["clouds"] = "CloudsEvent";
       _map["convertMode"] = "ConvertModeEvent";
+      _map["copyToLayer"] = "CopyToLayerEvent";
       _map["delete"] = "DeleteEvent";
       _map["desaturate"] = "DesaturateEvent";
       _map["duplicate"] = "DuplicateEvent";
@@ -54,9 +55,12 @@ namespace Gimp.PhotoshopActions
       _map["levels"] = "LevelsEvent";
       _map["make"] = "MakeEvent";
       _map["median"] = "MedianEvent";
+      _map["mergeLayers"] = "MergeLayersEvent";
+      _map["mergeVisible"] = "MergeVisibleEvent";
       _map["move"] = "MoveEvent";
       _map["motionBlur"] = "MotionBlurEvent";
       _map["photocopy"] = "PhotocopyEvent";
+      _map["radialBlur"] = "RadialBlurEvent";
       _map["replaceColor"] = "ReplaceColorEvent";
       _map["reset"] = "ResetEvent";
       _map["rotateEventEnum"] = "RotateEvent";
@@ -65,6 +69,7 @@ namespace Gimp.PhotoshopActions
       _map["sharpen"] = "SharpenEvent";
       _map["smoothness"] = "SmoothnessEvent";
       _map["stop"] = "StopEvent";
+      _map["twirl"] = "TwirlEvent";
       _map["unsharpMask"] = "UnsharpMaskEvent";
 
       // Pre-6 events
