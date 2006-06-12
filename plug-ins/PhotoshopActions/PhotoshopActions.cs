@@ -181,6 +181,9 @@ namespace Gimp.PhotoshopActions
       Console.WriteLine("% executable: " + percExecutable);
       Console.WriteLine("% executable: " + percExecutableEvents);
 
+      Console.WriteLine();
+      parser.DumpStatistics();
+
       return store;
     }
 

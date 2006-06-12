@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// FillEvent.cs
+// CopyEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,34 +18,13 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-
 namespace Gimp.PhotoshopActions
 {
-  public class FillEvent : ActionEvent
+  public class CopyEvent : ActionEvent
   {
-    [Parameter("Usng")]
-    string _using;
-    [Parameter("Opct")]
-    double _opacity;
-    [Parameter("Md")]
-    string _mode;
-
     override public bool Execute()
     {
-      if (_using == "FrgC")
-	{
-	  Drawable.EditFill(FillType.Foreground);
-	}
-      else if (_using == "BckC")
-	{
-	  Drawable.EditFill(FillType.Background);
-	}
-      else
-	{
-	  Console.WriteLine("FillEvent: with {0} not supported!", _using);
-	}
-
+      Drawable.EditCopy();
       return true;
     }
   }

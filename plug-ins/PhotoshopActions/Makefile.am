@@ -19,6 +19,7 @@ MYSOURCES = 				\
 	CanvasSizeEvent.cs		\
 	CloudsEvent.cs			\
 	ConvertModeEvent.cs		\
+	CopyEvent.cs			\
 	CopyToLayerEvent.cs		\
 	DeleteEvent.cs			\
 	DeleteLayerEvent.cs		\
@@ -32,9 +33,11 @@ MYSOURCES = 				\
 	EventMap.cs			\
 	ExchangeEvent.cs		\
 	FacetEvent.cs			\
+	FeatherEvent.cs			\
 	FillEvent.cs			\
 	FindEdgesEvent.cs		\
 	FlattenImageEvent.cs		\
+	FlipEvent.cs			\
 	GaussianBlurEvent.cs		\
 	HideEvent.cs			\
 	HueSaturationEvent.cs		\

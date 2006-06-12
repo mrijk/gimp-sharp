@@ -42,6 +42,11 @@ namespace Gimp.PhotoshopActions
       get {return _parsingFailed;}
     }
 
+    public void DumpStatistics()
+    {
+      _map.DumpStatistics();
+    }
+
     public ActionSet Parse(string fileName)
     {
       _binReader = new BinaryReader(File.Open(fileName, FileMode.Open));

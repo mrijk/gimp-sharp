@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// FillEvent.cs
+// FlipEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,28 +22,26 @@ using System;
 
 namespace Gimp.PhotoshopActions
 {
-  public class FillEvent : ActionEvent
+  public class FlipEvent : ActionEvent
   {
-    [Parameter("Usng")]
-    string _using;
-    [Parameter("Opct")]
-    double _opacity;
-    [Parameter("Md")]
-    string _mode;
+    [Parameter("Axis")]
+    string _axis;
 
     override public bool Execute()
     {
-      if (_using == "FrgC")
+      if (Image == null)
 	{
-	  Drawable.EditFill(FillType.Foreground);
+	  Console.WriteLine("Please open image first");
+	  return false;
 	}
-      else if (_using == "BckC")
+
+      if (_axis == "Hrzn")
 	{
-	  Drawable.EditFill(FillType.Background);
+	  Image.Flip(OrientationType.Horizontal);
 	}
       else
 	{
-	  Console.WriteLine("FillEvent: with {0} not supported!", _using);
+	  Image.Flip(OrientationType.Vertical);
 	}
 
       return true;

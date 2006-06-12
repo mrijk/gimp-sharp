@@ -26,5 +26,12 @@ namespace Gimp
   [Serializable]
   public sealed class GimpSharpException : Exception
   {
+    public GimpSharpException()
+    {
+    }
+
+    public GimpSharpException(string message) : base(message)
+    {
+    }
   }
 }

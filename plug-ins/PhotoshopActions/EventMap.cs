@@ -29,6 +29,9 @@ namespace Gimp.PhotoshopActions
   {
     readonly Dictionary<string, string> _map = 
       new Dictionary<string, string>();
+    
+    readonly Dictionary<string, int> _statistics =
+      new Dictionary<string, int>();
 
     public EventMap()
     {
@@ -37,6 +40,7 @@ namespace Gimp.PhotoshopActions
       _map["canvasSize"] = "CanvasSizeEvent";
       _map["clouds"] = "CloudsEvent";
       _map["convertMode"] = "ConvertModeEvent";
+      _map["copyEvent"] = "CopyEvent";
       _map["copyToLayer"] = "CopyToLayerEvent";
       _map["delete"] = "DeleteEvent";
       _map["desaturate"] = "DesaturateEvent";
@@ -44,9 +48,11 @@ namespace Gimp.PhotoshopActions
       _map["emboss"] = "EmbossEvent";
       _map["exchange"] = "ExchangeEvent";
       _map["facet"] = "FacetEvent";
+      _map["feather"] = "FeatherEvent";
       _map["fill"] = "FillEvent";
       _map["findEdges"] = "FindEdgesEvent";
       _map["flattenImage"] = "FlattenImageEvent";
+      _map["flip"] = "FlipEvent";
       _map["gaussianBlur"] = "GaussianBlurEvent";
       _map["hide"] = "HideEvent";
       _map["hueSaturation"] = "HueSaturationEvent";
@@ -78,18 +84,38 @@ namespace Gimp.PhotoshopActions
 
     public ActionEvent Lookup(string eventName)
     {
+      ActionEvent myEvent;
       string eventType;
 
-      if (!_map.TryGetValue(eventName, out eventType))
+      if (_map.TryGetValue(eventName, out eventType))
+	{
+	  eventType = "Gimp.PhotoshopActions." + eventType;
+	  Type type = Assembly.GetEntryAssembly().GetType(eventType);
+
+	  myEvent = (ActionEvent) Activator.CreateInstance(type);
+	}
+      else
 	{
 	  Console.WriteLine("Event {0} unsupported", eventName);
-	  return new UnimplementedEvent();
+
+	  myEvent = new UnimplementedEvent();
+
+	  int amount;
+	  if (!_statistics.TryGetValue(eventName, out amount))
+	    {
+	      amount = 0;
+	    }
+	  _statistics[eventName] = ++amount;
 	}
+      return myEvent;
+    }
 
-      eventType = "Gimp.PhotoshopActions." + eventType;
-      Type type = Assembly.GetEntryAssembly().GetType(eventType);
-
-      return (ActionEvent) Activator.CreateInstance(type);
+    public void DumpStatistics()
+    {
+      foreach (KeyValuePair<string, int> kvp in _statistics)
+	{
+	  Console.WriteLine("{0} : {1}", kvp.Key, kvp.Value);
+	}
     }
   }
 }

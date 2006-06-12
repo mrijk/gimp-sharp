@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// FillEvent.cs
+// FeatherEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,29 +22,14 @@ using System;
 
 namespace Gimp.PhotoshopActions
 {
-  public class FillEvent : ActionEvent
+  public class FeatherEvent : ActionEvent
   {
-    [Parameter("Usng")]
-    string _using;
-    [Parameter("Opct")]
-    double _opacity;
-    [Parameter("Md")]
-    string _mode;
+    [Parameter("Rds")]
+    double radius;
 
     override public bool Execute()
     {
-      if (_using == "FrgC")
-	{
-	  Drawable.EditFill(FillType.Foreground);
-	}
-      else if (_using == "BckC")
-	{
-	  Drawable.EditFill(FillType.Background);
-	}
-      else
-	{
-	  Console.WriteLine("FillEvent: with {0} not supported!", _using);
-	}
+      Image.Selection.Feather((int) radius);
 
       return true;
     }

@@ -103,7 +103,7 @@ namespace Gimp
     {
       if (!gimp_drawable_fill(_ID, fill_type))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
 
@@ -111,7 +111,7 @@ namespace Gimp
     {
       if (!gimp_drawable_update(_ID, x, y, width, height))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
 
@@ -174,7 +174,7 @@ namespace Gimp
     {
       if (!(gimp_drawable_offsets(_ID, out offset_x, out offset_y)))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
 
@@ -199,7 +199,7 @@ namespace Gimp
       if (!gimp_drawable_offset(_ID, wrap_around, fill_type, offset_x, 
 				offset_y))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
 
@@ -212,7 +212,7 @@ namespace Gimp
     {
       if (!gimp_drawable_parasite_attach(_ID, parasite.Ptr))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
 
@@ -220,7 +220,7 @@ namespace Gimp
     {
       if (!gimp_drawable_parasite_detach(_ID, name))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
 
@@ -229,7 +229,7 @@ namespace Gimp
     {
       if (!gimp_drawable_attach_new_parasite(_ID, name, flags, size, data))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
 
@@ -242,7 +242,41 @@ namespace Gimp
                              antialias, feather, feather_radius, 
                              sample_merged))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
+        }
+    }
+
+    // GimpEdit
+
+    public void EditCut()
+    {
+      if (!gimp_edit_cut(_ID))
+        {
+	  throw new GimpSharpException();
+        }
+    }
+
+    public void EditCopy()
+    {
+      if (!gimp_edit_copy(_ID))
+        {
+	  throw new GimpSharpException();
+        }
+    }
+
+    public void EditClear()
+    {
+      if (!gimp_edit_clear(_ID))
+        {
+	  throw new GimpSharpException();
+        }
+    }
+
+    public void EditFill(FillType fill_type)
+    {
+      if (!gimp_edit_fill(_ID, fill_type))
+        {
+	  throw new GimpSharpException();
         }
     }
 
@@ -252,7 +286,7 @@ namespace Gimp
     {
       if (!gimp_brightness_contrast(_ID, brightness, contrast))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
 
@@ -265,7 +299,7 @@ namespace Gimp
       if (!gimp_levels(_ID, channel, low_input, high_input,
                        gamma, low_output, high_output))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
 
@@ -273,7 +307,7 @@ namespace Gimp
     {
       if (!gimp_levels_stretch(_ID))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
 
@@ -281,7 +315,7 @@ namespace Gimp
     {
       if (!gimp_posterize(_ID, levels))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
 
@@ -289,7 +323,7 @@ namespace Gimp
     {
       if (!gimp_desaturate(_ID))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
 
@@ -297,7 +331,7 @@ namespace Gimp
     {
       if (!gimp_desaturate_full(_ID, desaturate_mode))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
 
@@ -305,7 +339,7 @@ namespace Gimp
     {
       if (!gimp_equalize(_ID, mask_only))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
 
@@ -313,18 +347,18 @@ namespace Gimp
     {
       if (!gimp_invert(_ID))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
 
     public void CurvesSpline(HistogramChannel channel)
     {
-      throw new Exception("Fixme: CurvesSpline not implemented yet!");
+      throw new GimpSharpException("Fixme: CurvesSpline not implemented yet!");
     }
 
     public void CurvesExplicit(HistogramChannel channel)
     {
-      throw new Exception("Fixme: CurvesExplicit not implemented yet!");
+      throw new GimpSharpException("Fixme: CurvesExplicit not implemented yet!");
     }
 
     public void ColorBalance(TransferMode transfer_mode,
@@ -336,7 +370,7 @@ namespace Gimp
       if (!gimp_color_balance(_ID, transfer_mode, preserve_lum,
                               cyan_red, magenta_green, yellow_blue))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
 
@@ -344,7 +378,7 @@ namespace Gimp
     {
       if (!gimp_colorize(_ID, hue, saturation, lightness))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
 
@@ -362,7 +396,7 @@ namespace Gimp
                           out mean, out std_dev, out median, out pixels, 
                           out count, out percentile))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
 
@@ -374,7 +408,7 @@ namespace Gimp
       if (!gimp_hue_saturation(_ID, hue_range, hue_offset,
                                lightness, saturation))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
 
@@ -384,7 +418,7 @@ namespace Gimp
       if (!gimp_threshold(_ID, low_threshold,
                           high_threshold))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
 
@@ -1002,5 +1036,15 @@ namespace Gimp
 					    double coeff_2_2,
 					    bool interpolate,
 					    bool clip_result);
+
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_edit_cut(Int32 drawable_ID);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_edit_copy(Int32 drawable_ID);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_edit_clear(Int32 drawable_ID);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_edit_fill(Int32 drawable_ID,
+				      FillType fill_type);
   }
 }
