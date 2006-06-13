@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2006 Maurits Rijk, Massimo Perga
 //
 // Rectangle.cs
 //
@@ -27,7 +27,7 @@ namespace Gimp.PicturePackage
 {
   public class Rectangle
   {
-    double _x, _y, _w, _h;
+    public double _x, _y, _w, _h;
     ImageProvider _provider;
 
     public Rectangle(XmlNode node)
@@ -59,6 +59,22 @@ namespace Gimp.PicturePackage
     {
       get {return _provider;}
       set {_provider = value;}
+    }
+
+    public static void SwapCoordinates(ref Rectangle rectA, ref Rectangle rectB)
+    {
+        SwapCoordinate(ref rectA._x, ref rectB._x); 
+        SwapCoordinate(ref rectA._y, ref rectB._y); 
+        SwapCoordinate(ref rectA._w, ref rectB._w); 
+        SwapCoordinate(ref rectA._h, ref rectB._h); 
+    }
+
+
+    private static void SwapCoordinate(ref double a, ref double b)
+    {
+      double tmp = a;
+      a = b;
+      b = tmp;
     }
   }
 }

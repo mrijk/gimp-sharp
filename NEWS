@@ -7,6 +7,8 @@ Overview of Changes in Gimp# 0.9
 - New plug-in to generate Raindrops
 - Port of Forge plug-in 
 - Rudimentary support for playing Photoshop actions
+- Support of Drag and Drop in Picture Package for swapping images inside
+  the preview area
 
 Overview of Changes in Gimp# 0.8
 ================================

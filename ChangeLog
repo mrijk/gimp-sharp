@@ -1,3 +1,11 @@
+2006-06-13  Max      <massimo.perga@gmail.com>
+
+	* plug-ins/PicturePackage/PicturePackage.cs: 
+	* plug-ins/PicturePackage/Rectangle.cs: added early support for 
+		Drag and Drop inside the preview area to allow swapping of images
+
+	* NEWS: updated
+
 2006-06-12  Maurits  <m.rijk@chello.nl>
 
 	* lib/GimpSharpException.cs: new constructor with message parameter
