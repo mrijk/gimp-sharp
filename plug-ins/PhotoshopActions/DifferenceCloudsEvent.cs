@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// ObjcParameter.cs
+// DifferenceCloudsEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,43 +19,22 @@
 //
 
 using System;
-using System.Reflection;
 
 namespace Gimp.PhotoshopActions
 {
-  public class ObjcParameter : Parameter
+  public class DifferenceCloudsEvent : ActionEvent
   {
-    string _classID;
-    string _classID2;
-    ParameterSet _children = new ParameterSet();
-
-    public string ClassID2
+    public override bool IsExecutable
     {
-      get {return _classID2;}
+      get 
+	{
+	  return false;
+	}
     }
 
-    public override void Parse(ActionParser parser)
+    override public bool Execute()
     {
-      _classID = parser.ReadUnicodeString();
-      Console.WriteLine("\tClassID: " + _classID);
-      
-      _classID2 = parser.ReadTokenOrString();
-      Console.WriteLine("\tClassID2: " + _classID2);
-
-      int numberOfItems = parser.ReadInt32();
-      Console.WriteLine("\tNumberOfItems: " + numberOfItems);
-
-      _children.Parse(parser, numberOfItems);
-    }
-
-    public void Fill(Object obj)
-    {
-      _children.Fill(obj);
-    }
-
-    public override void Fill(Object obj, FieldInfo field)
-    {
-      field.SetValue(obj, this);
+      return true;
     }
   }
 }

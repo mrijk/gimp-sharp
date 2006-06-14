@@ -26,6 +26,7 @@ namespace Gimp.PhotoshopActions
   {
     override public bool Execute()
     {
+      // TODO: check this parameter!
       RunProcedure("plug_in_sharpen", 10);
       return true;
     }

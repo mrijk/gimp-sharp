@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// FeatherEvent.cs
+// PasteEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,19 +18,13 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-
 namespace Gimp.PhotoshopActions
 {
-  public class FeatherEvent : ActionEvent
+  public class PasteEvent : ActionEvent
   {
-    [Parameter("Rds")]
-    double _radius;
-
     override public bool Execute()
     {
-      Image.Selection.Feather((int) _radius);
-
+      Drawable.EditPaste(true);
       return true;
     }
   }

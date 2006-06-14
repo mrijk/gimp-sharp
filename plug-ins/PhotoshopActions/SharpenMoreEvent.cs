@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// ObjcParameter.cs
+// SharpenMoreEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,43 +19,16 @@
 //
 
 using System;
-using System.Reflection;
 
 namespace Gimp.PhotoshopActions
 {
-  public class ObjcParameter : Parameter
+  public class SharpenMoreEvent : ActionEvent
   {
-    string _classID;
-    string _classID2;
-    ParameterSet _children = new ParameterSet();
-
-    public string ClassID2
+    override public bool Execute()
     {
-      get {return _classID2;}
-    }
-
-    public override void Parse(ActionParser parser)
-    {
-      _classID = parser.ReadUnicodeString();
-      Console.WriteLine("\tClassID: " + _classID);
-      
-      _classID2 = parser.ReadTokenOrString();
-      Console.WriteLine("\tClassID2: " + _classID2);
-
-      int numberOfItems = parser.ReadInt32();
-      Console.WriteLine("\tNumberOfItems: " + numberOfItems);
-
-      _children.Parse(parser, numberOfItems);
-    }
-
-    public void Fill(Object obj)
-    {
-      _children.Fill(obj);
-    }
-
-    public override void Fill(Object obj, FieldInfo field)
-    {
-      field.SetValue(obj, this);
+      // TODO: check this parameter!
+      RunProcedure("plug_in_sharpen", 20);
+      return true;
     }
   }
 }

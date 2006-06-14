@@ -1,8 +1,26 @@
+2006-06-14  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/PhotoshopActions/DifferenceCloudsEvent.cs: 
+	* plug-ins/PhotoshopActions/SharpenMoreEvent.cs
+	* plug-ins/PhotoshopActions/BorderEvent.cs: new files
+
+	* plug-ins/PhotoshopActions/EventMap.cs
+	* plug-ins/PhotoshopActions/Makefile: changed accordingly
+
+2006-06-13  Maurits  <maurits@localhost>
+
+	* lib/Drawable.cs:: implemented more edit commands
+
+	* plug-ins/PhotoshopActions/PasteEvent.cs: new file
+
+	* plug-ins/PhotoshopActions/EventMap.cs
+	* plug-ins/PhotoshopActions/Makefile: changed accordingly
+
 2006-06-13  Max      <massimo.perga@gmail.com>
 
 	* plug-ins/PicturePackage/PicturePackage.cs: 
 	* plug-ins/PicturePackage/Rectangle.cs: added early support for 
-		Drag and Drop inside the preview area to allow swapping of images
+	Drag and Drop inside the preview area to allow swapping of images
 
 	* NEWS: updated
 

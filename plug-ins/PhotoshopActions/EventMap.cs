@@ -36,6 +36,7 @@ namespace Gimp.PhotoshopActions
     public EventMap()
     {
       _map["addNoise"] = "AddNoiseEvent";
+      _map["border"] = "BorderEvent";
       _map["brightnessEvent"] = "BrightnessEvent";
       _map["canvasSize"] = "CanvasSizeEvent";
       _map["clouds"] = "CloudsEvent";
@@ -44,6 +45,7 @@ namespace Gimp.PhotoshopActions
       _map["copyToLayer"] = "CopyToLayerEvent";
       _map["delete"] = "DeleteEvent";
       _map["desaturate"] = "DesaturateEvent";
+      _map["differenceClouds"] = "DifferenceCloudsEvent";
       _map["duplicate"] = "DuplicateEvent";
       _map["emboss"] = "EmbossEvent";
       _map["exchange"] = "ExchangeEvent";
@@ -65,6 +67,7 @@ namespace Gimp.PhotoshopActions
       _map["mergeVisible"] = "MergeVisibleEvent";
       _map["move"] = "MoveEvent";
       _map["motionBlur"] = "MotionBlurEvent";
+      _map["paste"] = "PasteEvent";
       _map["photocopy"] = "PhotocopyEvent";
       _map["radialBlur"] = "RadialBlurEvent";
       _map["replaceColor"] = "ReplaceColorEvent";
@@ -73,6 +76,7 @@ namespace Gimp.PhotoshopActions
       _map["select"] = "SelectEvent";
       _map["set"] = "SetEvent";
       _map["sharpen"] = "SharpenEvent";
+      _map["sharpenMore"] = "SharpenMoreEvent";
       _map["smoothness"] = "SmoothnessEvent";
       _map["stop"] = "StopEvent";
       _map["twirl"] = "TwirlEvent";

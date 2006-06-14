@@ -24,6 +24,11 @@ namespace Gimp.PhotoshopActions
 {
   public class MakeEvent : ActionEvent
   {
+    [Parameter("Nw")]
+    ObjcParameter _object;
+    [Parameter("null")]
+    ReferenceParameter _obj;
+
     public override bool IsExecutable
     {
       get 
@@ -59,6 +64,38 @@ namespace Gimp.PhotoshopActions
 	  return new AddLayerEvent(this).Parse(parser);
 	}
       return this;
+    }
+#else
+    override public ActionEvent Parse(ActionParser parser)
+    {
+      ActionEvent myEvent = base.Parse(parser);
+      string classID = null;
+
+      if (_object != null)
+	{
+	  classID = _object.ClassID2;
+	}
+      else if (_obj != null)
+	{
+	  Console.WriteLine("Fix me!");
+	}
+      else
+	{
+	  Console.WriteLine("Disaster!");
+	}
+
+      if (classID == "Gd")
+	{
+	  return new AddGuideEvent(this, _object);
+	}
+      else
+	{
+	  Console.WriteLine("MakeEvent: {0} not implemented", classID);
+	  // throw new GimpSharpException();
+	  return this;
+	}
+
+      return myEvent;
     }
 #endif
   }

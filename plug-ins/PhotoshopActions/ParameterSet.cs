@@ -34,7 +34,7 @@ namespace Gimp.PhotoshopActions
       get {return _set[name];}
     }
 
-    public void Parse(ActionParser parser, Object obj, int numberOfItems)
+    public void Parse(ActionParser parser, int numberOfItems)
     {
       for (int i = 0; i < numberOfItems; i++)
 	{
@@ -44,11 +44,15 @@ namespace Gimp.PhotoshopActions
 	      _set[parameter.Name] = parameter;
 	    }
 	}
+    }
 
+    public void Parse(ActionParser parser, Object obj, int numberOfItems)
+    {
+      Parse(parser, numberOfItems);
       Fill(obj);
     }
 
-    void Fill(Object obj)
+    public void Fill(Object obj)
     {
       Type type = obj.GetType();
 

@@ -15,6 +15,7 @@ MYSOURCES = 				\
 	AddLayerEvent.cs		\
 	AddNoiseEvent.cs		\
 	BoolParameter.cs		\
+	BorderEvent.cs			\
 	BrightnessEvent.cs		\
 	CanvasSizeEvent.cs		\
 	CloudsEvent.cs			\
@@ -25,6 +26,7 @@ MYSOURCES = 				\
 	DeleteLayerEvent.cs		\
 	DesaturateEvent.cs		\
 	DoubleParameter.cs		\
+	DifferenceCloudsEvent.cs	\
 	DuplicateEvent.cs		\
 	DuplicateDocumentEvent.cs	\
 	DuplicateLayerEvent.cs		\
@@ -58,6 +60,7 @@ MYSOURCES = 				\
 	Parameter.cs			\
 	ParameterAttribute.cs		\
 	ParameterSet.cs			\
+	PasteEvent.cs			\
 	PhotocopyEvent.cs		\
 	PhotoshopActions.cs		\
 	RadialBlurEvent.cs		\
@@ -72,6 +75,7 @@ MYSOURCES = 				\
 	SetForegroundColorEvent.cs	\
 	SetLayerEvent.cs		\
 	SharpenEvent.cs			\
+	SharpenMoreEvent.cs		\
 	SmoothnessEvent.cs		\
 	StopEvent.cs			\
 	TextParameter.cs		\

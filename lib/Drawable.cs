@@ -264,6 +264,22 @@ namespace Gimp
         }
     }
 
+    public void EditCopyVisible()
+    {
+      if (!gimp_edit_copy_visible(_ID))
+        {
+	  throw new GimpSharpException();
+        }
+    }
+
+    public void EditPaste(bool paste_into)
+    {
+      if (!gimp_edit_paste(_ID, paste_into))
+        {
+	  throw new GimpSharpException();
+        }
+    }
+
     public void EditClear()
     {
       if (!gimp_edit_clear(_ID))
@@ -1041,6 +1057,11 @@ namespace Gimp
     static extern bool gimp_edit_cut(Int32 drawable_ID);
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_edit_copy(Int32 drawable_ID);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_edit_copy_visible(Int32 drawable_ID);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_edit_paste(Int32 drawable_ID, 
+				       bool paste_into);
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_edit_clear(Int32 drawable_ID);
     [DllImport("libgimp-2.0-0.dll")]

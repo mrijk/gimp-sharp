@@ -24,27 +24,19 @@ namespace Gimp.PhotoshopActions
 {
   public class AddGuideEvent : ActionEvent
   {
+    [Parameter("Ornt")]
     string _orientation;
-    string _units;
+    [Parameter("Pstn")]
     double _position;
 
-    public AddGuideEvent(ActionEvent srcEvent) : base(srcEvent) 
+    string _units = "#Prc";	// Fix me!
+
+    public AddGuideEvent(ActionEvent srcEvent, ObjcParameter myObject) 
+      : base(srcEvent) 
     {
+      myObject.Fill(this);
     }
     
-    override public ActionEvent Parse(ActionParser parser)
-    {
-      _position = parser.ReadDouble("Pstn", out _units);
-
-      parser.ParseToken("Ornt");
-      parser.ParseFourByteString("enum");
-      parser.ParseToken("Ornt");
-
-      _orientation = parser.ReadTokenOrString();
-
-      return this;
-    }
-
     public override bool IsExecutable
     {
       get 
