@@ -59,13 +59,13 @@ namespace Gimp.PhotoshopActions
       get {return true;}
     }
 
-    public static Drawable Drawable
+    public static Drawable ActiveDrawable
     {
       get {return _drawable;}
       set {_drawable = value;}
     }
 
-    public static Image Image
+    public static Image ActiveImage
     {
       get {return _image;}
       set {_image = value;}

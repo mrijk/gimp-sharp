@@ -26,14 +26,14 @@ namespace Gimp.PhotoshopActions
   {
     override public bool Execute()
     {
-      if (Image == null)
+      if (ActiveImage == null)
 	{
 	  Console.WriteLine("Please open image first");
 	  return false;
 	}
 
       // TODO: check this!
-      Image.MergeVisibleLayers(MergeType.FlattenImage);
+      ActiveImage.MergeVisibleLayers(MergeType.FlattenImage);
       return true;
     }
   }

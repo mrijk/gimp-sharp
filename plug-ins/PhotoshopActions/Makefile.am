@@ -18,6 +18,7 @@ MYSOURCES = 				\
 	BorderEvent.cs			\
 	BrightnessEvent.cs		\
 	CanvasSizeEvent.cs		\
+	ClassType.cs			\
 	CloudsEvent.cs			\
 	ConvertModeEvent.cs		\
 	CopyEvent.cs			\
@@ -44,6 +45,7 @@ MYSOURCES = 				\
 	HideEvent.cs			\
 	HueSaturationEvent.cs		\
 	ImageSizeEvent.cs		\
+	IndexType.cs			\
 	InvertEvent.cs			\
 	LevelsEvent.cs			\
 	ListParameter.cs		\
@@ -65,6 +67,7 @@ MYSOURCES = 				\
 	PhotoshopActions.cs		\
 	RadialBlurEvent.cs		\
 	ReferenceParameter.cs		\
+	ReferenceType.cs		\
 	ReplaceColorEvent.cs		\
 	RotateEvent.cs			\
 	ResetEvent.cs			\

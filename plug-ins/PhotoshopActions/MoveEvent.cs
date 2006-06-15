@@ -24,21 +24,12 @@ namespace Gimp.PhotoshopActions
 {
   public class MoveEvent : ActionEvent
   {
-    public MoveEvent()
-    {
-    }
-
     public override bool IsExecutable
     {
       get 
 	{
 	  return false;
 	}
-    }
-    
-    override public ActionEvent Parse(ActionParser parser)
-    {
-      return this;
     }
   }
 }

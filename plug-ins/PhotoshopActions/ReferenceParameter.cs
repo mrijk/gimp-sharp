@@ -19,26 +19,41 @@
 //
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace Gimp.PhotoshopActions
 {
   public class ReferenceParameter : Parameter
   {
+    List<ReferenceType> _set = new List<ReferenceType>();
+
+    public List<ReferenceType> Set
+    {
+      get {return _set;}
+    }
+
     public override void Parse(ActionParser parser)
     {
       int number = parser.ReadInt32();
 
       for (int i = 0; i < number; i++)
 	{
+	  ReferenceType referenceType = null;
+
 	  string type = parser.ReadFourByteString();
 	  if (type == "Clss")
 	    {
-	      parser.ParseClss();
+	      referenceType = new ClassType();
 	    }
 	  else if (type == "Enmr")
 	    {
 	      parser.ParseEnmr();
+	    }
+	  else if (type == "indx")
+	    {
+	      referenceType = new IndexType();
 	    }
 	  else if (type == "name")
 	    {
@@ -53,12 +68,17 @@ namespace Gimp.PhotoshopActions
 	      Console.WriteLine("ReadObj: type {0} unknown!", type);
 	      return;
 	    }
+	  if (referenceType != null)
+	    {
+	      referenceType.Parse(parser);
+	      _set.Add(referenceType);
+	    }
 	}
     }
 
     public override void Fill(Object obj, FieldInfo field)
     {
-      // field.SetValue(obj, this);
+      field.SetValue(obj, this);
     }
   }
 }

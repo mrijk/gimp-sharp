@@ -31,7 +31,7 @@ namespace Gimp.PhotoshopActions
 
     public override bool Execute()
     {
-      Drawable.BrightnessContrast(_brightness, _contrast);
+      ActiveDrawable.BrightnessContrast(_brightness, _contrast);
       return true;
     }
   }

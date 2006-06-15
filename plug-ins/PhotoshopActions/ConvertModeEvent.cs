@@ -39,7 +39,7 @@ namespace Gimp.PhotoshopActions
     {
       if (_type == "RGBM")
 	{
-	  Image.ConvertRgb();
+	  ActiveImage.ConvertRgb();
 	}
       else
 	{

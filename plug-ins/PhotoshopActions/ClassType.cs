@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
-// Borderright (C) 2006 Maurits Rijk
+// Copyright (C) 2006 Maurits Rijk
 //
-// BorderEvent.cs
+// ClassParameter.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,17 +18,33 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
+using System;
+using System.Reflection;
+
 namespace Gimp.PhotoshopActions
 {
-  public class BorderEvent : ActionEvent
+  public class ClassType : ReferenceType
   {
-    [Parameter("Wdth")]
-    double _width;
+    string _classID;
+    string _classID2;
 
-    override public bool Execute()
+    public string ClassID
     {
-      ActiveImage.Selection.Border((int) _width);
-      return true;
+      get {return _classID;}
+    }
+
+    public string ClassID2
+    {
+      get {return _classID2;}
+    }
+
+    public override void Parse(ActionParser parser)
+    {
+      _classID = parser.ReadTokenOrUnicodeString();
+      Console.WriteLine("classID: " + _classID);
+
+      _classID2 = parser.ReadTokenOrString();
+      Console.WriteLine("classID2: " + _classID2);
     }
   }
 }

@@ -24,7 +24,7 @@ namespace Gimp.PhotoshopActions
   {
     override public bool Execute()
     {
-      Drawable.EditCopy();
+      ActiveDrawable.EditCopy();
       return true;
     }
   }

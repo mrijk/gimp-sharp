@@ -29,7 +29,7 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
-      Image.Selection.Feather((int) _radius);
+      ActiveImage.Selection.Feather((int) _radius);
 
       return true;
     }

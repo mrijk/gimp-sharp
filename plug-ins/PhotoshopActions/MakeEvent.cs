@@ -77,7 +77,15 @@ namespace Gimp.PhotoshopActions
 	}
       else if (_obj != null)
 	{
-	  Console.WriteLine("Fix me!");
+	  ClassType classType = _obj.Set[0] as ClassType;
+	  if (classType.ClassID2 == "Lyr")
+	    {
+	      return new AddLayerEvent(this, _obj.Set);
+	    }
+	  else
+	    {
+	      Console.WriteLine("MakeEvent: {0} not implemented", classID);
+	    }
 	}
       else
 	{
@@ -87,6 +95,10 @@ namespace Gimp.PhotoshopActions
       if (classID == "Gd")
 	{
 	  return new AddGuideEvent(this, _object);
+	}
+      else if (classID == "Dcmn")
+	{
+	  return new NewDocumentEvent(this, _object);
 	}
       else
 	{

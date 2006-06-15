@@ -29,7 +29,9 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
-      if (Image == null)
+      Image image = ActiveImage;
+
+      if (image == null)
 	{
 	  Console.WriteLine("Please open image first");
 	  return false;
@@ -37,11 +39,11 @@ namespace Gimp.PhotoshopActions
 
       if (_axis == "Hrzn")
 	{
-	  Image.Flip(OrientationType.Horizontal);
+	  image.Flip(OrientationType.Horizontal);
 	}
       else
 	{
-	  Image.Flip(OrientationType.Vertical);
+	  image.Flip(OrientationType.Vertical);
 	}
 
       return true;

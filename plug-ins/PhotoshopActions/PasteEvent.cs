@@ -24,7 +24,7 @@ namespace Gimp.PhotoshopActions
   {
     override public bool Execute()
     {
-      Drawable.EditPaste(true);
+      ActiveDrawable.EditPaste(true);
       return true;
     }
   }

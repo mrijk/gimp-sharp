@@ -24,24 +24,44 @@ namespace Gimp.PhotoshopActions
 {
   public class NewDocumentEvent : ActionEvent
   {
-    public NewDocumentEvent(ActionEvent srcEvent) : base(srcEvent)
+    [Parameter("Md")]
+    string _mode;
+    [Parameter("Wdth")]
+    double _width;
+    [Parameter("Hght")]
+    double _height;
+    [Parameter("Rslt")]
+    double _resolution;
+    [Parameter("pixelScaleFactor")]
+    double _pixelScaleFactor;
+    [Parameter("Fl")]
+    string _fill;
+    [Parameter("Dpth")]
+    int _depth;
+    [Parameter("profile")]
+    string _profile;
+
+    public NewDocumentEvent(ActionEvent srcEvent, ObjcParameter myObject) : 
+      base(srcEvent)
     {
-    }
-    
-    public override bool IsExecutable
-    {
-      get 
-	{
-	  return false;
-	}
+      myObject.Fill(this);
     }
 
-    override public ActionEvent Parse(ActionParser parser)
+    override public bool Execute()
     {
-      parser.ParseToken("Md");
-      parser.ParseFourByteString("type");
+      ImageBaseType type = ImageBaseType.Rgb;	// Fix me!
+      int width = (int) _width;
+      int height = (int) _height;
 
-      return this;
+      Image image = new Image(width, height, type);
+      Layer layer = new Layer(image, "Background", width, height,
+			      ImageType.Rgb, 100, 
+			      LayerModeEffects.Normal);
+      image.AddLayer(layer, 0);
+
+      new Display(image);
+
+      return true;
     }
   }
 }

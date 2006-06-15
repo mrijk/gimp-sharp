@@ -33,8 +33,8 @@ namespace Gimp.PhotoshopActions
 
     public ActionParser(Image image, Drawable drawable)
     {
-      ActionEvent.Image = image;
-      ActionEvent.Drawable = drawable;
+      ActionEvent.ActiveImage = image;
+      ActionEvent.ActiveDrawable = drawable;
     }
 
     public int ParsingFailed
@@ -55,6 +55,7 @@ namespace Gimp.PhotoshopActions
 	  int version = ReadInt32();
 	  if (version != 16)	//  && version != 12)
 	    {
+	      Console.WriteLine("Old version not supported");
 	      _parsingFailed++;
 	      return null;
 	    }
@@ -147,6 +148,7 @@ namespace Gimp.PhotoshopActions
 	    }
 	  else
 	    {
+	      Console.WriteLine("Unknow text: " + text);
 	      return null;
 	    }
 	  

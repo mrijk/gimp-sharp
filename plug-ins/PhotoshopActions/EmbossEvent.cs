@@ -33,7 +33,7 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
-      if (Image == null)
+      if (ActiveImage == null)
 	{
 	  Console.WriteLine("Please open image first");
 	  return false;

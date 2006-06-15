@@ -24,7 +24,7 @@ namespace Gimp.PhotoshopActions
   {
     override public bool Execute()
     {
-      Image.Flatten();
+      ActiveImage.Flatten();
       return true;
     }
   }

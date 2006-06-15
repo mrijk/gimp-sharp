@@ -35,11 +35,11 @@ namespace Gimp.PhotoshopActions
     {
       if (_using == "FrgC")
 	{
-	  Drawable.EditFill(FillType.Foreground);
+	  ActiveDrawable.EditFill(FillType.Foreground);
 	}
       else if (_using == "BckC")
 	{
-	  Drawable.EditFill(FillType.Background);
+	  ActiveDrawable.EditFill(FillType.Background);
 	}
       else
 	{

@@ -55,14 +55,15 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
-      if (Drawable == null)
+      if (ActiveDrawable == null)
 	{
 	  Console.WriteLine("Please open image first");
 	  return false;
 	}
 
-      Drawable.HueSaturation(HueRange.All, (double) _hue, (double) _saturation,
-			     (double) _lightness);
+      ActiveDrawable.HueSaturation(HueRange.All, (double) _hue, 
+				   (double) _saturation,
+				   (double) _lightness);
       return true;
     }
   }

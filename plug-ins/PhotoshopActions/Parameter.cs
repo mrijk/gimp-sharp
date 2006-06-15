@@ -34,6 +34,6 @@ namespace Gimp.PhotoshopActions
     }
 
     public abstract void Parse(ActionParser parser);
-    public abstract void Fill(Object obj, FieldInfo field);
+    public virtual void Fill(Object obj, FieldInfo field) {}
   }
 }

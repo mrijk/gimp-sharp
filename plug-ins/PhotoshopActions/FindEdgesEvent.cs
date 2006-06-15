@@ -26,14 +26,14 @@ namespace Gimp.PhotoshopActions
   {
     override public bool Execute()
     {
-      if (Drawable == null)
+      if (ActiveDrawable == null)
 	{
 	  Console.WriteLine("Please open image first");
 	  return false;
 	}
 
       RunProcedure("plug_in_sobel", 1, 1, 1);
-      Drawable.Invert();
+      ActiveDrawable.Invert();
       return true;
     }
   }

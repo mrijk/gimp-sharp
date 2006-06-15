@@ -25,7 +25,7 @@ namespace Gimp.PhotoshopActions
     override public bool Execute()
     {
       RunProcedure("plug_in_plasma", 0, 15.0);
-      Drawable.Desaturate();
+      ActiveDrawable.Desaturate();
 
       return true;
     }

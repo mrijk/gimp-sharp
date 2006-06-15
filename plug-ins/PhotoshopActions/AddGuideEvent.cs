@@ -47,7 +47,9 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
-      if (Image == null)
+      Image image = ActiveImage;
+
+      if (image == null)
 	{
 	  Console.WriteLine("Please open image first");
 	  return false;
@@ -61,13 +63,13 @@ namespace Gimp.PhotoshopActions
 
       if (_orientation == "Vrtc")
 	{
-	  int position = (int) (_position * Image.Width / 100);
-	  new VerticalGuide(Image, position);
+	  int position = (int) (_position * image.Width / 100);
+	  new VerticalGuide(image, position);
 	}
       else if (_orientation == "Hrzn")
 	{
-	  int position = (int) (_position * Image.Height / 100);
-	  new HorizontalGuide(Image, position);
+	  int position = (int) (_position * image.Height / 100);
+	  new HorizontalGuide(image, position);
 	}
       else
 	{

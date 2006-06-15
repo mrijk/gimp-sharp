@@ -19,6 +19,8 @@
 //
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Gimp.PhotoshopActions
 {
@@ -26,38 +28,27 @@ namespace Gimp.PhotoshopActions
   {
     bool _below;
 
-    public AddLayerEvent(ActionEvent srcEvent) : base(srcEvent) 
+    public AddLayerEvent(ActionEvent srcEvent, List<ReferenceType> set) : 
+      base(srcEvent) 
     {
-    }
-    
-    public override bool IsExecutable
-    {
-      get 
+      if (set.Count != 2)
 	{
-	  return false;
+	  Console.WriteLine("AddLayerEvent, Count: " + set.Count);
+	  // Fill _below
 	}
     }
 
-    override public ActionEvent Parse(ActionParser parser)
+    override public bool Execute()
     {
-      parser.ParseFourByteString("obj");
+      // Fix me: do something with Image.ImageBaseType
+      Image image = ActiveImage;
 
-      int numberOfItems = parser.ReadInt32();
-      Console.WriteLine("\tNumberOfItems: " + numberOfItems);
+      Layer layer = new Layer(image, "New Layer", image.Width, image.Height,
+			      ImageType.Rgb, 100, 
+			      LayerModeEffects.Normal);
+      image.AddLayer(layer, 0);
 
-      parser.ParseFourByteString("Clss");
-
-      string classID = parser.ReadUnicodeString();	// ?
-
-      string layer = parser.ReadTokenOrString();
-      Console.WriteLine("\tlayer: " + layer);
-
-      if (NumberOfItems == 2)
-	{
-	  _below = parser.ParseBool("below");
-	}
-
-      return this;
+      return true;
     }
   }
 }
