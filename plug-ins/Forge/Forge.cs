@@ -179,14 +179,14 @@ namespace Gimp.Forge
       dialog.VBox.PackStart(vbox, true, true, 0);
 
       // Create the table widget
-      GimpTable table = new GimpTable(11, 3, false);
+      GimpTable table = new GimpTable(8, 4, false);
       table.ColumnSpacing = 10;
       table.RowSpacing = 10;
       table.BorderWidth = 10;
 
       // Create the frame widget 
       GimpFrame frame = new GimpFrame("Type");
-      table.Attach(frame, 0, 2, 0, 1);
+      table.Attach(frame, 0, 3, 0, 1);
 
       HBox hbox = new HBox(false,1);
       frame.Add(hbox);
@@ -204,41 +204,41 @@ namespace Gimp.Forge
       _DimensionSpinButton = CreateFloatSpinButtonInTable(table, 2, 1, 2.4, 0, 3,
           DimensionSpinButtonEventHandler);
 
-      CreateLabelInTable(table, 3, 0, "Power:");
-      _PowerSpinButton = CreateFloatSpinButtonInTable(table, 3, 1, 1.2, 0, 
+      CreateLabelInTable(table, 2, 2, "Power:");
+      _PowerSpinButton = CreateFloatSpinButtonInTable(table, 2, 3, 1.2, 0, 
           Double.MaxValue,
           PowerSpinButtonEventHandler);
 
-      CreateLabelInTable(table, 4, 0, "Glaciers:");
-      _GlaciersSpinButton = CreateFloatSpinButtonInTable(table, 4, 1, 0.75, 0, 
+      CreateLabelInTable(table, 3, 0, "Glaciers:");
+      _GlaciersSpinButton = CreateFloatSpinButtonInTable(table, 3, 1, 0.75, 0, 
           Double.MaxValue,
           GlaciersSpinButtonEventHandler);
 
-      CreateLabelInTable(table, 5, 0, "Ice:");
-      _IceSpinButton = CreateFloatSpinButtonInTable(table, 5, 1, 0.4, 0, 
+      CreateLabelInTable(table, 3, 2, "Ice:");
+      _IceSpinButton = CreateFloatSpinButtonInTable(table, 3, 3, 0.4, 0, 
           Double.MaxValue,
           IceSpinButtonEventHandler);
 
-      CreateLabelInTable(table, 6, 0, "Hour (0 - 24):");
-      _HourSpinButton = CreateFloatSpinButtonInTable(table, 6, 1, 0, 0, 24, 
+      CreateLabelInTable(table, 4, 0, "Hour (0 - 24):");
+      _HourSpinButton = CreateFloatSpinButtonInTable(table, 4, 1, 0, 0, 24, 
           HourSpinButtonEventHandler);
 
-      CreateLabelInTable(table, 7, 0, "Inclination (-90 - 90):");
-      _InclinationSpinButton = CreateFloatSpinButtonInTable(table, 7, 1, 0, -90, 90,
+      CreateLabelInTable(table, 4, 2, "Inclination (-90 - 90):");
+      _InclinationSpinButton = CreateFloatSpinButtonInTable(table, 4, 3, 0, -90, 90,
           InclinationSpinButtonEventHandler);
 
-      CreateLabelInTable(table, 8, 0, "Stars (0 - 100):");
-      _StarsSpinButton = CreateIntSpinButtonInTable(table, 8, 1, 100, 0, 100, 
+      CreateLabelInTable(table, 5, 0, "Stars (0 - 100):");
+      _StarsSpinButton = CreateIntSpinButtonInTable(table, 5, 1, 100, 0, 100, 
           StarsSpinButtonEventHandler);
 
-      CreateLabelInTable(table, 9, 0, "Saturation:");
-      _SaturationSpinButton = CreateIntSpinButtonInTable(table, 9, 1, 125, 0, 
+      CreateLabelInTable(table, 5, 2, "Saturation:");
+      _SaturationSpinButton = CreateIntSpinButtonInTable(table, 5, 3, 125, 0, 
           Int32.MaxValue, 
           SaturationSpinButtonEventHandler);
 
-      CreateLabelInTable(table, 10, 0, "Seed:");
+      CreateLabelInTable(table, 6, 0, "Seed:");
       RandomSeed seed = new RandomSeed(ref _rseed, ref _random_seed);
-      table.Attach(seed, 1, 2, 10, 11);
+      table.Attach(seed, 1, 3, 6, 7);
 
       // Set default values
       //SetDefaultValues(); 
