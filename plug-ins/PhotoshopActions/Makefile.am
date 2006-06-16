@@ -65,6 +65,7 @@ MYSOURCES = 				\
 	PasteEvent.cs			\
 	PhotocopyEvent.cs		\
 	PhotoshopActions.cs		\
+	PropertyType.cs			\
 	RadialBlurEvent.cs		\
 	ReferenceParameter.cs		\
 	ReferenceType.cs		\

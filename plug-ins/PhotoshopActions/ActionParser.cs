@@ -393,10 +393,9 @@ namespace Gimp.PhotoshopActions
     public Parameter ReadItem()
     {
       string key = ReadTokenOrString();
-      Console.WriteLine("\t\tkey: " + key);
-		
       string type = ReadFourByteString();
-      Console.WriteLine("\t\ttype: " + type);
+
+      Console.WriteLine("\t\tkey: {0} ({1})", key, type);
 
       Parameter parameter = null;
 
@@ -450,15 +449,6 @@ namespace Gimp.PhotoshopActions
       parameter.Name = key;
 
       return parameter;
-    }
-
-    public void ParseClss()
-    {
-      string classID = ReadTokenOrUnicodeString();
-      Console.WriteLine("\t\tClss:classID: " + classID);
-
-      string classID2 = ReadTokenOrString();
-      Console.WriteLine("\t\tClss:classID2: " + classID2);
     }
 
     public string ParseEnmr()

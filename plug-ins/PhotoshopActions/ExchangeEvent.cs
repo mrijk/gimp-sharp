@@ -24,14 +24,6 @@ namespace Gimp.PhotoshopActions
 {
   public class ExchangeEvent : ActionEvent
   {
-    override public ActionEvent Parse(ActionParser parser)
-    {
-      ParameterSet set = new ParameterSet();
-      set.Parse(parser, this, NumberOfItems);
-
-      return this;
-    }
-
     override public bool Execute()
     {
       Context.SwapColors();

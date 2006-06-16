@@ -24,35 +24,24 @@ namespace Gimp.PhotoshopActions
 {
   public class ResetEvent : ActionEvent
   {
-    [Parameter("Clrs")]
-    string _key;
+    [Parameter("null")]
+    ReferenceParameter _object;
 
-    public override bool IsExecutable
+    override public bool Execute()
     {
-      get 
+      PropertyType property = _object.Set[0] as PropertyType;
+
+      if (property.Key == "Clrs")
 	{
+	  Context.SetDefaultColors();
+	}
+      else
+	{
+	  Console.WriteLine("ResetEvent: {0} unknown", property.Key);
 	  return false;
 	}
-    }
 
-    override public ActionEvent Parse(ActionParser parser)
-    {
-       parser.ParseToken("null");
-      parser.ParseFourByteString("obj");
-
-      parser.ParseInt32(1);
-
-      parser.ParseFourByteString("prop");
-
-      string classID = parser.ReadTokenOrUnicodeString();
-      Console.WriteLine("\tClassID: " + classID);
-      
-      classID = parser.ReadTokenOrString();
-      Console.WriteLine("\tClassID: " + classID);
-
-      parser.ParseToken("Clrs");
-
-      return this;
+      return true;
     }
   }
 }

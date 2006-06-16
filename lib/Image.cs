@@ -498,7 +498,7 @@ namespace Gimp
     {
       if (!gimp_image_convert_rgb(_imageID))
 	{
-	  throw new GimpSharpException();
+	  // throw new GimpSharpException();
 	}
     }
        
@@ -506,7 +506,7 @@ namespace Gimp
     {
       if (!gimp_image_convert_grayscale(_imageID))
 	{
-	  throw new GimpSharpException();
+	  // throw new GimpSharpException();
 	}
     }
        
@@ -526,7 +526,7 @@ namespace Gimp
 				      remove_unused,
 				      palette))
 	{
-	  throw new GimpSharpException();
+	  // throw new GimpSharpException();
 	}
     }
 

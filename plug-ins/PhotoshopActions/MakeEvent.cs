@@ -25,7 +25,8 @@ namespace Gimp.PhotoshopActions
   public class MakeEvent : ActionEvent
   {
     [Parameter("Nw")]
-    ObjcParameter _object;
+    Parameter _object;
+    // ObjcParameter _object;
     [Parameter("null")]
     ReferenceParameter _obj;
 
@@ -36,36 +37,7 @@ namespace Gimp.PhotoshopActions
 	  return false;
 	}
     }
-#if false
-    override public ActionEvent Parse(ActionParser parser)
-    {
-      string token = parser.ReadTokenOrString();
-      if (token == "Nw")
-	{
-	  Objc objc = parser.ParseObjc();
-	  
-	  if (objc.ClassId2 == "Gd")
-	    {
-	      return new AddGuideEvent(this).Parse(parser);
-	    }
-	  else if (objc.ClassId2 == "Dcmn")
-	    {
-	      return new NewDocumentEvent(this).Parse(parser);
-	    }
-	  else
-	    {
-	      Console.WriteLine("MakeEvent: {0} not implemented", 
-				objc.ClassId2);
-	      throw new GimpSharpException();
-	    }
-	}
-      else if (token == "null")
-	{
-	  return new AddLayerEvent(this).Parse(parser);
-	}
-      return this;
-    }
-#else
+
     override public ActionEvent Parse(ActionParser parser)
     {
       ActionEvent myEvent = base.Parse(parser);
@@ -73,7 +45,10 @@ namespace Gimp.PhotoshopActions
 
       if (_object != null)
 	{
-	  classID = _object.ClassID2;
+	  if (_object is ObjcParameter)
+	    {
+	      classID = (_object as ObjcParameter).ClassID2;
+	    }
 	}
       else if (_obj != null)
 	{
@@ -94,11 +69,11 @@ namespace Gimp.PhotoshopActions
 
       if (classID == "Gd")
 	{
-	  return new AddGuideEvent(this, _object);
+	  return new AddGuideEvent(this, _object as ObjcParameter);
 	}
       else if (classID == "Dcmn")
 	{
-	  return new NewDocumentEvent(this, _object);
+	  return new NewDocumentEvent(this, _object as ObjcParameter);
 	}
       else
 	{
@@ -109,6 +84,5 @@ namespace Gimp.PhotoshopActions
 
       return myEvent;
     }
-#endif
   }
 }

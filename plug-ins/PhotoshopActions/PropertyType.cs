@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// ConvertModeEvent.cs
+// PropertyParameter.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,36 +19,41 @@
 //
 
 using System;
+using System.Reflection;
 
 namespace Gimp.PhotoshopActions
 {
-  public class ConvertModeEvent : ActionEvent
+  public class PropertyType : ReferenceType
   {
-    [Parameter("T")]
-    TypeParameter _type;
+    string _classID;
+    string _classID2;
+    string _key;
 
-    public override bool IsExecutable
+    public string ClassID
     {
-      get 
-	{
-	  return _type != null && _type.Value == "RGBM";
-	}
+      get {return _classID;}
     }
 
-    override public bool Execute()
+    public string ClassID2
     {
-      string type = _type.Value;
+      get {return _classID2;}
+    }
 
-      if (type == "RGBM")
-	{
-	  ActiveImage.ConvertRgb();
-	}
-      else
-	{
-	  Console.WriteLine("ConvertModeEvent: can't convert: " + type);
-	}
+    public string Key
+    {
+      get {return _key;}
+    }
 
-      return true;
+    public override void Parse(ActionParser parser)
+    {
+      _classID = parser.ReadTokenOrUnicodeString();
+      Console.WriteLine("\t\tprop:classID: " + _classID);
+
+      _classID2 = parser.ReadTokenOrString();
+      Console.WriteLine("\t\tprop:classID2: " + _classID2);
+
+      _key = parser.ReadTokenOrString();
+      Console.WriteLine("\t\tprop:keyID: " + _key);
     }
   }
 }

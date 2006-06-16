@@ -61,7 +61,8 @@ namespace Gimp.PhotoshopActions
 	    }
 	  else if (type == "prop")
 	    {
-	      parser.ParseProp();
+	      referenceType = new PropertyType();
+	      // parser.ParseProp();
 	    }
 	  else
 	    {

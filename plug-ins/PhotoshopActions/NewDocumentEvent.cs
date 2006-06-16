@@ -25,7 +25,7 @@ namespace Gimp.PhotoshopActions
   public class NewDocumentEvent : ActionEvent
   {
     [Parameter("Md")]
-    string _mode;
+    Parameter _mode;
     [Parameter("Wdth")]
     double _width;
     [Parameter("Hght")]

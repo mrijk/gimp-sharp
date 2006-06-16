@@ -1,3 +1,22 @@
+2006-06-16  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/PhotoshopActions/ResetEvent.cs: implemented
+
+	* plug-ins/PhotoshopActions/PropertyType: new file
+
+	* plug-ins/PhotoshopActions/Makefile: changed accordingly
+
+2006-06-15  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/PhotoshopActions/*Event.cs: renamed Image to
+	ActiveImage and Drawable to ActiveDrawable.
+
+	* plug-ins/PhotoshopActions/ReferenceType.cs
+	* plug-ins/PhotoshopActions/IndexType.cs
+	* plug-ins/PhotoshopActions/ClassType.cs: new files
+
+	* plug-ins/PhotoshopActions/Makefile: changed accordingly
+
 2006-06-14  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/PhotoshopActions/DifferenceCloudsEvent.cs: 
