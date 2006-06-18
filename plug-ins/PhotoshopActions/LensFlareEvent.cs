@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// SetLayerEvent.cs
+// LensFlareEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,12 +22,8 @@ using System;
 
 namespace Gimp.PhotoshopActions
 {
-  public class SetLayerEvent : ActionEvent
+  public class LensFlareEvent : ActionEvent
   {
-    public SetLayerEvent(ActionEvent srcEvent) : base(srcEvent)
-    {
-    }
-    
     public override bool IsExecutable
     {
       get 
@@ -36,15 +32,9 @@ namespace Gimp.PhotoshopActions
 	}
     }
 
-    override public ActionEvent Parse(ActionParser parser)
+    override public bool Execute()
     {
-      parser.ParseToken("T");
-      Objc obj = parser.ParseObjc();
-
-      string units;
-      double opacity = parser.ReadDouble("Opct", out units);
-
-      return this;
+      return true;
     }
   }
 }

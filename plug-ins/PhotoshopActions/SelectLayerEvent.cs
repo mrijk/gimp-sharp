@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// SetLayerNameEvent.cs
+// SelectLayerEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,26 +22,18 @@ using System;
 
 namespace Gimp.PhotoshopActions
 {
-  public class SetLayerNameEvent : ActionEvent
+  public class SelectLayerEvent : ActionEvent
   {
-    [Parameter("T")]
-    ObjcParameter _objc;
-    [Parameter("Nm")]
     string _name;
 
-    public SetLayerNameEvent(ActionEvent srcEvent) : base(srcEvent)
+    public SelectLayerEvent(ActionEvent srcEvent, string name) : base(srcEvent)
     {
-      Parameters.Fill(this);
-      _objc.Fill(this);
+      _name = name;
     }
 
     override public bool Execute()
     {
-      LayerList layers = ActiveImage.Layers;
-      layers[0].Name = _name;
-
-      // Fix me: set the name of the * selected * layer
-
+      SelectedLayer = ActiveImage.Layers[_name];
       return true;
     }
   }

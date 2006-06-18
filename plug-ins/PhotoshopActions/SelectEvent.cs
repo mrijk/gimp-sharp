@@ -44,6 +44,10 @@ namespace Gimp.PhotoshopActions
 	  if (_obj.Set[0] is NameType)
 	    {
 	      NameType name = _obj.Set[0] as NameType;
+	      if (name.ClassID2 == "Lyr")
+		{
+		  return new SelectLayerEvent(this, name.Key);
+		}
 	    }
 	}
 

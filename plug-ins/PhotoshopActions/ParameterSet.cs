@@ -29,9 +29,19 @@ namespace Gimp.PhotoshopActions
   {
     Dictionary<string, Parameter> _set = new Dictionary<string, Parameter>();
 
+    public int Count
+    {
+      get {return _set.Count;}
+    }
+
     public Parameter this[string name]
     {
       get {return _set[name];}
+    }
+
+    public IEnumerator<Parameter> GetEnumerator()
+    {
+      return _set.Values.GetEnumerator();
     }
 
     public void Parse(ActionParser parser, int numberOfItems)

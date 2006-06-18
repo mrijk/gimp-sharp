@@ -50,6 +50,7 @@ MYSOURCES = 				\
 	ImageSizeEvent.cs		\
 	IndexType.cs			\
 	InvertEvent.cs			\
+	LensFlareEvent.cs		\
 	LevelsEvent.cs			\
 	LinkEvent.cs			\
 	ListParameter.cs		\
@@ -63,7 +64,6 @@ MYSOURCES = 				\
 	MoveEvent.cs			\
 	NameType.cs			\
 	NewDocumentEvent.cs		\
-	Objc.cs				\
 	ObjcParameter.cs		\
 	OpenEvent.cs			\
 	Parameter.cs			\
@@ -82,12 +82,12 @@ MYSOURCES = 				\
 	ResetEvent.cs			\
 	SelectEvent.cs			\
 	SelectionEvent.cs		\
+	SelectLayerEvent.cs		\
 	SetBackgroundColorEvent.cs	\
 	SetColorEvent.cs		\
 	SetEvent.cs			\
 	SetForegroundColorEvent.cs	\
-	SetLayerEvent.cs		\
-	SetLayerNameEvent.cs		\
+	SetLayerPropertyEvent.cs	\
 	SharpenEvent.cs			\
 	SharpenMoreEvent.cs		\
 	SmoothnessEvent.cs		\

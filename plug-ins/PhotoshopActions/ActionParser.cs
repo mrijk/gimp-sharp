@@ -327,13 +327,6 @@ namespace Gimp.PhotoshopActions
 	}
     }
 
-    public Objc ParseObjc()
-    {
-      Objc objc = new Objc();
-      objc.Parse(this);
-      return objc;
-    }
-
     public void ReadDescriptor()
     {
       string classID = ReadUnicodeString();

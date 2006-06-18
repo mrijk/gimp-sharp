@@ -24,6 +24,9 @@ namespace Gimp.PhotoshopActions
 {
   public class DeleteEvent : ActionEvent
   {
+    [Parameter("null")]
+    ReferenceParameter _obj;
+
     public override bool IsExecutable
     {
       get 
@@ -31,32 +34,26 @@ namespace Gimp.PhotoshopActions
 	  return false;
 	}
     }
-    
-#if false
+
     override public ActionEvent Parse(ActionParser parser)
     {
-      parser.ParseToken("null");
-      parser.ParseFourByteString("obj");
+      ActionEvent myEvent = base.Parse(parser);
 
-      parser.ParseInt32(1);
-
-      parser.ParseFourByteString("Enmr");
-
-      string classID = parser.ReadTokenOrUnicodeString();
-      Console.WriteLine("\tClassID: " + classID);
-
-      string keyID = parser.ReadTokenOrString();
-      if (keyID == "Lyr")
+      if (_obj != null)
 	{
-	  return new DeleteLayerEvent().Parse(parser);
+	  if (_obj.Set[0] is EnmrType)
+	    {
+	      EnmrType enmr = _obj.Set[0] as EnmrType;
+	      if (enmr.Key == "Lyr")
+		{
+		  return new DeleteLayerEvent(this);
+		}
+	      else
+		{
+		}
+	    }
 	}
-      else
-	{
-	  Console.WriteLine("Can't delete: " + keyID);
-	  throw new GimpSharpException();
-	}
-      return this;
+      return myEvent;
     }
-#endif
   }
 }

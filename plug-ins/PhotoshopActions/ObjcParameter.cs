@@ -34,6 +34,11 @@ namespace Gimp.PhotoshopActions
       get {return _classID2;}
     }
 
+    public ParameterSet Parameters
+    {
+      get {return _children;}
+    }
+
     public override void Parse(ActionParser parser)
     {
       _classID = parser.ReadUnicodeString();

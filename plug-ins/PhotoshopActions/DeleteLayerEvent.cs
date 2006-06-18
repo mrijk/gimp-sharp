@@ -18,33 +18,18 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-
 namespace Gimp.PhotoshopActions
 {
   public class DeleteLayerEvent : ActionEvent
   {
-    public DeleteLayerEvent()
+    public DeleteLayerEvent(ActionEvent srcEvent) : base(srcEvent)
     {
     }
 
-    public override bool IsExecutable
+    override public bool Execute()
     {
-      get 
-	{
-	  return false;
-	}
-    }
-    
-    override public ActionEvent Parse(ActionParser parser)
-    {
-      string typeID = parser.ReadTokenOrString();
-      Console.WriteLine("\ttypeID: " + typeID);
-
-      string enumID = parser.ReadTokenOrString();
-      Console.WriteLine("\tenum: " + enumID);
-
-      return this;
+      ActiveImage.RemoveLayer(SelectedLayer);
+      return true;
     }
   }
 }

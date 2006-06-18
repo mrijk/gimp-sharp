@@ -58,13 +58,24 @@ namespace Gimp.PhotoshopActions
 		      break;
 		    }
 		}
+	      else if (property.ClassID2 == "Chnl")
+		{
+		  if (property.Key == "fsel")
+		    {
+		      return new SelectionEvent(this);
+		    }
+		}
+	      else
+		{
+		  Console.WriteLine("SetEvent.Parse: " + property.ClassID2);
+		}
 	    }
 	  else if (_obj.Set[0] is EnmrType)
 	    {
 	      EnmrType enmr = _obj.Set[0] as EnmrType;
 	      if (enmr.Key == "Lyr")
 		{
-		  return new SetLayerNameEvent(this);
+		  return new SetLayerPropertyEvent(this);
 		}
 	      else
 		{
@@ -79,66 +90,5 @@ namespace Gimp.PhotoshopActions
 
       return this;
     }
-
-#if false    
-    override public ActionEvent Parse(ActionParser parser)
-    {
-      parser.ParseToken("null");
-      parser.ParseFourByteString("obj");
-      
-      int numberOfItems = parser.ReadInt32();
-      Console.WriteLine("\tNumberOfItems: " + numberOfItems);
-
-      string type = parser.ReadFourByteString();
-      Console.WriteLine("\ttype: " + type);
-
-      if (type == "prop")
-	{
-	  string classID = parser.ReadTokenOrUnicodeString();
-	  Console.WriteLine("\tClassID: " + classID);
-
-	  classID = parser.ReadTokenOrString();
-	  Console.WriteLine("\tClassID: " + classID);
-
-	  string keyID = parser.ReadTokenOrString();
-	  if (keyID == "fsel")
-	    {
-	      return new SelectionEvent(this).Parse(parser);
-	    }
-	  else if (keyID == "BckC")
-	    {
-	      return new SetBackgroundColorEvent(this).Parse(parser);
-	    }
-	  else if (keyID == "FrgC")
-	    {
-	      return new SetForegroundColorEvent(this).Parse(parser);
-	    }
-	  else
-	    {
-	      Console.WriteLine("*** Unknown keyID: " + keyID);
-	      throw new GimpSharpException();
-	    }
-	}
-      else if (type == "Enmr")
-	{
-	  string keyID = parser.ParseEnmr();
-	  if (keyID == "Lyr")
-	    {
-	      return new SetLayerEvent(this).Parse(parser);
-	    }
-	  else
-	    {
-	      Console.WriteLine("*** Unknown keyID: " + keyID);
-	      throw new GimpSharpException();	      
-	    }
-	}
-      else
-	{
-	  Console.WriteLine("*** Unknown type: " + type);
-	}
-
-      return this;
-    }
-#endif
   }
 }

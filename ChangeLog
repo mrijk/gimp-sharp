@@ -1,5 +1,15 @@
 2006-06-18  Maurits  <m.rijk@chello.nl>
 
+	* lib/LayerList.cs: added method to lookup layer by name.
+
+	* plug-ins/PhotoshopActions/LensFlareEvent.cs
+	* plug-ins/PhotoshopActions/SelectLayerEvent.cs: new files
+
+	* plug-ins/PhotoshopActions/EventMap.cs
+	* plug-ins/PhotoshopActions/Makefile: changed accordingly
+
+2006-06-18  Maurits  <m.rijk@chello.nl>
+
 	* plug-ins/PhotoshopActions/ActionParser.cs: replaced series of if 
 	statements by switch.
 

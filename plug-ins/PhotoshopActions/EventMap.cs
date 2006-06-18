@@ -62,6 +62,7 @@ namespace Gimp.PhotoshopActions
       _map["hueSaturation"] = "HueSaturationEvent";
       _map["imageSize"] = "ImageSizeEvent";
       _map["invert"] = "InvertEvent";
+      _map["lensFlare"] = "LensFlareEvent";
       _map["levels"] = "LevelsEvent";
       _map["link"] = "LinkEvent";
       _map["make"] = "MakeEvent";

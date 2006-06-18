@@ -59,6 +59,21 @@ namespace Gimp
       get {return _list[index];}
     }
 
+    public Layer this[string name]
+    {
+      get 
+	{
+	  foreach (Layer layer in _list)
+	    {
+	      if (layer.Name == name)
+		{
+		  return layer;
+		}
+	    }
+	  return null;
+	}
+    }
+
     [DllImport("libgimp-2.0-0.dll")]
     static extern IntPtr gimp_image_get_layers(Int32 image_ID, 
                                                out int num_layers);

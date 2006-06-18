@@ -30,13 +30,7 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
-      
-      LayerList layers = ActiveImage.Layers;
-
-      Console.WriteLine("DuplicateLayer: " + layers.Count);
-      
-      ActiveImage.AddLayer(new Layer(layers[0]), 0);
-
+      ActiveImage.AddLayer(new Layer(SelectedLayer), 0);
       return true;
     }
   }

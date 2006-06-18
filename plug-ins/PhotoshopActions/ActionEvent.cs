@@ -36,8 +36,9 @@ namespace Gimp.PhotoshopActions
     protected int _numberOfItems;
     ParameterSet _parameters;
     
-    static Drawable _drawable;
-    static Image _image;
+    static Drawable _activeDrawable;
+    static Image _activeImage;
+    static Layer _selectedLayer;
 
     public ActionEvent()
     {
@@ -68,14 +69,24 @@ namespace Gimp.PhotoshopActions
 
     public static Drawable ActiveDrawable
     {
-      get {return _drawable;}
-      set {_drawable = value;}
+      get {return _activeDrawable;}
+      set {_activeDrawable = value;}
     }
 
     public static Image ActiveImage
     {
-      get {return _image;}
-      set {_image = value;}
+      get {return _activeImage;}
+      set 
+	{
+	  _activeImage = value;
+	  _selectedLayer = _activeImage.Layers[0];
+	}
+    }
+
+    public static Layer SelectedLayer
+    {
+      get {return _selectedLayer;}
+      set {_selectedLayer = value;}
     }
 
     public string EventForDisplay
@@ -107,7 +118,7 @@ namespace Gimp.PhotoshopActions
     protected void RunProcedure(string name, params object[] list)
     {
       Procedure procedure = new Procedure(name);
-      procedure.Run(_image, _drawable, list);
+      procedure.Run(_activeImage, _activeDrawable, list);
     }
   }
 }

@@ -24,10 +24,24 @@ namespace Gimp.PhotoshopActions
 {
   public class SelectionEvent : ActionEvent
   {
-    double _top, _left, _bottom, _right;
+    [Parameter("T")]
+    ObjcParameter _object;
+
+    [Parameter("Top")]
+    double _top;
+    [Parameter("Left")]
+    double _left;
+    [Parameter("Btom")]
+    double _bottom;
+    [Parameter("Rght")]
+    double _right;
 
     public SelectionEvent(ActionEvent srcEvent) : base(srcEvent)
     {
+      // Parameters.Fill(this);
+      // _object.Fill(this);
+
+      // Console.WriteLine("--------> {0} {1} {2} {3}", _top, _left, _bottom, _right);
     }
     
     public override bool IsExecutable
@@ -36,36 +50,6 @@ namespace Gimp.PhotoshopActions
 	{
 	  return false;
 	}
-    }
-
-    override public ActionEvent Parse(ActionParser parser)
-    {
-      parser.ParseToken("T");
-
-      string token = parser.ReadFourByteString();
-      if (token == "enum")
-	{
-	  parser.ParseToken("Ordn");
-	  string mode = parser.ReadTokenOrString();
-	}
-      else if (token == "Objc")
-	{
-	  string classID = parser.ReadUnicodeString();
-	  string classID2 = parser.ReadTokenOrString();
-	  
-	  parser.ParseInt32(4);
-
-	  string units;
-	  _top = parser.ReadDouble("Top", out units);
-	  _left = parser.ReadDouble("Left", out units);
-	  _bottom = parser.ReadDouble("Btom", out units);
-	  _right = parser.ReadDouble("Rght", out units);
-	}
-      else
-	{
-	  Console.WriteLine("Unknown SelectionEvent: " + token);
-	}
-      return this;
     }
   }
 }

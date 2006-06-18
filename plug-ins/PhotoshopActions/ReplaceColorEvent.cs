@@ -38,7 +38,7 @@ namespace Gimp.PhotoshopActions
 	  return false;
 	}
     }
-
+#if false
     override public ActionEvent Parse(ActionParser parser)
     {
       int unknownFzns = parser.ReadLong("Fzns");
@@ -69,5 +69,6 @@ namespace Gimp.PhotoshopActions
 
       return this;
     }
+#endif
   }
 }
