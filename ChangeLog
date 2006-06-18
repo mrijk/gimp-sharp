@@ -1,3 +1,20 @@
+2006-06-18  Maurits  <maurits.rijk@chello.nl>
+
+	* lib/Drawable.cs: fixed typo
+
+	* plug-ins/PhotoshopActions/CutEvent.cs 
+	* plug-ins/PhotoshopActions/EqualizeEvent.cs 
+	* plug-ins/PhotoshopActions/ExpandEvent.cs
+	* plug-ins/PhotoshopActions/GrowEvent.cs
+	* plug-ins/PhotoshopActions/MaximumEvent.cs
+	* plug-ins/PhotoshopActions/MinimumEvent.cs
+	* plug-ins/PhotoshopActions/OffsetEvent.cs
+	* plug-ins/PhotoshopActions/PosterizationEvent.cs
+	* plug-ins/PhotoshopActions/InverseEvent.cs: new files
+
+	* plug-ins/PhotoshopActions/EventMap.cs
+	* plug-ins/PhotoshopActions/Makefile: changed accordingly
+
 2006-06-18  Maurits  <m.rijk@chello.nl>
 
 	* lib/LayerList.cs: added method to lookup layer by name.

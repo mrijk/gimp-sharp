@@ -19,44 +19,60 @@
 //
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace Gimp.PhotoshopActions
 {
   public class ListParameter : Parameter
   {
+    List<Parameter> _set = new List<Parameter>();
+
+    public List<Parameter> Set
+    {
+      get {return _set;}
+    }
+
     public override void Parse(ActionParser parser)
     {
       int number = parser.ReadInt32();
       Console.WriteLine("\t\tnumber: " + number);
-      
+
       for (int i = 0; i < number; i++)
 	{
 	  string type = parser.ReadFourByteString();
 	  Console.WriteLine("\t\ttype: " + type);
-	  if (type == "Objc")
+
+	  Parameter parameter = null;
+
+	  switch (type)
 	    {
-	      parser.ReadDescriptor();
-	    }
-	  else if (type == "long")
-	    {
-	      parser.ReadInt32();
-	    }
-	  else if (type == "obj")
-	    {
-	      Parameter parameter = new ReferenceParameter();
-	      parameter.Parse(parser);
-	    }	  
-	  else
-	    {
+	    case "Objc":
+	      parameter = new ObjcParameter();
+	      break;
+	    case "long":
+	      parameter = new LongParameter();
+	      break;
+	    case "obj":
+	      parameter = new ReferenceParameter();
+	      break;
+	    default:
 	      Console.WriteLine("ReadVlLs: type {0} unknown!", type);
 	      return;
+	    }
+
+	  if (parameter != null)
+	    {
+	      parameter.Parse(parser);
+	      _set.Add(parameter);
 	    }
 	}
     }
 
     public override void Fill(Object obj, FieldInfo field)
     {
+      field.SetValue(obj, this);
     }
   }
 }

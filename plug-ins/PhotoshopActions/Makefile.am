@@ -25,6 +25,7 @@ MYSOURCES = 				\
 	ConvertModeEvent.cs		\
 	CopyEvent.cs			\
 	CopyToLayerEvent.cs		\
+	CutEvent.cs			\
 	DeleteEvent.cs			\
 	DeleteLayerEvent.cs		\
 	DesaturateEvent.cs		\
@@ -36,8 +37,10 @@ MYSOURCES = 				\
 	EmbossEvent.cs			\
 	EnmrType.cs			\
 	EnumParameter.cs		\
+	EqualizeEvent.cs		\
 	EventMap.cs			\
 	ExchangeEvent.cs		\
+	ExpandEvent.cs			\
 	FacetEvent.cs			\
 	FeatherEvent.cs			\
 	FillEvent.cs			\
@@ -45,10 +48,12 @@ MYSOURCES = 				\
 	FlattenImageEvent.cs		\
 	FlipEvent.cs			\
 	GaussianBlurEvent.cs		\
+	GrowEvent.cs			\
 	HideEvent.cs			\
 	HueSaturationEvent.cs		\
 	ImageSizeEvent.cs		\
 	IndexType.cs			\
+	InverseEvent.cs			\
 	InvertEvent.cs			\
 	LensFlareEvent.cs		\
 	LevelsEvent.cs			\
@@ -56,15 +61,18 @@ MYSOURCES = 				\
 	ListParameter.cs		\
 	LongParameter.cs		\
 	MakeEvent.cs			\
+	MaximumEvent.cs			\
 	MedianEvent.cs			\
 	MergeLayersEvent.cs		\
 	MergeVisibleEvent.cs		\
+	MinimumEvent.cs			\
 	MosaicEvent.cs			\
 	MotionBlurEvent.cs		\
 	MoveEvent.cs			\
 	NameType.cs			\
 	NewDocumentEvent.cs		\
 	ObjcParameter.cs		\
+	OffsetEvent.cs			\
 	OpenEvent.cs			\
 	Parameter.cs			\
 	ParameterAttribute.cs		\
@@ -73,6 +81,7 @@ MYSOURCES = 				\
 	PathParameter.cs		\
 	PhotocopyEvent.cs		\
 	PhotoshopActions.cs		\
+	PosterizationEvent.cs		\
 	PropertyType.cs			\
 	RadialBlurEvent.cs		\
 	ReferenceParameter.cs		\

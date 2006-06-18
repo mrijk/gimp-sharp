@@ -351,7 +351,7 @@ namespace Gimp
         }
     }
 
-    public void Equalizee(bool mask_only)
+    public void Equalize(bool mask_only)
     {
       if (!gimp_equalize(_ID, mask_only))
         {

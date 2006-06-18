@@ -30,6 +30,7 @@ namespace Gimp.PhotoshopActions
     readonly byte _withDialog;
     readonly byte _dialogOptions;
     */
+    bool _hasDescriptor;
     bool _preSix;
 
     string _eventForDisplay;
@@ -60,6 +61,12 @@ namespace Gimp.PhotoshopActions
     {
       get {return _preSix;}
       set {_preSix = value;}
+    }
+
+    public bool HasDescriptor
+    {
+      get {return _hasDescriptor;}
+      set {_hasDescriptor = value;}
     }
 
     public virtual bool IsExecutable

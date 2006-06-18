@@ -158,10 +158,11 @@ namespace Gimp.PhotoshopActions
 	  Console.WriteLine("\tEventName: {0} ({1})", eventName,
 			    actionEvent.IsExecutable);
 
-	  int hasDescriptor = ReadInt32();
-	  if (hasDescriptor != -1)
+	  actionEvent.HasDescriptor = (ReadInt32() != 0);
+	  if (!actionEvent.HasDescriptor)
 	    {
-	      Console.WriteLine("\tHasDescriptor: " + hasDescriptor);
+	      Console.WriteLine("\tHasDescriptor: " + 
+				actionEvent.HasDescriptor);
 	      return actionEvent;
 	    }
 

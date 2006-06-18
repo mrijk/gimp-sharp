@@ -27,14 +27,6 @@ namespace Gimp.PhotoshopActions
     [Parameter("null")]
     ReferenceParameter _obj;
 
-    public override bool IsExecutable
-    {
-      get 
-	{
-	  return false;
-	}
-    }
-
     override public ActionEvent Parse(ActionParser parser)
     {
       ActionEvent myEvent = base.Parse(parser);
@@ -54,6 +46,15 @@ namespace Gimp.PhotoshopActions
 	    }
 	}
       return myEvent;
+    }
+
+    override public bool Execute()
+    {
+      if (!HasDescriptor)
+	{
+	  ActiveDrawable.EditClear();
+	}
+      return true;
     }
   }
 }

@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// HideEvent.cs
+// MaximumEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,25 +22,15 @@ using System;
 
 namespace Gimp.PhotoshopActions
 {
-  public class HideEvent : ActionEvent
+  public class MaximumEvent : ActionEvent
   {
-    [Parameter("null")]
-    ListParameter _list;
+    [Parameter("Rds")]
+    double _radius;
 
     override public bool Execute()
     {
-      ReferenceParameter obj = _list.Set[0] as ReferenceParameter;
-      EnmrType enmr = obj.Set[0] as EnmrType;
-
-      if (enmr.Key == "Lyr")
-	{
-	  SelectedLayer.Visible = false;
-	}
-      else
-	{
-	  Console.WriteLine("Can't hide " + enmr.Key);
-	}
-
+      Console.WriteLine("MaximumEvent::radius: " + _radius);
+      RunProcedure("plug_in_vpropagate", 1, 1, _radius, 15, 0, 255);
       return true;
     }
   }
