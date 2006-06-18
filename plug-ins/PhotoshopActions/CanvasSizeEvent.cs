@@ -26,8 +26,12 @@ namespace Gimp.PhotoshopActions
   {
     [Parameter("Wdth")]
     double _width;
+    [Parameter("Hght")]
+    double _height;
     [Parameter("Hrzn")]
     string _horizontal;
+    [Parameter("Vrtc")]
+    string _vertical;
     [Parameter("canvasExtensionColorType")]
     string _extensionColorType;
 

@@ -39,10 +39,10 @@ namespace Gimp.PhotoshopActions
 	  return false;
 	}
 
-      // Fix me: do something with _amount and check parameters
+      // Fix me: check parameters
 
-      RunProcedure("plug_in_emboss", (double) _angle, 0.0, _height,
-		   0);
+      RunProcedure("plug_in_emboss", (double) _angle, (double) _amount, 
+		   _height, 0);
 
       return true;
     }

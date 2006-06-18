@@ -22,25 +22,15 @@ using System;
 
 namespace Gimp.PhotoshopActions
 {
-  public class SetForegroundColorEvent : ActionEvent
+  public class SetForegroundColorEvent : SetColorEvent
   {
-    RGB _color;
-
     public SetForegroundColorEvent(ActionEvent srcEvent) : base(srcEvent)
     {
     }
     
-    override public ActionEvent Parse(ActionParser parser)
-    {
-      parser.ParseToken("T");
-      _color = parser.ReadColor();
-
-      return this;
-    }
-
     override public bool Execute()
     {
-      Context.Foreground = _color;
+      Context.Foreground = Color;
       return true;
     }
   }

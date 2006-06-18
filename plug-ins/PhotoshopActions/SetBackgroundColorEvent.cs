@@ -18,27 +18,19 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
+using System;
+
 namespace Gimp.PhotoshopActions
 {
-  public class SetBackgroundColorEvent : ActionEvent
+  public class SetBackgroundColorEvent : SetColorEvent
   {
-    RGB _color;
-
     public SetBackgroundColorEvent(ActionEvent srcEvent) : base(srcEvent)
     {
     }
     
-    override public ActionEvent Parse(ActionParser parser)
-    {
-      parser.ParseToken("T");
-      _color = parser.ReadColor();
-
-      return this;
-    }
-
     override public bool Execute()
     {
-      Context.Background = _color;
+      Context.Background = Color;
       return true;
     }
   }

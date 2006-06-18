@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// SelectEvent.cs
+// ContractEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,32 +22,16 @@ using System;
 
 namespace Gimp.PhotoshopActions
 {
-  public class SelectEvent : ActionEvent
+  public class ContractEvent : ActionEvent
   {
-    [Parameter("null")]
-    ReferenceParameter _obj;
+    [Parameter("By")]
+    double _by;
 
-    public override bool IsExecutable
+    override public bool Execute()
     {
-      get 
-	{
-	  return false;
-	}
-    }
-
-    override public ActionEvent Parse(ActionParser parser)
-    {
-      ActionEvent myEvent = base.Parse(parser);
-
-      if (_obj != null)
-	{
-	  if (_obj.Set[0] is NameType)
-	    {
-	      NameType name = _obj.Set[0] as NameType;
-	    }
-	}
-
-      return myEvent;
+      Console.WriteLine("Contract: " + _by);
+      ActiveImage.Selection.Shrink((int) _by);
+      return true;
     }
   }
 }

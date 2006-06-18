@@ -33,24 +33,12 @@ namespace Gimp.PhotoshopActions
     [Parameter("Intr")]
     string _intr;
 
-    public ImageSizeEvent()
-    {
-    }
-
     public override bool IsExecutable
     {
       get 
 	{
 	  return false;
 	}
-    }
-    
-    override public ActionEvent Parse(ActionParser parser)
-    {
-      ParameterSet set = new ParameterSet();
-      set.Parse(parser, this, NumberOfItems);
-
-      return this;
     }
   }
 }

@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// SelectEvent.cs
+// SetColorEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,32 +22,50 @@ using System;
 
 namespace Gimp.PhotoshopActions
 {
-  public class SelectEvent : ActionEvent
+  public class SetColorEvent : ActionEvent
   {
-    [Parameter("null")]
-    ReferenceParameter _obj;
+    [Parameter("T")]
+    ObjcParameter _objc;
 
-    public override bool IsExecutable
+    [Parameter("Rd")]
+    double _red;
+    [Parameter("Grn")]
+    double _green;
+    [Parameter("Bl")]
+    double _blue;
+
+    [Parameter("H")]
+    double _hue;
+    [Parameter("Strt")]
+    double _saturation;
+    [Parameter("Brgh")]
+    double _brightness;
+
+    public SetColorEvent(ActionEvent srcEvent) : base(srcEvent)
+    {
+      Parameters.Fill(this);
+      _objc.Fill(this);
+    }
+    
+    protected RGB Color
     {
       get 
 	{
-	  return false;
-	}
-    }
-
-    override public ActionEvent Parse(ActionParser parser)
-    {
-      ActionEvent myEvent = base.Parse(parser);
-
-      if (_obj != null)
-	{
-	  if (_obj.Set[0] is NameType)
+	  switch (_objc.ClassID2)
 	    {
-	      NameType name = _obj.Set[0] as NameType;
+	    case "RGBC":
+	      return new RGB(_red / 255.0, _green / 255.0, _blue / 255.0);
+	      break;
+	    case "HSBC":
+	      return new RGB(new HSV(_hue, _saturation, _brightness));
+	      break;
+	    default:
+	      Console.WriteLine("*** Color model {0} not supported", 
+				_objc.ClassID2);
+	      return null;
+	      break;
 	    }
 	}
-
-      return myEvent;
     }
   }
 }

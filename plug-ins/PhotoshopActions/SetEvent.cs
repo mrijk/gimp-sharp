@@ -24,9 +24,8 @@ namespace Gimp.PhotoshopActions
 {
   public class SetEvent : ActionEvent
   {
-    public SetEvent()
-    {
-    }
+    [Parameter("null")]
+    ReferenceParameter _obj;
 
     public override bool IsExecutable
     {
@@ -34,6 +33,51 @@ namespace Gimp.PhotoshopActions
 	{
 	  return false;
 	}
+    }
+
+    override public ActionEvent Parse(ActionParser parser)
+    {
+      ActionEvent myEvent = base.Parse(parser);
+
+      if (_obj != null)
+	{
+	  if (_obj.Set[0] is PropertyType)
+	    {
+	      PropertyType property = _obj.Set[0] as PropertyType;
+	      if (property.ClassID2 == "Clr")
+		{
+		  switch (property.Key)
+		    {
+		    case "BckC":
+		      return new SetBackgroundColorEvent(this);
+		      break;
+		    case "FrgC":
+		      return new SetForegroundColorEvent(this);
+		      break;
+		    default:
+		      break;
+		    }
+		}
+	    }
+	  else if (_obj.Set[0] is EnmrType)
+	    {
+	      EnmrType enmr = _obj.Set[0] as EnmrType;
+	      if (enmr.Key == "Lyr")
+		{
+		  return new SetLayerNameEvent(this);
+		}
+	      else
+		{
+		}
+	    }
+	  else
+	    {
+	      Console.WriteLine("SetEvent.Parse: {0} unknown type",
+				_obj.Set[0]);
+	    }
+	}
+
+      return this;
     }
 
 #if false    

@@ -248,45 +248,6 @@ namespace Gimp.PhotoshopActions
       return ReadDouble();
     }
 
-    public RGB ReadRGB()
-    {
-      double red = ReadDouble("Rd") / 255.0;
-      double green = ReadDouble("Grn") / 255.0;
-      double blue = ReadDouble("Bl") / 255.0;
-      return new RGB(red, green, blue);
-    }
-
-    public RGB ReadHSBC()
-    {
-      string units;
-      double hue = ReadDouble("H", out units);
-      double saturation = ReadDouble("Strt");
-      double brightness = ReadDouble("Brgh");
-      return new RGB(new HSV(hue, saturation, brightness));
-    }
-
-    public RGB ReadColor()
-    {
-      ParseFourByteString("Objc");
-      /* string classID = */ ReadUnicodeString();
-      string classID2 = ReadTokenOrString();
-      ParseInt32(3);
-
-      if (classID2 == "RGBC")
-	{
-	  return ReadRGB();
-	}
-      else if (classID2 == "HSBC")
-	{
-	  return ReadHSBC();
-	}
-      else
-	{
-	  Console.WriteLine("*** Color {0} not supported", classID2);
-	  throw new GimpSharpException();
-	}
-    }
-
     public void ParseInt32(int expected)
     {
       int val = ReadInt32();
@@ -399,50 +360,45 @@ namespace Gimp.PhotoshopActions
 
       Parameter parameter = null;
 
-      if (type == "UntF")
+      switch (type)
 	{
+	case "UntF":
 	  parameter = new DoubleParameter(true);
-	}
-      else if (type == "bool")
-	{
+	  break;
+	case "bool":
 	  parameter = new BoolParameter();
-	}
-      else if (type == "doub")
-	{
+	  break;
+	case "doub":
 	  parameter = new DoubleParameter(false);
-	}
-      else if (type == "enum")
-	{
+	  break;
+	case "enum":
 	  parameter = new EnumParameter();
-	}
-      else if (type == "obj")
-	{
+	  break;
+	case "obj":
 	  parameter = new ReferenceParameter();
-	}
-      else if (type == "VlLs")
-	{
+	  break;
+	case "VlLs":
 	  parameter = new ListParameter();
-	}
-      else if (type == "long")
-	{
+	  break;
+	case "long":
 	  parameter = new LongParameter();
-	}
-      else if (type == "TEXT")
-	{
+	  break;
+	case "Pth":
+	  parameter = new PathParameter();
+	  break;
+	case "TEXT":
 	  parameter = new TextParameter();
-	}
-      else if (type == "Objc")
-	{
+	  break;
+	case "Objc":
 	  parameter = new ObjcParameter();
-	}
-      else if (type == "type")
-	{
+	  break;
+	case "type":
 	  parameter = new TypeParameter();
-	}
-      else
-	{
+	  break;
+	default:
 	  Console.WriteLine("ReadItem: type {0} unknown!", type);
 	  throw new GimpSharpException();
+	  break;
 	}
 
       parameter.Parse(this);
@@ -461,18 +417,6 @@ namespace Gimp.PhotoshopActions
 
       string keyID = ReadTokenOrUnicodeString();
       Console.WriteLine("\t\tname:keyID: " + keyID);
-    }
-
-    public void ParseProp()
-    {
-      string classID = ReadTokenOrUnicodeString();
-      Console.WriteLine("\t\tprop:classID: " + classID);
-
-      string classID2 = ReadTokenOrString();
-      Console.WriteLine("\t\tprop:classID2: " + classID2);
-
-      string keyID = ReadTokenOrString();
-      Console.WriteLine("\t\tprop:keyID: " + keyID);
     }
 
     public string ReadFourByteString()

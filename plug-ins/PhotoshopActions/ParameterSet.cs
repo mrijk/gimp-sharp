@@ -75,7 +75,7 @@ namespace Gimp.PhotoshopActions
 		    }
 		  else
 		    {
-		      Console.WriteLine("ParameterSet::Fill " + name);
+		      // Console.WriteLine("ParameterSet::Fill " + name);
 		    }
 		}
 	    }

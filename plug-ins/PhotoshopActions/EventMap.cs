@@ -39,7 +39,9 @@ namespace Gimp.PhotoshopActions
       _map["border"] = "BorderEvent";
       _map["brightnessEvent"] = "BrightnessEvent";
       _map["canvasSize"] = "CanvasSizeEvent";
+      _map["close"] = "CloseEvent";
       _map["clouds"] = "CloudsEvent";
+      _map["contract"] = "ContractEvent";
       _map["convertMode"] = "ConvertModeEvent";
       _map["copyEvent"] = "CopyEvent";
       _map["copyToLayer"] = "CopyToLayerEvent";
@@ -61,12 +63,15 @@ namespace Gimp.PhotoshopActions
       _map["imageSize"] = "ImageSizeEvent";
       _map["invert"] = "InvertEvent";
       _map["levels"] = "LevelsEvent";
+      _map["link"] = "LinkEvent";
       _map["make"] = "MakeEvent";
       _map["median"] = "MedianEvent";
       _map["mergeLayers"] = "MergeLayersEvent";
       _map["mergeVisible"] = "MergeVisibleEvent";
+      _map["mosaic"] = "MosaicEvent";
       _map["move"] = "MoveEvent";
       _map["motionBlur"] = "MotionBlurEvent";
+      _map["open"] = "OpenEvent";
       _map["paste"] = "PasteEvent";
       _map["photocopy"] = "PhotocopyEvent";
       _map["radialBlur"] = "RadialBlurEvent";

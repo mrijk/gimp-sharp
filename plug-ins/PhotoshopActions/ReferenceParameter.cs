@@ -56,7 +56,7 @@ namespace Gimp.PhotoshopActions
 	      referenceType = new IndexType();
 	      break;
 	    case "name":
-	      parser.ParseName();
+	      referenceType = new NameType();
 	      break;
 	    case "prop":
 	      referenceType = new PropertyType();

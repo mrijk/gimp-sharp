@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// HideEvent.cs
+// SetLayerNameEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,45 +22,27 @@ using System;
 
 namespace Gimp.PhotoshopActions
 {
-  public class HideEvent : ActionEvent
+  public class SetLayerNameEvent : ActionEvent
   {
-    public override bool IsExecutable
+    [Parameter("T")]
+    ObjcParameter _objc;
+    [Parameter("Nm")]
+    string _name;
+
+    public SetLayerNameEvent(ActionEvent srcEvent) : base(srcEvent)
     {
-      get 
-	{
-	  return false;
-	}
+      Parameters.Fill(this);
+      _objc.Fill(this);
     }
-#if false    
-    override public ActionEvent Parse(ActionParser parser)
+
+    override public bool Execute()
     {
-      parser.ParseToken("null");
-      parser.ParseFourByteString("VlLs");
+      LayerList layers = ActiveImage.Layers;
+      layers[0].Name = _name;
 
-      int numberOfItems = parser.ReadInt32();
+      // Fix me: set the name of the * selected * layer
 
-      parser.ParseFourByteString("obj");
-      parser.ParseInt32(1);
-      parser.ParseFourByteString("Enmr");
-
-      string classID = parser.ReadTokenOrUnicodeString();
-      Console.WriteLine("\tClassID: " + classID);
-
-      string keyID = parser.ReadTokenOrString();
-      if (keyID == "Lyr")
-	{
-	  parser.ParseToken("Ordn");
-	  parser.ParseToken("Trgt");
-	  // return new DeleteLayerEvent().Parse(parser);
-	}
-      else
-	{
-	  Console.WriteLine("Can't hide: " + keyID);
-	  throw new GimpSharpException();
-	}
-
-      return this;
+      return true;
     }
-#endif
   }
 }

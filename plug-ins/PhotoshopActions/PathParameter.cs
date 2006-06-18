@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// HideEvent.cs
+// PathParameter.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,48 +19,34 @@
 //
 
 using System;
+using System.Reflection;
 
 namespace Gimp.PhotoshopActions
 {
-  public class HideEvent : ActionEvent
+  public class PathParameter : Parameter
   {
-    public override bool IsExecutable
+    string _path;
+
+    public string Path
     {
-      get 
-	{
-	  return false;
-	}
+      get {return _path;}
     }
-#if false    
-    override public ActionEvent Parse(ActionParser parser)
+
+    public override void Parse(ActionParser parser)
     {
-      parser.ParseToken("null");
-      parser.ParseFourByteString("VlLs");
+      // TODO: figure out what these first 17 bytes are
+      for (int i = 0; i < 17; i++)
+	parser.ReadByte();
 
-      int numberOfItems = parser.ReadInt32();
+      _path = parser.ReadString();
 
-      parser.ParseFourByteString("obj");
-      parser.ParseInt32(1);
-      parser.ParseFourByteString("Enmr");
-
-      string classID = parser.ReadTokenOrUnicodeString();
-      Console.WriteLine("\tClassID: " + classID);
-
-      string keyID = parser.ReadTokenOrString();
-      if (keyID == "Lyr")
-	{
-	  parser.ParseToken("Ordn");
-	  parser.ParseToken("Trgt");
-	  // return new DeleteLayerEvent().Parse(parser);
-	}
-      else
-	{
-	  Console.WriteLine("Can't hide: " + keyID);
-	  throw new GimpSharpException();
-	}
-
-      return this;
+      for (int i = 0; i < 188; i++)
+	parser.ReadByte();
     }
-#endif
+
+    public override void Fill(Object obj, FieldInfo field)
+    {
+      field.SetValue(obj, _path);
+    }
   }
 }

@@ -130,6 +130,11 @@ namespace Gimp.PhotoshopActions
 	}
     }
 
+    public void Execute(int n)
+    {
+      _set[n].Execute();
+    }
+
     public IEnumerator<ActionEvent> GetEnumerator()
     {
       return _set.GetEnumerator();

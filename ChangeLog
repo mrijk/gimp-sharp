@@ -1,4 +1,22 @@
-2006-06-17  Maurits  <maurits@localhost>
+2006-06-18  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/PhotoshopActions/ActionParser.cs: replaced series of if 
+	statements by switch.
+
+	* plug-ins/PhotoshopActions/CloseEvent.cs
+	* plug-ins/PhotoshopActions/ContractEvent.cs
+	* plug-ins/PhotoshopActions/LinkEvent.cs
+	* plug-ins/PhotoshopActions/MosaicEvent.cs
+	* plug-ins/PhotoshopActions/NameType.cs
+	* plug-ins/PhotoshopActions/OpenEvent.cs
+	* plug-ins/PhotoshopActions/SetColorEvent.cs
+	* plug-ins/PhotoshopActions/SetLayerNameEvent.cs
+	* plug-ins/PhotoshopActions/PathParameter.cs: new files
+
+	* plug-ins/PhotoshopActions/EventMap.cs
+	* plug-ins/PhotoshopActions/Makefile: changed accordingly
+
+2006-06-17  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/PhotoshopActions/EnmrType.cs: new files
 

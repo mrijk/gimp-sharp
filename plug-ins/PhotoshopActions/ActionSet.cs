@@ -68,6 +68,11 @@ namespace Gimp.PhotoshopActions
       _set[action].Execute();
     }
 
+    public void Execute(int action, int n)
+    {
+      _set[action].Execute(n);
+    }
+
     public bool IsExecutable
     {
       get

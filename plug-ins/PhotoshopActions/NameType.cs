@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// HideEvent.cs
+// NameParameter.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,48 +19,39 @@
 //
 
 using System;
+using System.Reflection;
 
 namespace Gimp.PhotoshopActions
 {
-  public class HideEvent : ActionEvent
+  public class NameType : ReferenceType
   {
-    public override bool IsExecutable
+    string _classID;
+    string _classID2;
+    string _key;
+
+    public string ClassID
     {
-      get 
-	{
-	  return false;
-	}
+      get {return _classID;}
     }
-#if false    
-    override public ActionEvent Parse(ActionParser parser)
+
+    public string ClassID2
     {
-      parser.ParseToken("null");
-      parser.ParseFourByteString("VlLs");
-
-      int numberOfItems = parser.ReadInt32();
-
-      parser.ParseFourByteString("obj");
-      parser.ParseInt32(1);
-      parser.ParseFourByteString("Enmr");
-
-      string classID = parser.ReadTokenOrUnicodeString();
-      Console.WriteLine("\tClassID: " + classID);
-
-      string keyID = parser.ReadTokenOrString();
-      if (keyID == "Lyr")
-	{
-	  parser.ParseToken("Ordn");
-	  parser.ParseToken("Trgt");
-	  // return new DeleteLayerEvent().Parse(parser);
-	}
-      else
-	{
-	  Console.WriteLine("Can't hide: " + keyID);
-	  throw new GimpSharpException();
-	}
-
-      return this;
+      get {return _classID2;}
     }
-#endif
+
+    public string Key
+    {
+      get {return _key;}
+    }
+
+    public override void Parse(ActionParser parser)
+    {
+      _classID = parser.ReadTokenOrUnicodeString();
+      _classID2 = parser.ReadTokenOrString();
+      _key = parser.ReadTokenOrUnicodeString();
+
+      Console.WriteLine("\t\tName: c = {0}, c2 = {1}, k = {2}", _classID, 
+			_classID2, _key);
+    }
   }
 }

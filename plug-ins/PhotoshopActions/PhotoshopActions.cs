@@ -96,7 +96,15 @@ namespace Gimp.PhotoshopActions
 	  int[] indices = paths[0].Indices;
 
 	  ActionSet actions = _set[indices[0]];
-	  actions.Execute(indices[1]);
+
+	  if (indices.Length > 2)
+	    {
+	      actions.Execute(indices[1], indices[2]);
+	    }
+	  else
+	    {
+	      actions.Execute(indices[1]);
+	    }
 
 	  Display.DisplaysFlush();
 	};      

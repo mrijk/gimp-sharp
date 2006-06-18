@@ -19,7 +19,9 @@ MYSOURCES = 				\
 	BrightnessEvent.cs		\
 	CanvasSizeEvent.cs		\
 	ClassType.cs			\
+	CloseEvent.cs			\
 	CloudsEvent.cs			\
+	ContractEvent.cs		\
 	ConvertModeEvent.cs		\
 	CopyEvent.cs			\
 	CopyToLayerEvent.cs		\
@@ -49,21 +51,26 @@ MYSOURCES = 				\
 	IndexType.cs			\
 	InvertEvent.cs			\
 	LevelsEvent.cs			\
+	LinkEvent.cs			\
 	ListParameter.cs		\
 	LongParameter.cs		\
 	MakeEvent.cs			\
 	MedianEvent.cs			\
 	MergeLayersEvent.cs		\
 	MergeVisibleEvent.cs		\
+	MosaicEvent.cs			\
 	MotionBlurEvent.cs		\
 	MoveEvent.cs			\
+	NameType.cs			\
 	NewDocumentEvent.cs		\
 	Objc.cs				\
 	ObjcParameter.cs		\
+	OpenEvent.cs			\
 	Parameter.cs			\
 	ParameterAttribute.cs		\
 	ParameterSet.cs			\
 	PasteEvent.cs			\
+	PathParameter.cs		\
 	PhotocopyEvent.cs		\
 	PhotoshopActions.cs		\
 	PropertyType.cs			\
@@ -76,9 +83,11 @@ MYSOURCES = 				\
 	SelectEvent.cs			\
 	SelectionEvent.cs		\
 	SetBackgroundColorEvent.cs	\
+	SetColorEvent.cs		\
 	SetEvent.cs			\
 	SetForegroundColorEvent.cs	\
 	SetLayerEvent.cs		\
+	SetLayerNameEvent.cs		\
 	SharpenEvent.cs			\
 	SharpenMoreEvent.cs		\
 	SmoothnessEvent.cs		\
