@@ -34,7 +34,8 @@ namespace Gimp.PhotoshopActions
 
     string _eventForDisplay;
     protected int _numberOfItems;
-
+    ParameterSet _parameters;
+    
     static Drawable _drawable;
     static Image _image;
 
@@ -46,6 +47,12 @@ namespace Gimp.PhotoshopActions
     {
       _eventForDisplay = srcEvent._eventForDisplay;
       _numberOfItems = srcEvent._numberOfItems;
+      _parameters = srcEvent._parameters;
+    }
+
+    public ParameterSet Parameters
+    {
+      get {return _parameters;}
     }
 
     public bool PreSix
@@ -85,8 +92,8 @@ namespace Gimp.PhotoshopActions
 
     public virtual ActionEvent Parse(ActionParser parser)
     {
-      ParameterSet set = new ParameterSet();
-      set.Parse(parser, this, NumberOfItems);
+      _parameters = new ParameterSet();
+      _parameters.Parse(parser, this, NumberOfItems);
 
       return this;
     }

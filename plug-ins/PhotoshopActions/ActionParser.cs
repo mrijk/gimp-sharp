@@ -451,23 +451,6 @@ namespace Gimp.PhotoshopActions
       return parameter;
     }
 
-    public string ParseEnmr()
-    {
-      string classID = ReadTokenOrUnicodeString();
-      Console.WriteLine("\t\tclassID: " + classID);
-      
-      string keyID = ReadTokenOrString();
-      Console.WriteLine("\t\tkeyID: " + keyID);
-      
-      string typeID = ReadTokenOrString();
-      Console.WriteLine("\t\ttypeID: " + typeID);
-      
-      string val = ReadTokenOrString();
-      Console.WriteLine("\t\tvalue: " + val);
-
-      return keyID;
-    }
-
     public void ParseName()
     {
       string classID = ReadTokenOrUnicodeString();

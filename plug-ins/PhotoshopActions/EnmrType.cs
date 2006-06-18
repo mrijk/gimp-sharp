@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// DuplicateDocumentEvent.cs
+// EnmrParameter.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,35 +19,50 @@
 //
 
 using System;
+using System.Reflection;
 
 namespace Gimp.PhotoshopActions
 {
-  public class DuplicateDocumentEvent : ActionEvent
+  public class EnmrType : ReferenceType
   {
-    [Parameter("Nm")]
-    string _name;
+    string _classID;
+    string _key;
+    string _type;
+    string _value;
 
-    public DuplicateDocumentEvent(ActionEvent srcEvent) : base(srcEvent) 
+    public string ClassID
     {
-      Parameters.Fill(this);
-    }
-    
-    public override bool IsExecutable
-    {
-      get 
-	{
-	  return false;
-	}
+      get {return _classID;}
     }
 
-    override public bool Execute()
+    public string Key
     {
-      Image image = new Image(ActiveImage);
-      new Display(image);
+      get {return _key;}
+    }
 
-      // Fix me: fill in name into image.
+    public string Type
+    {
+      get {return _type;}
+    }
 
-      return true;
+    public string Value
+    {
+      get {return _value;}
+    }
+
+    public override void Parse(ActionParser parser)
+    {
+      _classID = parser.ReadTokenOrUnicodeString();
+      Console.WriteLine("\t\tEnmr::classID: " + _classID);
+      
+      _key = parser.ReadTokenOrString();
+      Console.WriteLine("\t\tEnmr::key: " + _key);
+      
+      _type = parser.ReadTokenOrString();
+      Console.WriteLine("\t\tEnmr::type: " + _type);
+      
+      _value = parser.ReadTokenOrString();
+      Console.WriteLine("\t\tEnmr::value: " + _value);
     }
   }
 }

@@ -43,32 +43,29 @@ namespace Gimp.PhotoshopActions
 	  ReferenceType referenceType = null;
 
 	  string type = parser.ReadFourByteString();
-	  if (type == "Clss")
+
+	  switch (type)
 	    {
+	    case "Clss":
 	      referenceType = new ClassType();
-	    }
-	  else if (type == "Enmr")
-	    {
-	      parser.ParseEnmr();
-	    }
-	  else if (type == "indx")
-	    {
+	      break;
+	    case "Enmr":
+	      referenceType = new EnmrType();
+	      break;
+	    case "indx":
 	      referenceType = new IndexType();
-	    }
-	  else if (type == "name")
-	    {
+	      break;
+	    case "name":
 	      parser.ParseName();
-	    }
-	  else if (type == "prop")
-	    {
+	      break;
+	    case "prop":
 	      referenceType = new PropertyType();
-	      // parser.ParseProp();
+	      break;
+	    default:
+	      Console.WriteLine("ReadObj: type {0} unknown!", type);	      
+	      break;
 	    }
-	  else
-	    {
-	      Console.WriteLine("ReadObj: type {0} unknown!", type);
-	      return;
-	    }
+
 	  if (referenceType != null)
 	    {
 	      referenceType.Parse(parser);

@@ -32,6 +32,7 @@ MYSOURCES = 				\
 	DuplicateDocumentEvent.cs	\
 	DuplicateLayerEvent.cs		\
 	EmbossEvent.cs			\
+	EnmrType.cs			\
 	EnumParameter.cs		\
 	EventMap.cs			\
 	ExchangeEvent.cs		\

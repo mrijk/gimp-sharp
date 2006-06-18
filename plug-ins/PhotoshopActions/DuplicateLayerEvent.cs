@@ -24,29 +24,20 @@ namespace Gimp.PhotoshopActions
 {
   public class DuplicateLayerEvent : ActionEvent
   {
-    string _name;
-
     public DuplicateLayerEvent(ActionEvent srcEvent) : base(srcEvent) 
     {
     }
-    
-    public override bool IsExecutable
+
+    override public bool Execute()
     {
-      get 
-	{
-	  return false;
-	}
-    }
+      
+      LayerList layers = ActiveImage.Layers;
 
-    override public ActionEvent Parse(ActionParser parser)
-    {
-      string typeID = parser.ReadTokenOrString();
-      Console.WriteLine("\ttypeID: " + typeID);
+      Console.WriteLine("DuplicateLayer: " + layers.Count);
+      
+      ActiveImage.AddLayer(new Layer(layers[0]), 0);
 
-      string enumID = parser.ReadTokenOrString();
-      Console.WriteLine("\tenum: " + enumID);
-
-      return this;
+      return true;
     }
   }
 }

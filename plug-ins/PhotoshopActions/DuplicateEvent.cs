@@ -24,51 +24,34 @@ namespace Gimp.PhotoshopActions
 {
   public class DuplicateEvent : ActionEvent
   {
-    string _name;
+    [Parameter("null")]
+    ReferenceParameter _obj;
 
-    public DuplicateEvent()
-    {
-    }
-    
-    public override bool IsExecutable
-    {
-      get 
-	{
-	  return false;
-	}
-    }
-#if false
     override public ActionEvent Parse(ActionParser parser)
     {
-      parser.ParseToken("null");
-      parser.ParseFourByteString("obj");
+      ActionEvent myEvent = base.Parse(parser);
 
-      int numberOfItems = parser.ReadInt32();
-
-      parser.ParseFourByteString("Enmr");
-
-      string classID = parser.ReadTokenOrUnicodeString();
-      Console.WriteLine("\tClassID: " + classID);
-
-      string keyID = parser.ReadTokenOrString();
-      Console.WriteLine("\tkeyID: " + keyID);
-
-      if (keyID == "Dcmn")
+      if (_obj != null)
 	{
-	  return new DuplicateDocumentEvent(this).Parse(parser);
+	  if (_obj.Set[0] is EnmrType)
+	    {
+	      EnmrType type = _obj.Set[0] as EnmrType;
+	      
+	      switch (type.Key)
+		{
+		case "Dcmn":
+		  return new DuplicateDocumentEvent(this);
+		  break;
+		case "Lyr":
+		  return new DuplicateLayerEvent(this);
+		  break;
+		default:
+		  Console.WriteLine("DuplicateEvent: {0} unknown", type.Key);
+		  break;
+		}
+	    }
 	}
-      else if (keyID == "Lyr")
-	{
-	  return new DuplicateLayerEvent(this).Parse(parser);
-	}
-      else
-	{
-	  Console.WriteLine("DuplicateEvent: {0} not implemented", keyID);
-	  throw new GimpSharpException();
-	}
-
       return this;
     }
-#endif
   }
 }

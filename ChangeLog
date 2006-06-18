@@ -1,3 +1,9 @@
+2006-06-17  Maurits  <maurits@localhost>
+
+	* plug-ins/PhotoshopActions/EnmrType.cs: new files
+
+	* plug-ins/PhotoshopActions/Makefile: changed accordingly
+
 2006-06-17  Max      <massimo.perga@gmail.com>
 
 	* plug-ins/Forge/Forge.cs: closed tasks 127930 and 127670
