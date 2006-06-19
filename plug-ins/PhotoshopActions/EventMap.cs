@@ -92,6 +92,7 @@ namespace Gimp.PhotoshopActions
       _map["set"] = "SetEvent";
       _map["sharpen"] = "SharpenEvent";
       _map["sharpenMore"] = "SharpenMoreEvent";
+      _map["show"] = "ShowEvent";
       _map["smoothness"] = "SmoothnessEvent";
       _map["stop"] = "StopEvent";
       _map["twirl"] = "TwirlEvent";

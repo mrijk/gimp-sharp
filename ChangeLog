@@ -1,4 +1,23 @@
-2006-06-18  Maurits  <maurits.rijk@chello.nl>
+2006-06-19  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/AverageBlur/*: placeholder for new plug-in
+
+	* plug-ins/Makefile.am
+	* configure.in: changed accordingly
+
+2006-06-19  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/PhotoshopActions/ReferenceParameter.cs: parse Offset type
+
+	* plug-ins/PhotoshopActions/ReleType.cs
+	* plug-ins/PhotoshopActions/ShowEvent.cs: new files
+
+	* plug-ins/PhotoshopActions/EventMap.cs
+	* plug-ins/PhotoshopActions/Makefile: changed accordingly
+
+	* TODO: update for future releases
+
+2006-06-18  Maurits  <m.rijk@chello.nl>
 
 	* lib/Drawable.cs: fixed typo
 

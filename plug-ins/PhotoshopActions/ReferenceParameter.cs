@@ -61,8 +61,12 @@ namespace Gimp.PhotoshopActions
 	    case "prop":
 	      referenceType = new PropertyType();
 	      break;
+	    case "rele":
+	      referenceType = new ReleType();
+	      break;
 	    default:
-	      Console.WriteLine("ReadObj: type {0} unknown!", type);	      
+	      Console.WriteLine("ReferenceParameter: type {0} unknown!", 
+				type);
 	      break;
 	    }
 

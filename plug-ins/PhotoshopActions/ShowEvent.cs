@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// OffsetEvent.cs
+// ShowEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,20 +22,25 @@ using System;
 
 namespace Gimp.PhotoshopActions
 {
-  public class OffsetEvent : ActionEvent
+  public class ShowEvent : ActionEvent
   {
-    [Parameter("Hrzn")]
-    int _horizontal;
-    [Parameter("Vrtc")]
-    int _vertical;
-    [Parameter("Fl")]
-    string _fillMode;
+    [Parameter("null")]
+    ListParameter _list;
 
     override public bool Execute()
     {
-      bool wrapAround = (_fillMode == "Wrp");
-      ActiveDrawable.Offset(wrapAround, OffsetType.Background, 
-			    _horizontal, _vertical);
+      ReferenceParameter obj = _list.Set[0] as ReferenceParameter;
+      EnmrType enmr = obj.Set[0] as EnmrType;
+
+      if (enmr.Key == "Lyr")
+	{
+	  SelectedLayer.Visible = true;
+	}
+      else
+	{
+	  Console.WriteLine("Can't show " + enmr.Key);
+	}
+
       return true;
     }
   }

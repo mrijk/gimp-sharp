@@ -145,6 +145,8 @@ namespace Gimp.PhotoshopActions
 	    {
 	      eventName = ReadFourByteString();
 	      preSix = true;
+	      Console.WriteLine("**** long!!!!: " + text);
+	      return null;
 	    }
 	  else
 	    {

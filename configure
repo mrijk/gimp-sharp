@@ -20206,7 +20206,7 @@ else
 fi
 
 
-                                                                                                                                                                                                        ac_config_files="$ac_config_files Makefile lib/Makefile plug-ins/Makefile plug-ins/ecw/Makefile plug-ins/Forge/Makefile plug-ins/KoalaPaint/Makefile plug-ins/ncp/Makefile plug-ins/Ministeck/Makefile plug-ins/neo/Makefile plug-ins/Pdn/Makefile plug-ins/PhotoshopActions/Makefile plug-ins/PicturePackage/Makefile plug-ins/Raindrops/Makefile plug-ins/Shatter/Makefile plug-ins/SliceTool/Makefile plug-ins/Splitter/Makefile plug-ins/Swirlies/Makefile plug-ins/UnitTest/Makefile plug-ins/UpdateCheck/Makefile plug-ins/wbmp/Makefile"
+                                                                                                                                                                                                                  ac_config_files="$ac_config_files Makefile lib/Makefile plug-ins/Makefile plug-ins/AverageBlur/Makefile plug-ins/ecw/Makefile plug-ins/Forge/Makefile plug-ins/KoalaPaint/Makefile plug-ins/ncp/Makefile plug-ins/Ministeck/Makefile plug-ins/neo/Makefile plug-ins/Pdn/Makefile plug-ins/PhotoshopActions/Makefile plug-ins/PicturePackage/Makefile plug-ins/Raindrops/Makefile plug-ins/Shatter/Makefile plug-ins/SliceTool/Makefile plug-ins/Splitter/Makefile plug-ins/Swirlies/Makefile plug-ins/UnitTest/Makefile plug-ins/UpdateCheck/Makefile plug-ins/wbmp/Makefile"
 
 
 cat >confcache <<\_ACEOF
@@ -20796,6 +20796,7 @@ do
   "Makefile" ) CONFIG_FILES="$CONFIG_FILES Makefile" ;;
   "lib/Makefile" ) CONFIG_FILES="$CONFIG_FILES lib/Makefile" ;;
   "plug-ins/Makefile" ) CONFIG_FILES="$CONFIG_FILES plug-ins/Makefile" ;;
+  "plug-ins/AverageBlur/Makefile" ) CONFIG_FILES="$CONFIG_FILES plug-ins/AverageBlur/Makefile" ;;
   "plug-ins/ecw/Makefile" ) CONFIG_FILES="$CONFIG_FILES plug-ins/ecw/Makefile" ;;
   "plug-ins/Forge/Makefile" ) CONFIG_FILES="$CONFIG_FILES plug-ins/Forge/Makefile" ;;
   "plug-ins/KoalaPaint/Makefile" ) CONFIG_FILES="$CONFIG_FILES plug-ins/KoalaPaint/Makefile" ;;

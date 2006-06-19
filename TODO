@@ -1,11 +1,24 @@
-Release 0.9
------------
+Release 0.10
+------------
+- PhotoshopActions at 30 %
 - Fully functional version of picture package
 - Working version of Update Check plug-in
+
+Release 0.11
+------------
+- PhotoshopActions at 40 %
+
+Release 0.12
+------------
+- PhotoshopActions at 50 %
 - Generic Lense plug-in
 
-Release 0.10
------------
+Release 0.13
+------------
+
+Release 0.99
+------------
+- PhotoshopActions at 80 - 90 %
 - Full API coverage
 - Improve speed
 

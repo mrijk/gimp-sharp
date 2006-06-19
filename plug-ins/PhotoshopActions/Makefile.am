@@ -86,6 +86,7 @@ MYSOURCES = 				\
 	RadialBlurEvent.cs		\
 	ReferenceParameter.cs		\
 	ReferenceType.cs		\
+	ReleType.cs			\
 	ReplaceColorEvent.cs		\
 	RotateEvent.cs			\
 	ResetEvent.cs			\
@@ -99,6 +100,7 @@ MYSOURCES = 				\
 	SetLayerPropertyEvent.cs	\
 	SharpenEvent.cs			\
 	SharpenMoreEvent.cs		\
+	ShowEvent.cs			\
 	SmoothnessEvent.cs		\
 	StopEvent.cs			\
 	TextParameter.cs		\

@@ -25,29 +25,36 @@ namespace Gimp.PhotoshopActions
   public class ConvertModeEvent : ActionEvent
   {
     [Parameter("T")]
-    TypeParameter _type;
+    Parameter _type;
 
     public override bool IsExecutable
     {
       get 
 	{
-	  return _type != null && _type.Value == "RGBM";
+	  return _type != null;
 	}
     }
 
     override public bool Execute()
     {
-      string type = _type.Value;
-
-      if (type == "RGBM")
+      if (_type is TypeParameter)
 	{
-	  ActiveImage.ConvertRgb();
+	  TypeParameter type = _type as TypeParameter;
+	  
+	  if (type.Value == "RGBM")
+	    {
+	      ActiveImage.ConvertRgb();
+	    }
+	  else
+	    {
+	      Console.WriteLine("ConvertModeEvent: can't convert: " + 
+				type.Value);
+	    }
 	}
       else
 	{
-	  Console.WriteLine("ConvertModeEvent: can't convert: " + type);
+	  Console.WriteLine("ConvertModeEvent: " + _type);
 	}
-
       return true;
     }
   }

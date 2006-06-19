@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// OffsetEvent.cs
+// ReleType.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,24 +19,39 @@
 //
 
 using System;
+using System.Reflection;
 
 namespace Gimp.PhotoshopActions
 {
-  public class OffsetEvent : ActionEvent
+  public class ReleType : ReferenceType
   {
-    [Parameter("Hrzn")]
-    int _horizontal;
-    [Parameter("Vrtc")]
-    int _vertical;
-    [Parameter("Fl")]
-    string _fillMode;
+    string _classID;
+    string _classID2;
+    int _offset;
 
-    override public bool Execute()
+    public string ClassID
     {
-      bool wrapAround = (_fillMode == "Wrp");
-      ActiveDrawable.Offset(wrapAround, OffsetType.Background, 
-			    _horizontal, _vertical);
-      return true;
+      get {return _classID;}
+    }
+
+    public string ClassID2
+    {
+      get {return _classID2;}
+    }
+
+    public int Offset
+    {
+      get {return _offset;}
+    }
+
+    public override void Parse(ActionParser parser)
+    {
+      _classID = parser.ReadTokenOrUnicodeString();
+      _classID2 = parser.ReadTokenOrString();
+      _offset = parser.ReadInt32();
+
+      Console.WriteLine("\t\tRele: c = {0}, c2 = {1}, i = {2}", _classID, 
+			_classID2, _offset);
     }
   }
 }
