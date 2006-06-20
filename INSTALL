@@ -17,10 +17,14 @@ additional incomplete (yet) plug-ins.
 The files will be installed in your GIMP plug-in directory, for
 example in /usr/local/lib/gimp/2.0/plug-ins/
 
-At the moment Gimp# will install 6 plug-ins for you:
+At the moment Gimp# will install 10 plug-ins for you:
 
 /Xtns/Picture Package
+/Xtns/Photoshop Actions
 /Filters/Artistic/Ministeck
+/Filters/Blur/Average
+/Filters/Light and Shadow/Raindrops
+/Filters/Render/Forge
 /Filters/Render/NCP
 /Filters/Render/Splitter
 /Filters/Render/Swirlies

@@ -1,3 +1,17 @@
+2006-06-20  Maurits  <m.rijk@chello.nl>
+
+	* lib/Procedure.cs: new constructor for procedures without input
+	and output parameters.
+
+	* lib/Plugin.cs: allow plug-ins without dialogs.
+
+	* plug-ins/AverageBlur/AverageBlur.cs: completed implementation
+
+	* plug-ins/ncp/ncp.cs: Minor clean-up
+
+	* INSTALL
+	* NEWS: updated
+
 2006-06-19  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/AverageBlur/*: placeholder for new plug-in

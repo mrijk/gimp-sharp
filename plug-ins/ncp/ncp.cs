@@ -39,7 +39,6 @@ namespace Gimp.ncp
     [SaveAttribute("color")]
     bool _color = true;
 
-    [STAThread]
     static void Main(string[] args)
     {
       new ncp(args);
@@ -238,7 +237,7 @@ namespace Gimp.ncp
       Initialize(drawable);
       RgnIterator iter = new RgnIterator(drawable, RunMode.Interactive);
       iter.Progress = new Progress("NCP");
-      iter.IterateDest(new RgnIterator.IterFuncDestFull(DoNCP));
+      iter.IterateDest(DoNCP);
 			
       Display.DisplaysFlush();
     }

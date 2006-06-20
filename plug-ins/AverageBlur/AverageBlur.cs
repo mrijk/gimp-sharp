@@ -24,7 +24,6 @@ namespace Gimp.AverageBlur
 {
   public class AverageBlur : Plugin
   {
-    [STAThread]
     static void Main(string[] args)
     {
       new AverageBlur(args);
@@ -38,8 +37,6 @@ namespace Gimp.AverageBlur
     {
       ProcedureSet set = new ProcedureSet();
 
-      ParamDefList in_params = new ParamDefList();
-
       Procedure procedure = new Procedure("plug_in_average_blur",
 					  "Average blur",
 					  "Average blur",
@@ -47,24 +44,40 @@ namespace Gimp.AverageBlur
 					  "(C) Maurits Rijk",
 					  "2006",
 					  "Average",
-					  "RGB*, GRAY*",
-					  in_params);
+					  "RGB*, GRAY*");
       procedure.MenuPath = "<Image>/Filters/Blur";
-      // procedure.IconFile = "AverageBlur.png";
 
       set.Add(procedure);
 
       return set;
     }
+
     override protected void Render(Drawable drawable)
     {
-      /*
+      int bpp = drawable.Bpp;
+      int[] sum = new int[bpp];
+      int count = 0;
+      byte[] average = new byte[bpp];
+
       RgnIterator iter = new RgnIterator(drawable, RunMode.Interactive);
-      iter.Progress = new Progress("AVERAGEBLUR");
-      iter.IterateDest(new RgnIterator.IterFuncDestFull(DoAVERAGEBLUR));
-			
+      iter.Progress = new Progress("Average");
+
+      iter.IterateSrc(delegate (byte[] src) {
+	for (int i = 0; i < bpp; i++)
+	  {
+	    sum[i] += src[i];
+	  }
+	count++;
+      });
+
+      for (int i = 0; i < bpp; i++)
+	{
+	  average[i] = (byte) (sum[i] / count);
+	}
+
+      iter.IterateDest(delegate () {return average;});
+
       Display.DisplaysFlush();
-      */
     }
   }
 }

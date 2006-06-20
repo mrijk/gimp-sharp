@@ -191,7 +191,11 @@ namespace Gimp
       return true;
     }
 
-    virtual protected bool CreateDialog() {return true;}
+    virtual protected bool CreateDialog() 
+    {
+      CallRender();
+      return true;
+    }
 
     public void Run(string name, int n_params, IntPtr paramPtr,
 		    ref int n_return_vals, out IntPtr return_vals)

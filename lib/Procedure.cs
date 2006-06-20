@@ -73,6 +73,15 @@ namespace Gimp
     {
     }
 
+    public Procedure(string name, string blurb, string help, 
+		     string author, string copyright, 
+		     string date, string menu_path, 
+		     string image_types) :
+      this(name, blurb, help, author, copyright, date, menu_path,
+	   image_types, new ParamDefList(), null)
+    {
+    }
+
     public Procedure(string name)
     {
       _name = name;
@@ -80,8 +89,8 @@ namespace Gimp
 
     public void Install(bool usesImage, bool usesDrawable)
     {
-      GimpParamDef[] args = _inParams.GetGimpParamDef(usesImage, 
-						      usesDrawable);
+      GimpParamDef[] args = _inParams.GetGimpParamDef(usesImage, usesDrawable);
+
       GimpParamDef[] returnVals;
       int returnLen;
       if (_outParams == null)
