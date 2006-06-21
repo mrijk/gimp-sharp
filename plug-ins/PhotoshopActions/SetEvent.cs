@@ -79,6 +79,8 @@ namespace Gimp.PhotoshopActions
 		}
 	      else
 		{
+		  Console.WriteLine("SetEvent.Parse: unknown key " +
+				    enmr.Key);
 		}
 	    }
 	  else

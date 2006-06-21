@@ -44,6 +44,7 @@ namespace Gimp.PhotoshopActions
       _map["contract"] = "ContractEvent";
       _map["convertMode"] = "ConvertModeEvent";
       _map["copyEvent"] = "CopyEvent";
+      _map["copyMerged"] = "CopyMergedEvent";
       _map["copyToLayer"] = "CopyToLayerEvent";
       _map["cut"] = "CutEvent";
       _map["delete"] = "DeleteEvent";

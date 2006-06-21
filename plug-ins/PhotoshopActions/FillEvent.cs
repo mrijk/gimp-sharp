@@ -25,27 +25,26 @@ namespace Gimp.PhotoshopActions
   public class FillEvent : ActionEvent
   {
     [Parameter("Usng")]
-    string _using;
+    EnumParameter _using;
     [Parameter("Opct")]
     double _opacity;
     [Parameter("Md")]
-    string _mode;
+    EnumParameter _mode;
 
     override public bool Execute()
     {
-      if (_using == "FrgC")
+      switch (_using.Value)
 	{
+	case "FrgC":
 	  ActiveDrawable.EditFill(FillType.Foreground);
-	}
-      else if (_using == "BckC")
-	{
+	  break;
+	case "BckC":
 	  ActiveDrawable.EditFill(FillType.Background);
-	}
-      else
-	{
+	  break;
+	default:
 	  Console.WriteLine("FillEvent: with {0} not supported!", _using);
+	  break;
 	}
-
       return true;
     }
   }

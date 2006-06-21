@@ -25,7 +25,7 @@ namespace Gimp.PhotoshopActions
   public class FlipEvent : ActionEvent
   {
     [Parameter("Axis")]
-    string _axis;
+    EnumParameter _axis;
 
     override public bool Execute()
     {
@@ -37,7 +37,7 @@ namespace Gimp.PhotoshopActions
 	  return false;
 	}
 
-      if (_axis == "Hrzn")
+      if (_axis.Value == "Hrzn")
 	{
 	  image.Flip(OrientationType.Horizontal);
 	}

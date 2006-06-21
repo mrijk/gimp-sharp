@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// CloseEvent.cs
+// SelectChannelEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,14 +22,20 @@ using System;
 
 namespace Gimp.PhotoshopActions
 {
-  public class CloseEvent : ActionEvent
+  public class SelectChannelEvent : ActionEvent
   {
-    [Parameter("Svng")]
-    EnumParameter _saving;
+    string _name;
+
+    public SelectChannelEvent(ActionEvent srcEvent, string name) : 
+      base(srcEvent)
+    {
+      _name = name;
+    }
 
     override public bool Execute()
     {
-      ActiveImage.Delete();
+      // SelectedChannel = ActiveImage.Channels[_name];
+      Console.WriteLine("SelectChannelEvent: implement me!");
       return true;
     }
   }

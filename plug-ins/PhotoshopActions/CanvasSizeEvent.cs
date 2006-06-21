@@ -29,11 +29,11 @@ namespace Gimp.PhotoshopActions
     [Parameter("Hght")]
     double _height;
     [Parameter("Hrzn")]
-    string _horizontal;
+    EnumParameter _horizontal;
     [Parameter("Vrtc")]
-    string _vertical;
+    EnumParameter _vertical;
     [Parameter("canvasExtensionColorType")]
-    string _extensionColorType;
+    EnumParameter _extensionColorType;
 
     public override bool IsExecutable
     {

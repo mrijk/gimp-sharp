@@ -35,7 +35,7 @@ namespace Gimp.PhotoshopActions
     [Parameter("pixelScaleFactor")]
     double _pixelScaleFactor;
     [Parameter("Fl")]
-    string _fill;
+    EnumParameter _fill;
     [Parameter("Dpth")]
     int _depth;
     [Parameter("profile")]

@@ -25,7 +25,7 @@ namespace Gimp.PhotoshopActions
   public class SelectionEvent : ActionEvent
   {
     [Parameter("T")]
-    ObjcParameter _object;
+    Parameter parameter;
 
     [Parameter("Top")]
     double _top;
@@ -36,20 +36,38 @@ namespace Gimp.PhotoshopActions
     [Parameter("Rght")]
     double _right;
 
-    public SelectionEvent(ActionEvent srcEvent) : base(srcEvent)
+    public SelectionEvent(ActionEvent srcEvent) 
+      : base(srcEvent)
     {
-      // Parameters.Fill(this);
-      // _object.Fill(this);
-
-      // Console.WriteLine("--------> {0} {1} {2} {3}", _top, _left, _bottom, _right);
+      Parameters.Fill(this);
     }
     
-    public override bool IsExecutable
+    override public bool Execute()
     {
-      get 
+      if (parameter is EnumParameter)
 	{
-	  return false;
+	  string type = (parameter as EnumParameter).Value;
+
+	  if (type == "Al")
+	    {
+	      ActiveImage.Selection.All();
+	    }
+	  else
+	    {
+	      Console.WriteLine("SelectionEvent: " + type);
+	      return false;
+	    }
 	}
+      else if (parameter is ObjcParameter)
+	{
+	  string classID2 = (parameter as ObjcParameter).ClassID2;
+	  Console.WriteLine("SelectionEvent Implement " + classID2);
+	}
+      else
+	{
+	  Console.WriteLine("Hm");
+	}
+      return true;
     }
   }
 }

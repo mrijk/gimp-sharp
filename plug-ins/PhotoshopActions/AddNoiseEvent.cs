@@ -25,7 +25,7 @@ namespace Gimp.PhotoshopActions
   public class AddNoiseEvent : ActionEvent
   {
     [Parameter("Dstr")]
-    string _distribution;
+    EnumParameter _distribution;
     [Parameter("Nose")]
     double _noise;
     [Parameter("Mnch")]

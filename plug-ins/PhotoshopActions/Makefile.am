@@ -24,6 +24,7 @@ MYSOURCES = 				\
 	ContractEvent.cs		\
 	ConvertModeEvent.cs		\
 	CopyEvent.cs			\
+	CopyMergedEvent.cs		\
 	CopyToLayerEvent.cs		\
 	CutEvent.cs			\
 	DeleteEvent.cs			\
@@ -92,6 +93,7 @@ MYSOURCES = 				\
 	ResetEvent.cs			\
 	SelectEvent.cs			\
 	SelectionEvent.cs		\
+	SelectChannelEvent.cs		\
 	SelectLayerEvent.cs		\
 	SetBackgroundColorEvent.cs	\
 	SetColorEvent.cs		\

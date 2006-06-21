@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// CloseEvent.cs
+// CopyMergedEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,18 +18,13 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-
 namespace Gimp.PhotoshopActions
 {
-  public class CloseEvent : ActionEvent
+  public class CopyMergedEvent : ActionEvent
   {
-    [Parameter("Svng")]
-    EnumParameter _saving;
-
     override public bool Execute()
     {
-      ActiveImage.Delete();
+      ActiveImage.EditCopyVisible();
       return true;
     }
   }

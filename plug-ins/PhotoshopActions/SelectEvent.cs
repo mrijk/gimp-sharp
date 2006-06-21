@@ -27,14 +27,6 @@ namespace Gimp.PhotoshopActions
     [Parameter("null")]
     ReferenceParameter _obj;
 
-    public override bool IsExecutable
-    {
-      get 
-	{
-	  return false;
-	}
-    }
-
     override public ActionEvent Parse(ActionParser parser)
     {
       ActionEvent myEvent = base.Parse(parser);
@@ -48,6 +40,38 @@ namespace Gimp.PhotoshopActions
 		{
 		  return new SelectLayerEvent(this, name.Key);
 		}
+	      else
+		{
+		  Console.WriteLine("SelectEvent: " + name.ClassID2);
+		}
+	    }
+	  else if (_obj.Set[0] is PropertyType)
+	    {
+	      PropertyType property = _obj.Set[0] as PropertyType;
+	      if (property.Key == "Bckg")
+		{
+		  return new SelectLayerEvent(this, "Background");
+		}
+	      else
+		{
+		  Console.WriteLine("Property: " + property.Key);
+		}
+	    }
+	  else if (_obj.Set[0] is EnmrType)
+	    {
+	      EnmrType enmr = _obj.Set[0] as EnmrType;
+	      if (enmr.Key == "Chnl")
+		{
+		  return new SelectChannelEvent(this, enmr.Value);
+		}
+	      else
+		{
+		  Console.WriteLine("Enmr: " + enmr.Key);
+		}
+	    }
+	  else
+	    {
+	      Console.WriteLine("SelectEvent-1: " + _obj.Set[0]);
 	    }
 	}
 

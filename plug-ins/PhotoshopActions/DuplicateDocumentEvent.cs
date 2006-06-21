@@ -32,18 +32,10 @@ namespace Gimp.PhotoshopActions
       Parameters.Fill(this);
     }
     
-    public override bool IsExecutable
-    {
-      get 
-	{
-	  return false;
-	}
-    }
-
     override public bool Execute()
     {
-      Image image = new Image(ActiveImage);
-      new Display(image);
+      ActiveImage = new Image(ActiveImage);
+      new Display(ActiveImage);
 
       // Fix me: fill in name into image.
 

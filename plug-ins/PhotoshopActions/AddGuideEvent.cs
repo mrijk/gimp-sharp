@@ -25,7 +25,7 @@ namespace Gimp.PhotoshopActions
   public class AddGuideEvent : ActionEvent
   {
     [Parameter("Ornt")]
-    string _orientation;
+    EnumParameter _orientation;
     [Parameter("Pstn")]
     double _position;
 
@@ -48,6 +48,7 @@ namespace Gimp.PhotoshopActions
     override public bool Execute()
     {
       Image image = ActiveImage;
+      int position;
 
       if (image == null)
 	{
@@ -61,21 +62,20 @@ namespace Gimp.PhotoshopActions
 	  throw new GimpSharpException();
 	}
 
-      if (_orientation == "Vrtc")
+      switch (_orientation.Value)
 	{
-	  int position = (int) (_position * image.Width / 100);
+	case "Vrtc":
+	  position = (int) (_position * image.Width / 100);
 	  new VerticalGuide(image, position);
-	}
-      else if (_orientation == "Hrzn")
-	{
-	  int position = (int) (_position * image.Height / 100);
+	  break;
+	case "Hrzn":
+	  position = (int) (_position * image.Height / 100);
 	  new HorizontalGuide(image, position);
-	}
-      else
-	{
+	  break;
+	default:
 	  throw new GimpSharpException();
+	  break;
 	}
-
       return true;
     }
   }

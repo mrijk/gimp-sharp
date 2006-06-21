@@ -31,7 +31,7 @@ namespace Gimp.PhotoshopActions
     [Parameter("CnsP")]
     bool _cnsp;	// Fix me!
     [Parameter("Intr")]
-    string _intr;
+    EnumParameter _intr;
 
     public override bool IsExecutable
     {

@@ -29,11 +29,11 @@ namespace Gimp.PhotoshopActions
     [Parameter("Vrtc")]
     int _vertical;
     [Parameter("Fl")]
-    string _fillMode;
+    EnumParameter _fillMode;
 
     override public bool Execute()
     {
-      bool wrapAround = (_fillMode == "Wrp");
+      bool wrapAround = (_fillMode.Value == "Wrp");
       ActiveDrawable.Offset(wrapAround, OffsetType.Background, 
 			    _horizontal, _vertical);
       return true;

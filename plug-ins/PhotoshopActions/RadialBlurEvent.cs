@@ -27,9 +27,9 @@ namespace Gimp.PhotoshopActions
     [Parameter("Amnt")]
     int _amount;
     [Parameter("BlrM")]
-    string _blurMode;
+    EnumParameter _blurMode;
     [Parameter("BlrQ")]
-    string _blurQuality;
+    EnumParameter _blurQuality;
 
     override public bool Execute()
     {

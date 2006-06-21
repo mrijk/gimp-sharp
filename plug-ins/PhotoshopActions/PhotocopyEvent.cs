@@ -25,7 +25,7 @@ namespace Gimp.PhotoshopActions
   public class PhotocopyEvent : ActionEvent
   {
     [Parameter("GEfk")]
-    string _gefk;
+    EnumParameter _gefk;
     [Parameter("Dtl")]
     int detail;
     [Parameter("Drkn")]

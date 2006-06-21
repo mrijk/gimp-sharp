@@ -46,8 +46,7 @@ namespace Gimp.PhotoshopActions
 
     public override void Fill(Object obj, FieldInfo field)
     {
-      field.SetValue(obj, _value);
-      // TODO: also fill the type?
+      field.SetValue(obj, this);
     }
   }
 }
