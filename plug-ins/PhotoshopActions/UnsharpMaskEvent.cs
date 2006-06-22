@@ -20,6 +20,8 @@
 
 using System;
 
+using Gtk;
+
 namespace Gimp.PhotoshopActions
 {
   public class UnsharpMaskEvent : ActionEvent
@@ -30,6 +32,13 @@ namespace Gimp.PhotoshopActions
     double _radius;
     [Parameter("Thsh")]
     double _threshold;
+
+    protected override void FillParameters(TreeStore store, TreeIter iter)
+    {
+      store.AppendValues(iter, "Radius: " + _radius);
+      store.AppendValues(iter, "Amount: " + _amount);
+      store.AppendValues(iter, "Threshold: " + _threshold);      
+    }
 
     override public bool Execute()
     {

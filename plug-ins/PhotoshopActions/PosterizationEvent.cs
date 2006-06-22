@@ -18,7 +18,7 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
+using Gtk;
 
 namespace Gimp.PhotoshopActions
 {
@@ -26,6 +26,11 @@ namespace Gimp.PhotoshopActions
   {
     [Parameter("Lvls")]
     int _levels;
+
+    protected override void FillParameters(TreeStore store, TreeIter iter)
+    {
+      store.AppendValues(iter, "Levels: " + _levels);
+    }
 
     override public bool Execute()
     {

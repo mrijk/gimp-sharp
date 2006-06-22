@@ -18,7 +18,7 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
+using Gtk;
 
 namespace Gimp.PhotoshopActions
 {
@@ -27,9 +27,13 @@ namespace Gimp.PhotoshopActions
     [Parameter("Rds")]
     double _radius;
 
+    protected override void FillParameters(TreeStore store, TreeIter iter)
+    {
+      store.AppendValues(iter, "Radius: " + _radius + " pixels");
+    }
+
     override public bool Execute()
     {
-      Console.WriteLine("MaximumEvent::radius: " + _radius);
       RunProcedure("plug_in_vpropagate", 1, 1, _radius, 15, 0, 255);
       return true;
     }

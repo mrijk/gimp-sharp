@@ -39,6 +39,7 @@ namespace Gimp.PhotoshopActions
       _map["border"] = "BorderEvent";
       _map["brightnessEvent"] = "BrightnessEvent";
       _map["canvasSize"] = "CanvasSizeEvent";
+      _map["channelMixer"] = "ChannelMixerEvent";
       _map["close"] = "CloseEvent";
       _map["clouds"] = "CloudsEvent";
       _map["contract"] = "ContractEvent";

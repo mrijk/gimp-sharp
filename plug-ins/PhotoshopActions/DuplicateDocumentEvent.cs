@@ -20,6 +20,8 @@
 
 using System;
 
+using Gtk;
+
 namespace Gimp.PhotoshopActions
 {
   public class DuplicateDocumentEvent : ActionEvent
@@ -30,6 +32,11 @@ namespace Gimp.PhotoshopActions
     public DuplicateDocumentEvent(ActionEvent srcEvent) : base(srcEvent) 
     {
       Parameters.Fill(this);
+    }
+
+    protected override void FillParameters(TreeStore store, TreeIter iter)
+    {
+      store.AppendValues(iter, "Name: " + _name);
     }
     
     override public bool Execute()

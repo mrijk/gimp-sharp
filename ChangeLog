@@ -1,3 +1,30 @@
+2006-06-22  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/PhotoshopActions/ChannelMixerEvent.cs: new file
+
+	* plug-ins/PhotoshopActions/EventMap.cs
+	* plug-ins/PhotoshopActions/Makefile: changed accordingly
+
+	* plug-ins/PhotoshopActions/*Event.cs
+	* plug-ins/PhotoshopActions/PhotoshopActions.cs: show parameters
+
+2006-06-21  Maurits  <m.rijk@chello.nl>
+
+	* lib/Drawable.cs 
+	* lib/Image.cs: moved EditCopyVisible
+
+	* plug-ins/PhotoshopActions/SelectChannelEvent.cs
+	* plug-ins/PhotoshopActions/CopyMergedEvent.cs: new files
+
+	* plug-ins/PhotoshopActions/SelectionEvent.cs: implemented
+
+	* plug-ins/PhotoshopActions/EventMap.cs
+	* plug-ins/PhotoshopActions/Makefile: changed accordingly
+
+2006-06-20  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/Makefile.am: enable new AverageBlur plug-in by default.
+
 2006-06-20  Maurits  <m.rijk@chello.nl>
 
 	* lib/Procedure.cs: new constructor for procedures without input

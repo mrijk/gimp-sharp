@@ -20,12 +20,23 @@
 
 using System;
 
+using Gtk;
+
 namespace Gimp.PhotoshopActions
 {
   public class HueSaturationEvent : ActionEvent
   {
     bool _colorization;
     int _hue, _saturation, _lightness;
+
+    protected override void FillParameters(TreeStore store, TreeIter iter)
+    {
+      string with = _colorization ? "With" : "Without";
+      store.AppendValues(iter, with + " Colorize");
+      store.AppendValues(iter, "Hue: " + _hue);
+      store.AppendValues(iter, "Saturation: " + _saturation);
+      store.AppendValues(iter, "Lightness: " + _lightness);
+    }
     
     override public ActionEvent Parse(ActionParser parser)
     {

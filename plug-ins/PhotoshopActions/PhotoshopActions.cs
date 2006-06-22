@@ -118,6 +118,14 @@ namespace Gimp.PhotoshopActions
 	  play.Sensitive = (indices.Length > 1);
 	};
 
+      view.Selection.SetSelectFunction(delegate(TreeSelection selection, 
+						TreeModel model, 
+						TreePath path, 
+						bool path_currently_selected)
+      {
+	return path.Indices.Length <= 3;
+      }, 
+				       IntPtr.Zero, null);
 
       dialog.ShowAll();
       return DialogRun();
@@ -150,8 +158,7 @@ namespace Gimp.PhotoshopActions
 		      TreeIter iter1 = store.AppendValues(iter, action.Name);
 		      foreach (ActionEvent actionEvent in action)
 			{
-			  store.AppendValues(iter1, 
-					     actionEvent.EventForDisplay);
+			  actionEvent.FillStore(store, iter1);
 			}
 		    }
 		}

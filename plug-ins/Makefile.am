@@ -5,7 +5,6 @@ ecw = ecw
 endif
 
 if BUILD_INCOMPLETE
-AverageBlur = AverageBlur
 Shatter = Shatter
 endif
 
@@ -19,7 +18,7 @@ endif
 
 AUTOMAKE_OPTIONS = gnu
 SUBDIRS = 			\
-	$(AverageBlur)		\
+	AverageBlur		\
 	$(ecw)			\
 	Forge	 		\
 	KoalaPaint 		\

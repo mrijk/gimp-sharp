@@ -35,6 +35,8 @@ namespace Gimp
       int num_channels;
       IntPtr list = gimp_image_get_channels(image.ID, out num_channels);
 
+      Console.WriteLine("***: " + num_channels);
+
       int[] dest = new int[num_channels];
       Marshal.Copy(list, dest, 0, num_channels);
 

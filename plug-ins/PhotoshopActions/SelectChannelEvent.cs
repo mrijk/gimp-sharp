@@ -35,7 +35,8 @@ namespace Gimp.PhotoshopActions
     override public bool Execute()
     {
       // SelectedChannel = ActiveImage.Channels[_name];
-      Console.WriteLine("SelectChannelEvent: implement me!");
+      Console.WriteLine("SelectChannelEvent: implement me! " +
+			ActiveImage.Channels);
       return true;
     }
   }

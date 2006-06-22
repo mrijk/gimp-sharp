@@ -18,6 +18,7 @@ MYSOURCES = 				\
 	BorderEvent.cs			\
 	BrightnessEvent.cs		\
 	CanvasSizeEvent.cs		\
+	ChannelMixerEvent.cs		\
 	ClassType.cs			\
 	CloseEvent.cs			\
 	CloudsEvent.cs			\

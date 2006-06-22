@@ -20,6 +20,8 @@
 
 using System;
 
+using Gtk;
+
 namespace Gimp.PhotoshopActions
 {
   abstract public class ActionEvent
@@ -106,6 +108,16 @@ namespace Gimp.PhotoshopActions
     {
       get {return _numberOfItems;}
       set {_numberOfItems = value;}
+    }
+
+    public void FillStore(TreeStore store, TreeIter iter)
+    {
+      iter = store.AppendValues(iter, EventForDisplay);
+      FillParameters(store, iter);
+    }
+
+    protected virtual void FillParameters(TreeStore store, TreeIter iter)
+    {
     }
 
     public virtual ActionEvent Parse(ActionParser parser)

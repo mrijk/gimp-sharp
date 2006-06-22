@@ -600,6 +600,14 @@ namespace Gimp
         }
     }
 
+    public void EditCopyVisible()
+    {
+      if (!gimp_edit_copy_visible(_imageID))
+        {
+	  throw new GimpSharpException();
+        }
+    }
+
     // Misc functions
 
     // Fix me: this should become internal
@@ -828,5 +836,8 @@ namespace Gimp
     static extern bool gimp_image_undo_freeze (Int32 image_ID);
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_image_undo_thaw (Int32 image_ID);
+
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_edit_copy_visible(Int32 image_ID);
   }
 }

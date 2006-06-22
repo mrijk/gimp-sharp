@@ -18,7 +18,7 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
+using Gtk;
 
 namespace Gimp.PhotoshopActions
 {
@@ -27,9 +27,13 @@ namespace Gimp.PhotoshopActions
     [Parameter("By")]
     double _by;
 
+    protected override void FillParameters(TreeStore store, TreeIter iter)
+    {
+      store.AppendValues(iter, "By: " + (int) _by + " pixels");
+    }
+
     override public bool Execute()
     {
-      Console.WriteLine("Contract: " + _by);
       ActiveImage.Selection.Shrink((int) _by);
       return true;
     }

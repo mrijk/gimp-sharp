@@ -20,12 +20,19 @@
 
 using System;
 
+using Gtk;
+
 namespace Gimp.PhotoshopActions
 {
   public class GaussianBlurEvent : ActionEvent
   {
     [Parameter("Rds")]
     double _radius;
+
+    protected override void FillParameters(TreeStore store, TreeIter iter)
+    {
+      store.AppendValues(iter, "Radius");
+    }
 
     override public bool Execute()
     {

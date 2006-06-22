@@ -19,6 +19,7 @@
 //
 
 using System;
+using Gtk;
 
 namespace Gimp.PhotoshopActions
 {
@@ -30,6 +31,37 @@ namespace Gimp.PhotoshopActions
     double _opacity;
     [Parameter("Md")]
     EnumParameter _mode;
+
+    protected override void FillParameters(TreeStore store, TreeIter iter)
+    {
+      string color;
+      switch(_using.Value)
+	{
+	case "FrgC":
+	  color = "foreground color";
+	  break;
+	case "BckC":
+	  color = "background color";
+	  break;
+	default:
+	  color = "Fixme: " + _using.Value;
+	  break;
+	}
+      store.AppendValues(iter, "Using: " + color);
+      store.AppendValues(iter, "Opacity: " + _opacity + " %");
+
+      string mode;
+      switch (_mode.Value)
+	{
+	case "Nrml":
+	  mode = "Normal";
+	  break;
+	default:
+	  mode = "Fixme: " + _mode.Value;
+	  break;
+	}
+      store.AppendValues(iter, "Mode: " + mode);
+    }
 
     override public bool Execute()
     {
