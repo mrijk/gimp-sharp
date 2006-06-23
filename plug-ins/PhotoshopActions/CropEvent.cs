@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// HideEvent.cs
+// CropEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,43 +18,24 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-
 namespace Gimp.PhotoshopActions
 {
-  public class HideEvent : ActionEvent
+  public class CropEvent : ActionEvent
   {
-    [Parameter("null")]
-    ListParameter _list;
-
-    public override bool IsExecutable
+    override public bool Execute()
     {
-      get 
+      bool nonEmpty;
+      int x1, y1, x2, y2;
+
+      // TODO: check if no parameters are set!
+
+      ActiveImage.Selection.Bounds(out nonEmpty, out x1, out y1, out x2, 
+				   out y2);
+      if (nonEmpty)
 	{
-	  return false;
+	  ActiveImage.Crop(x2 - x1 + 1, y2 - y1 + 1, x1, y1);
 	}
-    }
-
-    override public ActionEvent Parse(ActionParser parser)
-    {
-      base.Parse(parser);
-
-      ReferenceParameter obj = _list.Set[0] as ReferenceParameter;
-      EnmrType enmr = obj.Set[0] as EnmrType;
-
-      switch (enmr.Key)
-	{
-	case "Lyr":
-	  return new HideLayerEvent();
-	  break;
-	case "Chnl":
-	  return new HideChannelEvent(enmr.Value);
-	  break;
-	default:
-	  Console.WriteLine("Can't hide " + enmr.Key);
-	  break;
-	}
-      return this;
+      return true;
     }
   }
 }

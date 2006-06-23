@@ -36,7 +36,10 @@ namespace Gimp.PhotoshopActions
 
     public Parameter this[string name]
     {
-      get {return _set[name];}
+      get {
+	Parameter parameter;
+	return (_set.TryGetValue(name, out parameter)) ? parameter : null;
+      }
     }
 
     public IEnumerator<Parameter> GetEnumerator()

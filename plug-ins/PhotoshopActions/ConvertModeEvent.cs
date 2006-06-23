@@ -40,15 +40,19 @@ namespace Gimp.PhotoshopActions
       if (_type is TypeParameter)
 	{
 	  TypeParameter type = _type as TypeParameter;
-	  
-	  if (type.Value == "RGBM")
+
+	  switch (type.Value)
 	    {
+	    case "RGBM":
 	      ActiveImage.ConvertRgb();
-	    }
-	  else
-	    {
+	      break;
+	    case "Grys":
+	      ActiveImage.ConvertGrayscale();
+	      break;
+	    default:
 	      Console.WriteLine("ConvertModeEvent: can't convert: " + 
 				type.Value);
+	      break;
 	    }
 	}
       else

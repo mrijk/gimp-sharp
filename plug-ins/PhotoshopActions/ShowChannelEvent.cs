@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// HideEvent.cs
+// ShowChannelEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,39 +22,33 @@ using System;
 
 namespace Gimp.PhotoshopActions
 {
-  public class HideEvent : ActionEvent
+  public class ShowChannelEvent : ActionEvent
   {
-    [Parameter("null")]
-    ListParameter _list;
+    string _channel;
 
-    public override bool IsExecutable
+    public ShowChannelEvent(string channel)
     {
-      get 
-	{
-	  return false;
-	}
+      _channel = channel;
     }
 
-    override public ActionEvent Parse(ActionParser parser)
+    override public bool Execute()
     {
-      base.Parse(parser);
-
-      ReferenceParameter obj = _list.Set[0] as ReferenceParameter;
-      EnmrType enmr = obj.Set[0] as EnmrType;
-
-      switch (enmr.Key)
+      switch (_channel)
 	{
-	case "Lyr":
-	  return new HideLayerEvent();
+	case "Rd":
+	  ActiveImage.SetComponentVisible(ChannelType.Red, false);
 	  break;
-	case "Chnl":
-	  return new HideChannelEvent(enmr.Value);
+	case "Grn":
+	  ActiveImage.SetComponentVisible(ChannelType.Green, false);
+	  break;
+	case "Bl":
+	  ActiveImage.SetComponentVisible(ChannelType.Blue, false);
 	  break;
 	default:
-	  Console.WriteLine("Can't hide " + enmr.Key);
+	  Console.WriteLine("ShowChannelEvent: " + _channel);
 	  break;
 	}
-      return this;
+      return true;
     }
   }
 }

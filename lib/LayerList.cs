@@ -44,7 +44,7 @@ namespace Gimp
         }
     }
 
-    IEnumerator<Layer> GetEnumerator()
+    public IEnumerator<Layer> GetEnumerator()
     {
       return _list.GetEnumerator();
     }

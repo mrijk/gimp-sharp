@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// HideEvent.cs
+// HideLayerEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,39 +22,12 @@ using System;
 
 namespace Gimp.PhotoshopActions
 {
-  public class HideEvent : ActionEvent
+  public class HideLayerEvent : ActionEvent
   {
-    [Parameter("null")]
-    ListParameter _list;
-
-    public override bool IsExecutable
+    override public bool Execute()
     {
-      get 
-	{
-	  return false;
-	}
-    }
-
-    override public ActionEvent Parse(ActionParser parser)
-    {
-      base.Parse(parser);
-
-      ReferenceParameter obj = _list.Set[0] as ReferenceParameter;
-      EnmrType enmr = obj.Set[0] as EnmrType;
-
-      switch (enmr.Key)
-	{
-	case "Lyr":
-	  return new HideLayerEvent();
-	  break;
-	case "Chnl":
-	  return new HideChannelEvent(enmr.Value);
-	  break;
-	default:
-	  Console.WriteLine("Can't hide " + enmr.Key);
-	  break;
-	}
-      return this;
+      SelectedLayer.Visible = false;
+      return true;
     }
   }
 }

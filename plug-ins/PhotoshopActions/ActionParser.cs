@@ -157,8 +157,7 @@ namespace Gimp.PhotoshopActions
 	  ActionEvent actionEvent = _map.Lookup(eventName);
 	  actionEvent.EventForDisplay = ReadString();
 
-	  Console.WriteLine("\tEventName: {0} ({1})", eventName,
-			    actionEvent.IsExecutable);
+	  Console.WriteLine("\tEventName: " + eventName);
 
 	  actionEvent.HasDescriptor = (ReadInt32() != 0);
 	  if (!actionEvent.HasDescriptor)

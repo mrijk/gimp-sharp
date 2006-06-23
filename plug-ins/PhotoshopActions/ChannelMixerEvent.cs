@@ -25,6 +25,10 @@ namespace Gimp.PhotoshopActions
 {
   public class ChannelMixerEvent : ActionEvent
   {
+    [Parameter("Mnch")]
+    bool _monochrome;
+    [Parameter("Gry")]
+    ObjcParameter _grey;
     [Parameter("Rd")]
     ObjcParameter _red;
     [Parameter("Grn")]
@@ -37,9 +41,19 @@ namespace Gimp.PhotoshopActions
     override public ActionEvent Parse(ActionParser parser)
     {
       base.Parse(parser);
-      _r = (_red.Parameters["Rd"] as DoubleParameter).Value;
-      _g = (_green.Parameters["Grn"] as DoubleParameter).Value;
-      _b = (_blue.Parameters["Bl"] as DoubleParameter).Value;
+
+      if (_monochrome)
+	{
+	  _r = (_grey.Parameters["Rd"] as DoubleParameter). Value;
+	  _g = (_grey.Parameters["Grn"] as DoubleParameter).Value;
+	  _b = (_grey.Parameters["Bl"] as DoubleParameter).Value;
+	}
+      else
+	{
+	  _r = (_red.Parameters["Rd"] as DoubleParameter). Value;
+	  _g = (_green.Parameters["Grn"] as DoubleParameter).Value;
+	  _b = (_blue.Parameters["Bl"] as DoubleParameter).Value;
+	} 
       return this;
     }
 

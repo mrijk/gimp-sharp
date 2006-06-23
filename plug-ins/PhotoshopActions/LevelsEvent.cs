@@ -24,73 +24,35 @@ namespace Gimp.PhotoshopActions
 {
   public class LevelsEvent : ActionEvent
   {
-    public LevelsEvent()
-    {
-    }
-    
     public override bool IsExecutable
     {
       get 
 	{
-	  return false;
+	  return Parameters["AuCo"] != null ||
+	    Parameters["Auto"] != null;
 	}
     }
 
-    override public ActionEvent Parse(ActionParser parser)
+    override public bool Execute()
     {
-#if false
-      if (NumberOfItems == 1)
+      if (Parameters["AuCo"] != null)
 	{
-	  string token;
-	  bool val = parser.ParseBool(out token);
-	  return this;
+	  RunProcedure("plug_in_autostretch_hsv");
+	}
+      if (Parameters["autoBlackWhite"] != null)
+	{
+	  Console.WriteLine("Levels:autoBlackWhite not implemented yet");
+	}
+      if (Parameters["autoNeutrals"] != null)
+	{
+	  Console.WriteLine("Levels:autoNeutrals not implemented yet");
+	}
+      if (Parameters["Auto"] != null)
+	{
+	  ActiveDrawable.LevelsStretch();
 	}
 
-      if (NumberOfItems == 2)
-	{
-	  string token;
-	  bool autoBlackWhite = parser.ParseBool(out token);
-	  bool autoNeutral = parser.ParseBool(out token);
-	  return this;
-	}
-
-      parser.ParseToken("Adjs");
-      parser.ParseFourByteString("VlLs");
-      parser.ParseInt32(1);
-
-      Objc objc = parser.ParseObjc();
-
-      parser.ParseToken("Chnl");
-      parser.ParseFourByteString("obj");
-      parser.ParseInt32(1);
-
-      parser.ParseFourByteString("Enmr");
-
-      string classID = parser.ReadTokenOrUnicodeString();
-      Console.WriteLine("\tClassID: " + classID);
-
-      string keyID = parser.ReadTokenOrString();
-      if (keyID == "Chnl")
-	{
-	  parser.ParseToken("Chnl");
-	  parser.ParseToken("Cmps");
-	  parser.ParseToken("Inpt");
-	  parser.ParseFourByteString("VlLs");
-	  parser.ParseInt32(2);
-	  Console.WriteLine("\tLevel 1: " + parser.ReadLong());
-	  Console.WriteLine("\tLevel 2: " + parser.ReadLong());
-	}
-      else
-	{
-	  Console.WriteLine("LevelsEvent: " + keyID);
-	  throw new GimpSharpException();
-	}
-#else
-      ParameterSet set = new ParameterSet();
-      set.Parse(parser, this, NumberOfItems);
-
-#endif
-      return this;
+      return true;
     }
   }
 }

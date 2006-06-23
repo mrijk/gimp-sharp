@@ -27,6 +27,14 @@ namespace Gimp.PhotoshopActions
     [Parameter("null")]
     ReferenceParameter _obj;
 
+    public override bool IsExecutable
+    {
+      get 
+	{
+	  return false;
+	}
+    }
+
     override public ActionEvent Parse(ActionParser parser)
     {
       ActionEvent myEvent = base.Parse(parser);
@@ -38,6 +46,13 @@ namespace Gimp.PhotoshopActions
 	      NameType name = _obj.Set[0] as NameType;
 	      if (name.ClassID2 == "Lyr")
 		{
+		  if (Parameters.Count > 1)
+		    {
+		      // TODO: implement multiple selection
+		      Console.WriteLine("SelectEvent-1");
+		      return this;
+		    }
+
 		  return new SelectLayerEvent(this, name.Key);
 		}
 	      else

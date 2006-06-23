@@ -47,6 +47,7 @@ namespace Gimp.PhotoshopActions
       _map["copyEvent"] = "CopyEvent";
       _map["copyMerged"] = "CopyMergedEvent";
       _map["copyToLayer"] = "CopyToLayerEvent";
+      _map["crop"] = "CropEvent";
       _map["cut"] = "CutEvent";
       _map["delete"] = "DeleteEvent";
       _map["desaturate"] = "DesaturateEvent";
@@ -91,6 +92,7 @@ namespace Gimp.PhotoshopActions
       _map["reset"] = "ResetEvent";
       _map["rotateEventEnum"] = "RotateEvent";
       _map["select"] = "SelectEvent";
+      _map["selectAllLayers"] = "SelectAllLayersEvent";
       _map["set"] = "SetEvent";
       _map["sharpen"] = "SharpenEvent";
       _map["sharpenMore"] = "SharpenMoreEvent";

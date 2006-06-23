@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// HideEvent.cs
+// SelectAllLayersEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,10 +22,8 @@ using System;
 
 namespace Gimp.PhotoshopActions
 {
-  public class HideEvent : ActionEvent
+  public class SelectAllLayersEvent : ActionEvent
   {
-    [Parameter("null")]
-    ListParameter _list;
 
     public override bool IsExecutable
     {
@@ -35,26 +33,13 @@ namespace Gimp.PhotoshopActions
 	}
     }
 
-    override public ActionEvent Parse(ActionParser parser)
+    public bool Execute()
     {
-      base.Parse(parser);
-
-      ReferenceParameter obj = _list.Set[0] as ReferenceParameter;
-      EnmrType enmr = obj.Set[0] as EnmrType;
-
-      switch (enmr.Key)
+      foreach (Layer layer in ActiveImage.Layers)
 	{
-	case "Lyr":
-	  return new HideLayerEvent();
-	  break;
-	case "Chnl":
-	  return new HideChannelEvent(enmr.Value);
-	  break;
-	default:
-	  Console.WriteLine("Can't hide " + enmr.Key);
-	  break;
+	  // Add to list of selected layers.
 	}
-      return this;
+      return true;
     }
   }
 }

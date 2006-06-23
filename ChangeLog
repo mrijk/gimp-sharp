@@ -1,3 +1,22 @@
+2006-06-23  Maurits  <m.rijk@chello.nl>
+
+	* lib/LayerList.cs: made GetEnumerator public
+
+	* plug-ins/PhotoshopActions/ShowEvent.cs: implemented
+
+	* plug-ins/PhotoshopActions/ConvertModeEvent.cs: added conversion
+	to grayscale
+
+	* plug-ins/PhotoshopActions/HideChannelEvent.cs
+	* plug-ins/PhotoshopActions/HideLayerEvent.cs
+	* plug-ins/PhotoshopActions/SelectAllLayersEvent.cs
+	* plug-ins/PhotoshopActions/ShowChannelEvent.cs
+	* plug-ins/PhotoshopActions/ShowLayerEvent.cs
+	* plug-ins/PhotoshopActions/CropEvent.cs: new files
+
+	* plug-ins/PhotoshopActions/EventMap.cs
+	* plug-ins/PhotoshopActions/Makefile: changed accordingly
+
 2006-06-22  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/PhotoshopActions/ChannelMixerEvent.cs: new file

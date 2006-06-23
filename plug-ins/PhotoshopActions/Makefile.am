@@ -27,6 +27,7 @@ MYSOURCES = 				\
 	CopyEvent.cs			\
 	CopyMergedEvent.cs		\
 	CopyToLayerEvent.cs		\
+	CropEvent.cs			\
 	CutEvent.cs			\
 	DeleteEvent.cs			\
 	DeleteLayerEvent.cs		\
@@ -51,7 +52,9 @@ MYSOURCES = 				\
 	FlipEvent.cs			\
 	GaussianBlurEvent.cs		\
 	GrowEvent.cs			\
+	HideChannelEvent.cs		\
 	HideEvent.cs			\
+	HideLayerEvent.cs		\
 	HueSaturationEvent.cs		\
 	ImageSizeEvent.cs		\
 	IndexType.cs			\
@@ -92,6 +95,7 @@ MYSOURCES = 				\
 	ReplaceColorEvent.cs		\
 	RotateEvent.cs			\
 	ResetEvent.cs			\
+	SelectAllLayersEvent.cs		\
 	SelectEvent.cs			\
 	SelectionEvent.cs		\
 	SelectChannelEvent.cs		\
@@ -103,7 +107,9 @@ MYSOURCES = 				\
 	SetLayerPropertyEvent.cs	\
 	SharpenEvent.cs			\
 	SharpenMoreEvent.cs		\
+	ShowChannelEvent.cs		\
 	ShowEvent.cs			\
+	ShowLayerEvent.cs		\
 	SmoothnessEvent.cs		\
 	StopEvent.cs			\
 	TextParameter.cs		\

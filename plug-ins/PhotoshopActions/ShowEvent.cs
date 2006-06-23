@@ -27,21 +27,34 @@ namespace Gimp.PhotoshopActions
     [Parameter("null")]
     ListParameter _list;
 
-    override public bool Execute()
+    public override bool IsExecutable
     {
+      get 
+	{
+	  return false;
+	}
+    }
+
+    override public ActionEvent Parse(ActionParser parser)
+    {
+      base.Parse(parser);
+
       ReferenceParameter obj = _list.Set[0] as ReferenceParameter;
-      EnmrType enmr = obj.Set[0] as EnmrType;
+      NameType name = obj.Set[0] as NameType;
 
-      if (enmr.Key == "Lyr")
+      switch (name.ClassID2)
 	{
-	  SelectedLayer.Visible = true;
+	case "Lyr":
+	  return new ShowLayerEvent(this);
+	  break;
+	case "Chnl":
+	  return new ShowChannelEvent(name.Key);
+	  break;
+	default:
+	  Console.WriteLine("Can't show " + name.ClassID2);
+	  break;
 	}
-      else
-	{
-	  Console.WriteLine("Can't show " + enmr.Key);
-	}
-
-      return true;
+      return this;
     }
   }
 }
