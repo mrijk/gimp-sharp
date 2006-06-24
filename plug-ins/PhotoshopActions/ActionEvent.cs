@@ -24,7 +24,7 @@ using Gtk;
 
 namespace Gimp.PhotoshopActions
 {
-  abstract public class ActionEvent
+  abstract public class ActionEvent : IExecutable
   {
     /*
     readonly byte _expanded;
@@ -38,9 +38,11 @@ namespace Gimp.PhotoshopActions
     string _eventForDisplay;
     protected int _numberOfItems;
     ParameterSet _parameters;
-    
+
     static Drawable _activeDrawable;
     static Image _activeImage;
+
+    // TODO: this should become a set
     static Layer _selectedLayer;
 
     public ActionEvent()
@@ -88,7 +90,10 @@ namespace Gimp.PhotoshopActions
       set 
 	{
 	  _activeImage = value;
-	  _selectedLayer = _activeImage.Layers[0];
+	  if (_activeImage != null)
+	    {
+	      _selectedLayer = _activeImage.Layers[0];
+	    }
 	}
     }
 
@@ -112,7 +117,7 @@ namespace Gimp.PhotoshopActions
 
     public void FillStore(TreeStore store, TreeIter iter)
     {
-      iter = store.AppendValues(iter, EventForDisplay);
+      iter = store.AppendValues(iter, EventForDisplay, this);
       FillParameters(store, iter);
     }
 

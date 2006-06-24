@@ -21,8 +21,6 @@
 using System;
 using System.Collections;
 using Gtk;
-//using NUnit.Core;
-//using NUnit.Util;
 
 namespace Gimp.UnitTest
 {
@@ -31,19 +29,16 @@ namespace Gimp.UnitTest
     GimpColorButton _active;
     GimpColorButton _inactive;
     ArrayList				_resultsAL;
-    Gtk.Entry filterEntry;
+    Entry filterEntry;
 
-    Gtk.TreeModelFilter filter;
+    TreeModelFilter filter;
 
-    public TestReportDialog(
-        int passedNumber, int failedNumber, ArrayList resultsAL) :
-      base("UnitTest",
-          "UnitTest", IntPtr.Zero, 0, null, "UnitTest", Stock.Ok, ResponseType.Ok)
+    public TestReportDialog(int passedNumber, int failedNumber, 
+			    ArrayList resultsAL) :
+      base("UnitTest", "UnitTest", IntPtr.Zero, 0, null, "UnitTest", 
+	   Stock.Ok, ResponseType.Ok)
     {
-      string assembly;
       string testReport;
-      string tmp;
-
 
       _resultsAL = resultsAL;
 
@@ -51,46 +46,46 @@ namespace Gimp.UnitTest
 
       // ---------- Start Frame ---------- // 
       // Create a nice label describing the number of passed tests
-      Gtk.Label passedLabel = new Gtk.Label ("Passed : " + passedNumber);
+      Label passedLabel = new Label ("Passed : " + passedNumber);
       // Create a nice label describing the number of failed tests
-      Gtk.Label failedLabel = new Gtk.Label ("Failed : " + failedNumber);
+      Label failedLabel = new Label ("Failed : " + failedNumber);
       // Create the table in order to have the previous labels left aligned
       GimpTable table = new GimpTable(2, 10, false);
       table.BorderWidth = 12;
       table.ColumnSpacing = 6;
       table.RowSpacing = 6;
       // Create a frame containing the previous labels
-      Frame frame = new Gtk.Frame("Tests results:");
+      Frame frame = new Frame("Tests results:");
       // ---------- End Frame ---------- // 
 
       // ---------- Start TreeView Filter ---------- // 
       // Create an Entry used to filter the tree
-      filterEntry = new Gtk.Entry ();
+      filterEntry = new Entry ();
       // Fire off an event when the text in the Entry changes
       filterEntry.Changed += OnFilterEntryTextChanged;
       // Create a nice label describing the Entry
-      Gtk.Label filterLabel = new Gtk.Label ("Assembly Search:");
+      Label filterLabel = new Label ("Assembly Search:");
       // Put them both into a little box so they show up side by side
-      Gtk.HBox filterBox = new Gtk.HBox ();
+      HBox filterBox = new HBox ();
       filterBox.PackStart (filterLabel, false, false, 20);
       filterBox.PackEnd (filterEntry, true, true, 20);
       // ---------- End TreeView Filter ---------- // 
 
       // ---------- Start TreeView ---------- // 
       // Create our TreeView
-      Gtk.TreeView tree = new Gtk.TreeView ();
+      TreeView tree = new TreeView ();
       // Create a column for the assembly name
-      Gtk.TreeViewColumn assemblyColumn = new Gtk.TreeViewColumn ();
+      TreeViewColumn assemblyColumn = new TreeViewColumn ();
       assemblyColumn.Title = "Assembly";
       // Create the text cell that will display the assenbly name
-      Gtk.CellRendererText assemblyNameCell = new Gtk.CellRendererText ();
+      CellRendererText assemblyNameCell = new CellRendererText ();
       // Add the cell to the column
       assemblyColumn.PackStart (assemblyNameCell, true);
       // Create a column for the result 
-      Gtk.TreeViewColumn resultColumn = new Gtk.TreeViewColumn ();
+      TreeViewColumn resultColumn = new TreeViewColumn ();
       resultColumn.Title = "Result";
       // Create the text cell that will display the result 
-      Gtk.CellRendererText resultReportCell = new Gtk.CellRendererText ();
+      CellRendererText resultReportCell = new CellRendererText ();
       // Avoid to edit the cell
       resultReportCell.Editable = false;
       // Add the cell to the column
@@ -107,29 +102,29 @@ namespace Gimp.UnitTest
 
       // Create a model that will hold two strings - Assembly Name 
       // and Unit Test Error 
-      Gtk.ListStore resultListStore = new Gtk.ListStore (
-          typeof (string), typeof (string));
+      ListStore resultListStore = new ListStore(typeof (string), 
+						typeof (string));
 
       // Add some data to the store
-      for(int i = 0; i < _resultsAL.Count; i++)
+      for (int i = 0; i < _resultsAL.Count; i++)
       {
-        tmp = (string)_resultsAL[i];
+        string tmp = (string) _resultsAL[i];
 
         int pos = tmp.IndexOf(":");
-        assembly = tmp.Substring(0, pos);
+        string assembly = tmp.Substring(0, pos);
         // +2 because of the ': '
-        testReport = tmp.Substring(pos+2, tmp.Length-(pos+2));
+        testReport = tmp.Substring(pos + 2, tmp.Length - (pos + 2));
         resultListStore.AppendValues(assembly, testReport);
       }
 
       // Set the renderer for the assembly cell
-      assemblyColumn.SetCellDataFunc (assemblyNameCell, new Gtk.TreeCellDataFunc (RenderAssembly));
+      assemblyColumn.SetCellDataFunc (assemblyNameCell, new TreeCellDataFunc (RenderAssembly));
       // Set the renderer for the result cell
-      resultColumn.SetCellDataFunc (resultReportCell, new Gtk.TreeCellDataFunc (RenderResult));
+      resultColumn.SetCellDataFunc (resultReportCell, new TreeCellDataFunc (RenderResult));
 
 
-      filter = new Gtk.TreeModelFilter (resultListStore, null);
-      filter.VisibleFunc = new Gtk.TreeModelFilterVisibleFunc (FilterTree);
+      filter = new TreeModelFilter (resultListStore, null);
+      filter.VisibleFunc = new TreeModelFilterVisibleFunc (FilterTree);
       tree.Model = filter;
       // Insert the TreeView inside a ScrolledWindow to add scrolling 
       ScrolledWindow sw = new ScrolledWindow ();
@@ -166,56 +161,53 @@ namespace Gimp.UnitTest
       get {return _inactive.Color;}
       set {_inactive.Color = value;}
     }
+
     private void OnFilterEntryTextChanged (object o, System.EventArgs args)
     {
       // Since the filter text changed, tell the filter to re-determine which rows to display
       filter.Refilter ();
     }
 
-    private bool FilterTree (Gtk.TreeModel model, Gtk.TreeIter iter)
+    private bool FilterTree (TreeModel model, TreeIter iter)
     {
       string testName = model.GetValue (iter, 0).ToString ();
 
       if (filterEntry.Text == "")
         return true;
 
-      if (testName.IndexOf (filterEntry.Text) > -1)
-        return true;
-      else
-        return false;
+      return (testName.IndexOf(filterEntry.Text) > -1);
     }
 
-    private void RenderAssembly (Gtk.TreeViewColumn column, Gtk.CellRenderer cell, 
-        Gtk.TreeModel model, Gtk.TreeIter iter)
+    private void RenderAssembly (TreeViewColumn column, CellRenderer cell, 
+				 TreeModel model, TreeIter iter)
     {
       string assembly = (string) model.GetValue (iter, 0);
       string result = (string) model.GetValue (iter, 1);
-      if(result.CompareTo("OK") == 0) 
+      if (result.CompareTo("OK") == 0) 
       {
-        (cell as Gtk.CellRendererText).Foreground = "darkgreen";
+        (cell as CellRendererText).Foreground = "darkgreen";
       } 
       else 
       {
-        (cell as Gtk.CellRendererText).Foreground = "red";
+        (cell as CellRendererText).Foreground = "red";
       }
-      (cell as Gtk.CellRendererText).Text = assembly;
+      (cell as CellRendererText).Text = assembly;
     }
 
-    private void RenderResult (Gtk.TreeViewColumn column, Gtk.CellRenderer cell, 
-        Gtk.TreeModel model, Gtk.TreeIter iter)
+    private void RenderResult (TreeViewColumn column, CellRenderer cell, 
+			       TreeModel model, TreeIter iter)
     {
       string result = (string) model.GetValue (iter, 1);
-      if(result.CompareTo("OK") == 0) 
-      {
-        (cell as Gtk.CellRendererText).Foreground = "darkgreen";
-      } 
+
+      if (result.CompareTo("OK") == 0) 
+	{
+	  (cell as CellRendererText).Foreground = "darkgreen";
+	} 
       else 
-      {
-        (cell as Gtk.CellRendererText).Foreground = "red";
-      }
-      (cell as Gtk.CellRendererText).Text = result;
+	{
+	  (cell as CellRendererText).Foreground = "red";
+	}
+      (cell as CellRendererText).Text = result;
     }
-
   }
-
 }

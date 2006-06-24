@@ -52,6 +52,7 @@ namespace Gimp.PhotoshopActions
       _map["delete"] = "DeleteEvent";
       _map["desaturate"] = "DesaturateEvent";
       _map["differenceClouds"] = "DifferenceCloudsEvent";
+      _map["diffuseGlow"] = "DiffuseGlowEvent";
       _map["duplicate"] = "DuplicateEvent";
       _map["emboss"] = "EmbossEvent";
       _map["equalize"] = "EqualizeEvent";
@@ -98,6 +99,7 @@ namespace Gimp.PhotoshopActions
       _map["sharpenMore"] = "SharpenMoreEvent";
       _map["show"] = "ShowEvent";
       _map["smoothness"] = "SmoothnessEvent";
+      _map["surfaceBlur"] = "SurfaceBlurEvent";
       _map["stop"] = "StopEvent";
       _map["twirl"] = "TwirlEvent";
       _map["unsharpMask"] = "UnsharpMaskEvent";

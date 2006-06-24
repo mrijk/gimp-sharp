@@ -24,7 +24,7 @@ using System.Collections.Generic;
 
 namespace Gimp.PhotoshopActions
 {
-  public class ActionSet
+  public class ActionSet : IExecutable
   {
     List<Action> _set = new List<Action>();
 

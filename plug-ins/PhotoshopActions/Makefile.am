@@ -32,6 +32,7 @@ MYSOURCES = 				\
 	DeleteEvent.cs			\
 	DeleteLayerEvent.cs		\
 	DesaturateEvent.cs		\
+	DiffuseGlowEvent.cs		\
 	DoubleParameter.cs		\
 	DifferenceCloudsEvent.cs	\
 	DuplicateEvent.cs		\
@@ -56,6 +57,7 @@ MYSOURCES = 				\
 	HideEvent.cs			\
 	HideLayerEvent.cs		\
 	HueSaturationEvent.cs		\
+	IExecutable.cs			\
 	ImageSizeEvent.cs		\
 	IndexType.cs			\
 	InverseEvent.cs			\
@@ -112,6 +114,7 @@ MYSOURCES = 				\
 	ShowLayerEvent.cs		\
 	SmoothnessEvent.cs		\
 	StopEvent.cs			\
+	SurfaceBlurEvent.cs		\
 	TextParameter.cs		\
 	TypeParameter.cs		\
 	TwirlEvent.cs			\

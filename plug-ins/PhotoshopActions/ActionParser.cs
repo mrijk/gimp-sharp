@@ -447,7 +447,9 @@ namespace Gimp.PhotoshopActions
 
     string ReadUnicodeString(int length)
     {
+      length--;	// Strip last 2 zero's
       byte[] buffer = _binReader.ReadBytes(2 * length);
+      _binReader.ReadBytes(2);	// Read and ignore 2 zero's
 
       for (int i = 0; i < 2 * length; i += 2)
 	{

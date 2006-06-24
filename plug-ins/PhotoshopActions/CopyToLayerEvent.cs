@@ -24,16 +24,11 @@ namespace Gimp.PhotoshopActions
 {
   public class CopyToLayerEvent : ActionEvent
   {
-    public override bool IsExecutable
-    {
-      get 
-	{
-	  return false;
-	}
-    }
-
     override public bool Execute()
     {
+      Layer layer = new Layer(ActiveImage.ActiveLayer);
+      ActiveImage.AddLayer(layer, -1);
+
       return true;
     }
   }

@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// SelectLayerEvent.cs
+// DiffuseGlowEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,23 +22,19 @@ using System;
 
 namespace Gimp.PhotoshopActions
 {
-  public class SelectLayerEvent : ActionEvent
+  public class DiffuseGlowEvent : ActionEvent
   {
-    string _name;
-
-    public SelectLayerEvent(ActionEvent srcEvent, string name) : base(srcEvent)
+    public override bool IsExecutable
     {
-      _name = name;
+      get 
+	{
+	  return false;
+	}
     }
 
     override public bool Execute()
     {
-      Console.WriteLine("Visible: " + (Parameters["MkVs"] != null));
-
-      SelectedLayer = ActiveImage.Layers[_name];
-      ActiveImage.ActiveLayer = SelectedLayer;
-
-      return true;
+      return false;
     }
   }
 }

@@ -24,7 +24,7 @@ using System.Collections.Generic;
 
 namespace Gimp.PhotoshopActions
 {
-  public class Action
+  public class Action : IExecutable
   {
     List<ActionEvent> _set = new List<ActionEvent>();
 

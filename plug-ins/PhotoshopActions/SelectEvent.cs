@@ -46,7 +46,7 @@ namespace Gimp.PhotoshopActions
 	      NameType name = _obj.Set[0] as NameType;
 	      if (name.ClassID2 == "Lyr")
 		{
-		  if (Parameters.Count > 1)
+		  if (Parameters.Count > 2)
 		    {
 		      // TODO: implement multiple selection
 		      Console.WriteLine("SelectEvent-1");

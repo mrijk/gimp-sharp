@@ -84,7 +84,10 @@ namespace Gimp.PhotoshopActions
       TreeView view = new TreeView(store);
       sw.Add(view);        
 
-      view.AppendColumn("Set Name", new CellRendererText(), "text", 0);
+      CellRendererText textRenderer = new CellRendererText ();
+      TreeViewColumn column = 
+	view.AppendColumn("Set Name",textRenderer, 
+			  new TreeCellDataFunc(RenderText));
 
       HBox hbox = new HBox();
       vbox.PackStart(hbox, false, true, 0);
@@ -131,9 +134,24 @@ namespace Gimp.PhotoshopActions
       return DialogRun();
     }
 
+    private void RenderText(TreeViewColumn column, CellRenderer cell, 
+			    TreeModel model, TreeIter iter)
+    {
+      string name = model.GetValue (iter, 0) as string;
+      IExecutable executable = model.GetValue (iter, 1) as IExecutable;
+      CellRendererText text = cell as CellRendererText;
+
+      text.Text = name;
+
+      if (executable != null)
+	{
+	  text.Foreground =  (executable.IsExecutable) ? "darkgreen" : "red";
+	}
+    }
+
     TreeStore CreateActionTree()
     {
-      TreeStore store = new TreeStore(typeof(string), typeof(string));
+      TreeStore store = new TreeStore(typeof(string), typeof(IExecutable));
 
       string scriptDir = Gimp.Directory + "/scripts";
 
@@ -152,10 +170,11 @@ namespace Gimp.PhotoshopActions
 		{
 		  _set.Add(actions);
 
-		  TreeIter iter = store.AppendValues(actions.Name);
+		  TreeIter iter = store.AppendValues(actions.Name, actions);
 		  foreach (Action action in actions)
 		    {
-		      TreeIter iter1 = store.AppendValues(iter, action.Name);
+		      TreeIter iter1 = store.AppendValues(iter, action.Name,
+							  action);
 		      foreach (ActionEvent actionEvent in action)
 			{
 			  actionEvent.FillStore(store, iter1);

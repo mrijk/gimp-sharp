@@ -1,3 +1,19 @@
+2006-06-24  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/UnitTest/TestReportDialog.cs: minor clean-up
+
+	* plug-ins/PhotoshopActions/PhotoshopActions.cs: actions now
+	colored according to their implementation status
+
+	* plug-ins/PhotoshopActions/IExecutable.cs
+	* plug-ins/PhotoshopActions/SurfaceBlurEvent.cs
+	* plug-ins/PhotoshopActions/DiffuseGlowEvent.cs: new files
+
+	* plug-ins/PhotoshopActions/EventMap.cs
+	* plug-ins/PhotoshopActions/Makefile: changed accordingly
+
+	* plug-ins/PhotoshopActions/CopyToLayerEvent.cs: implemented
+
 2006-06-23  Maurits  <m.rijk@chello.nl>
 
 	* lib/LayerList.cs: made GetEnumerator public

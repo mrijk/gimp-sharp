@@ -47,13 +47,11 @@ namespace Gimp.PhotoshopActions
     public override void Parse(ActionParser parser)
     {
       _classID = parser.ReadTokenOrUnicodeString();
-      Console.WriteLine("\t\tprop:classID: " + _classID);
-
       _classID2 = parser.ReadTokenOrString();
-      Console.WriteLine("\t\tprop:classID2: " + _classID2);
-
       _key = parser.ReadTokenOrString();
-      Console.WriteLine("\t\tprop:keyID: " + _key);
+
+      Console.WriteLine("\t\tprop: c = {0}, c2 = {1}, k = {2}", _classID,
+			_classID2, _key);
     }
   }
 }
