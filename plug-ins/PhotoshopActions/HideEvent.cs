@@ -40,19 +40,27 @@ namespace Gimp.PhotoshopActions
       base.Parse(parser);
 
       ReferenceParameter obj = _list.Set[0] as ReferenceParameter;
-      EnmrType enmr = obj.Set[0] as EnmrType;
 
-      switch (enmr.Key)
+      if (obj.Set[0] is EnmrType)
 	{
-	case "Lyr":
-	  return new HideLayerEvent();
-	  break;
-	case "Chnl":
-	  return new HideChannelEvent(enmr.Value);
-	  break;
-	default:
-	  Console.WriteLine("Can't hide " + enmr.Key);
-	  break;
+	  EnmrType enmr = obj.Set[0] as EnmrType;
+	  
+	  switch (enmr.Key)
+	    {
+	    case "Lyr":
+	      return new HideLayerEvent();
+	      break;
+	    case "Chnl":
+	      return new HideChannelEvent(enmr.Value);
+	      break;
+	    default:
+	      Console.WriteLine("Can't hide " + enmr.Key);
+	      break;
+	    }
+	}
+      else
+	{
+	  Console.WriteLine("HideEvent: " + obj.Set[0]);
 	}
       return this;
     }

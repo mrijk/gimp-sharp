@@ -42,18 +42,28 @@ namespace Gimp.PhotoshopActions
     {
       base.Parse(parser);
 
+      DoubleParameter red, green, blue;
+
       if (_monochrome)
 	{
-	  _r = (_grey.Parameters["Rd"] as DoubleParameter). Value;
-	  _g = (_grey.Parameters["Grn"] as DoubleParameter).Value;
-	  _b = (_grey.Parameters["Bl"] as DoubleParameter).Value;
+	  red = _grey.Parameters["Rd"] as DoubleParameter;
+	  green = _grey.Parameters["Grn"] as DoubleParameter;
+	  blue = _grey.Parameters["Bl"] as DoubleParameter;
 	}
       else
 	{
-	  _r = (_red.Parameters["Rd"] as DoubleParameter). Value;
-	  _g = (_green.Parameters["Grn"] as DoubleParameter).Value;
-	  _b = (_blue.Parameters["Bl"] as DoubleParameter).Value;
-	} 
+	  red = _red.Parameters["Rd"] as DoubleParameter;
+	  green = _green.Parameters["Grn"] as DoubleParameter;
+	  blue = _blue.Parameters["Bl"] as DoubleParameter;
+	}
+
+      if (red != null)
+	_r = red.Value;
+      if (green != null)
+	_g = green.Value;
+      if (blue != null)
+	_b = blue.Value;     
+
       return this;
     }
 

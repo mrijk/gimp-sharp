@@ -34,33 +34,40 @@ namespace Gimp.PhotoshopActions
 
     protected override void FillParameters(TreeStore store, TreeIter iter)
     {
-      string color;
-      switch(_using.Value)
+      if (_using != null)
 	{
-	case "FrgC":
-	  color = "foreground color";
-	  break;
-	case "BckC":
-	  color = "background color";
-	  break;
-	default:
-	  color = "Fixme: " + _using.Value;
-	  break;
+	  string color;
+	  switch(_using.Value)
+	    {
+	    case "FrgC":
+	      color = "foreground color";
+	      break;
+	    case "BckC":
+	      color = "background color";
+	      break;
+	    default:
+	      color = "Fixme: " + _using.Value;
+	      break;
+	    }
+	  store.AppendValues(iter, "Using: " + color);
 	}
-      store.AppendValues(iter, "Using: " + color);
+
       store.AppendValues(iter, "Opacity: " + _opacity + " %");
 
-      string mode;
-      switch (_mode.Value)
+      if (_mode != null)
 	{
-	case "Nrml":
-	  mode = "Normal";
-	  break;
-	default:
-	  mode = "Fixme: " + _mode.Value;
-	  break;
+	  string mode;
+	  switch (_mode.Value)
+	    {
+	    case "Nrml":
+	      mode = "Normal";
+	      break;
+	    default:
+	      mode = "Fixme: " + _mode.Value;
+	      break;
+	    }
+	  store.AppendValues(iter, "Mode: " + mode);
 	}
-      store.AppendValues(iter, "Mode: " + mode);
     }
 
     override public bool Execute()

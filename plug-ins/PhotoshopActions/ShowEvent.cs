@@ -40,19 +40,27 @@ namespace Gimp.PhotoshopActions
       base.Parse(parser);
 
       ReferenceParameter obj = _list.Set[0] as ReferenceParameter;
-      NameType name = obj.Set[0] as NameType;
 
-      switch (name.ClassID2)
+      if (obj.Set[0] is NameType)
 	{
-	case "Lyr":
-	  return new ShowLayerEvent(this);
+	  NameType name = obj.Set[0] as NameType;
+	  
+	  switch (name.ClassID2)
+	    {
+	    case "Lyr":
+	      return new ShowLayerEvent(this);
 	  break;
-	case "Chnl":
-	  return new ShowChannelEvent(name.Key);
-	  break;
-	default:
-	  Console.WriteLine("Can't show " + name.ClassID2);
-	  break;
+	    case "Chnl":
+	      return new ShowChannelEvent(name.Key);
+	      break;
+	    default:
+	      Console.WriteLine("Can't show " + name.ClassID2);
+	      break;
+	    }
+	}
+      else
+	{
+	  Console.WriteLine("ShowEvent: " + obj.Set[0]);
 	}
       return this;
     }

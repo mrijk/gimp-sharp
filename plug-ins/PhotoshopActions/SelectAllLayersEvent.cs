@@ -33,7 +33,7 @@ namespace Gimp.PhotoshopActions
 	}
     }
 
-    public bool Execute()
+    override public bool Execute()
     {
       foreach (Layer layer in ActiveImage.Layers)
 	{

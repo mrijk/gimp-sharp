@@ -74,7 +74,6 @@ namespace Gimp.PhotoshopActions
 		}
 	      actions.Add(action);
 	    }
-
 	  return actions;
 	}
       catch (Exception e)
@@ -118,7 +117,6 @@ namespace Gimp.PhotoshopActions
 	      break;
 	    }
 	}
-
       return action;
     }
 
@@ -326,23 +324,6 @@ namespace Gimp.PhotoshopActions
 	  Console.WriteLine("***ParseFourByteString Found: {0}, expected: {1}", 
 			    token, expected);
 	  throw new GimpSharpException();
-	}
-    }
-
-    public void ReadDescriptor()
-    {
-      string classID = ReadUnicodeString();
-      Console.WriteLine("\tClassID: " + classID);
-      
-      string classID2 = ReadTokenOrString();
-      Console.WriteLine("\tClassID2: " + classID2);
-
-      int numberOfItems = ReadInt32();
-      Console.WriteLine("\tNumberOfItems: " + numberOfItems);
-	  
-      for (int i = 0; i < numberOfItems; i++)
-	{
-	  ReadItem();
 	}
     }
 

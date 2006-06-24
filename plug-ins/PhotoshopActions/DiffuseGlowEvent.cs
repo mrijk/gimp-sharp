@@ -20,21 +20,32 @@
 
 using System;
 
+using Gtk;
+
 namespace Gimp.PhotoshopActions
 {
   public class DiffuseGlowEvent : ActionEvent
   {
-    public override bool IsExecutable
+    [Parameter("Grns")]
+    int _graininess;
+    [Parameter("GlwA")]
+    int _glowAmount;
+    [Parameter("ClrA")]
+    int _clearAmount;
+
+    protected override void FillParameters(TreeStore store, TreeIter iter)
     {
-      get 
-	{
-	  return false;
-	}
+      store.AppendValues(iter, "Graininess: " + _graininess);
+      store.AppendValues(iter, "Glow Amount: " + _glowAmount);
+      store.AppendValues(iter, "Clear Amount: " + _clearAmount);
     }
 
     override public bool Execute()
     {
-      return false;
+      // TODO: check these parameters!
+      RunProcedure("plug_in_softglow", (double) _glowAmount, 
+		   _clearAmount / 100.0, _graininess / 100.0);
+      return true;
     }
   }
 }

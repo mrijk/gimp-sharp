@@ -101,6 +101,7 @@ namespace Gimp.PhotoshopActions
       _map["smoothness"] = "SmoothnessEvent";
       _map["surfaceBlur"] = "SurfaceBlurEvent";
       _map["stop"] = "StopEvent";
+      _map["stroke"] = "StrokeEvent";
       _map["twirl"] = "TwirlEvent";
       _map["unsharpMask"] = "UnsharpMaskEvent";
 

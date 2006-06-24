@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// StopEvent.cs
+// StrokeEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,28 +22,19 @@ using Gtk;
 
 namespace Gimp.PhotoshopActions
 {
-  public class StopEvent : ActionEvent
+  public class StrokeEvent : ActionEvent
   {
-    [Parameter("Msge")]
-    string _message;
-    [Parameter("Cntn")]
-    bool _continue;
+    public override bool IsExecutable
+    {
+      get 
+	{
+	  return false;
+	}
+    }
 
     override public bool Execute()
     {
-      MessageDialog message = 
-	new MessageDialog(null, DialogFlags.DestroyWithParent,
-			  MessageType.Info, ButtonsType.None, _message);
-      if (_continue)
-	{
-	  message.AddButton("Continue", ResponseType.Ok);
-	}
-      message.AddButton("Stop", ResponseType.Cancel);
-
-      ResponseType response = (ResponseType) message.Run();
-      message.Destroy();
-
-      return response == ResponseType.Ok;
+      return true;
     }
   }
 }

@@ -147,6 +147,10 @@ namespace Gimp.PhotoshopActions
 	{
 	  text.Foreground =  (executable.IsExecutable) ? "darkgreen" : "red";
 	}
+      else
+	{
+	  text.Foreground = "black";
+	}
     }
 
     TreeStore CreateActionTree()
@@ -166,13 +170,15 @@ namespace Gimp.PhotoshopActions
 	      nrScripts++;
 
 	      ActionSet actions = parser.Parse(fileName);
+
+	      Console.WriteLine("one");
 	      if (actions != null)
 		{
 		  _set.Add(actions);
 
 		  TreeIter iter = store.AppendValues(actions.Name, actions);
 		  foreach (Action action in actions)
-		    {
+		    {		      
 		      TreeIter iter1 = store.AppendValues(iter, action.Name,
 							  action);
 		      foreach (ActionEvent actionEvent in action)

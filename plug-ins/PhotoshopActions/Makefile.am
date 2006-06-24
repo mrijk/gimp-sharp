@@ -114,6 +114,7 @@ MYSOURCES = 				\
 	ShowLayerEvent.cs		\
 	SmoothnessEvent.cs		\
 	StopEvent.cs			\
+	StrokeEvent.cs			\
 	SurfaceBlurEvent.cs		\
 	TextParameter.cs		\
 	TypeParameter.cs		\
