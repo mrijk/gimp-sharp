@@ -11,9 +11,11 @@ MYSOURCES = 				\
 	ActionEvent.cs			\
 	ActionParser.cs			\
 	ActionSet.cs			\
+	AddAdjustmentLayerEvent.cs	\
 	AddGuideEvent.cs		\
 	AddLayerEvent.cs		\
 	AddNoiseEvent.cs		\
+	AddToEvent.cs			\
 	BoolParameter.cs		\
 	BorderEvent.cs			\
 	BrightnessEvent.cs		\
@@ -29,12 +31,14 @@ MYSOURCES = 				\
 	CopyToLayerEvent.cs		\
 	CropEvent.cs			\
 	CutEvent.cs			\
+	DebugOutput.cs			\
 	DeleteEvent.cs			\
 	DeleteLayerEvent.cs		\
 	DesaturateEvent.cs		\
 	DiffuseGlowEvent.cs		\
 	DoubleParameter.cs		\
 	DifferenceCloudsEvent.cs	\
+	DuplicateChannelEvent.cs	\
 	DuplicateEvent.cs		\
 	DuplicateDocumentEvent.cs	\
 	DuplicateLayerEvent.cs		\
@@ -103,6 +107,7 @@ MYSOURCES = 				\
 	SelectChannelEvent.cs		\
 	SelectLayerEvent.cs		\
 	SetBackgroundColorEvent.cs	\
+	SetChannelPropertyEvent.cs	\
 	SetColorEvent.cs		\
 	SetEvent.cs			\
 	SetForegroundColorEvent.cs	\
@@ -115,8 +120,10 @@ MYSOURCES = 				\
 	SmoothnessEvent.cs		\
 	StopEvent.cs			\
 	StrokeEvent.cs			\
+	SubtractFromEvent.cs		\
 	SurfaceBlurEvent.cs		\
 	TextParameter.cs		\
+	TilesEvent.cs			\
 	TypeParameter.cs		\
 	TwirlEvent.cs			\
 	UnimplementedEvent.cs		\

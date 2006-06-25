@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// EnmrParameter.cs
+// SubtractFromEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,46 +19,31 @@
 //
 
 using System;
-using System.Reflection;
 
 namespace Gimp.PhotoshopActions
 {
-  public class EnmrType : ReferenceType
+  public class SubtractFromEvent : ActionEvent
   {
-    string _classID;
-    string _key;
-    string _type;
-    string _value;
+    [Parameter("T")]
+    ObjcParameter _rectangle;
 
-    public string ClassID
+    override public bool Execute()
     {
-      get {return _classID;}
-    }
+      DoubleParameter top = _rectangle.Parameters["Top"] as DoubleParameter;
+      DoubleParameter left = _rectangle.Parameters["Left"] as DoubleParameter;
+      DoubleParameter bottom = _rectangle.Parameters["Btom"] 
+	as DoubleParameter;
+      DoubleParameter right = _rectangle.Parameters["Rght"] as DoubleParameter;
 
-    public string Key
-    {
-      get {return _key;}
-    }
+      double x = left.Value;
+      double y = top.Value;
+      double width = right.Value - x + 1;
+      double height = bottom.Value - y + 1;
 
-    public string Type
-    {
-      get {return _type;}
-    }
+      RectangleSelectTool tool = new RectangleSelectTool(ActiveImage);
+      tool.Select(x, y, width, height, ChannelOps.Subtract, false, 0);
 
-    public string Value
-    {
-      get {return _value;}
-    }
-
-    public override void Parse(ActionParser parser)
-    {
-      _classID = parser.ReadTokenOrUnicodeString();
-      _key = parser.ReadTokenOrString();
-      _type = parser.ReadTokenOrString();
-      _value = parser.ReadTokenOrString();
-
-      DebugOutput.Dump("Enmr: c = {0}, k = {1}, t = {2}, v = {3}",
-		       _classID, _key, _type, _value);
+      return true;
     }
   }
 }

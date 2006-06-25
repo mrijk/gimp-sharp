@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// EnmrParameter.cs
+// DebugOutput.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,46 +19,35 @@
 //
 
 using System;
-using System.Reflection;
 
 namespace Gimp.PhotoshopActions
 {
-  public class EnmrType : ReferenceType
+  public class DebugOutput
   {
-    string _classID;
-    string _key;
-    string _type;
-    string _value;
+    static int _level;
+    static bool _quiet;
 
-    public string ClassID
+    public static void Dump(string format, params object[] list)
     {
-      get {return _classID;}
+      if (!_quiet)
+	{
+	  for (int i = 0; i < _level; i++)
+	    {
+	      Console.Write("\t");
+	    }
+	  Console.WriteLine(format, list);
+	}
     }
 
-    public string Key
+    public static bool Quiet
     {
-      get {return _key;}
+      set {_quiet = value;}
     }
 
-    public string Type
+    public static int Level
     {
-      get {return _type;}
-    }
-
-    public string Value
-    {
-      get {return _value;}
-    }
-
-    public override void Parse(ActionParser parser)
-    {
-      _classID = parser.ReadTokenOrUnicodeString();
-      _key = parser.ReadTokenOrString();
-      _type = parser.ReadTokenOrString();
-      _value = parser.ReadTokenOrString();
-
-      DebugOutput.Dump("Enmr: c = {0}, k = {1}, t = {2}, v = {3}",
-		       _classID, _key, _type, _value);
+      get {return _level;}
+      set {_level = value;}
     }
   }
 }

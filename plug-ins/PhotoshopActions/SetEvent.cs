@@ -29,10 +29,7 @@ namespace Gimp.PhotoshopActions
 
     public override bool IsExecutable
     {
-      get 
-	{
-	  return false;
-	}
+      get {return false;}
     }
 
     override public ActionEvent Parse(ActionParser parser)
@@ -73,14 +70,17 @@ namespace Gimp.PhotoshopActions
 	  else if (_obj.Set[0] is EnmrType)
 	    {
 	      EnmrType enmr = _obj.Set[0] as EnmrType;
-	      if (enmr.Key == "Lyr")
+	      switch (enmr.Key)
 		{
+		case "Chnl":
+		  return new SetChannelPropertyEvent(this);
+		  break;
+		case "Lyr":
 		  return new SetLayerPropertyEvent(this);
-		}
-	      else
-		{
-		  Console.WriteLine("SetEvent.Parse: unknown key " +
-				    enmr.Key);
+		  break;
+		default:
+		  Console.WriteLine("SetEvent.Parse: unknown key " + enmr.Key);
+		  break;
 		}
 	    }
 	  else

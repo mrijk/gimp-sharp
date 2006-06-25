@@ -1,3 +1,43 @@
+2006-06-25  Maurits  <m.rijk@chello.nl>
+
+	* lib/RectangleSelectTool.cs: new file
+	* lib/Makefile.am: changed accordingly
+
+	* lib/Drawable.cs: implemented gimp_edit_stroke
+
+	* plug-ins/PhotoshopActions/SetEvent.cs: support for channels
+
+	* plug-ins/PhotoshopActions/DuplicateEvent.cs: added support for
+	duplicating channels
+
+	* plug-ins/PhotoshopActions/MakeEvent.cs: placeholder for
+	adjustment layers
+
+	* plug-ins/PhotoshopActions/SetColorEvent.cs: simplified
+
+	* plug-ins/PhotoshopActions/AddAdjustmentLayerEvent.cs
+	* plug-ins/PhotoshopActions/AddToEvent.cs
+	* plug-ins/PhotoshopActions/DuplicateChannelEvent.cs
+	* plug-ins/PhotoshopActions/SetChannelPropertyEvent.cs
+	* plug-ins/PhotoshopActions/SubtractFromEvent.cs
+	* plug-ins/PhotoshopActions/TilesEvent.cs
+	* plug-ins/PhotoshopActions/DebugOutput.cs: new files
+
+	* plug-ins/PhotoshopActions/Makefile: changed accordingly
+
+2006-06-24  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/PhotoshopActions/StrokeEvent.cs: new file
+
+	* plug-ins/PhotoshopActions/EventMap.cs
+	* plug-ins/PhotoshopActions/Makefile: changed accordingly
+
+	* plug-ins/PhotoshopActions/StopEvent.cs: changed message type to
+	Info
+
+	* plug-ins/PhotoshopActions/DiffuseGlowEvent.cs: mapped to
+	softglow plug-in
+
 2006-06-24  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/UnitTest/TestReportDialog.cs: minor clean-up

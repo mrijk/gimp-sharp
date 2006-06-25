@@ -128,7 +128,9 @@ namespace Gimp.PhotoshopActions
     public virtual ActionEvent Parse(ActionParser parser)
     {
       _parameters = new ParameterSet();
+      DebugOutput.Level++;
       _parameters.Parse(parser, this, NumberOfItems);
+      DebugOutput.Level--;
 
       return this;
     }
@@ -143,6 +145,36 @@ namespace Gimp.PhotoshopActions
     {
       Procedure procedure = new Procedure(name);
       procedure.Run(_activeImage, _activeDrawable, list);
+    }
+
+    protected RGB GetColor(ObjcParameter objc)
+    {
+      switch (objc.ClassID2)
+	{
+	case "RGBC":
+	  DoubleParameter red = objc.Parameters["Rd"] as DoubleParameter;
+	  DoubleParameter green = objc.Parameters["Grn"] as DoubleParameter;
+	  DoubleParameter blue = objc.Parameters["Bl"] as DoubleParameter;
+
+	  return new RGB(red.Value / 255.0, green.Value / 255.0, 
+			 blue.Value / 255.0);
+	  break;
+	case "HSBC":
+	  DoubleParameter hue = objc.Parameters["H"] as DoubleParameter;
+	  DoubleParameter saturation = objc.Parameters["Strt"] 
+	    as DoubleParameter;
+	  DoubleParameter brightness = objc.Parameters["Brgh"] 
+	    as DoubleParameter;
+
+	  return new RGB(new HSV(hue.Value / 255.0, saturation.Value / 255.0, 
+				 brightness.Value / 255.0));
+	  break;
+	default:
+	  Console.WriteLine("*** Color model {0} not supported", 
+			    objc.ClassID2);
+	  return null;
+	  break;
+	}
     }
   }
 }

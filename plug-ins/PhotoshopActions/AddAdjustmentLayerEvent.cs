@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// EnmrParameter.cs
+// AddAdjustmentLayerEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,46 +19,23 @@
 //
 
 using System;
-using System.Reflection;
 
 namespace Gimp.PhotoshopActions
 {
-  public class EnmrType : ReferenceType
+  public class AddAdjustmentLayerEvent : ActionEvent
   {
-    string _classID;
-    string _key;
-    string _type;
-    string _value;
-
-    public string ClassID
+    public override bool IsExecutable
     {
-      get {return _classID;}
+      get {return false;}
     }
 
-    public string Key
+    public AddAdjustmentLayerEvent(ActionEvent srcEvent) : base(srcEvent) 
     {
-      get {return _key;}
     }
 
-    public string Type
+    override public bool Execute()
     {
-      get {return _type;}
-    }
-
-    public string Value
-    {
-      get {return _value;}
-    }
-
-    public override void Parse(ActionParser parser)
-    {
-      _classID = parser.ReadTokenOrUnicodeString();
-      _key = parser.ReadTokenOrString();
-      _type = parser.ReadTokenOrString();
-      _value = parser.ReadTokenOrString();
-
-      DebugOutput.Dump("Enmr: c = {0}, k = {1}, t = {2}, v = {3}",
-		       _classID, _key, _type, _value);
+      return true;
     }
   }
 }

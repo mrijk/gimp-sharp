@@ -171,7 +171,6 @@ namespace Gimp.PhotoshopActions
 
 	      ActionSet actions = parser.Parse(fileName);
 
-	      Console.WriteLine("one");
 	      if (actions != null)
 		{
 		  _set.Add(actions);

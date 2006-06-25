@@ -36,6 +36,7 @@ namespace Gimp.PhotoshopActions
     public EventMap()
     {
       _map["addNoise"] = "AddNoiseEvent";
+      _map["addTo"] = "AddToEvent";
       _map["border"] = "BorderEvent";
       _map["brightnessEvent"] = "BrightnessEvent";
       _map["canvasSize"] = "CanvasSizeEvent";
@@ -99,9 +100,11 @@ namespace Gimp.PhotoshopActions
       _map["sharpenMore"] = "SharpenMoreEvent";
       _map["show"] = "ShowEvent";
       _map["smoothness"] = "SmoothnessEvent";
+      _map["subtractFrom"] = "SubtractFromEvent";
       _map["surfaceBlur"] = "SurfaceBlurEvent";
       _map["stop"] = "StopEvent";
       _map["stroke"] = "StrokeEvent";
+      _map["tiles"] = "TilesEvent";
       _map["twirl"] = "TwirlEvent";
       _map["unsharpMask"] = "UnsharpMaskEvent";
 

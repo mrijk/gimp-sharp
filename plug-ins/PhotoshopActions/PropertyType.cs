@@ -50,8 +50,8 @@ namespace Gimp.PhotoshopActions
       _classID2 = parser.ReadTokenOrString();
       _key = parser.ReadTokenOrString();
 
-      Console.WriteLine("\t\tprop: c = {0}, c2 = {1}, k = {2}", _classID,
-			_classID2, _key);
+      DebugOutput.Dump("prop: c = {0}, c2 = {1}, k = {2}", _classID,
+		       _classID2, _key);
     }
   }
 }

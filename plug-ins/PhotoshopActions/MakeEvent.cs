@@ -53,13 +53,18 @@ namespace Gimp.PhotoshopActions
       else if (_obj != null)
 	{
 	  ClassType classType = _obj.Set[0] as ClassType;
-	  if (classType.ClassID2 == "Lyr")
+	  switch (classType.ClassID2)
 	    {
+	    case "AdjL":
+	      return new AddAdjustmentLayerEvent(this);
+	      break;
+	    case "Lyr":
 	      return new AddLayerEvent(this, _obj.Set);
-	    }
-	  else
-	    {
-	      Console.WriteLine("MakeEvent: {0} not implemented", classID);
+	      break;
+	    default:
+	      Console.WriteLine("MakeEvent: {0} not implemented", 
+				classType.ClassID2);
+	      break;
 	    }
 	}
       else

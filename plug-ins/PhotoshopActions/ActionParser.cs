@@ -93,7 +93,7 @@ namespace Gimp.PhotoshopActions
       Action action = new Action();
 
       int index = ReadInt16();
-      Console.WriteLine("Index: " + index);
+      DebugOutput.Dump("Index: " + index);
       
       action.ShiftKey = ReadByte();
       action.CommandKey = ReadByte();
@@ -102,10 +102,11 @@ namespace Gimp.PhotoshopActions
       action.Expanded = ReadByte();
       
       action.NrOfChildren = ReadInt32();
-      Console.WriteLine("{0} ({1})", action.Name, action.NrOfChildren);
+      DebugOutput.Dump("{0} ({1})", action.Name, action.NrOfChildren);
 
       for (int i = 0; i < action.NrOfChildren; i++)
 	{
+	  DebugOutput.Level++;
 	  ActionEvent actionEvent = ReadActionEvent();
 	  if (actionEvent != null)
 	    {
@@ -116,6 +117,7 @@ namespace Gimp.PhotoshopActions
 	      _parsingFailed++;
 	      break;
 	    }
+	  DebugOutput.Level--;
 	}
       return action;
     }
@@ -155,28 +157,27 @@ namespace Gimp.PhotoshopActions
 	  ActionEvent actionEvent = _map.Lookup(eventName);
 	  actionEvent.EventForDisplay = ReadString();
 
-	  Console.WriteLine("\tEventName: " + eventName);
+	  DebugOutput.Dump("EventName: " + eventName);
 
 	  actionEvent.HasDescriptor = (ReadInt32() != 0);
 	  if (!actionEvent.HasDescriptor)
 	    {
-	      Console.WriteLine("\tHasDescriptor: " + 
-				actionEvent.HasDescriptor);
+	      DebugOutput.Dump("HasDescriptor: " + actionEvent.HasDescriptor);
 	      return actionEvent;
 	    }
 
 	  if (preSix == false)
 	    {
 	      string classID = ReadUnicodeString();
-	      Console.WriteLine("\tClassID: " + classID);
+	      DebugOutput.Dump("ClassID: " + classID);
 	      
 	      string classID2 = ReadTokenOrString();
-	      Console.WriteLine("\tClassID2: " + classID2);
+	      DebugOutput.Dump("ClassID2: " + classID2);
 	    }
 
 	  actionEvent.PreSix = preSix;
 	  actionEvent.NumberOfItems = ReadInt32();
-	  Console.WriteLine("\tNumberOfItems: " + actionEvent.NumberOfItems);
+	  DebugOutput.Dump("NumberOfItems: " + actionEvent.NumberOfItems);
 	  
 	  actionEvent = actionEvent.Parse(this);
 
@@ -332,7 +333,7 @@ namespace Gimp.PhotoshopActions
       string key = ReadTokenOrString();
       string type = ReadFourByteString();
 
-      Console.WriteLine("\t\tkey: {0} ({1})", key, type);
+      DebugOutput.Dump("key: {0} ({1})", key, type);
 
       Parameter parameter = null;
 
@@ -377,22 +378,12 @@ namespace Gimp.PhotoshopActions
 	  break;
 	}
 
+      DebugOutput.Level++;
       parameter.Parse(this);
+      DebugOutput.Level--;
       parameter.Name = key;
 
       return parameter;
-    }
-
-    public void ParseName()
-    {
-      string classID = ReadTokenOrUnicodeString();
-      Console.WriteLine("\t\tname::classID: " + classID);
-
-      string classID2 = ReadTokenOrString();
-      Console.WriteLine("\t\tname:classID2: " + classID2);
-
-      string keyID = ReadTokenOrUnicodeString();
-      Console.WriteLine("\t\tname:keyID: " + keyID);
     }
 
     public string ReadFourByteString()

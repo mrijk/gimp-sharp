@@ -288,6 +288,14 @@ namespace Gimp
         }
     }
 
+    public void EditStroke()
+    {
+      if (!gimp_edit_stroke(_ID))
+        {
+	  throw new GimpSharpException();
+        }
+    }
+
     // GimpColor
 
     public void BrightnessContrast(int brightness, int contrast)
@@ -1057,5 +1065,7 @@ namespace Gimp
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_edit_fill(Int32 drawable_ID,
 				      FillType fill_type);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_edit_stroke(Int32 drawable_ID);
   }
 }

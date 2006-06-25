@@ -37,12 +37,12 @@ namespace Gimp.PhotoshopActions
     public override void Parse(ActionParser parser)
     {
       int number = parser.ReadInt32();
-      Console.WriteLine("\t\tnumber: " + number);
+      DebugOutput.Dump("number: " + number);
 
       for (int i = 0; i < number; i++)
 	{
 	  string type = parser.ReadFourByteString();
-	  Console.WriteLine("\t\ttype: " + type);
+	  DebugOutput.Dump("type: " + type);
 
 	  Parameter parameter = null;
 
@@ -64,7 +64,9 @@ namespace Gimp.PhotoshopActions
 
 	  if (parameter != null)
 	    {
+	      DebugOutput.Level++;
 	      parameter.Parse(parser);
+	      DebugOutput.Level--;
 	      _set.Add(parameter);
 	    }
 	}

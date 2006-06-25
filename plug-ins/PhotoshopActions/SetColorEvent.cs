@@ -27,20 +27,6 @@ namespace Gimp.PhotoshopActions
     [Parameter("T")]
     ObjcParameter _objc;
 
-    [Parameter("Rd")]
-    double _red;
-    [Parameter("Grn")]
-    double _green;
-    [Parameter("Bl")]
-    double _blue;
-
-    [Parameter("H")]
-    double _hue;
-    [Parameter("Strt")]
-    double _saturation;
-    [Parameter("Brgh")]
-    double _brightness;
-
     public SetColorEvent(ActionEvent srcEvent) : base(srcEvent)
     {
       Parameters.Fill(this);
@@ -51,22 +37,7 @@ namespace Gimp.PhotoshopActions
     {
       get 
 	{
-	  switch (_objc.ClassID2)
-	    {
-	    case "RGBC":
-	      return new RGB(_red / 255.0, _green / 255.0, _blue / 255.0);
-	      break;
-	    case "HSBC":
-	      Console.WriteLine("{0} {1} {2}", _hue, _saturation, _brightness);
-	      return new RGB(new HSV(_hue / 255.0, _saturation / 255.0, 
-				     _brightness / 255.0));
-	      break;
-	    default:
-	      Console.WriteLine("*** Color model {0} not supported", 
-				_objc.ClassID2);
-	      return null;
-	      break;
-	    }
+	  return GetColor(_objc);
 	}
     }
   }

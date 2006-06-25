@@ -18,12 +18,25 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
+using System;
+
 using Gtk;
 
 namespace Gimp.PhotoshopActions
 {
   public class StrokeEvent : ActionEvent
   {
+    [Parameter("Wdth")]
+    int _width;
+    [Parameter("Lctn")]
+    EnumParameter _location;
+    [Parameter("Opct")]
+    double _opacity;
+    [Parameter("Md")]
+    EnumParameter _mode;
+    [Parameter("Clr")]
+    ObjcParameter _color;
+
     public override bool IsExecutable
     {
       get 
@@ -32,8 +45,51 @@ namespace Gimp.PhotoshopActions
 	}
     }
 
+    protected override void FillParameters(TreeStore store, TreeIter iter)
+    {
+      store.AppendValues(iter, "Width: " + _width);
+      string location;
+      switch (_location.Value)
+	{
+	case "Otsd":
+	  location = "outside";
+	  break;
+	case "Cntr":
+	  location = "inside";
+	  break;
+	default:
+	  location = _location.Value;
+	  break;
+	}
+      store.AppendValues(iter, "Location: " + location);
+      store.AppendValues(iter, "Opacity: " + _opacity);
+      store.AppendValues(iter, "Mode: " + _mode.Value);
+    }
+
     override public bool Execute()
     {
+      Context.Push();
+
+      if (_color != null)
+	{
+	  RGB foreground = GetColor(_color);
+#if true
+	  if (foreground != null)
+	    {
+	      Console.WriteLine("Ok2!");
+	      Context.Foreground = foreground;
+	    }
+#endif
+	}
+      else
+	{
+	  Console.WriteLine("No color!");
+	}
+
+      Context.Opacity = _opacity;
+      ActiveDrawable.EditStroke();
+      Context.Pop();
+
       return true;
     }
   }

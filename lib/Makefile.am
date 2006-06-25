@@ -66,6 +66,7 @@ MYSOURCES = 			\
 	Progress.cs		\
 	RGB.cs			\
 	RandomSeed.cs		\
+	RectangleSelectTool.cs	\
 	RgnIterator.cs		\
 	SaveAttribute.cs	\
 	SaveAttributeSet.cs	\

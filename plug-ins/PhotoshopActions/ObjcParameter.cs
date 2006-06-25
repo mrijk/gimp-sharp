@@ -42,15 +42,17 @@ namespace Gimp.PhotoshopActions
     public override void Parse(ActionParser parser)
     {
       _classID = parser.ReadUnicodeString();
-      Console.WriteLine("\tClassID: " + _classID);
+      DebugOutput.Dump("ClassID: " + _classID);
       
       _classID2 = parser.ReadTokenOrString();
-      Console.WriteLine("\tClassID2: " + _classID2);
+      DebugOutput.Dump("ClassID2: " + _classID2);
 
       int numberOfItems = parser.ReadInt32();
-      Console.WriteLine("\tNumberOfItems: " + numberOfItems);
+      DebugOutput.Dump("NumberOfItems: " + numberOfItems);
 
+      DebugOutput.Level++;
       _children.Parse(parser, numberOfItems);
+      DebugOutput.Level--;
     }
 
     public void Fill(Object obj)
