@@ -26,16 +26,12 @@ namespace Gimp.PhotoshopActions
   {
     [Parameter("Nw")]
     Parameter _object;
-    // ObjcParameter _object;
     [Parameter("null")]
     ReferenceParameter _obj;
 
     public override bool IsExecutable
     {
-      get 
-	{
-	  return false;
-	}
+      get {return false;}
     }
 
     override public ActionEvent Parse(ActionParser parser)
@@ -61,6 +57,9 @@ namespace Gimp.PhotoshopActions
 	    case "Lyr":
 	      return new AddLayerEvent(this, _obj.Set);
 	      break;
+	    case "TxLr":
+	      return new AddTextLayerEvent(this);
+	      break;
 	    default:
 	      Console.WriteLine("MakeEvent: {0} not implemented", 
 				classType.ClassID2);
@@ -72,21 +71,18 @@ namespace Gimp.PhotoshopActions
 	  Console.WriteLine("Disaster!");
 	}
 
-      if (classID == "Gd")
+      switch (classID)
 	{
-	  return new AddGuideEvent(this, _object as ObjcParameter);
-	}
-      else if (classID == "Dcmn")
-	{
+	case "Dcmn":
 	  return new NewDocumentEvent(this, _object as ObjcParameter);
-	}
-      else
-	{
+	  break;
+	case "Gd":
+	  return new AddGuideEvent(this, _object as ObjcParameter);
+	  break;
+	default:
 	  Console.WriteLine("MakeEvent: {0} not implemented", classID);
-	  // throw new GimpSharpException();
-	  return this;
+	  break;
 	}
-
       return myEvent;
     }
   }

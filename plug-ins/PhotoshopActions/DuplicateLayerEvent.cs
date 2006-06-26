@@ -28,9 +28,18 @@ namespace Gimp.PhotoshopActions
     {
     }
 
+    public override string EventForDisplay
+    {
+      get {return base.EventForDisplay + " layer";}
+    }
+
     override public bool Execute()
     {
-      ActiveImage.AddLayer(new Layer(SelectedLayer), 0);
+       Layer layer = new Layer(SelectedLayer);
+      ActiveImage.AddLayer(layer, 0);
+      ActiveDrawable = layer;
+      SelectedLayer = layer;
+ 
       return true;
     }
   }

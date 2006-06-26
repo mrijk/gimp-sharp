@@ -31,12 +31,13 @@ namespace Gimp.PhotoshopActions
 
     protected override void FillParameters(TreeStore store, TreeIter iter)
     {
-      store.AppendValues(iter, "Radius");
+      store.AppendValues(iter, "Radius: " + _radius);
     }
 
     override public bool Execute()
     {
-      RunProcedure("plug_in_gauss", _radius, _radius, 0);
+      double radius = -0.8 + 3.4 * _radius;
+      RunProcedure("plug_in_gauss", radius, radius, 1);
 
       return true;
     }

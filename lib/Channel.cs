@@ -32,8 +32,14 @@ namespace Gimp
                    double opacity, RGB color)
     {
       GimpRGB rgb = color.GimpRGB;
-      _channelID = gimp_channel_new (image.ID, name, width, height,
-                                     opacity, ref rgb);
+      _channelID = gimp_channel_new(image.ID, name, width, height,
+				    opacity, ref rgb);
+    }
+
+    public Channel(Image image, ChannelType component, string name)
+    {
+      _channelID = gimp_channel_new_from_component(image.ID, component,
+						   name);
     }
 
     public Channel(Channel channel)
@@ -90,6 +96,10 @@ namespace Gimp
                                           int width, int height,
                                           double opacity, 
                                           ref GimpRGB color);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern Int32 gimp_channel_new_from_component (Int32 image_ID, 
+							 ChannelType component,
+							 string name);
     [DllImport("libgimp-2.0-0.dll")]
     static extern Int32 gimp_channel_copy (Int32 channel_ID);
     [DllImport("libgimp-2.0-0.dll")]

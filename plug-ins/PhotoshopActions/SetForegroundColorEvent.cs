@@ -27,7 +27,7 @@ namespace Gimp.PhotoshopActions
     public SetForegroundColorEvent(ActionEvent srcEvent) : base(srcEvent)
     {
     }
-    
+
     override public bool Execute()
     {
       Context.Foreground = Color;

@@ -27,6 +27,11 @@ namespace Gimp.PhotoshopActions
     [Parameter("null")]
     ReferenceParameter _obj;
 
+    public override bool IsExecutable
+    {
+      get {return !HasDescriptor;}
+    }
+
     override public ActionEvent Parse(ActionParser parser)
     {
       ActionEvent myEvent = base.Parse(parser);
@@ -35,14 +40,39 @@ namespace Gimp.PhotoshopActions
 	{
 	  if (_obj.Set[0] is EnmrType)
 	    {
-	      EnmrType enmr = _obj.Set[0] as EnmrType;
-	      if (enmr.Key == "Lyr")
+	      EnmrType type = _obj.Set[0] as EnmrType;
+	      switch (type.Key)
 		{
+		case "Chnl":
+		  return new DeleteChannelEvent(this);
+		  break;
+		case "Lyr":
 		  return new DeleteLayerEvent(this);
+		  break;
+		default:
+		  Console.WriteLine("DeleteEvent: {0} unknown", type.Key);
+		  break;
 		}
-	      else
+	    }
+	  else if (_obj.Set[0] is NameType)
+	    {
+	      NameType type = _obj.Set[0] as NameType;
+	      switch (type.ClassID2)
 		{
+		case "Chnl":
+		  return new DeleteChannelEvent(this);
+		  break;
+		case "Lyr":
+		  return new DeleteLayerEvent(this);
+		  break;
+		default:
+		  Console.WriteLine("DeleteEvent: {0} unknown", type.ClassID2);
+		  break;
 		}
+	    }
+	  else
+	    {
+	      Console.WriteLine("DeleteEvent: " + _obj.Set[0]);
 	    }
 	}
       return myEvent;

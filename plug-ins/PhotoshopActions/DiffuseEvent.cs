@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// MergeLayersEvent.cs
+// DiffuseEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,17 +22,15 @@ using System;
 
 namespace Gimp.PhotoshopActions
 {
-  public class MergeLayersEvent : ActionEvent
+  public class DiffuseEvent : ActionEvent
   {
+    public override bool IsExecutable
+    {
+      get {return false;}
+    }
+
     override public bool Execute()
     {
-      if (ActiveImage == null)
-	{
-	  Console.WriteLine("Please open image first");
-	  return false;
-	}
-
-      ActiveImage.MergeVisibleLayers(MergeType.ExpandAsNecessary);
       return true;
     }
   }

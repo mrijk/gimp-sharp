@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// MergeLayersEvent.cs
+// PlayEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -20,19 +20,34 @@
 
 using System;
 
+using Gtk;
+
 namespace Gimp.PhotoshopActions
 {
-  public class MergeLayersEvent : ActionEvent
+  public class PlayEvent : ActionEvent
   {
+    [Parameter("null")]
+    ReferenceParameter _obj;
+
+    string _set;
+    string _action;
+
+    public override bool IsExecutable
+    {
+      get {return false;}
+    }
+
+    protected override void FillParameters(TreeStore store, TreeIter iter)
+    {
+      _action = (_obj.Set[0] as NameType).Key;
+      _set = (_obj.Set[1] as NameType).Key;
+
+      store.AppendValues(iter, String.Format("Action \"{0}\" of set \"{1}\"", 
+					     _action, _set));
+    }
+
     override public bool Execute()
     {
-      if (ActiveImage == null)
-	{
-	  Console.WriteLine("Please open image first");
-	  return false;
-	}
-
-      ActiveImage.MergeVisibleLayers(MergeType.ExpandAsNecessary);
       return true;
     }
   }

@@ -20,6 +20,8 @@
 
 using System;
 
+using Gtk;
+
 namespace Gimp.PhotoshopActions
 {
   public class SetLayerPropertyEvent : ActionEvent
@@ -32,6 +34,32 @@ namespace Gimp.PhotoshopActions
       Parameters.Fill(this);
     }
 
+    public override string EventForDisplay
+    {
+      get {return base.EventForDisplay + " current layer";}
+    }
+
+    protected override void FillParameters(TreeStore store, TreeIter iter)
+    {
+      foreach (Parameter parameter in _objc.Parameters)
+	{
+	  switch (parameter.Name)
+	    {
+	    case "Md":
+	      store.AppendValues(iter, "Mode");
+	      break;
+	    case "Nm":
+	      store.AppendValues(iter, "Name");
+	      break;
+	    case "Opct":
+	      store.AppendValues(iter, "Opacity");
+	      break;
+	    default:
+	      break;
+	    }
+	}
+    }
+
     override public bool Execute()
     {
       foreach (Parameter parameter in _objc.Parameters)
@@ -42,6 +70,14 @@ namespace Gimp.PhotoshopActions
 	      string mode = (parameter as EnumParameter).Value;
 	      switch (mode)
 		{
+		case "Drkn":
+		  // TODO: not a perfect match
+		  SelectedLayer.Mode = LayerModeEffects.DarkenOnly;
+		  break;
+		case "Lghn":
+		  // TODO: not a perfect match
+		  SelectedLayer.Mode = LayerModeEffects.LightenOnly;
+		  break;
 		case "Ovrl":
 		  SelectedLayer.Mode = LayerModeEffects.Overlay;
 		  break;
@@ -57,6 +93,7 @@ namespace Gimp.PhotoshopActions
 	      SelectedLayer.Opacity = (parameter as DoubleParameter).Value;
 	      break;
 	    default:
+	      Console.WriteLine("SetLayerPropertyEvent: " + parameter.Name);
 	      break;
 	    }
 	}

@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// MergeLayersEvent.cs
+// DeleteChannelEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,21 +18,17 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-
 namespace Gimp.PhotoshopActions
 {
-  public class MergeLayersEvent : ActionEvent
+  public class DeleteChannelEvent : ActionEvent
   {
+    public DeleteChannelEvent(ActionEvent srcEvent) : base(srcEvent)
+    {
+    }
+
     override public bool Execute()
     {
-      if (ActiveImage == null)
-	{
-	  Console.WriteLine("Please open image first");
-	  return false;
-	}
-
-      ActiveImage.MergeVisibleLayers(MergeType.ExpandAsNecessary);
+      ActiveImage.RemoveChannel(ActiveImage.ActiveChannel);
       return true;
     }
   }

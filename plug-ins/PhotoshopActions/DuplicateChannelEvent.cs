@@ -20,21 +20,57 @@
 
 using System;
 
+using Gtk;
+
 namespace Gimp.PhotoshopActions
 {
   public class DuplicateChannelEvent : ActionEvent
   {
-    public override bool IsExecutable
+    string _name;
+
+    public DuplicateChannelEvent(ActionEvent srcEvent, string name) : 
+      base(srcEvent) 
     {
-      get {return false;}
+      _name = name;
     }
 
-    public DuplicateChannelEvent(ActionEvent srcEvent) : base(srcEvent) 
+    public override bool IsExecutable
     {
+      get 
+	{
+	  return Gimp.Version > new Version("2.3.0");
+	}
+    }
+
+    protected override void FillParameters(TreeStore store, TreeIter iter)
+    {
+      store.AppendValues(iter, "Channel: " + _name);
     }
 
     override public bool Execute()
     {
+      Channel channel = null;
+
+      switch (_name)
+	{
+	case "Rd":
+	  channel = new Channel(ActiveImage, ChannelType.Red, "Red copy");
+	  break;
+	case "Grn":
+	  channel = new Channel(ActiveImage, ChannelType.Green, "Green copy");
+	  break;
+	case "Bl":
+	  channel = new Channel(ActiveImage, ChannelType.Blue, "Blue copy");
+	  break;	  
+	default:
+	  Console.WriteLine("DuplicateChannel: " + _name);
+	  break;
+	}
+      if (channel != null)
+	{
+	  ActiveImage.AddChannel(channel, -1);
+	}
+
       return true;
     }
   }

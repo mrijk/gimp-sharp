@@ -1,3 +1,43 @@
+2006-06-26  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/PhotoshopActions/MergeLayersEvent.cs: changed MergeType
+
+	* plug-ins/PhotoshopActions/IndexType.cs: improved debugging output
+
+	* plug-ins/PhotoshopActions/MakeEvent.cs: added textlayer
+
+	* plug-ins/PhotoshopActions/DiffuseEvent.cs
+	* plug-ins/PhotoshopActions/GradientClassEvent.cs
+	* plug-ins/PhotoshopActions/MezzotintEvent.cs
+	* plug-ins/PhotoshopActions/WaterPaperEvent.cs
+	* plug-ins/PhotoshopActions/PolarEvent.cs
+	* plug-ins/PhotoshopActions/AddTextLayerEvent.cs
+	* plug-ins/PhotoshopActions/LinkSelectedLayersEvent.cs
+	* plug-ins/PhotoshopActions/TransformEvent.cs
+	* plug-ins/PhotoshopActions/FadeEvent.cs: new (unimplemented) files
+
+	* plug-ins/PhotoshopActions/EventMap.cs
+	* plug-ins/PhotoshopActions/Makefile: changed accordingly
+
+2006-06-25  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/PhotoshopActions/ObArParameter.cs: new file
+	* plug-ins/PhotoshopActions/Makefile: changed accordingly
+
+2006-06-25  Maurits  <m.rijk@chello.nl>
+
+	* lib/Gimp.cs: removed debug output
+
+	* lib/Channel.cs: added gimp_channel_new_from_component (GIMP 2.4)
+
+	* plug-ins/PhotoshopActions/AddEvent.cs
+	* plug-ins/PhotoshopActions/PlayEvent.cs
+	* plug-ins/PhotoshopActions/RemoveWhiteMatteEvent.cs
+	* plug-ins/PhotoshopActions/DeleteChannelEvent.cs: new files
+
+	* plug-ins/PhotoshopActions/EventMap.cs
+	* plug-ins/PhotoshopActions/Makefile: changed accordingly
+
 2006-06-25  Maurits  <m.rijk@chello.nl>
 
 	* lib/RectangleSelectTool.cs: new file

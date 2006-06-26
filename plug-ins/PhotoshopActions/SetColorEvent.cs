@@ -20,6 +20,8 @@
 
 using System;
 
+using Gtk;
+
 namespace Gimp.PhotoshopActions
 {
   public class SetColorEvent : ActionEvent
@@ -32,7 +34,11 @@ namespace Gimp.PhotoshopActions
       Parameters.Fill(this);
       _objc.Fill(this);
     }
-    
+
+    protected override void FillParameters(TreeStore store, TreeIter iter)
+    {
+    }
+        
     protected RGB Color
     {
       get 

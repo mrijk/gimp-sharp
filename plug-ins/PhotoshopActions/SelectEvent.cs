@@ -29,10 +29,7 @@ namespace Gimp.PhotoshopActions
 
     public override bool IsExecutable
     {
-      get 
-	{
-	  return false;
-	}
+      get {return false;}
     }
 
     override public ActionEvent Parse(ActionParser parser)
@@ -49,8 +46,7 @@ namespace Gimp.PhotoshopActions
 		  if (Parameters.Count > 2)
 		    {
 		      // TODO: implement multiple selection
-		      Console.WriteLine("SelectEvent-1");
-		      return this;
+		      Console.WriteLine("SelectEvent: multiple selection");
 		    }
 
 		  return new SelectLayerEvent(this, name.Key);

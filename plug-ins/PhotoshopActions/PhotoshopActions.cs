@@ -163,6 +163,8 @@ namespace Gimp.PhotoshopActions
 
       int nrScripts = 0;
 
+      DebugOutput.Quiet = true;
+
       foreach (string fileName in Directory.GetFiles(scriptDir))
 	{
 	  if (fileName.EndsWith(".atn"))
@@ -213,6 +215,7 @@ namespace Gimp.PhotoshopActions
       Console.WriteLine("#Total              : " + nrScripts);
       Console.WriteLine("#Total events       : " + nrEvents);
       Console.WriteLine("#Parsed             : " + _set.Count);
+      Console.WriteLine("#Old                : " + parser.OldVersions);
       Console.WriteLine("#Failed             : " + parser.ParsingFailed);
       Console.WriteLine("#Scripts executable : " + nrExecutable);
       Console.WriteLine("#Events executable  : " + nrExecutableEvents);

@@ -38,6 +38,11 @@ namespace Gimp.PhotoshopActions
 	}
     }
 
+    public override string EventForDisplay
+    {
+      get {return base.EventForDisplay + " layer";}
+    }
+
     override public bool Execute()
     {
       // Fix me: do something with Image.ImageBaseType

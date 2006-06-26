@@ -41,10 +41,9 @@ namespace Gimp.PhotoshopActions
     public override void Parse(ActionParser parser)
     {
       _classID = parser.ReadTokenOrUnicodeString();
-      Console.WriteLine("classID: " + _classID);
-
       _classID2 = parser.ReadTokenOrString();
-      Console.WriteLine("classID2: " + _classID2);
+
+      DebugOutput.Dump("class: c = {0}, c2 = {1}", _classID, _classID2);
     }
   }
 }

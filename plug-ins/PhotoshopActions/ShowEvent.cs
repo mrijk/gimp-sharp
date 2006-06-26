@@ -49,7 +49,7 @@ namespace Gimp.PhotoshopActions
 	    {
 	    case "Lyr":
 	      return new ShowLayerEvent(this);
-	  break;
+	      break;
 	    case "Chnl":
 	      return new ShowChannelEvent(name.Key);
 	      break;

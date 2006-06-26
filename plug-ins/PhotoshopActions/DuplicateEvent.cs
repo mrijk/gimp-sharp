@@ -45,7 +45,7 @@ namespace Gimp.PhotoshopActions
 	      switch (type.Key)
 		{
 		case "Chnl":
-		  return new DuplicateChannelEvent(this);
+		  return new DuplicateChannelEvent(this, type.Value);
 		  break;
 		case "Dcmn":
 		  return new DuplicateDocumentEvent(this);

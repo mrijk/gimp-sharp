@@ -103,7 +103,7 @@ namespace Gimp.PhotoshopActions
       set {_selectedLayer = value;}
     }
 
-    public string EventForDisplay
+    public virtual string EventForDisplay
     {
       get {return _eventForDisplay;}
       set {_eventForDisplay = value;}

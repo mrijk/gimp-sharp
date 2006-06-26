@@ -34,6 +34,11 @@ namespace Gimp.PhotoshopActions
       Parameters.Fill(this);
     }
 
+    public override string EventForDisplay
+    {
+      get {return base.EventForDisplay + " document";}
+    }
+
     protected override void FillParameters(TreeStore store, TreeIter iter)
     {
       store.AppendValues(iter, "Name: " + _name);

@@ -26,6 +26,7 @@ namespace Gimp.PhotoshopActions
   public class IndexType : ReferenceType
   {
     string _classID;
+    string _key;
     int _index;
 
     public int Index
@@ -36,12 +37,11 @@ namespace Gimp.PhotoshopActions
     public override void Parse(ActionParser parser)
     {
       _classID = parser.ReadTokenOrUnicodeString();
-      Console.WriteLine("\t\tIndex::classID: " + _classID);
-      
-      string keyID = parser.ReadTokenOrString();
-      Console.WriteLine("\t\tIndex::keyID: " + keyID);
-
+      _key = parser.ReadTokenOrString();
       _index = parser.ReadInt32();
+
+      DebugOutput.Dump("Index: c = {0}, k = {1}, i ] {2}", _classID, _key,
+		       _index); 
     }
   }
 }

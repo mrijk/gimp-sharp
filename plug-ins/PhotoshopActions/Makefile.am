@@ -11,10 +11,12 @@ MYSOURCES = 				\
 	ActionEvent.cs			\
 	ActionParser.cs			\
 	ActionSet.cs			\
+	AddEvent.cs			\
 	AddAdjustmentLayerEvent.cs	\
 	AddGuideEvent.cs		\
 	AddLayerEvent.cs		\
 	AddNoiseEvent.cs		\
+	AddTextLayerEvent.cs		\
 	AddToEvent.cs			\
 	BoolParameter.cs		\
 	BorderEvent.cs			\
@@ -32,9 +34,11 @@ MYSOURCES = 				\
 	CropEvent.cs			\
 	CutEvent.cs			\
 	DebugOutput.cs			\
+	DeleteChannelEvent.cs		\
 	DeleteEvent.cs			\
 	DeleteLayerEvent.cs		\
 	DesaturateEvent.cs		\
+	DiffuseEvent.cs			\
 	DiffuseGlowEvent.cs		\
 	DoubleParameter.cs		\
 	DifferenceCloudsEvent.cs	\
@@ -51,11 +55,13 @@ MYSOURCES = 				\
 	ExpandEvent.cs			\
 	FacetEvent.cs			\
 	FeatherEvent.cs			\
+	FadeEvent.cs			\
 	FillEvent.cs			\
 	FindEdgesEvent.cs		\
 	FlattenImageEvent.cs		\
 	FlipEvent.cs			\
 	GaussianBlurEvent.cs		\
+	GradientClassEvent.cs		\
 	GrowEvent.cs			\
 	HideChannelEvent.cs		\
 	HideEvent.cs			\
@@ -69,6 +75,7 @@ MYSOURCES = 				\
 	LensFlareEvent.cs		\
 	LevelsEvent.cs			\
 	LinkEvent.cs			\
+	LinkSelectedLayersEvent.cs	\
 	ListParameter.cs		\
 	LongParameter.cs		\
 	MakeEvent.cs			\
@@ -76,12 +83,14 @@ MYSOURCES = 				\
 	MedianEvent.cs			\
 	MergeLayersEvent.cs		\
 	MergeVisibleEvent.cs		\
+	MezzotintEvent.cs		\
 	MinimumEvent.cs			\
 	MosaicEvent.cs			\
 	MotionBlurEvent.cs		\
 	MoveEvent.cs			\
 	NameType.cs			\
 	NewDocumentEvent.cs		\
+	ObArParameter.cs		\
 	ObjcParameter.cs		\
 	OffsetEvent.cs			\
 	OpenEvent.cs			\
@@ -92,12 +101,14 @@ MYSOURCES = 				\
 	PathParameter.cs		\
 	PhotocopyEvent.cs		\
 	PhotoshopActions.cs		\
+	PlayEvent.cs			\
 	PosterizationEvent.cs		\
 	PropertyType.cs			\
 	RadialBlurEvent.cs		\
 	ReferenceParameter.cs		\
 	ReferenceType.cs		\
 	ReleType.cs			\
+	RemoveWhiteMatteEvent.cs	\
 	ReplaceColorEvent.cs		\
 	RotateEvent.cs			\
 	ResetEvent.cs			\
@@ -124,10 +135,12 @@ MYSOURCES = 				\
 	SurfaceBlurEvent.cs		\
 	TextParameter.cs		\
 	TilesEvent.cs			\
+	TransformEvent.cs		\
 	TypeParameter.cs		\
 	TwirlEvent.cs			\
 	UnimplementedEvent.cs		\
-	UnsharpMaskEvent.cs
+	UnsharpMaskEvent.cs		\
+	WaterPaperEvent.cs
 
 EXTRA_DIST = $(MYSOURCES) PhotoshopActions PhotoshopActions.png
 

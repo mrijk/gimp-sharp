@@ -29,6 +29,9 @@ namespace Gimp.PhotoshopActions
       Layer layer = new Layer(ActiveImage.ActiveLayer);
       ActiveImage.AddLayer(layer, -1);
 
+      ActiveDrawable = layer;
+      SelectedLayer = layer;
+
       return true;
     }
   }

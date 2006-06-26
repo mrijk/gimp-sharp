@@ -47,6 +47,11 @@ namespace Gimp.PhotoshopActions
       myObject.Fill(this);
     }
 
+    public override string EventForDisplay
+    {
+      get {return base.EventForDisplay + " document";}
+    }
+
     override public bool Execute()
     {
       ImageBaseType type = ImageBaseType.Rgb;	// Fix me!

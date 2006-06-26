@@ -30,6 +30,7 @@ namespace Gimp.PhotoshopActions
     EventMap _map = new EventMap();
 
     int _parsingFailed;
+    int _oldVersions;
 
     public ActionParser(Image image, Drawable drawable)
     {
@@ -40,6 +41,11 @@ namespace Gimp.PhotoshopActions
     public int ParsingFailed
     {
       get {return _parsingFailed;}
+    }
+
+    public int OldVersions
+    {
+      get {return _oldVersions;}
     }
 
     public void DumpStatistics()
@@ -57,6 +63,7 @@ namespace Gimp.PhotoshopActions
 	    {
 	      Console.WriteLine("Old version not supported");
 	      _parsingFailed++;
+	      _oldVersions++;
 	      return null;
 	    }
 
@@ -365,6 +372,9 @@ namespace Gimp.PhotoshopActions
 	  break;
 	case "TEXT":
 	  parameter = new TextParameter();
+	  break;
+	case "ObAr":
+	  parameter = new ObArParameter();
 	  break;
 	case "Objc":
 	  parameter = new ObjcParameter();
