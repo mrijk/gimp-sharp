@@ -34,6 +34,11 @@ namespace Gimp.PhotoshopActions
       get {return _set;}
     }
 
+    public Parameter this[int index]
+    {
+      get {return _set[index];}
+    }
+
     public override void Parse(ActionParser parser)
     {
       int number = parser.ReadInt32();

@@ -58,6 +58,21 @@ namespace Gimp.PhotoshopActions
 		  break;
 		}
 	    }
+	  else if (_obj.Set[0] is NameType)
+	    {
+	      NameType type = _obj.Set[0] as NameType;
+
+	      switch (type.Key)
+		{
+		default:
+		  Console.WriteLine("DuplicateEvent: {0} unknown", type.Key);
+		  break;
+		}
+	    }
+	  else
+	    {
+	      Console.WriteLine("DuplicateEvent: {0} unknown", _obj.Set[0]);
+	    }
 	}
       return this;
     }

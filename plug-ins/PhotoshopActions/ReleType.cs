@@ -50,8 +50,8 @@ namespace Gimp.PhotoshopActions
       _classID2 = parser.ReadTokenOrString();
       _offset = parser.ReadInt32();
 
-      Console.WriteLine("\t\tRele: c = {0}, c2 = {1}, i = {2}", _classID, 
-			_classID2, _offset);
+      DebugOutput.Dump("Rele: c = {0}, c2 = {1}, i = {2}", _classID, 
+		       _classID2, _offset);
     }
   }
 }

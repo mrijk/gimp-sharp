@@ -49,10 +49,12 @@ namespace Gimp.PhotoshopActions
 	      store.AppendValues(iter, "Mode");
 	      break;
 	    case "Nm":
-	      store.AppendValues(iter, "Name");
+	      string name = (parameter as TextParameter).Value;
+	      store.AppendValues(iter, "Name: " + name);
 	      break;
 	    case "Opct":
-	      store.AppendValues(iter, "Opacity");
+	      double opacity = (parameter as DoubleParameter).Value;
+	      store.AppendValues(iter, "Opacity: " + opacity);
 	      break;
 	    default:
 	      break;

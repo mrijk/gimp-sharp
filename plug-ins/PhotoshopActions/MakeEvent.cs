@@ -57,11 +57,14 @@ namespace Gimp.PhotoshopActions
 	    case "Lyr":
 	      return new AddLayerEvent(this, _obj.Set);
 	      break;
+	    case "SnpS":
+	      return new MakeSnapshotEvent(this);
+	      break;
 	    case "TxLr":
 	      return new AddTextLayerEvent(this);
 	      break;
 	    default:
-	      Console.WriteLine("MakeEvent: {0} not implemented", 
+	      Console.WriteLine("MakeEvent-1: {0} not implemented", 
 				classType.ClassID2);
 	      break;
 	    }
@@ -80,7 +83,7 @@ namespace Gimp.PhotoshopActions
 	  return new AddGuideEvent(this, _object as ObjcParameter);
 	  break;
 	default:
-	  Console.WriteLine("MakeEvent: {0} not implemented", classID);
+	  Console.WriteLine("MakeEvent-2: {0} not implemented", classID);
 	  break;
 	}
       return myEvent;

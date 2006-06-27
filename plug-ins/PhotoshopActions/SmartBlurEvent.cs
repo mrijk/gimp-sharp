@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// HideEvent.cs
+// SmartBlurEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -20,49 +20,34 @@
 
 using System;
 
+using Gtk;
+
 namespace Gimp.PhotoshopActions
 {
-  public class HideEvent : ActionEvent
+  public class SmartBlurEvent : ActionEvent
   {
-    [Parameter("null")]
-    ListParameter _list;
+    [Parameter("Rds")]
+    double _radius;
+    [Parameter("Thsh")]
+    double _threshold;
+    [Parameter("SmBQ")]
+    EnumParameter _quality;
+    [Parameter("SmBM")]
+    EnumParameter _mode;
 
-    public override bool IsExecutable
+    protected override void FillParameters(TreeStore store, TreeIter iter)
     {
-      get 
-	{
-	  return false;
-	}
+      store.AppendValues(iter, "Radius: " + _radius);
+      store.AppendValues(iter, "Threshold: " + _threshold);
+      store.AppendValues(iter, "Quality: " + _quality.Value);
+      store.AppendValues(iter, "Mode: " + _mode.Value);
     }
 
-    override public ActionEvent Parse(ActionParser parser)
+    override public bool Execute()
     {
-      base.Parse(parser);
+      RunProcedure("plug_in_sel_gauss", _radius, (int) _threshold);
 
-      ReferenceParameter obj = _list.Set[0] as ReferenceParameter;
-
-      if (obj.Set[0] is EnmrType)
-	{
-	  EnmrType enmr = obj.Set[0] as EnmrType;
-	  
-	  switch (enmr.Key)
-	    {
-	    case "Lyr":
-	      return new HideLayerEvent(this);
-	      break;
-	    case "Chnl":
-	      return new HideChannelEvent(enmr.Value);
-	      break;
-	    default:
-	      Console.WriteLine("Can't hide " + enmr.Key);
-	      break;
-	    }
-	}
-      else
-	{
-	  Console.WriteLine("HideEvent: " + obj.Set[0]);
-	}
-      return this;
+      return true;
     }
   }
 }

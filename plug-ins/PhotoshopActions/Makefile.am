@@ -26,12 +26,14 @@ MYSOURCES = 				\
 	ClassType.cs			\
 	CloseEvent.cs			\
 	CloudsEvent.cs			\
+	ColorBalanceEvent.cs		\
 	ContractEvent.cs		\
 	ConvertModeEvent.cs		\
 	CopyEvent.cs			\
 	CopyMergedEvent.cs		\
 	CopyToLayerEvent.cs		\
 	CropEvent.cs			\
+	CurvesEvent.cs			\
 	CutEvent.cs			\
 	DebugOutput.cs			\
 	DeleteChannelEvent.cs		\
@@ -61,6 +63,7 @@ MYSOURCES = 				\
 	FlattenImageEvent.cs		\
 	FlipEvent.cs			\
 	GaussianBlurEvent.cs		\
+	GlowingEdgesEvent.cs		\
 	GradientClassEvent.cs		\
 	GrowEvent.cs			\
 	HideChannelEvent.cs		\
@@ -79,6 +82,7 @@ MYSOURCES = 				\
 	ListParameter.cs		\
 	LongParameter.cs		\
 	MakeEvent.cs			\
+	MakeSnapshotEvent.cs		\
 	MaximumEvent.cs			\
 	MedianEvent.cs			\
 	MergeLayersEvent.cs		\
@@ -128,6 +132,7 @@ MYSOURCES = 				\
 	ShowChannelEvent.cs		\
 	ShowEvent.cs			\
 	ShowLayerEvent.cs		\
+	SmartBlurEvent.cs		\
 	SmoothnessEvent.cs		\
 	StopEvent.cs			\
 	StrokeEvent.cs			\

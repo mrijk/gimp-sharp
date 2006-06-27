@@ -19,6 +19,7 @@
 //
 
 using System;
+using Gtk;
 
 namespace Gimp.PhotoshopActions
 {
@@ -30,6 +31,13 @@ namespace Gimp.PhotoshopActions
     int _height;
     [Parameter("Amnt")]
     int _amount;
+
+    protected override void FillParameters(TreeStore store, TreeIter iter)
+    {
+      store.AppendValues(iter, "Angle: " + _angle);
+      store.AppendValues(iter, "Height: " + _height);
+      store.AppendValues(iter, "Amount: " + _amount);
+    }
 
     override public bool Execute()
     {

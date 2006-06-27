@@ -24,6 +24,10 @@ namespace Gimp.PhotoshopActions
 {
   public class HideLayerEvent : ActionEvent
   {
+    public HideLayerEvent(ActionEvent srcEvent) : base(srcEvent)
+    {
+    }
+
     override public bool Execute()
     {
       SelectedLayer.Visible = false;

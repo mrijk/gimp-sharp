@@ -20,6 +20,8 @@
 
 using System;
 
+using Gtk;
+
 namespace Gimp.PhotoshopActions
 {
   public class SelectLayerEvent : ActionEvent
@@ -29,6 +31,16 @@ namespace Gimp.PhotoshopActions
     public SelectLayerEvent(ActionEvent srcEvent, string name) : base(srcEvent)
     {
       _name = name;
+    }
+
+    public override string EventForDisplay
+    {
+      get {return base.EventForDisplay + " layer";}
+    }
+
+    protected override void FillParameters(TreeStore store, TreeIter iter)
+    {
+      store.AppendValues(iter, "Name: " + _name);
     }
 
     override public bool Execute()

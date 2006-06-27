@@ -41,8 +41,10 @@ namespace Gimp.PhotoshopActions
 	  if (_obj.Set[0] is PropertyType)
 	    {
 	      PropertyType property = _obj.Set[0] as PropertyType;
-	      if (property.ClassID2 == "Clr")
+
+	      switch (property.ClassID2)
 		{
+		case "Clr":
 		  switch (property.Key)
 		    {
 		    case "BckC":
@@ -54,17 +56,19 @@ namespace Gimp.PhotoshopActions
 		    default:
 		      break;
 		    }
-		}
-	      else if (property.ClassID2 == "Chnl")
-		{
+		  break;
+		case "Chnl":
 		  if (property.Key == "fsel")
 		    {
 		      return new SelectionEvent(this);
 		    }
-		}
-	      else
-		{
+		  break;
+		case "Lyr":
+		  return new SetLayerPropertyEvent(this);
+		  break;
+		default:
 		  Console.WriteLine("SetEvent.Parse: " + property.ClassID2);
+		  break;
 		}
 	    }
 	  else if (_obj.Set[0] is EnmrType)

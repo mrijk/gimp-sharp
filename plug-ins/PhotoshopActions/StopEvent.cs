@@ -29,6 +29,11 @@ namespace Gimp.PhotoshopActions
     [Parameter("Cntn")]
     bool _continue;
 
+    protected override void FillParameters(TreeStore store, TreeIter iter)
+    {
+      store.AppendValues(iter, "Message: " + _message);
+    }
+
     override public bool Execute()
     {
       MessageDialog message = 

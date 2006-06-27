@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// HideEvent.cs
+// GlowingEdgesEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,47 +22,16 @@ using System;
 
 namespace Gimp.PhotoshopActions
 {
-  public class HideEvent : ActionEvent
+  public class GlowingEdgesEvent : ActionEvent
   {
-    [Parameter("null")]
-    ListParameter _list;
-
     public override bool IsExecutable
     {
-      get 
-	{
-	  return false;
-	}
+      get {return false;}
     }
 
-    override public ActionEvent Parse(ActionParser parser)
+    override public bool Execute()
     {
-      base.Parse(parser);
-
-      ReferenceParameter obj = _list.Set[0] as ReferenceParameter;
-
-      if (obj.Set[0] is EnmrType)
-	{
-	  EnmrType enmr = obj.Set[0] as EnmrType;
-	  
-	  switch (enmr.Key)
-	    {
-	    case "Lyr":
-	      return new HideLayerEvent(this);
-	      break;
-	    case "Chnl":
-	      return new HideChannelEvent(enmr.Value);
-	      break;
-	    default:
-	      Console.WriteLine("Can't hide " + enmr.Key);
-	      break;
-	    }
-	}
-      else
-	{
-	  Console.WriteLine("HideEvent: " + obj.Set[0]);
-	}
-      return this;
+      return true;
     }
   }
 }

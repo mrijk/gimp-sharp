@@ -1,3 +1,18 @@
+2006-06-27  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/PhotoshopActions/ReleType.cs: improved debugging output
+
+	* plug-ins/PhotoshopActions/ListParameter.cs: added [] accessor
+
+	* plug-ins/PhotoshopActions/ColorBalanceEvent.cs
+	* plug-ins/PhotoshopActions/CurvesEvent.cs
+	* plug-ins/PhotoshopActions/MakeSnapshotEvent.cs
+	* plug-ins/PhotoshopActions/SmartBlurEvent.cs
+	* plug-ins/PhotoshopActions/GlowingEdgesEvent.cs: new files
+
+	* plug-ins/PhotoshopActions/EventMap.cs
+	* plug-ins/PhotoshopActions/Makefile: changed accordingly
+
 2006-06-26  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/PhotoshopActions/MergeLayersEvent.cs: changed MergeType

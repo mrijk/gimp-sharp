@@ -44,12 +44,14 @@ namespace Gimp.PhotoshopActions
       _map["channelMixer"] = "ChannelMixerEvent";
       _map["close"] = "CloseEvent";
       _map["clouds"] = "CloudsEvent";
+      _map["colorBalance"] = "ColorBalanceEvent";
       _map["contract"] = "ContractEvent";
       _map["convertMode"] = "ConvertModeEvent";
       _map["copyEvent"] = "CopyEvent";
       _map["copyMerged"] = "CopyMergedEvent";
       _map["copyToLayer"] = "CopyToLayerEvent";
       _map["crop"] = "CropEvent";
+      _map["curves"] = "CurvesEvent";
       _map["cut"] = "CutEvent";
       _map["delete"] = "DeleteEvent";
       _map["desaturate"] = "DesaturateEvent";
@@ -69,6 +71,7 @@ namespace Gimp.PhotoshopActions
       _map["flattenImage"] = "FlattenImageEvent";
       _map["flip"] = "FlipEvent";
       _map["gaussianBlur"] = "GaussianBlurEvent";
+      _map["glowingEdges"] = "GlowingEdgesEvent";
       _map["gradientClassEvent"] = "GradientClassEvent";
       _map["grow"] = "GrowEvent";
       _map["hide"] = "HideEvent";
@@ -108,6 +111,7 @@ namespace Gimp.PhotoshopActions
       _map["sharpen"] = "SharpenEvent";
       _map["sharpenMore"] = "SharpenMoreEvent";
       _map["show"] = "ShowEvent";
+      _map["smartBlur"] = "SmartBlurEvent";
       _map["smoothness"] = "SmoothnessEvent";
       _map["subtractFrom"] = "SubtractFromEvent";
       _map["surfaceBlur"] = "SurfaceBlurEvent";
