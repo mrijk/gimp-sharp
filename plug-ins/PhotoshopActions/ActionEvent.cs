@@ -19,6 +19,7 @@
 //
 
 using System;
+using System.Collections;
 
 using Gtk;
 
@@ -119,10 +120,20 @@ namespace Gimp.PhotoshopActions
     {
       iter = store.AppendValues(iter, EventForDisplay, this);
       FillParameters(store, iter);
+
+      foreach (string s in ListParameters())
+	{
+	  store.AppendValues(iter, s);
+	}
     }
 
     protected virtual void FillParameters(TreeStore store, TreeIter iter)
     {
+    }
+
+    protected virtual IEnumerable ListParameters()
+    {
+      yield break;
     }
 
     public virtual ActionEvent Parse(ActionParser parser)

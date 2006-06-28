@@ -1,3 +1,16 @@
+2006-06-28  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/PhotoshopActions/UnsharpMaskEvent.cs: using yield construct
+	to return parameters.
+	
+	* plug-ins/PhotoshopActions/SelectionEvent.cs: implemented select
+	rectangle
+
+	* plug-ins/PhotoshopActions/LevelsEvent.cs
+	* plug-ins/PhotoshopActions/CurvesEvent.cs: implemented
+
+	* lib/Drawable.cs: implemented CurvesSpline and CurvesSplineExplicit
+
 2006-06-27  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/PhotoshopActions/ReleType.cs: improved debugging output

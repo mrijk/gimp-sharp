@@ -24,13 +24,49 @@ namespace Gimp.PhotoshopActions
 {
   public class CurvesEvent : ActionEvent
   {
-    public override bool IsExecutable
-    {
-      get {return false;}
-    }
+    [Parameter("Adjs")]
+    ListParameter _adjustment;
 
     override public bool Execute()
     {
+      if (_adjustment != null)
+	{
+	  ObjcParameter objc = _adjustment[0] as ObjcParameter;
+
+	  ReferenceParameter obj = objc.Parameters["Chnl"] as 
+	    ReferenceParameter;
+	  string channel = (obj.Set[0] as EnmrType).Value;
+
+	  if (channel == "Cmps")
+	    {
+	      ListParameter curve = objc.Parameters["Crv"] as ListParameter;
+
+	      byte[] controlPoints = new byte[2 * curve.Count];
+	      int i = 0;
+
+	      foreach (Parameter parameter in curve)
+		{
+		  ObjcParameter point = parameter as ObjcParameter;
+		  double x = 
+		    (point.Parameters["Hrzn"] as DoubleParameter).Value;
+		  double y = 
+		    (point.Parameters["Vrtc"] as DoubleParameter).Value;
+		  controlPoints[i] = (byte) x;
+		  controlPoints[i + 1] = (byte) y;
+		  i += 2;
+		}
+	      ActiveDrawable.CurvesSpline(HistogramChannel.Value, 
+					  controlPoints);
+	    }
+	  else
+	    {
+	      Console.WriteLine("CurvesEvent: " + channel);
+	    }
+	}
+      else
+	{
+	  Console.WriteLine("CurvesEvent: adjustment == null?");
+	}
       return true;
     }
   }

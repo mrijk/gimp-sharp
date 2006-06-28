@@ -19,6 +19,7 @@
 //
 
 using System;
+using System.Collections;
 
 using Gtk;
 
@@ -33,11 +34,11 @@ namespace Gimp.PhotoshopActions
     [Parameter("Thsh")]
     double _threshold;
 
-    protected override void FillParameters(TreeStore store, TreeIter iter)
+    protected override IEnumerable ListParameters()
     {
-      store.AppendValues(iter, "Radius: " + _radius);
-      store.AppendValues(iter, "Amount: " + _amount);
-      store.AppendValues(iter, "Threshold: " + _threshold);      
+      yield return "Radius: " + _radius;
+      yield return "Amount: " + _amount;
+      yield return "Threshold: " + _threshold;
     }
 
     override public bool Execute()

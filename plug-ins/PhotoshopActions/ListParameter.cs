@@ -39,6 +39,16 @@ namespace Gimp.PhotoshopActions
       get {return _set[index];}
     }
 
+    public IEnumerator<Parameter> GetEnumerator()
+    {
+      return _set.GetEnumerator();
+    }
+
+    public int Count
+    {
+      get {return _set.Count;}
+    }
+
     public override void Parse(ActionParser parser)
     {
       int number = parser.ReadInt32();

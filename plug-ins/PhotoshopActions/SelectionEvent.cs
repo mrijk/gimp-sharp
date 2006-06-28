@@ -27,41 +27,62 @@ namespace Gimp.PhotoshopActions
     [Parameter("T")]
     Parameter parameter;
 
-    [Parameter("Top")]
-    double _top;
-    [Parameter("Left")]
-    double _left;
-    [Parameter("Btom")]
-    double _bottom;
-    [Parameter("Rght")]
-    double _right;
-
-    public SelectionEvent(ActionEvent srcEvent) 
-      : base(srcEvent)
+    public SelectionEvent(ActionEvent srcEvent) : base(srcEvent)
     {
       Parameters.Fill(this);
     }
     
+    public override string EventForDisplay
+    {
+      get {return base.EventForDisplay + " Selection";}
+    }
+
     override public bool Execute()
     {
       if (parameter is EnumParameter)
 	{
 	  string type = (parameter as EnumParameter).Value;
 
-	  if (type == "Al")
+	  switch (type)
 	    {
+	    case "Al":
 	      ActiveImage.Selection.All();
-	    }
-	  else
-	    {
+	      break;
+	    case "None":
+	      // ActiveImage.Selection.None();
+	      break;
+	    default:
 	      Console.WriteLine("SelectionEvent: " + type);
 	      return false;
+	      break;
 	    }
 	}
       else if (parameter is ObjcParameter)
 	{
-	  string classID2 = (parameter as ObjcParameter).ClassID2;
-	  Console.WriteLine("SelectionEvent Implement " + classID2);
+	  ObjcParameter objc = parameter as ObjcParameter;
+	  string classID2 = objc.ClassID2;
+	  switch (classID2)
+	    {
+	    case "Rctn":
+	      ParameterSet parameters = objc.Parameters;
+	      double top = (parameters["Top"] as DoubleParameter).Value;
+	      double left = (parameters["Left"] as DoubleParameter).Value;
+	      double bottom = (parameters["Btom"] as DoubleParameter).Value;
+	      double right = (parameters["Rght"] as DoubleParameter).Value;
+
+	      double x = left * ActiveImage.Width / 100;
+	      double y = top * ActiveImage.Height / 100;
+	      double width = (right - left) * ActiveImage.Width / 100 + 1;
+	      double height = (bottom - top) * ActiveImage.Height / 100 + 1;
+
+	      RectangleSelectTool tool = new RectangleSelectTool(ActiveImage);
+	      tool.Select(x, y, width, height, ChannelOps.Replace, false, 0);
+
+	      break;
+	    default:
+	      Console.WriteLine("SelectionEvent Implement " + classID2);
+	      break;
+	    }
 	}
       else
 	{

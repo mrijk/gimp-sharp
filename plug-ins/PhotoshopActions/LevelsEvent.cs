@@ -24,14 +24,8 @@ namespace Gimp.PhotoshopActions
 {
   public class LevelsEvent : ActionEvent
   {
-    public override bool IsExecutable
-    {
-      get 
-	{
-	  return Parameters["AuCo"] != null ||
-	    Parameters["Auto"] != null;
-	}
-    }
+    [Parameter("Adjs")]
+    ListParameter _adjustment;
 
     override public bool Execute()
     {
@@ -50,6 +44,26 @@ namespace Gimp.PhotoshopActions
       if (Parameters["Auto"] != null)
 	{
 	  ActiveDrawable.LevelsStretch();
+	}
+
+      if (_adjustment != null)
+	{
+	  ObjcParameter objc = _adjustment[0] as ObjcParameter;
+	  double gamma = (objc.Parameters["Gmm"] as DoubleParameter).Value;
+
+	  ReferenceParameter obj = objc.Parameters["Chnl"] as 
+	    ReferenceParameter;
+	  string channel = (obj.Set[0] as EnmrType).Value;
+
+	  if (channel == "Cmps")
+	    {
+	      ActiveDrawable.Levels(HistogramChannel.Value , 0, 255, gamma, 
+				    0, 255);
+	    }
+	  else
+	    {
+	      Console.WriteLine("LevelsEvent: " + channel);
+	    }
 	}
 
       return true;

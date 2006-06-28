@@ -367,14 +367,23 @@ namespace Gimp
         }
     }
 
-    public void CurvesSpline(HistogramChannel channel)
+    public void CurvesSpline(HistogramChannel channel, byte[] control_pts)
     {
-      throw new GimpSharpException("Fixme: CurvesSpline not implemented yet!");
+      if (!gimp_curves_spline(_ID, channel, control_pts.Length,
+			      control_pts))
+        {
+	  throw new GimpSharpException();
+        }
     }
 
-    public void CurvesExplicit(HistogramChannel channel)
+    public void CurvesSplineExplicit(HistogramChannel channel, 
+				     byte[] control_pts)
     {
-      throw new GimpSharpException("Fixme: CurvesExplicit not implemented yet!");
+      if (!gimp_curves_spline_explicit(_ID, channel, control_pts.Length,
+				       control_pts))
+        {
+	  throw new GimpSharpException();
+        }
     }
 
     public void ColorBalance(TransferMode transfer_mode,
