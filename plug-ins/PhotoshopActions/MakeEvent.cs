@@ -37,13 +37,22 @@ namespace Gimp.PhotoshopActions
     override public ActionEvent Parse(ActionParser parser)
     {
       ActionEvent myEvent = base.Parse(parser);
-      string classID = null;
 
-      if (_object != null)
+      if (_object != null && _object is ObjcParameter)
 	{
-	  if (_object is ObjcParameter)
+	  string classID = (_object as ObjcParameter).ClassID2;
+
+	  switch (classID)
 	    {
-	      classID = (_object as ObjcParameter).ClassID2;
+	    case "Dcmn":
+	      return new NewDocumentEvent(this, _object as ObjcParameter);
+	      break;
+	    case "Gd":
+	      return new AddGuideEvent(this, _object as ObjcParameter);
+	      break;
+	    default:
+	      Console.WriteLine("MakeEvent-2: {0} not implemented", classID);
+	      break;
 	    }
 	}
       else if (_obj != null)
@@ -74,18 +83,6 @@ namespace Gimp.PhotoshopActions
 	  Console.WriteLine("Disaster!");
 	}
 
-      switch (classID)
-	{
-	case "Dcmn":
-	  return new NewDocumentEvent(this, _object as ObjcParameter);
-	  break;
-	case "Gd":
-	  return new AddGuideEvent(this, _object as ObjcParameter);
-	  break;
-	default:
-	  Console.WriteLine("MakeEvent-2: {0} not implemented", classID);
-	  break;
-	}
       return myEvent;
     }
   }

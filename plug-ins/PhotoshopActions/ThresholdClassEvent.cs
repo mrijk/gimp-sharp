@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// SurfaceBlurEvent.cs
+// ThresholdClassEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,19 +19,25 @@
 //
 
 using System;
+using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class SurfaceBlurEvent : ActionEvent
+  public class ThresholdClassEvent : ActionEvent
   {
-    public override bool IsExecutable
+    [Parameter("Lvl")]
+    int _level;
+
+    protected override IEnumerable ListParameters()
     {
-      get {return false;}
+      yield return "Level: " + _level;
     }
 
     override public bool Execute()
     {
-      return false;
+      // TODO: check parameters!
+      ActiveDrawable.Threshold(_level, 255);
+      return true;
     }
   }
 }

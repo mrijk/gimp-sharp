@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// SurfaceBlurEvent.cs
+// PointillizeEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,14 +19,23 @@
 //
 
 using System;
+using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class SurfaceBlurEvent : ActionEvent
+  public class PointillizeEvent : ActionEvent
   {
+    [Parameter("ClSz")]
+    int _cellSize;
+
     public override bool IsExecutable
     {
       get {return false;}
+    }
+
+    protected override IEnumerable ListParameters()
+    {
+      yield return "Cell size: " + _cellSize;
     }
 
     override public bool Execute()

@@ -1,3 +1,25 @@
+2006-06-29  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/PhotoshopActions/ThresholdClassEvent.cs
+	* plug-ins/PhotoshopActions/DustAndScratchesEvent.cs
+	* plug-ins/PhotoshopActions/StainedGlassEvent.cs
+	* plug-ins/PhotoshopActions/PointillizeEvent.cs: new files
+
+	* plug-ins/PhotoshopActions/EventMap.cs
+	* plug-ins/PhotoshopActions/Makefile: changed accordingly
+
+	* plug-ins/PhotoshopActions/FadeEvent.cs
+	* plug-ins/PhotoshopActions/ColorBalanceEvent.cs
+	* plug-ins/PhotoshopActions/HueSaturationEvent.cs: use yield construct
+
+	* lib/CoordinateList.cs
+	* lib/Coordinate.cs: new files
+
+	* lib/Makefile.am: changed accordingly
+
+	* plug-ins/PhotoshopActions/CurvesEvent.cs
+	* lib/Drawable.cs: use new Coordinate class
+
 2006-06-28  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/PhotoshopActions/UnsharpMaskEvent.cs: using yield construct

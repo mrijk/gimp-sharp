@@ -59,6 +59,7 @@ namespace Gimp.PhotoshopActions
       _map["diffuseGlow"] = "DiffuseGlowEvent";
       _map["diffuse"] = "DiffuseEvent";
       _map["duplicate"] = "DuplicateEvent";
+      _map["dustAndScratches"] = "DustAndScratchesEvent";
       _map["emboss"] = "EmbossEvent";
       _map["equalize"] = "EqualizeEvent";
       _map["exchange"] = "ExchangeEvent";
@@ -98,6 +99,7 @@ namespace Gimp.PhotoshopActions
       _map["paste"] = "PasteEvent";
       _map["photocopy"] = "PhotocopyEvent";
       _map["play"] = "PlayEvent";
+      _map["pointillize"] = "PointillizeEvent";
       _map["polar"] = "PolarEvent";
       _map["posterization"] = "PosterizationEvent";
       _map["radialBlur"] = "RadialBlurEvent";
@@ -117,6 +119,8 @@ namespace Gimp.PhotoshopActions
       _map["surfaceBlur"] = "SurfaceBlurEvent";
       _map["stop"] = "StopEvent";
       _map["stroke"] = "StrokeEvent";
+      _map["stainedGlass"] = "StainedGlassEvent";
+      _map["thresholdClassEvent"] = "ThresholdClassEvent";
       _map["tiles"] = "TilesEvent";
       _map["transform"] = "TransformEvent";
       _map["twirl"] = "TwirlEvent";
@@ -129,7 +133,7 @@ namespace Gimp.PhotoshopActions
 
     public ActionEvent Lookup(string eventName)
     {
-      ActionEvent myEvent;
+      ActionEvent myEvent = null;
       string eventType;
 
       if (_map.TryGetValue(eventName, out eventType))
@@ -137,7 +141,15 @@ namespace Gimp.PhotoshopActions
 	  eventType = "Gimp.PhotoshopActions." + eventType;
 	  Type type = Assembly.GetEntryAssembly().GetType(eventType);
 
-	  myEvent = (ActionEvent) Activator.CreateInstance(type);
+	  try
+	    {
+	      myEvent = (ActionEvent) Activator.CreateInstance(type);
+	    }
+	  catch (Exception e)
+	    {
+	      Console.WriteLine("Event {0} problem", eventName);
+	      Console.WriteLine(e.StackTrace);
+	    }
 	}
       else
 	{

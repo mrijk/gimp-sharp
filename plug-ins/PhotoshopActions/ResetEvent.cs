@@ -27,6 +27,11 @@ namespace Gimp.PhotoshopActions
     [Parameter("null")]
     ReferenceParameter _object;
 
+    public override string EventForDisplay
+    {
+      get {return base.EventForDisplay + " swatches";}
+    }
+
     override public bool Execute()
     {
       PropertyType property = _object.Set[0] as PropertyType;

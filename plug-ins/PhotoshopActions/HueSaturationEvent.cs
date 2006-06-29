@@ -19,8 +19,7 @@
 //
 
 using System;
-
-using Gtk;
+using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
@@ -29,15 +28,14 @@ namespace Gimp.PhotoshopActions
     bool _colorization;
     int _hue, _saturation, _lightness;
 
-    protected override void FillParameters(TreeStore store, TreeIter iter)
+    protected override IEnumerable ListParameters()
     {
-      string with = _colorization ? "With" : "Without";
-      store.AppendValues(iter, with + " Colorize");
-      store.AppendValues(iter, "Hue: " + _hue);
-      store.AppendValues(iter, "Saturation: " + _saturation);
-      store.AppendValues(iter, "Lightness: " + _lightness);
+      yield return _colorization ? "With" : "Without" + " Colorize";
+      yield return "Hue: " + _hue;
+      yield return "Saturation: " + _saturation;
+      yield return "Lightness: " + _lightness;
     }
-    
+
     override public ActionEvent Parse(ActionParser parser)
     {
       // 1: colorization

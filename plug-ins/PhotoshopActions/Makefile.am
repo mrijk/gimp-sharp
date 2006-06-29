@@ -48,6 +48,7 @@ MYSOURCES = 				\
 	DuplicateEvent.cs		\
 	DuplicateDocumentEvent.cs	\
 	DuplicateLayerEvent.cs		\
+	DustAndScratchesEvent.cs	\
 	EmbossEvent.cs			\
 	EnmrType.cs			\
 	EnumParameter.cs		\
@@ -106,6 +107,8 @@ MYSOURCES = 				\
 	PhotocopyEvent.cs		\
 	PhotoshopActions.cs		\
 	PlayEvent.cs			\
+	PointillizeEvent.cs		\
+	PolarEvent.cs			\
 	PosterizationEvent.cs		\
 	PropertyType.cs			\
 	RadialBlurEvent.cs		\
@@ -134,11 +137,13 @@ MYSOURCES = 				\
 	ShowLayerEvent.cs		\
 	SmartBlurEvent.cs		\
 	SmoothnessEvent.cs		\
+	StainedGlassEvent.cs		\
 	StopEvent.cs			\
 	StrokeEvent.cs			\
 	SubtractFromEvent.cs		\
 	SurfaceBlurEvent.cs		\
 	TextParameter.cs		\
+	ThresholdClassEvent.cs		\
 	TilesEvent.cs			\
 	TransformEvent.cs		\
 	TypeParameter.cs		\

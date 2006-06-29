@@ -41,8 +41,7 @@ namespace Gimp.PhotoshopActions
 	    {
 	      ListParameter curve = objc.Parameters["Crv"] as ListParameter;
 
-	      byte[] controlPoints = new byte[2 * curve.Count];
-	      int i = 0;
+	      CoordinateList<byte> controlPoints = new CoordinateList<byte>();
 
 	      foreach (Parameter parameter in curve)
 		{
@@ -51,9 +50,8 @@ namespace Gimp.PhotoshopActions
 		    (point.Parameters["Hrzn"] as DoubleParameter).Value;
 		  double y = 
 		    (point.Parameters["Vrtc"] as DoubleParameter).Value;
-		  controlPoints[i] = (byte) x;
-		  controlPoints[i + 1] = (byte) y;
-		  i += 2;
+
+		  controlPoints.Add(new Coordinate<byte>((byte) x, (byte) y));
 		}
 	      ActiveDrawable.CurvesSpline(HistogramChannel.Value, 
 					  controlPoints);

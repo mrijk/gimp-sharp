@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// SurfaceBlurEvent.cs
+// DustAndScratchesEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,14 +19,26 @@
 //
 
 using System;
+using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class SurfaceBlurEvent : ActionEvent
+  public class DustAndScratchesEvent : ActionEvent
   {
+    [Parameter("Rds")]
+    int _radius;
+    [Parameter("Thsh")]
+    int _threshold;
+
     public override bool IsExecutable
     {
       get {return false;}
+    }
+
+    protected override IEnumerable ListParameters()
+    {
+      yield return "Radius: " + _radius;
+      yield return "Threshold: " + _threshold;
     }
 
     override public bool Execute()

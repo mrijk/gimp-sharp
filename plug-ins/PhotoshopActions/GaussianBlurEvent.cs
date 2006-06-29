@@ -19,8 +19,7 @@
 //
 
 using System;
-
-using Gtk;
+using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
@@ -29,9 +28,9 @@ namespace Gimp.PhotoshopActions
     [Parameter("Rds")]
     double _radius;
 
-    protected override void FillParameters(TreeStore store, TreeIter iter)
+    protected override IEnumerable ListParameters()
     {
-      store.AppendValues(iter, "Radius: " + _radius);
+      yield return "Radius: " + _radius;
     }
 
     override public bool Execute()

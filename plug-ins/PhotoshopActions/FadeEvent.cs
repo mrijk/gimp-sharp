@@ -19,14 +19,26 @@
 //
 
 using System;
+using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
   public class FadeEvent : ActionEvent
   {
+    [Parameter("Opct")]
+    double _opacity;
+    [Parameter("Md")]
+    EnumParameter _mode;
+
     public override bool IsExecutable
     {
       get {return false;}
+    }
+
+    protected override IEnumerable ListParameters()
+    {
+      yield return "Opacity: " + _opacity;
+      yield return "Mode: " + _mode.Value;
     }
 
     override public bool Execute()

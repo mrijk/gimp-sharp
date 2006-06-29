@@ -77,7 +77,7 @@ namespace Gimp.PhotoshopActions
 		}
 	      else
 		{
-		  Console.WriteLine("Enmr: " + enmr.Key);
+		  Console.WriteLine("SelectEvent.Enmr: " + enmr.Key);
 		}
 	    }
 	  else

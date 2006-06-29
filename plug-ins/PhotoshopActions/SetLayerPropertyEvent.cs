@@ -46,7 +46,8 @@ namespace Gimp.PhotoshopActions
 	  switch (parameter.Name)
 	    {
 	    case "Md":
-	      store.AppendValues(iter, "Mode");
+	      string mode = (parameter as EnumParameter).Value;
+	      store.AppendValues(iter, "Mode: " + mode);
 	      break;
 	    case "Nm":
 	      string name = (parameter as TextParameter).Value;

@@ -21,8 +21,6 @@
 using System;
 using System.Collections;
 
-using Gtk;
-
 namespace Gimp.PhotoshopActions
 {
   public class UnsharpMaskEvent : ActionEvent

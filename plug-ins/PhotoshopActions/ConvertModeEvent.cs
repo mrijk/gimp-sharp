@@ -19,6 +19,7 @@
 //
 
 using System;
+using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
@@ -33,6 +34,11 @@ namespace Gimp.PhotoshopActions
 	{
 	  return _type != null;
 	}
+    }
+
+    protected override IEnumerable ListParameters()
+    {
+      yield return "Mode: ";
     }
 
     override public bool Execute()

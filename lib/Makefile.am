@@ -13,6 +13,8 @@ MYSOURCES = 			\
 	Channel.cs 		\
 	ChannelList.cs 		\
 	Context.cs		\
+	Coordinate.cs		\
+	CoordinateList.cs	\
 	Display.cs 		\
 	Drawable.cs		\
 	DrawablePreview.cs	\

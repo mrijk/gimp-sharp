@@ -19,8 +19,7 @@
 //
 
 using System;
-
-using Gtk;
+using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
@@ -35,14 +34,14 @@ namespace Gimp.PhotoshopActions
     [Parameter("PrsL")]
     bool _preserveLuminosity;
 
-    protected override void FillParameters(TreeStore store, TreeIter iter)
+    protected override IEnumerable ListParameters()
     {
       // TODO: add actual values
-      store.AppendValues(iter, "Shadow Levels: ");
-      store.AppendValues(iter, "Midtone Levels: ");
-      store.AppendValues(iter, "Highlight Levels: ");
-      store.AppendValues(iter, ((_preserveLuminosity) ? "With" : "Without") +
-			 " Preserve Luminosity");
+      yield return "Shadow Levels: ";
+      yield return "Midtone Levels: ";
+      yield return "Highlight Levels: ";
+      yield return ((_preserveLuminosity) ? "With" : "Without") +
+	" Preserve Luminosity";
     }
 
     void SetBalance(ListParameter parameter, TransferMode transferMode)

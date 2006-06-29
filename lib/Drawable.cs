@@ -367,20 +367,21 @@ namespace Gimp
         }
     }
 
-    public void CurvesSpline(HistogramChannel channel, byte[] control_pts)
+    public void CurvesSpline(HistogramChannel channel, CoordinateList<byte>
+			     controlPoints)
     {
-      if (!gimp_curves_spline(_ID, channel, control_pts.Length,
-			      control_pts))
+      byte[] array = controlPoints.ToArray();
+      if (!gimp_curves_spline(_ID, channel, array.Length, array))
         {
 	  throw new GimpSharpException();
         }
     }
 
     public void CurvesSplineExplicit(HistogramChannel channel, 
-				     byte[] control_pts)
+				     CoordinateList<byte> controlPoints)
     {
-      if (!gimp_curves_spline_explicit(_ID, channel, control_pts.Length,
-				       control_pts))
+      byte[] array = controlPoints.ToArray();
+      if (!gimp_curves_spline_explicit(_ID, channel, array.Length, array))
         {
 	  throw new GimpSharpException();
         }
