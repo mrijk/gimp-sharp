@@ -112,6 +112,7 @@ AC_CONFIG_FILES([
 Makefile lib/Makefile 
 plug-ins/Makefile 
 plug-ins/AverageBlur/Makefile
+plug-ins/DifferenceClouds/Makefile
 plug-ins/ecw/Makefile
 plug-ins/Forge/Makefile
 plug-ins/KoalaPaint/Makefile

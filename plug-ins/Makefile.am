@@ -6,6 +6,7 @@ endif
 
 if BUILD_INCOMPLETE
 Shatter = Shatter
+DifferenceClouds = DifferenceClouds
 endif
 
 if BUILD_PDN
@@ -19,6 +20,7 @@ endif
 AUTOMAKE_OPTIONS = gnu
 SUBDIRS = 			\
 	AverageBlur		\
+	$(DifferenceClouds)	\
 	$(ecw)			\
 	Forge	 		\
 	KoalaPaint 		\
