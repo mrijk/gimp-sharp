@@ -66,6 +66,8 @@ MYSOURCES = 				\
 	GaussianBlurEvent.cs		\
 	GlowingEdgesEvent.cs		\
 	GradientClassEvent.cs		\
+	GradientMapEvent.cs		\
+	GrainEvent.cs			\
 	GrowEvent.cs			\
 	HideChannelEvent.cs		\
 	HideEvent.cs			\
@@ -137,6 +139,7 @@ MYSOURCES = 				\
 	ShowLayerEvent.cs		\
 	SmartBlurEvent.cs		\
 	SmoothnessEvent.cs		\
+	SpherizeEvent.cs		\
 	StainedGlassEvent.cs		\
 	StopEvent.cs			\
 	StrokeEvent.cs			\

@@ -19,18 +19,41 @@
 //
 
 using System;
+using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
   public class HideLayerEvent : ActionEvent
   {
+    string _name;
+
     public HideLayerEvent(ActionEvent srcEvent) : base(srcEvent)
     {
     }
 
+    public HideLayerEvent(ActionEvent srcEvent, string name) : base(srcEvent)
+    {
+      _name = name;
+    }
+
+    protected override IEnumerable ListParameters()
+    {
+      if (_name != null)
+	{
+	  yield return "Name: " + _name;
+	}
+    }
+
     override public bool Execute()
     {
-      SelectedLayer.Visible = false;
+      if (_name != null)
+	{
+	  ActiveImage.Layers[_name].Visible = false;
+	}
+      else
+	{
+	  SelectedLayer.Visible = false;
+	}
       return true;
     }
   }

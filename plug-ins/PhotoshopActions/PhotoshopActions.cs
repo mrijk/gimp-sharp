@@ -157,13 +157,14 @@ namespace Gimp.PhotoshopActions
     {
       TreeStore store = new TreeStore(typeof(string), typeof(IExecutable));
 
-      string scriptDir = Gimp.Directory + "/scripts";
+      string scriptDir = Gimp.Directory + 
+	System.IO.Path.DirectorySeparatorChar + "scripts";
 
       ActionParser parser = new ActionParser(_image, _drawable);
 
       int nrScripts = 0;
 
-      DebugOutput.Quiet = true;
+      DebugOutput.Quiet = false;
 
       foreach (string fileName in Directory.GetFiles(scriptDir))
 	{

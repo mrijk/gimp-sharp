@@ -1,3 +1,27 @@
+2006-06-30  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/PhotoshopActions/ShowLayerEvent.cs
+	* plug-ins/PhotoshopActions/HideLayerEvent.cs
+	* plug-ins/PhotoshopActions/ShowEvent.cs
+	* plug-ins/PhotoshopActions/HideEvent.cs: completed implementation
+
+	* plug-ins/PhotoshopActions/GrainEvent.cs
+	* plug-ins/PhotoshopActions/SpherizeEvent.cs
+	* plug-ins/PhotoshopActions/GradientMapEvent.cs: new files
+
+	* plug-ins/PhotoshopActions/EventMap.cs
+	* plug-ins/PhotoshopActions/Makefile: changed accordingly
+
+	* plug-ins/PhotoshopActions/RotateEvent.cs
+	* plug-ins/PhotoshopActions/MosaicEvent.cs: implemented
+
+	* lib/CoordinateList.cs: new Add method
+
+	* plug-ins/Ministeck/ShapeDescription.cs: simplified
+
+	* plug-ins/Ministeck/Coordinate.cs: removed
+	* plug-ins/Ministeck/Makefile.am: changed accordningly
+
 2006-06-30  Max      <massimo.perga@gmail.com>
 
 	* plug-ins/DifferenceClouds/DifferenceClouds.cs: removed preview
@@ -14,6 +38,10 @@
 
 	* configure.in
 	* plug-ins/Makefile.am: added rules for DifferenceClouds support
+
+2006-06-29  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/PhotoshopActions/PhotoshopActions.cs: use directoryseparator
 
 2006-06-29  Maurits  <m.rijk@chello.nl>
 

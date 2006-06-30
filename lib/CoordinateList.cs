@@ -28,12 +28,22 @@ namespace Gimp
   public class CoordinateList<T>
   {
     List<Coordinate<T>> _list = new List<Coordinate<T>>();
+
+    public IEnumerator<Coordinate<T>> GetEnumerator()
+    {
+      return _list.GetEnumerator();
+    }
 	
     public void Add(Coordinate<T> coordinate)
     {
       _list.Add(coordinate);
     }
 	
+    public void Add(T x, T y)
+    {
+      _list.Add(new Coordinate<T>(x, y));
+    }
+
     public T[] ToArray()
     {
       T[] array = new T[_list.Count * 2];

@@ -80,7 +80,7 @@ namespace Gimp.PhotoshopActions
 	}
       else
 	{
-	  Console.WriteLine("Disaster!");
+	  Console.WriteLine("MakeEvent: Disaster!");
 	}
 
       return myEvent;

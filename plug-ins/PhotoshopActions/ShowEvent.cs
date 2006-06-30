@@ -48,13 +48,27 @@ namespace Gimp.PhotoshopActions
 	  switch (name.ClassID2)
 	    {
 	    case "Lyr":
-	      return new ShowLayerEvent(this);
+	      return new ShowLayerEvent(this, name.Key);
 	      break;
 	    case "Chnl":
 	      return new ShowChannelEvent(name.Key);
 	      break;
 	    default:
 	      Console.WriteLine("Can't show " + name.ClassID2);
+	      break;
+	    }
+	}
+      else if (obj.Set[0] is EnmrType)
+	{
+	  EnmrType enmr = obj.Set[0] as EnmrType;
+
+	  switch (enmr.Key)
+	    {
+	    case "Lyr":
+	      return new ShowLayerEvent(this);
+	      break;
+	    default:
+	      Console.WriteLine("Can't show " + enmr.Key);
 	      break;
 	    }
 	}

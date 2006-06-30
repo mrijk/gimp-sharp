@@ -19,6 +19,7 @@
 //
 
 using System;
+using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
@@ -27,16 +28,16 @@ namespace Gimp.PhotoshopActions
     [Parameter("Angl")]
     double _angle;
 
-    public override bool IsExecutable
+    protected override IEnumerable ListParameters()
     {
-      get 
-	{
-	  return false;
-	}
+      yield return "Angle: " + _angle;
     }
 
     override public bool Execute()
     {
+      double angle = _angle * 2 * Math.PI / 360;
+
+      ActiveDrawable.TransformRotateDefault(angle, true, 0, 0, true, false);
       return true;
     }
   }

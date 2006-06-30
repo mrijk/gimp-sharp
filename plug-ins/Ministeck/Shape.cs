@@ -85,7 +85,7 @@ namespace Gimp.Ministeck
       int width = A.GetLength(0);
       int height = A.GetLength(1);
 
-      foreach (Coordinate c in shape)
+      foreach (Coordinate<int> c in shape)
 	{
 	  int cx = x + c.X;
 	  int cy = y + c.Y;
@@ -110,11 +110,9 @@ namespace Gimp.Ministeck
     {
       Fill(x, y, shape);
       A[x, y] = true;
-      foreach (Coordinate c in shape)
+      foreach (Coordinate<int> c in shape)
 	{
-	  int cx = x + c.X;
-	  int cy = y + c.Y;
-	  A[cx, cy] = true;
+	  A[x + c.X, y + c.Y] = true;
 	}
     }
 

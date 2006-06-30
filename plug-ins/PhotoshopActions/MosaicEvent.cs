@@ -19,6 +19,7 @@
 //
 
 using System;
+using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
@@ -27,17 +28,15 @@ namespace Gimp.PhotoshopActions
     [Parameter("ClSz")]
     double _size;
 
-    public override bool IsExecutable
+    protected override IEnumerable ListParameters()
     {
-      get 
-	{
-	  return false;
-	}
+      yield return "Size: " + _size;
     }
 
     override public bool Execute()
     {
-      return false;
+      RunProcedure("plug_in_pixelize", (int) _size);
+      return true;
     }
   }
 }

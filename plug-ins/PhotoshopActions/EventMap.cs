@@ -74,6 +74,8 @@ namespace Gimp.PhotoshopActions
       _map["gaussianBlur"] = "GaussianBlurEvent";
       _map["glowingEdges"] = "GlowingEdgesEvent";
       _map["gradientClassEvent"] = "GradientClassEvent";
+      _map["gradientMapEvent"] = "GradientMapEvent";
+      _map["grain"] = "GrainEvent";
       _map["grow"] = "GrowEvent";
       _map["hide"] = "HideEvent";
       _map["hueSaturation"] = "HueSaturationEvent";
@@ -115,6 +117,7 @@ namespace Gimp.PhotoshopActions
       _map["show"] = "ShowEvent";
       _map["smartBlur"] = "SmartBlurEvent";
       _map["smoothness"] = "SmoothnessEvent";
+      _map["spherize"] = "SpherizeEvent";
       _map["subtractFrom"] = "SubtractFromEvent";
       _map["surfaceBlur"] = "SurfaceBlurEvent";
       _map["stop"] = "StopEvent";

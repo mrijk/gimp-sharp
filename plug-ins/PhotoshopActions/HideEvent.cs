@@ -58,6 +58,20 @@ namespace Gimp.PhotoshopActions
 	      break;
 	    }
 	}
+      else if (obj.Set[0] is NameType)
+	{
+	  NameType name = obj.Set[0] as NameType;
+	  
+	  switch (name.ClassID2)
+	    {
+	    case "Lyr":
+	      return new HideLayerEvent(this, name.Key);
+	      break;
+	    default:
+	      Console.WriteLine("Can't hide " + name.ClassID2);
+	      break;
+	    }
+	}
       else
 	{
 	  Console.WriteLine("HideEvent: " + obj.Set[0]);

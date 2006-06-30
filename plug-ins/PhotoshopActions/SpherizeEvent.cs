@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// ShowLayerEvent.cs
+// SpherizeEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,38 +23,27 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class ShowLayerEvent : ActionEvent
+  public class SpherizeEvent : ActionEvent
   {
-    string _name;
+    [Parameter("Amnt")]
+    int _amount;
+    [Parameter("SphM")]
+    EnumParameter _mode;
 
-    public ShowLayerEvent(ActionEvent srcEvent) : base(srcEvent)
+    public override bool IsExecutable
     {
-    }
-
-    public ShowLayerEvent(ActionEvent srcEvent, string name) : base(srcEvent)
-    {
-      _name = name;
+      get {return false;}
     }
 
     protected override IEnumerable ListParameters()
     {
-      if (_name != null)
-	{
-	  yield return "Name: " + _name;
-	}
+      yield return "Amount: " + _amount;
+      yield return "Mode: " + _mode.Value;
     }
 
     override public bool Execute()
     {
-      if (_name != null)
-	{
-	  ActiveImage.Layers[_name].Visible = true;
-	}
-      else
-	{
-	  SelectedLayer.Visible = true;
-	}
-      return true;
+      return false;
     }
   }
 }
