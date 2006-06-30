@@ -64,10 +64,8 @@ namespace Gimp.DifferenceClouds
       ProcedureSet set = new ProcedureSet();
 
       ParamDefList in_params = new ParamDefList();
-      /*
-      in_params.Add(new ParamDef("seed", 0, typeof(uint), 
-            "Random generated seed"));
-      */
+      in_params.Add(new ParamDef("turbulence", 0, typeof(double), 
+            "Turbulence of the cloud"));
 
       Procedure procedure = new Procedure("plug_in_difference_clouds",
           "Creates difference clouds.",
