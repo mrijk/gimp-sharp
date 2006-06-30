@@ -23,23 +23,22 @@ using System;
 using Gtk;
 
 
-namespace Gimp.Clouds
+namespace Gimp.DifferenceClouds
 {
-  public class Clouds : PluginWithPreview
+  public class DifferenceClouds : Plugin
   {
     Random _random = null;
-    bool _random_seed = true;
-
     ScaleEntry _turbulenceEntry = null;
     Progress _progressBar = null;
-
-//    [SaveAttribute("turbulence")]
-    private double _turbulence;
-
     private uint   _count;
 
- //   [SaveAttribute("seed")]
-      uint _rseed;	      		// Current random seed
+    [SaveAttribute("seed")]
+    UInt32 _rseed;	      		// Current random seed
+    [SaveAttribute("random_seed")]
+    bool _random_seed;
+    [SaveAttribute("turbulence")]
+    private double _turbulence;
+
     private int _progress;
     private int _maxProgress;
     private int _ix1, _ix2, _iy1, _iy2;
@@ -53,10 +52,10 @@ namespace Gimp.Clouds
     [STAThread]
       static void Main(string[] args)
       {
-        new Clouds(args);
+        new DifferenceClouds(args);
       }
 
-    public Clouds(string[] args) : base(args)
+    public DifferenceClouds(string[] args) : base(args)
     {
     }
 
@@ -99,7 +98,7 @@ namespace Gimp.Clouds
       dialog.VBox.PackStart(vbox, true, true, 0);
 
       // Create the table widget
-      GimpTable table = new GimpTable(8, 4, false);
+      GimpTable table = new GimpTable(3, 4, false);
       table.ColumnSpacing = 10;
       table.RowSpacing = 10;
       table.BorderWidth = 10;
@@ -109,11 +108,8 @@ namespace Gimp.Clouds
       table.Attach(seed, 1, 3, 0, 1);
 
       _turbulenceEntry = new ScaleEntry(table, 0, 1, "_Turbulence", 150, 3,
-          _turbulence, 0.1, 7.0, 0.1, 1.0, 0, true, 0, 0, null, null);
+          _turbulence, 0.0, 7.0, 0.1, 1.0, 1, true, 0, 0, null, null);
       _turbulenceEntry.ValueChanged += TurbulenceChangedEventHandler;
-
-      // Set default values
-      //SetDefaultValues(); 
 
       vbox.PackStart(table, false, false, 0);
 
@@ -121,46 +117,22 @@ namespace Gimp.Clouds
       return DialogRun();
     }
 
-
-
-    void SetDefaultValues()
-    {
-    }
-
     void TurbulenceChangedEventHandler(object source, EventArgs e)
     {
       _turbulence = _turbulenceEntry.Value;
-//      InvalidatePreview();
-    }
-
-    override protected void UpdatePreview(AspectPreview preview)
-    {
-      int width, height;
-      /*
-      preview.GetSize(out width, out height);
-
-      byte []pixelArray = new byte[width * height * 3];
-      //RenderClouds(null, ref pixelArray, width, height);
-
-      preview.DrawBuffer(pixelArray, width * 3);
-      //      pixelArray = null;
-      */
     }
 
     override protected void Reset()
     {
-      SetDefaultValues(); 
     }
 
     override protected void Render(Image image, Drawable original_drawable)
     {
       Tile.CacheNtiles((ulong) (2 * (original_drawable.Width / Gimp.TileWidth + 1)));
-      Console.WriteLine("A0");
       _foregroundColor = Context.Foreground;
       _backgroundColor = Context.Background;
       if(_progressBar == null)
         _progressBar = new Progress("Difference Clouds...");
-      Console.WriteLine("rseed = {0}", _rseed);
       if(_random == null)
         _random = new Random((int)_rseed);
 
@@ -171,30 +143,15 @@ namespace Gimp.Clouds
       new_layer.Mode = active_layer.Mode;
       new_layer.Opacity = active_layer.Opacity;
 
-
-      Console.WriteLine("A1");
-
-//      image.AddLayer(new_layer, -1); 
-//      new_layer.Visible = true;
-//      image.ActiveLayer = new_layer;
-
-
       // Initialization steps
-//      _bpp = new_layer.Bpp;
       _bpp = original_drawable.Bpp;
-//      PixelFetcher _pf = new PixelFetcher(new_layer, true);
       PixelFetcher _pf = new PixelFetcher(original_drawable, true);
       _progress = 0;
       _hasAlpha = new_layer.HasAlpha;
-//      _hasAlpha = original_drawable.HasAlpha;
       _alpha = (_hasAlpha) ? _bpp - 1 : _bpp;
       InitializeIndexedColorsMap();
 
-      Console.WriteLine("A2");
-
-//     new_layer.MaskBounds(out _ix1, out _iy1, out _ix2, out _iy2);
       original_drawable.MaskBounds(out _ix1, out _iy1, out _ix2, out _iy2);
-      Console.WriteLine("{0} {1} {2} {3}", _ix1, _iy1, _ix2, _iy2);
       _maxProgress = (_ix2 - _ix1) * (_iy2 - _iy1);
 
       if (_ix1 != _ix2 && _iy1 != _iy2)
@@ -204,14 +161,13 @@ namespace Gimp.Clouds
          * corner, and one in the center of each edge, plus one in the
          * center of the image.
          */
-
-        DifferenceClouds (_pf, _ix1, _iy1, _ix2 - 1, _iy2 - 1, -1, 0, _random);
+        DoDifferenceClouds (_pf, _ix1, _iy1, _ix2 - 1, _iy2 - 1, -1, 0, _random);
 
         /*
          * Now we recurse through the images, going further each time.
          */
         int depth = 1;
-        while (!DifferenceClouds (_pf, _ix1, _iy1, _ix2 - 1, _iy2 - 1, depth, 0, _random))
+        while (!DoDifferenceClouds (_pf, _ix1, _iy1, _ix2 - 1, _iy2 - 1, depth, 0, _random))
         {
           depth++;
         }
@@ -221,34 +177,16 @@ namespace Gimp.Clouds
       if(_pf != null)
         _pf.Dispose();
 
-      /*
-      new_layer.Flush();
-      new_layer.MergeShadow(true);
-      new_layer.Update(_ix1, _iy1, _ix2 - _ix1, _iy2 - _iy1);
-      */
-
-
-
-      Console.WriteLine("A5");
-
       /* Create a region iterator to make difference */
 
       original_drawable.Flush();
       original_drawable.MergeShadow(true);
 
       DoDifference(original_drawable, new_layer);
-Console.WriteLine("AfterDoDiff");
 
       original_drawable.Update(_ix1, _iy1, _ix2 - _ix1, _iy2 - _iy1);
 
-      /*
-      image.UndoGroupStart();
-      image.UndoGroupEnd();
-      */
       Display.DisplaysFlush();
-
-      // Remove the new layer 
-//      image.RemoveLayer(new_layer);
     }
 
     Label CreateLabelInTable(Table table, uint row, uint col, string text) 
@@ -263,7 +201,6 @@ Console.WriteLine("AfterDoDiff");
     void DoDifference(Drawable sourceDrawable, Drawable toDiffDrawable)
     {
       int x1, y1, x2, y2;
-      //      RgnIterator iter = new RgnIterator(, RunMode.Interactive);
       sourceDrawable.MaskBounds(out x1, out y1, out x2, out y2);
       PixelRgn srcPR = new PixelRgn(sourceDrawable, x1, y1, x2 - x1, y2 - y1, 
           true, true);
@@ -277,9 +214,7 @@ Console.WriteLine("AfterDoDiff");
         {
           for (int x = srcPR.X; x < srcPR.X + srcPR.W; x++)
           {
-//            destPR[y, x] = func(srcPR[y, x]);
               srcPR[y, x] = MakeAbsDiff(destPR[y, x], srcPR[y, x]);
-//              Console.WriteLine("{0}", srcPR[y, x][0]);
           }
         }				
       }
@@ -297,13 +232,7 @@ Console.WriteLine("AfterDoDiff");
       tmpVal /= src.Length;
       for(int i = 0; i < src.Length; i++)
       {
- //       Console.Write("{0} {1} ", dest[i], _indexedColorsMap[tmpVal,i]);
         retVal[i] = (byte)Math.Abs(dest[i] - _indexedColorsMap[tmpVal,i]);
-//        Console.WriteLine("{0}", retVal[i]);
-//        retVal[i] = (byte)Math.Abs(dest[i] - src[i]);
-
-//        src[i] = (byte)Math.Abs(dest[i] - src[i]);
-//        Console.WriteLine("{0} {1} {2}", dest[i], src[i],retVal[i]);
       }
 //      src = retVal;
         
@@ -312,7 +241,7 @@ Console.WriteLine("AfterDoDiff");
       return retVal;
     }   
 
-    bool DifferenceClouds(PixelFetcher pf, int x1, int y1, 
+    bool DoDifferenceClouds(PixelFetcher pf, int x1, int y1, 
         int x2, int y2, int depth, int scale_depth, Random gr)
     {
       byte [] tl = new byte[_bpp];
@@ -328,12 +257,6 @@ Console.WriteLine("AfterDoDiff");
 
       int xm = (x1 + x2) / 2;
       int ym = (y1 + y2) / 2;
-
-//      Console.WriteLine("depth == {0}", depth);
-      /*
-      Console.WriteLine("progress == {0}", _progress);
-      Console.WriteLine("maxProgress == {0}", _maxProgress);
-      */
 
       /* Initial step */
       if(depth == -1)
@@ -359,14 +282,6 @@ Console.WriteLine("AfterDoDiff");
 
         return false;
       }
-
-      /*
-      if(depth > 100000)
-      {
-        Console.WriteLine("depth out of limits = {0}", depth);
-        return false;
-      }
-      */
 
       if(depth == 0)
       {
@@ -456,76 +371,42 @@ Console.WriteLine("AfterDoDiff");
             _progressBar.Update((double)_progress / (double) _maxProgress);
         }
 
-//        Console.WriteLine("Nei < 3");
         return ((x2 - x1) < 3) && ((y2 - y1) < 3);
       }
-//      Console.WriteLine("x1 < x2 ? {0} {1} {2}", (x1 < x2), x1, x2);
-//      Console.WriteLine("y1 < y2 ? {0}", (y1 < y2));
       if (x1 < x2 || y1 < y2)
       {
         /* Top left. */
-        DifferenceClouds (pf, x1, y1, xm, ym, depth - 1, scale_depth + 1, gr);
+        DoDifferenceClouds (pf, x1, y1, xm, ym, depth - 1, scale_depth + 1, gr);
         /* Bottom left. */
-        DifferenceClouds (pf, x1, ym, xm ,y2, depth - 1, scale_depth + 1, gr);
+        DoDifferenceClouds (pf, x1, ym, xm ,y2, depth - 1, scale_depth + 1, gr);
         /* Top right. */
-        DifferenceClouds (pf, xm, y1, x2 , ym, depth - 1, scale_depth + 1, gr);
+        DoDifferenceClouds (pf, xm, y1, x2 , ym, depth - 1, scale_depth + 1, gr);
         /* Bottom right. */
-//        Console.WriteLine("Nei x1 < x2");
-        return DifferenceClouds (pf, xm, ym, x2, y2, depth - 1, scale_depth + 1, gr);
+        return DoDifferenceClouds (pf, xm, ym, x2, y2, depth - 1, scale_depth + 1, gr);
       }
       else
       {
- //       Console.WriteLine("return true; {0} {1} {2} {3} {4}", depth, x1, x2, y1, y2);
         return true;
       }
     }
 
     byte[] RandomRGB(Random r)
     {
-      /* choice between foreground and background color */
-      /*
-      byte []retVal = new byte[3] {0,0,0};
-      */
-      /*
-      byte []retVal = new byte[3];
-      r.NextBytes(retVal);
-      */
-      /*
-      byte []retVal = new byte[_bpp];
-      r.NextBytes(retVal);
-      */
-      /*
-      Console.Write("retVal[] = {");
-      for(int i = 0; i < _bpp; i++)
-      {
-        retVal[i] = (byte)r.Next(256);
-        Console.Write("{0},", retVal[i]);
-      } 
-      */
-      /*
-      retVal = (r.Next(2) == 0) ?  _foregroundColor.Bytes: 
-                                   _backgroundColor.Bytes;
-                                   */
-      //  Console.Write("{0},", retVal[i]);
-//      r.NextBytes(retVal);
       byte []retVal = new byte[_bpp];
 
       for(int i = 0; i < _bpp; i++)
       {
         retVal[i] = _indexedColorsMap[r.Next(256), i];
-        Console.Write("{0},", retVal[i]);
       } 
       
 
       if(_hasAlpha)
         retVal[_alpha] = 255;
-//      Console.WriteLine("}");
       return retVal;
     }
 
     void GetPixel(PixelFetcher pf, ref byte [] pixel, int x, int y)
     {
-      // TODO: implement the preview mode
       if(pf != null)
       {
         pf.GetPixel(x, y, pixel);
@@ -537,8 +418,6 @@ Console.WriteLine("AfterDoDiff");
 
     void PutPixel(PixelFetcher pf, int x, int y, byte [] pixel, ref int progress)
     {
-      byte []currentValue = new byte[pixel.Length];
-      // TODO: implement the preview mode
       if(pf != null)
       {
         pf.PutPixel(x, y, pixel);
@@ -555,7 +434,6 @@ Console.WriteLine("AfterDoDiff");
         dest[i] = (byte)((int)(src1[i] + src2[i]) / 2);
     }
 
-    //Planet(new_layer, ref pixelArray, width, height);
     void AddRandom (Random gr, byte []pixel, int amount)
     {
       amount /= 2;
@@ -571,7 +449,6 @@ Console.WriteLine("AfterDoDiff");
           if(tmp < 0) pixel[i] = 0;
           else if(tmp > 255) pixel[i] = 255;
           else pixel[i] = (byte)tmp; 
-          //CLAMP0255 (tmp);
         }
       }
     }
@@ -587,23 +464,7 @@ Console.WriteLine("AfterDoDiff");
             _indexedColorsMap[i,j] = (byte)(_foregroundColor.Bytes[j] + 
                 (byte)((double)(_foregroundColor.Bytes[j] - 
                                 _backgroundColor.Bytes[j]) * ratio));
-            /*
-            Console.WriteLine("bg {0} {1} {2} {3:e}", _backgroundColor.Bytes[j],
-                _backgroundColor.Bytes[j] * ratio,
-                _foregroundColor.Bytes[j] * ratio,
-                ratio);
-                */
-            /*
-            + (byte) 
-              ((_foregroundColor.Bytes[j] - _backgroundColor.Bytes[j]) * ratio);
-              */
           }
-          /*
-          Console.WriteLine("cm[{0}] = ({1},{2},{3})", i, 
-                        _indexedColorsMap[i,0],
-                        _indexedColorsMap[i,1],
-                        _indexedColorsMap[i,2]);
-                        */
         }
       }
 

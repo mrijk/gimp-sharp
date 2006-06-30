@@ -1,5 +1,9 @@
 2006-06-30  Max      <massimo.perga@gmail.com>
 
+	* plug-ins/DifferenceClouds/DifferenceClouds.cs: removed preview
+
+2006-06-30  Max      <massimo.perga@gmail.com>
+
 	* plug-ins/DifferenceClouds
 	* plug-ins/DifferenceClouds/DifferenceClouds
 	* plug-ins/DifferenceClouds/DifferenceClouds.cs
