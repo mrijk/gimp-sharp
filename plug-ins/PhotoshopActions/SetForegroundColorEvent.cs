@@ -28,6 +28,11 @@ namespace Gimp.PhotoshopActions
     {
     }
 
+    public override string EventForDisplay
+    {
+      get {return base.EventForDisplay + " foreground color";}
+    }
+
     override public bool Execute()
     {
       Context.Foreground = Color;

@@ -19,6 +19,7 @@
 //
 
 using System;
+using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
@@ -50,6 +51,16 @@ namespace Gimp.PhotoshopActions
     public override string EventForDisplay
     {
       get {return base.EventForDisplay + " document";}
+    }
+
+    protected override IEnumerable ListParameters()
+    {
+      // Fix me: complete this
+      yield return "Width: " + _width;
+      yield return "Height: " + _height;
+      yield return "Resolution: " + _resolution;
+      yield return "Depth: " + _depth;
+      yield return "Profile: " + _profile;
     }
 
     override public bool Execute()

@@ -38,6 +38,7 @@ MYSOURCES = 				\
 	DebugOutput.cs			\
 	DeleteChannelEvent.cs		\
 	DeleteEvent.cs			\
+	DeleteGuideEvent.cs		\
 	DeleteLayerEvent.cs		\
 	DesaturateEvent.cs		\
 	DiffuseEvent.cs			\
@@ -131,6 +132,7 @@ MYSOURCES = 				\
 	SetColorEvent.cs		\
 	SetEvent.cs			\
 	SetForegroundColorEvent.cs	\
+	SetLayerEffectsEvent.cs		\
 	SetLayerPropertyEvent.cs	\
 	SharpenEvent.cs			\
 	SharpenMoreEvent.cs		\

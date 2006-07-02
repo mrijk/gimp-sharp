@@ -66,6 +66,16 @@ namespace Gimp.PhotoshopActions
 		case "Lyr":
 		  return new SetLayerPropertyEvent(this);
 		  break;
+		case "Prpr":
+		  if (property.Key == "Lefx")
+		    {
+		      return new SetLayerEffectsEvent(this);
+		    }
+		  else
+		    {
+		      Console.WriteLine("SetEvent.Prpr: " + property.Key);
+		    }
+		  break;
 		default:
 		  Console.WriteLine("SetEvent.Parse: " + property.ClassID2);
 		  break;

@@ -1,3 +1,18 @@
+2006-07-02  Maurits  <m.rijk@chello.nl>
+
+	* lib/gimp-sharp.dll.config: updated so fix for bug #1514493 also
+	works on Linux.
+
+2006-06-30  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/PhotoshopActions/DeleteGuideEvent.cs
+	* plug-ins/PhotoshopActions/SetLayerEffectsEvent.cs: new files
+	* plug-ins/PhotoshopActions/Makefile: changed accordingly
+
+	* plug-ins/PhotoshopActions/SetBackgroundColorEvent.cs
+	* plug-ins/PhotoshopActions/SetForegroundColorEvent.cs
+	* plug-ins/PhotoshopActions/NewDocumentEvent.cs: display more info
+
 2006-07-02  Max      <massimo.perga@gmail.com>
 
 	* lib/Gimp.cs: fixed bug #1514493 

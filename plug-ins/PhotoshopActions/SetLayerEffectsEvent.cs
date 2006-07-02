@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// SetBackgroundColorEvent.cs
+// SetLayerEffectsEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,24 +19,29 @@
 //
 
 using System;
+using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class SetBackgroundColorEvent : SetColorEvent
+  public class SetLayerEffectsEvent : ActionEvent
   {
-    public SetBackgroundColorEvent(ActionEvent srcEvent) : base(srcEvent)
+    public SetLayerEffectsEvent(ActionEvent srcEvent) : base(srcEvent)
     {
     }
-    
+
+    public override bool IsExecutable
+    {
+      get {return false;}
+    }
+
     public override string EventForDisplay
     {
-      get {return base.EventForDisplay + " background color";}
+      get {return base.EventForDisplay + " layer effects";}
     }
 
     override public bool Execute()
     {
-      Context.Background = Color;
-      return true;
+      return false;
     }
   }
 }

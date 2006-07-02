@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// SetBackgroundColorEvent.cs
+// DeleteGuideEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,24 +18,28 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-
 namespace Gimp.PhotoshopActions
 {
-  public class SetBackgroundColorEvent : SetColorEvent
+  public class DeleteGuideEvent : ActionEvent
   {
-    public SetBackgroundColorEvent(ActionEvent srcEvent) : base(srcEvent)
+    string _type;
+
+    public override bool IsExecutable
     {
+      get {return _type == "Al";}
     }
-    
-    public override string EventForDisplay
+
+    public DeleteGuideEvent(ActionEvent srcEvent, string type) : base(srcEvent)
     {
-      get {return base.EventForDisplay + " background color";}
+      _type = type;
     }
 
     override public bool Execute()
     {
-      Context.Background = Color;
+      foreach (Guide guide in ActiveImage.Guides)
+	{
+	  guide.Delete();
+	}
       return true;
     }
   }
