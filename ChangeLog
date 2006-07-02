@@ -1,3 +1,7 @@
+2006-07-02  Max      <massimo.perga@gmail.com>
+
+	* lib/Gimp.cs: fixed bug #1514493 
+
 2006-06-30  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/PhotoshopActions/ShowLayerEvent.cs
