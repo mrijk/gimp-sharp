@@ -174,7 +174,7 @@ namespace Gimp
 	    }
 	  
 	  int n_return_vals;
-	  gimp_run_procedure2(_name, out n_return_vals, num_args, _params);
+	  gimp_run_procedure2(_name, out n_return_vals, i, _params);
 	}
       else
 	{

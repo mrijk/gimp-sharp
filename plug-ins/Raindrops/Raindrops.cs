@@ -140,9 +140,9 @@ namespace Gimp.Raindrops
       Image clone = new Image(_image);
       clone.Crop(width, height, x, y);
 
-      if(!clone.ActiveDrawable.IsLayer())
+      if (!clone.ActiveDrawable.IsLayer())
       {
-        Message m = new Message("This filter can be applied just over layers");
+        new Message("This filter can be applied just over layers");
         return;
       }
 
@@ -168,9 +168,9 @@ namespace Gimp.Raindrops
     override protected void Render(Image image, Drawable original_drawable)
     {
       // Just layers are allowed
-      if(!original_drawable.IsLayer())
+      if (!original_drawable.IsLayer())
       {
-        Message m = new Message("This filter can be applied just over layers");
+        new Message("This filter can be applied just over layers");
         return;
       }
 

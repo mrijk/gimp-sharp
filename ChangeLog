@@ -1,3 +1,14 @@
+2006-07-03  Maurits  <m.rijk@chello.nl>
+
+	* lib/Procedure.cs: call procedure optionally with less parameters
+
+	* plug-ins/Raindrops/Raindrops.cs: removed warning
+
+	* plug-ins/Pointillize/*: placeholder for new plug-in
+
+	* configure.in
+	* plug-ins/Makefile.am (SUBDIRS): changed accordingly
+
 2006-07-02  Maurits  <m.rijk@chello.nl>
 
 	* lib/gimp-sharp.dll.config: updated so fix for bug #1514493 also

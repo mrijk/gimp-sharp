@@ -122,6 +122,7 @@ plug-ins/neo/Makefile
 plug-ins/Pdn/Makefile 
 plug-ins/PhotoshopActions/Makefile 
 plug-ins/PicturePackage/Makefile 
+plug-ins/Pointillize/Makefile
 plug-ins/Raindrops/Makefile 
 plug-ins/Shatter/Makefile
 plug-ins/SliceTool/Makefile 
