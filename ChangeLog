@@ -1,3 +1,10 @@
+2006-07-04  Maurits  <m.rijk@chello.nl>
+	
+	* plug-ins/Pointillize/*.cs: major speed-up
+
+	* plug-ins/DifferenceClouds/DifferenceClouds: removed profiling
+	information
+
 2006-07-03  Maurits  <m.rijk@chello.nl>
 
 	* lib/Procedure.cs: call procedure optionally with less parameters
