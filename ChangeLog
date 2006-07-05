@@ -1,3 +1,23 @@
+2006-07-05  Maurits  <m.rijk@chello.nl>
+
+	* NEWS: updated
+
+	* plug-ins/PhotoshopActions/MotionBlurEvent.cs: display parameters
+	in treeview.
+
+	* plug-ins/PhotoshopActions/SetLayerPropertyEvent.cs: added screen
+	mode
+
+	* plug-ins/PhotoshopActions/PointillizeEvent.cs: use new
+	Pointillize plug-in
+
+	* plug-ins/Pointillize/Pointillize.cs: preview added
+
+	* plug-ins/Pointillize/ColorCoordinateSet.cs: fixed remaining
+	problems.
+
+	* plug-ins/Makefile.am: always build Pointillize plug-in
+
 2006-07-04  Maurits  <m.rijk@chello.nl>
 	
 	* plug-ins/Pointillize/*.cs: major speed-up

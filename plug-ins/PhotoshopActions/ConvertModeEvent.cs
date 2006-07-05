@@ -38,7 +38,7 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
-      yield return "Mode: ";
+      yield return "Mode: " + (_type as TypeParameter).Value;
     }
 
     override public bool Execute()

@@ -28,11 +28,6 @@ namespace Gimp.PhotoshopActions
     [Parameter("ClSz")]
     int _cellSize;
 
-    public override bool IsExecutable
-    {
-      get {return false;}
-    }
-
     protected override IEnumerable ListParameters()
     {
       yield return "Cell size: " + _cellSize;
@@ -40,7 +35,8 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
-      return false;
+      RunProcedure("plug_in_pointillize", _cellSize);
+      return true;
     }
   }
 }

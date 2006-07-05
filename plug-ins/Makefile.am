@@ -5,7 +5,6 @@ ecw = ecw
 endif
 
 if BUILD_INCOMPLETE
-Pointillize = Pointillize
 Shatter = Shatter
 DifferenceClouds = DifferenceClouds
 endif
@@ -31,7 +30,7 @@ SUBDIRS = 			\
 	$(Pdn)			\
 	PhotoshopActions	\
 	PicturePackage 		\
-	$(Pointillize)		\
+	Pointillize		\
 	Raindrops		\
 	$(Shatter)		\
 	SliceTool 		\

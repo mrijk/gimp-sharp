@@ -36,6 +36,8 @@ namespace Gimp.Pointillize
 
     readonly List<ColorCoordinate>[,] _matrix;
 
+    Random _random = new Random();
+
     public ColorCoordinateSet(Drawable drawable, int cellSize)
     {
       _cellSize = cellSize;
@@ -43,15 +45,11 @@ namespace Gimp.Pointillize
       _backgroundColor = Context.Background.Bytes;
 
       PixelFetcher pf = new PixelFetcher(drawable, false);
-      Random random = new Random();
 
       _width = drawable.Width;
       _height = drawable.Height;
       
-      int nrOfCells = (int) (_width * _height / 
-			     (Math.PI * _cellSize * _cellSize));
-
-      Console.WriteLine("nrOfCells: " + nrOfCells);
+      int nrOfCells = (int) (2.5 * _width * _height / (_cellSize * _cellSize));
 
       _matrixColumns = (int) Math.Sqrt(nrOfCells * _width / 8.0 / _height);
       _matrixRows = _matrixColumns * _height / _width;
@@ -63,14 +61,15 @@ namespace Gimp.Pointillize
 
       for (int i = 0; i < nrOfCells; i++)
 	{
-	  int x = random.Next(0, _width - 1);
-	  int y = random.Next(0, _height - 1);
+	  int x = _random.Next(0, _width - 1);
+	  int y = _random.Next(0, _height - 1);
 	  byte[] color = new byte[drawable.Bpp];
 	  pf.GetPixel(x, y, color);
 
-	  // Add some noise to red and green
-	  // color[0] += random.Next(0, 10);
-	  // color[1] += random.Next(0, 10);
+	  // Add some noise
+	  AddNoise(ref color[0]);
+	  AddNoise(ref color[1]);
+	  AddNoise(ref color[2]);
 
 	  ColorCoordinate coordinate = new ColorCoordinate(x, y, color);
 	  Add(coordinate);
@@ -89,32 +88,34 @@ namespace Gimp.Pointillize
 	  int bottom = (row + 1) * _height / _matrixRows;
 	  int right = (col + 1) * _width / _matrixColumns;
 	  
-	  Intersects(left, top, coordinate);
-	  Intersects(x, top, coordinate);
-	  Intersects(right, top, coordinate);
-	  Intersects(left, y, coordinate);
-	  Intersects(right, y, coordinate);
-	  Intersects(left, bottom, coordinate);
-	  Intersects(x, bottom, coordinate);
-	  Intersects(right, bottom, coordinate);
+	  Intersects(left, top, col - 1, row - 1, coordinate);
+	  Intersects(x, top, col, row - 1, coordinate);
+	  Intersects(right, top, col + 1, row - 1, coordinate);
+	  Intersects(left, y, col - 1, row, coordinate);
+	  Intersects(right, y, col + 1, row, coordinate);
+	  Intersects(left, bottom, col - 1, row + 1, coordinate);
+	  Intersects(x, bottom, col, row + 1, coordinate);
+	  Intersects(right, bottom, col + 1, row + 1, coordinate);
 	}
 
       pf.Dispose();
     }
 
-    void Intersects(int x, int y, ColorCoordinate coordinate)
+    void AddNoise(ref byte channel)
     {
-      if (x < 0 || x >= _width || y < 0 || y >= _height)
+      int x = channel + _random.Next(0, 10) - 5;
+      channel = (byte) Math.Min(255, Math.Max(x, 0));
+    }
+
+    void Intersects(int x, int y, int col, int row, ColorCoordinate coordinate)
+    {
+      if (col < 0 || col >= _matrixColumns || row < 0 || row >= _matrixRows)
 	{
 	  return;
 	}
       
-      int row = y * _matrixRows / _height;
-      int col = x * _matrixColumns / _width;
-	  
       if (coordinate.Distance(x, y) < _cellSize * _cellSize / 4)
 	{
-	  Console.WriteLine("Ok");
 	  if (_matrix[row, col] == null)
 	    {
 	      _matrix[row, col] = new List<ColorCoordinate>();
@@ -133,6 +134,11 @@ namespace Gimp.Pointillize
       
       List<ColorCoordinate> list = _matrix[row, col];
 
+      if (list == null)
+	{
+	  return _backgroundColor;
+	}
+
       foreach (ColorCoordinate coordinate in list)
 	{
 	  int d = coordinate.Distance(x, y);
@@ -143,7 +149,7 @@ namespace Gimp.Pointillize
 	    }
 	}
 
-      return distance < _cellSize * _cellSize 
+      return distance < _cellSize * _cellSize / 4
 	? closest.Color : _backgroundColor;
     }
   }

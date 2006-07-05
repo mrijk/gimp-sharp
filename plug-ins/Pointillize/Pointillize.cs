@@ -30,6 +30,7 @@ namespace Gimp.Pointillize
     int _cellSize = 30;
 
     ColorCoordinateSet _coordinates;
+    int _width, _height;
 
     static void Main(string[] args)
     {
@@ -90,11 +91,32 @@ namespace Gimp.Pointillize
     override protected void UpdatePreview(AspectPreview preview)
     {
       // move generic code from ncp to base class
+      Initialize(_drawable);
+
+      int width, height;
+      preview.GetSize(out width, out height);
+
+      byte[] buffer = new byte[width * height * 3];
+      byte[] dest = new byte[3];
+      for (int y = 0; y < height; y++)
+	{
+	  int y_orig = _height * y / height;
+	  for (int x = 0; x < width; x++)
+	    {
+	      long index = 3 * (y * width + x);
+	      int x_orig = _width * x / width;
+
+	      dest = DoPointillize(x_orig, y_orig);
+	      dest.CopyTo(buffer, index);
+	    }
+	}
+      preview.DrawBuffer(buffer, width * 3);
     }
 
     override protected void Render(Drawable drawable)
     {
       Initialize(drawable);
+
       RgnIterator iter = new RgnIterator(drawable, RunMode.Interactive);
       iter.Progress = new Progress("Pointillize");
       iter.IterateDest(DoPointillize);
@@ -105,6 +127,11 @@ namespace Gimp.Pointillize
     void Initialize(Drawable drawable)
     {
       _coordinates = new ColorCoordinateSet(drawable, _cellSize);
+
+      int x1, y1, x2, y2;
+      drawable.MaskBounds(out x1, out y1, out x2, out y2);
+      _width = x2 - x1;
+      _height = y2 - y1;
     }
 
     byte[] DoPointillize(int x, int y)

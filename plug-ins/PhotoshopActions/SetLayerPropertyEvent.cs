@@ -84,6 +84,9 @@ namespace Gimp.PhotoshopActions
 		case "Ovrl":
 		  SelectedLayer.Mode = LayerModeEffects.Overlay;
 		  break;
+		case "Scrn":
+		  SelectedLayer.Mode = LayerModeEffects.Screen;
+		  break;
 		default:
 		  Console.WriteLine("Implement set layer mode: " + mode);
 		  break;

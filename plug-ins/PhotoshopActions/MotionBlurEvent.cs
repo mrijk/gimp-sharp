@@ -19,6 +19,7 @@
 //
 
 using System;
+using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
@@ -28,6 +29,12 @@ namespace Gimp.PhotoshopActions
     int _angle;
     [Parameter("Dstn")]
     double _distance;
+
+    protected override IEnumerable ListParameters()
+    {
+      yield return "Angle: " + _angle;
+      yield return "Distance: " + _distance;
+    }
 
     override public bool Execute()
     {

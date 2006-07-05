@@ -36,6 +36,10 @@ namespace Gimp.PhotoshopActions
     override public bool Execute()
     {
       // TODO: check parameters!
+      if (_level > 254)
+	{
+	  _level = 254;
+	}
       ActiveDrawable.Threshold(_level, 255);
       return true;
     }
