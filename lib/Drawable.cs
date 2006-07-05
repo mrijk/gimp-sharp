@@ -371,6 +371,7 @@ namespace Gimp
 			     controlPoints)
     {
       byte[] array = controlPoints.ToArray();
+
       if (!gimp_curves_spline(_ID, channel, array.Length, array))
         {
 	  throw new GimpSharpException();

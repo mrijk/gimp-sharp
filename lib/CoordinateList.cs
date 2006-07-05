@@ -47,14 +47,14 @@ namespace Gimp
     public T[] ToArray()
     {
       T[] array = new T[_list.Count * 2];
-		
+
       int i = 0;
       foreach (Coordinate<T> coordinate in _list)
 	{
-	  array[i] = coordinate.X;
-	  array[i + 1] = coordinate.Y;
+	  array[i++] = coordinate.X;
+	  array[i++] = coordinate.Y;
 	}
-		
+
       return array;
     }
 	

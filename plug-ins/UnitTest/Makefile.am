@@ -11,11 +11,6 @@ MYSOURCES = 	EventCollector.cs	\
 		UnitTest.cs		\
 		UnitTester.cs
 
-EXTRA_DIST = $(MYSOURCES) UnitTest UnitTest.png
-
-UnitTest.exe : $(MYSOURCES) $(GIMPSHARPLIB)
-	$(CSC) /target:winexe $(MYSOURCES) /resource:UnitTest.png -out:$@ $(ASSEMBLIES)
-
 TESTSOURCES = 	TestBrush.cs 			\
 		TestBrushList.cs		\
 		TestChannel.cs			\
@@ -42,6 +37,12 @@ TESTSOURCES = 	TestBrush.cs 			\
 		TestRGB.cs			\
 		TestRgnIterator.cs		\
 		TestVersion.cs
+
+EXTRA_DIST = $(MYSOURCES) $(TESTSOURCES) UnitTest UnitTest.png
+
+UnitTest.exe : $(MYSOURCES) $(GIMPSHARPLIB)
+	$(CSC) /target:winexe $(MYSOURCES) /resource:UnitTest.png -out:$@ $(ASSEMBLIES)
+
 
 gimptest.dll : $(TESTSOURCES) $(GIMPSHARPLIB)
 	$(CSC) -target:library $(ASSEMBLIES) $(TESTSOURCES) -out:gimptest.dll

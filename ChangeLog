@@ -1,5 +1,12 @@
 2006-07-05  Maurits  <m.rijk@chello.nl>
 
+	* lib/CoordinateList.cs: bug fix
+
+	* plug-ins/UnitTest/Makefile.am: make sure that Test*.cs are also
+	distributed
+
+2006-07-05  Maurits  <m.rijk@chello.nl>
+
 	* NEWS: updated
 
 	* plug-ins/PhotoshopActions/MotionBlurEvent.cs: display parameters
