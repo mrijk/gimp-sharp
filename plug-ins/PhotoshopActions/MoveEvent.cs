@@ -24,12 +24,42 @@ namespace Gimp.PhotoshopActions
 {
   public class MoveEvent : ActionEvent
   {
+    [Parameter("null")]
+    ReferenceParameter _obj;
+    [Parameter("T")]
+    ReferenceParameter _type;
+
     public override bool IsExecutable
     {
       get 
 	{
 	  return false;
 	}
+    }
+
+    override public ActionEvent Parse(ActionParser parser)
+    {
+      ActionEvent myEvent = base.Parse(parser);
+
+      if (_type != null)
+	{
+	  EnmrType enmr = _type.Set[0] as EnmrType;
+	  
+	  switch (enmr.Key)
+	    {
+	    case "Lyr":
+	      return new MoveLayerEvent(this, enmr.Value);
+	      break;
+	    default:
+	      Console.WriteLine("MoveEvent, unknown key: " + enmr.Key);
+	      break;
+	    }
+	}
+      else
+	{
+	  Console.WriteLine("MoveEvent disaster");
+	}
+      return myEvent;
     }
   }
 }

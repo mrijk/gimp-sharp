@@ -1,3 +1,24 @@
+2006-07-07  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/PhotoshopActions/SelectLayerByNameEvent.cs
+	* plug-ins/PhotoshopActions/MoveLayerEvent.cs: new files
+
+	* plug-ins/PhotoshopActions/Makefile.am: changed accordingly
+
+	* plug-ins/PhotoshopActions/MoveEvent.cs
+	* plug-ins/PhotoshopActions/AddLayerEvent.cs: implementation
+
+2006-07-06  Maurits  <m.rijk@chello.nl>
+
+	* configure.in: bumped version to 0.10
+
+	* NEWS
+	* INSTALL: updated
+
+2006-07-05  Maurits  <m.rijk@chello.nl>
+
+	* Made 0.9 release
+
 2006-07-05  Maurits  <m.rijk@chello.nl>
 
 	* lib/CoordinateList.cs: bug fix

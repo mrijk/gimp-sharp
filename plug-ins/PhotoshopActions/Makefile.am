@@ -96,6 +96,7 @@ MYSOURCES = 				\
 	MosaicEvent.cs			\
 	MotionBlurEvent.cs		\
 	MoveEvent.cs			\
+	MoveLayerEvent.cs		\
 	NameType.cs			\
 	NewDocumentEvent.cs		\
 	ObArParameter.cs		\
@@ -126,6 +127,7 @@ MYSOURCES = 				\
 	SelectEvent.cs			\
 	SelectionEvent.cs		\
 	SelectChannelEvent.cs		\
+	SelectLayerByNameEvent.cs	\
 	SelectLayerEvent.cs		\
 	SetBackgroundColorEvent.cs	\
 	SetChannelPropertyEvent.cs	\

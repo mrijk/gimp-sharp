@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// AddAdjustmentLayerEvent.cs
+// SelectLayerByNameEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -20,26 +20,37 @@
 
 using System;
 
+using Gtk;
+
 namespace Gimp.PhotoshopActions
 {
-  public class AddAdjustmentLayerEvent : ActionEvent
+  public class SelectLayerByNameEvent : ActionEvent
   {
-    public override bool IsExecutable
-    {
-      get {return false;}
-    }
+    string _name;
 
-    public AddAdjustmentLayerEvent(ActionEvent srcEvent) : base(srcEvent) 
+    public SelectLayerByNameEvent(ActionEvent srcEvent, string name) : 
+      base(srcEvent)
     {
+      _name = name;
     }
 
     public override string EventForDisplay
     {
-      get {return base.EventForDisplay + " adjustment layer";}
+      get {return base.EventForDisplay + " layer";}
+    }
+
+    protected override void FillParameters(TreeStore store, TreeIter iter)
+    {
+      store.AppendValues(iter, "Name: " + _name);
     }
 
     override public bool Execute()
     {
+      Console.WriteLine("Visible: " + (Parameters["MkVs"] != null));
+
+      SelectedLayer = ActiveImage.Layers[_name];
+      ActiveImage.ActiveLayer = SelectedLayer;
+
       return true;
     }
   }

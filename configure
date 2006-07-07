@@ -1805,7 +1805,7 @@ fi
 
 # Define the identity of the package.
  PACKAGE=gimp-sharp
- VERSION=0.9
+ VERSION=0.10
 
 
 cat >>confdefs.h <<_ACEOF
@@ -19453,7 +19453,7 @@ echo "${ECHO_T}no" >&6
 fi
 
 
-VERSION="0.9"
+VERSION="0.10"
 
 
 # Extract the first word of "pkg-config", so it can be a program name with args.

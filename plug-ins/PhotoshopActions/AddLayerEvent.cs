@@ -27,10 +27,28 @@ namespace Gimp.PhotoshopActions
   public class AddLayerEvent : ActionEvent
   {
     bool _below;
+    readonly LayerModeEffects _mode;
+
+    public AddLayerEvent(ActionEvent srcEvent, ObjcParameter _object) : 
+      base(srcEvent) 
+    {
+      EnumParameter mode = _object.Parameters["Md"] as EnumParameter;
+      switch (mode.Value)
+	{
+	case "Drkn":
+	  _mode = LayerModeEffects.DarkenOnly;
+	  break;
+	default:
+	  Console.WriteLine("AddLayerEvent, unknown mode: " + mode.Value);
+	  _mode = LayerModeEffects.Normal;
+	  break;
+	}
+    }
 
     public AddLayerEvent(ActionEvent srcEvent, List<ReferenceType> set) : 
       base(srcEvent) 
     {
+      _mode = LayerModeEffects.Normal;
       if (set.Count != 2)
 	{
 	  Console.WriteLine("AddLayerEvent, Count: " + set.Count);
@@ -49,8 +67,7 @@ namespace Gimp.PhotoshopActions
       Image image = ActiveImage;
 
       Layer layer = new Layer(image, "New Layer", image.Width, image.Height,
-			      ImageType.Rgb, 100, 
-			      LayerModeEffects.Normal);
+			      ImageType.Rgb, 100, _mode);
       image.AddLayer(layer, 0);
 
       return true;

@@ -26,11 +26,11 @@ namespace Gimp.PhotoshopActions
 {
   public class SelectLayerEvent : ActionEvent
   {
-    string _name;
+    string _mode;
 
-    public SelectLayerEvent(ActionEvent srcEvent, string name) : base(srcEvent)
+    public SelectLayerEvent(ActionEvent srcEvent, string mode) : base(srcEvent)
     {
-      _name = name;
+      _mode = mode;
     }
 
     public override string EventForDisplay
@@ -40,15 +40,19 @@ namespace Gimp.PhotoshopActions
 
     protected override void FillParameters(TreeStore store, TreeIter iter)
     {
-      store.AppendValues(iter, "Name: " + _name);
+      store.AppendValues(iter, "Mode: " + _mode);
     }
 
     override public bool Execute()
     {
-      Console.WriteLine("Visible: " + (Parameters["MkVs"] != null));
-
-      SelectedLayer = ActiveImage.Layers[_name];
-      ActiveImage.ActiveLayer = SelectedLayer;
+      switch (_mode)
+	{
+	case "Frwr":
+	  break;
+	default:
+	  Console.WriteLine("SelectLayerEvent, unknown mode: " + _mode);
+	  break;
+	}
 
       return true;
     }

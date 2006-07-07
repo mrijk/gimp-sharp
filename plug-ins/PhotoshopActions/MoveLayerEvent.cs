@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// AddAdjustmentLayerEvent.cs
+// MoveLayerEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,27 +19,34 @@
 //
 
 using System;
+using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class AddAdjustmentLayerEvent : ActionEvent
+  public class MoveLayerEvent : ActionEvent
   {
-    public override bool IsExecutable
-    {
-      get {return false;}
-    }
+    readonly string _direction;
 
-    public AddAdjustmentLayerEvent(ActionEvent srcEvent) : base(srcEvent) 
+    public MoveLayerEvent(ActionEvent srcEvent, string direction) 
+      : base(srcEvent)
     {
+      _direction = direction;
     }
-
+    
     public override string EventForDisplay
     {
-      get {return base.EventForDisplay + " adjustment layer";}
+      get {return base.EventForDisplay + " current layer";}
+    }
+
+    protected override IEnumerable ListParameters()
+    {
+      yield return "direction: " + _direction;
     }
 
     override public bool Execute()
     {
+      Console.WriteLine("Move layer! " + _direction);
+
       return true;
     }
   }

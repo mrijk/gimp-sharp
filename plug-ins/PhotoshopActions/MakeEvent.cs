@@ -50,6 +50,9 @@ namespace Gimp.PhotoshopActions
 	    case "Gd":
 	      return new AddGuideEvent(this, _object as ObjcParameter);
 	      break;
+	    case "Lyr":
+	      return new AddLayerEvent(this, _object as ObjcParameter);
+	      break;
 	    default:
 	      Console.WriteLine("MakeEvent-2: {0} not implemented", classID);
 	      break;

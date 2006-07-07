@@ -4,7 +4,7 @@ work with GIMP 2.2 and GIMP 2.3.x.
 Building Gimp# is easy:
 
 1) unpack the archive
-2) $ cd gimp-sharp-0.9
+2) $ cd gimp-sharp-0.10
 3) $ ./configure
 4) $ make
 5) become root
@@ -17,11 +17,12 @@ additional incomplete (yet) plug-ins.
 The files will be installed in your GIMP plug-in directory, for
 example in /usr/local/lib/gimp/2.0/plug-ins/
 
-At the moment Gimp# will install 10 plug-ins for you:
+At the moment Gimp# will install 11 plug-ins for you:
 
 /Xtns/Picture Package
 /Xtns/Photoshop Actions
 /Filters/Artistic/Ministeck
+/Filters/Artistic/Pointillize
 /Filters/Blur/Average
 /Filters/Light and Shadow/Raindrops
 /Filters/Render/Forge

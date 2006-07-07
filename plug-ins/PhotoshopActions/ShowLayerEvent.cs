@@ -26,14 +26,32 @@ namespace Gimp.PhotoshopActions
   public class ShowLayerEvent : ActionEvent
   {
     string _name;
+    Layer _layer;
 
     public ShowLayerEvent(ActionEvent srcEvent) : base(srcEvent)
     {
+      _layer = SelectedLayer;
     }
 
     public ShowLayerEvent(ActionEvent srcEvent, string name) : base(srcEvent)
     {
       _name = name;
+      _layer = ActiveImage.Layers[name];
+    }
+
+    public ShowLayerEvent(ActionEvent srcEvent, PropertyType property) : 
+      base(srcEvent)
+    {
+      if (property.Key == "Bckg")
+	{
+	  _layer = ActiveImage.Layers[0];
+	  _name = "Background";
+	}
+      else
+	{
+	  Console.WriteLine("ShowLayerEvent: " + property.Key);
+	  _name = "fixme!";
+	}
     }
 
     protected override IEnumerable ListParameters()
@@ -46,13 +64,9 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
-      if (_name != null)
+      if (_layer != null)
 	{
-	  ActiveImage.Layers[_name].Visible = true;
-	}
-      else
-	{
-	  SelectedLayer.Visible = true;
+	  _layer.Visible = true;
 	}
       return true;
     }

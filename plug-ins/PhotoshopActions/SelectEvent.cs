@@ -49,7 +49,7 @@ namespace Gimp.PhotoshopActions
 		      Console.WriteLine("SelectEvent: multiple selection");
 		    }
 
-		  return new SelectLayerEvent(this, name.Key);
+		  return new SelectLayerByNameEvent(this, name.Key);
 		}
 	      else
 		{
@@ -61,7 +61,7 @@ namespace Gimp.PhotoshopActions
 	      PropertyType property = _obj.Set[0] as PropertyType;
 	      if (property.Key == "Bckg")
 		{
-		  return new SelectLayerEvent(this, "Background");
+		  return new SelectLayerByNameEvent(this, "Background");
 		}
 	      else
 		{
@@ -71,13 +71,15 @@ namespace Gimp.PhotoshopActions
 	  else if (_obj.Set[0] is EnmrType)
 	    {
 	      EnmrType enmr = _obj.Set[0] as EnmrType;
-	      if (enmr.Key == "Chnl")
+	      switch (enmr.Key)
 		{
+		case "Chnl":
 		  return new SelectChannelEvent(this, enmr.Value);
-		}
-	      else
-		{
+		case "Lyr":
+		  return new SelectLayerEvent(this, enmr.Value);
+		default:
 		  Console.WriteLine("SelectEvent.Enmr: " + enmr.Key);
+		  break;
 		}
 	    }
 	  else

@@ -72,6 +72,19 @@ namespace Gimp.PhotoshopActions
 	      break;
 	    }
 	}
+      else if (obj.Set[0] is PropertyType)
+	{
+	  PropertyType property = obj.Set[0] as PropertyType;
+	  switch (property.ClassID2)
+	    {
+	    case "Lyr":
+	      return new ShowLayerEvent(this, property);
+	      break;
+	    default:
+	      Console.WriteLine("Can't show " + property.Key);
+	      break;
+	    }
+	}
       else
 	{
 	  Console.WriteLine("ShowEvent: " + obj.Set[0]);
