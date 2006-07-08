@@ -38,6 +38,9 @@ namespace Gimp.PhotoshopActions
 	case "Drkn":
 	  _mode = LayerModeEffects.DarkenOnly;
 	  break;
+	case "Lghn":
+	  _mode = LayerModeEffects.LightenOnly;
+	  break;
 	default:
 	  Console.WriteLine("AddLayerEvent, unknown mode: " + mode.Value);
 	  _mode = LayerModeEffects.Normal;
@@ -69,6 +72,7 @@ namespace Gimp.PhotoshopActions
       Layer layer = new Layer(image, "New Layer", image.Width, image.Height,
 			      ImageType.Rgb, 100, _mode);
       image.AddLayer(layer, 0);
+      SelectedLayer = layer;
 
       return true;
     }

@@ -25,9 +25,9 @@ namespace Gimp.PhotoshopActions
   public class MoveEvent : ActionEvent
   {
     [Parameter("null")]
-    ReferenceParameter _obj;
+    Parameter _obj;
     [Parameter("T")]
-    ReferenceParameter _type;
+    Parameter _type;
 
     public override bool IsExecutable
     {
@@ -41,23 +41,31 @@ namespace Gimp.PhotoshopActions
     {
       ActionEvent myEvent = base.Parse(parser);
 
-      if (_type != null)
+      if (_type != null && (_type is ReferenceParameter))
 	{
-	  EnmrType enmr = _type.Set[0] as EnmrType;
-	  
-	  switch (enmr.Key)
+	  ReferenceParameter type = _type as ReferenceParameter;
+
+	  if (type.Set[0] is EnmrType)
 	    {
-	    case "Lyr":
-	      return new MoveLayerEvent(this, enmr.Value);
-	      break;
-	    default:
-	      Console.WriteLine("MoveEvent, unknown key: " + enmr.Key);
-	      break;
+	      EnmrType enmr = type.Set[0] as EnmrType;
+	      
+	      switch (enmr.Key)
+		{
+		case "Lyr":
+		  return new MoveLayerEvent(this, enmr.Value);
+		default:
+		  Console.WriteLine("MoveEvent, unknown key: " + enmr.Key);
+		  break;
+		}
+	    }
+	  else
+	    {
+	      Console.WriteLine("MoveEvent-1");
 	    }
 	}
       else
 	{
-	  Console.WriteLine("MoveEvent disaster");
+	  Console.WriteLine("MoveEvent-2");
 	}
       return myEvent;
     }

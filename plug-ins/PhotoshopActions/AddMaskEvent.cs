@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// IndexParameter.cs
+// AddMaskEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,29 +19,28 @@
 //
 
 using System;
-using System.Reflection;
 
 namespace Gimp.PhotoshopActions
 {
-  public class IndexType : ReferenceType
+  public class AddMaskEvent : ActionEvent
   {
-    string _classID;
-    string _key;
-    int _index;
-
-    public int Index
+    public override bool IsExecutable
     {
-      get {return _index;}
+      get {return false;}
     }
 
-    public override void Parse(ActionParser parser)
+    public AddMaskEvent(ActionEvent srcEvent) : base(srcEvent) 
     {
-      _classID = parser.ReadTokenOrUnicodeString();
-      _key = parser.ReadTokenOrString();
-      _index = parser.ReadInt32();
+    }
 
-      DebugOutput.Dump("Index: c = {0}, k = {1}, i = {2}", _classID, _key,
-		       _index); 
+    public override string EventForDisplay
+    {
+      get {return base.EventForDisplay + " mask";}
+    }
+
+    override public bool Execute()
+    {
+      return true;
     }
   }
 }

@@ -32,13 +32,24 @@ namespace Gimp.PhotoshopActions
     {
       get 
 	{
-	  return _type != null;
+	  if (_type != null && (_type is TypeParameter))
+	    {
+	      TypeParameter type = _type as TypeParameter;
+	      if (type.Value == "RGBM" || type.Value == "Grys")
+		{
+		  return true;
+		}
+	    }
+	  return false;
 	}
     }
 
     protected override IEnumerable ListParameters()
     {
-      yield return "Mode: " + (_type as TypeParameter).Value;
+      if (_type is TypeParameter)
+	{
+	  yield return "Mode: " + (_type as TypeParameter).Value;
+	}
     }
 
     override public bool Execute()

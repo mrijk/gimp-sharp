@@ -44,6 +44,9 @@ namespace Gimp.PhotoshopActions
 
 	  switch (classID)
 	    {
+	    case "AdjL":
+	      return new AddAdjustmentLayerEvent(this);
+	      break;
 	    case "Dcmn":
 	      return new NewDocumentEvent(this, _object as ObjcParameter);
 	      break;
@@ -57,6 +60,10 @@ namespace Gimp.PhotoshopActions
 	      Console.WriteLine("MakeEvent-2: {0} not implemented", classID);
 	      break;
 	    }
+	}
+      if (_object != null && _object is TypeParameter)
+	{
+	  return new AddMaskEvent(this);
 	}
       else if (_obj != null)
 	{

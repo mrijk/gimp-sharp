@@ -48,6 +48,9 @@ namespace Gimp.PhotoshopActions
       switch (_mode)
 	{
 	case "Frwr":
+	  LayerList layers = ActiveImage.Layers;
+	  int index = layers.GetIndex(SelectedLayer);
+	  SelectedLayer = layers[index - 1];
 	  break;
 	default:
 	  Console.WriteLine("SelectLayerEvent, unknown mode: " + _mode);

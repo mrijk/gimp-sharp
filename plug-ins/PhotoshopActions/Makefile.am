@@ -15,6 +15,7 @@ MYSOURCES = 				\
 	AddAdjustmentLayerEvent.cs	\
 	AddGuideEvent.cs		\
 	AddLayerEvent.cs		\
+	AddMaskEvent.cs			\
 	AddNoiseEvent.cs		\
 	AddTextLayerEvent.cs		\
 	AddToEvent.cs			\

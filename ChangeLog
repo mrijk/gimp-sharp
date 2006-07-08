@@ -1,3 +1,17 @@
+2006-07-08  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/PhotoshopActions/ShowEvent.cs
+	* plug-ins/PhotoshopActions/DuplicateEvent.cs: removed some warnings
+
+	* plug-ins/PhotoshopActions/AddMaskEvent.cs: new file
+
+	* plug-ins/PhotoshopActions/Makefile.am: changed accordingly
+
+	* plug-ins/PhotoshopActions/MoveLayerEvent.cs: implemented move
+	forward and move backward
+
+	* lib/Layer.cs: new convenience funcs to raise and lower layers
+
 2006-07-07  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/PhotoshopActions/SelectLayerByNameEvent.cs

@@ -46,13 +46,10 @@ namespace Gimp.PhotoshopActions
 		{
 		case "Chnl":
 		  return new DuplicateChannelEvent(this, type.Value);
-		  break;
 		case "Dcmn":
 		  return new DuplicateDocumentEvent(this);
-		  break;
 		case "Lyr":
 		  return new DuplicateLayerEvent(this);
-		  break;
 		default:
 		  Console.WriteLine("DuplicateEvent: {0} unknown", type.Key);
 		  break;

@@ -45,8 +45,18 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
-      Console.WriteLine("Move layer! " + _direction);
-
+      switch (_direction)
+	{
+	case "Bckw":
+	  SelectedLayer.Lower();
+	  break;
+	case "Frwr":
+	  SelectedLayer.Raise();
+	  break;
+	default:
+	  Console.WriteLine("MoveLayerEvents: " + _direction);
+	  break;
+	}
       return true;
     }
   }

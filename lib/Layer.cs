@@ -26,11 +26,14 @@ namespace Gimp
 {
   public class Layer : Drawable
   {    
+    readonly Image _image;
+
     public Layer(Image image, string name, int width, int height, 
 		 ImageType type, double opacity, LayerModeEffects mode) : 
       base(gimp_layer_new(image.ID, name, width, height, type, 
 			  opacity, mode))
     {
+      _image = image;
     }
   
     public Layer(Layer layer) : base(gimp_layer_copy(layer.ID))
@@ -202,6 +205,16 @@ namespace Gimp
     public bool FloatingSel
     {
       get {return gimp_layer_is_floating_sel (_ID);}
+    }
+
+    public void Lower()
+    {
+      _image.LowerLayer(this);
+    }
+
+    public void Raise()
+    {
+      _image.RaiseLayer(this);
     }
 
     [DllImport("libgimp-2.0-0.dll")]

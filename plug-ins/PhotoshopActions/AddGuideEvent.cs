@@ -45,6 +45,11 @@ namespace Gimp.PhotoshopActions
 	}
     }
 
+    public override string EventForDisplay
+    {
+      get {return base.EventForDisplay + " guide";}
+    }
+
     override public bool Execute()
     {
       Image image = ActiveImage;

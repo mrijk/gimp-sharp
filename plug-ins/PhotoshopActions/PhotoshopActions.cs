@@ -67,7 +67,7 @@ namespace Gimp.PhotoshopActions
     {
       gimp_ui_init("PhotoshopActions", true);
 
-      Dialog dialog = DialogNew("Photoshop Actions 0.1", "PhotoshopActions",
+      Dialog dialog = DialogNew("Photoshop Actions 0.2", "PhotoshopActions",
 				IntPtr.Zero, 0, Gimp.StandardHelpFunc, 
 				"PhotoshopActions");
 
@@ -164,12 +164,13 @@ namespace Gimp.PhotoshopActions
 
       int nrScripts = 0;
 
-      DebugOutput.Quiet = false;
+      DebugOutput.Quiet = true;
 
       foreach (string fileName in Directory.GetFiles(scriptDir))
 	{
 	  if (fileName.EndsWith(".atn"))
 	    {
+	      Console.WriteLine(fileName);
 	      nrScripts++;
 
 	      ActionSet actions = parser.Parse(fileName);
@@ -180,7 +181,7 @@ namespace Gimp.PhotoshopActions
 
 		  TreeIter iter = store.AppendValues(actions.Name, actions);
 		  foreach (Action action in actions)
-		    {		      
+		    {
 		      TreeIter iter1 = store.AppendValues(iter, action.Name,
 							  action);
 		      foreach (ActionEvent actionEvent in action)

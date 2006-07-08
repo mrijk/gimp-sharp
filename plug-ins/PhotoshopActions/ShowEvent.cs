@@ -49,10 +49,8 @@ namespace Gimp.PhotoshopActions
 	    {
 	    case "Lyr":
 	      return new ShowLayerEvent(this, name.Key);
-	      break;
 	    case "Chnl":
 	      return new ShowChannelEvent(name.Key);
-	      break;
 	    default:
 	      Console.WriteLine("Can't show " + name.ClassID2);
 	      break;
@@ -66,7 +64,6 @@ namespace Gimp.PhotoshopActions
 	    {
 	    case "Lyr":
 	      return new ShowLayerEvent(this);
-	      break;
 	    default:
 	      Console.WriteLine("Can't show " + enmr.Key);
 	      break;
@@ -79,7 +76,6 @@ namespace Gimp.PhotoshopActions
 	    {
 	    case "Lyr":
 	      return new ShowLayerEvent(this, property);
-	      break;
 	    default:
 	      Console.WriteLine("Can't show " + property.Key);
 	      break;

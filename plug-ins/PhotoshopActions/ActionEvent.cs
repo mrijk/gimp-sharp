@@ -101,7 +101,11 @@ namespace Gimp.PhotoshopActions
     public static Layer SelectedLayer
     {
       get {return _selectedLayer;}
-      set {_selectedLayer = value;}
+      set 
+	{
+	  _selectedLayer = value;
+	  _activeImage.ActiveLayer = value;
+	}
     }
 
     public virtual string EventForDisplay
