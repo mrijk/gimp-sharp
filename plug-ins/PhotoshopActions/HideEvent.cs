@@ -49,10 +49,8 @@ namespace Gimp.PhotoshopActions
 	    {
 	    case "Lyr":
 	      return new HideLayerEvent(this);
-	      break;
 	    case "Chnl":
 	      return new HideChannelEvent(enmr.Value);
-	      break;
 	    default:
 	      Console.WriteLine("Can't hide " + enmr.Key);
 	      break;
@@ -66,7 +64,6 @@ namespace Gimp.PhotoshopActions
 	    {
 	    case "Lyr":
 	      return new HideLayerEvent(this, name.Key);
-	      break;
 	    default:
 	      Console.WriteLine("Can't hide " + name.ClassID2);
 	      break;
@@ -79,7 +76,6 @@ namespace Gimp.PhotoshopActions
 	    {
 	    case "Lyr":
 	      return new HideLayerEvent(this, property);
-	      break;
 	    default:
 	      Console.WriteLine("Can't hide " + property.Key);
 	      break;

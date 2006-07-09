@@ -81,6 +81,9 @@ namespace Gimp.PhotoshopActions
 		  // TODO: not a perfect match
 		  SelectedLayer.Mode = LayerModeEffects.LightenOnly;
 		  break;
+		case "Nrml":
+		  SelectedLayer.Mode = LayerModeEffects.Normal;
+		  break;
 		case "Ovrl":
 		  SelectedLayer.Mode = LayerModeEffects.Overlay;
 		  break;

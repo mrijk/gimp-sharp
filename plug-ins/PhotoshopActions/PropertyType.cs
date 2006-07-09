@@ -46,7 +46,11 @@ namespace Gimp.PhotoshopActions
 
     public override void Parse(ActionParser parser)
     {
-      _classID = parser.ReadTokenOrUnicodeString();
+      if (!parser.PreSix)
+	{
+	  _classID = parser.ReadTokenOrUnicodeString();
+	}
+
       _classID2 = parser.ReadTokenOrString();
       _key = parser.ReadTokenOrString();
 

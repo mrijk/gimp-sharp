@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// TypeParameter.cs
+// UnlinkEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,41 +19,22 @@
 //
 
 using System;
-using System.Reflection;
 
 namespace Gimp.PhotoshopActions
 {
-  public class TypeParameter : Parameter
+  public class UnlinkEvent : ActionEvent
   {
-    string _type;
-    string _value;
-
-    public string Type
+    public override bool IsExecutable
     {
-      get {return _type;}
-    }
-
-    public string Value
-    {
-      get {return _value;}
-    }
-
-    public override void Parse(ActionParser parser)
-    {
-      if (parser.PreSix)
+      get 
 	{
-	  _value = parser.ReadFourByteString();
-	}
-      else
-	{
-	  _type = parser.ReadUnicodeString();
-	  _value = parser.ReadTokenOrString();
+	  return false;
 	}
     }
 
-    public override void Fill(Object obj, FieldInfo field)
+    override public bool Execute()
     {
-      field.SetValue(obj, this);
+      return false;
     }
   }
 }

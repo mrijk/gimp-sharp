@@ -29,6 +29,8 @@ namespace Gimp.PhotoshopActions
     BinaryReader _binReader;
     EventMap _map = new EventMap();
 
+    bool _preSix;
+
     int _parsingFailed;
     int _oldVersions;
 
@@ -36,6 +38,11 @@ namespace Gimp.PhotoshopActions
     {
       ActionEvent.ActiveImage = image;
       ActionEvent.ActiveDrawable = drawable;
+    }
+
+    public bool PreSix
+    {
+      get {return _preSix;}
     }
 
     public int ParsingFailed
@@ -59,7 +66,7 @@ namespace Gimp.PhotoshopActions
       try 
 	{
 	  int version = ReadInt32();
-	  if (version != 16)	//  && version != 12)
+	  if (version != 16 && version != 12)
 	    {
 	      Console.WriteLine("Old version not supported");
 	      _parsingFailed++;
@@ -141,23 +148,19 @@ namespace Gimp.PhotoshopActions
 	  string text = ReadFourByteString();
 	  string eventName;
 
-	  bool preSix;
-
 	  if (text == "TEXT")
 	    {
 	      eventName = ReadString();
-	      preSix = false;
+	      _preSix = false;
 	    }
 	  else if (text == "long")
 	    {
 	      eventName = ReadFourByteString();
-	      preSix = true;
-	      Console.WriteLine("**** long!!!!: " + text);
-	      return null;
+	      _preSix = true;
 	    }
 	  else
 	    {
-	      Console.WriteLine("Unknow text: " + text);
+	      Console.WriteLine("Unknown text: " + text);
 	      return null;
 	    }
 	  
@@ -173,7 +176,7 @@ namespace Gimp.PhotoshopActions
 	      return actionEvent;
 	    }
 
-	  if (preSix == false)
+	  if (_preSix == false)
 	    {
 	      string classID = ReadUnicodeString();
 	      DebugOutput.Dump("ClassID: " + classID);
@@ -182,7 +185,7 @@ namespace Gimp.PhotoshopActions
 	      DebugOutput.Dump("ClassID2: " + classID2);
 	    }
 
-	  actionEvent.PreSix = preSix;
+	  actionEvent.PreSix = _preSix;
 	  actionEvent.NumberOfItems = ReadInt32();
 	  DebugOutput.Dump("NumberOfItems: " + actionEvent.NumberOfItems);
 	  
@@ -337,9 +340,17 @@ namespace Gimp.PhotoshopActions
 
     public Parameter ReadItem()
     {
-      string key = ReadTokenOrString();
-      string type = ReadFourByteString();
+      string key;
+      if (_preSix)
+	{
+	  key = ReadFourByteString();
+	}
+      else
+	{
+	  key = ReadTokenOrString();
+	}
 
+      string type = ReadFourByteString();
       DebugOutput.Dump("key: {0} ({1})", key, type);
 
       Parameter parameter = null;
@@ -417,8 +428,15 @@ namespace Gimp.PhotoshopActions
 
     public string ReadTokenOrString()
     {
-      int length = ReadInt32();
-      return (length == 0) ? ReadFourByteString() : ReadString(length);
+      if (_preSix)
+	{
+	  return ReadFourByteString();
+	}
+      else
+	{
+	  int length = ReadInt32();
+	  return (length == 0) ? ReadFourByteString() : ReadString(length);
+	}
     }
 
     public string ReadTokenOrUnicodeString()

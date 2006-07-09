@@ -42,6 +42,7 @@ namespace Gimp.PhotoshopActions
       _map["brightnessEvent"] = "BrightnessEvent";
       _map["canvasSize"] = "CanvasSizeEvent";
       _map["channelMixer"] = "ChannelMixerEvent";
+      _map["chrome"] = "ChromeEvent";
       _map["close"] = "CloseEvent";
       _map["clouds"] = "CloudsEvent";
       _map["colorBalance"] = "ColorBalanceEvent";
@@ -55,7 +56,7 @@ namespace Gimp.PhotoshopActions
       _map["cut"] = "CutEvent";
       _map["delete"] = "DeleteEvent";
       _map["desaturate"] = "DesaturateEvent";
-      _map["differenceClouds"] = "DifferenceCloudsEvent";
+      _map["differenceClouds"] = _map["DfrC"] = "DifferenceCloudsEvent";
       _map["diffuseGlow"] = "DiffuseGlowEvent";
       _map["diffuse"] = "DiffuseEvent";
       _map["duplicate"] = "DuplicateEvent";
@@ -84,7 +85,7 @@ namespace Gimp.PhotoshopActions
       _map["invert"] = "InvertEvent";
       _map["lensFlare"] = "LensFlareEvent";
       _map["levels"] = "LevelsEvent";
-      _map["link"] = "LinkEvent";
+      _map["link"] = _map["Lnk"] = "LinkEvent";
       _map["linkSelectedLayers"] = "LinkSelectedLayersEvent";
       _map["make"] = "MakeEvent";
       _map["maximum"] = "MaximumEvent";
@@ -117,21 +118,49 @@ namespace Gimp.PhotoshopActions
       _map["show"] = "ShowEvent";
       _map["smartBlur"] = "SmartBlurEvent";
       _map["smoothness"] = "SmoothnessEvent";
+      _map["solarize"] = "SolarizeEvent";
       _map["spherize"] = "SpherizeEvent";
       _map["subtractFrom"] = "SubtractFromEvent";
       _map["surfaceBlur"] = "SurfaceBlurEvent";
       _map["stop"] = "StopEvent";
       _map["stroke"] = "StrokeEvent";
-      _map["stainedGlass"] = "StainedGlassEvent";
+      _map["stainedGlass"] = _map["StnG"] = "StainedGlassEvent";
       _map["thresholdClassEvent"] = "ThresholdClassEvent";
       _map["tiles"] = "TilesEvent";
       _map["transform"] = "TransformEvent";
       _map["twirl"] = "TwirlEvent";
+      _map["unlink"] = "UnlinkEvent";
       _map["unsharpMask"] = "UnsharpMaskEvent";
       _map["waterPaper"] = "WaterPaperEvent";
+      _map["wave"] = "WaveEvent";
 
       // Pre-6 events
+      _map["AdNs"] = "AddNoiseEvent";
+      _map["BrgC"] = "BrightnessEvent";
       _map["Clds"] = "CloudsEvent";
+      _map["CpTL"] = "CopyToLayerEvent";
+      _map["Crvs"] = "CurvesEvent";
+      _map["Dlt"] = "DeleteEvent";
+      _map["Dplc"] = "DuplicateEvent";
+      _map["Embs"] = "EmbossEvent";
+      _map["Exch"] = "ExchangeEvent";
+      _map["Fl"] = "FillEvent";
+      _map["FndE"] = "FindEdgesEvent";
+      _map["GsnB"] = "GaussianBlurEvent";
+      // _map["HStr"] = "HueSaturationEvent";
+      _map["Invs"] = "InverseEvent";
+      _map["Lvls"] = "LevelsEvent";
+      _map["Mk"] = "MakeEvent";
+      _map["MrgL"] = "MergeLayersEvent";
+      _map["Msc"] = "MosaicEvent";
+      _map["Mztn"] = "MezzotintEvent";
+      _map["Rset"] = "ResetEvent";
+      _map["setd"] = "SetEvent";
+      _map["Shrp"] = "SharpenEvent";
+      _map["slct"] = "SelectEvent";
+      _map["Sphr"] = "SpherizeEvent";
+      _map["Stop"] = "StopEvent";
+      _map["Strk"] = "StrokeEvent";
     }
 
     public ActionEvent Lookup(string eventName)

@@ -45,13 +45,10 @@ namespace Gimp.PhotoshopActions
 		{
 		case "Chnl":
 		  return new DeleteChannelEvent(this);
-		  break;
 		case "Gd":
 		  return new DeleteGuideEvent(this, type.Value);
-		  break;
 		case "Lyr":
 		  return new DeleteLayerEvent(this);
-		  break;
 		default:
 		  Console.WriteLine("DeleteEvent-1: {0} unknown", type.Key);
 		  break;
@@ -64,10 +61,8 @@ namespace Gimp.PhotoshopActions
 		{
 		case "Chnl":
 		  return new DeleteChannelEvent(this);
-		  break;
 		case "Lyr":
 		  return new DeleteLayerEvent(this);
-		  break;
 		default:
 		  Console.WriteLine("DeleteEvent-2: {0} unknown", 
 				    type.ClassID2);

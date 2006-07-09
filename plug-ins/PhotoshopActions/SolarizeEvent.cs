@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// TypeParameter.cs
+// SolarizeEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,41 +19,21 @@
 //
 
 using System;
-using System.Reflection;
+using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class TypeParameter : Parameter
+  public class SolarizeEvent : ActionEvent
   {
-    string _type;
-    string _value;
-
-    public string Type
+    override public bool Execute()
     {
-      get {return _type;}
-    }
+      CoordinateList<byte> controlPoints = new CoordinateList<byte>();
+      controlPoints.Add(new Coordinate<byte>(0, 0));
+      controlPoints.Add(new Coordinate<byte>(127, 127));
+      controlPoints.Add(new Coordinate<byte>(255, 0));
 
-    public string Value
-    {
-      get {return _value;}
-    }
-
-    public override void Parse(ActionParser parser)
-    {
-      if (parser.PreSix)
-	{
-	  _value = parser.ReadFourByteString();
-	}
-      else
-	{
-	  _type = parser.ReadUnicodeString();
-	  _value = parser.ReadTokenOrString();
-	}
-    }
-
-    public override void Fill(Object obj, FieldInfo field)
-    {
-      field.SetValue(obj, this);
+      ActiveDrawable.CurvesSpline(HistogramChannel.Value, controlPoints);
+      return true;
     }
   }
 }

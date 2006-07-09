@@ -24,6 +24,7 @@ MYSOURCES = 				\
 	BrightnessEvent.cs		\
 	CanvasSizeEvent.cs		\
 	ChannelMixerEvent.cs		\
+	ChromeEvent.cs			\
 	ClassType.cs			\
 	CloseEvent.cs			\
 	CloudsEvent.cs			\
@@ -144,6 +145,7 @@ MYSOURCES = 				\
 	ShowLayerEvent.cs		\
 	SmartBlurEvent.cs		\
 	SmoothnessEvent.cs		\
+	SolarizeEvent.cs		\
 	SpherizeEvent.cs		\
 	StainedGlassEvent.cs		\
 	StopEvent.cs			\
@@ -157,8 +159,10 @@ MYSOURCES = 				\
 	TypeParameter.cs		\
 	TwirlEvent.cs			\
 	UnimplementedEvent.cs		\
+	UnlinkEvent.cs			\
 	UnsharpMaskEvent.cs		\
-	WaterPaperEvent.cs
+	WaterPaperEvent.cs		\
+	WaveEvent.cs
 
 EXTRA_DIST = $(MYSOURCES) PhotoshopActions PhotoshopActions.png
 

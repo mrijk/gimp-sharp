@@ -49,10 +49,8 @@ namespace Gimp.PhotoshopActions
 		    {
 		    case "BckC":
 		      return new SetBackgroundColorEvent(this);
-		      break;
 		    case "FrgC":
 		      return new SetForegroundColorEvent(this);
-		      break;
 		    default:
 		      break;
 		    }
@@ -65,7 +63,6 @@ namespace Gimp.PhotoshopActions
 		  break;
 		case "Lyr":
 		  return new SetLayerPropertyEvent(this);
-		  break;
 		case "Prpr":
 		  if (property.Key == "Lefx")
 		    {
@@ -88,10 +85,8 @@ namespace Gimp.PhotoshopActions
 		{
 		case "Chnl":
 		  return new SetChannelPropertyEvent(this);
-		  break;
 		case "Lyr":
 		  return new SetLayerPropertyEvent(this);
-		  break;
 		default:
 		  Console.WriteLine("SetEvent.Parse: unknown key " + enmr.Key);
 		  break;

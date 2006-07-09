@@ -173,7 +173,6 @@ namespace Gimp.PhotoshopActions
 
 	  return new RGB(red.Value / 255.0, green.Value / 255.0, 
 			 blue.Value / 255.0);
-	  break;
 	case "HSBC":
 	  DoubleParameter hue = objc.Parameters["H"] as DoubleParameter;
 	  DoubleParameter saturation = objc.Parameters["Strt"] 
@@ -183,7 +182,6 @@ namespace Gimp.PhotoshopActions
 
 	  return new RGB(new HSV(hue.Value / 255.0, saturation.Value / 255.0, 
 				 brightness.Value / 255.0));
-	  break;
 	default:
 	  Console.WriteLine("*** Color model {0} not supported", 
 			    objc.ClassID2);

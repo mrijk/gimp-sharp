@@ -60,7 +60,10 @@ namespace Gimp.PhotoshopActions
       yield return "Height: " + _height;
       yield return "Resolution: " + _resolution;
       yield return "Depth: " + _depth;
-      yield return "Profile: " + _profile;
+      if (_profile != null)
+	{
+	  yield return "Profile: " + _profile;
+	}
     }
 
     override public bool Execute()

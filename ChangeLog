@@ -1,3 +1,22 @@
+2006-07-09  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/PhotoshopActions/ActionEvent.cs
+	* plug-ins/PhotoshopActions/HideEvent.cs
+	* plug-ins/PhotoshopActions/DeleteEvent.cs: removed some
+	compilation warnings.
+
+	* plug-ins/PhotoshopActions/ChromeEvent.cs
+	* plug-ins/PhotoshopActions/SolarizeEvent.cs
+	* plug-ins/PhotoshopActions/UnlinkEvent.cs
+	* plug-ins/PhotoshopActions/WaveEvent.cs: new files
+
+	* plug-ins/PhotoshopActions/EventMap.cs
+	* plug-ins/PhotoshopActions/Makefile.am: changed accordingly
+
+	* plug-ins/PhotoshopActions/IndexType.cs
+	* plug-ins/PhotoshopActions/EventMap.cs: support older action
+	files.
+
 2006-07-08  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/PhotoshopActions/ShowEvent.cs

@@ -35,31 +35,45 @@ namespace Gimp.PhotoshopActions
 
 	  ReferenceParameter obj = objc.Parameters["Chnl"] as 
 	    ReferenceParameter;
-	  string channel = (obj.Set[0] as EnmrType).Value;
+	  string origChannel = (obj.Set[0] as EnmrType).Value;
 
-	  if (channel == "Cmps")
+	  ListParameter curve = objc.Parameters["Crv"] as ListParameter;
+	  
+	  CoordinateList<byte> controlPoints = new CoordinateList<byte>();
+	  
+	  foreach (Parameter parameter in curve)
 	    {
-	      ListParameter curve = objc.Parameters["Crv"] as ListParameter;
-
-	      CoordinateList<byte> controlPoints = new CoordinateList<byte>();
-
-	      foreach (Parameter parameter in curve)
-		{
-		  ObjcParameter point = parameter as ObjcParameter;
-		  double x = 
-		    (point.Parameters["Hrzn"] as DoubleParameter).Value;
+	      ObjcParameter point = parameter as ObjcParameter;
+	      double x = 
+		(point.Parameters["Hrzn"] as DoubleParameter).Value;
 		  double y = 
 		    (point.Parameters["Vrtc"] as DoubleParameter).Value;
-
+		  
 		  controlPoints.Add(new Coordinate<byte>((byte) x, (byte) y));
-		}
-	      ActiveDrawable.CurvesSpline(HistogramChannel.Value, 
-					  controlPoints);
 	    }
-	  else
+
+	  HistogramChannel channel;
+
+	  switch (origChannel)
 	    {
-	      Console.WriteLine("CurvesEvent: " + channel);
+	    case "Cmps":
+	      channel = HistogramChannel.Value;
+	      break;
+	    case "Rd":
+	      channel = HistogramChannel.Red;
+	      break;
+	    case "Grn":
+	      channel = HistogramChannel.Green;
+	      break;
+	    case "Bl":
+	      channel = HistogramChannel.Blue;
+	      break;
+	    default: 
+	      Console.WriteLine("CurvesEvent: " + origChannel);
+	      return false;
 	    }
+	  
+	  ActiveDrawable.CurvesSpline(channel, controlPoints);
 	}
       else
 	{

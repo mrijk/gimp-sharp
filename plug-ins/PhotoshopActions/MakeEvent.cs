@@ -46,16 +46,12 @@ namespace Gimp.PhotoshopActions
 	    {
 	    case "AdjL":
 	      return new AddAdjustmentLayerEvent(this);
-	      break;
 	    case "Dcmn":
 	      return new NewDocumentEvent(this, _object as ObjcParameter);
-	      break;
 	    case "Gd":
 	      return new AddGuideEvent(this, _object as ObjcParameter);
-	      break;
 	    case "Lyr":
 	      return new AddLayerEvent(this, _object as ObjcParameter);
-	      break;
 	    default:
 	      Console.WriteLine("MakeEvent-2: {0} not implemented", classID);
 	      break;
@@ -72,16 +68,12 @@ namespace Gimp.PhotoshopActions
 	    {
 	    case "AdjL":
 	      return new AddAdjustmentLayerEvent(this);
-	      break;
 	    case "Lyr":
 	      return new AddLayerEvent(this, _obj.Set);
-	      break;
 	    case "SnpS":
 	      return new MakeSnapshotEvent(this);
-	      break;
 	    case "TxLr":
 	      return new AddTextLayerEvent(this);
-	      break;
 	    default:
 	      Console.WriteLine("MakeEvent-1: {0} not implemented", 
 				classType.ClassID2);

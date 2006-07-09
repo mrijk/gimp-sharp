@@ -40,8 +40,16 @@ namespace Gimp.PhotoshopActions
 
     public override void Parse(ActionParser parser)
     {
-      _type = parser.ReadTokenOrString();
-      _value = parser.ReadTokenOrString();
+      if (parser.PreSix)
+	{
+	  _type = parser.ReadFourByteString();
+	  _value = parser.ReadFourByteString();
+	}
+      else
+	{
+	  _type = parser.ReadTokenOrString();
+	  _value = parser.ReadTokenOrString();
+	}
     }
 
     public override void Fill(Object obj, FieldInfo field)
