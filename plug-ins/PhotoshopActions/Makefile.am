@@ -125,12 +125,16 @@ MYSOURCES = 				\
 	ReplaceColorEvent.cs		\
 	RotateEvent.cs			\
 	ResetEvent.cs			\
+	SelectAllEvent.cs		\
 	SelectAllLayersEvent.cs		\
+	SelectEllipseEvent.cs		\
 	SelectEvent.cs			\
 	SelectionEvent.cs		\
 	SelectChannelEvent.cs		\
 	SelectLayerByNameEvent.cs	\
 	SelectLayerEvent.cs		\
+	SelectNoneEvent.cs		\
+	SelectRectangleEvent.cs		\
 	SetBackgroundColorEvent.cs	\
 	SetChannelPropertyEvent.cs	\
 	SetColorEvent.cs		\
@@ -162,7 +166,8 @@ MYSOURCES = 				\
 	UnlinkEvent.cs			\
 	UnsharpMaskEvent.cs		\
 	WaterPaperEvent.cs		\
-	WaveEvent.cs
+	WaveEvent.cs			\
+	WindEvent.cs
 
 EXTRA_DIST = $(MYSOURCES) PhotoshopActions PhotoshopActions.png
 

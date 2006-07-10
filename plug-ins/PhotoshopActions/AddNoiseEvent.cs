@@ -40,8 +40,7 @@ namespace Gimp.PhotoshopActions
 	}
 
       double noise = _noise / 100;
-      int independant = (_monochrome) ? 0 : 1;
-      RunProcedure("plug_in_rgb_noise", independant, 0, noise, noise, noise, 
+      RunProcedure("plug_in_rgb_noise", !_monochrome, 0, noise, noise, noise, 
 		   1.0);
 
       return true;

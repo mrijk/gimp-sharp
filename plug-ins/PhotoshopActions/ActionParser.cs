@@ -68,7 +68,7 @@ namespace Gimp.PhotoshopActions
 	  int version = ReadInt32();
 	  if (version != 16 && version != 12)
 	    {
-	      Console.WriteLine("Old version not supported");
+	      Console.WriteLine("Old version {0} not supported", version);
 	      _parsingFailed++;
 	      _oldVersions++;
 	      return null;

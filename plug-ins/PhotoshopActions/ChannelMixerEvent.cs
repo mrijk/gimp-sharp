@@ -19,7 +19,7 @@
 //
 
 using System;
-using Gtk;
+using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
@@ -38,45 +38,55 @@ namespace Gimp.PhotoshopActions
 
     double _r, _g, _b;
 
+    protected override IEnumerable ListParameters()
+    {
+      yield return "Red: " + _r + " %";
+      yield return "Green: " + _g + " %";
+      yield return "Blue: " + _b + " %";
+    }
+
     override public ActionEvent Parse(ActionParser parser)
     {
       base.Parse(parser);
 
-      DoubleParameter red, green, blue;
-
       if (_monochrome)
 	{
-	  red = _grey.Parameters["Rd"] as DoubleParameter;
-	  green = _grey.Parameters["Grn"] as DoubleParameter;
-	  blue = _grey.Parameters["Bl"] as DoubleParameter;
+	  LongParameter red, green, blue;
+
+	  red = _grey.Parameters["Rd"] as LongParameter;
+	  green = _grey.Parameters["Grn"] as LongParameter;
+	  blue = _grey.Parameters["Bl"] as LongParameter;
+
+	  if (red != null)
+	    _r = red.Value;
+	  if (green != null)
+	    _g = green.Value;
+	  if (blue != null)
+	    _b = blue.Value;     
 	}
       else
 	{
+	  DoubleParameter red, green, blue;
+
 	  red = _red.Parameters["Rd"] as DoubleParameter;
 	  green = _green.Parameters["Grn"] as DoubleParameter;
 	  blue = _blue.Parameters["Bl"] as DoubleParameter;
+
+	  if (red != null)
+	    _r = red.Value;
+	  if (green != null)
+	    _g = green.Value;
+	  if (blue != null)
+	    _b = blue.Value;     
 	}
 
-      if (red != null)
-	_r = red.Value;
-      if (green != null)
-	_g = green.Value;
-      if (blue != null)
-	_b = blue.Value;     
 
       return this;
     }
 
-    protected override void FillParameters(TreeStore store, TreeIter iter)
-    {
-      store.AppendValues(iter, "Red: " + _r + " %");
-      store.AppendValues(iter, "Green: " + _g + " %");
-      store.AppendValues(iter, "Blue: " + _b + " %");
-    }
-
     override public bool Execute()
     {
-      RunProcedure("plug_in_colors_channel_mixer", 0,
+      RunProcedure("plug_in_colors_channel_mixer", _monochrome,
 		   _r / 100, 0.0, 0.0,
 		   0.0, _g / 100, 0.0,
 		   0.0, 0.0, _b / 100);

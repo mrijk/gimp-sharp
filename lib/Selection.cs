@@ -131,7 +131,7 @@ namespace Gimp
         }
     }
 
-    public void Feather(int radius)
+    public void Feather(double radius)
     {
       if (!gimp_selection_feather (_imageID, radius))
         {

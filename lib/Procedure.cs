@@ -143,16 +143,16 @@ namespace Gimp
 	  _params[1].data.d_image = image.ID;
 	  _params[2].type = PDBArgType.Drawable;
 	  _params[2].data.d_drawable = drawable.ID;
-	  
+
 	  int i;
-	  
+
 	  for (i = 0; i < num_args; i++)
 	    {
 	      paramDef[i] = (GimpParamDef) 
 		Marshal.PtrToStructure(argsPtr, typeof(GimpParamDef));
 	      argsPtr = (IntPtr)((int)argsPtr + Marshal.SizeOf(paramDef[i]));
 	    }
-	  
+
 	  i = 3;
 	  foreach (object obj in list)
 	    {
@@ -160,11 +160,26 @@ namespace Gimp
 		{
 		case PDBArgType.Int32:
 		  _params[i].type = PDBArgType.Int32;
-		  _params[i].data.d_int32 = (Int32) obj;
+		  if (obj is bool)
+		    {
+		      Int32 val = ((bool) obj) ? 1 : 0;
+		      _params[i].data.d_int32 = val;
+		    }
+		  else
+		    {
+		      _params[i].data.d_int32 = (Int32) obj;
+		    }
 		  break;
 		case PDBArgType.Float:
 		  _params[i].type = PDBArgType.Float;
-		  _params[i].data.d_float = (double) obj;
+		  if (obj is int)
+		    {
+		      _params[i].data.d_float = (double) (int) obj;
+		    }
+		  else
+		    {
+		      _params[i].data.d_float = (double) obj;
+		    }
 		  break;
 		default:
 		  Console.WriteLine("Implement this!");
@@ -172,7 +187,7 @@ namespace Gimp
 		}
 	      i++;
 	    }
-	  
+
 	  int n_return_vals;
 	  gimp_run_procedure2(_name, out n_return_vals, i, _params);
 	}

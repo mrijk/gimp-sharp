@@ -24,11 +24,6 @@ namespace Gimp.PhotoshopActions
 {
   public class AddMaskEvent : ActionEvent
   {
-    public override bool IsExecutable
-    {
-      get {return false;}
-    }
-
     public AddMaskEvent(ActionEvent srcEvent) : base(srcEvent) 
     {
     }
@@ -40,6 +35,16 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
+      // Fix me, this is an ugly construction
+      Layer layer = new Layer(ActiveDrawable);
+      if (!layer.HasAlpha)
+	{
+	  layer.AddAlpha();
+	}
+      Mask mask = layer.CreateMask(AddMaskType.White);
+      layer.Mask = mask;
+      ActiveDrawable = mask;
+
       return true;
     }
   }

@@ -18,6 +18,7 @@ MYSOURCES = 			\
 	Display.cs 		\
 	Drawable.cs		\
 	DrawablePreview.cs	\
+	EllipseSelectTool.cs	\
 	FileEntry.cs		\
 	FilePlugin.cs		\
 	FloatingSelection.cs	\

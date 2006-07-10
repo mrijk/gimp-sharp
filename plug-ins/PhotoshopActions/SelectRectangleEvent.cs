@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// FeatherEvent.cs
+// SelectRectangleEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,19 +23,28 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class FeatherEvent : ActionEvent
+  public class SelectRectangleEvent : ActionEvent
   {
-    [Parameter("Rds")]
-    double _radius;
+    ObjcParameter _objc;
+
+    public SelectRectangleEvent(ActionEvent srcEvent, ObjcParameter objc) : 
+      base(srcEvent)
+    {
+      _objc = objc;
+    }
 
     protected override IEnumerable ListParameters()
     {
-      yield return "Radius: " + _radius + " pixels";
+      yield return "To: rectangle";
     }
 
     override public bool Execute()
     {
-      ActiveImage.Selection.Feather(_radius);
+      double x, y, width, height;
+      GetBounds(_objc, out x, out y, out width, out height);
+      RectangleSelectTool tool = new RectangleSelectTool(ActiveImage);
+      tool.Select(x, y, width, height, ChannelOps.Replace, false, 0);
+
       return true;
     }
   }

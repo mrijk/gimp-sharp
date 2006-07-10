@@ -18,6 +18,8 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
+using System.Collections;
+
 namespace Gimp.PhotoshopActions
 {
   public class MakeSnapshotEvent : ActionEvent
@@ -29,6 +31,12 @@ namespace Gimp.PhotoshopActions
     public override string EventForDisplay
     {
       get {return base.EventForDisplay + " snapshot";}
+    }
+
+    protected override IEnumerable ListParameters()
+    {
+      // Fix me: snapshots from other states possible?
+      yield return "From: Current History State";
     }
 
     override public bool Execute()

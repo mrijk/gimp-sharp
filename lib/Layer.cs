@@ -45,6 +45,10 @@ namespace Gimp
     {
     }
 
+    public Layer(Drawable drawable) : base(drawable.ID)
+    {
+    }
+
     internal Layer(Int32 layerID) : base(layerID)
     {
     }

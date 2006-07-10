@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// FeatherEvent.cs
+// SelectAllEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,19 +23,20 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class FeatherEvent : ActionEvent
+  public class SelectAllEvent : ActionEvent
   {
-    [Parameter("Rds")]
-    double _radius;
+    public SelectAllEvent(SelectionEvent srcEvent) : base(srcEvent)
+    {
+    }
 
     protected override IEnumerable ListParameters()
     {
-      yield return "Radius: " + _radius + " pixels";
+      yield return "To: all";
     }
 
     override public bool Execute()
     {
-      ActiveImage.Selection.Feather(_radius);
+      ActiveImage.Selection.All();
       return true;
     }
   }

@@ -1,7 +1,7 @@
 // GIMP# - A C# wrapper around the GIMP Library
 // Copyright (C) 2004-2006 Maurits Rijk
 //
-// Mask.cs
+// EllipseSelectTool.cs
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -20,15 +20,38 @@
 //
 
 using System;
+using System.Runtime.InteropServices;
 
 namespace Gimp
 {
-  public sealed class Mask : Drawable
+  public sealed class EllipseSelectTool
   {
-    readonly Int32 _maskID;
-    
-    public Mask(Int32 maskID) : base(maskID)
+    Int32 _imageID;
+
+    public EllipseSelectTool(Image image)
     {
+      _imageID = image.ID;
     }
+
+    public void Select(double x, double y, double width, double height,
+		       ChannelOps operation, bool antialias, bool feather, 
+		       double featherRadius)
+    {
+      if (!gimp_ellipse_select(_imageID, x, y, width, height, operation,
+			       antialias, feather, featherRadius))
+	{
+	  throw new GimpSharpException();
+	}
+    }
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_ellipse_select (Int32 image_ID,
+					    double x,
+					    double y,
+					    double width,
+					    double height,
+					    ChannelOps operation,
+					    bool antialias,
+					    bool feather,
+					    double feather_radius);
   }
 }

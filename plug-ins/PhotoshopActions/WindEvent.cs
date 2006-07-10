@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// FeatherEvent.cs
+// WindEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,19 +23,32 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class FeatherEvent : ActionEvent
+  public class WindEvent : ActionEvent
   {
-    [Parameter("Rds")]
-    double _radius;
+    [Parameter("WndM")]
+    EnumParameter _mode;
+    [Parameter("Drct")]
+    EnumParameter _direction;
+
+    public override bool IsExecutable
+    {
+      get 
+	{
+	  return _mode.Value == "Wnd";
+	}
+    }
 
     protected override IEnumerable ListParameters()
     {
-      yield return "Radius: " + _radius + " pixels";
+      yield return "Mode: " + _mode.Value;
+      yield return "Direction: " + _direction.Value;
     }
 
     override public bool Execute()
     {
-      ActiveImage.Selection.Feather(_radius);
+      int direction = (_direction.Value == "Lft") ? 0 : 1;
+      int algorithm = (_mode.Value == "Wnd") ? 0 : 1;
+      RunProcedure("plug_in_wind", 10, direction, 10, algorithm, 0);
       return true;
     }
   }

@@ -189,5 +189,20 @@ namespace Gimp.PhotoshopActions
 	  break;
 	}
     }
+
+    protected void GetBounds(ObjcParameter objc, out double x, out double y,
+			     out double width, out double height)
+    {
+      ParameterSet parameters = objc.Parameters;
+      double top = (parameters["Top"] as DoubleParameter).Value;
+      double left = (parameters["Left"] as DoubleParameter).Value;
+      double bottom = (parameters["Btom"] as DoubleParameter).Value;
+      double right = (parameters["Rght"] as DoubleParameter).Value;
+      
+      x = left * ActiveImage.Width / 100;
+      y = top * ActiveImage.Height / 100;
+      width = (right - left) * ActiveImage.Width / 100 + 1;
+      height = (bottom - top) * ActiveImage.Height / 100 + 1;
+    }
   }
 }

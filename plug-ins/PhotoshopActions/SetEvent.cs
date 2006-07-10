@@ -58,7 +58,7 @@ namespace Gimp.PhotoshopActions
 		case "Chnl":
 		  if (property.Key == "fsel")
 		    {
-		      return new SelectionEvent(this);
+		      return new SelectionEvent(this).Parse(parser);
 		    }
 		  break;
 		case "Lyr":

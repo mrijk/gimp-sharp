@@ -19,7 +19,7 @@
 //
 
 using System;
-using Gtk;
+using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
@@ -32,27 +32,30 @@ namespace Gimp.PhotoshopActions
     [Parameter("Md")]
     EnumParameter _mode;
 
-    protected override void FillParameters(TreeStore store, TreeIter iter)
+    protected override IEnumerable ListParameters()
     {
       if (_using != null)
 	{
 	  string color;
 	  switch(_using.Value)
 	    {
-	    case "FrgC":
-	      color = "foreground color";
-	      break;
 	    case "BckC":
 	      color = "background color";
+	      break;
+	    case "Blck":
+	      color = "black";
+	      break;
+	    case "FrgC":
+	      color = "foreground color";
 	      break;
 	    default:
 	      color = "Fixme: " + _using.Value;
 	      break;
 	    }
-	  store.AppendValues(iter, "Using: " + color);
+	  yield return "Using: " + color;
 	}
 
-      store.AppendValues(iter, "Opacity: " + _opacity + " %");
+      yield return "Opacity: " + _opacity + " %";
 
       if (_mode != null)
 	{
@@ -66,7 +69,7 @@ namespace Gimp.PhotoshopActions
 	      mode = "Fixme: " + _mode.Value;
 	      break;
 	    }
-	  store.AppendValues(iter, "Mode: " + mode);
+	  yield return "Mode: " + mode;
 	}
     }
 
@@ -74,6 +77,12 @@ namespace Gimp.PhotoshopActions
     {
       switch (_using.Value)
 	{
+	case "Blck":
+	  Context.Push();
+	  Context.Foreground = new RGB(0, 0, 0);
+	  ActiveDrawable.EditFill(FillType.Foreground);
+	  Context.Pop();
+	  break;
 	case "FrgC":
 	  ActiveDrawable.EditFill(FillType.Foreground);
 	  break;
