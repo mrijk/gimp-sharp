@@ -19,26 +19,33 @@
 //
 
 using System;
+using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
   public class ImageSizeEvent : ActionEvent
   {
+    [Parameter("Hght")]
+    double _height;
     [Parameter("Wdth")]
     double _width;
     [Parameter("scaleStyles")]
     bool _scaleStyles;
     [Parameter("CnsP")]
-    bool _cnsp;	// Fix me!
+    bool _constrainProportions;
     [Parameter("Intr")]
-    EnumParameter _intr;
+    EnumParameter _Intersect;	// ???
 
-    public override bool IsExecutable
+    protected override IEnumerable ListParameters()
     {
-      get 
-	{
-	  return false;
-	}
+      yield return "Width: " + _width;
+      yield return "Height: " + _height;
+    }
+
+    override public bool Execute()
+    {
+      ActiveImage.Scale((int) _width, (int) _height);
+      return true;
     }
   }
 }

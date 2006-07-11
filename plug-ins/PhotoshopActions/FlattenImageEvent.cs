@@ -24,7 +24,7 @@ namespace Gimp.PhotoshopActions
   {
     override public bool Execute()
     {
-      ActiveImage.Flatten();
+      ActiveDrawable = SelectedLayer = ActiveImage.Flatten();
       return true;
     }
   }

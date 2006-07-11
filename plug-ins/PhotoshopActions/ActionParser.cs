@@ -396,7 +396,6 @@ namespace Gimp.PhotoshopActions
 	default:
 	  Console.WriteLine("ReadItem: type {0} unknown!", type);
 	  throw new GimpSharpException();
-	  break;
 	}
 
       DebugOutput.Level++;

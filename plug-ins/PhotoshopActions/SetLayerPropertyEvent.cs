@@ -58,6 +58,7 @@ namespace Gimp.PhotoshopActions
 	      store.AppendValues(iter, "Opacity: " + opacity);
 	      break;
 	    default:
+	      Console.WriteLine("SetLayerProperty: " + parameter.Name);
 	      break;
 	    }
 	}

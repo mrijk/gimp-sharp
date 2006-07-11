@@ -1,3 +1,23 @@
+2006-07-11  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/PhotoshopActions/CanvasSizeEvent.cs
+	* plug-ins/PhotoshopActions/ImageSizeEvent.cs: implemented
+
+	* plug-ins/PhotoshopActions/SetEvent.cs: set quick mask
+
+	* plug-ins/PhotoshopActions/ActionEvent.cs
+	* plug-ins/PhotoshopActions/ActionParser.cs
+	* plug-ins/PhotoshopActions/AddGuideEvent.cs: removed warnings
+
+	* plug-ins/PhotoshopActions/ClearEvent.cs
+	* plug-ins/PhotoshopActions/ClearQuickMaskEvent.cs
+	* plug-ins/PhotoshopActions/MoveLayerByIndexEvent.cs
+	* plug-ins/PhotoshopActions/SetQuickMaskEvent.cs
+	* plug-ins/PhotoshopActions/MoveOffsetEvent.cs: new files
+
+	* plug-ins/PhotoshopActions/EventMap.cs
+	* plug-ins/PhotoshopActions/Makefile.am: changed accordingly
+
 2006-07-10  Maurits  <m.rijk@chello.nl>
 
 	* lib/Procedure.cs: convert bool to Int32 if needed in RunProcedure

@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// MoveLayerEvent.cs
+// MoveOffsetEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,40 +23,29 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class MoveLayerEvent : MoveEvent
+  public class MoveOffsetEvent : MoveEvent
   {
-    readonly string _direction;
+    [Parameter("Hrzn")]
+    double _horizontal;
+    [Parameter("Vrtc")]
+    double _vertical;
 
-    public MoveLayerEvent(ActionEvent srcEvent, string direction) 
-      : base(srcEvent)
+    public MoveOffsetEvent(MoveEvent srcEvent, ObjcParameter objc) : 
+      base(srcEvent)
     {
-      _direction = direction;
-    }
-    
-    public override string EventForDisplay
-    {
-      get {return base.EventForDisplay + " current layer";}
+      objc.Fill(this);
     }
 
     protected override IEnumerable ListParameters()
     {
-      yield return "direction: " + _direction;
+      yield return "Horizontal: " + _vertical;
+      yield return "Vertical: " + _horizontal;
     }
 
     override public bool Execute()
     {
-      switch (_direction)
-	{
-	case "Bckw":
-	  SelectedLayer.Lower();
-	  break;
-	case "Frwr":
-	  SelectedLayer.Raise();
-	  break;
-	default:
-	  Console.WriteLine("MoveLayerEvents: " + _direction);
-	  break;
-	}
+      ActiveDrawable.Offset(false, OffsetType.Transparent, (int) _horizontal,
+			    (int) _vertical);
       return true;
     }
   }

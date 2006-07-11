@@ -23,7 +23,7 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class SelectAllEvent : ActionEvent
+  public class SelectAllEvent : SelectionEvent
   {
     public SelectAllEvent(SelectionEvent srcEvent) : base(srcEvent)
     {

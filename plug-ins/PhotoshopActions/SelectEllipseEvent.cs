@@ -23,7 +23,7 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class SelectEllipseEvent : ActionEvent
+  public class SelectEllipseEvent : SelectionEvent
   {
     ObjcParameter _objc;
 

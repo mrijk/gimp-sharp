@@ -29,6 +29,14 @@ namespace Gimp.PhotoshopActions
     [Parameter("null")]
     ReferenceParameter _obj;
 
+    public MakeEvent()
+    {
+    }
+
+    public MakeEvent(ActionEvent srcEvent) : base(srcEvent)
+    {
+    }
+
     public override bool IsExecutable
     {
       get {return false;}

@@ -19,6 +19,7 @@
 //
 
 using System;
+using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
@@ -43,8 +44,17 @@ namespace Gimp.PhotoshopActions
 	}
     }
 
+    protected override IEnumerable ListParameters()
+    {
+      yield return "Width: " + _width;
+      yield return "Height: " + _height;
+    }
+
     override public bool Execute()
     {
+      int offsetX = 0;
+      int offsetY = 0;
+      ActiveImage.Resize((int) _width, (int) _height, offsetX, offsetY);
       return true;
     }
   }

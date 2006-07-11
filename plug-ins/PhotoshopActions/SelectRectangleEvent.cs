@@ -23,11 +23,11 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class SelectRectangleEvent : ActionEvent
+  public class SelectRectangleEvent : SelectionEvent
   {
     ObjcParameter _objc;
 
-    public SelectRectangleEvent(ActionEvent srcEvent, ObjcParameter objc) : 
+    public SelectRectangleEvent(SelectionEvent srcEvent, ObjcParameter objc) : 
       base(srcEvent)
     {
       _objc = objc;

@@ -29,43 +29,80 @@ namespace Gimp.PhotoshopActions
     [Parameter("T")]
     Parameter _type;
 
+    readonly bool _executable;
+
+    public MoveEvent()
+    {
+    }
+
+    public MoveEvent(ActionEvent srcEvent) : base(srcEvent)
+    {
+      _executable = true;
+    }
+
     public override bool IsExecutable
     {
-      get 
-	{
-	  return false;
-	}
+      get {return _executable;}
     }
 
     override public ActionEvent Parse(ActionParser parser)
     {
       ActionEvent myEvent = base.Parse(parser);
 
-      if (_type != null && (_type is ReferenceParameter))
+      if (_type != null)
 	{
-	  ReferenceParameter type = _type as ReferenceParameter;
-
-	  if (type.Set[0] is EnmrType)
+	  if (_type is ReferenceParameter)
 	    {
-	      EnmrType enmr = type.Set[0] as EnmrType;
+	      ReferenceParameter type = _type as ReferenceParameter;
 	      
-	      switch (enmr.Key)
+	      if (type.Set[0] is EnmrType)
 		{
-		case "Lyr":
-		  return new MoveLayerEvent(this, enmr.Value);
-		default:
-		  Console.WriteLine("MoveEvent, unknown key: " + enmr.Key);
-		  break;
+		  EnmrType enmr = type.Set[0] as EnmrType;
+		  
+		  switch (enmr.Key)
+		    {
+		    case "Lyr":
+		      return new MoveLayerEvent(this, enmr.Value);
+		    default:
+		      Console.WriteLine("MoveEvent, unknown key: " + enmr.Key);
+		      break;
+		    }
+		}
+	      else if (type.Set[0] is IndexType)
+		{
+		  IndexType index = type.Set[0] as IndexType;
+		  switch (index.Key)
+		    {
+		    case "Lyr":
+		      return new MoveLayerByIndexEvent(this, index.Index);
+		    default:
+		      Console.WriteLine("MoveEvent, unknown key: " + 
+					index.Key);
+		      break;
+		    }
+		}
+	    }
+	  else if (_type is ObjcParameter)
+	    {
+	      ObjcParameter type = _type as ObjcParameter;
+
+	      if (type.ClassID2 == "Ofst")
+		{
+		  return new MoveOffsetEvent(this, type);
+		}
+	      else
+		{
+		  Console.WriteLine("MoveEvent-1: " + type.ClassID2);
 		}
 	    }
 	  else
 	    {
-	      Console.WriteLine("MoveEvent-1");
+	      Console.WriteLine("MoveEvent-2");
 	    }
 	}
       else
 	{
-	  Console.WriteLine("MoveEvent-2");
+	  Console.WriteLine("MoveEvent-3");
 	}
       return myEvent;
     }

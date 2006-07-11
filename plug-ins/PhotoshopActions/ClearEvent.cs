@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// SetEvent.cs
+// ClearEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,33 +19,31 @@
 //
 
 using System;
+using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class SetEvent : ActionEvent
+  public class ClearEvent : ActionEvent
   {
     [Parameter("null")]
     ReferenceParameter _obj;
 
-    bool _executable;
-
-    public SetEvent()
+    public ClearEvent()
     {
     }
 
-    public SetEvent(ActionEvent srcEvent) : base(srcEvent)
+    public ClearEvent(ActionEvent srcEvent) : base(srcEvent)
     {
-      _executable = true;
     }
 
     public override bool IsExecutable
     {
-      get {return _executable;}
+      get {return false;}
     }
 
     override public ActionEvent Parse(ActionParser parser)
     {
-      ActionEvent myEvent = base.Parse(parser);
+      base.Parse(parser);
 
       if (_obj != null)
 	{
@@ -55,63 +53,27 @@ namespace Gimp.PhotoshopActions
 
 	      switch (property.ClassID2)
 		{
-		case "Clr":
-		  switch (property.Key)
-		    {
-		    case "BckC":
-		      return new SetBackgroundColorEvent(this);
-		    case "FrgC":
-		      return new SetForegroundColorEvent(this);
-		    default:
-		      break;
-		    }
-		  break;
-		case "Chnl":
-		  if (property.Key == "fsel")
-		    {
-		      return new SelectionEvent(this).Parse(parser);
-		    }
-		  break;
-		case "Lyr":
-		  return new SetLayerPropertyEvent(this);
 		case "Prpr":
 		  switch (property.Key)
 		    {
-		    case "Lefx":
-		      return new SetLayerEffectsEvent(this);
 		    case "QucM":
-		      return new SetQuickMaskEvent(this);
+		      return new ClearQuickMaskEvent(this);
 		    default:
-		      Console.WriteLine("SetEvent.Prpr: " + property.Key);
+		      Console.WriteLine("ClearEvent.Prpr: " + property.Key);
 		      break;
 		    }
 		  break;
 		default:
-		  Console.WriteLine("SetEvent.Parse: " + property.ClassID2);
-		  break;
-		}
-	    }
-	  else if (_obj.Set[0] is EnmrType)
-	    {
-	      EnmrType enmr = _obj.Set[0] as EnmrType;
-	      switch (enmr.Key)
-		{
-		case "Chnl":
-		  return new SetChannelPropertyEvent(this);
-		case "Lyr":
-		  return new SetLayerPropertyEvent(this);
-		default:
-		  Console.WriteLine("SetEvent.Parse: unknown key " + enmr.Key);
+		  Console.WriteLine("ClearEvent.Parse: " + property.ClassID2);
 		  break;
 		}
 	    }
 	  else
 	    {
-	      Console.WriteLine("SetEvent.Parse: {0} unknown type",
+	      Console.WriteLine("ClearEvent.Parse: {0} unknown type",
 				_obj.Set[0]);
 	    }
 	}
-
       return this;
     }
   }

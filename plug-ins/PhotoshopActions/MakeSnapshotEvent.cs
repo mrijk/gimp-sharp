@@ -22,9 +22,9 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class MakeSnapshotEvent : ActionEvent
+  public class MakeSnapshotEvent : MakeEvent
   {
-    public MakeSnapshotEvent(ActionEvent srcEvent) : base(srcEvent)
+    public MakeSnapshotEvent(MakeEvent srcEvent) : base(srcEvent)
     {
     }
 

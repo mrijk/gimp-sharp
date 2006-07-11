@@ -26,6 +26,8 @@ MYSOURCES = 				\
 	ChannelMixerEvent.cs		\
 	ChromeEvent.cs			\
 	ClassType.cs			\
+	ClearEvent.cs			\
+	ClearQuickMaskEvent.cs		\
 	CloseEvent.cs			\
 	CloudsEvent.cs			\
 	ColorBalanceEvent.cs		\
@@ -98,7 +100,9 @@ MYSOURCES = 				\
 	MosaicEvent.cs			\
 	MotionBlurEvent.cs		\
 	MoveEvent.cs			\
+	MoveLayerByIndexEvent.cs	\
 	MoveLayerEvent.cs		\
+	MoveOffsetEvent.cs		\
 	NameType.cs			\
 	NewDocumentEvent.cs		\
 	ObArParameter.cs		\
@@ -142,6 +146,7 @@ MYSOURCES = 				\
 	SetForegroundColorEvent.cs	\
 	SetLayerEffectsEvent.cs		\
 	SetLayerPropertyEvent.cs	\
+	SetQuickMaskEvent.cs		\
 	SharpenEvent.cs			\
 	SharpenMoreEvent.cs		\
 	ShowChannelEvent.cs		\

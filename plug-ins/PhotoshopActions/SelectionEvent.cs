@@ -22,14 +22,26 @@ using System;
 
 namespace Gimp.PhotoshopActions
 {
-  public class SelectionEvent : ActionEvent
+  public class SelectionEvent : SetEvent
   {
     [Parameter("T")]
     Parameter parameter;
 
+    readonly bool _executable;
+
+    public SelectionEvent()
+    {
+    }
+
     public SelectionEvent(ActionEvent srcEvent) : base(srcEvent)
     {
       Parameters.Fill(this);
+      _executable = true;
+    }
+
+    public override bool IsExecutable
+    {
+      get {return _executable;}
     }
 
     public override string EventForDisplay

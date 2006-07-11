@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// MoveLayerEvent.cs
+// ClearQuickMaskEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,41 +23,25 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class MoveLayerEvent : MoveEvent
+  public class ClearQuickMaskEvent : ClearEvent
   {
-    readonly string _direction;
-
-    public MoveLayerEvent(ActionEvent srcEvent, string direction) 
-      : base(srcEvent)
+    public ClearQuickMaskEvent(ClearEvent srcEvent) : base(srcEvent)
     {
-      _direction = direction;
     }
-    
+
+    public override bool IsExecutable
+    {
+      get {return false;}
+    }
+
     public override string EventForDisplay
     {
-      get {return base.EventForDisplay + " current layer";}
-    }
-
-    protected override IEnumerable ListParameters()
-    {
-      yield return "direction: " + _direction;
+      get {return base.EventForDisplay + " quick mask";}
     }
 
     override public bool Execute()
     {
-      switch (_direction)
-	{
-	case "Bckw":
-	  SelectedLayer.Lower();
-	  break;
-	case "Frwr":
-	  SelectedLayer.Raise();
-	  break;
-	default:
-	  Console.WriteLine("MoveLayerEvents: " + _direction);
-	  break;
-	}
-      return true;
+      return false;
     }
   }
 }

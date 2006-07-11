@@ -29,6 +29,11 @@ namespace Gimp.PhotoshopActions
     string _key;
     int _index;
 
+    public string Key
+    {
+      get {return _key;}
+    }
+
     public int Index
     {
       get {return _index;}

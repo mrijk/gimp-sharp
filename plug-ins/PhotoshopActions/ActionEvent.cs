@@ -186,7 +186,6 @@ namespace Gimp.PhotoshopActions
 	  Console.WriteLine("*** Color model {0} not supported", 
 			    objc.ClassID2);
 	  return null;
-	  break;
 	}
     }
 

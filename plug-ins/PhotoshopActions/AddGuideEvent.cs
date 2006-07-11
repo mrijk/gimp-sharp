@@ -78,7 +78,7 @@ namespace Gimp.PhotoshopActions
 	  new HorizontalGuide(image, position);
 	  break;
 	default:
-	  throw new GimpSharpException();
+	  Console.WriteLine("AddGuideEvent: " + _orientation.Value);
 	  break;
 	}
       return true;
