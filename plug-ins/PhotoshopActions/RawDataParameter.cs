@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// PathParameter.cs
+// RawDataParameter.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -14,7 +14,7 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
+// atext with this program; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
@@ -23,45 +23,24 @@ using System.Reflection;
 
 namespace Gimp.PhotoshopActions
 {
-  public class PathParameter : Parameter
+  public class RawDataParameter : Parameter
   {
-    string _path;
+    byte[] _data;
 
-    public string Path
+    public byte[] Data
     {
-      get {return _path;}
+      get {return _data;}
     }
 
     public override void Parse(ActionParser parser)
     {
-#if false
-      // TODO: figure out what these first 17 bytes are
-      for (int i = 0; i < 17; i++)
-	parser.ReadByte();
-
-      _path = parser.ReadString();
-
-      for (int i = 0; i < 188; i++)
-	parser.ReadByte();
-#else
-      int nr1 = parser.ReadInt32();
-
-      string txt = parser.ReadFourByteString();
-
-      int nr2 = parser.ReadByte();
-
       int length = parser.ReadInt32();
-
-      for (int i = 0; i < 3; i++)
-	parser.ReadByte();
-
-      _path = parser.ReadUnicodeString(length);
-#endif
+      _data = parser.ReadBytes(length);
     }
 
     public override void Fill(Object obj, FieldInfo field)
     {
-      field.SetValue(obj, _path);
+      field.SetValue(obj, _data);
     }
   }
 }

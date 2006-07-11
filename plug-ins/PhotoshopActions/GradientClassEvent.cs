@@ -42,7 +42,7 @@ namespace Gimp.PhotoshopActions
 
     public override bool IsExecutable
     {
-      get {return _gradient != null;}
+      get {return _gradient != null || _with != null;}
     }
 
     protected override IEnumerable ListParameters()

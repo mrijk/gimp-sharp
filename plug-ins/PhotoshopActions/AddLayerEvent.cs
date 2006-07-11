@@ -27,12 +27,17 @@ namespace Gimp.PhotoshopActions
   public class AddLayerEvent : ActionEvent
   {
     bool _below;
-    readonly LayerModeEffects _mode;
+    readonly LayerModeEffects _mode = LayerModeEffects.Normal;
 
     public AddLayerEvent(ActionEvent srcEvent, ObjcParameter _object) : 
       base(srcEvent) 
     {
       EnumParameter mode = _object.Parameters["Md"] as EnumParameter;
+      if (mode == null)
+	{
+	  return;
+	}
+
       switch (mode.Value)
 	{
 	case "Drkn":
@@ -51,7 +56,6 @@ namespace Gimp.PhotoshopActions
     public AddLayerEvent(ActionEvent srcEvent, List<ReferenceType> set) : 
       base(srcEvent) 
     {
-      _mode = LayerModeEffects.Normal;
       if (set.Count != 2)
 	{
 	  Console.WriteLine("AddLayerEvent, Count: " + set.Count);

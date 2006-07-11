@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// PathParameter.cs
+// SaveEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,49 +19,19 @@
 //
 
 using System;
-using System.Reflection;
 
 namespace Gimp.PhotoshopActions
 {
-  public class PathParameter : Parameter
+  public class SaveEvent : ActionEvent
   {
-    string _path;
-
-    public string Path
+    public override bool IsExecutable
     {
-      get {return _path;}
+      get {return false;}
     }
 
-    public override void Parse(ActionParser parser)
+    override public bool Execute()
     {
-#if false
-      // TODO: figure out what these first 17 bytes are
-      for (int i = 0; i < 17; i++)
-	parser.ReadByte();
-
-      _path = parser.ReadString();
-
-      for (int i = 0; i < 188; i++)
-	parser.ReadByte();
-#else
-      int nr1 = parser.ReadInt32();
-
-      string txt = parser.ReadFourByteString();
-
-      int nr2 = parser.ReadByte();
-
-      int length = parser.ReadInt32();
-
-      for (int i = 0; i < 3; i++)
-	parser.ReadByte();
-
-      _path = parser.ReadUnicodeString(length);
-#endif
-    }
-
-    public override void Fill(Object obj, FieldInfo field)
-    {
-      field.SetValue(obj, _path);
+      return true;
     }
   }
 }

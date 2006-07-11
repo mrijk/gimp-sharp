@@ -18,9 +18,7 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-
-using Gtk;
+using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
@@ -33,11 +31,11 @@ namespace Gimp.PhotoshopActions
     [Parameter("ClrA")]
     int _clearAmount;
 
-    protected override void FillParameters(TreeStore store, TreeIter iter)
+    protected override IEnumerable ListParameters()
     {
-      store.AppendValues(iter, "Graininess: " + _graininess);
-      store.AppendValues(iter, "Glow Amount: " + _glowAmount);
-      store.AppendValues(iter, "Clear Amount: " + _clearAmount);
+      yield return "Graininess: " + _graininess;
+      yield return "Glow Amount: " + _glowAmount;
+      yield return "Clear Amount: " + _clearAmount;
     }
 
     override public bool Execute()

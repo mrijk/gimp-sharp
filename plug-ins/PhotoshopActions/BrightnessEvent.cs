@@ -19,7 +19,7 @@
 //
 
 using System;
-using Gtk;
+using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
@@ -30,10 +30,10 @@ namespace Gimp.PhotoshopActions
     [Parameter("Cntr")]
     int _contrast;
 
-    protected override void FillParameters(TreeStore store, TreeIter iter)
+    protected override IEnumerable ListParameters()
     {
-      store.AppendValues(iter, "Brightness: " + _brightness);
-      store.AppendValues(iter, "Contrast: " + _contrast);
+      yield return "Brightness: " + _brightness;
+      yield return "Contrast: " + _contrast;
     }
 
     public override bool Execute()

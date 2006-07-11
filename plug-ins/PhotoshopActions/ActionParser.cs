@@ -205,6 +205,11 @@ namespace Gimp.PhotoshopActions
       return _binReader.ReadByte();
     }
 
+    public byte[] ReadBytes(int length)
+    {
+      return _binReader.ReadBytes(length);
+    }
+
     int ReadInt16()
     {
       byte[] val = _binReader.ReadBytes(2);
@@ -390,6 +395,9 @@ namespace Gimp.PhotoshopActions
 	case "Objc":
 	  parameter = new ObjcParameter();
 	  break;
+	case "tdta":
+	  parameter = new RawDataParameter();
+	  break;
 	case "type":
 	  parameter = new TypeParameter();
 	  break;
@@ -444,7 +452,7 @@ namespace Gimp.PhotoshopActions
       return (length == 0) ? ReadFourByteString() : ReadUnicodeString(length);
     }
 
-    string ReadUnicodeString(int length)
+    public string ReadUnicodeString(int length)
     {
       length--;	// Strip last 2 zero's
       byte[] buffer = _binReader.ReadBytes(2 * length);

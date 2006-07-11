@@ -19,6 +19,7 @@ MYSOURCES = 				\
 	AddNoiseEvent.cs		\
 	AddTextLayerEvent.cs		\
 	AddToEvent.cs			\
+	AlignEvent.cs			\
 	BoolParameter.cs		\
 	BorderEvent.cs			\
 	BrightnessEvent.cs		\
@@ -69,6 +70,7 @@ MYSOURCES = 				\
 	FlattenImageEvent.cs		\
 	FlipEvent.cs			\
 	GaussianBlurEvent.cs		\
+	GlassEvent.cs			\
 	GlowingEdgesEvent.cs		\
 	GradientClassEvent.cs		\
 	GradientMapEvent.cs		\
@@ -77,6 +79,7 @@ MYSOURCES = 				\
 	HideChannelEvent.cs		\
 	HideEvent.cs			\
 	HideLayerEvent.cs		\
+	HighPassEvent.cs		\
 	HueSaturationEvent.cs		\
 	IExecutable.cs			\
 	ImageSizeEvent.cs		\
@@ -122,6 +125,7 @@ MYSOURCES = 				\
 	PosterizationEvent.cs		\
 	PropertyType.cs			\
 	RadialBlurEvent.cs		\
+	RawDataParameter.cs		\
 	ReferenceParameter.cs		\
 	ReferenceType.cs		\
 	ReleType.cs			\
@@ -129,6 +133,7 @@ MYSOURCES = 				\
 	ReplaceColorEvent.cs		\
 	RotateEvent.cs			\
 	ResetEvent.cs			\
+	SaveEvent.cs			\
 	SelectAllEvent.cs		\
 	SelectAllLayersEvent.cs		\
 	SelectEllipseEvent.cs		\
@@ -149,6 +154,7 @@ MYSOURCES = 				\
 	SetQuickMaskEvent.cs		\
 	SharpenEvent.cs			\
 	SharpenMoreEvent.cs		\
+	ShearEvent.cs			\
 	ShowChannelEvent.cs		\
 	ShowEvent.cs			\
 	ShowLayerEvent.cs		\
@@ -162,6 +168,7 @@ MYSOURCES = 				\
 	SubtractFromEvent.cs		\
 	SurfaceBlurEvent.cs		\
 	TextParameter.cs		\
+	TexturizerEvent.cs		\
 	ThresholdClassEvent.cs		\
 	TilesEvent.cs			\
 	TransformEvent.cs		\

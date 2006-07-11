@@ -119,5 +119,26 @@ namespace Gimp.PhotoshopActions
 	  return sum;
 	}
     }
+
+    public int NrOfActions
+    {
+      get {return _set.Count;}
+    }
+
+    public int ExecutableActions
+    {
+      get 
+	{
+	  int sum = 0;
+	  foreach (Action action in _set)
+	    {
+	      if (action.IsExecutable)
+		{
+		  sum++;
+		}
+	    }
+	  return sum;
+	}
+    }
   }
 }

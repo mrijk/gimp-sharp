@@ -20,8 +20,6 @@
 
 using System;
 
-using Gtk;
-
 namespace Gimp.PhotoshopActions
 {
   public class AddEvent : ActionEvent

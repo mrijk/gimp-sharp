@@ -25,7 +25,11 @@ namespace Gimp.PhotoshopActions
 {
   public class HueSaturationEvent : ActionEvent
   {
+    [Parameter("Clrz")]
     bool _colorization;
+    [Parameter("Adjs")]
+    ListParameter _adjustment;
+
     int _hue, _saturation, _lightness;
 
     protected override IEnumerable ListParameters()
@@ -36,29 +40,27 @@ namespace Gimp.PhotoshopActions
       yield return "Lightness: " + _lightness;
     }
 
+    public override bool IsExecutable
+    {
+      get {return _adjustment.Count == 1;}
+    }
+
     override public ActionEvent Parse(ActionParser parser)
     {
-      // 1: colorization
+      base.Parse(parser);
 
-      _colorization = parser.ParseBool("Clrz");
-
-      // 2: adjstments
-
-      parser.ParseToken("Adjs");
-      parser.ParseFourByteString("VlLs");
-
-      int numberOfItems = parser.ReadInt32();
-
-      parser.ParseFourByteString("Objc");
-      string classID = parser.ReadUnicodeString();
-      string classID2 = parser.ReadTokenOrString();
-
-      numberOfItems = parser.ReadInt32();
-
-      _hue = parser.ReadLong("H");
-      _saturation = parser.ReadLong("Strt");
-      _lightness = parser.ReadLong("Lght");
-
+      if (_adjustment.Count > 1)
+	{
+	  Console.WriteLine("HueSaturationEvent: implement for > 1 params");
+	}
+      else
+	{
+	  ObjcParameter objc = _adjustment[0] as ObjcParameter;
+	  
+	  _hue = (int) objc.GetValueAsLong("H");
+	  _saturation = (int) objc.GetValueAsLong("Strt");
+	  _lightness = (int) objc.GetValueAsLong("Lght");
+	}
       return this;
     }
 

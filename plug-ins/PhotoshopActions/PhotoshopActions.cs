@@ -164,7 +164,7 @@ namespace Gimp.PhotoshopActions
 
       int nrScripts = 0;
 
-      DebugOutput.Quiet = false;
+      DebugOutput.Quiet = true;
 
       foreach (string fileName in Directory.GetFiles(scriptDir))
 	{
@@ -196,7 +196,9 @@ namespace Gimp.PhotoshopActions
       // Dump some statistics
 
       int nrExecutable = 0;
+      int nrActions = 0;
       int nrEvents = 0;
+      int nrExecutableActions = 0;
       int nrExecutableEvents = 0;
 
       foreach (ActionSet actions in _set)
@@ -205,25 +207,32 @@ namespace Gimp.PhotoshopActions
 	    {
 	      nrExecutable++;
 	    }
+	  nrActions += actions.NrOfActions;
 	  nrEvents += actions.ActionEvents;
+
+	  nrExecutableActions += actions.ExecutableActions;
 	  nrExecutableEvents += actions.ExecutableActionEvents;
 	}
 
       double percParsed = (nrScripts - parser.ParsingFailed) * 100.0 / 
 	nrScripts;
       double percExecutable = nrExecutable * 100.0 / nrScripts;
+      double percExecutableActions = nrExecutableActions * 100.0 / nrActions;
       double percExecutableEvents = nrExecutableEvents * 100.0 / nrEvents;
 
-      Console.WriteLine("#Total              : " + nrScripts);
+      Console.WriteLine("#Total scripts      : " + nrScripts);
+      Console.WriteLine("#Total actions      : " + nrActions);
       Console.WriteLine("#Total events       : " + nrEvents);
       Console.WriteLine("#Parsed             : " + _set.Count);
       Console.WriteLine("#Old                : " + parser.OldVersions);
       Console.WriteLine("#Failed             : " + parser.ParsingFailed);
       Console.WriteLine("#Scripts executable : " + nrExecutable);
+      Console.WriteLine("#Actions executable : " + nrExecutableActions);
       Console.WriteLine("#Events executable  : " + nrExecutableEvents);
-      Console.WriteLine("% parsed    : " + percParsed);
-      Console.WriteLine("% executable: " + percExecutable);
-      Console.WriteLine("% executable: " + percExecutableEvents);
+      Console.WriteLine("% parsed            : " + percParsed);
+      Console.WriteLine("% executable scripts: " + percExecutable);
+      Console.WriteLine("% executable actions: " + percExecutableActions);
+      Console.WriteLine("% executable events : " + percExecutableEvents);
 
       Console.WriteLine();
       parser.DumpStatistics();
