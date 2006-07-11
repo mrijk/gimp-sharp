@@ -43,7 +43,7 @@ namespace Gimp.PhotoshopActions
     {
       get 
 	{
-	  return GetColor(_objc);
+	  return _objc.GetColor();
 	}
     }
   }

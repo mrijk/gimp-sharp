@@ -68,6 +68,55 @@ namespace Gimp
       get {return gimp_gradient_is_editable(_name);}
     }
 
+    public void SegmentSetLeftColor(int segment, RGB color, double opacity)
+    {
+      GimpRGB rgb = color.GimpRGB;
+      if (!gimp_gradient_segment_set_left_color(_name, segment, ref rgb,
+						opacity))
+	{
+	  throw new GimpSharpException();
+	}
+    }
+
+    public void SegmentSetRightColor(int segment, RGB color, double opacity)
+    {
+      GimpRGB rgb = color.GimpRGB;
+      if (!gimp_gradient_segment_set_right_color(_name, segment, ref rgb,
+						 opacity))
+	{
+	  throw new GimpSharpException();
+	}
+    }
+
+    public void SegmentSetLeftPosition(int segment, double pos)
+    {
+      double final_pos;
+      if (!gimp_gradient_segment_set_left_pos(_name, segment, pos,
+					      out final_pos))
+	{
+	  throw new GimpSharpException();
+	}
+    }
+
+    public void SegmentRangeSplitMidpoint(int start_segment, int end_segment)
+    {
+      if (!gimp_gradient_segment_range_split_midpoint(_name, start_segment, 
+						      end_segment))
+	{
+	  throw new GimpSharpException();
+	}
+    }
+
+    public void SegmentRangeSplitUniform(int start_segment, int end_segment, 
+				    int split_parts)
+    {
+      if (!gimp_gradient_segment_range_split_uniform(_name, start_segment, 
+						     end_segment, split_parts))
+	{
+	  throw new GimpSharpException();
+	}
+    }
+
     [DllImport("libgimp-2.0-0.dll")]
     extern static string gimp_gradient_new(string name);
     [DllImport("libgimp-2.0-0.dll")]
@@ -78,5 +127,37 @@ namespace Gimp
     extern static bool gimp_gradient_delete(string name);
     [DllImport("libgimp-2.0-0.dll")]
     extern static bool gimp_gradient_is_editable(string name);
+    [DllImport("libgimp-2.0-0.dll")]
+    extern static bool 
+    gimp_gradient_segment_get_left_color (string name,
+					  int segment,
+					  out GimpRGB color,
+					  out double opacity);
+    [DllImport("libgimp-2.0-0.dll")]
+    extern static bool gimp_gradient_segment_set_left_color(string name,
+							    int segment,
+							    ref GimpRGB color,
+							    double opacity);
+    [DllImport("libgimp-2.0-0.dll")]
+    extern static bool gimp_gradient_segment_set_right_color(string name,
+							    int segment,
+							    ref GimpRGB color,
+							    double opacity);
+    [DllImport("libgimp-2.0-0.dll")]
+    extern static bool gimp_gradient_segment_set_left_pos(string name,
+							  int segment,
+							  double pos,
+							  out double final_pos);
+    [DllImport("libgimp-2.0-0.dll")]
+    extern static bool 
+    gimp_gradient_segment_range_split_midpoint(string name,
+					       int start_segment,
+					       int end_segment);
+    [DllImport("libgimp-2.0-0.dll")]
+    extern static bool 
+    gimp_gradient_segment_range_split_uniform(string name,
+					      int start_segment,
+					      int end_segment,
+					      int split_parts);
   }
 }

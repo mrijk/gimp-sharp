@@ -1,5 +1,19 @@
 2006-07-11  Maurits  <m.rijk@chello.nl>
 
+	* lib/Mask.cs: removed warning
+
+	* lib/Drawable.cs: implemented EditBucketFill and EditBlend
+
+	* lib/Gradient.cs: implemented more functions
+
+	* plug-ins/PhotoshopActions/ObjcParameter.cs: added some
+	convenience routines
+
+	* plug-ins/PhotoshopActions/GradientClassEvent.cs: initial 
+	implementation
+
+2006-07-11  Maurits  <m.rijk@chello.nl>
+
 	* plug-ins/PhotoshopActions/CanvasSizeEvent.cs
 	* plug-ins/PhotoshopActions/ImageSizeEvent.cs: implemented
 

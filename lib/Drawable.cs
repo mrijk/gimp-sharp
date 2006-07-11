@@ -287,6 +287,45 @@ namespace Gimp
 	  throw new GimpSharpException();
         }
     }
+    
+    public void EditBucketFill(BucketFillMode fill_mode,
+			       LayerModeEffects paint_mode,
+			       double opacity,
+			       double threshold,
+			       bool sample_merged,
+			       double x,
+			       double y)
+    {
+      if (!gimp_edit_bucket_fill(_ID, fill_mode, paint_mode, opacity, 
+				 threshold, sample_merged, x, y))
+	{
+	  throw new GimpSharpException();
+	}
+    }
+
+    public void EditBlend(BlendMode blend_mode,
+			  LayerModeEffects paint_mode,
+			  GradientType gradient_type,
+			  double opacity,
+			  double offset,
+			  RepeatMode repeat,
+			  bool reverse,
+			  bool supersample,
+			  int max_depth,
+			  double threshold,
+			  bool dither,
+			  double x1,
+			  double y1,
+			  double x2,
+			  double y2)
+    {
+      if (!gimp_edit_blend(_ID, blend_mode, paint_mode, gradient_type,
+			   opacity, offset, repeat, reverse, supersample,
+			   max_depth, threshold, dither, x1, y1, x2, y2))
+        {
+	  throw new GimpSharpException();
+        }
+    }
 
     public void EditStroke()
     {
@@ -1076,6 +1115,32 @@ namespace Gimp
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_edit_fill(Int32 drawable_ID,
 				      FillType fill_type);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_edit_bucket_fill(Int32 drawable_ID,
+                                             BucketFillMode fill_mode,
+                                             LayerModeEffects paint_mode,
+                                             double opacity,
+                                             double threshold,
+                                             bool sample_merged,
+                                             double x,
+                                             double y);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_edit_blend(Int32 drawable_ID,
+				       BlendMode blend_mode,
+				       LayerModeEffects paint_mode,
+				       GradientType gradient_type,
+				       double opacity,
+				       double offset,
+				       RepeatMode repeat,
+				       bool reverse,
+				       bool supersample,
+				       int max_depth,
+				       double threshold,
+				       bool dither,
+				       double x1,
+				       double y1,
+				       double x2,
+				       double y2);
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_edit_stroke(Int32 drawable_ID);
   }

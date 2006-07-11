@@ -27,7 +27,7 @@ namespace Gimp.PhotoshopActions
     [Parameter("null")]
     ReferenceParameter _obj;
 
-    bool _executable;
+    readonly bool _executable;
 
     public SetEvent()
     {

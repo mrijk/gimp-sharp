@@ -19,8 +19,7 @@
 //
 
 using System;
-
-using Gtk;
+using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
@@ -33,11 +32,11 @@ namespace Gimp.PhotoshopActions
     [Parameter("FlCl")]
     EnumParameter _fillColor;
 
-    protected override void FillParameters(TreeStore store, TreeIter iter)
+    protected override IEnumerable ListParameters()
     {
-      store.AppendValues(iter, "Number Of Tiles: " + _numberOfTiles);
-      store.AppendValues(iter, "Maximum Offset: " + _maximumOffset);
-      store.AppendValues(iter, "Fill Empty With: " + _fillColor.Value);
+      yield return "Number Of Tiles: " + _numberOfTiles;
+      yield return "Maximum Offset: " + _maximumOffset;
+      yield return "Fill Empty With: " + _fillColor.Value;
     }
 
     override public bool Execute()

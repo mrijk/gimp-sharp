@@ -19,8 +19,7 @@
 //
 
 using System;
-
-using Gtk;
+using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
@@ -39,15 +38,12 @@ namespace Gimp.PhotoshopActions
 
     public override bool IsExecutable
     {
-      get 
-	{
-	  return false;
-	}
+      get {return false;}
     }
 
-    protected override void FillParameters(TreeStore store, TreeIter iter)
+    protected override IEnumerable ListParameters()
     {
-      store.AppendValues(iter, "Width: " + _width);
+      yield return "Width: " + _width;
       string location;
       switch (_location.Value)
 	{
@@ -61,9 +57,9 @@ namespace Gimp.PhotoshopActions
 	  location = _location.Value;
 	  break;
 	}
-      store.AppendValues(iter, "Location: " + location);
-      store.AppendValues(iter, "Opacity: " + _opacity);
-      store.AppendValues(iter, "Mode: " + _mode.Value);
+      yield return "Location: " + location;
+      yield return "Opacity: " + _opacity;
+      yield return "Mode: " + _mode.Value;
     }
 
     override public bool Execute()
@@ -72,7 +68,7 @@ namespace Gimp.PhotoshopActions
 
       if (_color != null)
 	{
-	  RGB foreground = GetColor(_color);
+	  RGB foreground = _color.GetColor();
 #if true
 	  if (foreground != null)
 	    {

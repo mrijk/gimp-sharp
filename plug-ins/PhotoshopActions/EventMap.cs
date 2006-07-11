@@ -41,14 +41,14 @@ namespace Gimp.PhotoshopActions
       _map["border"] = "BorderEvent";
       _map["brightnessEvent"] = "BrightnessEvent";
       _map["canvasSize"] = "CanvasSizeEvent";
-      _map["channelMixer"] = "ChannelMixerEvent";
+      _map["channelMixer"] = _map["ChnM"] = "ChannelMixerEvent";
       _map["chrome"] = _map["Chrm"] = "ChromeEvent";
       _map["clearEvent"] = "ClearEvent";
       _map["close"] = "CloseEvent";
       _map["clouds"] = "CloudsEvent";
       _map["colorBalance"] = "ColorBalanceEvent";
       _map["contract"] = "ContractEvent";
-      _map["convertMode"] = "ConvertModeEvent";
+      _map["convertMode"] = _map["CnvM"] = "ConvertModeEvent";
       _map["copyEvent"] = _map["copy"] = "CopyEvent";
       _map["copyMerged"] = "CopyMergedEvent";
       _map["copyToLayer"] = "CopyToLayerEvent";
@@ -75,7 +75,7 @@ namespace Gimp.PhotoshopActions
       _map["flip"] = _map["Flip"] = "FlipEvent";
       _map["gaussianBlur"] = "GaussianBlurEvent";
       _map["glowingEdges"] = "GlowingEdgesEvent";
-      _map["gradientClassEvent"] = "GradientClassEvent";
+      _map["gradientClassEvent"] = _map["Grdn"] = "GradientClassEvent";
       _map["gradientMapEvent"] = "GradientMapEvent";
       _map["grain"] = "GrainEvent";
       _map["grow"] = "GrowEvent";
@@ -85,10 +85,10 @@ namespace Gimp.PhotoshopActions
       _map["inverse"] = "InverseEvent";
       _map["invert"] = _map["Invr"] = "InvertEvent";
       _map["lensFlare"] = "LensFlareEvent";
-      _map["levels"] = "LevelsEvent";
+      _map["levels"] = _map["Lvls"] = "LevelsEvent";
       _map["link"] = _map["Lnk"] = "LinkEvent";
       _map["linkSelectedLayers"] = "LinkSelectedLayersEvent";
-      _map["make"] = "MakeEvent";
+      _map["make"] = _map["Mk"] = "MakeEvent";
       _map["maximum"] = "MaximumEvent";
       _map["median"] = "MedianEvent";
       _map["mergeLayers"] = "MergeLayersEvent";
@@ -151,8 +151,6 @@ namespace Gimp.PhotoshopActions
       _map["GsnB"] = "GaussianBlurEvent";
       // _map["HStr"] = "HueSaturationEvent";
       _map["Invs"] = "InverseEvent";
-      _map["Lvls"] = "LevelsEvent";
-      _map["Mk"] = "MakeEvent";
       _map["MrgL"] = "MergeLayersEvent";
       _map["Msc"] = "MosaicEvent";
       _map["Mztn"] = "MezzotintEvent";

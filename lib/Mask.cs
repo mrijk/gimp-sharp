@@ -25,8 +25,6 @@ namespace Gimp
 {
   public sealed class Mask : Drawable
   {
-    readonly Int32 _maskID;
-    
     public Mask(Int32 maskID) : base(maskID)
     {
     }

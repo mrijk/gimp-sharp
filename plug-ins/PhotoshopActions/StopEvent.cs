@@ -18,6 +18,7 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
+using System.Collections;
 using Gtk;
 
 namespace Gimp.PhotoshopActions
@@ -29,9 +30,9 @@ namespace Gimp.PhotoshopActions
     [Parameter("Cntn")]
     bool _continue;
 
-    protected override void FillParameters(TreeStore store, TreeIter iter)
+    protected override IEnumerable ListParameters()
     {
-      store.AppendValues(iter, "Message: " + _message);
+      yield return "Message: " + _message;
     }
 
     override public bool Execute()

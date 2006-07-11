@@ -71,5 +71,61 @@ namespace Gimp.PhotoshopActions
     {
       field.SetValue(obj, this);
     }
+
+    public RGB GetColor()
+    {
+      switch (ClassID2)
+	{
+	case "RGBC":
+	  double red = GetValueAsDouble("Rd") / 255.0;
+	  double green = GetValueAsDouble("Grn") / 255.0;
+	  double blue = GetValueAsDouble("Bl") / 255.0;
+
+	  return new RGB(red, green, blue);
+	case "HSBC":
+	  double hue = GetValueAsDouble("H") / 255.0;
+	  double saturation = GetValueAsDouble("Strt") / 255.0;
+	  double brightness = GetValueAsDouble("Brgh") / 255.0;
+
+	  return new RGB(new HSV(hue, saturation, brightness));
+	default:
+	  Console.WriteLine("*** Color model {0} not supported", ClassID2);
+	  return null;
+	}
+    }
+
+    public RGB GetValueAsColor(string name)
+    {
+      return (_children[name] as ObjcParameter).GetColor();
+    }
+
+    public double GetValueAsDouble(string name)
+    {
+      return (_children[name] as DoubleParameter).Value;
+    }
+
+    public long GetValueAsLong(string name)
+    {
+      return (_children[name] as LongParameter).Value;
+    }
+
+    public string GetValueAsString(string name)
+    {
+      Parameter parameter = _children[name];
+
+      if (parameter is TextParameter)
+	{
+	  return (parameter as TextParameter).Value;
+	}
+      else if (parameter is EnumParameter)
+	{
+	  return (parameter as EnumParameter).Value;
+	}
+      else
+	{
+	  Console.WriteLine("GetValueAsString: " + parameter);
+	  return null;
+	}
+    }
   }
 }
