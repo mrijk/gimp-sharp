@@ -20,6 +20,7 @@ MYSOURCES = 				\
 	AddTextLayerEvent.cs		\
 	AddToEvent.cs			\
 	AlignEvent.cs			\
+	AverageEvent.cs			\
 	BoolParameter.cs		\
 	BorderEvent.cs			\
 	BrightnessEvent.cs		\
@@ -40,6 +41,7 @@ MYSOURCES = 				\
 	CropEvent.cs			\
 	CurvesEvent.cs			\
 	CutEvent.cs			\
+	CutToLayerEvent.cs		\
 	DebugOutput.cs			\
 	DeleteChannelEvent.cs		\
 	DeleteEvent.cs			\
@@ -66,6 +68,7 @@ MYSOURCES = 				\
 	FeatherEvent.cs			\
 	FadeEvent.cs			\
 	FillEvent.cs			\
+	FilmGrainEvent.cs		\
 	FindEdgesEvent.cs		\
 	FlattenImageEvent.cs		\
 	FlipEvent.cs			\
@@ -143,6 +146,7 @@ MYSOURCES = 				\
 	SelectLayerByNameEvent.cs	\
 	SelectLayerEvent.cs		\
 	SelectNoneEvent.cs		\
+	SelectPolygonEvent.cs		\
 	SelectRectangleEvent.cs		\
 	SetBackgroundColorEvent.cs	\
 	SetChannelPropertyEvent.cs	\
@@ -172,6 +176,7 @@ MYSOURCES = 				\
 	ThresholdClassEvent.cs		\
 	TilesEvent.cs			\
 	TransformEvent.cs		\
+	TransformLayerEvent.cs		\
 	TypeParameter.cs		\
 	TwirlEvent.cs			\
 	UnimplementedEvent.cs		\

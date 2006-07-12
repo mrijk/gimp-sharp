@@ -36,23 +36,24 @@ namespace Gimp.PhotoshopActions
     public EventMap()
     {
       _map["add"] = "AddEvent";
-      _map["addNoise"] = "AddNoiseEvent";
+      _map["addNoise"] = _map["AdNs"] = "AddNoiseEvent";
       _map["addTo"] = "AddToEvent";
       _map["align"] = _map["Algn"] = "AlignEvent";
+      _map["Avrg"] = "AverageEvent";
       _map["border"] = "BorderEvent";
-      _map["brightnessEvent"] = "BrightnessEvent";
+      _map["brightnessEvent"] = _map["BrgC"] = "BrightnessEvent";
       _map["canvasSize"] = _map["CnvS"] = "CanvasSizeEvent";
       _map["channelMixer"] = _map["ChnM"] = "ChannelMixerEvent";
       _map["chrome"] = _map["Chrm"] = "ChromeEvent";
       _map["clearEvent"] = "ClearEvent";
       _map["close"] = "CloseEvent";
-      _map["clouds"] = "CloudsEvent";
+      _map["clouds"] = _map["Clds"] = "CloudsEvent";
       _map["colorBalance"] = _map["ClrB"] = "ColorBalanceEvent";
       _map["contract"] = "ContractEvent";
       _map["convertMode"] = _map["CnvM"] = "ConvertModeEvent";
       _map["copyEvent"] = _map["copy"] = "CopyEvent";
       _map["copyMerged"] = "CopyMergedEvent";
-      _map["copyToLayer"] = "CopyToLayerEvent";
+      _map["copyToLayer"] = _map["CpTL"] = "CopyToLayerEvent";
       _map["crop"] = "CropEvent";
       _map["curves"] = "CurvesEvent";
       _map["cut"] = "CutEvent";
@@ -71,6 +72,7 @@ namespace Gimp.PhotoshopActions
       _map["fade"] = _map["Fade"] = "FadeEvent";
       _map["feather"] = _map["Fthr"] = "FeatherEvent";
       _map["fill"] = "FillEvent";
+      _map["filmGrain"] = "FilmGrainEvent";
       _map["findEdges"] = "FindEdgesEvent";
       _map["flattenImage"] = "FlattenImageEvent";
       _map["flip"] = _map["Flip"] = "FlipEvent";
@@ -143,10 +145,6 @@ namespace Gimp.PhotoshopActions
       _map["wind"] = _map["Wnd"] = "WindEvent";
 
       // Pre-6 events
-      _map["AdNs"] = "AddNoiseEvent";
-      _map["BrgC"] = "BrightnessEvent";
-      _map["Clds"] = "CloudsEvent";
-      _map["CpTL"] = "CopyToLayerEvent";
       _map["Crvs"] = "CurvesEvent";
       _map["Dlt"] = "DeleteEvent";
       _map["Dplc"] = "DuplicateEvent";

@@ -24,14 +24,54 @@ namespace Gimp.PhotoshopActions
 {
   public class TransformEvent : ActionEvent
   {
-    public override bool IsExecutable
+    [Parameter("null")]
+    ReferenceParameter _obj;
+
+    readonly bool _executable;
+
+    public TransformEvent()
     {
-      get {return false;}
     }
 
-    override public bool Execute()
+    public TransformEvent(ActionEvent srcEvent) : base(srcEvent)
     {
-      return true;
+      _executable = true;
+    }
+
+    public override bool IsExecutable
+    {
+      get {return _executable;}
+    }
+
+    override public ActionEvent Parse(ActionParser parser)
+    {
+      base.Parse(parser);
+
+      if (_obj != null)
+	{
+	  if (_obj.Set[0] is EnmrType)
+	    {
+	      EnmrType enmr = _obj.Set[0] as EnmrType;
+	      switch (enmr.Key)
+		{
+		case "Lyr":
+		  return new TransformLayerEvent(this);
+		default:
+		  Console.WriteLine("Transform-2: unknown key " + enmr.Key);
+		  break;
+		}
+	    }
+	  else
+	    {
+	      Console.WriteLine("Transform-3: " + _obj.Set[0]);
+	    }
+	}
+      else
+	{
+	  Console.WriteLine("Transform-1");
+	}
+
+      return this;
     }
   }
 }

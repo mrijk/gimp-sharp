@@ -18,7 +18,7 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using Gtk;
+using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
@@ -27,9 +27,9 @@ namespace Gimp.PhotoshopActions
     [Parameter("By")]
     double _by;
 
-    protected override void FillParameters(TreeStore store, TreeIter iter)
+    protected override IEnumerable ListParameters()
     {
-      store.AppendValues(iter, "By: " + (int) _by + " pixels");
+      yield return "By: " + (int) _by + " pixels";
     }
 
     override public bool Execute()

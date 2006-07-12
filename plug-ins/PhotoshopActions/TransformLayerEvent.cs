@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// DuplicateDocumentEvent.cs
+// TransformLayerEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,34 +23,35 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class DuplicateDocumentEvent : ActionEvent
+  public class TransformLayerEvent : TransformEvent
   {
-    [Parameter("Nm")]
-    string _name;
-
-    public DuplicateDocumentEvent(ActionEvent srcEvent) : base(srcEvent) 
+    public override bool IsExecutable
     {
-      Parameters.Fill(this);
+      get {return false;}
+    }
+
+    public TransformLayerEvent(TransformEvent srcEvent) : base(srcEvent)
+    {
     }
 
     public override string EventForDisplay
     {
-      get {return base.EventForDisplay + " document";}
+      get {return base.EventForDisplay + " layer";}
     }
 
     protected override IEnumerable ListParameters()
     {
-      yield return "Name: " + _name;
-    }
-    
-    override public bool Execute()
-    {
-      ActiveImage = new Image(ActiveImage);
-      new Display(ActiveImage);
+      ObjcParameter objc = Parameters["Ofst"] as ObjcParameter;
+      if (objc != null)
+	{
+	  yield return "Offset";
+	}
 
-      // Fix me: fill in name into image.
-
-      return true;
+      DoubleParameter width = Parameters["Wdth"] as DoubleParameter;
+      if (width != null)
+	{
+	  yield return "Width: " + width.Value;
+	}
     }
   }
 }

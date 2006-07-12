@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// DuplicateDocumentEvent.cs
+// AverageEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,38 +18,13 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-using System.Collections;
-
 namespace Gimp.PhotoshopActions
 {
-  public class DuplicateDocumentEvent : ActionEvent
+  public class AverageEvent : ActionEvent
   {
-    [Parameter("Nm")]
-    string _name;
-
-    public DuplicateDocumentEvent(ActionEvent srcEvent) : base(srcEvent) 
-    {
-      Parameters.Fill(this);
-    }
-
-    public override string EventForDisplay
-    {
-      get {return base.EventForDisplay + " document";}
-    }
-
-    protected override IEnumerable ListParameters()
-    {
-      yield return "Name: " + _name;
-    }
-    
     override public bool Execute()
     {
-      ActiveImage = new Image(ActiveImage);
-      new Display(ActiveImage);
-
-      // Fix me: fill in name into image.
-
+      RunProcedure("plug_in_average_blur");
       return true;
     }
   }

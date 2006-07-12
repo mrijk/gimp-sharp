@@ -33,17 +33,18 @@ namespace Gimp
       _imageID = image.ID;
     }
 
-    public void Select(double[] segs, ChannelOps operation, bool antialias,
-		       bool feather, double featherRadius)
+    public void Select(CoordinateList<double> segs, ChannelOps operation, 
+		       bool antialias, bool feather, double featherRadius)
     {
-      if (!gimp_free_select(_imageID, segs.Length, segs, operation,
+      double[] array = segs.ToArray();
+      if (!gimp_free_select(_imageID, array.Length, array, operation,
 			    antialias, feather, featherRadius))
 	{
 	  throw new GimpSharpException();
 	}
     }
 
-    public void Select(double[] segs, ChannelOps operation)
+    public void Select(CoordinateList<double> segs, ChannelOps operation)
     {
       Select(segs, operation, false, false, 0);
     }

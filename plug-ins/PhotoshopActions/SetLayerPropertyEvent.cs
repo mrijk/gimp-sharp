@@ -24,12 +24,12 @@ using Gtk;
 
 namespace Gimp.PhotoshopActions
 {
-  public class SetLayerPropertyEvent : ActionEvent
+  public class SetLayerPropertyEvent : SetEvent
   {
     [Parameter("T")]
     ObjcParameter _objc;
 
-    public SetLayerPropertyEvent(ActionEvent srcEvent) : base(srcEvent)
+    public SetLayerPropertyEvent(SetEvent srcEvent) : base(srcEvent)
     {
       Parameters.Fill(this);
     }

@@ -22,31 +22,17 @@ using System;
 
 namespace Gimp.Shatter
 {
-  public class Coord
+  public class Coord : Coordinate<double>
   {
-    double _x, _y;
-    
-    public Coord(double x, double y)
+    public Coord(double x, double y) : base(x, y)
     {
-      _x = x;
-      _y = y;
     }
-    
+
     static public Coord PointInBetween(Coord c1, Coord c2, double p)
     {
       double x = c1.X + p * (c2.X - c1.X);
       double y = c1.Y + p * (c2.Y - c1.Y);
       return new Coord(x, y);
     } 
-    
-    public double X
-    {
-      get {return _x;}
-    }
-    
-    public double Y
-    {
-      get {return _y;}
-    }
   }
 }

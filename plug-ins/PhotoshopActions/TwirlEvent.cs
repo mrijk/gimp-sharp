@@ -19,6 +19,7 @@
 //
 
 using System;
+using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
@@ -26,6 +27,11 @@ namespace Gimp.PhotoshopActions
   {
     [Parameter("Angl")]
     double _angle;
+
+    protected override IEnumerable ListParameters()
+    {
+      yield return "Angle: " + _angle;
+    }
 
     override public bool Execute()
     {

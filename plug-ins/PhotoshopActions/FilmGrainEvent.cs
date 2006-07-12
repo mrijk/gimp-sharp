@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// DuplicateDocumentEvent.cs
+// FilmGrainEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,34 +23,30 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class DuplicateDocumentEvent : ActionEvent
+  public class FilmGrainEvent : ActionEvent
   {
-    [Parameter("Nm")]
-    string _name;
+    [Parameter("Grn")]
+    long _grain;
+    [Parameter("HghA")]
+    long _highlightArea;
+    [Parameter("Intn")]
+    long _intensity;
 
-    public DuplicateDocumentEvent(ActionEvent srcEvent) : base(srcEvent) 
+    public override bool IsExecutable
     {
-      Parameters.Fill(this);
-    }
-
-    public override string EventForDisplay
-    {
-      get {return base.EventForDisplay + " document";}
+      get {return false;}
     }
 
     protected override IEnumerable ListParameters()
     {
-      yield return "Name: " + _name;
+      yield return "Grain: " + _grain;
+      yield return "Highlight area: " + _highlightArea;
+      yield return "Intensity: " + _intensity;
     }
-    
+
     override public bool Execute()
     {
-      ActiveImage = new Image(ActiveImage);
-      new Display(ActiveImage);
-
-      // Fix me: fill in name into image.
-
-      return true;
+      return false;
     }
   }
 }

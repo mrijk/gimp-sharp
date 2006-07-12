@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// DuplicateDocumentEvent.cs
+// SelectPolygonEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,32 +23,30 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class DuplicateDocumentEvent : ActionEvent
+  public class SelectPolygonEvent : SelectionEvent
   {
-    [Parameter("Nm")]
-    string _name;
+    ObjcParameter _objc;
 
-    public DuplicateDocumentEvent(ActionEvent srcEvent) : base(srcEvent) 
+    public SelectPolygonEvent(SelectionEvent srcEvent, ObjcParameter objc) : 
+      base(srcEvent)
     {
-      Parameters.Fill(this);
+      _objc = objc;
     }
 
-    public override string EventForDisplay
+    public override bool IsExecutable
     {
-      get {return base.EventForDisplay + " document";}
+      get {return false;}
     }
 
     protected override IEnumerable ListParameters()
     {
-      yield return "Name: " + _name;
+      yield return "To: polygon";
     }
-    
+
     override public bool Execute()
     {
-      ActiveImage = new Image(ActiveImage);
-      new Display(ActiveImage);
+      FreeSelectTool tool = new FreeSelectTool(ActiveImage);
 
-      // Fix me: fill in name into image.
 
       return true;
     }

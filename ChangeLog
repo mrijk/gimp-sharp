@@ -1,3 +1,51 @@
+2006-07-12  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/PhotoshopActions/TransformEvent.cs: started with
+	transform layers.
+
+	* plug-ins/PhotoshopActions/EmbossEvent.cs 
+	* plug-ins/PhotoshopActions/ExpandEvent.cs
+	* plug-ins/PhotoshopActions/DuplicateDocumentEvent.cs
+	* plug-ins/PhotoshopActions/MinimumEvent.cs
+	* plug-ins/PhotoshopActions/MaximumEvent.cs
+	* plug-ins/PhotoshopActions/DuplicateChannelEvent.cs: replaced
+	FillParameters by ListParameters function
+
+	* plug-ins/PhotoshopActions/TwirlEvent.cs: more verbose
+
+	* lib/FreeSelectTool.cs: use Coordinate<double> instead of double[]
+
+	* plug-ins/Shatter/Coord.cs
+	* plug-ins/Shatter/Shard.cs: use Coordinate<T> 
+
+	* plug-ins/PhotoshopActions/AverageEvent.cs
+	* plug-ins/PhotoshopActions/CutToLayerEvent.cs
+	* plug-ins/PhotoshopActions/TransformLayerEvent.cs
+	* plug-ins/PhotoshopActions/SelectPolygonEvent.cs
+	* plug-ins/PhotoshopActions/FilmGrainEvent.cs: new files
+
+	* plug-ins/PhotoshopActions/EventMap.cs
+	* plug-ins/PhotoshopActions/Makefile.am: changed accordingly
+
+2006-07-11  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/PhotoshopActions/AlignEvent.cs
+	* plug-ins/PhotoshopActions/GlassEvent.cs
+	* plug-ins/PhotoshopActions/HighPassEvent.cs
+	* plug-ins/PhotoshopActions/RawDataParameter.cs: 
+	* plug-ins/PhotoshopActions/ShearEvent.cs
+	* plug-ins/PhotoshopActions/TexturizerEvent.cs
+	* plug-ins/PhotoshopActions/SaveEvent.cs: new files
+
+	* plug-ins/PhotoshopActions/EventMap.cs
+	* plug-ins/PhotoshopActions/Makefile.am: changed accordingly
+
+	* plug-ins/PhotoshopActions/AddEvent.cs: 
+	* plug-ins/PhotoshopActions/BrightnessEvent.cs: 
+	* plug-ins/PhotoshopActions/ContractEvent.cs: 
+	* plug-ins/PhotoshopActions/DiffuseGlowEvent.cs: replaced
+	FillParameters by ListParameters function
+
 2006-07-11  Maurits  <m.rijk@chello.nl>
 
 	* lib/Mask.cs: removed warning

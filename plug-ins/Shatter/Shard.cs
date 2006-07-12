@@ -57,10 +57,16 @@ namespace Gimp.Shatter
 	}		
     }
 
-    public double[] GetValues()
+    public CoordinateList<double> GetValues()
     {
-      return new double[] {_ul.X, _ul.Y, _ur.X, _ur.Y, _lr.X, _lr.Y,
-			   _ll.X, _ll.Y};
+      CoordinateList<double> list = new CoordinateList<double>();
+
+      list.Add(_ul);
+      list.Add(_ur);
+      list.Add(_ll);
+      list.Add(_lr);
+
+      return list;
     }
   }
 }

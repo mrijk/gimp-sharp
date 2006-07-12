@@ -60,6 +60,8 @@ namespace Gimp.PhotoshopActions
 	    {
 	    case "Elps":
 	      return new SelectEllipseEvent(this, objc);
+	    case "Plgn":
+	      return new SelectPolygonEvent(this, objc);
 	    case "Rctn":
 	      return new SelectRectangleEvent(this, objc);
 	    default:

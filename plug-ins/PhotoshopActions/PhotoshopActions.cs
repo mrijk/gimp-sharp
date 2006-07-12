@@ -96,13 +96,17 @@ namespace Gimp.PhotoshopActions
       play.Clicked += delegate(object sender, EventArgs args)
 	{
 	  TreePath[] paths = view.Selection.GetSelectedRows();
-	  int[] indices = paths[0].Indices;
+	  TreePath path = paths[0];	// Assume only 1 is selected
+
+	  int[] indices = path.Indices;
 
 	  ActionSet actions = _set[indices[0]];
 
 	  if (indices.Length > 2)
 	    {
 	      actions.Execute(indices[1], indices[2]);
+	      path.Next();
+	      view.Selection.SelectPath(path);
 	    }
 	  else
 	    {

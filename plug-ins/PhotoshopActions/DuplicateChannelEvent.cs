@@ -19,8 +19,7 @@
 //
 
 using System;
-
-using Gtk;
+using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
@@ -42,9 +41,9 @@ namespace Gimp.PhotoshopActions
 	}
     }
 
-    protected override void FillParameters(TreeStore store, TreeIter iter)
+    protected override IEnumerable ListParameters()
     {
-      store.AppendValues(iter, "Channel: " + _name);
+      yield return "Channel: " + _name;
     }
 
     override public bool Execute()
