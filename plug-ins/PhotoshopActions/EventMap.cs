@@ -76,7 +76,8 @@ namespace Gimp.PhotoshopActions
       _map["findEdges"] = "FindEdgesEvent";
       _map["flattenImage"] = "FlattenImageEvent";
       _map["flip"] = _map["Flip"] = "FlipEvent";
-      _map["gaussianBlur"] = "GaussianBlurEvent";
+      _map["GEfc"] = "FilterGalleryEvent";
+      _map["gaussianBlur"] = _map["GsnB"] = "GaussianBlurEvent";
       _map["glass"] = _map["Gls"] = "GlassEvent";
       _map["glowingEdges"] = "GlowingEdgesEvent";
       _map["gradientClassEvent"] = _map["Grdn"] = "GradientClassEvent";
@@ -111,6 +112,7 @@ namespace Gimp.PhotoshopActions
       _map["pointillize"] = "PointillizeEvent";
       _map["polar"] = _map["Plr"] = "PolarEvent";
       _map["posterization"] = "PosterizationEvent";
+      _map["purge"] = _map["Prge"] = "PurgeEvent";
       _map["radialBlur"] = _map["RdlB"] = "RadialBlurEvent";
       _map["removeWhiteMatte"] = "RemoveWhiteMatteEvent";
       _map["replaceColor"] = "ReplaceColorEvent";
@@ -127,8 +129,9 @@ namespace Gimp.PhotoshopActions
       _map["smartBlur"] = "SmartBlurEvent";
       _map["smoothness"] = "SmoothnessEvent";
       _map["solarize"] = "SolarizeEvent";
+      _map["spatter"] = "SpatterEvent";
       _map["spherize"] = "SpherizeEvent";
-      _map["subtractFrom"] = "SubtractFromEvent";
+      _map["subtractFrom"] = _map["Sbtr"] = "SubtractFromEvent";
       _map["surfaceBlur"] = "SurfaceBlurEvent";
       _map["stop"] = "StopEvent";
       _map["stroke"] = "StrokeEvent";
@@ -152,7 +155,6 @@ namespace Gimp.PhotoshopActions
       _map["Exch"] = "ExchangeEvent";
       _map["Fl"] = "FillEvent";
       _map["FndE"] = "FindEdgesEvent";
-      _map["GsnB"] = "GaussianBlurEvent";
       _map["Invs"] = "InverseEvent";
       _map["MrgL"] = "MergeLayersEvent";
       _map["Msc"] = "MosaicEvent";

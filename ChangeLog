@@ -1,5 +1,22 @@
 2006-07-12  Maurits  <m.rijk@chello.nl>
 
+	* plug-ins/PhotoshopActions/HueSaturationEvent.cs: fix crash
+
+	* plug-ins/PhotoshopActions/ObArParameter.cs: support for older
+	Photoshop files
+
+	* plug-ins/PhotoshopActions/AliasParameter.cs
+	* plug-ins/PhotoshopActions/ActionParser.cs: yet another `vague'
+	Photoshop parameter
+
+	* plug-ins/PhotoshopActions/SpatterEvent.cs
+	* plug-ins/PhotoshopActions/PurgeEvent.cs: new files
+
+	* plug-ins/PhotoshopActions/EventMap.cs
+	* plug-ins/PhotoshopActions/Makefile.am: changed accordingly
+
+2006-07-12  Maurits  <m.rijk@chello.nl>
+
 	* plug-ins/PhotoshopActions/TransformEvent.cs: started with
 	transform layers.
 

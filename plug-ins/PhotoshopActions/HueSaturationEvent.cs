@@ -42,18 +42,25 @@ namespace Gimp.PhotoshopActions
 
     public override bool IsExecutable
     {
-      get {return _adjustment.Count == 1;}
+      get 
+	{
+	  return _adjustment == null || _adjustment.Count == 1;
+	}
     }
 
     override public ActionEvent Parse(ActionParser parser)
     {
       base.Parse(parser);
 
-      if (_adjustment.Count > 1)
+      if (_adjustment == null)
+	{
+	  Console.WriteLine("HueSaturationEvent: implement colorization only");
+	}
+      else if (_adjustment.Count > 1)
 	{
 	  Console.WriteLine("HueSaturationEvent: implement for > 1 params");
 	}
-      else
+      else if (_adjustment[0] is ObjcParameter)
 	{
 	  ObjcParameter objc = _adjustment[0] as ObjcParameter;
 	  

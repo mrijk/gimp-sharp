@@ -74,6 +74,8 @@ namespace Gimp.PhotoshopActions
 	      return null;
 	    }
 
+	  _preSix = (version < 16);
+
 	  ActionSet actions = new ActionSet(ReadUnicodeString());
 
 	  actions.Expanded = ReadByte();
@@ -151,12 +153,10 @@ namespace Gimp.PhotoshopActions
 	  if (text == "TEXT")
 	    {
 	      eventName = ReadString();
-	      _preSix = false;
 	    }
 	  else if (text == "long")
 	    {
 	      eventName = ReadFourByteString();
-	      _preSix = true;
 	    }
 	  else
 	    {
@@ -185,7 +185,6 @@ namespace Gimp.PhotoshopActions
 	      DebugOutput.Dump("ClassID2: " + classID2);
 	    }
 
-	  actionEvent.PreSix = _preSix;
 	  actionEvent.NumberOfItems = ReadInt32();
 	  DebugOutput.Dump("NumberOfItems: " + actionEvent.NumberOfItems);
 	  
@@ -195,7 +194,7 @@ namespace Gimp.PhotoshopActions
 	} 
       catch (GimpSharpException e)
 	{
-	  Console.WriteLine("Parsing failed");
+	  Console.WriteLine("-------------> Parsing failed");
 	  return null;
 	}
     }
@@ -362,6 +361,9 @@ namespace Gimp.PhotoshopActions
 
       switch (type)
 	{
+	case "alis":
+	  parameter = new AliasParameter();
+	  break;
 	case "UntF":
 	  parameter = new DoubleParameter(true);
 	  break;

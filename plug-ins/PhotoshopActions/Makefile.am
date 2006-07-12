@@ -19,6 +19,7 @@ MYSOURCES = 				\
 	AddNoiseEvent.cs		\
 	AddTextLayerEvent.cs		\
 	AddToEvent.cs			\
+	AliasParameter.cs		\
 	AlignEvent.cs			\
 	AverageEvent.cs			\
 	BoolParameter.cs		\
@@ -69,6 +70,7 @@ MYSOURCES = 				\
 	FadeEvent.cs			\
 	FillEvent.cs			\
 	FilmGrainEvent.cs		\
+	FilterGalleryEvent.cs		\
 	FindEdgesEvent.cs		\
 	FlattenImageEvent.cs		\
 	FlipEvent.cs			\
@@ -127,6 +129,7 @@ MYSOURCES = 				\
 	PolarEvent.cs			\
 	PosterizationEvent.cs		\
 	PropertyType.cs			\
+	PurgeEvent.cs			\
 	RadialBlurEvent.cs		\
 	RawDataParameter.cs		\
 	ReferenceParameter.cs		\
@@ -165,6 +168,7 @@ MYSOURCES = 				\
 	SmartBlurEvent.cs		\
 	SmoothnessEvent.cs		\
 	SolarizeEvent.cs		\
+	SpatterEvent.cs			\
 	SpherizeEvent.cs		\
 	StainedGlassEvent.cs		\
 	StopEvent.cs			\

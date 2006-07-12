@@ -35,17 +35,28 @@ namespace Gimp.PhotoshopActions
 
     public override void Parse(ActionParser parser)
     {
-      int numberOfItems = parser.ReadInt32();
-      DebugOutput.Dump("NumberOfItems: " + numberOfItems);
-
-      _classID = parser.ReadUnicodeString();
-      DebugOutput.Dump("ClassID: " + _classID);
-      
-      _classID2 = parser.ReadTokenOrString();
-      DebugOutput.Dump("ClassID2: " + _classID2);
+      if (parser.PreSix)
+	{
+	  _classID2 = parser.ReadTokenOrString();
+	  DebugOutput.Dump("ClassID2: " + _classID2);
+	  
+	  int numberOfItems = parser.ReadInt32();
+	  DebugOutput.Dump("NumberOfItems: " + numberOfItems);
+	}
+      else
+	{
+	  int numberOfItems = parser.ReadInt32();
+	  DebugOutput.Dump("NumberOfItems: " + numberOfItems);
+	  
+	  _classID = parser.ReadUnicodeString();
+	  DebugOutput.Dump("ClassID: " + _classID);
+	  
+	  _classID2 = parser.ReadTokenOrString();
+	  DebugOutput.Dump("ClassID2: " + _classID2);  
+	}
 
       int numberOfFields = parser.ReadInt32();
-      DebugOutput.Dump("NumberOfItems: " + numberOfFields);
+      DebugOutput.Dump("NumberOfFields: " + numberOfFields);
 
       for (int i = 0; i < numberOfFields; i++)
 	{
@@ -55,7 +66,7 @@ namespace Gimp.PhotoshopActions
 	  
 	  DebugOutput.Dump("key: {0} ({1}) {2}", key, type, units);
 	  
-	  numberOfItems = parser.ReadInt32();
+	  int numberOfItems = parser.ReadInt32();
 	  DebugOutput.Dump("NumberOfItems2: " + numberOfItems);
 	  
 	  switch (type)
@@ -71,8 +82,6 @@ namespace Gimp.PhotoshopActions
 	      break;
 	    }
 	}
-
-      // throw new GimpSharpException();
     }
 
     public override void Fill(Object obj, FieldInfo field)

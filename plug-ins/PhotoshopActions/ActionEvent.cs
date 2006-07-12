@@ -34,7 +34,6 @@ namespace Gimp.PhotoshopActions
     readonly byte _dialogOptions;
     */
     bool _hasDescriptor;
-    bool _preSix;
 
     string _eventForDisplay;
     protected int _numberOfItems;
@@ -60,12 +59,6 @@ namespace Gimp.PhotoshopActions
     public ParameterSet Parameters
     {
       get {return _parameters;}
-    }
-
-    public bool PreSix
-    {
-      get {return _preSix;}
-      set {_preSix = value;}
     }
 
     public bool HasDescriptor
