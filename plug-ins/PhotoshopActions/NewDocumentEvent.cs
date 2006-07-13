@@ -55,14 +55,19 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
-      // Fix me: complete this
       yield return "Width: " + _width;
       yield return "Height: " + _height;
       yield return "Resolution: " + _resolution;
+
+      yield return "Pixel Aspect Ratio: " + _pixelScaleFactor;
+      if (_fill != null)
+	{
+	  yield return "Fill: " + Abbreviations.Get(_fill.Value);
+	}
       yield return "Depth: " + _depth;
       if (_profile != null)
 	{
-	  yield return "Profile: " + _profile;
+	  yield return "Profile: \"" + _profile + "\"";
 	}
     }
 
@@ -72,11 +77,30 @@ namespace Gimp.PhotoshopActions
       int width = (int) _width;
       int height = (int) _height;
 
+      ImageType imageType;
+      FillType fillType;
+
+      switch (_fill.Value)
+	{
+	case "Trns":
+	  imageType = ImageType.Rgba;
+	  fillType = FillType.Transparent;
+	  break;
+	default:
+	  imageType = ImageType.Rgb;
+	  fillType = FillType.White;
+	  break;
+	}
+
       Image image = new Image(width, height, type);
-      Layer layer = new Layer(image, "Background", width, height,
-			      ImageType.Rgb, 100, 
-			      LayerModeEffects.Normal);
+      Layer layer = new Layer(image, "Layer 1", width, height,
+			      imageType, 100, LayerModeEffects.Normal);
       image.AddLayer(layer, 0);
+
+      layer.Fill(fillType);
+
+      ActiveImage = image;
+      ActiveDrawable = layer;
 
       new Display(image);
 

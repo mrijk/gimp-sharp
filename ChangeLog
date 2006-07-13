@@ -1,3 +1,27 @@
+2006-07-13  Maurits  <m.rijk@chello.nl>
+
+	* lib/GimpBaseEnums.cs: use full names in BucketFillMode
+
+	* plug-ins/PhotoshopActions/GradientMapEvent.cs: use gradient that
+	is stored in action file
+	
+	* plug-ins/PhotoshopActions/Abbreviations.cs
+	* plug-ins/PhotoshopActions/FragmentEvent.cs: new files
+
+	* plug-ins/PhotoshopActions/EventMap.cs
+	* plug-ins/PhotoshopActions/Makefile.am: changed accordingly
+	
+	* plug-ins/Fragment/*: new plug-in
+
+	* NEWS: updated
+
+	* configure.in
+	* plug-ins/Makefile.am: changed accordingly
+
+2006-07-12  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/PhotoshopActions/GradientMapEvent.cs: implemented
+
 2006-07-12  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/PhotoshopActions/HueSaturationEvent.cs: fix crash

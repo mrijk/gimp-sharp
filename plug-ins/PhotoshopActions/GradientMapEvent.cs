@@ -18,21 +18,25 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-using System.Collections;
-
 namespace Gimp.PhotoshopActions
 {
   public class GradientMapEvent : ActionEvent
   {
-    public override bool IsExecutable
-    {
-      get {return false;}
-    }
+    [Parameter("Grad")]
+    ObjcParameter _gradient;
 
     override public bool Execute()
     {
-      return false;
+      Gradient gradient = _gradient.GetGradient();
+
+      Context.Push();
+      Context.Gradient = gradient;
+      RunProcedure("plug_in_gradmap");
+      Context.Pop();
+
+      gradient.Delete();
+
+      return true;
     }
   }
 }

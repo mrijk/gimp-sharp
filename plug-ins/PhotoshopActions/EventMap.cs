@@ -76,6 +76,7 @@ namespace Gimp.PhotoshopActions
       _map["findEdges"] = "FindEdgesEvent";
       _map["flattenImage"] = "FlattenImageEvent";
       _map["flip"] = _map["Flip"] = "FlipEvent";
+      _map["fragment"] = "FragmentEvent";
       _map["GEfc"] = "FilterGalleryEvent";
       _map["gaussianBlur"] = _map["GsnB"] = "GaussianBlurEvent";
       _map["glass"] = _map["Gls"] = "GlassEvent";

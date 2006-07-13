@@ -41,8 +41,8 @@ namespace Gimp
 
   public enum BucketFillMode
   {
-    Fg,
-    Bg,
+    Foreground,
+    Background,
     Pattern,
   }
 

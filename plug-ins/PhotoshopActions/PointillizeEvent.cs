@@ -30,7 +30,7 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
-      yield return "Cell size: " + _cellSize;
+      yield return "Cell Size: " + _cellSize;
     }
 
     override public bool Execute()

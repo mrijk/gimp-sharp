@@ -19,6 +19,7 @@
 //
 
 using System;
+using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
@@ -26,6 +27,15 @@ namespace Gimp.PhotoshopActions
   {
     [Parameter("Adjs")]
     ListParameter _adjustment;
+
+    protected override IEnumerable ListParameters()
+    {
+      if (_adjustment != null)
+	{
+	  ObjcParameter objc = _adjustment[0] as ObjcParameter;
+	  yield return "Gamma: " + objc.GetValueAsDouble("Gmm");
+	}
+    }
 
     override public bool Execute()
     {

@@ -52,7 +52,7 @@ namespace Gimp.PhotoshopActions
       yield return ((_useMask) ? "With" : "Without") + " Use Mask";
     }
 
-    Gradient CreateGradient(string name, ListParameter colors)
+    static public Gradient CreateGradient(string name, ListParameter colors)
     {
       Gradient gradient = new Gradient("Photoshop." + name);
       gradient.SegmentRangeSplitUniform(0, -1, colors.Count);

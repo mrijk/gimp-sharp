@@ -7,6 +7,7 @@ GIMPSHARPLIB = $(top_builddir)/lib/gimp-sharp.dll
 ASSEMBLIES = -r:$(GIMPSHARPLIB) /pkg:gtk-sharp-2.0 /target:winexe
 
 MYSOURCES = 				\
+	Abbreviations.cs		\
 	Action.cs			\
 	ActionEvent.cs			\
 	ActionParser.cs			\
@@ -74,6 +75,7 @@ MYSOURCES = 				\
 	FindEdgesEvent.cs		\
 	FlattenImageEvent.cs		\
 	FlipEvent.cs			\
+	FragmentEvent.cs		\
 	GaussianBlurEvent.cs		\
 	GlassEvent.cs			\
 	GlowingEdgesEvent.cs		\

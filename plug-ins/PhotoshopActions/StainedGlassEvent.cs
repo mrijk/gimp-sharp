@@ -19,14 +19,29 @@
 //
 
 using System;
+using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
   public class StainedGlassEvent : ActionEvent
   {
+    [Parameter("ClSz")]
+    int _cellSize;
+    [Parameter("BrdT")]
+    int _borderThickness;
+    [Parameter("LghI")]
+    int _lightIntensity;
+
     public override bool IsExecutable
     {
       get {return false;}
+    }
+
+    protected override IEnumerable ListParameters()
+    {
+      yield return "Cell Size: " + _cellSize;
+      yield return "Border Thickness: " + _borderThickness;
+      yield return "Light Intensity: " + _lightIntensity;
     }
 
     override public bool Execute()

@@ -23,6 +23,7 @@ SUBDIRS = 			\
 	$(DifferenceClouds)	\
 	$(ecw)			\
 	Forge	 		\
+	Fragment		\
 	KoalaPaint 		\
 	Ministeck		\
 	ncp 			\

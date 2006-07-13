@@ -19,6 +19,7 @@
 //
 
 using System;
+using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
@@ -26,10 +27,17 @@ namespace Gimp.PhotoshopActions
   {
     [Parameter("Dstr")]
     EnumParameter _distribution;
-    [Parameter("Nose")]
-    double _noise;
+    [Parameter("Amnt")]
+    double _amount;
     [Parameter("Mnch")]
     bool _monochrome;
+
+    protected override IEnumerable ListParameters()
+    {
+      yield return "Amount: " + _amount;
+      yield return "Distribution: " + Abbreviations.Get(_distribution.Value);
+      yield return (_monochrome ? "With:" : "Without") + " Monochrome";
+    }
 
     override public bool Execute()
     {
@@ -39,7 +47,7 @@ namespace Gimp.PhotoshopActions
 	  return false;
 	}
 
-      double noise = _noise / 100;
+      double noise = _amount / 100;
       RunProcedure("plug_in_rgb_noise", !_monochrome, 0, noise, noise, noise, 
 		   1.0);
 

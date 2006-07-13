@@ -35,7 +35,9 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
-      ActiveImage.Selection.Feather(_radius);
+      // Applying same formula as in GaussianBlurEvent
+      double radius = -0.8 + 3.4 * _radius;
+      ActiveImage.Selection.Feather(radius);
       return true;
     }
   }

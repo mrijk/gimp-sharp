@@ -48,7 +48,21 @@ namespace Gimp.PhotoshopActions
     {
       if (_type is TypeParameter)
 	{
-	  yield return "Mode: " + (_type as TypeParameter).Value;
+	  string type = (_type as TypeParameter).Value;
+	  string mode;
+
+	  switch (type)
+	    {
+	    case "RGBM":
+	      mode = "RGB color mode";
+	      break;
+	    default:
+	      mode = type;
+	      break;
+	    }
+
+
+	  yield return "To: " + mode;
 	}
     }
 

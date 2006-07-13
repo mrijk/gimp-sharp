@@ -36,7 +36,6 @@ namespace Gimp.PhotoshopActions
     public HideLayerEvent(ActionEvent srcEvent, string name) : base(srcEvent)
     {
       _name = name;
-      _layer = ActiveImage.Layers[name];
     }
 
     public HideLayerEvent(ActionEvent srcEvent, PropertyType property) : 
@@ -44,7 +43,6 @@ namespace Gimp.PhotoshopActions
     {
       if (property.Key == "Bckg")
 	{
-	  _layer = ActiveImage.Layers[0];
 	  _name = "Background";
 	}
       else
@@ -64,10 +62,12 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
-      if (_layer != null)
+      if (_layer == null)
 	{
-	  _layer.Visible = true;
+	  _layer = ActiveImage.Layers[_name];
 	}
+      _layer.Visible = true;
+
       return true;
     }
   }

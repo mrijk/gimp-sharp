@@ -22,15 +22,15 @@ using System;
 
 namespace Gimp.PhotoshopActions
 {
-  public class DuplicateLayerEvent : ActionEvent
+  public class DuplicateLayerEvent : DuplicateEvent
   {
-    public DuplicateLayerEvent(ActionEvent srcEvent) : base(srcEvent) 
+    public DuplicateLayerEvent(DuplicateEvent srcEvent) : base(srcEvent) 
     {
     }
 
     public override string EventForDisplay
     {
-      get {return base.EventForDisplay + " layer";}
+      get {return base.EventForDisplay + " current layer";}
     }
 
     override public bool Execute()

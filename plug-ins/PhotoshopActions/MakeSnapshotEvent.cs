@@ -35,8 +35,13 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
-      // Fix me: snapshots from other states possible?
       yield return "From: Current History State";
+
+      EnumParameter usng = Parameters["Usng"] as EnumParameter;
+      if (usng != null)
+	{
+	  yield return "Using: " + Abbreviations.Get(usng.Value);
+	}
     }
 
     override public bool Execute()

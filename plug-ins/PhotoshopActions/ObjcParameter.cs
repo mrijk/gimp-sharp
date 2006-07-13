@@ -94,6 +94,13 @@ namespace Gimp.PhotoshopActions
 	}
     }
 
+    public Gradient GetGradient()
+    {
+      string name = GetValueAsString("Nm");
+      ListParameter colors = Parameters["Clrs"] as ListParameter;
+      return GradientClassEvent.CreateGradient(name, colors);
+    }
+
     public RGB GetValueAsColor(string name)
     {
       return (_children[name] as ObjcParameter).GetColor();

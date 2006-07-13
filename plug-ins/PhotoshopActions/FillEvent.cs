@@ -25,6 +25,10 @@ namespace Gimp.PhotoshopActions
 {
   public class FillEvent : ActionEvent
   {
+    [Parameter("From")]
+    ObjcParameter _from;
+    [Parameter("Tlrn")]
+    int _tolerance;
     [Parameter("Usng")]
     EnumParameter _using;
     [Parameter("Opct")]
@@ -34,65 +38,65 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
+      if (_from != null)
+	{
+	  yield return "From: ";
+	}
+
       if (_using != null)
 	{
-	  string color;
-	  switch(_using.Value)
-	    {
-	    case "BckC":
-	      color = "background color";
-	      break;
-	    case "Blck":
-	      color = "black";
-	      break;
-	    case "FrgC":
-	      color = "foreground color";
-	      break;
-	    default:
-	      color = "Fixme: " + _using.Value;
-	      break;
-	    }
-	  yield return "Using: " + color;
+	  yield return "Using: " + Abbreviations.Get(_using.Value);
 	}
 
       yield return "Opacity: " + _opacity + " %";
 
       if (_mode != null)
 	{
-	  string mode;
-	  switch (_mode.Value)
-	    {
-	    case "Nrml":
-	      mode = "Normal";
-	      break;
-	    default:
-	      mode = "Fixme: " + _mode.Value;
-	      break;
-	    }
-	  yield return "Mode: " + mode;
+	  yield return "Mode: " + Abbreviations.Get(_mode.Value);
 	}
     }
 
     override public bool Execute()
     {
+      Context.Push();
+
+      FillType fillType;
+
       switch (_using.Value)
 	{
 	case "Blck":
-	  Context.Push();
 	  Context.Foreground = new RGB(0, 0, 0);
-	  ActiveDrawable.EditFill(FillType.Foreground);
-	  Context.Pop();
+	  fillType = FillType.Foreground;
 	  break;
 	case "FrgC":
-	  ActiveDrawable.EditFill(FillType.Foreground);
+	  fillType = FillType.Foreground;
 	  break;
 	case "BckC":
-	  ActiveDrawable.EditFill(FillType.Background);
+	  fillType = FillType.Background;
 	  break;
 	default:
+	  fillType = FillType.Foreground;
 	  Console.WriteLine("FillEvent: with {0} not supported!", _using);
 	  break;
 	}
+
+      if (_from == null)
+	{
+	  ActiveDrawable.EditFill(fillType);
+	}
+      else	// Flood fill
+	{
+	  double x = _from.GetValueAsDouble("Hrzn");
+	  double y = _from.GetValueAsDouble("Vrtc");
+	  Console.WriteLine("After {0} {1}", x, y);
+
+	  ActiveDrawable.EditBucketFill(BucketFillMode.Foreground,
+					LayerModeEffects.Normal,
+					100.0, _tolerance, false, x, y);
+	}
+
+      Context.Pop();
+
       return true;
     }
   }
