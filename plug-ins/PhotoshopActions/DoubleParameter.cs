@@ -58,5 +58,22 @@ namespace Gimp.PhotoshopActions
       field.SetValue(obj, _value);
       // TODO: also fill the units!?
     }
+
+    public double GetPixels(double x)
+    {
+      if (_units == null)
+	{
+	  return _value;
+	}
+
+      switch (_units)
+	{
+	case "#Prc":
+	  return _value * x / 100.0;
+	default:
+	  Console.WriteLine("Unknown unit: " + _units);
+	  return _value;
+	}
+    }
   }
 }

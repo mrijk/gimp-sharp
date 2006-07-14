@@ -19,8 +19,7 @@
 //
 
 using System;
-
-using Gtk;
+using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
@@ -39,7 +38,7 @@ namespace Gimp.PhotoshopActions
       get {return base.EventForDisplay + " current layer";}
     }
 
-    protected override void FillParameters(TreeStore store, TreeIter iter)
+    protected override IEnumerable ListParameters()
     {
       foreach (Parameter parameter in _objc.Parameters)
 	{
@@ -47,15 +46,15 @@ namespace Gimp.PhotoshopActions
 	    {
 	    case "Md":
 	      string mode = (parameter as EnumParameter).Value;
-	      store.AppendValues(iter, "Mode: " + mode);
+	      yield return "Mode: " + mode;
 	      break;
 	    case "Nm":
 	      string name = (parameter as TextParameter).Value;
-	      store.AppendValues(iter, "Name: " + name);
+	      yield return "Name: \"" + name + "\"";
 	      break;
 	    case "Opct":
 	      double opacity = (parameter as DoubleParameter).Value;
-	      store.AppendValues(iter, "Opacity: " + opacity);
+	      yield return "Opacity: " + opacity;
 	      break;
 	    default:
 	      Console.WriteLine("SetLayerProperty: " + parameter.Name);

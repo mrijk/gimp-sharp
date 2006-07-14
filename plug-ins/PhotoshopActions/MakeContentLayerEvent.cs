@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// LinkEvent.cs
+// MakeContentLayerEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,15 +18,15 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
 using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class LinkEvent : ActionEvent
+  public class MakeContentLayerEvent : MakeEvent
   {
-    [Parameter("T")]
-    ListParameter _list;
+    public MakeContentLayerEvent(MakeEvent srcEvent) : base(srcEvent)
+    {
+    }
 
     public override bool IsExecutable
     {
@@ -35,24 +35,12 @@ namespace Gimp.PhotoshopActions
 
     public override string EventForDisplay
     {
-      get {return base.EventForDisplay + " current layer";}
-    }
-
-    protected override IEnumerable ListParameters()
-    {
-      foreach (ReferenceParameter parameter in _list)
-	{
-	  NameType name = parameter.Set[0] as NameType;
-	  if (name != null)
-	    {
-	      yield return "layer \"" + name.Key + "\"";
-	    }
-	}
+      get {return base.EventForDisplay + " content layer";}
     }
 
     override public bool Execute()
     {
-      return false;
+      return true;
     }
   }
 }

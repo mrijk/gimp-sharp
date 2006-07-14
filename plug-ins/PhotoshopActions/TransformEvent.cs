@@ -61,6 +61,19 @@ namespace Gimp.PhotoshopActions
 		  break;
 		}
 	    }
+	  else if (_obj.Set[0] is PropertyType)
+	    {
+	      PropertyType property = _obj.Set[0] as PropertyType;
+	      switch (property.Key)
+		{
+		case "fsel":
+		  return new TransformSelectionEvent(this);
+		default:
+		  Console.WriteLine("Transform-4: unknown key " + 
+				    property.Key);
+		  break;
+		}
+	    }
 	  else
 	    {
 	      Console.WriteLine("Transform-3: " + _obj.Set[0]);

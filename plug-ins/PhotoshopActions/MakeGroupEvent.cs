@@ -51,8 +51,6 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
-      // Dummy event. Probably not needed in GIMP because we have
-      // unlimited UNDO
       return true;
     }
   }

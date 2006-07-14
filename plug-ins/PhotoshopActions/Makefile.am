@@ -99,6 +99,7 @@ MYSOURCES = 				\
 	LinkSelectedLayersEvent.cs	\
 	ListParameter.cs		\
 	LongParameter.cs		\
+	MakeContentLayerEvent.cs	\
 	MakeEvent.cs			\
 	MakeGroupEvent.cs		\
 	MakeSnapshotEvent.cs		\
@@ -185,6 +186,7 @@ MYSOURCES = 				\
 	TilesEvent.cs			\
 	TransformEvent.cs		\
 	TransformLayerEvent.cs		\
+	TransformSelectionEvent.cs	\
 	TypeParameter.cs		\
 	TwirlEvent.cs			\
 	UnimplementedEvent.cs		\

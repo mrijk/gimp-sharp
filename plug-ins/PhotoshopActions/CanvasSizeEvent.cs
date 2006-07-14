@@ -36,25 +36,55 @@ namespace Gimp.PhotoshopActions
     [Parameter("canvasExtensionColorType")]
     EnumParameter _extensionColorType;
 
-    public override bool IsExecutable
-    {
-      get 
-	{
-	  return false;
-	}
-    }
-
     protected override IEnumerable ListParameters()
     {
       yield return "Width: " + _width;
       yield return "Height: " + _height;
+      if (_horizontal != null)
+	{
+	  yield return "Horizontal: " + Abbreviations.Get(_horizontal.Value);
+	}
+      if (_horizontal != null)
+	{
+	  yield return "Vertical: " + Abbreviations.Get(_horizontal.Value);
+	}
     }
 
     override public bool Execute()
     {
       int offsetX = 0;
       int offsetY = 0;
-      ActiveImage.Resize((int) _width, (int) _height, offsetX, offsetY);
+
+      double width = (Parameters["Wdth"] as DoubleParameter).GetPixels(ActiveDrawable.Width);
+      double height = (Parameters["Hght"] as DoubleParameter).GetPixels(ActiveDrawable.Height);
+
+      if (_horizontal != null)
+	{
+	  switch (_horizontal.Value)
+	    {
+	    case "Cntr":
+	      offsetX = Math.Max(0, (int) (width - ActiveDrawable.Width) / 2);
+	      break;
+	    default:
+	      Console.WriteLine("CanvasSizeEvent: " + _horizontal.Value);
+	      break;
+	    }
+	}
+
+      if (_vertical != null)
+	{
+	  switch (_vertical.Value)
+	    {
+	    case "Cntr":
+	      offsetY = Math.Max(0, (int) (height - ActiveDrawable.Height) / 2);
+	      break;
+	    default:
+	      Console.WriteLine("CanvasSizeEvent: " + _vertical.Value);
+	      break;
+	    }
+	}
+
+      ActiveImage.Resize((int) width, (int) height, offsetX, offsetY);
       return true;
     }
   }

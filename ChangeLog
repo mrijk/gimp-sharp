@@ -1,5 +1,20 @@
 2006-07-14  Maurits  <m.rijk@chello.nl>
 
+	* plug-ins/PhotoshopActions/CanvasSizeEvent.cs: implemented
+
+	* plug-ins/PhotoshopActions/MakeContentLayerEvent.cs
+	* plug-ins/PhotoshopActions/TransformSelectionEvent.cs: new files
+
+	* plug-ins/PhotoshopActions/Makefile.am: changed accordingly
+
+	* plug-ins/PhotoshopActions/SetLayerPropertyEvent.cs: use yield
+	construction
+
+	* plug-ins/PhotoshopActions/LinkEvent.cs
+	* plug-ins/PhotoshopActions/AddTextLayerEvent.cs: more verbosity
+
+2006-07-14  Maurits  <m.rijk@chello.nl>
+
 	* plug-ins/PhotoshopActions/MakeGroupEvent.cs
 	* plug-ins/PhotoshopActions/RevealAllEvent.cs: new files
 

@@ -41,6 +41,7 @@ namespace Gimp.PhotoshopActions
       _map["Nrml"] = "normal";
       _map["Otsd"] = "outside";
       _map["Trns"] = "transparent";
+      _map["Wht"] = "white";
       _map["Wrp"]  = "wrap";
     }
 

@@ -74,9 +74,11 @@ namespace Gimp.PhotoshopActions
       Image image = ActiveImage;
 
       Layer layer = new Layer(image, "New Layer", image.Width, image.Height,
-			      ImageType.Rgb, 100, _mode);
+			      ImageType.Rgba, 100, _mode);
       image.AddLayer(layer, 0);
       SelectedLayer = layer;
+
+      layer.Fill(FillType.Transparent);
 
       return true;
     }

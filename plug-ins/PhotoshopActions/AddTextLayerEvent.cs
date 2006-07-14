@@ -22,15 +22,20 @@ using System;
 
 namespace Gimp.PhotoshopActions
 {
-  public class AddTextLayerEvent : ActionEvent
+  public class AddTextLayerEvent : MakeEvent
   {
     public override bool IsExecutable
     {
       get {return false;}
     }
 
-    public AddTextLayerEvent(ActionEvent srcEvent) : base(srcEvent) 
+    public AddTextLayerEvent(MakeEvent srcEvent) : base(srcEvent) 
     {
+    }
+
+    public override string EventForDisplay
+    {
+      get {return base.EventForDisplay + " text layer";}
     }
 
     override public bool Execute()

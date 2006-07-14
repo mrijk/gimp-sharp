@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// LinkEvent.cs
+// TransformSelectionEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,36 +23,41 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class LinkEvent : ActionEvent
+  public class TransformSelectionEvent : TransformEvent
   {
-    [Parameter("T")]
-    ListParameter _list;
-
     public override bool IsExecutable
     {
       get {return false;}
     }
 
+    public TransformSelectionEvent(TransformEvent srcEvent) : base(srcEvent)
+    {
+    }
+
     public override string EventForDisplay
     {
-      get {return base.EventForDisplay + " current layer";}
+      get {return base.EventForDisplay + " Selection";}
     }
 
     protected override IEnumerable ListParameters()
     {
-      foreach (ReferenceParameter parameter in _list)
+      ObjcParameter objc = Parameters["Ofst"] as ObjcParameter;
+      if (objc != null)
 	{
-	  NameType name = parameter.Set[0] as NameType;
-	  if (name != null)
-	    {
-	      yield return "layer \"" + name.Key + "\"";
-	    }
+	  yield return "Offset";
 	}
-    }
 
-    override public bool Execute()
-    {
-      return false;
+      DoubleParameter width = Parameters["Wdth"] as DoubleParameter;
+      if (width != null)
+	{
+	  yield return "Width: " + width.Value;
+	}
+
+      DoubleParameter height = Parameters["Hght"] as DoubleParameter;
+      if (height != null)
+	{
+	  yield return "Hght: " + height.Value;
+	}
     }
   }
 }

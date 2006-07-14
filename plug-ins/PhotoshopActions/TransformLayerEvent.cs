@@ -27,7 +27,11 @@ namespace Gimp.PhotoshopActions
   {
     public override bool IsExecutable
     {
-      get {return false;}
+      get 
+	{
+	  DoubleParameter width = Parameters["Wdth"] as DoubleParameter;
+	  return width != null;
+	}
     }
 
     public TransformLayerEvent(TransformEvent srcEvent) : base(srcEvent)
@@ -36,7 +40,7 @@ namespace Gimp.PhotoshopActions
 
     public override string EventForDisplay
     {
-      get {return base.EventForDisplay + " layer";}
+      get {return base.EventForDisplay + " current layer";}
     }
 
     protected override IEnumerable ListParameters()
@@ -52,6 +56,55 @@ namespace Gimp.PhotoshopActions
 	{
 	  yield return "Width: " + width.Value;
 	}
+    }
+
+    override public bool Execute()
+    {
+      bool needScaling = false;
+      double newWidth = ActiveDrawable.Width;
+      double newHeight = ActiveDrawable.Height;
+      double oldWidth = newWidth;
+      double oldHeight = newHeight;
+      int oldOffx, oldOffy;
+
+      SelectedLayer.Offsets(out oldOffx, out oldOffy);
+
+      DoubleParameter width = Parameters["Wdth"] as DoubleParameter;
+      if (width != null)
+	{
+	  newWidth = width.GetPixels(SelectedLayer.Width);
+	  needScaling = true;
+	}
+
+      DoubleParameter height = Parameters["Hght"] as DoubleParameter;
+      if (height != null)
+	{
+	  newHeight = width.GetPixels(SelectedLayer.Height);
+	  needScaling = true;
+	}
+
+      SelectedLayer.Scale((int) newWidth, (int) newHeight, true);
+
+      if (needScaling)
+	{
+	  EnumParameter side = Parameters["FTcs"] as EnumParameter;
+
+	  switch (side.Value)
+	    {
+	    case "Qcs7":
+	      SelectedLayer.SetOffsets(oldOffx, oldOffy);
+	      break;
+	    case "Qcs5":
+	      SelectedLayer.SetOffsets(oldOffx + (int) (oldWidth - newWidth), 
+				       oldOffy + (int) (oldHeight - newHeight));
+	      break;
+	    default:
+	      Console.WriteLine("FTcs: " + side.Value);
+	      break;
+	    }
+	}
+
+      return true;
     }
   }
 }
