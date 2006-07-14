@@ -30,6 +30,9 @@ namespace Gimp.PhotoshopActions
 
     static Abbreviations()
     {
+      _map["AdBt"] = "bottom edges";
+      _map["AdCH"] = "horizontal centers";
+      _map["AdCV"] = "vertical centers";
       _map["BckC"] = "background color";
       _map["Bckg"] = "background";
       _map["Blck"] = "black";

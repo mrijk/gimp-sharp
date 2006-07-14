@@ -27,9 +27,20 @@ namespace Gimp.PhotoshopActions
     [Parameter("null")]
     ReferenceParameter _obj;
 
+    readonly bool _executable;
+
+    public SelectEvent()
+    {
+    }
+
+    public SelectEvent(ActionEvent srcEvent) : base(srcEvent)
+    {
+      _executable = true;
+    }
+
     public override bool IsExecutable
     {
-      get {return false;}
+      get {return _executable;}
     }
 
     override public ActionEvent Parse(ActionParser parser)
@@ -38,9 +49,11 @@ namespace Gimp.PhotoshopActions
 
       if (_obj != null)
 	{
-	  if (_obj.Set[0] is NameType)
+	  ReferenceType parameter = _obj.Set[0];
+
+	  if (parameter is NameType)
 	    {
-	      NameType name = _obj.Set[0] as NameType;
+	      NameType name = parameter as NameType;
 	      if (name.ClassID2 == "Lyr")
 		{
 		  if (Parameters.Count > 2)
@@ -56,9 +69,9 @@ namespace Gimp.PhotoshopActions
 		  Console.WriteLine("SelectEvent: " + name.ClassID2);
 		}
 	    }
-	  else if (_obj.Set[0] is PropertyType)
+	  else if (parameter is PropertyType)
 	    {
-	      PropertyType property = _obj.Set[0] as PropertyType;
+	      PropertyType property = parameter as PropertyType;
 	      if (property.Key == "Bckg")
 		{
 		  return new SelectLayerByNameEvent(this, "Background");
@@ -68,9 +81,9 @@ namespace Gimp.PhotoshopActions
 		  Console.WriteLine("Property: " + property.Key);
 		}
 	    }
-	  else if (_obj.Set[0] is EnmrType)
+	  else if (parameter is EnmrType)
 	    {
-	      EnmrType enmr = _obj.Set[0] as EnmrType;
+	      EnmrType enmr = parameter as EnmrType;
 	      switch (enmr.Key)
 		{
 		case "Chnl":
@@ -82,9 +95,21 @@ namespace Gimp.PhotoshopActions
 		  break;
 		}
 	    }
+	  else if (parameter is ReleType)
+	    {
+	      ReleType rele = parameter as ReleType;
+	      switch (rele.ClassID2)
+		{
+		case "Dcmn":
+		  return new SelectDocumentEvent(this, rele.Offset);
+		default:
+		  Console.WriteLine("rele.ClassID2: " + rele.ClassID2);
+		  break;
+		}
+	    }
 	  else
 	    {
-	      Console.WriteLine("SelectEvent-1: " + _obj.Set[0]);
+	      Console.WriteLine("SelectEvent-1: " + parameter);
 	    }
 	}
 

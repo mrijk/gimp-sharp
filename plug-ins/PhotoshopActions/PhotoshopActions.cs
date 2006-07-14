@@ -168,7 +168,7 @@ namespace Gimp.PhotoshopActions
 
       int nrScripts = 0;
 
-      DebugOutput.Quiet = true;
+      DebugOutput.Quiet = false;
 
       foreach (string fileName in Directory.GetFiles(scriptDir))
 	{
@@ -190,6 +190,7 @@ namespace Gimp.PhotoshopActions
 							  action);
 		      foreach (ActionEvent actionEvent in action)
 			{
+			  // Console.WriteLine(actionEvent.EventForDisplay);
 			  actionEvent.FillStore(store, iter1);
 			}
 		    }

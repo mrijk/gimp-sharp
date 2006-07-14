@@ -27,7 +27,7 @@ namespace Gimp.PhotoshopActions
   {
     readonly int _index;
 
-    public MoveLayerByIndexEvent(ActionEvent srcEvent, int index) 
+    public MoveLayerByIndexEvent(MoveEvent srcEvent, int index) 
       : base(srcEvent)
     {
       _index = index;
@@ -40,12 +40,31 @@ namespace Gimp.PhotoshopActions
     
     public override string EventForDisplay
     {
-      get {return base.EventForDisplay + " current layer";}
+      get 
+	{
+	  ReferenceParameter obj = Parameters["null"] as ReferenceParameter;
+	  if (obj == null)
+	    {
+	      return base.EventForDisplay + " current layer";
+	    }
+	  else
+	    {
+	      if (obj.Set[0] is NameType)
+		{
+		  string name = (obj.Set[0] as NameType).Key;
+		  return base.EventForDisplay + " layer \"" + name + "\"";
+		}
+	      else
+		{
+		  return base.EventForDisplay + " current layer";
+		}
+	    }
+	}
     }
 
     protected override IEnumerable ListParameters()
     {
-      yield return "index: " + _index;
+      yield return "To: layer " + _index;
     }
 
     override public bool Execute()

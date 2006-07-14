@@ -30,7 +30,8 @@ namespace Gimp.PhotoshopActions
       get 
 	{
 	  DoubleParameter width = Parameters["Wdth"] as DoubleParameter;
-	  return width != null;
+	  DoubleParameter height = Parameters["Hght"] as DoubleParameter;
+	  return width != null || height != null;
 	}
     }
 

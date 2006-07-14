@@ -25,9 +25,24 @@ namespace Gimp.PhotoshopActions
 {
   public class AlignEvent : ActionEvent
   {
+    [Parameter("null")]
+    ReferenceParameter _obj;
+    [Parameter("Usng")]
+    EnumParameter _using;
+
     public override bool IsExecutable
     {
       get {return false;}
+    }
+
+    public override string EventForDisplay
+    {
+      get {return base.EventForDisplay + " linked layer";}
+    }
+
+    protected override IEnumerable ListParameters()
+    {
+      yield return "Using: " + Abbreviations.Get(_using.Value);
     }
 
     override public bool Execute()

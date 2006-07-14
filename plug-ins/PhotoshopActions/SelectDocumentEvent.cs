@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// UnlinkEvent.cs
+// SelectDocumentEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,14 +19,17 @@
 //
 
 using System;
-using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class UnlinkEvent : ActionEvent
+  public class SelectDocumentEvent : SelectEvent
   {
-    [Parameter("T")]
-    ListParameter _list;
+    int _offset;
+
+    public SelectDocumentEvent(SelectEvent srcEvent, int offset) : base(srcEvent)
+    {
+      _offset = offset;
+    }
 
     public override bool IsExecutable
     {
@@ -35,24 +38,12 @@ namespace Gimp.PhotoshopActions
 
     public override string EventForDisplay
     {
-      get {return base.EventForDisplay + " current layer";}
-    }
-
-    protected override IEnumerable ListParameters()
-    {
-      foreach (ReferenceParameter parameter in _list)
-	{
-	  NameType name = parameter.Set[0] as NameType;
-	  if (name != null)
-	    {
-	      yield return "layer \"" + name.Key + "\"";
-	    }
-	}
+      get {return base.EventForDisplay + " document";}
     }
 
     override public bool Execute()
     {
-      return false;
+      return true;
     }
   }
 }

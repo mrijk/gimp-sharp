@@ -147,6 +147,7 @@ MYSOURCES = 				\
 	SaveEvent.cs			\
 	SelectAllEvent.cs		\
 	SelectAllLayersEvent.cs		\
+	SelectDocumentEvent.cs		\
 	SelectEllipseEvent.cs		\
 	SelectEvent.cs			\
 	SelectionEvent.cs		\

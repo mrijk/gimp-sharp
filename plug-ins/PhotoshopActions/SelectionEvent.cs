@@ -25,7 +25,7 @@ namespace Gimp.PhotoshopActions
   public class SelectionEvent : SetEvent
   {
     [Parameter("T")]
-    Parameter parameter;
+    Parameter _parameter;
 
     readonly bool _executable;
 
@@ -51,9 +51,9 @@ namespace Gimp.PhotoshopActions
 
     override public ActionEvent Parse(ActionParser parser)
     {
-      if (parameter is ObjcParameter)
+      if (_parameter is ObjcParameter)
 	{
-	  ObjcParameter objc = parameter as ObjcParameter;
+	  ObjcParameter objc = _parameter as ObjcParameter;
 	  string classID2 = objc.ClassID2;
 
 	  switch (classID2)
@@ -69,9 +69,9 @@ namespace Gimp.PhotoshopActions
 	      break;
 	    }
 	}
-      else if (parameter is EnumParameter)
+      else if (_parameter is EnumParameter)
 	{
-	  string type = (parameter as EnumParameter).Value;
+	  string type = (_parameter as EnumParameter).Value;
 
 	  switch (type)
 	    {
@@ -84,9 +84,19 @@ namespace Gimp.PhotoshopActions
 	      break;
 	    }
 	}
+      else if (_parameter is ReferenceParameter)
+	{
+	  ReferenceParameter enmr = _parameter as ReferenceParameter;
+	  /*
+	  if (enmr.Key == "Chnl")
+	    {
+	    }
+	  */
+	  Console.WriteLine("SelectionEvent-3: implement this");
+	}
       else
 	{
-	  Console.WriteLine("SelectionEvent-2: " + parameter);
+	  Console.WriteLine("SelectionEvent-2: " + _parameter);
 	}
       return this;
     }

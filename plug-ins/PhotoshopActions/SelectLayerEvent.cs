@@ -19,8 +19,7 @@
 //
 
 using System;
-
-using Gtk;
+using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
@@ -38,9 +37,9 @@ namespace Gimp.PhotoshopActions
       get {return base.EventForDisplay + " layer";}
     }
 
-    protected override void FillParameters(TreeStore store, TreeIter iter)
+    protected override IEnumerable ListParameters()
     {
-      store.AppendValues(iter, "Mode: " + _mode);
+      yield return "Mode: " + _mode;
     }
 
     override public bool Execute()
