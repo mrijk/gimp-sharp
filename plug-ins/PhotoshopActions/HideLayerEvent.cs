@@ -28,17 +28,17 @@ namespace Gimp.PhotoshopActions
     string _name;
     Layer _layer;
 
-    public HideLayerEvent(ActionEvent srcEvent) : base(srcEvent)
+    public HideLayerEvent(HideEvent srcEvent) : base(srcEvent)
     {
       _layer = SelectedLayer;
     }
 
-    public HideLayerEvent(ActionEvent srcEvent, string name) : base(srcEvent)
+    public HideLayerEvent(HideEvent srcEvent, string name) : base(srcEvent)
     {
       _name = name;
     }
 
-    public HideLayerEvent(ActionEvent srcEvent, PropertyType property) : 
+    public HideLayerEvent(HideEvent srcEvent, PropertyType property) : 
       base(srcEvent)
     {
       if (property.Key == "Bckg")
@@ -50,6 +50,11 @@ namespace Gimp.PhotoshopActions
 	  Console.WriteLine("HideLayerEvent: " + property.Key);
 	  _name = "fixme!";
 	}
+    }
+
+    public override string EventForDisplay
+    {
+      get {return base.EventForDisplay + " current layer";}
     }
 
     protected override IEnumerable ListParameters()

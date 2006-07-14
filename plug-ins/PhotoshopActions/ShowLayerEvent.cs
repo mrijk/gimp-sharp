@@ -23,22 +23,22 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class ShowLayerEvent : ActionEvent
+  public class ShowLayerEvent : ShowEvent
   {
     string _name;
     Layer _layer;
 
-    public ShowLayerEvent(ActionEvent srcEvent) : base(srcEvent)
+    public ShowLayerEvent(ShowEvent srcEvent) : base(srcEvent)
     {
       _layer = SelectedLayer;
     }
 
-    public ShowLayerEvent(ActionEvent srcEvent, string name) : base(srcEvent)
+    public ShowLayerEvent(ShowEvent srcEvent, string name) : base(srcEvent)
     {
       _name = name;
     }
 
-    public ShowLayerEvent(ActionEvent srcEvent, PropertyType property) : 
+    public ShowLayerEvent(ShowEvent srcEvent, PropertyType property) : 
       base(srcEvent)
     {
       if (property.Key == "Bckg")
@@ -50,6 +50,11 @@ namespace Gimp.PhotoshopActions
 	  Console.WriteLine("ShowLayerEvent: " + property.Key);
 	  _name = "fixme!";
 	}
+    }
+
+    public override string EventForDisplay
+    {
+      get {return base.EventForDisplay + " current layer";}
     }
 
     protected override IEnumerable ListParameters()

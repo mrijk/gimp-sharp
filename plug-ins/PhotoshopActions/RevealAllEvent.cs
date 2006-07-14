@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// SelectLayerByNameEvent.cs
+// RevealAllEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,44 +18,13 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-using System.Collections;
-
 namespace Gimp.PhotoshopActions
 {
-  public class SelectLayerByNameEvent : ActionEvent
+  public class RevealAllEvent : ActionEvent
   {
-    string _name;
-
-    public SelectLayerByNameEvent(ActionEvent srcEvent, string name) : 
-      base(srcEvent)
-    {
-      _name = name;
-    }
-
-    public override string EventForDisplay
-    {
-      get {return base.EventForDisplay + " layer \"" + _name + "\"";}
-    }
-
-    protected override IEnumerable ListParameters()
-    {
-      BoolParameter makeVisible = Parameters["MkVs"] as BoolParameter;
-
-      if (makeVisible != null)
-	{
-	  yield return (makeVisible.Value ? "With" : "Without") + 
-	    " Make Visible";
-	}
-    }
-
     override public bool Execute()
     {
-      Console.WriteLine("Visible: " + (Parameters["MkVs"] != null));
-
-      SelectedLayer = ActiveImage.Layers[_name];
-      ActiveImage.ActiveLayer = SelectedLayer;
-
+      ActiveImage.ResizeToLayers();
       return true;
     }
   }

@@ -27,12 +27,20 @@ namespace Gimp.PhotoshopActions
     [Parameter("null")]
     ListParameter _list;
 
+    readonly bool _executable;
+
+    public HideEvent()
+    {
+    }
+
+    public HideEvent(ActionEvent srcEvent) : base(srcEvent)
+    {
+      _executable = true;
+    }
+
     public override bool IsExecutable
     {
-      get 
-	{
-	  return false;
-	}
+      get {return _executable;}
     }
 
     override public ActionEvent Parse(ActionParser parser)

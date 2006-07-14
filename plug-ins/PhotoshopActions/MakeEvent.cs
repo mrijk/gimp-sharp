@@ -79,6 +79,8 @@ namespace Gimp.PhotoshopActions
 	    {
 	    case "AdjL":
 	      return new AddAdjustmentLayerEvent(this);
+	    case "layerSection":
+	      return new MakeGroupEvent(this);
 	    case "Lyr":
 	      return new AddLayerEvent(this, _obj.Set);
 	    case "SnpS":

@@ -100,6 +100,7 @@ MYSOURCES = 				\
 	ListParameter.cs		\
 	LongParameter.cs		\
 	MakeEvent.cs			\
+	MakeGroupEvent.cs		\
 	MakeSnapshotEvent.cs		\
 	MaximumEvent.cs			\
 	MedianEvent.cs			\
@@ -139,6 +140,7 @@ MYSOURCES = 				\
 	ReleType.cs			\
 	RemoveWhiteMatteEvent.cs	\
 	ReplaceColorEvent.cs		\
+	RevealAllEvent.cs		\
 	RotateEvent.cs			\
 	ResetEvent.cs			\
 	SaveEvent.cs			\

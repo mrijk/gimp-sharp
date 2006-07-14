@@ -31,13 +31,17 @@ namespace Gimp.PhotoshopActions
     static Abbreviations()
     {
       _map["BckC"] = "background color";
+      _map["Bckg"] = "background";
       _map["Blck"] = "black";
+      _map["Cntr"] = "center";
       _map["CrnH"] = "Current History State";
       _map["FllD"] = "full document";
       _map["FrgC"] = "foreground color";
       _map["Gsn"]  = "gaussian";
       _map["Nrml"] = "normal";
+      _map["Otsd"] = "outside";
       _map["Trns"] = "transparent";
+      _map["Wrp"]  = "wrap";
     }
 
     public static string Get(string key)

@@ -1,3 +1,18 @@
+2006-07-14  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/PhotoshopActions/MakeGroupEvent.cs
+	* plug-ins/PhotoshopActions/RevealAllEvent.cs: new files
+
+	* plug-ins/PhotoshopActions/EventMap.cs
+	* plug-ins/PhotoshopActions/Makefile.am: changed accordingly
+
+	* plug-ins/PhotoshopActions/HideEvent.cs 
+	* plug-ins/PhotoshopActions/HideLayerEvent.cs
+	* plug-ins/PhotoshopActions/OffsetEvent.cs
+	* plug-ins/PhotoshopActions/ShowEvent.cs 
+	* plug-ins/PhotoshopActions/ShowLayerEvent.cs
+	* plug-ins/PhotoshopActions/SelectLayerByNameEvent.cs: more verbosity
+
 2006-07-13  Maurits  <m.rijk@chello.nl>
 
 	* lib/GimpBaseEnums.cs: use full names in BucketFillMode

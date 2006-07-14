@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// StrokeEvent.cs
+// MakeGroupEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,61 +18,41 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
 using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class StrokeEvent : ActionEvent
+  public class MakeGroupEvent : MakeEvent
   {
-    [Parameter("Wdth")]
-    int _width;
-    [Parameter("Lctn")]
-    EnumParameter _location;
-    [Parameter("Opct")]
-    double _opacity;
-    [Parameter("Md")]
-    EnumParameter _mode;
-    [Parameter("Clr")]
-    ObjcParameter _color;
+    public MakeGroupEvent(MakeEvent srcEvent) : base(srcEvent)
+    {
+    }
 
     public override bool IsExecutable
     {
       get {return false;}
     }
 
+    public override string EventForDisplay
+    {
+      get {return base.EventForDisplay + " Group";}
+    }
+
     protected override IEnumerable ListParameters()
     {
-      yield return "Width: " + _width;
-      yield return "Location: " + Abbreviations.Get(_location.Value);
-      yield return "Opacity: " + _opacity + "%";
-      yield return "Mode: " + Abbreviations.Get(_mode.Value);
+      yield return "From: current layer";
+
+      ObjcParameter usng = Parameters["Usng"] as ObjcParameter;
+      if (usng != null)
+	{
+	  yield return "Name: \"" + usng.GetValueAsString("Nm") + "\"";
+	}
     }
 
     override public bool Execute()
     {
-      Context.Push();
-
-      if (_color != null)
-	{
-	  RGB foreground = _color.GetColor();
-#if true
-	  if (foreground != null)
-	    {
-	      Console.WriteLine("Ok2!");
-	      Context.Foreground = foreground;
-	    }
-#endif
-	}
-      else
-	{
-	  Console.WriteLine("No color!");
-	}
-
-      Context.Opacity = _opacity;
-      ActiveDrawable.EditStroke();
-      Context.Pop();
-
+      // Dummy event. Probably not needed in GIMP because we have
+      // unlimited UNDO
       return true;
     }
   }

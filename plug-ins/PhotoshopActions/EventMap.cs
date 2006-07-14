@@ -55,25 +55,26 @@ namespace Gimp.PhotoshopActions
       _map["copyMerged"] = "CopyMergedEvent";
       _map["copyToLayer"] = _map["CpTL"] = "CopyToLayerEvent";
       _map["crop"] = "CropEvent";
-      _map["curves"] = "CurvesEvent";
+      _map["curves"] = _map["Crvs"] = "CurvesEvent";
       _map["cut"] = "CutEvent";
-      _map["delete"] = "DeleteEvent";
+      _map["cutToLayer"] = "CutToLayerEvent";
+      _map["delete"] = _map["Dlt"] = "DeleteEvent";
       _map["desaturate"] = _map["Dstt"] = "DesaturateEvent";
       _map["differenceClouds"] = _map["DfrC"] = "DifferenceCloudsEvent";
       _map["diffuseGlow"] = "DiffuseGlowEvent";
       _map["diffuse"] = "DiffuseEvent";
-      _map["duplicate"] = "DuplicateEvent";
+      _map["duplicate"] = _map["Dplc"] = "DuplicateEvent";
       _map["dustAndScratches"] = "DustAndScratchesEvent";
-      _map["emboss"] = "EmbossEvent";
+      _map["emboss"] = _map["Embs"] = "EmbossEvent";
       _map["equalize"] = "EqualizeEvent";
-      _map["exchange"] = "ExchangeEvent";
+      _map["exchange"] = _map["Exch"] = "ExchangeEvent";
       _map["expand"] = _map["Expn"] = "ExpandEvent";
       _map["facet"] = "FacetEvent";
       _map["fade"] = _map["Fade"] = "FadeEvent";
       _map["feather"] = _map["Fthr"] = "FeatherEvent";
-      _map["fill"] = "FillEvent";
+      _map["fill"] = _map["Fl"] = "FillEvent";
       _map["filmGrain"] = "FilmGrainEvent";
-      _map["findEdges"] = "FindEdgesEvent";
+      _map["findEdges"] = _map["FndE"] =  "FindEdgesEvent";
       _map["flattenImage"] = "FlattenImageEvent";
       _map["flip"] = _map["Flip"] = "FlipEvent";
       _map["fragment"] = "FragmentEvent";
@@ -89,7 +90,7 @@ namespace Gimp.PhotoshopActions
       _map["highPass"] = _map["HghP"] = "HighPassEvent";
       _map["hueSaturation"] = _map["HStr"] = "HueSaturationEvent";
       _map["imageSize"] = _map["ImgS"] = "ImageSizeEvent";
-      _map["inverse"] = "InverseEvent";
+      _map["inverse"] = _map["Invs"] = "InverseEvent";
       _map["invert"] = _map["Invr"] = "InvertEvent";
       _map["lensFlare"] = "LensFlareEvent";
       _map["levels"] = _map["Lvls"] = "LevelsEvent";
@@ -98,11 +99,11 @@ namespace Gimp.PhotoshopActions
       _map["make"] = _map["Mk"] = "MakeEvent";
       _map["maximum"] = "MaximumEvent";
       _map["median"] = "MedianEvent";
-      _map["mergeLayers"] = "MergeLayersEvent";
+      _map["mergeLayers"] = _map["MrgL"] = "MergeLayersEvent";
       _map["mergeVisible"] = "MergeVisibleEvent";
-      _map["mezzotint"] = "MezzotintEvent";
+      _map["mezzotint"] = _map["Mztn"] = "MezzotintEvent";
       _map["minimum"] = "MinimumEvent";
-      _map["mosaic"] = "MosaicEvent";
+      _map["mosaic"] = _map["Msc"] = "MosaicEvent";
       _map["move"] = "MoveEvent";
       _map["motionBlur"] = _map["MtnB"] = "MotionBlurEvent";
       _map["offset"] = "OffsetEvent";
@@ -117,12 +118,13 @@ namespace Gimp.PhotoshopActions
       _map["radialBlur"] = _map["RdlB"] = "RadialBlurEvent";
       _map["removeWhiteMatte"] = "RemoveWhiteMatteEvent";
       _map["replaceColor"] = "ReplaceColorEvent";
-      _map["reset"] = "ResetEvent";
+      _map["reset"] = _map["Rset"] = "ResetEvent";
+      _map["revealAll"] = "RevealAllEvent";
       _map["rotateEventEnum"] = _map["Rtte"] = "RotateEvent";
       _map["save"] = "SaveEvent";
-      _map["select"] = "SelectEvent";
+      _map["select"] = _map["slct"] = "SelectEvent";
       _map["selectAllLayers"] = "SelectAllLayersEvent";
-      _map["set"] = "SetEvent";
+      _map["set"] = _map["setd"] = "SetEvent";
       _map["sharpen"] = _map["Shrp"] = "SharpenEvent";
       _map["sharpenMore"] = "SharpenMoreEvent";
       _map["shear"] = "ShearEvent";
@@ -131,11 +133,11 @@ namespace Gimp.PhotoshopActions
       _map["smoothness"] = "SmoothnessEvent";
       _map["solarize"] = "SolarizeEvent";
       _map["spatter"] = "SpatterEvent";
-      _map["spherize"] = "SpherizeEvent";
+      _map["spherize"] = _map["Sphr"] = "SpherizeEvent";
       _map["subtractFrom"] = _map["Sbtr"] = "SubtractFromEvent";
       _map["surfaceBlur"] = "SurfaceBlurEvent";
-      _map["stop"] = "StopEvent";
-      _map["stroke"] = "StrokeEvent";
+      _map["stop"] = _map["Stop"] = "StopEvent";
+      _map["stroke"] = _map["Strk"] = "StrokeEvent";
       _map["stainedGlass"] = _map["StnG"] = "StainedGlassEvent";
       _map["texturizer"] = "TexturizerEvent";
       _map["thresholdClassEvent"] = _map["Thrs"] = "ThresholdClassEvent";
@@ -147,25 +149,6 @@ namespace Gimp.PhotoshopActions
       _map["waterPaper"] = "WaterPaperEvent";
       _map["wave"] = "WaveEvent";
       _map["wind"] = _map["Wnd"] = "WindEvent";
-
-      // Pre-6 events
-      _map["Crvs"] = "CurvesEvent";
-      _map["Dlt"] = "DeleteEvent";
-      _map["Dplc"] = "DuplicateEvent";
-      _map["Embs"] = "EmbossEvent";
-      _map["Exch"] = "ExchangeEvent";
-      _map["Fl"] = "FillEvent";
-      _map["FndE"] = "FindEdgesEvent";
-      _map["Invs"] = "InverseEvent";
-      _map["MrgL"] = "MergeLayersEvent";
-      _map["Msc"] = "MosaicEvent";
-      _map["Mztn"] = "MezzotintEvent";
-      _map["Rset"] = "ResetEvent";
-      _map["setd"] = "SetEvent";
-      _map["slct"] = "SelectEvent";
-      _map["Sphr"] = "SpherizeEvent";
-      _map["Stop"] = "StopEvent";
-      _map["Strk"] = "StrokeEvent";
     }
 
     public ActionEvent Lookup(string eventName)

@@ -18,7 +18,8 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using Gtk;
+using System;
+using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
@@ -31,21 +32,11 @@ namespace Gimp.PhotoshopActions
     [Parameter("Fl")]
     EnumParameter _fillMode;
 
-    protected override void FillParameters(TreeStore store, TreeIter iter)
+    protected override IEnumerable ListParameters()
     {
-      store.AppendValues(iter, "Horizontal: " + _horizontal);
-      store.AppendValues(iter, "Vertical: " + _vertical);
-      string fillMode;
-      switch(_fillMode.Value)
-	{
-	case "Wrp":
-	  fillMode = "wrap";
-	  break;
-	default: 
-	  fillMode = _fillMode.Value;
-	  break;
-	}
-      store.AppendValues(iter, "Fill: " + fillMode);
+      yield return "Horizontal: " + _horizontal;
+      yield return "Vertical: " + _vertical;
+      yield return "Fill: " + Abbreviations.Get(_fillMode.Value);
     }
 
     override public bool Execute()

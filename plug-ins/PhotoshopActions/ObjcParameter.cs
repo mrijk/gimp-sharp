@@ -39,6 +39,11 @@ namespace Gimp.PhotoshopActions
       get {return _children;}
     }
 
+    public bool Contains(string name)
+    {
+      return _children[name] != null;
+    }
+
     public override void Parse(ActionParser parser)
     {
       if (parser.PreSix)
@@ -90,7 +95,7 @@ namespace Gimp.PhotoshopActions
 	  return new RGB(new HSV(hue, saturation, brightness));
 	default:
 	  Console.WriteLine("*** Color model {0} not supported", ClassID2);
-	  return null;
+	  return new RGB(0, 0, 0);
 	}
     }
 

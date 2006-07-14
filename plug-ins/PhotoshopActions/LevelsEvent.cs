@@ -33,7 +33,10 @@ namespace Gimp.PhotoshopActions
       if (_adjustment != null)
 	{
 	  ObjcParameter objc = _adjustment[0] as ObjcParameter;
-	  yield return "Gamma: " + objc.GetValueAsDouble("Gmm");
+	  if (objc.Contains("Gmm"))
+	    {
+	      yield return "Gamma: " + objc.GetValueAsDouble("Gmm");
+	    }
 	}
     }
 
