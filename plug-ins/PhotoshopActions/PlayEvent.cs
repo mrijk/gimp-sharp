@@ -19,8 +19,7 @@
 //
 
 using System;
-
-using Gtk;
+using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
@@ -37,13 +36,13 @@ namespace Gimp.PhotoshopActions
       get {return false;}
     }
 
-    protected override void FillParameters(TreeStore store, TreeIter iter)
+    protected override IEnumerable ListParameters()
     {
       _action = (_obj.Set[0] as NameType).Key;
       _set = (_obj.Set[1] as NameType).Key;
 
-      store.AppendValues(iter, String.Format("Action \"{0}\" of set \"{1}\"", 
-					     _action, _set));
+      yield return String.Format("Action \"{0}\" of set \"{1}\"", 
+				 _action, _set);
     }
 
     override public bool Execute()

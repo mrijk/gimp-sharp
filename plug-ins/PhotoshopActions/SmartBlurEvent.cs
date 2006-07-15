@@ -19,8 +19,7 @@
 //
 
 using System;
-
-using Gtk;
+using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
@@ -35,12 +34,12 @@ namespace Gimp.PhotoshopActions
     [Parameter("SmBM")]
     EnumParameter _mode;
 
-    protected override void FillParameters(TreeStore store, TreeIter iter)
+    protected override IEnumerable ListParameters()
     {
-      store.AppendValues(iter, "Radius: " + _radius);
-      store.AppendValues(iter, "Threshold: " + _threshold);
-      store.AppendValues(iter, "Quality: " + _quality.Value);
-      store.AppendValues(iter, "Mode: " + _mode.Value);
+      yield return "Radius: " + _radius;
+      yield return "Threshold: " + _threshold;
+      yield return "Quality: " + Abbreviations.Get(_quality.Value);
+      yield return "Mode: " + Abbreviations.Get(_mode.Value);
     }
 
     override public bool Execute()

@@ -33,11 +33,6 @@ namespace Gimp.PhotoshopActions
       _index = index;
     }
 
-    public override bool IsExecutable
-    {
-      get {return false;}
-    }
-    
     public override string EventForDisplay
     {
       get 
@@ -69,7 +64,30 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
-      // Fix me; implement;
+      ReferenceParameter obj = Parameters["null"] as ReferenceParameter;
+      Layer layer;
+
+      if (obj == null)
+	{
+	  layer = SelectedLayer;
+	}
+      else
+	{
+	  if (obj.Set[0] is NameType)
+	    {
+	      string name = (obj.Set[0] as NameType).Key;
+	      layer = ActiveImage.Layers[name];
+	    }
+	  else
+	    {
+	      layer = SelectedLayer;
+	    }
+	}
+
+      ActiveImage.RemoveLayer(layer);
+      ActiveImage.AddLayer(layer, _index);
+      SelectedLayer = layer;
+
       return true;
     }
   }

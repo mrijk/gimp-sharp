@@ -1,3 +1,12 @@
+2006-07-15  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/PhotoshopActions/SmartBlurEvent.cs
+	* plug-ins/PhotoshopActions/PosterizationEvent.cs
+	* plug-ins/PhotoshopActions/PlayEvent.cs: use yield construction
+
+	* plug-ins/PhotoshopActions/MoveLayerByIndexEvent.cs: implemented,
+	still needs to be verified
+
 2006-07-14  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/PhotoshopActions/Abbreviations.cs: new abbreviations added

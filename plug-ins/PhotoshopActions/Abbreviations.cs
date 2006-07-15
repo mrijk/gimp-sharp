@@ -43,6 +43,7 @@ namespace Gimp.PhotoshopActions
       _map["Gsn"]  = "gaussian";
       _map["Nrml"] = "normal";
       _map["Otsd"] = "outside";
+      _map["Prvs"] = "previous";
       _map["Trns"] = "transparent";
       _map["Wht"] = "white";
       _map["Wrp"]  = "wrap";

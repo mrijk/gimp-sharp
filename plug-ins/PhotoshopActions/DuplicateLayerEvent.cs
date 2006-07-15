@@ -35,7 +35,7 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
-       Layer layer = new Layer(SelectedLayer);
+      Layer layer = new Layer(SelectedLayer);
       ActiveImage.AddLayer(layer, 0);
       ActiveDrawable = layer;
       SelectedLayer = layer;

@@ -57,7 +57,7 @@ namespace Gimp.PhotoshopActions
       _map["crop"] = "CropEvent";
       _map["curves"] = _map["Crvs"] = "CurvesEvent";
       _map["cut"] = "CutEvent";
-      _map["cutToLayer"] = "CutToLayerEvent";
+      _map["cutToLayer"] = _map["CtTL"] = "CutToLayerEvent";
       _map["delete"] = _map["Dlt"] = "DeleteEvent";
       _map["desaturate"] = _map["Dstt"] = "DesaturateEvent";
       _map["differenceClouds"] = _map["DfrC"] = "DifferenceCloudsEvent";
