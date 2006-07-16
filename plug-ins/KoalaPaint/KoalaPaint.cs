@@ -20,6 +20,7 @@
 
 using System;
 using System.IO;
+using Mono.Unix;
 
 namespace Gimp.KoalaPaint
 {	
@@ -55,6 +56,8 @@ namespace Gimp.KoalaPaint
     [STAThread]
     static void Main(string[] args)
     {
+      string localeDir = Gimp.LocaleDirectory;
+      Catalog.Init("KoalaPaint", localeDir);
       new KoalaPaint(args);
     }
 
@@ -67,12 +70,12 @@ namespace Gimp.KoalaPaint
       ProcedureSet set = new ProcedureSet();
 
       set.Add(FileLoadProcedure("file_koala_paint_load",
-				"loads images of the Koala Paint file format",
-				"This plug-in loads images of the Koala Paint file format.",
+				Catalog.GetString("loads images of the Koala Paint file format"),
+				Catalog.GetString("This plug-in loads images of the Koala Paint file format."),
 				"Maurits Rijk",
 				"(C) Maurits Rijk",
 				"1999 - 2006",
-				"KoalaPaint Image"));
+				Catalog.GetString("KoalaPaint Image")));
       return set;
     }
 

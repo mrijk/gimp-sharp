@@ -1,5 +1,19 @@
 2006-07-16  Max      <massimo.perga@gmail.com>
 
+	* configure.in : modified for plug-ins/KoalaPaint/po/Makefile
+
+	* plug-ins/KoalaPaint/Makefile.am : modified to support po
+
+	* plug-ins/KoalaPaint/KoalaPaint.cs : added multilanguage support
+
+	* plug-ins/KoalaPaint/po  
+	* plug-ins/KoalaPaint/po/KoalaPaint.pot  
+	* plug-ins/KoalaPaint/po/Makefile.am  
+	* plug-ins/KoalaPaint/po/en.po  
+	* plug-ins/KoalaPaint/po/it.po : added to the repository 
+
+2006-07-16  Max      <massimo.perga@gmail.com>
+
 	* configure.in : modified for plug-ins/AverageBlur/po/Makefile
 
 	* plug-ins/AverageBlur/Makefile.am : modified to support po

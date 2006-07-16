@@ -1,4 +1,4 @@
-# Italian (standard) translation of Raindrops.
+# Italian (standard) translation of AverageBlur.
 # Copyright (C) Massimo Perga
 # This file is distributed under the same license as the Gimp# package.
 # Massimo Perga <massimo.perga@gmail.com>, 2006.
