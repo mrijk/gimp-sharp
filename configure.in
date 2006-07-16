@@ -49,6 +49,9 @@ if test "x$OS" != "xWindows_NT"; then
     GIMPPLUGINDIR=`gimptool-2.0 -n --install-admin README | head -1 | sed "s/\(.* \)\\(.*\\)/\2/g"`
 
     AC_SUBST(GIMPPLUGINDIR)
+
+    GIMPLOCALE="`gimptool-2.0 --prefix`/share/locale"
+    AC_SUBST(GIMPLOCALE)
 fi
 
 AC_SUBST(CSC)
@@ -125,6 +128,7 @@ plug-ins/PhotoshopActions/Makefile
 plug-ins/PicturePackage/Makefile 
 plug-ins/Pointillize/Makefile
 plug-ins/Raindrops/Makefile 
+plug-ins/Raindrops/po/Makefile 
 plug-ins/Shatter/Makefile
 plug-ins/SliceTool/Makefile 
 plug-ins/Splitter/Makefile 

@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2006 Maurits Rijk, Massimo Perga
 //
 // Gimp.cs
 //
@@ -31,19 +31,19 @@ namespace Gimp
     static public string Directory
     {
       get
-	{
-          IntPtr tmp = gimp_directory();
-	  return Marshaller.FilenamePtrToString(tmp);
-	}
+      {
+        IntPtr tmp = gimp_directory();
+        return Marshaller.FilenamePtrToString(tmp);
+      }
     }
 
     static public Version Version
     {
       get
-	{
-          IntPtr tmp = gimp_version();
-          return new Version(Marshal.PtrToStringAuto(tmp));
-	}
+      {
+        IntPtr tmp = gimp_version();
+        return new Version(Marshal.PtrToStringAuto(tmp));
+      }
     }
 
     static public uint TileWidth
@@ -107,43 +107,43 @@ namespace Gimp
     }
 
     static public void RegisterLoadHandler(string procedural_name,
-                                           string extensions, 
-                                           string prefixes)
+        string extensions, 
+        string prefixes)
     {
       if (!gimp_register_load_handler(procedural_name, extensions,
-                                      prefixes))
-        {
-	  throw new Exception();
-        }
+            prefixes))
+      {
+        throw new Exception();
+      }
     }
 
     static public void RegisterSaveHandler(string procedural_name,
-                                           string extensions, 
-                                           string prefixes)
+        string extensions, 
+        string prefixes)
     {
       if (!gimp_register_save_handler(procedural_name, extensions,
-                                      prefixes))
-        {
-	  throw new Exception();
-        }
+            prefixes))
+      {
+        throw new Exception();
+      }
     }
 
     static public void RegisterFileHandlerMime(string procedural_name,
-					       string mime_type)
+        string mime_type)
     {
       if (!gimp_register_file_handler_mime(procedural_name, mime_type))
-        {
-	  throw new Exception();
-        }
+      {
+        throw new Exception();
+      }
     }
 
     static public void RegisterThumbnailLoader(string load_proc,
-					       string thumb_proc)
+        string thumb_proc)
     {
       if (!gimp_register_thumbnail_loader(load_proc, thumb_proc))
-        {
-	  throw new Exception();
-        }
+      {
+        throw new Exception();
+      }
     }
 
     static public void StandardHelpFunc(string help_id, IntPtr help_data)
@@ -162,10 +162,10 @@ namespace Gimp
     {
       IntPtr tmp = Marshaller.StringToPtrGStrdup(value);
       if (!gimp_gimprc_set(token, tmp))
-	{
-	  Marshaller.Free(tmp);
-	  throw new Exception();
-	}
+      {
+        Marshaller.Free(tmp);
+        throw new Exception();
+      }
       Marshaller.Free(tmp);
     }
 
@@ -182,80 +182,103 @@ namespace Gimp
     static public void GetMonitorResolution(out double xres, out double yres)
     {
       if (!gimp_get_monitor_resolution(out xres, out yres))
-	{
-	  throw new Exception();
-	}
+      {
+        throw new Exception();
+      }
     }
 
     static public string ThemeDirectory
     {
       get
-	{
-          IntPtr tmp = gimp_get_theme_dir();
-	  return Marshaller.FilenamePtrToString(tmp);
-	}
+      {
+        IntPtr tmp = gimp_get_theme_dir();
+        return Marshaller.FilenamePtrToString(tmp);
+      }
+    }
+
+
+    static public string LocaleDirectory
+    {
+      get
+      {
+        IntPtr tmp = gimp_locale_directory();
+        return Marshaller.FilenamePtrToString(tmp);
+      }
+    }
+
+    static public string PluginDirectory
+    {
+      get
+      {
+        IntPtr tmp = gimp_plug_in_directory();
+        return Marshaller.FilenamePtrToString(tmp);
+      }
     }
 
     [DllImport("libgimp-2.0-0.dll")]
-    static extern IntPtr gimp_version();
+      static extern IntPtr gimp_version();
     [DllImport("libgimp-2.0-0.dll")]
-    static extern uint gimp_tile_width();
+      static extern uint gimp_tile_width();
     [DllImport("libgimp-2.0-0.dll")]
-    static extern uint gimp_tile_height();
+      static extern uint gimp_tile_height();
     [DllImport("libgimp-2.0-0.dll")]
-    static extern int gimp_shm_ID();
+      static extern int gimp_shm_ID();
     [DllImport("libgimp-2.0-0.dll")]
-    static extern IntPtr gimp_shm_addr();
+      static extern IntPtr gimp_shm_addr();
     [DllImport("libgimp-2.0-0.dll")]
-    static extern double gimp_gamma();
+      static extern double gimp_gamma();
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_install_cmap();
+      static extern bool gimp_install_cmap();
     [DllImport("libgimp-2.0-0.dll")]
-    static extern int gimp_min_colors();
+      static extern int gimp_min_colors();
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_show_tool_tips();
+      static extern bool gimp_show_tool_tips();
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_show_help_button();
+      static extern bool gimp_show_help_button();
     [DllImport("libgimp-2.0-0.dll")]
-    static extern CheckSize gimp_check_size();
+      static extern CheckSize gimp_check_size();
     [DllImport("libgimp-2.0-0.dll")]
-    static extern CheckType gimp_check_type();
+      static extern CheckType gimp_check_type();
     [DllImport("libgimp-2.0-0.dll")]
-    static extern Int32 gimp_default_display();
+      static extern Int32 gimp_default_display();
 
     [DllImport("libgimpbase-2.0-0.dll")]
-    static extern IntPtr gimp_directory();
+      static extern IntPtr gimp_directory();
+    [DllImport("libgimpbase-2.0-0.dll")]
+      static extern IntPtr gimp_locale_directory();
+    [DllImport("libgimpbase-2.0-0.dll")]
+      static extern IntPtr gimp_plug_in_directory();
 
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_register_load_handler(string procedural_name,
-                                                  string extensions, 
-                                                  string prefixes);
+      static extern bool gimp_register_load_handler(string procedural_name,
+          string extensions, 
+          string prefixes);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_register_save_handler(string procedural_name,
-                                                  string extensions, 
-                                                  string prefixes);
+      static extern bool gimp_register_save_handler(string procedural_name,
+          string extensions, 
+          string prefixes);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_register_file_handler_mime(string procedural_name,
-						       string mime_type);
+      static extern bool gimp_register_file_handler_mime(string procedural_name,
+          string mime_type);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_register_thumbnail_loader(string load_proc,
-						      string thumb_proc);
+      static extern bool gimp_register_thumbnail_loader(string load_proc,
+          string thumb_proc);
     [DllImport("libgimpwidgets-2.0-0.dll")]
-    static extern void gimp_standard_help_func(string help_id,
-					       IntPtr help_data);
+      static extern void gimp_standard_help_func(string help_id,
+          IntPtr help_data);
 
     [DllImport("libgimp-2.0-0.dll")]
-    static extern string gimp_gimprc_query(string token);
+      static extern string gimp_gimprc_query(string token);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_gimprc_set(string token, IntPtr value);
+      static extern bool gimp_gimprc_set(string token, IntPtr value);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern string gimp_get_default_comment();
+      static extern string gimp_get_default_comment();
     [DllImport("libgimp-2.0-0.dll")]
-    static extern string gimp_get_module_load_inhibit();
+      static extern string gimp_get_module_load_inhibit();
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_get_monitor_resolution(out double xres,
-						   out double yres);
+      static extern bool gimp_get_monitor_resolution(out double xres,
+          out double yres);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern IntPtr gimp_get_theme_dir();
+      static extern IntPtr gimp_get_theme_dir();
   }
 }

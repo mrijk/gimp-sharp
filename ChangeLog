@@ -1,3 +1,17 @@
+2006-07-16  Max      <massimo.perga@gmail.com>
+
+	* configure.in : modified for plug-ins/Raindrops/po/Makefile
+
+	* lib/Gimp.cs : added new methods LocaleDirectory and PluginDirectory
+
+	* plug-ins/Raindrops/Makefile.am : modified to support po
+
+	* plug-ins/Raindrops/po  
+	* plug-ins/Raindrops/po/Raindrops.pot  
+	* plug-ins/Raindrops/po/Makefile.am  
+	* plug-ins/Raindrops/po/en.po  
+	* plug-ins/Raindrops/po/it.po : added to the repository 
+
 2006-07-15  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/PhotoshopActions/SmartBlurEvent.cs

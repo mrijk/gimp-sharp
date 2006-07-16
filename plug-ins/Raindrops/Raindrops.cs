@@ -20,6 +20,7 @@
 
 using System;
 
+using Mono.Unix;
 using Gtk;
 
 namespace Gimp.Raindrops
@@ -38,6 +39,8 @@ namespace Gimp.Raindrops
     [STAThread]
     static void Main(string[] args)
     {
+      string localeDir = Gimp.LocaleDirectory;
+      Catalog.Init("Raindrops", localeDir);
       new Raindrops(args);
     }
     
@@ -52,22 +55,25 @@ namespace Gimp.Raindrops
       ParamDefList in_params = new ParamDefList();
  
       in_params.Add(new ParamDef("drop_size", 80, typeof(int),
-				 "Size of raindrops"));
+				 Catalog.GetString("Size of raindrops")));
       in_params.Add(new ParamDef("number", 80, typeof(int),
-				 "Number of raindrops"));
+				 Catalog.GetString("Number of raindrops")));
       in_params.Add(new ParamDef("fish_eye", 30, typeof(int),
-				 "Fisheye effect"));
+				 Catalog.GetString("Fisheye effect")));
 
       Procedure procedure = new Procedure("plug_in_raindrops",
-					  "Generates raindrops",
-					  "Generates raindrops",
+					  Catalog.GetString("Generates raindrops"),
+					  Catalog.GetString("Generates raindrops"),
 					  "Massimo Perga",
 					  "(C) Massimo Perga",
 					  "2006",
-					  "Raindrops...",
+					  Catalog.GetString("Raindrops..."),
 					  "RGB*, GRAY*",
 					  in_params);
-      procedure.MenuPath = "<Image>/Filters/Light and Shadow/Glass";
+      procedure.MenuPath = Catalog.GetString("<Image>") + "/" +
+            Catalog.GetString("Filters") + "/" + 
+            Catalog.GetString("Light and Shadow") + "/" + 
+            Catalog.GetString("Glass");
       procedure.IconFile = "Raindrops.png";
       
       set.Add(procedure);
@@ -79,8 +85,9 @@ namespace Gimp.Raindrops
     {
       gimp_ui_init("Raindrops", true);
 
-      Dialog dialog = DialogNew("Raindrops 0.1", "Raindrops", IntPtr.Zero, 0,
-				Gimp.StandardHelpFunc, "Raindrops");
+      Dialog dialog = DialogNew(Catalog.GetString("Raindrops 0.1"),
+        Catalog.GetString("Raindrops"), IntPtr.Zero, 0,
+				Gimp.StandardHelpFunc, Catalog.GetString("Raindrops"));
 
       VBox vbox = new VBox(false, 12);
       vbox.BorderWidth = 12;
@@ -95,7 +102,8 @@ namespace Gimp.Raindrops
       table.RowSpacing = 6;
       vbox.PackStart(table, false, false, 0);
 
-      ScaleEntry _dropSizeEntry = new ScaleEntry(table, 0, 1, "_Drop size:", 
+      ScaleEntry _dropSizeEntry = new ScaleEntry(table, 0, 1, 
+             Catalog.GetString("_Drop size:"), 
 						 150, 3, _dropSize, 1.0, 
 						 256.0, 1.0, 8.0, 0,
 						 true, 0, 0, null, null);
@@ -105,7 +113,8 @@ namespace Gimp.Raindrops
         _preview.Invalidate();
       };
 
-      ScaleEntry _numberEntry = new ScaleEntry(table, 0, 2, "_Number:", 
+      ScaleEntry _numberEntry = new ScaleEntry(table, 0, 2, 
+                 Catalog.GetString("_Number:"), 
 					       150, 3, _number, 1.0, 
 					       256.0, 1.0, 8.0, 0,
 					       true, 0, 0, null, null);
@@ -115,7 +124,8 @@ namespace Gimp.Raindrops
         _preview.Invalidate();
       };
 
-      ScaleEntry _fishEyeEntry = new ScaleEntry(table, 0, 3, "_Fish eye:", 
+      ScaleEntry _fishEyeEntry = new ScaleEntry(table, 0, 3, 
+            Catalog.GetString("_Fish eye:"), 
 						150, 3, _fishEye, 1.0, 
 						256.0, 1.0, 8.0, 0,
 						true, 0, 0, null, null);
@@ -170,7 +180,7 @@ namespace Gimp.Raindrops
       // Just layers are allowed
       if (!original_drawable.IsLayer())
       {
-        new Message("This filter can be applied just over layers");
+        new Message(Catalog.GetString("This filter can be applied just over layers"));
         return;
       }
 
@@ -207,7 +217,7 @@ namespace Gimp.Raindrops
       Tile.CacheNtiles((ulong) (2 * (drawable.Width / Gimp.TileWidth + 1))); 
 
       if (!isPreview)
-        _progress = new Progress("Raindrops...");
+        _progress = new Progress(Catalog.GetString("Raindrops..."));
 
       PixelFetcher pf = new PixelFetcher(drawable, false);
 
