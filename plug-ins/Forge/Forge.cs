@@ -19,6 +19,7 @@
 //
 
 using System;
+using Mono.Unix;
 
 using Gtk;
 
@@ -115,6 +116,8 @@ namespace Gimp.Forge
     [STAThread]
       static void Main(string[] args)
       {
+        string localeDir = Gimp.LocaleDirectory;
+        Catalog.Init("Forge", localeDir);
         new Forge(args);
       }
 
@@ -128,38 +131,40 @@ namespace Gimp.Forge
 
       ParamDefList in_params = new ParamDefList();
       in_params.Add(new ParamDef("clouds", false, typeof(bool), 
-            "Clouds (true), Planet or Stars (false)"));
+            Catalog.GetString("Clouds (true), Planet or Stars (false)")));
       in_params.Add(new ParamDef("stars", false, typeof(bool), 
-            "Stars (true), Planet or Clouds (false)"));
+            Catalog.GetString("Stars (true), Planet or Clouds (false)")));
       in_params.Add(new ParamDef("dimension", 2.4, typeof(double), 
-            "Fractal dimension factor"));
+            Catalog.GetString("Fractal dimension factor")));
       in_params.Add(new ParamDef("power", 1.0, typeof(double), 
-            "Power factor"));
+            Catalog.GetString("Power factor")));
       in_params.Add(new ParamDef("glaciers", 0.75, typeof(double), 
-            "Glaciers factor"));
+            Catalog.GetString("Glaciers factor")));
       in_params.Add(new ParamDef("ice", 0.4, typeof(double), 
-            "Ice factor"));
+            Catalog.GetString("Ice factor")));
       in_params.Add(new ParamDef("hour", 0.0, typeof(double), 
-            "Hour factor"));
+            Catalog.GetString("Hour factor")));
       in_params.Add(new ParamDef("inclination", 0.0, typeof(double), 
-            "Inclination factor"));
+            Catalog.GetString("Inclination factor")));
       in_params.Add(new ParamDef("stars", 100.0, typeof(double), 
-            "Stars factor"));
+            Catalog.GetString("Stars factor")));
       in_params.Add(new ParamDef("saturation", 100.0, typeof(double), 
-            "Saturation factor"));
+            Catalog.GetString("Saturation factor")));
       in_params.Add(new ParamDef("seed", 0, typeof(uint), 
-            "Random generated seed"));
+            Catalog.GetString("Random generated seed")));
 
       Procedure procedure = new Procedure("plug_in_forge",
-          "Creates an artificial world.",
-          "Creates an artificial world.",
+          Catalog.GetString("Creates an artificial world."),
+          Catalog.GetString("Creates an artificial world."),
           "Massimo Perga, Maurits Rijk",
           "(C) Massimo Perga, Maurits Rijk",
           "2006",
-          "Forge...",
+          Catalog.GetString("Forge..."),
           "RGB*",
           in_params);
-      procedure.MenuPath = "<Image>/Filters/Render";
+      procedure.MenuPath = Catalog.GetString("<Image>") + "/" +
+            Catalog.GetString("Filters") + "/" +
+            Catalog.GetString("Render");
       procedure.IconFile = "Forge.png";
 
       set.Add(procedure);
@@ -171,8 +176,9 @@ namespace Gimp.Forge
     {
       gimp_ui_init("Forge", true);
 
-      Dialog dialog = DialogNew("Forge 0.1", "Forge", IntPtr.Zero, 0,
-          Gimp.StandardHelpFunc, "Forge");
+      Dialog dialog = DialogNew(Catalog.GetString("Forge 0.1"), 
+          Catalog.GetString("Forge"), IntPtr.Zero, 0,
+          Gimp.StandardHelpFunc, Catalog.GetString("Forge"));
 
       VBox vbox = new VBox(false, 12);
       vbox.BorderWidth = 12;
@@ -185,58 +191,61 @@ namespace Gimp.Forge
       table.BorderWidth = 10;
 
       // Create the frame widget 
-      GimpFrame frame = new GimpFrame("Type");
+      GimpFrame frame = new GimpFrame(Catalog.GetString("Type"));
       table.Attach(frame, 0, 3, 0, 1);
 
       HBox hbox = new HBox(false,1);
       frame.Add(hbox);
 
       _PlanetRadioButton = CreateRadioButtonInHBox(hbox, null,
-          PlanetRadioButtonEventHandler, "Planet");
+          PlanetRadioButtonEventHandler, Catalog.GetString("Planet"));
 
       _CloudsRadioButton = CreateRadioButtonInHBox(hbox, _PlanetRadioButton,
-          CloudsRadioButtonEventHandler, "Clouds");
+          CloudsRadioButtonEventHandler, Catalog.GetString("Clouds"));
 
       _NightRadioButton = CreateRadioButtonInHBox(hbox, _PlanetRadioButton,
-          NightRadioButtonEventHandler, "Night");
+          NightRadioButtonEventHandler, Catalog.GetString("Night"));
 
-      CreateLabelInTable(table, 2, 0, "Dimension (0.0 - 3.0):");
+      CreateLabelInTable(table, 2, 0, 
+          Catalog.GetString("Dimension (0.0 - 3.0):"));
       _DimensionSpinButton = CreateFloatSpinButtonInTable(table, 2, 1, 2.4, 0, 3,
           DimensionSpinButtonEventHandler);
 
-      CreateLabelInTable(table, 2, 2, "Power:");
+      CreateLabelInTable(table, 2, 2, Catalog.GetString("Power:"));
       _PowerSpinButton = CreateFloatSpinButtonInTable(table, 2, 3, 1.2, 0, 
           Double.MaxValue,
           PowerSpinButtonEventHandler);
 
-      CreateLabelInTable(table, 3, 0, "Glaciers:");
+      CreateLabelInTable(table, 3, 0, Catalog.GetString("Glaciers:"));
       _GlaciersSpinButton = CreateFloatSpinButtonInTable(table, 3, 1, 0.75, 0, 
           Double.MaxValue,
           GlaciersSpinButtonEventHandler);
 
-      CreateLabelInTable(table, 3, 2, "Ice:");
+      CreateLabelInTable(table, 3, 2, Catalog.GetString("Ice:"));
       _IceSpinButton = CreateFloatSpinButtonInTable(table, 3, 3, 0.4, 0, 
           Double.MaxValue,
           IceSpinButtonEventHandler);
 
-      CreateLabelInTable(table, 4, 0, "Hour (0 - 24):");
+      CreateLabelInTable(table, 4, 0, Catalog.GetString("Hour (0 - 24):"));
       _HourSpinButton = CreateFloatSpinButtonInTable(table, 4, 1, 0, 0, 24, 
           HourSpinButtonEventHandler);
 
-      CreateLabelInTable(table, 4, 2, "Inclination (-90 - 90):");
+      CreateLabelInTable(table, 4, 2, 
+          Catalog.GetString("Inclination (-90 - 90):"));
       _InclinationSpinButton = CreateFloatSpinButtonInTable(table, 4, 3, 0, -90, 90,
           InclinationSpinButtonEventHandler);
 
-      CreateLabelInTable(table, 5, 0, "Stars (0 - 100):");
+      CreateLabelInTable(table, 5, 0, 
+          Catalog.GetString("Stars (0 - 100):"));
       _StarsSpinButton = CreateIntSpinButtonInTable(table, 5, 1, 100, 0, 100, 
           StarsSpinButtonEventHandler);
 
-      CreateLabelInTable(table, 5, 2, "Saturation:");
+      CreateLabelInTable(table, 5, 2, Catalog.GetString("Saturation:"));
       _SaturationSpinButton = CreateIntSpinButtonInTable(table, 5, 3, 125, 0, 
           Int32.MaxValue, 
           SaturationSpinButtonEventHandler);
 
-      CreateLabelInTable(table, 6, 0, "Seed:");
+      CreateLabelInTable(table, 6, 0, Catalog.GetString("Seed:"));
       RandomSeed seed = new RandomSeed(ref _rseed, ref _random_seed);
       table.Attach(seed, 1, 3, 6, 7);
 
@@ -481,17 +490,19 @@ namespace Gimp.Forge
     {
       Tile.CacheNtiles((ulong) (2 * (original_drawable.Width / Gimp.TileWidth + 1)));
       if(_progress == null)
-        _progress = new Progress("Forge...");
+        _progress = new Progress(Catalog.GetString("Forge..."));
 
       // Just layers are allowed
       if(!original_drawable.IsLayer())
       {
-        new Message("This filter can be applied just over layers");
+        new Message(
+          Catalog.GetString("This filter can be applied just over layers"));
         return;
       }
       if(original_drawable.Width < original_drawable.Height)
       {
-        new Message("This filter can be applied just if height <= width");
+        new Message(
+          Catalog.GetString("This filter can be applied just if height <= width"));
         return;
       }
 

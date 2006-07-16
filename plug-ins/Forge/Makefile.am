@@ -4,11 +4,14 @@ all: Forge.exe
 
 GIMPSHARPLIB = $(top_builddir)/lib/gimp-sharp.dll
 
-ASSEMBLIES = -r:$(GIMPSHARPLIB) /pkg:gtk-sharp-2.0 /target:winexe
+ASSEMBLIES = -r:$(GIMPSHARPLIB) -r:Mono.Posix /pkg:gtk-sharp-2.0 /target:winexe
 
 MYSOURCES = Forge.cs Pixel.cs
 
 EXTRA_DIST = $(MYSOURCES) Forge Forge.png
+SUBDIRS = po
+
+CLEANFILES = Forge.exe
 
 Forge.exe : $(MYSOURCES) Forge.png $(GIMPSHARPLIB)
 	$(CSC) $(MYSOURCES) /resource:Forge.png -out:$@ $(ASSEMBLIES)
@@ -19,3 +22,8 @@ clean:
 install:
 	$(INSTALL_DATA) Forge.exe $(DESTDIR)$(GIMPPLUGINDIR)
 	$(INSTALL) Forge $(DESTDIR)$(GIMPPLUGINDIR)
+	@for lang in `ls po | grep .mo`;\
+		do localedir=`echo $$lang | sed -e's/.mo//'`;\
+		echo "Copying po/$$lang to $(GIMPLOCALE)/$$localedir/LC_MESSAGES/Forge.mo";\
+		$(INSTALL_DATA) po/$$lang $(GIMPLOCALE)/$$localedir/LC_MESSAGES/Forge.mo;\
+		done

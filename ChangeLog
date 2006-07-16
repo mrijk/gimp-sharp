@@ -1,10 +1,28 @@
 2006-07-16  Max      <massimo.perga@gmail.com>
 
+	* configure.in : modified for plug-ins/Forge/po/Makefile
+
+	* plug-ins/Raindrops/po/it.po : added fields related to the translator
+
+	* plug-ins/Forge/Makefile.am : modified to support po
+
+	* plug-ins/Forge/Forge.cs : added multilanguage support
+
+	* plug-ins/Forge/po  
+	* plug-ins/Forge/po/Raindrops.pot  
+	* plug-ins/Forge/po/Makefile.am  
+	* plug-ins/Forge/po/en.po  
+	* plug-ins/Forge/po/it.po : added to the repository 
+
+2006-07-16  Max      <massimo.perga@gmail.com>
+
 	* configure.in : modified for plug-ins/Raindrops/po/Makefile
 
 	* lib/Gimp.cs : added new methods LocaleDirectory and PluginDirectory
 
 	* plug-ins/Raindrops/Makefile.am : modified to support po
+
+	* plug-ins/Raindrops/Raindrops.cs : added multilanguage support
 
 	* plug-ins/Raindrops/po  
 	* plug-ins/Raindrops/po/Raindrops.pot  

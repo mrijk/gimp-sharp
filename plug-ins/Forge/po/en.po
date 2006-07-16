@@ -1,0 +1,149 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-07-16 08:42+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: Forge.cs:134
+msgid "Clouds (true), Planet or Stars (false)"
+msgstr ""
+
+#: Forge.cs:136
+msgid "Stars (true), Planet or Clouds (false)"
+msgstr ""
+
+#: Forge.cs:138
+msgid "Fractal dimension factor"
+msgstr ""
+
+#: Forge.cs:140
+msgid "Power factor"
+msgstr ""
+
+#: Forge.cs:142
+msgid "Glaciers factor"
+msgstr ""
+
+#: Forge.cs:144
+msgid "Ice factor"
+msgstr ""
+
+#: Forge.cs:146
+msgid "Hour factor"
+msgstr ""
+
+#: Forge.cs:148
+msgid "Inclination factor"
+msgstr ""
+
+#: Forge.cs:150
+msgid "Stars factor"
+msgstr ""
+
+#: Forge.cs:152
+msgid "Saturation factor"
+msgstr ""
+
+#: Forge.cs:154
+msgid "Random generated seed"
+msgstr ""
+
+#: Forge.cs:157 Forge.cs:158
+msgid "Creates an artificial world."
+msgstr ""
+
+#: Forge.cs:162 Forge.cs:493
+msgid "Forge..."
+msgstr ""
+
+#: Forge.cs:165
+msgid "<Image>"
+msgstr ""
+
+#: Forge.cs:166
+msgid "Filters"
+msgstr ""
+
+#: Forge.cs:167
+msgid "Render"
+msgstr ""
+
+#: Forge.cs:179
+msgid "Forge 0.1"
+msgstr ""
+
+#: Forge.cs:180 Forge.cs:181
+msgid "Forge"
+msgstr ""
+
+#: Forge.cs:194
+msgid "Type"
+msgstr ""
+
+#: Forge.cs:201
+msgid "Planet"
+msgstr ""
+
+#: Forge.cs:204
+msgid "Clouds"
+msgstr ""
+
+#: Forge.cs:207
+msgid "Night"
+msgstr ""
+
+#: Forge.cs:210
+msgid "Dimension (0.0 - 3.0):"
+msgstr ""
+
+#: Forge.cs:214
+msgid "Power:"
+msgstr ""
+
+#: Forge.cs:219
+msgid "Glaciers:"
+msgstr ""
+
+#: Forge.cs:224
+msgid "Ice:"
+msgstr ""
+
+#: Forge.cs:229
+msgid "Hour (0 - 24):"
+msgstr ""
+
+#: Forge.cs:234
+msgid "Inclination (-90 - 90):"
+msgstr ""
+
+#: Forge.cs:239
+msgid "Stars (0 - 100):"
+msgstr ""
+
+#: Forge.cs:243
+msgid "Saturation:"
+msgstr ""
+
+#: Forge.cs:248
+msgid "Seed:"
+msgstr ""
+
+#: Forge.cs:499
+msgid "This filter can be applied just over layers"
+msgstr ""
+
+#: Forge.cs:505
+msgid "This filter can be applied just if height <= width"
+msgstr ""

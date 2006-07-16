@@ -21,6 +21,6 @@ install:
 	$(INSTALL) Raindrops $(DESTDIR)$(GIMPPLUGINDIR)
 	@for lang in `ls po | grep .mo`;\
 		do localedir=`echo $$lang | sed -e's/.mo//'`;\
-		echo "Copying po/$$lang to $(GIMPLOCALE)/$$localedir/LC_MESSAGES";\
+		echo "Copying po/$$lang to $(GIMPLOCALE)/$$localedir/LC_MESSAGES/Raindrops.mo";\
 		$(INSTALL_DATA) po/$$lang $(GIMPLOCALE)/$$localedir/LC_MESSAGES/Raindrops.mo;\
 		done
