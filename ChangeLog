@@ -1,5 +1,19 @@
 2006-07-16  Max      <massimo.perga@gmail.com>
 
+	* configure.in : modified for plug-ins/AverageBlur/po/Makefile
+
+	* plug-ins/AverageBlur/Makefile.am : modified to support po
+
+	* plug-ins/AverageBlur/AverageBlur.cs : added multilanguage support
+
+	* plug-ins/AverageBlur/po  
+	* plug-ins/AverageBlur/po/AverageBlur.pot  
+	* plug-ins/AverageBlur/po/Makefile.am  
+	* plug-ins/AverageBlur/po/en.po  
+	* plug-ins/AverageBlur/po/it.po : added to the repository 
+
+2006-07-16  Max      <massimo.perga@gmail.com>
+
 	* configure.in : modified for plug-ins/DifferenceClouds/po/Makefile
 
 	* plug-ins/Forge/Makefile.am : 

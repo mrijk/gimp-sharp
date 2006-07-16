@@ -115,6 +115,7 @@ AC_CONFIG_FILES([
 Makefile lib/Makefile 
 plug-ins/Makefile 
 plug-ins/AverageBlur/Makefile
+plug-ins/AverageBlur/po/Makefile
 plug-ins/DifferenceClouds/Makefile
 plug-ins/DifferenceClouds/po/Makefile
 plug-ins/ecw/Makefile
