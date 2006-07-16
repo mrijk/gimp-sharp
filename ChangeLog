@@ -1,5 +1,21 @@
 2006-07-16  Max      <massimo.perga@gmail.com>
 
+	* configure.in : modified for plug-ins/DifferenceClouds/po/Makefile
+
+	* plug-ins/Forge/Makefile.am : 
+	changed explicit 'clean' rule to CLEANFILES 
+
+	* plug-ins/DifferenceClouds/DifferenceClouds.cs : 
+	added multilanguage support
+
+	* plug-ins/DifferenceClouds/po  
+	* plug-ins/DifferenceClouds/po/DifferenceClouds.pot  
+	* plug-ins/DifferenceClouds/po/Makefile.am  
+	* plug-ins/DifferenceClouds/po/en.po  
+	* plug-ins/DifferenceClouds/po/it.po : added to the repository 
+
+2006-07-16  Max      <massimo.perga@gmail.com>
+
 	* configure.in : modified for plug-ins/Forge/po/Makefile
 
 	* plug-ins/Raindrops/po/it.po : added fields related to the translator
@@ -9,7 +25,7 @@
 	* plug-ins/Forge/Forge.cs : added multilanguage support
 
 	* plug-ins/Forge/po  
-	* plug-ins/Forge/po/Raindrops.pot  
+	* plug-ins/Forge/po/Forge.pot  
 	* plug-ins/Forge/po/Makefile.am  
 	* plug-ins/Forge/po/en.po  
 	* plug-ins/Forge/po/it.po : added to the repository 

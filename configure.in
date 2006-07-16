@@ -116,6 +116,7 @@ Makefile lib/Makefile
 plug-ins/Makefile 
 plug-ins/AverageBlur/Makefile
 plug-ins/DifferenceClouds/Makefile
+plug-ins/DifferenceClouds/po/Makefile
 plug-ins/ecw/Makefile
 plug-ins/Forge/Makefile
 plug-ins/Forge/po/Makefile

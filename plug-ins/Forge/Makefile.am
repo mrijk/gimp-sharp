@@ -16,9 +16,6 @@ CLEANFILES = Forge.exe
 Forge.exe : $(MYSOURCES) Forge.png $(GIMPSHARPLIB)
 	$(CSC) $(MYSOURCES) /resource:Forge.png -out:$@ $(ASSEMBLIES)
 
-clean:
-	rm -f Forge.exe
-
 install:
 	$(INSTALL_DATA) Forge.exe $(DESTDIR)$(GIMPPLUGINDIR)
 	$(INSTALL) Forge $(DESTDIR)$(GIMPPLUGINDIR)

@@ -19,6 +19,7 @@
 //
 
 using System;
+using Mono.Unix;
 
 using Gtk;
 
@@ -52,6 +53,8 @@ namespace Gimp.DifferenceClouds
     [STAThread]
       static void Main(string[] args)
       {
+        string localeDir = Gimp.LocaleDirectory;
+        Catalog.Init("DifferenceClouds", localeDir);
         new DifferenceClouds(args);
       }
 
@@ -65,18 +68,22 @@ namespace Gimp.DifferenceClouds
 
       ParamDefList in_params = new ParamDefList();
       in_params.Add(new ParamDef("turbulence", 0, typeof(double), 
-            "Turbulence of the cloud"));
+            Catalog.GetString("Turbulence of the cloud")));
 
       Procedure procedure = new Procedure("plug_in_difference_clouds",
-          "Creates difference clouds.",
-          "Creates difference clouds.",
+          Catalog.GetString("Creates difference clouds."),
+          Catalog.GetString("Creates difference clouds."),
           "Massimo Perga",
           "(C) Massimo Perga",
           "2006",
-          "Difference Clouds...",
+          Catalog.GetString("Difference Clouds..."),
           "RGB*",
           in_params);
-      procedure.MenuPath = "<Image>/Filters/Render/Clouds";
+      //procedure.MenuPath = "<Image>/Filters/Render/Clouds";
+      procedure.MenuPath = Catalog.GetString("<Image>") + "/" +
+        Catalog.GetString("Filters") + "/" + 
+        Catalog.GetString("Render") + "/" + 
+        Catalog.GetString("Clouds");
       procedure.IconFile = "DifferenceClouds.png";
 
       set.Add(procedure);
@@ -88,8 +95,9 @@ namespace Gimp.DifferenceClouds
     {
       gimp_ui_init("Difference Clouds", true);
 
-      Dialog dialog = DialogNew("Difference Clouds 0.1", "Difference Clouds", IntPtr.Zero, 0,
-          Gimp.StandardHelpFunc, "Difference Clouds");
+      Dialog dialog = DialogNew(Catalog.GetString("Difference Clouds 0.1"),
+          Catalog.GetString("Difference Clouds"), IntPtr.Zero, 0,
+          Gimp.StandardHelpFunc, Catalog.GetString("Difference Clouds"));
 
       VBox vbox = new VBox(false, 12);
       vbox.BorderWidth = 12;
@@ -101,11 +109,12 @@ namespace Gimp.DifferenceClouds
       table.RowSpacing = 10;
       table.BorderWidth = 10;
 
-      CreateLabelInTable(table, 0, 0, "Seed:");
+      CreateLabelInTable(table, 0, 0, Catalog.GetString("Seed:"));
       RandomSeed seed = new RandomSeed(ref _rseed, ref _random_seed);
       table.Attach(seed, 1, 3, 0, 1);
 
-      _turbulenceEntry = new ScaleEntry(table, 0, 1, "_Turbulence", 150, 3,
+      _turbulenceEntry = new ScaleEntry(table, 0, 1, 
+          Catalog.GetString("_Turbulence"), 150, 3,
           _turbulence, 0.0, 7.0, 0.1, 1.0, 1, true, 0, 0, null, null);
       _turbulenceEntry.ValueChanged += TurbulenceChangedEventHandler;
 
@@ -130,7 +139,7 @@ namespace Gimp.DifferenceClouds
       _foregroundColor = Context.Foreground;
       _backgroundColor = Context.Background;
       if(_progressBar == null)
-        _progressBar = new Progress("Difference Clouds...");
+        _progressBar = new Progress(Catalog.GetString("Difference Clouds..."));
       if(_random == null)
         _random = new Random((int)_rseed);
 
