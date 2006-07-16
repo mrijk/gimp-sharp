@@ -1,0 +1,61 @@
+# Italian (standard) translation of ncp.
+# Copyright (C) Massimo Perga
+# This file is distributed under the same license as the Gimp# package.
+# Massimo Perga <massimo.perga@gmail.com>, 2006.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Gimp# 0.10\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-07-16 13:51+0200\n"
+"PO-Revision-Date: 2006-07-16 13:39+0200\n"
+"Last-Translator: Massimo Perga <massimo.perga@gmail.com>\n"
+"Language-Team: Italian <massimo.perga@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ncp.cs:65
+msgid "Number of points"
+msgstr "Numero di punti"
+
+#: ncp.cs:67
+msgid "Closest point"
+msgstr "Punto piu' vicino"
+
+#: ncp.cs:69
+msgid "Color (true), B&W (false)"
+msgstr "Colori (true), bianco e nero (false)"
+
+#: ncp.cs:72 ncp.cs:73
+msgid "Generates 2D textures"
+msgstr "Genera textures 2D"
+
+#: ncp.cs:80
+msgid "<Image>"
+msgstr ""
+
+#: ncp.cs:81
+msgid "Filters"
+msgstr ""
+
+#: ncp.cs:82
+msgid "Render"
+msgstr ""
+
+#: ncp.cs:102
+msgid "Random _Seed:"
+msgstr "_Seme casuale:"
+
+#: ncp.cs:105
+msgid "Po_ints:"
+msgstr "Pun_ti"
+
+#: ncp.cs:110
+msgid "C_lose to:"
+msgstr "_Vicino a:"
+
+#: ncp.cs:119
+msgid "_Use color"
+msgstr "_Usa i colori"

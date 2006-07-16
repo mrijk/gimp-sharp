@@ -19,7 +19,7 @@
 //
 
 using System;
-
+using Mono.Unix;
 using Gtk;
 
 namespace Gimp.ncp
@@ -41,6 +41,8 @@ namespace Gimp.ncp
 
     static void Main(string[] args)
     {
+      string localeDir = Gimp.LocaleDirectory;
+      Catalog.Init("ncp", localeDir);
       new ncp(args);
     }
 
@@ -60,22 +62,24 @@ namespace Gimp.ncp
 
       ParamDefList in_params = new ParamDefList();
       in_params.Add(new ParamDef("points", 12, typeof(int),
-				 "Number of points"));
+            Catalog.GetString("Number of points")));
       in_params.Add(new ParamDef("closest", 1, typeof(int),
-				 "Closest point"));
+            Catalog.GetString("Closest point")));
       in_params.Add(new ParamDef("color", 1, typeof(bool),
-				 "Color (true), B&W (false)"));
+            Catalog.GetString("Color (true), B&W (false)")));
 
       Procedure procedure = new Procedure("plug_in_ncp",
-					  "Generates 2D textures",
-					  "Generates 2D textures",
-					  "Maurits Rijk",
-					  "(C) Maurits Rijk",
-					  "2004-2006",
-					  "NCP...",
-					  "RGB*, GRAY*",
-					  in_params);
-      procedure.MenuPath = "<Image>/Filters/Render";
+          Catalog.GetString("Generates 2D textures"),
+          Catalog.GetString("Generates 2D textures"),
+          "Maurits Rijk",
+          "(C) Maurits Rijk",
+          "2004-2006",
+          "NCP...",
+          "RGB*, GRAY*",
+          in_params);
+      procedure.MenuPath = Catalog.GetString("<Image>") + "/" +
+        Catalog.GetString("Filters") + "/" + 
+        Catalog.GetString("Render");
       procedure.IconFile = "ncp.png";
 
       set.Add(procedure);
@@ -95,23 +99,24 @@ namespace Gimp.ncp
 
       RandomSeed seed = new RandomSeed(ref _seed, ref _random_seed);
 
-      table.AttachAligned(0, 0, "Random _Seed:", 0.0, 0.5, seed, 2, true);
+      table.AttachAligned(0, 0, Catalog.GetString("Random _Seed:"), 
+          0.0, 0.5, seed, 2, true);
 
-      ScaleEntry entry = new ScaleEntry(table, 0, 1, "Po_ints:", 150, 3,
-					_points, 1.0, 256.0, 1.0, 8.0, 0,
+      ScaleEntry entry = new ScaleEntry(table, 0, 1, Catalog.GetString("Po_ints:"), 
+          150, 3, _points, 1.0, 256.0, 1.0, 8.0, 0,
 					true, 0, 0, null, null);
       entry.ValueChanged += PointsUpdate;
 
-      _closestEntry = new ScaleEntry(table, 0, 2, "C_lose to:", 150, 3,
-				     _closest, 1.0, _points, 1.0, 8.0, 0,
-				     true, 0, 0, null, null);
+      _closestEntry = new ScaleEntry(table, 0, 2, Catalog.GetString("C_lose to:"), 
+          150, 3, _closest, 1.0, _points, 1.0, 8.0, 0,
+	 	     true, 0, 0, null, null);
       _closestEntry.ValueChanged += delegate(object sender, EventArgs e)
 	{
 	  _closest = _closestEntry.ValueAsInt;
 	  InvalidatePreview();
 	};
 
-      CheckButton color = new CheckButton("_Use color");
+      CheckButton color = new CheckButton(Catalog.GetString("_Use color"));
       color.Active = _color;
       color.Toggled += delegate(object sender, EventArgs args)
 	{

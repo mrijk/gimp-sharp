@@ -1,5 +1,19 @@
 2006-07-16  Max      <massimo.perga@gmail.com>
 
+	* configure.in : modified for plug-ins/ncp/po/Makefile
+
+	* plug-ins/ncp/Makefile.am : modified to support po
+
+	* plug-ins/ncp/ncp.cs : added multilanguage support
+
+	* plug-ins/ncp/po  
+	* plug-ins/ncp/po/KoalaPaint.pot  
+	* plug-ins/ncp/po/Makefile.am  
+	* plug-ins/ncp/po/en.po  
+	* plug-ins/ncp/po/it.po : added to the repository 
+
+2006-07-16  Max      <massimo.perga@gmail.com>
+
 	* configure.in : modified for plug-ins/KoalaPaint/po/Makefile
 
 	* plug-ins/KoalaPaint/Makefile.am : modified to support po

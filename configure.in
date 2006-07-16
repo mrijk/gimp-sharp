@@ -125,6 +125,7 @@ plug-ins/Fragment/Makefile
 plug-ins/KoalaPaint/Makefile
 plug-ins/KoalaPaint/po/Makefile
 plug-ins/ncp/Makefile 
+plug-ins/ncp/po/Makefile 
 plug-ins/Ministeck/Makefile 
 plug-ins/neo/Makefile
 plug-ins/Pdn/Makefile 
