@@ -19,6 +19,7 @@
 //
 
 using System;
+using System.Globalization;
 using System.Xml;
 
 using Gtk;
@@ -29,6 +30,7 @@ namespace Gimp.PicturePackage
   {
     public double _x, _y, _w, _h;
     ImageProvider _provider;
+    CultureInfo _cultureInfo = new CultureInfo("en-US");
 
     public Rectangle(XmlNode node)
     {
@@ -42,7 +44,7 @@ namespace Gimp.PicturePackage
     double GetAttribute(XmlAttributeCollection attributes, string name)
     {
       XmlAttribute val = (XmlAttribute) attributes.GetNamedItem(name);
-      return (val == null) ? 0 :  Convert.ToDouble(val.Value);      
+      return (val == null) ? 0 :  Convert.ToDouble(val.Value, _cultureInfo);
     }
 
     public void Render(Image image, Renderer renderer)

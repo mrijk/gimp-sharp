@@ -19,6 +19,7 @@
 //
 
 using System;
+using System.Globalization;
 using System.IO;
 using System.Xml;
 
@@ -34,15 +35,18 @@ namespace Gimp.PicturePackage
 
     public Layout(XmlNode node)
     {
+      CultureInfo cultureInfo = new CultureInfo("en-US");
       XmlAttributeCollection attributes = node.Attributes;
       XmlAttribute name = (XmlAttribute) attributes.GetNamedItem("name");
       _name = name.Value;
 
       XmlAttribute width = (XmlAttribute) attributes.GetNamedItem("width");
-      _width = (width == null) ? 0 :  Convert.ToDouble(width.Value);
+      _width = (width == null) ? 0 :  Convert.ToDouble(width.Value,
+						       cultureInfo);
 
       XmlAttribute height = (XmlAttribute) attributes.GetNamedItem("height");
-      _height = (height == null) ? 0 : Convert.ToDouble(height.Value);
+      _height = (height == null) ? 0 : Convert.ToDouble(height.Value,
+							cultureInfo);
 
       XmlAttribute units = (XmlAttribute) attributes.GetNamedItem("units");
       if (units == null)

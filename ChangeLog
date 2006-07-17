@@ -1,3 +1,9 @@
+2006-07-17  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/PicturePackage/Layout.cs
+	* plug-ins/PicturePackage/Rectangle.cs: use CultureInfo("en_US")
+	when converting strings to doubles. Should fix #1522140
+
 2006-07-16  Max      <massimo.perga@gmail.com>
 
 	* configure.in : modified for plug-ins/ncp/po/Makefile
