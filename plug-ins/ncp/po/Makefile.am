@@ -6,7 +6,7 @@ SHELL=/bin/sh
 
 PLUGIN = ncp
 
-LINGUAS = it en
+LINGUAS = it en nl
 
 POFILES = $(shell for lang in $(LINGUAS); do printf "$$lang.po "; done)
 

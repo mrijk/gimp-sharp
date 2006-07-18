@@ -26,12 +26,26 @@ namespace Gimp.PhotoshopActions
   {
     override public bool Execute()
     {
-      Layer layer = new Layer(ActiveImage.ActiveLayer);
-      ActiveImage.AddLayer(layer, -1);
+      int x1, y1, x2, y2;
+      bool nonEmpty;
 
-      ActiveDrawable = layer;
-      SelectedLayer = layer;
+      ActiveImage.Selection.Bounds(out nonEmpty, out x1, out y1, 
+				   out x2, out y2);
 
+      if (nonEmpty)
+	{
+	  ActiveDrawable.EditCopy();
+	  ActiveDrawable.EditPaste(false);
+	  
+	  ActiveImage.FloatingSelection.SetOffsets(x1, y1);
+	  Layer layer = ActiveImage.FloatingSelection.ToLayer();
+	  // Fix me: why can't I use layer here?
+	  new Layer(ActiveImage.ActiveDrawable).ResizeToImageSize();
+	}
+      else
+	{
+	  // TODO: what does PS handle this?
+	}
       return true;
     }
   }

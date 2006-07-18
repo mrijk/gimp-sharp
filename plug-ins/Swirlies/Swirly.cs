@@ -139,7 +139,6 @@ namespace Gimp.Swirlies
       // Crash on the next line??????????
       swirly.Psz = rand_phase_shift();
       swirly.Asz = rand_angle_multiplier(1, 1);
-return swirly;
       swirly.Dsz = rand_linear_phase_shift(1, 1);
       swirly.Csz = rand_secondary_coefficient(1, 1);
       swirly.Ssz = rand_secondary_coefficient(1, 1);

@@ -18,21 +18,33 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-using System.Collections;
-
 namespace Gimp.PhotoshopActions
 {
   public class CutToLayerEvent : ActionEvent
   {
-    public override bool IsExecutable
-    {
-      get {return false;}
-    }
-
     override public bool Execute()
     {
-      return false;
+      int x1, y1, x2, y2;
+      bool nonEmpty;
+
+      ActiveImage.Selection.Bounds(out nonEmpty, out x1, out y1, 
+				   out x2, out y2);
+
+      if (nonEmpty)
+	{
+	  ActiveDrawable.EditCut();
+	  ActiveDrawable.EditPaste(false);
+	  
+	  ActiveImage.FloatingSelection.SetOffsets(x1, y1);
+	  Layer layer = ActiveImage.FloatingSelection.ToLayer();
+	  // Fix me: why can't I use layer here?
+	  new Layer(ActiveImage.ActiveDrawable).ResizeToImageSize();
+	}
+      else
+	{
+	  // TODO: what does PS handle this?
+	}
+      return true;
     }
   }
 }

@@ -46,6 +46,17 @@ namespace Gimp
         }
     }
 
+    // Fix me: would be nice if this object now would become a real
+    // Layer object
+    public Layer ToLayer()
+    {
+      if (!gimp_floating_sel_to_layer(_ID))
+        {
+	  throw new Exception();
+        }
+      return new Layer(this);
+    }
+
     public void Attach(Drawable drawable)
     {
       if (!gimp_floating_sel_attach (_ID, drawable.ID))
