@@ -19,6 +19,7 @@
 //
 
 using System;
+using Mono.Unix;
 
 using Gtk;
 
@@ -34,6 +35,8 @@ namespace Gimp.Pointillize
 
     static void Main(string[] args)
     {
+      string localeDir = Gimp.LocaleDirectory;
+      Catalog.Init("Pointillize", localeDir);
       new Pointillize(args);
     }
 
@@ -50,12 +53,12 @@ namespace Gimp.Pointillize
 				 "Cell size"));
 
       Procedure procedure = new Procedure("plug_in_pointillize",
-					  "Create pointillist paintings",
-					  "Create pointillist paintings",
+					  Catalog.GetString("Create pointillist paintings"),
+					  Catalog.GetString("Create pointillist paintings"),
 					  "Maurits Rijk",
 					  "(C) Maurits Rijk",
 					  "2006",
-					  "Pointillize...",
+					  Catalog.GetString("Pointillize..."),
 					  "RGB*, GRAY*",
 					  in_params);
       procedure.MenuPath = "<Image>/Filters/Artistic";
@@ -68,12 +71,14 @@ namespace Gimp.Pointillize
 
     override protected bool CreateDialog()
     {
-      Dialog dialog = DialogNew("Pointillize", "Pointillize", IntPtr.Zero, 0,
-				Gimp.StandardHelpFunc, "Pointillize");
+      Dialog dialog = DialogNew(Catalog.GetString("Pointillize"), 
+        Catalog.GetString("Pointillize"), IntPtr.Zero, 0,
+				Gimp.StandardHelpFunc, Catalog.GetString("Pointillize"));
 
       GimpTable table = new GimpTable(1, 3, false);
 
-      ScaleEntry entry = new ScaleEntry(table, 0, 1, "Cell _Size:", 150, 3,
+      ScaleEntry entry = new ScaleEntry(table, 0, 1, 
+          Catalog.GetString("Cell _Size:"), 150, 3,
 					_cellSize, 3.0, 300.0, 1.0, 8.0, 0,
 					true, 0, 0, null, null);
       entry.ValueChanged += delegate(object sender, EventArgs e)
@@ -118,7 +123,7 @@ namespace Gimp.Pointillize
       Initialize(drawable);
 
       RgnIterator iter = new RgnIterator(drawable, RunMode.Interactive);
-      iter.Progress = new Progress("Pointillize");
+      iter.Progress = new Progress(Catalog.GetString("Pointillize"));
       iter.IterateDest(DoPointillize);
 			
       Display.DisplaysFlush();
