@@ -25,6 +25,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Xml;
+using Mono.Unix;
 
 using Gtk;
 
@@ -47,6 +48,8 @@ namespace Gimp.UpdateCheck
     [STAThread]
     static void Main(string[] args)
     {
+      string localeDir = Gimp.LocaleDirectory;
+      Catalog.Init("UpdateCheck", localeDir);
       new UpdateCheck(args);
     }
 
@@ -61,12 +64,12 @@ namespace Gimp.UpdateCheck
       ParamDefList in_params = new ParamDefList();
 
       Procedure procedure = new Procedure("plug_in_update_check",
-					  "Check for updates",
-					  "Check for updates",
+					  Catalog.GetString("Check for updates"),
+					  Catalog.GetString("Check for updates"),
 					  "Maurits Rijk",
 					  "(C) Maurits Rijk",
 					  "2006",
-					  "Check for Updates...",
+					  Catalog.GetString("Check for Updates..."),
 					  "",
 					  in_params);
       procedure.MenuPath = "<Toolbox>/Xtns/Extensions";
@@ -81,8 +84,9 @@ namespace Gimp.UpdateCheck
     {
       gimp_ui_init("UpdateCheck", true);
 
-      Dialog dialog = DialogNew("UpdateCheck", "UpdateCheck", IntPtr.Zero, 0,
-				Gimp.StandardHelpFunc, "UpdateCheck");
+      Dialog dialog = DialogNew(Catalog.GetString("UpdateCheck"), 
+        Catalog.GetString("UpdateCheck"), IntPtr.Zero, 0,
+				Gimp.StandardHelpFunc, Catalog.GetString("UpdateCheck"));
 
       VBox vbox = new VBox(false, 12);
       vbox.BorderWidth = 12;
@@ -93,21 +97,24 @@ namespace Gimp.UpdateCheck
       table.RowSpacing = 6;
       vbox.PackStart(table, true, true, 0);
 
-      CheckButton checkGimp = new CheckButton("Check _GIMP");
+      CheckButton checkGimp = new CheckButton(
+          Catalog.GetString("Check _GIMP"));
       checkGimp.Active = _checkGimp;
       checkGimp.Toggled += delegate(object sender, EventArgs args) {
 	_checkGimp = checkGimp.Active;
       };
       table.Attach(checkGimp, 0, 1, 0, 1);
 
-      CheckButton checkGimpSharp = new CheckButton("Check G_IMP#");
+      CheckButton checkGimpSharp = new CheckButton(
+          Catalog.GetString("Check G_IMP#"));
       checkGimpSharp.Active = _checkGimpSharp;
       checkGimpSharp.Toggled += delegate(object sender, EventArgs args) {
 	_checkGimpSharp = checkGimpSharp.Active;
       };
       table.Attach(checkGimpSharp, 0, 1, 1, 2);
 
-      CheckButton checkUnstable = new CheckButton("Check _Unstable Releases");
+      CheckButton checkUnstable = new CheckButton(
+          Catalog.GetString("Check _Unstable Releases"));
       checkUnstable.Active = _checkUnstable;
       checkUnstable.Toggled += delegate(object sender, EventArgs args) {
 	_checkUnstable = checkUnstable.Active;
@@ -121,10 +128,11 @@ namespace Gimp.UpdateCheck
       tmp = Gimp.RcQuery("update-port");
       _port = (tmp == null) ? "" : tmp;
 
-      Expander expander = new Expander("Proxy settings");
+      Expander expander = new Expander(Catalog.GetString("Proxy settings"));
       VBox proxyBox = new VBox(false, 12);
 
-      CheckButton enableProxy = new CheckButton("Manual proxy configuration");
+      CheckButton enableProxy = new CheckButton(
+          Catalog.GetString("Manual proxy configuration"));
       enableProxy.Active = _enableProxy;
       enableProxy.Toggled += delegate(object sender, EventArgs args) {
 	_enableProxy = enableProxy.Active;
@@ -133,7 +141,7 @@ namespace Gimp.UpdateCheck
 
       HBox hbox = new HBox(false, 12);
       hbox.Sensitive = _enableProxy;
-      hbox.Add(new Label("HTTP Proxy:"));
+      hbox.Add(new Label(Catalog.GetString("HTTP Proxy:")));
 
       Entry httpProxy = new Entry();
       httpProxy.Text = _httpProxy;
@@ -143,7 +151,7 @@ namespace Gimp.UpdateCheck
 	_httpProxy = httpProxy.Text;
       };
 
-      hbox.Add(new Label("Port:"));
+      hbox.Add(new Label(Catalog.GetString("Port:")));
       Entry port = new Entry();
       port.Text = _port;
       port.WidthChars = 4;

@@ -1,0 +1,57 @@
+# Italian (standard) translation of UpdateCheck.
+# Copyright (C) Massimo Perga
+# This file is distributed under the same license as the Gimp# package.
+# Massimo Perga <massimo.perga@gmail.com>, 2006.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Gimp# 0.10\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-07-18 23:01+0200\n"
+"PO-Revision-Date: 2006-07-18 23:03+0200\n"
+"Last-Translator: Massimo Perga <massimo.perga@gmail.com>\n"
+"Language-Team: Italian <massimo.perga@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: UpdateCheck.cs:67 UpdateCheck.cs:68
+msgid "Check for updates"
+msgstr "Verifica aggiornamenti"
+
+#: UpdateCheck.cs:72
+msgid "Check for Updates..."
+msgstr "Verifica aggiornamenti..."
+
+#: UpdateCheck.cs:87 UpdateCheck.cs:88 UpdateCheck.cs:89
+msgid "UpdateCheck"
+msgstr "Verifica aggiornamenti"
+
+#: UpdateCheck.cs:101
+msgid "Check _GIMP"
+msgstr "Verifica _GIMP"
+
+#: UpdateCheck.cs:109
+msgid "Check G_IMP#"
+msgstr "Verifica G_IMP#"
+
+#: UpdateCheck.cs:117
+msgid "Check _Unstable Releases"
+msgstr "Verifica release di _sviluppo"
+
+#: UpdateCheck.cs:131
+msgid "Proxy settings"
+msgstr "Impostazioni del proxy"
+
+#: UpdateCheck.cs:135
+msgid "Manual proxy configuration"
+msgstr "Configurazione manuale del proxy"
+
+#: UpdateCheck.cs:144
+msgid "HTTP Proxy:"
+msgstr "Proxy HTTP:"
+
+#: UpdateCheck.cs:154
+msgid "Port:"
+msgstr "Porta:"
