@@ -1,0 +1,58 @@
+# Italian (standard) translation of Splitter.
+# Copyright (C) Massimo Perga
+# This file is distributed under the same license as the Gimp# package.
+# Massimo Perga <massimo.perga@gmail.com>, 2006.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Gimp# 0.10\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-07-18 22:30+0200\n"
+"PO-Revision-Date: 2006-07-18 22:36+0200\n"
+"Last-Translator: Massimo Perga <massimo.perga@gmail.com>\n"
+"Language-Team: Italian <massimo.perga@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: AdvancedDialog.cs:34
+msgid "Advanced Settings"
+msgstr "Impostazioni avanzate"
+
+#: AdvancedDialog.cs:35 AdvancedDialog.cs:36 Splitter.cs:95
+msgid "Splitter"
+msgstr "Suddivisore"
+
+#: AdvancedDialog.cs:49
+msgid "Random _Seed:"
+msgstr "_Seme casuale:"
+
+#: Splitter.cs:75
+msgid "Splits an image."
+msgstr "Suddivide un immagine."
+
+#: Splitter.cs:76
+msgid ""
+"Splits an image in separate parts using a formula of the form f(x, y) = 0"
+msgstr "Suddivide un'immagine in parti separate usando una formula nella forma f(x,y) = 0"
+
+#: Splitter.cs:80
+msgid "Splitter..."
+msgstr "Suddivisore..."
+
+#: Splitter.cs:96 Splitter.cs:97
+msgid "splitter"
+msgstr "suddivisore"
+
+#: Splitter.cs:129
+msgid "Merge visible layers"
+msgstr "Unisci i livelli visibili"
+
+#: Splitter.cs:138
+msgid "Advanced Options..."
+msgstr "Opzioni avanzate..."
+
+#: Splitter.cs:155
+msgid "Both Layers"
+msgstr "Entrambi i livelli"

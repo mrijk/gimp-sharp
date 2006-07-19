@@ -19,6 +19,7 @@
 //
 
 using System;
+using Mono.Unix;
 
 using Gtk;
 
@@ -30,7 +31,9 @@ namespace Gimp.Splitter
     bool _randomSeed;
 
     public AdvancedDialog(UInt32 seed, bool randomSeed) : 
-      base("Advanced Settings", "Splitter", IntPtr.Zero, 0, null, "Splitter")
+      base(Catalog.GetString("Advanced Settings"), 
+        Catalog.GetString("Splitter"), IntPtr.Zero, 0, null, 
+        Catalog.GetString("Splitter"))
     {
       _seed = seed;
       _randomSeed = randomSeed;
@@ -43,7 +46,8 @@ namespace Gimp.Splitter
 
       RandomSeed random = new RandomSeed(ref _seed, ref _randomSeed);
       
-      table.AttachAligned(0, 0, "Random _Seed:", 0.0, 0.5, random, 2, true);
+      table.AttachAligned(0, 0, Catalog.GetString("Random _Seed:"),
+        0.0, 0.5, random, 2, true);
     }
 
     public UInt32 Seed
