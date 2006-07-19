@@ -1,3 +1,10 @@
+2006-07-19  Maurits  <m.rijk@chello.nl>
+	
+	* plug-ins/Raindrops/po/nl.po
+	* plug-ins/Raindrops/po/Makefile.am (LINGUAS): added nl
+
+	* plug-ins/ncp/po/nl.po: updated
+
 2006-07-18  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/PhotoshopActions/CopyToLayerEvent.cs
