@@ -1,0 +1,77 @@
+# Italian (standard) translation of Ministeck.
+# Copyright (C) Massimo Perga
+# This file is distributed under the same license as the Gimp# package.
+# Massimo Perga <massimo.perga@gmail.com>, 2006.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Gimp# 0.10\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-07-18 07:06+0200\n"
+"PO-Revision-Date: 2006-07-18 07:09+0200\n"
+"Last-Translator: Massimo Perga <massimo.perga@gmail.com>\n"
+"Language-Team: Italian <massimo.perga@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: Ministeck.cs:57
+msgid "Use real life ratio for number of pieces if true"
+msgstr "Se true, usa il coefficiente della vita reale per il numero dei pezzi"
+
+#: Ministeck.cs:59
+msgid "Default size"
+msgstr "Grandezza di default"
+
+#: Ministeck.cs:61
+msgid "Color for the outline"
+msgstr "Colore del bordo"
+
+#: Ministeck.cs:64 Ministeck.cs:65
+msgid "Generates Ministeck"
+msgstr "Genera il Ministeck"
+
+#: Ministeck.cs:69 Ministeck.cs:198
+msgid "Ministeck..."
+msgstr ""
+
+#: Ministeck.cs:84
+msgid "Ministeck"
+msgstr ""
+
+#: Ministeck.cs:85 Ministeck.cs:86
+msgid "ministeck"
+msgstr ""
+
+#: Ministeck.cs:103
+msgid "_Size:"
+msgstr "_Grandezza:"
+
+#: Ministeck.cs:111
+msgid "_Limit Shapes"
+msgstr "_Limite delle forme"
+
+#: Ministeck.cs:127
+msgid "C_olor:"
+msgstr "_Colore"
+
+#: MinisteckPalette.cs:34
+msgid "first"
+msgstr "primo"
+
+#: MinisteckPalette.cs:60
+msgid "last"
+msgstr "ultimo"
+
+#: MinisteckPalette.cs:62
+msgid "black"
+msgstr "nero"
+
+#: MinisteckPalette.cs:64
+msgid "dark blue"
+msgstr "blu scuro"
+
+#: MinisteckPalette.cs:66 MinisteckPalette.cs:68
+msgid "light blue"
+msgstr "blu chiaro"

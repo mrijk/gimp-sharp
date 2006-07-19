@@ -19,6 +19,7 @@
 //
 
 using System;
+using Mono.Unix;
 
 using Gtk;
 
@@ -38,6 +39,8 @@ namespace Gimp.Ministeck
     [STAThread]
     static void Main(string[] args)
     {
+      string localeDir = Gimp.LocaleDirectory;
+      Catalog.Init("Ministeck", localeDir);      
       new Ministeck(args);
     }
 
@@ -51,18 +54,19 @@ namespace Gimp.Ministeck
 
       ParamDefList in_params = new ParamDefList();
       in_params.Add(new ParamDef("limit", true, typeof(bool), 
-				 "Use real life ratio for number of pieces if true"));
-      in_params.Add(new ParamDef("size", 16, typeof(int), "Default size"));
+          Catalog.GetString("Use real life ratio for number of pieces if true")));
+      in_params.Add(new ParamDef("size", 16, typeof(int), 
+          Catalog.GetString("Default size")));
       in_params.Add(new ParamDef("color", new RGB(0, 0, 0), typeof(RGB), 
-				 "Color for the outline"));
+			    Catalog.GetString("Color for the outline")));
 
       Procedure procedure = new Procedure("plug_in_ministeck",
-					  "Generates Ministeck",
-					  "Generates Ministeck",
+					  Catalog.GetString("Generates Ministeck"),
+					  Catalog.GetString("Generates Ministeck"),
 					  "Maurits Rijk",
 					  "(C) Maurits Rijk",
 					  "2004-2006",
-					  "Ministeck...",
+					  Catalog.GetString("Ministeck..."),
 					  "RGB*, GRAY*",
 					  in_params);
       procedure.MenuPath = "<Image>/Filters/Artistic";
@@ -77,8 +81,9 @@ namespace Gimp.Ministeck
     {
       gimp_ui_init("ministeck", true);
 
-      Dialog dialog = DialogNew("Ministeck", "ministeck",
-				IntPtr.Zero, 0, null, "ministeck");
+      Dialog dialog = DialogNew(Catalog.GetString("Ministeck"), 
+        Catalog.GetString("ministeck"), IntPtr.Zero, 
+        0, null, Catalog.GetString("ministeck"));
 	
       VBox vbox = new VBox(false, 12);
       vbox.BorderWidth = 12;
@@ -95,14 +100,15 @@ namespace Gimp.Ministeck
 
       SpinButton size = new SpinButton(3, 100, 1);
       size.Value = _size;
-      table.AttachAligned(0, 0, "_Size:", 0.0, 0.5, size, 2, true);
+      table.AttachAligned(0, 0, Catalog.GetString("_Size:"), 
+        0.0, 0.5, size, 2, true);
       size.ValueChanged += delegate(object sender, EventArgs e)
 	{
 	  _size = size.ValueAsInt;
 	  _preview.Invalidate();
 	};
 
-      CheckButton limit = new CheckButton("_Limit Shapes");
+      CheckButton limit = new CheckButton(Catalog.GetString("_Limit Shapes"));
       table.Attach(limit, 2, 3, 0, 1);
       limit.Active = _limit;
       limit.Toggled += delegate(object sender, EventArgs args)
@@ -118,7 +124,8 @@ namespace Gimp.Ministeck
 	  _color = colorButton.Color;
 	  _preview.Invalidate();
 	};
-      table.AttachAligned(0, 1, "C_olor:", 0.0, 0.5, colorButton, 1, true);
+      table.AttachAligned(0, 1, Catalog.GetString("C_olor:"), 
+        0.0, 0.5, colorButton, 1, true);
 
       dialog.ShowAll();
       return DialogRun();
@@ -188,7 +195,7 @@ namespace Gimp.Ministeck
 
 	  Progress progress = null;
 	  if (!preview)
-	    progress = new Progress("Ministeck...");
+	    progress = new Progress(Catalog.GetString("Ministeck..."));
 
 	  for (int y = 0; y < height; y++)
 	    {

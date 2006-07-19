@@ -1,0 +1,77 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-07-18 07:06+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: Ministeck.cs:57
+msgid "Use real life ratio for number of pieces if true"
+msgstr ""
+
+#: Ministeck.cs:59
+msgid "Default size"
+msgstr ""
+
+#: Ministeck.cs:61
+msgid "Color for the outline"
+msgstr ""
+
+#: Ministeck.cs:64 Ministeck.cs:65
+msgid "Generates Ministeck"
+msgstr ""
+
+#: Ministeck.cs:69 Ministeck.cs:198
+msgid "Ministeck..."
+msgstr ""
+
+#: Ministeck.cs:84
+msgid "Ministeck"
+msgstr ""
+
+#: Ministeck.cs:85 Ministeck.cs:86
+msgid "ministeck"
+msgstr ""
+
+#: Ministeck.cs:103
+msgid "_Size:"
+msgstr ""
+
+#: Ministeck.cs:111
+msgid "_Limit Shapes"
+msgstr ""
+
+#: Ministeck.cs:127
+msgid "C_olor:"
+msgstr ""
+
+#: MinisteckPalette.cs:34
+msgid "first"
+msgstr ""
+
+#: MinisteckPalette.cs:60
+msgid "last"
+msgstr ""
+
+#: MinisteckPalette.cs:62
+msgid "black"
+msgstr ""
+
+#: MinisteckPalette.cs:64
+msgid "dark blue"
+msgstr ""
+
+#: MinisteckPalette.cs:66 MinisteckPalette.cs:68
+msgid "light blue"
+msgstr ""
