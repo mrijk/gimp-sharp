@@ -21,6 +21,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using Mono.Unix;
 
 using Gtk;
 
@@ -48,6 +49,8 @@ namespace Gimp.Swirlies
     [STAThread]
     static void Main(string[] args)
     {
+      string localeDir = Gimp.LocaleDirectory;
+      Catalog.Init("Swirlies", localeDir);
       new Swirlies(args);
     }
 
@@ -62,12 +65,12 @@ namespace Gimp.Swirlies
       ParamDefList in_params = new ParamDefList();
 
       Procedure procedure = new Procedure("plug_in_swirlies",
-					  "Generates 2D textures",
-					  "Generates 2D textures",
+					  Catalog.GetString("Generates 2D textures"),
+					  Catalog.GetString("Generates 2D textures"),
 					  "Maurits Rijk",
 					  "(C) Maurits Rijk",
 					  "2006",
-					  "Swirlies...",
+					  Catalog.GetString("Swirlies..."),
 					  "RGB",
 					  in_params);
 
@@ -81,8 +84,9 @@ namespace Gimp.Swirlies
 
     override protected bool CreateDialog()
     {
-      Dialog dialog = DialogNew("Swirlies", "swirlies", IntPtr.Zero, 0, null, 
-				"swirlies");
+      Dialog dialog = DialogNew(Catalog.GetString("Swirlies"), 
+        Catalog.GetString("swirlies"), IntPtr.Zero, 0, null, 
+				Catalog.GetString("swirlies"));
       // _preview.SetBounds(0, 0, 50, 50);
 
       _progress = new ProgressBar();
@@ -95,10 +99,12 @@ namespace Gimp.Swirlies
 
       RandomSeed seed = new RandomSeed(ref _seed, ref _random_seed);
 
-      table.AttachAligned(0, 0, "Random _Seed:", 0.0, 0.5, seed, 2, true);
+      table.AttachAligned(0, 0, Catalog.GetString("Random _Seed:"), 
+        0.0, 0.5, seed, 2, true);
 
-      ScaleEntry entry = new ScaleEntry(table, 0, 1, "Po_ints:", 150, 3,
-					_points, 1.0, 16.0, 1.0, 8.0, 0,
+      ScaleEntry entry = new ScaleEntry(table, 0, 1, 
+          Catalog.GetString("Po_ints:"), 
+          150, 3, _points, 1.0, 16.0, 1.0, 8.0, 0,
 					true, 0, 0, null, null);
       entry.ValueChanged += delegate(object sender, EventArgs e)
 	{
@@ -176,7 +182,7 @@ namespace Gimp.Swirlies
     {
       Initialize(drawable);
       RgnIterator iter = new RgnIterator(drawable, RunMode.Interactive);
-      iter.Progress = new Progress("Swirlies");
+      iter.Progress = new Progress(Catalog.GetString("Swirlies"));
       iter.IterateDest(new RgnIterator.IterFuncDestFull(DoSwirlies));
       
       Display.DisplaysFlush();
