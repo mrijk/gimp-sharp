@@ -1,0 +1,45 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-07-18 06:37+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: wbmp.cs:45
+msgid "Loads wbmp images"
+msgstr ""
+
+#: wbmp.cs:46
+msgid "This plug-in loads wbmp images."
+msgstr ""
+
+#: wbmp.cs:50 wbmp.cs:58
+msgid "wbmp Image"
+msgstr ""
+
+#: wbmp.cs:53
+msgid "Saves wbmp images"
+msgstr ""
+
+#: wbmp.cs:54
+msgid "This plug-in saves wbmp images."
+msgstr ""
+
+#: wbmp.cs:93
+msgid "Loading "
+msgstr ""
+
+#: wbmp.cs:171
+msgid "Saving "
+msgstr ""
