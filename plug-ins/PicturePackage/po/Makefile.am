@@ -6,7 +6,7 @@ SHELL=/bin/sh
 
 PLUGIN = PicturePackage
 
-LINGUAS = it en
+LINGUAS = it en ru
 
 POFILES = $(shell for lang in $(LINGUAS); do printf "$$lang.po "; done)
 

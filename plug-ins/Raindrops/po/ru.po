@@ -39,19 +39,19 @@ msgstr "Дождевые капли..."
 
 #: Raindrops.cs:81
 msgid "<Image>/"
-msgstr "<Image>/"
+msgstr ""
 
 #: Raindrops.cs:82
 msgid "Filters"
-msgstr "Фильтры"
+msgstr ""
 
 #: Raindrops.cs:82 Raindrops.cs:83
 msgid "/"
-msgstr "/"
+msgstr ""
 
 #: Raindrops.cs:83
 msgid "Light and Shadow"
-msgstr "Свет и тень"
+msgstr ""
 
 #: Raindrops.cs:84
 msgid "Glass"

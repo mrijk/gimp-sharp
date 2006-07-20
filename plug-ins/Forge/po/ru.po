@@ -71,15 +71,15 @@ msgstr "Демиург..."
 
 #: Forge.cs:165
 msgid "<Image>"
-msgstr "<Image>"
+msgstr ""
 
 #: Forge.cs:166
 msgid "Filters"
-msgstr "Фильтры"
+msgstr ""
 
 #: Forge.cs:167
 msgid "Render"
-msgstr "Рендеринг"
+msgstr ""
 
 #: Forge.cs:179
 msgid "Forge 0.1"

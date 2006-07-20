@@ -35,15 +35,15 @@ msgstr "Создаёт двухмерные текстуры"
 
 #: ncp.cs:80
 msgid "<Image>"
-msgstr "<Image>"
+msgstr ""
 
 #: ncp.cs:81
 msgid "Filters"
-msgstr "Фильтры"
+msgstr ""
 
 #: ncp.cs:82
 msgid "Render"
-msgstr "Рендеринг"
+msgstr ""
 
 #: ncp.cs:102
 msgid "Random _Seed:"

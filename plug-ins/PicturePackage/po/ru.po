@@ -1,0 +1,194 @@
+# Russian translation of gimp-sharp 0.10.
+# Copyright (C) 2006 THE gimp-sharp'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the gimp-sharp package.
+# Alexandre Prokoudine <alexandre.prokoudine@gmail.com>, 2006.
+# , fuzzy
+# 
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: gimp-sharp 0.10\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-07-16 08:42+0200\n"
+"PO-Revision-Date: 2006-07-20 16:05+0400\n"
+"Last-Translator: Alexandre Prokoudine <alexandre.prokoudine@gmail.com>\n"
+"Language-Team: Russian <ru@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit"
+
+#: DocumentFrame.cs:41
+msgid "Document"
+msgstr "Документ"
+
+#: DocumentFrame.cs:51
+msgid "_Page Size:"
+msgstr "_Формат страницы:"
+
+#: DocumentFrame.cs:57
+msgid "_Layout:"
+msgstr "_Макет:"
+
+#: DocumentFrame.cs:61
+msgid "_Resolution:"
+msgstr "_Разрешение:"
+
+#: DocumentFrame.cs:70
+msgid "Grayscale"
+msgstr "В оттенках серого"
+
+#: DocumentFrame.cs:71
+msgid "RGB Color"
+msgstr "Цветной, RGB"
+
+#: DocumentFrame.cs:74
+msgid "_Mode:"
+msgstr "Р_ежим:"
+
+#: DocumentFrame.cs:78
+msgid "Flatten All Layers"
+msgstr "Свести все слои"
+
+#: LabelFrame.cs:38
+msgid "Label"
+msgstr "Метка"
+
+#: LabelFrame.cs:42 LabelFrame.cs:92
+msgid "None"
+msgstr "Никакой"
+
+#: LabelFrame.cs:43
+msgid "Custom Text"
+msgstr "Другой текст"
+
+#: LabelFrame.cs:43
+msgid "Filename"
+msgstr "Имя файла"
+
+#: LabelFrame.cs:44
+msgid "Copyright"
+msgstr "Авторские права"
+
+#: LabelFrame.cs:44
+msgid "Caption"
+msgstr "Подпись"
+
+#: LabelFrame.cs:45
+msgid "Credits"
+msgstr "Благодарности"
+
+#: LabelFrame.cs:45
+msgid "Title"
+msgstr "Название"
+
+#: LabelFrame.cs:51
+msgid "Content:"
+msgstr "Содержимое:"
+
+#: LabelFrame.cs:59
+msgid "Custom Text:"
+msgstr "Другой текст:"
+
+#: LabelFrame.cs:64
+msgid "Font:"
+msgstr "Шрифт:"
+
+#: LabelFrame.cs:75
+msgid "Opacity:"
+msgstr "Непрозрачность:"
+
+#: LabelFrame.cs:78
+msgid "Color:"
+msgstr "Цвет:"
+
+#: LabelFrame.cs:82
+msgid "Centered"
+msgstr "По центру"
+
+#: LabelFrame.cs:82
+msgid "Top Left"
+msgstr "Вверху слева"
+
+#: LabelFrame.cs:83
+msgid "Bottom Left"
+msgstr "Внизу слева"
+
+#: LabelFrame.cs:83
+msgid "Top Right"
+msgstr "Вверху справа"
+
+#: LabelFrame.cs:84
+msgid "Bottom Right"
+msgstr "Внизу справа"
+
+#: LabelFrame.cs:89
+msgid "Position:"
+msgstr "Положение:"
+
+#: LabelFrame.cs:93
+msgid "45 Degrees Right"
+msgstr "На 45° вправо"
+
+#: LabelFrame.cs:94
+msgid "90 Degrees Right"
+msgstr "На 90° вправо"
+
+#: LabelFrame.cs:95
+msgid "45 Degrees Left"
+msgstr "На 45° влево"
+
+#: LabelFrame.cs:96
+msgid "90 Degrees Left"
+msgstr "На 90° влево"
+
+#: LabelFrame.cs:97
+msgid "Rotate:"
+msgstr "Вращать:"
+
+#: LabelFrame.cs:117
+msgid "Select Font"
+msgstr "Выберите шрифт"
+
+#: PicturePackage.cs:113 PicturePackage.cs:114
+msgid "Picture package"
+msgstr "Упаковка изображений"
+
+#: PicturePackage.cs:118
+msgid "Picture Package..."
+msgstr "Упаковка изображений..."
+
+#: PicturePackage.cs:136
+msgid "Picture Package 0.6.2"
+msgstr "Упаковка изображений 0.6.2"
+
+#: PicturePackage.cs:137 PicturePackage.cs:138
+msgid "PicturePackage"
+msgstr ""
+
+#: PicturePackage.cs:167
+msgid "Right click to select picture"
+msgstr "Щёлкните правой клавишей мыши для выбора изображения"
+
+#: SourceFrame.cs:41
+msgid "Source"
+msgstr "Источник"
+
+#: SourceFrame.cs:47
+msgid "_Image"
+msgstr "_Изображение"
+
+#: SourceFrame.cs:64
+msgid "_File"
+msgstr "_Файл"
+
+#: SourceFrame.cs:68
+msgid "Fol_der"
+msgstr "_Папка"
+
+#: SourceFrame.cs:72
+msgid "_Include All Subfolders"
+msgstr "_Включить все подпапки"
+
+#: SourceFrame.cs:91 SourceFrame.cs:97
+msgid "Open..."
+msgstr "Открыть..."
