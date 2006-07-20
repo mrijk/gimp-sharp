@@ -1,0 +1,78 @@
+# Russian translation of gimp-sharp 0.10.
+# Copyright (C) 2006 THE gimp-sharp'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the gimp-sharp package.
+# Alexandre Prokoudine <alexandre.prokoudine@gmail.com>, 2006.
+# , fuzzy
+# 
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: gimp-sharp 0.10\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-07-16 08:42+0200\n"
+"PO-Revision-Date: 2006-07-20 03:05+0400\n"
+"Last-Translator: Alexandre Prokoudine <alexandre.prokoudine@gmail.com>\n"
+"Language-Team: Russian <ru@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit"
+
+#: Ministeck.cs:57
+msgid "Use real life ratio for number of pieces if true"
+msgstr "Создавать реалистичное соотношение числа блоков"
+
+#: Ministeck.cs:59
+msgid "Default size"
+msgstr "Размер по умолчанию"
+
+#: Ministeck.cs:61
+msgid "Color for the outline"
+msgstr "Цвет контура"
+
+#: Ministeck.cs:64 Ministeck.cs:65
+msgid "Generates Ministeck"
+msgstr "Создаёт министек"
+
+#: Ministeck.cs:69 Ministeck.cs:198
+msgid "Ministeck..."
+msgstr "Министек..."
+
+#: Ministeck.cs:84
+msgid "Ministeck"
+msgstr "Министек"
+
+#: Ministeck.cs:85 Ministeck.cs:86
+msgid "ministeck"
+msgstr "министек"
+
+#: Ministeck.cs:103
+msgid "_Size:"
+msgstr "_Размер:"
+
+#: Ministeck.cs:111
+msgid "_Limit Shapes"
+msgstr "Ограничить _фигуры"
+
+#: Ministeck.cs:127
+msgid "C_olor:"
+msgstr "_Цвет:"
+
+#: MinisteckPalette.cs:34
+msgid "first"
+msgstr "первый"
+
+#: MinisteckPalette.cs:60
+msgid "last"
+msgstr "последний"
+
+#: MinisteckPalette.cs:62
+msgid "black"
+msgstr "чёрный"
+
+#: MinisteckPalette.cs:64
+msgid "dark blue"
+msgstr "тёмно-синий"
+
+#: MinisteckPalette.cs:66 MinisteckPalette.cs:68
+msgid "light blue"
+msgstr "голубой"

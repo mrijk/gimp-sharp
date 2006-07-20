@@ -1,0 +1,58 @@
+# Russian translation of gimp-sharp 0.10.
+# Copyright (C) 2006 THE gimp-sharp'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the gimp-sharp package.
+# Alexandre Prokoudine <alexandre.prokoudine@gmail.com>, 2006.
+# , fuzzy
+# 
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: gimp-sharp 0.10\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-07-16 08:42+0200\n"
+"PO-Revision-Date: 2006-07-20 03:05+0400\n"
+"Last-Translator: Alexandre Prokoudine <alexandre.prokoudine@gmail.com>\n"
+"Language-Team: Russian <ru@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit"
+
+#: UpdateCheck.cs:67 UpdateCheck.cs:68
+msgid "Check for updates"
+msgstr "Проверка обновлений"
+
+#: UpdateCheck.cs:72
+msgid "Check for Updates..."
+msgstr "Проверка обновлений..."
+
+#: UpdateCheck.cs:87 UpdateCheck.cs:88 UpdateCheck.cs:89
+msgid "UpdateCheck"
+msgstr ""
+
+#: UpdateCheck.cs:101
+msgid "Check _GIMP"
+msgstr "П_роверить GIMP"
+
+#: UpdateCheck.cs:109
+msgid "Check G_IMP#"
+msgstr "Про_верить GIMP"
+
+#: UpdateCheck.cs:117
+msgid "Check _Unstable Releases"
+msgstr "Искать _нестабильные версии"
+
+#: UpdateCheck.cs:131
+msgid "Proxy settings"
+msgstr "Настройки прокси"
+
+#: UpdateCheck.cs:135
+msgid "Manual proxy configuration"
+msgstr "Свои настройки прокси"
+
+#: UpdateCheck.cs:144
+msgid "HTTP Proxy:"
+msgstr "HTTP Proxy:"
+
+#: UpdateCheck.cs:154
+msgid "Port:"
+msgstr "Порт:"
