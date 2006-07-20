@@ -1,0 +1,193 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-07-19 07:47+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: DocumentFrame.cs:41
+msgid "Document"
+msgstr ""
+
+#: DocumentFrame.cs:51
+msgid "_Page Size:"
+msgstr ""
+
+#: DocumentFrame.cs:57
+msgid "_Layout:"
+msgstr ""
+
+#: DocumentFrame.cs:61
+msgid "_Resolution:"
+msgstr ""
+
+#: DocumentFrame.cs:70
+msgid "Grayscale"
+msgstr ""
+
+#: DocumentFrame.cs:71
+msgid "RGB Color"
+msgstr ""
+
+#: DocumentFrame.cs:74
+msgid "_Mode:"
+msgstr ""
+
+#: DocumentFrame.cs:78
+msgid "Flatten All Layers"
+msgstr ""
+
+#: LabelFrame.cs:38
+msgid "Label"
+msgstr ""
+
+#: LabelFrame.cs:42 LabelFrame.cs:92
+msgid "None"
+msgstr ""
+
+#: LabelFrame.cs:43
+msgid "Custom Text"
+msgstr ""
+
+#: LabelFrame.cs:43
+msgid "Filename"
+msgstr ""
+
+#: LabelFrame.cs:44
+msgid "Copyright"
+msgstr ""
+
+#: LabelFrame.cs:44
+msgid "Caption"
+msgstr ""
+
+#: LabelFrame.cs:45
+msgid "Credits"
+msgstr ""
+
+#: LabelFrame.cs:45
+msgid "Title"
+msgstr ""
+
+#: LabelFrame.cs:51
+msgid "Content:"
+msgstr ""
+
+#: LabelFrame.cs:59
+msgid "Custom Text:"
+msgstr ""
+
+#: LabelFrame.cs:64
+msgid "Font:"
+msgstr ""
+
+#: LabelFrame.cs:75
+msgid "Opacity:"
+msgstr ""
+
+#: LabelFrame.cs:78
+msgid "Color:"
+msgstr ""
+
+#: LabelFrame.cs:82
+msgid "Centered"
+msgstr ""
+
+#: LabelFrame.cs:82
+msgid "Top Left"
+msgstr ""
+
+#: LabelFrame.cs:83
+msgid "Bottom Left"
+msgstr ""
+
+#: LabelFrame.cs:83
+msgid "Top Right"
+msgstr ""
+
+#: LabelFrame.cs:84
+msgid "Bottom Right"
+msgstr ""
+
+#: LabelFrame.cs:89
+msgid "Position:"
+msgstr ""
+
+#: LabelFrame.cs:93
+msgid "45 Degrees Right"
+msgstr ""
+
+#: LabelFrame.cs:94
+msgid "90 Degrees Right"
+msgstr ""
+
+#: LabelFrame.cs:95
+msgid "45 Degrees Left"
+msgstr ""
+
+#: LabelFrame.cs:96
+msgid "90 Degrees Left"
+msgstr ""
+
+#: LabelFrame.cs:97
+msgid "Rotate:"
+msgstr ""
+
+#: LabelFrame.cs:117
+msgid "Select Font"
+msgstr ""
+
+#: PicturePackage.cs:113 PicturePackage.cs:114
+msgid "Picture package"
+msgstr ""
+
+#: PicturePackage.cs:118
+msgid "Picture Package..."
+msgstr ""
+
+#: PicturePackage.cs:136
+msgid "Picture Package 0.6.2"
+msgstr ""
+
+#: PicturePackage.cs:137 PicturePackage.cs:138
+msgid "PicturePackage"
+msgstr ""
+
+#: PicturePackage.cs:167
+msgid "Right click to select picture"
+msgstr ""
+
+#: SourceFrame.cs:41
+msgid "Source"
+msgstr ""
+
+#: SourceFrame.cs:47
+msgid "_Image"
+msgstr ""
+
+#: SourceFrame.cs:64
+msgid "_File"
+msgstr ""
+
+#: SourceFrame.cs:68
+msgid "Fol_der"
+msgstr ""
+
+#: SourceFrame.cs:72
+msgid "_Include All Subfolders"
+msgstr ""
+
+#: SourceFrame.cs:91 SourceFrame.cs:97
+msgid "Open..."
+msgstr ""

@@ -4,7 +4,7 @@ all: PicturePackage.exe
 
 GIMPSHARPLIB = $(top_builddir)/lib/gimp-sharp.dll
 
-ASSEMBLIES = -r:$(GIMPSHARPLIB) /pkg:gtk-sharp-2.0 /target:winexe
+ASSEMBLIES = -r:$(GIMPSHARPLIB) -r:Mono.Posix /pkg:gtk-sharp-2.0 /target:winexe
 
 MYSOURCES =				\
 	DirImageProviderFactory.cs	\
@@ -32,14 +32,18 @@ MYSOURCES =				\
 	SourceFrame.cs
 
 EXTRA_DIST = $(MYSOURCES) PicturePackage picture-package.xml PicturePackage.png
+SUBDIRS = po
+
+CLEANFILES = PicturePackage.exe
 
 PicturePackage.exe : $(MYSOURCES) picture-package.xml PicturePackage.png $(GIMPSHARPLIB)
 	$(CSC) $(MYSOURCES) /resource:picture-package.xml /resource:PicturePackage.png -out:$@ $(ASSEMBLIES)
 
-clean:
-	rm -f PicturePackage.exe
-
 install:
 	$(INSTALL_DATA) PicturePackage.exe $(DESTDIR)$(GIMPPLUGINDIR)
 	$(INSTALL) PicturePackage $(DESTDIR)$(GIMPPLUGINDIR)
-
+	@for lang in `ls po | grep .mo`;\
+		do localedir=`echo $$lang | sed -e's/.mo//'`;\
+		echo "Copying po/$$lang to $(GIMPLOCALE)/$$localedir/LC_MESSAGES/PicturePackage.mo";\
+		$(INSTALL_DATA) po/$$lang $(GIMPLOCALE)/$$localedir/LC_MESSAGES/PicturePackage.mo;\
+		done

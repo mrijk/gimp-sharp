@@ -22,6 +22,7 @@ using System;
 using System.IO;
 using System.Net;
 using System.Threading;
+using Mono.Unix;
 
 using Gtk;
 using Gdk;
@@ -93,6 +94,8 @@ namespace Gimp.PicturePackage
     [STAThread]
       static void Main(string[] args)
       {
+        string localeDir = Gimp.LocaleDirectory;
+        Catalog.Init("PicturePackage", localeDir);        
         new PicturePackage(args);
       }
 
@@ -107,12 +110,12 @@ namespace Gimp.PicturePackage
       ParamDefList in_params = new ParamDefList();
 
       Procedure procedure = new Procedure("plug_in_picture_package",
-          "Picture package",
-          "Picture package",
+          Catalog.GetString("Picture package"),
+          Catalog.GetString("Picture package"),
           "Maurits Rijk, Massimo Perga",
           "Maurits Rijk, Massimo Perga",
           "2004-2006",
-          "Picture Package...",
+          Catalog.GetString("Picture Package..."),
           "",
           in_params);
 
@@ -130,8 +133,9 @@ namespace Gimp.PicturePackage
 
       _layoutSet.Load();
 
-      Dialog dialog = DialogNew("Picture Package 0.6.2", "PicturePackage",
-          IntPtr.Zero, 0, null, "PicturePackage");
+      Dialog dialog = DialogNew(Catalog.GetString("Picture Package 0.6.2"),
+          Catalog.GetString("PicturePackage"), IntPtr.Zero, 0, null, 
+          Catalog.GetString("PicturePackage"));
 
       HBox hbox = new HBox(false, 12);
       hbox.BorderWidth = 12;
@@ -160,7 +164,8 @@ namespace Gimp.PicturePackage
 
       EventBox eventBox = new EventBox();
       fbox.Add(eventBox);
-      tips.SetTip(eventBox, "Right click to select picture", "preview");
+      tips.SetTip(eventBox, Catalog.GetString("Right click to select picture"),
+          "preview");
 
       _preview = new Preview(this);
       _preview.WidthRequest = 400;

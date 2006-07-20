@@ -19,6 +19,7 @@
 //
 
 using System;
+using Mono.Unix;
 
 using Gtk;
 
@@ -37,7 +38,7 @@ namespace Gimp.PicturePackage
     int _resolution;
 
     public DocumentFrame(PicturePackage parent, LayoutSet layoutSet) : 
-      base(5, 3, "Document")
+      base(5, 3, Catalog.GetString("Document"))
     {
       _parent = parent;
       _fullLayoutSet = layoutSet;
@@ -47,15 +48,18 @@ namespace Gimp.PicturePackage
       _size = ComboBox.NewText();
       FillPageSizeMenu(layoutSet);
       _size.Changed += OnSizeChanged;
-      Table.AttachAligned(0, 0, "_Page Size:", 0.0, 0.5, _size, 2, false);
+      Table.AttachAligned(0, 0, Catalog.GetString("_Page Size:"), 
+          0.0, 0.5, _size, 2, false);
 
       _layout = ComboBox.NewText();
       FillLayoutMenu(_layoutSet);
       _layout.Changed += OnLayoutChanged;
-      Table.AttachAligned(0, 1, "_Layout:", 0.0, 0.5, _layout, 2, false);
+      Table.AttachAligned(0, 1, Catalog.GetString("_Layout:"), 
+          0.0, 0.5, _layout, 2, false);
 
       SpinButton resolution = new SpinButton (_resolution, 1200, 1);
-      Table.AttachAligned(0, 2, "_Resolution:", 0.0, 0.5, resolution, 1, true);
+      Table.AttachAligned(0, 2, Catalog.GetString("_Resolution:"), 
+          0.0, 0.5, resolution, 1, true);
       resolution.ValueChanged += OnResolutionChanged;
 
       ComboBox units = CreateComboBox("pixels/inch", "pixels/cm", "pixels/mm");
@@ -63,12 +67,15 @@ namespace Gimp.PicturePackage
       units.Changed += OnUnitsChanged;
       Table.Attach(units, 2, 3, 2, 3);	
 
-      ComboBox mode = CreateComboBox("Grayscale", "RGB Color");
+      ComboBox mode = CreateComboBox(Catalog.GetString("Grayscale"), 
+          Catalog.GetString("RGB Color"));
       mode.Active =  _parent.ColorMode;
       mode.Changed += OnModeChanged;
-      Table.AttachAligned(0, 3, "_Mode:", 0.0, 0.5, mode, 2, false);
+      Table.AttachAligned(0, 3, Catalog.GetString("_Mode:"), 
+          0.0, 0.5, mode, 2, false);
 
-      CheckButton flatten = new CheckButton("Flatten All Layers");
+      CheckButton flatten = new CheckButton(
+        Catalog.GetString("Flatten All Layers"));
       flatten.Active = parent.Flatten;
       flatten.Toggled += FlattenToggled;
       Table.Attach(flatten, 0, 2, 4, 5);
