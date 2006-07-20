@@ -19,6 +19,7 @@
 //
 
 using System;
+using Mono.Unix;
 
 namespace Gimp.Fragment
 {
@@ -26,6 +27,8 @@ namespace Gimp.Fragment
   {
     static void Main(string[] args)
     {
+      string localeDir = Gimp.LocaleDirectory;
+      Catalog.Init("Fragment", localeDir);
       new Fragment(args);
     }
 
@@ -38,12 +41,12 @@ namespace Gimp.Fragment
       ProcedureSet set = new ProcedureSet();
 
       Procedure procedure = new Procedure("plug_in_fragment",
-					  "Fragments the picture",
-					  "Creates four copies of the pixels in the selection, averages them, and offsets them from each other.",
+					  Catalog.GetString("Fragments the picture"),
+					  Catalog.GetString("Creates four copies of the pixels in the selection, averages them, and offsets them from each other."),
 					  "Maurits Rijk",
 					  "(C) Maurits Rijk",
 					  "2006",
-					  "Fragment",
+					  Catalog.GetString("Fragment"),
 					  "RGB*, GRAY*");
       procedure.MenuPath = "<Image>/Filters/Distorts";
 
@@ -59,7 +62,7 @@ namespace Gimp.Fragment
       Tile.CacheNtiles((ulong) (2 * (drawable.Width / Gimp.TileWidth + 1))); 
 
       RgnIterator iter = new RgnIterator(drawable, RunMode.Interactive);
-      iter.Progress = new Progress("Fragment");
+      iter.Progress = new Progress(Catalog.GetString("Fragment"));
 
       PixelFetcher pf = new PixelFetcher(drawable, false);
       pf.EdgeMode = EdgeMode.Black;
