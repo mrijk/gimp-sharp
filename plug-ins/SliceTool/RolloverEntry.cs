@@ -19,6 +19,7 @@
 //
 
 using System;
+using Mono.Unix;
 
 using Gtk;
 
@@ -27,7 +28,7 @@ namespace Gimp.SliceTool
   public class RolloverEntry : FileEntry
   {
     public RolloverEntry(GimpTable table, string label, uint row) : 
-      base("Select Image", "", false, true)
+      base(Catalog.GetString("Select Image"), "", false, true)
     {
       CheckButton button = new CheckButton(label);
 

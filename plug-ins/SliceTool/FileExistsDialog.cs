@@ -19,6 +19,7 @@
 //
 
 using System;
+using Mono.Unix;
 
 using Gtk;
 
@@ -29,8 +30,8 @@ namespace Gimp.SliceTool
     public FileExistsDialog(string filename) : 
       base(null, DialogFlags.DestroyWithParent,
 	   MessageType.Warning, ButtonsType.YesNo, 
-	   "File " + filename + " already exists!\n" + 
-	   "Do you want to overwrite this file?")
+	   "File " + filename + Catalog.GetString(" already exists!\n") + 
+	   Catalog.GetString("Do you want to overwrite this file?"))
     {
     }
 

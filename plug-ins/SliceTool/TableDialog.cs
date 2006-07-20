@@ -19,6 +19,7 @@
 //
 
 using System;
+using Mono.Unix;
 
 namespace Gimp.SliceTool
 {
@@ -27,8 +28,9 @@ namespace Gimp.SliceTool
     int _columns = 3;
     int _rows = 3;
 
-    public TableDialog() : base("Insert Table", "SliceTool",
-				IntPtr.Zero, 0, null, "SliceTool")
+    public TableDialog() : base(Catalog.GetString("Insert Table"), 
+        Catalog.GetString("SliceTool"), IntPtr.Zero, 
+        0, null, Catalog.GetString("SliceTool"))
     {
       GimpTable table = new GimpTable(2, 3, false);
       table.BorderWidth = 12;
@@ -36,11 +38,11 @@ namespace Gimp.SliceTool
       table.RowSpacing = 6;
       VBox.PackStart(table, true, true, 0);
 
-      new ScaleEntry(table, 0, 1, "Co_lumns", 150, 3,
+      new ScaleEntry(table, 0, 1, Catalog.GetString("Co_lumns"), 150, 3,
 		     _columns, 1.0, 16.0, 1.0, 1.0, 0,
 		     true, 0, 0, null, null);
 
-      new ScaleEntry(table, 0, 2, "_Rows", 150, 3,
+      new ScaleEntry(table, 0, 2, Catalog.GetString("_Rows"), 150, 3,
 		     _rows, 1.0, 16.0, 1.0, 1.0, 0,
 		     true, 0, 0, null, null);
     }

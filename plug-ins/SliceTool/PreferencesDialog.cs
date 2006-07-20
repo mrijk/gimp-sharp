@@ -19,6 +19,7 @@
 //
 
 using System;
+using Mono.Unix;
 
 namespace Gimp.SliceTool
 {
@@ -27,8 +28,9 @@ namespace Gimp.SliceTool
     GimpColorButton _active;
     GimpColorButton _inactive;
 
-    public PreferencesDialog() : base("Slice Preferences", "SliceTool",
-				      IntPtr.Zero, 0, null, "SliceTool")
+    public PreferencesDialog() : base(Catalog.GetString("Slice Preferences"), 
+        Catalog.GetString("SliceTool"), IntPtr.Zero, 
+        0, null, Catalog.GetString("SliceTool"))
     {
       GimpTable table = new GimpTable(2, 2, false);
       table.BorderWidth = 12;
@@ -39,14 +41,14 @@ namespace Gimp.SliceTool
       _active = new GimpColorButton("", 16, 16, new RGB(255, 0, 0),
 				    ColorAreaType.COLOR_AREA_FLAT);
       _active.Update = true;
-      table.AttachAligned(0, 0, "Active tile border color:", 0.0, 0.5, 
-			  _active, 1, true);
+      table.AttachAligned(0, 0, Catalog.GetString("Active tile border color:"),
+          0.0, 0.5, _active, 1, true);
 
       _inactive = new GimpColorButton("", 16, 16, new RGB(0, 255, 0),
 				      ColorAreaType.COLOR_AREA_FLAT);
       _inactive.Update = true;
-      table.AttachAligned(0, 1, "Inactive tile border color:", 0.0, 0.5, 
-			  _inactive, 1, true);
+      table.AttachAligned(0, 1, Catalog.GetString("Inactive tile border color:"), 
+          0.0, 0.5, _inactive, 1, true);
     }
 
     public RGB ActiveColor

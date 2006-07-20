@@ -19,6 +19,7 @@
 //
 
 using System;
+using Mono.Unix;
 
 using Gtk;
 
@@ -33,8 +34,9 @@ namespace Gimp.SliceTool
     RolloverEntry _mouseUp;
     RolloverEntry _mouseDown;
 
-    public RolloverDialog() : base("Rollover Creator", "SliceTool",
-				   IntPtr.Zero, 0, null, "SliceTool")
+    public RolloverDialog() : base(Catalog.GetString("Rollover Creator"), 
+        Catalog.GetString("SliceTool"), IntPtr.Zero, 
+        0, null, Catalog.GetString("SliceTool"))
     {
       GimpTable table = new GimpTable(7, 3, false);
       table.BorderWidth = 12;
@@ -42,14 +44,14 @@ namespace Gimp.SliceTool
       table.RowSpacing = 6;
       VBox.PackStart(table, true, true, 0);
 
-      _mouseOver = new RolloverEntry(table, "_Mouse over", 0);
-      _mouseOut = new RolloverEntry(table, "Mo_use out", 1);
-      _mouseClick = new RolloverEntry(table, "Mous_e click", 2);
-      _mouseDoubleClick = new RolloverEntry(table, "Mouse dou_ble click", 3);
-      _mouseUp = new RolloverEntry(table, "Mouse _up", 4);
-      _mouseDown = new RolloverEntry(table, "Mouse _down", 5);
+      _mouseOver = new RolloverEntry(table, Catalog.GetString("_Mouse over"), 0);
+      _mouseOut = new RolloverEntry(table, Catalog.GetString("Mo_use out"), 1);
+      _mouseClick = new RolloverEntry(table, Catalog.GetString("Mous_e click"), 2);
+      _mouseDoubleClick = new RolloverEntry(table, Catalog.GetString("Mouse dou_ble click"), 3);
+      _mouseUp = new RolloverEntry(table, Catalog.GetString("Mouse _up"), 4);
+      _mouseDown = new RolloverEntry(table, Catalog.GetString("Mouse _down"), 5);
 
-      Label label = new Label("If a file is not given for the rollover, the original file will be used.");
+      Label label = new Label(Catalog.GetString("If a file is not given for the rollover, the original file will be used."));
       table.Attach(label, 0, 2, 6, 7);
     }
 

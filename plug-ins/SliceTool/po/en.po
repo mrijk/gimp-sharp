@@ -1,0 +1,213 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-07-19 23:18+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: FileExistsDialog.cs:33
+msgid " already exists!\n"
+msgstr ""
+
+#: FileExistsDialog.cs:34
+msgid "Do you want to overwrite this file?"
+msgstr ""
+
+#: Format.cs:32
+msgid "Format"
+msgstr ""
+
+#: Format.cs:45
+msgid "Apply to whole image"
+msgstr ""
+
+#: PreferencesDialog.cs:30
+msgid "Slice Preferences"
+msgstr ""
+
+#: PreferencesDialog.cs:31 PreferencesDialog.cs:32 RolloverDialog.cs:38
+#: RolloverDialog.cs:39 SliceTool.cs:95 SliceTool.cs:96 TableDialog.cs:32
+#: TableDialog.cs:33
+msgid "SliceTool"
+msgstr ""
+
+#: PreferencesDialog.cs:43
+msgid "Active tile border color:"
+msgstr ""
+
+#: PreferencesDialog.cs:49
+msgid "Inactive tile border color:"
+msgstr ""
+
+#: RolloverDialog.cs:37
+msgid "Rollover Creator"
+msgstr ""
+
+#: RolloverDialog.cs:47
+msgid "_Mouse over"
+msgstr ""
+
+#: RolloverDialog.cs:48
+msgid "Mo_use out"
+msgstr ""
+
+#: RolloverDialog.cs:49
+msgid "Mous_e click"
+msgstr ""
+
+#: RolloverDialog.cs:50
+msgid "Mouse dou_ble click"
+msgstr ""
+
+#: RolloverDialog.cs:51
+msgid "Mouse _up"
+msgstr ""
+
+#: RolloverDialog.cs:52
+msgid "Mouse _down"
+msgstr ""
+
+#: RolloverDialog.cs:54
+msgid ""
+"If a file is not given for the rollover, the original file will be used."
+msgstr ""
+
+#: RolloverEntry.cs:31
+msgid "Select Image"
+msgstr ""
+
+#: SliceTool.cs:71 SliceTool.cs:94
+msgid "Slice Tool"
+msgstr ""
+
+#: SliceTool.cs:72
+msgid "The Image Slice Tool is used to apply image slicing and rollovers."
+msgstr ""
+
+#: SliceTool.cs:76
+msgid "Slice Tool..."
+msgstr ""
+
+#: SliceTool.cs:143
+msgid "Save Settings..."
+msgstr ""
+
+#: SliceTool.cs:147
+msgid "Load Settings..."
+msgstr ""
+
+#: SliceTool.cs:151
+msgid "Preferences"
+msgstr ""
+
+#: SliceTool.cs:170
+#, csharp-format
+msgid "Slice Tool 0.3 - {0}"
+msgstr ""
+
+#: SliceTool.cs:200
+msgid "Can't save to "
+msgstr ""
+
+#: SliceTool.cs:213
+msgid "Some data has been changed!\n"
+msgstr ""
+
+#: SliceTool.cs:214
+msgid "Do you really want to discard your changes?"
+msgstr ""
+
+#: SliceTool.cs:225
+msgid "HTML Save As"
+msgstr ""
+
+#: SliceTool.cs:296
+msgid "Select Rectangle"
+msgstr ""
+
+#: SliceTool.cs:301
+msgid "Create a new Slice"
+msgstr ""
+
+#: SliceTool.cs:307
+msgid "Remove Slice"
+msgstr ""
+
+#: SliceTool.cs:312 TableDialog.cs:31
+msgid "Insert Table"
+msgstr ""
+
+#: SliceTool.cs:321
+msgid "Cell Properties"
+msgstr ""
+
+#: SliceTool.cs:329
+msgid "URL:"
+msgstr ""
+
+#: SliceTool.cs:332
+msgid "Alt text:"
+msgstr ""
+
+#: SliceTool.cs:335
+msgid "Target:"
+msgstr ""
+
+#: SliceTool.cs:338
+msgid "Left:"
+msgstr ""
+
+#: SliceTool.cs:341
+msgid "Right:"
+msgstr ""
+
+#: SliceTool.cs:344
+msgid "Top:"
+msgstr ""
+
+#: SliceTool.cs:347
+msgid "Bottom:"
+msgstr ""
+
+#: SliceTool.cs:349
+msgid "_Include cell in table"
+msgstr ""
+
+#: SliceTool.cs:358
+msgid "Rollovers"
+msgstr ""
+
+#: SliceTool.cs:363
+msgid "Rollover Creator..."
+msgstr ""
+
+#: SliceTool.cs:367
+msgid "Rollover enabled: no"
+msgstr ""
+
+#: SliceTool.cs:388
+msgid "Save Settings"
+msgstr ""
+
+#: SliceTool.cs:399
+msgid "Load Settings"
+msgstr ""
+
+#: TableDialog.cs:41
+msgid "Co_lumns"
+msgstr ""
+
+#: TableDialog.cs:45
+msgid "_Rows"
+msgstr ""
