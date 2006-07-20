@@ -60,3 +60,8 @@ SliceTool.exe : $(MYSOURCES) SliceTool.png $(GIMPSHARPLIB)
 install:
 	$(INSTALL_DATA) SliceTool.exe $(DESTDIR)$(GIMPPLUGINDIR)
 	$(INSTALL) SliceTool $(DESTDIR)$(GIMPPLUGINDIR)
+	@for lang in `ls po | grep .mo`;\
+		do localedir=`echo $$lang | sed -e's/.mo//'`;\
+		echo "Copying po/$$lang to $(GIMPLOCALE)/$$localedir/LC_MESSAGES/SliceTool.mo";\
+		$(INSTALL_DATA) po/$$lang $(GIMPLOCALE)/$$localedir/LC_MESSAGES/SliceTool.mo;\
+		done

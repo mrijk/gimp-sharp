@@ -1,9 +1,160 @@
+2006-07-20  Max      <massimo.perga@gmail.com>
+
+	* configure.in : modified for plug-ins/Fragment/po/Makefile
+
+	* plug-ins/Fragment/Makefile.am : modified to support po
+
+	* plug-ins/Fragment/Fragment.cs : added multilanguage support
+
+	* plug-ins/Fragment/po  
+	* plug-ins/Fragment/po/Fragment.pot  
+	* plug-ins/Fragment/po/Makefile.am  
+	* plug-ins/Fragment/po/en.po  
+	* plug-ins/Fragment/po/it.po : added to the repository 
+
+2006-07-20  Max      <massimo.perga@gmail.com>
+
+	* configure.in : modified for plug-ins/neo/po/Makefile
+
+	* plug-ins/neo/Makefile.am : modified to support po
+
+	* plug-ins/neo/neo.cs : added multilanguage support
+
+	* plug-ins/neo/po  
+	* plug-ins/neo/po/neo.pot  
+	* plug-ins/neo/po/Makefile.am  
+	* plug-ins/neo/po/en.po  
+	* plug-ins/neo/po/it.po : added to the repository 
+
+2006-07-19  Max      <massimo.perga@gmail.com>
+
+	* configure.in : modified for plug-ins/SliceTool/po/Makefile
+
+	* plug-ins/SliceTool/Makefile.am : modified to support po
+
+	* plug-ins/SliceTool/FileExistsDialog.cs
+	* plug-ins/SliceTool/Format.cs
+	* plug-ins/SliceTool/PreferencesDialog.cs
+	* plug-ins/SliceTool/RolloverDialog.cs
+	* plug-ins/SliceTool/RolloverEntry.cs
+	* plug-ins/SliceTool/SliceTool.cs
+	* plug-ins/SliceTool/TableDialog.cs: added multilanguage support
+
+	* plug-ins/SliceTool/po  
+	* plug-ins/SliceTool/po/Pointillize.pot  
+	* plug-ins/SliceTool/po/Makefile.am  
+	* plug-ins/SliceTool/po/en.po  
+	* plug-ins/SliceTool/po/it.po : added to the repository 
+
+2006-07-19  Max      <massimo.perga@gmail.com>
+
+	* configure.in : modified for plug-ins/PicturePackage/po/Makefile
+
+	* plug-ins/PicturePackage/Makefile.am : modified to support po
+
+	* plug-ins/PicturePackage/DocumentFrame.cs
+	* plug-ins/PicturePackage/LabelFrame.cs
+	* plug-ins/PicturePackage/PicturePackage.cs
+	* plug-ins/PicturePackage/SourceFrame.cs : added multilanguage support
+
+	* plug-ins/PicturePackage/po  
+	* plug-ins/PicturePackage/po/neo.pot  
+	* plug-ins/PicturePackage/po/Makefile.am  
+	* plug-ins/PicturePackage/po/en.po  
+	* plug-ins/PicturePackage/po/it.po : added to the repository 
+
+2006-07-19  Max      <massimo.perga@gmail.com>
+
+	* configure.in : modified for plug-ins/Pointillize/po/Makefile
+
+	* plug-ins/Pointillize/Makefile.am : modified to support po
+
+	* plug-ins/Pointillize/Pointillize.cs : added multilanguage support
+
+	* plug-ins/Pointillize/po  
+	* plug-ins/Pointillize/po/Pointillize.pot  
+	* plug-ins/Pointillize/po/Makefile.am  
+	* plug-ins/Pointillize/po/en.po  
+	* plug-ins/Pointillize/po/it.po : added to the repository 
+
 2006-07-19  Maurits  <m.rijk@chello.nl>
 	
 	* plug-ins/Raindrops/po/nl.po
 	* plug-ins/Raindrops/po/Makefile.am (LINGUAS): added nl
 
 	* plug-ins/ncp/po/nl.po: updated
+
+2006-07-18  Max      <massimo.perga@gmail.com>
+
+	* configure.in : modified for plug-ins/UpdateCheck/po/Makefile
+
+	* plug-ins/UpdateCheck/Makefile.am : modified to support po
+
+	* plug-ins/UpdateCheck/UpdateCheck.cs : added multilanguage support
+
+	* plug-ins/UpdateCheck/po  
+	* plug-ins/UpdateCheck/po/UpdateCheck.pot  
+	* plug-ins/UpdateCheck/po/Makefile.am  
+	* plug-ins/UpdateCheck/po/en.po  
+	* plug-ins/UpdateCheck/po/it.po : added to the repository 
+
+2006-07-18  Max      <massimo.perga@gmail.com>
+
+	* configure.in : modified for plug-ins/Splitter/po/Makefile
+
+	* plug-ins/Splitter/Makefile.am : modified to support po
+
+	* plug-ins/Splitter/AdvancedDialog.cs
+	* plug-ins/Splitter/Splitter.cs : added multilanguage support
+
+	* plug-ins/Splitter/po  
+	* plug-ins/Splitter/po/Splitter.pot  
+	* plug-ins/Splitter/po/Makefile.am  
+	* plug-ins/Splitter/po/en.po  
+	* plug-ins/Splitter/po/it.po : added to the repository 
+
+2006-07-18  Max      <massimo.perga@gmail.com>
+
+	* configure.in : modified for plug-ins/Swirlies/po/Makefile
+
+	* plug-ins/Swirlies/Makefile.am : modified to support po
+
+	* plug-ins/Swirlies/Swirlies.cs : added multilanguage support
+
+	* plug-ins/Swirlies/po  
+	* plug-ins/Swirlies/po/Swirlies.pot  
+	* plug-ins/Swirlies/po/Makefile.am  
+	* plug-ins/Swirlies/po/en.po  
+	* plug-ins/Swirlies/po/it.po : added to the repository 
+
+2006-07-18  Max      <massimo.perga@gmail.com>
+
+	* configure.in : modified for plug-ins/Ministeck/po/Makefile
+
+	* plug-ins/Ministeck/Makefile.am : modified to support po
+
+	* plug-ins/Ministeck/MinisteckPalette.cs
+	* plug-ins/Ministeck/Ministeck.cs : added multilanguage support
+
+	* plug-ins/Ministeck/po  
+	* plug-ins/Ministeck/po/Ministeck.pot  
+	* plug-ins/Ministeck/po/Makefile.am  
+	* plug-ins/Ministeck/po/en.po  
+	* plug-ins/Ministeck/po/it.po : added to the repository 
+
+2006-07-18  Max      <massimo.perga@gmail.com>
+
+	* configure.in : modified for plug-ins/wbmp/po/Makefile
+
+	* plug-ins/wbmp/Makefile.am : modified to support po
+
+	* plug-ins/wbmp/wbmp.cs : added multilanguage support
+
+	* plug-ins/wbmp/po  
+	* plug-ins/wbmp/po/wbmp.pot  
+	* plug-ins/wbmp/po/Makefile.am  
+	* plug-ins/wbmp/po/en.po  
+	* plug-ins/wbmp/po/it.po : added to the repository 
 
 2006-07-18  Maurits  <m.rijk@chello.nl>
 
