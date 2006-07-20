@@ -162,9 +162,7 @@ namespace Gimp.Forge
           Catalog.GetString("Forge..."),
           "RGB*",
           in_params);
-      procedure.MenuPath = Catalog.GetString("<Image>") + "/" +
-            Catalog.GetString("Filters") + "/" +
-            Catalog.GetString("Render");
+      procedure.MenuPath = "<Image>/Filters/Render";
       procedure.IconFile = "Forge.png";
 
       set.Add(procedure);

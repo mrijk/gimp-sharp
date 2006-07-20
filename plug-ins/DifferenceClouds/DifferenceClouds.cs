@@ -79,11 +79,7 @@ namespace Gimp.DifferenceClouds
           Catalog.GetString("Difference Clouds..."),
           "RGB*",
           in_params);
-      //procedure.MenuPath = "<Image>/Filters/Render/Clouds";
-      procedure.MenuPath = Catalog.GetString("<Image>") + "/" +
-        Catalog.GetString("Filters") + "/" + 
-        Catalog.GetString("Render") + "/" + 
-        Catalog.GetString("Clouds");
+      procedure.MenuPath = "<Image>/Filters/Render/Clouds";
       procedure.IconFile = "DifferenceClouds.png";
 
       set.Add(procedure);

@@ -22,6 +22,8 @@ CLEANFILES = $(CATALOGS)
 
 SUFFIXES = .po .gmo .mo
 
+EXTRA_DIST = $(POFILES)
+
 .po.mo:
 	$(GMSGFMT) -o $@ $<
 

@@ -77,9 +77,7 @@ namespace Gimp.ncp
           "NCP...",
           "RGB*, GRAY*",
           in_params);
-      procedure.MenuPath = Catalog.GetString("<Image>") + "/" +
-        Catalog.GetString("Filters") + "/" + 
-        Catalog.GetString("Render");
+      procedure.MenuPath = "<Image>/Filters/Render";
       procedure.IconFile = "ncp.png";
 
       set.Add(procedure);

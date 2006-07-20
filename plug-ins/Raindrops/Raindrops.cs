@@ -70,10 +70,7 @@ namespace Gimp.Raindrops
 					  Catalog.GetString("Raindrops..."),
 					  "RGB*, GRAY*",
 					  in_params);
-      procedure.MenuPath = Catalog.GetString("<Image>") + "/" +
-            Catalog.GetString("Filters") + "/" + 
-            Catalog.GetString("Light and Shadow") + "/" + 
-            Catalog.GetString("Glass");
+      procedure.MenuPath = "<Image>/Filters/Light and Shadow/Glass";
       procedure.IconFile = "Raindrops.png";
       
       set.Add(procedure);

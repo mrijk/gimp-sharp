@@ -48,9 +48,7 @@ namespace Gimp.AverageBlur
           "2006",
           Catalog.GetString("Average"),
           "RGB*, GRAY*");
-      procedure.MenuPath = Catalog.GetString("<Image>") + "/" +
-        Catalog.GetString("Filters") + "/" + 
-        Catalog.GetString("Blur"); 
+      procedure.MenuPath = "<Image>/Filters/Blur"; 
 
       set.Add(procedure);
 

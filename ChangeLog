@@ -1,5 +1,33 @@
 2006-07-20  Max      <massimo.perga@gmail.com>
 
+	* plug-ins/DifferenceClouds/po/Makefile.am
+	* plug-ins/Forge/po/Makefile.am
+	* plug-ins/KoalaPaint/po/Makefile.am
+	* plug-ins/Ministeck/po/Makefile.am
+	* plug-ins/ncp/po/Makefile.am
+	* plug-ins/neo/po/Makefile.am
+	* plug-ins/PicturePackage/po/Makefile.am
+	* plug-ins/Pointillize/po/Makefile.am
+	* plug-ins/Raindrops/po/Makefile.am
+	* plug-ins/SliceTool/po/Makefile.am
+	* plug-ins/Splitter/po/Makefile.am
+	* plug-ins/Swirlies/po/Makefile.am
+	* plug-ins/UpdateCheck/po/Makefile.am
+	* plug-ins/wbmp/po/Makefile.am : fix for task #129148
+
+	* plug-ins/AverageBlur/AverageBlur.cs
+	* plug-ins/DifferenceClouds/DifferenceClouds.cs
+	* plug-ins/Forge/Forge.cs
+	* plug-ins/ncp/ncp.cs
+	* plug-ins/Raindrops/Raindrops.cs : removed i18n from MenuPath
+
+
+2006-07-20  Max      <massimo.perga@gmail.com>
+
+	* NEWS : added comment for I18N support in Gimp# 0.10
+
+2006-07-20  Max      <massimo.perga@gmail.com>
+
 	* configure.in : modified for plug-ins/Fragment/po/Makefile
 
 	* plug-ins/Fragment/Makefile.am : modified to support po

@@ -20,6 +20,8 @@ MOFILES = $(CATALOGS)
 
 CLEANFILES = $(CATALOGS)
 
+EXTRA_DIST = $(POFILES)
+
 SUFFIXES = .po .gmo .mo
 
 .po.mo:
