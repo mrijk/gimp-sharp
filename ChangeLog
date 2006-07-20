@@ -1,3 +1,9 @@
+2006-07-20  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/Fragment/po/Makefile.am: add EXTRA_DIST
+
+	* AUTHORS: added Alexandre Prokoudine
+
 2006-07-20  Max      <massimo.perga@gmail.com>
 
 	* plug-ins/DifferenceClouds/po/Makefile.am
