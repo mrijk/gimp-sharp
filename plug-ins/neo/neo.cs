@@ -21,6 +21,7 @@
 
 using System;
 using System.IO;
+using Mono.Unix;
 
 namespace Gimp.neo
 {	
@@ -29,6 +30,8 @@ namespace Gimp.neo
     [STAThread]
     static void Main(string[] args)
     {
+      string localeDir = Gimp.LocaleDirectory;
+      Catalog.Init("neo", localeDir);
       new neo(args);
     }
 
@@ -41,12 +44,12 @@ namespace Gimp.neo
       ProcedureSet set = new ProcedureSet();
 
       set.Add(FileLoadProcedure("file_neo_load",
-				"Loads neo images",
-				"This plug-in loads Neochrome images.",
+				Catalog.GetString("Loads neo images"),
+				Catalog.GetString("This plug-in loads Neochrome images."),
 				"Maurits Rijk",
 				"(C) Maurits Rijk",
 				"2006",
-				"Neochrome Image"));
+				Catalog.GetString("Neochrome Image")));
       return set;
     }
 
