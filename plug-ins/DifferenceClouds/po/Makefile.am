@@ -6,7 +6,7 @@ SHELL=/bin/sh
 
 PLUGIN = DifferenceClouds
 
-LINGUAS = it en ru
+LINGUAS = it en ru fr
 
 POFILES = $(shell for lang in $(LINGUAS); do printf "$$lang.po "; done)
 

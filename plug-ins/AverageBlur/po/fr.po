@@ -1,0 +1,38 @@
+# translation of fr.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: fr\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-07-16 09:46+0200\n"
+"PO-Revision-Date: 2006-07-22 13:47+0200\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.2\n"
+
+#: AverageBlur.cs:44 AverageBlur.cs:45
+msgid "Average blur"
+msgstr "Flou moyen"
+
+#: AverageBlur.cs:49 AverageBlur.cs:68
+msgid "Average"
+msgstr "Moyenne"
+
+#: AverageBlur.cs:51
+msgid "<Image>"
+msgstr "<Image>"
+
+#: AverageBlur.cs:52
+msgid "Filters"
+msgstr "Filtres"
+
+#: AverageBlur.cs:53
+msgid "Blur"
+msgstr "Flou"
+

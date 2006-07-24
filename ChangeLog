@@ -1,3 +1,39 @@
+2006-07-24  Max      <massimo.perga@gmail.com>
+
+	* plug-ins/AverageBlur/po/fr.po
+	* plug-ins/DifferenceClouds/po/Makefile.am
+	* plug-ins/Forge/po/Makefile.am
+	* plug-ins/Fragment/po/Makefile.am
+	* plug-ins/KoalaPaint/po/Makefile.am
+	* plug-ins/Ministeck/po/Makefile.am
+	* plug-ins/ncp/po/Makefile.am
+	* plug-ins/neo/po/Makefile.am
+	* plug-ins/PicturePackage/po/Makefile.am
+	* plug-ins/Pointillize/po/Makefile.am
+	* plug-ins/Raindrops/po/Makefile.am
+	* plug-ins/SliceTool/po/Makefile.am
+	* plug-ins/Splitter/po/Makefile.am
+	* plug-ins/Swirlies/po/Makefile.am
+	* plug-ins/UpdateCheck/po/Makefile.am
+	* plug-ins/wbmp/po/Makefile.am : added support for French translations
+
+	* plug-ins/AverageBlur/po/fr.po
+	* plug-ins/DifferenceClouds/po/fr.po
+	* plug-ins/Forge/po/fr.po
+	* plug-ins/Fragment/po/fr.po
+	* plug-ins/KoalaPaint/po/fr.po
+	* plug-ins/Ministeck/po/fr.po
+	* plug-ins/ncp/po/fr.po
+	* plug-ins/neo/po/fr.po
+	* plug-ins/PicturePackage/po/fr.po
+	* plug-ins/Pointillize/po/fr.po
+	* plug-ins/Raindrops/po/fr.po
+	* plug-ins/SliceTool/po/fr.po
+	* plug-ins/Splitter/po/fr.po
+	* plug-ins/Swirlies/po/fr.po
+	* plug-ins/UpdateCheck/po/fr.po
+	* plug-ins/wbmp/po/fr.po : added French translations
+
 2006-07-21  Maurits  <m.rijk@chello.nl>
 
 	* Made 0.10 release

@@ -1,0 +1,47 @@
+# translation of fr.po to
+# translation of en.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: fr\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-07-18 06:37+0200\n"
+"PO-Revision-Date: 2006-07-22 16:05+0200\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.2\n"
+
+#: wbmp.cs:45
+msgid "Loads wbmp images"
+msgstr "Charger des images wbmp"
+
+#: wbmp.cs:46
+msgid "This plug-in loads wbmp images."
+msgstr "Ce greffon charge des images wbmp"
+
+#: wbmp.cs:50 wbmp.cs:58
+msgid "wbmp Image"
+msgstr "Image wbmp"
+
+#: wbmp.cs:53
+msgid "Saves wbmp images"
+msgstr "Enregistrer des images wbmp"
+
+#: wbmp.cs:54
+msgid "This plug-in saves wbmp images."
+msgstr "Ce greffon enregistre des images wbmp"
+
+#: wbmp.cs:93
+msgid "Loading "
+msgstr "Charger"
+
+#: wbmp.cs:171
+msgid "Saving "
+msgstr "Enregistrer"
+

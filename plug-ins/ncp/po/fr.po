@@ -1,0 +1,63 @@
+# translation of fr.po to
+# translation of en.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: fr\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-07-16 13:51+0200\n"
+"PO-Revision-Date: 2006-07-22 14:56+0200\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.2\n"
+
+#: ncp.cs:65
+msgid "Number of points"
+msgstr "Nombre de points"
+
+#: ncp.cs:67
+msgid "Closest point"
+msgstr "Point le plus proche"
+
+#: ncp.cs:69
+msgid "Color (true), B&W (false)"
+msgstr "Couleur (vrai), N et B (faux)"
+
+#: ncp.cs:72 ncp.cs:73
+msgid "Generates 2D textures"
+msgstr "Génère des textures 2D"
+
+#: ncp.cs:80
+msgid "<Image>"
+msgstr "<Image>"
+
+#: ncp.cs:81
+msgid "Filters"
+msgstr "Filtres"
+
+#: ncp.cs:82
+msgid "Render"
+msgstr "Rendu"
+
+#: ncp.cs:102
+msgid "Random _Seed:"
+msgstr "Graine aléatoire :"
+
+#: ncp.cs:105
+msgid "Po_ints:"
+msgstr "Po_ints:"
+
+#: ncp.cs:110
+msgid "C_lose to:"
+msgstr "_Proche de :"
+
+#: ncp.cs:119
+msgid "_Use color"
+msgstr "_Utiliser la couleur"
+

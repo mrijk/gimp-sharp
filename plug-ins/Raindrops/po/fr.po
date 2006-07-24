@@ -1,0 +1,111 @@
+# translation of fr.po to
+# translation of en.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: fr\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-07-09 14:26+0200\n"
+"PO-Revision-Date: 2006-07-22 15:28+0200\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.2\n"
+
+#: Raindrops.cs:31 Raindrops.cs:54
+msgid "drop_size"
+msgstr "_Taille de la goutte"
+
+#: Raindrops.cs:33 Raindrops.cs:56
+msgid "number"
+msgstr "nombre"
+
+#: Raindrops.cs:35 Raindrops.cs:58
+msgid "fish_eye"
+msgstr "fish-_eye"
+
+#: Raindrops.cs:55
+msgid "Size of raindrops"
+msgstr "Taille des gouttes de pluie"
+
+#: Raindrops.cs:57
+msgid "Number of raindrops"
+msgstr "Nombre des gouttes de pluie"
+
+#: Raindrops.cs:59
+msgid "Fisheye effect"
+msgstr "Effet fish-eye"
+
+#: Raindrops.cs:61
+msgid "plug_in_raindrops"
+msgstr "plug_in_raindrops"
+
+#: Raindrops.cs:62 Raindrops.cs:63
+msgid "Generates raindrops"
+msgstr "Génère des gouttes de pluie"
+
+#: Raindrops.cs:64
+msgid "Massimo Perga"
+msgstr "Massimo Perga"
+
+#: Raindrops.cs:65
+msgid "(C) Massimo Perga"
+msgstr "(C) Massimo Perga"
+
+#: Raindrops.cs:66
+msgid "2006"
+msgstr "2006"
+
+#: Raindrops.cs:67 Raindrops.cs:210
+msgid "Raindrops..."
+msgstr "Gouttes de pluie..."
+
+#: Raindrops.cs:68
+msgid "RGB*, GRAY*"
+msgstr "RGB*, GRAY*"
+
+#: Raindrops.cs:70
+msgid "<Image>/Filters/Light and Shadow/Glass"
+msgstr "<Image>/Filtres/Ombre et lumière/Verre"
+
+#: Raindrops.cs:71
+msgid "Raindrops.png"
+msgstr "Raindrops.png"
+
+#: Raindrops.cs:80 Raindrops.cs:82 Raindrops.cs:83
+msgid "Raindrops"
+msgstr "Gouttes de pluie"
+
+#: Raindrops.cs:82
+msgid "Raindrops 0.1"
+msgstr "Gouttes de pluie 0.1"
+
+#: Raindrops.cs:98
+msgid "_Drop size:"
+msgstr "_Taille de la goutte :"
+
+#: Raindrops.cs:108
+msgid "_Number:"
+msgstr "_Nombre :"
+
+#: Raindrops.cs:118
+msgid "_Fish eye:"
+msgstr "_Fish-eye :"
+
+#: Raindrops.cs:145 Raindrops.cs:173
+msgid "This filter can be applied just over layers"
+msgstr "Ce filtre ne peut être appliqué que par dessus d'autres calques"
+
+#: Raindrops.cs:165
+msgid "Reset!"
+msgstr "R.A.Z. !"
+
+#: Raindrops.cs:181
+msgid "_raindrops_dummy_"
+msgstr "_raindrops_dummy_"
+

@@ -1,0 +1,59 @@
+# translation of fr.po to
+# translation of en.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: fr\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-07-18 22:30+0200\n"
+"PO-Revision-Date: 2006-07-22 15:55+0200\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.2\n"
+
+#: AdvancedDialog.cs:34
+msgid "Advanced Settings"
+msgstr "Réglages avancés"
+
+#: AdvancedDialog.cs:35 AdvancedDialog.cs:36 Splitter.cs:95
+msgid "Splitter"
+msgstr "Diviseur"
+
+#: AdvancedDialog.cs:49
+msgid "Random _Seed:"
+msgstr "_Graine aléatoire :"
+
+#: Splitter.cs:75
+msgid "Splits an image."
+msgstr "Divise une image."
+
+#: Splitter.cs:76
+msgid "Splits an image in separate parts using a formula of the form f(x, y) = 0"
+msgstr "Divise une image en plusieurs parties à l'aide d'une formule de la forme f(x,y)=0"
+
+#: Splitter.cs:80
+msgid "Splitter..."
+msgstr "Diviseur..."
+
+#: Splitter.cs:96 Splitter.cs:97
+msgid "splitter"
+msgstr "diviseur"
+
+#: Splitter.cs:129
+msgid "Merge visible layers"
+msgstr "Fusionner les calques visibles"
+
+#: Splitter.cs:138
+msgid "Advanced Options..."
+msgstr "Options avancées..."
+
+#: Splitter.cs:155
+msgid "Both Layers"
+msgstr "Les deux calques"
+

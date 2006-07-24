@@ -1,0 +1,195 @@
+# translation of fr.po to
+# translation of en.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: fr\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-07-19 07:47+0200\n"
+"PO-Revision-Date: 2006-07-22 15:15+0200\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.2\n"
+
+#: DocumentFrame.cs:41
+msgid "Document"
+msgstr "Document"
+
+#: DocumentFrame.cs:51
+msgid "_Page Size:"
+msgstr "Taille de _Page :"
+
+#: DocumentFrame.cs:57
+msgid "_Layout:"
+msgstr "_Mise en page :"
+
+#: DocumentFrame.cs:61
+msgid "_Resolution:"
+msgstr "_Résolution :"
+
+#: DocumentFrame.cs:70
+msgid "Grayscale"
+msgstr "Tons de gris"
+
+#: DocumentFrame.cs:71
+msgid "RGB Color"
+msgstr "Couleur RVB"
+
+#: DocumentFrame.cs:74
+msgid "_Mode:"
+msgstr "M_ode :"
+
+#: DocumentFrame.cs:78
+msgid "Flatten All Layers"
+msgstr "Aplatir tous les calques"
+
+#: LabelFrame.cs:38
+msgid "Label"
+msgstr "Étiquette"
+
+#: LabelFrame.cs:42 LabelFrame.cs:92
+msgid "None"
+msgstr "Aucun"
+
+#: LabelFrame.cs:43
+msgid "Custom Text"
+msgstr "Texte personnalisé"
+
+#: LabelFrame.cs:43
+msgid "Filename"
+msgstr "Nom de fichier"
+
+#: LabelFrame.cs:44
+msgid "Copyright"
+msgstr "Copyright"
+
+#: LabelFrame.cs:44
+msgid "Caption"
+msgstr "Légende"
+
+#: LabelFrame.cs:45
+msgid "Credits"
+msgstr "Remerciements"
+
+#: LabelFrame.cs:45
+msgid "Title"
+msgstr "Titre"
+
+#: LabelFrame.cs:51
+msgid "Content:"
+msgstr "Contenu :"
+
+#: LabelFrame.cs:59
+msgid "Custom Text:"
+msgstr "Texte personnalisé"
+
+#: LabelFrame.cs:64
+msgid "Font:"
+msgstr "Police :"
+
+#: LabelFrame.cs:75
+msgid "Opacity:"
+msgstr "Opacité :"
+
+#: LabelFrame.cs:78
+msgid "Color:"
+msgstr "Couleur :"
+
+#: LabelFrame.cs:82
+msgid "Centered"
+msgstr "Centré"
+
+#: LabelFrame.cs:82
+msgid "Top Left"
+msgstr "Haut gauche"
+
+#: LabelFrame.cs:83
+msgid "Bottom Left"
+msgstr "Bas gauche"
+
+#: LabelFrame.cs:83
+msgid "Top Right"
+msgstr "Haut droit"
+
+#: LabelFrame.cs:84
+msgid "Bottom Right"
+msgstr "Bas droit"
+
+#: LabelFrame.cs:89
+msgid "Position:"
+msgstr "Position :"
+
+#: LabelFrame.cs:93
+msgid "45 Degrees Right"
+msgstr "45 degrés à droite"
+
+#: LabelFrame.cs:94
+msgid "90 Degrees Right"
+msgstr "90 degrés à droite"
+
+#: LabelFrame.cs:95
+msgid "45 Degrees Left"
+msgstr "45 degrés à gauche"
+
+#: LabelFrame.cs:96
+msgid "90 Degrees Left"
+msgstr "90 degrés à gauche"
+
+#: LabelFrame.cs:97
+msgid "Rotate:"
+msgstr "Pivote :"
+
+#: LabelFrame.cs:117
+msgid "Select Font"
+msgstr "Sélectionner la police"
+
+#: PicturePackage.cs:113 PicturePackage.cs:114
+msgid "Picture package"
+msgstr "Collection d'images"
+
+#: PicturePackage.cs:118
+msgid "Picture Package..."
+msgstr "Collection d'images..."
+
+#: PicturePackage.cs:136
+msgid "Picture Package 0.6.2"
+msgstr "Collection d'images 0.6.2"
+
+#: PicturePackage.cs:137 PicturePackage.cs:138
+msgid "PicturePackage"
+msgstr "Collection d'images"
+
+#: PicturePackage.cs:167
+msgid "Right click to select picture"
+msgstr "Clic-droit pour sélectionner une image"
+
+#: SourceFrame.cs:41
+msgid "Source"
+msgstr "Source"
+
+#: SourceFrame.cs:47
+msgid "_Image"
+msgstr "_Image"
+
+#: SourceFrame.cs:64
+msgid "_File"
+msgstr "_Fichier"
+
+#: SourceFrame.cs:68
+msgid "Fol_der"
+msgstr "_Dossier"
+
+#: SourceFrame.cs:72
+msgid "_Include All Subfolders"
+msgstr "Inclure tous les _sous-dossiers"
+
+#: SourceFrame.cs:91 SourceFrame.cs:97
+msgid "Open..."
+msgstr "Ouvrir..."
+

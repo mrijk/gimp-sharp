@@ -6,7 +6,7 @@ SHELL=/bin/sh
 
 PLUGIN = Fragment
 
-LINGUAS = it en ru
+LINGUAS = it en ru fr
 
 POFILES = $(shell for lang in $(LINGUAS); do printf "$$lang.po "; done)
 

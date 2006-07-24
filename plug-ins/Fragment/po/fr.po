@@ -1,0 +1,33 @@
+# translation of fr.po to
+# translation of en.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: fr\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-07-20 06:27+0200\n"
+"PO-Revision-Date: 2006-07-22 14:44+0200\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.2\n"
+
+#: Fragment.cs:44
+msgid "Fragments the picture"
+msgstr "Fragmente l'image"
+
+#: Fragment.cs:45
+msgid ""
+"Creates four copies of the pixels in the selection, averages them, and "
+"offsets them from each other."
+msgstr "Créé quatre copies des pixels dans la sélection, les moyenne et les décale l'un par rapport à l'autre."
+
+#: Fragment.cs:49 Fragment.cs:65
+msgid "Fragment"
+msgstr "Fragmentation"
+

@@ -1,0 +1,59 @@
+# translation of fr.po to
+# translation of en.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: fr\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-07-18 23:01+0200\n"
+"PO-Revision-Date: 2006-07-22 16:03+0200\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.2\n"
+
+#: UpdateCheck.cs:67 UpdateCheck.cs:68
+msgid "Check for updates"
+msgstr "Vérifie les mises à jour"
+
+#: UpdateCheck.cs:72
+msgid "Check for Updates..."
+msgstr "Vérifie les mises à jour..."
+
+#: UpdateCheck.cs:87 UpdateCheck.cs:88 UpdateCheck.cs:89
+msgid "UpdateCheck"
+msgstr "Vérifie les mises à jour"
+
+#: UpdateCheck.cs:101
+msgid "Check _GIMP"
+msgstr "Vérifie _Gimp"
+
+#: UpdateCheck.cs:109
+msgid "Check G_IMP#"
+msgstr "Vérifie Gim_p#"
+
+#: UpdateCheck.cs:117
+msgid "Check _Unstable Releases"
+msgstr "Vérifie les versions _instables"
+
+#: UpdateCheck.cs:131
+msgid "Proxy settings"
+msgstr "Réglages du proxy"
+
+#: UpdateCheck.cs:135
+msgid "Manual proxy configuration"
+msgstr "Configuration manuelle du proxy"
+
+#: UpdateCheck.cs:144
+msgid "HTTP Proxy:"
+msgstr "Proxy HTTP :"
+
+#: UpdateCheck.cs:154
+msgid "Port:"
+msgstr "Port :"
+

@@ -6,7 +6,7 @@ SHELL=/bin/sh
 
 PLUGIN = Raindrops
 
-LINGUAS = it en nl ru
+LINGUAS = it en nl ru fr
 
 POFILES = $(shell for lang in $(LINGUAS); do printf "$$lang.po "; done)
 
