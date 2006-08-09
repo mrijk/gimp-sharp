@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// SurfaceBlurEvent.cs
+// MakePathEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,32 +18,29 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
 using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class SurfaceBlurEvent : ActionEvent
+  public class MakePathEvent : MakeEvent
   {
-    [Parameter("Rds")]
-    double _radius;
-    [Parameter("Thsh")]
-    int _threshold;
+    public MakePathEvent(MakeEvent srcEvent) : base(srcEvent)
+    {
+    }
 
     public override bool IsExecutable
     {
       get {return false;}
     }
 
-    protected override IEnumerable ListParameters()
+    public override string EventForDisplay
     {
-      yield return "Radius: " + _radius;
-      yield return "Threshold: " + _threshold;
+      get {return base.EventForDisplay + " Path";}
     }
 
     override public bool Execute()
     {
-      return false;
+      return true;
     }
   }
 }

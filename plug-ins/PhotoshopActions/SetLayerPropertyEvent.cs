@@ -46,7 +46,7 @@ namespace Gimp.PhotoshopActions
 	    {
 	    case "Md":
 	      string mode = (parameter as EnumParameter).Value;
-	      yield return "Mode: " + mode;
+	      yield return "Mode: " + Abbreviations.Get(mode);
 	      break;
 	    case "Nm":
 	      string name = (parameter as TextParameter).Value;

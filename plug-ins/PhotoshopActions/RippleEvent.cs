@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// SurfaceBlurEvent.cs
+// RippleEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,12 +23,12 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class SurfaceBlurEvent : ActionEvent
+  public class RippleEvent : ActionEvent
   {
-    [Parameter("Rds")]
-    double _radius;
-    [Parameter("Thsh")]
-    int _threshold;
+    [Parameter("Amnt")]
+    int _amount;
+    [Parameter("RplS")]
+    EnumParameter _rippleSize;
 
     public override bool IsExecutable
     {
@@ -37,8 +37,8 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
-      yield return "Radius: " + _radius;
-      yield return "Threshold: " + _threshold;
+      yield return "Amount: " + _amount;
+      yield return "Ripple Size: " + Abbreviations.Get(_rippleSize.Value);
     }
 
     override public bool Execute()

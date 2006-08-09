@@ -102,6 +102,7 @@ MYSOURCES = 				\
 	MakeContentLayerEvent.cs	\
 	MakeEvent.cs			\
 	MakeGroupEvent.cs		\
+	MakePathEvent.cs		\
 	MakeSnapshotEvent.cs		\
 	MaximumEvent.cs			\
 	MedianEvent.cs			\
@@ -121,6 +122,7 @@ MYSOURCES = 				\
 	ObjcParameter.cs		\
 	OffsetEvent.cs			\
 	OpenEvent.cs			\
+	PaintDaubsEvent.cs		\
 	Parameter.cs			\
 	ParameterAttribute.cs		\
 	ParameterSet.cs			\
@@ -128,6 +130,7 @@ MYSOURCES = 				\
 	PathParameter.cs		\
 	PhotocopyEvent.cs		\
 	PhotoshopActions.cs		\
+	PlasterEvent.cs			\
 	PlayEvent.cs			\
 	PointillizeEvent.cs		\
 	PolarEvent.cs			\
@@ -135,6 +138,7 @@ MYSOURCES = 				\
 	PropertyType.cs			\
 	PurgeEvent.cs			\
 	RadialBlurEvent.cs		\
+	RasterizeTypeLayerEvent.cs	\
 	RawDataParameter.cs		\
 	ReferenceParameter.cs		\
 	ReferenceType.cs		\
@@ -142,6 +146,7 @@ MYSOURCES = 				\
 	RemoveWhiteMatteEvent.cs	\
 	ReplaceColorEvent.cs		\
 	RevealAllEvent.cs		\
+	RippleEvent.cs			\
 	RotateEvent.cs			\
 	ResetEvent.cs			\
 	SaveEvent.cs			\

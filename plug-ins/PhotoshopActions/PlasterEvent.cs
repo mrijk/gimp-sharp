@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// SurfaceBlurEvent.cs
+// PlasterEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,12 +23,14 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class SurfaceBlurEvent : ActionEvent
+  public class PlasterEvent : ActionEvent
   {
-    [Parameter("Rds")]
-    double _radius;
-    [Parameter("Thsh")]
-    int _threshold;
+    [Parameter("ImgB")]
+    int _imageBalance;
+    [Parameter("Smth")]
+    int _smoothness;
+    [Parameter("LghP")]
+    EnumParameter _lightPosition;
 
     public override bool IsExecutable
     {
@@ -37,8 +39,10 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
-      yield return "Radius: " + _radius;
-      yield return "Threshold: " + _threshold;
+      yield return "Image balance: " + _imageBalance;
+      yield return "Smoothness: " + _smoothness;
+      yield return "Light position: " + 
+	Abbreviations.Get(_lightPosition.Value);
     }
 
     override public bool Execute()

@@ -77,6 +77,20 @@ namespace Gimp.PhotoshopActions
 		  break;
 		}
 	    }
+	  else if (_obj.Set[0] is PropertyType)
+	    {
+	      PropertyType type = _obj.Set[0] as PropertyType;
+	      
+	      switch (type.ClassID2)
+		{
+		case "Chnl":
+		  Console.WriteLine("Duplicate Channel!");
+		  break;
+		default:
+		  Console.WriteLine("DuplicateEvent: {0} unknown", type.Key);
+		  break;
+		}
+	    }
 	  else
 	    {
 	      Console.WriteLine("DuplicateEvent: {0} unknown", _obj.Set[0]);

@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// SurfaceBlurEvent.cs
+// PaintDaubsEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,12 +23,16 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class SurfaceBlurEvent : ActionEvent
+  public class PaintDaubsEvent : ActionEvent
   {
-    [Parameter("Rds")]
-    double _radius;
-    [Parameter("Thsh")]
-    int _threshold;
+    [Parameter("GEfk")]
+    EnumParameter _gefk;	// ??
+    [Parameter("Sz")]
+    int _size;
+    [Parameter("Shrp")]
+    int _sharpen;
+    [Parameter("BrsT")]
+    EnumParameter _brushType;
 
     public override bool IsExecutable
     {
@@ -37,8 +41,10 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
-      yield return "Radius: " + _radius;
-      yield return "Threshold: " + _threshold;
+      yield return "GEfk (?): " + Abbreviations.Get(_gefk.Value);
+      yield return "Size: " + _size;
+      yield return "Sharpen: " + _sharpen;
+      yield return "Brushtype: " + Abbreviations.Get(_brushType.Value);
     }
 
     override public bool Execute()

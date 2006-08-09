@@ -67,7 +67,7 @@ namespace Gimp.PhotoshopActions
     {
       gimp_ui_init("PhotoshopActions", true);
 
-      Dialog dialog = DialogNew("Photoshop Actions 0.2", "PhotoshopActions",
+      Dialog dialog = DialogNew("Photoshop Actions 0.3", "PhotoshopActions",
 				IntPtr.Zero, 0, Gimp.StandardHelpFunc, 
 				"PhotoshopActions");
 
@@ -168,7 +168,7 @@ namespace Gimp.PhotoshopActions
 
       int nrScripts = 0;
 
-      DebugOutput.Quiet = true;
+      DebugOutput.Quiet = false;
 
       foreach (string fileName in Directory.GetFiles(scriptDir))
 	{

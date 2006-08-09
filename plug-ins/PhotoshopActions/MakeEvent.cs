@@ -85,6 +85,8 @@ namespace Gimp.PhotoshopActions
 	      return new MakeGroupEvent(this);
 	    case "Lyr":
 	      return new AddLayerEvent(this, _obj.Set);
+	    case "Path":
+	      return new MakePathEvent(this);
 	    case "SnpS":
 	      return new MakeSnapshotEvent(this);
 	    case "TxLr":

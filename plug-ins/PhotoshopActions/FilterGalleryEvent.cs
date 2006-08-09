@@ -25,9 +25,28 @@ namespace Gimp.PhotoshopActions
 {
   public class FilterGalleryEvent : ActionEvent
   {
+    [Parameter("GEfs")]
+    ListParameter _gefs;	// ???
+
     public override bool IsExecutable
     {
       get {return false;}
+    }
+
+    protected override IEnumerable ListParameters()
+    {
+      foreach (Parameter parameter in _gefs)
+	{
+	  if (parameter is ObjcParameter)
+	    {
+	      ObjcParameter objc = parameter as ObjcParameter;
+	      yield return Abbreviations.Get(objc.GetValueAsString("GEfk"));
+	    }
+	  else
+	    {
+	      Console.WriteLine("FilterGalleryEvent: " + parameter);
+	    }
+	}
     }
 
     override public bool Execute()
