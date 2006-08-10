@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// SmoothnessEvent.cs
+// DuplicateLayerByNameEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,32 +19,31 @@
 //
 
 using System;
-using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class SmoothnessEvent : ActionEvent
+  public class DuplicateLayerByNameEvent : DuplicateEvent
   {
-    [Parameter("Rds")]
-    double _radius;
+    readonly string _name;
+
+    public DuplicateLayerByNameEvent(DuplicateEvent srcEvent, string name) : 
+      base(srcEvent) 
+    {
+      _name = name;
+    }
 
     public override bool IsExecutable
     {
       get {return false;}
     }
-    
-    protected override IEnumerable ListParameters()
+
+    public override string EventForDisplay
     {
-      yield return "Radius: " + _radius;
+      get {return base.EventForDisplay + " layer \"" + _name + "\"";}
     }
 
     override public bool Execute()
     {
-      if (ActiveImage == null)
-	{
-	  Console.WriteLine("Please open image first");
-	  return false;
-	}
       return true;
     }
   }

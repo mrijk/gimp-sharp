@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// SmoothnessEvent.cs
+// CraquelureEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,29 +23,30 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class SmoothnessEvent : ActionEvent
+  public class CraquelureEvent : ActionEvent
   {
-    [Parameter("Rds")]
-    double _radius;
+    [Parameter("CrcS")]
+    int _crackSpacing;
+    [Parameter("CrcD")]
+    int _crackDepth;
+    [Parameter("CrcB")]
+    int _crackBrightness;
 
     public override bool IsExecutable
     {
       get {return false;}
     }
-    
+
     protected override IEnumerable ListParameters()
     {
-      yield return "Radius: " + _radius;
+      yield return "Crack spacing: " + _crackSpacing;
+      yield return "Crack depth: " + _crackDepth;
+      yield return "Crack brightness: " + _crackBrightness;
     }
 
     override public bool Execute()
     {
-      if (ActiveImage == null)
-	{
-	  Console.WriteLine("Please open image first");
-	  return false;
-	}
-      return true;
+      return false;
     }
   }
 }

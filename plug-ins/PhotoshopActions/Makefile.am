@@ -40,6 +40,7 @@ MYSOURCES = 				\
 	CopyEvent.cs			\
 	CopyMergedEvent.cs		\
 	CopyToLayerEvent.cs		\
+	CraquelureEvent.cs		\
 	CropEvent.cs			\
 	CurvesEvent.cs			\
 	CutEvent.cs			\
@@ -57,6 +58,7 @@ MYSOURCES = 				\
 	DuplicateChannelEvent.cs	\
 	DuplicateEvent.cs		\
 	DuplicateDocumentEvent.cs	\
+	DuplicateLayerByNameEvent.cs	\
 	DuplicateLayerEvent.cs		\
 	DustAndScratchesEvent.cs	\
 	EmbossEvent.cs			\
@@ -131,6 +133,7 @@ MYSOURCES = 				\
 	PhotocopyEvent.cs		\
 	PhotoshopActions.cs		\
 	PlasterEvent.cs			\
+	PlasticWrapEvent.cs		\
 	PlayEvent.cs			\
 	PointillizeEvent.cs		\
 	PolarEvent.cs			\
@@ -156,6 +159,7 @@ MYSOURCES = 				\
 	SelectEllipseEvent.cs		\
 	SelectEvent.cs			\
 	SelectionEvent.cs		\
+	SelectChannelByNameEvent.cs	\
 	SelectChannelEvent.cs		\
 	SelectLayerByNameEvent.cs	\
 	SelectLayerEvent.cs		\

@@ -38,7 +38,7 @@ namespace Gimp.PhotoshopActions
     protected override IEnumerable ListParameters()
     {
       yield return "Amount: " + _amount;
-      yield return "Mode: " + _mode.Value;
+      yield return "Mode: " + Abbreviations.Get(_mode.Value);
     }
 
     override public bool Execute()

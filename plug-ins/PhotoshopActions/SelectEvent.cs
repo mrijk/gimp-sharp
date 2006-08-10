@@ -54,19 +54,21 @@ namespace Gimp.PhotoshopActions
 	  if (parameter is NameType)
 	    {
 	      NameType name = parameter as NameType;
-	      if (name.ClassID2 == "Lyr")
+
+	      switch (name.ClassID2)
 		{
+		case "Lyr":
 		  if (Parameters.Count > 2)
 		    {
 		      // TODO: implement multiple selection
 		      Console.WriteLine("SelectEvent: multiple selection");
 		    }
-
 		  return new SelectLayerByNameEvent(this, name.Key);
-		}
-	      else
-		{
+		case "Chnl":
+		  return new SelectChannelByNameEvent(this, name.Key);
+		default:
 		  Console.WriteLine("SelectEvent: " + name.ClassID2);
+		  break;
 		}
 	    }
 	  else if (parameter is PropertyType)

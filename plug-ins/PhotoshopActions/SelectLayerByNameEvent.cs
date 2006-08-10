@@ -23,7 +23,7 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class SelectLayerByNameEvent : ActionEvent
+  public class SelectLayerByNameEvent : SelectEvent
   {
     string _name;
 

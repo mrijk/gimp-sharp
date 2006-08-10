@@ -25,9 +25,20 @@ namespace Gimp.PhotoshopActions
 {
   public class ChromeEvent : ActionEvent
   {
+    [Parameter("Dtl")]
+    int _detail;
+    [Parameter("Smth")]
+    int _smoothness;
+
     public override bool IsExecutable
     {
       get {return false;}
+    }
+
+    protected override IEnumerable ListParameters()
+    {
+      yield return "Detail: " + _detail;
+      yield return "Smoothness: " + _smoothness;
     }
 
     override public bool Execute()

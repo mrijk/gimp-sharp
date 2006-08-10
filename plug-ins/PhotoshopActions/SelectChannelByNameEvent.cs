@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// SmoothnessEvent.cs
+// SelectChannelByNameEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,28 +23,34 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class SmoothnessEvent : ActionEvent
+  public class SelectChannelByNameEvent : SelectEvent
   {
-    [Parameter("Rds")]
-    double _radius;
+    string _name;
+
+    public SelectChannelByNameEvent(ActionEvent srcEvent, string name) : 
+      base(srcEvent)
+    {
+      _name = name;
+    }
 
     public override bool IsExecutable
     {
       get {return false;}
     }
-    
-    protected override IEnumerable ListParameters()
+
+    public override string EventForDisplay
     {
-      yield return "Radius: " + _radius;
+      get {return base.EventForDisplay + " channel \"" + _name + "\"";}
     }
 
     override public bool Execute()
     {
-      if (ActiveImage == null)
-	{
-	  Console.WriteLine("Please open image first");
-	  return false;
-	}
+#if false
+      Console.WriteLine("Visible: " + (Parameters["MkVs"] != null));
+
+      SelectedChannel = ActiveImage.Channels[_name];
+      ActiveImage.ActiveChannel = SelectedChannel;
+#endif
       return true;
     }
   }

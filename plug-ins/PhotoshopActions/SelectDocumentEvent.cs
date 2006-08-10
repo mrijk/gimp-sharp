@@ -19,6 +19,7 @@
 //
 
 using System;
+using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
@@ -26,7 +27,8 @@ namespace Gimp.PhotoshopActions
   {
     int _offset;
 
-    public SelectDocumentEvent(SelectEvent srcEvent, int offset) : base(srcEvent)
+    public SelectDocumentEvent(SelectEvent srcEvent, int offset) : 
+      base(srcEvent)
     {
       _offset = offset;
     }
@@ -39,6 +41,11 @@ namespace Gimp.PhotoshopActions
     public override string EventForDisplay
     {
       get {return base.EventForDisplay + " document";}
+    }
+
+    protected override IEnumerable ListParameters()
+    {
+      yield return "Offset: " + _offset;
     }
 
     override public bool Execute()

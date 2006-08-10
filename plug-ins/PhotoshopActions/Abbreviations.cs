@@ -44,11 +44,16 @@ namespace Gimp.PhotoshopActions
       _map["FrgC"] = "foreground color";
       _map["GlwE"] = "glowing edges";
       _map["Gsn"]  = "gaussian";
+      _map["LngL"] = "long lines";
+      _map["LngS"] = "long strokes";
+      _map["Mltp"] = "multiply";
       _map["Nrml"] = "normal";
       _map["Otsd"] = "outside";
       _map["PntD"] = "paint daubs";
       _map["Prvs"] = "previous";
       _map["Rtcl"] = "reticulation";
+      _map["Scrn"] = "screen";
+      _map["SftL"] = "soft light";
       _map["Sml"]  = "small";
       _map["Trns"] = "transparent";
       _map["Wht"] = "white";

@@ -35,6 +35,12 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
+      if (_gefs == null)
+	{
+	  Console.WriteLine("FilterGalleryEvent-1");
+	  yield break;
+	}
+
       foreach (Parameter parameter in _gefs)
 	{
 	  if (parameter is ObjcParameter)

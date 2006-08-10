@@ -19,14 +19,24 @@
 //
 
 using System;
+using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
   public class MezzotintEvent : ActionEvent
   {
+    [Parameter("MztT")]
+    EnumParameter _mezzotintType;
+
     public override bool IsExecutable
     {
       get {return false;}
+    }
+
+    protected override IEnumerable ListParameters()
+    {
+      yield return "Mezzotint type: " + 
+	Abbreviations.Get(_mezzotintType.Value);
     }
 
     override public bool Execute()

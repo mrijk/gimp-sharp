@@ -19,14 +19,32 @@
 //
 
 using System;
+using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
   public class GlowingEdgesEvent : ActionEvent
   {
+    [Parameter("GEfk")]
+    EnumParameter _gefk;
+    [Parameter("EdgW")]
+    int _edgeWidth;
+    [Parameter("EdgB")]
+    int _edgeBrightness;
+    [Parameter("Smth")]
+    int _smoothness;
+
     public override bool IsExecutable
     {
       get {return false;}
+    }
+
+    protected override IEnumerable ListParameters()
+    {
+      yield return "GEfk: " + Abbreviations.Get(_gefk.Value);
+      yield return "Edge width: " + _edgeWidth;
+      yield return "Edge brightness: " + _edgeBrightness;
+      yield return "Smoothness: " + _smoothness;
     }
 
     override public bool Execute()

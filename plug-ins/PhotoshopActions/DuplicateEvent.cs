@@ -70,11 +70,14 @@ namespace Gimp.PhotoshopActions
 	    {
 	      NameType type = _obj.Set[0] as NameType;
 
-	      switch (type.Key)
+	      if (type.ClassID2 == "Lyr")
 		{
-		default:
-		  Console.WriteLine("DuplicateEvent: {0} unknown", type.Key);
-		  break;
+		  return new DuplicateLayerByNameEvent(this, type.Key);
+		}
+	      else
+		{
+		  Console.WriteLine("DuplicateEvent-1: {0} unknown", 
+				    type.ClassID2);
 		}
 	    }
 	  else if (_obj.Set[0] is PropertyType)

@@ -56,6 +56,10 @@ namespace Gimp.PhotoshopActions
 	      double opacity = (parameter as DoubleParameter).Value;
 	      yield return "Opacity: " + opacity;
 	      break;
+	    case "PrsT":
+	      bool preserveTransparency = (parameter as BoolParameter).Value;
+	      yield return "Preserve transparency: " + preserveTransparency;
+	      break;
 	    default:
 	      Console.WriteLine("SetLayerProperty: " + parameter.Name);
 	      break;
@@ -80,6 +84,9 @@ namespace Gimp.PhotoshopActions
 		case "Lghn":
 		  // TODO: not a perfect match
 		  SelectedLayer.Mode = LayerModeEffects.LightenOnly;
+		  break;
+		case "Mltp":
+		  SelectedLayer.Mode = LayerModeEffects.Multiply;
 		  break;
 		case "Nrml":
 		  SelectedLayer.Mode = LayerModeEffects.Normal;

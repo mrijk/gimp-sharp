@@ -54,6 +54,7 @@ namespace Gimp.PhotoshopActions
       _map["copyEvent"] = _map["copy"] = "CopyEvent";
       _map["copyMerged"] = "CopyMergedEvent";
       _map["copyToLayer"] = _map["CpTL"] = "CopyToLayerEvent";
+      _map["Crql"] = "CraquelureEvent";
       _map["crop"] = "CropEvent";
       _map["curves"] = _map["Crvs"] = "CurvesEvent";
       _map["cut"] = "CutEvent";
@@ -112,6 +113,7 @@ namespace Gimp.PhotoshopActions
       _map["paste"] = _map["past"] = "PasteEvent";
       _map["photocopy"] = "PhotocopyEvent";
       _map["plaster"] = "PlasterEvent";
+      _map["PlsW"] = "PlasticWrapEvent";
       _map["play"] = "PlayEvent";
       _map["pointillize"] = "PointillizeEvent";
       _map["polar"] = _map["Plr"] = "PolarEvent";
