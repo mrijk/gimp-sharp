@@ -1,5 +1,13 @@
 2006-08-10  Maurits  <m.rijk@chello.nl>
 
+	* TODO: updated
+
+	* lib/ImageList.cs: new method to get index of an image
+
+	* plug-ins/PhotoshopActions/SelectDocumentEvent.cs: implemented
+
+2006-08-10  Maurits  <m.rijk@chello.nl>
+
 	* plug-ins/PhotoshopActions/SetLayerPropertyEvent.cs: added
 	multiply mode
 

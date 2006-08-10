@@ -33,11 +33,6 @@ namespace Gimp.PhotoshopActions
       _offset = offset;
     }
 
-    public override bool IsExecutable
-    {
-      get {return false;}
-    }
-
     public override string EventForDisplay
     {
       get {return base.EventForDisplay + " document";}
@@ -50,6 +45,18 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
+      ImageList images = new ImageList();
+      int index = images.GetIndex(ActiveImage);
+
+      int newIndex = index + _offset;
+
+      // Fix me: should we wrap around?
+
+      if (newIndex > 0 && newIndex < images.Count)
+	{
+	  ActiveImage = images[newIndex];
+	}
+
       return true;
     }
   }

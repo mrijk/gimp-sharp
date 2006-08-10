@@ -41,7 +41,10 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
-      yield return "GEfk (?): " + Abbreviations.Get(_gefk.Value);
+      if (_gefk != null)
+	{
+	  yield return "GEfk (?): " + Abbreviations.Get(_gefk.Value);
+	}
       yield return "Size: " + _size;
       yield return "Sharpen: " + _sharpen;
       yield return "Brushtype: " + Abbreviations.Get(_brushType.Value);

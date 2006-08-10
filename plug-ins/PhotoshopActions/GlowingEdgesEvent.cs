@@ -41,7 +41,10 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
-      yield return "GEfk: " + Abbreviations.Get(_gefk.Value);
+      if (_gefk != null)
+	{
+	  yield return "GEfk: " + Abbreviations.Get(_gefk.Value);
+	}
       yield return "Edge width: " + _edgeWidth;
       yield return "Edge brightness: " + _edgeBrightness;
       yield return "Smoothness: " + _smoothness;

@@ -44,9 +44,34 @@ namespace Gimp
 	}
     }
 
-    IEnumerator<Image> GetEnumerator()
+    public IEnumerator<Image> GetEnumerator()
     {
       return _list.GetEnumerator();
+    }
+
+    public int Count
+    {
+      get {return _list.Count;}
+    }
+
+    public Image this[int index]
+    {
+      get {return _list[index];}
+    }
+
+    public int GetIndex(Image key)
+    {
+      int index = 0;
+      
+      foreach (Image image in this)
+	{
+	  if (key.ID == image.ID)
+	    {
+	      return index;
+	    }
+	  index++;
+	}
+      return -1;	// not found
     }
 
     [DllImport("libgimp-2.0-0.dll")]

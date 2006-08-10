@@ -1,20 +1,19 @@
-Release 0.10
-------------
-- PhotoshopActions at 30 %
-- Fully functional version of picture package
-- Working version of Update Check plug-in
-
 Release 0.11
 ------------
-- PhotoshopActions at 40 %
+- PhotoshopActions at 40 % (Maurits)
+- Java support (Max)
+- Documentation (Max, Maurits)
+- Working version of Update Check plug-in (Maurits)
+- First version of PhotoFrame plug-in (Oded)
 
 Release 0.12
 ------------
 - PhotoshopActions at 50 %
-- Generic Lense plug-in
+- Fully functional version of picture package
 
 Release 0.13
 ------------
+- Generic Lense plug-in
 
 Release 0.99
 ------------
