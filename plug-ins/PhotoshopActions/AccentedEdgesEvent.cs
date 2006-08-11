@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// GrainEvent.cs
+// AccentedEdgesEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,14 +23,14 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class GrainEvent : ActionEvent
+  public class AccentedEdgesEvent : ActionEvent
   {
-    [Parameter("Intn")]
-    int _intensity;
-    [Parameter("Cntr")]
-    int _center;
-    [Parameter("Grnt")]
-    EnumParameter _type;
+    [Parameter("EdgW")]
+    int _edgeWidth;
+    [Parameter("EdgB")]
+    int _edgeBrightness;
+    [Parameter("Smth")]
+    int _smoothness;
 
     public override bool IsExecutable
     {
@@ -39,9 +39,9 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
-      yield return "Intensity: " + _intensity;
-      yield return "Center: " + _center;
-      yield return "Type: " + Abbreviations.Get(_type.Value);
+      yield return "Edge width: " + _edgeWidth;
+      yield return "Edge brightness: " + _edgeBrightness;
+      yield return "Smoothness: " + _smoothness;
     }
 
     override public bool Execute()

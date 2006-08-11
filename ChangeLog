@@ -1,3 +1,16 @@
+2006-08-11  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/PhotoshopActions/AccentedEdgesEvent.cs
+	* plug-ins/PhotoshopActions/SumieEvent.cs
+	* plug-ins/PhotoshopActions/BlurMethodEvent.cs: new files
+
+	* plug-ins/PhotoshopActions/EventMap.cs
+	* plug-ins/PhotoshopActions/Makefile.am: changed accordingly
+
+	* plug-ins/PhotoshopActions/Abbreviations.cs: more abbreviations
+
+	* plug-ins/PhotoshopActions/SpatterEvent.cs: more verbosity
+
 2006-08-10  Maurits  <m.rijk@chello.nl>
 
 	* TODO: updated

@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// GrainEvent.cs
+// SumieEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,14 +23,14 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class GrainEvent : ActionEvent
+  public class SumieEvent : ActionEvent
   {
-    [Parameter("Intn")]
-    int _intensity;
+    [Parameter("StrW")]
+    int _strokeWidth;
+    [Parameter("StrP")]
+    int _strokePressure;
     [Parameter("Cntr")]
     int _center;
-    [Parameter("Grnt")]
-    EnumParameter _type;
 
     public override bool IsExecutable
     {
@@ -39,9 +39,9 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
-      yield return "Intensity: " + _intensity;
+      yield return "Stroke width: " + _strokeWidth;
+      yield return "Stroke pressure: " + _strokePressure;
       yield return "Center: " + _center;
-      yield return "Type: " + Abbreviations.Get(_type.Value);
     }
 
     override public bool Execute()

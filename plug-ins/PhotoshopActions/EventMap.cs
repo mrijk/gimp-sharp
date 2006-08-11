@@ -35,11 +35,13 @@ namespace Gimp.PhotoshopActions
 
     public EventMap()
     {
+      _map["accentedEdges"] = "AccentedEdgesEvent";
       _map["add"] = "AddEvent";
       _map["addNoise"] = _map["AdNs"] = "AddNoiseEvent";
       _map["addTo"] = "AddToEvent";
       _map["align"] = _map["Algn"] = "AlignEvent";
       _map["Avrg"] = "AverageEvent";
+      _map["blurMethod"] = _map["BlrM"] = "BlurMethodEvent";
       _map["border"] = "BorderEvent";
       _map["brightnessEvent"] = _map["BrgC"] = "BrightnessEvent";
       _map["canvasSize"] = _map["CnvS"] = "CanvasSizeEvent";
@@ -141,6 +143,7 @@ namespace Gimp.PhotoshopActions
       _map["spatter"] = "SpatterEvent";
       _map["spherize"] = _map["Sphr"] = "SpherizeEvent";
       _map["subtractFrom"] = _map["Sbtr"] = "SubtractFromEvent";
+      _map["sumie"] = "SumieEvent";
       _map["surfaceBlur"] = "SurfaceBlurEvent";
       _map["stop"] = _map["Stop"] = "StopEvent";
       _map["stroke"] = _map["Strk"] = "StrokeEvent";

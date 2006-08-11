@@ -25,9 +25,20 @@ namespace Gimp.PhotoshopActions
 {
   public class SpatterEvent : ActionEvent
   {
+    [Parameter("SprR")]
+    int _sprayRadius;
+    [Parameter("Smth")]
+    int _smoothen;
+
     public override bool IsExecutable
     {
       get {return false;}
+    }
+
+    protected override IEnumerable ListParameters()
+    {
+      yield return "Spray radius: " + _sprayRadius;
+      yield return "Smoothen: " + _smoothen;
     }
 
     override public bool Execute()

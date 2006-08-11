@@ -43,6 +43,7 @@ namespace Gimp.PhotoshopActions
       _map["FllD"] = "full document";
       _map["FrgC"] = "foreground color";
       _map["GlwE"] = "glowing edges";
+      _map["GrnE"] = "grain enlarged";
       _map["Gsn"]  = "gaussian";
       _map["LngL"] = "long lines";
       _map["LngS"] = "long strokes";
@@ -52,6 +53,10 @@ namespace Gimp.PhotoshopActions
       _map["PntD"] = "paint daubs";
       _map["Prvs"] = "previous";
       _map["Rtcl"] = "reticulation";
+      _map["SBMN"] = "smart blur mode normal";
+      _map["SBQH"] = "smart blur quality high";
+      _map["SBQH"] = "smart blur quality low";
+      _map["SBQH"] = "smart blur quality medium";
       _map["Scrn"] = "screen";
       _map["SftL"] = "soft light";
       _map["Sml"]  = "small";
