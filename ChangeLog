@@ -1,3 +1,21 @@
+2006-08-16  Max      <massimo.perga@gmail.com>
+
+	* NEWS : added announcement for Java / IKVM support
+
+	* configure
+	* configure.in 
+	* Makefile.am : added support for the Java / IKVM framework
+
+	* java
+	* java/Makefile.am
+	* java/stubs
+	* java/stubs/Makefile.am : Java / IKVM framework
+
+	* java/sample_plugin
+	* java/sample_plugin/JAverageBlur
+	* java/sample_plugin/JAverageBlur.java
+	* java/sample_plugin/Makefile.am : sample Java / IKVM plugin
+
 2006-08-11  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/PhotoshopActions/AccentedEdgesEvent.cs

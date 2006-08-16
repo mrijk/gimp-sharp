@@ -1,6 +1,7 @@
 Overview of Changes in Gimp# 0.11
 =================================
--
+- Java / IKVM support
+- Sample Java plug-in included
 
 Overview of Changes in Gimp# 0.10
 =================================
