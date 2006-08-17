@@ -58,6 +58,7 @@ namespace Gimp.PhotoshopActions
       _map["copyToLayer"] = _map["CpTL"] = "CopyToLayerEvent";
       _map["Crql"] = "CraquelureEvent";
       _map["crop"] = "CropEvent";
+      _map["crystallize"] = "CrystallizeEvent";
       _map["curves"] = _map["Crvs"] = "CurvesEvent";
       _map["cut"] = "CutEvent";
       _map["cutToLayer"] = _map["CtTL"] = "CutToLayerEvent";

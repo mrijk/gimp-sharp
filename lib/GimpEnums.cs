@@ -163,6 +163,17 @@ namespace Gimp
     Rotate270
   }
 
+  public enum SelectCriterion
+  {
+    Composite,
+    R,
+    G,
+    B,
+    H,
+    S,
+    V
+  }
+
   public enum RunMode
   {
     Interactive,

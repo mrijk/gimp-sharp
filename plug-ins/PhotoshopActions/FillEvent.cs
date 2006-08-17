@@ -36,6 +36,14 @@ namespace Gimp.PhotoshopActions
     [Parameter("Md")]
     EnumParameter _mode;
 
+    public override bool IsExecutable
+    {
+      get 
+	{
+	  return _from == null || Gimp.Version > new Version("2.3.10");
+	}
+    }
+
     protected override IEnumerable ListParameters()
     {
       if (_from != null)
@@ -84,15 +92,18 @@ namespace Gimp.PhotoshopActions
 	{
 	  ActiveDrawable.EditFill(fillType);
 	}
-      else	// Flood fill
+      else
 	{
-	  double x = _from.GetValueAsDouble("Hrzn");
-	  double y = _from.GetValueAsDouble("Vrtc");
-	  Console.WriteLine("After {0} {1}", x, y);
-
-	  ActiveDrawable.EditBucketFill(BucketFillMode.Foreground,
-					LayerModeEffects.Normal,
-					100.0, _tolerance, false, x, y);
+	  if (Gimp.Version > new Version("2.3.10"))
+	    {
+	      double x = _from.GetValueAsDouble("Hrzn");
+	      double y = _from.GetValueAsDouble("Vrtc");
+	      
+	      ActiveDrawable.EditBucketFill(BucketFillMode.Foreground,
+					    LayerModeEffects.Normal,
+					    100.0, _tolerance, false, true,
+					    SelectCriterion.Composite, x, y);
+	    }
 	}
 
       Context.Pop();

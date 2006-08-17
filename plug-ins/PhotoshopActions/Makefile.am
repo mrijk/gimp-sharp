@@ -44,6 +44,7 @@ MYSOURCES = 				\
 	CopyToLayerEvent.cs		\
 	CraquelureEvent.cs		\
 	CropEvent.cs			\
+	CrystallizeEvent.cs		\
 	CurvesEvent.cs			\
 	CutEvent.cs			\
 	CutToLayerEvent.cs		\
@@ -99,6 +100,8 @@ MYSOURCES = 				\
 	InvertEvent.cs			\
 	LensFlareEvent.cs		\
 	LevelsEvent.cs			\
+	LinkedLayers.cs			\
+	LinkedLayersSet.cs		\
 	LinkEvent.cs			\
 	LinkSelectedLayersEvent.cs	\
 	ListParameter.cs		\

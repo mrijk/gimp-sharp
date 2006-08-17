@@ -287,17 +287,36 @@ namespace Gimp
 	  throw new GimpSharpException();
         }
     }
-    
-    public void EditBucketFill(BucketFillMode fill_mode,
-			       LayerModeEffects paint_mode,
+
+    public void EditBucketFill(BucketFillMode fillMode,
+			       LayerModeEffects paintMode,
 			       double opacity,
 			       double threshold,
-			       bool sample_merged,
+			       bool sampleMerged,
 			       double x,
 			       double y)
     {
-      if (!gimp_edit_bucket_fill(_ID, fill_mode, paint_mode, opacity, 
-				 threshold, sample_merged, x, y))
+      if (!gimp_edit_bucket_fill(_ID, fillMode, paintMode, opacity, 
+				 threshold, sampleMerged, x, y))
+	{
+	  throw new GimpSharpException();
+	}
+    }
+
+    // Only available in GIMP 2.4.x!
+    public void EditBucketFill(BucketFillMode fillMode,
+			       LayerModeEffects paintMode,
+			       double opacity,
+			       double threshold,
+			       bool sampleMerged,
+			       bool fillTransparent,
+			       SelectCriterion selectCriterion,
+			       double x,
+			       double y)
+    {
+      if (!gimp_edit_bucket_fill_full(_ID, fillMode, paintMode, opacity, 
+				      threshold, sampleMerged, fillTransparent,
+				      selectCriterion, x, y))
 	{
 	  throw new GimpSharpException();
 	}
@@ -1124,6 +1143,17 @@ namespace Gimp
                                              bool sample_merged,
                                              double x,
                                              double y);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_edit_bucket_fill_full (Int32 drawable_ID,
+						   BucketFillMode fill_mode,
+						   LayerModeEffects paint_mode,
+						   double opacity,
+						   double threshold,
+						   bool sample_merged,
+						   bool fill_transparent,
+						   SelectCriterion select_criterion,
+						   double x,
+						   double y);
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_edit_blend(Int32 drawable_ID,
 				       BlendMode blend_mode,

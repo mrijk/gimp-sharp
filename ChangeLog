@@ -1,3 +1,21 @@
+2006-08-17  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/PhotoshopActions/LinkedLayers.cs
+	* plug-ins/PhotoshopActions/LinkedLayersSet.cs: start implementing
+	support for linked layers
+
+	* plug-ins/PhotoshopActions/CrystallizeEvent.cs: new file
+
+	* plug-ins/PhotoshopActions/EventMap.cs
+	* plug-ins/PhotoshopActions/Makefile.am: changed accordingly
+
+2006-08-16  Maurits  <m.rijk@chello.nl>
+
+	* lib/Drawable.cs
+	* lib/GimpEnums.cs: wrap new gimp_edit_bucket_fill_full method
+
+	* plug-ins/PhotoshopActions/FillEvent.cs: use new method
+
 2006-08-16  Max      <massimo.perga@gmail.com>
 
 	* NEWS : added announcement for Java / IKVM support
