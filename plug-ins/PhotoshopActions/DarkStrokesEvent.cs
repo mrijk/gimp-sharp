@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// WaterPaperEvent.cs
+// DarkStrokesEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,14 +23,14 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class WaterPaperEvent : ActionEvent
+  public class DarkStrokesEvent : ActionEvent
   {
-    [Parameter("FbrL")]
-    int _fiberLength;
-    [Parameter("Brgh")]
-    int _brightness;
-    [Parameter("Cntr")]
-    int _center;
+    [Parameter("Blnc")]
+    int _balance;
+    [Parameter("BlcI")]
+    int _blackIntensity;
+    [Parameter("WhtI")]
+    int _whiteIntensity;
 
     public override bool IsExecutable
     {
@@ -39,9 +39,9 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
-      yield return "Fiber length: " + _fiberLength;
-      yield return "Brightness: " + _brightness;
-      yield return "Center: " + _center;
+      yield return "Balance: " + _balance;
+      yield return "Black Intensity: " + _blackIntensity;
+      yield return "White Intensity: " + _whiteIntensity;
     }
 
     override public bool Execute()

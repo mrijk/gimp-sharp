@@ -37,6 +37,7 @@ namespace Gimp.PhotoshopActions
       _map["Bckg"] = "background";
       _map["Blck"] = "black";
       _map["BrSm"] = "brush simple";
+      _map["CBrn"] = "color burn";
       _map["Clr"]  = "color";
       _map["Cntr"] = "center";
       _map["CrnH"] = "Current History State";
@@ -45,11 +46,15 @@ namespace Gimp.PhotoshopActions
       _map["GlwE"] = "glowing edges";
       _map["GrnE"] = "grain enlarged";
       _map["Gsn"]  = "gaussian";
+      _map["HrdL"] = "hard light";
+      _map["Insd"] = "inside";
+      _map["Lmns"] = "luminosity";
       _map["LngL"] = "long lines";
       _map["LngS"] = "long strokes";
       _map["Mltp"] = "multiply";
       _map["Nrml"] = "normal";
       _map["Otsd"] = "outside";
+      _map["Ovrl"] = "overlay";
       _map["PntD"] = "paint daubs";
       _map["Prvs"] = "previous";
       _map["Rtcl"] = "reticulation";
@@ -61,6 +66,7 @@ namespace Gimp.PhotoshopActions
       _map["SftL"] = "soft light";
       _map["Sml"]  = "small";
       _map["Trns"] = "transparent";
+      _map["Unfr"] = "uniform";
       _map["Wht"] = "white";
       _map["Wrp"]  = "wrap";
     }

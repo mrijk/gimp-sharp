@@ -56,12 +56,14 @@ namespace Gimp.PhotoshopActions
       _map["copyEvent"] = _map["copy"] = "CopyEvent";
       _map["copyMerged"] = "CopyMergedEvent";
       _map["copyToLayer"] = _map["CpTL"] = "CopyToLayerEvent";
-      _map["Crql"] = "CraquelureEvent";
+      _map["craquelure"] = _map["Crql"] = "CraquelureEvent";
       _map["crop"] = "CropEvent";
       _map["crystallize"] = "CrystallizeEvent";
       _map["curves"] = _map["Crvs"] = "CurvesEvent";
       _map["cut"] = "CutEvent";
+      _map["cutout"] = "CutoutEvent";
       _map["cutToLayer"] = _map["CtTL"] = "CutToLayerEvent";
+      _map["darkStrokes"] = "DarkStrokesEvent";
       _map["delete"] = _map["Dlt"] = "DeleteEvent";
       _map["desaturate"] = _map["Dstt"] = "DesaturateEvent";
       _map["differenceClouds"] = _map["DfrC"] = "DifferenceCloudsEvent";
@@ -120,6 +122,7 @@ namespace Gimp.PhotoshopActions
       _map["play"] = "PlayEvent";
       _map["pointillize"] = "PointillizeEvent";
       _map["polar"] = _map["Plr"] = "PolarEvent";
+      _map["posterEdges"] = "PosterEdgesEvent";
       _map["posterization"] = "PosterizationEvent";
       _map["purge"] = _map["Prge"] = "PurgeEvent";
       _map["radialBlur"] = _map["RdlB"] = "RadialBlurEvent";
@@ -153,6 +156,7 @@ namespace Gimp.PhotoshopActions
       _map["thresholdClassEvent"] = _map["Thrs"] = "ThresholdClassEvent";
       _map["tiles"] = "TilesEvent";
       _map["transform"] = _map["Trnf"] = "TransformEvent";
+      _map["trim"] = "TrimEvent";
       _map["twirl"] = "TwirlEvent";
       _map["unlink"] = "UnlinkEvent";
       _map["unsharpMask"] = _map["UnsM"] = "UnsharpMaskEvent";

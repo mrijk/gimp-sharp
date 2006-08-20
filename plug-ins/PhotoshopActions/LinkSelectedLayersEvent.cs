@@ -24,13 +24,9 @@ namespace Gimp.PhotoshopActions
 {
   public class LinkSelectedLayersEvent : ActionEvent
   {
-    public override bool IsExecutable
-    {
-      get {return false;}
-    }
-
     override public bool Execute()
     {
+      LinkedLayersSet.Link(SelectedLayers);
       return true;
     }
   }

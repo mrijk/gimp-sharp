@@ -20,6 +20,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 using Gtk;
 
@@ -42,7 +43,10 @@ namespace Gimp.PhotoshopActions
     static Drawable _activeDrawable;
     static Image _activeImage;
 
+    static LinkedLayersSet _linkedLayersSet = new LinkedLayersSet();
+
     // TODO: this should become a set
+    static List<Layer> _selectedLayers = new List<Layer>();
     static Layer _selectedLayer;
 
     public ActionEvent()
@@ -99,6 +103,16 @@ namespace Gimp.PhotoshopActions
 	  _selectedLayer = value;
 	  _activeImage.ActiveLayer = value;
 	}
+    }
+
+    public static List<Layer> SelectedLayers
+    {
+      get {return _selectedLayers;}
+    }
+
+    public static LinkedLayersSet LinkedLayersSet
+    {
+      get {return _linkedLayersSet;}
     }
 
     public virtual string EventForDisplay

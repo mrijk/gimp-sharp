@@ -47,7 +47,9 @@ MYSOURCES = 				\
 	CrystallizeEvent.cs		\
 	CurvesEvent.cs			\
 	CutEvent.cs			\
+	CutoutEvent.cs			\
 	CutToLayerEvent.cs		\
+	DarkStrokesEvent.cs		\
 	DebugOutput.cs			\
 	DeleteChannelEvent.cs		\
 	DeleteEvent.cs			\
@@ -142,6 +144,7 @@ MYSOURCES = 				\
 	PlayEvent.cs			\
 	PointillizeEvent.cs		\
 	PolarEvent.cs			\
+	PosterEdgesEvent.cs		\
 	PosterizationEvent.cs		\
 	PropertyType.cs			\
 	PurgeEvent.cs			\
@@ -203,6 +206,7 @@ MYSOURCES = 				\
 	TransformEvent.cs		\
 	TransformLayerEvent.cs		\
 	TransformSelectionEvent.cs	\
+	TrimEvent.cs			\
 	TypeParameter.cs		\
 	TwirlEvent.cs			\
 	UnimplementedEvent.cs		\

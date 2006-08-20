@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// WaterPaperEvent.cs
+// CutoutEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,14 +23,14 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class WaterPaperEvent : ActionEvent
+  public class CutoutEvent : ActionEvent
   {
-    [Parameter("FbrL")]
-    int _fiberLength;
-    [Parameter("Brgh")]
-    int _brightness;
-    [Parameter("Cntr")]
-    int _center;
+    [Parameter("NmbL")]
+    int _numberOfLevels;
+    [Parameter("EdgS")]
+    int _edgeSimplicity;
+    [Parameter("EdgF")]
+    int _edgeFidelity;
 
     public override bool IsExecutable
     {
@@ -39,9 +39,9 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
-      yield return "Fiber length: " + _fiberLength;
-      yield return "Brightness: " + _brightness;
-      yield return "Center: " + _center;
+      yield return "Number Of Levels: " + _numberOfLevels;
+      yield return "Edge Simplicity: " + _edgeSimplicity;
+      yield return "Edge Fidelity: " + _edgeFidelity;
     }
 
     override public bool Execute()

@@ -36,11 +36,6 @@ namespace Gimp.PhotoshopActions
     [Parameter("Clr")]
     ObjcParameter _color;
 
-    public override bool IsExecutable
-    {
-      get {return false;}
-    }
-
     protected override IEnumerable ListParameters()
     {
       yield return "Width: " + _width;
@@ -56,13 +51,12 @@ namespace Gimp.PhotoshopActions
       if (_color != null)
 	{
 	  RGB foreground = _color.GetColor();
-#if true
+
 	  if (foreground != null)
 	    {
 	      Console.WriteLine("Ok2!");
 	      Context.Foreground = foreground;
 	    }
-#endif
 	}
       else
 	{

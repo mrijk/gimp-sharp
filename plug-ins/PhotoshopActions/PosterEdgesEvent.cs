@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// WaterPaperEvent.cs
+// PosterEdgesEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,14 +23,14 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class WaterPaperEvent : ActionEvent
+  public class PosterEdgesEvent : ActionEvent
   {
-    [Parameter("FbrL")]
-    int _fiberLength;
-    [Parameter("Brgh")]
-    int _brightness;
-    [Parameter("Cntr")]
-    int _center;
+    [Parameter("EdgT")]
+    int _edgeThickness;
+    [Parameter("EdgI")]
+    int _edgeIntensity;
+    [Parameter("Pstr")]
+    int _posterization;
 
     public override bool IsExecutable
     {
@@ -39,9 +39,9 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
-      yield return "Fiber length: " + _fiberLength;
-      yield return "Brightness: " + _brightness;
-      yield return "Center: " + _center;
+      yield return "Edge Thickness: " + _edgeThickness;
+      yield return "Edge Intensity: " + _edgeIntensity;
+      yield return "Posterization: " + _posterization;
     }
 
     override public bool Execute()

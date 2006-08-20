@@ -56,7 +56,7 @@ namespace Gimp.PhotoshopActions
       DoubleParameter height = Parameters["Hght"] as DoubleParameter;
       if (height != null)
 	{
-	  yield return "Hght: " + height.Value;
+	  yield return "Height: " + height.Value;
 	}
     }
   }

@@ -1,3 +1,21 @@
+2006-08-20  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/PhotoshopActions/CutoutEvent.cs
+	* plug-ins/PhotoshopActions/DarkStrokesEvent.cs
+	* plug-ins/PhotoshopActions/TrimEvent.cs
+	* plug-ins/PhotoshopActions/PosterEdgesEvent.cs: new files
+
+	* plug-ins/PhotoshopActions/EventMap.cs
+	* plug-ins/PhotoshopActions/Makefile.am: changed accordingly
+
+2006-08-18  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/PhotoshopActions/WaterPaperEvent.cs: more verbosity
+
+	* plug-ins/PhotoshopActions/LinkSelectedLayersEvent.cs: implemented
+
+	* plug-ins/PhotoshopActions/Abbreviations.cs: more abbreviations
+
 2006-08-17  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/PhotoshopActions/LinkedLayers.cs
