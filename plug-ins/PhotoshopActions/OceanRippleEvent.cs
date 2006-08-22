@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// FadeEvent.cs
+// OceanRippleEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,44 +23,26 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class FadeEvent : ActionEvent
+  public class OceanRippleEvent : ActionEvent
   {
-    [Parameter("Opct")]
-    double _opacity;
-    [Parameter("Md")]
-    EnumParameter _mode;
+    [Parameter("RplS")]
+    int _rippleSize;
+    [Parameter("RplM")]
+    int _rippleMagnitude;
 
-    Layer _previousLayer;
+    public override bool IsExecutable
+    {
+      get {return false;}
+    }
 
     protected override IEnumerable ListParameters()
     {
-      yield return "Opacity: " + _opacity + "%";
-      yield return "Mode: " + Abbreviations.Get(_mode.Value);
-    }
-
-    public Layer PreviousLayer
-    {
-      set {_previousLayer = value;}
+      yield return "Ripple Size: " + _rippleSize;
+      yield return "Ripple Magnitude: " + _rippleMagnitude;
     }
 
     override public bool Execute()
     {
-      SelectedLayer.Opacity = _opacity;
-      LayerModeEffects mode = LayerModeEffects.Normal;
-
-      switch (_mode.Value)
-	{
-	case "Nrml":
-	  SelectedLayer.Mode = LayerModeEffects.Normal;
-	  break;
-	default:
-	  Console.WriteLine("FadeEvent: unknown mode: " + _mode.Value);
-	  break;
-	}
-
-      SelectedLayer = ActiveImage.MergeDown(SelectedLayer, 
-					    MergeType.ExpandAsNecessary);
-
       return true;
     }
   }

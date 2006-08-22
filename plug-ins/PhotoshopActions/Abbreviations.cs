@@ -45,6 +45,8 @@ namespace Gimp.PhotoshopActions
       _map["FrgC"] = "foreground color";
       _map["GlwE"] = "glowing edges";
       _map["GrnE"] = "grain enlarged";
+      _map["GrnH"] = "grain horizontal";
+      _map["GrnR"] = "grain regular";
       _map["Gsn"]  = "gaussian";
       _map["HrdL"] = "hard light";
       _map["Insd"] = "inside";

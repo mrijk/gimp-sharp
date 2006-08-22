@@ -1,6 +1,18 @@
 Release 0.11
 ------------
 - PhotoshopActions at 40 % (Maurits)
+
+0) Set selection to polygon
+1) Link current layer
+2) Duplicate layer "name"
+3) Transform current layer, offset only
+4) Polar Coordinates
+5) Play
+6) Contract
+7) Unlink current layer
+8)
+9)
+
 - Java support (Max)
 - Documentation (Max, Maurits)
 - Working version of Update Check plug-in (Maurits)

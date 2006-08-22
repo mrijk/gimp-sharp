@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// FadeEvent.cs
+// GroupEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,44 +23,32 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class FadeEvent : ActionEvent
+  public class GroupEvent : ActionEvent
   {
-    [Parameter("Opct")]
-    double _opacity;
-    [Parameter("Md")]
-    EnumParameter _mode;
+    /*
+    [Parameter("NmbL")]
+    int _numberOfLevels;
+    [Parameter("EdgS")]
+    int _edgeSimplicity;
+    [Parameter("EdgF")]
+    int _edgeFidelity;
+    */
+    public override bool IsExecutable
+    {
+      get {return false;}
+    }
 
-    Layer _previousLayer;
-
+    /*
     protected override IEnumerable ListParameters()
     {
-      yield return "Opacity: " + _opacity + "%";
-      yield return "Mode: " + Abbreviations.Get(_mode.Value);
+      yield return "Number Of Levels: " + _numberOfLevels;
+      yield return "Edge Simplicity: " + _edgeSimplicity;
+      yield return "Edge Fidelity: " + _edgeFidelity;
     }
-
-    public Layer PreviousLayer
-    {
-      set {_previousLayer = value;}
-    }
+    */
 
     override public bool Execute()
     {
-      SelectedLayer.Opacity = _opacity;
-      LayerModeEffects mode = LayerModeEffects.Normal;
-
-      switch (_mode.Value)
-	{
-	case "Nrml":
-	  SelectedLayer.Mode = LayerModeEffects.Normal;
-	  break;
-	default:
-	  Console.WriteLine("FadeEvent: unknown mode: " + _mode.Value);
-	  break;
-	}
-
-      SelectedLayer = ActiveImage.MergeDown(SelectedLayer, 
-					    MergeType.ExpandAsNecessary);
-
       return true;
     }
   }

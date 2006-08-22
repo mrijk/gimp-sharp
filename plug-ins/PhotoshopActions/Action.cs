@@ -123,10 +123,33 @@ namespace Gimp.PhotoshopActions
 
     public void Execute()
     {
-      foreach (ActionEvent actionEvent in _set)
+      for (int i = 0; i < _set.Count; i++)
 	{
+	  ActionEvent actionEvent = _set[i];
+
+	  // Check if we need to save the layer because of a following
+	  // Fade event.
+
+	  if (i < _set.Count - 1)
+	    {
+	      ActionEvent next = _set[i + 1];
+	      if (next is FadeEvent)
+		{
+		  if (ActionEvent.SelectedLayer != null)
+		    {
+		      Console.WriteLine("bpp: " + 
+					ActionEvent.SelectedLayer.Bpp);
+		    }
+		  Layer layer = new Layer(ActionEvent.SelectedLayer);
+		  ActionEvent.ActiveImage.AddLayer(layer, 0);
+		  ActionEvent.SelectedLayer = layer;
+		}
+	    }
+	  
 	  if (!actionEvent.Execute())
-	    break;
+	    {
+	      break;
+	    }
 	}
     }
 

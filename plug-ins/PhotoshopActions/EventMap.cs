@@ -91,6 +91,7 @@ namespace Gimp.PhotoshopActions
       _map["gradientClassEvent"] = _map["Grdn"] = "GradientClassEvent";
       _map["gradientMapEvent"] = "GradientMapEvent";
       _map["grain"] = "GrainEvent";
+      _map["groupEvent"] = "GroupEvent";
       _map["grow"] = "GrowEvent";
       _map["hide"] = "HideEvent";
       _map["highPass"] = _map["HghP"] = "HighPassEvent";
@@ -112,6 +113,7 @@ namespace Gimp.PhotoshopActions
       _map["mosaic"] = _map["Msc"] = "MosaicEvent";
       _map["move"] = "MoveEvent";
       _map["motionBlur"] = _map["MtnB"] = "MotionBlurEvent";
+      _map["oceanRipple"] = "OceanRippleEvent";
       _map["offset"] = "OffsetEvent";
       _map["open"] = "OpenEvent";
       _map["paintDaubs"] = "PaintDaubsEvent";
@@ -149,12 +151,14 @@ namespace Gimp.PhotoshopActions
       _map["subtractFrom"] = _map["Sbtr"] = "SubtractFromEvent";
       _map["sumie"] = "SumieEvent";
       _map["surfaceBlur"] = "SurfaceBlurEvent";
+      _map["stamp"] = "StampEvent";
       _map["stop"] = _map["Stop"] = "StopEvent";
       _map["stroke"] = _map["Strk"] = "StrokeEvent";
       _map["stainedGlass"] = _map["StnG"] = "StainedGlassEvent";
       _map["texturizer"] = "TexturizerEvent";
       _map["thresholdClassEvent"] = _map["Thrs"] = "ThresholdClassEvent";
       _map["tiles"] = "TilesEvent";
+      _map["tornEdges"] = "TornEdgesEvent";
       _map["transform"] = _map["Trnf"] = "TransformEvent";
       _map["trim"] = "TrimEvent";
       _map["twirl"] = "TwirlEvent";

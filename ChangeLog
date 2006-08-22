@@ -1,3 +1,20 @@
+2006-08-22  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/PhotoshopActions/GroupEvent.cs
+	* plug-ins/PhotoshopActions/StampEvent.cs
+	* plug-ins/PhotoshopActions/TornEdgesEvent.cs
+	* plug-ins/PhotoshopActions/OceanRippleEvent.cs: new files
+
+	* plug-ins/PhotoshopActions/EventMap.cs
+	* plug-ins/PhotoshopActions/Makefile.am: changed accordingly
+
+	* plug-ins/PhotoshopActions/Abbreviations.cs: more abbreviations
+
+2006-08-21  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/PhotoshopActions/Action.cs
+	* plug-ins/PhotoshopActions/FadeEvent.cs: implementation of Fade event
+
 2006-08-20  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/PhotoshopActions/CutoutEvent.cs

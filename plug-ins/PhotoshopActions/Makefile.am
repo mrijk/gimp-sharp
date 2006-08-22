@@ -89,6 +89,7 @@ MYSOURCES = 				\
 	GradientClassEvent.cs		\
 	GradientMapEvent.cs		\
 	GrainEvent.cs			\
+	GroupEvent.cs			\
 	GrowEvent.cs			\
 	HideChannelEvent.cs		\
 	HideEvent.cs			\
@@ -129,6 +130,7 @@ MYSOURCES = 				\
 	NewDocumentEvent.cs		\
 	ObArParameter.cs		\
 	ObjcParameter.cs		\
+	OceanRippleEvent.cs		\
 	OffsetEvent.cs			\
 	OpenEvent.cs			\
 	PaintDaubsEvent.cs		\
@@ -194,6 +196,7 @@ MYSOURCES = 				\
 	SpatterEvent.cs			\
 	SpherizeEvent.cs		\
 	StainedGlassEvent.cs		\
+	StampEvent.cs			\
 	StopEvent.cs			\
 	StrokeEvent.cs			\
 	SubtractFromEvent.cs		\
@@ -203,6 +206,7 @@ MYSOURCES = 				\
 	TexturizerEvent.cs		\
 	ThresholdClassEvent.cs		\
 	TilesEvent.cs			\
+	TornEdgesEvent.cs		\
 	TransformEvent.cs		\
 	TransformLayerEvent.cs		\
 	TransformSelectionEvent.cs	\
