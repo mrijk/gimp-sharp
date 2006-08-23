@@ -1,0 +1,65 @@
+# Hebrew translation of gimp-sharp.
+# Copyright (C) 2006 gimp-sharp'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the gimp-sharp package.
+# Oded Coster <ocoster@gmail.com>, 2006.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: gimp-sharp 0.10\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-08-10 19:56\n"
+"PO-Revision-Date: 2006-08-10 19:56\n"
+"Last-Translator: Oded Coster <ocoster@gmail.com>\n"
+"Language-Team: Hebrew <il@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: DifferenceClouds.cs:69
+msgid "turbulence"
+msgstr "מערבולת"
+
+#: DifferenceClouds.cs:70
+msgid "Turbulence of the cloud"
+msgstr "מערבולת עננים"
+
+#: DifferenceClouds.cs:73 DifferenceClouds.cs:74
+msgid "Creates difference clouds."
+msgstr "יוצר ענני שונות"
+
+#: DifferenceClouds.cs:78 DifferenceClouds.cs:141
+msgid "Difference Clouds..."
+msgstr "ענני שונות..."
+
+#: DifferenceClouds.cs:82
+msgid "<Image>"
+msgstr "<Image>"
+
+#: DifferenceClouds.cs:83
+msgid "Filters"
+msgstr "פילטרים"
+
+#: DifferenceClouds.cs:84
+msgid "Render"
+msgstr ""
+
+#: DifferenceClouds.cs:85
+msgid "Clouds"
+msgstr "עננים"
+
+#: DifferenceClouds.cs:97
+msgid "Difference Clouds 0.1"
+msgstr "ענני שונות 1.0"
+
+#: DifferenceClouds.cs:98 DifferenceClouds.cs:99
+msgid "Difference Clouds"
+msgstr "ענני שונות"
+
+#: DifferenceClouds.cs:111
+msgid "Seed:"
+msgstr "זרע"
+
+#: DifferenceClouds.cs:116
+msgid "_Turbulence"
+msgstr "מערבולת"
