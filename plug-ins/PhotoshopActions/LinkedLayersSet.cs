@@ -29,6 +29,12 @@ namespace Gimp.PhotoshopActions
 
     public void Link(List<Layer> layers)
     {
+      // Fix me: implement this!
+    }
+
+    public void Link(Layer src, Layer target)
+    {
+      // Fix me: implement this!
     }
   }
 }

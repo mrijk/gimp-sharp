@@ -28,11 +28,6 @@ namespace Gimp.PhotoshopActions
     [Parameter("T")]
     ListParameter _list;
 
-    public override bool IsExecutable
-    {
-      get {return false;}
-    }
-
     public override string EventForDisplay
     {
       get {return base.EventForDisplay + " current layer";}
@@ -52,7 +47,18 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
-      return false;
+      LayerList layers = ActiveImage.Layers;
+
+      foreach (ReferenceParameter parameter in _list)
+	{
+	  NameType name = parameter.Set[0] as NameType;
+	  if (name != null)
+	    {
+	      Layer layer = layers[name.Key];
+	      LinkedLayersSet.Link(SelectedLayer, layer);
+	    }
+	}
+      return true;
     }
   }
 }

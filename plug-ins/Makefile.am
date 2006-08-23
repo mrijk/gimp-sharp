@@ -7,6 +7,7 @@ endif
 if BUILD_INCOMPLETE
 Shatter = Shatter
 DifferenceClouds = DifferenceClouds
+PictureFrame = PictureFrame
 endif
 
 if BUILD_PDN
@@ -30,7 +31,7 @@ SUBDIRS = 			\
 	neo			\
 	$(Pdn)			\
 	PhotoshopActions	\
-	PictureFrame		\
+	$(PictureFrame)		\
 	PicturePackage 		\
 	Pointillize		\
 	Raindrops		\

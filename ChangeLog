@@ -1,3 +1,8 @@
+2006-08-23  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/PhotoshopActions/LinkedLayersSet.cs
+	* plug-ins/PhotoshopActions/LinkEvent.cs: implemented
+
 2006-08-22  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/PhotoshopActions/GroupEvent.cs
