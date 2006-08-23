@@ -30,6 +30,7 @@ SUBDIRS = 			\
 	neo			\
 	$(Pdn)			\
 	PhotoshopActions	\
+	PictureFrame		\
 	PicturePackage 		\
 	Pointillize		\
 	Raindrops		\
@@ -40,3 +41,5 @@ SUBDIRS = 			\
 	$(UnitTest) 		\
 	UpdateCheck		\
 	wbmp
+
+

@@ -104,28 +104,15 @@ if test "x$with_incomplete" == xyes; then
    incomplete=yes
 fi
 
-#
-# Check if we want to support Java language for plug-ins.
-#
-
-java=no
-AC_ARG_WITH(java,[  --with-java             support for the Java language (default-no)])
-if test "x$with_java" == xyes; then
-   java=yes
-fi
-
 
 AM_CONDITIONAL(BUILD_UNITTEST, test x$unittest = xyes)
 AM_CONDITIONAL(BUILD_PDN, test x$pdn = xyes)
 AM_CONDITIONAL(BUILD_INCOMPLETE, test x$incomplete = xyes)
 AM_CONDITIONAL(BUILD_ECW, test x$have_libecw = xyes)
-AM_CONDITIONAL(BUILD_JAVA, test x$java = xyes)
 
 dnl read Makefile.in and write Makefile
 AC_CONFIG_FILES([
 Makefile lib/Makefile 
-java/Makefile
-java/stubs/Makefile
 plug-ins/Makefile 
 plug-ins/AverageBlur/Makefile
 plug-ins/AverageBlur/po/Makefile
@@ -146,6 +133,7 @@ plug-ins/neo/Makefile
 plug-ins/neo/po/Makefile
 plug-ins/Pdn/Makefile 
 plug-ins/PhotoshopActions/Makefile 
+plug-ins/PictureFrame/Makefile 
 plug-ins/PicturePackage/Makefile 
 plug-ins/PicturePackage/po/Makefile 
 plug-ins/Pointillize/Makefile
@@ -172,9 +160,8 @@ dnl Print a summary of features enabled/disabled:
 AC_MSG_RESULT([
 Building GIMP-SHARP with prefix=$prefix
 GIMP-SHARP Features:
-  Unit Tests   : $unittest
-  Paint.NET    : $pdn
-  Incomplete   : $incomplete
-  ECW          : $have_libecw
-  Java support : $java
+  Unit Tests	: $unittest
+  Paint.NET	: $pdn
+  Incomplete	: $incomplete
+  ECW		: $have_libecw
 ]);
