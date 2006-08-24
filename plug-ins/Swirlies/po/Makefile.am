@@ -6,7 +6,7 @@ SHELL=/bin/sh
 
 PLUGIN = Swirlies
 
-LINGUAS = it en ru fr
+LINGUAS = it en ru fr he
 
 POFILES = $(shell for lang in $(LINGUAS); do printf "$$lang.po "; done)
 
