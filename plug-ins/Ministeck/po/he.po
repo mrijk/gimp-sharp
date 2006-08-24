@@ -1,0 +1,77 @@
+# Hebrew translation of ministek.
+# Copyright (C) 2006 THE gimp-sharp'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the gimp-sharp package.
+# Oded Coster <ocoster@gmail.com>, 2006.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: gimp-sharp 0.10\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-07-18 07:06+0200\n"
+"PO-Revision-Date: 2006-08-24 18:31\n"
+"Last-Translator: Oded Coster <ocoster@gmail.com>\n"
+"Language-Team: Hebrew <he@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: Ministeck.cs:57
+msgid "Use real life ratio for number of pieces if true"
+msgstr "השתמש ביחס מציאותי בשביל מספר החתיכות אם אמתי"
+
+#: Ministeck.cs:59
+msgid "Default size"
+msgstr "בררת מחדל לגודל"
+
+#: Ministeck.cs:61
+msgid "Color for the outline"
+msgstr "צבע המתאר"
+
+#: Ministeck.cs:64 Ministeck.cs:65
+msgid "Generates Ministeck"
+msgstr "מחולל מיניסטק"
+
+#: Ministeck.cs:69 Ministeck.cs:198
+msgid "Ministeck..."
+msgstr "מיניסטק..."
+
+#: Ministeck.cs:84
+msgid "Ministeck"
+msgstr "מיניסטק"
+
+#: Ministeck.cs:85 Ministeck.cs:86
+msgid "ministeck"
+msgstr "מיניסטק"
+
+#: Ministeck.cs:103
+msgid "_Size:"
+msgstr "גודל"
+
+#: Ministeck.cs:111
+msgid "_Limit Shapes"
+msgstr "הגבל צורות"
+
+#: Ministeck.cs:127
+msgid "C_olor:"
+msgstr "צבע"
+
+#: MinisteckPalette.cs:34
+msgid "first"
+msgstr "ראשון"
+
+#: MinisteckPalette.cs:60
+msgid "last"
+msgstr "אחרון"
+
+#: MinisteckPalette.cs:62
+msgid "black"
+msgstr "שחור"
+
+#: MinisteckPalette.cs:64
+msgid "dark blue"
+msgstr ""
+
+#: MinisteckPalette.cs:66 MinisteckPalette.cs:68
+msgid "light blue"
+msgstr "תכלת"
