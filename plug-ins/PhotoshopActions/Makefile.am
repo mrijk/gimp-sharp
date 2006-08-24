@@ -37,6 +37,7 @@ MYSOURCES = 				\
 	CloseEvent.cs			\
 	CloudsEvent.cs			\
 	ColorBalanceEvent.cs		\
+	ColorRangeEvent.cs		\
 	ContractEvent.cs		\
 	ConvertModeEvent.cs		\
 	CopyEvent.cs			\
@@ -60,6 +61,7 @@ MYSOURCES = 				\
 	DiffuseGlowEvent.cs		\
 	DoubleParameter.cs		\
 	DifferenceCloudsEvent.cs	\
+	DrawEvent.cs			\
 	DuplicateChannelEvent.cs	\
 	DuplicateEvent.cs		\
 	DuplicateDocumentEvent.cs	\
@@ -176,6 +178,7 @@ MYSOURCES = 				\
 	SelectNoneEvent.cs		\
 	SelectPolygonEvent.cs		\
 	SelectRectangleEvent.cs		\
+	SelectSnapshotEvent.cs		\
 	SetBackgroundColorEvent.cs	\
 	SetChannelPropertyEvent.cs	\
 	SetColorEvent.cs		\
@@ -213,6 +216,7 @@ MYSOURCES = 				\
 	TrimEvent.cs			\
 	TypeParameter.cs		\
 	TwirlEvent.cs			\
+	UngroupEvent.cs			\
 	UnimplementedEvent.cs		\
 	UnlinkEvent.cs			\
 	UnsharpMaskEvent.cs		\

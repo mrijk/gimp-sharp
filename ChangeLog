@@ -1,3 +1,23 @@
+2006-08-24  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/PhotoshopActions/SelectEvent.cs: select snapshot
+
+	* plug-ins/PhotoshopActions/ColorRangeEvent.cs
+	* plug-ins/PhotoshopActions/DrawEvent.cs
+	* plug-ins/PhotoshopActions/UngroupEvent.cs
+	* plug-ins/PhotoshopActions/SelectSnapshotEvent.cs: new files
+
+	* plug-ins/PhotoshopActions/EventMap.cs
+	* plug-ins/PhotoshopActions/Makefile.am: changed accordingly
+
+	* plug-ins/PhotoshopActions/LinkedLayersSet.cs
+	* plug-ins/PhotoshopActions/UnlinkEvent.cs: implemented
+
+	* plug-ins/PhotoshopActions/ShearEvent.cs
+	* plug-ins/PhotoshopActions/WaveEvent.cs: more verbosity
+
+	* plug-ins/PhotoshopActions/Abbreviations.cs: more abbreviations
+
 2006-08-23  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/PhotoshopActions/LinkedLayersSet.cs

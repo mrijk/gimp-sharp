@@ -51,7 +51,8 @@ namespace Gimp.PhotoshopActions
       _map["close"] = "CloseEvent";
       _map["clouds"] = _map["Clds"] = "CloudsEvent";
       _map["colorBalance"] = _map["ClrB"] = "ColorBalanceEvent";
-      _map["contract"] = "ContractEvent";
+      _map["colorRange"] = _map["ClrR"] = "ColorRangeEvent";
+      _map["contract"] = _map["Cntc"] = "ContractEvent";
       _map["convertMode"] = _map["CnvM"] = "ConvertModeEvent";
       _map["copyEvent"] = _map["copy"] = "CopyEvent";
       _map["copyMerged"] = "CopyMergedEvent";
@@ -69,6 +70,7 @@ namespace Gimp.PhotoshopActions
       _map["differenceClouds"] = _map["DfrC"] = "DifferenceCloudsEvent";
       _map["diffuseGlow"] = "DiffuseGlowEvent";
       _map["diffuse"] = "DiffuseEvent";
+      _map["draw"] = "DrawEvent";
       _map["duplicate"] = _map["Dplc"] = "DuplicateEvent";
       _map["dustAndScratches"] = "DustAndScratchesEvent";
       _map["emboss"] = _map["Embs"] = "EmbossEvent";
@@ -162,6 +164,7 @@ namespace Gimp.PhotoshopActions
       _map["transform"] = _map["Trnf"] = "TransformEvent";
       _map["trim"] = "TrimEvent";
       _map["twirl"] = "TwirlEvent";
+      _map["ungroup"] = "UngroupEvent";
       _map["unlink"] = "UnlinkEvent";
       _map["unsharpMask"] = _map["UnsM"] = "UnsharpMaskEvent";
       _map["waterPaper"] = "WaterPaperEvent";

@@ -57,6 +57,8 @@ namespace Gimp.PhotoshopActions
 
 	      switch (name.ClassID2)
 		{
+		case "Chnl":
+		  return new SelectChannelByNameEvent(this, name.Key);
 		case "Lyr":
 		  if (Parameters.Count > 2)
 		    {
@@ -64,8 +66,8 @@ namespace Gimp.PhotoshopActions
 		      Console.WriteLine("SelectEvent: multiple selection");
 		    }
 		  return new SelectLayerByNameEvent(this, name.Key);
-		case "Chnl":
-		  return new SelectChannelByNameEvent(this, name.Key);
+		case "SnpS":
+		  return new SelectSnapshotEvent(this, name.Key);
 		default:
 		  Console.WriteLine("SelectEvent: " + name.ClassID2);
 		  break;

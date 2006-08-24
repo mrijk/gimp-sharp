@@ -25,27 +25,10 @@ namespace Gimp.PhotoshopActions
 {
   public class GroupEvent : ActionEvent
   {
-    /*
-    [Parameter("NmbL")]
-    int _numberOfLevels;
-    [Parameter("EdgS")]
-    int _edgeSimplicity;
-    [Parameter("EdgF")]
-    int _edgeFidelity;
-    */
     public override bool IsExecutable
     {
       get {return false;}
     }
-
-    /*
-    protected override IEnumerable ListParameters()
-    {
-      yield return "Number Of Levels: " + _numberOfLevels;
-      yield return "Edge Simplicity: " + _edgeSimplicity;
-      yield return "Edge Fidelity: " + _edgeFidelity;
-    }
-    */
 
     override public bool Execute()
     {

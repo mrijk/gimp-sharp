@@ -36,5 +36,10 @@ namespace Gimp.PhotoshopActions
     {
       // Fix me: implement this!
     }
+
+    public void Unlink(Layer src, Layer target)
+    {
+      // Fix me: implement this!
+    }
   }
 }

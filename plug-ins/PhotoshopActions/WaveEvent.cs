@@ -25,9 +25,45 @@ namespace Gimp.PhotoshopActions
 {
   public class WaveEvent : ActionEvent
   {
+    [Parameter("Wvtp")]
+    EnumParameter _waveType;
+    [Parameter("NmbG")]
+    int _numberOfGenerators;
+    [Parameter("WLMn")]
+    int _wavelengthMin;
+    [Parameter("WLMx")]
+    int _wavelengthMax;
+    [Parameter("AmMn")]
+    int _amplitudeMin;
+    [Parameter("AmMx")]
+    int _amplitudeMax;
+    [Parameter("SclH")]
+    int _scaleHorizontal;
+    [Parameter("SclV")]
+    int _scaleVertical;
+    [Parameter("UndA")]
+    EnumParameter _undefinedArea;
+    [Parameter("RndS")]
+    int _randomSeed;
+
     public override bool IsExecutable
     {
       get {return false;}
+    }
+
+    protected override IEnumerable ListParameters()
+    {
+      yield return "Wave Type: " + Abbreviations.Get(_waveType.Value);
+      yield return "Number of Generators: " + _numberOfGenerators;
+      yield return "Wave length min: " + _wavelengthMin;
+      yield return "Wave length max: " + _wavelengthMax;
+      yield return "Amplitude min: " + _amplitudeMin;
+      yield return "Amplitude min: " + _amplitudeMax;
+      yield return "Scale horizontal: " + _scaleHorizontal;
+      yield return "Scale vertical: " + _scaleVertical;
+      yield return "Undefined Area: " + 
+	Abbreviations.Get(_undefinedArea.Value);
+      yield return "Random Seed: " + _randomSeed;
     }
 
     override public bool Execute()

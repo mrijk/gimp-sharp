@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// ShearEvent.cs
+// SelectSnapshotEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,34 +23,29 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class ShearEvent : ActionEvent
+  public class SelectSnapshotEvent : SelectEvent
   {
-    [Parameter("ShrP")]
-    ListParameter _shearPoints;
-    [Parameter("UndA")]
-    EnumParameter _undefinedArea;
-    [Parameter("ShrS")]
-    int _shearStart;
-    [Parameter("ShrE")]
-    int _shearEnd;
+    string _name;
+
+    public SelectSnapshotEvent(SelectEvent srcEvent, string name) : 
+      base(srcEvent)
+    {
+      _name = name;
+    }
 
     public override bool IsExecutable
     {
       get {return false;}
     }
 
-    protected override IEnumerable ListParameters()
+    public override string EventForDisplay
     {
-      yield return "shearPoints: " + "Fix me!";
-      yield return "Undefined Area: " + 
-	Abbreviations.Get(_undefinedArea.Value);
-      yield return "Shear Start: " + _shearStart;
-      yield return "Shear End: " + _shearEnd;
+      get {return base.EventForDisplay + " snapshot \"" + _name + "\"";}
     }
-
+ 
     override public bool Execute()
     {
-      return false;
+      return true;
     }
   }
 }

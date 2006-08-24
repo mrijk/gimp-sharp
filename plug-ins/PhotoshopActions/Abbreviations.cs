@@ -41,6 +41,7 @@ namespace Gimp.PhotoshopActions
       _map["Clr"]  = "color";
       _map["Cntr"] = "center";
       _map["CrnH"] = "Current History State";
+      _map["Elps"] = "Ellipse";
       _map["FllD"] = "full document";
       _map["FrgC"] = "foreground color";
       _map["GlwE"] = "glowing edges";
@@ -50,8 +51,10 @@ namespace Gimp.PhotoshopActions
       _map["Gsn"]  = "gaussian";
       _map["HrdL"] = "hard light";
       _map["Insd"] = "inside";
+      _map["Lghn"] = "lighten";
       _map["Lmns"] = "luminosity";
       _map["LngL"] = "long lines";
+      _map["Lnr"]  = "linear";
       _map["LngS"] = "long strokes";
       _map["Mltp"] = "multiply";
       _map["Nrml"] = "normal";
@@ -66,11 +69,15 @@ namespace Gimp.PhotoshopActions
       _map["SBQH"] = "smart blur quality medium";
       _map["Scrn"] = "screen";
       _map["SftL"] = "soft light";
+      _map["Shdw"] = "shadow";
       _map["Sml"]  = "small";
       _map["Trns"] = "transparent";
       _map["Unfr"] = "uniform";
-      _map["Wht"] = "white";
+      _map["Wht"]  = "white";
       _map["Wrp"]  = "wrap";
+      _map["WrpA"] = "wrap around";
+      _map["WvSn"] = "wave sine";
+      _map["WvSq"] = "wave square";
     }
 
     public static string Get(string key)
