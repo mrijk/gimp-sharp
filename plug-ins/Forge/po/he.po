@@ -1,0 +1,149 @@
+# Hebrew translation of gimp-sharp 0.10
+# Copyright (C) 2006 The Gimp sharp'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the gimp-sharp package.
+# Oded Coster <ocoster@gmail.com>, 2006.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: gimp-sharp 0.10\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-07-16 08:42+0200\n"
+"PO-Revision-Date: 2006-08-24 16:15+00:00\n"
+"Last-Translator: Oded Coster <ocoster@gmail.com>\n"
+"Language-Team: Hebrew <he@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: Forge.cs:134
+msgid "Clouds (true), Planet or Stars (false)"
+msgstr "עננים (אמתי), פלנטה או כוכבים (שקרי)"
+
+#: Forge.cs:136
+msgid "Stars (true), Planet or Clouds (false)"
+msgstr "כוכבים (אמתי), פלנטה או עננים (שקרי)"
+
+#: Forge.cs:138
+msgid "Fractal dimension factor"
+msgstr "גורם מימד פרקטלי"
+
+#: Forge.cs:140
+msgid "Power factor"
+msgstr "גורם עוצמה"
+
+#: Forge.cs:142
+msgid "Glaciers factor"
+msgstr "גורם קרחונים"
+
+#: Forge.cs:144
+msgid "Ice factor"
+msgstr "גורם קרח"
+
+#: Forge.cs:146
+msgid "Hour factor"
+msgstr "גורם שעה"
+
+#: Forge.cs:148
+msgid "Inclination factor"
+msgstr "גורם הטיה"
+
+#: Forge.cs:150
+msgid "Stars factor"
+msgstr "גורם כוכבים"
+
+#: Forge.cs:152
+msgid "Saturation factor"
+msgstr "גורם רוויה"
+
+#: Forge.cs:154
+msgid "Random generated seed"
+msgstr "זרע יצירה אקראית"
+
+#: Forge.cs:157 Forge.cs:158
+msgid "Creates an artificial world."
+msgstr "יוצר עולם מלאכותי"
+
+#: Forge.cs:162 Forge.cs:493
+msgid "Forge..."
+msgstr "מפחה..."
+
+#: Forge.cs:165
+msgid "<Image>"
+msgstr "<תמונה>"
+
+#: Forge.cs:166
+msgid "Filters"
+msgstr "פילטרים"
+
+#: Forge.cs:167
+msgid "Render"
+msgstr "צלם"
+
+#: Forge.cs:179
+msgid "Forge 0.1"
+msgstr "מפחה 0.1"
+
+#: Forge.cs:180 Forge.cs:181
+msgid "Forge"
+msgstr "מפחה"
+
+#: Forge.cs:194
+msgid "Type"
+msgstr "סוג"
+
+#: Forge.cs:201
+msgid "Planet"
+msgstr "פלנטה"
+
+#: Forge.cs:204
+msgid "Clouds"
+msgstr "עננים"
+
+#: Forge.cs:207
+msgid "Night"
+msgstr "לילה"
+
+#: Forge.cs:210
+msgid "Dimension (0.0 - 3.0):"
+msgstr "מימד (0.0 - 3.0)"
+
+#: Forge.cs:214
+msgid "Power:"
+msgstr "עצמה:"
+
+#: Forge.cs:219
+msgid "Glaciers:"
+msgstr "קרחונים:"
+
+#: Forge.cs:224
+msgid "Ice:"
+msgstr "קרח:"
+
+#: Forge.cs:229
+msgid "Hour (0 - 24):"
+msgstr "שעה (0 - 24(:"
+
+#: Forge.cs:234
+msgid "Inclination (-90 - 90):"
+msgstr "הטיה )-90 - 90(:"
+
+#: Forge.cs:239
+msgid "Stars (0 - 100):"
+msgstr "כוכבים (0 - 100):"
+
+#: Forge.cs:243
+msgid "Saturation:"
+msgstr "רוויה:"
+
+#: Forge.cs:248
+msgid "Seed:"
+msgstr "זרע:"
+
+#: Forge.cs:499
+msgid "This filter can be applied just over layers"
+msgstr "ניתן ליישם פילטר זה רק על שכבות"
+
+#: Forge.cs:505
+msgid "This filter can be applied just if height <= width"
+msgstr "ניתן ליישם פילטר זה רק אם הגובה קטן או שווה לרוחב"
