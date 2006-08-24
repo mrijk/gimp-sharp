@@ -1,0 +1,33 @@
+# Hebrew translation of pointilize.
+# Copyright (C) 2006 THE gimp-sharp'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the gimp-sharp package.
+# Oded Coster <ocoster@gmail.com>, 2006.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: gimp-sharp 0.10\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-07-19 07:03+0200\n"
+"PO-Revision-Date: 2006-08-24 19:11\n"
+"Last-Translator: Oded Coster <ocoster@gmail.com>\n"
+"Language-Team: Hebrew <he@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: Pointillize.cs:56 Pointillize.cs:57
+msgid "Create pointillist paintings"
+msgstr "צור ציורים פוינטיליסטים"
+
+#: Pointillize.cs:61
+msgid "Pointillize..."
+msgstr "פוינטיליסטי..."
+
+#: Pointillize.cs:74 Pointillize.cs:75 Pointillize.cs:76 Pointillize.cs:126
+msgid "Pointillize"
+msgstr "פוינטיליסטי"
+
+#: Pointillize.cs:81
+msgid "Cell _Size:"
+msgstr "גודל תא:"
