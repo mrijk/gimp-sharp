@@ -1,0 +1,193 @@
+# Hebrew translation of PicturePackage.
+# Copyright (C) 2006 THE gimp-sharp'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the gimp-sharp package.
+# Oded Coster <ocoster@gmail.com>, 2006.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: gimp-sharp 0.10\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-07-19 07:47+0200\n"
+"PO-Revision-Date: 2006-08-24 18:41\n"
+"Last-Translator: Oded Coster <ocoster@gmail.com>\n"
+"Language-Team: Hebrew <he@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: DocumentFrame.cs:41
+msgid "Document"
+msgstr "מסמך"
+
+#: DocumentFrame.cs:51
+msgid "_Page Size:"
+msgstr "גודל עמוד:"
+
+#: DocumentFrame.cs:57
+msgid "_Layout:"
+msgstr "כיוון"
+
+#: DocumentFrame.cs:61
+msgid "_Resolution:"
+msgstr "הפרדה"
+
+#: DocumentFrame.cs:70
+msgid "Grayscale"
+msgstr "גווני אפור"
+
+#: DocumentFrame.cs:71
+msgid "RGB Color"
+msgstr "צבעי RGB"
+
+#: DocumentFrame.cs:74
+msgid "_Mode:"
+msgstr "מצב"
+
+#: DocumentFrame.cs:78
+msgid "Flatten All Layers"
+msgstr "שטח את כל השכבות"
+
+#: LabelFrame.cs:38
+msgid "Label"
+msgstr "תג"
+
+#: LabelFrame.cs:42 LabelFrame.cs:92
+msgid "None"
+msgstr "כלום"
+
+#: LabelFrame.cs:43
+msgid "Custom Text"
+msgstr "טקסט מותאם אישית"
+
+#: LabelFrame.cs:43
+msgid "Filename"
+msgstr "שם קובץ"
+
+#: LabelFrame.cs:44
+msgid "Copyright"
+msgstr "זכויות יוצרים"
+
+#: LabelFrame.cs:44
+msgid "Caption"
+msgstr "כותרת"
+
+#: LabelFrame.cs:45
+msgid "Credits"
+msgstr "רשימת המזכים"
+
+#: LabelFrame.cs:45
+msgid "Title"
+msgstr "כותרת"
+
+#: LabelFrame.cs:51
+msgid "Content:"
+msgstr "תוכן:"
+
+#: LabelFrame.cs:59
+msgid "Custom Text:"
+msgstr "טקסט מותאת אישית:"
+
+#: LabelFrame.cs:64
+msgid "Font:"
+msgstr "גופן:"
+
+#: LabelFrame.cs:75
+msgid "Opacity:"
+msgstr "אטימות:"
+
+#: LabelFrame.cs:78
+msgid "Color:"
+msgstr "צבע:"
+
+#: LabelFrame.cs:82
+msgid "Centered"
+msgstr "ממורכז:"
+
+#: LabelFrame.cs:82
+msgid "Top Left"
+msgstr "מעלה שמאל"
+
+#: LabelFrame.cs:83
+msgid "Bottom Left"
+msgstr "מטה שמאל"
+
+#: LabelFrame.cs:83
+msgid "Top Right"
+msgstr "מעלה ימין"
+
+#: LabelFrame.cs:84
+msgid "Bottom Right"
+msgstr "מטה ימין"
+
+#: LabelFrame.cs:89
+msgid "Position:"
+msgstr "מיקום:"
+
+#: LabelFrame.cs:93
+msgid "45 Degrees Right"
+msgstr "45 מעלות ימינה"
+
+#: LabelFrame.cs:94
+msgid "90 Degrees Right"
+msgstr "90 מעלות ימינה"
+
+#: LabelFrame.cs:95
+msgid "45 Degrees Left"
+msgstr "45 מעלות שמאלה"
+
+#: LabelFrame.cs:96
+msgid "90 Degrees Left"
+msgstr "90 מעלות שמאלה"
+
+#: LabelFrame.cs:97
+msgid "Rotate:"
+msgstr "סיבוב:"
+
+#: LabelFrame.cs:117
+msgid "Select Font"
+msgstr "בחר גופן:"
+
+#: PicturePackage.cs:113 PicturePackage.cs:114
+msgid "Picture package"
+msgstr "אריזת תמונה"
+
+#: PicturePackage.cs:118
+msgid "Picture Package..."
+msgstr "אריזת תמונה..."
+
+#: PicturePackage.cs:136
+msgid "Picture Package 0.6.2"
+msgstr "אריזת תמונה 0.6.2"
+
+#: PicturePackage.cs:137 PicturePackage.cs:138
+msgid "PicturePackage"
+msgstr "אריזת תמונה"
+
+#: PicturePackage.cs:167
+msgid "Right click to select picture"
+msgstr "הקלק ימין לבחירת תמונה"
+
+#: SourceFrame.cs:41
+msgid "Source"
+msgstr "מקור"
+
+#: SourceFrame.cs:47
+msgid "_Image"
+msgstr "תמונה"
+
+#: SourceFrame.cs:64
+msgid "_File"
+msgstr "קובץ"
+
+#: SourceFrame.cs:68
+msgid "Fol_der"
+msgstr "תיקיה"
+
+#: SourceFrame.cs:72
+msgid "_Include All Subfolders"
+msgstr "כלול את כל תת-התיקיות "
+
+#: SourceFrame.cs:91 SourceFrame.cs:97
+msgid "Open..."
+msgstr "פתח..."
