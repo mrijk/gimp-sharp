@@ -1,0 +1,213 @@
+# Hebrew translation of SliceTool
+# Copyright (C) 2006 THE gimp-sharp'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the gimp-sharp package.
+# Oded Coster <ocoster@gmail.com>, 2006.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: gimp-sharp 0.10\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-07-19 23:18+0200\n"
+"PO-Revision-Date: 2006-08-24 20:17\n"
+"Last-Translator: Oded Coster <ocoster@gmail.com>\n"
+"Language-Team: Hebrew <he@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: FileExistsDialog.cs:33
+msgid " already exists!\n"
+msgstr " כבר קיים!\n"
+
+#: FileExistsDialog.cs:34
+msgid "Do you want to overwrite this file?"
+msgstr "האם ברצונך לכתוב על קובץ זה?"
+
+#: Format.cs:32
+msgid "Format"
+msgstr "תסדיר"
+
+#: Format.cs:45
+msgid "Apply to whole image"
+msgstr "יישם על כל התמונה"
+
+#: PreferencesDialog.cs:30
+msgid "Slice Preferences"
+msgstr "העדפות חיתוך"
+
+#: PreferencesDialog.cs:31 PreferencesDialog.cs:32 RolloverDialog.cs:38
+#: RolloverDialog.cs:39 SliceTool.cs:95 SliceTool.cs:96 TableDialog.cs:32
+#: TableDialog.cs:33
+msgid "SliceTool"
+msgstr "כלי חיתוך"
+
+#: PreferencesDialog.cs:43
+msgid "Active tile border color:"
+msgstr "צבע מסגרת אריח פעיל:"
+
+#: PreferencesDialog.cs:49
+msgid "Inactive tile border color:"
+msgstr "צבע מסגרת אריח לא פעיל:"
+
+#: RolloverDialog.cs:37
+msgid "Rollover Creator"
+msgstr "מחולל מעברי-על"
+
+#: RolloverDialog.cs:47
+msgid "_Mouse over"
+msgstr ""
+
+#: RolloverDialog.cs:48
+msgid "Mo_use out"
+msgstr ""
+
+#: RolloverDialog.cs:49
+msgid "Mous_e click"
+msgstr ""
+
+#: RolloverDialog.cs:50
+msgid "Mouse dou_ble click"
+msgstr ""
+
+#: RolloverDialog.cs:51
+msgid "Mouse _up"
+msgstr ""
+
+#: RolloverDialog.cs:52
+msgid "Mouse _down"
+msgstr ""
+
+#: RolloverDialog.cs:54
+msgid ""
+"If a file is not given for the rollover, the original file will be used."
+msgstr "אם לא ניתן קובץ למעבר-על, יעשה שימוש בקובץ המקורי."
+
+#: RolloverEntry.cs:31
+msgid "Select Image"
+msgstr "בחר תמונה"
+
+#: SliceTool.cs:71 SliceTool.cs:94
+msgid "Slice Tool"
+msgstr "כלי חיתוך"
+
+#: SliceTool.cs:72
+msgid "The Image Slice Tool is used to apply image slicing and rollovers."
+msgstr "השימוש בכלי חיתוך התמונות הוא למטרות חיתוך תמונות ומעברי-על."
+
+#: SliceTool.cs:76
+msgid "Slice Tool..."
+msgstr "כלי חיתוך..."
+
+#: SliceTool.cs:143
+msgid "Save Settings..."
+msgstr "שמור תצורה..."
+
+#: SliceTool.cs:147
+msgid "Load Settings..."
+msgstr "טען תצורה..."
+
+#: SliceTool.cs:151
+msgid "Preferences"
+msgstr "העדפות"
+
+#: SliceTool.cs:170
+#, csharp-format
+msgid "Slice Tool 0.3 - {0}"
+msgstr "כלי חיתוך 0.3 - {0}"
+
+#: SliceTool.cs:200
+msgid "Can't save to "
+msgstr "לא יכול לשמור ל-"
+
+#: SliceTool.cs:213
+msgid "Some data has been changed!\n"
+msgstr "חלק מהמידע השתנה!\n"
+
+#: SliceTool.cs:214
+msgid "Do you really want to discard your changes?"
+msgstr "האם באמת ברצונך להשליך את שינוייך?"
+
+#: SliceTool.cs:225
+msgid "HTML Save As"
+msgstr "שמור כ-HTML"
+
+#: SliceTool.cs:296
+msgid "Select Rectangle"
+msgstr "בחר מרובע"
+
+#: SliceTool.cs:301
+msgid "Create a new Slice"
+msgstr "צור חיתוך חדשה"
+
+#: SliceTool.cs:307
+msgid "Remove Slice"
+msgstr "הסר חיתוך"
+
+#: SliceTool.cs:312 TableDialog.cs:31
+msgid "Insert Table"
+msgstr "הכנס טבלה"
+
+#: SliceTool.cs:321
+msgid "Cell Properties"
+msgstr "העדפות תא"
+
+#: SliceTool.cs:329
+msgid "URL:"
+msgstr ""
+
+#: SliceTool.cs:332
+msgid "Alt text:"
+msgstr ""
+
+#: SliceTool.cs:335
+msgid "Target:"
+msgstr ""
+
+#: SliceTool.cs:338
+msgid "Left:"
+msgstr "שמאל:"
+
+#: SliceTool.cs:341
+msgid "Right:"
+msgstr "ימין:"
+
+#: SliceTool.cs:344
+msgid "Top:"
+msgstr "מעלה:"
+
+#: SliceTool.cs:347
+msgid "Bottom:"
+msgstr "מטה:"
+
+#: SliceTool.cs:349
+msgid "_Include cell in table"
+msgstr "כלול תא בטבלה"
+
+#: SliceTool.cs:358
+msgid "Rollovers"
+msgstr "מעברי-על"
+
+#: SliceTool.cs:363
+msgid "Rollover Creator..."
+msgstr "מחולל מעברי-על"
+
+#: SliceTool.cs:367
+msgid "Rollover enabled: no"
+msgstr "מעבר-על מאופשר: לא"
+
+#: SliceTool.cs:388
+msgid "Save Settings"
+msgstr "שמור העדפות"
+
+#: SliceTool.cs:399
+msgid "Load Settings"
+msgstr "טען העדפות"
+
+#: TableDialog.cs:41
+msgid "Co_lumns"
+msgstr "טורים"
+
+#: TableDialog.cs:45
+msgid "_Rows"
+msgstr "שורות"
