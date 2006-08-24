@@ -1,0 +1,45 @@
+# Hebrew translation of wbmp.
+# Copyright (C) 2006 THE gimp-sharp'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the gimp-sharp package.
+# Oded Coster <ocoster@gmail.com>, 2006.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: gimp-sharp 0.10\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-07-18 22:30+0200\n"
+"PO-Revision-Date: 2006-08-24 22:42\n"
+"Last-Translator: Oded Coster <ocoster@gmail.com>\n"
+"Language-Team: Hebrew <he@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: wbmp.cs:45
+msgid "Loads wbmp images"
+msgstr "טוען תמונות wbmp"
+
+#: wbmp.cs:46
+msgid "This plug-in loads wbmp images."
+msgstr "תוסף זה טוען תמונות wbmp."
+
+#: wbmp.cs:50 wbmp.cs:58
+msgid "wbmp Image"
+msgstr "תמונת wbmp"
+
+#: wbmp.cs:53
+msgid "Saves wbmp images"
+msgstr "שומר תמונות wbmp"
+
+#: wbmp.cs:54
+msgid "This plug-in saves wbmp images."
+msgstr "תוסף זה שומר תמונות wbmp."
+
+#: wbmp.cs:93
+msgid "Loading "
+msgstr "טוען "
+
+#: wbmp.cs:171
+msgid "Saving "
+msgstr "שומר "
