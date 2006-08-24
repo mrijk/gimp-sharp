@@ -1,0 +1,81 @@
+# Hebrew translation of RainDrops.
+# Copyright (C) 2006 THE gimp-sharp'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the gimp-sharp package.
+# Oded Coster <ocoster@gmail.com>, 2006.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: gimp-sharp 0.10\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-07-14 20:28+0200\n"
+"PO-Revision-Date: 2006-08-24 19:16\n"
+"Last-Translator: Oded Coster <ocoster@gmail.com>\n"
+"Language-Team: Hebrew <he@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: Raindrops.cs:50 Raindrops.cs:73 Raindrops.cs:74
+msgid "Generates raindrops"
+msgstr "חולל טיפות גשם"
+
+#: Raindrops.cs:66
+msgid "Size of raindrops"
+msgstr "גודל הטיפות"
+
+#: Raindrops.cs:68
+msgid "Number of raindrops"
+msgstr "מספר הטיפות"
+
+#: Raindrops.cs:70
+msgid "Fisheye effect"
+msgstr "עין דג"
+
+#: Raindrops.cs:78 Raindrops.cs:226
+msgid "Raindrops..."
+msgstr "טיפות גשם..."
+
+#: Raindrops.cs:81
+msgid "<Image>/"
+msgstr "<תמונה>"
+
+#: Raindrops.cs:82
+msgid "Filters"
+msgstr "פילטרים"
+
+#: Raindrops.cs:82 Raindrops.cs:83
+msgid "/"
+msgstr "/"
+
+#: Raindrops.cs:83
+msgid "Light and Shadow"
+msgstr "אור וצל"
+
+#: Raindrops.cs:84
+msgid "Glass"
+msgstr "זכוכית"
+
+#: Raindrops.cs:96
+msgid "Raindrops 0.1"
+msgstr "טיפות גשם 0.1"
+
+#: Raindrops.cs:97
+msgid "Raindrops"
+msgstr "טיפות גשם"
+
+#: Raindrops.cs:114
+msgid "_Drop size:"
+msgstr "גודל טיפה:"
+
+#: Raindrops.cs:124
+msgid "_Number:"
+msgstr "מספר:"
+
+#: Raindrops.cs:134
+msgid "_Fish eye:"
+msgstr "עין דג:"
+
+#: Raindrops.cs:189
+msgid "This filter can be applied just over layers"
+msgstr "פילטר זה יכול להיות מייושם רק על שכבות"
