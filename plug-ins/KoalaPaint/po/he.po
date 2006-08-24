@@ -1,0 +1,29 @@
+# Hebrew translation of KoalaPaint
+# Copyright (C) 2006 THE gimp-sharp'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the gimp-sharp package.
+# Oded Coster <ocoster@gmail.com>, 2006.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: gimp-sharp 0.10\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-07-16 10:02+0200\n"
+"PO-Revision-Date: 2006-08-24 16:40\n"
+"Last-Translator: Oded Coster <ocoster@gmail.com>\n"
+"Language-Team: Hebrew <heli.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: KoalaPaint.cs:72
+msgid "loads images of the Koala Paint file format"
+msgstr "טוען תמונות מקבצי קואלה פיינט (Koala Paint("
+
+#: KoalaPaint.cs:73
+msgid "This plug-in loads images of the Koala Paint file format."
+msgstr "הפלאג-אין הזה טוען תמונות מקבצי קואלה פיינט (Koala Paint("
+
+#: KoalaPaint.cs:77
+msgid "KoalaPaint Image"
+msgstr "תמונת קואלה פיינט (Koala Paint("
