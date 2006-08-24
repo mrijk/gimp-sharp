@@ -1,0 +1,29 @@
+# Hebrew translation of neo.
+# Copyright (C) 2006 THE gimp-sharp'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the gimp-sharp package.
+# Oded Coster <ocoster@gmail.com>, 2006.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: gimp-sharp 0.10\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-07-18 22:30+0200\n"
+"PO-Revision-Date: 2006-08-24 22:40\n"
+"Last-Translator: Oded Coster <ocoster@gmail.com>\n"
+"Language-Team: Hebrew <he@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: neo.cs:47
+msgid "Loads neo images"
+msgstr "טוען תמונות נאו"
+
+#: neo.cs:48
+msgid "This plug-in loads Neochrome images."
+msgstr "תוסף זה טוען תמונות נאו-כרומטיות."
+
+#: neo.cs:52
+msgid "Neochrome Image"
+msgstr "תמונה מאו-כרומטית"
