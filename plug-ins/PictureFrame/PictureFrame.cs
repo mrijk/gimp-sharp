@@ -98,14 +98,15 @@ namespace Gimp.PictureFrame
     
    	  try{
 
-	  	Image frame = Image.Load(RunMode.Noninteractive, pictureFrameImagePath, pictureFrameImagePath);
+		
+	  	Image frame = Image.Load(RunMode.Interactive, pictureFrameImagePath, pictureFrameImagePath);
 	    Layer new_layer = new Layer(frame.ActiveLayer, image);
 	    
         new_layer.Visible = true;
           
         image.UndoGroupStart();
 
-//        image.AddLayer(new_layer, -1); 
+        image.AddLayer(new_layer, -1); 
         image.ActiveLayer = new_layer;
 
         image.UndoGroupEnd();
