@@ -32,11 +32,6 @@ namespace Gimp.PhotoshopActions
       _name = name;
     }
 
-    public override bool IsExecutable
-    {
-      get {return false;}
-    }
-
     public override string EventForDisplay
     {
       get {return base.EventForDisplay + " layer \"" + _name + "\"";}
@@ -44,6 +39,8 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
+      Layer layer = ActiveImage.Layers[_name];
+      ActiveImage.AddLayer(new Layer(layer), 0);
       return true;
     }
   }

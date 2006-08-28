@@ -1,3 +1,15 @@
+2006-08-26  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/PhotoshopActions/DiffuseEvent.cs: more verbosity
+
+	* plug-ins/PhotoshopActions/Abbreviations.cs: more abbreviations
+
+2006-08-25  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/PhotoshopActions/DuplicateLayerByNameEvent.cs: implemented
+
+	* AUTHORS: added Oded Coster
+
 2006-08-24  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/PhotoshopActions/SelectEvent.cs: select snapshot

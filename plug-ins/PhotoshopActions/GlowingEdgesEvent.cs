@@ -43,7 +43,7 @@ namespace Gimp.PhotoshopActions
     {
       if (_gefk != null)
 	{
-	  yield return "GEfk: " + Abbreviations.Get(_gefk.Value);
+	  yield return "Effect: " + Abbreviations.Get(_gefk.Value);
 	}
       yield return "Edge width: " + _edgeWidth;
       yield return "Edge brightness: " + _edgeBrightness;

@@ -19,14 +19,23 @@
 //
 
 using System;
+using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
   public class DiffuseEvent : ActionEvent
   {
+    [Parameter("Md")]
+    EnumParameter _mode;
+
     public override bool IsExecutable
     {
       get {return false;}
+    }
+
+    protected override IEnumerable ListParameters()
+    {
+      yield return "Mode: " + Abbreviations.Get(_mode.Value);
     }
 
     override public bool Execute()

@@ -36,6 +36,7 @@ namespace Gimp.PhotoshopActions
       _map["BckC"] = "background color";
       _map["Bckg"] = "background";
       _map["Blck"] = "black";
+      _map["BrbW"] = "brush wide blurry";
       _map["BrSm"] = "brush simple";
       _map["CBrn"] = "color burn";
       _map["Clr"]  = "color";
