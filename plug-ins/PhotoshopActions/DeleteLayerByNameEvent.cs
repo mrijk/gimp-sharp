@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// LensFlareEvent.cs
+// DeleteLayerByNameEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,34 +18,26 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-using System.Collections;
-
 namespace Gimp.PhotoshopActions
 {
-  public class LensFlareEvent : ActionEvent
+  public class DeleteLayerByNameEvent : DeleteEvent
   {
-    [Parameter("Brgh")]
-    int _brightness;
-    [Parameter("FlrC")]
-    ObjcParameter _flareCenter;
-    [Parameter("Lns")]
-    EnumParameter _lens;
+    string _name;
 
-    public override bool IsExecutable
+    public DeleteLayerByNameEvent(ActionEvent srcEvent, string name) : base(srcEvent)
     {
-      get {return false;}
+      _name = name;
     }
 
-    protected override IEnumerable ListParameters()
+    public override string EventForDisplay
     {
-      yield return "Brightness: " + _brightness;
-      yield return "Flare Center: " + "fixme!";
-      yield return "Lens: " + Abbreviations.Get(_lens.Value);
+      get {return base.EventForDisplay + " layer \"" + _name + "\"";}
     }
 
     override public bool Execute()
     {
+      Layer layer = ActiveImage.Layers[_name];
+
       return true;
     }
   }

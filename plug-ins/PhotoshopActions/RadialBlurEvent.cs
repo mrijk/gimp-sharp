@@ -19,6 +19,7 @@
 //
 
 using System;
+using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
@@ -30,6 +31,13 @@ namespace Gimp.PhotoshopActions
     EnumParameter _blurMode;
     [Parameter("BlrQ")]
     EnumParameter _blurQuality;
+
+    protected override IEnumerable ListParameters()
+    {
+      yield return "Amount: " + _amount;
+      yield return "Blur Mode: " + Abbreviations.Get(_blurMode.Value);
+      yield return "Blur Quality: " + Abbreviations.Get(_blurQuality.Value);
+    }
 
     override public bool Execute()
     {

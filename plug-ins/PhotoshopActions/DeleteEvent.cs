@@ -27,9 +27,20 @@ namespace Gimp.PhotoshopActions
     [Parameter("null")]
     ReferenceParameter _obj;
 
+    readonly bool _executable;
+
+    public DeleteEvent()
+    {
+    }
+
+    public DeleteEvent(ActionEvent srcEvent) : base(srcEvent)
+    {
+      _executable = true;
+    }
+
     public override bool IsExecutable
     {
-      get {return !HasDescriptor;}
+      get {return _executable || !HasDescriptor;}
     }
 
     override public ActionEvent Parse(ActionParser parser)
@@ -65,6 +76,19 @@ namespace Gimp.PhotoshopActions
 		  return new DeleteLayerEvent(this);
 		default:
 		  Console.WriteLine("DeleteEvent-2: {0} unknown", 
+				    type.ClassID2);
+		  break;
+		}
+	    }
+	  else if (_obj.Set[0] is PropertyType)
+	    {
+	      PropertyType type = _obj.Set[0] as PropertyType;
+	      switch (type.ClassID2)
+		{
+		case "Lyr":
+		  return new DeleteLayerByNameEvent(this, type.Key);
+		default:
+		  Console.WriteLine("DeleteEvent-3: {0} unknown", 
 				    type.ClassID2);
 		  break;
 		}

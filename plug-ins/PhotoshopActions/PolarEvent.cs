@@ -19,18 +19,26 @@
 //
 
 using System;
+using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
   public class PolarEvent : ActionEvent
   {
-    public override bool IsExecutable
+    [Parameter("Cnvr")]
+    EnumParameter _convert;
+
+    protected override IEnumerable ListParameters()
     {
-      get {return false;}
+      yield return "Convert: " + Abbreviations.Get(_convert.Value);
     }
 
     override public bool Execute()
     {
+      bool polrec = (_convert.Value == "RctP");
+
+      RunProcedure("plug_in_polar_coords", 100, 0, false, true, polrec);
+
       return true;
     }
   }

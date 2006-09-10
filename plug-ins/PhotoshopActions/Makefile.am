@@ -55,6 +55,7 @@ MYSOURCES = 				\
 	DeleteChannelEvent.cs		\
 	DeleteEvent.cs			\
 	DeleteGuideEvent.cs		\
+	DeleteLayerByNameEvent.cs	\
 	DeleteLayerEvent.cs		\
 	DesaturateEvent.cs		\
 	DiffuseEvent.cs			\

@@ -63,6 +63,8 @@ namespace Gimp.PhotoshopActions
       _map["Ovrl"] = "overlay";
       _map["PntD"] = "paint daubs";
       _map["Prvs"] = "previous";
+      _map["RctP"] = "rectangular to polar";
+      _map["RptE"] = "repeat edge pixels";
       _map["Rtcl"] = "reticulation";
       _map["SBMN"] = "smart blur mode normal";
       _map["SBQH"] = "smart blur quality high";
@@ -79,6 +81,7 @@ namespace Gimp.PhotoshopActions
       _map["WrpA"] = "wrap around";
       _map["WvSn"] = "wave sine";
       _map["WvSq"] = "wave square";
+      _map["Zm"]   = "zoom";
     }
 
     public static string Get(string key)
