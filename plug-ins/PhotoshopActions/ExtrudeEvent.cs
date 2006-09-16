@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// PhotocopyEvent.cs
+// ExtrudeEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,19 +18,24 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
 using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class PhotocopyEvent : ActionEvent
+  public class ExtrudeEvent : ActionEvent
   {
-    [Parameter("GEfk")]
-    EnumParameter _gefk;
-    [Parameter("Dtl")]
-    int _detail;
-    [Parameter("Drkn")]
-    int _darken;
+    [Parameter("ExtS")]
+    int _extrudeSize;
+    [Parameter("ExtD")]
+    int _extrudeDepth;
+    [Parameter("ExtF")]
+    bool _extrudeSolidFace;
+    [Parameter("ExtM")]
+    bool _extrudeMaskIncomplete;
+    [Parameter("ExtT")]
+    EnumParameter _extrudeType;
+    [Parameter("ExtR")]
+    EnumParameter _extrudeRandom;
 
     public override bool IsExecutable
     {
@@ -39,18 +44,17 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
-      yield return "Effect: " + _gefk.Value;
-      yield return "Detail: " + _detail;
-      yield return "Darken: " + _darken;
+      yield return "Extrude Size: " + _extrudeSize;
+      yield return "Extrude Depth: " + _extrudeDepth;
+      yield return "Extrude Solid Face: " + _extrudeSolidFace;
+      yield return "Extrude Mask Incomplete: " + _extrudeMaskIncomplete;
+      yield return "Extrude Type: " + Abbreviations.Get(_extrudeType.Value);
+      yield return "Extrude Random: " + 
+	Abbreviations.Get(_extrudeRandom.Value);
     }
 
     override public bool Execute()
     {
-      if (ActiveImage == null)
-	{
-	  Console.WriteLine("Please open image first");
-	  return false;
-	}
       return true;
     }
   }

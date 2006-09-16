@@ -67,9 +67,11 @@ namespace Gimp.PhotoshopActions
       _map["darkStrokes"] = "DarkStrokesEvent";
       _map["delete"] = _map["Dlt"] = "DeleteEvent";
       _map["desaturate"] = _map["Dstt"] = "DesaturateEvent";
+      _map["despeckle"] = "DespeckleEvent";
       _map["differenceClouds"] = _map["DfrC"] = "DifferenceCloudsEvent";
       _map["diffuseGlow"] = "DiffuseGlowEvent";
       _map["diffuse"] = "DiffuseEvent";
+      _map["displace"] = "DisplaceEvent";
       _map["draw"] = "DrawEvent";
       _map["duplicate"] = _map["Dplc"] = "DuplicateEvent";
       _map["dustAndScratches"] = "DustAndScratchesEvent";
@@ -77,6 +79,7 @@ namespace Gimp.PhotoshopActions
       _map["equalize"] = "EqualizeEvent";
       _map["exchange"] = _map["Exch"] = "ExchangeEvent";
       _map["expand"] = _map["Expn"] = "ExpandEvent";
+      _map["extrude"] = "ExtrudeEvent";
       _map["facet"] = "FacetEvent";
       _map["fade"] = _map["Fade"] = "FadeEvent";
       _map["feather"] = _map["Fthr"] = "FeatherEvent";
@@ -121,6 +124,7 @@ namespace Gimp.PhotoshopActions
       _map["paintDaubs"] = "PaintDaubsEvent";
       _map["paste"] = _map["past"] = "PasteEvent";
       _map["photocopy"] = "PhotocopyEvent";
+      _map["pinch"] = "PinchEvent";
       _map["plaster"] = "PlasterEvent";
       _map["PlsW"] = "PlasticWrapEvent";
       _map["play"] = "PlayEvent";
@@ -150,6 +154,7 @@ namespace Gimp.PhotoshopActions
       _map["solarize"] = "SolarizeEvent";
       _map["spatter"] = "SpatterEvent";
       _map["spherize"] = _map["Sphr"] = "SpherizeEvent";
+      _map["subtract"] = "SubtractEvent";
       _map["subtractFrom"] = _map["Sbtr"] = "SubtractFromEvent";
       _map["sumie"] = "SumieEvent";
       _map["surfaceBlur"] = "SurfaceBlurEvent";

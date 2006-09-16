@@ -168,7 +168,7 @@ namespace Gimp.PhotoshopActions
 
       int nrScripts = 0;
 
-      DebugOutput.Quiet = true;
+      DebugOutput.Quiet = false;
 
       foreach (string fileName in Directory.GetFiles(scriptDir))
 	{

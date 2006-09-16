@@ -1,3 +1,33 @@
+2006-09-14  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/PhotoshopActions/PhotocopyEvent.cs: more verbosity
+
+	* plug-ins/PhotoshopActions/DespeckleEvent.cs
+	* plug-ins/PhotoshopActions/DisplaceEvent.cs
+	* plug-ins/PhotoshopActions/ExtrudeEvent.cs
+	* plug-ins/PhotoshopActions/SubtractEvent.cs
+	* plug-ins/PhotoshopActions/PinchEvent.cs: new files
+
+	* plug-ins/PhotoshopActions/EventMap.cs
+	* plug-ins/PhotoshopActions/Makefile.am: changed accordingly
+
+2006-09-10  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/PhotoshopActions/DeleteLayerByNameEvent.cs: new file
+
+	* plug-ins/PhotoshopActions/Makefile.am: changed accordingly
+
+	* plug-ins/PhotoshopActions/PolarEvent.cs: more verbosity and
+	implemented
+
+	* plug-ins/PhotoshopActions/LensFlareEvent.cs: : more verbosity
+
+2006-09-09  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/PhotoshopActions/RadialBlurEvent.cs: more verbosity
+
+	* plug-ins/PhotoshopActions/Abbreviations.cs: more abbreviations
+
 2006-08-26  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/PhotoshopActions/DiffuseEvent.cs: more verbosity

@@ -58,8 +58,10 @@ MYSOURCES = 				\
 	DeleteLayerByNameEvent.cs	\
 	DeleteLayerEvent.cs		\
 	DesaturateEvent.cs		\
+	DespeckleEvent.cs		\
 	DiffuseEvent.cs			\
 	DiffuseGlowEvent.cs		\
+	DisplaceEvent.cs		\
 	DoubleParameter.cs		\
 	DifferenceCloudsEvent.cs	\
 	DrawEvent.cs			\
@@ -76,6 +78,7 @@ MYSOURCES = 				\
 	EventMap.cs			\
 	ExchangeEvent.cs		\
 	ExpandEvent.cs			\
+	ExtrudeEvent.cs			\
 	FacetEvent.cs			\
 	FeatherEvent.cs			\
 	FadeEvent.cs			\
@@ -144,6 +147,7 @@ MYSOURCES = 				\
 	PathParameter.cs		\
 	PhotocopyEvent.cs		\
 	PhotoshopActions.cs		\
+	PinchEvent.cs			\
 	PlasterEvent.cs			\
 	PlasticWrapEvent.cs		\
 	PlayEvent.cs			\
@@ -203,6 +207,7 @@ MYSOURCES = 				\
 	StampEvent.cs			\
 	StopEvent.cs			\
 	StrokeEvent.cs			\
+	SubtractEvent.cs		\
 	SubtractFromEvent.cs		\
 	SumieEvent.cs			\
 	SurfaceBlurEvent.cs		\

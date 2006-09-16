@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006 Maurits Rijk
 //
-// PhotocopyEvent.cs
+// DisplaceEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,19 +18,22 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
 using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class PhotocopyEvent : ActionEvent
+  public class DisplaceEvent : ActionEvent
   {
-    [Parameter("GEfk")]
-    EnumParameter _gefk;
-    [Parameter("Dtl")]
-    int _detail;
-    [Parameter("Drkn")]
-    int _darken;
+    [Parameter("HrzS")]
+    int _horizontalScale;
+    [Parameter("VrtS")]
+    int _verticalScale;
+    [Parameter("DspM")]
+    EnumParameter _displacementMap;
+    [Parameter("UndA")]
+    EnumParameter _undefinedArea;
+    [Parameter("DspF")]
+    string _displaceFile;
 
     public override bool IsExecutable
     {
@@ -39,18 +42,17 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
-      yield return "Effect: " + _gefk.Value;
-      yield return "Detail: " + _detail;
-      yield return "Darken: " + _darken;
+      yield return "Horizontal Scale: " + _horizontalScale;
+      yield return "Vertical Scale: " + _verticalScale;
+      yield return "Displacement Map: " + 
+	Abbreviations.Get(_displacementMap.Value);
+      yield return "Undefined Area: " + 
+	Abbreviations.Get(_undefinedArea.Value);
+      yield return "Displace File: " + _displaceFile;
     }
 
     override public bool Execute()
     {
-      if (ActiveImage == null)
-	{
-	  Console.WriteLine("Please open image first");
-	  return false;
-	}
       return true;
     }
   }
