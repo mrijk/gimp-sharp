@@ -1,3 +1,34 @@
+2006-09-21  Maurits  <m.rijk@chello.nl>
+
+	* lib/Makefile.am
+	* lib/FilePlugin.cs
+	* lib/Plugin.cs
+	* lib/PluginWithPreview.cs: move i18n to base classes
+
+	* plug-ins/AverageBlur/Makefile.am
+	* plug-ins/AverageBlur/AverageBlur.cs
+	* plug-ins/DifferenceClouds/Makefile.am
+	* plug-ins/ecw/ecw.cs
+	* plug-ins/Forge/Makefile.am
+	* plug-ins/Forge/Forge.cs
+	* plug-ins/Fragment/Makefile.am
+	* plug-ins/Fragment/Fragment.cs
+	* plug-ins/KoalaPaint/Makefile.am
+	* plug-ins/ncp/Makefile.am
+	* plug-ins/ncp/ncp.cs
+	* plug-ins/neo/Makefile.am
+	* plug-ins/neo/neo.cs
+	* plug-ins/wbmp/Makefile.am: 
+	* plug-ins/wbmp/wbmp.cs: changed accordingly
+
+2006-09-20  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/PictureFrame/PictureFrame.cs: minor layout clean-up
+
+2006-09-16  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/UnitTest/UnitTest.cs: minor layout clean-up
+
 2006-09-14  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/PhotoshopActions/PhotocopyEvent.cs: more verbosity

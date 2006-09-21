@@ -6,9 +6,9 @@ GIMPSHARPLIB = $(top_builddir)/lib/gimp-sharp.dll
 
 ASSEMBLIES = -r:$(GIMPSHARPLIB) /pkg:gtk-sharp-2.0 /pkg:mono-nunit
 
-MYSOURCES = 	EventCollector.cs	\
+MYSOURCES = 	EventCollector.cs		\
 		TestReportDialog.cs		\
-		UnitTest.cs		\
+		UnitTest.cs			\
 		UnitTester.cs
 
 TESTSOURCES = 	TestBrush.cs 			\
@@ -35,6 +35,7 @@ TESTSOURCES = 	TestBrush.cs 			\
 		TestPlugins.cs			\
 		TestProcedure.cs		\
 		TestRGB.cs			\
+		TestRegionIterator.cs		\
 		TestRgnIterator.cs		\
 		TestVersion.cs
 

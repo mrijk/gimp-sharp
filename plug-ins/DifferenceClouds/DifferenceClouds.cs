@@ -19,7 +19,6 @@
 //
 
 using System;
-using Mono.Unix;
 
 using Gtk;
 
@@ -51,14 +50,12 @@ namespace Gimp.DifferenceClouds
     delegate void GenericEventHandler(object o, EventArgs e);
 
     [STAThread]
-      static void Main(string[] args)
-      {
-        string localeDir = Gimp.LocaleDirectory;
-        Catalog.Init("DifferenceClouds", localeDir);
-        new DifferenceClouds(args);
-      }
+    static void Main(string[] args)
+    {
+      new DifferenceClouds(args);
+    }
 
-    public DifferenceClouds(string[] args) : base(args)
+    public DifferenceClouds(string[] args) : base(args, "DifferenceClouds")
     {
     }
 
@@ -68,17 +65,17 @@ namespace Gimp.DifferenceClouds
 
       ParamDefList in_params = new ParamDefList();
       in_params.Add(new ParamDef("turbulence", 0, typeof(double), 
-            Catalog.GetString("Turbulence of the cloud")));
+				 _("Turbulence of the cloud")));
 
       Procedure procedure = new Procedure("plug_in_difference_clouds",
-          Catalog.GetString("Creates difference clouds."),
-          Catalog.GetString("Creates difference clouds."),
-          "Massimo Perga",
-          "(C) Massimo Perga",
-          "2006",
-          Catalog.GetString("Difference Clouds..."),
-          "RGB*",
-          in_params);
+					  _("Creates difference clouds."),
+					  _("Creates difference clouds."),
+					  "Massimo Perga",
+					  "(C) Massimo Perga",
+					  "2006",
+					  _("Difference Clouds..."),
+					  "RGB*",
+					  in_params);
       procedure.MenuPath = "<Image>/Filters/Render/Clouds";
       procedure.IconFile = "DifferenceClouds.png";
 
@@ -91,9 +88,9 @@ namespace Gimp.DifferenceClouds
     {
       gimp_ui_init("Difference Clouds", true);
 
-      Dialog dialog = DialogNew(Catalog.GetString("Difference Clouds 0.1"),
-          Catalog.GetString("Difference Clouds"), IntPtr.Zero, 0,
-          Gimp.StandardHelpFunc, Catalog.GetString("Difference Clouds"));
+      Dialog dialog = DialogNew(_("Difference Clouds 0.1"),
+				_("Difference Clouds"), IntPtr.Zero, 0,
+				Gimp.StandardHelpFunc, _("Difference Clouds"));
 
       VBox vbox = new VBox(false, 12);
       vbox.BorderWidth = 12;
@@ -105,13 +102,13 @@ namespace Gimp.DifferenceClouds
       table.RowSpacing = 10;
       table.BorderWidth = 10;
 
-      CreateLabelInTable(table, 0, 0, Catalog.GetString("Seed:"));
+      CreateLabelInTable(table, 0, 0, _("Seed:"));
       RandomSeed seed = new RandomSeed(ref _rseed, ref _random_seed);
       table.Attach(seed, 1, 3, 0, 1);
 
-      _turbulenceEntry = new ScaleEntry(table, 0, 1, 
-          Catalog.GetString("_Turbulence"), 150, 3,
-          _turbulence, 0.0, 7.0, 0.1, 1.0, 1, true, 0, 0, null, null);
+      _turbulenceEntry = new ScaleEntry(table, 0, 1, _("_Turbulence"), 150, 3,
+					_turbulence, 0.0, 7.0, 0.1, 1.0, 1, 
+					true, 0, 0, null, null);
       _turbulenceEntry.ValueChanged += TurbulenceChangedEventHandler;
 
       vbox.PackStart(table, false, false, 0);
@@ -135,7 +132,7 @@ namespace Gimp.DifferenceClouds
       _foregroundColor = Context.Foreground;
       _backgroundColor = Context.Background;
       if(_progressBar == null)
-        _progressBar = new Progress(Catalog.GetString("Difference Clouds..."));
+        _progressBar = new Progress(_("Difference Clouds..."));
       if(_random == null)
         _random = new Random((int)_rseed);
 
@@ -211,16 +208,16 @@ namespace Gimp.DifferenceClouds
           false, false);
 
       for (IntPtr pr = PixelRgn.Register(srcPR, destPR); pr != IntPtr.Zero; 
-          pr = PixelRgn.Process(pr))
-      {
-        for (int y = srcPR.Y; y < srcPR.Y + srcPR.H; y++)
-        {
-          for (int x = srcPR.X; x < srcPR.X + srcPR.W; x++)
-          {
-              srcPR[y, x] = MakeAbsDiff(destPR[y, x], srcPR[y, x]);
-          }
-        }				
-      }
+	   pr = PixelRgn.Process(pr))
+	{
+	  for (int y = srcPR.Y; y < srcPR.Y + srcPR.H; y++)
+	    {
+	      for (int x = srcPR.X; x < srcPR.X + srcPR.W; x++)
+		{
+		  srcPR[y, x] = MakeAbsDiff(destPR[y, x], srcPR[y, x]);
+		}
+	    }				
+	}
       sourceDrawable.Flush();
       sourceDrawable.MergeShadow(false);
       sourceDrawable.Update(x1, y1, x2 - x1, y2 - y1);
@@ -230,16 +227,18 @@ namespace Gimp.DifferenceClouds
     {
       byte []retVal = new byte[src.Length];
       int tmpVal = 0;
-      for(int i = 0; i < src.Length; i++)
-          tmpVal += src[i];
+      for (int i = 0; i < src.Length; i++)
+	{
+	  tmpVal += src[i];
+	}
       tmpVal /= src.Length;
-      for(int i = 0; i < src.Length; i++)
+      for (int i = 0; i < src.Length; i++)
       {
         retVal[i] = (byte)Math.Abs(dest[i] - _indexedColorsMap[tmpVal,i]);
       }
 //      src = retVal;
         
-      if(_hasAlpha)
+      if (_hasAlpha)
         retVal[_bpp - 1] = 255;
       return retVal;
     }   
@@ -397,12 +396,11 @@ namespace Gimp.DifferenceClouds
     {
       byte []retVal = new byte[_bpp];
 
-      for(int i = 0; i < _bpp; i++)
+      for (int i = 0; i < _bpp; i++)
       {
         retVal[i] = _indexedColorsMap[r.Next(256), i];
       } 
       
-
       if(_hasAlpha)
         retVal[_alpha] = 255;
       return retVal;
@@ -410,31 +408,34 @@ namespace Gimp.DifferenceClouds
 
     void GetPixel(PixelFetcher pf, ref byte [] pixel, int x, int y)
     {
-      if(pf != null)
-      {
-        pf.GetPixel(x, y, pixel);
-      }
+      if (pf != null)
+	{
+	  pf.GetPixel(x, y, pixel);
+	}
       else
-      {
-      }
+	{
+	}
     }
 
-    void PutPixel(PixelFetcher pf, int x, int y, byte [] pixel, ref int progress)
+    void PutPixel(PixelFetcher pf, int x, int y, byte [] pixel, 
+		  ref int progress)
     {
-      if(pf != null)
-      {
-        pf.PutPixel(x, y, pixel);
-        progress++;
-      }
+      if (pf != null)
+	{
+	  pf.PutPixel(x, y, pixel);
+	  progress++;
+	}
       else
-      {
-      }
+	{
+	}
     }
 
     void AveragePixel(ref byte []dest, byte[] src1, byte[] src2)
     {
-      for(int i = 0; i < src1.Length; i++)
-        dest[i] = (byte)((int)(src1[i] + src2[i]) / 2);
+      for (int i = 0; i < src1.Length; i++)
+	{
+	  dest[i] = (byte)((int)(src1[i] + src2[i]) / 2);
+	}
     }
 
     void AddRandom (Random gr, byte []pixel, int amount)
@@ -443,34 +444,30 @@ namespace Gimp.DifferenceClouds
 
       if (amount > 0)
       {
-        int i, tmp;
-
-        for (i = 0; i < _alpha; i++)
+        for (int i = 0; i < _alpha; i++)
         {
-          tmp = pixel[i] + gr.Next(-amount, amount);
-
-          if(tmp < 0) pixel[i] = 0;
-          else if(tmp > 255) pixel[i] = 255;
-          else pixel[i] = (byte)tmp; 
+          int tmp = pixel[i] + gr.Next(-amount, amount);
+	  
+          if (tmp < 0) pixel[i] = 0;
+          else if (tmp > 255) pixel[i] = 255;
+          else pixel[i] = (byte) tmp; 
         }
       }
     }
-      void InitializeIndexedColorsMap()
-      {
-        double ratio = 0;
 
-        for(int i = 0; i < 256; i++)
+    void InitializeIndexedColorsMap()
+    {
+      for (int i = 0; i < 256; i++)
         {
-          ratio = (double)((double)i / 256); 
-          for(int j = 0; j < 3; j++)
-          {
-            _indexedColorsMap[i,j] = (byte)(_foregroundColor.Bytes[j] + 
-                (byte)((double)(_foregroundColor.Bytes[j] - 
-                                _backgroundColor.Bytes[j]) * ratio));
-          }
+          double ratio = i / 256.0; 
+          for (int j = 0; j < 3; j++)
+	    {
+	      _indexedColorsMap[i,j] = (byte)(_foregroundColor.Bytes[j] + 
+			       (byte)((double)(_foregroundColor.Bytes[j] - 
+				     _backgroundColor.Bytes[j]) * ratio));
+	    }
         }
-      }
-
+    }
   }
 }
 

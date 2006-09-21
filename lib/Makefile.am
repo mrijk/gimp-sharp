@@ -3,7 +3,7 @@
 LIBRARY_NAME=	gimp-sharp
 LIBRARY=	$(LIBRARY_NAME).dll
 
-ASSEMBLIES=	/pkg:gtk-sharp-2.0
+ASSEMBLIES=	-r:Mono.Posix /pkg:gtk-sharp-2.0
 
 MYSOURCES = 			\
 	AspectPreview.cs 	\
@@ -70,6 +70,7 @@ MYSOURCES = 			\
 	RGB.cs			\
 	RandomSeed.cs		\
 	RectangleSelectTool.cs	\
+	RegionIterator.cs	\
 	RgnIterator.cs		\
 	SaveAttribute.cs	\
 	SaveAttributeSet.cs	\

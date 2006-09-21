@@ -32,7 +32,7 @@ namespace Gimp.ecw
       new ecw(args);
     }
 
-    public ecw(string[] args) : base(args)
+    public ecw(string[] args) : base(args, "ecw")
     {
     }
 

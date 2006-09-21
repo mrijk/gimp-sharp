@@ -20,7 +20,6 @@
 
 using System;
 using System.IO;
-using Mono.Unix;
 
 namespace Gimp.wbmp
 {	
@@ -29,12 +28,10 @@ namespace Gimp.wbmp
     [STAThread]
     static void Main(string[] args)
     {
-      string localeDir = Gimp.LocaleDirectory;
-      Catalog.Init("wbmp", localeDir);
       new wbmp(args);
     }
 
-    public wbmp(string[] args) : base(args)
+    public wbmp(string[] args) : base(args, "wbmp")
     {
     }
 
@@ -43,20 +40,20 @@ namespace Gimp.wbmp
       ProcedureSet set = new ProcedureSet();
 
       set.Add(FileLoadProcedure("file_wbmp_load",
-				Catalog.GetString("Loads wbmp images"),
-				Catalog.GetString("This plug-in loads wbmp images."),
+				_("Loads wbmp images"),
+				_("This plug-in loads wbmp images."),
 				"Maurits Rijk, Massimo Perga",
-		    "(C) Maurits Rijk, Massimo Perga",
+				"(C) Maurits Rijk, Massimo Perga",
 				"2005-2006",
-				Catalog.GetString("wbmp Image")));
+				_("wbmp Image")));
       
       set.Add(FileSaveProcedure("file_wbmp_save",
-				Catalog.GetString("Saves wbmp images"),
-				Catalog.GetString("This plug-in saves wbmp images."),
+				_("Saves wbmp images"),
+				_("This plug-in saves wbmp images."),
 				"Maurits Rijk, Massimo Perga",
 				"(C) Maurits Rijk, Massimo Perga",
 				"2006",
-				Catalog.GetString("wbmp Image"),
+				_("wbmp Image"),
 				"RGB*"));
       return set;
     }
@@ -91,7 +88,7 @@ namespace Gimp.wbmp
 	      return null;
 	    }
 
-	  Progress _progress = new Progress(Catalog.GetString("Loading ") + filename);
+	  Progress _progress = new Progress(_("Loading ") + filename);
 
 	  byte readByte;
 	  int width = 0;
@@ -169,7 +166,7 @@ namespace Gimp.wbmp
       int width = drawable.Width;
       int height = drawable.Height;
 			
-      Progress _progress = new Progress(Catalog.GetString("Saving ") + filename);
+      Progress _progress = new Progress(_("Saving ") + filename);
 
       // If the image is not already indexed
       if (!drawable.IsIndexed)
@@ -179,11 +176,6 @@ namespace Gimp.wbmp
 			       ConvertPaletteType.Mono,
 			       0, false, false, "");
 	}
-      // Image already indexed
-      /* else
-	 {
-	 }
-      */
 
       BinaryWriter writer = new BinaryWriter(File.Open(filename, 
 						       FileMode.Create));

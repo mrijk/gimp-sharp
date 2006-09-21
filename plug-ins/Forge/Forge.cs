@@ -19,10 +19,8 @@
 //
 
 using System;
-using Mono.Unix;
 
 using Gtk;
-
 
 namespace Gimp.Forge
 {
@@ -50,78 +48,76 @@ namespace Gimp.Forge
     // Flag for radio buttons values specified by the user
     private bool glacspec, icespec, starspec, hourspec, inclspec, starcspec;
     [SaveAttribute("clouds")]
-      bool _clouds;	      	// Just generate clouds
+    bool _clouds;	      	// Just generate clouds
     [SaveAttribute("stars")]
-      bool _stars;	      		// Just generate stars
+    bool _stars;	      		// Just generate stars
     [SaveAttribute("dimension")]
-      double _fracdim;		// Fractal dimension
+    double _fracdim;		// Fractal dimension
     [SaveAttribute("power")]
-      double _powscale; 	      	// Power law scaling exponent
+    double _powscale; 	      	// Power law scaling exponent
     [SaveAttribute("glaciers")]
-      double _glaciers;
+    double _glaciers;
     [SaveAttribute("icelevel")]
-      double _icelevel;
+    double _icelevel;
     [SaveAttribute("hour")]
-      double _hourangle;
+    double _hourangle;
     [SaveAttribute("inclination")]
-      double _inclangle;
+    double _inclangle;
     [SaveAttribute("starsfraction")]
-      double _starfraction;
+    double _starfraction;
     [SaveAttribute("saturation")]
-      double _starcolour;
+    double _starcolour;
     [SaveAttribute("seed")]
-      uint _rseed;	      		// Current random seed
+    uint _rseed;	      		// Current random seed
     private int forced;
     private double arand, gaussadd, gaussfac; // Gaussian random parameters
     private const uint meshsize = 256;	      	// FFT mesh size
 
     byte [,] pgnd = new byte[99,3] {
       {206, 205, 0}, {208, 207, 0}, {211, 208, 0},
-        {214, 208, 0}, {217, 208, 0}, {220, 208, 0},
-        {222, 207, 0}, {225, 205, 0}, {227, 204, 0},
-        {229, 202, 0}, {231, 199, 0}, {232, 197, 0},
-        {233, 194, 0}, {234, 191, 0}, {234, 188, 0},
-        {233, 185, 0}, {232, 183, 0}, {231, 180, 0},
-        {229, 178, 0}, {227, 176, 0}, {225, 174, 0},
-        {223, 172, 0}, {221, 170, 0}, {219, 168, 0},
-        {216, 166, 0}, {214, 164, 0}, {212, 162, 0},
-        {210, 161, 0}, {207, 159, 0}, {205, 157, 0},
-        {203, 156, 0}, {200, 154, 0}, {198, 152, 0},
-        {195, 151, 0}, {193, 149, 0}, {190, 148, 0},
-        {188, 147, 0}, {185, 145, 0}, {183, 144, 0},
-        {180, 143, 0}, {177, 141, 0}, {175, 140, 0},
-        {172, 139, 0}, {169, 138, 0}, {167, 137, 0},
-        {164, 136, 0}, {161, 135, 0}, {158, 134, 0},
-        {156, 133, 0}, {153, 132, 0}, {150, 132, 0},
-        {147, 131, 0}, {145, 130, 0}, {142, 130, 0},
-        {139, 129, 0}, {136, 128, 0}, {133, 128, 0},
-        {130, 127, 0}, {127, 127, 0}, {125, 127, 0},
-        {122, 127, 0}, {119, 127, 0}, {116, 127, 0},
-        {113, 127, 0}, {110, 128, 0}, {107, 128, 0},
-        {104, 128, 0}, {102, 127, 0}, { 99, 126, 0},
-        { 97, 124, 0}, { 95, 122, 0}, { 93, 120, 0},
-        { 92, 117, 0}, { 92, 114, 0}, { 92, 111, 0},
-        { 93, 108, 0}, { 94, 106, 0}, { 96, 104, 0},
-        { 98, 102, 0}, {100, 100, 0}, {103,  99, 0},
-        {106,  99, 0}, {109,  99, 0}, {111, 100, 0},
-        {114, 101, 0}, {117, 102, 0}, {120, 103, 0},
-        {123, 102, 0}, {125, 102, 0}, {128, 100, 0},
-        {130,  98, 0}, {132,  96, 0}, {133,  94, 0},
-        {134,  91, 0}, {134,  88, 0}, {134,  85, 0},
-        {133,  82, 0}, {131,  80, 0}, {129,  78, 0}
+      {214, 208, 0}, {217, 208, 0}, {220, 208, 0},
+      {222, 207, 0}, {225, 205, 0}, {227, 204, 0},
+      {229, 202, 0}, {231, 199, 0}, {232, 197, 0},
+      {233, 194, 0}, {234, 191, 0}, {234, 188, 0},
+      {233, 185, 0}, {232, 183, 0}, {231, 180, 0},
+      {229, 178, 0}, {227, 176, 0}, {225, 174, 0},
+      {223, 172, 0}, {221, 170, 0}, {219, 168, 0},
+      {216, 166, 0}, {214, 164, 0}, {212, 162, 0},
+      {210, 161, 0}, {207, 159, 0}, {205, 157, 0},
+      {203, 156, 0}, {200, 154, 0}, {198, 152, 0},
+      {195, 151, 0}, {193, 149, 0}, {190, 148, 0},
+      {188, 147, 0}, {185, 145, 0}, {183, 144, 0},
+      {180, 143, 0}, {177, 141, 0}, {175, 140, 0},
+      {172, 139, 0}, {169, 138, 0}, {167, 137, 0},
+      {164, 136, 0}, {161, 135, 0}, {158, 134, 0},
+      {156, 133, 0}, {153, 132, 0}, {150, 132, 0},
+      {147, 131, 0}, {145, 130, 0}, {142, 130, 0},
+      {139, 129, 0}, {136, 128, 0}, {133, 128, 0},
+      {130, 127, 0}, {127, 127, 0}, {125, 127, 0},
+      {122, 127, 0}, {119, 127, 0}, {116, 127, 0},
+      {113, 127, 0}, {110, 128, 0}, {107, 128, 0},
+      {104, 128, 0}, {102, 127, 0}, { 99, 126, 0},
+      { 97, 124, 0}, { 95, 122, 0}, { 93, 120, 0},
+      { 92, 117, 0}, { 92, 114, 0}, { 92, 111, 0},
+      { 93, 108, 0}, { 94, 106, 0}, { 96, 104, 0},
+      { 98, 102, 0}, {100, 100, 0}, {103,  99, 0},
+      {106,  99, 0}, {109,  99, 0}, {111, 100, 0},
+      {114, 101, 0}, {117, 102, 0}, {120, 103, 0},
+      {123, 102, 0}, {125, 102, 0}, {128, 100, 0},
+      {130,  98, 0}, {132,  96, 0}, {133,  94, 0},
+      {134,  91, 0}, {134,  88, 0}, {134,  85, 0},
+      {133,  82, 0}, {131,  80, 0}, {129,  78, 0}
     };
 
     delegate void GenericEventHandler(object o, EventArgs e);
 
     [STAThread]
-      static void Main(string[] args)
-      {
-        string localeDir = Gimp.LocaleDirectory;
-        Catalog.Init("Forge", localeDir);
-        new Forge(args);
-      }
-
-    public Forge(string[] args) : base(args)
+    static void Main(string[] args)
+    {
+      new Forge(args);
+    }
+    
+    public Forge(string[] args) : base(args, "Forge")
     {
     }
 
@@ -131,37 +127,37 @@ namespace Gimp.Forge
 
       ParamDefList in_params = new ParamDefList();
       in_params.Add(new ParamDef("clouds", false, typeof(bool), 
-            Catalog.GetString("Clouds (true), Planet or Stars (false)")));
+				 _("Clouds (true), Planet or Stars (false)")));
       in_params.Add(new ParamDef("stars", false, typeof(bool), 
-            Catalog.GetString("Stars (true), Planet or Clouds (false)")));
+				 _("Stars (true), Planet or Clouds (false)")));
       in_params.Add(new ParamDef("dimension", 2.4, typeof(double), 
-            Catalog.GetString("Fractal dimension factor")));
+				 _("Fractal dimension factor")));
       in_params.Add(new ParamDef("power", 1.0, typeof(double), 
-            Catalog.GetString("Power factor")));
+				 _("Power factor")));
       in_params.Add(new ParamDef("glaciers", 0.75, typeof(double), 
-            Catalog.GetString("Glaciers factor")));
+				 _("Glaciers factor")));
       in_params.Add(new ParamDef("ice", 0.4, typeof(double), 
-            Catalog.GetString("Ice factor")));
+				 _("Ice factor")));
       in_params.Add(new ParamDef("hour", 0.0, typeof(double), 
-            Catalog.GetString("Hour factor")));
+				 _("Hour factor")));
       in_params.Add(new ParamDef("inclination", 0.0, typeof(double), 
-            Catalog.GetString("Inclination factor")));
+				 _("Inclination factor")));
       in_params.Add(new ParamDef("stars", 100.0, typeof(double), 
-            Catalog.GetString("Stars factor")));
+				 _("Stars factor")));
       in_params.Add(new ParamDef("saturation", 100.0, typeof(double), 
-            Catalog.GetString("Saturation factor")));
+				 _("Saturation factor")));
       in_params.Add(new ParamDef("seed", 0, typeof(uint), 
-            Catalog.GetString("Random generated seed")));
+				 _("Random generated seed")));
 
       Procedure procedure = new Procedure("plug_in_forge",
-          Catalog.GetString("Creates an artificial world."),
-          Catalog.GetString("Creates an artificial world."),
-          "Massimo Perga, Maurits Rijk",
-          "(C) Massimo Perga, Maurits Rijk",
-          "2006",
-          Catalog.GetString("Forge..."),
-          "RGB*",
-          in_params);
+					  _("Creates an artificial world."),
+					  _("Creates an artificial world."),
+					  "Massimo Perga, Maurits Rijk",
+					  "(C) Massimo Perga, Maurits Rijk",
+					  "2006",
+					  _("Forge..."),
+					  "RGB*",
+					  in_params);
       procedure.MenuPath = "<Image>/Filters/Render";
       procedure.IconFile = "Forge.png";
 
@@ -174,9 +170,8 @@ namespace Gimp.Forge
     {
       gimp_ui_init("Forge", true);
 
-      Dialog dialog = DialogNew(Catalog.GetString("Forge 0.1"), 
-          Catalog.GetString("Forge"), IntPtr.Zero, 0,
-          Gimp.StandardHelpFunc, Catalog.GetString("Forge"));
+      Dialog dialog = DialogNew(_("Forge 0.1"), _("Forge"), IntPtr.Zero, 0,
+				Gimp.StandardHelpFunc, _("Forge"));
 
       VBox vbox = new VBox(false, 12);
       vbox.BorderWidth = 12;
@@ -189,61 +184,58 @@ namespace Gimp.Forge
       table.BorderWidth = 10;
 
       // Create the frame widget 
-      GimpFrame frame = new GimpFrame(Catalog.GetString("Type"));
+      GimpFrame frame = new GimpFrame(_("Type"));
       table.Attach(frame, 0, 3, 0, 1);
 
       HBox hbox = new HBox(false,1);
       frame.Add(hbox);
 
       _PlanetRadioButton = CreateRadioButtonInHBox(hbox, null,
-          PlanetRadioButtonEventHandler, Catalog.GetString("Planet"));
+          PlanetRadioButtonEventHandler, _("Planet"));
 
       _CloudsRadioButton = CreateRadioButtonInHBox(hbox, _PlanetRadioButton,
-          CloudsRadioButtonEventHandler, Catalog.GetString("Clouds"));
+          CloudsRadioButtonEventHandler, _("Clouds"));
 
       _NightRadioButton = CreateRadioButtonInHBox(hbox, _PlanetRadioButton,
-          NightRadioButtonEventHandler, Catalog.GetString("Night"));
+          NightRadioButtonEventHandler, _("Night"));
 
-      CreateLabelInTable(table, 2, 0, 
-          Catalog.GetString("Dimension (0.0 - 3.0):"));
+      CreateLabelInTable(table, 2, 0, _("Dimension (0.0 - 3.0):"));
       _DimensionSpinButton = CreateFloatSpinButtonInTable(table, 2, 1, 2.4, 0, 3,
           DimensionSpinButtonEventHandler);
 
-      CreateLabelInTable(table, 2, 2, Catalog.GetString("Power:"));
+      CreateLabelInTable(table, 2, 2, _("Power:"));
       _PowerSpinButton = CreateFloatSpinButtonInTable(table, 2, 3, 1.2, 0, 
           Double.MaxValue,
           PowerSpinButtonEventHandler);
 
-      CreateLabelInTable(table, 3, 0, Catalog.GetString("Glaciers:"));
+      CreateLabelInTable(table, 3, 0, _("Glaciers:"));
       _GlaciersSpinButton = CreateFloatSpinButtonInTable(table, 3, 1, 0.75, 0, 
           Double.MaxValue,
           GlaciersSpinButtonEventHandler);
 
-      CreateLabelInTable(table, 3, 2, Catalog.GetString("Ice:"));
+      CreateLabelInTable(table, 3, 2, _("Ice:"));
       _IceSpinButton = CreateFloatSpinButtonInTable(table, 3, 3, 0.4, 0, 
           Double.MaxValue,
           IceSpinButtonEventHandler);
 
-      CreateLabelInTable(table, 4, 0, Catalog.GetString("Hour (0 - 24):"));
+      CreateLabelInTable(table, 4, 0, _("Hour (0 - 24):"));
       _HourSpinButton = CreateFloatSpinButtonInTable(table, 4, 1, 0, 0, 24, 
           HourSpinButtonEventHandler);
 
-      CreateLabelInTable(table, 4, 2, 
-          Catalog.GetString("Inclination (-90 - 90):"));
+      CreateLabelInTable(table, 4, 2, _("Inclination (-90 - 90):"));
       _InclinationSpinButton = CreateFloatSpinButtonInTable(table, 4, 3, 0, -90, 90,
           InclinationSpinButtonEventHandler);
 
-      CreateLabelInTable(table, 5, 0, 
-          Catalog.GetString("Stars (0 - 100):"));
+      CreateLabelInTable(table, 5, 0, _("Stars (0 - 100):"));
       _StarsSpinButton = CreateIntSpinButtonInTable(table, 5, 1, 100, 0, 100, 
           StarsSpinButtonEventHandler);
 
-      CreateLabelInTable(table, 5, 2, Catalog.GetString("Saturation:"));
+      CreateLabelInTable(table, 5, 2, _("Saturation:"));
       _SaturationSpinButton = CreateIntSpinButtonInTable(table, 5, 3, 125, 0, 
           Int32.MaxValue, 
           SaturationSpinButtonEventHandler);
 
-      CreateLabelInTable(table, 6, 0, Catalog.GetString("Seed:"));
+      CreateLabelInTable(table, 6, 0, _("Seed:"));
       RandomSeed seed = new RandomSeed(ref _rseed, ref _random_seed);
       table.Attach(seed, 1, 3, 6, 7);
 
@@ -257,12 +249,12 @@ namespace Gimp.Forge
     }
 
     RadioButton CreateRadioButtonInHBox(HBox hbox, 
-        RadioButton radioButtonGroup,
-        GenericEventHandler radioButtonEventHandler, 
-        string radioButtonLabel)
+					RadioButton radioButtonGroup,
+					GenericEventHandler radioButtonEventHandler, 
+					string radioButtonLabel)
     { 
       RadioButton radioButton = new RadioButton(radioButtonGroup, 
-          radioButtonLabel);
+						radioButtonLabel);
       radioButton.Clicked += new EventHandler(radioButtonEventHandler);
       hbox.PackStart(radioButton, true, true, 10);
 
@@ -271,12 +263,11 @@ namespace Gimp.Forge
 
 
     SpinButton CreateIntSpinButtonInTable(Table table, uint row, uint col, 
-        uint initialValue, 
-        int min, int max,
-        GenericEventHandler spinnerEventHandler)
+					  uint initialValue, 
+					  int min, int max,
+					  GenericEventHandler spinnerEventHandler)
     {
-      Adjustment adjustment = new Adjustment(initialValue, min, 
-          max, 1, 1, 1);
+      Adjustment adjustment = new Adjustment(initialValue, min, max, 1, 1, 1);
       SpinButton spinner = new SpinButton(adjustment, 1, 0);
       spinner.Numeric = true;
       spinner.ValueChanged += new EventHandler(spinnerEventHandler);
@@ -286,12 +277,12 @@ namespace Gimp.Forge
     }
 
     SpinButton CreateFloatSpinButtonInTable(Table table, uint row, uint col, 
-        double initialValue, 
-        double min, double max,
-        GenericEventHandler spinnerEventHandler)
+					    double initialValue, 
+					    double min, double max,
+					    GenericEventHandler spinnerEventHandler)
     {
-      Adjustment adjustment = new Adjustment(initialValue, min, 
-          max, 0.1, 1, 1);
+      Adjustment adjustment = new Adjustment(initialValue, min, max, 0.1, 
+					     1, 1);
       SpinButton spinner = new SpinButton(adjustment, 0.1, 1);
       spinner.Numeric = true;
       spinner.ValueChanged += new EventHandler(spinnerEventHandler);
@@ -313,7 +304,7 @@ namespace Gimp.Forge
 
     void DimensionSpinButtonEventHandler(object source, EventArgs e)
     {
-      if(forced > 0)
+      if (forced > 0)
         forced--;
       else
         dimspec = true;
@@ -488,19 +479,17 @@ namespace Gimp.Forge
     {
       Tile.CacheNtiles((ulong) (2 * (original_drawable.Width / Gimp.TileWidth + 1)));
       if(_progress == null)
-        _progress = new Progress(Catalog.GetString("Forge..."));
+        _progress = new Progress(_("Forge..."));
 
       // Just layers are allowed
-      if(!original_drawable.IsLayer())
+      if (!original_drawable.IsLayer())
       {
-        new Message(
-          Catalog.GetString("This filter can be applied just over layers"));
+        new Message(_("This filter can be applied just over layers"));
         return;
       }
-      if(original_drawable.Width < original_drawable.Height)
+      if (original_drawable.Width < original_drawable.Height)
       {
-        new Message(
-          Catalog.GetString("This filter can be applied just if height <= width"));
+        new Message(_("This filter can be applied just if height <= width"));
         return;
       }
 
@@ -525,7 +514,7 @@ namespace Gimp.Forge
     }
 
     void RenderForge(Drawable new_layer, ref byte[] pixelArray, int width, 
-        int height)
+		     int height)
     {
       InitParameters();
       Planet(new_layer, ref pixelArray, width, height);
@@ -613,12 +602,12 @@ namespace Gimp.Forge
         & Saupe, page 77. */
     double Gauss()
     {
-      int i;
       double sum = 0.0;
 
-      for (i = 1; i <= nRand; i++) {
-        sum += (_random.Next() & 0x7FFF);
-      }
+      for (int i = 1; i <= nRand; i++) 
+	{
+	  sum += (_random.Next() & 0x7FFF);
+	}
 
       return gaussfac * sum - gaussadd;
     }
@@ -782,60 +771,68 @@ namespace Gimp.Forge
       double []a;
       uint []nsize = new uint[3];
 
-      bl = ((n * n) + 1) * 2 ;
+      bl = ((n * n) + 1) * 2;
       a = new double[bl];
       x = a;
 
-      for (i = 0; i <= n / 2; i++) {
-        for (j = 0; j <= n / 2; j++) {
-          phase = 2 * Math.PI * ((_random.Next() & 0x7FFF) / arand);
-          if (i != 0 || j != 0) {
-            rad = Math.Pow((double) (i * i + j * j), -(h + 1) / 2) * Gauss();
-          } else {
-            rad = 0;
-          }
-          rcos = rad * Math.Cos(phase);
-          rsin = rad * Math.Sin(phase);
-          // Real(a, i, j) = rcos;
-          a[1 + (((i) * meshsize) + (j)) * 2] = rcos;
-          // Imag(a, i, j) = rsin;
-          a[2 + (((i) * meshsize) + (j)) * 2] = rsin;
-          i0 = (i == 0) ? 0 : n - i;
-          j0 = (j == 0) ? 0 : n - j;
-          // Real(a, i0, j0) = rcos;
-          a[1 + (((i0) * meshsize) + (j0)) * 2] = rcos;
-          // Imag(a, i0, j0) = - rsin;
-          a[2 + (((i0) * meshsize) + (j0)) * 2] = -rsin;
-        }
-      }
+      for (i = 0; i <= n / 2; i++) 
+	{
+	  for (j = 0; j <= n / 2; j++) 
+	    {
+	      phase = 2 * Math.PI * ((_random.Next() & 0x7FFF) / arand);
+	      if (i != 0 || j != 0) 
+		{
+		  rad = Math.Pow((double) (i * i + j * j), -(h + 1) / 2) 
+		    * Gauss();
+		} 
+	      else 
+		{
+		  rad = 0;
+		}
+	      rcos = rad * Math.Cos(phase);
+	      rsin = rad * Math.Sin(phase);
+	      // Real(a, i, j) = rcos;
+	      a[1 + (((i) * meshsize) + (j)) * 2] = rcos;
+	      // Imag(a, i, j) = rsin;
+	      a[2 + (((i) * meshsize) + (j)) * 2] = rsin;
+	      i0 = (i == 0) ? 0 : n - i;
+	      j0 = (j == 0) ? 0 : n - j;
+	      // Real(a, i0, j0) = rcos;
+	      a[1 + (((i0) * meshsize) + (j0)) * 2] = rcos;
+	      // Imag(a, i0, j0) = - rsin;
+	      a[2 + (((i0) * meshsize) + (j0)) * 2] = -rsin;
+	    }
+	}
       // Imag(a, n / 2, 0) = 0;
       a[2 + (n * meshsize)] = 0;
       // Imag(a, 0, n / 2) = 0;
       a[2 + n] = 0;
       // Imag(a, n / 2, n / 2) = 0;
       a[2 + (n) * meshsize + n] = 0;
-      for (i = 1; i <= n / 2 - 1; i++) {
-        for (j = 1; j <= n / 2 - 1; j++) {
-          phase = 2 * Math.PI * ((_random.Next() & 0x7FFF) / arand);
-          rad = Math.Pow((double) (i * i + j * j), -(h + 1) / 2) * Gauss();
-          rcos = rad * Math.Cos(phase);
-          rsin = rad * Math.Sin(phase);
-          // Real(a, i, n - j) = rcos;
-          a[1 + (((i) * meshsize) + (n-j)) * 2] = rcos;
-          // Imag(a, i, n - j) = rsin;
-          a[2 + (((i) * meshsize) + (n - j)) * 2] = rsin;
-          // Real(a, n - i, j) = rcos;
-          a[1 + (((n - i) * meshsize) + (j)) * 2] = rcos;
-          // Imag(a, n - i, j) = - rsin;
-          a[2 + (((n - i) * meshsize) + (j)) * 2] = -rsin;
-        }
-      }
+      for (i = 1; i <= n / 2 - 1; i++) 
+	{
+	  for (j = 1; j <= n / 2 - 1; j++) 
+	    {
+	      phase = 2 * Math.PI * ((_random.Next() & 0x7FFF) / arand);
+	      rad = Math.Pow((double) (i * i + j * j), -(h + 1) / 2) * Gauss();
+	      rcos = rad * Math.Cos(phase);
+	      rsin = rad * Math.Sin(phase);
+	      // Real(a, i, n - j) = rcos;
+	      a[1 + (((i) * meshsize) + (n-j)) * 2] = rcos;
+	      // Imag(a, i, n - j) = rsin;
+	      a[2 + (((i) * meshsize) + (n - j)) * 2] = rsin;
+	      // Real(a, n - i, j) = rcos;
+	      a[1 + (((n - i) * meshsize) + (j)) * 2] = rcos;
+	      // Imag(a, n - i, j) = - rsin;
+	      a[2 + (((n - i) * meshsize) + (j)) * 2] = -rsin;
+	    }
+	}
 
       nsize[0] = 0;
       nsize[1] = nsize[2] = n;	      /* Dimension of frequency domain array */
       FourierNDimensions(a, nsize, 2, -1);	      /* Take inverse 2D Fourier transform */
     }
-
+    
     /*  ETOILE  --	Set a pixel in the starry sky.	*/
     void Etoile(ref Pixel rgbPixel)
     {
@@ -1197,7 +1194,7 @@ namespace Gimp.Forge
     //
 
     bool Planet(Drawable drawable, ref byte[] pixelArray, int width, 
-        int height)
+		int height)
     {
       double[] a = null;
 

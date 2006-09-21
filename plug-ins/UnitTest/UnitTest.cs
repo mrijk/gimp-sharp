@@ -32,8 +32,8 @@ namespace Gimp.UnitTest
     [SaveAttribute]
     string _testDll;
     Progress _progress;
-    int    testsPerformed;
-    int    _testCasesTotalNumber;
+    int    _testsPerformed = 0;
+    int    _testCasesTotalNumber = 0;
 
 
     [STAThread]
@@ -44,9 +44,6 @@ namespace Gimp.UnitTest
 
     public UnitTest(string[] args) : base(args)
     {
-      // Initialize the parameters
-      testsPerformed = 0;
-      _testCasesTotalNumber = 0;
     }
 
     override protected  ProcedureSet GetProcedureSet()
@@ -83,12 +80,13 @@ namespace Gimp.UnitTest
       vbox.BorderWidth = 12;
       dialog.VBox.PackStart(vbox, true, true, 0);
 
-      FileEntry entry = new FileEntry("Open...", _testDll, false, true);
-      entry.FilenameChanged += delegate(object o, EventArgs args)
+      FileChooserButton entry = 
+	new FileChooserButton("Open...", FileChooserAction.Open);
+      // entry.CurrentName = "blah"; // _testDll;
+      entry.SelectionChanged += delegate(object o, EventArgs args)
 	{
-	  _testDll = entry.FileName;
+	  _testDll = entry.Filename;
 	};
-
       vbox.PackStart(entry, false, false, 0);
 
       dialog.ShowAll();
@@ -106,12 +104,13 @@ namespace Gimp.UnitTest
 
     public void UpdateProgressStatus()
     {
-      testsPerformed++;
-      double ratio = (double)((double)testsPerformed/(double)_testCasesTotalNumber);
-      if(_progress != null)
+      _testsPerformed++;
+      double ratio = (double) _testsPerformed / _testCasesTotalNumber;
+
+      if (_progress != null)
       {
         _progress.Update(ratio);
-/*
+	/*
         if(testsPerformed == _testCasesTotalNumber)
         {
         }

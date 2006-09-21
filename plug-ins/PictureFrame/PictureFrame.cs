@@ -27,7 +27,7 @@ namespace Gimp.PictureFrame
   public class PictureFrame : Plugin
   {
   
-  	private string pictureFrameImagePath;
+    private string pictureFrameImagePath;
   
     static void Main(string[] args)
     {
@@ -45,15 +45,15 @@ namespace Gimp.PictureFrame
       ProcedureSet set = new ProcedureSet();
 
       Procedure procedure = new Procedure("plug_in_picture_frame",
-          Catalog.GetString("Picture frame"),
-          Catalog.GetString("Picture frame"),
-          "Oded Coster",
-          "(C) Oded Coster",
-          "2006",
-          Catalog.GetString("Picture frame..."),
-          "RGB*, GRAY*");
+					  Catalog.GetString("Picture frame"),
+					  Catalog.GetString("Picture frame"),
+					  "Oded Coster",
+					  "(C) Oded Coster",
+					  "2006",
+					  Catalog.GetString("Picture frame..."),
+					  "RGB*, GRAY*");
       procedure.MenuPath = "<Image>/Filters/Render";
-      //procedure.IconFile("PictureFrame.png");
+      procedure.IconFile = "PictureFrame.png";
 
       set.Add(procedure);
 
@@ -62,66 +62,63 @@ namespace Gimp.PictureFrame
 
     override protected bool CreateDialog()
     {
-    	gimp_ui_init("Picture Frame", true);
+      gimp_ui_init("Picture Frame", true);
     	
-    	Dialog dialog = DialogNew("Picture Frame", "Picture Frame", IntPtr.Zero, 0,
-				Gimp.StandardHelpFunc, "Picture Frame");
-		dialog.Modal = false;
+      Dialog dialog = DialogNew("Picture Frame", "Picture Frame", IntPtr.Zero, 
+				0, Gimp.StandardHelpFunc, "Picture Frame");
+      dialog.Modal = false;
 
-		VBox vbox = new VBox(false, 12);
-		vbox.BorderWidth = 12;
-		dialog.VBox.PackStart(vbox, true, true, 0);
+      VBox vbox = new VBox(false, 12);
+      vbox.BorderWidth = 12;
+      dialog.VBox.PackStart(vbox, true, true, 0);
       
-    	FileEntry entry = new FileEntry("Load Frame...", "PictureFrame.svg",false, true);
-    	entry.FilenameChanged += GetNewFileName;
+      FileEntry entry = new FileEntry("Load Frame...", "PictureFrame.svg",
+				      false, true);
+      entry.FilenameChanged += GetNewFileName;
 
-		vbox.PackStart(entry, false, false, 0);
+      vbox.PackStart(entry, false, false, 0);
 
-		dialog.ShowAll();
+      dialog.ShowAll();
 				
-		return DialogRun();
+      return DialogRun();
 
     }
     
     private void GetNewFileName(object sender, EventArgs e)
     {
-    	FileEntry frameFile = sender as FileEntry;
+      FileEntry frameFile = sender as FileEntry;
     	
-    	if(frameFile != null)
+      if (frameFile != null)
     	{
-    		pictureFrameImagePath = frameFile.FileName;
+	  pictureFrameImagePath = frameFile.FileName;
     	}
     }
     
     override protected void Render(Image image, Drawable original_drawable)
     {
     
-   	  try{
-
-		
-	  	Image frame = Image.Load(RunMode.Interactive, pictureFrameImagePath, pictureFrameImagePath);
-	    Layer new_layer = new Layer(frame.ActiveLayer, image);
-	    
-        new_layer.Visible = true;
+      try
+	{
+	  Image frame = Image.Load(RunMode.Interactive, pictureFrameImagePath, 
+				   pictureFrameImagePath);
+	  Layer new_layer = new Layer(frame.ActiveLayer, image);
+	  
+	  new_layer.Visible = true;
           
-        image.UndoGroupStart();
-
-        image.AddLayer(new_layer, -1); 
-        image.ActiveLayer = new_layer;
-
-        image.UndoGroupEnd();
-        Display.DisplaysFlush();
-
-		frame.Delete();
-	    
-	  }
-	  catch(Exception ex) {
-	
-		throw new GimpSharpException();
-	  	
-	  }
-	
-    }
-  
+	  image.UndoGroupStart();
+	  
+	  image.AddLayer(new_layer, -1); 
+	  image.ActiveLayer = new_layer;
+	  
+	  image.UndoGroupEnd();
+	  Display.DisplaysFlush();
+	  
+	  frame.Delete();
+      }
+      catch(Exception ex) 
+	{	
+	  throw new GimpSharpException(); 
+	}
+    }  
   }
 }

@@ -34,6 +34,11 @@ namespace Gimp
     {
     }
 
+    public PluginWithPreview(string[] args, string package) :
+      base(args, package)
+    {
+    }
+
     override protected Dialog DialogNew(string title, string role, 
 					IntPtr parent, Gtk.DialogFlags flags, 
 					GimpHelpFunc help_func, string help_id)

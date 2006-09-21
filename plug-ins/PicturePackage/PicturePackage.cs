@@ -34,7 +34,7 @@ namespace Gimp.PicturePackage
   {
     LayoutSet _layoutSet = new LayoutSet();
     Layout _layout;
-
+    
     ProviderFactory _loader;
 
     SourceFrame _sf;
@@ -43,22 +43,22 @@ namespace Gimp.PicturePackage
     System.Threading.Thread _renderThread;
 
     [SaveAttribute]
-      bool _flatten = false;
+    bool _flatten = false;
 
     [SaveAttribute]
-      int _resolution = 72;
+    int _resolution = 72;
 
     [SaveAttribute]
-      int _units = 0;		// Fix me: should become an enum
+    int _units = 0;		// Fix me: should become an enum
 
     [SaveAttribute]
-      int _colorMode = 1;		// ColorMode.COLOR;
+    int _colorMode = 1;		// ColorMode.COLOR;
 
     [SaveAttribute]
-      string _label = "";
+    string _label = "";
 
     [SaveAttribute]
-      int _position;
+    int _position;
 
     Dialog _dialog = null;
 
@@ -70,9 +70,9 @@ namespace Gimp.PicturePackage
     public enum DialogStateType
     {
       SrcImgValid,  	 // Source combo, Image selected, No image
-        SrcImgInvalid,	 // Source combo, Image selected, With image
-        SrcFileValid, 	 // Source combo, File selected, No file
-        SrcFileInvalid   // Source combo, File selected, With file 
+      SrcImgInvalid,	 // Source combo, Image selected, With image
+      SrcFileValid, 	 // Source combo, File selected, No file
+      SrcFileInvalid   // Source combo, File selected, With file 
     };
 
     // TODO: improve it
@@ -85,19 +85,19 @@ namespace Gimp.PicturePackage
 
     private static TargetEntry[] targetTable = new TargetEntry [] {
       new TargetEntry ("dummy", 0, (uint)TargetType.String),
-          new TargetEntry ("application/x-gimpsharp-picturepackage-drop", 0, (uint)TargetType.String)
+      new TargetEntry ("application/x-gimpsharp-picturepackage-drop", 0, (uint)TargetType.String)
     };
 
     [SaveAttribute]
-      DialogStateType _currentDialogState = DialogStateType.SrcImgInvalid;
+    DialogStateType _currentDialogState = DialogStateType.SrcImgInvalid;
 
     [STAThread]
-      static void Main(string[] args)
-      {
-        string localeDir = Gimp.LocaleDirectory;
-        Catalog.Init("PicturePackage", localeDir);        
-        new PicturePackage(args);
-      }
+    static void Main(string[] args)
+    {
+      string localeDir = Gimp.LocaleDirectory;
+      Catalog.Init("PicturePackage", localeDir);        
+      new PicturePackage(args);
+    }
 
     public PicturePackage(string[] args) : base(args)
     {
@@ -110,14 +110,14 @@ namespace Gimp.PicturePackage
       ParamDefList in_params = new ParamDefList();
 
       Procedure procedure = new Procedure("plug_in_picture_package",
-          Catalog.GetString("Picture package"),
-          Catalog.GetString("Picture package"),
-          "Maurits Rijk, Massimo Perga",
-          "Maurits Rijk, Massimo Perga",
-          "2004-2006",
-          Catalog.GetString("Picture Package..."),
-          "",
-          in_params);
+					  Catalog.GetString("Picture package"),
+					  Catalog.GetString("Picture package"),
+					  "Maurits Rijk, Massimo Perga",
+					  "Maurits Rijk, Massimo Perga",
+					  "2004-2006",
+					  Catalog.GetString("Picture Package..."),
+					  "",
+					  in_params);
 
       procedure.MenuPath = "<Toolbox>/Xtns/Extensions";
       procedure.IconFile = "PicturePackage.png";
@@ -134,8 +134,8 @@ namespace Gimp.PicturePackage
       _layoutSet.Load();
 
       Dialog dialog = DialogNew(Catalog.GetString("Picture Package 0.6.2"),
-          Catalog.GetString("PicturePackage"), IntPtr.Zero, 0, null, 
-          Catalog.GetString("PicturePackage"));
+				Catalog.GetString("PicturePackage"), IntPtr.Zero, 0, null, 
+				Catalog.GetString("PicturePackage"));
 
       HBox hbox = new HBox(false, 12);
       hbox.BorderWidth = 12;
@@ -165,7 +165,7 @@ namespace Gimp.PicturePackage
       EventBox eventBox = new EventBox();
       fbox.Add(eventBox);
       tips.SetTip(eventBox, Catalog.GetString("Right click to select picture"),
-          "preview");
+		  "preview");
 
       _preview = new Preview(this);
       _preview.WidthRequest = 400;
@@ -213,24 +213,24 @@ namespace Gimp.PicturePackage
     public void RenderLayout()
     {
       if (_loader == null)
-      {
-        Image image = _sf.Image;
+	{
+	  Image image = _sf.Image;
 
-        if (image != null)
-        {
-          _loader = new FrontImageProviderFactory(image);
-        }
-      }
+	  if (image != null)
+	    {
+	      _loader = new FrontImageProviderFactory(image);
+	    }
+	}
 
       if (_loader != null)
-      {
-        _preview.Clear();
-        if(_layout.Render(_loader, _preview.GetRenderer(_layout)))
-          DialogState = DialogStateType.SrcFileValid;
-        else
-          DialogState = DialogStateType.SrcFileInvalid;
+	{
+	  _preview.Clear();
+	  if(_layout.Render(_loader, _preview.GetRenderer(_layout)))
+	    DialogState = DialogStateType.SrcFileValid;
+	  else
+	    DialogState = DialogStateType.SrcFileInvalid;
 
-      }
+	}
 
     }
 
@@ -252,10 +252,10 @@ namespace Gimp.PicturePackage
     void RedrawPreview()
     {
       if (_renderThread != null)
-      {
-        _renderThread.Abort();
-        _renderThread.Join();
-      }
+	{
+	  _renderThread.Abort();
+	  _renderThread.Join();
+	}
       _preview.Clear();
       RenderLayout();
     }
@@ -271,8 +271,8 @@ namespace Gimp.PicturePackage
     {
       int offx, offy;
       double zoom = _layout.Boundaries(_preview.WidthRequest, 
-          _preview.HeightRequest, 
-          out offx, out offy);
+				       _preview.HeightRequest, 
+				       out offx, out offy);
       return _layout.Find((x - offx) / zoom, (y - offy) / zoom);		
     }
 
@@ -282,29 +282,29 @@ namespace Gimp.PicturePackage
       rectangle.Provider = provider;
       Image image = provider.GetImage();
       if (image != null)
-      {
-        Renderer renderer = _preview.GetRenderer(_layout);
-        rectangle.Render(image, renderer);
-        // Fix for OK button when Drag & Drop happens
-        if(DialogState == DialogStateType.SrcImgInvalid)
-          DialogState = DialogStateType.SrcImgValid; 
-        renderer.Cleanup();
-        provider.Release();
-      }
+	{
+	  Renderer renderer = _preview.GetRenderer(_layout);
+	  rectangle.Render(image, renderer);
+	  // Fix for OK button when Drag & Drop happens
+	  if(DialogState == DialogStateType.SrcImgInvalid)
+	    DialogState = DialogStateType.SrcImgValid; 
+	  renderer.Cleanup();
+	  provider.Release();
+	}
       else
-      {
-        //	  Console.WriteLine("Couldn't load: " + filename);
-        // Error dialog here.
-      }		
+	{
+	  //	  Console.WriteLine("Couldn't load: " + filename);
+	  // Error dialog here.
+	}		
     }
 
     void LoadRectangle(double x, double y, string filename)
     {
       Rectangle rectangle = FindRectangle(x, y);
       if (rectangle != null)
-      {
-        RenderRectangle(rectangle, filename);
-      }
+	{
+	  RenderRectangle(rectangle, filename);
+	}
     }
 
     Rectangle _rectangle;
@@ -314,18 +314,18 @@ namespace Gimp.PicturePackage
       _rectangle = FindRectangle(args.Event.X, args.Event.Y);
       // Open the "Load" dialog if the right button is pressed
       if (_rectangle != null)
-      {
-        if(args.Event.Button == 3)
-        {
-          FileSelection selection = new FileSelection("Select image");
-          selection.Response += OnFileSelectionResponse;
-          selection.Run();
-        }
-      }
+	{
+	  if(args.Event.Button == 3)
+	    {
+	      FileSelection selection = new FileSelection("Select image");
+	      selection.Response += OnFileSelectionResponse;
+	      selection.Run();
+	    }
+	}
       else if(args.Event.Button == 1)
-      {
+	{
 
-      }
+	}
 
     }
 
@@ -348,9 +348,9 @@ namespace Gimp.PicturePackage
     {
       FileSelection fs = o as FileSelection;
       if (args.ResponseId == ResponseType.Ok)
-      {
-        RenderRectangle(_rectangle, fs.Filename);
-      }
+	{
+	  RenderRectangle(_rectangle, fs.Filename);
+	}
 
       fs.Hide();
       _preview.QueueDraw();
@@ -365,20 +365,20 @@ namespace Gimp.PicturePackage
       Image composed = new Image(width, height, ImageBaseType.Rgb);
 
       if(_layout.Render(_loader, new ImageRenderer(_layout, composed, 
-              _resolution)))
+						   _resolution)))
         DialogState = DialogStateType.SrcImgValid;
       else
         DialogState = DialogStateType.SrcImgInvalid;
 
       if (_flatten)
-      {
-        composed.Flatten();
-      }
+	{
+	  composed.Flatten();
+	}
 
       if (_colorMode == 0) // ColorMode.GRAY)
-      {
-        composed.ConvertGrayscale();
-      }
+	{
+	  composed.ConvertGrayscale();
+	}
 
       new Display(composed);
       Display.DisplaysFlush();
@@ -387,28 +387,28 @@ namespace Gimp.PicturePackage
     public ProviderFactory Loader
     {
       set 
-      {
-        _loader = value;
-        RedrawPreview();
-      }
+	{
+	  _loader = value;
+	  RedrawPreview();
+	}
     }
 
     public string Label
     {
       set
-      {
-        _label = value;
-        _preview.DrawLabel(_position, _label);
-      }
+	{
+	  _label = value;
+	  _preview.DrawLabel(_position, _label);
+	}
     }
 
     public int Position
     {
       set
-      {
-        _position = value;
-        _preview.DrawLabel(_position, _label);
-      }
+	{
+	  _position = value;
+	  _preview.DrawLabel(_position, _label);
+	}
       get {return _position;}
     }
 
@@ -439,25 +439,25 @@ namespace Gimp.PicturePackage
     public DialogStateType DialogState
     {
       set
-      {
-        _currentDialogState = value;
-        if(_dialog != null)
-        {
-          if((_currentDialogState == DialogStateType.SrcImgValid) ||
-              (_currentDialogState == DialogStateType.SrcFileValid))
-          {
-            _dialog.SetResponseSensitive(ResponseType.Ok, true);
-          }
-          else
-          {
-            _dialog.SetResponseSensitive(ResponseType.Ok, false);
-          }
-        }
-      }
+	{
+	  _currentDialogState = value;
+	  if(_dialog != null)
+	    {
+	      if((_currentDialogState == DialogStateType.SrcImgValid) ||
+		 (_currentDialogState == DialogStateType.SrcFileValid))
+		{
+		  _dialog.SetResponseSensitive(ResponseType.Ok, true);
+		}
+	      else
+		{
+		  _dialog.SetResponseSensitive(ResponseType.Ok, false);
+		}
+	    }
+	}
       get
-      {
-        return _currentDialogState;
-      }
+	{
+	  return _currentDialogState;
+	}
     }
 
 
@@ -543,38 +543,38 @@ namespace Gimp.PicturePackage
     {
       Console.WriteLine ("HandlePopdownCallback");
       /*
-         popdown_timer = 0;
-         popup_window.Hide ();
-         popped_up = false;
-         */
+	popdown_timer = 0;
+	popup_window.Hide ();
+	popped_up = false;
+      */
       return false;
     }
 
     private void HandlePopupMotion (object sender, DragMotionArgs args)
     {
       if(!_beginDnDSet)
-      {
-        _beginDnDPoint.X = args.X;
-        _beginDnDPoint.Y = args.Y;
-        _beginDnDSet = true;
-      }
+	{
+	  _beginDnDPoint.X = args.X;
+	  _beginDnDPoint.Y = args.Y;
+	  _beginDnDSet = true;
+	}
       else if(!_leaveDnDSet)
-      {
-        _leaveDnDPoint.X = args.X;
-        _leaveDnDPoint.Y = args.Y;
-      }
+	{
+	  _leaveDnDPoint.X = args.X;
+	  _leaveDnDPoint.Y = args.Y;
+	}
       //Console.WriteLine ("HandlePopupMotion {0} {1}", args.X, args.Y);
       Console.WriteLine ("HandlePopupMotion {0} {1}", args.X, args.Y);
       /*
-         if (! in_popup) {
-         in_popup = true;
-         if (popdown_timer != 0) {
-         Console.WriteLine ("removed popdown");
-         GLib.Source.Remove (popdown_timer);
-         popdown_timer = 0;
-         }
-         }
-         */
+	if (! in_popup) {
+	in_popup = true;
+	if (popdown_timer != 0) {
+	Console.WriteLine ("removed popdown");
+	GLib.Source.Remove (popdown_timer);
+	popdown_timer = 0;
+	}
+	}
+      */
 
       args.RetVal = true;
     }
@@ -583,28 +583,28 @@ namespace Gimp.PicturePackage
     {
       Console.WriteLine ("HandlePopupLeave");
       /*
-         if (in_popup) {
-         in_popup = false;
-         if (popdown_timer == 0) {
-         Console.WriteLine ("added popdown");
-         popdown_timer = GLib.Timeout.Add (500, new TimeoutHandler (HandlePopdownCallback));
-         }
-         }
-         */
+	if (in_popup) {
+	in_popup = false;
+	if (popdown_timer == 0) {
+	Console.WriteLine ("added popdown");
+	popdown_timer = GLib.Timeout.Add (500, new TimeoutHandler (HandlePopdownCallback));
+	}
+	}
+      */
     }
 
     private static void HandlePopupBegin (object sender, DragBeginArgs args)
     {
       Console.WriteLine ("HandlePopupBegin");
       /*
-         if (in_popup) {
-         in_popup = false;
-         if (popdown_timer == 0) {
-         Console.WriteLine ("added popdown");
-         popdown_timer = GLib.Timeout.Add (500, new TimeoutHandler (HandlePopdownCallback));
-         }
-         }
-         */
+	if (in_popup) {
+	in_popup = false;
+	if (popdown_timer == 0) {
+	Console.WriteLine ("added popdown");
+	popdown_timer = GLib.Timeout.Add (500, new TimeoutHandler (HandlePopdownCallback));
+	}
+	}
+      */
     }
 
     private void HandlePopupEnd (object sender, DragEndArgs args)
@@ -617,7 +617,7 @@ namespace Gimp.PicturePackage
         Rectangle.SwapCoordinates(ref rectA, ref rectB);
       
 
-//      Rectangle rectB = 
+      //      Rectangle rectB = 
 
 
       // Swap the two rectangles
@@ -627,14 +627,14 @@ namespace Gimp.PicturePackage
       // Resetting flags for DnD
       _beginDnDSet = _leaveDnDSet = false;
       /*
-         if (in_popup) {
-         in_popup = false;
-         if (popdown_timer == 0) {
-         Console.WriteLine ("added popdown");
-         popdown_timer = GLib.Timeout.Add (500, new TimeoutHandler (HandlePopdownCallback));
-         }
-         }
-         */
+	if (in_popup) {
+	in_popup = false;
+	if (popdown_timer == 0) {
+	Console.WriteLine ("added popdown");
+	popdown_timer = GLib.Timeout.Add (500, new TimeoutHandler (HandlePopdownCallback));
+	}
+	}
+      */
       
     }
 
@@ -642,82 +642,73 @@ namespace Gimp.PicturePackage
     {
       Console.WriteLine("HandlePopupDataGet");
       /*
-         if (in_popup) {
-         in_popup = false;
-         if (popdown_timer == 0) {
-         Console.WriteLine ("added popdown");
-         popdown_timer = GLib.Timeout.Add (500, new TimeoutHandler (HandlePopdownCallback));
-         }
-         }
-         */
+	if (in_popup) {
+	in_popup = false;
+	if (popdown_timer == 0) {
+	Console.WriteLine ("added popdown");
+	popdown_timer = GLib.Timeout.Add (500, new TimeoutHandler (HandlePopdownCallback));
+	}
+	}
+      */
     }
 
     private static void HandlePopupDataDelete (object sender, DragDataDeleteArgs args)
     {
       Console.WriteLine("HandlePopupDataDelete");
       /*
-         if (in_popup) {
-         in_popup = false;
-         if (popdown_timer == 0) {
-         Console.WriteLine ("added popdown");
-         popdown_timer = GLib.Timeout.Add (500, new TimeoutHandler (HandlePopdownCallback));
-         }
-         }
-         */
+	if (in_popup) {
+	in_popup = false;
+	if (popdown_timer == 0) {
+	Console.WriteLine ("added popdown");
+	popdown_timer = GLib.Timeout.Add (500, new TimeoutHandler (HandlePopdownCallback));
+	}
+	}
+      */
     }
 
     private static bool HandlePopupCallback ()
     {
       Console.WriteLine("HandlePopupCallback");
       /*
-         if (! popped_up) {
-         if (popup_window == null) {
-         Button button;
-         Table table;
+	if (! popped_up) {
+	if (popup_window == null) {
+	Button button;
+	Table table;
 
-         popup_window = new Gtk.Window (Gtk.WindowType.Popup);
-         popup_window.SetPosition (WindowPosition.Mouse);
+	popup_window = new Gtk.Window (Gtk.WindowType.Popup);
+	popup_window.SetPosition (WindowPosition.Mouse);
 
-         table = new Table (3, 3, false);
+	table = new Table (3, 3, false);
 
-         for (int i = 0; i < 3; i++)
-         for (int j = 0; j < 3; j++) {
-         string label = String.Format ("{0},{1}", i, j);
-         button = Button.NewWithLabel (label);
+	for (int i = 0; i < 3; i++)
+	for (int j = 0; j < 3; j++) {
+	string label = String.Format ("{0},{1}", i, j);
+	button = Button.NewWithLabel (label);
 
-         table.Attach (button, (uint) i, (uint) i + 1, (uint) j, (uint) j + 1,
-         AttachOptions.Expand | AttachOptions.Fill, AttachOptions.Expand | AttachOptions.Fill,
-         0, 0);
+	table.Attach (button, (uint) i, (uint) i + 1, (uint) j, (uint) j + 1,
+	AttachOptions.Expand | AttachOptions.Fill, AttachOptions.Expand | AttachOptions.Fill,
+	0, 0);
 
-         Gtk.Drag.DestSet (button, DestDefaults.All,
-         target_table, DragAction.Copy | DragAction.Move);
+	Gtk.Drag.DestSet (button, DestDefaults.All,
+	target_table, DragAction.Copy | DragAction.Move);
 
-         button.DragMotion += new DragMotionHandler (HandlePopupMotion);
-         button.DragLeave += new DragLeaveHandler (HandlePopupLeave);
-         }
+	button.DragMotion += new DragMotionHandler (HandlePopupMotion);
+	button.DragLeave += new DragLeaveHandler (HandlePopupLeave);
+	}
 
-         table.ShowAll ();
-         popup_window.Add (table);
-         }
+	table.ShowAll ();
+	popup_window.Add (table);
+	}
 
-         popup_window.Show ();
-         popped_up = true;
-         }
+	popup_window.Show ();
+	popped_up = true;
+	}
 
-         popdown_timer = GLib.Timeout.Add (500, new TimeoutHandler (HandlePopdownCallback));
-         popup_timer = 0;
-         */
+	popdown_timer = GLib.Timeout.Add (500, new TimeoutHandler (HandlePopdownCallback));
+	popup_timer = 0;
+      */
       return false;
     }
-
-
-
-
-
-
-
-
-
   }
 }
 

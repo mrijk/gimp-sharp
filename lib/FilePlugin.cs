@@ -28,7 +28,7 @@ namespace Gimp
     Procedure _loadProcedure;
     Procedure _saveProcedure;
 
-    public FilePlugin(string[] args) : base(args)
+    public FilePlugin(string[] args, string package) : base(args, package)
     {
     }
 

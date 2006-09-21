@@ -31,7 +31,7 @@ namespace Gimp.PicturePackage
     ImageComboBox _imageBox;
     Button _refresh;
     CheckButton _include;
-    FileEntry _choose;
+    FileChooserButton _choose;
 
     string _fileName = "";
     string _directory = "";
@@ -88,15 +88,17 @@ namespace Gimp.PicturePackage
 
       if (isDir)
 	{
-	  _choose = new FileEntry(Catalog.GetString("Open..."), "", true, true);
-	  _choose.FilenameChanged += OnDirNameChanged;
-	  _choose.FileName = _directory;
+	  _choose = new FileChooserButton(Catalog.GetString("Open..."), 
+					  FileChooserAction.SelectFolder);
+	  _choose.SelectionChanged += OnDirNameChanged;
+	  // _choose.FileName = _directory;
 	}
       else
 	{
-	  _choose = new FileEntry(Catalog.GetString("Open..."), "", false, true);
-	  _choose.FilenameChanged += OnFileNameChanged;
-	  _choose.FileName = _fileName;
+	  _choose = new FileChooserButton(Catalog.GetString("Open..."), 
+					  FileChooserAction.Open);
+	  _choose.SelectionChanged += OnFileNameChanged;
+	  // _choose.FileName = _fileName;
 	}
 
       _choose.Show();
@@ -154,7 +156,7 @@ namespace Gimp.PicturePackage
 
     void OnFileNameChanged (object o, EventArgs args) 
     {
-      _fileName = _choose.FileName;
+      _fileName = _choose.Filename;
       if (_fileName.Length > 0)
 	{
 	  _parent.Loader = new FileImageProviderFactory(_fileName);
@@ -163,7 +165,7 @@ namespace Gimp.PicturePackage
 
     void OnDirNameChanged (object o, EventArgs args) 
     {
-      _directory = _choose.FileName;
+      _directory = _choose.Filename;
       if (_directory.Length > 0)
 	{
 	  _parent.Loader = new DirImageProviderFactory(_directory, _recursive);

@@ -19,7 +19,6 @@
 //
 
 using System;
-using Mono.Unix;
 
 namespace Gimp.AverageBlur
 {
@@ -27,12 +26,10 @@ namespace Gimp.AverageBlur
   {
     static void Main(string[] args)
     {
-      string localeDir = Gimp.LocaleDirectory;
-      Catalog.Init("AverageBlur", localeDir);
       new AverageBlur(args);
     }
 
-    public AverageBlur(string[] args) : base(args)
+    public AverageBlur(string[] args) : base(args, "AverageBlur")
     {
     }
 
@@ -41,13 +38,13 @@ namespace Gimp.AverageBlur
       ProcedureSet set = new ProcedureSet();
 
       Procedure procedure = new Procedure("plug_in_average_blur",
-          Catalog.GetString("Average blur"),
-          Catalog.GetString("Average blur"),
-          "Maurits Rijk",
-          "(C) Maurits Rijk",
-          "2006",
-          Catalog.GetString("Average"),
-          "RGB*, GRAY*");
+					  _("Average blur"),
+					  _("Average blur"),
+					  "Maurits Rijk",
+					  "(C) Maurits Rijk",
+					  "2006",
+					  _("Average"),
+					  "RGB*, GRAY*");
       procedure.MenuPath = "<Image>/Filters/Blur"; 
 
       set.Add(procedure);
@@ -63,7 +60,7 @@ namespace Gimp.AverageBlur
       byte[] average = new byte[bpp];
 
       RgnIterator iter = new RgnIterator(drawable, RunMode.Interactive);
-      iter.Progress = new Progress(Catalog.GetString("Average"));
+      iter.Progress = new Progress(_("Average"));
 
       iter.IterateSrc(delegate (byte[] src) {
 	for (int i = 0; i < bpp; i++)
