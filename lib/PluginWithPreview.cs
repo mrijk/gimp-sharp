@@ -30,10 +30,6 @@ namespace Gimp
     protected AspectPreview _preview;
     protected VBox _vbox;
 
-    public PluginWithPreview(string[] args) : base(args)
-    {
-    }
-
     public PluginWithPreview(string[] args, string package) :
       base(args, package)
     {

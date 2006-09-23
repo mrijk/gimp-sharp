@@ -67,20 +67,6 @@ namespace Gimp
     
     static GimpPlugInInfo _info = new GimpPlugInInfo();
 
-    public Plugin(string[] args)
-    {
-      _info.Init = new InitProc(Init);
-      _info.Quit = new QuitProc(Quit);
-      _info.Query = new QueryProc(Query);
-      _info.Run = new RunProc(Run);
-
-      string[] progargs = new string[args.Length + 1];
-      progargs[0] = "gimp-sharp";
-      args.CopyTo (progargs, 1);
-
-      gimp_main(ref _info, progargs.Length, progargs);
-    }
-
     public Plugin(string[] args, string package)
     {
       Catalog.Init(package, Gimp.LocaleDirectory);
@@ -97,7 +83,7 @@ namespace Gimp
       gimp_main(ref _info, progargs.Length, progargs);
     }
 
-    protected string _(string s)
+    static protected string _(string s)
     {
       return Catalog.GetString(s);
     }

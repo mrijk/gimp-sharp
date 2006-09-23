@@ -21,7 +21,6 @@
 using System;
 using System.IO;
 using System.Reflection;
-using Mono.Unix;
 
 using Gdk;
 using Gtk;
@@ -51,15 +50,12 @@ namespace Gimp.SliceTool
     
     string _filename = null;
     
-    [STAThread]
     static void Main(string[] args)
     {
-      string localeDir = Gimp.LocaleDirectory;
-      Catalog.Init("SliceTool", localeDir);
       new SliceTool(args);
     }
     
-    public SliceTool(string[] args) : base(args)
+    public SliceTool(string[] args) : base(args, "SliceTool")
     {
     }
 
@@ -70,12 +66,12 @@ namespace Gimp.SliceTool
       ParamDefList in_params = new ParamDefList();
 
       Procedure procedure = new Procedure("plug_in_slice_tool",
-					  Catalog.GetString("Slice Tool"),
-					  Catalog.GetString("The Image Slice Tool is used to apply image slicing and rollovers."),
+					  _("Slice Tool"),
+					  _("The Image Slice Tool is used to apply image slicing and rollovers."),
 					  "Maurits Rijk",
 					  "(C) Maurits Rijk",
 					  "2005-2006",
-					  Catalog.GetString("Slice Tool..."),
+					  _("Slice Tool..."),
 					  "RGB*, GRAY*",
 					  in_params);
 
@@ -93,9 +89,9 @@ namespace Gimp.SliceTool
       
       CreateStockIcons();
       
-      Dialog dialog = DialogNew(Catalog.GetString("Slice Tool"), 
-          Catalog.GetString("SliceTool"), IntPtr.Zero, 
-          0, null, Catalog.GetString("SliceTool"),
+      Dialog dialog = DialogNew(_("Slice Tool"), 
+          _("SliceTool"), IntPtr.Zero, 
+          0, null, _("SliceTool"),
 				Stock.SaveAs, (Gtk.ResponseType) 0,
 				Stock.Save, (Gtk.ResponseType) 1,
 				Stock.Close, ResponseType.Close);
@@ -142,15 +138,15 @@ namespace Gimp.SliceTool
       vbox = new VBox(false, 12);
       hbox.PackStart(vbox, false, true, 0);
       
-      Button save = new Button(Catalog.GetString("Save Settings..."));
+      Button save = new Button(_("Save Settings..."));
       save.Clicked += OnSaveSettings;
       vbox.PackStart(save, false, true, 0);
       
-      Button load = new Button(Catalog.GetString("Load Settings..."));
+      Button load = new Button(_("Load Settings..."));
       load.Clicked += OnLoadSettings;
       vbox.PackStart(load, false, true, 0);
 
-      Button preferences = new Button(Catalog.GetString("Preferences"));
+      Button preferences = new Button(_("Preferences"));
       preferences.Clicked += OnPreferences;
       vbox.PackStart(preferences, false, true, 0);
 
@@ -169,7 +165,7 @@ namespace Gimp.SliceTool
       _filename = filename;
       string p = (filename == null) 
 	? "<Untitled>" : System.IO.Path.GetFileName(filename);
-      string title = string.Format(Catalog.GetString("Slice Tool 0.3 - {0}"), p);
+      string title = string.Format(_("Slice Tool 0.3 - {0}"), p);
       Dialog.Title = title;
     }
     
@@ -199,7 +195,7 @@ namespace Gimp.SliceTool
 	  MessageDialog message = 
 	    new MessageDialog(null, DialogFlags.DestroyWithParent,
 			      MessageType.Error, ButtonsType.Close,
-			      Catalog.GetString("Can't save to ") + _filename);
+			      _("Can't save to ") + _filename);
 	  message.Run();
 	  message.Destroy();
 	}
@@ -212,8 +208,8 @@ namespace Gimp.SliceTool
 	  MessageDialog message = 
 	    new MessageDialog(null, DialogFlags.DestroyWithParent,
 			      MessageType.Warning, ButtonsType.YesNo, 
-			      Catalog.GetString("Some data has been changed!\n") + 
-			      Catalog.GetString("Do you really want to discard your changes?"));
+			      _("Some data has been changed!\n") + 
+			      _("Do you really want to discard your changes?"));
 	  ResponseType response = (ResponseType) message.Run();
 	  return response == ResponseType.Yes;
 	}
@@ -224,7 +220,7 @@ namespace Gimp.SliceTool
     {
       if ((int) type == 0 || ((int) type == 1 && _filename == null))
 	{
-	  FileSelection fs = new FileSelection(Catalog.GetString("HTML Save As"));
+	  FileSelection fs = new FileSelection(_("HTML Save As"));
 	  ResponseType response = (ResponseType) fs.Run();
 	  if (response == ResponseType.Ok)
 	    {
@@ -295,23 +291,23 @@ namespace Gimp.SliceTool
       ToggleToolButton toggle = new ToggleToolButton("slice-tool-arrow");
       _toggle = toggle;
       toggle.Active = true;
-      toggle.SetTooltip(tooltips, Catalog.GetString("Select Rectangle"), "arrow");
+      toggle.SetTooltip(tooltips, _("Select Rectangle"), "arrow");
       tools.Insert(toggle, -1);
       toggle.Clicked += OnSelect;
       
       toggle = new ToggleToolButton(GimpStock.TOOL_CROP);
-      tooltips.SetTip(toggle, Catalog.GetString("Create a new Slice"), "create");
+      tooltips.SetTip(toggle, _("Create a new Slice"), "create");
       // toggle.SetTooltip(tooltips, "Create a new Slice", "create");
       tools.Insert(toggle, -1);
       toggle.Clicked += OnCreateSlice;
       
       toggle = new ToggleToolButton(GimpStock.TOOL_ERASER);
-      toggle.SetTooltip(tooltips, Catalog.GetString("Remove Slice"), "delete");
+      toggle.SetTooltip(tooltips, _("Remove Slice"), "delete");
       tools.Insert(toggle, -1);
       toggle.Clicked += OnRemoveSlice;
 
       toggle = new ToggleToolButton(GimpStock.GRID);
-      toggle.SetTooltip(tooltips, Catalog.GetString("Insert Table"), "grid");
+      toggle.SetTooltip(tooltips, _("Insert Table"), "grid");
       tools.Insert(toggle, -1);
       toggle.Clicked += OnCreateTable;
 
@@ -320,7 +316,7 @@ namespace Gimp.SliceTool
     
     Widget CreateCellProperties()
     {
-      GimpFrame frame = new GimpFrame(Catalog.GetString("Cell Properties"));
+      GimpFrame frame = new GimpFrame(_("Cell Properties"));
       GimpTable table = new GimpTable(5, 4, false);
       table.ColumnSpacing = 6;
       table.RowSpacing = 6;
@@ -328,27 +324,27 @@ namespace Gimp.SliceTool
       frame.Add(table);
 			
       _url = new Entry();
-      table.AttachAligned(0, 0, Catalog.GetString("URL:"), 0.0, 0.5, _url, 3, false);
+      table.AttachAligned(0, 0, _("URL:"), 0.0, 0.5, _url, 3, false);
       
       _altText = new Entry();
-      table.AttachAligned(0, 1, Catalog.GetString("Alt text:"), 0.0, 0.5, _altText, 3, false);
+      table.AttachAligned(0, 1, _("Alt text:"), 0.0, 0.5, _altText, 3, false);
       
       _target = new Entry();
-      table.AttachAligned(0, 2, Catalog.GetString("Target:"), 0.0, 0.5, _target, 3, false);
+      table.AttachAligned(0, 2, _("Target:"), 0.0, 0.5, _target, 3, false);
       
       _left = new Label("    ");
-      table.AttachAligned(0, 3, Catalog.GetString("Left:"), 0.0, 0.5, _left, 1, false);
+      table.AttachAligned(0, 3, _("Left:"), 0.0, 0.5, _left, 1, false);
       
       _right = new Label("    ");
-      table.AttachAligned(0, 4, Catalog.GetString("Right:"), 0.0, 0.5, _right, 1, false);
+      table.AttachAligned(0, 4, _("Right:"), 0.0, 0.5, _right, 1, false);
       
       _top = new Label("    ");
-      table.AttachAligned(2, 3, Catalog.GetString("Top:"), 0.0, 0.5, _top, 1, false);
+      table.AttachAligned(2, 3, _("Top:"), 0.0, 0.5, _top, 1, false);
       
       _bottom = new Label("    ");
-      table.AttachAligned(2, 4, Catalog.GetString("Bottom:"), 0.0, 0.5, _bottom, 1, false);
+      table.AttachAligned(2, 4, _("Bottom:"), 0.0, 0.5, _bottom, 1, false);
       
-      _include = new CheckButton(Catalog.GetString("_Include cell in table"));
+      _include = new CheckButton(_("_Include cell in table"));
       _include.Active = true;
       table.Attach(_include, 0, 2, 5, 6);
       
@@ -357,16 +353,16 @@ namespace Gimp.SliceTool
     
     Widget CreateRollover()
     {
-      GimpFrame frame = new GimpFrame(Catalog.GetString("Rollovers"));
+      GimpFrame frame = new GimpFrame(_("Rollovers"));
 
       VBox vbox = new VBox(false, 12);
       frame.Add(vbox);
 
-      Button button = new Button(Catalog.GetString("Rollover Creator..."));
+      Button button = new Button(_("Rollover Creator..."));
       button.Clicked += OnRolloverCreate;
       vbox.Add(button);
 
-      Label label = new Label(Catalog.GetString("Rollover enabled: no"));
+      Label label = new Label(_("Rollover enabled: no"));
       vbox.Add(label);
 
       return frame;
@@ -387,7 +383,7 @@ namespace Gimp.SliceTool
 
     void OnSaveSettings(object o, EventArgs args)
     {
-      FileSelection fs = new FileSelection(Catalog.GetString("Save Settings"));
+      FileSelection fs = new FileSelection(_("Save Settings"));
       ResponseType type = (ResponseType) fs.Run();
       if (type == ResponseType.Ok)
 	{
@@ -398,7 +394,7 @@ namespace Gimp.SliceTool
 
     void OnLoadSettings(object o, EventArgs args)
     {
-      FileSelection fs = new FileSelection(Catalog.GetString("Load Settings"));
+      FileSelection fs = new FileSelection(_("Load Settings"));
       ResponseType type = (ResponseType) fs.Run();
       if (type == ResponseType.Ok)
 	{

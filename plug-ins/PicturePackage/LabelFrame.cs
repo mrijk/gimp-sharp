@@ -19,7 +19,6 @@
 //
 
 using System;
-using Mono.Unix;
 
 using Gtk;
 
@@ -34,35 +33,31 @@ namespace Gimp.PicturePackage
     GimpColorButton _color;
     SpinButton _opacity;
 
-    public LabelFrame(PicturePackage parent) : 
-        base(3, 3, Catalog.GetString("Label"))
+    public LabelFrame(PicturePackage parent) : base(3, 3, "Label")
     {
       _parent = parent;
 
-      ComboBox content = CreateComboBox(Catalog.GetString("None"),
-          Catalog.GetString("Custom Text"), Catalog.GetString("Filename"),
-					Catalog.GetString("Copyright"), Catalog.GetString("Caption"),
-          Catalog.GetString("Credits"), Catalog.GetString("Title"));
+      ComboBox content = CreateComboBox(_("None"), _("Custom Text"), 
+					_("Filename"), _("Copyright"),
+					_("Caption"), _("Credits"), 
+					_("Title"));
       content.Active = 0;
       content.Changed += delegate(object o, EventArgs args) 
 	{
 	  SetLabelFrameSensitivity(content.Active);
 	};
-      Table.AttachAligned(0, 0, Catalog.GetString("Content:"), 
-          0.0, 0.5, content, 1, false);
+      Table.AttachAligned(0, 0, _("Content:"), 0.0, 0.5, content, 1, false);
 
       _entry = new Entry();
       _entry.Changed += delegate(object o, EventArgs args) 
 	{
 	  _parent.Label = _entry.Text;
 	};
-      Table.AttachAligned(0, 1, Catalog.GetString("Custom Text:"), 
-          0.0, 0.5, _entry, 1, true);
+      Table.AttachAligned(0, 1, _("Custom Text:"), 0.0, 0.5, _entry, 1, true);
 
       Button font = new Button(Stock.SelectFont);
       font.Clicked += OnFontClicked;
-      Table.AttachAligned(0, 2, Catalog.GetString("Font:"), 
-          0.0, 0.5, font, 1, true);
+      Table.AttachAligned(0, 2, _("Font:"), 0.0, 0.5, font, 1, true);
 
       HBox hbox = new HBox(false, 12);
 
@@ -72,29 +67,27 @@ namespace Gimp.PicturePackage
       hbox.Add(_color);
 
       _opacity = new SpinButton(0, 100, 1);
-      hbox.Add(new Label(Catalog.GetString("Opacity:")));
+      hbox.Add(new Label(_("Opacity:")));
       hbox.Add(_opacity);
       hbox.Add(new Label("%"));
-      Table.AttachAligned(0, 3, Catalog.GetString("Color:"), 
-          0.0, 0.5, hbox, 1, true);
+      Table.AttachAligned(0, 3, _("Color:"), 0.0, 0.5, hbox, 1, true);
 
-      _position = CreateComboBox(
-          Catalog.GetString("Centered"), Catalog.GetString("Top Left"),
-          Catalog.GetString("Bottom Left"), Catalog.GetString("Top Right"),
-          Catalog.GetString("Bottom Right"));
+      _position = CreateComboBox(_("Centered"), _("Top Left"),
+				 _("Bottom Left"), _("Top Right"),
+				 _("Bottom Right"));
       _position.Changed += delegate(object o, EventArgs args) 
 	{
 	  _parent.Position = _position.Active;
 	};
-      Table.AttachAligned(0, 4, Catalog.GetString("Position:"),
+      Table.AttachAligned(0, 4, _("Position:"),
           0.0, 0.5, _position, 1, false);
 
-      _rotate = CreateComboBox(Catalog.GetString("None"), 
-          Catalog.GetString("45 Degrees Right"),
-          Catalog.GetString("90 Degrees Right"), 
-          Catalog.GetString("45 Degrees Left"),
-			    Catalog.GetString("90 Degrees Left"));
-      Table.AttachAligned(0, 5, Catalog.GetString("Rotate:"), 
+      _rotate = CreateComboBox(_("None"), 
+			       _("45 Degrees Right"),
+			       _("90 Degrees Right"), 
+			       _("45 Degrees Left"),
+			    _("90 Degrees Left"));
+      Table.AttachAligned(0, 5, _("Rotate:"), 
           0.0, 0.5, _rotate, 1, false);
 
       SetLabelFrameSensitivity(0);
@@ -113,8 +106,7 @@ namespace Gimp.PicturePackage
 
     void OnFontClicked (object o, EventArgs args) 
     {
-      FontSelectionDialog fs = new FontSelectionDialog(
-          Catalog.GetString("Select Font"));
+      FontSelectionDialog fs = new FontSelectionDialog(_("Select Font"));
       fs.Run();
       fs.Hide();
     }

@@ -21,7 +21,6 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
-using Mono.Unix;
 
 using Gtk;
 
@@ -46,15 +45,12 @@ namespace Gimp.Swirlies
     [SaveAttribute("points")]
     int _points = 3;
 
-    [STAThread]
     static void Main(string[] args)
     {
-      string localeDir = Gimp.LocaleDirectory;
-      Catalog.Init("Swirlies", localeDir);
       new Swirlies(args);
     }
 
-    public Swirlies(string[] args) : base(args)
+    public Swirlies(string[] args) : base(args, "Swirlies")
     {
     }
 
@@ -65,12 +61,12 @@ namespace Gimp.Swirlies
       ParamDefList in_params = new ParamDefList();
 
       Procedure procedure = new Procedure("plug_in_swirlies",
-					  Catalog.GetString("Generates 2D textures"),
-					  Catalog.GetString("Generates 2D textures"),
+					  _("Generates 2D textures"),
+					  _("Generates 2D textures"),
 					  "Maurits Rijk",
 					  "(C) Maurits Rijk",
 					  "2006",
-					  Catalog.GetString("Swirlies..."),
+					  _("Swirlies..."),
 					  "RGB",
 					  in_params);
 
@@ -84,9 +80,8 @@ namespace Gimp.Swirlies
 
     override protected bool CreateDialog()
     {
-      Dialog dialog = DialogNew(Catalog.GetString("Swirlies"), 
-        Catalog.GetString("swirlies"), IntPtr.Zero, 0, null, 
-				Catalog.GetString("swirlies"));
+      Dialog dialog = DialogNew(_("Swirlies"), _("swirlies"), IntPtr.Zero, 0, 
+				null, _("swirlies"));
       // _preview.SetBounds(0, 0, 50, 50);
 
       _progress = new ProgressBar();
@@ -99,13 +94,12 @@ namespace Gimp.Swirlies
 
       RandomSeed seed = new RandomSeed(ref _seed, ref _random_seed);
 
-      table.AttachAligned(0, 0, Catalog.GetString("Random _Seed:"), 
+      table.AttachAligned(0, 0, _("Random _Seed:"), 
         0.0, 0.5, seed, 2, true);
 
-      ScaleEntry entry = new ScaleEntry(table, 0, 1, 
-          Catalog.GetString("Po_ints:"), 
-          150, 3, _points, 1.0, 16.0, 1.0, 8.0, 0,
-					true, 0, 0, null, null);
+      ScaleEntry entry = new ScaleEntry(table, 0, 1, _("Po_ints:"), 
+					150, 3, _points, 1.0, 16.0, 1.0, 8.0, 
+					0, true, 0, 0, null, null);
       entry.ValueChanged += delegate(object sender, EventArgs e)
 	{
 	  _points = entry.ValueAsInt;
@@ -182,7 +176,7 @@ namespace Gimp.Swirlies
     {
       Initialize(drawable);
       RgnIterator iter = new RgnIterator(drawable, RunMode.Interactive);
-      iter.Progress = new Progress(Catalog.GetString("Swirlies"));
+      iter.Progress = new Progress(_("Swirlies"));
       iter.IterateDest(new RgnIterator.IterFuncDestFull(DoSwirlies));
       
       Display.DisplaysFlush();

@@ -22,6 +22,8 @@
 using System;
 using System.Runtime.InteropServices;
 
+using Mono.Unix;
+
 using Gtk;
 
 namespace Gimp
@@ -30,6 +32,11 @@ namespace Gimp
     {
       public GimpFrame(string label) : base(gimp_frame_new(label))
       {
+      }
+
+      static protected string _(string s)
+      {
+	return Catalog.GetString(s);
       }
 
       [DllImport("libgimpwidgets-2.0-0.dll")]

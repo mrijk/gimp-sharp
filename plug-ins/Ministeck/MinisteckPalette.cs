@@ -19,7 +19,6 @@
 //
 
 using System;
-using Mono.Unix;
 
 namespace Gimp.Ministeck
 {
@@ -31,7 +30,7 @@ namespace Gimp.Ministeck
     {
       _palette = new Palette("Ministeck");
 #if true
-      _palette.AddEntry(Catalog.GetString("first"), new RGB(253, 254, 253));
+      _palette.AddEntry("first", new RGB(253, 254, 253));
       _palette.AddEntry("", new RGB(206, 153,  50));
       _palette.AddEntry("", new RGB(155, 101,  52));
       _palette.AddEntry("", new RGB( 50,  50,  50));
@@ -57,16 +56,12 @@ namespace Gimp.Ministeck
       _palette.AddEntry("", new RGB(251, 155, 101));
       _palette.AddEntry("", new RGB(254, 254, 202));
       _palette.AddEntry("", new RGB(  4,   2,   2));
-      _palette.AddEntry(Catalog.GetString("last"), new RGB(206, 206, 206));
+      _palette.AddEntry("last", new RGB(206, 206, 206));
 #else
-      _palette.AddEntry(Catalog.GetString("black") , 
-          new RGB(  7,   7,   7));
-      _palette.AddEntry(Catalog.GetString("dark blue") , 
-          new RGB( 64,  10, 121));
-      _palette.AddEntry(Catalog.GetString("light blue"), 
-          new RGB( 59, 138, 207));
-      _palette.AddEntry(Catalog.GetString("light blue"), 
-          new RGB( 59, 138, 207));
+      _palette.AddEntry("black" , new RGB(  7,   7,   7));
+      _palette.AddEntry("dark blue", new RGB( 64,  10, 121));
+      _palette.AddEntry("light blue", new RGB( 59, 138, 207));
+      _palette.AddEntry("light blue"), new RGB( 59, 138, 207));
 #endif 
     }
 

@@ -19,7 +19,6 @@
 //
 
 using System;
-using Mono.Unix;
 using Gtk;
 
 namespace Gimp.Splitter
@@ -53,15 +52,12 @@ namespace Gimp.Splitter
     [SaveAttribute]
     bool _randomSeed;
 
-    [STAThread]
     static void Main(string[] args)
     {
-      string localeDir = Gimp.LocaleDirectory;
-      Catalog.Init("Splitter", localeDir);
       new Splitter(args);
     }
 
-    public Splitter(string[] args) : base(args)
+    public Splitter(string[] args) : base(args, "Splitter")
     {
     }
 
@@ -72,12 +68,12 @@ namespace Gimp.Splitter
       ParamDefList in_params = new ParamDefList();
 
       Procedure procedure = new Procedure("plug_in_splitter",
-					  Catalog.GetString("Splits an image."),
-					  Catalog.GetString("Splits an image in separate parts using a formula of the form f(x, y) = 0"),
+					  _("Splits an image."),
+					  _("Splits an image in separate parts using a formula of the form f(x, y) = 0"),
 					  "Maurits Rijk",
 					  "(C) Maurits Rijk",
 					  "1999 - 2006",
-					  Catalog.GetString("Splitter..."),
+					  _("Splitter..."),
 					  "RGB*",
 					  in_params);
       procedure.MenuPath = "<Image>/Filters/Generic";
@@ -92,9 +88,8 @@ namespace Gimp.Splitter
     {
       gimp_ui_init("splitter", true);
 
-      Dialog dialog = DialogNew(Catalog.GetString("Splitter"), 
-        Catalog.GetString("splitter"),
-				IntPtr.Zero, 0, null, Catalog.GetString("splitter"));
+      Dialog dialog = DialogNew(_("Splitter"), _("splitter"),
+				IntPtr.Zero, 0, null, _("splitter"));
 
       VBox vbox = new VBox(false, 12);
       vbox.BorderWidth = 12;
@@ -125,8 +120,7 @@ namespace Gimp.Splitter
       GimpFrame frame2 = CreateLayerFrame2();
       table.Attach(frame2, 1, 2, 1, 2);
 
-      CheckButton merge = new CheckButton(
-          Catalog.GetString("Merge visible layers"));
+      CheckButton merge = new CheckButton(_("Merge visible layers"));
       merge.Active = _merge;
       merge.Toggled += delegate(object sender, EventArgs args)
 	{
@@ -134,8 +128,7 @@ namespace Gimp.Splitter
 	};
       table.Attach(merge, 0, 1, 3, 4);
 
-      Button advanced = new Button(
-          Catalog.GetString("Advanced Options..."));
+      Button advanced = new Button(_("Advanced Options..."));
       advanced.Clicked += delegate(object sender, EventArgs args)
 	{
 	  AdvancedDialog advancedDialog = new AdvancedDialog(_seed, 
@@ -152,7 +145,7 @@ namespace Gimp.Splitter
 
       ComboBox keep = ComboBox.NewText();
 
-      keep.AppendText(Catalog.GetString("Both Layers"));
+      keep.AppendText(_("Both Layers"));
       keep.AppendText("Layer 1");
       keep.AppendText("Layer 2");
       keep.Active = _keepLayer;

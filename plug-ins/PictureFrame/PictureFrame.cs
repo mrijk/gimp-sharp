@@ -20,7 +20,6 @@
 
 using System;
 using Gtk;
-using Mono.Unix;
 
 namespace Gimp.PictureFrame
 {
@@ -31,12 +30,10 @@ namespace Gimp.PictureFrame
   
     static void Main(string[] args)
     {
-      string localeDir = Gimp.LocaleDirectory;
-      Catalog.Init("PictureFrame", localeDir);
       new PictureFrame(args);
     }
 
-    public PictureFrame(string[] args) : base(args)
+    public PictureFrame(string[] args) : base(args, "PictureFrame")
     {
     }
 
@@ -45,12 +42,12 @@ namespace Gimp.PictureFrame
       ProcedureSet set = new ProcedureSet();
 
       Procedure procedure = new Procedure("plug_in_picture_frame",
-					  Catalog.GetString("Picture frame"),
-					  Catalog.GetString("Picture frame"),
+					  _("Picture frame"),
+					  _("Picture frame"),
 					  "Oded Coster",
 					  "(C) Oded Coster",
 					  "2006",
-					  Catalog.GetString("Picture frame..."),
+					  _("Picture frame..."),
 					  "RGB*, GRAY*");
       procedure.MenuPath = "<Image>/Filters/Render";
       procedure.IconFile = "PictureFrame.png";
@@ -114,7 +111,7 @@ namespace Gimp.PictureFrame
 	  Display.DisplaysFlush();
 	  
 	  frame.Delete();
-      }
+	}
       catch(Exception ex) 
 	{	
 	  throw new GimpSharpException(); 

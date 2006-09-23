@@ -42,7 +42,7 @@ namespace Gimp.UnitTest
       new UnitTest(args);
     }
 
-    public UnitTest(string[] args) : base(args)
+    public UnitTest(string[] args) : base(args, "UnitTest")
     {
     }
 

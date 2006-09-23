@@ -36,7 +36,7 @@ namespace Gimp.PhotoshopActions
       new PhotoshopActions(args);
     }
 
-    public PhotoshopActions(string[] args) : base(args)
+    public PhotoshopActions(string[] args) : base(args, "PhotoshopActions")
     {
     }
 

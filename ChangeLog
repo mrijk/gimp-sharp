@@ -1,3 +1,31 @@
+2006-09-23  Maurits  <m.rijk@chello.nl>
+
+	* lib/GimpFrame.cs: added _() function for i18n
+
+	* plug-ins/Ministeck/Makefile.am
+	* plug-ins/Ministeck/Ministeck.cs
+	* plug-ins/Ministeck/MinisteckPalette.cs
+	* plug-ins/PhotoshopActions/PhotoshopActions.cs
+	* plug-ins/PicturePackage/DocumentFrame.cs
+	* plug-ins/PicturePackage/LabelFrame.cs
+	* plug-ins/PicturePackage/SourceFrame.cs 
+	* plug-ins/PicturePackage/Makefile.am
+	* plug-ins/PicturePackage/PicturePackage.cs
+	* plug-ins/Pointillize/Makefile.am
+	* plug-ins/Pointillize/Pointillize.cs
+	* plug-ins/SliceTool/SliceTool.cs
+	* plug-ins/Splitter/AdvancedDialog.cs
+	* plug-ins/Splitter/Makefile.am
+	* plug-ins/Splitter/Splitter.cs
+	* plug-ins/Swirlies/Swirlies.cs
+	* plug-ins/Swirlies/Makefile.am
+	* plug-ins/UnitTest/UnitTest.cs
+	* plug-ins/UpdateCheck/UpdateCheckcs
+	* plug-ins/UpdateCheck/Makefile.am
+	* lib/GimpDialog.cs
+	* lib/Plugin.cs
+	* lib/PluginWithPreview.cs: move i18n to base classes
+
 2006-09-21  Maurits  <m.rijk@chello.nl>
 
 	* lib/Makefile.am

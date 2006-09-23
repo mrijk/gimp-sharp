@@ -22,7 +22,6 @@ using System;
 using System.IO;
 using System.Net;
 using System.Threading;
-using Mono.Unix;
 
 using Gtk;
 using Gdk;
@@ -85,21 +84,19 @@ namespace Gimp.PicturePackage
 
     private static TargetEntry[] targetTable = new TargetEntry [] {
       new TargetEntry ("dummy", 0, (uint)TargetType.String),
-      new TargetEntry ("application/x-gimpsharp-picturepackage-drop", 0, (uint)TargetType.String)
+      new TargetEntry ("application/x-gimpsharp-picturepackage-drop", 0, 
+		       (uint)TargetType.String)
     };
 
     [SaveAttribute]
     DialogStateType _currentDialogState = DialogStateType.SrcImgInvalid;
 
-    [STAThread]
     static void Main(string[] args)
     {
-      string localeDir = Gimp.LocaleDirectory;
-      Catalog.Init("PicturePackage", localeDir);        
       new PicturePackage(args);
     }
 
-    public PicturePackage(string[] args) : base(args)
+    public PicturePackage(string[] args) : base(args, "PicturePackage")
     {
     }
 
@@ -110,12 +107,12 @@ namespace Gimp.PicturePackage
       ParamDefList in_params = new ParamDefList();
 
       Procedure procedure = new Procedure("plug_in_picture_package",
-					  Catalog.GetString("Picture package"),
-					  Catalog.GetString("Picture package"),
+					  _("Picture package"),
+					  _("Picture package"),
 					  "Maurits Rijk, Massimo Perga",
 					  "Maurits Rijk, Massimo Perga",
 					  "2004-2006",
-					  Catalog.GetString("Picture Package..."),
+					  _("Picture Package..."),
 					  "",
 					  in_params);
 
@@ -133,9 +130,9 @@ namespace Gimp.PicturePackage
 
       _layoutSet.Load();
 
-      Dialog dialog = DialogNew(Catalog.GetString("Picture Package 0.6.2"),
-				Catalog.GetString("PicturePackage"), IntPtr.Zero, 0, null, 
-				Catalog.GetString("PicturePackage"));
+      Dialog dialog = DialogNew(_("Picture Package 0.6.2"),
+				_("PicturePackage"), IntPtr.Zero, 0, null, 
+				_("PicturePackage"));
 
       HBox hbox = new HBox(false, 12);
       hbox.BorderWidth = 12;
@@ -164,8 +161,7 @@ namespace Gimp.PicturePackage
 
       EventBox eventBox = new EventBox();
       fbox.Add(eventBox);
-      tips.SetTip(eventBox, Catalog.GetString("Right click to select picture"),
-		  "preview");
+      tips.SetTip(eventBox, _("Right click to select picture"), "preview");
 
       _preview = new Preview(this);
       _preview.WidthRequest = 400;
@@ -315,18 +311,17 @@ namespace Gimp.PicturePackage
       // Open the "Load" dialog if the right button is pressed
       if (_rectangle != null)
 	{
-	  if(args.Event.Button == 3)
+	  if (args.Event.Button == 3)
 	    {
 	      FileSelection selection = new FileSelection("Select image");
 	      selection.Response += OnFileSelectionResponse;
 	      selection.Run();
 	    }
 	}
-      else if(args.Event.Button == 1)
+      else if (args.Event.Button == 1)
 	{
 
 	}
-
     }
 
     void OnDragDataReceived(object o, DragDataReceivedArgs args)
@@ -441,10 +436,10 @@ namespace Gimp.PicturePackage
       set
 	{
 	  _currentDialogState = value;
-	  if(_dialog != null)
+	  if (_dialog != null)
 	    {
-	      if((_currentDialogState == DialogStateType.SrcImgValid) ||
-		 (_currentDialogState == DialogStateType.SrcFileValid))
+	      if (_currentDialogState == DialogStateType.SrcImgValid ||
+		  _currentDialogState == DialogStateType.SrcFileValid)
 		{
 		  _dialog.SetResponseSensitive(ResponseType.Ok, true);
 		}
@@ -508,7 +503,8 @@ namespace Gimp.PicturePackage
       args.RetVal = false;
     }
 
-    private static void HandleTargetDragDataReceived (object sender, DragDataReceivedArgs args)
+    private static void HandleTargetDragDataReceived (object sender, 
+						      DragDataReceivedArgs args)
     {
       Console.WriteLine("HandleTargetDragDataReceived");
       if (args.SelectionData.Length >=0 && args.SelectionData.Format == 8) {

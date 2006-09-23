@@ -34,7 +34,7 @@ namespace Gimp.Shatter
       new Shatter(args);
     }
 
-    public Shatter(string[] args) : base(args)
+    public Shatter(string[] args) : base(args, "Shatter")
     {
     }
 

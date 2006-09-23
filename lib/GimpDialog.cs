@@ -22,6 +22,8 @@
 using System;
 using System.Runtime.InteropServices;
 
+using Mono.Unix;
+
 using Gtk;
 
 namespace Gimp
@@ -81,6 +83,11 @@ namespace Gimp
 			   Stock.Cancel, ResponseType.Cancel,
 			   Stock.Ok, ResponseType.Ok, null))
     {
+    }
+
+    static protected string _(string s)
+    {
+      return Catalog.GetString(s);
     }
 
     public new ResponseType Run()

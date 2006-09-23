@@ -19,7 +19,6 @@
 //
 
 using System;
-using Mono.Unix;
 
 using Gtk;
 
@@ -37,14 +36,13 @@ namespace Gimp.PicturePackage
     string _directory = "";
     bool _recursive = false;
 
-    public SourceFrame(PicturePackage parent) : 
-        base(3, 2, Catalog.GetString("Source"))
+    public SourceFrame(PicturePackage parent) : base(3, 2, "Source")
     {
       _parent = parent;
 
       _table.ColumnSpacing = 12;
 
-      RadioButton button = new RadioButton(Catalog.GetString("_Image"));
+      RadioButton button = new RadioButton(_("_Image"));
       button.Clicked += OnImageClicked;
       Table.Attach(button, 0, 1, 0, 1);
 
@@ -61,15 +59,15 @@ namespace Gimp.PicturePackage
       _refresh.Clicked += OnRefreshClicked;
       hbox.PackEnd(_refresh, false, false, 0);
 
-      button = new RadioButton(button, Catalog.GetString("_File"));
+      button = new RadioButton(button, _("_File"));
       button.Clicked += OnFileClicked;
       Table.Attach(button, 0, 1, 1, 2);
 
-      button = new RadioButton(button, Catalog.GetString("Fol_der"));
+      button = new RadioButton(button, _("Fol_der"));
       button.Clicked += OnFolderClicked;
       Table.Attach(button, 0, 1, 2, 3);
 
-      _include = new CheckButton(Catalog.GetString("_Include All Subfolders"));
+      _include = new CheckButton(_("_Include All Subfolders"));
       _include.Active = _recursive;
       _include.Sensitive = false;
       _include.Toggled += OnIncludeToggled;
@@ -88,14 +86,14 @@ namespace Gimp.PicturePackage
 
       if (isDir)
 	{
-	  _choose = new FileChooserButton(Catalog.GetString("Open..."), 
+	  _choose = new FileChooserButton(_("Open..."), 
 					  FileChooserAction.SelectFolder);
 	  _choose.SelectionChanged += OnDirNameChanged;
 	  // _choose.FileName = _directory;
 	}
       else
 	{
-	  _choose = new FileChooserButton(Catalog.GetString("Open..."), 
+	  _choose = new FileChooserButton(_("Open..."),
 					  FileChooserAction.Open);
 	  _choose.SelectionChanged += OnFileNameChanged;
 	  // _choose.FileName = _fileName;
