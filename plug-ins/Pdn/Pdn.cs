@@ -38,7 +38,7 @@ namespace Gimp.Pdn
       new Pdn(args);
     }
 
-    public Pdn(string[] args) : base(args)
+    public Pdn(string[] args) : base(args, "Pdn")
     {
     }
 

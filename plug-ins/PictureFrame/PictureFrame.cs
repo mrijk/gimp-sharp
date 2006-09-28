@@ -19,6 +19,8 @@
 //
 
 using System;
+using System.Text;
+
 using Gtk;
 
 namespace Gimp.PictureFrame
@@ -26,7 +28,7 @@ namespace Gimp.PictureFrame
   public class PictureFrame : Plugin
   {
   
-    private string pictureFrameImagePath;
+    private string _pictureFrameImagePath;
   
     static void Main(string[] args)
     {
@@ -69,10 +71,18 @@ namespace Gimp.PictureFrame
       vbox.BorderWidth = 12;
       dialog.VBox.PackStart(vbox, true, true, 0);
       
+#if false
       FileEntry entry = new FileEntry("Load Frame...", "PictureFrame.svg",
 				      false, true);
       entry.FilenameChanged += GetNewFileName;
-
+#else
+      FileChooserButton entry = 
+	new FileChooserButton(_("Load Frame..."), FileChooserAction.Open);
+      entry.SelectionChanged += delegate(object o, EventArgs args)
+	{
+	  _pictureFrameImagePath = entry.Filename;
+	};
+#endif
       vbox.PackStart(entry, false, false, 0);
 
       dialog.ShowAll();
@@ -81,23 +91,14 @@ namespace Gimp.PictureFrame
 
     }
     
-    private void GetNewFileName(object sender, EventArgs e)
-    {
-      FileEntry frameFile = sender as FileEntry;
-    	
-      if (frameFile != null)
-    	{
-	  pictureFrameImagePath = frameFile.FileName;
-    	}
-    }
-    
     override protected void Render(Image image, Drawable original_drawable)
     {
     
       try
 	{
-	  Image frame = Image.Load(RunMode.Interactive, pictureFrameImagePath, 
-				   pictureFrameImagePath);
+	  Image frame = Image.Load(RunMode.Interactive, 
+				   _pictureFrameImagePath, 
+				   _pictureFrameImagePath);
 	  Layer new_layer = new Layer(frame.ActiveLayer, image);
 	  
 	  new_layer.Visible = true;

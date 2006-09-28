@@ -15,7 +15,6 @@ TESTSOURCES = 	TestBrush.cs 			\
 		TestBrushList.cs		\
 		TestChannel.cs			\
 		TestChannelList.cs		\
-		TestContext.cs			\
 		TestDisplay.cs			\
 		TestDrawable.cs			\
 		TestFloatingSelection.cs	\
@@ -32,12 +31,15 @@ TESTSOURCES = 	TestBrush.cs 			\
 		TestPatternList.cs		\
 		TestPixelFetcher.cs		\
 		TestPixelRgn.cs			\
-		TestPlugins.cs			\
 		TestProcedure.cs		\
-		TestRGB.cs			\
 		TestRegionIterator.cs		\
 		TestRgnIterator.cs		\
+		TestRGB.cs			\
 		TestVersion.cs
+
+
+#		TestContext.cs
+#		TestPlugins.cs
 
 EXTRA_DIST = $(MYSOURCES) $(TESTSOURCES) UnitTest UnitTest.png
 

@@ -79,6 +79,7 @@ MYSOURCES = 			\
 	Selection.cs		\
 	Tattoo.cs		\
 	Tile.cs			\
+	Vectors.cs		\
 	Version.cs		\
 	VerticalGuide.cs
 

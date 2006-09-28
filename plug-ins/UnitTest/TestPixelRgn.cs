@@ -194,6 +194,7 @@ namespace Gimp
 		}
 	    }
 	}
+      image.Delete();
     }
      
     [Test]
@@ -245,6 +246,8 @@ namespace Gimp
 		}
 	    }
 	}
+
+      image.Delete();
     }
 
     [Test]
@@ -300,6 +303,7 @@ namespace Gimp
 		}
 	    }
 	}
+      image.Delete();
     }
 
     void FillDrawable(Drawable drawable, byte[] pixel)
