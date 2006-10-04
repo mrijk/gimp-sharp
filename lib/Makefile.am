@@ -77,6 +77,7 @@ MYSOURCES = 			\
 	ScaleEntry.cs		\
 	ScrolledPreview.cs	\
 	Selection.cs		\
+	Stroke.cs		\
 	Tattoo.cs		\
 	Tile.cs			\
 	Vectors.cs		\

@@ -1,3 +1,9 @@
+2006-10-04  Maurits  <m.rijk@chello.nl>
+
+	* lib/Stroke.cs: new file for GIMP 2.4 vectors class
+
+	* lib/Makefile.am: changed accordingly
+
 2006-09-28  Maurits  <m.rijk@chello.nl>
 
 	* lib/Vectors.cs: implement new (GIMP 2.4) Vectors class
