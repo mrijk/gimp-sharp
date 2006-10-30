@@ -107,6 +107,23 @@ namespace Gimp
       return new Parasite(gimp_vectors_parasite_find(_ID, name));
     }
 
+    public Stroke BezierStrokeNewEllipse(Coordinate<double> c, 
+					 double radiusX, double radiusY,
+					 double angle)
+    {
+      return 
+	new Stroke(_ID, gimp_vectors_bezier_stroke_new_ellipse(_ID, c.X, c.Y,
+							       radiusX,
+							       radiusY,
+							       angle));
+    }
+
+    public Stroke BezierStrokeNewMoveto(Coordinate<double> c)
+    {
+      return new Stroke(_ID, 
+			gimp_vectors_bezier_stroke_new_moveto(_ID, c.X, c.Y));
+    }
+
     [DllImport("libgimp-2.0-0.dll")]
     extern static Int32 gimp_vectors_get_image(Int32 vectors_ID);
     [DllImport("libgimp-2.0-0.dll")]
@@ -141,5 +158,16 @@ namespace Gimp
     static extern bool gimp_vectors_parasite_list(Int32 drawable_ID,
 						  out int num_parasites,
 						  ref IntPtr parasites);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern int gimp_vectors_bezier_stroke_new_ellipse(Int32 vectors_ID,
+							     double x0,
+							     double y0,
+							     double radius_x,
+							     double radius_y,
+							     double angle);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern int gimp_vectors_bezier_stroke_new_moveto(Int32 vectors_ID,
+							    double x0,
+							    double y0);
   }
 }

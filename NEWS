@@ -2,6 +2,7 @@ Overview of Changes in Gimp# 0.11
 =================================
 - Java / IKVM support
 - Sample Java plug-in included
+- Coverage of the (GIMP 2.4) gimp_vectors_xxx routines
 
 Overview of Changes in Gimp# 0.10
 =================================

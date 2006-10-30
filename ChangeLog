@@ -1,3 +1,14 @@
+2006-10-11  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/UnitTest/TestStroke.cs
+	* plug-ins/UnitTest/TestVectors.cs: new files to test vectors class
+
+	* plug-ins/UnitTest/Makefile.am: changed accordingly
+
+2006-10-11  Maurits  <m.rijk@chello.nl>
+
+	* NEWS: update
+
 2006-10-04  Maurits  <m.rijk@chello.nl>
 
 	* lib/Stroke.cs: new file for GIMP 2.4 vectors class

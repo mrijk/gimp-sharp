@@ -35,6 +35,8 @@ TESTSOURCES = 	TestBrush.cs 			\
 		TestRegionIterator.cs		\
 		TestRgnIterator.cs		\
 		TestRGB.cs			\
+		TestStroke.cs			\
+		TestVectors.cs			\
 		TestVersion.cs
 
 
