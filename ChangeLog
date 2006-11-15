@@ -1,3 +1,10 @@
+2006-11-15  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/Colorize/*: new plug-in
+
+	* configure.in
+	* plug-ins/Makefile.am: changed accordingly
+
 2006-10-11  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/UnitTest/TestStroke.cs

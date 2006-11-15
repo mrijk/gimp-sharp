@@ -5,6 +5,7 @@ ecw = ecw
 endif
 
 if BUILD_INCOMPLETE
+Colorize = Colorize
 Shatter = Shatter
 DifferenceClouds = DifferenceClouds
 PictureFrame = PictureFrame
@@ -21,6 +22,7 @@ endif
 AUTOMAKE_OPTIONS = gnu
 SUBDIRS = 			\
 	AverageBlur		\
+	$(Colorize)		\
 	$(DifferenceClouds)	\
 	$(ecw)			\
 	Forge	 		\
