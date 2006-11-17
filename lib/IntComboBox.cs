@@ -41,7 +41,7 @@ namespace Gimp
 	  int val;
 	  if (!gimp_int_combo_box_get_active(Handle, out val))
 	    {
-	      throw new Exception();
+	      throw new GimpSharpException();
 	    }
 	  return val;
 	}
@@ -49,7 +49,7 @@ namespace Gimp
 	{
 	  if (!gimp_int_combo_box_set_active(Handle, value))
 	    {
-	      throw new Exception();
+	      throw new GimpSharpException();
 	    }
 	}
     }

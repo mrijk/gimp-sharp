@@ -17,6 +17,7 @@ MYSOURCES = 			\
 	CoordinateList.cs	\
 	Display.cs 		\
 	Drawable.cs		\
+	DrawableComboBox.cs	\
 	DrawablePreview.cs	\
 	EllipseSelectTool.cs	\
 	FileEntry.cs		\

@@ -90,9 +90,27 @@ if test x$with_ecw != xno && test -z "$LIBECW"; then
       [have_libecw="no (ECW header file not found)"])],
     [have_libecw="no (ECW library not found)"], -lNCSUtil -lNCSCnet)
 fi
-
 AC_SUBST(ECW)
 AC_SUBST(LIBECW)
+
+
+#
+# Check if we can build the Colorize plug-in
+#
+
+have_umfpack=yes
+if test -z "$LIBUMFPACK"; then
+  AC_CHECK_LIB(umfpack, umfpack_di_solve,
+    [AC_CHECK_HEADER(umfpack.h,
+      LIBUMFPACK='-lumfpack',
+      [have_zlib="no (UMFPACK header files not found)"])],
+    [have_zlib="no (UMFPACK library not found)"], -lblas -lamd -lm)
+fi
+
+AC_SUBST(LIBUMFPACK)
+
+AC_SUBST(LIBZ)
+AC_SUBST(PSP)
 
 #
 # Check if we want to build incomplete plug-ins
