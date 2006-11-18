@@ -1,3 +1,16 @@
+2006-11-18  Maurits  <m.rijk@chello.nl>
+
+	* lib/Drawable.cs
+	* lib/Image.cs: fix some stuff for correct inheritence hierarchy
+	
+	* lib/Channel.cs: derive from Drawable
+
+	* lib/Selection.cs: derive from Channel
+
+2006-11-18  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/Colorize/Colorize.cs: start porting actual algorithm
+
 2006-11-17  Maurits  <m.rijk@chello.nl>
 
 	* configure.in: check for libumfpack

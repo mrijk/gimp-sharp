@@ -36,6 +36,10 @@ namespace Gimp.Colorize
     [SaveAttribute("use_entire_image")]
     bool _useEntireImage = true;
 
+    const int WindowRadius = 1;
+    const int WindowWidth = 2 * WindowRadius + 1;
+    const int WindowPixels = WindowWidth * WindowWidth;
+
     static void Main(string[] args)
     {
       new Colorize(args);
@@ -146,8 +150,100 @@ namespace Gimp.Colorize
       Console.WriteLine("Reset!");
     }
 
-    override protected void Render(Drawable drawable)
+    override protected void Render(Image image, Drawable drawable)
     {
+      Progress progress = new Progress(_("Colorizing..."));
+
+      int i, j, ii, jj;	// Fix me: replace with x1, y1, x2, y2
+      bool hasSel = drawable.MaskIntersect(out j, out i, out jj, out ii);
+      if (!hasSel || _useEntireImage) 
+	{
+	  j = i = 0;
+	  jj = image.Width;
+	  ii = image.Height;
+	}
+
+      Drawable sel = null;
+      PixelRgn selRgn = null;
+
+      if (hasSel) 
+	{
+	  sel = image.Selection;
+	  selRgn = new PixelRgn(sel, j, i, jj, ii, false, false);
+	}
+
+      Drawable marked = null;	// Fix me!
+
+      PixelRgn srcRgn = new PixelRgn(drawable, j, i, jj, ii, false, false);
+      PixelRgn dstRgn = new PixelRgn(drawable, j, i, jj, ii, true, true);
+      PixelRgn markRgn = new PixelRgn(marked, j, i, jj, ii, false, false);
+
+      int h = srcRgn.H;
+      int w = srcRgn.W;
+
+      double[,] A = new double[WindowPixels, h * w];
+      int[] AI = new int[WindowPixels * h * w];
+      int[] AJ = new int[WindowPixels * h * w];
+
+      double[,] Y = new double[h, w];
+      double[,] I = new double[h, w];
+      double[,] Q = new double[h, w];
+
+      if (_useChroma) 
+	{
+	  double[,] inI = new double[h, w];
+	  double[,] inQ = new double[h, w];
+	}
+
+      byte[,] mask = new byte[h, w];
+
+      if (sel != null) 
+	{
+	  // Retarded check for selections, because gimp doesn't
+	  // _REALLY_ return FALSE when there's no selection.
+	  if (j == 0 && i == 0 && jj == image.Width && ii == image.Height) 
+	    {
+	      for (i = 0; i < h; i++) 
+		{
+		  byte[] selRow = selRgn.GetRow(selRgn.X, selRgn.Y + i, w);
+		  for (j = 0; j < w; j++) 
+		    {
+		      int selIdx = j * sel.Bpp;
+		      if (selRow[selIdx] != 0) goto good_selection;
+		    }
+		}
+	      
+	      // Nothing set in the entire selection.
+	      sel.Detach();
+	      sel = null;
+	      
+	      good_selection:
+	      ;
+	    }
+	}
+
+      for (i = 0; i < h; i++) 
+	{
+	  byte[] imgRow = srcRgn.GetRow(srcRgn.X, srcRgn.Y + i, w);
+	  byte[] markRow = markRgn.GetRow(markRgn.X, markRgn.Y + i, w);
+
+	  if (sel != null) 
+	  {
+	    byte[] selRow = selRgn.GetRow(selRgn.X, selRgn.Y + i, w);
+	  }
+
+	  for (j = 0; j < w; j++) 
+	    {
+	      int imgIdx = j * drawable.Bpp;
+	      int markIdx = j * marked.Bpp;
+	      int selIdx = j * sel.Bpp;
+	      
+	      double iY, iI, iQ;
+	      double mY;
+	      
+	      int delta = 0;
+	    }
+      }
       Display.DisplaysFlush();
     }
   }

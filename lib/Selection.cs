@@ -24,15 +24,15 @@ using System.Runtime.InteropServices;
 
 namespace Gimp
 {
-  public sealed class Selection
+  public sealed class Selection : Channel
   {
     readonly Int32 _imageID;
-
+    /*
     public Selection(Image image) : this(image.ID)
     {
     }
-
-    internal Selection(Int32 imageID)
+    */
+    internal Selection(Int32 imageID, Int32 selectionID) : base(selectionID)
     {
       _imageID = imageID;
     }
@@ -123,7 +123,7 @@ namespace Gimp
         }
     }
 
-    public void Invert()
+    public new void Invert()
     {
       if (!gimp_selection_invert (_imageID))
         {

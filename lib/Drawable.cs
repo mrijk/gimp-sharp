@@ -27,7 +27,7 @@ namespace Gimp
   public class Drawable
   {
     readonly IntPtr _drawable;
-    readonly protected Int32 _ID;
+    /* readonly */ protected Int32 _ID;
 
     public Drawable(Int32 drawableID)
     {
@@ -38,6 +38,11 @@ namespace Gimp
     public Drawable(IntPtr drawable)
     {
       _drawable = drawable;
+    }
+
+    internal Drawable()
+    {
+      // Fix me: try to remove this one
     }
 
     public void Detach()

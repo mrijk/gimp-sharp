@@ -346,7 +346,7 @@ namespace Gimp
 
     public Selection Selection
     {
-      get {return new Selection(gimp_image_get_selection(_imageID));}
+      get {return new Selection(_imageID, gimp_image_get_selection(_imageID));}
     }
 
     public bool GetComponentActive(ChannelType component)

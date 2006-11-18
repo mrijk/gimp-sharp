@@ -24,44 +24,42 @@ using System.Runtime.InteropServices;
 
 namespace Gimp
 {
-  public sealed class Channel
+  public class Channel : Drawable
   {
-    readonly Int32 _channelID;
-
     public Channel(Image image, string name, int width, int height,
                    double opacity, RGB color)
     {
       GimpRGB rgb = color.GimpRGB;
-      _channelID = gimp_channel_new(image.ID, name, width, height,
-				    opacity, ref rgb);
+      _ID = gimp_channel_new(image.ID, name, width, height,
+			     opacity, ref rgb);
     }
 
     public Channel(Image image, ChannelType component, string name)
     {
-      _channelID = gimp_channel_new_from_component(image.ID, component,
-						   name);
+      _ID = gimp_channel_new_from_component(image.ID, component,
+					    name);
     }
 
     public Channel(Channel channel)
     {
-      _channelID = gimp_channel_copy(channel.ID);
+      _ID = gimp_channel_copy(channel.ID);
     }
      
     public Channel(Int32 channelID)
     {
-      _channelID = channelID;
+      _ID = channelID;
     }
 
     public bool ShowMasked
     {
-      get {return gimp_channel_get_show_masked (_channelID);}
-      set {gimp_channel_set_show_masked (_channelID, value);}
+      get {return gimp_channel_get_show_masked (_ID);}
+      set {gimp_channel_set_show_masked (_ID, value);}
     }
 
     public double Opacity
     {
-      get {return gimp_channel_get_opacity (_channelID);}
-      set {gimp_channel_set_opacity (_channelID, value);}
+      get {return gimp_channel_get_opacity (_ID);}
+      set {gimp_channel_set_opacity (_ID, value);}
     }
 
     public RGB Color
@@ -69,26 +67,21 @@ namespace Gimp
       get 
 	{
           GimpRGB rgb = new GimpRGB();
-          gimp_channel_get_color (_channelID, ref rgb);
+          gimp_channel_get_color (_ID, ref rgb);
           return new RGB(rgb);
 	}
       set 
 	{
           GimpRGB rgb = value.GimpRGB;
-          gimp_channel_set_color (_channelID, ref rgb);
+          gimp_channel_set_color (_ID, ref rgb);
 	}
     }
 
     public bool CombineMasks (Channel channel, ChannelOps operation,
                               int offx, int offy)
     {
-      return gimp_channel_combine_masks (_channelID, channel.ID, operation,
+      return gimp_channel_combine_masks (_ID, channel.ID, operation,
                                          offx, offy);
-    }
-
-    public Int32 ID
-    {
-      get {return _channelID;}
     }
 
     [DllImport("libgimp-2.0-0.dll")]
