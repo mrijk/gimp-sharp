@@ -1,3 +1,12 @@
+2006-11-19  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/Colorize/umfpackwrapper.c: add small wrapper to make
+	sure that UMFPACK library is correctly initialized
+
+	* plug-ins/Colorize/Makefile.am: changed accordingly
+	
+	* plug-ins/Colorize/Colorize.cs: more work on algorithm porting
+
 2006-11-18  Maurits  <m.rijk@chello.nl>
 
 	* lib/Drawable.cs
