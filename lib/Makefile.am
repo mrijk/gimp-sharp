@@ -60,6 +60,7 @@ MYSOURCES = 			\
 	Pattern.cs		\
 	PatternList.cs		\
 	PersistentStorage.cs	\
+	Pixel.cs		\
 	PixelFetcher.cs		\
 	PixelRgn.cs		\
 	Plugin.cs		\
@@ -70,6 +71,7 @@ MYSOURCES = 			\
 	Progress.cs		\
 	RGB.cs			\
 	RandomSeed.cs		\
+	ReadPixelIterator.cs	\
 	RectangleSelectTool.cs	\
 	RegionIterator.cs	\
 	RgnIterator.cs		\

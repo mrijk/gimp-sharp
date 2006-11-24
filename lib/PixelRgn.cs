@@ -43,6 +43,7 @@ namespace Gimp
   {
     GimpPixelRgn pr = new GimpPixelRgn();
     readonly byte[] _dummy;
+    byte[] _cache;
 
     public PixelRgn(Drawable drawable, int x,
 		    int y,
@@ -81,6 +82,14 @@ namespace Gimp
     public static IntPtr Process(IntPtr priPtr)
     {
       return gimp_pixel_rgns_process(priPtr);
+    }
+
+    public void FillCache()
+    {
+      int size = (int) (pr.h * pr.rowstride);
+      Console.WriteLine("FillCache: " + size);
+      _cache = new byte[size];
+      Marshal.Copy(pr.data, _cache, 0, size);
     }
 
     public void GetPixel(byte[] buf, int x, int y)

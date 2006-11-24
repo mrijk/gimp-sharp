@@ -1,3 +1,25 @@
+2006-11-24  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/AverageBlur/AverageBlur.cs: use new ReadPixelIterator class
+
+	* lib/PixelRgn.cs: start to better cache data
+
+	* lib/ReadPixelIterator.cs
+	* lib/Pixel.cs: new files
+
+	* lib/Makefile.am: changed accordingly
+	
+2006-11-23  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/Colorize/Colorize.cs: debugging
+
+2006-11-22  Maurits  <m.rijk@chello.nl>
+
+	* lib/Channel.cs: make sure base class (Drawable) is correctly 
+	initialized.
+
+	* plug-ins/Colorize/Colorize.cs: enable UMFPACK routines
+
 2006-11-19  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/Colorize/umfpackwrapper.c: add small wrapper to make

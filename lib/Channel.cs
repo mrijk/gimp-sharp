@@ -32,22 +32,20 @@ namespace Gimp
       GimpRGB rgb = color.GimpRGB;
       _ID = gimp_channel_new(image.ID, name, width, height,
 			     opacity, ref rgb);
+      // Fix me: we also have to set the drawable in the base class!
     }
 
-    public Channel(Image image, ChannelType component, string name)
+    public Channel(Image image, ChannelType component, string name) : 
+      base(gimp_channel_new_from_component(image.ID, component, name))
     {
-      _ID = gimp_channel_new_from_component(image.ID, component,
-					    name);
     }
 
-    public Channel(Channel channel)
+    public Channel(Channel channel) : base(gimp_channel_copy(channel.ID))
     {
-      _ID = gimp_channel_copy(channel.ID);
     }
      
-    public Channel(Int32 channelID)
+    internal Channel(Int32 channelID) : base(channelID)
     {
-      _ID = channelID;
     }
 
     public bool ShowMasked

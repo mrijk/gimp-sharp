@@ -28,13 +28,21 @@ using Gtk;
 
 namespace Gimp
 {
-  public class IntComboBox : Widget
+  public class IntComboBox : ComboBox
   {
-    public IntComboBox(IntPtr raw) : base(raw)
+    [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
+    public delegate void IntComboBoxCallback();
+
+    public IntComboBox(string[] labels) : 
+      base(gimp_int_combo_box_new_array(labels.Length, labels))
     {
     }
 
-    public int Active
+    internal IntComboBox(IntPtr raw) : base(raw)
+    {
+    }
+
+    public new int Active
     {
       get 
 	{
@@ -49,7 +57,9 @@ namespace Gimp
 	{
 	  if (!gimp_int_combo_box_set_active(Handle, value))
 	    {
-	      throw new GimpSharpException();
+	      Console.WriteLine("IntComboBox, no item for this value {0}",
+				value);
+	      // throw new GimpSharpException();
 	    }
 	}
     }
@@ -60,6 +70,12 @@ namespace Gimp
 				IntStoreColumns.VALUE, value, -1);
     }
 
+    public void Connect(int value, IntComboBoxCallback callback, IntPtr data)
+    {
+      gimp_int_combo_box_connect(Handle, value, callback, data);
+    }
+
+#if false
     [GLib.Signal("changed")]
     public event EventHandler Changed {
       add {
@@ -71,13 +87,21 @@ namespace Gimp
 	sig.RemoveDelegate (value);     
       }
     }
-
+#endif
+    [DllImport("libgimpwidgets-2.0-0.dll")]
+    extern static IntPtr gimp_int_combo_box_new_array(int n_values,
+						      string[] labels);
     [DllImport("libgimpwidgets-2.0-0.dll")]
     extern static bool gimp_int_combo_box_get_active (IntPtr combo_box,
 						      out int value);
     [DllImport("libgimpwidgets-2.0-0.dll")]
     extern static bool gimp_int_combo_box_set_active (IntPtr combo_box,
 						      int value);
+    [DllImport("libgimpwidgets-2.0-0.dll")]
+    extern static long gimp_int_combo_box_connect(IntPtr combo_box,
+						  int value,
+						  IntComboBoxCallback callback,
+						  IntPtr data);
     [DllImport("libgimpwidgets-2.0-0.dll")]
     extern static bool gimp_int_combo_box_append (IntPtr combo_box,
 						  IntStoreColumns col1,

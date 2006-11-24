@@ -27,7 +27,7 @@ namespace Gimp
   {
     public delegate void IterFuncSrc(byte[] src);
     public delegate void IterFuncSrcFull(int x, int y, byte[] src);
-    public delegate byte[] IterFuncDest();
+    public delegate Pixel IterFuncDest();
     public delegate byte[] IterFuncDestFull(int x, int y);
     public delegate byte[] IterFuncSrcDest(byte[] src);
     public delegate byte[] IterFuncSrcDestFull(int x, int y, byte[] src);
@@ -98,7 +98,7 @@ namespace Gimp
 	    {
 	      for (int x = destPR.X; x < destPR.X + destPR.W; x++)
 		{
-		  destPR[y, x] = func();
+		  destPR[y, x] = func().ToByte();
 		}
 	    }
 	  if (_runmode != RunMode.Noninteractive)

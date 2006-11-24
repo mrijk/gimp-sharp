@@ -44,6 +44,10 @@ namespace Gimp.Colorize
     const double _thresh = 0.5;
     const double  LN_100 = 4.60517018598809136804;
 
+    Drawable _marked;
+
+    DrawableComboBox _combo;
+
     static void Main(string[] args)
     {
       new Colorize(args);
@@ -78,6 +82,17 @@ namespace Gimp.Colorize
       return set;
     }
 
+    void DialogMarkedCallback()
+    {
+      int active = (_combo as IntComboBox).Active;
+      Console.WriteLine("ConnectMe: " + active);
+      if (_marked != null)
+	{
+	  _marked.Detach();
+	}
+      _marked = new Drawable(active);
+    }
+
     override protected bool CreateDialog()
     {
       gimp_ui_init("Colorize", true);
@@ -94,10 +109,11 @@ namespace Gimp.Colorize
       table.RowSpacing = 6;
       vbox.PackStart(table, true, true, 0);
 
-      DrawableComboBox combo = new DrawableComboBox(DialogMarkedConstrain, 
-						    IntPtr.Zero);
-      combo.Active = _drawable;
-      table.Attach(combo, 0, 1, 0, 1);
+      _combo = new DrawableComboBox(DialogMarkedConstrain, IntPtr.Zero);
+      _combo.Connect(-1, DialogMarkedCallback, IntPtr.Zero);
+      _combo.Active = _drawable;
+      // _marked = combo.Active;
+      table.Attach(_combo, 0, 1, 0, 1);
 
       CheckButton includeOriginal = 
 	new CheckButton(_("Marked images includes original image"));
@@ -195,8 +211,6 @@ namespace Gimp.Colorize
 
       umfpack_wrapper_init();
 
-      Console.WriteLine("1");
-
       int i, j, ii, jj;	// Fix me: replace with x1, y1, x2, y2
       bool hasSel = drawable.MaskIntersect(out j, out i, out jj, out ii);
       if (!hasSel || _useEntireImage) 
@@ -216,11 +230,11 @@ namespace Gimp.Colorize
 	  selRgn = new PixelRgn(sel, j, i, jj, ii, false, false);
 	}
 
-      Drawable marked = null;	// Fix me!
+      Console.WriteLine("1: " + _marked.Bpp);
 
       PixelRgn srcRgn = new PixelRgn(drawable, j, i, jj, ii, false, false);
       PixelRgn dstRgn = new PixelRgn(drawable, j, i, jj, ii, true, true);
-      PixelRgn markRgn = new PixelRgn(marked, j, i, jj, ii, false, false);
+      PixelRgn markRgn = new PixelRgn(_marked, j, i, jj, ii, false, false);
 
       int h = srcRgn.H;
       int w = srcRgn.W;
@@ -243,12 +257,17 @@ namespace Gimp.Colorize
 
       bool[,] mask = new bool[h, w];
 
+      Console.WriteLine("2");
+
+      Tile.CacheNtiles((ulong) (2 * (drawable.Width / Gimp.TileWidth + 1)));
+
       byte[] selRow = null;
       if (sel != null) 
 	{
 	  // Retarded check for selections, because gimp doesn't
 	  // _REALLY_ return FALSE when there's no selection.
-	  if (j == 0 && i == 0 && jj == image.Width && ii == image.Height) 
+	  if (j == 0 && i == 0 && jj == drawable.Width && 
+	      ii == drawable.Height) 
 	    {
 	      for (i = 0; i < h; i++) 
 		{
@@ -256,10 +275,12 @@ namespace Gimp.Colorize
 		  for (j = 0; j < w; j++) 
 		    {
 		      int selIdx = j * sel.Bpp;
-		      if (selRow[selIdx] != 0) goto good_selection;
+		      if (selRow[selIdx] != 0) 
+			{
+			  goto good_selection;
+			}
 		    }
 		}
-	      
 	      // Nothing set in the entire selection.
 	      sel.Detach();
 	      sel = null;
@@ -268,6 +289,8 @@ namespace Gimp.Colorize
 	      ;
 	    }
 	}
+
+      Console.WriteLine("3");
 
       for (i = 0; i < h; i++) 
 	{
@@ -282,8 +305,8 @@ namespace Gimp.Colorize
 	  for (j = 0; j < w; j++) 
 	    {
 	      int imgIdx = j * drawable.Bpp;
-	      int markIdx = j * marked.Bpp;
-	      int selIdx = j * sel.Bpp;
+	      int markIdx = j * _marked.Bpp;
+	      int selIdx = (sel != null) ? j * sel.Bpp : 0;
 	      
 	      double iY, iI, iQ;
 	      double mY;
@@ -348,6 +371,8 @@ namespace Gimp.Colorize
 	    }
 	}
 
+      Console.WriteLine("4");
+
       if (sel != null) 
 	{
 	  sel.Detach();
@@ -362,10 +387,6 @@ namespace Gimp.Colorize
 	    {
 	      if (!mask[i, j]) 
 		{
-		  double sum_sq, sum;
-		  double min_variance;
-		  double sigma;
-		  
 		  int min_ii = Math.Max(0, i - WindowRadius);
 		  int max_ii = Math.Min(h - 1, i + WindowRadius);
 		  int min_jj = Math.Max(0, j - WindowRadius);
@@ -373,11 +394,14 @@ namespace Gimp.Colorize
 		  int[] vary = new int[WindowPixels];
 		  int[] varx = new int[WindowPixels];
 		  double[] var = new double[WindowPixels];
-		  int count;
 		  
-		  count = 0;
-		  sum_sq = sum = 0;
-		  min_variance = 1.0;
+		  int count = 0;
+		  double sum_sq = 0;
+		  double sum = 0;
+		  double min_variance = 1.0;
+
+		  // Console.WriteLine("5: {0} {1}", i, j);
+
 		  for (ii = min_ii; ii <= max_ii; ii++) 
 		    {
 		      for (jj = min_jj; jj <= max_jj; jj++) 
@@ -405,8 +429,10 @@ namespace Gimp.Colorize
 			  ++count;
 			}
 		    }
+		  // Console.WriteLine("6");
 		  
-		  sigma = (sum_sq - (sum*sum)/(double)(count+1))/(double)count;
+		  double sigma = 
+		    (sum_sq - (sum * sum)/(double)(count + 1)) / (double)count;
 		  if (sigma < 0.000002) 
 		    sigma = 0.000002;
 		  else if (sigma < (min_variance / LN_100))
@@ -418,55 +444,76 @@ namespace Gimp.Colorize
 		      var[ii] = Math.Exp(-var[ii] / sigma);
 		      sum += var[ii];
 		    }
+		  // Console.WriteLine("7: {0} {1}", n / (h * w), n % ( h * w));
 		  for (ii = 0; ii < count; ii++) 
 		    {
 		      AI[n] = vary[ii];
 		      AJ[n] = varx[ii];
 		      // Fix me: just A[i, j]?
-		      A[n / w, n % w] = -var[ii] / sum;
+		      A[n / (h * w) , n % (h * w)] = -var[ii] / sum;
 		      ++n;
 		    }
+		  // Console.WriteLine("8");
 		}
 	      
 	      AI[n] = AJ[n] = i * w + j;
 	      // Fix me: just A[i, j]?
-	      A[n / w, n % w] = 1.0;
+	      A[n / (h * w), n % (h * w)] = 1.0;
 	      ++n;
 	    }
 	}
 
       const int UMFPACK_CONTROL = 20;
+      const int UMFPACK_INFO = 90;
       double[] control = new double[UMFPACK_CONTROL];
-      umfpack_di_defaults(ref control);
+      double[] info = new double[UMFPACK_INFO];
+
+      Console.WriteLine("10");
+      umfpack_di_defaults(control);
 
       double[,] Ax = new double[WindowPixels, h * w];
       int[] Ap = new int[h * w];
       int[] Ai = new int[h * w];
       int[] Map = new int[WindowPixels * h * w];
 
-      // umfpack_di_triplet_to_col(h * w, h * w, n, AI, AJ, A, Ap, Ai, Ax, 
-      // Map);
+      Console.WriteLine("11");
+      umfpack_di_triplet_to_col(h * w, h * w, n, AI, AJ, A, Ap, Ai, Ax, 
+				Map);
 
-      // umfpack_di_symbolic(h * w, h * w, Ap, Ai, Ax, &symbolic, control, 
-      // info);
-      // umfpack_di_numeric(Ap, Ai, Ax, symbolic, &numeric, control, info);
+      Console.WriteLine("12");
 
-      // umfpack_di_free_symbolic(&symbolic);
+      IntPtr symbolic;
+      umfpack_di_symbolic(h * w, h * w, Ap, Ai, Ax, out symbolic, control, 
+			  info);
+      IntPtr numeric;
+      umfpack_di_numeric(Ap, Ai, Ax, ref symbolic, out numeric, control, info);
+
+      umfpack_di_free_symbolic(ref symbolic);
 
       progress.Update(0.3);
 
       double[,] outI = new double[h, w];
       double[,] outQ = new double[h, w];
 
-      // umfpack_di_solve(UMFPACK_A, Ap, Ai, Ax, outI, I, numeric, control, info);
+      Console.WriteLine("13");
+
+      const int UMFPACK_A = 0;
+      umfpack_di_solve(UMFPACK_A, Ap, Ai, Ax, outI, I, ref numeric, control, 
+		       info);
 
       progress.Update(0.6);
+      Console.WriteLine("14");
 
-      // umfpack_di_solve(UMFPACK_A, Ap, Ai, Ax, outQ, Q, numeric, control, info);
+      umfpack_di_solve(UMFPACK_A, Ap, Ai, Ax, outQ, Q, ref numeric, control, 
+		       info);
 
-      // umfpack_di_free_numeric(&numeric);
+      Console.WriteLine("15");
+
+      umfpack_di_free_numeric(ref numeric);
 
       progress.Update(0.9);
+
+      Console.WriteLine("16");
 
       for (i = 0; i < h; i++) 
 	{
@@ -499,6 +546,48 @@ namespace Gimp.Colorize
     static extern void umfpack_wrapper_init();
 
     [DllImport("libumfpack.dll")]
-    static extern void umfpack_di_defaults(ref double[] control);
+    static extern void umfpack_di_defaults(double[] control);
+    [DllImport("libumfpack.dll")]
+    static extern int umfpack_di_triplet_to_col(int n_row,
+						int n_col,
+						int nz,
+						int[] Ti,
+						int[] Tj,
+						double[,] Tx,
+						int[] Ap,
+						int[] Ai,
+						double[,] Ax,
+						int[] Map);
+    [DllImport("libumfpack.dll")]
+    static extern int umfpack_di_symbolic(int n_row,
+					  int n_col,
+					  int[] Ap,
+					  int[] Ai,
+					  double[,] Ax,
+					  out IntPtr Symbolic,
+					  double[] Control,
+					  double[] Info);
+    [DllImport("libumfpack.dll")]
+    static extern int umfpack_di_numeric(int[] Ap,
+					 int[] Ai,
+					 double[,] Ax,
+					 ref IntPtr Symbolic,
+					 out IntPtr Numeric,
+					 double[] Control,
+					 double[] Info);
+    [DllImport("libumfpack.dll")]
+    static extern int umfpack_di_solve(int sys,
+				       int[] Ap,
+				       int[] Ai,
+				       double[,] Ax,
+				       double[,] X,
+				       double[,] B,
+				       ref IntPtr Numeric,
+				       double[] Control,
+				       double[] Info);
+    [DllImport("libumfpack.dll")]
+    static extern void umfpack_di_free_symbolic(ref IntPtr Symbolic);
+    [DllImport("libumfpack.dll")]
+    static extern void umfpack_di_free_numeric(ref IntPtr Numeric);
   }
 }
