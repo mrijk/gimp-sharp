@@ -464,10 +464,9 @@ namespace Gimp.Forge
       preview.GetSize(out width, out height);
 
       byte []pixelArray = new byte[width * height * 3];
-      RenderForge(null, ref pixelArray, width, height);
+      RenderForge(null, pixelArray, width, height);
 
       preview.DrawBuffer(pixelArray, width * 3);
-      //      pixelArray = null;
     }
 
     override protected void Reset()
@@ -475,49 +474,55 @@ namespace Gimp.Forge
       SetDefaultValues(); 
     }
 
-    override protected void Render(Image image, Drawable original_drawable)
+    override protected void Render(Image image, Drawable drawable)
     {
-      Tile.CacheNtiles((ulong) (2 * (original_drawable.Width / Gimp.TileWidth + 1)));
-      if(_progress == null)
-        _progress = new Progress(_("Forge..."));
+      int width = drawable.Width;
+      int height = drawable.Height;
 
       // Just layers are allowed
-      if (!original_drawable.IsLayer())
-      {
-        new Message(_("This filter can be applied just over layers"));
-        return;
-      }
-      if (original_drawable.Width < original_drawable.Height)
-      {
-        new Message(_("This filter can be applied just if height <= width"));
-        return;
-      }
+      if (!drawable.IsLayer())
+	{
+	  new Message(_("This filter can be applied just over layers"));
+	  return;
+	}
+      if (width < height)
+	{
+	  new Message(_("This filter can be applied just if height <= width"));
+	  return;
+	}
 
-      Layer active_layer = image.ActiveLayer;
-      Layer new_layer = new Layer(active_layer);
-      new_layer.Name = "_Forge_";      
-      new_layer.Visible = false;
-      new_layer.Mode = active_layer.Mode;
-      new_layer.Opacity = active_layer.Opacity;
-      byte []pixelArray = null;
-      RenderForge(new_layer, ref pixelArray, new_layer.Width, new_layer.Height);
+      Tile.CacheNtiles((ulong) (2 * (width / Gimp.TileWidth + 1)));
+      if (_progress == null)
+	{
+	  _progress = new Progress(_("Forge..."));
+	}
 
-      new_layer.Flush();
-      new_layer.Update(0, 0, new_layer.Width, new_layer.Height);
+
+      Layer activeLayer = image.ActiveLayer;
+      Layer layer = new Layer(activeLayer);
+      layer.Name = "_Forge_";      
+      layer.Visible = false;
+      layer.Mode = activeLayer.Mode;
+      layer.Opacity = activeLayer.Opacity;
+      byte[] pixelArray = null;
+      RenderForge(layer, pixelArray, width, height);
+
+      layer.Flush();
+      layer.Update();
 
       image.UndoGroupStart();
-      image.AddLayer(new_layer, -1); 
-      new_layer.Visible = true;
-      image.ActiveLayer = new_layer;
+      image.AddLayer(layer, -1); 
+      layer.Visible = true;
+      image.ActiveLayer = layer;
       image.UndoGroupEnd();
       Display.DisplaysFlush();
     }
 
-    void RenderForge(Drawable new_layer, ref byte[] pixelArray, int width, 
+    void RenderForge(Drawable new_layer, byte[] pixelArray, int width, 
 		     int height)
     {
       InitParameters();
-      Planet(new_layer, ref pixelArray, width, height);
+      Planet(new_layer, pixelArray, width, height);
     }
 
     //
@@ -535,71 +540,61 @@ namespace Gimp.Forge
 
     void InitParameters()
     {
-      /* Set defaults when explicit specifications were not given.
+      // Set defaults when explicit specifications were not given.
+      // The  default  fractal  dimension  and  power  scale depend upon
+      // whether we're generating a planet or clouds.
 
-         The  default  fractal  dimension  and  power  scale depend upon
-         whether we're generating a planet or clouds. */
       arand = Math.Pow(2.0, 15.0) - 1.0;
       _random = new Random((int)_rseed);
-      for(int i = 0; i < 7; i++)
-        _random.Next();
-      /*
-         if(!dimspec)
-         {
-         fracdim = clouds ? Cast(1.9, 2.3) : Cast(2.0, 2.7);
-         }
-         if(!powerspec)
-         powscale = clouds ? Cast(0.6, 0.8) : Cast(1.0, 1.5);
-         if(!icespec)
-         icelevel = Cast(0.2, 0.6);
-         if(!glacspec)
-         glaciers = Cast(0.6, 0.85);
-         if(!starspec)
-         starfraction = Cast(75, 125);
-         if (!starcspec) 
-         starcolour = Cast(100, 150);
-         */
 
-      if(!dimspec)
-      {
-        _fracdim = _clouds ? Cast(1.9, 2.3) : Cast(2.0, 2.7);
-        if(_DimensionSpinButton != null)
-          _DimensionSpinButton.Value = _fracdim;
-      }
-      if(!powerspec)
+      for (int i = 0; i < 7; i++)
+        _random.Next();
+
+      if (!dimspec)
+	{
+	  _fracdim = _clouds ? Cast(1.9, 2.3) : Cast(2.0, 2.7);
+	  if (_DimensionSpinButton != null)
+	    _DimensionSpinButton.Value = _fracdim;
+	}
+
+      if (!powerspec)
       {
         _powscale = _clouds ? Cast(0.6, 0.8) : Cast(1.0, 1.5);
         if(_PowerSpinButton != null)
           _PowerSpinButton.Value = _powscale;
       }
-      if(!icespec)
-      {
-        _icelevel = Cast(0.2, 0.6);
-        if(_IceSpinButton != null)
-          _IceSpinButton.Value = _icelevel;
-      }
-      if(!glacspec)
-      {
-        _glaciers = Cast(0.6, 0.85);
-        if(_GlaciersSpinButton != null)
-          _GlaciersSpinButton.Value = _glaciers;
-      }
-      if(!starspec)
-      {
-        _starfraction = Cast(75, 125);
-        if(_StarsSpinButton != null)
-          _StarsSpinButton.Value = _starfraction;
-      }
+
+      if (!icespec)
+	{
+	  _icelevel = Cast(0.2, 0.6);
+	  if(_IceSpinButton != null)
+	    _IceSpinButton.Value = _icelevel;
+	}
+
+      if (!glacspec)
+	{
+	  _glaciers = Cast(0.6, 0.85);
+	  if(_GlaciersSpinButton != null)
+	    _GlaciersSpinButton.Value = _glaciers;
+	}
+
+      if (!starspec)
+	{
+	  _starfraction = Cast(75, 125);
+	  if(_StarsSpinButton != null)
+	    _StarsSpinButton.Value = _starfraction;
+	}
+
       if (!starcspec) 
-      {
-        _starcolour = Cast(100, 150);
-        if(_SaturationSpinButton != null)
-          _SaturationSpinButton.Value = _starcolour;
-      }
+	{
+	  _starcolour = Cast(100, 150);
+	  if(_SaturationSpinButton != null)
+	    _SaturationSpinButton.Value = _starcolour;
+	}
     }
 
-    /*  GAUSS  --  Return a Gaussian random number.  As given in Peitgen
-        & Saupe, page 77. */
+    //  GAUSS  --  Return a Gaussian random number.As given in Peitgen
+    //  & Saupe, page 77.
     double Gauss()
     {
       double sum = 0.0;
@@ -621,41 +616,41 @@ namespace Gimp.Forge
 
     double Cast(double low, double high)
     {
-      return ((low)+(((high)-(low)) * (_random.Next() & 0x7FFF) / arand));
+      return (low + ((high - low) * (_random.Next() & 0x7FFF) / arand));
     }
 
     double Planck(double temperature, double lambda)  
     {
-      double c1 = 3.7403e10;
-      double c2 = 14384.0;
-      double ret_val = (c1 * Math.Pow((double) lambda, -5.0));
+      const double c1 = 3.7403e10;
+      const double c2 = 14384.0;
+      double ret_val = c1 * Math.Pow(lambda, -5.0);
       ret_val /= (Math.Pow(Math.E, c2 / (lambda * temperature)) - 1);
 
       return ret_val;
     }
 
-    /*  TEMPRGB  --  Calculate the relative R, G, and B components	for  a
+    /*  TEMPRGB  --  Calculate the relative R, G, and B components for  a
         black	body  emitting	light  at a given temperature.
         The Planck radiation equation is solved directly  for
         the R, G, and B wavelengths defined for the CIE  1931
         Standard    Colorimetric    Observer.	  The	colour
         temperature is specified in degrees Kelvin. */
 
-    double[] TempRGB(double temp, double []rgb)
+    double[] TempRGB(double temp)
     {
-      double      er, eg, eb, es;
+      double[] rgb = new double[3];
 
-      /* Lambda is the wavelength in microns: 5500 angstroms is 0.55 microns. */
+      // Lambda is the wavelength in microns: 5500 angstroms is 0.55 microns.
 
-      er = Planck(temp, 0.7000);
-      eg = Planck(temp, 0.5461);
-      eb = Planck(temp, 0.4358);
+      double er = Planck(temp, 0.7000);
+      double eg = Planck(temp, 0.5461);
+      double eb = Planck(temp, 0.4358);
 
-      es = (double)(1.0 / Math.Max(er, Math.Max(eg, eb)));
+      double es = 1.0 / Math.Max(er, Math.Max(eg, eb));
 
-      rgb[0] = er*es;
-      rgb[1] = eg*es;
-      rgb[2] = eb*es;
+      rgb[0] = er * es;
+      rgb[1] = eg * es;
+      rgb[2] = eb * es;
       return rgb;
     }
 
@@ -683,7 +678,7 @@ namespace Gimp.Forge
         This  function  is essentially as given in Press et al., "Numerical
         Recipes In C", Section 12.11, pp.  467-470.
         */
-    void FourierNDimensions(double []data, uint []nn, uint ndim, int isign)
+    void FourierNDimensions(double[] data, uint[] nn, uint ndim, int isign)
     {
       uint i1, i2, i3;
       uint i2rev, i3rev;
@@ -701,83 +696,91 @@ namespace Gimp.Forge
       for (idim = 1; idim <= ndim; idim++)
         ntot *= nn[idim];
       nprev = 1;
-      for (idim = ndim; idim >= 1; idim--) {
-        n = nn[idim];
-        nrem = ntot / (n * nprev);
-        ip1 = nprev << 1;
-        ip2 = ip1 * n;
-        ip3 = ip2 * nrem;
-        i2rev = 1;
-        for (i2 = 1; i2 <= ip2; i2 += ip1) {
-          if (i2 < i2rev) {
-            for (i1 = i2; i1 <= i2 + ip1 - 2; i1 += 2) {
-              for (i3 = i1; i3 <= ip3; i3 += ip2) {
-                i3rev = i2rev + i3 - i2;
-                // Swap data[i3] with data[i3rev]
-                Swap(ref data[i3], ref data[i3rev]);
-                // Swap data[i3 + 1] with data[i3rev + 1]
-                Swap(ref data[i3+1], ref data[i3rev+1]);
-              }
-            }
-          }
-          ibit = ip2 >> 1;
-          while (ibit >= ip1 && i2rev > ibit) {
-            i2rev -= ibit;
-            ibit >>= 1;
-          }
-          i2rev += ibit;
-        }
-        ifp1 = ip1;
-        while (ifp1 < ip2) {
-          ifp2 = ifp1 << 1;
-          theta = isign * (Math.PI * 2) / (ifp2 / ip1);
-          wtemp = Math.Sin(0.5 * theta);
-          wpr = -2.0 * wtemp * wtemp;
-          wpi = Math.Sin(theta);
-          wr = 1.0;
-          wi = 0.0;
-          for (i3 = 1; i3 <= ifp1; i3 += ip1) {
-            for (i1 = i3; i1 <= i3 + ip1 - 2; i1 += 2) {
-              for (i2 = i1; i2 <= ip3; i2 += ifp2) {
-                k1 = i2;
-                k2 = k1 + ifp1;
-                tempr = wr * data[k2] - wi * data[k2 + 1];
-                tempi = wr * data[k2 + 1] + wi * data[k2];
-                data[k2] = data[k1] - tempr;
-                data[k2 + 1] = data[k1 + 1] - tempi;
-                data[k1] += tempr;
-                data[k1 + 1] += tempi;
-              }
-            }
-            wr = (wtemp = wr) * wpr - wi * wpi + wr;
-            wi = wi * wpr + wtemp * wpi + wi;
-          }
-          ifp1 = ifp2;
-        }
-        nprev *= n;
-      }
+      for (idim = ndim; idim >= 1; idim--) 
+	{
+	  n = nn[idim];
+	  nrem = ntot / (n * nprev);
+	  ip1 = nprev << 1;
+	  ip2 = ip1 * n;
+	  ip3 = ip2 * nrem;
+	  i2rev = 1;
+	  for (i2 = 1; i2 <= ip2; i2 += ip1) 
+	    {
+	      if (i2 < i2rev) 
+		{
+		  for (i1 = i2; i1 <= i2 + ip1 - 2; i1 += 2) 
+		    {
+		      for (i3 = i1; i3 <= ip3; i3 += ip2) 
+			{
+			  i3rev = i2rev + i3 - i2;
+			  // Swap data[i3] with data[i3rev]
+			  Swap(ref data[i3], ref data[i3rev]);
+			  // Swap data[i3 + 1] with data[i3rev + 1]
+			  Swap(ref data[i3+1], ref data[i3rev+1]);
+			}
+		    }
+		}
+	      ibit = ip2 >> 1;
+	      while (ibit >= ip1 && i2rev > ibit) 
+		{
+		  i2rev -= ibit;
+		  ibit >>= 1;
+		}
+	      i2rev += ibit;
+	    }
+	  ifp1 = ip1;
+	  while (ifp1 < ip2) 
+	    {
+	      ifp2 = ifp1 << 1;
+	      theta = isign * (Math.PI * 2) / (ifp2 / ip1);
+	      wtemp = Math.Sin(0.5 * theta);
+	      wpr = -2.0 * wtemp * wtemp;
+	      wpi = Math.Sin(theta);
+	      wr = 1.0;
+	      wi = 0.0;
+	      for (i3 = 1; i3 <= ifp1; i3 += ip1) 
+		{
+		  for (i1 = i3; i1 <= i3 + ip1 - 2; i1 += 2) 
+		    {
+		      for (i2 = i1; i2 <= ip3; i2 += ifp2) 
+			{
+			  k1 = i2;
+			  k2 = k1 + ifp1;
+			  tempr = wr * data[k2] - wi * data[k2 + 1];
+			  tempi = wr * data[k2 + 1] + wi * data[k2];
+			  data[k2] = data[k1] - tempr;
+			  data[k2 + 1] = data[k1 + 1] - tempi;
+			  data[k1] += tempr;
+			  data[k1 + 1] += tempi;
+			}
+		    }
+		  wr = (wtemp = wr) * wpr - wi * wpi + wr;
+		  wi = wi * wpr + wtemp * wpi + wi;
+		}
+	      ifp1 = ifp2;
+	    }
+	  nprev *= n;
+	}
     }
+    
 
+    // SPECTRALSYNTH  --  Spectrally synthesised fractal motion in two
+    // dimensions. This algorithm is given under  the name   
+    // SpectralSynthesisFM2D on page 108 of Peitgen & Saupe.
 
-    /*  SPECTRALSYNTH  --  Spectrally  synthesised	fractal  motion in two
-        dimensions.  This algorithm is given under  the
-        name   SpectralSynthesisFM2D  on  page  108  of
-        Peitgen & Saupe. */
-    void SpectralSynth(ref double []x, uint n, double h)
+    double[] SpectralSynth(uint n, double h)
     {
       uint bl;
-      uint i, j, i0, j0;
+      uint i0, j0;
       double rad, phase, rcos, rsin;
-      double []a;
-      uint []nsize = new uint[3];
+      uint[] nsize = new uint[3];
 
-      bl = ((n * n) + 1) * 2;
-      a = new double[bl];
-      x = a;
+      bl = (n * n + 1) * 2;
+      double[] a = new double[bl];
 
-      for (i = 0; i <= n / 2; i++) 
+      for (uint i = 0; i <= n / 2; i++) 
 	{
-	  for (j = 0; j <= n / 2; j++) 
+	  for (uint j = 0; j <= n / 2; j++) 
 	    {
 	      phase = 2 * Math.PI * ((_random.Next() & 0x7FFF) / arand);
 	      if (i != 0 || j != 0) 
@@ -792,15 +795,15 @@ namespace Gimp.Forge
 	      rcos = rad * Math.Cos(phase);
 	      rsin = rad * Math.Sin(phase);
 	      // Real(a, i, j) = rcos;
-	      a[1 + (((i) * meshsize) + (j)) * 2] = rcos;
+	      a[1 + (i * meshsize + j) * 2] = rcos;
 	      // Imag(a, i, j) = rsin;
-	      a[2 + (((i) * meshsize) + (j)) * 2] = rsin;
+	      a[2 + (i * meshsize + j) * 2] = rsin;
 	      i0 = (i == 0) ? 0 : n - i;
 	      j0 = (j == 0) ? 0 : n - j;
 	      // Real(a, i0, j0) = rcos;
-	      a[1 + (((i0) * meshsize) + (j0)) * 2] = rcos;
+	      a[1 + (i0 * meshsize + j0) * 2] = rcos;
 	      // Imag(a, i0, j0) = - rsin;
-	      a[2 + (((i0) * meshsize) + (j0)) * 2] = -rsin;
+	      a[2 + (i0 * meshsize + j0) * 2] = -rsin;
 	    }
 	}
       // Imag(a, n / 2, 0) = 0;
@@ -809,96 +812,104 @@ namespace Gimp.Forge
       a[2 + n] = 0;
       // Imag(a, n / 2, n / 2) = 0;
       a[2 + (n) * meshsize + n] = 0;
-      for (i = 1; i <= n / 2 - 1; i++) 
+      for (int i = 1; i <= n / 2 - 1; i++) 
 	{
-	  for (j = 1; j <= n / 2 - 1; j++) 
+	  for (int j = 1; j <= n / 2 - 1; j++) 
 	    {
 	      phase = 2 * Math.PI * ((_random.Next() & 0x7FFF) / arand);
 	      rad = Math.Pow((double) (i * i + j * j), -(h + 1) / 2) * Gauss();
 	      rcos = rad * Math.Cos(phase);
 	      rsin = rad * Math.Sin(phase);
 	      // Real(a, i, n - j) = rcos;
-	      a[1 + (((i) * meshsize) + (n-j)) * 2] = rcos;
+	      a[1 + ((i * meshsize) + (n - j)) * 2] = rcos;
 	      // Imag(a, i, n - j) = rsin;
-	      a[2 + (((i) * meshsize) + (n - j)) * 2] = rsin;
+	      a[2 + ((i * meshsize) + (n - j)) * 2] = rsin;
 	      // Real(a, n - i, j) = rcos;
-	      a[1 + (((n - i) * meshsize) + (j)) * 2] = rcos;
+	      a[1 + (((n - i) * meshsize) + j) * 2] = rcos;
 	      // Imag(a, n - i, j) = - rsin;
-	      a[2 + (((n - i) * meshsize) + (j)) * 2] = -rsin;
+	      a[2 + (((n - i) * meshsize) + j) * 2] = -rsin;
 	    }
 	}
 
       nsize[0] = 0;
-      nsize[1] = nsize[2] = n;	      /* Dimension of frequency domain array */
-      FourierNDimensions(a, nsize, 2, -1);	      /* Take inverse 2D Fourier transform */
+      nsize[1] = nsize[2] = n;	      // Dimension of frequency domain array
+      FourierNDimensions(a, nsize, 2, -1); // Take inverse 2D Fourier transform
+
+      return a;
     }
     
-    /*  ETOILE  --	Set a pixel in the starry sky.	*/
-    void Etoile(ref Pixel rgbPixel)
+    //
+    // ETOILE  --	Set a pixel in the starry sky.
+    //
+
+    Pixel Etoile()
     {
-      const double starQuality = 0.5;	      /* Brightness distribution exponent */
-      const double starIntensity = 8;	      /* Brightness scale factor */
-      const double starTintExp =	0.5;	      /* Tint distribution exponent */
-      if ((_random.Next() % 1000) < _starfraction) {
-        double v = starIntensity * Math.Pow(1 / (1 - Cast(0, 0.9999)), starQuality);
-        double temp;
-        //r, g, b; 
-        double []rgbDoubleArray = new double[3];
+      const double starQuality = 0.5;	    // Brightness distribution exponent
+      const double starIntensity = 8;	    // Brightness scale factor
+      const double starTintExp = 0.5;	    // Tint distribution exponent
 
-        if (v > 255) v = 255;
+      if ((_random.Next() % 1000) < _starfraction) 
+	{
+	  double v = starIntensity * Math.Pow(1 / (1 - Cast(0, 0.9999)), 
+					      starQuality);
+	  if (v > 255) v = 255;
 
-        /* We make a special case for star colour  of zero in order to
-           prevent  floating  point  roundoff  which  would  otherwise
-           result  in  more  than  256 star colours.  We can guarantee
-           that if you specify no star colour, you never get more than
-           256 shades in the image. */
+	  /* We make a special case for star colour  of zero in order to
+	     prevent  floating  point  roundoff  which  would  otherwise
+	     result  in  more  than  256 star colours.  We can guarantee
+	     that if you specify no star colour, you never get more than
+	     256 shades in the image. */
+	  
+	  if (_starcolour == 0) 
+	    {
+	      return new Pixel((byte)v, (byte)v, (byte)v);
+	    } 
+	  else 
+	    {
+	      double temp = 5500 + _starcolour *
+		Math.Pow(1 / (1 - Cast(0, 0.9999)), starTintExp) *
+		(((_random.Next() & 7) != 0) ? -1 : 1);
+	      /* Constrain temperature to a reasonable value: >= 2600K
+		 (S Cephei/R Andromedae), <= 28,000 (Spica). */
+	      temp = Math.Max(2600, Math.Min(28000, temp));
+	      double[] rgb = TempRGB(temp);
 
-        if (_starcolour == 0) 
-        {
-          rgbPixel = new Pixel((byte)v, (byte)v, (byte)v);
-        } 
-        else 
-        {
-          temp = 5500 + _starcolour *
-            Math.Pow(1 / (1 - Cast(0, 0.9999)), starTintExp) *
-            (((_random.Next() & 7) != 0) ? -1 : 1);
-          /* Constrain temperature to a reasonable value: >= 2600K
-             (S Cephei/R Andromedae), <= 28,000 (Spica). */
-          temp = Math.Max(2600, Math.Min(28000, temp));
-          TempRGB(temp, rgbDoubleArray);
-          rgbPixel = new Pixel();
-          for(int dummy_i = 0; dummy_i < 3; dummy_i++)
-            rgbPixel.SetColor((Pixel.ColorName)dummy_i, 
-                (byte)(rgbDoubleArray[dummy_i] * v + 0.499));
-        }
-      } 
+	      Pixel pixel = new Pixel();
+	      for (int i = 0; i < 3; i++)
+		{
+		  pixel.SetColor((Pixel.ColorName) i, 
+				 (byte)(rgb[i] * v + 0.499));
+		}
+	      return pixel;
+	    }
+	} 
       else 
-      {
-        rgbPixel = new Pixel(); // automatically constructs Pixel(0,0,0)
-      }
+	{
+	  return new Pixel(); // automatically constructs Pixel(0,0,0)
+	}
     }
-
+    
     //
     //  GENPLANET  --  Generate planet from elevation array.
     //
 
-    void GenPlanet(Drawable drawable, ref byte[] pixelArray, int width, 
-        int height, double []a, uint n)
+    void GenPlanet(Drawable drawable, byte[] pixelArray, int width, 
+		   int height, double []a, uint n)
     {
-      double rgbQuant = 255; 
-      double atthick = 1.03;   /* Atmosphere thickness as a 
-                                  percentage of planet's diameter */
-      byte []cp = null;
-      byte []ap = null;
-      double []u = null;
-      double []u1 = null;
-      uint []bxf = null;
-      uint []bxc = null;
+      const double rgbQuant = 255; 
+      const double atthick = 1.03;   /* Atmosphere thickness as a 
+					percentage of planet's diameter */
+      byte[] cp = null;
+      byte[] ap = null;
+      double[] u = null;
+      double[] u1 = null;
+      uint[] bxf = null;
+      uint[] bxc = null;
       uint ap_index = 0;
 
       uint  rpix_offset = 0; // Offset to simulate the pointer for rpix
       double athfac = Math.Sqrt(atthick * atthick - 1.0);
-      double []sunvec = new double[3];
+      double[] sunvec = new double[3];
       const double starClose = 2;
       const double atSatFac = 1.0;
 
@@ -909,292 +920,288 @@ namespace Gimp.Forge
       double by, dy;
       double dysq = 0;
       double sqomdysq, icet;
-      double svx = 0;
-      double svy = 0; 
-      double svz = 0; 
-      double azimuth;
-      int byf = 0;
-      int byc = 0;
       int lcos = 0;
       double dx; 
       double dxsq;
       double ds, di, inx;
       double dsq, dsat;
-      byte ir, ig, ib;
+
       PixelFetcher pf = null; 
 
       if (drawable != null)
         pf = new PixelFetcher(drawable, false);
 
-      if (!_stars) {
-        u = new double[width];
-        u1 = new double[width];
-        bxf = new uint[width];
-        bxc = new uint[width];
+      if (!_stars) 
+	{
+	  u = new double[width];
+	  u1 = new double[width];
+	  bxf = new uint[width];
+	  bxc = new uint[width];
 
-        /* Compute incident light direction vector. */
+	  // Compute incident light direction vector.
 
-        shang = hourspec ? _hourangle : Cast(0, 2 * Math.PI);
-        siang = inclspec ? _inclangle : Cast(-Math.PI * 0.12, Math.PI * 0.12);
+	  shang = hourspec ? _hourangle : Cast(0, 2 * Math.PI);
+	  siang = inclspec ? _inclangle : Cast(-Math.PI * 0.12, Math.PI * 0.12);
 
-        sunvec[0] = Math.Sin(shang) * Math.Cos(siang);
-        sunvec[1] = Math.Sin(siang);
-        sunvec[2] = Math.Cos(shang) * Math.Cos(siang);
+	  sunvec[0] = Math.Sin(shang) * Math.Cos(siang);
+	  sunvec[1] = Math.Sin(siang);
+	  sunvec[2] = Math.Cos(shang) * Math.Cos(siang);
 
-        /* Allow only 25% of random pictures to be crescents */
+	  // Allow only 25% of random pictures to be crescents
 
-        if (!hourspec && ((_random.Next() % 100) < 75)) {
-          sunvec[2] = Math.Abs(sunvec[2]);
-        }
+	  if (!hourspec && ((_random.Next() % 100) < 75)) {
+	    sunvec[2] = Math.Abs(sunvec[2]);
+	  }
 
-        /* Prescale the grid points into intensities. */
+	  // Prescale the grid points into intensities.
 
-        cp = new byte[n * n];
+	  cp = new byte[n * n];
 
-        ap = cp;
-        for (int i = 0; i < n; i++) 
-        {
-          for (int j = 0; j < n; j++) {
-            ap[ap_index++] = (byte)(255.0 *  (a[1 + (i * meshsize + j) * 2]
-                  + 1.0) / 2.0);
-          }
-        }
+	  ap = cp;
+	  for (int i = 0; i < n; i++) 
+	    {
+	      for (int j = 0; j < n; j++) 
+		{
+		  ap[ap_index++] = (byte)(255.0 *  (a[1 + (i * meshsize + j) * 2]
+						    + 1.0) / 2.0);
+		}
+	    }
 
-        /* Fill the screen from the computed  intensity  grid  by  mapping
-           screen  points onto the grid, then calculating each pixel value
-           by bilinear interpolation from  the	surrounding  grid  points.
-           (N.b. the pictures would undoubtedly look better when generated
-           with small grids if	a  more  well-behaved  interpolation  were
-           used.)
+	  /* Fill the screen from the computed  intensity  grid  by  mapping
+	     screen  points onto the grid, then calculating each pixel value
+	     by bilinear interpolation from  the surrounding  grid  points.
+	     (N.b. the pictures would undoubtedly look better when generated
+	     with small grids if a more well-behaved  interpolation  were
+	     used.)
 
-           Before  we get started, precompute the line-level interpolation
-           parameters and store them in an array so we don't  have  to  do
-           this every time around the inner loop. */
+	     Before  we get started, precompute the line-level interpolation
+	     parameters and store them in an array so we don't  have  to  do
+	     this every time around the inner loop. */
 
-        //#define UPRJ(a,size) ((a)/((size)-1.0))
+	  //#define UPRJ(a,size) ((a)/((size)-1.0))
 
-        for (int j = 0; j < width; j++) 
-        {
-          //          double bx = (n - 1) * UPRJ(j, screenxsize);
-          double bx = (n - 1) * (j/(width-1.0));
+	  for (int j = 0; j < width; j++) 
+	    {
+	      //          double bx = (n - 1) * UPRJ(j, screenxsize);
+	      double bx = (n - 1) * (j/(width-1.0));
 
-          bxf[j] = (uint)Math.Floor(bx);
-          bxc[j] = bxf[j] + 1;
-          u[j] = bx - bxf[j];
-          u1[j] = 1 - u[j];
-        }
-      }
+	      bxf[j] = (uint) Math.Floor(bx);
+	      bxc[j] = bxf[j] + 1;
+	      u[j] = bx - bxf[j];
+	      u1[j] = 1 - u[j];
+	    }
+	}
       Pixel[] pixels = new Pixel[width];
 
       for (int i = 0; i < height; i++) 
-      {
-        t = 0;
-        t1 = 0;
-        dysq = 0;
-        svx = 0;
-        svy = 0; 
-        svz = 0; 
-        byf = 0;
-        byc = 0;
-        lcos = 0;
+	{
+	  t = 0;
+	  t1 = 0;
+	  dysq = 0;
+	  double svx = 0;
+	  double svy = 0; 
+	  double svz = 0; 
+	  int byf = 0;
+	  int byc = 0;
+	  lcos = 0;
 
-        if (!_stars) {		      /* Skip all this setup if just stars */
-          //#define UPRJ(a,size) ((a)/((size)-1.0))
-          //          by = (n - 1) * UPRJ(i, screenysize);
-          by = (n - 1) * ((double)i / ((double)height-1.0));
-          dy = 2 * (((height / 2) - i) / ((double) height));
-          dysq = dy * dy;
-          sqomdysq = Math.Sqrt(1.0 - dysq);
-          svx = sunvec[0];
-          svy = sunvec[1] * dy;
-          svz = sunvec[2] * sqomdysq;
-          byf = (int)(Math.Floor(by) * n);
-          byc = byf + (int)n;
-          t = by - Math.Floor(by);
-          t1 = 1 - t;
-        }
+	  if (!_stars) {	 // Skip all this setup if just stars
+	    //#define UPRJ(a,size) ((a)/((size)-1.0))
+	    //          by = (n - 1) * UPRJ(i, screenysize);
+	    by = (n - 1) * ((double)i / ((double)height-1.0));
+	    dy = 2 * (((height / 2) - i) / ((double) height));
+	    dysq = dy * dy;
+	    sqomdysq = Math.Sqrt(1.0 - dysq);
+	    svx = sunvec[0];
+	    svy = sunvec[1] * dy;
+	    svz = sunvec[2] * sqomdysq;
+	    byf = (int)(Math.Floor(by) * n);
+	    byc = byf + (int)n;
+	    t = by - Math.Floor(by);
+	    t1 = 1 - t;
+	  }
 
-        if (_clouds) 
-        {
+	  if (_clouds) 
+	    {
 
-          // Render the FFT output as clouds.
+	      // Render the FFT output as clouds.
 
-          for (int j = 0; j < width; j++) 
-          {
-            r = 0;
-            if((byf + bxf[j]) < cp.Length)
-              r += t1 * u1[j] * cp[byf + bxf[j]]; 
-            if((byc + bxf[j]) < cp.Length)
-              r += t * u1[j] * cp[byc + bxf[j]]; 
-            if((byc + bxc[j]) < cp.Length)
-              r += t * u[j] * cp[byc + bxc[j]]; 
-            if((byf + bxc[j]) < cp.Length)
-              r += t1 * u[j] * cp[byf + bxc[j]]; 
-            byte w = (byte)((r > 127.0) ? (rgbQuant * ((r - 127.0) / 128.0)) : 0);
+	      for (int j = 0; j < width; j++) 
+		{
+		  r = 0;
+		  if((byf + bxf[j]) < cp.Length)
+		    r += t1 * u1[j] * cp[byf + bxf[j]]; 
+		  if((byc + bxf[j]) < cp.Length)
+		    r += t * u1[j] * cp[byc + bxf[j]]; 
+		  if((byc + bxc[j]) < cp.Length)
+		    r += t * u[j] * cp[byc + bxc[j]]; 
+		  if((byf + bxc[j]) < cp.Length)
+		    r += t1 * u[j] * cp[byf + bxc[j]]; 
+		  byte w = (byte)((r > 127.0) ? (rgbQuant * ((r - 127.0) / 128.0)) : 0);
 
-            pixels[j] = new Pixel(w, w, (byte)rgbQuant);
-          }
-        } 
-        else if (_stars) 
-        {
+		  pixels[j] = new Pixel(w, w, (byte)rgbQuant);
+		}
+	    } 
+	  else if (_stars) 
+	    {
 
-          /* Generate a starry sky.  Note  that no FFT is performed;
-             the output is  generated  directly  from  a  power  law
-             mapping	of  a  pseudorandom sequence into intensities. */
+	      /* Generate a starry sky.  Note  that no FFT is performed;
+		 the output is  generated  directly  from  a  power  law
+		 mapping	of  a  pseudorandom sequence into intensities. */
 
-          for (int j = 0; j < pixels.Length; j++) 
-          {
-            Etoile(ref pixels[j]);
-          }
-        } 
-        else 
-        {
-          for (int j = 0; j < width; j++) 
-            pixels[j] = new Pixel(); // Pixel(0,0,0)
+	      for (int j = 0; j < pixels.Length; j++) 
+		{
+		  pixels[j] = Etoile();
+		}
+	    } 
+	  else 
+	    {
+	      for (int j = 0; j < width; j++) 
+		pixels[j] = new Pixel();
 
-          azimuth = Math.Asin((((double)i / (height - 1)) * 2) - 1);
-          icet = Math.Pow(Math.Abs(Math.Sin(azimuth)), 1.0 / _icelevel) - 0.5;
-          lcos = (int)((height / 2) * Math.Abs(Math.Cos(azimuth)));
-          rpix_offset = (uint)(width/2 - lcos);
+	      double azimuth = Math.Asin((((double) i / (height - 1)) * 2) - 1);
+	      icet = Math.Pow(Math.Abs(Math.Sin(azimuth)), 1.0 / _icelevel) 
+		- 0.5;
+	      lcos = (int)((height / 2) * Math.Abs(Math.Cos(azimuth)));
+	      rpix_offset = (uint)(width/2 - lcos);
 
-          for (int j = (int)((width / 2) - lcos); 
-              j <= (int)((width / 2) + lcos); 
-              j++) 
-          {
-            r = 0.0;
-            ir = 0;
-            ig = 0;
-            ib = 0;
+	      for (int j = (int)((width / 2) - lcos); 
+		   j <= (int)((width / 2) + lcos); 
+		   j++) 
+		{
+		  r = 0.0;
+		  byte ir = 0;
+		  byte ig = 0;
+		  byte ib = 0;
 
-            r = 0;
-            if((byf + bxf[j]) < cp.Length)
-              r += t1 * u1[j] * cp[byf + bxf[j]]; 
-            if((byc + bxf[j]) < cp.Length)
-              r += t * u1[j] * cp[byc + bxf[j]]; 
-            if((byc + bxc[j]) < cp.Length)
-              r += t * u[j] * cp[byc + bxc[j]]; 
-            if((byf + bxc[j]) < cp.Length)
-              r += t1 * u[j] * cp[byf + bxc[j]]; 
+		  r = 0;
+		  if((byf + bxf[j]) < cp.Length)
+		    r += t1 * u1[j] * cp[byf + bxf[j]]; 
+		  if((byc + bxf[j]) < cp.Length)
+		    r += t * u1[j] * cp[byc + bxf[j]]; 
+		  if((byc + bxc[j]) < cp.Length)
+		    r += t * u[j] * cp[byc + bxc[j]]; 
+		  if((byf + bxc[j]) < cp.Length)
+		    r += t1 * u[j] * cp[byf + bxc[j]]; 
 
-            double ice;
+		  double ice;
 
-            if (r >= 128) 
-            {
-              //#define ELEMENTS(array) (sizeof(array)/sizeof((array)[0]))
-              //int ix = ((r - 128) * (ELEMENTS(pgnd) - 1)) / 127;
-              int ix = (int)((r - 128) * (99 - 1)) / 127;
+		  if (r >= 128) 
+		    {
+		      //#define ELEMENTS(array) (sizeof(array)/sizeof((array)[0]))
+		      //int ix = ((r - 128) * (ELEMENTS(pgnd) - 1)) / 127;
+		      int ix = (int)((r - 128) * (99 - 1)) / 127;
 
-              /* Land area.  Look up colour based on elevation from
-                 precomputed colour map table. */
-              ir = pgnd[ix,0];
-              ig = pgnd[ix,1];
-              ib = pgnd[ix,2];
-            } 
-            else 
-            {
+		      /* Land area.  Look up colour based on elevation from
+			 precomputed colour map table. */
+		      ir = pgnd[ix,0];
+		      ig = pgnd[ix,1];
+		      ib = pgnd[ix,2];
+		    } 
+		  else 
+		    {
 
-              /* Water.  Generate clouds above water based on
-                 elevation.  */
+		      /* Water.  Generate clouds above water based on
+			 elevation.  */
 
-              ir = (byte)((r > 64) ? (r - 64) * 4 : 0);
-              ig = ir;
-              ib = 255;
-            }
+		      ir = (byte)((r > 64) ? (r - 64) * 4 : 0);
+		      ig = ir;
+		      ib = 255;
+		    }
 
-            /* Generate polar ice caps. */
+		  /* Generate polar ice caps. */
 
-            ice = Math.Max(0.0, icet + _glaciers * Math.Max(-0.5, 
-                  (r - 128) / 128.0));
-            if  (ice > 0.125) 
-            {
-              ir = ig = ib = 255;
-            }
+		  ice = Math.Max(0.0, icet + _glaciers * Math.Max(-0.5, 
+								  (r - 128) / 128.0));
+		  if  (ice > 0.125) 
+		    {
+		      ir = ig = ib = 255;
+		    }
 
-            /* Apply limb darkening by cosine rule. */
+		  /* Apply limb darkening by cosine rule. */
 
-            {   
-              dx = 2 * (((width / 2) - j) / ((double) height));
-              dxsq = dx * dx;
-              di = svx * dx + svy + svz * Math.Sqrt(1.0 - dxsq);
-              //#define 	    PlanetAmbient  0.05
-              if (di < 0)
-                di = 0;
-              di = Math.Min(1.0, di);
+		  {   
+		    dx = 2 * (((width / 2) - j) / ((double) height));
+		    dxsq = dx * dx;
+		    di = svx * dx + svy + svz * Math.Sqrt(1.0 - dxsq);
+		    //#define 	    PlanetAmbient  0.05
+		    if (di < 0)
+		      di = 0;
+		    di = Math.Min(1.0, di);
 
-              ds = Math.Sqrt(dxsq + dysq);
-              ds = Math.Min(1.0, ds);
-              /* Calculate  atmospheric absorption  based on the
-                 thickness of atmosphere traversed by  light  on
-                 its way to the surface. */
+		    ds = Math.Sqrt(dxsq + dysq);
+		    ds = Math.Min(1.0, ds);
+		    /* Calculate  atmospheric absorption  based on the
+		       thickness of atmosphere traversed by  light  on
+		       its way to the surface. */
 
-              //#define 	    AtSatFac 1.0
-              dsq = ds * ds;
-              dsat = atSatFac * ((Math.Sqrt(atthick * atthick - dsq) -
-                    Math.Sqrt(1.0 * 1.0 - dsq)) / athfac);
-              //#define 	    AtSat(x,y) x = ((x)*(1.0-dsat))+(y)*dsat
-              /*
-                 AtSat(ir, 127);
-                 AtSat(ig, 127);
-                 AtSat(ib, 255);
-                 */
-              ir = (byte)((ir*(1.0-dsat))+127*dsat);
-              ig = (byte)((ig*(1.0-dsat))+127*dsat);
-              ib = (byte)((ib*(1.0-dsat))+255*dsat);
+		    //#define 	    AtSatFac 1.0
+		    dsq = ds * ds;
+		    dsat = atSatFac * ((Math.Sqrt(atthick * atthick - dsq) -
+					Math.Sqrt(1.0 * 1.0 - dsq)) / athfac);
+		    //#define 	    AtSat(x,y) x = ((x)*(1.0-dsat))+(y)*dsat
+		    /*
+		      AtSat(ir, 127);
+		      AtSat(ig, 127);
+		      AtSat(ib, 255);
+		    */
+		    ir = (byte)((ir*(1.0-dsat))+127*dsat);
+		    ig = (byte)((ig*(1.0-dsat))+127*dsat);
+		    ib = (byte)((ib*(1.0-dsat))+255*dsat);
 
-              inx = planetAmbient + (1.0 - planetAmbient) * di;
-              ir = (byte)(ir * inx);
-              ig = (byte)(ig * inx);
-              ib = (byte)(ib * inx);
-            }
+		    inx = planetAmbient + (1.0 - planetAmbient) * di;
+		    ir = (byte)(ir * inx);
+		    ig = (byte)(ig * inx);
+		    ib = (byte)(ib * inx);
+		  }
 
-            pixels[rpix_offset++].SetColor(ir, ig, ib);
-          }
+		  pixels[rpix_offset++].SetColor(ir, ig, ib);
+		}
 
-          /* Left stars */
-          //#define StarClose	2
-          for (int j = 0; j < width / 2 - (lcos + starClose); j++) 
-          {
-            Etoile(ref pixels[j]);
-          }
+	      /* Left stars */
+	      //#define StarClose	2
+	      for (int j = 0; j < width / 2 - (lcos + starClose); j++) 
+		{
+		  pixels[j] = Etoile();
+		}
 
-          /* Right stars */
-          for (int j = (int) (width / 2 + (lcos + starClose)); j < width; 
-              j++) 
-          {
-            Etoile(ref pixels[j]);
-          }
-        }
+	      /* Right stars */
+	      for (int j = (int) (width / 2 + (lcos + starClose)); j < width; 
+		   j++) 
+		{
+		  pixels[j] = Etoile();
+		}
+	    }
 
-        if (drawable != null)
-        {
-          for (int x = 0; x < pixels.Length; x++) 
-            pf.PutPixel(x, i, pixels[x].ToByte());
+	  if (drawable != null)
+	    {
+	      for (int x = 0; x < pixels.Length; x++) 
+		pf.PutPixel(x, i, pixels[x].ToByte());
 
-          _progress.Update((double)i/height);
-        }
-        else
-        {
-          for (int x = 0; x < pixels.Length; x++) 
-            pixels[x].ToByte().CopyTo(pixelArray, 3*(i*width+x));
-        }
-      }
+	      _progress.Update((double)i/height);
+	    }
+	  else
+	    {
+	      for (int x = 0; x < pixels.Length; x++) 
+		pixels[x].ToByte().CopyTo(pixelArray, 3*(i*width+x));
+	    }
+	}
 
       if (drawable != null)
-      {
-        pf.Dispose();
+	{
+	  pf.Dispose();
 
-        drawable.Flush();
-        drawable.Update(0, 0, width, height);
-        Display.DisplaysFlush();
-      }
+	  drawable.Flush();
+	  drawable.Update(0, 0, width, height);
+	  Display.DisplaysFlush();
+	}
     }
 
     //
     //  PLANET  --	Make a planet.
     //
 
-    bool Planet(Drawable drawable, ref byte[] pixelArray, int width, 
-		int height)
+    bool Planet(Drawable drawable, byte[] pixelArray, int width, int height)
     {
       double[] a = null;
 
@@ -1202,10 +1209,7 @@ namespace Gimp.Forge
 
       if (!_stars) 
       {
-        SpectralSynth(ref a, meshsize, 3.0 - _fracdim);
-
-        if (a == null)
-          return false;
+        a = SpectralSynth(meshsize, 3.0 - _fracdim);
 
         // Apply power law scaling if non-unity scale is requested.
         if (_powscale != 1.0) 
@@ -1220,8 +1224,7 @@ namespace Gimp.Forge
               if (r > 0) 
               {
                 //      Real(a, i, j) = Math.Pow(r, powscale);
-                a[1 + (i * meshsize + j) * 2] =
-                  Math.Pow(r, _powscale);
+                a[1 + (i * meshsize + j) * 2] = Math.Pow(r, _powscale);
               }
             }
           }
@@ -1258,7 +1261,7 @@ namespace Gimp.Forge
         }
       }
 
-      GenPlanet(drawable, ref pixelArray, width, height, a, meshsize);
+      GenPlanet(drawable, pixelArray, width, height, a, meshsize);
 
       return true;
     }

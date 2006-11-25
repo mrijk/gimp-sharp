@@ -1,3 +1,9 @@
+2006-11-25  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/Forge/Forge.cs: minor clean-up
+
+	* lib/Drawable.cs: added convenience routine Update()
+
 2006-11-24  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/AverageBlur/AverageBlur.cs: use new ReadPixelIterator class

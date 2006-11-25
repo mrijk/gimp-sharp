@@ -120,6 +120,11 @@ namespace Gimp
         }
     }
 
+    public void Update()
+    {
+      Update(0, 0, Width, Height);
+    }
+
     public bool MaskBounds(out int x1, out int y1, out int x2, out int y2)
     {
       return gimp_drawable_mask_bounds(_ID, out x1, out y1, out x2, out y2);
