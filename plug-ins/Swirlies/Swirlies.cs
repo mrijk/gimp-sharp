@@ -134,7 +134,7 @@ namespace Gimp.Swirlies
       Preview.GetSize(out width, out height);
 
       byte[] buffer = new byte[width * height * 3];
-      byte[] dest = new byte[3];
+
       for (int y = 0; y < height; y++)
 	{
 	  int y_orig = _height * y / height;
@@ -143,8 +143,7 @@ namespace Gimp.Swirlies
 	      long index = 3 * (y * width + x);
 	      int x_orig = _width * x / width;
 
-	      dest = DoSwirlies(x_orig, y_orig);
-	      dest.CopyTo(buffer, index);
+	      DoSwirlies(x_orig, y_orig).CopyTo(buffer, index);
 	    }
 	  Application.Invoke (delegate {
 	    _progress.Update((double) y / height);
@@ -182,12 +181,12 @@ namespace Gimp.Swirlies
       Display.DisplaysFlush();
     }
 
-    byte[] DoSwirlies(int x, int y)
+    Pixel DoSwirlies(int x, int y)
     {
       double Fr = 0.0, Fg = 0.0, Fb = 0.0;
 
-      double zoom = 0.5;
-      int terms = 5;
+      const double zoom = 0.5;
+      const int terms = 5;
 
       foreach (Swirly swirly in _swirlies)
 	{
@@ -197,13 +196,13 @@ namespace Gimp.Swirlies
 	  _dest[1] = FloatToIntPixel(RemapColorRange(Fg));
 	  _dest[2] = FloatToIntPixel(RemapColorRange(Fb));
 	}
-      return _dest;
+      return new Pixel(_dest);
     }
     
     double RemapColorRange(double val)
     {
-      double _post_gain = 0.35;
-      double _pre_gain = 10000;
+      const double _post_gain = 0.35;
+      const double _pre_gain = 10000;
 
       val = Math.Abs(val);
       return Math.Tanh(_post_gain * Math.Log(1 + _pre_gain * val));

@@ -61,12 +61,23 @@ namespace Gimp
 
     public void GetPixel(int x, int y, byte[] pixel)
     {
-      gimp_pixel_fetcher_get_pixel (_ptr, x, y, pixel);
+      gimp_pixel_fetcher_get_pixel(_ptr, x, y, pixel);
+    }
+
+    public void GetPixel(int x, int y, Pixel pixel)
+    {
+      gimp_pixel_fetcher_get_pixel(_ptr, x, y, _dummy);
+      pixel.Bytes = _dummy;
     }
 
     public void PutPixel(int x, int y, byte[] pixel)
     {
-      gimp_pixel_fetcher_put_pixel (_ptr, x, y, pixel);
+      gimp_pixel_fetcher_put_pixel(_ptr, x, y, pixel);
+    }
+
+    public void PutPixel(int x, int y, Pixel pixel)
+    {
+      gimp_pixel_fetcher_put_pixel(_ptr, x, y, pixel.Bytes);
     }
 
     public void Dispose()

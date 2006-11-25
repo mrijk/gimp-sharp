@@ -1,5 +1,20 @@
 2006-11-25  Maurits  <m.rijk@chello.nl>
 
+	* plug-ins/UnitTest/TestPixel.cs: new file
+	
+	* plug-ins/UnitTest/Makefile.am: changed accordingly
+
+	* lib/Pixel.cs: add property to get/set byte[]
+
+	* plug-ins/Fragment/Fragment.cs
+	* plug-ins/ncp/ncp.cs
+	* plug-ins/Pointillize/Pointillize.cs
+	* plug-ins/Swirlies/Swirlies.cs: use Pixel class
+
+	* lib/PixelFetcher.cs: added convenience routines that use Pixel class
+
+2006-11-25  Maurits  <m.rijk@chello.nl>
+
 	* plug-ins/Forge/Forge.cs: minor clean-up
 
 	* lib/Drawable.cs: added convenience routine Update()

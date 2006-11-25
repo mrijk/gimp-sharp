@@ -131,7 +131,7 @@ namespace Gimp.ncp
       preview.GetSize(out width, out height);
 
       byte[] buffer = new byte[width * height * 3];
-      byte[] dest = new byte[3];
+
       for (int y = 0; y < height; y++)
 	{
 	  int y_orig = _height * y / height;
@@ -140,8 +140,7 @@ namespace Gimp.ncp
 	      long index = 3 * (y * width + x);
 	      int x_orig = _width * x / width;
 
-	      dest = DoNCP(x_orig, y_orig);
-	      dest.CopyTo(buffer, index);
+	      DoNCP(x_orig, y_orig).CopyTo(buffer, index);
 	    }
 	}
       preview.DrawBuffer(buffer, width * 3);
@@ -286,7 +285,7 @@ namespace Gimp.ncp
       return pivot;
     }
 
-    byte[] DoNCP(int x, int y)
+    Pixel DoNCP(int x, int y)
     {
       for (int b = 0; b < _bpp; b++) 
 	{
@@ -318,7 +317,7 @@ namespace Gimp.ncp
       if (_has_alpha) 
 	_dest[_bpp]= 255;
 
-      return _dest;
+      return new Pixel(_dest);
     }
   }
 }

@@ -64,7 +64,7 @@ namespace Gimp
       });
       Assert.AreEqual(_width * _height, count);
     }
-
+#if false
     [Test]
     public void TestFill()
     {
@@ -84,5 +84,26 @@ namespace Gimp
 	Assert.AreEqual(color[2], src[2]);
       });
     }
+    // #else
+    [Test]
+    public void TestFill()
+    {
+      Pixel color = new Pixel(12, 13, 14);
+
+      RgnIterator iterator = new RgnIterator(_drawable, 
+					     RunMode.Noninteractive);
+      iterator.IterateDest(delegate(int x, int y)
+      {
+	return color;
+      });
+
+      iterator.IterateSrc(delegate(Pixel src)
+      {
+	Assert.AreEqual(color[0], src[0]);
+	Assert.AreEqual(color[1], src[1]);
+	Assert.AreEqual(color[2], src[2]);
+      });
+    }
+#endif
   }
 }

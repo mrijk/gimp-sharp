@@ -98,7 +98,7 @@ namespace Gimp.Pointillize
       preview.GetSize(out width, out height);
 
       byte[] buffer = new byte[width * height * 3];
-      byte[] dest = new byte[3];
+
       for (int y = 0; y < height; y++)
 	{
 	  int y_orig = _height * y / height;
@@ -107,8 +107,7 @@ namespace Gimp.Pointillize
 	      long index = 3 * (y * width + x);
 	      int x_orig = _width * x / width;
 
-	      dest = DoPointillize(x_orig, y_orig);
-	      dest.CopyTo(buffer, index);
+	      DoPointillize(x_orig, y_orig).CopyTo(buffer, index);
 	    }
 	}
       preview.DrawBuffer(buffer, width * 3);
@@ -135,9 +134,9 @@ namespace Gimp.Pointillize
       _height = y2 - y1;
     }
 
-    byte[] DoPointillize(int x, int y)
+    Pixel DoPointillize(int x, int y)
     {
-      return _coordinates.GetColor(x, y);
+      return new Pixel(_coordinates.GetColor(x, y));
     }
   }
 }

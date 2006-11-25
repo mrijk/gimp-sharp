@@ -61,30 +61,25 @@ namespace Gimp.Fragment
       RgnIterator iter = new RgnIterator(drawable, RunMode.Interactive);
       iter.Progress = new Progress(_("Fragment"));
 
-      PixelFetcher pf = new PixelFetcher(drawable, false);
-      pf.EdgeMode = EdgeMode.Black;
-
-      byte[] ul = new byte[bpp];
-      byte[] ur = new byte[bpp];
-      byte[] ll = new byte[bpp];
-      byte[] lr = new byte[bpp];
-      byte[] average = new byte[bpp];
-
-      iter.IterateDest(delegate (int x, int y) 
-      {
-      	pf.GetPixel(x - 4, y - 4, ul);
-      	pf.GetPixel(x + 4, y - 4, ur);
-      	pf.GetPixel(x - 4, y + 4, ll);
-      	pf.GetPixel(x + 4, y + 4, lr);
-      	
-      	for (int b = 0; b < bpp; b++)
-      	{
-	  average[b] = (byte) ((ul[b] + ur[b] + ll[b] + lr[b]) / 4);
-      	}
-      	return average;
-      });
-
-      pf.Dispose();
+      using (PixelFetcher pf = new PixelFetcher(drawable, false))
+	{
+	  pf.EdgeMode = EdgeMode.Black;
+	  
+	  Pixel ul = new Pixel(bpp);
+	  Pixel ur = new Pixel(bpp);
+	  Pixel ll = new Pixel(bpp);
+	  Pixel lr = new Pixel(bpp);
+	  
+	  iter.IterateDest(delegate (int x, int y) 
+	  {
+	    pf.GetPixel(x - 4, y - 4, ul);
+	    pf.GetPixel(x + 4, y - 4, ur);
+	    pf.GetPixel(x - 4, y + 4, ll);
+	    pf.GetPixel(x + 4, y + 4, lr);
+	    
+	    return (ul + ur + ll + lr) / 4;
+	  });
+	}
 
       Display.DisplaysFlush();
     }

@@ -54,16 +54,35 @@ namespace Gimp
       _rgb[2] = b;
     }
 
-    public byte[] ToByte()
+    public byte[] Bytes
     {
-      byte[] rgb = new byte[_bpp];
-
-      for (int i = 0; i < _bpp; i++)
+      set
 	{
-	  rgb[i] = (byte) _rgb[i];
+	  for (int i = 0; i < _bpp; i++)
+	    {
+	      _rgb[i] = value[i];
+	    }
 	}
 
-      return rgb;
+      get
+	{
+	  byte[] rgb = new byte[_bpp];
+
+	  for (int i = 0; i < _bpp; i++)
+	    {
+	      rgb[i] = (byte) _rgb[i];
+	    }
+	  
+	  return rgb;
+	}
+    }
+
+    public void CopyTo(byte[] dest, long index)
+    {
+      for (int i = 0; i < _bpp; i++)
+	{
+	  dest[index + i] = (byte) _rgb[i];
+	}
     }
 
     public int X
@@ -78,16 +97,19 @@ namespace Gimp
 
     public int Red
     {
+      get {return _rgb[0];}
       set {_rgb[0] = value;}
     }
 	
     public int Green
     {
+      get {return _rgb[1];}
       set {_rgb[1] = value;}
     }
 
     public int Blue
     {
+      get {return _rgb[2];}
       set {_rgb[2] = value;}
     }
 
