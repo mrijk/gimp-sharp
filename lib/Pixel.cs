@@ -113,22 +113,49 @@ namespace Gimp
       set {_rgb[2] = value;}
     }
 
+    public void Clamp0255()
+    {
+      for (int i = 0; i < _bpp; i++)
+	{
+	  if (_rgb[i] < 0)
+	    {
+	      _rgb[i] = 0;
+	    }
+	  else if (_rgb[i] > 255)
+	    {
+	      _rgb[i] = 255;
+	    }
+	}
+    }
+
     public static Pixel operator / (Pixel p, int v)
     {
+      Pixel result = new Pixel(p._bpp);
       for (int i = 0; i < p._bpp; i++)
 	{
-	  p._rgb[i] /= v;
+	  result._rgb[i] = p._rgb[i] / v;
 	}
-      return p;
+      return result;
     }
-	
+
     public static Pixel operator + (Pixel p1, Pixel p2)
     {
+      Pixel result = new Pixel(p1._bpp);
       for (int i = 0; i < p1._bpp; i++)
 	{
-	  p1._rgb[i] += p2._rgb[i]; 
+	  result._rgb[i] = p1._rgb[i] + p2._rgb[i]; 
 	}
-      return p1;
+      return result;
+    }
+
+    public static Pixel operator + (Pixel p, int v)
+    {
+      Pixel result = new Pixel(p._bpp);
+      for (int i = 0; i < p._bpp; i++)
+	{
+	  result._rgb[i] = p._rgb[i] + v; 
+	}
+      return result;
     }
 
     public override string ToString()

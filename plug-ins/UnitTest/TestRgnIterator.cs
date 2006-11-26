@@ -58,7 +58,7 @@ namespace Gimp
       RgnIterator iterator = new RgnIterator(_drawable, 
 					     RunMode.Noninteractive);
       int count = 0;
-      iterator.IterateSrc(delegate(byte[] src) 
+      iterator.IterateSrc(delegate(Pixel src) 
       {
 	count++;
       });

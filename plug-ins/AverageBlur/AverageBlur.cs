@@ -54,19 +54,19 @@ namespace Gimp.AverageBlur
 
     override protected void Render(Drawable drawable)
     {
-      int count = 0;
-      Pixel average = new Pixel(drawable.Bpp);
-
-      foreach (Pixel pixel in new ReadPixelIterator(drawable, 
-						    RunMode.Interactive))
-	{
-	  average += pixel;
-	  count++;
-	}
-      average /= count;
-
       RgnIterator iter = new RgnIterator(drawable, RunMode.Interactive);
       iter.Progress = new Progress(_("Average"));
+
+      Pixel average = new Pixel(drawable.Bpp);
+      int count = 0;
+
+      iter.IterateSrc(delegate (Pixel pixel)
+      {
+	average += pixel;
+	count++;
+      });
+      average /= count;
+
       iter.IterateDest(delegate () {return average;});
 
       Display.DisplaysFlush();

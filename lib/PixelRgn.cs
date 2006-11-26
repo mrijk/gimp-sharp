@@ -87,9 +87,9 @@ namespace Gimp
     public void FillCache()
     {
       int size = (int) (pr.h * pr.rowstride);
-      Console.WriteLine("FillCache: " + size);
+      // Console.WriteLine("FillCache: " + size);
       _cache = new byte[size];
-      Marshal.Copy(pr.data, _cache, 0, size);
+      // Marshal.Copy(pr.data, _cache, 0, size);
     }
 
     public void GetPixel(byte[] buf, int x, int y)
@@ -169,9 +169,14 @@ namespace Gimp
       get
 	{
 	  int bpp = (int) pr.bpp;
+#if true
 	  IntPtr src = (IntPtr) ((int) pr.data + (row - Y) * Rowstride + 
 				 (col - X) * bpp);
 	  Marshal.Copy(src, _dummy, 0, bpp);
+#else
+	  Array.Copy(_cache, (row - Y) * Rowstride + (col - X) * bpp,
+		     _dummy, 0, bpp);
+#endif
 	  return _dummy;
 	}
     }

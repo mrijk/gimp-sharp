@@ -228,20 +228,16 @@ namespace Gimp.Raindrops
       */
 
       int BlurRadius;                       // Blur Radius
-      int BlurPixels;
-      bool      FindAnother = false;              // To search for good coordinates
+      bool FindAnother = false;             // To search for good coordinates
       int DropSize = _dropSize;
       int Coeff = _fishEye; 
-      double    r, a;                             // polar coordinates
-      double    []RGB_components = new double[bpp];     // RGB_components[R, G, B]      
-      double    OldRadius;                        // Radius before processing
+      double OldRadius;                        // Radius before processing
 
-      double    NewCoeff = (double)Clamp(Coeff, 1, 100) * 0.01;  // FishEye Coefficients
+      double NewCoeff = (double)Clamp(Coeff, 1, 100) * 0.01;  // FishEye Coefficients
 
 
-      byte[] originalColor = new byte[bpp];
-      byte[] newColor = new byte[bpp];
-      Random _random = new Random();
+      Pixel originalColor = new Pixel(bpp);
+      Random random = new Random();
      
       // TODO: find an upper bound so that
       // speed on big drop would be improved
@@ -249,7 +245,7 @@ namespace Gimp.Raindrops
 
       for (int NumBlurs = 0 ; NumBlurs <= _number ; ++NumBlurs)
 	{
-	  int newSize = _random.Next(DropSize);	// Size of current raindrop
+	  int newSize = random.Next(DropSize);	// Size of current raindrop
 	  int halfSize = newSize / 2;		// Half of current raindrop
 	  int Radius = halfSize;		// Maximum radius for raindrop
 	  double s = Radius / Math.Log (NewCoeff * Radius + 1);
@@ -259,8 +255,8 @@ namespace Gimp.Raindrops
 	  do
 	    {
 	      FindAnother = false;
-	      y = _random.Next(width);
-	      x = _random.Next(height);
+	      y = random.Next(width);
+	      x = random.Next(height);
 	    
 	      if (boolMatrix[y,x])
 		{
@@ -296,8 +292,8 @@ namespace Gimp.Raindrops
 	    {
 	      for (int j = -halfSize ; j < newSize - halfSize ; j++)
 		{
-		  r = Math.Sqrt(i * i + j * j);
-		  a = Math.Atan2(i, j);
+		  double r = Math.Sqrt(i * i + j * j);
+		  double a = Math.Atan2(i, j);
 
 		  if (r <= Radius)
 		    {
@@ -319,12 +315,8 @@ namespace Gimp.Raindrops
 			      boolMatrix[n, m] = true;
 
 			      pf.GetPixel(l, k, originalColor);
-
-			      for (int b = 0; b < bpp; b++)
-				newColor[b] = 
-				  (byte) Clamp(originalColor[b] + bright, 
-					      0, 255);
-
+			      Pixel newColor = originalColor + bright;
+			      newColor.Clamp0255();
 			      pf.PutPixel(l, k, newColor);
 			    }
 			}
@@ -340,15 +332,12 @@ namespace Gimp.Raindrops
 	      for (int j = -halfSize - BlurRadius ; 
 		   j < newSize - halfSize + BlurRadius ; j++)
 		{
-		  r = Math.Sqrt (i * i + j * j);
+		  double r = Math.Sqrt (i * i + j * j);
 
 		  if (r <= Radius * 1.1)
 		    {
-		      for (int b = 0; b < bpp; b++)
-			{
-			  RGB_components[b] = 0; 
-			}
-		      BlurPixels = 0;
+		      Pixel average = new Pixel(bpp);
+		      int BlurPixels = 0;
 
 		      for (int k = -BlurRadius; k < BlurRadius + 1; k++)
 			{
@@ -362,9 +351,7 @@ namespace Gimp.Raindrops
 				    n >= 0 && n < width)
 				  {
 				    pf.GetPixel(n, m, originalColor);
-				    for (int b = 0; b < bpp; b++)
-				      RGB_components[b] += originalColor[b];
-				    
+				    average += originalColor;
 				    BlurPixels++;
 				  }
 			      }
@@ -376,10 +363,7 @@ namespace Gimp.Raindrops
 
 		      if (m >= 0 && m < height && n >= 0 && n < width)
 			{
-			  for (int b = 0; b < bpp; b++)
-			    newColor[b] = 
-			      (byte) (RGB_components[b] / BlurPixels);
-			  pf.PutPixel(n, m, newColor);
+			  pf.PutPixel(n, m, average / BlurPixels);
 			}
 		    }
 		}
@@ -391,7 +375,7 @@ namespace Gimp.Raindrops
       pf.Dispose();
 
       drawable.Flush();
-      drawable.Update(0, 0, drawable.Width, drawable.Height);
+      drawable.Update();
 
       if (!isPreview)
         Display.DisplaysFlush();

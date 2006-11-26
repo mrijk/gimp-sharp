@@ -1,3 +1,13 @@
+2006-11-26  Maurits  <m.rijk@chello.nl>
+
+	* lib/RgnIterator.cs: use Pixel class in iterators
+
+	* plug-ins/AverageBlur/AverageBlur.cs: changed accordingly
+
+2006-11-25  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/Raindrops/Raindrops.cs: use Pixel class
+
 2006-11-25  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/UnitTest/TestPixel.cs: new file

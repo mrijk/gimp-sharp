@@ -25,12 +25,10 @@ namespace Gimp
 {
   public sealed class RgnIterator
   {
-    public delegate void IterFuncSrc(byte[] src);
-    public delegate void IterFuncSrcFull(int x, int y, byte[] src);
+    public delegate void IterFuncSrc(Pixel src);
     public delegate Pixel IterFuncDest();
     public delegate Pixel IterFuncDestFull(int x, int y);
-    public delegate byte[] IterFuncSrcDest(byte[] src);
-    public delegate byte[] IterFuncSrcDestFull(int x, int y, byte[] src);
+    public delegate Pixel IterFuncSrcDest(Pixel src);
 
     readonly int x1, y1, x2, y2;
 
@@ -52,35 +50,9 @@ namespace Gimp
 
     public void IterateSrc(IterFuncSrc func)
     {
-      PixelRgn srcPR = new PixelRgn(_drawable, x1, y1, x2 - x1, y2 - y1, 
-				    false, false);
-      for (IntPtr pr = PixelRgn.Register(srcPR); pr != IntPtr.Zero; 
-	   pr = PixelRgn.Process(pr))
+      foreach (Pixel pixel in new ReadPixelIterator(_drawable, _runmode))
 	{
-	  for (int y = srcPR.Y; y < srcPR.Y + srcPR.H; y++)
-	    {
-	      for (int x = srcPR.X; x < srcPR.X + srcPR.W; x++)
-		{
-		  func(srcPR[y, x]);
-		}
-	    }
-	}
-    }
-
-    public void IterateSrc(IterFuncSrcFull func)
-    {
-      PixelRgn srcPR = new PixelRgn(_drawable, x1, y1, x2 - x1, y2 - y1, 
-				    false, false);
-      for (IntPtr pr = PixelRgn.Register(srcPR); pr != IntPtr.Zero; 
-	   pr = PixelRgn.Process(pr))
-	{
-	  for (int y = srcPR.Y; y < srcPR.Y + srcPR.H; y++)
-	    {
-	      for (int x = srcPR.X; x < srcPR.X + srcPR.W; x++)
-		{
-		  func(x, y, srcPR[y, x]);
-		}
-	    }
+	  func(pixel);
 	}
     }
 
@@ -154,30 +126,10 @@ namespace Gimp
 	    {
 	      for (int x = srcPR.X; x < srcPR.X + srcPR.W; x++)
 		{
-		  destPR[y, x] = func(srcPR[y, x]);
-		}
-	    }				
-	}
-      _drawable.Flush();
-      _drawable.MergeShadow(true);
-      _drawable.Update(x1, y1, x2 - x1, y2 - y1);
-    }
-
-    public void IterateSrcDest(IterFuncSrcDestFull func)
-    {
-      PixelRgn srcPR = new PixelRgn(_drawable, x1, y1, x2 - x1, y2 - y1, 
-				    false, false);
-      PixelRgn destPR = new PixelRgn(_drawable, x1, y1, x2 - x1, y2 - y1, 
-				     true, true);
-
-      for (IntPtr pr = PixelRgn.Register(srcPR, destPR); pr != IntPtr.Zero; 
-	   pr = PixelRgn.Process(pr))
-	{
-	  for (int y = srcPR.Y; y < srcPR.Y + srcPR.H; y++)
-	    {
-	      for (int x = srcPR.X; x < srcPR.X + srcPR.W; x++)
-		{
-		  destPR[y, x] = func(x, y, srcPR[y, x]);
+		  Pixel pixel = new Pixel(srcPR[y, x]);
+		  pixel.X = x;
+		  pixel.Y = y;
+		  destPR[y, x] = func(pixel).Bytes;
 		}
 	    }				
 	}
