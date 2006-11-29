@@ -70,7 +70,7 @@ namespace Gimp
 	    {
 	      for (int x = destPR.X; x < destPR.X + destPR.W; x++)
 		{
-		  destPR[y, x] = func().Bytes;
+		  destPR[y, x] = func();
 		}
 	    }
 	  if (_runmode != RunMode.Noninteractive)
@@ -98,7 +98,7 @@ namespace Gimp
 	    {
 	      for (int x = destPR.X; x < destPR.X + destPR.W; x++)
 		{
-		  destPR[y, x] = func(x, y).Bytes;
+		  destPR[y, x] = func(x, y);
 		}
 	    }
 	  if (_runmode != RunMode.Noninteractive)
@@ -126,10 +126,10 @@ namespace Gimp
 	    {
 	      for (int x = srcPR.X; x < srcPR.X + srcPR.W; x++)
 		{
-		  Pixel pixel = new Pixel(srcPR[y, x]);
+		  Pixel pixel = srcPR[y, x];
 		  pixel.X = x;
 		  pixel.Y = y;
-		  destPR[y, x] = func(pixel).Bytes;
+		  destPR[y, x] = func(pixel);
 		}
 	    }				
 	}

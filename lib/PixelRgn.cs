@@ -43,7 +43,7 @@ namespace Gimp
   {
     GimpPixelRgn pr = new GimpPixelRgn();
     readonly byte[] _dummy;
-    byte[] _cache;
+    readonly int _bpp;
 
     public PixelRgn(Drawable drawable, int x,
 		    int y,
@@ -52,8 +52,9 @@ namespace Gimp
 		    bool dirty,
 		    bool shadow)
     {
-      gimp_pixel_rgn_init (ref pr, drawable.Ptr, x, y, width, height, dirty, 
-			   shadow);
+      gimp_pixel_rgn_init(ref pr, drawable.Ptr, x, y, width, height, dirty, 
+			  shadow);
+      _bpp = (int) pr.bpp;
       _dummy = new byte[pr.bpp];
     }
 
@@ -84,14 +85,6 @@ namespace Gimp
       return gimp_pixel_rgns_process(priPtr);
     }
 
-    public void FillCache()
-    {
-      int size = (int) (pr.h * pr.rowstride);
-      // Console.WriteLine("FillCache: " + size);
-      _cache = new byte[size];
-      // Marshal.Copy(pr.data, _cache, 0, size);
-    }
-
     public void GetPixel(byte[] buf, int x, int y)
     {
       gimp_pixel_rgn_get_pixel(ref pr, buf, x, y);
@@ -104,7 +97,7 @@ namespace Gimp
 
     public byte[] GetRect(int x, int y, int width, int height)
     {
-      byte[] buf = new byte[width * pr.bpp * height];
+      byte[] buf = new byte[width * _bpp * height];
       gimp_pixel_rgn_get_rect(ref pr, buf, x, y, width, height);
       return buf;
     }
@@ -116,7 +109,7 @@ namespace Gimp
 
     public byte[] GetRow(int x, int y, int width)
     {
-      byte[] buf = new byte[width * pr.bpp];
+      byte[] buf = new byte[width * _bpp];
       gimp_pixel_rgn_get_row(ref pr, buf, x, y, width);
       return buf;
     }
@@ -156,28 +149,21 @@ namespace Gimp
       get {return pr;}
     }
 
-    public byte[] this[int row, int col]
+    public Pixel this[int row, int col]
     {
       set
 	{
-	  int bpp = (int) pr.bpp;
 	  IntPtr dest = (IntPtr) ((int) pr.data + (row - Y) * Rowstride + 
-				  (col - X) * bpp);
-	  Marshal.Copy(value, 0, dest, value.Length);
+				  (col - X) * _bpp);
+	  Marshal.Copy(value.Bytes, 0, dest, _bpp);
 	}
 
       get
 	{
-	  int bpp = (int) pr.bpp;
-#if true
 	  IntPtr src = (IntPtr) ((int) pr.data + (row - Y) * Rowstride + 
-				 (col - X) * bpp);
-	  Marshal.Copy(src, _dummy, 0, bpp);
-#else
-	  Array.Copy(_cache, (row - Y) * Rowstride + (col - X) * bpp,
-		     _dummy, 0, bpp);
-#endif
-	  return _dummy;
+				 (col - X) * _bpp);
+	  Marshal.Copy(src, _dummy, 0, _bpp);
+	  return new Pixel(_dummy);
 	}
     }
 

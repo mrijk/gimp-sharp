@@ -293,8 +293,7 @@ namespace Gimp.Splitter
 	  destPR2 = null;
 	}
 
-      byte[] transparent = new byte[4];
-      byte[] tmp = new byte[4];
+      Pixel transparent = new Pixel(4);
 
       PixelRgn srcPR = new PixelRgn(drawable, 0, 0, width, height, 
 				    false, false);
@@ -308,32 +307,19 @@ namespace Gimp.Splitter
 		{
 		  for (int x = srcPR.X; x < srcPR.X + srcPR.W; x++)
 		    {
+		      Pixel tmp = srcPR[y, x];
+		      if (!hasAlpha)
+			{
+			  tmp.Alpha = 255;
+			}
 		      if (parser.Eval(x, y) < 0)
 			{
-			  if (hasAlpha)
-			    {
-			      destPR1[y, x] = srcPR[y, x];
-			    }
-			  else
-			    {
-			      srcPR[y, x].CopyTo(tmp, 0);
-			      tmp[3] = 255;
-			      destPR1[y, x] = tmp;
-			    }
+			  destPR1[y, x] = tmp;
 			  destPR2[y, x] = transparent;
 			}
 		      else
 			{
-			  if (hasAlpha)
-			    {
-			      destPR2[y, x] = srcPR[y, x];
-			    }
-			  else
-			    {
-			      srcPR[y, x].CopyTo(tmp, 0);
-			      tmp[3] = 255;
-			      destPR2[y, x] = tmp;
-			    }
+			  destPR2[y, x] = tmp;
 			  destPR1[y, x] = transparent;
 			}
 		    }
@@ -351,16 +337,12 @@ namespace Gimp.Splitter
 		    {
 		      if (parser.Eval(x, y) < 0)
 			{
-			  if (hasAlpha)
+			  Pixel tmp = srcPR[y, x];
+			  if (!hasAlpha)
 			    {
-			      destPR1[y, x] = srcPR[y, x];
+			      tmp.Alpha = 255;
 			    }
-			  else
-			    {
-			      srcPR[y, x].CopyTo(tmp, 0);
-			      tmp[3] = 255;
-			      destPR1[y, x] = tmp;
-			    }
+			  destPR1[y, x] = tmp;
 			}
 		      else
 			{
@@ -385,16 +367,12 @@ namespace Gimp.Splitter
 			}
 		      else
 			{
-			  if (hasAlpha)
+			  Pixel tmp = srcPR[y, x];
+			  if (!hasAlpha)
 			    {
-			      destPR2[y, x] = srcPR[y, x];
+			      tmp.Alpha = 255;
 			    }
-			  else
-			    {
-			      srcPR[y, x].CopyTo(tmp, 0);
-			      tmp[3] = 255;
-			      destPR2[y, x] = tmp;
-			    }
+			  destPR2[y, x] = tmp;
 			}
 		    }
 		}				

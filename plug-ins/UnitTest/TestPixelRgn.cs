@@ -150,7 +150,7 @@ namespace Gimp
     public void DirectAccessRgb()
     {
       PixelRgn rgn = new PixelRgn(_drawable, true, false);
-      byte[] pixel = new byte[]{13, 24, 35};
+      Pixel pixel = new Pixel(13, 24, 35);
 
       FillDrawable(_drawable, pixel);
 
@@ -179,7 +179,7 @@ namespace Gimp
       image.AddLayer(layer, 0);
     
       Drawable drawable = image.ActiveDrawable;
-      byte[] pixel = new byte[]{13, 24, 35, 128};
+      Pixel pixel = new Pixel(13, 24, 35, 128);
       FillDrawable(drawable, pixel);
 
       PixelRgn rgn = new PixelRgn(drawable, false, false);
@@ -202,7 +202,7 @@ namespace Gimp
     {
       // Fill src region
 
-      byte[] pixel = new byte[]{13, 24, 35};
+      Pixel pixel = new Pixel(13, 24, 35);
       FillDrawable(_drawable, pixel);
 
       // Copy to dest region
@@ -255,8 +255,7 @@ namespace Gimp
     {
       // Fill src region
 
-      byte[] pixel = new byte[]{13, 24, 35};
-      byte[] tmp = new byte[4];
+      Pixel pixel = new Pixel(13, 24, 35);
       FillDrawable(_drawable, pixel);
 
       // Copy to dest region
@@ -278,8 +277,8 @@ namespace Gimp
 	    {
 	      for (int x = srcRgn.X; x < srcRgn.X + srcRgn.W; x++)
 		{
-		  srcRgn[y, x].CopyTo(tmp, 0);
-		  tmp[3] = 255;
+		  Pixel tmp = srcRgn[y, x];
+		  tmp.Alpha = 255;
 		  destRgn[y, x] = tmp;
 		}
 	    }
@@ -287,7 +286,7 @@ namespace Gimp
 
       // Check results
 
-      byte[] pixel2 = new byte[]{13, 24, 35, 255};
+      Pixel pixel2 = new Pixel(13, 24, 35, 255);
 
       srcRgn = new PixelRgn(_drawable, false, false);
       destRgn = new PixelRgn(drawable, false, false);
@@ -306,7 +305,7 @@ namespace Gimp
       image.Delete();
     }
 
-    void FillDrawable(Drawable drawable, byte[] pixel)
+    void FillDrawable(Drawable drawable, Pixel pixel)
     {
       PixelRgn rgn = new PixelRgn(drawable, true, false);
 

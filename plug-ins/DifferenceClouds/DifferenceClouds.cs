@@ -198,6 +198,7 @@ namespace Gimp.DifferenceClouds
       return label;
     } 
 
+    // Fix me: use Read/Write iterators
     void DoDifference(Drawable sourceDrawable, Drawable toDiffDrawable)
     {
       int x1, y1, x2, y2;
@@ -214,7 +215,8 @@ namespace Gimp.DifferenceClouds
 	    {
 	      for (int x = srcPR.X; x < srcPR.X + srcPR.W; x++)
 		{
-		  srcPR[y, x] = MakeAbsDiff(destPR[y, x], srcPR[y, x]);
+		  srcPR[y, x] = MakeAbsDiff(destPR[y, x].Bytes, 
+					    srcPR[y, x].Bytes);
 		}
 	    }				
 	}
@@ -223,7 +225,9 @@ namespace Gimp.DifferenceClouds
       sourceDrawable.Update(x1, y1, x2 - x1, y2 - y1);
     }
 
-    byte[] MakeAbsDiff(byte []dest, byte[] src)
+    // Fix me: put this functionality in Pixel class
+
+    Pixel MakeAbsDiff(byte[] dest, byte[] src)
     {
       byte []retVal = new byte[src.Length];
       int tmpVal = 0;
@@ -236,11 +240,10 @@ namespace Gimp.DifferenceClouds
       {
         retVal[i] = (byte)Math.Abs(dest[i] - _indexedColorsMap[tmpVal,i]);
       }
-//      src = retVal;
         
       if (_hasAlpha)
         retVal[_bpp - 1] = 255;
-      return retVal;
+      return new Pixel(retVal);
     }   
 
     bool DoDifferenceClouds(PixelFetcher pf, int x1, int y1, 

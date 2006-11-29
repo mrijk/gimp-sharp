@@ -47,11 +47,19 @@ namespace Gimp
 	}
     }
 
-    public Pixel(int r, int g, int b)
+    public Pixel(int r, int g, int b) : this(3)
     {
       _rgb[0] = r;
       _rgb[1] = g;
       _rgb[2] = b;
+    }
+
+    public Pixel(int r, int g, int b, int a) : this(4)
+    {
+      _rgb[0] = r;
+      _rgb[1] = g;
+      _rgb[2] = b;
+      _rgb[3] = a;
     }
 
     public byte[] Bytes
@@ -95,6 +103,12 @@ namespace Gimp
       set {_y = value;}
     }
 
+    public int this[int index]
+    {
+      get {return _rgb[index];}
+      set {_rgb[index] = value;}
+    }
+
     public int Red
     {
       get {return _rgb[0];}
@@ -111,6 +125,12 @@ namespace Gimp
     {
       get {return _rgb[2];}
       set {_rgb[2] = value;}
+    }
+
+    public int Alpha
+    {
+      get {return _rgb[(_bpp == 2) ? 1 : 3];}
+      set {_rgb[(_bpp == 2) ? 1 : 3] = value;}
     }
 
     public void Clamp0255()
