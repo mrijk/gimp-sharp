@@ -77,15 +77,16 @@ namespace Gimp
     public void GetSetRow()
     {
       PixelRgn rgn = new PixelRgn(_drawable, false, false);
-      byte[] row = new byte[_drawable.Bpp * _width];
-      for (int i = 0; i < _drawable.Bpp * _width; i++)
+      Pixel[] row = new Pixel[_width];
+
+      for (int i = 0; i < _width; i++)
 	{
-	  row[i] = 13;
+	  row[i] = new Pixel(13, 13, 13);
 	}
 
-      rgn.SetRow(row, 0, 13, _width);
+      rgn.SetRow(row, 0, 13);
 
-      byte[] result = rgn.GetRow(0, 13, _width);
+      Pixel[] result = rgn.GetRow(0, 13, _width);
 
       Assert.AreEqual(row, result);
     }

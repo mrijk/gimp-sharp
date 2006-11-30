@@ -107,15 +107,36 @@ namespace Gimp
       gimp_pixel_rgn_set_rect(ref pr, buf, x, y, width, height);
     }
 
-    public byte[] GetRow(int x, int y, int width)
+    public Pixel[] GetRow(int x, int y, int width)
     {
       byte[] buf = new byte[width * _bpp];
       gimp_pixel_rgn_get_row(ref pr, buf, x, y, width);
-      return buf;
+
+      Pixel[] row = new Pixel[width];
+
+      int index = 0;
+      for (int i = 0; i < width; i++)
+	{
+	  Pixel pixel = new Pixel(_bpp);
+	  pixel.CopyFrom(buf, index);
+	  index += _bpp;
+	}
+
+      return row;
     }
 
-    public void SetRow(byte[] buf, int x, int y, int width)
+    public void SetRow(Pixel[] row, int x, int y)
     {
+      int width = row.Length;
+      byte[] buf = new byte[width * _bpp];
+
+      int index = 0;
+      for (int i = 0; i < width; i++)
+	{
+	  row[i].CopyTo(buf, index);
+	  index += _bpp;
+	}
+
       gimp_pixel_rgn_set_row(ref pr, buf, x, y, width);
     }
 

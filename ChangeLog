@@ -1,3 +1,17 @@
+2006-11-30  Maurits  <m.rijk@chello.nl>
+
+	* lib/Pixel.cs: add CopyFrom method
+
+	* lib/PixelRgn.cs: changed get/set row to use Pixel class
+
+	* plug-ins/Colorize/Colorize.cs
+	* plug-ins/UnitTest/TestPixelRgn.cs: changed accordingly
+
+2006-11-29  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/Colorize/Colorize.cs: starting to replace slow
+	Get/SetRow functions
+
 2006-11-29  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/UnitTest/TestPixelRgn.cs: 

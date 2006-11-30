@@ -170,22 +170,23 @@ namespace Gimp.Colorize
       Console.WriteLine("Reset!");
     }
 
-    void rgb2yiq(byte r, byte g, byte b,
-		 out double y, out double i, out double q)
+    void rgb2yiq(Pixel pixel, out double y, out double i, out double q)
     {
+      int r = pixel.Red;
+      int g = pixel.Green;
+      int b = pixel.Blue;
 #if YUV
-      y = (0.299*r + 0.587*g + 0.114*b) / (double)255;
-      i = (0.147*r - 0.289*g + 0.436*b) / (double)255;
-      q = (0.615*r - 0.515*g - 0.100*b) / (double)255;
+      y = (0.299 * r + 0.587 * g + 0.114 * b) / (double)255;
+      i = (0.147 * r - 0.289 * g + 0.436 * b) / (double)255;
+      q = (0.615 * r - 0.515 * g - 0.100 * b) / (double)255;
 #else
-      y = (0.299*r + 0.587*g + 0.114*b) / (double)255;
-      i = (0.596*r - 0.274*g - 0.322*b) / (double)255;
-      q = (0.212*r - 0.523*g + 0.311*b) / (double)255;
+      y = (0.299 * r + 0.587 * g + 0.114 * b) / (double)255;
+      i = (0.596 * r - 0.274 * g - 0.322 * b) / (double)255;
+      q = (0.212 * r - 0.523 * g + 0.311 * b) / (double)255;
 #endif
     }
 
-    void yiq2rgb(double y, double i, double q,
-		 out byte r, out byte g, out byte b) 
+    void yiq2rgb(double y, double i, double q, Pixel pixel)
     {
 	double dr, dg, db;
 #if YUV
@@ -200,9 +201,9 @@ namespace Gimp.Colorize
 	dr = Math.Min(1.0, Math.Max(0.0, dr));
 	dg = Math.Min(1.0, Math.Max(0.0, dg));
 	db = Math.Min(1.0, Math.Max(0.0, db));
-	r = (byte) (255 * dr);
-	g = (byte) (255 * dg);
-	b = (byte) (255 * db);
+	pixel.Red = (int) (255 * dr);
+	pixel.Green = (int) (255 * dg);
+	pixel.Blue = (int) (255 * db);
     }
 
     override protected void Render(Image image, Drawable drawable)
@@ -257,11 +258,10 @@ namespace Gimp.Colorize
 
       bool[,] mask = new bool[h, w];
 
-      Console.WriteLine("2");
+      Console.WriteLine("2: " + sel.Bpp);
 
       Tile.CacheNtiles((ulong) (2 * (drawable.Width / Gimp.TileWidth + 1)));
 
-      byte[] selRow = null;
       if (sel != null) 
 	{
 	  // Retarded check for selections, because gimp doesn't
@@ -269,33 +269,31 @@ namespace Gimp.Colorize
 	  if (j == 0 && i == 0 && jj == drawable.Width && 
 	      ii == drawable.Height) 
 	    {
-	      for (i = 0; i < h; i++) 
+	      bool goodSelection = false;
+	      foreach (Pixel pixel in 
+		       new ReadPixelIterator(sel, RunMode.Noninteractive))
 		{
-		  selRow = selRgn.GetRow(selRgn.X, selRgn.Y + i, w);
-		  for (j = 0; j < w; j++) 
+		  if (pixel[0] != 0)
 		    {
-		      int selIdx = j * sel.Bpp;
-		      if (selRow[selIdx] != 0) 
-			{
-			  goto good_selection;
-			}
+		      goodSelection = true;
+		      break;
 		    }
 		}
-	      // Nothing set in the entire selection.
-	      sel.Detach();
-	      sel = null;
-	      
-	      good_selection:
-	      ;
+	      if (!goodSelection)
+		{
+		  sel.Detach();
+		  sel = null;
+		}
 	    }
 	}
 
       Console.WriteLine("3");
 
+      Pixel[] selRow = null;
       for (i = 0; i < h; i++) 
 	{
-	  byte[] imgRow = srcRgn.GetRow(srcRgn.X, srcRgn.Y + i, w);
-	  byte[] markRow = markRgn.GetRow(markRgn.X, markRgn.Y + i, w);
+	  Pixel[] imgRow = srcRgn.GetRow(srcRgn.X, srcRgn.Y + i, w);
+	  Pixel[] markRow = markRgn.GetRow(markRgn.X, markRgn.Y + i, w);
 
 	  if (sel != null) 
 	  {
@@ -304,19 +302,14 @@ namespace Gimp.Colorize
 
 	  for (j = 0; j < w; j++) 
 	    {
-	      int imgIdx = j * drawable.Bpp;
-	      int markIdx = j * _marked.Bpp;
-	      int selIdx = (sel != null) ? j * sel.Bpp : 0;
+	      Pixel imgPixel = imgRow[j];
+	      Pixel markPixel = markRow[j];
+	      int selIdx = (sel != null) ? j : 0;
 	      
 	      double iY, iI, iQ;
 	      double mY;
 	      
-	      int delta = 0;
-
-	      rgb2yiq(imgRow[imgIdx + 0], 
-		      imgRow[imgIdx + 1], 
-		      imgRow[imgIdx + 2],
-		      out iY, out iI, out iQ);
+	      rgb2yiq(imgPixel, out iY, out iI, out iQ);
 
 	      if (_useChroma) 
 		{
@@ -324,39 +317,33 @@ namespace Gimp.Colorize
 		  inQ[i, j] = iQ;
 		}
 
+	      int delta = 0;
 	      if (_includeOriginal) 
 		{
-		  int v;
-		  v = imgRow[imgIdx + 0] - markRow[markIdx + 0];
-		  delta += Math.Abs(v);
-		  v = imgRow[imgIdx + 1] - markRow[markIdx + 1];
-		  delta += Math.Abs(v);
-		  v = imgRow[imgIdx + 2] - markRow[markIdx + 2];
-		  delta += Math.Abs(v);
+		  Pixel diff = imgPixel - markPixel;;
+		  delta = Math.Abs(diff.Red) + Math.Abs(diff.Green) +
+		    Math.Abs(diff.Blue);
 		}
 
 	      // big dirty if statement
 	      if (_pureWhite
-		  && markRow[markIdx + 0] >= 255
-		  && markRow[markIdx + 1] >= 255
-		  && markRow[markIdx + 2] >= 255) 
+		  && markPixel.Red >= 255
+		  && markPixel.Green >= 255
+		  && markPixel.Blue >= 255) 
 		{
 		  mask[i, j] = true;
 		} 
 	      else if ((_includeOriginal &&
-			(imgRow[imgIdx + 0] != markRow[markIdx + 0] ||
-			 imgRow[imgIdx + 1] != markRow[markIdx + 1] ||
-			 imgRow[imgIdx + 2] != markRow[markIdx + 2]))
+			(imgPixel.Red != markPixel.Red ||
+			 imgPixel.Green != markPixel.Green ||
+			 imgPixel.Blue != markPixel.Blue))
 		       || (!_includeOriginal
-			   && markRow[markIdx + 3] >= threshGuc)) 
+			   && markPixel.Alpha >= threshGuc)) 
 		{
 		  mask[i, j] = true;
-		  rgb2yiq(markRow[markIdx + 0],
-			  markRow[markIdx + 1],
-			  markRow[markIdx + 2],
-			  out mY, out iI, out iQ);
+		  rgb2yiq(markPixel, out mY, out iI, out iQ);
 		} 
-	      else if (sel != null && selRow[selIdx] < threshGuc) 
+	      else if (sel != null && selRow[selIdx].Red < threshGuc) 
 		{
 		  mask[i, j] = true;
 		} 
@@ -518,20 +505,14 @@ namespace Gimp.Colorize
       for (i = 0; i < h; i++) 
 	{
 	  // FIXME: This is only for the alpha channel..
-	  byte[] imgRow = srcRgn.GetRow(srcRgn.X, srcRgn.Y + i, w);
-	
+	  Pixel[] imgRow = srcRgn.GetRow(srcRgn.X, srcRgn.Y + i, w);
+
 	  for (j = 0; j < w; j++) 
 	    {
-	      int imgIdx = j * drawable.Bpp;
-	      yiq2rgb(Y[i, j],
-		      outI[i, j],
-		      outQ[i, j],
-		      out imgRow[imgIdx + 0],
-		      out imgRow[imgIdx + 1],
-		      out imgRow[imgIdx + 2]);
+	      yiq2rgb(Y[i, j], outI[i, j], outQ[i, j], imgRow[j]);
 	    }
 	  
-	  dstRgn.SetRow(imgRow, dstRgn.X, dstRgn.Y + i, w);
+	  dstRgn.SetRow(imgRow, dstRgn.X, dstRgn.Y + i);
       }
 
       drawable.Flush();

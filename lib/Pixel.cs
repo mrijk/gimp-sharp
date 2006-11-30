@@ -93,6 +93,14 @@ namespace Gimp
 	}
     }
 
+    public void CopyFrom(byte[] src, long index)
+    {
+      for (int i = 0; i < _bpp; i++)
+	{
+	  _rgb[i] = src[index + i];
+	}
+    }
+
     public int X
     {
       set {_x = value;}
@@ -164,6 +172,16 @@ namespace Gimp
       for (int i = 0; i < p1._bpp; i++)
 	{
 	  result._rgb[i] = p1._rgb[i] + p2._rgb[i]; 
+	}
+      return result;
+    }
+
+    public static Pixel operator - (Pixel p1, Pixel p2)
+    {
+      Pixel result = new Pixel(p1._bpp);
+      for (int i = 0; i < p1._bpp; i++)
+	{
+	  result._rgb[i] = p1._rgb[i] - p2._rgb[i]; 
 	}
       return result;
     }
