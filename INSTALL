@@ -36,3 +36,6 @@ KoaloaPaint (old CBM64 format) files.
 
 If you want to have jpeg2000 support (the ecw plug-in) you will have
 to install the ecw jpeg 2000 SDK first (http://www.ermapper.com/ecw/).
+
+If you want to build the Colorize plug-in you will have to install the 
+UMFPACK library (http://www.cise.ufl.edu/research/sparse/umfpack/) first.

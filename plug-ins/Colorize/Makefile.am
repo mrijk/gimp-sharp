@@ -17,7 +17,7 @@ lib_LTLIBRARIES = libumfpackwrapper.la
 
 libumfpackwrapper_la_SOURCES = umfpackwrapper.c
 
-libumfpackwrapper_la_LDFLAGS = -version-info 0 -lumfpack -lamd
+libumfpackwrapper_la_LDFLAGS = -version-info 0 -lumfpack -lamd -lblas
 
 Colorize.exe : $(MYSOURCES) Colorize.png $(GIMPSHARPLIB)
 	$(CSC) $(MYSOURCES) /resource:Colorize.png -out:$@ $(ASSEMBLIES)

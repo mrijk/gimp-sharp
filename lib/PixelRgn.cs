@@ -117,8 +117,8 @@ namespace Gimp
       int index = 0;
       for (int i = 0; i < width; i++)
 	{
-	  Pixel pixel = new Pixel(_bpp);
-	  pixel.CopyFrom(buf, index);
+	  row[i] = new Pixel(_bpp);
+	  row[i].CopyFrom(buf, index);
 	  index += _bpp;
 	}
 

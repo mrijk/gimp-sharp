@@ -1,11 +1,14 @@
 ## Process this file with automake to produce Makefile.in
 
+if BUILD_COLORIZE
+Colorize = Colorize
+endif
+
 if BUILD_ECW
 ecw = ecw
 endif
 
 if BUILD_INCOMPLETE
-Colorize = Colorize
 Shatter = Shatter
 DifferenceClouds = DifferenceClouds
 PictureFrame = PictureFrame

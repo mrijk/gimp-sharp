@@ -1,3 +1,16 @@
+2006-12-01  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/Colorize/Colorize.cs: first working version!
+
+	* plug-ins/Colorize/Makefile.am: make sure libblas is initialized
+
+	* configure.in
+	* plug-ins/Makefile.am: always build Colorize plug-in if UMFPACK lib is
+	available
+
+	* INSTALL
+	* NEWS: updated
+
 2006-11-30  Maurits  <m.rijk@chello.nl>
 
 	* lib/Pixel.cs: add CopyFrom method

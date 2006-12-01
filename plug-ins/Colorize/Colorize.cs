@@ -1,6 +1,9 @@
 // The Colorize plug-in
 // Copyright (C) 2004-2006 Maurits Rijk
 //
+// Ported from http://registry.gimp.org/plugin?id=5479
+// copyright 2005 Christopher Lais
+//
 // Colorize.cs
 //
 // This program is free software; you can redistribute it and/or modify
@@ -231,8 +234,6 @@ namespace Gimp.Colorize
 	  selRgn = new PixelRgn(sel, j, i, jj, ii, false, false);
 	}
 
-      Console.WriteLine("1: " + _marked.Bpp);
-
       PixelRgn srcRgn = new PixelRgn(drawable, j, i, jj, ii, false, false);
       PixelRgn dstRgn = new PixelRgn(drawable, j, i, jj, ii, true, true);
       PixelRgn markRgn = new PixelRgn(_marked, j, i, jj, ii, false, false);
@@ -257,8 +258,6 @@ namespace Gimp.Colorize
 	}
 
       bool[,] mask = new bool[h, w];
-
-      Console.WriteLine("2: " + sel.Bpp);
 
       Tile.CacheNtiles((ulong) (2 * (drawable.Width / Gimp.TileWidth + 1)));
 
@@ -287,8 +286,6 @@ namespace Gimp.Colorize
 	    }
 	}
 
-      Console.WriteLine("3");
-
       Pixel[] selRow = null;
       for (i = 0; i < h; i++) 
 	{
@@ -308,7 +305,7 @@ namespace Gimp.Colorize
 	      
 	      double iY, iI, iQ;
 	      double mY;
-	      
+
 	      rgb2yiq(imgPixel, out iY, out iI, out iQ);
 
 	      if (_useChroma) 
@@ -358,8 +355,6 @@ namespace Gimp.Colorize
 	    }
 	}
 
-      Console.WriteLine("4");
-
       if (sel != null) 
 	{
 	  sel.Detach();
@@ -386,8 +381,6 @@ namespace Gimp.Colorize
 		  double sum_sq = 0;
 		  double sum = 0;
 		  double min_variance = 1.0;
-
-		  // Console.WriteLine("5: {0} {1}", i, j);
 
 		  for (ii = min_ii; ii <= max_ii; ii++) 
 		    {
@@ -416,7 +409,6 @@ namespace Gimp.Colorize
 			  ++count;
 			}
 		    }
-		  // Console.WriteLine("6");
 		  
 		  double sigma = 
 		    (sum_sq - (sum * sum)/(double)(count + 1)) / (double)count;
@@ -431,7 +423,7 @@ namespace Gimp.Colorize
 		      var[ii] = Math.Exp(-var[ii] / sigma);
 		      sum += var[ii];
 		    }
-		  // Console.WriteLine("7: {0} {1}", n / (h * w), n % ( h * w));
+
 		  for (ii = 0; ii < count; ii++) 
 		    {
 		      AI[n] = vary[ii];
@@ -440,7 +432,6 @@ namespace Gimp.Colorize
 		      A[n / (h * w) , n % (h * w)] = -var[ii] / sum;
 		      ++n;
 		    }
-		  // Console.WriteLine("8");
 		}
 	      
 	      AI[n] = AJ[n] = i * w + j;
@@ -455,25 +446,23 @@ namespace Gimp.Colorize
       double[] control = new double[UMFPACK_CONTROL];
       double[] info = new double[UMFPACK_INFO];
 
-      Console.WriteLine("10");
       umfpack_di_defaults(control);
 
       double[,] Ax = new double[WindowPixels, h * w];
-      int[] Ap = new int[h * w];
-      int[] Ai = new int[h * w];
+      int[] Ap = new int[h * w + 1];
+      int[] Ai = new int[WindowPixels * h * w];
       int[] Map = new int[WindowPixels * h * w];
 
-      Console.WriteLine("11");
-      umfpack_di_triplet_to_col(h * w, h * w, n, AI, AJ, A, Ap, Ai, Ax, 
-				Map);
-
-      Console.WriteLine("12");
+      int status = umfpack_di_triplet_to_col(h * w, h * w, n, AI, AJ, A, Ap, 
+					     Ai, Ax, Map);
 
       IntPtr symbolic;
-      umfpack_di_symbolic(h * w, h * w, Ap, Ai, Ax, out symbolic, control, 
-			  info);
+      status = umfpack_di_symbolic(h * w, h * w, Ap, Ai, Ax, out symbolic, 
+				   control, info);
+
       IntPtr numeric;
-      umfpack_di_numeric(Ap, Ai, Ax, ref symbolic, out numeric, control, info);
+      status = umfpack_di_numeric(Ap, Ai, Ax, symbolic, out numeric, control, 
+				  info);
 
       umfpack_di_free_symbolic(ref symbolic);
 
@@ -482,25 +471,18 @@ namespace Gimp.Colorize
       double[,] outI = new double[h, w];
       double[,] outQ = new double[h, w];
 
-      Console.WriteLine("13");
-
       const int UMFPACK_A = 0;
-      umfpack_di_solve(UMFPACK_A, Ap, Ai, Ax, outI, I, ref numeric, control, 
-		       info);
+      status = umfpack_di_solve(UMFPACK_A, Ap, Ai, Ax, outI, I, numeric, 
+				control, info);
 
       progress.Update(0.6);
-      Console.WriteLine("14");
 
-      umfpack_di_solve(UMFPACK_A, Ap, Ai, Ax, outQ, Q, ref numeric, control, 
-		       info);
-
-      Console.WriteLine("15");
+      status = umfpack_di_solve(UMFPACK_A, Ap, Ai, Ax, outQ, Q, numeric, 
+				control, info);
 
       umfpack_di_free_numeric(ref numeric);
 
       progress.Update(0.9);
-
-      Console.WriteLine("16");
 
       for (i = 0; i < h; i++) 
 	{
@@ -520,6 +502,8 @@ namespace Gimp.Colorize
       drawable.Update(dstRgn.X, dstRgn.Y, dstRgn.W, dstRgn.H);
 
       progress.Update(1.0);
+
+      Display.DisplaysFlush();
     }
 
     // TODO: fix mappings from .so to .dll
@@ -552,7 +536,7 @@ namespace Gimp.Colorize
     static extern int umfpack_di_numeric(int[] Ap,
 					 int[] Ai,
 					 double[,] Ax,
-					 ref IntPtr Symbolic,
+					 IntPtr Symbolic,
 					 out IntPtr Numeric,
 					 double[] Control,
 					 double[] Info);
@@ -563,7 +547,7 @@ namespace Gimp.Colorize
 				       double[,] Ax,
 				       double[,] X,
 				       double[,] B,
-				       ref IntPtr Numeric,
+				       IntPtr Numeric,
 				       double[] Control,
 				       double[] Info);
     [DllImport("libumfpack.dll")]

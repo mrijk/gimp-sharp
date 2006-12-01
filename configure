@@ -463,7 +463,7 @@ ac_includes_default="\
 # include <unistd.h>
 #endif"
 
-ac_subst_vars='SHELL PATH_SEPARATOR PACKAGE_NAME PACKAGE_TARNAME PACKAGE_VERSION PACKAGE_STRING PACKAGE_BUGREPORT exec_prefix prefix program_transform_name bindir sbindir libexecdir datadir sysconfdir sharedstatedir localstatedir libdir includedir oldincludedir infodir mandir build_alias host_alias target_alias DEFS ECHO_C ECHO_N ECHO_T LIBS INSTALL_PROGRAM INSTALL_SCRIPT INSTALL_DATA CYGPATH_W PACKAGE VERSION ACLOCAL AUTOCONF AUTOMAKE AUTOHEADER MAKEINFO install_sh STRIP ac_ct_STRIP INSTALL_STRIP_PROGRAM mkdir_p AWK SET_MAKE am__leading_dot AMTAR am__tar am__untar build build_cpu build_vendor build_os host host_cpu host_vendor host_os CC CFLAGS LDFLAGS CPPFLAGS ac_ct_CC EXEEXT OBJEXT DEPDIR am__include am__quote AMDEP_TRUE AMDEP_FALSE AMDEPBACKSLASH CCDEPMODE am__fastdepCC_TRUE am__fastdepCC_FALSE EGREP LN_S ECHO AR ac_ct_AR RANLIB ac_ct_RANLIB CPP CXX CXXFLAGS ac_ct_CXX CXXDEPMODE am__fastdepCXX_TRUE am__fastdepCXX_FALSE CXXCPP F77 FFLAGS ac_ct_F77 LIBTOOL PKG_CONFIG MONO ac_pt_PKG_CONFIG MONO_CFLAGS MONO_LIBS MONO_DEPENDENCY_CFLAGS MONO_DEPENDENCY_LIBS RUNTIME CSC GIMPPLUGINDIR GIMPLOCALE ECW LIBECW LIBUMFPACK LIBZ PSP BUILD_UNITTEST_TRUE BUILD_UNITTEST_FALSE BUILD_PDN_TRUE BUILD_PDN_FALSE BUILD_INCOMPLETE_TRUE BUILD_INCOMPLETE_FALSE BUILD_ECW_TRUE BUILD_ECW_FALSE BUILD_JAVA_TRUE BUILD_JAVA_FALSE LIBOBJS LTLIBOBJS'
+ac_subst_vars='SHELL PATH_SEPARATOR PACKAGE_NAME PACKAGE_TARNAME PACKAGE_VERSION PACKAGE_STRING PACKAGE_BUGREPORT exec_prefix prefix program_transform_name bindir sbindir libexecdir datadir sysconfdir sharedstatedir localstatedir libdir includedir oldincludedir infodir mandir build_alias host_alias target_alias DEFS ECHO_C ECHO_N ECHO_T LIBS INSTALL_PROGRAM INSTALL_SCRIPT INSTALL_DATA CYGPATH_W PACKAGE VERSION ACLOCAL AUTOCONF AUTOMAKE AUTOHEADER MAKEINFO install_sh STRIP ac_ct_STRIP INSTALL_STRIP_PROGRAM mkdir_p AWK SET_MAKE am__leading_dot AMTAR am__tar am__untar build build_cpu build_vendor build_os host host_cpu host_vendor host_os CC CFLAGS LDFLAGS CPPFLAGS ac_ct_CC EXEEXT OBJEXT DEPDIR am__include am__quote AMDEP_TRUE AMDEP_FALSE AMDEPBACKSLASH CCDEPMODE am__fastdepCC_TRUE am__fastdepCC_FALSE EGREP LN_S ECHO AR ac_ct_AR RANLIB ac_ct_RANLIB CPP CXX CXXFLAGS ac_ct_CXX CXXDEPMODE am__fastdepCXX_TRUE am__fastdepCXX_FALSE CXXCPP F77 FFLAGS ac_ct_F77 LIBTOOL PKG_CONFIG MONO ac_pt_PKG_CONFIG MONO_CFLAGS MONO_LIBS MONO_DEPENDENCY_CFLAGS MONO_DEPENDENCY_LIBS RUNTIME CSC GIMPPLUGINDIR GIMPLOCALE ECW LIBECW LIBUMFPACK LIBZ PSP BUILD_COLORIZE_TRUE BUILD_COLORIZE_FALSE BUILD_UNITTEST_TRUE BUILD_UNITTEST_FALSE BUILD_PDN_TRUE BUILD_PDN_FALSE BUILD_INCOMPLETE_TRUE BUILD_INCOMPLETE_FALSE BUILD_ECW_TRUE BUILD_ECW_FALSE BUILD_JAVA_TRUE BUILD_JAVA_FALSE LIBOBJS LTLIBOBJS'
 ac_subst_files=''
 
 # Initialize some variables set by options.
@@ -20807,12 +20807,12 @@ fi
 if test $ac_cv_header_umfpack_h = yes; then
   LIBUMFPACK='-lumfpack'
 else
-  have_zlib="no (UMFPACK header files not found)"
+  have_umfpack="no (UMFPACK header files not found)"
 fi
 
 
 else
-  have_zlib="no (UMFPACK library not found)"
+  have_umfpack="no (UMFPACK library not found)"
 fi
 
 fi
@@ -20850,6 +20850,16 @@ if test "${with_java+set}" = set; then
 fi;
 if test "x$with_java" == xyes; then
    java=yes
+fi
+
+
+
+if test x$have_umfpack = xyes; then
+  BUILD_COLORIZE_TRUE=
+  BUILD_COLORIZE_FALSE='#'
+else
+  BUILD_COLORIZE_TRUE='#'
+  BUILD_COLORIZE_FALSE=
 fi
 
 
@@ -21015,6 +21025,13 @@ if test -z "${am__fastdepCXX_TRUE}" && test -z "${am__fastdepCXX_FALSE}"; then
   { { echo "$as_me:$LINENO: error: conditional \"am__fastdepCXX\" was never defined.
 Usually this means the macro was only invoked conditionally." >&5
 echo "$as_me: error: conditional \"am__fastdepCXX\" was never defined.
+Usually this means the macro was only invoked conditionally." >&2;}
+   { (exit 1); exit 1; }; }
+fi
+if test -z "${BUILD_COLORIZE_TRUE}" && test -z "${BUILD_COLORIZE_FALSE}"; then
+  { { echo "$as_me:$LINENO: error: conditional \"BUILD_COLORIZE\" was never defined.
+Usually this means the macro was only invoked conditionally." >&5
+echo "$as_me: error: conditional \"BUILD_COLORIZE\" was never defined.
 Usually this means the macro was only invoked conditionally." >&2;}
    { (exit 1); exit 1; }; }
 fi
@@ -21710,6 +21727,8 @@ s,@LIBECW@,$LIBECW,;t t
 s,@LIBUMFPACK@,$LIBUMFPACK,;t t
 s,@LIBZ@,$LIBZ,;t t
 s,@PSP@,$PSP,;t t
+s,@BUILD_COLORIZE_TRUE@,$BUILD_COLORIZE_TRUE,;t t
+s,@BUILD_COLORIZE_FALSE@,$BUILD_COLORIZE_FALSE,;t t
 s,@BUILD_UNITTEST_TRUE@,$BUILD_UNITTEST_TRUE,;t t
 s,@BUILD_UNITTEST_FALSE@,$BUILD_UNITTEST_FALSE,;t t
 s,@BUILD_PDN_TRUE@,$BUILD_PDN_TRUE,;t t

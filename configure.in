@@ -103,8 +103,8 @@ if test -z "$LIBUMFPACK"; then
   AC_CHECK_LIB(umfpack, umfpack_di_solve,
     [AC_CHECK_HEADER(umfpack.h,
       LIBUMFPACK='-lumfpack',
-      [have_zlib="no (UMFPACK header files not found)"])],
-    [have_zlib="no (UMFPACK library not found)"], -lblas -lamd -lm)
+      [have_umfpack="no (UMFPACK header files not found)"])],
+    [have_umfpack="no (UMFPACK library not found)"], -lblas -lamd -lm)
 fi
 
 AC_SUBST(LIBUMFPACK)
@@ -132,6 +132,7 @@ if test "x$with_java" == xyes; then
    java=yes
 fi
 
+AM_CONDITIONAL(BUILD_COLORIZE, test x$have_umfpack = xyes)
 AM_CONDITIONAL(BUILD_UNITTEST, test x$unittest = xyes)
 AM_CONDITIONAL(BUILD_PDN, test x$pdn = xyes)
 AM_CONDITIONAL(BUILD_INCOMPLETE, test x$incomplete = xyes)
