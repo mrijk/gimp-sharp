@@ -197,4 +197,5 @@ GIMP-SHARP Features:
   Paint.NET	: $pdn
   Incomplete	: $incomplete
   ECW		: $have_libecw
+  Java support  : $java
 ]);

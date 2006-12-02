@@ -1,5 +1,9 @@
 2006-12-02  Max      <massimo.perga@gmail.com>
 
+	* configure.in: added "Java support" in "GIMP-SHARP Features"
+
+2006-12-02  Max      <massimo.perga@gmail.com>
+
 	* java/sample_plugin/README : added some instructions about set-up
 	using latest Mono / IKVM versions
 	* java/sample_plugin/JAverageBlur.java : support for Pixel object
