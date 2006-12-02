@@ -29,19 +29,17 @@ package Gimp.JAverageBlur;
 
 import cli.Gimp.Display;
 import cli.Gimp.Drawable;
-import cli.Gimp.Gimp;
 import cli.Gimp.Plugin;
 import cli.Gimp.Procedure;
 import cli.Gimp.ProcedureSet;
 import cli.Gimp.Progress;
 import cli.Gimp.RgnIterator;
 import cli.Gimp.RunMode;
-import com.sun.java_cup.internal.Main;
-import org.omg.CORBA.portable.InvokeHandler;
+import cli.Gimp.Pixel;
 
 /**
  *
- * @author Massimo Perga
+ * @author Massimo Perga (massimo.perga@gmail.com)
  *
  */
 public class JAverageBlur extends Plugin  {
@@ -53,12 +51,12 @@ public class JAverageBlur extends Plugin  {
     
     /** Creates a new instance of JAverageBlur */
     
-    public JAverageBlur(String[] args) {
-        super(args);
+    public JAverageBlur(String[] args, String catalog) {
+        super(args, catalog);
     }
     
     public static void main(String[] args) {
-        new JAverageBlur(args);
+        new JAverageBlur(args, "JAverageBlur");
     }
     
     protected ProcedureSet GetProcedureSet() {
@@ -99,7 +97,8 @@ public class JAverageBlur extends Plugin  {
         
         iter.IterateSrc(new cli.Gimp.RgnIterator.IterFuncSrc(
                 new cli.Gimp.RgnIterator.IterFuncSrc.Method() {
-            public void Invoke(byte []src) {                
+            public void Invoke(cli.Gimp.Pixel pixel) {                
+                byte []src = pixel.get_Bytes();
                 for(int i = 0; i < bpp; i++) {
                     // Keep in mind this trick to convert byte to int
                     sum[i] += (int)(src[i] & 0xFF);
@@ -113,8 +112,10 @@ public class JAverageBlur extends Plugin  {
 
         iter.IterateDest(new cli.Gimp.RgnIterator.IterFuncDest(
                 new cli.Gimp.RgnIterator.IterFuncDest.Method() {
-            public byte [] Invoke() {
-                return average;                                
+            public cli.Gimp.Pixel Invoke() {
+                Pixel pixel = new Pixel(bpp);
+                pixel.set_Bytes(average);
+                return pixel;                                
             }
         }));
                

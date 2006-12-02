@@ -3,7 +3,7 @@
 all: JAverageBlur.exe
 
 GIMPSHARPLIB = $(top_builddir)/lib/gimp-sharp.dll
-IKVMDIR="`echo $(MONO) | sed -e 's/mono//'`../lib/ikvm/
+IKVMDIR=`echo $(MONO) | sed -e 's/mono//'`../lib/ikvm/
 JAVASTUBSDIR = ../../java/stubs
 
 JAVASTUBS = $(JAVASTUBSDIR)/mscorlib.jar:$(JAVASTUBSDIR)/gimp-sharp.jar
@@ -20,7 +20,7 @@ CLEANFILES = $(TARGET_FILE) $(CLASSFILES)
 JAverageBlur.exe : $(MYSOURCES) 
 	echo $(RUNTIME)
 	javac -source 1.4 -target 1.4 -cp $(JAVASTUBS)  $(MYSOURCES) 
-	ikvmc -reference:$(IKVMDIR)/IKVM.GNU.Classpath.dll -reference:$(GIMPSHARPLIB) -target:exe -out:$(TARGET_FILE) $(CLASSFILES) 
+	mono $(IKVMDIR)/ikvmc.exe -reference:$(IKVMDIR)/IKVM.GNU.Classpath.dll -reference:$(GIMPSHARPLIB) -target:exe -out:$(TARGET_FILE) $(CLASSFILES) 
 
 install:
 	$(INSTALL_DATA) JAverageBlur.exe $(DESTDIR)$(GIMPPLUGINDIR)

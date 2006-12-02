@@ -1,12 +1,24 @@
-This sample plug-in is the porting to Java of the Average C# plug-in.
+JAverageBlur
+-------------
+
+This sample plug-in is the porting to Java of the Average Blur C# plug-in.
 
 It can be considered as reference how the typical C# constructs used
 in the existant C# plug-ins can be used in Java / IKVM environment.
 
 To test this plug-in, just copy it in the plug-ins directory and
-change the makefile scripts to build it too.
+change the makefile scripts to build it too (for example configure.in in the root directory).
 
 In order to enable the Java / IKVM framework, the "--with-java" flag
 needs to be included when the "configure" command is issued.
+
+
+Some notes about Mono 1.2.x and IKVM 0.30.0.0
+----------------------------------------------
+
+IKVM is assumed to be installed in $(MONO_DIR)/../lib/ikvm .
+Using IKVM 0.30.0.0 (last version tested), it's required to set the MONO_PATH global variable to the IKVM path to find the runtime DLLs.
+
+-----------------------------------
 
 Max Perga (massimo.perga@gmail.com)
