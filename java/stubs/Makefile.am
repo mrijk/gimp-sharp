@@ -3,6 +3,7 @@
 AUTOMAKE_OPTIONS = gnu
 
 MSCORLIBDIR="`echo $(MONO) | sed -e 's/mono//'`../lib/mono/2.0/"
+IKVMDIR=`echo $(MONO) | sed -e 's/mono//'`../lib/ikvm/
 
 LIBRARIES_NAME = gimp-sharp mscorlib 
 
@@ -20,7 +21,7 @@ all: $(STUBS)
 SUFFIXES = .dll .jar
 
 .dll.jar:
-	ikvmstub $< 
+	mono $(IKVMDIR)/ikvmstub.exe $< 
 
 gimp-sharp.dll:
 	cp ../../lib/gimp-sharp.dll .

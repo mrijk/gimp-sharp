@@ -1,3 +1,9 @@
+2006-12-03  Max      <massimo.perga@gmail.com>
+
+	* Makefile.am : moved eventual Java support stub generation before
+	plug-in build
+	* java/stub/Makefile.am : changed invokation to ikvmstub tool
+
 2006-12-02  Max      <massimo.perga@gmail.com>
 
 	* configure.in: added "Java support" in "GIMP-SHARP Features"

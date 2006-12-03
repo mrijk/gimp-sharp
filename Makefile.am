@@ -3,4 +3,4 @@ java = java
 endif
 
 AUTOMAKE_OPTIONS = gnu
-SUBDIRS = lib plug-ins $(java)
+SUBDIRS = lib $(java) plug-ins 
