@@ -193,20 +193,18 @@ namespace Gimp.Colorize
     {
 	double dr, dg, db;
 #if YUV
-	dr = (y + 1.140*q);
-	dg = (y - 0.395*i - 0.581*q);
-	db = (y + 2.032*i);
+	dr = (y + 1.140 * q);
+	dg = (y - 0.395 * i - 0.581 * q);
+	db = (y + 2.032 * i);
 #else
-	dr = (y + 0.956*i + 0.621*q);
-	dg = (y - 0.272*i - 0.647*q);
-	db = (y - 1.105*i + 1.702*q);
+	dr = (y + 0.956 * i + 0.621 * q);
+	dg = (y - 0.272 * i - 0.647 * q);
+	db = (y - 1.105 * i + 1.702 * q);
 #endif
-	dr = Math.Min(1.0, Math.Max(0.0, dr));
-	dg = Math.Min(1.0, Math.Max(0.0, dg));
-	db = Math.Min(1.0, Math.Max(0.0, db));
 	pixel.Red = (int) (255 * dr);
 	pixel.Green = (int) (255 * dg);
 	pixel.Blue = (int) (255 * db);
+	pixel.Clamp0255();
     }
 
     override protected void Render(Image image, Drawable drawable)
@@ -287,6 +285,8 @@ namespace Gimp.Colorize
 	}
 
       Pixel[] selRow = null;
+      Pixel whitePixel = new Pixel(255, 255, 255);
+
       for (i = 0; i < h; i++) 
 	{
 	  Pixel[] imgRow = srcRgn.GetRow(srcRgn.X, srcRgn.Y + i, w);
@@ -314,28 +314,20 @@ namespace Gimp.Colorize
 		  inQ[i, j] = iQ;
 		}
 
-	      int delta = 0;
 	      if (_includeOriginal) 
 		{
 		  Pixel diff = imgPixel - markPixel;;
-		  delta = Math.Abs(diff.Red) + Math.Abs(diff.Green) +
+		  int delta = Math.Abs(diff.Red) + Math.Abs(diff.Green) +
 		    Math.Abs(diff.Blue);
 		}
 
 	      // big dirty if statement
-	      if (_pureWhite
-		  && markPixel.Red >= 255
-		  && markPixel.Green >= 255
-		  && markPixel.Blue >= 255) 
+	      if (_pureWhite && markPixel.IsSameColor(whitePixel))
 		{
 		  mask[i, j] = true;
 		} 
-	      else if ((_includeOriginal &&
-			(imgPixel.Red != markPixel.Red ||
-			 imgPixel.Green != markPixel.Green ||
-			 imgPixel.Blue != markPixel.Blue))
-		       || (!_includeOriginal
-			   && markPixel.Alpha >= threshGuc)) 
+	      else if ((_includeOriginal && !imgPixel.IsSameColor(markPixel))
+		       || (!_includeOriginal && markPixel.Alpha >= threshGuc)) 
 		{
 		  mask[i, j] = true;
 		  rgb2yiq(markPixel, out mY, out iI, out iQ);

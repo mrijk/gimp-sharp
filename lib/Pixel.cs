@@ -62,6 +62,26 @@ namespace Gimp
       _rgb[3] = a;
     }
 
+    internal Pixel(Pixel p) : this(p._bpp)
+    {
+      for (int i = 0; i < _bpp; i++)
+	{
+	  _rgb[i] = p[i];
+	}
+    }
+
+    public bool IsSameColor(Pixel pixel)
+    {
+      for (int i = 0; i < pixel._bpp; i++)
+	{
+	  if (_rgb[i] != pixel._rgb[i])
+	    {
+	      return false;
+	    }
+	}
+      return true;
+    }
+
     public byte[] Bytes
     {
       set
@@ -141,6 +161,11 @@ namespace Gimp
       set {_rgb[(_bpp == 2) ? 1 : 3] = value;}
     }
 
+    public bool HasAlpha
+    {
+      get {return _bpp == 2 || _bpp == 4;}
+    }
+
     public void Clamp0255()
     {
       for (int i = 0; i < _bpp; i++)
@@ -156,44 +181,60 @@ namespace Gimp
 	}
     }
 
+    public Pixel Add(Pixel p)
+    {
+      for (int i = 0; i < _bpp; i++)
+	{
+	  _rgb[i] += p._rgb[i];
+	}
+      return this;
+    }
+
+    public Pixel Add(int v)
+    {
+      for (int i = 0; i < _bpp; i++)
+	{
+	  _rgb[i] += v;
+	}
+      return this;
+    }
+
+    public Pixel Substract(Pixel p)
+    {
+      for (int i = 0; i < _bpp; i++)
+	{
+	  _rgb[i] -= p._rgb[i];
+	}
+      return this;
+    }
+
+    public Pixel Divide(int v)
+    {
+      for (int i = 0; i < _bpp; i++)
+	{
+	  _rgb[i] /= v;
+	}
+      return this;
+    }
+
     public static Pixel operator / (Pixel p, int v)
     {
-      Pixel result = new Pixel(p._bpp);
-      for (int i = 0; i < p._bpp; i++)
-	{
-	  result._rgb[i] = p._rgb[i] / v;
-	}
-      return result;
+      return (new Pixel(p)).Divide(v);
     }
 
     public static Pixel operator + (Pixel p1, Pixel p2)
     {
-      Pixel result = new Pixel(p1._bpp);
-      for (int i = 0; i < p1._bpp; i++)
-	{
-	  result._rgb[i] = p1._rgb[i] + p2._rgb[i]; 
-	}
-      return result;
+      return (new Pixel(p1)).Add(p2);
     }
 
     public static Pixel operator - (Pixel p1, Pixel p2)
     {
-      Pixel result = new Pixel(p1._bpp);
-      for (int i = 0; i < p1._bpp; i++)
-	{
-	  result._rgb[i] = p1._rgb[i] - p2._rgb[i]; 
-	}
-      return result;
+      return (new Pixel(p1)).Substract(p2);
     }
 
     public static Pixel operator + (Pixel p, int v)
     {
-      Pixel result = new Pixel(p._bpp);
-      for (int i = 0; i < p._bpp; i++)
-	{
-	  result._rgb[i] = p._rgb[i] + v; 
-	}
-      return result;
+      return (new Pixel(p)).Add(v);
     }
 
     public override string ToString()

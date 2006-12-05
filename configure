@@ -22464,6 +22464,7 @@ GIMP-SHARP Features:
   Paint.NET	: $pdn
   Incomplete	: $incomplete
   ECW		: $have_libecw
+  Java support  : $java
 " >&5
 echo "${ECHO_T}
 Building GIMP-SHARP with prefix=$prefix
@@ -22472,4 +22473,5 @@ GIMP-SHARP Features:
   Paint.NET	: $pdn
   Incomplete	: $incomplete
   ECW		: $have_libecw
+  Java support  : $java
 " >&6;
