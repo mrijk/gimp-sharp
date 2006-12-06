@@ -24,14 +24,14 @@ namespace Gimp.Ministeck
 {
   public class Painter : IDisposable
   {
-    PixelFetcher _pf;
-    int _size;
+    readonly PixelFetcher _pf;
+    readonly Pixel _color;
+    readonly int _size;
     int _x, _y;
-    byte[] _color;
 
     public Painter(Drawable drawable, int size, RGB color)
     {
-      _color = color.Bytes;
+      _color = new Pixel(color.Bytes);
       _pf = new PixelFetcher(drawable, false);
       _size = size;
     }
@@ -47,11 +47,9 @@ namespace Gimp.Ministeck
       get {return _size;}
     }
 
-    public void GetPixel(int x, int y, byte[] pixel)
+    public Pixel GetPixel(int x, int y)
     {
-      x *= _size;
-      y *= _size;
-      _pf.GetPixel(x, y, pixel);
+      return _pf[x * _size, y * _size];
     }
 
     public void LineStart(int x, int y)
@@ -83,7 +81,7 @@ namespace Gimp.Ministeck
 	
       for (int i = 0; i < len; i++)
 	{
-	  _pf.PutPixel(_x, _y, _color);
+	  _pf[_x, _y] = _color;
 	  _x += dx;
 	}
       _x -= dx;
@@ -100,7 +98,7 @@ namespace Gimp.Ministeck
 	
       for (int i = 0; i < len; i++)
 	{
-	  _pf.PutPixel(_x, _y, _color);
+	  _pf[_x, _y] = _color;
 	  _y += dy;
 	}
       _y -= dy;

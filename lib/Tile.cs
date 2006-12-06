@@ -63,6 +63,11 @@ namespace Gimp
       gimp_tile_cache_ntiles(ntiles);
     }
 
+    static public void CacheDefault(Drawable drawable)
+    {
+      Tile.CacheNtiles((ulong) (2 * (drawable.Width / Gimp.TileWidth + 1))); 
+    }
+
     [DllImport("libgimp-2.0-0.dll")]
     static extern void gimp_tile_ref(IntPtr tile);
     [DllImport("libgimp-2.0-0.dll")]

@@ -213,7 +213,7 @@ namespace Gimp.Ministeck
 	}
 
       drawable.Flush();
-      drawable.Update(0, 0, drawable.Width, drawable.Height);
+      drawable.Update();
 
       if (!preview)
 	Display.DisplaysFlush();

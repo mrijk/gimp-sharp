@@ -78,9 +78,7 @@ namespace Gimp.Ministeck
 
     bool Fits(bool[,] A, int x, int y, ShapeDescription shape)
     {
-      byte[] color = new byte[3];
-      byte[] buf = new byte[3];
-      _painter.GetPixel(x, y, color);
+      Pixel color = _painter.GetPixel(x, y);
 
       int width = A.GetLength(0);
       int height = A.GetLength(1);
@@ -94,11 +92,10 @@ namespace Gimp.Ministeck
 	      return false;
 	    }
 
-	  _painter.GetPixel(cx, cy, buf);
-	  for (int b = 0; b < 3; b++)
+	  Pixel pixel = _painter.GetPixel(cx, cy);
+	  if (!pixel.IsSameColor(color))
 	    {
-	      if (color[b] != buf[b])
-		return false;
+	      return false;
 	    }
 	}
       return true;

@@ -208,7 +208,8 @@ namespace Gimp.Raindrops
       int width = image.Width;
       int height = image.Height;
       Progress    _progress = null;
-      Tile.CacheNtiles((ulong) (2 * (drawable.Width / Gimp.TileWidth + 1))); 
+
+      Tile.CacheDefault(drawable);
 
       if (!isPreview)
         _progress = new Progress(_("Raindrops..."));
@@ -235,8 +236,6 @@ namespace Gimp.Raindrops
 
       double NewCoeff = (double)Clamp(Coeff, 1, 100) * 0.01;  // FishEye Coefficients
 
-
-      Pixel originalColor = new Pixel(bpp);
       Random random = new Random();
      
       // TODO: find an upper bound so that
@@ -314,10 +313,9 @@ namespace Gimp.Raindrops
 
 			      boolMatrix[n, m] = true;
 
-			      pf.GetPixel(l, k, originalColor);
-			      Pixel newColor = originalColor + bright;
+			      Pixel newColor = pf[l, k] + bright;
 			      newColor.Clamp0255();
-			      pf.PutPixel(l, k, newColor);
+			      pf[l, k] = newColor;
 			    }
 			}
 		    }
@@ -347,11 +345,10 @@ namespace Gimp.Raindrops
 				m = x + i + k;
 				n = y + j + l;
 				
-				if (m >= 0 && m < height && 
+				if (m >= 0 && m < height &&
 				    n >= 0 && n < width)
 				  {
-				    pf.GetPixel(n, m, originalColor);
-				    average += originalColor;
+				    average += pf[n, m];
 				    BlurPixels++;
 				  }
 			      }
@@ -363,7 +360,7 @@ namespace Gimp.Raindrops
 
 		      if (m >= 0 && m < height && n >= 0 && n < width)
 			{
-			  pf.PutPixel(n, m, average / BlurPixels);
+			  pf[n, m] = average / BlurPixels;
 			}
 		    }
 		}

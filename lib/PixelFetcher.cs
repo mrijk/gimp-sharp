@@ -64,10 +64,10 @@ namespace Gimp
       gimp_pixel_fetcher_get_pixel(_ptr, x, y, pixel);
     }
 
-    public void GetPixel(int x, int y, Pixel pixel)
+    public Pixel GetPixel(int x, int y)
     {
       gimp_pixel_fetcher_get_pixel(_ptr, x, y, _dummy);
-      pixel.Bytes = _dummy;
+      return new Pixel(_dummy);
     }
 
     public void PutPixel(int x, int y, byte[] pixel)
@@ -95,7 +95,7 @@ namespace Gimp
       gimp_pixel_fetcher_destroy (_ptr);
     }
 
-    public byte[] this[int row, int col]
+    public Pixel this[int row, int col]
     {
       set 
 	{
@@ -104,8 +104,7 @@ namespace Gimp
 
       get
 	{
-	  GetPixel(col, row, _dummy);
-	  return _dummy;
+	  return GetPixel(col, row);
 	}
     }
 

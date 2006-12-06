@@ -77,8 +77,8 @@ namespace Gimp
     {
       using (PixelFetcher pf = new PixelFetcher(_drawable, false))
 	{
-	  byte[] pixel = new byte[_drawable.Bpp];
-	  byte[] expected = new byte[]{33, 66, 99};
+	  // byte[] pixel = new byte[_drawable.Bpp];
+	  Pixel expected = new Pixel(33, 66, 99);
 	  
 	  for (int y = 0; y < _height; y++)
 	    {
@@ -101,7 +101,7 @@ namespace Gimp
       _drawable.Fill(FillType.Foreground);
       Context.Pop();
 
-      byte[] expected = new byte[]{33, 66, 99};
+      Pixel expected = new Pixel(33, 66, 99);
 
       // Fill with different color, using shadow
       using (PixelFetcher pf = new PixelFetcher(_drawable, true))
@@ -122,7 +122,7 @@ namespace Gimp
 	    {
 	      for (int x = 0; x < _width; x++)
 		{
-		  Assert.AreEqual(foreground.Bytes, pf[x, y]);
+		  Assert.AreEqual(foreground, pf[x, y]);
 		}
 	    }
 	}

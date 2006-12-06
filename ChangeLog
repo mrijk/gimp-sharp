@@ -1,3 +1,17 @@
+2006-12-06  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/Ministeck/Ministeck.cs
+	* plug-ins/Ministeck/Painter.cs
+	* plug-ins/Ministeck/Shape.cs: minor clean-up
+
+	* lib/Tile.cs: added CacheDefault method
+
+	* lib/PixelFetcher.cs: use Pixel class
+
+	* plug-ins/Raindrops/Raindrops.cs
+	* plug-ins/UnitTest/TestPixelFetcher.cs
+	* plug-ins/Fragment/Fragment.cs: changed accordingly
+
 2006-12-05  Maurits  <m.rijk@chello.nl>
 
 	* lib/Pixel.cs: implement Add/Substract/etc. functions

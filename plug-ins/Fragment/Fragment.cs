@@ -54,9 +54,7 @@ namespace Gimp.Fragment
 
     override protected void Render(Drawable drawable)
     {
-      int bpp = drawable.Bpp;
-
-      Tile.CacheNtiles((ulong) (2 * (drawable.Width / Gimp.TileWidth + 1))); 
+      Tile.CacheDefault(drawable);
 
       RgnIterator iter = new RgnIterator(drawable, RunMode.Interactive);
       iter.Progress = new Progress(_("Fragment"));
@@ -65,19 +63,12 @@ namespace Gimp.Fragment
 	{
 	  pf.EdgeMode = EdgeMode.Black;
 	  
-	  Pixel ul = new Pixel(bpp);
-	  Pixel ur = new Pixel(bpp);
-	  Pixel ll = new Pixel(bpp);
-	  Pixel lr = new Pixel(bpp);
-	  
 	  iter.IterateDest(delegate (int x, int y) 
 	  {
-	    pf.GetPixel(x - 4, y - 4, ul);
-	    pf.GetPixel(x + 4, y - 4, ur);
-	    pf.GetPixel(x - 4, y + 4, ll);
-	    pf.GetPixel(x + 4, y + 4, lr);
-	    
-	    return (ul + ur + ll + lr) / 4;
+	    return (pf[x - 4, y - 4] +
+		    pf[x + 4, y - 4] +
+		    pf[x - 4, y + 4] +
+		    pf[x + 4, y + 4]) / 4;
 	  });
 	}
 

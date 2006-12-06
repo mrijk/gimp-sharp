@@ -1183,7 +1183,9 @@ namespace Gimp.Forge
 	  else
 	    {
 	      for (int x = 0; x < pixels.Length; x++) 
-		pixels[x].ToByte().CopyTo(pixelArray, 3*(i*width+x));
+		{
+		  pixels[x].ToByte().CopyTo(pixelArray, 3 * (i * width + x));
+		}
 	    }
 	}
 
