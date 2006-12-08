@@ -32,7 +32,7 @@ namespace Gimp.Pointillize
     readonly int _matrixRows;
     readonly int _matrixColumns;
 
-    readonly byte[] _backgroundColor;
+    readonly Pixel _backgroundColor;
 
     readonly List<ColorCoordinate>[,] _matrix;
 
@@ -42,7 +42,7 @@ namespace Gimp.Pointillize
     {
       _cellSize = cellSize;
 
-      _backgroundColor = Context.Background.Bytes;
+      _backgroundColor = new Pixel(Context.Background.Bytes);
 
       PixelFetcher pf = new PixelFetcher(drawable, false);
 
@@ -63,15 +63,12 @@ namespace Gimp.Pointillize
 	{
 	  int x = _random.Next(0, _width - 1);
 	  int y = _random.Next(0, _height - 1);
-	  byte[] color = new byte[drawable.Bpp];
-	  pf.GetPixel(x, y, color);
+	  Coordinate<int> c = new Coordinate<int>(x, y);
 
-	  // Add some noise
-	  AddNoise(ref color[0]);
-	  AddNoise(ref color[1]);
-	  AddNoise(ref color[2]);
+	  Pixel color = pf[y, x];
+	  AddNoise(color);
 
-	  ColorCoordinate coordinate = new ColorCoordinate(x, y, color);
+	  ColorCoordinate coordinate = new ColorCoordinate(c, color);
 	  Add(coordinate);
 
 	  int row = y * _matrixRows / _height;
@@ -101,10 +98,12 @@ namespace Gimp.Pointillize
       pf.Dispose();
     }
 
-    void AddNoise(ref byte channel)
+    void AddNoise(Pixel pixel)
     {
-      int x = channel + _random.Next(0, 10) - 5;
-      channel = (byte) Math.Min(255, Math.Max(x, 0));
+      pixel.Red += _random.Next(0, 10) - 5;
+      pixel.Green += _random.Next(0, 10) - 5;
+      pixel.Blue += _random.Next(0, 10) - 5;
+      pixel.Clamp0255();
     }
 
     void Intersects(int x, int y, int col, int row, ColorCoordinate coordinate)
@@ -124,13 +123,13 @@ namespace Gimp.Pointillize
 	}
     }
 
-    public byte[] GetColor(int x, int y)
+    public Pixel GetColor(Coordinate<int> c)
     {
       int distance = int.MaxValue;
       ColorCoordinate closest = null;
 
-      int row = y * _matrixRows / _height;
-      int col = x * _matrixColumns / _width;
+      int row = c.Y * _matrixRows / _height;
+      int col = c.X * _matrixColumns / _width;
       
       List<ColorCoordinate> list = _matrix[row, col];
 
@@ -141,7 +140,7 @@ namespace Gimp.Pointillize
 
       foreach (ColorCoordinate coordinate in list)
 	{
-	  int d = coordinate.Distance(x, y);
+	  int d = coordinate.Distance(c);
 	  if (d < distance)
 	    {
 	      distance = d;

@@ -49,7 +49,6 @@ namespace Gimp.DifferenceClouds
 
     delegate void GenericEventHandler(object o, EventArgs e);
 
-    [STAThread]
     static void Main(string[] args)
     {
       new DifferenceClouds(args);
@@ -126,66 +125,64 @@ namespace Gimp.DifferenceClouds
     {
     }
 
-    override protected void Render(Image image, Drawable original_drawable)
+    override protected void Render(Image image, Drawable drawable)
     {
-      Tile.CacheNtiles((ulong) (2 * (original_drawable.Width / Gimp.TileWidth + 1)));
+      Tile.CacheDefault(drawable);
+
       _foregroundColor = Context.Foreground;
       _backgroundColor = Context.Background;
-      if(_progressBar == null)
+      if (_progressBar == null)
         _progressBar = new Progress(_("Difference Clouds..."));
-      if(_random == null)
+      if (_random == null)
         _random = new Random((int)_rseed);
 
       Layer active_layer = image.ActiveLayer;
-      Layer new_layer = new Layer(active_layer);
-      new_layer.Name = "_DifferenceClouds_";      
-      new_layer.Visible = false;
-      new_layer.Mode = active_layer.Mode;
-      new_layer.Opacity = active_layer.Opacity;
+      Layer newLayer = new Layer(active_layer);
+      newLayer.Name = "_DifferenceClouds_";      
+      newLayer.Visible = false;
+      newLayer.Mode = active_layer.Mode;
+      newLayer.Opacity = active_layer.Opacity;
 
       // Initialization steps
-      _bpp = original_drawable.Bpp;
-      PixelFetcher _pf = new PixelFetcher(original_drawable, true);
+      _bpp = drawable.Bpp;
+      PixelFetcher _pf = new PixelFetcher(drawable, true);
       _progress = 0;
-      _hasAlpha = new_layer.HasAlpha;
+      _hasAlpha = newLayer.HasAlpha;
       _alpha = (_hasAlpha) ? _bpp - 1 : _bpp;
       InitializeIndexedColorsMap();
 
-      original_drawable.MaskBounds(out _ix1, out _iy1, out _ix2, out _iy2);
+      drawable.MaskBounds(out _ix1, out _iy1, out _ix2, out _iy2);
       _maxProgress = (_ix2 - _ix1) * (_iy2 - _iy1);
 
       if (_ix1 != _ix2 && _iy1 != _iy2)
-      {
-        /*
-         * This first time only puts in the seed pixels - one in each
-         * corner, and one in the center of each edge, plus one in the
-         * center of the image.
-         */
-        DoDifferenceClouds (_pf, _ix1, _iy1, _ix2 - 1, _iy2 - 1, -1, 0, _random);
+	{
+	  //
+	  // This first time only puts in the seed pixels - one in each
+	  // corner, and one in the center of each edge, plus one in the
+	  // center of the image.
+	  //
+	  DoDifferenceClouds(_pf, _ix1, _iy1, _ix2 - 1, _iy2 - 1, -1, 0);
+	  
+	  //
+	  // Now we recurse through the images, going further each time.
+	  //
+	  int depth = 1;
+	  while (!DoDifferenceClouds (_pf, _ix1, _iy1, _ix2 - 1, _iy2 - 1, 
+				      depth, 0))
+	    {
+	      depth++;
+	    }
+	}
+      
+      _pf.Dispose();
 
-        /*
-         * Now we recurse through the images, going further each time.
-         */
-        int depth = 1;
-        while (!DoDifferenceClouds (_pf, _ix1, _iy1, _ix2 - 1, _iy2 - 1, depth, 0, _random))
-        {
-          depth++;
-        }
-      }
-
-      // Final steps
-      if(_pf != null)
-        _pf.Dispose();
-
-      /* Create a region iterator to make difference */
-
-      original_drawable.Flush();
-      original_drawable.MergeShadow(true);
-
-      DoDifference(original_drawable, new_layer);
-
-      original_drawable.Update(_ix1, _iy1, _ix2 - _ix1, _iy2 - _iy1);
-
+      drawable.Flush();
+      drawable.MergeShadow(true);
+      
+      DoDifference(drawable, newLayer);
+      
+      drawable.Update(_ix1, _iy1, _ix2 - _ix1, _iy2 - _iy1);
+      
       Display.DisplaysFlush();
     }
 
@@ -193,7 +190,8 @@ namespace Gimp.DifferenceClouds
     {
       Label label = new Label(text);
       label.SetAlignment(0.0f, 0.5f);
-      table.Attach(label, col, col+1, row, row+1, Gtk.AttachOptions.Fill, Gtk.AttachOptions.Fill, 0, 0);
+      table.Attach(label, col, col + 1, row, row + 1, Gtk.AttachOptions.Fill, 
+		   Gtk.AttachOptions.Fill, 0, 0);
 
       return label;
     } 
@@ -204,9 +202,9 @@ namespace Gimp.DifferenceClouds
       int x1, y1, x2, y2;
       sourceDrawable.MaskBounds(out x1, out y1, out x2, out y2);
       PixelRgn srcPR = new PixelRgn(sourceDrawable, x1, y1, x2 - x1, y2 - y1, 
-          true, true);
+				    true, true);
       PixelRgn destPR = new PixelRgn(toDiffDrawable, x1, y1, x2 - x1, y2 - y1, 
-          false, false);
+				     false, false);
 
       for (IntPtr pr = PixelRgn.Register(srcPR, destPR); pr != IntPtr.Zero; 
 	   pr = PixelRgn.Process(pr))
@@ -237,225 +235,178 @@ namespace Gimp.DifferenceClouds
 	}
       tmpVal /= src.Length;
       for (int i = 0; i < src.Length; i++)
-      {
-        retVal[i] = (byte)Math.Abs(dest[i] - _indexedColorsMap[tmpVal,i]);
-      }
+	{
+	  retVal[i] = (byte)Math.Abs(dest[i] - _indexedColorsMap[tmpVal,i]);
+	}
         
       if (_hasAlpha)
-        retVal[_bpp - 1] = 255;
+	{
+	  retVal[_bpp - 1] = 255;
+	}
       return new Pixel(retVal);
     }   
 
-    bool DoDifferenceClouds(PixelFetcher pf, int x1, int y1, 
-        int x2, int y2, int depth, int scale_depth, Random gr)
+    bool DoDifferenceClouds(PixelFetcher pf, int x1, int y1, int x2, int y2, 
+			    int depth, int scaleDepth)
     {
-      byte [] tl = new byte[_bpp];
-      byte [] bl = new byte[_bpp];
-      byte [] tr = new byte[_bpp];
-      byte [] br = new byte[_bpp];
-      byte [] mm = new byte[_bpp];
-      byte [] ml = new byte[_bpp];
-      byte [] mr = new byte[_bpp];
-      byte [] tm = new byte[_bpp];
-      byte [] bm = new byte[_bpp];
-      byte [] tmp = new byte[_bpp];
-
       int xm = (x1 + x2) / 2;
       int ym = (y1 + y2) / 2;
 
-      /* Initial step */
-      if(depth == -1)
-      {
-        tl = RandomRGB(gr);
-        PutPixel(pf, x1, y1, tl, ref _progress);
-        tr = RandomRGB(gr);
-        PutPixel(pf, x2, y1, tr, ref _progress);
-        bl = RandomRGB(gr);
-        PutPixel(pf, x1, y2, bl, ref _progress);
-        br = RandomRGB(gr);
-        PutPixel(pf, x2, y2, br, ref _progress);
-        mm = RandomRGB(gr);
-        PutPixel(pf, xm, ym, mm, ref _progress);
-        ml = RandomRGB(gr);
-        PutPixel(pf, x1, ym, ml, ref _progress);
-        mr = RandomRGB(gr);
-        PutPixel(pf, x2, ym, mr, ref _progress);
-        tm = RandomRGB(gr);
-        PutPixel(pf, xm, y1, tm, ref _progress);
-        bm = RandomRGB(gr);
-        PutPixel(pf, xm, y2, bm, ref _progress);
+      // Initial step
+      if (depth == -1)
+	{
+	  pf[y1, x1] = RandomRGB();
+	  pf[y1, x2] = RandomRGB();
+	  pf[y2, x1] = RandomRGB();
+	  pf[y2, x2] = RandomRGB();
+	  pf[ym, x1] = RandomRGB();
+	  pf[ym, x2] = RandomRGB();
+	  pf[y1, xm] = RandomRGB();
+	  pf[y2, xm] = RandomRGB();
 
-        return false;
-      }
+	  _progress += 8;
 
-      if(depth == 0)
-      {
-        int ran;
+	  return false;
+	}
 
-        if((x1 == x2) && (y1 == y2))
-          return false;
+      if (depth == 0)
+	{
+	  int ran;
 
-        GetPixel(pf, ref tl, x1, y1);
-        GetPixel(pf, ref tr, x2, y1);
-        GetPixel(pf, ref bl, x1, y2);
-        GetPixel(pf, ref br, x2, y2);
+	  if (x1 == x2 && y1 == y2)
+	    {
+	      return false;
+	    }
 
-        ran = (int)((256.0 / (2.0 * scale_depth)) * _turbulence);
+	  Pixel tl = pf[y1, x1];
+	  Pixel tr = pf[y1, x2];
+	  Pixel bl = pf[y2, x1];
+	  Pixel br = pf[y2, x2];
 
-        if (xm != x1 || xm != x2)
-        {
-          /* Left. */
-          AveragePixel(ref ml, tl, bl);
-          AddRandom (gr, ml, ran);
-          PutPixel (pf, x1, ym, ml, ref _progress);
+	  ran = (int)((256.0 / (2.0 * scaleDepth)) * _turbulence);
 
-          if (x1 != x2)
-          {
-            /* Right. */
-            AveragePixel(ref mr, tr, br);
-            AddRandom (gr, mr, ran);
-            PutPixel (pf, x2, ym, mr, ref _progress);
-          }
-        }
+	  if (xm != x1 || xm != x2)
+	    {
+	      // Left
+	      pf[ym, x1] = AddRandom((tl + bl) / 2, ran);
+	      _progress++;
+
+	      if (x1 != x2)
+		{
+		  // Right
+		  pf[ym, x2] = AddRandom((tr + br) / 2, ran);
+		  _progress++;
+		}
+	    }
 
 
-        if (ym != y1 || ym != y2)
-        {
-          if (x1 != xm || ym != y2)
-          {
-            /* Bottom. */
-            AveragePixel(ref bm, bl, br);
-            AddRandom (gr, bm, ran);
-            PutPixel (pf, xm, y2, bm, ref _progress);
-          }
+	  if (ym != y1 || ym != y2)
+	    {
+	      if (x1 != xm || ym != y2)
+		{
+		  // Bottom
+		  pf[y2, xm] = AddRandom((bl + br) / 2, ran);
+		  _progress++;
+		}
 
-          if (y1 != y2)
-          {
-            /* Top. */
-            AveragePixel(ref tm, tl, tr);
-            AddRandom (gr, tm, ran);
-            PutPixel (pf, xm, y1, tm, ref _progress);
-          }
-        }
+	      if (y1 != y2)
+		{
+		  // Top
+		  pf[y1, xm] = AddRandom((tl + tr) / 2, ran);
+		  _progress++;
+		}
+	    }
 
-        if (ym != y1 || ym != y2)
-        {
-          if (x1 != xm || ym != y2)
-          {
-            /* Bottom. */
-            AveragePixel(ref bm, bl, br);
-            AddRandom (gr, bm, ran);
-            PutPixel (pf, xm, y1, bm, ref _progress);
-          }
+	  /* Fix me: check with Max if this code is needed!
 
-          if (y1 != y2)
-          {
-            /* Top. */
-            AveragePixel(ref tm, tl, tr);
-            AddRandom (gr, tm, ran);
-            PutPixel(pf, xm, y1, tm, ref _progress);
-          }
-        }
+	  if (ym != y1 || ym != y2)
+	    {
+	      if (x1 != xm || ym != y2)
+		{
+		  // Bottom
+		  bm = (bl + br) / 2;
+		  AddRandom(bm, ran);
+		  pf[y1, xm] = bm;
+		  _progress++;
+		}
 
-        if (y1 != y2 || x1 != x2)
-        {
-          /* Middle pixel. */
-          AveragePixel(ref mm, tl, br);
-          AveragePixel(ref tmp, bl, tr);
-          AveragePixel(ref mm, mm, tmp);
+	      if (y1 != y2)
+		{
+		  // Top
+		  tm = (tl + tr) / 2;
+		  AddRandom(tm, ran);
+		  pf[y1, xm] = tm;
+		  _progress++;
+		}
+	    }
+	  */
 
-          AddRandom (gr, mm, ran);
-          PutPixel(pf, xm, ym, mm, ref _progress);
-        }
+	  if (y1 != y2 || x1 != x2)
+	    {
+	      // Middle pixel
+	      pf[ym, xm] = AddRandom((tl + tr + bl + br) / 4, ran);
+	      _progress++;
+	    }
 
-        _count++;
+	  _count++;
 
-        if ((_count % 2000) == 0 && (pf != null))
-        {
-          if(_progressBar != null)
-            _progressBar.Update((double)_progress / (double) _maxProgress);
-        }
+	  if (_count % 2000 == 0)
+	    {
+	      _progressBar.Update((double)_progress / (double) _maxProgress);
+	    }
 
-        return ((x2 - x1) < 3) && ((y2 - y1) < 3);
-      }
+	  return ((x2 - x1) < 3) && ((y2 - y1) < 3);
+	}
+
       if (x1 < x2 || y1 < y2)
-      {
-        /* Top left. */
-        DoDifferenceClouds (pf, x1, y1, xm, ym, depth - 1, scale_depth + 1, gr);
-        /* Bottom left. */
-        DoDifferenceClouds (pf, x1, ym, xm ,y2, depth - 1, scale_depth + 1, gr);
-        /* Top right. */
-        DoDifferenceClouds (pf, xm, y1, x2 , ym, depth - 1, scale_depth + 1, gr);
-        /* Bottom right. */
-        return DoDifferenceClouds (pf, xm, ym, x2, y2, depth - 1, scale_depth + 1, gr);
-      }
+	{
+	  depth--;
+	  scaleDepth++;
+
+	  // Top left
+	  DoDifferenceClouds(pf, x1, y1, xm, ym, depth, scaleDepth);
+	  // Bottom left
+	  DoDifferenceClouds(pf, x1, ym, xm ,y2, depth, scaleDepth);
+	  // Top right
+	  DoDifferenceClouds(pf, xm, y1, x2 , ym, depth, scaleDepth);
+	  // Bottom right
+	  return DoDifferenceClouds(pf, xm, ym, x2, y2, depth, scaleDepth);
+	}
       else
-      {
-        return true;
-      }
+	{
+	  return true;
+	}
     }
 
-    byte[] RandomRGB(Random r)
+    Pixel RandomRGB()
     {
-      byte []retVal = new byte[_bpp];
+      Pixel pixel = new Pixel(_bpp);
 
       for (int i = 0; i < _bpp; i++)
-      {
-        retVal[i] = _indexedColorsMap[r.Next(256), i];
-      } 
+	{
+	  pixel[i] = _indexedColorsMap[_random.Next(256), i];
+	} 
       
-      if(_hasAlpha)
-        retVal[_alpha] = 255;
-      return retVal;
+      if (_hasAlpha)
+	{
+	  pixel[_alpha] = 255;
+	}
+      return pixel;
     }
 
-    void GetPixel(PixelFetcher pf, ref byte [] pixel, int x, int y)
-    {
-      if (pf != null)
-	{
-	  pf.GetPixel(x, y, pixel);
-	}
-      else
-	{
-	}
-    }
-
-    void PutPixel(PixelFetcher pf, int x, int y, byte [] pixel, 
-		  ref int progress)
-    {
-      if (pf != null)
-	{
-	  pf.PutPixel(x, y, pixel);
-	  progress++;
-	}
-      else
-	{
-	}
-    }
-
-    void AveragePixel(ref byte []dest, byte[] src1, byte[] src2)
-    {
-      for (int i = 0; i < src1.Length; i++)
-	{
-	  dest[i] = (byte)((int)(src1[i] + src2[i]) / 2);
-	}
-    }
-
-    void AddRandom (Random gr, byte []pixel, int amount)
+    Pixel AddRandom (Pixel pixel, int amount)
     {
       amount /= 2;
 
       if (amount > 0)
-      {
-        for (int i = 0; i < _alpha; i++)
-        {
-          int tmp = pixel[i] + gr.Next(-amount, amount);
-	  
-          if (tmp < 0) pixel[i] = 0;
-          else if (tmp > 255) pixel[i] = 255;
-          else pixel[i] = (byte) tmp; 
-        }
-      }
+	{
+	  for (int i = 0; i < _alpha; i++)
+	    {
+	      pixel[i] += _random.Next(-amount, amount);
+	    }
+	  pixel.Clamp0255();
+	}
+      return pixel;
     }
 
     void InitializeIndexedColorsMap()

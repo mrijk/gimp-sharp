@@ -136,7 +136,7 @@ namespace Gimp.Pointillize
 
     Pixel DoPointillize(int x, int y)
     {
-      return new Pixel(_coordinates.GetColor(x, y));
+      return _coordinates.GetColor(new Coordinate<int>(x, y));
     }
   }
 }

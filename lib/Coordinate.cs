@@ -37,6 +37,12 @@ namespace Gimp
       _x = x;
       _y = y;
     }
+
+    public Coordinate(Coordinate<T> c)
+    {
+      _x = c._x;
+      _y = c._y;
+    }
 	
     public T X
     {

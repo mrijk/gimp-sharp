@@ -24,14 +24,14 @@ namespace Gimp.Pointillize
 {
   public class ColorCoordinate : Coordinate<int>
   {
-    byte[] _color;
+    Pixel _color;
 
-    public ColorCoordinate(int x, int y, byte[] color) : base(x, y)
+    public ColorCoordinate(Coordinate<int> c, Pixel color) : base(c)
     {
       _color = color;
     }
 
-    public byte[] Color
+    public Pixel Color
     {
       get {return _color;}
     }
@@ -41,6 +41,11 @@ namespace Gimp.Pointillize
       x -= X;
       y -= Y;
       return x * x + y * y;
+    }
+
+    public int Distance(Coordinate<int> c)
+    {
+      return Distance(c.X, c.Y);
     }
   }
 }
