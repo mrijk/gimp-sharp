@@ -874,18 +874,17 @@ namespace Gimp.Forge
 	      temp = Math.Max(2600, Math.Min(28000, temp));
 	      double[] rgb = TempRGB(temp);
 
-	      Pixel pixel = new Pixel();
+	      Pixel pixel = new Pixel(3);
 	      for (int i = 0; i < 3; i++)
 		{
-		  pixel.SetColor((Pixel.ColorName) i, 
-				 (byte)(rgb[i] * v + 0.499));
+		  pixel[i] = (byte)(rgb[i] * v + 0.499);
 		}
 	      return pixel;
 	    }
 	} 
       else 
 	{
-	  return new Pixel(); // automatically constructs Pixel(0,0,0)
+	  return new Pixel(3); // automatically constructs Pixel(0,0,0)
 	}
     }
     
@@ -1057,7 +1056,7 @@ namespace Gimp.Forge
 	  else 
 	    {
 	      for (int j = 0; j < width; j++) 
-		pixels[j] = new Pixel();
+		pixels[j] = new Pixel(3);
 
 	      double azimuth = Math.Asin((((double) i / (height - 1)) * 2) - 1);
 	      icet = Math.Pow(Math.Abs(Math.Sin(azimuth)), 1.0 / _icelevel) 
@@ -1155,7 +1154,7 @@ namespace Gimp.Forge
 		    ib = (byte)(ib * inx);
 		  }
 
-		  pixels[rpix_offset++].SetColor(ir, ig, ib);
+		  pixels[rpix_offset++].Bytes = new byte[]{ir, ig, ib};
 		}
 
 	      /* Left stars */
@@ -1176,7 +1175,7 @@ namespace Gimp.Forge
 	  if (drawable != null)
 	    {
 	      for (int x = 0; x < pixels.Length; x++) 
-		pf.PutPixel(x, i, pixels[x].ToByte());
+		pf.PutPixel(x, i, pixels[x]);
 
 	      _progress.Update((double)i/height);
 	    }
@@ -1184,7 +1183,7 @@ namespace Gimp.Forge
 	    {
 	      for (int x = 0; x < pixels.Length; x++) 
 		{
-		  pixels[x].ToByte().CopyTo(pixelArray, 3 * (i * width + x));
+		  pixels[x].CopyTo(pixelArray, 3 * (i * width + x));
 		}
 	    }
 	}

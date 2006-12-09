@@ -1,3 +1,10 @@
+2006-12-09  Max      <massimo.perga@gmail.com>
+
+	* plug-ins/Forge/Makefile.am : removed Pixel.cs
+	* plug-ins/Forge/Forge.cs : added support to the new Pixel class
+
+	* plug-ins/Forge/Pixel.cs : removed from the repository 
+
 2006-12-08  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/DifferenceClouds/DifferenceClouds.cs: use Pixel class
