@@ -1,3 +1,22 @@
+2006-12-12  Maurits  <m.rijk@chello.nl>
+
+	* lib/Rectangle.cs: new class
+
+	* lib/Makefile.am: changed accordingly
+
+	* lib/ReadPixelIterator.cs
+	* lib/RgnIterator.cs
+	* lib/Drawable.cs
+	* plug-ins/Colorize/Colorize.cs
+	* plug-ins/DifferenceClouds/DifferenceClouds.cs: 
+	* plug-ins/ncp/ncp.cs: 
+	* plug-ins/Pointillize/Pointillize.cs: use new Rectangle class
+
+2006-12-10  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/DifferenceClouds/DifferenceClouds.cs
+	* plug-ins/Forge/Forge.cs: minor code clean-up
+
 2006-12-09  Max      <massimo.perga@gmail.com>
 
 	* plug-ins/Forge/Makefile.am : removed Pixel.cs

@@ -45,10 +45,7 @@ namespace Gimp
     readonly byte[] _dummy;
     readonly int _bpp;
 
-    public PixelRgn(Drawable drawable, int x,
-		    int y,
-		    int width,
-		    int height,
+    public PixelRgn(Drawable drawable, int x, int y, int width, int height,
 		    bool dirty,
 		    bool shadow)
     {
@@ -56,6 +53,13 @@ namespace Gimp
 			  shadow);
       _bpp = (int) pr.bpp;
       _dummy = new byte[pr.bpp];
+    }
+
+    public PixelRgn(Drawable drawable, Rectangle rectangle, bool dirty,
+		    bool shadow) : 
+      this(drawable, rectangle.X1, rectangle.Y1, rectangle.Width,
+	   rectangle.Height, dirty, shadow)
+    {
     }
 
     public PixelRgn(Drawable drawable,  bool dirty, bool shadow) :

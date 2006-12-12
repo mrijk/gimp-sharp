@@ -178,8 +178,7 @@ namespace Gimp.ncp
 
     void Initialize(Drawable drawable)
     {
-      int x1, y1, x2, y2;
-      drawable.MaskBounds(out x1, out y1, out x2, out y2);
+      Rectangle rectangle = drawable.MaskBounds;
 
       Random random = new Random((int) _seed);
 
@@ -189,8 +188,8 @@ namespace Gimp.ncp
 	_bpp--;
       _dest = new byte[_bpp];
 
-      _width = x2 - x1;
-      _height = y2 - y1;
+      _width = rectangle.Width;
+      _height = rectangle.Height;
 
       int xmid = _width / 2;
       int ymid = _height / 2;

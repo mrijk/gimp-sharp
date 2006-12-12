@@ -41,13 +41,9 @@ namespace Gimp.DifferenceClouds
 
     private int _progress;
     private int _maxProgress;
-    private int _ix1, _ix2, _iy1, _iy2;
     private int _alpha, _bpp;
     private bool _hasAlpha;
-    private RGB _foregroundColor, _backgroundColor;
     private byte [,] _indexedColorsMap = new byte[256, 3];
-
-    delegate void GenericEventHandler(object o, EventArgs e);
 
     static void Main(string[] args)
     {
@@ -108,17 +104,15 @@ namespace Gimp.DifferenceClouds
       _turbulenceEntry = new ScaleEntry(table, 0, 1, _("_Turbulence"), 150, 3,
 					_turbulence, 0.0, 7.0, 0.1, 1.0, 1, 
 					true, 0, 0, null, null);
-      _turbulenceEntry.ValueChanged += TurbulenceChangedEventHandler;
+      _turbulenceEntry.ValueChanged += delegate(object sender, EventArgs args)
+	{
+	  _turbulence = _turbulenceEntry.Value;
+	};
 
       vbox.PackStart(table, false, false, 0);
 
       dialog.ShowAll();
       return DialogRun();
-    }
-
-    void TurbulenceChangedEventHandler(object source, EventArgs e)
-    {
-      _turbulence = _turbulenceEntry.Value;
     }
 
     override protected void Reset()
@@ -129,60 +123,58 @@ namespace Gimp.DifferenceClouds
     {
       Tile.CacheDefault(drawable);
 
-      _foregroundColor = Context.Foreground;
-      _backgroundColor = Context.Background;
       if (_progressBar == null)
         _progressBar = new Progress(_("Difference Clouds..."));
       if (_random == null)
         _random = new Random((int)_rseed);
 
-      Layer active_layer = image.ActiveLayer;
-      Layer newLayer = new Layer(active_layer);
+      Layer activeLayer = image.ActiveLayer;
+      Layer newLayer = new Layer(activeLayer);
       newLayer.Name = "_DifferenceClouds_";      
       newLayer.Visible = false;
-      newLayer.Mode = active_layer.Mode;
-      newLayer.Opacity = active_layer.Opacity;
+      newLayer.Mode = activeLayer.Mode;
+      newLayer.Opacity = activeLayer.Opacity;
 
       // Initialization steps
       _bpp = drawable.Bpp;
-      PixelFetcher _pf = new PixelFetcher(drawable, true);
+      PixelFetcher pf = new PixelFetcher(drawable, true);
       _progress = 0;
       _hasAlpha = newLayer.HasAlpha;
       _alpha = (_hasAlpha) ? _bpp - 1 : _bpp;
       InitializeIndexedColorsMap();
 
-      drawable.MaskBounds(out _ix1, out _iy1, out _ix2, out _iy2);
-      _maxProgress = (_ix2 - _ix1) * (_iy2 - _iy1);
+      Rectangle rectangle = drawable.MaskBounds;
+      _maxProgress = rectangle.Area;
 
-      if (_ix1 != _ix2 && _iy1 != _iy2)
+      if (rectangle.Width > 0 && rectangle.Height > 0)
 	{
 	  //
 	  // This first time only puts in the seed pixels - one in each
 	  // corner, and one in the center of each edge, plus one in the
 	  // center of the image.
 	  //
-	  DoDifferenceClouds(_pf, _ix1, _iy1, _ix2 - 1, _iy2 - 1, -1, 0);
-	  
+	  InitSeedPixels(pf, rectangle);
+
 	  //
 	  // Now we recurse through the images, going further each time.
 	  //
 	  int depth = 1;
-	  while (!DoDifferenceClouds (_pf, _ix1, _iy1, _ix2 - 1, _iy2 - 1, 
-				      depth, 0))
+	  while (!DoDifferenceClouds(pf, rectangle.X1, rectangle.Y1, 
+				     rectangle.X2 - 1, rectangle.Y2 - 1, 
+				     depth, 0))
 	    {
 	      depth++;
 	    }
 	}
       
-      _pf.Dispose();
+      pf.Dispose();
 
       drawable.Flush();
       drawable.MergeShadow(true);
       
       DoDifference(drawable, newLayer);
       
-      drawable.Update(_ix1, _iy1, _ix2 - _ix1, _iy2 - _iy1);
-      
+      drawable.Update(rectangle);
       Display.DisplaysFlush();
     }
 
@@ -199,12 +191,9 @@ namespace Gimp.DifferenceClouds
     // Fix me: use Read/Write iterators
     void DoDifference(Drawable sourceDrawable, Drawable toDiffDrawable)
     {
-      int x1, y1, x2, y2;
-      sourceDrawable.MaskBounds(out x1, out y1, out x2, out y2);
-      PixelRgn srcPR = new PixelRgn(sourceDrawable, x1, y1, x2 - x1, y2 - y1, 
-				    true, true);
-      PixelRgn destPR = new PixelRgn(toDiffDrawable, x1, y1, x2 - x1, y2 - y1, 
-				     false, false);
+      Rectangle rectangle = sourceDrawable.MaskBounds;
+      PixelRgn srcPR = new PixelRgn(sourceDrawable, rectangle, true, true);
+      PixelRgn destPR = new PixelRgn(toDiffDrawable, rectangle, false, false);
 
       for (IntPtr pr = PixelRgn.Register(srcPR, destPR); pr != IntPtr.Zero; 
 	   pr = PixelRgn.Process(pr))
@@ -213,38 +202,59 @@ namespace Gimp.DifferenceClouds
 	    {
 	      for (int x = srcPR.X; x < srcPR.X + srcPR.W; x++)
 		{
-		  srcPR[y, x] = MakeAbsDiff(destPR[y, x].Bytes, 
-					    srcPR[y, x].Bytes);
+		  srcPR[y, x] = MakeAbsDiff(destPR[y, x], srcPR[y, x]);
 		}
 	    }				
 	}
       sourceDrawable.Flush();
       sourceDrawable.MergeShadow(false);
-      sourceDrawable.Update(x1, y1, x2 - x1, y2 - y1);
+      sourceDrawable.Update(rectangle);
     }
 
-    // Fix me: put this functionality in Pixel class
-
-    Pixel MakeAbsDiff(byte[] dest, byte[] src)
+    Pixel MakeAbsDiff(Pixel dest, Pixel src)
     {
-      byte []retVal = new byte[src.Length];
+      Pixel pixel = new Pixel(_bpp);
+
       int tmpVal = 0;
-      for (int i = 0; i < src.Length; i++)
+      for (int i = 0; i < _bpp; i++)
 	{
 	  tmpVal += src[i];
 	}
-      tmpVal /= src.Length;
-      for (int i = 0; i < src.Length; i++)
+      tmpVal /= _bpp;
+
+      for (int i = 0; i < _bpp; i++)
 	{
-	  retVal[i] = (byte)Math.Abs(dest[i] - _indexedColorsMap[tmpVal,i]);
+	  pixel[i] = (byte)Math.Abs(dest[i] - _indexedColorsMap[tmpVal, i]);
 	}
         
       if (_hasAlpha)
 	{
-	  retVal[_bpp - 1] = 255;
+	  pixel[_bpp - 1] = 255;
 	}
-      return new Pixel(retVal);
+      return pixel;
     }   
+
+    void InitSeedPixels(PixelFetcher pf, Rectangle rectangle)
+    {
+      int x1 = rectangle.X1;
+      int y1 = rectangle.Y1;
+      int x2 = rectangle.X2 - 1;
+      int y2 = rectangle.Y2 - 1;
+
+      int xm = (x1 + x2) / 2;
+      int ym = (y1 + y2) / 2;
+
+      pf[y1, x1] = RandomRGB();
+      pf[y1, x2] = RandomRGB();
+      pf[y2, x1] = RandomRGB();
+      pf[y2, x2] = RandomRGB();
+      pf[ym, x1] = RandomRGB();
+      pf[ym, x2] = RandomRGB();
+      pf[y1, xm] = RandomRGB();
+      pf[y2, xm] = RandomRGB();
+
+      _progress += 8;
+    }
 
     bool DoDifferenceClouds(PixelFetcher pf, int x1, int y1, int x2, int y2, 
 			    int depth, int scaleDepth)
@@ -252,27 +262,8 @@ namespace Gimp.DifferenceClouds
       int xm = (x1 + x2) / 2;
       int ym = (y1 + y2) / 2;
 
-      // Initial step
-      if (depth == -1)
-	{
-	  pf[y1, x1] = RandomRGB();
-	  pf[y1, x2] = RandomRGB();
-	  pf[y2, x1] = RandomRGB();
-	  pf[y2, x2] = RandomRGB();
-	  pf[ym, x1] = RandomRGB();
-	  pf[ym, x2] = RandomRGB();
-	  pf[y1, xm] = RandomRGB();
-	  pf[y2, xm] = RandomRGB();
-
-	  _progress += 8;
-
-	  return false;
-	}
-
       if (depth == 0)
 	{
-	  int ran;
-
 	  if (x1 == x2 && y1 == y2)
 	    {
 	      return false;
@@ -283,7 +274,7 @@ namespace Gimp.DifferenceClouds
 	  Pixel bl = pf[y2, x1];
 	  Pixel br = pf[y2, x2];
 
-	  ran = (int)((256.0 / (2.0 * scaleDepth)) * _turbulence);
+	  int ran = (int)((256.0 / (2.0 * scaleDepth)) * _turbulence);
 
 	  if (xm != x1 || xm != x2)
 	    {
@@ -355,7 +346,7 @@ namespace Gimp.DifferenceClouds
 	      _progressBar.Update((double)_progress / (double) _maxProgress);
 	    }
 
-	  return ((x2 - x1) < 3) && ((y2 - y1) < 3);
+	  return (x2 - x1 < 3) && (y2 - y1 < 3);
 	}
 
       if (x1 < x2 || y1 < y2)
@@ -411,14 +402,17 @@ namespace Gimp.DifferenceClouds
 
     void InitializeIndexedColorsMap()
     {
+
+      byte[] fgBytes = Context.Foreground.Bytes;
+      byte[] bgBytes = Context.Background.Bytes;
+
       for (int i = 0; i < 256; i++)
         {
           double ratio = i / 256.0; 
           for (int j = 0; j < 3; j++)
 	    {
-	      _indexedColorsMap[i,j] = (byte)(_foregroundColor.Bytes[j] + 
-			       (byte)((double)(_foregroundColor.Bytes[j] - 
-				     _backgroundColor.Bytes[j]) * ratio));
+	      _indexedColorsMap[i, j] = (byte)
+		(fgBytes[j] + (byte)((fgBytes[j] - bgBytes[j]) * ratio));
 	    }
         }
     }

@@ -30,17 +30,17 @@ namespace Gimp
     public delegate Pixel IterFuncDestFull(int x, int y);
     public delegate Pixel IterFuncSrcDest(Pixel src);
 
-    readonly int x1, y1, x2, y2;
-
     readonly Drawable _drawable;
     readonly RunMode _runmode;
+    readonly Rectangle _rectangle;
+
     Progress _progress;
 
     public RgnIterator(Drawable drawable, RunMode runmode)
     {
       _drawable = drawable;
       _runmode = runmode;
-      drawable.MaskBounds(out x1, out y1, out x2, out y2);
+      _rectangle = drawable.MaskBounds;
     }
 
     public Progress Progress
@@ -58,11 +58,10 @@ namespace Gimp
 
     public void IterateDest(IterFuncDest func)
     {
-      int total_area = (x2 - x1) * (y2 - y1);
+      int total_area = _rectangle.Area;
       int area_so_far = 0;
 
-      PixelRgn destPR = new PixelRgn(_drawable, x1, y1, x2 - x1, y2 - y1, 
-				     true, true);
+      PixelRgn destPR = new PixelRgn(_drawable, _rectangle, true, true);
       for (IntPtr pr = PixelRgn.Register(destPR); pr != IntPtr.Zero; 
 	   pr = PixelRgn.Process(pr))
 	{
@@ -81,16 +80,15 @@ namespace Gimp
 	}
       _drawable.Flush();
       _drawable.MergeShadow(true);
-      _drawable.Update(x1, y1, x2 - x1, y2 - y1);
+      _drawable.Update(_rectangle);
     }
 
     public void IterateDest(IterFuncDestFull func)
     {
-      int total_area = (x2 - x1) * (y2 - y1);
+      int total_area = _rectangle.Area;
       int area_so_far = 0;
 
-      PixelRgn destPR = new PixelRgn(_drawable, x1, y1, x2 - x1, y2 - y1, 
-				     true, true);
+      PixelRgn destPR = new PixelRgn(_drawable, _rectangle, true, true);
       for (IntPtr pr = PixelRgn.Register(destPR); pr != IntPtr.Zero; 
 	   pr = PixelRgn.Process(pr))
 	{
@@ -109,15 +107,13 @@ namespace Gimp
 	}
       _drawable.Flush();
       _drawable.MergeShadow(true);
-      _drawable.Update(x1, y1, x2 - x1, y2 - y1);
+      _drawable.Update(_rectangle);
     }
 
     public void IterateSrcDest(IterFuncSrcDest func)
     {
-      PixelRgn srcPR = new PixelRgn(_drawable, x1, y1, x2 - x1, y2 - y1, 
-				    false, false);
-      PixelRgn destPR = new PixelRgn(_drawable, x1, y1, x2 - x1, y2 - y1, 
-				     true, true);
+      PixelRgn srcPR = new PixelRgn(_drawable, _rectangle, false, false);
+      PixelRgn destPR = new PixelRgn(_drawable, _rectangle, true, true);
 
       for (IntPtr pr = PixelRgn.Register(srcPR, destPR); pr != IntPtr.Zero; 
 	   pr = PixelRgn.Process(pr))
@@ -135,7 +131,7 @@ namespace Gimp
 	}
       _drawable.Flush();
       _drawable.MergeShadow(true);
-      _drawable.Update(x1, y1, x2 - x1, y2 - y1);
+      _drawable.Update(_rectangle);
     }
   }
 }

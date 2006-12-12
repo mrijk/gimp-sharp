@@ -491,7 +491,7 @@ namespace Gimp.Forge
 	  return;
 	}
 
-      Tile.CacheNtiles((ulong) (2 * (width / Gimp.TileWidth + 1)));
+      Tile.CacheDefault(drawable);
       if (_progress == null)
 	{
 	  _progress = new Progress(_("Forge..."));
@@ -1175,7 +1175,9 @@ namespace Gimp.Forge
 	  if (drawable != null)
 	    {
 	      for (int x = 0; x < pixels.Length; x++) 
-		pf.PutPixel(x, i, pixels[x]);
+		{
+		  pf.PutPixel(x, i, pixels[x]);
+		}
 
 	      _progress.Update((double)i/height);
 	    }
@@ -1202,69 +1204,67 @@ namespace Gimp.Forge
     //  PLANET  --	Make a planet.
     //
 
-    bool Planet(Drawable drawable, byte[] pixelArray, int width, int height)
+    void Planet(Drawable drawable, byte[] pixelArray, int width, int height)
     {
       double[] a = null;
 
       InitGauss();
 
       if (!_stars) 
-      {
-        a = SpectralSynth(meshsize, 3.0 - _fracdim);
+	{
+	  a = SpectralSynth(meshsize, 3.0 - _fracdim);
 
-        // Apply power law scaling if non-unity scale is requested.
-        if (_powscale != 1.0) 
-        {
-          for (int i = 0; i < meshsize; i++) 
-          {
-            for (int j = 0; j < meshsize; j++) 
-            {
-              //        double r = Real(a, i, j);
-              double r = a[1 + (i * meshsize + j) * 2];
+	  // Apply power law scaling if non-unity scale is requested.
+	  if (_powscale != 1.0) 
+	    {
+	      for (int i = 0; i < meshsize; i++) 
+		{
+		  for (int j = 0; j < meshsize; j++) 
+		    {
+		      //        double r = Real(a, i, j);
+		      double r = a[1 + (i * meshsize + j) * 2];
 
-              if (r > 0) 
-              {
-                //      Real(a, i, j) = Math.Pow(r, powscale);
-                a[1 + (i * meshsize + j) * 2] = Math.Pow(r, _powscale);
-              }
-            }
-          }
-        }
+		      if (r > 0) 
+			{
+			  //      Real(a, i, j) = Math.Pow(r, powscale);
+			  a[1 + (i * meshsize + j) * 2] = Math.Pow(r, _powscale);
+			}
+		    }
+		}
+	    }
 
-        // Compute extrema for autoscaling.
+	  // Compute extrema for autoscaling.
 
-        double rmin = 1e50;
-        double rmax = -1e50;
+	  double rmin = double.MaxValue;
+	  double rmax = double.MinValue;
 
-        for (int i = 0; i < meshsize; i++) 
-        {
-          for (int j = 0; j < meshsize; j++) 
-          {
-            //	    double r = Real(a, i, j);
-            double r = a[1 + (i * meshsize + j) * 2];
+	  for (int i = 0; i < meshsize; i++) 
+	    {
+	      for (int j = 0; j < meshsize; j++) 
+		{
+		  //	    double r = Real(a, i, j);
+		  double r = a[1 + (i * meshsize + j) * 2];
 
-            rmin = Math.Min(rmin, r);
-            rmax = Math.Max(rmax, r);
-          }
-        }
+		  rmin = Math.Min(rmin, r);
+		  rmax = Math.Max(rmax, r);
+		}
+	    }
 
-        double rmean = (rmin + rmax) / 2;
-        double rrange = (rmax - rmin) / 2;
+	  double rmean = (rmin + rmax) / 2;
+	  double rrange = (rmax - rmin) / 2;
 
-        for (int i = 0; i < meshsize; i++) 
-        {
-          for (int j = 0; j < meshsize; j++) 
-          {
-            //	    Real(a, i, j) = (Real(a, i, j) - rmean) / rrange;
-            a[1 + (i * meshsize + j) * 2] = 
-              (a[1 + (i * meshsize + j) * 2] - rmean) / rrange;
-          }
-        }
-      }
+	  for (int i = 0; i < meshsize; i++) 
+	    {
+	      for (int j = 0; j < meshsize; j++) 
+		{
+		  //	    Real(a, i, j) = (Real(a, i, j) - rmean) / rrange;
+		  a[1 + (i * meshsize + j) * 2] = 
+		    (a[1 + (i * meshsize + j) * 2] - rmean) / rrange;
+		}
+	    }
+	}
 
       GenPlanet(drawable, pixelArray, width, height, a, meshsize);
-
-      return true;
     }
   }
 }

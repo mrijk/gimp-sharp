@@ -128,10 +128,9 @@ namespace Gimp.Pointillize
     {
       _coordinates = new ColorCoordinateSet(drawable, _cellSize);
 
-      int x1, y1, x2, y2;
-      drawable.MaskBounds(out x1, out y1, out x2, out y2);
-      _width = x2 - x1;
-      _height = y2 - y1;
+      Rectangle rectangle = drawable.MaskBounds;
+      _width = rectangle.Width;
+      _height = rectangle.Height;
     }
 
     Pixel DoPointillize(int x, int y)

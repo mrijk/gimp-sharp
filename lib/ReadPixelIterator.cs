@@ -27,22 +27,18 @@ namespace Gimp
 {
   public class ReadPixelIterator
   {
-    readonly int _x1, _y1, _x2, _y2;
-
     readonly Drawable _drawable;
     readonly RunMode _runmode;
-
 
     public ReadPixelIterator(Drawable drawable, RunMode runmode)
     {
       _drawable = drawable;
       _runmode = runmode;
-      drawable.MaskBounds(out _x1, out _y1, out _x2, out _y2);
     }
 	
     public IEnumerator<Pixel> GetEnumerator()
     {
-      PixelRgn srcPR = new PixelRgn(_drawable, _x1, _y1, _x2 - _x1, _y2 - _y1, 
+      PixelRgn srcPR = new PixelRgn(_drawable, _drawable.MaskBounds,
 				    false, false);
       for (IntPtr pr = PixelRgn.Register(srcPR); pr != IntPtr.Zero; 
 	   pr = PixelRgn.Process(pr))

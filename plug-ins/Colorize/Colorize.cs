@@ -69,7 +69,7 @@ namespace Gimp.Colorize
 				 _("Number of points")));
 
       Procedure procedure = new Procedure("plug_in_colorize",
-          _("Fix me!"),
+          _("Re-color images using optimization techniques."),
           _("Fix me!"),
           "Maurits Rijk",
           "(C) Maurits Rijk",
@@ -213,8 +213,14 @@ namespace Gimp.Colorize
 
       umfpack_wrapper_init();
 
-      int i, j, ii, jj;	// Fix me: replace with x1, y1, x2, y2
-      bool hasSel = drawable.MaskIntersect(out j, out i, out jj, out ii);
+      Rectangle rectangle = drawable.MaskIntersect;
+      // Fix me: replace with x1, y1, x2, y2
+      int i = rectangle.X1;
+      int j = rectangle.Y1;
+      int ii = rectangle.X2;
+      int jj = rectangle.Y2;
+
+      bool hasSel = (rectangle != null);
       if (!hasSel || _useEntireImage) 
 	{
 	  j = i = 0;
@@ -229,12 +235,12 @@ namespace Gimp.Colorize
       if (hasSel) 
 	{
 	  sel = image.Selection;
-	  selRgn = new PixelRgn(sel, j, i, jj, ii, false, false);
+	  selRgn = new PixelRgn(sel, rectangle, false, false);
 	}
 
-      PixelRgn srcRgn = new PixelRgn(drawable, j, i, jj, ii, false, false);
-      PixelRgn dstRgn = new PixelRgn(drawable, j, i, jj, ii, true, true);
-      PixelRgn markRgn = new PixelRgn(_marked, j, i, jj, ii, false, false);
+      PixelRgn srcRgn = new PixelRgn(drawable, rectangle, false, false);
+      PixelRgn dstRgn = new PixelRgn(drawable, rectangle, true, true);
+      PixelRgn markRgn = new PixelRgn(_marked, rectangle, false, false);
 
       int h = srcRgn.H;
       int w = srcRgn.W;
@@ -257,7 +263,7 @@ namespace Gimp.Colorize
 
       bool[,] mask = new bool[h, w];
 
-      Tile.CacheNtiles((ulong) (2 * (drawable.Width / Gimp.TileWidth + 1)));
+      Tile.CacheDefault(drawable);
 
       if (sel != null) 
 	{

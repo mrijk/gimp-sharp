@@ -120,19 +120,47 @@ namespace Gimp
         }
     }
 
+    public void Update(Rectangle rectangle)
+    {
+      Update(rectangle.X1, rectangle.Y1, rectangle.Width, rectangle.Height);
+    }
+
     public void Update()
     {
       Update(0, 0, Width, Height);
     }
 
-    public bool MaskBounds(out int x1, out int y1, out int x2, out int y2)
+    public Rectangle MaskBounds
     {
-      return gimp_drawable_mask_bounds(_ID, out x1, out y1, out x2, out y2);
+      get 
+	{
+	  int x1, y1, x2, y2;
+	  if (gimp_drawable_mask_bounds(_ID, out x1, out y1, out x2, out y2))
+	    {
+	      return new Rectangle(x1, y1, x2, y2);
+	    }
+	  else
+	    {
+	      return null;	// selection is empty
+	    }
+	}
     }
 
-    public bool MaskIntersect(out int x1, out int y1, out int x2, out int y2)
+    public Rectangle MaskIntersect
     {
-      return gimp_drawable_mask_intersect(_ID, out x1, out y1, out x2, out y2);
+      get 
+	{
+	  int x1, y1, x2, y2;
+	  if (gimp_drawable_mask_intersect(_ID, out x1, out y1, 
+					   out x2, out y2))
+	    {
+	      return new Rectangle(x1, y1, x2, y2);
+	    }
+	  else
+	    {
+	      return null;	// selection is empty
+	    }
+	}
     }
 
     public Image Image

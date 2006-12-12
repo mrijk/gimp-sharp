@@ -72,6 +72,7 @@ MYSOURCES = 			\
 	RGB.cs			\
 	RandomSeed.cs		\
 	ReadPixelIterator.cs	\
+	Rectangle.cs		\
 	RectangleSelectTool.cs	\
 	RegionIterator.cs	\
 	RgnIterator.cs		\
