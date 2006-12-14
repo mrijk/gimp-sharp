@@ -1,3 +1,22 @@
+2006-12-14  Maurits  <m.rijk@chello.nl>
+
+	* lib/Coordinate.cs: added Equals operator
+
+	* lib/Rectangle.cs: added operator==
+
+	* lib/Plugin.cs: add ListProcedures to make a cleaner API
+	
+	* plug-ins/AverageBlur/AverageBlur.cs
+	* plug-ins/Colorize/Colorize.cs
+	* plug-ins/DifferenceClouds/DifferenceClouds.cs
+	* plug-ins/ecw/ecw.cs
+	* plug-ins/Forge/Forge.cs
+	* plug-ins/Fragment/Fragment.cs
+	* plug-ins/KoalaPaint/KoalaPaint.cs
+	* plug-ins/Ministeck/Ministeck.cs 
+	* plug-ins/ncp/ncp.cs
+	* plug-ins/neo/neo.cs: implement ListProcedures()
+	
 2006-12-12  Maurits  <m.rijk@chello.nl>
 
 	* lib/Rectangle.cs: new class

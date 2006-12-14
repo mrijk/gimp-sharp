@@ -135,14 +135,8 @@ namespace Gimp
       get 
 	{
 	  int x1, y1, x2, y2;
-	  if (gimp_drawable_mask_bounds(_ID, out x1, out y1, out x2, out y2))
-	    {
-	      return new Rectangle(x1, y1, x2, y2);
-	    }
-	  else
-	    {
-	      return null;	// selection is empty
-	    }
+	  gimp_drawable_mask_bounds(_ID, out x1, out y1, out x2, out y2);
+	  return new Rectangle(x1, y1, x2, y2);
 	}
     }
 

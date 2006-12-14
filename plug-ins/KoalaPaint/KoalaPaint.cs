@@ -19,6 +19,7 @@
 //
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Gimp.KoalaPaint
@@ -52,7 +53,6 @@ namespace Gimp.KoalaPaint
       0xbb, 0xbb, 0xbb
     };
 
-    [STAThread]
     static void Main(string[] args)
     {
       new KoalaPaint(args);
@@ -62,18 +62,16 @@ namespace Gimp.KoalaPaint
     {
     }
 
-    override protected  ProcedureSet GetProcedureSet()
+    override protected IEnumerable<Procedure> ListProcedures()
     {
-      ProcedureSet set = new ProcedureSet();
-
-      set.Add(FileLoadProcedure("file_koala_paint_load",
-				_("loads images of the Koala Paint file format"),
-				_("This plug-in loads images of the Koala Paint file format."),
-				"Maurits Rijk",
-				"(C) Maurits Rijk",
-				"1999 - 2006",
-				_("KoalaPaint Image")));
-      return set;
+      yield return 
+	FileLoadProcedure("file_koala_paint_load",
+			  _("loads images of the Koala Paint file format"),
+			  _("This plug-in loads images of the Koala Paint file format."),
+			  "Maurits Rijk",
+			  "(C) Maurits Rijk",
+			  "1999 - 2006",
+			  _("KoalaPaint Image"));
     }
 
     override protected void Query()

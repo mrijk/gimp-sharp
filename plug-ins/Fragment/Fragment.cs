@@ -19,6 +19,7 @@
 //
 
 using System;
+using System.Collections.Generic;
 
 namespace Gimp.Fragment
 {
@@ -33,10 +34,8 @@ namespace Gimp.Fragment
     {
     }
 
-    override protected  ProcedureSet GetProcedureSet()
+    override protected IEnumerable<Procedure> ListProcedures()
     {
-      ProcedureSet set = new ProcedureSet();
-
       Procedure procedure = new Procedure("plug_in_fragment",
 					  _("Fragments the picture"),
 					  _("Creates four copies of the pixels in the selection, averages them, and offsets them from each other."),
@@ -47,9 +46,7 @@ namespace Gimp.Fragment
 					  "RGB*, GRAY*");
       procedure.MenuPath = "<Image>/Filters/Distorts";
 
-      set.Add(procedure);
-
-      return set;
+      yield return procedure;
     }
 
     override protected void Render(Drawable drawable)

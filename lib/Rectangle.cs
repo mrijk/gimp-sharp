@@ -86,5 +86,26 @@ namespace Gimp
     {
       get {return Width * Height;}
     }
+
+    public override bool Equals(object o)
+    {
+      if (o is Rectangle)
+	{
+	  Rectangle rectangle = o as Rectangle;
+	  return rectangle.UpperLeft == UpperLeft &&
+	    rectangle.LowerRight == LowerRight;
+	}
+      return false;
+    }
+
+    public static bool operator==(Rectangle rectangle1, Rectangle rectangle2)
+    {
+      return rectangle1.Equals(rectangle2);
+    }
+
+    public static bool operator!=(Rectangle rectangle1, Rectangle rectangle2)
+    {
+      return !(rectangle1 == rectangle2);
+    }
   }
 }

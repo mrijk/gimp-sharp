@@ -55,7 +55,29 @@ namespace Gimp
       get {return _y;}
       set {_y = value;}
     }
-		
+
+    public override bool Equals(object o)
+    {
+      if (o is Coordinate<T>)
+	{
+	  Coordinate<T> coordinate = o as Coordinate<T>;
+	  return coordinate._x.Equals(_x) && coordinate._y.Equals(_y);
+	}
+      return false;
+    }
+
+    public static bool operator==(Coordinate<T> coordinate1, 
+				  Coordinate<T> coordinate2)
+    {
+      return coordinate1.Equals(coordinate2);
+    }
+
+    public static bool operator!=(Coordinate<T> coordinate1, 
+				  Coordinate<T> coordinate2)
+    {
+      return !(coordinate1 == coordinate2);
+    }
+
     public override string ToString()
     {
       return string.Format("({0}, {1})", _x, _y);

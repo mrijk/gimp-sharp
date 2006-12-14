@@ -19,6 +19,7 @@
 //
 
 using System;
+using System.Collections.Generic;
 
 namespace Gimp.AverageBlur
 {
@@ -33,10 +34,8 @@ namespace Gimp.AverageBlur
     {
     }
 
-    override protected  ProcedureSet GetProcedureSet()
+    override protected IEnumerable<Procedure> ListProcedures()
     {
-      ProcedureSet set = new ProcedureSet();
-
       Procedure procedure = new Procedure("plug_in_average_blur",
 					  _("Average blur"),
 					  _("Average blur"),
@@ -47,9 +46,7 @@ namespace Gimp.AverageBlur
 					  "RGB*, GRAY*");
       procedure.MenuPath = "<Image>/Filters/Blur"; 
 
-      set.Add(procedure);
-
-      return set;
+      yield return procedure;
     }
 
     override protected void Render(Drawable drawable)

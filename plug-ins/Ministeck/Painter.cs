@@ -49,7 +49,7 @@ namespace Gimp.Ministeck
 
     public Pixel GetPixel(int x, int y)
     {
-      return _pf[x * _size, y * _size];
+      return _pf[y * _size, x * _size];
     }
 
     public void LineStart(int x, int y)
@@ -81,7 +81,7 @@ namespace Gimp.Ministeck
 	
       for (int i = 0; i < len; i++)
 	{
-	  _pf[_x, _y] = _color;
+	  _pf[_y, _x] = _color;
 	  _x += dx;
 	}
       _x -= dx;
@@ -98,7 +98,7 @@ namespace Gimp.Ministeck
 	
       for (int i = 0; i < len; i++)
 	{
-	  _pf[_x, _y] = _color;
+	  _pf[_y, _x] = _color;
 	  _y += dy;
 	}
       _y -= dy;

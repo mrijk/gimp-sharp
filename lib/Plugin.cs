@@ -20,6 +20,7 @@
 //
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Reflection;
@@ -101,7 +102,15 @@ namespace Gimp
     {
     }
 
-    protected abstract ProcedureSet GetProcedureSet();
+    protected virtual ProcedureSet GetProcedureSet() 
+    {
+      return new ProcedureSet();
+    }
+
+    protected virtual IEnumerable<Procedure> ListProcedures() 
+    {
+      yield break;
+    }
 
     void GetRequiredParameters()
     {
@@ -137,6 +146,12 @@ namespace Gimp
       GetRequiredParameters();
 
       _procedures = GetProcedureSet();
+
+      foreach (Procedure procedure in ListProcedures())
+	{
+	  _procedures.Add(procedure);
+	}
+
       _procedures.Install(_usesImage, _usesDrawable);
     }
 
@@ -215,6 +230,15 @@ namespace Gimp
       GetRequiredParameters();
 
       ProcedureSet procedures = GetProcedureSet();
+
+      Console.WriteLine("before");
+      foreach (Procedure p in ListProcedures())
+	{
+	  Console.WriteLine("adding");
+	  procedures.Add(p);
+	}
+      Console.WriteLine("after");
+
       Procedure procedure = procedures[name];
       ParamDefList inParam = procedure.InParams;
       inParam.Marshall(paramPtr, n_params);

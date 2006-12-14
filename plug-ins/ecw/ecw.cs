@@ -19,6 +19,7 @@
 //
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
 
@@ -36,27 +37,24 @@ namespace Gimp.ecw
     {
     }
 
-    override protected  ProcedureSet GetProcedureSet()
+    override protected IEnumerable<Procedure> ListProcedures()
     {
-      ProcedureSet set = new ProcedureSet();
-
-      set.Add(FileLoadProcedure("file_ecw_load",
-				"Loads ecw images",
-				"This plug-in loads ECW images.",
-				"Maurits Rijk",
-				"(C) Maurits Rijk",
+      yield return FileLoadProcedure("file_ecw_load",
+				     "Loads ecw images",
+				     "This plug-in loads ECW images.",
+				     "Maurits Rijk",
+				     "(C) Maurits Rijk",
+				     "2006",
+				     "ecw Image");
+      
+      yield return FileSaveProcedure("file_ecw_save",
+				     "Saves ecw images",
+				     "This plug-in saves ECW images.",
+				     "Maurits Rijk",
+				     "(C) Maurits Rijk",
 				"2006",
-				"ecw Image"));
-
-      set.Add(FileSaveProcedure("file_ecw_save",
-				"Saves ecw images",
-				"This plug-in saves ECW images.",
-				"Maurits Rijk",
-				"(C) Maurits Rijk",
-				"2006",
-				"ecw Image",
-				"RGB*"));
-      return set;
+				     "ecw Image",
+				     "RGB*");
     }
 
     override protected void Query()

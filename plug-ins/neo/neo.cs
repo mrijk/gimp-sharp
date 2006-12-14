@@ -20,13 +20,13 @@
 //
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Gimp.neo
 {	
   class neo : FilePlugin
   {
-    [STAThread]
     static void Main(string[] args)
     {
       new neo(args);
@@ -36,18 +36,15 @@ namespace Gimp.neo
     {
     }
 
-    override protected  ProcedureSet GetProcedureSet()
+    override protected IEnumerable<Procedure> ListProcedures()
     {
-      ProcedureSet set = new ProcedureSet();
-
-      set.Add(FileLoadProcedure("file_neo_load",
-				_("Loads neo images"),
-				_("This plug-in loads Neochrome images."),
-				"Maurits Rijk",
-				"(C) Maurits Rijk",
-				"2006",
-				_("Neochrome Image")));
-      return set;
+      yield return FileLoadProcedure("file_neo_load",
+				     _("Loads neo images"),
+				     _("This plug-in loads Neochrome images."),
+				     "Maurits Rijk",
+				     "(C) Maurits Rijk",
+				     "2006",
+				     _("Neochrome Image"));
     }
 
     override protected void Query()

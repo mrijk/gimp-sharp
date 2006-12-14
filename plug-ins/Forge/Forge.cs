@@ -19,6 +19,7 @@
 //
 
 using System;
+using System.Collections.Generic;
 
 using Gtk;
 
@@ -111,7 +112,6 @@ namespace Gimp.Forge
 
     delegate void GenericEventHandler(object o, EventArgs e);
 
-    [STAThread]
     static void Main(string[] args)
     {
       new Forge(args);
@@ -121,33 +121,31 @@ namespace Gimp.Forge
     {
     }
 
-    override protected  ProcedureSet GetProcedureSet()
+    override protected IEnumerable<Procedure> ListProcedures()
     {
-      ProcedureSet set = new ProcedureSet();
-
-      ParamDefList in_params = new ParamDefList();
-      in_params.Add(new ParamDef("clouds", false, typeof(bool), 
-				 _("Clouds (true), Planet or Stars (false)")));
-      in_params.Add(new ParamDef("stars", false, typeof(bool), 
-				 _("Stars (true), Planet or Clouds (false)")));
-      in_params.Add(new ParamDef("dimension", 2.4, typeof(double), 
-				 _("Fractal dimension factor")));
-      in_params.Add(new ParamDef("power", 1.0, typeof(double), 
-				 _("Power factor")));
-      in_params.Add(new ParamDef("glaciers", 0.75, typeof(double), 
-				 _("Glaciers factor")));
-      in_params.Add(new ParamDef("ice", 0.4, typeof(double), 
-				 _("Ice factor")));
-      in_params.Add(new ParamDef("hour", 0.0, typeof(double), 
-				 _("Hour factor")));
-      in_params.Add(new ParamDef("inclination", 0.0, typeof(double), 
-				 _("Inclination factor")));
-      in_params.Add(new ParamDef("stars", 100.0, typeof(double), 
-				 _("Stars factor")));
-      in_params.Add(new ParamDef("saturation", 100.0, typeof(double), 
-				 _("Saturation factor")));
-      in_params.Add(new ParamDef("seed", 0, typeof(uint), 
-				 _("Random generated seed")));
+      ParamDefList inParams = new ParamDefList();
+      inParams.Add(new ParamDef("clouds", false, typeof(bool), 
+				_("Clouds (true), Planet or Stars (false)")));
+      inParams.Add(new ParamDef("stars", false, typeof(bool), 
+				_("Stars (true), Planet or Clouds (false)")));
+      inParams.Add(new ParamDef("dimension", 2.4, typeof(double), 
+				_("Fractal dimension factor")));
+      inParams.Add(new ParamDef("power", 1.0, typeof(double), 
+				_("Power factor")));
+      inParams.Add(new ParamDef("glaciers", 0.75, typeof(double), 
+				_("Glaciers factor")));
+      inParams.Add(new ParamDef("ice", 0.4, typeof(double), 
+				_("Ice factor")));
+      inParams.Add(new ParamDef("hour", 0.0, typeof(double), 
+				_("Hour factor")));
+      inParams.Add(new ParamDef("inclination", 0.0, typeof(double), 
+				_("Inclination factor")));
+      inParams.Add(new ParamDef("stars", 100.0, typeof(double), 
+				_("Stars factor")));
+      inParams.Add(new ParamDef("saturation", 100.0, typeof(double), 
+				_("Saturation factor")));
+      inParams.Add(new ParamDef("seed", 0, typeof(uint), 
+				_("Random generated seed")));
 
       Procedure procedure = new Procedure("plug_in_forge",
 					  _("Creates an artificial world."),
@@ -157,13 +155,11 @@ namespace Gimp.Forge
 					  "2006",
 					  _("Forge..."),
 					  "RGB*",
-					  in_params);
+					  inParams);
       procedure.MenuPath = "<Image>/Filters/Render";
       procedure.IconFile = "Forge.png";
 
-      set.Add(procedure);
-
-      return set;
+      yield return procedure;
     }
 
     override protected bool CreateDialog()

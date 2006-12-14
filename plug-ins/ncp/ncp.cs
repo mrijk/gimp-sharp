@@ -19,6 +19,7 @@
 //
 
 using System;
+using System.Collections.Generic;
 using Gtk;
 
 namespace Gimp.ncp
@@ -53,33 +54,29 @@ namespace Gimp.ncp
       public int y;
     }
 
-    override protected  ProcedureSet GetProcedureSet()
+    override protected IEnumerable<Procedure> ListProcedures()
     {
-      ProcedureSet set = new ProcedureSet();
-
-      ParamDefList in_params = new ParamDefList();
-      in_params.Add(new ParamDef("points", 12, typeof(int),
+      ParamDefList inParams = new ParamDefList();
+      inParams.Add(new ParamDef("points", 12, typeof(int),
 				 _("Number of points")));
-      in_params.Add(new ParamDef("closest", 1, typeof(int),
+      inParams.Add(new ParamDef("closest", 1, typeof(int),
 				 _("Closest point")));
-      in_params.Add(new ParamDef("color", 1, typeof(bool),
+      inParams.Add(new ParamDef("color", 1, typeof(bool),
 				 _("Color (true), B&W (false)")));
 
       Procedure procedure = new Procedure("plug_in_ncp",
-          _("Generates 2D textures"),
-          _("Generates 2D textures"),
-          "Maurits Rijk",
-          "(C) Maurits Rijk",
-          "2004-2006",
-          "NCP...",
-          "RGB*, GRAY*",
-          in_params);
+					  _("Generates 2D textures"),
+					  _("Generates 2D textures"),
+					  "Maurits Rijk",
+					  "(C) Maurits Rijk",
+					  "2004-2006",
+					  "NCP...",
+					  "RGB*, GRAY*",
+					  inParams);
       procedure.MenuPath = "<Image>/Filters/Render";
       procedure.IconFile = "ncp.png";
 
-      set.Add(procedure);
-
-      return set;
+      yield return procedure;
     }
 
     override protected bool CreateDialog()

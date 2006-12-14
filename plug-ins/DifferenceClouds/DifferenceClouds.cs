@@ -19,6 +19,7 @@
 //
 
 using System;
+using System.Collections.Generic;
 
 using Gtk;
 
@@ -54,12 +55,10 @@ namespace Gimp.DifferenceClouds
     {
     }
 
-    override protected  ProcedureSet GetProcedureSet()
+    override protected IEnumerable<Procedure> ListProcedures()
     {
-      ProcedureSet set = new ProcedureSet();
-
-      ParamDefList in_params = new ParamDefList();
-      in_params.Add(new ParamDef("turbulence", 0, typeof(double), 
+      ParamDefList inParams = new ParamDefList();
+      inParams.Add(new ParamDef("turbulence", 0, typeof(double), 
 				 _("Turbulence of the cloud")));
 
       Procedure procedure = new Procedure("plug_in_difference_clouds",
@@ -70,13 +69,11 @@ namespace Gimp.DifferenceClouds
 					  "2006",
 					  _("Difference Clouds..."),
 					  "RGB*",
-					  in_params);
+					  inParams);
       procedure.MenuPath = "<Image>/Filters/Render/Clouds";
       procedure.IconFile = "DifferenceClouds.png";
 
-      set.Add(procedure);
-
-      return set;
+      yield return procedure;
     }
 
     override protected bool CreateDialog()

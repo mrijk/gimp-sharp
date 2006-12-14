@@ -19,6 +19,7 @@
 //
 
 using System;
+using System.Collections.Generic;
 
 using Gtk;
 
@@ -35,7 +36,6 @@ namespace Gimp.Ministeck
     [SaveAttribute("color")]
     RGB _color = new RGB(0, 0, 0);
 
-    [STAThread]
     static void Main(string[] args)
     {
       new Ministeck(args);
@@ -45,16 +45,14 @@ namespace Gimp.Ministeck
     {
     }
 
-    override protected  ProcedureSet GetProcedureSet()
+    override protected IEnumerable<Procedure> ListProcedures()
     {
-      ProcedureSet set = new ProcedureSet();
-
-      ParamDefList in_params = new ParamDefList();
-      in_params.Add(new ParamDef("limit", true, typeof(bool), 
+      ParamDefList inParams = new ParamDefList();
+      inParams.Add(new ParamDef("limit", true, typeof(bool), 
           _("Use real life ratio for number of pieces if true")));
-      in_params.Add(new ParamDef("size", 16, typeof(int), 
+      inParams.Add(new ParamDef("size", 16, typeof(int), 
           _("Default size")));
-      in_params.Add(new ParamDef("color", new RGB(0, 0, 0), typeof(RGB), 
+      inParams.Add(new ParamDef("color", new RGB(0, 0, 0), typeof(RGB), 
 			    _("Color for the outline")));
 
       Procedure procedure = new Procedure("plug_in_ministeck",
@@ -65,13 +63,11 @@ namespace Gimp.Ministeck
 					  "2004-2006",
 					  _("Ministeck..."),
 					  "RGB*, GRAY*",
-					  in_params);
+					  inParams);
       procedure.MenuPath = "<Image>/Filters/Artistic";
       procedure.IconFile = "Ministeck.png";
-	
-      set.Add(procedure);
-	
-      return set;
+
+      yield return procedure;
     }
 
     override protected bool CreateDialog()

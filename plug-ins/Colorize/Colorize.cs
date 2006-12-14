@@ -22,6 +22,7 @@
 //
 
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using Gtk;
 
@@ -60,12 +61,10 @@ namespace Gimp.Colorize
     {
     }
 
-    override protected  ProcedureSet GetProcedureSet()
+    override protected IEnumerable<Procedure> ListProcedures()
     {
-      ProcedureSet set = new ProcedureSet();
-
-      ParamDefList in_params = new ParamDefList();
-      in_params.Add(new ParamDef("points", 12, typeof(int),
+      ParamDefList inParams = new ParamDefList();
+      inParams.Add(new ParamDef("points", 12, typeof(int),
 				 _("Number of points")));
 
       Procedure procedure = new Procedure("plug_in_colorize",
@@ -73,16 +72,14 @@ namespace Gimp.Colorize
           _("Fix me!"),
           "Maurits Rijk",
           "(C) Maurits Rijk",
-          "2004-2006",
+          "2006",
           "Colorize...",
           "RGB*, GRAY*",
-          in_params);
+          inParams);
       procedure.MenuPath = "<Image>/Filters/Generic";
       procedure.IconFile = "Colorize.png";
 
-      set.Add(procedure);
-
-      return set;
+      yield return procedure;
     }
 
     void DialogMarkedCallback()
