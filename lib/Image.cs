@@ -95,12 +95,17 @@ namespace Gimp
     {
       get {return gimp_image_width(_imageID);}
     }
-       
+
     public int Height
     {
       get {return gimp_image_height(_imageID);}
     }
-       
+
+    public Rectangle Bounds
+    {
+      get {return new Rectangle(0, 0, Width, Height);}
+    }
+
     public void FreeShadow()
     {
       if (!gimp_image_free_shadow(_imageID))
@@ -148,13 +153,18 @@ namespace Gimp
 	  throw new GimpSharpException();
         }
     }
-       
+
     public void Crop(int new_width, int new_height, int offx, int offy)
     {
       if (!gimp_image_crop(_imageID, new_width, new_height, offx, offy))
         {
 	  throw new GimpSharpException();
         }
+    }
+
+    public void Crop(Rectangle rectangle)
+    {
+      Crop(rectangle.Width, rectangle.Height, rectangle.X1, rectangle.Y1);
     }
       
     public LayerList Layers

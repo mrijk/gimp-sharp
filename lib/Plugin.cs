@@ -102,15 +102,7 @@ namespace Gimp
     {
     }
 
-    protected virtual ProcedureSet GetProcedureSet() 
-    {
-      return new ProcedureSet();
-    }
-
-    protected virtual IEnumerable<Procedure> ListProcedures() 
-    {
-      yield break;
-    }
+    protected abstract IEnumerable<Procedure> ListProcedures() ;
 
     void GetRequiredParameters()
     {
@@ -144,8 +136,6 @@ namespace Gimp
     virtual protected void Query()
     {
       GetRequiredParameters();
-
-      _procedures = GetProcedureSet();
 
       foreach (Procedure procedure in ListProcedures())
 	{
@@ -229,15 +219,12 @@ namespace Gimp
 
       GetRequiredParameters();
 
-      ProcedureSet procedures = GetProcedureSet();
+      ProcedureSet procedures = new ProcedureSet();
 
-      Console.WriteLine("before");
       foreach (Procedure p in ListProcedures())
 	{
-	  Console.WriteLine("adding");
 	  procedures.Add(p);
 	}
-      Console.WriteLine("after");
 
       Procedure procedure = procedures[name];
       ParamDefList inParam = procedure.InParams;

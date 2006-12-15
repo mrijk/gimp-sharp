@@ -32,7 +32,7 @@ namespace Gimp
     public Drawable(Int32 drawableID)
     {
       _ID = drawableID;
-      _drawable = gimp_drawable_get (_ID);
+      _drawable = gimp_drawable_get(_ID);
     }
 
     public Drawable(IntPtr drawable)
@@ -47,17 +47,17 @@ namespace Gimp
 
     public void Detach()
     {
-      gimp_drawable_detach (_drawable);
+      gimp_drawable_detach(_drawable);
     }
 
     public void Flush()
     {
-      gimp_drawable_flush (_drawable);
+      gimp_drawable_flush(_drawable);
     }
 
     public bool Delete()
     {
-      return gimp_drawable_delete (_ID);
+      return gimp_drawable_delete(_ID);
     }
 
     public string Name
@@ -127,7 +127,15 @@ namespace Gimp
 
     public void Update()
     {
-      Update(0, 0, Width, Height);
+      Update(Bounds);
+    }
+
+    public Rectangle Bounds
+    {
+      get
+	{
+	  return new Rectangle(0, 0, Width, Height);
+	}
     }
 
     public Rectangle MaskBounds

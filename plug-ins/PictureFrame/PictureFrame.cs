@@ -19,6 +19,7 @@
 //
 
 using System;
+using System.Collections.Generic;
 using System.Text;
 
 using Gtk;
@@ -39,10 +40,8 @@ namespace Gimp.PictureFrame
     {
     }
 
-    override protected  ProcedureSet GetProcedureSet()
+    override protected IEnumerable<Procedure> ListProcedures()
     {
-      ProcedureSet set = new ProcedureSet();
-
       Procedure procedure = new Procedure("plug_in_picture_frame",
 					  _("Picture frame"),
 					  _("Picture frame"),
@@ -54,9 +53,7 @@ namespace Gimp.PictureFrame
       procedure.MenuPath = "<Image>/Filters/Render";
       procedure.IconFile = "PictureFrame.png";
 
-      set.Add(procedure);
-
-      return set;
+      yield return procedure;
     }
 
     override protected bool CreateDialog()

@@ -19,6 +19,7 @@
 //
 
 using System;
+using System.Collections.Generic;
 using Gtk;
 
 namespace Gimp.Splitter
@@ -61,10 +62,8 @@ namespace Gimp.Splitter
     {
     }
 
-    override protected ProcedureSet GetProcedureSet()
+    override protected IEnumerable<Procedure> ListProcedures()
     {
-      ProcedureSet set = new ProcedureSet();
-      
       ParamDefList in_params = new ParamDefList();
 
       Procedure procedure = new Procedure("plug_in_splitter",
@@ -79,9 +78,7 @@ namespace Gimp.Splitter
       procedure.MenuPath = "<Image>/Filters/Generic";
       procedure.IconFile = "Splitter.png";
       
-      set.Add(procedure);
-      
-      return set;
+      yield return procedure;
     }
 
     override protected bool CreateDialog()
@@ -251,8 +248,9 @@ namespace Gimp.Splitter
     {
       MathExpressionParser parser = new MathExpressionParser();
 
-      int width = image.Width;
-      int height = image.Height;
+      Rectangle rectangle = image.Bounds;
+      int width = rectangle.Width;
+      int height = rectangle.Height;
       bool hasAlpha = drawable.HasAlpha;
 
       parser.Init(_formula, width, height);
@@ -268,7 +266,7 @@ namespace Gimp.Splitter
 	  layer1.Translate(_translate_1_x, _translate_1_y);
 	  newImage.AddLayer(layer1, 0);
 
-	  destPR1 = new PixelRgn(layer1, 0, 0, width, height, true, false);
+	  destPR1 = new PixelRgn(layer1, rectangle, true, false);
 	}
       else
 	{
@@ -285,7 +283,7 @@ namespace Gimp.Splitter
 	  layer2.Translate(_translate_2_x, _translate_2_y);
 	  newImage.AddLayer(layer2, 0);
 
-	  destPR2 = new PixelRgn(layer2, 0, 0, width, height, true, false);
+	  destPR2 = new PixelRgn(layer2, rectangle, true, false);
 	}
       else
 	{

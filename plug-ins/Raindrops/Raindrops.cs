@@ -19,6 +19,7 @@
 //
 
 using System;
+using System.Collections.Generic;
 
 using Gtk;
 
@@ -44,18 +45,16 @@ namespace Gimp.Raindrops
     {
     }
 
-    override protected  ProcedureSet GetProcedureSet()
+    override protected IEnumerable<Procedure> ListProcedures()
     {
-      ProcedureSet set = new ProcedureSet();
-
-      ParamDefList in_params = new ParamDefList();
+      ParamDefList inParams = new ParamDefList();
  
-      in_params.Add(new ParamDef("drop_size", 80, typeof(int),
-				 _("Size of raindrops")));
-      in_params.Add(new ParamDef("number", 80, typeof(int),
-				 _("Number of raindrops")));
-      in_params.Add(new ParamDef("fish_eye", 30, typeof(int),
-				 _("Fisheye effect")));
+      inParams.Add(new ParamDef("drop_size", 80, typeof(int),
+				_("Size of raindrops")));
+      inParams.Add(new ParamDef("number", 80, typeof(int),
+				_("Number of raindrops")));
+      inParams.Add(new ParamDef("fish_eye", 30, typeof(int),
+				_("Fisheye effect")));
 
       Procedure procedure = new Procedure("plug_in_raindrops",
 					  _("Generates raindrops"),
@@ -65,14 +64,12 @@ namespace Gimp.Raindrops
 					  "2006",
 					  _("Raindrops..."),
 					  "RGB*, GRAY*",
-					  in_params);
+					  inParams);
       procedure.MenuPath = "<Image>/Filters/" + 
 	_("Light and Shadow") + "/" + _("Glass");
       procedure.IconFile = "Raindrops.png";
       
-      set.Add(procedure);
-
-      return set;
+      yield return procedure;
     }
 
     override protected bool CreateDialog()
@@ -137,12 +134,8 @@ namespace Gimp.Raindrops
 
     void UpdatePreview(object sender, EventArgs e)
     {
-      int x, y, width, height;
- 	
-      _preview.GetPosition(out x, out y);
-      _preview.GetSize(out width, out height);
       Image clone = new Image(_image);
-      clone.Crop(width, height, x, y);
+      clone.Crop(_preview.Bounds);
 
       if (!clone.ActiveDrawable.IsLayer())
       {
@@ -152,8 +145,7 @@ namespace Gimp.Raindrops
 
       RenderRaindrops(clone, clone.ActiveDrawable, true);
 
-      PixelRgn rgn = new PixelRgn(clone.ActiveDrawable, 0, 0, width, height, 
-				  false, false);
+      PixelRgn rgn = new PixelRgn(clone.ActiveDrawable, false, false);
       _preview.DrawRegion(rgn);
 	
       clone.Delete();

@@ -62,10 +62,10 @@ namespace Gimp.Fragment
 	  
 	  iter.IterateDest(delegate (int x, int y) 
 	  {
-	    return (pf[x - 4, y - 4] +
-		    pf[x + 4, y - 4] +
-		    pf[x - 4, y + 4] +
-		    pf[x + 4, y + 4]) / 4;
+	    return (pf[y - 4, x - 4] +
+		    pf[y - 4, x + 4] +
+		    pf[y + 4, x - 4] +
+		    pf[y + 4, x + 4]) / 4;
 	  });
 	}
 

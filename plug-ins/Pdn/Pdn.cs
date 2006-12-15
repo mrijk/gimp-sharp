@@ -19,6 +19,7 @@
 //
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 
 using PaintDotNet;
@@ -32,7 +33,6 @@ namespace Gimp.Pdn
     //		private const string headerXmlSkeleton =
     //			"<pdnImage><custom></custom></pdnImage>";
 
-    [STAThread]
     static void Main(string[] args)
     {
       new Pdn(args);
@@ -42,18 +42,15 @@ namespace Gimp.Pdn
     {
     }
 
-    override protected ProcedureSet GetProcedureSet()
+    override protected IEnumerable<Procedure> ListProcedures()
     {
-      ProcedureSet set = new ProcedureSet();
-
-      set.Add(FileLoadProcedure("file_pdn_load",
+      yield return FileLoadProcedure("file_pdn_load",
 				"loads images of the Paint.NET file format",
 				"This plug-in loads images of the Paint.NET file format.",
 				"Massimo Perga",
 				"(C) Massimo Perga",
 				"2006",
 				"Paint.NET Image"));
-      return set;
     }
 
     override protected void Query()
@@ -72,7 +69,7 @@ namespace Gimp.Pdn
       int colorOffset = 0;
 
       //		StreamReader stream = new Stream
-      if (File.Exists(/*filename*/filename))
+      if (File.Exists(filename))
 	{
 	  Console.WriteLine("File exists");
 	  Console.ReadLine();

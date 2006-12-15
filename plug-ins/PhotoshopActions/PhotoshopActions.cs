@@ -40,11 +40,9 @@ namespace Gimp.PhotoshopActions
     {
     }
 
-    override protected  ProcedureSet GetProcedureSet()
+    override protected IEnumerable<Procedure> ListProcedures()
     {
-      ProcedureSet set = new ProcedureSet();
-
-      ParamDefList in_params = new ParamDefList();
+      ParamDefList inParams = new ParamDefList();
 
       Procedure procedure = new Procedure("plug_in_photoshop_actions",
 					  "Play Photoshop action files",
@@ -54,13 +52,11 @@ namespace Gimp.PhotoshopActions
 					  "2006",
 					  "Photoshop Actions...",
 					  "",
-					  in_params);
+					  inParams);
       procedure.MenuPath = "<Toolbox>/Xtns/Extensions";
       procedure.IconFile = "PhotoshopActions.png";
 
-      set.Add(procedure);
-
-      return set;
+      yield return procedure;
     }
 
     override protected bool CreateDialog()

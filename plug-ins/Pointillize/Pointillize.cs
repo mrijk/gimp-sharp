@@ -19,6 +19,7 @@
 //
 
 using System;
+using System.Collections.Generic;
 
 using Gtk;
 
@@ -41,12 +42,10 @@ namespace Gimp.Pointillize
     {
     }
 
-    override protected ProcedureSet GetProcedureSet()
+    override protected IEnumerable<Procedure> ListProcedures()
     {
-      ProcedureSet set = new ProcedureSet();
-
-      ParamDefList in_params = new ParamDefList();
-      in_params.Add(new ParamDef("cell_size", 30, typeof(int),
+      ParamDefList inParams = new ParamDefList();
+      inParams.Add(new ParamDef("cell_size", 30, typeof(int),
 				 "Cell size"));
 
       Procedure procedure = new Procedure("plug_in_pointillize",
@@ -57,13 +56,11 @@ namespace Gimp.Pointillize
 					  "2006",
 					  _("Pointillize..."),
 					  "RGB*, GRAY*",
-					  in_params);
+					  inParams);
       procedure.MenuPath = "<Image>/Filters/Artistic";
       procedure.IconFile = "Pointillize.png";
 
-      set.Add(procedure);
-
-      return set;
+      yield return procedure;
     }
 
     override protected bool CreateDialog()

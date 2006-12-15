@@ -19,6 +19,7 @@
 //
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 
@@ -59,12 +60,8 @@ namespace Gimp.SliceTool
     {
     }
 
-    override protected ProcedureSet GetProcedureSet()
+    override protected IEnumerable<Procedure> ListProcedures()
     {
-      ProcedureSet set = new ProcedureSet();
-      
-      ParamDefList in_params = new ParamDefList();
-
       Procedure procedure = new Procedure("plug_in_slice_tool",
 					  _("Slice Tool"),
 					  _("The Image Slice Tool is used to apply image slicing and rollovers."),
@@ -72,15 +69,12 @@ namespace Gimp.SliceTool
 					  "(C) Maurits Rijk",
 					  "2005-2006",
 					  _("Slice Tool..."),
-					  "RGB*, GRAY*",
-					  in_params);
+					  "RGB*, GRAY*");
 
       procedure.MenuPath = "<Image>/Filters/Web";
       procedure.IconFile = "SliceTool.png";
 
-      set.Add(procedure);
-      
-      return set;
+      yield return procedure;
     }
     
     override protected bool CreateDialog()
@@ -89,9 +83,8 @@ namespace Gimp.SliceTool
       
       CreateStockIcons();
       
-      Dialog dialog = DialogNew(_("Slice Tool"), 
-          _("SliceTool"), IntPtr.Zero, 
-          0, null, _("SliceTool"),
+      Dialog dialog = DialogNew(_("Slice Tool"), _("SliceTool"), IntPtr.Zero, 
+				0, null, _("SliceTool"),
 				Stock.SaveAs, (Gtk.ResponseType) 0,
 				Stock.Save, (Gtk.ResponseType) 1,
 				Stock.Close, ResponseType.Close);

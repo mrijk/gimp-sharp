@@ -19,6 +19,7 @@
 //
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Reflection;
@@ -53,12 +54,8 @@ namespace Gimp.UpdateCheck
     {
     }
 
-    override protected  ProcedureSet GetProcedureSet()
+    override protected IEnumerable<Procedure> ListProcedures()
     {
-      ProcedureSet set = new ProcedureSet();
-
-      ParamDefList in_params = new ParamDefList();
-
       Procedure procedure = new Procedure("plug_in_update_check",
 					  _("Check for updates"),
 					  _("Check for updates"),
@@ -66,14 +63,11 @@ namespace Gimp.UpdateCheck
 					  "(C) Maurits Rijk",
 					  "2006",
 					  _("Check for Updates..."),
-					  "",
-					  in_params);
+					  "");
       procedure.MenuPath = "<Toolbox>/Xtns/Extensions";
       procedure.IconFile = "UpdateCheck.png";
 
-      set.Add(procedure);
-
-      return set;
+      yield return procedure;
     }
 
     override protected bool CreateDialog()

@@ -54,10 +54,8 @@ namespace Gimp.Swirlies
     {
     }
 
-    override protected ProcedureSet GetProcedureSet()
+    override protected IEnumerable<Procedure> ListProcedures()
     {
-      ProcedureSet set = new ProcedureSet();
-      
       ParamDefList in_params = new ParamDefList();
 
       Procedure procedure = new Procedure("plug_in_swirlies",
@@ -73,9 +71,7 @@ namespace Gimp.Swirlies
       procedure.MenuPath = "<Image>/Filters/Render";
       procedure.IconFile = "Swirlies.png";
 
-      set.Add(procedure);
-      
-      return set;
+      yield return procedure;
     }
 
     override protected bool CreateDialog()
@@ -94,8 +90,7 @@ namespace Gimp.Swirlies
 
       RandomSeed seed = new RandomSeed(ref _seed, ref _random_seed);
 
-      table.AttachAligned(0, 0, _("Random _Seed:"), 
-        0.0, 0.5, seed, 2, true);
+      table.AttachAligned(0, 0, _("Random _Seed:"), 0.0, 0.5, seed, 2, true);
 
       ScaleEntry entry = new ScaleEntry(table, 0, 1, _("Po_ints:"), 
 					150, 3, _points, 1.0, 16.0, 1.0, 8.0, 

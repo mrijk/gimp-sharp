@@ -19,6 +19,7 @@
 //
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using NUnit.Core;
 using NUnit.Util;
@@ -35,8 +36,6 @@ namespace Gimp.UnitTest
     int    _testsPerformed = 0;
     int    _testCasesTotalNumber = 0;
 
-
-    [STAThread]
     static void Main(string[] args)
     {
       new UnitTest(args);
@@ -46,12 +45,8 @@ namespace Gimp.UnitTest
     {
     }
 
-    override protected  ProcedureSet GetProcedureSet()
+    override protected IEnumerable<Procedure> ListProcedures()
     {
-      ProcedureSet set = new ProcedureSet();
-
-      ParamDefList in_params = new ParamDefList();
-
       Procedure procedure = new Procedure("plug_in_unit_test",
 					  "Unit Test",
 					  "Unit Test",
@@ -59,14 +54,12 @@ namespace Gimp.UnitTest
 					  "(C) Maurits Rijk, Massimo Perga",
 					  "2004-2006",
 					  "Unit Test...",
-					  "",
-					  in_params);
+					  "");
+
       procedure.MenuPath = "<Toolbox>/Xtns/Extensions";
       procedure.IconFile = "UnitTest.png";
 
-      set.Add(procedure);
-
-      return set;
+      yield return procedure;
     }
 
     override protected bool CreateDialog()
@@ -120,14 +113,8 @@ namespace Gimp.UnitTest
 
     public int TestCasesTotalNumber
     {
-      set
-      {
-        _testCasesTotalNumber = value;
-      }
-      get
-      {
-        return _testCasesTotalNumber;
-      }
+      set {_testCasesTotalNumber = value;}
+      get {return _testCasesTotalNumber;}
     }
   }
 }

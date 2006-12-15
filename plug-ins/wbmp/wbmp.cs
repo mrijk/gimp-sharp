@@ -19,13 +19,13 @@
 //
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Gimp.wbmp
 {	
   class wbmp : FilePlugin
   {
-    [STAThread]
     static void Main(string[] args)
     {
       new wbmp(args);
@@ -35,27 +35,24 @@ namespace Gimp.wbmp
     {
     }
 
-    override protected  ProcedureSet GetProcedureSet()
+    override protected IEnumerable<Procedure> ListProcedures()
     {
-      ProcedureSet set = new ProcedureSet();
-
-      set.Add(FileLoadProcedure("file_wbmp_load",
-				_("Loads wbmp images"),
-				_("This plug-in loads wbmp images."),
-				"Maurits Rijk, Massimo Perga",
-				"(C) Maurits Rijk, Massimo Perga",
-				"2005-2006",
-				_("wbmp Image")));
+      yield return FileLoadProcedure("file_wbmp_load",
+				     _("Loads wbmp images"),
+				     _("This plug-in loads wbmp images."),
+				     "Maurits Rijk, Massimo Perga",
+				     "(C) Maurits Rijk, Massimo Perga",
+				     "2005-2006",
+				     _("wbmp Image"));
       
-      set.Add(FileSaveProcedure("file_wbmp_save",
-				_("Saves wbmp images"),
-				_("This plug-in saves wbmp images."),
-				"Maurits Rijk, Massimo Perga",
-				"(C) Maurits Rijk, Massimo Perga",
-				"2006",
-				_("wbmp Image"),
-				"RGB*"));
-      return set;
+      yield return FileSaveProcedure("file_wbmp_save",
+				     _("Saves wbmp images"),
+				     _("This plug-in saves wbmp images."),
+				     "Maurits Rijk, Massimo Perga",
+				     "(C) Maurits Rijk, Massimo Perga",
+				     "2006",
+				     _("wbmp Image"),
+				     "RGB*");
     }
 
     override protected void Query()
@@ -190,7 +187,7 @@ namespace Gimp.wbmp
       if (bytesToEncode > 0)
 	seqEncoded = new byte[bytesToEncode];
 
-      encodeInteger(ref seqEncoded, width);
+      encodeInteger(seqEncoded, width);
       for (int j = 0; j < seqEncoded.Length; j++)
 	{
 	  writer.Write(seqEncoded[j]);
@@ -201,7 +198,7 @@ namespace Gimp.wbmp
       if (bytesToEncode > 0)
 	seqEncoded = new byte[bytesToEncode];
 
-      encodeInteger(ref seqEncoded, height);
+      encodeInteger(seqEncoded, height);
       for (int j = 0; j < seqEncoded.Length; j++)
 	writer.Write(seqEncoded[j]);
 
@@ -270,15 +267,17 @@ namespace Gimp.wbmp
       return bytesNeeded;
     }
 
-    private void encodeInteger(ref byte[] seq, int number)
+    private void encodeInteger(byte[] seq, int number)
     {
       // Start from the less significant part
-      for (int index = (seq.Length - 1); index >= 0; index--)
+      for (int index = seq.Length - 1; index >= 0; index--)
 	{
-	  seq[index] = (byte)(number & 0x7f);
+	  seq[index] = (byte) (number & 0x7f);
 	  number >>= 7;
-	  if (index != (seq.Length - 1))
-	    seq[index] |= 0x80;
+	  if (index != seq.Length - 1)
+	    {
+	      seq[index] |= 0x80;
+	    }
 	}
     }
   } 

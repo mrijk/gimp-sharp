@@ -56,6 +56,21 @@ namespace Gimp
       gimp_preview_get_size(Handle, out width, out height);
     }
 
+    public Rectangle Bounds
+    {
+      set 
+	{
+	  SetBounds(value.X1, value.Y1, value.X2, value.Y2);
+	}
+      get
+	{
+	  int x, y, width, height;
+	  GetPosition(out x, out y);
+	  GetSize(out width, out height);
+	  return new Rectangle(x, y, x + width, y + height);
+	}
+    }
+
     public void Draw()
     {
       gimp_preview_draw(Handle);

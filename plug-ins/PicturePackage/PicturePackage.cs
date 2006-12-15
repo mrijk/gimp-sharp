@@ -19,6 +19,7 @@
 //
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Threading;
@@ -100,11 +101,9 @@ namespace Gimp.PicturePackage
     {
     }
 
-    override protected ProcedureSet GetProcedureSet()
+    override protected IEnumerable<Procedure> ListProcedures()
     {
-      ProcedureSet set = new ProcedureSet();
-
-      ParamDefList in_params = new ParamDefList();
+      ParamDefList inParams = new ParamDefList();
 
       Procedure procedure = new Procedure("plug_in_picture_package",
 					  _("Picture package"),
@@ -114,14 +113,12 @@ namespace Gimp.PicturePackage
 					  "2004-2006",
 					  _("Picture Package..."),
 					  "",
-					  in_params);
+					  inParams);
 
       procedure.MenuPath = "<Toolbox>/Xtns/Extensions";
       procedure.IconFile = "PicturePackage.png";
 
-      set.Add(procedure);
-
-      return set;
+      yield return procedure;
     }
 
     override protected bool CreateDialog()

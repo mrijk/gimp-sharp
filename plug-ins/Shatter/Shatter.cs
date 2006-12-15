@@ -19,6 +19,7 @@
 //
 
 using System;
+using System.Collections.Generic;
 
 using Gtk;
 
@@ -38,13 +39,10 @@ namespace Gimp.Shatter
     {
     }
 
-    override protected  ProcedureSet GetProcedureSet()
+    override protected IEnumerable<Procedure> ListProcedures()
     {
-      ProcedureSet set = new ProcedureSet();
-
-      ParamDefList in_params = new ParamDefList();
-      in_params.Add(new ParamDef("pieces", 4, typeof(int),
-				 "Number of shards"));
+      ParamDefList inParams = new ParamDefList();
+      inParams.Add(new ParamDef("pieces", 4, typeof(int), "Number of shards"));
 
       Procedure procedure = new Procedure("plug_in_shatter",
 					  "Shatter an image",
@@ -54,13 +52,11 @@ namespace Gimp.Shatter
 					  "2006",
 					  "Shatter...",
 					  "RGB*, GRAY*",
-					  in_params);
+					  inParams);
       procedure.MenuPath = "<Image>/Filters/Distorts";
       procedure.IconFile = "Shatter.png";
 
-      set.Add(procedure);
-
-      return set;
+      yield return procedure;
     }
 
     override protected bool CreateDialog()
