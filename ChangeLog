@@ -1,5 +1,21 @@
 2006-12-15  Maurits  <m.rijk@chello.nl>
 
+	* lib/AspectPreview.cs: new Update routine...
+
+	* plug-ins/ncp/ncp.cs
+	* plug-ins/Pointillize/Pointillize.cs: ... and use it
+
+	* lib/Pixel.cs: new AddNoise routine
+
+	* plug-ins/Pointillize/ColorCoordinateSet.cs: use AddNoise routine
+
+	* plug-ins/DifferenceClouds/DifferenceClouds.cs: use AddNoise
+	routine, removed CreateLabelInTable
+
+	* plug-ins/Forge/Forge.cs: minor clean-up
+
+2006-12-15  Maurits  <m.rijk@chello.nl>
+
 	* plug-ins/Fragment/Fragment.cs: swith row/col in call to PixelFetcher
 
 	* lib/Drawable.cs

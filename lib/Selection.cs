@@ -37,13 +37,13 @@ namespace Gimp
       _imageID = imageID;
     }
 
-    public void Bounds(out bool non_empty,
-                       out int x1, out int y1,
-                       out int x2, out int y2)
+    public new void Bounds(out bool non_empty,
+			   out int x1, out int y1,
+			   out int x2, out int y2)
     {
-      if (!gimp_selection_bounds (_imageID,
-                                  out non_empty,
-                                  out x1, out y1, out x2, out y2))
+      if (!gimp_selection_bounds(_imageID,
+				 out non_empty,
+				 out x1, out y1, out x2, out y2))
         {
 	  throw new Exception();
         }

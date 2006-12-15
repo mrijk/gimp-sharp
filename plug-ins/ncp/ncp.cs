@@ -123,24 +123,7 @@ namespace Gimp.ncp
     override protected void UpdatePreview(AspectPreview preview)
     {
       Initialize(_drawable);
-
-      int width, height;
-      preview.GetSize(out width, out height);
-
-      byte[] buffer = new byte[width * height * 3];
-
-      for (int y = 0; y < height; y++)
-	{
-	  int y_orig = _height * y / height;
-	  for (int x = 0; x < width; x++)
-	    {
-	      long index = 3 * (y * width + x);
-	      int x_orig = _width * x / width;
-
-	      DoNCP(x_orig, y_orig).CopyTo(buffer, index);
-	    }
-	}
-      preview.DrawBuffer(buffer, width * 3);
+      preview.Update(DoNCP);
     }
 
     void PointsUpdate(object sender, EventArgs e)

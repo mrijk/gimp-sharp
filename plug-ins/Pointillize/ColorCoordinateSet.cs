@@ -66,7 +66,7 @@ namespace Gimp.Pointillize
 	  Coordinate<int> c = new Coordinate<int>(x, y);
 
 	  Pixel color = pf[y, x];
-	  AddNoise(color);
+	  color.AddNoise(5);
 
 	  ColorCoordinate coordinate = new ColorCoordinate(c, color);
 	  Add(coordinate);
@@ -96,14 +96,6 @@ namespace Gimp.Pointillize
 	}
 
       pf.Dispose();
-    }
-
-    void AddNoise(Pixel pixel)
-    {
-      pixel.Red += _random.Next(0, 10) - 5;
-      pixel.Green += _random.Next(0, 10) - 5;
-      pixel.Blue += _random.Next(0, 10) - 5;
-      pixel.Clamp0255();
     }
 
     void Intersects(int x, int y, int col, int row, ColorCoordinate coordinate)

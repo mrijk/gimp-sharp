@@ -620,9 +620,7 @@ namespace Gimp.Forge
       const double c1 = 3.7403e10;
       const double c2 = 14384.0;
       double ret_val = c1 * Math.Pow(lambda, -5.0);
-      ret_val /= (Math.Pow(Math.E, c2 / (lambda * temperature)) - 1);
-
-      return ret_val;
+      return ret_val / (Math.Exp(c2 / (lambda * temperature)) - 1);
     }
 
     /*  TEMPRGB  --  Calculate the relative R, G, and B components for  a
@@ -632,10 +630,8 @@ namespace Gimp.Forge
         Standard    Colorimetric    Observer.	  The	colour
         temperature is specified in degrees Kelvin. */
 
-    double[] TempRGB(double temp)
+    RGB TempRGB(double temp)
     {
-      double[] rgb = new double[3];
-
       // Lambda is the wavelength in microns: 5500 angstroms is 0.55 microns.
 
       double er = Planck(temp, 0.7000);
@@ -644,10 +640,7 @@ namespace Gimp.Forge
 
       double es = 1.0 / Math.Max(er, Math.Max(eg, eb));
 
-      rgb[0] = er * es;
-      rgb[1] = eg * es;
-      rgb[2] = eb * es;
-      return rgb;
+      return new RGB(er * es, eg * es, eb * es);
     }
 
 
@@ -868,14 +861,12 @@ namespace Gimp.Forge
 	      /* Constrain temperature to a reasonable value: >= 2600K
 		 (S Cephei/R Andromedae), <= 28,000 (Spica). */
 	      temp = Math.Max(2600, Math.Min(28000, temp));
-	      double[] rgb = TempRGB(temp);
+	      RGB rgb = TempRGB(temp);
 
-	      Pixel pixel = new Pixel(3);
-	      for (int i = 0; i < 3; i++)
-		{
-		  pixel[i] = (byte)(rgb[i] * v + 0.499);
-		}
-	      return pixel;
+	      rgb.Multiply(v);
+	      rgb.Add(new RGB(0.499, 0.499, 0.499));
+
+	      return new Pixel(rgb.Bytes);
 	    }
 	} 
       else 

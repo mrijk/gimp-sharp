@@ -26,9 +26,35 @@ namespace Gimp
 {
   public class AspectPreview : GimpPreview
   {
+    int _drawableWidth;
+    int _drawableHeight;
+
     public AspectPreview(Drawable drawable, bool toggle) : 
       base(gimp_aspect_preview_new(drawable.Ptr, toggle))
     {
+      _drawableWidth = drawable.Width;
+      _drawableHeight = drawable.Height;
+    }
+
+    public void Update(RgnIterator.IterFuncDestFull func)
+    {
+      int width, height;
+      GetSize(out width, out height);
+
+      byte[] buffer = new byte[width * height * 3];
+
+      for (int y = 0; y < height; y++)
+	{
+	  int y_orig = _drawableHeight * y / height;
+	  for (int x = 0; x < width; x++)
+	    {
+	      long index = 3 * (y * width + x);
+	      int x_orig = _drawableWidth * x / width;
+
+	      func(x_orig, y_orig).CopyTo(buffer, index);
+	    }
+	}
+      DrawBuffer(buffer, width * 3);
     }
 
     [DllImport("libgimpui-2.0-0.dll")]

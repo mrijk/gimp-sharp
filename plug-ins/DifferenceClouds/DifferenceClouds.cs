@@ -80,7 +80,7 @@ namespace Gimp.DifferenceClouds
     {
       gimp_ui_init("Difference Clouds", true);
 
-      Dialog dialog = DialogNew(_("Difference Clouds 0.1"),
+      Dialog dialog = DialogNew(_("Difference Clouds 0.2"),
 				_("Difference Clouds"), IntPtr.Zero, 0,
 				Gimp.StandardHelpFunc, _("Difference Clouds"));
 
@@ -88,15 +88,12 @@ namespace Gimp.DifferenceClouds
       vbox.BorderWidth = 12;
       dialog.VBox.PackStart(vbox, true, true, 0);
 
-      // Create the table widget
       GimpTable table = new GimpTable(3, 4, false);
-      table.ColumnSpacing = 10;
-      table.RowSpacing = 10;
-      table.BorderWidth = 10;
+      table.ColumnSpacing = 6;
+      table.RowSpacing = 6;
 
-      CreateLabelInTable(table, 0, 0, _("Seed:"));
       RandomSeed seed = new RandomSeed(ref _rseed, ref _random_seed);
-      table.Attach(seed, 1, 3, 0, 1);
+      table.AttachAligned(0, 0, _("Random _Seed:"), 0.0, 0.5, seed, 2, true);
 
       _turbulenceEntry = new ScaleEntry(table, 0, 1, _("_Turbulence"), 150, 3,
 					_turbulence, 0.0, 7.0, 0.1, 1.0, 1, 
@@ -120,10 +117,8 @@ namespace Gimp.DifferenceClouds
     {
       Tile.CacheDefault(drawable);
 
-      if (_progressBar == null)
-        _progressBar = new Progress(_("Difference Clouds..."));
-      if (_random == null)
-        _random = new Random((int)_rseed);
+      _progressBar = new Progress(_("Difference Clouds..."));
+      _random = new Random((int)_rseed);
 
       Layer activeLayer = image.ActiveLayer;
       Layer newLayer = new Layer(activeLayer);
@@ -174,16 +169,6 @@ namespace Gimp.DifferenceClouds
       drawable.Update(rectangle);
       Display.DisplaysFlush();
     }
-
-    Label CreateLabelInTable(Table table, uint row, uint col, string text) 
-    {
-      Label label = new Label(text);
-      label.SetAlignment(0.0f, 0.5f);
-      table.Attach(label, col, col + 1, row, row + 1, Gtk.AttachOptions.Fill, 
-		   Gtk.AttachOptions.Fill, 0, 0);
-
-      return label;
-    } 
 
     // Fix me: use Read/Write iterators
     void DoDifference(Drawable sourceDrawable, Drawable toDiffDrawable)
@@ -287,7 +272,6 @@ namespace Gimp.DifferenceClouds
 		}
 	    }
 
-
 	  if (ym != y1 || ym != y2)
 	    {
 	      if (x1 != xm || ym != y2)
@@ -305,30 +289,6 @@ namespace Gimp.DifferenceClouds
 		}
 	    }
 
-	  /* Fix me: check with Max if this code is needed!
-
-	  if (ym != y1 || ym != y2)
-	    {
-	      if (x1 != xm || ym != y2)
-		{
-		  // Bottom
-		  bm = (bl + br) / 2;
-		  AddRandom(bm, ran);
-		  pf[y1, xm] = bm;
-		  _progress++;
-		}
-
-	      if (y1 != y2)
-		{
-		  // Top
-		  tm = (tl + tr) / 2;
-		  AddRandom(tm, ran);
-		  pf[y1, xm] = tm;
-		  _progress++;
-		}
-	    }
-	  */
-
 	  if (y1 != y2 || x1 != x2)
 	    {
 	      // Middle pixel
@@ -345,8 +305,7 @@ namespace Gimp.DifferenceClouds
 
 	  return (x2 - x1 < 3) && (y2 - y1 < 3);
 	}
-
-      if (x1 < x2 || y1 < y2)
+      else if (x1 < x2 || y1 < y2)
 	{
 	  depth--;
 	  scaleDepth++;
@@ -382,18 +341,9 @@ namespace Gimp.DifferenceClouds
       return pixel;
     }
 
-    Pixel AddRandom (Pixel pixel, int amount)
+    Pixel AddRandom(Pixel pixel, int amount)
     {
-      amount /= 2;
-
-      if (amount > 0)
-	{
-	  for (int i = 0; i < _alpha; i++)
-	    {
-	      pixel[i] += _random.Next(-amount, amount);
-	    }
-	  pixel.Clamp0255();
-	}
+      pixel.AddNoise(amount / 2);
       return pixel;
     }
 

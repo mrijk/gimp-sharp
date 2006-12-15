@@ -25,6 +25,8 @@ namespace Gimp
 {
   public class Pixel
   {
+    static Random _random = new Random();
+
     readonly int _bpp;
     readonly int[] _rgb;
     int _x;
@@ -170,6 +172,23 @@ namespace Gimp
     {
       for (int i = 0; i < _bpp; i++)
 	{
+	  if (_rgb[i] < 0)
+	    {
+	      _rgb[i] = 0;
+	    }
+	  else if (_rgb[i] > 255)
+	    {
+	      _rgb[i] = 255;
+	    }
+	}
+    }
+
+    public void AddNoise(int noise)
+    {
+      int bpp = HasAlpha ? _bpp - 1 : _bpp;
+      for (int i = 0; i < bpp; i++)
+	{
+	  _rgb[i] += _random.Next(-noise, noise);
 	  if (_rgb[i] < 0)
 	    {
 	      _rgb[i] = 0;
