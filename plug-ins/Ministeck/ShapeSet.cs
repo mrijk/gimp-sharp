@@ -48,8 +48,7 @@ namespace Gimp.Ministeck
     {
       long index = (long) (_random.NextDouble() * _combinations);
 
-      List<Shape> permutation = GeneratePermutation(index);
-      foreach (Shape shape in permutation)
+      foreach (Shape shape in GeneratePermutation(index))
 	yield return shape;
     }
 

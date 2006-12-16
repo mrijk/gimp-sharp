@@ -59,13 +59,14 @@ namespace Gimp.PhotoshopActions
       yield return procedure;
     }
 
-    override protected bool CreateDialog()
+    override protected GimpDialog CreateDialog()
     {
       gimp_ui_init("PhotoshopActions", true);
 
-      Dialog dialog = DialogNew("Photoshop Actions 0.3", "PhotoshopActions",
-				IntPtr.Zero, 0, Gimp.StandardHelpFunc, 
-				"PhotoshopActions");
+      GimpDialog dialog = DialogNew("Photoshop Actions 0.3", 
+				    "PhotoshopActions",
+				    IntPtr.Zero, 0, Gimp.StandardHelpFunc, 
+				    "PhotoshopActions");
 
       VBox vbox = new VBox(false, 12);
       vbox.BorderWidth = 12;
@@ -130,8 +131,7 @@ namespace Gimp.PhotoshopActions
       }, 
 				       IntPtr.Zero, null);
 
-      dialog.ShowAll();
-      return DialogRun();
+      return dialog;
     }
 
     private void RenderText(TreeViewColumn column, CellRenderer cell, 

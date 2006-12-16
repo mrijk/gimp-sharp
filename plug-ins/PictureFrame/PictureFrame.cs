@@ -56,12 +56,13 @@ namespace Gimp.PictureFrame
       yield return procedure;
     }
 
-    override protected bool CreateDialog()
+    override protected GimpDialog CreateDialog()
     {
       gimp_ui_init("Picture Frame", true);
     	
-      Dialog dialog = DialogNew("Picture Frame", "Picture Frame", IntPtr.Zero, 
-				0, Gimp.StandardHelpFunc, "Picture Frame");
+      GimpDialog dialog = DialogNew("Picture Frame", "Picture Frame", 
+				    IntPtr.Zero, 0, 
+				    Gimp.StandardHelpFunc, "Picture Frame");
       dialog.Modal = false;
 
       VBox vbox = new VBox(false, 12);
@@ -82,15 +83,11 @@ namespace Gimp.PictureFrame
 #endif
       vbox.PackStart(entry, false, false, 0);
 
-      dialog.ShowAll();
-				
-      return DialogRun();
-
+      return dialog;
     }
     
     override protected void Render(Image image, Drawable original_drawable)
     {
-    
       try
 	{
 	  Image frame = Image.Load(RunMode.Interactive, 

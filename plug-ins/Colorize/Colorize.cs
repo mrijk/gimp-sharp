@@ -93,12 +93,12 @@ namespace Gimp.Colorize
       _marked = new Drawable(active);
     }
 
-    override protected bool CreateDialog()
+    override protected GimpDialog CreateDialog()
     {
       gimp_ui_init("Colorize", true);
 
-      Dialog dialog = DialogNew("Colorize", "Colorize", IntPtr.Zero, 0,
-				Gimp.StandardHelpFunc, "Colorize");
+      GimpDialog dialog = DialogNew("Colorize", "Colorize", IntPtr.Zero, 0,
+				    Gimp.StandardHelpFunc, "Colorize");
 
       VBox vbox = new VBox(false, 12);
       vbox.BorderWidth = 12;
@@ -155,8 +155,7 @@ namespace Gimp.Colorize
       };
       table.Attach(useEntireImage, 0, 1, 5, 6);
 
-      dialog.ShowAll();
-      return DialogRun();
+      return dialog;
     }
 
     bool DialogMarkedConstrain(Int32 imageId, Int32 drawableId, IntPtr data)

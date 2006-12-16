@@ -51,9 +51,9 @@ namespace Gimp.Ministeck
       inParams.Add(new ParamDef("limit", true, typeof(bool), 
           _("Use real life ratio for number of pieces if true")));
       inParams.Add(new ParamDef("size", 16, typeof(int), 
-          _("Default size")));
+				_("Default size")));
       inParams.Add(new ParamDef("color", new RGB(0, 0, 0), typeof(RGB), 
-			    _("Color for the outline")));
+				_("Color for the outline")));
 
       Procedure procedure = new Procedure("plug_in_ministeck",
 					  _("Generates Ministeck"),
@@ -70,12 +70,12 @@ namespace Gimp.Ministeck
       yield return procedure;
     }
 
-    override protected bool CreateDialog()
+    override protected GimpDialog CreateDialog()
     {
       gimp_ui_init("ministeck", true);
 
-      Dialog dialog = DialogNew(_("Ministeck"), _("ministeck"), IntPtr.Zero, 
-				0, null, _("ministeck"));
+      GimpDialog dialog = DialogNew(_("Ministeck"), _("ministeck"), 
+				    IntPtr.Zero, 0, null, _("ministeck"));
 	
       VBox vbox = new VBox(false, 12);
       vbox.BorderWidth = 12;
@@ -115,25 +115,20 @@ namespace Gimp.Ministeck
 	  _color = colorButton.Color;
 	  _preview.Invalidate();
 	};
-      table.AttachAligned(0, 1, _("C_olor:"), 
-        0.0, 0.5, colorButton, 1, true);
+      table.AttachAligned(0, 1, _("C_olor:"), 0.0, 0.5, colorButton, 1, true);
 
-      dialog.ShowAll();
-      return DialogRun();
+      return dialog;
     }
 
     void UpdatePreview(object sender, EventArgs e)
     {
-      int x, y, width, height;
- 	
-      _preview.GetPosition(out x, out y);
-      _preview.GetSize(out width, out height);
+      Rectangle rectangle = _preview.Bounds;
       Image clone = new Image(_image);
-      clone.Crop(width, height, x, y);
+      clone.Crop(rectangle);
 
       RenderMinisteck(clone, clone.ActiveDrawable, true);
-      PixelRgn rgn = new PixelRgn(clone.ActiveDrawable, 0, 0, width, height, 
-				  false, false);
+      PixelRgn rgn = new PixelRgn(clone.ActiveDrawable, rectangle, false, 
+				  false);
       _preview.DrawRegion(rgn);
 	
       clone.Delete();

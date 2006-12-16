@@ -23,7 +23,6 @@ using System.Collections.Generic;
 
 using Gtk;
 
-
 namespace Gimp.DifferenceClouds
 {
   public class DifferenceClouds : Plugin
@@ -76,13 +75,14 @@ namespace Gimp.DifferenceClouds
       yield return procedure;
     }
 
-    override protected bool CreateDialog()
+    override protected GimpDialog CreateDialog()
     {
       gimp_ui_init("Difference Clouds", true);
 
-      Dialog dialog = DialogNew(_("Difference Clouds 0.2"),
-				_("Difference Clouds"), IntPtr.Zero, 0,
-				Gimp.StandardHelpFunc, _("Difference Clouds"));
+      GimpDialog dialog = DialogNew(_("Difference Clouds 0.2"),
+				    _("Difference Clouds"), IntPtr.Zero, 0,
+				    Gimp.StandardHelpFunc, 
+				    _("Difference Clouds"));
 
       VBox vbox = new VBox(false, 12);
       vbox.BorderWidth = 12;
@@ -105,8 +105,7 @@ namespace Gimp.DifferenceClouds
 
       vbox.PackStart(table, false, false, 0);
 
-      dialog.ShowAll();
-      return DialogRun();
+      return dialog;
     }
 
     override protected void Reset()

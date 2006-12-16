@@ -62,12 +62,12 @@ namespace Gimp.UnitTest
       yield return procedure;
     }
 
-    override protected bool CreateDialog()
+    override protected GimpDialog CreateDialog()
     {
       gimp_ui_init("UnitTest", true);
 
-      Dialog dialog = DialogNew("UnitTest", "UnitTest", IntPtr.Zero, 0,
-				Gimp.StandardHelpFunc, "UnitTest");
+      GimpDialog dialog = DialogNew("UnitTest", "UnitTest", IntPtr.Zero, 0,
+				    Gimp.StandardHelpFunc, "UnitTest");
 
       VBox vbox = new VBox(false, 12);
       vbox.BorderWidth = 12;
@@ -82,8 +82,7 @@ namespace Gimp.UnitTest
 	};
       vbox.PackStart(entry, false, false, 0);
 
-      dialog.ShowAll();
-      return DialogRun();
+      return dialog;
     }
 
     override protected void Render()
@@ -101,14 +100,14 @@ namespace Gimp.UnitTest
       double ratio = (double) _testsPerformed / _testCasesTotalNumber;
 
       if (_progress != null)
-      {
-        _progress.Update(ratio);
-	/*
-        if(testsPerformed == _testCasesTotalNumber)
-        {
-        }
-        */
-      }
+	{
+	  _progress.Update(ratio);
+	  /*
+	    if(testsPerformed == _testCasesTotalNumber)
+	    {
+	    }
+	  */
+	}
     }
 
     public int TestCasesTotalNumber

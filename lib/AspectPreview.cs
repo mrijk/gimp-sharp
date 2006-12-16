@@ -36,7 +36,7 @@ namespace Gimp
       _drawableHeight = drawable.Height;
     }
 
-    public void Update(RgnIterator.IterFuncDestFull func)
+    public new void Update(RgnIterator.IterFuncDestFull func)
     {
       int width, height;
       GetSize(out width, out height);

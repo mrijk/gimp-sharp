@@ -81,12 +81,12 @@ namespace Gimp.Splitter
       yield return procedure;
     }
 
-    override protected bool CreateDialog()
+    override protected GimpDialog CreateDialog()
     {
       gimp_ui_init("splitter", true);
 
-      Dialog dialog = DialogNew(_("Splitter"), _("splitter"),
-				IntPtr.Zero, 0, null, _("splitter"));
+      GimpDialog dialog = DialogNew(_("Splitter"), _("splitter"),
+				    IntPtr.Zero, 0, null, _("splitter"));
 
       VBox vbox = new VBox(false, 12);
       vbox.BorderWidth = 12;
@@ -152,8 +152,7 @@ namespace Gimp.Splitter
 	};
       table.AttachAligned(0, 5, "Keep:", 0.0, 0.5, keep, 1, true);
 
-      dialog.ShowAll();
-      return DialogRun();
+      return dialog;
     }
 
     GimpFrame CreateLayerFrame1()

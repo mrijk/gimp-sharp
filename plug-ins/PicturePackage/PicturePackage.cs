@@ -60,8 +60,6 @@ namespace Gimp.PicturePackage
     [SaveAttribute]
     int _position;
 
-    Dialog _dialog = null;
-
     private Gdk.Point _beginDnDPoint = new Point(0,0);
     private Gdk.Point _leaveDnDPoint = new Point(0,0);
     private bool _beginDnDSet;
@@ -121,15 +119,15 @@ namespace Gimp.PicturePackage
       yield return procedure;
     }
 
-    override protected bool CreateDialog()
+    override protected GimpDialog CreateDialog()
     {
       gimp_ui_init("PicturePackage", true);
 
       _layoutSet.Load();
 
-      Dialog dialog = DialogNew(_("Picture Package 0.6.2"),
-				_("PicturePackage"), IntPtr.Zero, 0, null, 
-				_("PicturePackage"));
+      GimpDialog dialog = DialogNew(_("Picture Package 0.6.2"),
+				    _("PicturePackage"), IntPtr.Zero, 0, null, 
+				    _("PicturePackage"));
 
       HBox hbox = new HBox(false, 12);
       hbox.BorderWidth = 12;
@@ -174,27 +172,28 @@ namespace Gimp.PicturePackage
       _layoutSet.SelectEvent += SetLayout;
 
 
-      Gtk.Drag.DestSet (_preview, DestDefaults.All, targetTable, DragAction.Copy | DragAction.Move);
+      Gtk.Drag.DestSet(_preview, DestDefaults.All, targetTable, 
+		       DragAction.Copy | DragAction.Move);
 
       _preview.DragMotion += new DragMotionHandler(HandlePopupMotion);
 
-      Gtk.Drag.SourceSet (_preview, Gdk.ModifierType.Button1Mask, targetTable, DragAction.Copy | DragAction.Move);
+      Gtk.Drag.SourceSet(_preview, Gdk.ModifierType.Button1Mask, targetTable, 
+			 DragAction.Copy | DragAction.Move);
 
       _preview.DragBegin += new DragBeginHandler(HandlePopupBegin);
       _preview.DragEnd += new DragEndHandler(HandlePopupEnd);
       _preview.DragDataGet += new DragDataGetHandler(HandlePopupDataGet);
-      _preview.DragDataDelete += new DragDataDeleteHandler(HandlePopupDataDelete);
+      _preview.DragDataDelete += 
+	new DragDataDeleteHandler(HandlePopupDataDelete);
 
       _preview.DragLeave += new DragLeaveHandler(HandlePopupLeave);
 
-      _preview.DragDataReceived += new DragDataReceivedHandler (HandleLabelDragDataReceived);
-
-      _dialog = dialog;
+      _preview.DragDataReceived += 
+	new DragDataReceivedHandler(HandleLabelDragDataReceived);
 
       DialogState = DialogStateType.SrcImgInvalid;
 
-      dialog.ShowAll();
-      return DialogRun();
+      return dialog;
     }
 
     void SetLayout(Layout layout)
@@ -433,16 +432,16 @@ namespace Gimp.PicturePackage
       set
 	{
 	  _currentDialogState = value;
-	  if (_dialog != null)
+	  if (Dialog != null)
 	    {
 	      if (_currentDialogState == DialogStateType.SrcImgValid ||
 		  _currentDialogState == DialogStateType.SrcFileValid)
 		{
-		  _dialog.SetResponseSensitive(ResponseType.Ok, true);
+		  Dialog.SetResponseSensitive(ResponseType.Ok, true);
 		}
 	      else
 		{
-		  _dialog.SetResponseSensitive(ResponseType.Ok, false);
+		  Dialog.SetResponseSensitive(ResponseType.Ok, false);
 		}
 	    }
 	}
@@ -452,9 +451,7 @@ namespace Gimp.PicturePackage
 	}
     }
 
-
-
-    private static void HandleTargetDragLeave (object sender, DragLeaveArgs args)
+    static void HandleTargetDragLeave(object sender, DragLeaveArgs args)
     {
       Console.WriteLine("HandleTargetDragLeave");
       have_drag = false;
@@ -463,67 +460,73 @@ namespace Gimp.PicturePackage
       //(sender as Gtk.Image).FromPixbuf = trashcan_closed_pixbuf;
     }
 
-    private static void HandleTargetDragMotion (object sender, DragMotionArgs args)
+    static void HandleTargetDragMotion (object sender, DragMotionArgs args)
     {
       Console.WriteLine("HandleTargetDragMotion");
       if (! have_drag) {
         have_drag = true;
         // FIXME?  Kinda wonky binding.
-        //			(sender as Gtk.Image).FromPixbuf = trashcan_open_pixbuf;
+        // (sender as Gtk.Image).FromPixbuf = trashcan_open_pixbuf;
       }
 
       Widget source_widget = Gtk.Drag.GetSourceWidget (args.Context);
-      Console.WriteLine ("motion, source {0}", source_widget == null ? "null" : source_widget.ToString ());
-
-      Atom [] targets = args.Context.Targets;
+      Console.WriteLine ("motion, source {0}", source_widget == null ? 
+			 "null" : source_widget.ToString ());
+      
+      Atom[] targets = args.Context.Targets;
       foreach (Atom a in targets)
         Console.WriteLine (a.Name); 
-
+      
       Gdk.Drag.Status (args.Context, args.Context.SuggestedAction, args.Time);
       args.RetVal = true;
     }
 
-    private static void HandleTargetDragDrop (object sender, DragDropArgs args)
+    static void HandleTargetDragDrop(object sender, DragDropArgs args)
     {
       Console.WriteLine("HandleTargetDragDrop");
       Console.WriteLine ("drop");
       have_drag = false;
-      //		(sender as Gtk.Image).FromPixbuf = trashcan_closed_pixbuf;
-
-#if BROKEN			// Context.Targets is not defined in the bindings
-      if (Context.Targets.Length != 0) {
-        Drag.GetData (sender, context, Context.Targets.Data as Gdk.Atom, args.Time);
-        args.RetVal = true;
+      //  (sender as Gtk.Image).FromPixbuf = trashcan_closed_pixbuf;
+      
+#if BROKEN   // Context.Targets is not defined in the bindings
+      if (Context.Targets.Length != 0) 
+	{
+	  Drag.GetData (sender, context, Context.Targets.Data as Gdk.Atom, 
+			args.Time);
+	  args.RetVal = true;
       }
 #endif
 
       args.RetVal = false;
     }
 
-    private static void HandleTargetDragDataReceived (object sender, 
-						      DragDataReceivedArgs args)
+    static void HandleTargetDragDataReceived(object sender, 
+					     DragDataReceivedArgs args)
     {
       Console.WriteLine("HandleTargetDragDataReceived");
-      if (args.SelectionData.Length >=0 && args.SelectionData.Format == 8) {
-        Console.WriteLine ("Received {0} in trashcan", args.SelectionData);
-        Gtk.Drag.Finish (args.Context, true, false, args.Time);
+      if (args.SelectionData.Length >=0 && args.SelectionData.Format == 8) 
+	{
+	  Console.WriteLine ("Received {0} in trashcan", args.SelectionData);
+	  Gtk.Drag.Finish (args.Context, true, false, args.Time);
       }
-
+      
       Gtk.Drag.Finish (args.Context, false, false, args.Time);
     }
 
-    private static void HandleLabelDragDataReceived (object sender, DragDataReceivedArgs args)
+    static void HandleLabelDragDataReceived(object sender, 
+					    DragDataReceivedArgs args)
     {
       Console.WriteLine ("HandleLabelDragDataReceived");
-      if (args.SelectionData.Length >=0 && args.SelectionData.Format == 8) {
-        Console.WriteLine ("Received {0} in label", args.SelectionData);
-        Gtk.Drag.Finish (args.Context, true, false, args.Time);
-      }
-
+      if (args.SelectionData.Length >=0 && args.SelectionData.Format == 8) 
+	{
+	  Console.WriteLine ("Received {0} in label", args.SelectionData);
+	  Gtk.Drag.Finish (args.Context, true, false, args.Time);
+	}
+      
       Gtk.Drag.Finish (args.Context, false, false, args.Time);
     }
 
-    private static void HandleSourceDragDataGet (object sender, DragDataGetArgs args)
+    static void HandleSourceDragDataGet(object sender, DragDataGetArgs args)
     {
       Console.WriteLine ("HandleSourceDragDataGet");
       if (args.Info == (uint) TargetType.RootWindow)
@@ -532,7 +535,7 @@ namespace Gimp.PicturePackage
         args.SelectionData.Text = "I'm data!";
     }
 
-    private static bool HandlePopdownCallback ()
+    static bool HandlePopdownCallback ()
     {
       Console.WriteLine ("HandlePopdownCallback");
       /*
@@ -543,7 +546,7 @@ namespace Gimp.PicturePackage
       return false;
     }
 
-    private void HandlePopupMotion (object sender, DragMotionArgs args)
+    void HandlePopupMotion (object sender, DragMotionArgs args)
     {
       if(!_beginDnDSet)
 	{
@@ -572,7 +575,7 @@ namespace Gimp.PicturePackage
       args.RetVal = true;
     }
 
-    private static void HandlePopupLeave (object sender, DragLeaveArgs args)
+    static void HandlePopupLeave (object sender, DragLeaveArgs args)
     {
       Console.WriteLine ("HandlePopupLeave");
       /*
@@ -586,7 +589,7 @@ namespace Gimp.PicturePackage
       */
     }
 
-    private static void HandlePopupBegin (object sender, DragBeginArgs args)
+    static void HandlePopupBegin (object sender, DragBeginArgs args)
     {
       Console.WriteLine ("HandlePopupBegin");
       /*
@@ -600,7 +603,7 @@ namespace Gimp.PicturePackage
       */
     }
 
-    private void HandlePopupEnd (object sender, DragEndArgs args)
+    void HandlePopupEnd (object sender, DragEndArgs args)
     {
       Console.WriteLine ("HandlePopupEnd");
 
@@ -631,7 +634,7 @@ namespace Gimp.PicturePackage
       
     }
 
-    private static void HandlePopupDataGet (object sender, DragDataGetArgs args)
+    static void HandlePopupDataGet (object sender, DragDataGetArgs args)
     {
       Console.WriteLine("HandlePopupDataGet");
       /*
@@ -645,7 +648,7 @@ namespace Gimp.PicturePackage
       */
     }
 
-    private static void HandlePopupDataDelete (object sender, DragDataDeleteArgs args)
+    static void HandlePopupDataDelete (object sender, DragDataDeleteArgs args)
     {
       Console.WriteLine("HandlePopupDataDelete");
       /*
@@ -659,7 +662,7 @@ namespace Gimp.PicturePackage
       */
     }
 
-    private static bool HandlePopupCallback ()
+    static bool HandlePopupCallback ()
     {
       Console.WriteLine("HandlePopupCallback");
       /*

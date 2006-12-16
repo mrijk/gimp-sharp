@@ -162,12 +162,12 @@ namespace Gimp.Forge
       yield return procedure;
     }
 
-    override protected bool CreateDialog()
+    override protected GimpDialog CreateDialog()
     {
       gimp_ui_init("Forge", true);
 
-      Dialog dialog = DialogNew(_("Forge 0.1"), _("Forge"), IntPtr.Zero, 0,
-				Gimp.StandardHelpFunc, _("Forge"));
+      GimpDialog dialog = DialogNew(_("Forge 0.1"), _("Forge"), IntPtr.Zero, 0,
+				    Gimp.StandardHelpFunc, _("Forge"));
 
       VBox vbox = new VBox(false, 12);
       vbox.BorderWidth = 12;
@@ -240,8 +240,7 @@ namespace Gimp.Forge
 
       vbox.PackStart(table, false, false, 0);
 
-      dialog.ShowAll();
-      return DialogRun();
+      return dialog;
     }
 
     RadioButton CreateRadioButtonInHBox(HBox hbox, 
@@ -256,7 +255,6 @@ namespace Gimp.Forge
 
       return radioButton;
     }
-
 
     SpinButton CreateIntSpinButtonInTable(Table table, uint row, uint col, 
 					  uint initialValue, 
@@ -638,9 +636,9 @@ namespace Gimp.Forge
       double eg = Planck(temp, 0.5461);
       double eb = Planck(temp, 0.4358);
 
-      double es = 1.0 / Math.Max(er, Math.Max(eg, eb));
-
-      return new RGB(er * es, eg * es, eb * es);
+      RGB rgb = new RGB(er, eg, eb);
+      rgb.Multiply(1.0 / rgb.Max);
+      return rgb;
     }
 
 
@@ -865,6 +863,7 @@ namespace Gimp.Forge
 
 	      rgb.Multiply(v);
 	      rgb.Add(new RGB(0.499, 0.499, 0.499));
+	      rgb.Multiply(1.0 / 255);
 
 	      return new Pixel(rgb.Bytes);
 	    }

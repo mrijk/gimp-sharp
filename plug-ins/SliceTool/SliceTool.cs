@@ -77,17 +77,17 @@ namespace Gimp.SliceTool
       yield return procedure;
     }
     
-    override protected bool CreateDialog()
+    override protected GimpDialog CreateDialog()
     {
       gimp_ui_init("SliceTool", true);
       
       CreateStockIcons();
       
-      Dialog dialog = DialogNew(_("Slice Tool"), _("SliceTool"), IntPtr.Zero, 
-				0, null, _("SliceTool"),
-				Stock.SaveAs, (Gtk.ResponseType) 0,
-				Stock.Save, (Gtk.ResponseType) 1,
-				Stock.Close, ResponseType.Close);
+      GimpDialog dialog = DialogNew(_("Slice Tool"), _("SliceTool"), 
+				    IntPtr.Zero, 0, null, _("SliceTool"),
+				    Stock.SaveAs, (Gtk.ResponseType) 0,
+				    Stock.Save, (Gtk.ResponseType) 1,
+				    Stock.Close, ResponseType.Close);
       
       SetTitle(null);
       
@@ -148,8 +148,7 @@ namespace Gimp.SliceTool
       
       _func = new SelectFunc(this, _sliceData, _preview);
       
-      dialog.ShowAll();
-      return DialogRun();
+      return dialog;
     }
     
     // Fix me: move this to Plugin class?!

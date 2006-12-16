@@ -79,10 +79,12 @@ namespace Gimp.ncp
       yield return procedure;
     }
 
-    override protected bool CreateDialog()
+    override protected GimpDialog CreateDialog()
     {
-      Dialog dialog = DialogNew("ncp", "ncp", IntPtr.Zero, 0,
-				Gimp.StandardHelpFunc, "ncp");
+      gimp_ui_init("ncp", true);
+
+      GimpDialog dialog = DialogNew("ncp", "ncp", IntPtr.Zero, 0,
+				    Gimp.StandardHelpFunc, "ncp");
 
       GimpTable table = new GimpTable(4, 3, false);
       table.ColumnSpacing = 6;
@@ -116,8 +118,7 @@ namespace Gimp.ncp
 	};
       table.Attach(color, 0, 1, 3, 4);
 			
-      dialog.ShowAll();
-      return DialogRun();
+      return dialog;
     }
 
     override protected void UpdatePreview(AspectPreview preview)

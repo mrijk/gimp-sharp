@@ -74,10 +74,10 @@ namespace Gimp.Swirlies
       yield return procedure;
     }
 
-    override protected bool CreateDialog()
+    override protected GimpDialog CreateDialog()
     {
-      Dialog dialog = DialogNew(_("Swirlies"), _("swirlies"), IntPtr.Zero, 0, 
-				null, _("swirlies"));
+      GimpDialog dialog = DialogNew(_("Swirlies"), _("swirlies"), IntPtr.Zero, 
+				    0, null, _("swirlies"));
       // _preview.SetBounds(0, 0, 50, 50);
 
       _progress = new ProgressBar();
@@ -100,9 +100,8 @@ namespace Gimp.Swirlies
 	  _points = entry.ValueAsInt;
 	  InvalidatePreview();
 	};
-			
-      dialog.ShowAll();
-      return DialogRun();
+
+      return dialog;
     }
 
     override protected void UpdatePreview(AspectPreview preview)

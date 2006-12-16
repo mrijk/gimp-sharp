@@ -70,13 +70,13 @@ namespace Gimp.UpdateCheck
       yield return procedure;
     }
 
-    override protected bool CreateDialog()
+    override protected GimpDialog CreateDialog()
     {
       gimp_ui_init("UpdateCheck", true);
 
-      Dialog dialog = DialogNew(_("UpdateCheck"), _("UpdateCheck"), 
-				IntPtr.Zero, 0, Gimp.StandardHelpFunc, 
-				_("UpdateCheck"));
+      GimpDialog dialog = DialogNew(_("UpdateCheck"), _("UpdateCheck"), 
+				    IntPtr.Zero, 0, Gimp.StandardHelpFunc, 
+				    _("UpdateCheck"));
 
       VBox vbox = new VBox(false, 12);
       vbox.BorderWidth = 12;
@@ -89,24 +89,27 @@ namespace Gimp.UpdateCheck
 
       CheckButton checkGimp = new CheckButton(_("Check _GIMP"));
       checkGimp.Active = _checkGimp;
-      checkGimp.Toggled += delegate(object sender, EventArgs args) {
-	_checkGimp = checkGimp.Active;
-      };
+      checkGimp.Toggled += delegate(object sender, EventArgs args) 
+	{
+	  _checkGimp = checkGimp.Active;
+	};
       table.Attach(checkGimp, 0, 1, 0, 1);
 
       CheckButton checkGimpSharp = new CheckButton(_("Check G_IMP#"));
       checkGimpSharp.Active = _checkGimpSharp;
-      checkGimpSharp.Toggled += delegate(object sender, EventArgs args) {
-	_checkGimpSharp = checkGimpSharp.Active;
-      };
+      checkGimpSharp.Toggled += delegate(object sender, EventArgs args) 
+	{
+	  _checkGimpSharp = checkGimpSharp.Active;
+	};
       table.Attach(checkGimpSharp, 0, 1, 1, 2);
 
       CheckButton checkUnstable = 
 	new CheckButton(_("Check _Unstable Releases"));
       checkUnstable.Active = _checkUnstable;
-      checkUnstable.Toggled += delegate(object sender, EventArgs args) {
-	_checkUnstable = checkUnstable.Active;
-      };
+      checkUnstable.Toggled += delegate(object sender, EventArgs args) 
+	{
+	  _checkUnstable = checkUnstable.Active;
+	};
       table.Attach(checkUnstable, 0, 1, 2, 3);
 
       string tmp = Gimp.RcQuery("update-enable-proxy");
@@ -122,9 +125,10 @@ namespace Gimp.UpdateCheck
       CheckButton enableProxy = 
 	new CheckButton(_("Manual proxy configuration"));
       enableProxy.Active = _enableProxy;
-      enableProxy.Toggled += delegate(object sender, EventArgs args) {
-	_enableProxy = enableProxy.Active;
-      };
+      enableProxy.Toggled += delegate(object sender, EventArgs args) 
+	{
+	  _enableProxy = enableProxy.Active;
+	};
       proxyBox.Add(enableProxy);
 
       HBox hbox = new HBox(false, 12);
@@ -135,28 +139,30 @@ namespace Gimp.UpdateCheck
       httpProxy.Text = _httpProxy;
       hbox.Add(httpProxy);
       proxyBox.Add(hbox);
-      httpProxy.Changed += delegate(object sender, EventArgs args) {
-	_httpProxy = httpProxy.Text;
-      };
-
+      httpProxy.Changed += delegate(object sender, EventArgs args) 
+	{
+	  _httpProxy = httpProxy.Text;
+	};
+      
       hbox.Add(new Label(_("Port:")));
       Entry port = new Entry();
       port.Text = _port;
       port.WidthChars = 4;
       hbox.Add(port);
-      port.Changed += delegate(object sender, EventArgs args) {
-	_port = port.Text;
-      };
-
-      enableProxy.Toggled += delegate(object sender, EventArgs args) {
-	hbox.Sensitive = enableProxy.Active;
-      };
-
+      port.Changed += delegate(object sender, EventArgs args) 
+	{
+	  _port = port.Text;
+	};
+      
+      enableProxy.Toggled += delegate(object sender, EventArgs args) 
+	{
+	  hbox.Sensitive = enableProxy.Active;
+	};
+      
       expander.Add(proxyBox);
       table.Attach(expander, 0, 1, 3, 4);
 
-      dialog.ShowAll();
-      return DialogRun();
+      return dialog;
     }
 
     override protected void Render()

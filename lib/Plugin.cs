@@ -161,9 +161,18 @@ namespace Gimp
       if (run_mode == RunMode.Interactive)
 	{
 	  GetData();
-	  if (CreateDialog())
+	  _dialog = CreateDialog();
+	  if (_dialog == null)
 	    {
 	      SetData();
+	    }
+	  else
+	    {
+	      _dialog.ShowAll();
+	      if (DialogRun())
+		{
+		  SetData();
+		}
 	    }
 	}
       else if (run_mode == RunMode.Noninteractive)
@@ -206,10 +215,10 @@ namespace Gimp
       return true;
     }
 
-    virtual protected bool CreateDialog() 
+    virtual protected GimpDialog CreateDialog() 
     {
       CallRender();
-      return true;
+      return null;
     }
 
     public void Run(string name, int n_params, IntPtr paramPtr,
@@ -249,7 +258,7 @@ namespace Gimp
 
     GimpDialog _dialog;
 
-    virtual protected Dialog DialogNew(string title,
+    virtual protected GimpDialog DialogNew(string title,
 				       string role,
 				       IntPtr parent,
 				       Gtk.DialogFlags flags,
@@ -269,7 +278,7 @@ namespace Gimp
       return _dialog;
     }
 
-    virtual protected Dialog DialogNew( string title,
+    virtual protected GimpDialog DialogNew( string title,
 					string role,
 					IntPtr parent,
 					Gtk.DialogFlags flags,

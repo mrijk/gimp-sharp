@@ -35,14 +35,16 @@ namespace Gimp
     {
     }
 
-    override protected Dialog DialogNew(string title, string role, 
-					IntPtr parent, Gtk.DialogFlags flags, 
-					GimpHelpFunc help_func, string help_id)
+    override protected GimpDialog DialogNew(string title, string role, 
+					    IntPtr parent, 
+					    Gtk.DialogFlags flags, 
+					    GimpHelpFunc help_func, 
+					    string help_id)
     {
       gimp_ui_init(title, true);
 
-      Dialog dialog = base.DialogNew(title, role, parent, flags, help_func, 
-				     help_id);
+      GimpDialog dialog = base.DialogNew(title, role, parent, flags, 
+					 help_func, help_id);
 
       _vbox = new VBox(false, 12);
       _vbox.BorderWidth = 12;

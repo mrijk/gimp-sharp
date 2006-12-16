@@ -59,10 +59,10 @@ namespace Gimp.Shatter
       yield return procedure;
     }
 
-    override protected bool CreateDialog()
+    override protected GimpDialog CreateDialog()
     {
-      Dialog dialog = DialogNew("Shatter", "Shatter", IntPtr.Zero, 0,
-				Gimp.StandardHelpFunc, "Shatter");
+      GimpDialog dialog = DialogNew("Shatter", "Shatter", IntPtr.Zero, 0,
+				    Gimp.StandardHelpFunc, "Shatter");
 
       GimpTable table = new GimpTable(4, 3, false);
       table.ColumnSpacing = 6;
@@ -77,9 +77,8 @@ namespace Gimp.Shatter
 	  _pieces = entry.ValueAsInt;
 	  // InvalidatePreview();
 	};
-      
-      dialog.ShowAll();
-      return DialogRun();
+
+      return dialog;
     }
 
     override protected void Render(Image image, Drawable drawable)

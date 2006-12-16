@@ -61,11 +61,11 @@ namespace Gimp.Pointillize
       yield return procedure;
     }
 
-    override protected bool CreateDialog()
+    override protected GimpDialog CreateDialog()
     {
-      Dialog dialog = DialogNew(_("Pointillize"), _("Pointillize"), 
-				IntPtr.Zero, 0, Gimp.StandardHelpFunc, 
-				_("Pointillize"));
+      GimpDialog dialog = DialogNew(_("Pointillize"), _("Pointillize"), 
+				    IntPtr.Zero, 0, Gimp.StandardHelpFunc, 
+				    _("Pointillize"));
 
       GimpTable table = new GimpTable(1, 3, false);
 
@@ -80,8 +80,7 @@ namespace Gimp.Pointillize
 
       Vbox.PackStart(table, false, false, 0);
       
-      dialog.ShowAll();
-      return DialogRun();
+      return dialog;
     }
 
     override protected void UpdatePreview(AspectPreview preview)

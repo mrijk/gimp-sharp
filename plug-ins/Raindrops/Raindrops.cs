@@ -72,13 +72,13 @@ namespace Gimp.Raindrops
       yield return procedure;
     }
 
-    override protected bool CreateDialog()
+    override protected GimpDialog CreateDialog()
     {
       gimp_ui_init("Raindrops", true);
 
-      Dialog dialog = DialogNew(_("Raindrops 0.1"), _("Raindrops"), 
-				IntPtr.Zero, 0, Gimp.StandardHelpFunc, 
-				_("Raindrops"));
+      GimpDialog dialog = DialogNew(_("Raindrops 0.1"), _("Raindrops"), 
+				    IntPtr.Zero, 0, Gimp.StandardHelpFunc, 
+				    _("Raindrops"));
 
       VBox vbox = new VBox(false, 12);
       vbox.BorderWidth = 12;
@@ -99,10 +99,10 @@ namespace Gimp.Raindrops
 						 256.0, 1.0, 8.0, 0,
 						 true, 0, 0, null, null);
       _dropSizeEntry.ValueChanged += delegate(object sender, EventArgs e)
-      {
-        _dropSize = _dropSizeEntry.ValueAsInt;
-        _preview.Invalidate();
-      };
+	{
+	  _dropSize = _dropSizeEntry.ValueAsInt;
+	  _preview.Invalidate();
+	};
 
       ScaleEntry _numberEntry = new ScaleEntry(table, 0, 2, 
 					       _("_Number:"), 
@@ -111,9 +111,9 @@ namespace Gimp.Raindrops
 					       true, 0, 0, null, null);
       _numberEntry.ValueChanged += delegate(object sender, EventArgs e)
 	{
-        _number = _numberEntry.ValueAsInt;
-        _preview.Invalidate();
-      };
+	  _number = _numberEntry.ValueAsInt;
+	  _preview.Invalidate();
+	};
 
       ScaleEntry _fishEyeEntry = new ScaleEntry(table, 0, 3, 
 						_("_Fish eye:"), 
@@ -121,15 +121,12 @@ namespace Gimp.Raindrops
 						256.0, 1.0, 8.0, 0,
 						true, 0, 0, null, null);
       _fishEyeEntry.ValueChanged += delegate(object sender, EventArgs e)
-      {
-        _fishEye = _fishEyeEntry.ValueAsInt;
-        _preview.Invalidate();
-      };
+	{
+	  _fishEye = _fishEyeEntry.ValueAsInt;
+	  _preview.Invalidate();
+	};
 
-      // entry.ValueChanged += PointsUpdate;
-
-      dialog.ShowAll();
-      return DialogRun();
+      return dialog;
     }
 
     void UpdatePreview(object sender, EventArgs e)
@@ -138,10 +135,10 @@ namespace Gimp.Raindrops
       clone.Crop(_preview.Bounds);
 
       if (!clone.ActiveDrawable.IsLayer())
-      {
-        new Message("This filter can be applied just over layers");
-        return;
-      }
+	{
+	  new Message("This filter can be applied just over layers");
+	  return;
+	}
 
       RenderRaindrops(clone, clone.ActiveDrawable, true);
 
@@ -161,35 +158,35 @@ namespace Gimp.Raindrops
       Console.WriteLine("Reset!");
     }
 
-    override protected void Render(Image image, Drawable original_drawable)
+    override protected void Render(Image image, Drawable drawable)
     {
       // Just layers are allowed
-      if (!original_drawable.IsLayer())
-      {
-        new Message(_("This filter can be applied just over layers"));
-        return;
-      }
+      if (!drawable.IsLayer())
+	{
+	  new Message(_("This filter can be applied just over layers"));
+	  return;
+	}
 
       Layer active_layer = image.ActiveLayer;
       string original_layer_name =  active_layer.Name;
 
-      Layer new_layer = new Layer(active_layer);
-      new_layer.Name = "_raindrops_dummy_" + original_layer_name;      
-      new_layer.Visible = false;
-      new_layer.Mode = active_layer.Mode;
-      new_layer.Opacity = active_layer.Opacity;
+      Layer newLayer = new Layer(active_layer);
+      newLayer.Name = "_raindrops_dummy_" + original_layer_name;      
+      newLayer.Visible = false;
+      newLayer.Mode = active_layer.Mode;
+      newLayer.Opacity = active_layer.Opacity;
       
             
 /*      if(!active_layer.HasAlpha)
         active_layer.AddAlpha();*/
     
-      RenderRaindrops(image, new_layer, false);
+      RenderRaindrops(image, newLayer, false);
       image.UndoGroupStart();
-      image.AddLayer(new_layer, -1); 
+      image.AddLayer(newLayer, -1); 
       image.RemoveLayer(active_layer);
-      new_layer.Name = original_layer_name;
-      new_layer.Visible = true;
-      image.ActiveLayer = new_layer;
+      newLayer.Name = original_layer_name;
+      newLayer.Visible = true;
+      image.ActiveLayer = newLayer;
       image.UndoGroupEnd();
       Display.DisplaysFlush();
     }
