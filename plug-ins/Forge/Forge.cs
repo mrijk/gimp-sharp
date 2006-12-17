@@ -31,7 +31,7 @@ namespace Gimp.Forge
     public const double planetAmbient = 0.05;
     Random _random;
     bool _random_seed = true;
-    bool _previewAllowed = true;
+    bool _previewAllowed = false;
 
     RadioButton _PlanetRadioButton;
     RadioButton _CloudsRadioButton;
