@@ -36,41 +36,41 @@ namespace Gimp.Forge
     RadioButton _PlanetRadioButton;
     RadioButton _CloudsRadioButton;
     RadioButton _NightRadioButton;
-    SpinButton _DimensionSpinButton;
-    SpinButton _GlaciersSpinButton;
-    SpinButton _IceSpinButton;
-    SpinButton _PowerSpinButton;
-    SpinButton _HourSpinButton;
-    SpinButton _InclinationSpinButton;
-    SpinButton _StarsSpinButton;
-    SpinButton _SaturationSpinButton;
+    ScaleEntry _dimensionEntry;
+    ScaleEntry _glacierEntry;
+    ScaleEntry _iceEntry;
+    ScaleEntry _powerEntry;
+    ScaleEntry _hourEntry;
+    ScaleEntry _inclinationEntry;
+    ScaleEntry _starsEntry;
+    ScaleEntry _saturationEntry;
     Progress _progress = null;
     // Flag for spin buttons values specified by the user
     private bool dimspec, powerspec;
     // Flag for radio buttons values specified by the user
     private bool glacspec, icespec, starspec, hourspec, inclspec, starcspec;
     [SaveAttribute("clouds")]
-      bool _clouds;	      	// Just generate clouds
+    bool _clouds;	      	// Just generate clouds
     [SaveAttribute("stars")]
-      bool _stars;	      		// Just generate stars
+    bool _stars;	      		// Just generate stars
     [SaveAttribute("dimension")]
-      double _fracdim;		// Fractal dimension
+    double _fracdim;		// Fractal dimension
     [SaveAttribute("power")]
-      double _powscale; 	      	// Power law scaling exponent
+    double _powscale; 	      	// Power law scaling exponent
     [SaveAttribute("glaciers")]
-      double _glaciers;
+    double _glaciers;
     [SaveAttribute("icelevel")]
-      double _icelevel;
+    double _icelevel;
     [SaveAttribute("hour")]
-      double _hourangle;
+    double _hourangle;
     [SaveAttribute("inclination")]
-      double _inclangle;
+    double _inclangle;
     [SaveAttribute("starsfraction")]
-      double _starfraction;
+    double _starfraction;
     [SaveAttribute("saturation")]
-      double _starcolour;
+    double _starcolour;
     [SaveAttribute("seed")]
-      uint _rseed;	      		// Current random seed
+    uint _rseed;	      		// Current random seed
     private int forced;
     private double arand, gaussadd, gaussfac; // Gaussian random parameters
     private const uint meshsize = 256;	      	// FFT mesh size
@@ -126,37 +126,37 @@ namespace Gimp.Forge
     {
       ParamDefList inParams = new ParamDefList();
       inParams.Add(new ParamDef("clouds", false, typeof(bool), 
-            _("Clouds (true), Planet or Stars (false)")));
+				_("Clouds (true), Planet or Stars (false)")));
       inParams.Add(new ParamDef("stars", false, typeof(bool), 
-            _("Stars (true), Planet or Clouds (false)")));
+				_("Stars (true), Planet or Clouds (false)")));
       inParams.Add(new ParamDef("dimension", 2.4, typeof(double), 
-            _("Fractal dimension factor")));
+				_("Fractal dimension factor")));
       inParams.Add(new ParamDef("power", 1.0, typeof(double), 
-            _("Power factor")));
+				_("Power factor")));
       inParams.Add(new ParamDef("glaciers", 0.75, typeof(double), 
-            _("Glaciers factor")));
+				_("Glaciers factor")));
       inParams.Add(new ParamDef("ice", 0.4, typeof(double), 
-            _("Ice factor")));
+				_("Ice factor")));
       inParams.Add(new ParamDef("hour", 0.0, typeof(double), 
-            _("Hour factor")));
+				_("Hour factor")));
       inParams.Add(new ParamDef("inclination", 0.0, typeof(double), 
-            _("Inclination factor")));
+				_("Inclination factor")));
       inParams.Add(new ParamDef("stars", 100.0, typeof(double), 
-            _("Stars factor")));
+				_("Stars factor")));
       inParams.Add(new ParamDef("saturation", 100.0, typeof(double), 
-            _("Saturation factor")));
+				_("Saturation factor")));
       inParams.Add(new ParamDef("seed", 0, typeof(uint), 
-            _("Random generated seed")));
+				_("Random generated seed")));
 
       Procedure procedure = new Procedure("plug_in_forge",
-          _("Creates an artificial world."),
-          _("Creates an artificial world."),
-          "Massimo Perga, Maurits Rijk",
-          "(C) Massimo Perga, Maurits Rijk",
-          "2006",
-          _("Forge..."),
-          "RGB*",
-          inParams);
+					  _("Creates an artificial world."),
+					  _("Creates an artificial world."),
+					  "Massimo Perga, Maurits Rijk",
+					  "(C) Massimo Perga, Maurits Rijk",
+					  "2006",
+					  _("Forge..."),
+					  "RGB*",
+					  inParams);
       procedure.MenuPath = "<Image>/Filters/Render";
       procedure.IconFile = "Forge.png";
 
@@ -167,157 +167,184 @@ namespace Gimp.Forge
     {
       gimp_ui_init("Forge", true);
 
-      GimpDialog dialog = DialogNew(_("Forge 0.1"), _("Forge"), IntPtr.Zero, 0,
-          Gimp.StandardHelpFunc, _("Forge"));
+      GimpDialog dialog = DialogNew(_("Forge 0.2"), _("Forge"), IntPtr.Zero, 0,
+				    Gimp.StandardHelpFunc, _("Forge"));
 
-      VBox vbox = new VBox(false, 12);
-      vbox.BorderWidth = 12;
-      dialog.VBox.PackStart(vbox, true, true, 0);
+      HBox hbox = new HBox(false, 12);
+      Vbox.PackStart(hbox);
+
+      // Type
+      GimpFrame frame = new GimpFrame(_("Type"));
+      hbox.PackStart(frame, false, false, 0);
+
+      VBox typeBox = new VBox(false, 1);
+      frame.Add(typeBox);
+
+      _PlanetRadioButton = CreateRadioButtonInVBox(typeBox, null,
+          PlanetRadioButtonEventHandler, _("Pl_anet"));
+
+      _CloudsRadioButton = CreateRadioButtonInVBox(typeBox, _PlanetRadioButton,
+          CloudsRadioButtonEventHandler, _("C_louds"));
+
+      _NightRadioButton = CreateRadioButtonInVBox(typeBox, _PlanetRadioButton,
+          NightRadioButtonEventHandler, _("_Night"));
+
+      // Random seed
+
+      VBox randomBox = new VBox(false, 1);
+      hbox.PackStart(randomBox, false, false, 0);
+
+      RandomSeed seed = new RandomSeed(ref _rseed, ref _random_seed);
+      randomBox.PackStart(seed, false, false, 0);
+
 
       // Create the table widget
-      GimpTable table = new GimpTable(8, 4, false);
+      GimpTable table = new GimpTable(4, 6, false);
       table.ColumnSpacing = 10;
       table.RowSpacing = 10;
-      table.BorderWidth = 10;
+      // table.BorderWidth = 10;
+      // Vbox.PackStart(table, false, false, 0);
+      Vbox.PackEnd(table);
 
-      // Create the frame widget 
-      GimpFrame frame = new GimpFrame(_("Type"));
-      table.Attach(frame, 0, 3, 0, 1);
+      // Dimension
 
-      HBox hbox = new HBox(false,1);
-      frame.Add(hbox);
+      _dimensionEntry = new ScaleEntry(table, 0, 0, 
+				       _("_Dimension (0.0 - 3.0):"), 
+				       150, 3, 
+				       _fracdim, 0.0, 3.0, 
+				       0.1, 1.0, 1,
+				       true, 0, 0, null, null);
+      _dimensionEntry.ValueChanged += delegate(object sender, EventArgs e)
+	{
+	  if (forced > 0)
+	    forced--;
+	  else
+	    dimspec = true;
+	  _fracdim = _dimensionEntry.Value;
+	};
 
-      _PlanetRadioButton = CreateRadioButtonInHBox(hbox, null,
-          PlanetRadioButtonEventHandler, _("Planet"));
+      // Power
+      _powerEntry = new ScaleEntry(table, 3, 0, _("_Power:"), 
+				   150, 3, 
+				   _powscale, 0.0, Double.MaxValue, 
+				   0.1, 1.0, 1,
+				   true, 0, 0, null, null);
+      _powerEntry.ValueChanged += delegate(object sender, EventArgs e)
+	{
+	  if (forced > 0)
+	    forced--;
+	  else
+            powerspec = true;
+	  _powscale = _powerEntry.Value;
+	};
 
-      _CloudsRadioButton = CreateRadioButtonInHBox(hbox, _PlanetRadioButton,
-          CloudsRadioButtonEventHandler, _("Clouds"));
+      // Glaciers
 
-      _NightRadioButton = CreateRadioButtonInHBox(hbox, _PlanetRadioButton,
-          NightRadioButtonEventHandler, _("Night"));
+      _glacierEntry = new ScaleEntry(table, 0, 1, _("_Glaciers"), 
+				     150, 3, 
+				     _glaciers, 0.0, Double.MaxValue, 
+				     0.1, 1.0, 0,
+				     true, 0, 0, null, null);
+      _glacierEntry.ValueChanged += delegate(object sender, EventArgs e)
+	{
+	  glacspec = true;
+	  _glaciers = _glacierEntry.Value;
+	  InvalidatePreview();
+	};
 
-      CreateLabelInTable(table, 2, 0, _("Dimension (0.0 - 3.0):"));
-      _DimensionSpinButton = CreateFloatSpinButtonInTable(table, 2, 1, 2.4, 0, 3,
-          DimensionSpinButtonEventHandler);
+      // Ice
 
-      CreateLabelInTable(table, 2, 2, _("Power:"));
-      _PowerSpinButton = CreateFloatSpinButtonInTable(table, 2, 3, 1.2, 0, 
-          Double.MaxValue,
-          PowerSpinButtonEventHandler);
+      _iceEntry = new ScaleEntry(table, 3, 1, _("_Ice"), 
+				 150, 3, 
+				 _icelevel, 0.0, Double.MaxValue, 
+				 0.1, 1.0, 1,
+				 true, 0, 0, null, null);
+      _iceEntry.ValueChanged += delegate(object sender, EventArgs e)
+	{
+	  icespec = true;
+	  _icelevel = _iceEntry.Value;
+	  InvalidatePreview();
+	};
 
-      CreateLabelInTable(table, 3, 0, _("Glaciers:"));
-      _GlaciersSpinButton = CreateFloatSpinButtonInTable(table, 3, 1, 0.75, 0, 
-          Double.MaxValue,
-          GlaciersSpinButtonEventHandler);
+      // Hour
 
-      CreateLabelInTable(table, 3, 2, _("Ice:"));
-      _IceSpinButton = CreateFloatSpinButtonInTable(table, 3, 3, 0.4, 0, 
-          Double.MaxValue,
-          IceSpinButtonEventHandler);
+      _hourEntry = new ScaleEntry(table, 0, 2, _("Ho_ur (0 - 24):"), 
+				  150, 3, 
+				  _hourangle, 0.0, 24.0, 0.1, 1.0, 0,
+				  true, 0, 0, null, null);
+      _hourEntry.ValueChanged += delegate(object sender, EventArgs e)
+	{
+	  hourspec = true;
+	  _hourangle = _hourEntry.Value;
+	  InvalidatePreview();
+	};
 
-      CreateLabelInTable(table, 4, 0, _("Hour (0 - 24):"));
-      _HourSpinButton = CreateFloatSpinButtonInTable(table, 4, 1, 0, 0, 24, 
-          HourSpinButtonEventHandler);
+      // Inclination
 
-      CreateLabelInTable(table, 4, 2, _("Inclination (-90 - 90):"));
-      _InclinationSpinButton = CreateFloatSpinButtonInTable(table, 4, 3, 0, -90, 90,
-          InclinationSpinButtonEventHandler);
+      _inclinationEntry = new ScaleEntry(table, 3, 2, 
+					 _("I_nclination (-90 - 90):"), 
+					 150, 3, 
+					 _inclangle, -90.0, 90.0, 1, 10.0, 0,
+					 true, 0, 0, null, null);
+      _inclinationEntry.ValueChanged += delegate(object sender, EventArgs e)
+	{
+	  inclspec = true;
+	  _inclangle = _inclinationEntry.Value;  
+	  InvalidatePreview();
+	};
 
-      CreateLabelInTable(table, 5, 0, _("Stars (0 - 100):"));
-      _StarsSpinButton = CreateIntSpinButtonInTable(table, 5, 1, 100, 0, 100, 
-          StarsSpinButtonEventHandler);
+      // Star percentage
 
-      CreateLabelInTable(table, 5, 2, _("Saturation:"));
-      _SaturationSpinButton = CreateIntSpinButtonInTable(table, 5, 3, 125, 0, 
-          Int32.MaxValue, 
-          SaturationSpinButtonEventHandler);
+      _starsEntry = new ScaleEntry(table, 0, 3, _("_Stars (0 - 100):"), 
+					150, 3, 
+					_starfraction, 1.0, 100.0, 1.0, 8.0, 0,
+					true, 0, 0, null, null);
+      _starsEntry.ValueChanged += delegate(object sender, EventArgs e)
+	{
+	  starspec = true;
+	  _starfraction = _starsEntry.Value;
+	  InvalidatePreview();
+	};
 
-      CreateLabelInTable(table, 6, 0, _("Seed:"));
-      RandomSeed seed = new RandomSeed(ref _rseed, ref _random_seed);
-      table.Attach(seed, 1, 3, 6, 7);
+      // Saturation
 
-      // Set default values
-      //SetDefaultValues(); 
-
-      vbox.PackStart(table, false, false, 0);
+      _saturationEntry = new ScaleEntry(table, 3, 3, _("Sa_turation:"), 
+					150, 3, 
+					_starcolour, 0.0, Int32.MaxValue, 
+					1.0, 8.0, 0,
+					true, 0, 0, null, null);
+      _saturationEntry.ValueChanged += delegate(object sender, EventArgs e)
+	{
+	  starcspec = true;
+	  _starcolour = _saturationEntry.Value;
+	  InvalidatePreview();
+	};
 
       return dialog;
     }
 
-    RadioButton CreateRadioButtonInHBox(HBox hbox, 
+    RadioButton CreateRadioButtonInVBox(VBox vbox, 
         RadioButton radioButtonGroup,
         GenericEventHandler radioButtonEventHandler, 
         string radioButtonLabel)
     { 
       RadioButton radioButton = new RadioButton(radioButtonGroup, 
-          radioButtonLabel);
+						radioButtonLabel);
       radioButton.Clicked += new EventHandler(radioButtonEventHandler);
-      hbox.PackStart(radioButton, true, true, 10);
+      vbox.PackStart(radioButton, true, true, 10);
 
       return radioButton;
-    }
-
-    SpinButton CreateIntSpinButtonInTable(Table table, uint row, uint col, 
-        uint initialValue, 
-        int min, int max,
-        GenericEventHandler spinnerEventHandler)
-    {
-      Adjustment adjustment = new Adjustment(initialValue, min, max, 1, 1, 1);
-      SpinButton spinner = new SpinButton(adjustment, 1, 0);
-      spinner.Numeric = true;
-      spinner.ValueChanged += new EventHandler(spinnerEventHandler);
-      table.Attach(spinner, col, col+1, row, row+1);
-
-      return spinner;
-    }
-
-    SpinButton CreateFloatSpinButtonInTable(Table table, uint row, uint col, 
-        double initialValue, 
-        double min, double max,
-        GenericEventHandler spinnerEventHandler)
-    {
-      Adjustment adjustment = new Adjustment(initialValue, min, max, 0.1, 
-          1, 1);
-      SpinButton spinner = new SpinButton(adjustment, 0.1, 1);
-      spinner.Numeric = true;
-      spinner.ValueChanged += new EventHandler(spinnerEventHandler);
-      table.Attach(spinner, col, col+1, row, row+1);
-
-      return spinner;
     }
 
     void SetDefaultValues()
     {
       _PlanetRadioButton.Active = true;
-      _GlaciersSpinButton.Value = 0.75;
-      _IceSpinButton.Value = 0.4;
-      _HourSpinButton.Value = 0;
-      _InclinationSpinButton.Value = 0;
-      _StarsSpinButton.Value = 100.0;
-      _SaturationSpinButton.Value = 125.0;
-    }
-
-    void DimensionSpinButtonEventHandler(object source, EventArgs e)
-    {
-      if (forced > 0)
-        forced--;
-      else
-        dimspec = true;
-      _fracdim = _DimensionSpinButton.Value;
-      if(_previewAllowed)
-        InvalidatePreview();
-    }
-
-    void PowerSpinButtonEventHandler(object source, EventArgs e)
-    {
-      if (forced > 0)
-        if(forced > 0)
-          forced--;
-        else
-          powerspec = true;
-      _powscale = _PowerSpinButton.Value;
-      if(_previewAllowed)
-        InvalidatePreview();
+      _glacierEntry.Value = 0.75;
+      _iceEntry.Value = 0.4;
+      _hourEntry.Value = 0;
+      _inclinationEntry.Value = 0;
+      _starsEntry.Value = 100.0;
+      _saturationEntry.Value = 125.0;
     }
 
     void PlanetRadioButtonEventHandler(object source, EventArgs e)
@@ -327,24 +354,24 @@ namespace Gimp.Forge
         if (!dimspec)
         {
           forced++;
-          _DimensionSpinButton.Value = 2.4;
+          _dimensionEntry.Value = 2.4;
         }
         if (!powerspec)
         {
           forced++;
-          _PowerSpinButton.Value = 1.2;
+          _powerEntry.Value = 1.2;
         }
       }
 
       // Enable all the spin buttons
-      _DimensionSpinButton.Sensitive = true; 
-      _PowerSpinButton.Sensitive = true; 
-      _GlaciersSpinButton.Sensitive = true; 
-      _IceSpinButton.Sensitive = true; 
-      _HourSpinButton.Sensitive = true; 
-      _InclinationSpinButton.Sensitive = true; 
-      _StarsSpinButton.Sensitive = true; 
-      _SaturationSpinButton.Sensitive = true; 
+      _dimensionEntry.Sensitive = true; 
+      _powerEntry.Sensitive = true; 
+      _glacierEntry.Sensitive = true; 
+      _iceEntry.Sensitive = true; 
+      _hourEntry.Sensitive = true; 
+      _inclinationEntry.Sensitive = true; 
+      _starsEntry.Sensitive = true; 
+      _saturationEntry.Sensitive = true; 
 
       if(_previewAllowed)
         InvalidatePreview();
@@ -357,23 +384,23 @@ namespace Gimp.Forge
         if (!dimspec)
         {
           forced++;
-          _DimensionSpinButton.Value = 2.15;
+          _dimensionEntry.Value = 2.15;
         }
         if (!powerspec)
         {
           forced++;
-          _PowerSpinButton.Value = 0.75;
+          _powerEntry.Value = 0.75;
         }
       }
       // Disable some spin buttons
-      _DimensionSpinButton.Sensitive = true; 
-      _PowerSpinButton.Sensitive = true; 
-      _GlaciersSpinButton.Sensitive = false; 
-      _IceSpinButton.Sensitive = false; 
-      _HourSpinButton.Sensitive = false; 
-      _InclinationSpinButton.Sensitive = false; 
-      _StarsSpinButton.Sensitive = false; 
-      _SaturationSpinButton.Sensitive = false; 
+      _dimensionEntry.Sensitive = true; 
+      _powerEntry.Sensitive = true; 
+      _glacierEntry.Sensitive = false; 
+      _iceEntry.Sensitive = false; 
+      _hourEntry.Sensitive = false; 
+      _inclinationEntry.Sensitive = false; 
+      _starsEntry.Sensitive = false; 
+      _saturationEntry.Sensitive = false; 
 
       if(_previewAllowed)
         InvalidatePreview();
@@ -386,87 +413,31 @@ namespace Gimp.Forge
         if (!dimspec)
         {
           forced++;
-          _DimensionSpinButton.Value = 2.4;
+          _dimensionEntry.Value = 2.4;
         }
         if (!powerspec)
         {
           forced++;
-          _PowerSpinButton.Value = 1.2;
+          _powerEntry.Value = 1.2;
         }
       }
       // Enable just the star spin button
-      _DimensionSpinButton.Sensitive = false; 
-      _PowerSpinButton.Sensitive = false; 
-      _GlaciersSpinButton.Sensitive = false; 
-      _IceSpinButton.Sensitive = false; 
-      _HourSpinButton.Sensitive = false; 
-      _InclinationSpinButton.Sensitive = false; 
-      _StarsSpinButton.Sensitive = true; 
-      _SaturationSpinButton.Sensitive = false; 
+      _dimensionEntry.Sensitive = false; 
+      _powerEntry.Sensitive = false; 
+      _glacierEntry.Sensitive = false; 
+      _iceEntry.Sensitive = false; 
+      _hourEntry.Sensitive = false; 
+      _inclinationEntry.Sensitive = false; 
+      _starsEntry.Sensitive = true; 
+      _saturationEntry.Sensitive = false; 
 
-      if(_previewAllowed)
-        InvalidatePreview();
-    }
-
-    void GlaciersSpinButtonEventHandler(object source, EventArgs e)
-    {
-      glacspec = true;
-      _glaciers = _GlaciersSpinButton.Value;
-      if(_previewAllowed)
-        InvalidatePreview();
-    }
-
-    void IceSpinButtonEventHandler(object source, EventArgs e)
-    {
-      icespec = true;
-      _icelevel = _IceSpinButton.Value;
-      if(_previewAllowed)
-        InvalidatePreview();
-    }
-
-    void HourSpinButtonEventHandler(object source, EventArgs e)
-    {
-      hourspec = true;
-      _hourangle = _HourSpinButton.Value;
-      if(_previewAllowed)
-        InvalidatePreview();
-    }
-
-    void InclinationSpinButtonEventHandler(object source, EventArgs e)
-    {
-      inclspec = true;
-      _inclangle = _InclinationSpinButton.Value;  
-      if(_previewAllowed)
-        InvalidatePreview();
-    }
-
-    void StarsSpinButtonEventHandler(object source, EventArgs e)
-    {
-      starspec = true;
-      _starfraction = _StarsSpinButton.Value;
-      if(_previewAllowed)
-        InvalidatePreview();
-    }
-
-    void SaturationSpinButtonEventHandler(object source, EventArgs e)
-    {
-      starcspec = true;
-      _starcolour = _SaturationSpinButton.Value;
-      if(_previewAllowed)
-        InvalidatePreview();
-    }
-
-    Label CreateLabelInTable(Table table, uint row, uint col, string text) 
-    {
-      Label label = new Label(text);
-      label.SetAlignment(0.0f, 0.5f);
-      table.Attach(label, col, col+1, row, row+1, Gtk.AttachOptions.Fill, Gtk.AttachOptions.Fill, 0, 0);
-
-      return label;
+      InvalidatePreview();
     }
 
     override protected void UpdatePreview(AspectPreview preview)
     {
+      Console.WriteLine("UpdatePreview!");
+
       int width, height;
       preview.GetSize(out width, out height);
 
@@ -560,44 +531,44 @@ namespace Gimp.Forge
       if (!dimspec)
       {
         _fracdim = _clouds ? Cast(1.9, 2.3) : Cast(2.0, 2.7);
-        if (_DimensionSpinButton != null)
-          _DimensionSpinButton.Value = _fracdim;
+        if (_dimensionEntry != null)
+          _dimensionEntry.Value = _fracdim;
       }
 
       if (!powerspec)
       {
         _powscale = _clouds ? Cast(0.6, 0.8) : Cast(1.0, 1.5);
-        if(_PowerSpinButton != null)
-          _PowerSpinButton.Value = _powscale;
+        if(_powerEntry != null)
+          _powerEntry.Value = _powscale;
       }
 
       if (!icespec)
-      {
-        _icelevel = Cast(0.2, 0.6);
-        if(_IceSpinButton != null)
-          _IceSpinButton.Value = _icelevel;
-      }
+	{
+	  _icelevel = Cast(0.2, 0.6);
+	  if(_iceEntry != null)
+	    _iceEntry.Value = _icelevel;
+	}
 
       if (!glacspec)
-      {
-        _glaciers = Cast(0.6, 0.85);
-        if(_GlaciersSpinButton != null)
-          _GlaciersSpinButton.Value = _glaciers;
-      }
+	{
+	  _glaciers = Cast(0.6, 0.85);
+	  if(_glacierEntry != null)
+	    _glacierEntry.Value = _glaciers;
+	}
 
       if (!starspec)
-      {
-        _starfraction = Cast(75, 125);
-        if(_StarsSpinButton != null)
-          _StarsSpinButton.Value = _starfraction;
-      }
+	{
+	  _starfraction = Cast(75, 125);
+	  if(_starsEntry != null)
+	    _starsEntry.Value = _starfraction;
+	}
 
       if (!starcspec) 
-      {
-        _starcolour = Cast(100, 150);
-        if(_SaturationSpinButton != null)
-          _SaturationSpinButton.Value = _starcolour;
-      }
+	{
+	  _starcolour = Cast(100, 150);
+	  if(_saturationEntry != null)
+	    _saturationEntry.Value = _starcolour;
+	}
       _previewAllowed = true;
     }
 
@@ -764,7 +735,6 @@ namespace Gimp.Forge
       }
     }
 
-
     // SPECTRALSYNTH  --  Spectrally synthesised fractal motion in two
     // dimensions. This algorithm is given under  the name   
     // SpectralSynthesisFM2D on page 108 of Peitgen & Saupe.
@@ -852,7 +822,7 @@ namespace Gimp.Forge
       if ((_random.Next() % 1000) < _starfraction) 
       {
         double v = starIntensity * Math.Pow(1 / (1 - Cast(0, 0.9999)), 
-            starQuality);
+					    starQuality);
         if (v > 255) v = 255;
 
         /* We make a special case for star colour  of zero in order to
@@ -931,65 +901,67 @@ namespace Gimp.Forge
         pf = new PixelFetcher(drawable, false);
 
       if (!_stars) 
-      {
-        u = new double[width];
-        u1 = new double[width];
-        bxf = new uint[width];
-        bxc = new uint[width];
+	{
+	  u = new double[width];
+	  u1 = new double[width];
+	  bxf = new uint[width];
+	  bxc = new uint[width];
 
-        // Compute incident light direction vector.
+	  // Compute incident light direction vector.
 
-        shang = hourspec ? _hourangle : Cast(0, 2 * Math.PI);
-        siang = inclspec ? _inclangle : Cast(-Math.PI * 0.12, Math.PI * 0.12);
+	  shang = hourspec ? _hourangle : Cast(0, 2 * Math.PI);
+	  siang = inclspec ? _inclangle : Cast(-Math.PI * 0.12, Math.PI * 0.12);
 
-        sunvec[0] = Math.Sin(shang) * Math.Cos(siang);
-        sunvec[1] = Math.Sin(siang);
-        sunvec[2] = Math.Cos(shang) * Math.Cos(siang);
+	  sunvec[0] = Math.Sin(shang) * Math.Cos(siang);
+	  sunvec[1] = Math.Sin(siang);
+	  sunvec[2] = Math.Cos(shang) * Math.Cos(siang);
 
-        // Allow only 25% of random pictures to be crescents
+	  // Allow only 25% of random pictures to be crescents
 
-        if (!hourspec && ((_random.Next() % 100) < 75)) {
-          sunvec[2] = Math.Abs(sunvec[2]);
-        }
+	  if (!hourspec && ((_random.Next() % 100) < 75)) 
+	    {
+	      sunvec[2] = Math.Abs(sunvec[2]);
+	    }
 
-        // Prescale the grid points into intensities.
+	  // Prescale the grid points into intensities.
 
-        cp = new byte[n * n];
+	  cp = new byte[n * n];
 
-        ap = cp;
-        for (int i = 0; i < n; i++) 
-        {
-          for (int j = 0; j < n; j++) 
-          {
-            ap[ap_index++] = (byte)(255.0 *  (a[1 + (i * meshsize + j) * 2]
-                  + 1.0) / 2.0);
-          }
-        }
+	  ap = cp;
+	  for (int i = 0; i < n; i++) 
+	    {
+	      for (int j = 0; j < n; j++) 
+		{
+		  ap[ap_index++] = (byte)
+		    (255.0 * (a[1 + (i * meshsize + j) * 2] + 1.0) / 2.0);
+		}
+	    }
 
-        /* Fill the screen from the computed  intensity  grid  by  mapping
-           screen  points onto the grid, then calculating each pixel value
-           by bilinear interpolation from  the surrounding  grid  points.
-           (N.b. the pictures would undoubtedly look better when generated
-           with small grids if a more well-behaved  interpolation  were
-           used.)
+	  /* Fill the screen from the computed  intensity  grid  by  mapping
+	     screen  points onto the grid, then calculating each pixel value
+	     by bilinear interpolation from  the surrounding  grid  points.
+	     (N.b. the pictures would undoubtedly look better when generated
+	     with small grids if a more well-behaved  interpolation  were
+	     used.)
 
-           Before  we get started, precompute the line-level interpolation
-           parameters and store them in an array so we don't  have  to  do
-           this every time around the inner loop. */
+	     Before  we get started, precompute the line-level interpolation
+	     parameters and store them in an array so we don't  have  to  do
+	     this every time around the inner loop. */
 
-        //#define UPRJ(a,size) ((a)/((size)-1.0))
+	  //#define UPRJ(a,size) ((a)/((size)-1.0))
 
-        for (int j = 0; j < width; j++) 
-        {
-          //          double bx = (n - 1) * UPRJ(j, screenxsize);
-          double bx = (n - 1) * (j/(width-1.0));
+	  for (int j = 0; j < width; j++) 
+	    {
+	      //          double bx = (n - 1) * UPRJ(j, screenxsize);
+	      double bx = (n - 1) * (j/(width-1.0));
 
-          bxf[j] = (uint) Math.Floor(bx);
-          bxc[j] = bxf[j] + 1;
-          u[j] = bx - bxf[j];
-          u1[j] = 1 - u[j];
-        }
-      }
+	      bxf[j] = (uint) Math.Floor(bx);
+	      bxc[j] = bxf[j] + 1;
+	      u[j] = bx - bxf[j];
+	      u1[j] = 1 - u[j];
+	    }
+	}
+
       Pixel[] pixels = new Pixel[width];
 
       for (int i = 0; i < height; i++) 
@@ -1211,58 +1183,58 @@ namespace Gimp.Forge
       InitGauss();
 
       if (!_stars) 
-      {
-        a = SpectralSynth(meshsize, 3.0 - _fracdim);
+	{
+	  a = SpectralSynth(meshsize, 3.0 - _fracdim);
 
-        // Apply power law scaling if non-unity scale is requested.
-        if (_powscale != 1.0) 
-        {
-          for (int i = 0; i < meshsize; i++) 
-          {
-            for (int j = 0; j < meshsize; j++) 
-            {
-              //        double r = Real(a, i, j);
-              double r = a[1 + (i * meshsize + j) * 2];
+	  // Apply power law scaling if non-unity scale is requested.
+	  if (_powscale != 1.0) 
+	    {
+	      for (int i = 0; i < meshsize; i++) 
+		{
+		  for (int j = 0; j < meshsize; j++) 
+		    {
+		      //        double r = Real(a, i, j);
+		      double r = a[1 + (i * meshsize + j) * 2];
 
-              if (r > 0) 
-              {
-                //      Real(a, i, j) = Math.Pow(r, powscale);
-                a[1 + (i * meshsize + j) * 2] = Math.Pow(r, _powscale);
-              }
-            }
-          }
-        }
+		      if (r > 0) 
+			{
+			  //      Real(a, i, j) = Math.Pow(r, powscale);
+			  a[1 + (i * meshsize + j) * 2] = Math.Pow(r, _powscale);
+			}
+		    }
+		}
+	    }
 
-        // Compute extrema for autoscaling.
+	  // Compute extrema for autoscaling.
 
-        double rmin = double.MaxValue;
-        double rmax = double.MinValue;
+	  double rmin = double.MaxValue;
+	  double rmax = double.MinValue;
 
-        for (int i = 0; i < meshsize; i++) 
-        {
-          for (int j = 0; j < meshsize; j++) 
-          {
-            //	    double r = Real(a, i, j);
-            double r = a[1 + (i * meshsize + j) * 2];
+	  for (int i = 0; i < meshsize; i++) 
+	    {
+	      for (int j = 0; j < meshsize; j++) 
+		{
+		  //	    double r = Real(a, i, j);
+		  double r = a[1 + (i * meshsize + j) * 2];
 
-            rmin = Math.Min(rmin, r);
-            rmax = Math.Max(rmax, r);
-          }
-        }
+		  rmin = Math.Min(rmin, r);
+		  rmax = Math.Max(rmax, r);
+		}
+	    }
 
-        double rmean = (rmin + rmax) / 2;
-        double rrange = (rmax - rmin) / 2;
+	  double rmean = (rmin + rmax) / 2;
+	  double rrange = (rmax - rmin) / 2;
 
-        for (int i = 0; i < meshsize; i++) 
-        {
-          for (int j = 0; j < meshsize; j++) 
-          {
-            //	    Real(a, i, j) = (Real(a, i, j) - rmean) / rrange;
-            a[1 + (i * meshsize + j) * 2] = 
-              (a[1 + (i * meshsize + j) * 2] - rmean) / rrange;
-          }
-        }
-      }
+	  for (int i = 0; i < meshsize; i++) 
+	    {
+	      for (int j = 0; j < meshsize; j++) 
+		{
+		  //	    Real(a, i, j) = (Real(a, i, j) - rmean) / rrange;
+		  a[1 + (i * meshsize + j) * 2] = 
+		    (a[1 + (i * meshsize + j) * 2] - rmean) / rrange;
+		}
+	    }
+	}
 
       GenPlanet(drawable, pixelArray, width, height, a, meshsize);
     }

@@ -46,7 +46,7 @@ namespace Gimp
       GimpDialog dialog = base.DialogNew(title, role, parent, flags, 
 					 help_func, help_id);
 
-      _vbox = new VBox(false, 12);
+      _vbox = new VBox(false, 0);
       _vbox.BorderWidth = 12;
       dialog.VBox.PackStart(_vbox, true, true, 0);
 
