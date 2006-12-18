@@ -1,3 +1,11 @@
+2006-12-18  Maurits  <m.rijk@chello.nl>
+
+	* lib/ParamDef.cs
+	* lib/ParamDefList.cs: add support for double parameters, fixes 
+	warnings/errors caused by Forge.exe
+
+	* plug-ins/wbmp/wbmp.cs: code clean-up, minor improvements
+
 2006-12-17  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/Forge/Forge.cs: GUI clean-up, almost finished

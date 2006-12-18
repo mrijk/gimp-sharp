@@ -72,35 +72,21 @@ namespace Gimp.wbmp
 	  byte type = reader.ReadByte();
 	  if (type != 0)
 	    {
-	      Console.WriteLine("Type should be zero!");
-	      Console.ReadLine();
+	      new Message("Invalid file (Type should be zero)");
 	      return null;
 	    }
 
 	  byte header = reader.ReadByte();
 	  if (header != 0)
 	    {
-	      Console.WriteLine("Fixed header should be zero!");
-	      Console.ReadLine();
+	      new Message("Invalid file (Fixed header should be zero)");
 	      return null;
 	    }
 
 	  Progress _progress = new Progress(_("Loading ") + filename);
 
-	  byte readByte;
-	  int width = 0;
-	  while (((readByte = reader.ReadByte()) & 0x80) != 0)
-	    {
-	      width = (width << 7) + (int)(readByte & 0x7F);
-	    }
-	  width = (width << 7) + (int)(readByte & 0x7F);
-
-	  int height = 0;
-	  while (((readByte = reader.ReadByte()) & 0x80) != 0)
-	    {
-	      height = (height << 7) + (int)(readByte & 0x7F);
-	    }
-	  height = (height << 7) + (int)(readByte & 0x7F);
+	  int width = ReadDimension(reader);
+	  int height = ReadDimension(reader);
 
 	  Image image = new Image(width, height, ImageBaseType.Gray);
 
@@ -111,21 +97,18 @@ namespace Gimp.wbmp
 
 	  image.Filename = filename;
 
-	  PixelRgn rgn = new PixelRgn(layer, 0, 0, width, height, true, false);
+	  PixelRgn rgn = new PixelRgn(layer, true, false);
 	  byte[] buf = new byte[width * height];
 	  int bufp = 0;
 
 	  for (int row = 0; row < height; row++) 
 	    {
-	      int ext_copy_of_col = 0;
 	      try
 		{
-		  int bytesToRead = (width + 7) / 8;
-		  byte[] src = reader.ReadBytes(bytesToRead);
+		  byte[] src = reader.ReadBytes((width + 7) / 8);
 
 		  for (int col = 0; col < width; col++) 
 		    {
-		      ext_copy_of_col = col;
 		      if (((src[col / 8] >> (7 - (col % 8))) & 1) == 1)
 			{
 			  buf[bufp] = 255;
@@ -136,12 +119,12 @@ namespace Gimp.wbmp
 			}
 		      bufp++;
 		    }
-		  _progress.Update((double)(row/height));
+		  _progress.Update((double) row / height);
 		}
-	      catch(Exception e)
+	      catch (Exception e)
 		{
-		  Console.WriteLine("Exception: {0} {1} row={2} col={3} bufp={4}", e.Message, e.StackTrace, row, ext_copy_of_col, bufp);
-		  Console.ReadLine();
+		  Console.WriteLine("Exception: {0} {1} row={2} bufp={3}", 
+				    e.Message, e.StackTrace, row, bufp);
 		}
 	    }
 
@@ -150,7 +133,6 @@ namespace Gimp.wbmp
 
 	  reader.Close();
 
-	  _progress.Update(1);
 	  return image;
 	}
       return null;
@@ -159,7 +141,6 @@ namespace Gimp.wbmp
     override protected bool Save(Image image, Drawable drawable, 
 				 string filename)
     {
-      // First check size
       int width = drawable.Width;
       int height = drawable.Height;
 			
@@ -169,8 +150,7 @@ namespace Gimp.wbmp
       if (!drawable.IsIndexed)
 	{
 	  // Convert image to B&W picture if not already B&W
-	  image.ConvertIndexed(ConvertDitherType.No, 
-			       ConvertPaletteType.Mono,
+	  image.ConvertIndexed(ConvertDitherType.No, ConvertPaletteType.Mono,
 			       0, false, false, "");
 	}
 
@@ -180,47 +160,12 @@ namespace Gimp.wbmp
       writer.Write((byte) 0);	// Write type
       writer.Write((byte) 0);	// Fixed header
 
-      byte[] seqEncoded = null;
+      writer.Write(EncodeInteger(width));
+      writer.Write(EncodeInteger(height));
 
-      // Encode the width on the multi-byte integer
-      int bytesToEncode = bytesNeededForEncoding(width);
-      if (bytesToEncode > 0)
-	seqEncoded = new byte[bytesToEncode];
+      image.Flatten();
 
-      encodeInteger(seqEncoded, width);
-      for (int j = 0; j < seqEncoded.Length; j++)
-	{
-	  writer.Write(seqEncoded[j]);
-	}
-
-      // Encode the height on the multi-byte integer
-      bytesToEncode = bytesNeededForEncoding(height);
-      if (bytesToEncode > 0)
-	seqEncoded = new byte[bytesToEncode];
-
-      encodeInteger(seqEncoded, height);
-      for (int j = 0; j < seqEncoded.Length; j++)
-	writer.Write(seqEncoded[j]);
-
-      Layer layer = image.Flatten();
-
-      if (layer == null)
-	{
-	  Console.WriteLine("No flatten image");
-	  Console.ReadLine();
-	  return false;
-	}
-
-      Drawable activeDrawable = image.ActiveDrawable;
-
-      if (activeDrawable == null)
-	{
-	  Console.WriteLine("No active drawable");
-	  Console.ReadLine();
-	  return false;
-	}
-      PixelRgn rgn = new PixelRgn(activeDrawable, 0, 0, width, height, 
-				  true, false);
+      PixelRgn rgn = new PixelRgn(drawable, true, false);
       byte[] wbmpImage = new byte[(width + 7) / 8 * height];
       byte[] buf = rgn.GetRect(0, 0, width, height);
 
@@ -228,8 +173,8 @@ namespace Gimp.wbmp
 	{
 	  for (int col = 0; col < width; col++) 
 	    {
-	      int indexInWbmpImage = (col/8) + row*((width+7)/8);
-	      if (buf[row*width+col] != 0)
+	      int indexInWbmpImage = col / 8 + row * ((width + 7) / 8);
+	      if (buf[row * width + col] != 0)
 		{
 		  wbmpImage[indexInWbmpImage] |= (byte)(1 << (7 - col % 8));
 		}
@@ -239,46 +184,62 @@ namespace Gimp.wbmp
 		}
 
 	      // Check if it's at the end of the byte...
-	      if (((col + 1) % 8 == 0) || ((col + 1) == width) )
-		writer.Write((byte)wbmpImage[indexInWbmpImage]);
+	      if (((col + 1) % 8 == 0) || ((col + 1) == width))
+		{
+		  writer.Write(wbmpImage[indexInWbmpImage]);
+		}
 	    }
-	  _progress.Update((double)(row/height));
+	  _progress.Update((double) row / height);
 	}
 
       writer.Close();
-      _progress.Update(1);
-      activeDrawable.Flush();
-      Display.DisplaysFlush();
 
       return true;
     } 
 
-    private int bytesNeededForEncoding(int numberToEncode)
+    int ReadDimension(BinaryReader reader)
+    {
+      byte readByte;
+      int dimension = 0;
+
+      while (((readByte = reader.ReadByte()) & 0x80) != 0)
+	{
+	  dimension = (dimension << 7) + (int)(readByte & 0x7F);
+	}
+      dimension = (dimension << 7) + (int)(readByte & 0x7F);
+
+      return dimension;
+    }
+
+    int BytesNeededForEncoding(int numberToEncode)
     {
       int bytesNeeded = 0;
-      int stillToCalculate = numberToEncode;
 
-      while (stillToCalculate != 0)
+      while (numberToEncode != 0)
 	{
 	  bytesNeeded++;
-	  stillToCalculate >>= 7;
+	  numberToEncode >>= 7;
 	}
 
       return bytesNeeded;
     }
 
-    private void encodeInteger(byte[] seq, int number)
+    byte[] EncodeInteger(int number)
     {
+      int bytesToEncode = BytesNeededForEncoding(number);
+      byte[] seq = new byte[bytesToEncode];
+
       // Start from the less significant part
-      for (int index = seq.Length - 1; index >= 0; index--)
+      for (int index = bytesToEncode - 1; index >= 0; index--)
 	{
 	  seq[index] = (byte) (number & 0x7f);
 	  number >>= 7;
-	  if (index != seq.Length - 1)
+	  if (index != bytesToEncode - 1)
 	    {
 	      seq[index] |= 0x80;
 	    }
 	}
+      return seq;
     }
   } 
 }

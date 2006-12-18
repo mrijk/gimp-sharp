@@ -85,12 +85,15 @@ namespace Gimp
 	  switch (param.type)
 	    {
 	    case PDBArgType.Int32:
-	      if (type == typeof(int))
+	      if (type == typeof(int) || type == typeof(uint))
 		this[i].Value = (Int32) param.data.d_int32;
 	      else if (type == typeof(bool))
 		this[i].Value = ((Int32) param.data.d_int32 == 0) 
 		  ? false 
 		  : true;
+	      break;
+	    case PDBArgType.Float:
+	      this[i].Value = param.data.d_float;
 	      break;
 	    case PDBArgType.Color:
 	      this[i].Value = new RGB(param.data.d_color);

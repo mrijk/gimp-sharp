@@ -56,6 +56,10 @@ namespace Gimp
     {
       if (_type == typeof(int))
 	return PDBArgType.Int32;
+      else if (_type == typeof(uint))
+	return PDBArgType.Int32;
+      else if (_type == typeof(double))
+	return PDBArgType.Float;
       else if (_type == typeof(bool))
 	return PDBArgType.Int32;
       else if (_type == typeof(string))
@@ -85,6 +89,9 @@ namespace Gimp
 	{
 	case PDBArgType.Int32:
 	  param.data.d_int32 = (Int32) _value;
+	  break;
+	case PDBArgType.Float:
+	  param.data.d_float = (double) _value;
 	  break;
 	case PDBArgType.String:
 	  param.data.d_string = Marshal.StringToHGlobalAuto((string) _value);
