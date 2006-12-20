@@ -1,7 +1,7 @@
 // GIMP# - A C# wrapper around the GIMP Library
 // Copyright (C) 2004-2006 Maurits Rijk
 //
-// ScrolledPreview.cs
+// ZoomedPreview.cs
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -22,47 +22,30 @@
 using System;
 using System.Runtime.InteropServices;
 
-using Gtk;
-
 namespace Gimp
 {
-  public class ScrolledPreview : GimpPreview
+  public class ZoomedPreview : ScrolledPreview
   {
-    public ScrolledPreview(IntPtr ptr) : base (ptr)
+    public ZoomedPreview(Drawable drawable) : 
+      base(gimp_zoom_preview_new(drawable.Ptr))
     {
     }
 
-    void SetPosition(int x, int y)
+    public Drawable Drawable
     {
-      gimp_scrolled_preview_set_position(Handle, x, y);
+      get {return new Drawable(gimp_zoom_preview_get_drawable(Handle));}
     }
 
-    void SetPolicy(PolicyType hscrollbarPolicy, PolicyType vscrollbarPolicy)
+    public double Factor
     {
-      gimp_scrolled_preview_set_policy(Handle, hscrollbarPolicy, 
-				       vscrollbarPolicy);
-    }
-
-    protected void Freeze()
-    {
-      gimp_scrolled_preview_freeze(Handle);
-    }
-
-    protected void Thaw()
-    {
-      gimp_scrolled_preview_thaw(Handle);
+      get {return gimp_zoom_preview_get_factor(Handle);}
     }
 
     [DllImport("libgimpui-2.0-0.dll")]
-    extern static void gimp_scrolled_preview_set_position(IntPtr preview,
-							  int x, int y);
+    extern static IntPtr gimp_zoom_preview_new(IntPtr drawable);
     [DllImport("libgimpui-2.0-0.dll")]
-    extern static void gimp_scrolled_preview_set_policy(IntPtr preview,
-						PolicyType hscrollbar_policy,
-						PolicyType vscrollbar_policy);
+    extern static IntPtr gimp_zoom_preview_get_drawable(IntPtr preview);
     [DllImport("libgimpui-2.0-0.dll")]
-    extern static void gimp_scrolled_preview_freeze(IntPtr preview);
-    [DllImport("libgimpui-2.0-0.dll")]
-    extern static void gimp_scrolled_preview_thaw(IntPtr preview);
+    extern static double gimp_zoom_preview_get_factor(IntPtr preview);
   }
 }

@@ -86,7 +86,8 @@ MYSOURCES = 			\
 	Tile.cs			\
 	Vectors.cs		\
 	Version.cs		\
-	VerticalGuide.cs
+	VerticalGuide.cs	\
+	ZoomPreview.cs
 
 EXTRA_DIST = $(MYSOURCES) $(LIBRARY).config
 
