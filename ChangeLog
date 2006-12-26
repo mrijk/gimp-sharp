@@ -1,3 +1,12 @@
+2006-12-26  Max      <massimo.perga@gmail.com>
+
+	* plug-ins/Splitter/Splitter.cs  
+	* plug-ins/Splitter/po/Splitter.pot  
+	* plug-ins/Splitter/po/en.po 
+	* plug-ins/Splitter/po/fr.po
+	* plug-ins/Splitter/po/he.po
+	* plug-ins/Splitter/po/it.po : fixes for bug #1526127 
+
 2006-12-20  Maurits  <m.rijk@chello.nl>
 
 	* lib/DrawablePreview.cs: layout

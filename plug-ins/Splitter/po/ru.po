@@ -57,3 +57,90 @@ msgstr "Расширенные параметры..."
 #: Splitter.cs:155
 msgid "Both Layers"
 msgstr "Оба слоя"
+
+#: MathExpressionParser.cs:43
+msgid "System.dll"
+msgstr ""
+
+#: MathExpressionParser.cs:46
+msgid ""
+"using System;class myclass : Gimp.Splitter.MyClassBase{public myclass(){}"
+"public override double eval(double x,double y){return "
+msgstr ""
+
+
+#: MathExpressionParser.cs:52
+msgid ";}}"
+msgstr ""
+
+#: MathExpressionParser.cs:62
+msgid "myclass"
+msgstr ""
+
+#: Splitter.cs:69
+msgid "plug_in_splitter"
+msgstr ""
+
+#: Splitter.cs:72
+msgid "Maurits Rijk"
+msgstr ""
+
+#: Splitter.cs:73
+msgid "(C) Maurits Rijk"
+msgstr ""
+
+#: Splitter.cs:74
+msgid "1999 - 2006"
+msgstr ""
+
+#: Splitter.cs:76
+msgid "RGB*"
+msgstr ""
+
+#: Splitter.cs:78
+msgid "<Image>/Filters/Generic"
+msgstr ""
+
+#: Splitter.cs:79
+msgid "Splitter.png"
+msgstr ""
+
+#: Splitter.cs:103
+msgid "f(x, y):"
+msgstr ""
+
+#: Splitter.cs:112
+msgid "= 0"
+msgstr ""
+
+#: Splitter.cs:146 Splitter.cs:160
+msgid "Layer 1"
+msgstr ""
+
+#: Splitter.cs:147 Splitter.cs:205
+msgid "Layer 2"
+msgstr ""
+
+#: Splitter.cs:153
+msgid "Keep:"
+msgstr ""
+
+#: Splitter.cs:176 Splitter.cs:221
+msgid "Translate X:"
+msgstr ""
+
+#: Splitter.cs:186 Splitter.cs:231
+msgid "Translate Y:"
+msgstr ""
+
+#: Splitter.cs:196 Splitter.cs:241
+msgid "Rotate:"
+msgstr ""
+
+#: Splitter.cs:263
+msgid "layer_one"
+msgstr ""
+
+#: Splitter.cs:280
+msgid "layer_two"
+msgstr ""

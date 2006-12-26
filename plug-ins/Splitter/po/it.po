@@ -22,7 +22,7 @@ msgstr "Impostazioni avanzate"
 
 #: AdvancedDialog.cs:35 AdvancedDialog.cs:36 Splitter.cs:95
 msgid "Splitter"
-msgstr "Suddivisore"
+msgstr ""
 
 #: AdvancedDialog.cs:49
 msgid "Random _Seed:"
@@ -39,11 +39,11 @@ msgstr "Suddivide un'immagine in parti separate usando una formula nella forma f
 
 #: Splitter.cs:80
 msgid "Splitter..."
-msgstr "Suddivisore..."
+msgstr ""
 
 #: Splitter.cs:96 Splitter.cs:97
 msgid "splitter"
-msgstr "suddivisore"
+msgstr ""
 
 #: Splitter.cs:129
 msgid "Merge visible layers"
@@ -56,3 +56,89 @@ msgstr "Opzioni avanzate..."
 #: Splitter.cs:155
 msgid "Both Layers"
 msgstr "Entrambi i livelli"
+
+#: MathExpressionParser.cs:43
+msgid "System.dll"
+msgstr ""
+
+#: MathExpressionParser.cs:46
+msgid ""
+"using System;class myclass : Gimp.Splitter.MyClassBase{public myclass(){}"
+"public override double eval(double x,double y){return "
+msgstr ""
+
+#: MathExpressionParser.cs:52
+msgid ";}}"
+msgstr ""
+
+#: MathExpressionParser.cs:62
+msgid "myclass"
+msgstr ""
+
+#: Splitter.cs:69
+msgid "plug_in_splitter"
+msgstr ""
+
+#: Splitter.cs:72
+msgid "Maurits Rijk"
+msgstr ""
+
+#: Splitter.cs:73
+msgid "(C) Maurits Rijk"
+msgstr ""
+
+#: Splitter.cs:74
+msgid "1999 - 2006"
+msgstr ""
+
+#: Splitter.cs:76
+msgid "RGB*"
+msgstr ""
+
+#: Splitter.cs:78
+msgid "<Image>/Filters/Generic"
+msgstr ""
+
+#: Splitter.cs:79
+msgid "Splitter.png"
+msgstr ""
+
+#: Splitter.cs:103
+msgid "f(x, y):"
+msgstr ""
+
+#: Splitter.cs:112
+msgid "= 0"
+msgstr ""
+
+#: Splitter.cs:146 Splitter.cs:160
+msgid "Layer 1"
+msgstr "Livello 1"
+
+#: Splitter.cs:147 Splitter.cs:205
+msgid "Layer 2"
+msgstr "Livello 2"
+
+#: Splitter.cs:153
+msgid "Keep:"
+msgstr "Mantieni:"
+
+#: Splitter.cs:176 Splitter.cs:221
+msgid "Translate X:"
+msgstr "Trasla X:"
+
+#: Splitter.cs:186 Splitter.cs:231
+msgid "Translate Y:"
+msgstr "Trasla Y:"
+
+#: Splitter.cs:196 Splitter.cs:241
+msgid "Rotate:"
+msgstr "Ruota:"
+
+#: Splitter.cs:263
+msgid "layer_one"
+msgstr "livello_uno"
+
+#: Splitter.cs:280
+msgid "layer_two"
+msgstr "livello_due"

@@ -143,21 +143,21 @@ namespace Gimp.Splitter
       ComboBox keep = ComboBox.NewText();
 
       keep.AppendText(_("Both Layers"));
-      keep.AppendText("Layer 1");
-      keep.AppendText("Layer 2");
+      keep.AppendText(_("Layer 1"));
+      keep.AppendText(_("Layer 2"));
       keep.Active = _keepLayer;
       keep.Changed += delegate(object o, EventArgs args) 
 	{
 	  _keepLayer = keep.Active;
 	};
-      table.AttachAligned(0, 5, "Keep:", 0.0, 0.5, keep, 1, true);
+      table.AttachAligned(0, 5, _("Keep:"), 0.0, 0.5, keep, 1, true);
 
       return dialog;
     }
 
     GimpFrame CreateLayerFrame1()
     {
-      GimpFrame frame = new GimpFrame("Layer 1");
+      GimpFrame frame = new GimpFrame(_("Layer 1"));
 
       GimpTable table = new GimpTable(3, 3, false);
       table.BorderWidth = 12;
@@ -173,7 +173,7 @@ namespace Gimp.Splitter
 	  _translate_1_x = spinner.ValueAsInt;
 	};
       spinner.WidthChars = 4;
-      table.AttachAligned(0, 0, "Translate X:", 0.0, 0.5, spinner, 1, true);
+      table.AttachAligned(0, 0, _("Translate X:"), 0.0, 0.5, spinner, 1, true);
 
       spinner = new SpinButton(int.MinValue, int.MaxValue, 1);
       spinner.Value = _translate_1_y;
@@ -183,7 +183,7 @@ namespace Gimp.Splitter
 	  _translate_1_y = spinner.ValueAsInt;
 	};
       spinner.WidthChars = 4;
-      table.AttachAligned(0, 1, "Translate Y:", 0.0, 0.5, spinner, 1, true);
+      table.AttachAligned(0, 1, _("Translate Y:"), 0.0, 0.5, spinner, 1, true);
 
       spinner = new SpinButton(0, 360, 1);
       spinner.Value = _rotate_1;
@@ -193,7 +193,7 @@ namespace Gimp.Splitter
 	  _rotate_1 = spinner.ValueAsInt;
 	};
       spinner.WidthChars = 4;
-      table.AttachAligned(0, 2, "Rotate:", 0.0, 0.5, spinner, 1, true);
+      table.AttachAligned(0, 2, _("Rotate:"), 0.0, 0.5, spinner, 1, true);
 
       return frame;
     }
@@ -202,7 +202,7 @@ namespace Gimp.Splitter
     // however can't address ref or out parameters :(
     GimpFrame CreateLayerFrame2()
     {
-      GimpFrame frame = new GimpFrame("Layer 2");
+      GimpFrame frame = new GimpFrame(_("Layer 2"));
 
       GimpTable table = new GimpTable(3, 3, false);
       table.BorderWidth = 12;
@@ -218,7 +218,7 @@ namespace Gimp.Splitter
 	  _translate_2_x = spinner.ValueAsInt;
 	};
       spinner.WidthChars = 4;
-      table.AttachAligned(0, 0, "Translate X:", 0.0, 0.5, spinner, 1, true);
+      table.AttachAligned(0, 0, _("Translate X:"), 0.0, 0.5, spinner, 1, true);
 
       spinner = new SpinButton(int.MinValue, int.MaxValue, 1);
       spinner.Value = _translate_2_y;
@@ -228,7 +228,7 @@ namespace Gimp.Splitter
 	  _translate_2_y = spinner.ValueAsInt;
 	};
       spinner.WidthChars = 4;
-      table.AttachAligned(0, 1, "Translate Y:", 0.0, 0.5, spinner, 1, true);
+      table.AttachAligned(0, 1, _("Translate Y:"), 0.0, 0.5, spinner, 1, true);
 
       spinner = new SpinButton(0, 360, 1);
       spinner.Value = _rotate_2;
@@ -238,7 +238,7 @@ namespace Gimp.Splitter
 	  _rotate_2 = spinner.ValueAsInt;
 	};
       spinner.WidthChars = 4;
-      table.AttachAligned(0, 2, "Rotate:", 0.0, 0.5, spinner, 1, true);
+      table.AttachAligned(0, 2, _("Rotate:"), 0.0, 0.5, spinner, 1, true);
 
       return frame;
     }
@@ -260,7 +260,7 @@ namespace Gimp.Splitter
       PixelRgn destPR1;
       if (_keepLayer == 0 || _keepLayer == 1)
 	{
-	  layer1 = new Layer(newImage, "layer_one", width, height,
+	  layer1 = new Layer(newImage, _("layer_one"), width, height,
 			     ImageType.Rgba, 100, LayerModeEffects.Normal);
 	  layer1.Translate(_translate_1_x, _translate_1_y);
 	  newImage.AddLayer(layer1, 0);
@@ -277,7 +277,7 @@ namespace Gimp.Splitter
       PixelRgn destPR2;
       if (_keepLayer == 0 || _keepLayer == 2)
 	{
-	  layer2 = new Layer(newImage, "layer_two", width, height,
+	  layer2 = new Layer(newImage, _("layer_two"), width, height,
 			     ImageType.Rgba, 100, LayerModeEffects.Normal);
 	  layer2.Translate(_translate_2_x, _translate_2_y);
 	  newImage.AddLayer(layer2, 0);

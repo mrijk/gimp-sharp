@@ -1,9 +1,10 @@
 # translation of fr.po to
-# translation of en.po to
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+#: Splitter.cs:30
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
@@ -29,21 +30,73 @@ msgstr "Diviseur"
 msgid "Random _Seed:"
 msgstr "_Graine aléatoire :"
 
-#: Splitter.cs:75
+#: Splitter.cs:70
 msgid "Splits an image."
 msgstr "Divise une image."
 
-#: Splitter.cs:76
+#: Splitter.cs:76 Splitter.cs:71
 msgid "Splits an image in separate parts using a formula of the form f(x, y) = 0"
 msgstr "Divise une image en plusieurs parties à l'aide d'une formule de la forme f(x,y)=0"
 
-#: Splitter.cs:80
+
+#: Splitter.cs:80 Splitter.cs:75
 msgid "Splitter..."
 msgstr "Diviseur..."
 
 #: Splitter.cs:96 Splitter.cs:97
 msgid "splitter"
 msgstr "diviseur"
+
+#: MathExpressionParser.cs:43
+msgid "System.dll"
+msgstr ""
+
+#: MathExpressionParser.cs:46
+msgid ""
+"using System;class myclass : Gimp.Splitter.MyClassBase{public myclass(){}"
+"public override double eval(double x,double y){return "
+msgstr ""
+
+#: MathExpressionParser.cs:52
+msgid ";}}"
+msgstr ""
+
+#: MathExpressionParser.cs:62
+msgid "myclass"
+msgstr ""
+
+#: Splitter.cs:69
+msgid "plug_in_splitter"
+msgstr ""
+
+#: Splitter.cs:80
+#: Splitter.cs:72
+msgid "Maurits Rijk"
+msgstr ""
+
+#: Splitter.cs:73
+msgid "(C) Maurits Rijk"
+msgstr ""
+
+#: Splitter.cs:74
+msgid "1999 - 2006"
+msgstr ""
+
+#: Splitter.cs:76
+msgid "RGB*"
+msgstr ""
+
+#: Splitter.cs:78
+msgid "<Image>/Filters/Generic"
+msgstr ""
+
+#: Splitter.cs:79
+msgid "Splitter.png"
+msgstr ""
+
+#: Splitter.cs:112
+msgid "= 0"
+msgstr ""
 
 #: Splitter.cs:129
 msgid "Merge visible layers"
@@ -57,3 +110,34 @@ msgstr "Options avancées..."
 msgid "Both Layers"
 msgstr "Les deux calques"
 
+#: Splitter.cs:146 Splitter.cs:160
+msgid "Layer 1"
+msgstr ""
+
+#: Splitter.cs:147 Splitter.cs:205
+msgid "Layer 2"
+msgstr ""
+
+#: Splitter.cs:153
+msgid "Keep:"
+msgstr ""
+
+#: Splitter.cs:176 Splitter.cs:221
+msgid "Translate X:"
+msgstr ""
+
+#: Splitter.cs:186 Splitter.cs:231
+msgid "Translate Y:"
+msgstr ""
+
+#: Splitter.cs:196 Splitter.cs:241
+msgid "Rotate:"
+msgstr ""
+
+#: Splitter.cs:263
+msgid "layer_one"
+msgstr ""
+
+#: Splitter.cs:280
+msgid "layer_two"
+msgstr ""
