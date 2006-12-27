@@ -88,7 +88,10 @@ namespace Gimp
 
       Pixel[] result = rgn.GetRow(0, 13, _width);
 
-      Assert.AreEqual(row, result);
+      for (int i = 0; i < _width; i++)
+	{
+	  Assert.IsTrue(row[i].IsSameColor(result[i]));
+	}
     }
 
     [Test]
@@ -163,7 +166,7 @@ namespace Gimp
 	    {
 	      for (int x = rgn.X; x < rgn.X + rgn.W; x++)
 		{
-		  Assert.AreEqual(pixel, rgn[y, x]);
+		  Assert.AreEqual(pixel.Color, rgn[y, x].Color);
 		}
 	    }
 	}
@@ -191,7 +194,7 @@ namespace Gimp
 	    {
 	      for (int x = rgn.X; x < rgn.X + rgn.W; x++)
 		{
-		  Assert.AreEqual(pixel, rgn[y, x]);
+		  Assert.AreEqual(pixel.Color, rgn[y, x].Color);
 		}
 	    }
 	}
@@ -241,9 +244,9 @@ namespace Gimp
 	    {
 	      for (int x = srcRgn.X; x < srcRgn.X + srcRgn.W; x++)
 		{
-		  Assert.AreEqual(pixel, srcRgn[y, x]);
-		  Assert.AreEqual(pixel, destRgn[y, x]);
-		  Assert.AreEqual(srcRgn[y, x], destRgn[y, x]);
+		  Assert.AreEqual(pixel.Color, srcRgn[y, x].Color);
+		  Assert.AreEqual(pixel.Color, destRgn[y, x].Color);
+		  Assert.AreEqual(srcRgn[y, x].Color, destRgn[y, x].Color);
 		}
 	    }
 	}

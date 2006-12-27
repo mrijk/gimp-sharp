@@ -13,19 +13,18 @@ Release 0.11
 8) Make group
 9)
 
-- Java support (Max)
-- Documentation (Max, Maurits)
-- Working version of Update Check plug-in (Maurits)
-- First version of PhotoFrame plug-in (Oded)
-
 Release 0.12
 ------------
+- Documentation (Max, Maurits)
+- Working version of Update Check plug-in (Maurits)
 - PhotoshopActions at 50 %
 - Fully functional version of picture package
 
 Release 0.13
 ------------
+- PhotoshopActions at 60 %
 - Generic Lense plug-in
+- First version of PhotoFrame plug-in
 
 Release 0.99
 ------------

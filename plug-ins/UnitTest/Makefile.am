@@ -33,6 +33,7 @@ TESTSOURCES = 	TestBrush.cs 			\
 		TestPixelFetcher.cs		\
 		TestPixelRgn.cs			\
 		TestProcedure.cs		\
+		TestRectangle.cs		\
 		TestRegionIterator.cs		\
 		TestRgnIterator.cs		\
 		TestRGB.cs			\

@@ -1,3 +1,17 @@
+2006-12-27  Maurits  <m.rijk@chello.nl>
+
+	* lib/Pixel.cs: added properties to get X and Y
+
+	* lib/RGB.cs: added ToString method
+
+	* plug-ins/UnitTest/TestRectangle.cs: new file
+	* plug-ins/UnitTest/Makefile.am: changed accordingly
+
+	* plug-ins/UnitTest/TestPixel.cs: added more unit tests
+
+	* plug-ins/UnitTest/TestPixelRgn.cs
+	* plug-ins/UnitTest/TestPixelFetcher.cs: make sure tests pass again
+
 2006-12-26  Max      <massimo.perga@gmail.com>
 
 	* plug-ins/Splitter/Splitter.cs  

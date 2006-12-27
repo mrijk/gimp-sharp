@@ -85,7 +85,7 @@ namespace Gimp
 	      for (int x = 0; x < _width; x++)
 		{
 		  pf[x, y] = expected;
-		  Assert.AreEqual(expected, pf[x, y]);
+		  Assert.IsTrue(expected.IsSameColor(pf[x, y]));
 		}
 	    }
 	}
@@ -122,7 +122,7 @@ namespace Gimp
 	    {
 	      for (int x = 0; x < _width; x++)
 		{
-		  Assert.AreEqual(foreground, pf[x, y]);
+		  Assert.AreEqual(foreground, pf[x, y].Color);
 		}
 	    }
 	}
@@ -136,7 +136,7 @@ namespace Gimp
 	    {
 	      for (int x = 0; x < _width; x++)
 		{
-		  Assert.AreEqual(expected, pf[x, y]);
+		  Assert.IsTrue(expected.IsSameColor(pf[x, y]));
 		}
 	    }
 	}

@@ -84,6 +84,14 @@ namespace Gimp
       return true;
     }
 
+    public RGB Color
+    {
+      get 
+	{
+	  return new RGB(Red, Green, Blue);
+	}
+    }
+
     public byte[] Bytes
     {
       set
@@ -125,11 +133,13 @@ namespace Gimp
 
     public int X
     {
+      get {return _x;}
       set {_x = value;}
     }
 	
     public int Y
     {
+      get {return _y;}
       set {_y = value;}
     }
 

@@ -228,6 +228,14 @@ namespace Gimp
 	}
     }
 
+    public override string ToString()
+    {
+      byte r, g, b;
+
+      GetUchar(out r, out g, out b);
+      return string.Format("({0} {1} {2})", r, g, b);
+    }
+
     [DllImport("libgimpcolor-2.0-0.dll")]
     static extern void gimp_hsv_to_rgb(ref GimpHSV hsv,
 				       ref GimpRGB rgb);
