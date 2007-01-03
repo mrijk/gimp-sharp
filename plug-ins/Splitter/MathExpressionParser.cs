@@ -1,5 +1,5 @@
 // The Splitter plug-in
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // MathExpressionParser.cs
 //
@@ -81,12 +81,7 @@ namespace Gimp.Splitter
 
     public double Eval(double x, double y)
     {
-      double val = 0.0;
-      if (myobj != null)
-	{
-	  val = myobj.eval(x,y);
-	}
-      return val;
+      return (myobj != null) ? myobj.eval(x,y) : 0.0;
     }
   }
 }

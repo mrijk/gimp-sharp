@@ -53,26 +53,6 @@ namespace Gimp
     }
 
     [Test]
-    public void PutGetPixel()
-    {
-      using (PixelFetcher pf = new PixelFetcher(_drawable, false))
-	{
-	  byte[] pixel = new byte[_drawable.Bpp];
-	  byte[] expected = new byte[]{33, 66, 99};
-	  
-	  for (int y = 0; y < _height; y++)
-	    {
-	      for (int x = 0; x < _width; x++)
-		{
-		  pf.PutPixel(x, y, expected);
-		  pf.GetPixel(x, y, pixel);
-		  Assert.AreEqual(expected, pixel);
-		}
-	    }
-	}
-    }
-
-    [Test]
     public void This()
     {
       using (PixelFetcher pf = new PixelFetcher(_drawable, false))

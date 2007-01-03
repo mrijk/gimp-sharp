@@ -1,3 +1,17 @@
+2007-01-03  Maurits  <m.rijk@chello.nl>
+
+	* lib/PixelFetcher.cs: overload GetPixel method with
+	Coordinate<int>. Removed Get/PutPixel method with byte[] argument.
+
+	* plug-ins/UnitTest/TestPixelFetcher.cs: changed accordingly
+
+	* plug-ins/Pointillize/ColorCoordinateSet.cs: use it
+
+	* plug-ins/Pointillize/RandomCoordinateGenerator.cs: new file,
+	might be later used as a reusable class.
+
+	* plug-ins/Pointillize/Makefile.am: changed accordingly
+
 2006-12-27  Maurits  <m.rijk@chello.nl>
 
 	* lib/Pixel.cs: added properties to get X and Y

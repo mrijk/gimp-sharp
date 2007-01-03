@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // PixelFetcher.cs
 //
@@ -59,20 +59,15 @@ namespace Gimp
       set {gimp_pixel_fetcher_set_bg_color(_ptr, value.GimpRGB);}
     }
 
-    public void GetPixel(int x, int y, byte[] pixel)
-    {
-      gimp_pixel_fetcher_get_pixel(_ptr, x, y, pixel);
-    }
-
     public Pixel GetPixel(int x, int y)
     {
       gimp_pixel_fetcher_get_pixel(_ptr, x, y, _dummy);
       return new Pixel(_dummy);
     }
 
-    public void PutPixel(int x, int y, byte[] pixel)
+    public Pixel GetPixel(Coordinate<int> c)
     {
-      gimp_pixel_fetcher_put_pixel(_ptr, x, y, pixel);
+      return GetPixel(c.X, c.Y);
     }
 
     public void PutPixel(int x, int y, Pixel pixel)
@@ -92,7 +87,7 @@ namespace Gimp
 	{
 	  // _dummy.Dispose();
 	}
-      gimp_pixel_fetcher_destroy (_ptr);
+      gimp_pixel_fetcher_destroy(_ptr);
     }
 
     public Pixel this[int row, int col]
@@ -109,25 +104,25 @@ namespace Gimp
     }
 
     [DllImport("libgimp-2.0-0.dll")]
-    static extern IntPtr gimp_pixel_fetcher_new (IntPtr drawable,
-						 bool shadow);
+    static extern IntPtr gimp_pixel_fetcher_new(IntPtr drawable,
+						bool shadow);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern void gimp_pixel_fetcher_set_edge_mode (IntPtr pf,
-							 EdgeMode mode);
+    static extern void gimp_pixel_fetcher_set_edge_mode(IntPtr pf,
+							EdgeMode mode);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern void gimp_pixel_fetcher_set_bg_color (IntPtr pf,
-							GimpRGB color);
+    static extern void gimp_pixel_fetcher_set_bg_color(IntPtr pf,
+						       GimpRGB color);
     [DllImport("libgimp-2.0-0.dll")]
     static extern IntPtr gimp_pixel_fetcher_destroy (IntPtr drawable);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern IntPtr gimp_pixel_fetcher_get_pixel (IntPtr pf,
-						       int x,
-						       int y,
-						       byte[] pixel);
+    static extern IntPtr gimp_pixel_fetcher_get_pixel(IntPtr pf,
+						      int x,
+						      int y,
+						      byte[] pixel);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern IntPtr gimp_pixel_fetcher_put_pixel (IntPtr pf,
-						       int x,
-						       int y,
-						       byte[] pixel);
+    static extern IntPtr gimp_pixel_fetcher_put_pixel(IntPtr pf,
+						      int x,
+						      int y,
+						      byte[] pixel);
   }
 }

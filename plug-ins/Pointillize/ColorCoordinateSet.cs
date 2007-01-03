@@ -1,5 +1,5 @@
 // The Pointillize plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // ColorCoordinateSet.cs
 //
@@ -36,8 +36,6 @@ namespace Gimp.Pointillize
 
     readonly List<ColorCoordinate>[,] _matrix;
 
-    Random _random = new Random();
-
     public ColorCoordinateSet(Drawable drawable, int cellSize)
     {
       _cellSize = cellSize;
@@ -59,13 +57,14 @@ namespace Gimp.Pointillize
       
       _matrix = new List<ColorCoordinate>[_matrixRows, _matrixColumns];
 
-      for (int i = 0; i < nrOfCells; i++)
+      RandomCoordinateGenerator generator = 
+	new RandomCoordinateGenerator(_width - 1, _height - 1, nrOfCells);
+      foreach (Coordinate<int> c in generator.Generate())
 	{
-	  int x = _random.Next(0, _width - 1);
-	  int y = _random.Next(0, _height - 1);
-	  Coordinate<int> c = new Coordinate<int>(x, y);
+	  int x = c.X;
+	  int y = c.Y;
 
-	  Pixel color = pf[y, x];
+	  Pixel color = pf.GetPixel(c);
 	  color.AddNoise(5);
 
 	  ColorCoordinate coordinate = new ColorCoordinate(c, color);
@@ -74,11 +73,7 @@ namespace Gimp.Pointillize
 	  int row = y * _matrixRows / _height;
 	  int col = x * _matrixColumns / _width;
 	  
-	  if (_matrix[row, col] == null)
-	    {
-	      _matrix[row, col] = new List<ColorCoordinate>();
-	    }
-	  _matrix[row, col].Add(coordinate);
+	  Add(row, col, coordinate);
 
 	  int top = row * _height / _matrixRows;
 	  int left = col * _width / _matrixColumns;
@@ -107,12 +102,17 @@ namespace Gimp.Pointillize
       
       if (coordinate.Distance(x, y) < _cellSize * _cellSize / 4)
 	{
-	  if (_matrix[row, col] == null)
-	    {
-	      _matrix[row, col] = new List<ColorCoordinate>();
-	    }
-	  _matrix[row, col].Add(coordinate);
+	  Add(row, col, coordinate);
 	}
+    }
+
+    void Add(int row, int col, ColorCoordinate coordinate)
+    {
+      if (_matrix[row, col] == null)
+	{
+	  _matrix[row, col] = new List<ColorCoordinate>();
+	}
+      _matrix[row, col].Add(coordinate);
     }
 
     public Pixel GetColor(Coordinate<int> c)
