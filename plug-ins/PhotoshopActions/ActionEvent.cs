@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // ActionEvent.cs
 //
@@ -130,16 +130,11 @@ namespace Gimp.PhotoshopActions
     public void FillStore(TreeStore store, TreeIter iter)
     {
       iter = store.AppendValues(iter, EventForDisplay, this);
-      FillParameters(store, iter);
 
       foreach (string s in ListParameters())
 	{
 	  store.AppendValues(iter, s);
 	}
-    }
-
-    protected virtual void FillParameters(TreeStore store, TreeIter iter)
-    {
     }
 
     protected virtual IEnumerable ListParameters()

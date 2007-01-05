@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // TestPixelFetcher.cs
 //
@@ -57,22 +57,21 @@ namespace Gimp
     {
       using (PixelFetcher pf = new PixelFetcher(_drawable, false))
 	{
-	  // byte[] pixel = new byte[_drawable.Bpp];
 	  Pixel expected = new Pixel(33, 66, 99);
 	  
 	  for (int y = 0; y < _height; y++)
 	    {
 	      for (int x = 0; x < _width; x++)
 		{
-		  pf[x, y] = expected;
-		  Assert.IsTrue(expected.IsSameColor(pf[x, y]));
+		  pf[y, x] = expected;
+		  Assert.IsTrue(expected.IsSameColor(pf[y, x]));
 		}
 	    }
 	}
     }
 
     [Test]
-    public void PutGetPixel2()
+    public void PutGetPixel()
     {
       // Fill with some color
       RGB foreground = new RGB(22, 55, 77);
@@ -90,7 +89,7 @@ namespace Gimp
 	    {
 	      for (int x = 0; x < _width; x++)
 		{
-		  pf[x, y] = expected;
+		  pf[y, x] = expected;
 		}
 	    }
 	}
@@ -102,7 +101,7 @@ namespace Gimp
 	    {
 	      for (int x = 0; x < _width; x++)
 		{
-		  Assert.AreEqual(foreground, pf[x, y].Color);
+		  Assert.AreEqual(foreground, pf[y, x].Color);
 		}
 	    }
 	}
@@ -116,7 +115,7 @@ namespace Gimp
 	    {
 	      for (int x = 0; x < _width; x++)
 		{
-		  Assert.IsTrue(expected.IsSameColor(pf[x, y]));
+		  Assert.IsTrue(expected.IsSameColor(pf[y, x]));
 		}
 	    }
 	}

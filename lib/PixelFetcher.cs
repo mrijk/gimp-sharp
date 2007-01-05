@@ -56,7 +56,11 @@ namespace Gimp
 
     public RGB BackgroundColor
     {
-      set {gimp_pixel_fetcher_set_bg_color(_ptr, value.GimpRGB);}
+      set 
+	{
+	  GimpRGB rgb = value.GimpRGB;
+	  gimp_pixel_fetcher_set_bg_color(_ptr, ref rgb);
+	}
     }
 
     public Pixel GetPixel(int x, int y)
@@ -111,7 +115,7 @@ namespace Gimp
 							EdgeMode mode);
     [DllImport("libgimp-2.0-0.dll")]
     static extern void gimp_pixel_fetcher_set_bg_color(IntPtr pf,
-						       GimpRGB color);
+						       ref GimpRGB color);
     [DllImport("libgimp-2.0-0.dll")]
     static extern IntPtr gimp_pixel_fetcher_destroy (IntPtr drawable);
     [DllImport("libgimp-2.0-0.dll")]

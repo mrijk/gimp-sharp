@@ -1,3 +1,30 @@
+2007-01-05  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/PhotoshopActions/ActionEvent.cs
+	* plug-ins/PhotoshopActions/SetColorEvent.cs: minor clean-up
+
+	* plug-ins/Colorize/Colorize.png: created new icon
+	
+	* plug-ins/Raindrops/po/en.po: removed Italian translation from
+	English po file.
+
+	* lib/PixelFetcher.cs: bug fix in BackgroundColor property
+
+	* plug-ins/UnitTest/TestDrawable.cs: more tests
+
+	* plug-ins/UnitTest/TestPixelFetcher.cs: minor clean-up
+
+2007-01-04  Maurits  <m.rijk@chello.nl>
+
+	* lib/RGB.cs: fix Equals method
+
+	* lib/ChannelList.cs: fixed bug when no channels were returned
+
+	* lib/Drawable.cs
+	* lib/Channel.cs: removed some FixMe's
+
+	* plug-ins/UnitTest/TestChannel.cs: more tests added
+
 2007-01-03  Maurits  <m.rijk@chello.nl>
 
 	* lib/PixelFetcher.cs: overload GetPixel method with

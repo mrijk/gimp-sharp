@@ -30,15 +30,15 @@ msgstr ""
 
 #: Raindrops.cs:55
 msgid "Size of raindrops"
-msgstr "Grandezza delle gocce"
+msgstr ""
 
 #: Raindrops.cs:57
 msgid "Number of raindrops"
-msgstr "Numero delle gocce"
+msgstr ""
 
 #: Raindrops.cs:59
 msgid "Fisheye effect"
-msgstr "Effetto occhio di pesce"
+msgstr ""
 
 #: Raindrops.cs:61
 msgid "plug_in_raindrops"
@@ -46,7 +46,7 @@ msgstr ""
 
 #: Raindrops.cs:62 Raindrops.cs:63
 msgid "Generates raindrops"
-msgstr "Genera le gocce"
+msgstr ""
 
 #: Raindrops.cs:64
 msgid "Massimo Perga"
@@ -62,7 +62,7 @@ msgstr ""
 
 #: Raindrops.cs:67 Raindrops.cs:210
 msgid "Raindrops..."
-msgstr "Gocce..."
+msgstr ""
 
 #: Raindrops.cs:68
 msgid "RGB*, GRAY*"
@@ -70,7 +70,7 @@ msgstr ""
 
 #: Raindrops.cs:70
 msgid "<Image>/Filters/Light and Shadow/Glass"
-msgstr "<Image>/Filt_ri/Luci e Ombre/Vetro"
+msgstr ""
 
 #: Raindrops.cs:71
 msgid "Raindrops.png"
@@ -78,27 +78,27 @@ msgstr ""
 
 #: Raindrops.cs:80 Raindrops.cs:82 Raindrops.cs:83
 msgid "Raindrops"
-msgstr "Gocce"
+msgstr ""
 
 #: Raindrops.cs:82
 msgid "Raindrops 0.1"
-msgstr "Gocce 0.1"
+msgstr ""
 
 #: Raindrops.cs:98
 msgid "_Drop size:"
-msgstr "_Grandezza della goccia:"
+msgstr ""
 
 #: Raindrops.cs:108
 msgid "_Number:"
-msgstr "_Numero di gocce:"
+msgstr ""
 
 #: Raindrops.cs:118
 msgid "_Fish eye:"
-msgstr "_Fattore occhio di pesce:"
+msgstr ""
 
 #: Raindrops.cs:145 Raindrops.cs:173
 msgid "This filter can be applied just over layers"
-msgstr "Questo filtro puo' essere applicato solo ai livelli"
+msgstr ""
 
 #: Raindrops.cs:165
 msgid "Reset!"

@@ -1,7 +1,7 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
-// TestDisplay.cs
+// TestDrawable.cs
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -93,6 +93,23 @@ namespace Gimp
       _drawable.Offsets(out offset_x, out offset_y);
       Assert.AreEqual(offset_x, 0);
       Assert.AreEqual(offset_y, 0);      
+    }
+
+    [Test]
+    public void Fill()
+    {
+      // Fill with some color
+      RGB foreground = new RGB(22, 55, 77);
+      Context.Push();
+      Context.Foreground = foreground;
+      _drawable.Fill(FillType.Foreground);
+      Context.Pop();
+
+      using (PixelFetcher pf = new PixelFetcher(_drawable, false))
+	{
+	  Pixel pixel = pf[_height / 2, _width / 2];
+	  Assert.AreEqual(foreground, pixel.Color);
+	}
     }
   }
 }

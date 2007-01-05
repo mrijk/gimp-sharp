@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // Drawable.cs
 //
@@ -22,12 +22,14 @@
 using System;
 using System.Runtime.InteropServices;
 
+using GLib;
+
 namespace Gimp
 {
   public class Drawable
   {
     readonly IntPtr _drawable;
-    /* readonly */ protected Int32 _ID;
+    readonly protected Int32 _ID;
 
     public Drawable(Int32 drawableID)
     {
@@ -38,11 +40,6 @@ namespace Gimp
     public Drawable(IntPtr drawable)
     {
       _drawable = drawable;
-    }
-
-    internal Drawable()
-    {
-      // Fix me: try to remove this one
     }
 
     public void Detach()
@@ -100,7 +97,8 @@ namespace Gimp
                                                     ref height, out bpp);
       byte[] dest = new byte[width * height * bpp];
       Marshal.Copy(src, dest, 0, width * height * bpp);
-      // Fix me: free src
+      Marshaller.Free(src);
+
       return dest;
     }
 

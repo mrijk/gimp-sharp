@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // SetColorEvent.cs
 //
@@ -35,10 +35,6 @@ namespace Gimp.PhotoshopActions
       _objc.Fill(this);
     }
 
-    protected override void FillParameters(TreeStore store, TreeIter iter)
-    {
-    }
-        
     protected RGB Color
     {
       get 

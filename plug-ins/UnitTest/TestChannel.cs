@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // TestChannel.cs
 //
@@ -28,14 +28,87 @@ namespace Gimp
   [TestFixture]
   public class TestChannel
   {
-    [Test]
-    public void NewChannel()
-    {
-      int width = 64;
-      int height = 128;
-      Image image = new Image(width, height, ImageBaseType.Rgb);
+    int _width = 64;
+    int _height = 128;
+    Image _image;
 
-      image.Delete();
+    [SetUp]
+    public void Init()
+    {
+      _image = new Image(_width, _height, ImageBaseType.Rgb);
+    }
+
+    [TearDown]
+    public void Exit()
+    {
+      _image.Delete();
+    }
+
+    [Test]
+    public void ChannelConstructorOne()
+    {
+      int before = _image.Channels.Count;
+
+      Channel channel = new Channel(_image, "test", _width, _height, 100,
+				    new RGB(0, 255, 0));
+      _image.AddChannel(channel, 0);
+
+      Assert.AreEqual(before + 1, _image.Channels.Count);
+    }
+
+    [Test]
+    public void ChannelConstructorTwo()
+    {
+      int before = _image.Channels.Count;
+
+      Channel channel = new Channel(_image, "test", _width, _height, 100,
+				    new RGB(0, 255, 0));
+      _image.AddChannel(channel, 0);
+
+      Channel copy = new Channel(channel);
+      _image.AddChannel(copy, 0);
+
+      Assert.AreEqual(before + 2, _image.Channels.Count);
+    }
+
+    [Test]
+    public void GetSetShowMasked()
+    {
+      Channel channel = new Channel(_image, "test", _width, _height, 100,
+				    new RGB(0, 255, 0));
+      _image.AddChannel(channel, 0);
+
+      channel.ShowMasked = true;
+      Assert.IsTrue(channel.ShowMasked);
+
+      channel.ShowMasked = false;
+      Assert.IsFalse(channel.ShowMasked);
+    }
+
+    [Test]
+    public void GetSetOpacity()
+    {
+      Channel channel = new Channel(_image, "test", _width, _height, 100,
+				    new RGB(0, 255, 0));
+      _image.AddChannel(channel, 0);
+
+      Assert.AreEqual(100, channel.Opacity);
+      channel.Opacity = 13;
+      Assert.AreEqual(13, channel.Opacity);
+    }
+
+    [Test]
+    public void GetSetColor()
+    {
+      RGB color = new RGB(0, 255, 0);
+      Channel channel = new Channel(_image, "test", _width, _height, 100,
+				    color);
+      _image.AddChannel(channel, 0);
+
+      Assert.AreEqual(color.Bytes, channel.Color.Bytes);
+      RGB red = new RGB(255, 0, 0);
+      channel.Color = red;
+      Assert.AreEqual(red.Bytes, channel.Color.Bytes);
     }
   }
 }

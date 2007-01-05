@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // Channel.cs
 //
@@ -27,14 +27,19 @@ namespace Gimp
   public class Channel : Drawable
   {
     public Channel(Image image, string name, int width, int height,
-                   double opacity, RGB color)
+                   double opacity, RGB color) :
+      this(image, name, width, height, opacity, color.GimpRGB)
     {
-      GimpRGB rgb = color.GimpRGB;
-      _ID = gimp_channel_new(image.ID, name, width, height,
-			     opacity, ref rgb);
-      // Fix me: we also have to set the drawable in the base class!
     }
 
+    // Private (!) constructor so we can pass rgb by reference
+    Channel(Image image, string name, int width, int height,
+	    double opacity, GimpRGB rgb) :
+      base(gimp_channel_new(image.ID, name, width, height, opacity, ref rgb))
+    {
+    }
+
+    // GIMP 2.4
     public Channel(Image image, ChannelType component, string name) : 
       base(gimp_channel_new_from_component(image.ID, component, name))
     {
@@ -50,14 +55,14 @@ namespace Gimp
 
     public bool ShowMasked
     {
-      get {return gimp_channel_get_show_masked (_ID);}
-      set {gimp_channel_set_show_masked (_ID, value);}
+      get {return gimp_channel_get_show_masked(_ID);}
+      set {gimp_channel_set_show_masked(_ID, value);}
     }
 
     public double Opacity
     {
-      get {return gimp_channel_get_opacity (_ID);}
-      set {gimp_channel_set_opacity (_ID, value);}
+      get {return gimp_channel_get_opacity(_ID);}
+      set {gimp_channel_set_opacity(_ID, value);}
     }
 
     public RGB Color
@@ -65,55 +70,55 @@ namespace Gimp
       get 
 	{
           GimpRGB rgb = new GimpRGB();
-          gimp_channel_get_color (_ID, ref rgb);
+          gimp_channel_get_color(_ID, ref rgb);
           return new RGB(rgb);
 	}
       set 
 	{
           GimpRGB rgb = value.GimpRGB;
-          gimp_channel_set_color (_ID, ref rgb);
+          gimp_channel_set_color(_ID, ref rgb);
 	}
     }
 
-    public bool CombineMasks (Channel channel, ChannelOps operation,
-                              int offx, int offy)
+    public bool CombineMasks(Channel channel, ChannelOps operation,
+			     int offx, int offy)
     {
-      return gimp_channel_combine_masks (_ID, channel.ID, operation,
-                                         offx, offy);
+      return gimp_channel_combine_masks(_ID, channel.ID, operation,
+					offx, offy);
     }
 
     [DllImport("libgimp-2.0-0.dll")]
-    static extern Int32 gimp_channel_new (Int32 image_ID, string name,
-                                          int width, int height,
-                                          double opacity, 
-                                          ref GimpRGB color);
+    static extern Int32 gimp_channel_new(Int32 image_ID, string name,
+					 int width, int height,
+					 double opacity, 
+					 ref GimpRGB color);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern Int32 gimp_channel_new_from_component (Int32 image_ID, 
-							 ChannelType component,
-							 string name);
+    static extern Int32 gimp_channel_new_from_component(Int32 image_ID, 
+							ChannelType component,
+							string name);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern Int32 gimp_channel_copy (Int32 channel_ID);
+    static extern Int32 gimp_channel_copy(Int32 channel_ID);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_channel_get_show_masked (Int32 channel_ID);
+    static extern bool gimp_channel_get_show_masked(Int32 channel_ID);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_channel_set_show_masked (Int32 channel_ID,
-                                                     bool show_masked);
+    static extern bool gimp_channel_set_show_masked(Int32 channel_ID,
+						    bool show_masked);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern double gimp_channel_get_opacity (Int32 channel_ID);
+    static extern double gimp_channel_get_opacity(Int32 channel_ID);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_channel_set_opacity (Int32 channel_ID,
-                                                 double opacity);
+    static extern bool gimp_channel_set_opacity(Int32 channel_ID,
+						double opacity);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_channel_get_color (Int32 channel_ID,
+    static extern bool gimp_channel_get_color(Int32 channel_ID,
+					      ref GimpRGB color);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_channel_set_color(Int32 channel_ID,
                                                ref GimpRGB color);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_channel_set_color (Int32 channel_ID,
-                                               ref GimpRGB color);
-    [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_channel_combine_masks (Int32 channel1_ID,
-                                                   Int32 channel2_ID,
-                                                   ChannelOps operation,
-                                                   int offx,
-                                                   int offy);
+    static extern bool gimp_channel_combine_masks(Int32 channel1_ID,
+						  Int32 channel2_ID,
+						  ChannelOps operation,
+						  int offx,
+						  int offy);
   }
 }

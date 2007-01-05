@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // RGB.cs
 //
@@ -65,7 +65,8 @@ namespace Gimp
     {
       if (o is RGB)
 	{
-	  return _rgb.Equals((o as RGB)._rgb);
+	  RGB rgb = o as RGB;
+	  return R == rgb.R && G == rgb.G && B == rgb.B && Alpha == rgb.Alpha;
 	}
       return false;
     }
@@ -77,7 +78,7 @@ namespace Gimp
 
     public static bool operator==(RGB rgb1, RGB rgb2)
     {
-      return rgb1._rgb.Equals(rgb2._rgb);
+      return rgb1.Equals(rgb2);
     }
 
     public static bool operator!=(RGB rgb1, RGB rgb2)

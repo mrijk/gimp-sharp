@@ -15,6 +15,7 @@ TESTSOURCES = 	TestBrush.cs 			\
 		TestBrushList.cs		\
 		TestChannel.cs			\
 		TestChannelList.cs		\
+		TestContext.cs			\
 		TestDisplay.cs			\
 		TestDrawable.cs			\
 		TestFloatingSelection.cs	\
@@ -42,7 +43,6 @@ TESTSOURCES = 	TestBrush.cs 			\
 		TestVersion.cs
 
 
-#		TestContext.cs
 #		TestPlugins.cs
 
 EXTRA_DIST = $(MYSOURCES) $(TESTSOURCES) UnitTest UnitTest.png
