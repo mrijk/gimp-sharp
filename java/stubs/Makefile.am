@@ -12,7 +12,7 @@ ASSEMBLIES=	/pkg:gtk-sharp-2.0
 ORIGINAL_DLLS = gimp-sharp.dll mscorlib.dll
 STUBS = gimp-sharp.jar mscorlib.jar
 
-EXTRA_DIST = $(MYSOURCES) $(LIBRARY).config
+#EXTRA_DIST = $(MYSOURCES) $(LIBRARY).config
 
 CLEANFILES = $(ORIGINAL_DLLS) $(STUBS)
 

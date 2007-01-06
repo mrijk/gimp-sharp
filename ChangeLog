@@ -1,3 +1,7 @@
+2007-01-06  Max      <massimo.perga@gmail.com>
+
+	* java/stubs/Makefile.am : commented EXTRA_DIST line
+
 2007-01-06  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/Raindrops/Raindrops.cs: split of some functionality and
