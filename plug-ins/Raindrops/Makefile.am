@@ -6,7 +6,9 @@ GIMPSHARPLIB = $(top_builddir)/lib/gimp-sharp.dll
 
 ASSEMBLIES = -r:$(GIMPSHARPLIB) /pkg:gtk-sharp-2.0 /target:winexe
 
-MYSOURCES = Raindrops.cs
+MYSOURCES = 		\
+	BoolMatrix.cs	\
+	Raindrops.cs
 
 EXTRA_DIST = $(MYSOURCES) Raindrops Raindrops.png
 SUBDIRS = po 

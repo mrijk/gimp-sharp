@@ -1,3 +1,12 @@
+2007-01-06  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/Raindrops/Raindrops.cs: split of some functionality and
+	put this into...
+
+	* plug-ins/Raindrops/BoolMatrix.cs: ... new file
+
+	* plug-ins/Raindrops/Makefile.am: changed accordingly
+
 2007-01-05  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/PhotoshopActions/ActionEvent.cs

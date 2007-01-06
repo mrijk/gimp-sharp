@@ -1,5 +1,5 @@
 // The Raindrops plug-in
-// Copyright (C) 2004-2006 Maurits Rijk, Massimo Perga
+// Copyright (C) 2004-2007 Maurits Rijk, Massimo Perga
 //
 // Raindrops.cs
 //
@@ -134,12 +134,6 @@ namespace Gimp.Raindrops
       Image clone = new Image(_image);
       clone.Crop(_preview.Bounds);
 
-      if (!clone.ActiveDrawable.IsLayer())
-	{
-	  new Message("This filter can be applied just over layers");
-	  return;
-	}
-
       RenderRaindrops(clone, clone.ActiveDrawable, true);
 
       PixelRgn rgn = new PixelRgn(clone.ActiveDrawable, false, false);
@@ -148,7 +142,7 @@ namespace Gimp.Raindrops
       clone.Delete();
     }
     
-    private int Clamp(int x, int l, int u)
+    int Clamp(int x, int l, int u)
     {
       return (x < l) ? l : ((x > u) ? u : x);
     }
@@ -160,54 +154,22 @@ namespace Gimp.Raindrops
 
     override protected void Render(Image image, Drawable drawable)
     {
-      // Just layers are allowed
-      if (!drawable.IsLayer())
-	{
-	  new Message(_("This filter can be applied just over layers"));
-	  return;
-	}
-
-      Layer active_layer = image.ActiveLayer;
-      string original_layer_name =  active_layer.Name;
-
-      Layer newLayer = new Layer(active_layer);
-      newLayer.Name = "_raindrops_dummy_" + original_layer_name;      
-      newLayer.Visible = false;
-      newLayer.Mode = active_layer.Mode;
-      newLayer.Opacity = active_layer.Opacity;
-      
-            
-/*      if(!active_layer.HasAlpha)
-        active_layer.AddAlpha();*/
-    
-      RenderRaindrops(image, newLayer, false);
-      image.UndoGroupStart();
-      image.AddLayer(newLayer, -1); 
-      image.RemoveLayer(active_layer);
-      newLayer.Name = original_layer_name;
-      newLayer.Visible = true;
-      image.ActiveLayer = newLayer;
-      image.UndoGroupEnd();
-      Display.DisplaysFlush();
+      RenderRaindrops(image, drawable, false);
     }
 
     void RenderRaindrops(Image image, Drawable drawable, bool isPreview)
     {
-      int x, y;                             // center coordinates
       int width = image.Width;
       int height = image.Height;
-      Progress    _progress = null;
+      Progress progress = null;
 
       Tile.CacheDefault(drawable);
 
       if (!isPreview)
-        _progress = new Progress(_("Raindrops..."));
+        progress = new Progress(_("Raindrops..."));
 
       PixelFetcher pf = new PixelFetcher(drawable, false);
 
-      // Create a new matrix containing where to place raindrops
-      bool [,] boolMatrix = new bool[width, height];
-      int  m, n;                 // loop variables
       int  bpp = drawable.Bpp;
 
       // TODO: to test the following conditions before uncommenting it
@@ -217,145 +179,112 @@ namespace Gimp.Raindrops
         bpp--;
       */
 
-      int BlurRadius;                       // Blur Radius
-      bool FindAnother = false;             // To search for good coordinates
-      int DropSize = _dropSize;
-      int Coeff = _fishEye; 
-      double OldRadius;                        // Radius before processing
-
-      double NewCoeff = (double)Clamp(Coeff, 1, 100) * 0.01;  // FishEye Coefficients
+      // FishEye Coefficients
+      double newCoeff = (double) Clamp(_fishEye, 1, 100) * 0.01;
 
       Random random = new Random();
+
+      BoolMatrix boolMatrix = new BoolMatrix(width, height);
      
       // TODO: find an upper bound so that
       // speed on big drop would be improved
-      //int upper_bound = ; // upper bound for iteration in  blur search process
+      // int upper_bound = ; 
+      // upper bound for iteration in  blur search process
 
-      for (int NumBlurs = 0 ; NumBlurs <= _number ; ++NumBlurs)
+      for (int numBlurs = 0 ; numBlurs <= _number ; numBlurs++)
 	{
-	  int newSize = random.Next(DropSize);	// Size of current raindrop
-	  int halfSize = newSize / 2;		// Half of current raindrop
-	  int Radius = halfSize;		// Maximum radius for raindrop
-	  double s = Radius / Math.Log (NewCoeff * Radius + 1);
+	  int newSize = random.Next(_dropSize);	// Size of current raindrop
+	  int radius = newSize / 2;		// Half of current raindrop
+	  double s = radius / Math.Log(newCoeff * radius + 1);
 
-	  int Counter = 0;
-
-	  do
+	  bool failed;
+	  Coordinate<int> c = boolMatrix.Generate(radius, out failed);
+	  if (failed)
 	    {
-	      FindAnother = false;
-	      y = random.Next(width);
-	      x = random.Next(height);
-	    
-	      if (boolMatrix[y,x])
-		{
-		  FindAnother = true;
-		}
-	      else
-		{
-		  for (int i = x - halfSize ; i <= x + halfSize ; i++)
-		    {
-		      for (int j = y - halfSize ; j <= y + halfSize ; j++)
-			{
-			  if (i >= 0 && i < height && j >= 0 && j < width)
-			    {
-			      if (boolMatrix[j,i])
-				{
-				  FindAnother = true;
-				}
-			    }
-			}
-		    }
-		}
-	      Counter++;
-	    }
-	  while (FindAnother && Counter < 10000);
-
-	  if (Counter >= 10000)
-	    {
-	      NumBlurs = _number;
 	      break;
 	    }
 
-	  for (int i = -halfSize ; i < newSize - halfSize ; i++)
+	  int x = c.X;
+	  int y = c.Y;
+
+	  for (int i = -radius ; i < newSize - radius ; i++)
 	    {
-	      for (int j = -halfSize ; j < newSize - halfSize ; j++)
+	      for (int j = -radius ; j < newSize - radius ; j++)
 		{
 		  double r = Math.Sqrt(i * i + j * j);
 		  double a = Math.Atan2(i, j);
 
-		  if (r <= Radius)
+		  if (r <= radius)
 		    {
-		      OldRadius = r;
-		      r = (Math.Exp (r / s) - 1) / NewCoeff;
+		      double oldRadius = r;
+		      r = (Math.Exp (r / s) - 1) / newCoeff;
 
 		      int k = x + (int) (r * Math.Sin(a));
 		      int l = y + (int) (r * Math.Cos(a));
 
-		      m = x + i;
-		      n = y + j;
+		      int m = x + i;
+		      int n = y + j;
 
-		      if (k >= 0 && k < height && l >= 0 && l < width)
+		      if (IsInside(k, l, width, height) &&
+			  IsInside(m, n, width, height))
 			{
-			  if (m >= 0 && m < height && n >= 0 && n < width)
-			    {
-			      int bright = GetBright(Radius, OldRadius, a);
+			  boolMatrix[n, m] = true;
 
-			      boolMatrix[n, m] = true;
-
-			      Pixel newColor = pf[l, k] + bright;
-			      newColor.Clamp0255();
-			      pf[l, k] = newColor;
-			    }
+			  int bright = GetBright(radius, oldRadius, a); 
+			  Pixel newColor = pf[l, k] + bright;
+			  newColor.Clamp0255();
+			  pf[l, k] = newColor;
 			}
 		    }
 		}
 	    }
 
-	  BlurRadius = newSize / 25 + 1;
+	  int blurRadius = newSize / 25 + 1;
 
-	  for (int i = -halfSize - BlurRadius ;  
-	       i < newSize - halfSize + BlurRadius ; i++)
+	  for (int i = -radius - blurRadius ;  
+	       i < newSize - radius + blurRadius ; i++)
 	    {
-	      for (int j = -halfSize - BlurRadius ; 
-		   j < newSize - halfSize + BlurRadius ; j++)
+	      for (int j = -radius - blurRadius ; 
+		   j < newSize - radius + blurRadius ; j++)
 		{
 		  double r = Math.Sqrt (i * i + j * j);
-
-		  if (r <= Radius * 1.1)
+		  
+		  if (r <= radius * 1.1)
 		    {
 		      Pixel average = new Pixel(bpp);
-		      int BlurPixels = 0;
+		      int blurPixels = 0;
+		      int m, n;
 
-		      for (int k = -BlurRadius; k < BlurRadius + 1; k++)
+		      for (int k = -blurRadius; k < blurRadius + 1; k++)
 			{
-			  for (int l = -BlurRadius; l < BlurRadius + 1; l++)
+			  for (int l = -blurRadius; l < blurRadius + 1; l++)
 			    {
 			      {
 				m = x + i + k;
 				n = y + j + l;
 				
-				if (m >= 0 && m < height &&
-				    n >= 0 && n < width)
+				if (IsInside(m, n, width, height))
 				  {
 				    average += pf[n, m];
-				    BlurPixels++;
+				    blurPixels++;
 				  }
 			      }
 			    }
 			}
-
+		      
 		      m = x + i;
 		      n = y + j;
 
-		      if (m >= 0 && m < height && n >= 0 && n < width)
+		      if (IsInside(m, n, width, height))
 			{
-			  pf[n, m] = average / BlurPixels;
+			  pf[n, m] = average / blurPixels;
 			}
 		    }
 		}
 	    }
+
 	  if (!isPreview)
-	    _progress.Update((double) NumBlurs / _number);
+	    progress.Update((double) numBlurs / _number);
 	}
 
       pf.Dispose();
@@ -366,6 +295,11 @@ namespace Gimp.Raindrops
       if (!isPreview)
         Display.DisplaysFlush();
 
+    }
+
+    bool IsInside(int x, int y, int width, int height)
+    {
+      return x >= 0 && x < width && y >= 0 && y < height;
     }
 
     int GetBright(double Radius, double OldRadius, double a)
