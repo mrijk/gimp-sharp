@@ -1,5 +1,5 @@
 // The Splitter plug-in
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // Splitter.cs
 //
@@ -250,7 +250,6 @@ namespace Gimp.Splitter
       Rectangle rectangle = image.Bounds;
       int width = rectangle.Width;
       int height = rectangle.Height;
-      bool hasAlpha = drawable.HasAlpha;
 
       parser.Init(_formula, width, height);
 
@@ -263,6 +262,7 @@ namespace Gimp.Splitter
 	  layer1 = new Layer(newImage, _("layer_one"), width, height,
 			     ImageType.Rgba, 100, LayerModeEffects.Normal);
 	  layer1.Translate(_translate_1_x, _translate_1_y);
+	  layer1.AddAlpha();
 	  newImage.AddLayer(layer1, 0);
 
 	  destPR1 = new PixelRgn(layer1, rectangle, true, false);
@@ -280,6 +280,7 @@ namespace Gimp.Splitter
 	  layer2 = new Layer(newImage, _("layer_two"), width, height,
 			     ImageType.Rgba, 100, LayerModeEffects.Normal);
 	  layer2.Translate(_translate_2_x, _translate_2_y);
+	  layer2.AddAlpha();
 	  newImage.AddLayer(layer2, 0);
 
 	  destPR2 = new PixelRgn(layer2, rectangle, true, false);
@@ -304,11 +305,7 @@ namespace Gimp.Splitter
 		{
 		  for (int x = srcPR.X; x < srcPR.X + srcPR.W; x++)
 		    {
-		      Pixel tmp = srcPR[y, x];
-		      if (!hasAlpha)
-			{
-			  tmp.Alpha = 255;
-			}
+		      Pixel tmp = Copy(srcPR[y, x]);
 		      if (parser.Eval(x, y) < 0)
 			{
 			  destPR1[y, x] = tmp;
@@ -334,12 +331,7 @@ namespace Gimp.Splitter
 		    {
 		      if (parser.Eval(x, y) < 0)
 			{
-			  Pixel tmp = srcPR[y, x];
-			  if (!hasAlpha)
-			    {
-			      tmp.Alpha = 255;
-			    }
-			  destPR1[y, x] = tmp;
+			  destPR1[y, x] = Copy(srcPR[y, x]);
 			}
 		      else
 			{
@@ -364,12 +356,7 @@ namespace Gimp.Splitter
 			}
 		      else
 			{
-			  Pixel tmp = srcPR[y, x];
-			  if (!hasAlpha)
-			    {
-			      tmp.Alpha = 255;
-			    }
-			  destPR2[y, x] = tmp;
+			  destPR2[y, x] = Copy(srcPR[y, x]);
 			}
 		    }
 		}				
@@ -399,6 +386,23 @@ namespace Gimp.Splitter
       new Display(newImage);
       
       Display.DisplaysFlush();
+    }
+
+    Pixel Copy(Pixel src)
+    {
+      if (src.HasAlpha)
+	{
+	  return src;
+	}
+      else
+	{
+	  Pixel pixel = new Pixel(4);
+	  pixel.Red = src.Red;
+	  pixel.Green = src.Green;
+	  pixel.Blue = src.Blue;
+	  pixel.Alpha = 255;
+	  return pixel;
+	}
     }
   }
 }

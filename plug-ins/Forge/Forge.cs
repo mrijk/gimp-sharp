@@ -1,5 +1,5 @@
 // The Forge plug-in
-// Copyright (C) 2006 Massimo Perga (massimo.perga@gmail.com)
+// Copyright (C) 2006-2007 Massimo Perga (massimo.perga@gmail.com)
 //
 // Forge.cs
 //
@@ -27,7 +27,7 @@ namespace Gimp.Forge
 {
   public class Forge : PluginWithPreview
   {
-    public const int nRand = 4; // Gauss() sample count
+    public const int _nRand = 4; // Gauss() sample count
     public const double planetAmbient = 0.05;
     Random _random;
     bool _random_seed = true;
@@ -441,7 +441,7 @@ namespace Gimp.Forge
       int width, height;
       preview.GetSize(out width, out height);
 
-      byte []pixelArray = new byte[width * height * 3];
+      byte[] pixelArray = new byte[width * height * 3];
       RenderForge(null, pixelArray, width, height);
 
       preview.DrawBuffer(pixelArray, width * 3);
@@ -457,12 +457,6 @@ namespace Gimp.Forge
       int width = drawable.Width;
       int height = drawable.Height;
 
-      // Just layers are allowed
-      if (!drawable.IsLayer())
-      {
-        new Message(_("This filter can be applied just over layers"));
-        return;
-      }
       if (width < height)
       {
         new Message(_("This filter can be applied just if height <= width"));
@@ -470,37 +464,16 @@ namespace Gimp.Forge
       }
 
       Tile.CacheDefault(drawable);
-      if (_progress == null)
-      {
-        _progress = new Progress(_("Forge..."));
-      }
 
-
-      Layer activeLayer = image.ActiveLayer;
-      Layer layer = new Layer(activeLayer);
-      layer.Name = "_Forge_";      
-      layer.Visible = false;
-      layer.Mode = activeLayer.Mode;
-      layer.Opacity = activeLayer.Opacity;
-      byte[] pixelArray = null;
-      RenderForge(layer, pixelArray, width, height);
-
-      layer.Flush();
-      layer.Update();
-
-      image.UndoGroupStart();
-      image.AddLayer(layer, -1); 
-      layer.Visible = true;
-      image.ActiveLayer = layer;
-      image.UndoGroupEnd();
-      Display.DisplaysFlush();
+      _progress = new Progress(_("Forge..."));
+      RenderForge(drawable, null, width, height);
     }
 
-    void RenderForge(Drawable new_layer, byte[] pixelArray, int width, 
-        int height)
+    void RenderForge(Drawable drawable, byte[] pixelArray, int width, 
+		     int height)
     {
       InitParameters();
-      Planet(new_layer, pixelArray, width, height);
+      Planet(drawable, pixelArray, width, height);
     }
 
     //
@@ -512,8 +485,8 @@ namespace Gimp.Forge
     {
       // Range of random generator
       arand = Math.Pow(2.0, 15.0) - 1.0;
-      gaussadd = Math.Sqrt(3.0 * nRand);
-      gaussfac = 2 * gaussadd / (nRand * arand);
+      gaussadd = Math.Sqrt(3.0 * _nRand);
+      gaussfac = 2 * gaussadd / (_nRand * arand);
     }
 
     void InitParameters()
@@ -578,7 +551,7 @@ namespace Gimp.Forge
     {
       double sum = 0.0;
 
-      for (int i = 1; i <= nRand; i++) 
+      for (int i = 1; i <= _nRand; i++) 
       {
         sum += (_random.Next() & 0x7FFF);
       }
@@ -863,7 +836,7 @@ namespace Gimp.Forge
     //
 
     void GenPlanet(Drawable drawable, byte[] pixelArray, int width, 
-        int height, double []a, uint n)
+		   int height, double[] a, uint n)
     {
       const double rgbQuant = 255; 
       const double atthick = 1.03;   /* Atmosphere thickness as a 

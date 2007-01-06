@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2006 Maurits Rijk  m.rijk@chello.nl
+// Copyright (C) 2004-2007 Maurits Rijk  m.rijk@chello.nl
 //
 // SliceTool.cs
 //
@@ -109,7 +109,7 @@ namespace Gimp.SliceTool
       vbox.PackStart(hbox, true, true, 0);
       _xy = new Entry();
       _xy.WidthChars = 16;
-      _xy.Editable = false;
+      _xy.IsEditable = false;
       hbox.PackStart(_xy, false, false, 0);
       
       hbox = new HBox(false, 24);
@@ -316,13 +316,13 @@ namespace Gimp.SliceTool
       frame.Add(table);
 			
       _url = new Entry();
-      table.AttachAligned(0, 0, _("URL:"), 0.0, 0.5, _url, 3, false);
+      table.AttachAligned(0, 0, _("_URL:"), 0.0, 0.5, _url, 3, false);
       
       _altText = new Entry();
-      table.AttachAligned(0, 1, _("Alt text:"), 0.0, 0.5, _altText, 3, false);
+      table.AttachAligned(0, 1, _("A_lt text:"), 0.0, 0.5, _altText, 3, false);
       
       _target = new Entry();
-      table.AttachAligned(0, 2, _("Target:"), 0.0, 0.5, _target, 3, false);
+      table.AttachAligned(0, 2, _("_Target:"), 0.0, 0.5, _target, 3, false);
       
       _left = new Label("    ");
       table.AttachAligned(0, 3, _("Left:"), 0.0, 0.5, _left, 1, false);

@@ -76,7 +76,15 @@ namespace Gimp.Colorize
           "Colorize...",
           "RGB*, GRAY*",
           inParams);
-      procedure.MenuPath = "<Image>/Filters/Generic";
+
+      if (Gimp.Version.Major >= 2 && Gimp.Version.Minor >= 3)
+	{
+	  procedure.MenuPath = "<Image>/Colors";
+	}
+      else
+	{
+	  procedure.MenuPath = "<Image>/Filters/Generic";
+	}
       procedure.IconFile = "Colorize.png";
 
       yield return procedure;

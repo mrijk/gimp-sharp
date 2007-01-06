@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2006 Maurits Rijk  m.rijk@chello.nl
+// Copyright (C) 2004-2007 Maurits Rijk  m.rijk@chello.nl
 //
 // Format.cs
 //
@@ -42,17 +42,12 @@ namespace Gimp.SliceTool
       _format.AppendText("jpg");
       _format.AppendText("png");
 
-      _apply = new CheckButton(Catalog.GetString("Apply to whole image"));
-      _apply.Activated += OnApply;
-      table.Attach(_apply, 0, 2, 1, 2);
-    }
-
-    void OnApply(object o, EventArgs args)
-    {
-      if ((o as CheckButton).Active)
+      _apply = new CheckButton(Catalog.GetString("Apply to _whole image"));
+      _apply.Activated += delegate(object sender, EventArgs e)
 	{
 	  Rectangle.GlobalExtension = Extension;
-	}
+	};
+      table.Attach(_apply, 0, 2, 1, 2);
     }
 
     public string Extension

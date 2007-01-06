@@ -1,6 +1,20 @@
 2007-01-06  Max      <massimo.perga@gmail.com>
 
-	* java/stubs/Makefile.am : commented EXTRA_DIST line
+	* java/stubs/Makefile.am : commented out EXTRA_DIST line
+
+2007-01-06  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/Colorize/Colorize.cs: let menu path depend on GIMP version
+
+	* plug-ins/SliceTool/RolloverDialog.cs: cleanup
+
+	* plug-ins/SliceTool/Format.cs
+	* plug-ins/SliceTool/SliceTool.cs: added a few mnemonics
+
+	* plug-ins/Forge/Forge.cs: cleanup
+
+	* plug-ins/Splitter/Splitter.cs: make sure Alpha channel is added
+	to layers
 
 2007-01-06  Maurits  <m.rijk@chello.nl>
 
