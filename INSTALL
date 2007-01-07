@@ -1,10 +1,10 @@
-To install Gimp# you will need Mono 1.1.13.4 or higher. Gimp# will
+To install Gimp# you will need Mono 1.2.x or higher. Gimp# will
 work with GIMP 2.2 and GIMP 2.3.x.
 
 Building Gimp# is easy:
 
 1) unpack the archive
-2) $ cd gimp-sharp-0.11
+2) $ cd gimp-sharp-0.12
 3) $ ./configure
 4) $ make
 5) become root

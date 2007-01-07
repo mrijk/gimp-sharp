@@ -1,8 +1,13 @@
+Overview of Changes in Gimp# 0.12
+=================================
+- 
+
 Overview of Changes in Gimp# 0.11
 =================================
 - Java / IKVM support
 - Sample Java plug-in included
 - Port of the Colorize plug-in
+- Photoshop actions plug-in can now play about 38 %
 - Coverage of the (GIMP 2.4) gimp_vectors_xxx routines
 - New Pixel class for much cleaner code
 
