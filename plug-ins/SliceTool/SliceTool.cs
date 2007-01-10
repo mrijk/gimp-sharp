@@ -309,36 +309,49 @@ namespace Gimp.SliceTool
     Widget CreateCellProperties()
     {
       GimpFrame frame = new GimpFrame(_("Cell Properties"));
-      GimpTable table = new GimpTable(5, 4, false);
+
+      VBox vbox = new VBox(false, 12);
+      frame.Add(vbox);
+
+      GimpTable table = new GimpTable(3, 2, false);
       table.ColumnSpacing = 6;
       table.RowSpacing = 6;
       
-      frame.Add(table);
+      vbox.Add(table);
 			
       _url = new Entry();
-      table.AttachAligned(0, 0, _("_URL:"), 0.0, 0.5, _url, 3, false);
+      table.AttachAligned(0, 0, _("_Link:"), 0.0, 0.5, _url, 3, false);
       
       _altText = new Entry();
-      table.AttachAligned(0, 1, _("A_lt text:"), 0.0, 0.5, _altText, 3, false);
+      table.AttachAligned(0, 1, _("Alt_ernative text:"), 0.0, 0.5, _altText, 3,
+			  false);
       
       _target = new Entry();
       table.AttachAligned(0, 2, _("_Target:"), 0.0, 0.5, _target, 3, false);
-      
+
+      HBox hbox = new HBox(false, 12);
+      vbox.Add(hbox);
+
+      table = new GimpTable(3, 4, false);
+      table.ColumnSpacing = 6;
+      table.RowSpacing = 6;
+      hbox.PackStart(table, false, false, 0);
+
       _left = new Label("    ");
-      table.AttachAligned(0, 3, _("Left:"), 0.0, 0.5, _left, 1, false);
+      table.AttachAligned(0, 0, _("Left:"), 0.0, 0.5, _left, 1, false);
       
       _right = new Label("    ");
-      table.AttachAligned(0, 4, _("Right:"), 0.0, 0.5, _right, 1, false);
+      table.AttachAligned(0, 1, _("Right:"), 0.0, 0.5, _right, 1, false);
       
       _top = new Label("    ");
-      table.AttachAligned(2, 3, _("Top:"), 0.0, 0.5, _top, 1, false);
-      
+      table.AttachAligned(2, 0, _("Top:"), 0.0, 0.5, _top, 1, false);
+
       _bottom = new Label("    ");
-      table.AttachAligned(2, 4, _("Bottom:"), 0.0, 0.5, _bottom, 1, false);
+      table.AttachAligned(2, 1, _("Bottom:"), 0.0, 0.5, _bottom, 1, false);
       
       _include = new CheckButton(_("_Include cell in table"));
       _include.Active = true;
-      table.Attach(_include, 0, 2, 5, 6);
+      table.Attach(_include, 0, 3, 2, 3);
       
       return frame;
     }

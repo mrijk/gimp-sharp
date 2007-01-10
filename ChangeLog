@@ -1,3 +1,9 @@
+2007-01-10  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/SliceTool/Format.cs
+	* plug-ins/SliceTool/SliceTool.cs: improve usability suggested by
+	Alan Horkan. Fixes #1524108
+
 2007-01-07  Maurits  <m.rijk@chello.nl>
 
 	* README: minor update

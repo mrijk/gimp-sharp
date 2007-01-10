@@ -19,7 +19,6 @@
 //
 
 using System;
-using Mono.Unix;
 using Gtk;
 
 namespace Gimp.SliceTool
@@ -29,7 +28,7 @@ namespace Gimp.SliceTool
     ComboBox _format;
     CheckButton _apply;
 
-    public Format() : base(Catalog.GetString("Format"))
+    public Format() : base(_("File Type"))
     {
       Table table = new Table(2, 2, true);
       table.RowSpacing = 6;
@@ -42,7 +41,7 @@ namespace Gimp.SliceTool
       _format.AppendText("jpg");
       _format.AppendText("png");
 
-      _apply = new CheckButton(Catalog.GetString("Apply to _whole image"));
+      _apply = new CheckButton(_("Apply to _whole image"));
       _apply.Activated += delegate(object sender, EventArgs e)
 	{
 	  Rectangle.GlobalExtension = Extension;
