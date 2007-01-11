@@ -18,7 +18,7 @@ if test "x$PKG_CONFIG" = "xno"; then
 fi
 
 AC_PATH_PROG(MONO, mono, no)
-if test "x$PKG_CONFIG" = "xno"; then
+if test "$MONO" = "no"; then
         AC_MSG_ERROR(['mono' is not in your PATH.])
 fi
 AC_SUBST(MONO)
@@ -40,6 +40,12 @@ if test x$CSC = "xno"; then
     AC_MSG_ERROR([You need to install either mono or .Net])
 fi
 fi
+
+AC_PATH_PROG(GIMPTOOL, gimptool-2.0, no)
+if test "$GIMPTOOL" = "no"; then
+        AC_MSG_ERROR([You don't have gimptool-2.0. Please install the GIMP development package!])
+fi
+AC_SUBST(GIMPTOOL)
 
 if test "x$OS" != "xWindows_NT"; then
     dnl set GIMP plug-in path

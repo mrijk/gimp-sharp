@@ -463,7 +463,7 @@ ac_includes_default="\
 # include <unistd.h>
 #endif"
 
-ac_subst_vars='SHELL PATH_SEPARATOR PACKAGE_NAME PACKAGE_TARNAME PACKAGE_VERSION PACKAGE_STRING PACKAGE_BUGREPORT exec_prefix prefix program_transform_name bindir sbindir libexecdir datadir sysconfdir sharedstatedir localstatedir libdir includedir oldincludedir infodir mandir build_alias host_alias target_alias DEFS ECHO_C ECHO_N ECHO_T LIBS INSTALL_PROGRAM INSTALL_SCRIPT INSTALL_DATA CYGPATH_W PACKAGE VERSION ACLOCAL AUTOCONF AUTOMAKE AUTOHEADER MAKEINFO install_sh STRIP ac_ct_STRIP INSTALL_STRIP_PROGRAM mkdir_p AWK SET_MAKE am__leading_dot AMTAR am__tar am__untar build build_cpu build_vendor build_os host host_cpu host_vendor host_os CC CFLAGS LDFLAGS CPPFLAGS ac_ct_CC EXEEXT OBJEXT DEPDIR am__include am__quote AMDEP_TRUE AMDEP_FALSE AMDEPBACKSLASH CCDEPMODE am__fastdepCC_TRUE am__fastdepCC_FALSE EGREP LN_S ECHO AR ac_ct_AR RANLIB ac_ct_RANLIB CPP CXX CXXFLAGS ac_ct_CXX CXXDEPMODE am__fastdepCXX_TRUE am__fastdepCXX_FALSE CXXCPP F77 FFLAGS ac_ct_F77 LIBTOOL PKG_CONFIG MONO ac_pt_PKG_CONFIG MONO_CFLAGS MONO_LIBS MONO_DEPENDENCY_CFLAGS MONO_DEPENDENCY_LIBS RUNTIME CSC GIMPPLUGINDIR GIMPLOCALE ECW LIBECW LIBUMFPACK LIBZ PSP BUILD_COLORIZE_TRUE BUILD_COLORIZE_FALSE BUILD_UNITTEST_TRUE BUILD_UNITTEST_FALSE BUILD_PDN_TRUE BUILD_PDN_FALSE BUILD_INCOMPLETE_TRUE BUILD_INCOMPLETE_FALSE BUILD_ECW_TRUE BUILD_ECW_FALSE BUILD_JAVA_TRUE BUILD_JAVA_FALSE LIBOBJS LTLIBOBJS'
+ac_subst_vars='SHELL PATH_SEPARATOR PACKAGE_NAME PACKAGE_TARNAME PACKAGE_VERSION PACKAGE_STRING PACKAGE_BUGREPORT exec_prefix prefix program_transform_name bindir sbindir libexecdir datadir sysconfdir sharedstatedir localstatedir libdir includedir oldincludedir infodir mandir build_alias host_alias target_alias DEFS ECHO_C ECHO_N ECHO_T LIBS INSTALL_PROGRAM INSTALL_SCRIPT INSTALL_DATA CYGPATH_W PACKAGE VERSION ACLOCAL AUTOCONF AUTOMAKE AUTOHEADER MAKEINFO install_sh STRIP ac_ct_STRIP INSTALL_STRIP_PROGRAM mkdir_p AWK SET_MAKE am__leading_dot AMTAR am__tar am__untar build build_cpu build_vendor build_os host host_cpu host_vendor host_os CC CFLAGS LDFLAGS CPPFLAGS ac_ct_CC EXEEXT OBJEXT DEPDIR am__include am__quote AMDEP_TRUE AMDEP_FALSE AMDEPBACKSLASH CCDEPMODE am__fastdepCC_TRUE am__fastdepCC_FALSE EGREP LN_S ECHO AR ac_ct_AR RANLIB ac_ct_RANLIB CPP CXX CXXFLAGS ac_ct_CXX CXXDEPMODE am__fastdepCXX_TRUE am__fastdepCXX_FALSE CXXCPP F77 FFLAGS ac_ct_F77 LIBTOOL PKG_CONFIG MONO ac_pt_PKG_CONFIG MONO_CFLAGS MONO_LIBS MONO_DEPENDENCY_CFLAGS MONO_DEPENDENCY_LIBS RUNTIME CSC GIMPTOOL GIMPPLUGINDIR GIMPLOCALE ECW LIBECW LIBUMFPACK LIBZ PSP BUILD_COLORIZE_TRUE BUILD_COLORIZE_FALSE BUILD_UNITTEST_TRUE BUILD_UNITTEST_FALSE BUILD_PDN_TRUE BUILD_PDN_FALSE BUILD_INCOMPLETE_TRUE BUILD_INCOMPLETE_FALSE BUILD_ECW_TRUE BUILD_ECW_FALSE BUILD_JAVA_TRUE BUILD_JAVA_FALSE LIBOBJS LTLIBOBJS'
 ac_subst_files=''
 
 # Initialize some variables set by options.
@@ -19895,7 +19895,7 @@ else
 echo "${ECHO_T}no" >&6
 fi
 
-if test "x$PKG_CONFIG" = "xno"; then
+if test "$MONO" = "no"; then
         { { echo "$as_me:$LINENO: error: 'mono' is not in your PATH." >&5
 echo "$as_me: error: 'mono' is not in your PATH." >&2;}
    { (exit 1); exit 1; }; }
@@ -20321,6 +20321,53 @@ echo "$as_me: error: You need to install either mono or .Net" >&2;}
    { (exit 1); exit 1; }; }
 fi
 fi
+
+# Extract the first word of "gimptool-2.0", so it can be a program name with args.
+set dummy gimptool-2.0; ac_word=$2
+echo "$as_me:$LINENO: checking for $ac_word" >&5
+echo $ECHO_N "checking for $ac_word... $ECHO_C" >&6
+if test "${ac_cv_path_GIMPTOOL+set}" = set; then
+  echo $ECHO_N "(cached) $ECHO_C" >&6
+else
+  case $GIMPTOOL in
+  [\\/]* | ?:[\\/]*)
+  ac_cv_path_GIMPTOOL="$GIMPTOOL" # Let the user override the test with a path.
+  ;;
+  *)
+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+for as_dir in $PATH
+do
+  IFS=$as_save_IFS
+  test -z "$as_dir" && as_dir=.
+  for ac_exec_ext in '' $ac_executable_extensions; do
+  if $as_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
+    ac_cv_path_GIMPTOOL="$as_dir/$ac_word$ac_exec_ext"
+    echo "$as_me:$LINENO: found $as_dir/$ac_word$ac_exec_ext" >&5
+    break 2
+  fi
+done
+done
+
+  test -z "$ac_cv_path_GIMPTOOL" && ac_cv_path_GIMPTOOL="no"
+  ;;
+esac
+fi
+GIMPTOOL=$ac_cv_path_GIMPTOOL
+
+if test -n "$GIMPTOOL"; then
+  echo "$as_me:$LINENO: result: $GIMPTOOL" >&5
+echo "${ECHO_T}$GIMPTOOL" >&6
+else
+  echo "$as_me:$LINENO: result: no" >&5
+echo "${ECHO_T}no" >&6
+fi
+
+if test "$GIMPTOOL" = "no"; then
+        { { echo "$as_me:$LINENO: error: You don't have gimptool-2.0. Please install the GIMP development package!" >&5
+echo "$as_me: error: You don't have gimptool-2.0. Please install the GIMP development package!" >&2;}
+   { (exit 1); exit 1; }; }
+fi
+
 
 if test "x$OS" != "xWindows_NT"; then
 
@@ -21720,6 +21767,7 @@ s,@MONO_DEPENDENCY_CFLAGS@,$MONO_DEPENDENCY_CFLAGS,;t t
 s,@MONO_DEPENDENCY_LIBS@,$MONO_DEPENDENCY_LIBS,;t t
 s,@RUNTIME@,$RUNTIME,;t t
 s,@CSC@,$CSC,;t t
+s,@GIMPTOOL@,$GIMPTOOL,;t t
 s,@GIMPPLUGINDIR@,$GIMPPLUGINDIR,;t t
 s,@GIMPLOCALE@,$GIMPLOCALE,;t t
 s,@ECW@,$ECW,;t t
