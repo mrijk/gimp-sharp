@@ -1,3 +1,7 @@
+2007-01-12  Maurits  <m.rijk@chello.nl>
+
+	* configure.in: report if gmcs is not available. Fixes #1522995
+
 2007-01-11  Maurits  <m.rijk@chello.nl>
 
 	* configure.in: check for availability of gimptool. Fixes #1630914
