@@ -69,6 +69,7 @@ MYSOURCES = 			\
 	Procedure.cs		\
 	ProcedureSet.cs		\
 	Progress.cs		\
+	PythonPlugin.cs		\
 	RGB.cs			\
 	RandomSeed.cs		\
 	ReadPixelIterator.cs	\

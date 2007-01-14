@@ -14,6 +14,10 @@ DifferenceClouds = DifferenceClouds
 PictureFrame = PictureFrame
 endif
 
+if BUILD_IRONPYTHON
+PythonSample = PythonSample
+endif
+
 if BUILD_PDN
 Pdn = Pdn
 endif
@@ -39,6 +43,7 @@ SUBDIRS = 			\
 	$(PictureFrame)		\
 	PicturePackage 		\
 	Pointillize		\
+	PythonSample		\
 	Raindrops		\
 	$(Shatter)		\
 	SliceTool 		\

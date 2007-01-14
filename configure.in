@@ -139,12 +139,28 @@ if test "x$with_java" == xyes; then
    java=yes
 fi
 
+#
+# Check if we want to support IronPython
+#
+
+iron_python=no
+AC_ARG_WITH(python,[  --with-ironpython       support for the IronPython (default-no)])
+if test "x$with_ironpython" == xyes; then
+   iron_python=yes
+   AC_PATH_PROG(IPY, ipy, no)
+   if test "$IRONPYTHON" = "no"; then
+        AC_MSG_ERROR(['ipy' (IronPython) is not in your PATH.])
+   fi
+   AC_SUBST(IPY)
+fi
+
 AM_CONDITIONAL(BUILD_COLORIZE, test x$have_umfpack = xyes)
 AM_CONDITIONAL(BUILD_UNITTEST, test x$unittest = xyes)
 AM_CONDITIONAL(BUILD_PDN, test x$pdn = xyes)
 AM_CONDITIONAL(BUILD_INCOMPLETE, test x$incomplete = xyes)
-AM_CONDITIONAL(BUILD_ECW, test x$have_libecw = xyes)
+AM_CONDITIONAL(BUILD_ECW, test x"$have_libecw" = xyes)
 AM_CONDITIONAL(BUILD_JAVA, test x$java = xyes)
+AM_CONDITIONAL(BUILD_IRONPYTHON, test x$iron_python = xyes)
 
 dnl read Makefile.in and write Makefile
 AC_CONFIG_FILES([
@@ -178,6 +194,7 @@ plug-ins/PicturePackage/Makefile
 plug-ins/PicturePackage/po/Makefile 
 plug-ins/Pointillize/Makefile
 plug-ins/Pointillize/po/Makefile
+plug-ins/PythonSample/Makefile
 plug-ins/Raindrops/Makefile 
 plug-ins/Raindrops/po/Makefile 
 plug-ins/Shatter/Makefile
@@ -200,9 +217,10 @@ dnl Print a summary of features enabled/disabled:
 AC_MSG_RESULT([
 Building GIMP-SHARP with prefix=$prefix
 GIMP-SHARP Features:
-  Unit Tests	: $unittest
-  Paint.NET	: $pdn
-  Incomplete	: $incomplete
-  ECW		: $have_libecw
-  Java support  : $java
+  Unit Tests	    : $unittest
+  Paint.NET	    : $pdn
+  Incomplete	    : $incomplete
+  ECW		    : $have_libecw
+  Java support      : $java
+  IronPython support: $iron_python
 ]);
