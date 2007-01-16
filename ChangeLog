@@ -1,3 +1,9 @@
+2007-01-16  Maurits  <m.rijk@chello.nl>
+
+	* lib/PythonPlugin.cs: strip executable name from arguments
+	
+	* plug-ins/PythonSample/PythonSample.py: first somewhat working version
+
 2007-01-14  Maurits  <m.rijk@chello.nl>
 
 	* lib/PythonPlugin.cs: introduced because somehow IronPython can't 
