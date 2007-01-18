@@ -760,6 +760,13 @@ namespace Gimp
 			   coeff_2_2, interpolate, clip_result));
     }
 
+    // Convenience routines
+
+    public Pixel CreatePixel()
+    {
+      return new Pixel(Bpp);
+    }
+
     // Misc routines
 
     internal Int32 ID

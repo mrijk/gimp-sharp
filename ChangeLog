@@ -1,3 +1,27 @@
+2007-01-18  Maurits  <m.rijk@chello.nl>
+
+	* lib/Drawable.cs: factory method to generate pixels...
+
+	* plug-ins/PythonSample/PythonSample.py
+	* plug-ins/AverageBlur/AverageBlur.cs: ... and use it
+
+	* lib/GimpTypes.cs: declared some structs as internal
+
+	* lib/Image.cs: removed Fixme
+
+	* plug-ins/Pointillize/ColorCoordinateSet.cs
+	* plug-ins/Pointillize/RandomCoordinateGenerator.cs: minor cleanup
+
+	* plug-ins/PythonSample/PythonSample.py: minor improvements
+
+2007-01-16  Maurits  <m.rijk@chello.nl>
+
+	* lib/PythonPlugin.cs: added copyright header
+
+	* lib/RgnIterator.cs: (temporarily) add IterateDestFull and 
+	IterateDestSimple functions because IronPython can't see
+	difference between multiple overloads
+
 2007-01-16  Maurits  <m.rijk@chello.nl>
 
 	* lib/PythonPlugin.cs: strip executable name from arguments

@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // Image.cs
 //
@@ -620,7 +620,6 @@ namespace Gimp
 
     // Misc functions
 
-    // Fix me: this should become internal
     internal Int32 ID
     {
       get {return _imageID;}

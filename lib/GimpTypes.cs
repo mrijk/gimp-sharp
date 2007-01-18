@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk, Massimo Perga
+// Copyright (C) 2004-2007 Maurits Rijk, Massimo Perga
 //
 // GimpTypes.cs
 //
@@ -65,10 +65,10 @@ namespace Gimp
   {
     public PDBArgType type;
     public ParamData data;
-	}
+  }
   
   [StructLayout(LayoutKind.Sequential)]
-  public struct GimpParamCust
+  internal struct GimpParamCust
   {
     public IntPtr	cust; 
     public ParamData	data;

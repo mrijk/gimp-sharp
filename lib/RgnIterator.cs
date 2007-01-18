@@ -110,6 +110,16 @@ namespace Gimp
       _drawable.Update(_rectangle);
     }
 
+    public void IterateDestFull(IterFuncDestFull func)
+    {
+      IterateDest(func);
+    }
+
+    public void IterateDestSimple(IterFuncDest func)
+    {
+      IterateDest(func);
+    }
+
     public void IterateSrcDest(IterFuncSrcDest func)
     {
       PixelRgn srcPR = new PixelRgn(_drawable, _rectangle, false, false);

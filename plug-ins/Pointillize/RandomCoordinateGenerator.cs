@@ -38,7 +38,7 @@ namespace Gimp.Pointillize
       _count = count;
     }
 
-    public IEnumerable<Coordinate<int>> Generate()
+    public IEnumerator<Coordinate<int>> GetEnumerator()
     {
       for (int i = 0; i < _count; i++)
 	{

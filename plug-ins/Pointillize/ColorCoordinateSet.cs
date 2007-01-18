@@ -57,9 +57,9 @@ namespace Gimp.Pointillize
       
       _matrix = new List<ColorCoordinate>[_matrixRows, _matrixColumns];
 
-      RandomCoordinateGenerator generator = 
-	new RandomCoordinateGenerator(_width - 1, _height - 1, nrOfCells);
-      foreach (Coordinate<int> c in generator.Generate())
+      foreach (Coordinate<int> c in 
+	       new RandomCoordinateGenerator(_width - 1, _height - 1, 
+					     nrOfCells))
 	{
 	  int x = c.X;
 	  int y = c.Y;

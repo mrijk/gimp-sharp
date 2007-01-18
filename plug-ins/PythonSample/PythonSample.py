@@ -27,11 +27,7 @@ from Gimp import *
 from System import Array
 
 class PythonSample(PythonPlugin):
-#    def __init__(self, args, package):
-#        self.name = package
-
     def ListProceduresTwo(self):
-        print "PytonSample.ListProcedures"
         procedure = Procedure("plug_in_python_sample",
                               "Sample IronPython plug-in: takes the average of all colors",
                               "Sample IronPython plug-in: takes the average of all colors",
@@ -40,21 +36,28 @@ class PythonSample(PythonPlugin):
                               "2007",
                               "PythonSample",
                               "RGB*, GRAY*")
-        procedure.MenuPath = "<Image>/Filters/Generic";
+        procedure.MenuPath = "<Image>/Filters/Generic"
 
         yield procedure
 
-    def Render(self, image, drawable):
-        print "PythonSample.Render"
+    def CalcAverage(self, pixel):
+        self.count += 1
+        self.average.Add(pixel)
 
+    def Render(self, image, drawable):
         iter = RgnIterator(drawable, RunMode.Interactive);
         iter.Progress = Progress("Average");
 
-        Display.DisplaysFlush();
+        self.average = drawable.CreatePixel()
+        self.count = 0
 
-def Main(args):
-    plugin = PythonSample(Array[str](args), "PythonSample")
+        iter.IterateSrc(self.CalcAverage)
+        self.average.Divide(self.count)
 
-if __name__ == "__main__":
-    if (len(sys.argv) > 4):
-        Main(sys.argv)
+        iter.IterateDestSimple(lambda: self.average)
+
+        Display.DisplaysFlush()
+
+if __name__ == sys.executable:
+    plugin = PythonSample(Array[str](sys.argv), "PythonSample")
+

@@ -1,5 +1,5 @@
 // The AverageBlur plug-in
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // AverageBlur.cs
 //
@@ -54,7 +54,7 @@ namespace Gimp.AverageBlur
       RgnIterator iter = new RgnIterator(drawable, RunMode.Interactive);
       iter.Progress = new Progress(_("Average"));
 
-      Pixel average = new Pixel(drawable.Bpp);
+      Pixel average = drawable.CreatePixel();
       int count = 0;
 
       iter.IterateSrc(delegate (Pixel pixel)
