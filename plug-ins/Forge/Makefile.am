@@ -6,7 +6,11 @@ GIMPSHARPLIB = $(top_builddir)/lib/gimp-sharp.dll
 
 ASSEMBLIES = -r:$(GIMPSHARPLIB) /pkg:gtk-sharp-2.0 /target:winexe
 
-MYSOURCES = Forge.cs 
+MYSOURCES = 			\
+	Forge.cs 		\
+	FourierTransform.cs	\
+	GaussDistribution.cs	\
+	SpectralSynthesis.cs
 
 EXTRA_DIST = $(MYSOURCES) Forge Forge.png
 SUBDIRS = po

@@ -25,11 +25,9 @@ using Gtk;
 
 namespace Gimp.Forge
 {
-  public class Forge : PluginWithPreview
+  class Forge : PluginWithPreview
   {
-    public const int _nRand = 4; // Gauss() sample count
-    public const double planetAmbient = 0.05;
-    Random _random;
+    const double planetAmbient = 0.05;
     bool _random_seed = true;
     bool _previewAllowed = false;
 
@@ -72,8 +70,10 @@ namespace Gimp.Forge
     [SaveAttribute("seed")]
     uint _rseed;	      		// Current random seed
     private int forced;
-    private double arand, gaussadd, gaussfac; // Gaussian random parameters
     private const uint meshsize = 256;	      	// FFT mesh size
+
+    Random _random;
+    double _arand = Math.Pow(2.0, 15.0) - 1.0;
 
     byte [,] pgnd = new byte[99,3] {
       {206, 205, 0}, {208, 207, 0}, {211, 208, 0},
@@ -476,30 +476,18 @@ namespace Gimp.Forge
       Planet(drawable, pixelArray, width, height);
     }
 
-    //
-    //  INITGAUSS  --  Initialise random number generators.  As given in
-    //    Peitgen & Saupe, page 77.
-    //
-
-    void InitGauss()
-    {
-      // Range of random generator
-      arand = Math.Pow(2.0, 15.0) - 1.0;
-      gaussadd = Math.Sqrt(3.0 * _nRand);
-      gaussfac = 2 * gaussadd / (_nRand * arand);
-    }
-
     void InitParameters()
     {
       // Set defaults when explicit specifications were not given.
       // The  default  fractal  dimension  and  power  scale depend upon
       // whether we're generating a planet or clouds.
 
-      arand = Math.Pow(2.0, 15.0) - 1.0;
-      _random = new Random((int)_rseed);
+      _random = new Random((int) _rseed);
 
       for (int i = 0; i < 7; i++)
-        _random.Next();
+	{
+	  _random.Next();
+	}
 
       if (!dimspec)
       {
@@ -545,30 +533,9 @@ namespace Gimp.Forge
       _previewAllowed = true;
     }
 
-    //  GAUSS  --  Return a Gaussian random number.As given in Peitgen
-    //  & Saupe, page 77.
-    double Gauss()
-    {
-      double sum = 0.0;
-
-      for (int i = 1; i <= _nRand; i++) 
-      {
-        sum += (_random.Next() & 0x7FFF);
-      }
-
-      return gaussfac * sum - gaussadd;
-    }
-
-    void Swap(ref double a, ref double b)
-    {
-      double tempSwap = a;
-      a = b;
-      b = tempSwap;
-    }
-
     double Cast(double low, double high)
     {
-      return (low + ((high - low) * (_random.Next() & 0x7FFF) / arand));
+      return (low + ((high - low) * (_random.Next() & 0x7FFF) / _arand));
     }
 
     double Planck(double temperature, double lambda)  
@@ -597,189 +564,6 @@ namespace Gimp.Forge
       RGB rgb = new RGB(er, eg, eb);
       rgb.Multiply(1.0 / rgb.Max);
       return rgb;
-    }
-
-
-    /*	FOURN  --  Multi-dimensional fast Fourier transform
-
-        Called with arguments:
-
-        data       A  one-dimensional  array  of  floats  (NOTE!!!	NOT
-        DOUBLES!!), indexed from one (NOTE!!!   NOT  ZERO!!),
-        containing  pairs of numbers representing the complex
-        valued samples.  The Fourier transformed results	are
-        returned in the same array.
-
-        nn	      An  array specifying the edge size in each dimension.
-        THIS ARRAY IS INDEXED FROM  ONE,	AND  ALL  THE  EDGE
-        SIZES MUST BE POWERS OF TWO!!!
-
-        ndim       Number of dimensions of FFT to perform.  Set to 2 for
-        two dimensional FFT.
-
-        isign      If 1, a Fourier transform is done; if -1 the  inverse
-        transformation is performed.
-
-        This  function  is essentially as given in Press et al., "Numerical
-        Recipes In C", Section 12.11, pp.  467-470.
-        */
-    void FourierNDimensions(double[] data, uint[] nn, uint ndim, int isign)
-    {
-      uint i1, i2, i3;
-      uint i2rev, i3rev;
-      uint ip1, ip2, ip3;
-      uint ifp1, ifp2;
-      uint ibit, idim, k1, k2;
-      uint nprev;
-      uint nrem;
-      uint n;
-      uint ntot;
-      double tempi, tempr;
-      double theta, wi, wpi, wpr, wr, wtemp;
-
-      ntot = 1;
-      for (idim = 1; idim <= ndim; idim++)
-        ntot *= nn[idim];
-      nprev = 1;
-      for (idim = ndim; idim >= 1; idim--) 
-      {
-        n = nn[idim];
-        nrem = ntot / (n * nprev);
-        ip1 = nprev << 1;
-        ip2 = ip1 * n;
-        ip3 = ip2 * nrem;
-        i2rev = 1;
-        for (i2 = 1; i2 <= ip2; i2 += ip1) 
-        {
-          if (i2 < i2rev) 
-          {
-            for (i1 = i2; i1 <= i2 + ip1 - 2; i1 += 2) 
-            {
-              for (i3 = i1; i3 <= ip3; i3 += ip2) 
-              {
-                i3rev = i2rev + i3 - i2;
-                // Swap data[i3] with data[i3rev]
-                Swap(ref data[i3], ref data[i3rev]);
-                // Swap data[i3 + 1] with data[i3rev + 1]
-                Swap(ref data[i3+1], ref data[i3rev+1]);
-              }
-            }
-          }
-          ibit = ip2 >> 1;
-          while (ibit >= ip1 && i2rev > ibit) 
-          {
-            i2rev -= ibit;
-            ibit >>= 1;
-          }
-          i2rev += ibit;
-        }
-        ifp1 = ip1;
-        while (ifp1 < ip2) 
-        {
-          ifp2 = ifp1 << 1;
-          theta = isign * (Math.PI * 2) / (ifp2 / ip1);
-          wtemp = Math.Sin(0.5 * theta);
-          wpr = -2.0 * wtemp * wtemp;
-          wpi = Math.Sin(theta);
-          wr = 1.0;
-          wi = 0.0;
-          for (i3 = 1; i3 <= ifp1; i3 += ip1) 
-          {
-            for (i1 = i3; i1 <= i3 + ip1 - 2; i1 += 2) 
-            {
-              for (i2 = i1; i2 <= ip3; i2 += ifp2) 
-              {
-                k1 = i2;
-                k2 = k1 + ifp1;
-                tempr = wr * data[k2] - wi * data[k2 + 1];
-                tempi = wr * data[k2 + 1] + wi * data[k2];
-                data[k2] = data[k1] - tempr;
-                data[k2 + 1] = data[k1 + 1] - tempi;
-                data[k1] += tempr;
-                data[k1 + 1] += tempi;
-              }
-            }
-            wr = (wtemp = wr) * wpr - wi * wpi + wr;
-            wi = wi * wpr + wtemp * wpi + wi;
-          }
-          ifp1 = ifp2;
-        }
-        nprev *= n;
-      }
-    }
-
-    // SPECTRALSYNTH  --  Spectrally synthesised fractal motion in two
-    // dimensions. This algorithm is given under  the name   
-    // SpectralSynthesisFM2D on page 108 of Peitgen & Saupe.
-
-    double[] SpectralSynth(uint n, double h)
-    {
-      uint bl;
-      uint i0, j0;
-      double rad, phase, rcos, rsin;
-      uint[] nsize = new uint[3];
-
-      bl = (n * n + 1) * 2;
-      double[] a = new double[bl];
-
-      for (uint i = 0; i <= n / 2; i++) 
-      {
-        for (uint j = 0; j <= n / 2; j++) 
-        {
-          phase = 2 * Math.PI * ((_random.Next() & 0x7FFF) / arand);
-          if (i != 0 || j != 0) 
-          {
-            rad = Math.Pow((double) (i * i + j * j), -(h + 1) / 2) 
-              * Gauss();
-          } 
-          else 
-          {
-            rad = 0;
-          }
-          rcos = rad * Math.Cos(phase);
-          rsin = rad * Math.Sin(phase);
-          // Real(a, i, j) = rcos;
-          a[1 + (i * meshsize + j) * 2] = rcos;
-          // Imag(a, i, j) = rsin;
-          a[2 + (i * meshsize + j) * 2] = rsin;
-          i0 = (i == 0) ? 0 : n - i;
-          j0 = (j == 0) ? 0 : n - j;
-          // Real(a, i0, j0) = rcos;
-          a[1 + (i0 * meshsize + j0) * 2] = rcos;
-          // Imag(a, i0, j0) = - rsin;
-          a[2 + (i0 * meshsize + j0) * 2] = -rsin;
-        }
-      }
-      // Imag(a, n / 2, 0) = 0;
-      a[2 + (n * meshsize)] = 0;
-      // Imag(a, 0, n / 2) = 0;
-      a[2 + n] = 0;
-      // Imag(a, n / 2, n / 2) = 0;
-      a[2 + (n) * meshsize + n] = 0;
-      for (int i = 1; i <= n / 2 - 1; i++) 
-      {
-        for (int j = 1; j <= n / 2 - 1; j++) 
-        {
-          phase = 2 * Math.PI * ((_random.Next() & 0x7FFF) / arand);
-          rad = Math.Pow((double) (i * i + j * j), -(h + 1) / 2) * Gauss();
-          rcos = rad * Math.Cos(phase);
-          rsin = rad * Math.Sin(phase);
-          // Real(a, i, n - j) = rcos;
-          a[1 + ((i * meshsize) + (n - j)) * 2] = rcos;
-          // Imag(a, i, n - j) = rsin;
-          a[2 + ((i * meshsize) + (n - j)) * 2] = rsin;
-          // Real(a, n - i, j) = rcos;
-          a[1 + (((n - i) * meshsize) + j) * 2] = rcos;
-          // Imag(a, n - i, j) = - rsin;
-          a[2 + (((n - i) * meshsize) + j) * 2] = -rsin;
-        }
-      }
-
-      nsize[0] = 0;
-      nsize[1] = nsize[2] = n;	      // Dimension of frequency domain array
-      FourierNDimensions(a, nsize, 2, -1); // Take inverse 2D Fourier transform
-
-      return a;
     }
 
     //
@@ -1153,11 +937,10 @@ namespace Gimp.Forge
     {
       double[] a = null;
 
-      InitGauss();
-
       if (!_stars) 
 	{
-	  a = SpectralSynth(meshsize, 3.0 - _fracdim);
+	  SpectralSynthesis spectrum = new SpectralSynthesis(_random);
+	  a = spectrum.Synthesize(meshsize, 3.0 - _fracdim);
 
 	  // Apply power law scaling if non-unity scale is requested.
 	  if (_powscale != 1.0) 
@@ -1213,4 +996,3 @@ namespace Gimp.Forge
     }
   }
 }
-
