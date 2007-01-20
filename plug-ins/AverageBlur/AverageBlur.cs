@@ -23,14 +23,14 @@ using System.Collections.Generic;
 
 namespace Gimp.AverageBlur
 {
-  public class AverageBlur : Plugin
+  class AverageBlur : Plugin
   {
     static void Main(string[] args)
     {
       new AverageBlur(args);
     }
 
-    public AverageBlur(string[] args) : base(args, "AverageBlur")
+    AverageBlur(string[] args) : base(args, "AverageBlur")
     {
     }
 
@@ -41,7 +41,7 @@ namespace Gimp.AverageBlur
 					  _("Average blur"),
 					  "Maurits Rijk",
 					  "(C) Maurits Rijk",
-					  "2006",
+					  "2006-2007",
 					  _("Average"),
 					  "RGB*, GRAY*");
       procedure.MenuPath = "<Image>/Filters/Blur"; 
@@ -55,14 +55,12 @@ namespace Gimp.AverageBlur
       iter.Progress = new Progress(_("Average"));
 
       Pixel average = drawable.CreatePixel();
-      int count = 0;
 
       iter.IterateSrc(delegate (Pixel pixel)
       {
-	average += pixel;
-	count++;
+	average.Add(pixel);
       });
-      average /= count;
+      average /= iter.Count;
 
       iter.IterateDest(delegate () {return average;});
 

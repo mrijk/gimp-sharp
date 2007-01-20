@@ -48,6 +48,11 @@ namespace Gimp
       set {_progress = value;}
     }
 
+    public int Count
+    {
+      get {return _rectangle.Area;}
+    }
+
     public void IterateSrc(IterFuncSrc func)
     {
       foreach (Pixel pixel in new ReadPixelIterator(_drawable, _runmode))

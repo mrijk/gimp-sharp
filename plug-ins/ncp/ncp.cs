@@ -1,5 +1,5 @@
 // The ncp plug-in
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // ncp.cs
 //
@@ -24,7 +24,7 @@ using Gtk;
 
 namespace Gimp.ncp
 {
-  public class ncp : PluginWithPreview
+  class ncp : PluginWithPreview
   {
     ScaleEntry _closestEntry;
 
@@ -44,14 +44,8 @@ namespace Gimp.ncp
       new ncp(args);
     }
 
-    public ncp(string[] args) : base(args, "ncp")
+    ncp(string[] args) : base(args, "ncp")
     {
-    }
-
-    struct Point 
-    {
-      public int x;
-      public int y;
     }
 
     override protected IEnumerable<Procedure> ListProcedures()
@@ -147,7 +141,7 @@ namespace Gimp.ncp
 	}
     }
 
-    Point[,] vp;
+    Coordinate<int>[,] vp;
 
     int[] _distances;
     int[] _data, _under, _over;
@@ -160,8 +154,6 @@ namespace Gimp.ncp
     void Initialize(Drawable drawable)
     {
       Rectangle rectangle = drawable.MaskBounds;
-
-      Random random = new Random((int) _seed);
 
       _bpp = drawable.Bpp;
       _has_alpha = drawable.HasAlpha;
@@ -180,27 +172,30 @@ namespace Gimp.ncp
       _under = new int[4 * _points];
       _over = new int[4 * _points];
 
-      vp = new Point[_bpp, 4 * _points];
+      vp = new Coordinate<int>[_bpp, 4 * _points];
 
+      RandomCoordinateGenerator generator = 
+	new RandomCoordinateGenerator((int) _seed, _width - 1, _height - 1, 
+				      _points);
+ 
       for (int b = 0; b < _bpp; b++) 
 	{
-	  for (int i = 0; i < _points; i++)
+	  int i = 0;
+	  foreach (Coordinate<int> c in generator)
 	    {
-	      int px = random.Next(0, _width - 1);
-	      int py = random.Next(0, _height - 1);
+	      int px = c.X;
+	      int py = c.Y;
 
-	      vp[b, i].x = px;
-	      vp[b, i].y = py ;
-	      vp[b, i + _points].x = (px < xmid) ? (vp[b, i].x + _width) 
-		: (vp[b, i].x - _width);
-	      vp[b, i + _points].y = vp[b, i].y;
-	      vp[b, i + 2 * _points].x = vp[b, i].x;
-	      vp[b, i + 2 * _points].y = (py < ymid) ? (vp[b, i].y + _height) 
-		: (vp[b, i].y - _height);
-	      vp[b, i + 3 * _points].x = (px < xmid) ? (vp[b, i].x + _width) 
-		: (vp[b, i].x - _width);
-	      vp[b, i + 3 * _points].y = (py < ymid) ? (vp[b, i].y + _height) 
-		: (vp[b, i].y - _height);
+	      int offx = (px < xmid) ? _width : -_width;
+	      int offy = (py < ymid) ? _height : -_height;
+
+	      vp[b, i] = new Coordinate<int>(px, py);
+	      vp[b, i + _points] = new Coordinate<int>(px + offx, py);
+	      vp[b, i + 2 * _points] = new Coordinate<int>(px, py + offy);
+	      vp[b, i + 3 * _points] = new Coordinate<int>(px + offx,
+							   py + offy);
+
+	      i++;
 	    }
 	}		
     }
@@ -272,9 +267,9 @@ namespace Gimp.ncp
 	  // compute distance to each point
 	  for (int k = 0; k < _points * 4; k++) 
 	    {
-	      Point p = vp[b, k];
-	      int x2 = x - p.x;
-	      int y2 = y - p.y;
+	      Coordinate<int> p = vp[b, k];
+	      int x2 = x - p.X;
+	      int y2 = y - p.Y;
 	      _distances[k] = x2 * x2 + y2 * y2;
 	    }
 

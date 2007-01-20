@@ -40,21 +40,17 @@ class PythonSample(PythonPlugin):
 
         yield procedure
 
-    def CalcAverage(self, pixel):
-        self.count += 1
-        self.average.Add(pixel)
-
     def Render(self, image, drawable):
         iter = RgnIterator(drawable, RunMode.Interactive);
         iter.Progress = Progress("Average");
 
-        self.average = drawable.CreatePixel()
-        self.count = 0
+        average = drawable.CreatePixel()
 
-        iter.IterateSrc(self.CalcAverage)
-        self.average.Divide(self.count)
+        iter.IterateSrc(lambda pixel: average.Add(pixel))
 
-        iter.IterateDestSimple(lambda: self.average)
+        average.Divide(iter.Count)
+
+        iter.IterateDestSimple(lambda: average)
 
         Display.DisplaysFlush()
 

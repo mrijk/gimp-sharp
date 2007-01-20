@@ -1,5 +1,5 @@
 // The Pointillize plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // Pointillize.cs
 //
@@ -25,7 +25,7 @@ using Gtk;
 
 namespace Gimp.Pointillize
 {
-  public class Pointillize : PluginWithPreview
+  class Pointillize : PluginWithPreview
   {
     [SaveAttribute("cell_size")]
     int _cellSize = 30;
