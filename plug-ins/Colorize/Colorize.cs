@@ -1,5 +1,5 @@
 // The Colorize plug-in
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // Ported from http://registry.gimp.org/plugin?id=5479
 // copyright 2005 Christopher Lais
@@ -28,7 +28,7 @@ using Gtk;
 
 namespace Gimp.Colorize
 {
-  public class Colorize : Plugin
+  class Colorize : Plugin
   {
     [SaveAttribute("include_original")]
     bool _includeOriginal = false;
@@ -57,7 +57,7 @@ namespace Gimp.Colorize
       new Colorize(args);
     }
 
-    public Colorize(string[] args) : base(args, "Colorize")
+    Colorize(string[] args) : base(args, "Colorize")
     {
     }
 
@@ -214,8 +214,6 @@ namespace Gimp.Colorize
     override protected void Render(Image image, Drawable drawable)
     {
       Progress progress = new Progress(_("Colorizing..."));
-
-      umfpack_wrapper_init();
 
       Rectangle rectangle = drawable.MaskIntersect;
       // Fix me: replace with x1, y1, x2, y2
@@ -443,46 +441,31 @@ namespace Gimp.Colorize
 	    }
 	}
 
-      const int UMFPACK_CONTROL = 20;
-      const int UMFPACK_INFO = 90;
-      double[] control = new double[UMFPACK_CONTROL];
-      double[] info = new double[UMFPACK_INFO];
-
-      umfpack_di_defaults(control);
-
+      UmfPack umf = new UmfPack();
+      umf.Defaults();
+      
       double[,] Ax = new double[WindowPixels, h * w];
       int[] Ap = new int[h * w + 1];
       int[] Ai = new int[WindowPixels * h * w];
       int[] Map = new int[WindowPixels * h * w];
 
-      int status = umfpack_di_triplet_to_col(h * w, h * w, n, AI, AJ, A, Ap, 
-					     Ai, Ax, Map);
+      umf.TripletToCol(h * w, h * w, n, AI, AJ, A, Ap, Ai, Ax, Map);
 
-      IntPtr symbolic;
-      status = umfpack_di_symbolic(h * w, h * w, Ap, Ai, Ax, out symbolic, 
-				   control, info);
-
-      IntPtr numeric;
-      status = umfpack_di_numeric(Ap, Ai, Ax, symbolic, out numeric, control, 
-				  info);
-
-      umfpack_di_free_symbolic(ref symbolic);
+      umf.Symbolic(h * w, h * w, Ap, Ai, Ax);
+      umf.Numeric(Ap, Ai, Ax);
+      umf.FreeSymbolic();
 
       progress.Update(0.3);
 
       double[,] outI = new double[h, w];
       double[,] outQ = new double[h, w];
 
-      const int UMFPACK_A = 0;
-      status = umfpack_di_solve(UMFPACK_A, Ap, Ai, Ax, outI, I, numeric, 
-				control, info);
+      umf.Solve(Ap, Ai, Ax, outI, I);
 
       progress.Update(0.6);
 
-      status = umfpack_di_solve(UMFPACK_A, Ap, Ai, Ax, outQ, Q, numeric, 
-				control, info);
-
-      umfpack_di_free_numeric(ref numeric);
+      umf.Solve(Ap, Ai, Ax, outQ, Q);
+      umf.FreeNumeric();
 
       progress.Update(0.9);
 
@@ -507,54 +490,5 @@ namespace Gimp.Colorize
 
       Display.DisplaysFlush();
     }
-
-    // TODO: fix mappings from .so to .dll
-    [DllImport("umfpackwrapper.so")]
-    static extern void umfpack_wrapper_init();
-
-    [DllImport("libumfpack.dll")]
-    static extern void umfpack_di_defaults(double[] control);
-    [DllImport("libumfpack.dll")]
-    static extern int umfpack_di_triplet_to_col(int n_row,
-						int n_col,
-						int nz,
-						int[] Ti,
-						int[] Tj,
-						double[,] Tx,
-						int[] Ap,
-						int[] Ai,
-						double[,] Ax,
-						int[] Map);
-    [DllImport("libumfpack.dll")]
-    static extern int umfpack_di_symbolic(int n_row,
-					  int n_col,
-					  int[] Ap,
-					  int[] Ai,
-					  double[,] Ax,
-					  out IntPtr Symbolic,
-					  double[] Control,
-					  double[] Info);
-    [DllImport("libumfpack.dll")]
-    static extern int umfpack_di_numeric(int[] Ap,
-					 int[] Ai,
-					 double[,] Ax,
-					 IntPtr Symbolic,
-					 out IntPtr Numeric,
-					 double[] Control,
-					 double[] Info);
-    [DllImport("libumfpack.dll")]
-    static extern int umfpack_di_solve(int sys,
-				       int[] Ap,
-				       int[] Ai,
-				       double[,] Ax,
-				       double[,] X,
-				       double[,] B,
-				       IntPtr Numeric,
-				       double[] Control,
-				       double[] Info);
-    [DllImport("libumfpack.dll")]
-    static extern void umfpack_di_free_symbolic(ref IntPtr Symbolic);
-    [DllImport("libumfpack.dll")]
-    static extern void umfpack_di_free_numeric(ref IntPtr Numeric);
   }
 }

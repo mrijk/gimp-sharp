@@ -1,5 +1,13 @@
 2007-01-20  Maurits  <m.rijk@chello.nl>
 
+	* plug-ins/Colorize/UmfPack.cs: new file to hold all UMFPACK
+	marshalling
+
+	* plug-ins/Colorize/Colorize.cs
+	* plug-ins/Colorize/Makefile.am: changed accordingly
+
+2007-01-20  Maurits  <m.rijk@chello.nl>
+
 	* NEWS
 	* TODO: updated
 
