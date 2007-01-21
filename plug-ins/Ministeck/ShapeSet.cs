@@ -1,5 +1,5 @@
 // The Ministeck plug-in
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // ShapeSet.cs
 //
@@ -47,7 +47,6 @@ namespace Gimp.Ministeck
     public IEnumerator<Shape> GetEnumerator()
     {
       long index = (long) (_random.NextDouble() * _combinations);
-
       foreach (Shape shape in GeneratePermutation(index))
 	yield return shape;
     }

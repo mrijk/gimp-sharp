@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // LayoutSet.cs
 //
@@ -34,10 +34,6 @@ namespace Gimp.PicturePackage
     List<Layout> _set = new List<Layout>();
     Layout _selected = null;
 
-    public LayoutSet()
-    {
-    }
-
     public void Load()
     {
       XmlDocument doc = new XmlDocument();
@@ -51,10 +47,11 @@ namespace Gimp.PicturePackage
       // Next read from gimpdir
       try
 	{
-	  doc.Load(Gimp.Directory + "/" + "picture-package.xml");
+	  doc.Load(Gimp.Directory + System.IO.Path.DirectorySeparatorChar +
+		   "picture-package.xml");
 	  LoadXmlDocument(doc);
 	}
-      catch (Exception e)
+      catch (Exception)
 	{
 	  // No user defined picture package file
 	  // Console.WriteLine("Nothing to read! " + e.Message);
@@ -108,7 +105,6 @@ namespace Gimp.PicturePackage
     public PageSizeSet GetPageSizeSet(int resolution)
     {
       PageSizeSet set = new PageSizeSet();
-
       foreach (Layout layout in _set)
 	{
 	  set.Add(layout.GetPageSize(resolution));

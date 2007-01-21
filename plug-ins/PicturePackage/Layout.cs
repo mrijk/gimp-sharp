@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // Layout.cs
 //
@@ -28,10 +28,10 @@ namespace Gimp.PicturePackage
   public class Layout
   {
     RectangleSet _rectangles = new RectangleSet();
-    string _name;
-    double _width;
-    double _height;
-    Unit   _unit;
+    readonly string _name;
+    readonly double _width;
+    readonly double _height;
+    readonly Unit   _unit;
 
     public Layout(XmlNode node)
     {
@@ -68,7 +68,7 @@ namespace Gimp.PicturePackage
       XmlNodeList nodeList = node.SelectNodes("picture");
       foreach (XmlNode rectangle in nodeList)
 	{
-	  _rectangles.Add(new Rectangle(rectangle));
+	  Add(new Rectangle(rectangle));
 	}
     }
 

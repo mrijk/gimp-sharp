@@ -1,5 +1,5 @@
 // The Fragment plug-in
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // Fragment.cs
 //
@@ -23,14 +23,14 @@ using System.Collections.Generic;
 
 namespace Gimp.Fragment
 {
-  public class Fragment : Plugin
+  class Fragment : Plugin
   {
     static void Main(string[] args)
     {
       new Fragment(args);
     }
 
-    public Fragment(string[] args) : base(args, "Fragment")
+    Fragment(string[] args) : base(args, "Fragment")
     {
     }
 
@@ -41,7 +41,7 @@ namespace Gimp.Fragment
 					  _("Creates four copies of the pixels in the selection, averages them, and offsets them from each other."),
 					  "Maurits Rijk",
 					  "(C) Maurits Rijk",
-					  "2006",
+					  "2006-2007",
 					  _("Fragment"),
 					  "RGB*, GRAY*");
       procedure.MenuPath = "<Image>/Filters/Distorts";
@@ -56,7 +56,7 @@ namespace Gimp.Fragment
       RgnIterator iter = new RgnIterator(drawable, RunMode.Interactive);
       iter.Progress = new Progress(_("Fragment"));
 
-      using (PixelFetcher pf = new PixelFetcher(drawable, false))
+      using (PixelFetcher pf = new PixelFetcher(drawable))
 	{
 	  pf.EdgeMode = EdgeMode.Black;
 	  

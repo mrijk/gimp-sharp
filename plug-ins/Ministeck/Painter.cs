@@ -1,5 +1,5 @@
 // The Ministeck plug-in
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // Painter.cs
 //
@@ -32,7 +32,7 @@ namespace Gimp.Ministeck
     public Painter(Drawable drawable, int size, RGB color)
     {
       _color = new Pixel(color.Bytes);
-      _pf = new PixelFetcher(drawable, false);
+      _pf = new PixelFetcher(drawable);
       _size = size;
     }
 

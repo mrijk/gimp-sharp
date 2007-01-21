@@ -1,5 +1,5 @@
 // The SliceTool plug-in
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // SliceSet.cs
 //
@@ -26,13 +26,9 @@ namespace Gimp.SliceTool
 {
   public class SliceSet
   {
-    List<Slice> _set = new List<Slice>();
+    readonly List<Slice> _set = new List<Slice>();
 
     bool _changed = false;
-
-    public SliceSet()
-    {
-    }
 
     public IEnumerator<Slice> GetEnumerator()
     {
@@ -60,17 +56,8 @@ namespace Gimp.SliceTool
     {
       get 
 	{
-	  if (_changed == false)
-	    {
-	      foreach (Slice slice in _set)
-		{
-		  if (slice.Changed)
-		    {
-		      return true;
-		    }
-		}
-	    }
-	  return _changed;
+	  return _changed || 
+	    _set.Exists(delegate(Slice slice) {return slice.Changed;});	
 	}
       set {_changed = value;}
     }
@@ -106,14 +93,10 @@ namespace Gimp.SliceTool
 
     public bool IsEndPoint(Slice s)
     {
-      foreach (Slice slice in _set)
-	{
-	  if (slice.Begin == s || slice.End == s)
-	    {
-	      return true;
-	    }
-	}
-      return false;
+      return _set.Exists(delegate(Slice slice)
+      {
+	return slice.Begin == s || slice.End == s;
+      });
     }
 
     public void Remove(Slice slice)

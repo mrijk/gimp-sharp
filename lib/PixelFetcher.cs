@@ -44,6 +44,10 @@ namespace Gimp
       _dummy = new byte[drawable.Bpp];
     }
 
+    public PixelFetcher(Drawable drawable) : this(drawable, false)
+    {
+    }
+
     ~PixelFetcher()
     {
       Dispose(false);

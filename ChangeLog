@@ -1,3 +1,17 @@
+2007-01-21  Maurits  <m.rijk@chello.nl>
+
+	* lib/PixelFetcher.cs: added PixelFetcher constructor with default
+	setting for shadow paramater to false
+
+	* plug-ins/PicturePackage/Layout.cs 
+	* plug-ins/PicturePackage/LayoutSet.cs
+	* plug-ins/SliceTool/PropertySet.cs
+	* plug-ins/SliceTool/SliceSet.cs
+	* plug-ins/Ministeck/Ministeck.cs
+	* plug-ins/Ministeck/Painter.cs
+	* plug-ins/Ministeck/ShapeSet.cs
+	* plug-ins/Fragment/Fragment.cs: minor clean-up
+
 2007-01-20  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/Colorize/UmfPack.cs: new file to hold all UMFPACK

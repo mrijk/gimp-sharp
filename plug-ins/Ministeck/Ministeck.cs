@@ -1,5 +1,5 @@
 // The Ministeck plug-in
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // Ministeck.cs
 //
@@ -25,7 +25,7 @@ using Gtk;
 
 namespace Gimp.Ministeck
 {
-  public class Ministeck : Plugin
+  class Ministeck : Plugin
   {
     DrawablePreview _preview;
 
@@ -41,7 +41,7 @@ namespace Gimp.Ministeck
       new Ministeck(args);
     }
 
-    public Ministeck(string[] args) : base(args, "Ministeck")
+    Ministeck(string[] args) : base(args, "Ministeck")
     {
     }
 
@@ -60,7 +60,7 @@ namespace Gimp.Ministeck
 					  _("Generates Ministeck"),
 					  "Maurits Rijk",
 					  "(C) Maurits Rijk",
-					  "2004-2006",
+					  "2004-2007",
 					  _("Ministeck..."),
 					  "RGB*, GRAY*",
 					  inParams);
