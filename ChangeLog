@@ -1,3 +1,15 @@
+2007-01-23  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/Forge/Complex.cs
+	* plug-ins/Forge/ComplexMatrix.cs
+	* plug-ins/Forge/StarFactory.cs: new files
+
+	* plug-ins/Forge/Makefile.am: changed accordingly
+
+	* plug-ins/Forge/Forge.cs: extracted star generation
+
+	* plug-ins/Forge/SpectralSynthesis.cs: use Complex class
+	
 2007-01-21  Maurits  <m.rijk@chello.nl>
 
 	* lib/PixelFetcher.cs: added PixelFetcher constructor with default

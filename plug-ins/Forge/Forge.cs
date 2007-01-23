@@ -28,7 +28,7 @@ namespace Gimp.Forge
   class Forge : PluginWithPreview
   {
     const double planetAmbient = 0.05;
-    bool _random_seed = true;
+    bool _randomSeed = true;
     bool _previewAllowed = false;
 
     RadioButton _PlanetRadioButton;
@@ -70,7 +70,7 @@ namespace Gimp.Forge
     [SaveAttribute("seed")]
     uint _rseed;	      		// Current random seed
     private int forced;
-    private const uint meshsize = 256;	      	// FFT mesh size
+    private const int meshsize = 256;	      	// FFT mesh size
 
     Random _random;
     double _arand = Math.Pow(2.0, 15.0) - 1.0;
@@ -153,7 +153,7 @@ namespace Gimp.Forge
 					  _("Creates an artificial world."),
 					  "Massimo Perga, Maurits Rijk",
 					  "(C) Massimo Perga, Maurits Rijk",
-					  "2006",
+					  "2006-2007",
 					  _("Forge..."),
 					  "RGB*",
 					  inParams);
@@ -194,7 +194,7 @@ namespace Gimp.Forge
       VBox randomBox = new VBox(false, 1);
       hbox.PackStart(randomBox, false, false, 0);
 
-      RandomSeed seed = new RandomSeed(ref _rseed, ref _random_seed);
+      RandomSeed seed = new RandomSeed(ref _rseed, ref _randomSeed);
       randomBox.PackStart(seed, false, false, 0);
 
 
@@ -538,83 +538,6 @@ namespace Gimp.Forge
       return (low + ((high - low) * (_random.Next() & 0x7FFF) / _arand));
     }
 
-    double Planck(double temperature, double lambda)  
-    {
-      const double c1 = 3.7403e10;
-      const double c2 = 14384.0;
-      double ret_val = c1 * Math.Pow(lambda, -5.0);
-      return ret_val / (Math.Exp(c2 / (lambda * temperature)) - 1);
-    }
-
-    /*  TEMPRGB  --  Calculate the relative R, G, and B components for  a
-        black	body  emitting	light  at a given temperature.
-        The Planck radiation equation is solved directly  for
-        the R, G, and B wavelengths defined for the CIE  1931
-        Standard    Colorimetric    Observer.	  The	colour
-        temperature is specified in degrees Kelvin. */
-
-    RGB TempRGB(double temp)
-    {
-      // Lambda is the wavelength in microns: 5500 angstroms is 0.55 microns.
-
-      double er = Planck(temp, 0.7000);
-      double eg = Planck(temp, 0.5461);
-      double eb = Planck(temp, 0.4358);
-
-      RGB rgb = new RGB(er, eg, eb);
-      rgb.Multiply(1.0 / rgb.Max);
-      return rgb;
-    }
-
-    //
-    // ETOILE  --	Set a pixel in the starry sky.
-    //
-
-    Pixel Etoile()
-    {
-      const double starQuality = 0.5;	    // Brightness distribution exponent
-      const double starIntensity = 8;	    // Brightness scale factor
-      const double starTintExp = 0.5;	    // Tint distribution exponent
-
-      if ((_random.Next() % 1000) < _starfraction) 
-      {
-        double v = starIntensity * Math.Pow(1 / (1 - Cast(0, 0.9999)), 
-					    starQuality);
-        if (v > 255) v = 255;
-
-        /* We make a special case for star colour  of zero in order to
-           prevent  floating  point  roundoff  which  would  otherwise
-           result  in  more  than  256 star colours.  We can guarantee
-           that if you specify no star colour, you never get more than
-           256 shades in the image. */
-
-        if (_starcolour == 0) 
-        {
-          return new Pixel((byte)v, (byte)v, (byte)v);
-        } 
-        else 
-        {
-          double temp = 5500 + _starcolour *
-            Math.Pow(1 / (1 - Cast(0, 0.9999)), starTintExp) *
-            (((_random.Next() & 7) != 0) ? -1 : 1);
-          /* Constrain temperature to a reasonable value: >= 2600K
-             (S Cephei/R Andromedae), <= 28,000 (Spica). */
-          temp = Math.Max(2600, Math.Min(28000, temp));
-          RGB rgb = TempRGB(temp);
-
-          rgb.Multiply(v);
-          rgb.Add(new RGB(0.499, 0.499, 0.499));
-          rgb.Multiply(1.0 / 255);
-
-          return new Pixel(rgb.Bytes);
-        }
-      } 
-      else 
-      {
-        return new Pixel(3); // automatically constructs Pixel(0,0,0)
-      }
-    }
-
     //
     //  GENPLANET  --  Generate planet from elevation array.
     //
@@ -719,6 +642,8 @@ namespace Gimp.Forge
 	    }
 	}
 
+      StarFactory starFactory = new StarFactory(_random, _starfraction,
+						_starcolour);
       Pixel[] pixels = new Pixel[width];
 
       for (int i = 0; i < height; i++) 
@@ -779,7 +704,7 @@ namespace Gimp.Forge
 
           for (int j = 0; j < pixels.Length; j++) 
           {
-            pixels[j] = Etoile();
+            pixels[j] = starFactory.Generate();
           }
         } 
         else 
@@ -890,14 +815,14 @@ namespace Gimp.Forge
           //#define StarClose	2
           for (int j = 0; j < width / 2 - (lcos + starClose); j++) 
           {
-            pixels[j] = Etoile();
+            pixels[j] = starFactory.Generate();
           }
 
           /* Right stars */
           for (int j = (int) (width / 2 + (lcos + starClose)); j < width; 
               j++) 
           {
-            pixels[j] = Etoile();
+            pixels[j] = starFactory.Generate();
           }
         }
 

@@ -36,19 +36,18 @@ namespace Gimp.Forge
     // dimensions. This algorithm is given under  the name   
     // SpectralSynthesisFM2D on page 108 of Peitgen & Saupe.
 
-    public double[] Synthesize(uint n, double h)
+    public double[] Synthesize(int n, double h)
     {
       double arand = Math.Pow(2.0, 15.0) - 1.0;
       double rad, phase, rcos, rsin;
 
       GaussDistribution gauss = new GaussDistribution(_random);
 
-      uint bl = (n * n + 1) * 2;
-      double[] a = new double[bl];
+      ComplexMatrix cm = new ComplexMatrix((int) n);
 
-      for (uint i = 0; i <= n / 2; i++) 
+      for (int i = 0; i <= n / 2; i++) 
       {
-        for (uint j = 0; j <= n / 2; j++) 
+        for (int j = 0; j <= n / 2; j++) 
         {
           phase = 2 * Math.PI * ((_random.Next() & 0x7FFF) / arand);
           if (i != 0 || j != 0) 
@@ -62,25 +61,20 @@ namespace Gimp.Forge
           }
           rcos = rad * Math.Cos(phase);
           rsin = rad * Math.Sin(phase);
-          // Real(a, i, j) = rcos;
-          a[1 + (i * meshsize + j) * 2] = rcos;
-          // Imag(a, i, j) = rsin;
-          a[2 + (i * meshsize + j) * 2] = rsin;
-          uint i0 = (i == 0) ? 0 : n - i;
-          uint j0 = (j == 0) ? 0 : n - j;
-          // Real(a, i0, j0) = rcos;
-          a[1 + (i0 * meshsize + j0) * 2] = rcos;
-          // Imag(a, i0, j0) = - rsin;
-          a[2 + (i0 * meshsize + j0) * 2] = -rsin;
+
+	  cm[i, j] = new Complex(rcos, rsin);
+
+          int i0 = (i == 0) ? 0 : n - i;
+          int j0 = (j == 0) ? 0 : n - j;
+
+	  cm[i0, j0] = new Complex(rcos, -rsin);
         }
       }
 
-      // Imag(a, n / 2, 0) = 0;
-      a[2 + (n * meshsize)] = 0;
-      // Imag(a, 0, n / 2) = 0;
-      a[2 + n] = 0;
-      // Imag(a, n / 2, n / 2) = 0;
-      a[2 + (n) * meshsize + n] = 0;
+      cm[n / 2, 0] = new Complex(cm[n / 2, 0].Real, 0);
+      cm[0, n / 2] = new Complex(cm[0, n / 2].Real, 0);
+      cm[n / 2, n / 2] = new Complex(cm[n / 2, n / 2].Real, 0);
+
       for (int i = 1; i <= n / 2 - 1; i++) 
       {
         for (int j = 1; j <= n / 2 - 1; j++) 
@@ -90,21 +84,18 @@ namespace Gimp.Forge
 	    * gauss.Value;
           rcos = rad * Math.Cos(phase);
           rsin = rad * Math.Sin(phase);
-          // Real(a, i, n - j) = rcos;
-          a[1 + ((i * meshsize) + (n - j)) * 2] = rcos;
-          // Imag(a, i, n - j) = rsin;
-          a[2 + ((i * meshsize) + (n - j)) * 2] = rsin;
-          // Real(a, n - i, j) = rcos;
-          a[1 + (((n - i) * meshsize) + j) * 2] = rcos;
-          // Imag(a, n - i, j) = - rsin;
-          a[2 + (((n - i) * meshsize) + j) * 2] = -rsin;
+
+	  cm[i, n - j] = new Complex(rcos, rsin);
+	  cm[n - 1, j] = new Complex(rcos, -rsin);
         }
       }
 
       // Dimension of frequency domain array
-      uint[] nsize = new uint[]{0, n, n};
+      uint[] nsize = new uint[]{0, (uint) n, (uint) n};
 
       FourierTransform fourier = new FourierTransform();
+
+      double[] a = cm.ToFlatArray();
       fourier.Transform(a, nsize, 2, -1); // Take inverse 2D Fourier transform
 
       return a;
