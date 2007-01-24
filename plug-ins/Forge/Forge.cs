@@ -73,7 +73,6 @@ namespace Gimp.Forge
     private const int meshsize = 256;	      	// FFT mesh size
 
     Random _random;
-    double _arand = Math.Pow(2.0, 15.0) - 1.0;
 
     byte [,] pgnd = new byte[99,3] {
       {206, 205, 0}, {208, 207, 0}, {211, 208, 0},
@@ -118,7 +117,7 @@ namespace Gimp.Forge
       new Forge(args);
     }
 
-    public Forge(string[] args) : base(args, "Forge")
+    Forge(string[] args) : base(args, "Forge")
     {
     }
 
@@ -535,7 +534,7 @@ namespace Gimp.Forge
 
     double Cast(double low, double high)
     {
-      return (low + ((high - low) * (_random.Next() & 0x7FFF) / _arand));
+      return low + (high - low) * _random.NextDouble();
     }
 
     //
@@ -658,21 +657,22 @@ namespace Gimp.Forge
         int byc = 0;
         lcos = 0;
 
-        if (!_stars) {	 // Skip all this setup if just stars
-          //#define UPRJ(a,size) ((a)/((size)-1.0))
-          //          by = (n - 1) * UPRJ(i, screenysize);
-          by = (n - 1) * ((double)i / ((double)height-1.0));
-          dy = 2 * (((height / 2) - i) / ((double) height));
-          dysq = dy * dy;
-          sqomdysq = Math.Sqrt(1.0 - dysq);
-          svx = sunvec[0];
-          svy = sunvec[1] * dy;
-          svz = sunvec[2] * sqomdysq;
-          byf = (int)(Math.Floor(by) * n);
-          byc = byf + (int)n;
-          t = by - Math.Floor(by);
-          t1 = 1 - t;
-        }
+        if (!_stars) 
+	  {	 // Skip all this setup if just stars
+	    //#define UPRJ(a,size) ((a)/((size)-1.0))
+	    //          by = (n - 1) * UPRJ(i, screenysize);
+	    by = (n - 1) * ((double)i / ((double)height-1.0));
+	    dy = 2 * (((height / 2) - i) / ((double) height));
+	    dysq = dy * dy;
+	    sqomdysq = Math.Sqrt(1.0 - dysq);
+	    svx = sunvec[0];
+	    svy = sunvec[1] * dy;
+	    svz = sunvec[2] * sqomdysq;
+	    byf = (int)(Math.Floor(by) * n);
+	    byc = byf + (int)n;
+	    t = by - Math.Floor(by);
+	    t1 = 1 - t;
+	  }
 
         if (_clouds) 
         {
@@ -849,7 +849,7 @@ namespace Gimp.Forge
         pf.Dispose();
 
         drawable.Flush();
-        drawable.Update(0, 0, width, height);
+        drawable.Update();
         Display.DisplaysFlush();
       }
     }

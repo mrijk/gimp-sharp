@@ -24,12 +24,13 @@ namespace Gimp.Forge
 {
   class SpectralSynthesis
   {
-    const uint meshsize = 256;	      	// FFT mesh size
-    Random _random;
+    readonly Random _random;
+    readonly GaussDistribution _gauss;
 
     public SpectralSynthesis(Random random)
     {
       _random = random;
+      _gauss = new GaussDistribution(random);
     }
 
     // SPECTRALSYNTH  --  Spectrally synthesised fractal motion in two
@@ -38,36 +39,19 @@ namespace Gimp.Forge
 
     public double[] Synthesize(int n, double h)
     {
-      double arand = Math.Pow(2.0, 15.0) - 1.0;
-      double rad, phase, rcos, rsin;
-
-      GaussDistribution gauss = new GaussDistribution(_random);
-
       ComplexMatrix cm = new ComplexMatrix((int) n);
 
       for (int i = 0; i <= n / 2; i++) 
       {
         for (int j = 0; j <= n / 2; j++) 
         {
-          phase = 2 * Math.PI * ((_random.Next() & 0x7FFF) / arand);
-          if (i != 0 || j != 0) 
-          {
-            rad = Math.Pow((double) (i * i + j * j), -(h + 1) / 2) 
-              * gauss.Value;
-          } 
-          else 
-          {
-            rad = 0;
-          }
-          rcos = rad * Math.Cos(phase);
-          rsin = rad * Math.Sin(phase);
-
-	  cm[i, j] = new Complex(rcos, rsin);
+	  Complex c = GetRadiusAndPhase(i, j, h);
+	  cm[i, j] = c;
 
           int i0 = (i == 0) ? 0 : n - i;
           int j0 = (j == 0) ? 0 : n - j;
 
-	  cm[i0, j0] = new Complex(rcos, -rsin);
+	  cm[i0, j0] = c.Conjugate;
         }
       }
 
@@ -79,14 +63,9 @@ namespace Gimp.Forge
       {
         for (int j = 1; j <= n / 2 - 1; j++) 
         {
-          phase = 2 * Math.PI * ((_random.Next() & 0x7FFF) / arand);
-          rad = Math.Pow((double) (i * i + j * j), -(h + 1) / 2) 
-	    * gauss.Value;
-          rcos = rad * Math.Cos(phase);
-          rsin = rad * Math.Sin(phase);
-
-	  cm[i, n - j] = new Complex(rcos, rsin);
-	  cm[n - 1, j] = new Complex(rcos, -rsin);
+	  Complex c = GetRadiusAndPhase(i, j, h);
+	  cm[i, n - j] = c;
+	  cm[n - 1, j] = c.Conjugate;
         }
       }
 
@@ -96,9 +75,25 @@ namespace Gimp.Forge
       FourierTransform fourier = new FourierTransform();
 
       double[] a = cm.ToFlatArray();
-      fourier.Transform(a, nsize, 2, -1); // Take inverse 2D Fourier transform
+      fourier.Transform(a, nsize, -1); // Take inverse 2D Fourier transform
 
       return a;
+    }
+
+    Complex GetRadiusAndPhase(int i, int j, double h)
+    {
+      double phase = 2 * Math.PI * _random.NextDouble();
+      double radius;
+      if (i != 0 || j != 0) 
+	{
+	  radius = Math.Pow((double) (i * i + j * j), -(h + 1) / 2) 
+	    * _gauss.Value;
+	} 
+      else 
+	{
+	  radius = 0;
+	}
+      return Complex.FromRadiusPhase(radius, phase);
     }
   }
 }

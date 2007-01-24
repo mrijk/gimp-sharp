@@ -89,16 +89,19 @@ namespace Gimp
     public double R
     {
       get {return _rgb.r;}
+      set {_rgb.r = value;}
     }
 
     public double G
     {
       get {return _rgb.g;}
+      set {_rgb.g = value;}
     }
 
     public double B
     {
       get {return _rgb.b;}
+      set {_rgb.b = value;}
     }
 
     public double Alpha
@@ -153,6 +156,11 @@ namespace Gimp
     public void Multiply(double factor)
     {
       gimp_rgb_multiply(ref _rgb, factor);
+    }
+
+    public void Divide(double factor)
+    {
+      Multiply(1 / factor);
     }
 
     public static RGB operator-(RGB rgb1, RGB rgb2)

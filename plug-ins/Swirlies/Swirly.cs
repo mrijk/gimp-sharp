@@ -1,5 +1,5 @@
 // The Swirlies plug-in
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // Swirly.cs
 //
@@ -250,10 +250,8 @@ namespace Gimp.Swirlies
     }
 
     public void CalculateOnePoint(int terms, int width, int height, 
-				  double zoom, double x, double y, 
-				  ref double Fr, ref double Fg, ref double Fb) 
+				  double zoom, double x, double y, RGB rgb)
     {
-
       for (int tx = -terms; tx <= terms; ++tx) 
 	{
 	  double dx = zoom * (x - width * ((double) tx + _x));
@@ -333,9 +331,9 @@ namespace Gimp.Swirlies
 
 	      double F = (C * Math.Cos(Ec) + S * Math.Sin(Es)) / d2;
 
-	      Fr += F * r;
-	      Fg += F * g;
-	      Fb += F * b;
+	      rgb.R += F * r;
+	      rgb.G += F * g;
+	      rgb.B += F * b;
 	    }
 	}
     }

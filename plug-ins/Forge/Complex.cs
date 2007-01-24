@@ -33,6 +33,11 @@ namespace Gimp.Forge
       _imag = imag;
     }
 
+    static public Complex FromRadiusPhase(double radius, double phase)
+    {
+      return new Complex(radius * Math.Cos(phase), radius * Math.Sin(phase));
+    }
+
     public double Real
     {
       get {return _real;}
@@ -43,6 +48,11 @@ namespace Gimp.Forge
     {
       get {return _imag;}
       set {_imag = value;}
-    }    
+    }
+
+    public Complex Conjugate
+    {
+      get {return new Complex(_real, -_imag);}
+    }
   }
 }

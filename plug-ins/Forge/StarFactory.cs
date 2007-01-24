@@ -25,7 +25,6 @@ namespace Gimp.Forge
   class StarFactory
   {
     readonly Random _random;
-    double _arand = Math.Pow(2.0, 15.0) - 1.0;
 
     readonly double _starFraction;
     readonly double _starColour;
@@ -71,14 +70,14 @@ namespace Gimp.Forge
 	      
 	      rgb.Multiply(v);
 	      rgb.Add(new RGB(0.499, 0.499, 0.499));
-	      rgb.Multiply(1.0 / 255);
+	      rgb.Divide(255);
 	      
 	      return new Pixel(rgb.Bytes);
 	    }
 	} 
       else 
 	{
-	  return new Pixel(3); // automatically constructs Pixel(0,0,0)
+	  return new Pixel(3);
 	}
     }
 
@@ -106,13 +105,13 @@ namespace Gimp.Forge
       double b = Planck(temp, 0.4358);
 
       RGB rgb = new RGB(r, g, b);
-      rgb.Multiply(1.0 / rgb.Max);
+      rgb.Divide(rgb.Max);
       return rgb;
     }
 
     double Cast(double low, double high)
     {
-      return (low + ((high - low) * (_random.Next() & 0x7FFF) / _arand));
+      return low + (high - low) * _random.NextDouble();
     }
   }
 }

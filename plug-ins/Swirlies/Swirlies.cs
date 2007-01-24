@@ -1,5 +1,5 @@
 // The Swirlies plug-in
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // Swirlies.cs
 //
@@ -26,10 +26,9 @@ using Gtk;
 
 namespace Gimp.Swirlies
 {
-  public class Swirlies : PluginWithPreview
+  class Swirlies : PluginWithPreview
   {
     Random _random;
-    byte[] _dest = new byte[3];
     int _width;
     int _height;
     List<Swirly> _swirlies = new List<Swirly>();
@@ -50,7 +49,7 @@ namespace Gimp.Swirlies
       new Swirlies(args);
     }
 
-    public Swirlies(string[] args) : base(args, "Swirlies")
+    Swirlies(string[] args) : base(args, "Swirlies")
     {
     }
 
@@ -63,7 +62,7 @@ namespace Gimp.Swirlies
 					  _("Generates 2D textures"),
 					  "Maurits Rijk",
 					  "(C) Maurits Rijk",
-					  "2006",
+					  "2006-2007",
 					  _("Swirlies..."),
 					  "RGB",
 					  in_params);
@@ -177,20 +176,19 @@ namespace Gimp.Swirlies
 
     Pixel DoSwirlies(int x, int y)
     {
-      double Fr = 0.0, Fg = 0.0, Fb = 0.0;
+      RGB rgb = new RGB(0.0, 0.0, 0.0);
 
       const double zoom = 0.5;
       const int terms = 5;
 
       foreach (Swirly swirly in _swirlies)
 	{
-	  swirly.CalculateOnePoint(terms, _width, _height, zoom, x, y, 
-				   ref Fr, ref Fg, ref Fb);
-	  _dest[0] = FloatToIntPixel(RemapColorRange(Fr));
-	  _dest[1] = FloatToIntPixel(RemapColorRange(Fg));
-	  _dest[2] = FloatToIntPixel(RemapColorRange(Fb));
+	  swirly.CalculateOnePoint(terms, _width, _height, zoom, x, y, rgb);
 	}
-      return new Pixel(_dest);
+
+      return new Pixel(FloatToIntPixel(RemapColorRange(rgb.R)),
+		       FloatToIntPixel(RemapColorRange(rgb.G)),
+		       FloatToIntPixel(RemapColorRange(rgb.B)));
     }
     
     double RemapColorRange(double val)
@@ -202,7 +200,7 @@ namespace Gimp.Swirlies
       return Math.Tanh(_post_gain * Math.Log(1 + _pre_gain * val));
     }
 
-    byte FloatToIntPixel(double val)
+    int FloatToIntPixel(double val)
     {
       val *= 255;
       val += 1 - 2 * _random.NextDouble();
@@ -218,7 +216,7 @@ namespace Gimp.Swirlies
 	}
       else
 	{
-	  return (byte) val;
+	  return (int) val;
 	}
     }
   }

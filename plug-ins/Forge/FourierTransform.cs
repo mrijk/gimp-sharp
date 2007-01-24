@@ -38,9 +38,6 @@ namespace Gimp.Forge
         THIS ARRAY IS INDEXED FROM  ONE,	AND  ALL  THE  EDGE
         SIZES MUST BE POWERS OF TWO!!!
 
-        ndim       Number of dimensions of FFT to perform.  Set to 2 for
-        two dimensional FFT.
-
         isign      If 1, a Fourier transform is done; if -1 the  inverse
         transformation is performed.
 
@@ -48,50 +45,40 @@ namespace Gimp.Forge
         Recipes In C", Section 12.11, pp.  467-470.
         */
 
-    public void Transform(double[] data, uint[] nn, uint ndim, int isign)
+    public void Transform(double[] data, uint[] nn, int isign)
     {
-      uint i1, i2, i3;
-      uint i2rev, i3rev;
-      uint ip1, ip2, ip3;
-      uint ifp1, ifp2;
-      uint ibit, idim, k1, k2;
-      uint nprev;
-      uint nrem;
-      uint n;
-      uint ntot;
-      double tempi, tempr;
-      double theta, wi, wpi, wpr, wr, wtemp;
+      int ndim = nn.Length - 1;
 
-      ntot = 1;
-      for (idim = 1; idim <= ndim; idim++)
+      uint ntot = 1;
+      for (int idim = 1; idim <= ndim; idim++)
 	{
 	  ntot *= nn[idim];
 	}
 
-      nprev = 1;
-      for (idim = ndim; idim >= 1; idim--) 
+      uint nprev = 1;
+      for (int idim = ndim; idim >= 1; idim--) 
 	{
-	  n = nn[idim];
-	  nrem = ntot / (n * nprev);
-	  ip1 = nprev << 1;
-	  ip2 = ip1 * n;
-	  ip3 = ip2 * nrem;
-	  i2rev = 1;
-	  for (i2 = 1; i2 <= ip2; i2 += ip1) 
+	  uint n = nn[idim];
+	  uint nrem = ntot / (n * nprev);
+	  uint ip1 = nprev << 1;
+	  uint ip2 = ip1 * n;
+	  uint ip3 = ip2 * nrem;
+	  uint i2rev = 1;
+	  for (uint i2 = 1; i2 <= ip2; i2 += ip1) 
 	    {
 	      if (i2 < i2rev) 
 		{
-		  for (i1 = i2; i1 <= i2 + ip1 - 2; i1 += 2) 
+		  for (uint i1 = i2; i1 <= i2 + ip1 - 2; i1 += 2) 
 		    {
-		      for (i3 = i1; i3 <= ip3; i3 += ip2) 
+		      for (uint i3 = i1; i3 <= ip3; i3 += ip2) 
 			{
-			  i3rev = i2rev + i3 - i2;
+			  uint i3rev = i2rev + i3 - i2;
 			  Swap(ref data[i3], ref data[i3rev]);
-			  Swap(ref data[i3+1], ref data[i3rev+1]);
+			  Swap(ref data[i3 + 1], ref data[i3rev + 1]);
 			}
 		    }
 		}
-	      ibit = ip2 >> 1;
+	      uint ibit = ip2 >> 1;
 	      while (ibit >= ip1 && i2rev > ibit) 
 		{
 		  i2rev -= ibit;
@@ -99,26 +86,26 @@ namespace Gimp.Forge
 		}
 	      i2rev += ibit;
 	    }
-	  ifp1 = ip1;
+	  uint ifp1 = ip1;
 	  while (ifp1 < ip2) 
 	    {
-	      ifp2 = ifp1 << 1;
-	      theta = isign * (Math.PI * 2) / (ifp2 / ip1);
-	      wtemp = Math.Sin(0.5 * theta);
-	      wpr = -2.0 * wtemp * wtemp;
-	      wpi = Math.Sin(theta);
-	      wr = 1.0;
-	      wi = 0.0;
-	      for (i3 = 1; i3 <= ifp1; i3 += ip1) 
+	      uint ifp2 = ifp1 << 1;
+	      double theta = isign * (Math.PI * 2) / (ifp2 / ip1);
+	      double wtemp = Math.Sin(0.5 * theta);
+	      double wpr = -2.0 * wtemp * wtemp;
+	      double wpi = Math.Sin(theta);
+	      double wr = 1.0;
+	      double wi = 0.0;
+	      for (uint i3 = 1; i3 <= ifp1; i3 += ip1) 
 		{
-		  for (i1 = i3; i1 <= i3 + ip1 - 2; i1 += 2) 
+		  for (uint i1 = i3; i1 <= i3 + ip1 - 2; i1 += 2) 
 		    {
-		      for (i2 = i1; i2 <= ip3; i2 += ifp2) 
+		      for (uint i2 = i1; i2 <= ip3; i2 += ifp2) 
 			{
-			  k1 = i2;
-			  k2 = k1 + ifp1;
-			  tempr = wr * data[k2] - wi * data[k2 + 1];
-			  tempi = wr * data[k2 + 1] + wi * data[k2];
+			  uint k1 = i2;
+			  uint k2 = k1 + ifp1;
+			  double tempr = wr * data[k2] - wi * data[k2 + 1];
+			  double tempi = wr * data[k2 + 1] + wi * data[k2];
 			  data[k2] = data[k1] - tempr;
 			  data[k2 + 1] = data[k1 + 1] - tempi;
 			  data[k1] += tempr;
