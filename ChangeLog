@@ -1,3 +1,10 @@
+2007-01-25  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/Mezzotint/*: initial code for Mezzotint plug-in
+	
+	* configure.in
+	* plug-ins/Makefile.am: changed accordingly
+
 2007-01-24  Maurits  <m.rijk@chello.nl>
 
 	* lib/RGB.cs: add convenience routine Divide and setters for R, G

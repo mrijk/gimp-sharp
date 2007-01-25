@@ -9,6 +9,7 @@ ecw = ecw
 endif
 
 if BUILD_INCOMPLETE
+Mezzotint = Mezzotint
 Shatter = Shatter
 DifferenceClouds = DifferenceClouds
 PictureFrame = PictureFrame
@@ -35,6 +36,7 @@ SUBDIRS = 			\
 	Forge	 		\
 	Fragment		\
 	KoalaPaint 		\
+	$(Mezzotint)		\
 	Ministeck		\
 	ncp 			\
 	neo			\

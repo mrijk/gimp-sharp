@@ -183,6 +183,8 @@ plug-ins/KoalaPaint/Makefile
 plug-ins/KoalaPaint/po/Makefile
 plug-ins/ncp/Makefile 
 plug-ins/ncp/po/Makefile 
+plug-ins/Mezzotint/Makefile 
+plug-ins/Mezzotint/po/Makefile 
 plug-ins/Ministeck/Makefile 
 plug-ins/Ministeck/po/Makefile 
 plug-ins/neo/Makefile
