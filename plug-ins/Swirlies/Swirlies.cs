@@ -94,7 +94,7 @@ namespace Gimp.Swirlies
       ScaleEntry entry = new ScaleEntry(table, 0, 1, _("Po_ints:"), 
 					150, 3, _points, 1.0, 16.0, 1.0, 8.0, 
 					0, true, 0, 0, null, null);
-      entry.ValueChanged += delegate(object sender, EventArgs e)
+      entry.ValueChanged += delegate
 	{
 	  _points = entry.ValueAsInt;
 	  InvalidatePreview();

@@ -1,5 +1,5 @@
 // The Difference Clouds plug-in
-// Copyright (C) 2006 Massimo Perga (massimo.perga@gmail.com)
+// Copyright (C) 2006-2007 Massimo Perga (massimo.perga@gmail.com)
 //
 // DifferenceClouds.cs
 //
@@ -25,7 +25,7 @@ using Gtk;
 
 namespace Gimp.DifferenceClouds
 {
-  public class DifferenceClouds : Plugin
+  class DifferenceClouds : Plugin
   {
     Random _random = null;
     ScaleEntry _turbulenceEntry = null;
@@ -50,7 +50,7 @@ namespace Gimp.DifferenceClouds
       new DifferenceClouds(args);
     }
 
-    public DifferenceClouds(string[] args) : base(args, "DifferenceClouds")
+    DifferenceClouds(string[] args) : base(args, "DifferenceClouds")
     {
     }
 
@@ -65,7 +65,7 @@ namespace Gimp.DifferenceClouds
 					  _("Creates difference clouds."),
 					  "Massimo Perga",
 					  "(C) Massimo Perga",
-					  "2006",
+					  "2006-2007",
 					  _("Difference Clouds..."),
 					  "RGB*",
 					  inParams);
@@ -98,7 +98,7 @@ namespace Gimp.DifferenceClouds
       _turbulenceEntry = new ScaleEntry(table, 0, 1, _("_Turbulence"), 150, 3,
 					_turbulence, 0.0, 7.0, 0.1, 1.0, 1, 
 					true, 0, 0, null, null);
-      _turbulenceEntry.ValueChanged += delegate(object sender, EventArgs args)
+      _turbulenceEntry.ValueChanged += delegate
 	{
 	  _turbulence = _turbulenceEntry.Value;
 	};

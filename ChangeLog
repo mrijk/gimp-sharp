@@ -1,3 +1,27 @@
+2007-01-26  Maurits  <maurits@localhost>
+
+
+2007-01-26  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/SliceTool/PreferencesDialog.cs
+	* plug-ins/SliceTool/TableDialog.cs: improve i18n stuff
+
+	* plug-ins/Raindrops/Raindrops.cs
+	* plug-ins/Pointillize/Pointillize.cs
+	* plug-ins/PictureFrame/PictureFrame.cs
+	* plug-ins/Colorize/Colorize.cs
+	* plug-ins/DifferenceClouds/DifferenceClouds.cs
+	* plug-ins/Forge/Forge.cs
+	* plug-ins/Ministeck/Ministeck.cs: 
+	* plug-ins/PhotoshopActions/PhotoshopActions.cs: 
+	* plug-ins/PicturePackage/LabelFrame.cs
+	* plug-ins/SliceTool/RolloverEntry.cs
+	* plug-ins/Splitter/Splitter.cs
+	* plug-ins/Swirlies/Swirlies.cs
+	* plug-ins/UnitTest/UnitTest.cs
+	* plug-ins/UpdateCheck/UpdateCheck.cs
+	* plug-ins/ncp/ncp.cs: removing unneeded parameters from delegates
+
 2007-01-25  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/Mezzotint/*: initial code for Mezzotint plug-in

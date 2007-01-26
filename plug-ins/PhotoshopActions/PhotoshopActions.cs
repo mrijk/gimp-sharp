@@ -90,7 +90,7 @@ namespace Gimp.PhotoshopActions
       vbox.PackStart(hbox, false, true, 0);
 
       Button play = new Button(Stock.Execute);
-      play.Clicked += delegate(object sender, EventArgs args)
+      play.Clicked += delegate
 	{
 	  TreePath[] paths = view.Selection.GetSelectedRows();
 	  TreePath path = paths[0];	// Assume only 1 is selected
@@ -114,7 +114,7 @@ namespace Gimp.PhotoshopActions
 	};      
       hbox.PackStart(play, false, true, 0);
 
-      view.Selection.Changed += delegate(object sender, EventArgs args)
+      view.Selection.Changed += delegate
 	{
 	  TreePath[] paths = view.Selection.GetSelectedRows();
 	  int[] indices = paths[0].Indices;

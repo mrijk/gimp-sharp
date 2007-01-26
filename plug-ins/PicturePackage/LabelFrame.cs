@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // LabelFrame.cs
 //
@@ -42,14 +42,14 @@ namespace Gimp.PicturePackage
 					_("Caption"), _("Credits"), 
 					_("Title"));
       content.Active = 0;
-      content.Changed += delegate(object o, EventArgs args) 
+      content.Changed += delegate
 	{
 	  SetLabelFrameSensitivity(content.Active);
 	};
       Table.AttachAligned(0, 0, _("Content:"), 0.0, 0.5, content, 1, false);
 
       _entry = new Entry();
-      _entry.Changed += delegate(object o, EventArgs args) 
+      _entry.Changed += delegate
 	{
 	  _parent.Label = _entry.Text;
 	};
@@ -75,7 +75,7 @@ namespace Gimp.PicturePackage
       _position = CreateComboBox(_("Centered"), _("Top Left"),
 				 _("Bottom Left"), _("Top Right"),
 				 _("Bottom Right"));
-      _position.Changed += delegate(object o, EventArgs args) 
+      _position.Changed += delegate
 	{
 	  _parent.Position = _position.Active;
 	};

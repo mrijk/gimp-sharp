@@ -1,5 +1,5 @@
 // The UnitTest plug-in
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // UnitTest.cs
 //
@@ -52,7 +52,7 @@ namespace Gimp.UnitTest
 					  "Unit Test",
 					  "Maurits Rijk, Massimo Perga",
 					  "(C) Maurits Rijk, Massimo Perga",
-					  "2004-2006",
+					  "2004-2007",
 					  "Unit Test...",
 					  "");
 
@@ -76,7 +76,7 @@ namespace Gimp.UnitTest
       FileChooserButton entry = 
 	new FileChooserButton("Open...", FileChooserAction.Open);
       // entry.CurrentName = "blah"; // _testDll;
-      entry.SelectionChanged += delegate(object o, EventArgs args)
+      entry.SelectionChanged += delegate
 	{
 	  _testDll = entry.Filename;
 	};

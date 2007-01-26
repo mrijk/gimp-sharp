@@ -93,7 +93,7 @@ namespace Gimp.Ministeck
       SpinButton size = new SpinButton(3, 100, 1);
       size.Value = _size;
       table.AttachAligned(0, 0, _("_Size:"), 0.0, 0.5, size, 2, true);
-      size.ValueChanged += delegate(object sender, EventArgs e)
+      size.ValueChanged += delegate
 	{
 	  _size = size.ValueAsInt;
 	  _preview.Invalidate();
@@ -102,7 +102,7 @@ namespace Gimp.Ministeck
       CheckButton limit = new CheckButton(_("_Limit Shapes"));
       table.Attach(limit, 2, 3, 0, 1);
       limit.Active = _limit;
-      limit.Toggled += delegate(object sender, EventArgs args)
+      limit.Toggled += delegate
 	{
 	  _limit = limit.Active;
 	};
@@ -110,7 +110,7 @@ namespace Gimp.Ministeck
       GimpColorButton colorButton = 
 	new GimpColorButton("", 16, 16, _color, ColorAreaType.COLOR_AREA_FLAT);
       colorButton.Update = true;
-      colorButton.ColorChanged += delegate(object sender, EventArgs e)
+      colorButton.ColorChanged += delegate
 	{
 	  _color = colorButton.Color;
 	  _preview.Invalidate();

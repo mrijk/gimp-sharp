@@ -1,5 +1,5 @@
 // The UpdateCheck plug-in
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // UpdateCheck.cs
 //
@@ -31,7 +31,7 @@ using Gtk;
 
 namespace Gimp.UpdateCheck
 {
-  public class UpdateCheck : Plugin
+  class UpdateCheck : Plugin
   {
     static ManualResetEvent allDone= new ManualResetEvent(false);
     const int BUFFER_SIZE = 1024;
@@ -50,7 +50,7 @@ namespace Gimp.UpdateCheck
       new UpdateCheck(args);
     }
 
-    public UpdateCheck(string[] args) : base(args, "UpdateCheck")
+    UpdateCheck(string[] args) : base(args, "UpdateCheck")
     {
     }
 
@@ -61,7 +61,7 @@ namespace Gimp.UpdateCheck
 					  _("Check for updates"),
 					  "Maurits Rijk",
 					  "(C) Maurits Rijk",
-					  "2006",
+					  "2006-2007",
 					  _("Check for Updates..."),
 					  "");
       procedure.MenuPath = "<Toolbox>/Xtns/Extensions";
@@ -89,7 +89,7 @@ namespace Gimp.UpdateCheck
 
       CheckButton checkGimp = new CheckButton(_("Check _GIMP"));
       checkGimp.Active = _checkGimp;
-      checkGimp.Toggled += delegate(object sender, EventArgs args) 
+      checkGimp.Toggled += delegate
 	{
 	  _checkGimp = checkGimp.Active;
 	};
@@ -97,7 +97,7 @@ namespace Gimp.UpdateCheck
 
       CheckButton checkGimpSharp = new CheckButton(_("Check G_IMP#"));
       checkGimpSharp.Active = _checkGimpSharp;
-      checkGimpSharp.Toggled += delegate(object sender, EventArgs args) 
+      checkGimpSharp.Toggled += delegate
 	{
 	  _checkGimpSharp = checkGimpSharp.Active;
 	};
@@ -106,7 +106,7 @@ namespace Gimp.UpdateCheck
       CheckButton checkUnstable = 
 	new CheckButton(_("Check _Unstable Releases"));
       checkUnstable.Active = _checkUnstable;
-      checkUnstable.Toggled += delegate(object sender, EventArgs args) 
+      checkUnstable.Toggled += delegate
 	{
 	  _checkUnstable = checkUnstable.Active;
 	};
@@ -125,7 +125,7 @@ namespace Gimp.UpdateCheck
       CheckButton enableProxy = 
 	new CheckButton(_("Manual proxy configuration"));
       enableProxy.Active = _enableProxy;
-      enableProxy.Toggled += delegate(object sender, EventArgs args) 
+      enableProxy.Toggled += delegate
 	{
 	  _enableProxy = enableProxy.Active;
 	};
@@ -139,7 +139,7 @@ namespace Gimp.UpdateCheck
       httpProxy.Text = _httpProxy;
       hbox.Add(httpProxy);
       proxyBox.Add(hbox);
-      httpProxy.Changed += delegate(object sender, EventArgs args) 
+      httpProxy.Changed += delegate
 	{
 	  _httpProxy = httpProxy.Text;
 	};
@@ -149,12 +149,12 @@ namespace Gimp.UpdateCheck
       port.Text = _port;
       port.WidthChars = 4;
       hbox.Add(port);
-      port.Changed += delegate(object sender, EventArgs args) 
+      port.Changed += delegate
 	{
 	  _port = port.Text;
 	};
       
-      enableProxy.Toggled += delegate(object sender, EventArgs args) 
+      enableProxy.Toggled += delegate
 	{
 	  hbox.Sensitive = enableProxy.Active;
 	};

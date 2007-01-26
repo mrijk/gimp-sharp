@@ -25,7 +25,7 @@ using Gtk;
 
 namespace Gimp.Raindrops
 {
-  public class Raindrops : Plugin
+  class Raindrops : Plugin
   {
     DrawablePreview _preview;
 
@@ -41,7 +41,7 @@ namespace Gimp.Raindrops
       new Raindrops(args);
     }
     
-    public Raindrops(string[] args) : base(args, "Raindrops")
+    Raindrops(string[] args) : base(args, "Raindrops")
     {
     }
 
@@ -61,7 +61,7 @@ namespace Gimp.Raindrops
 					  _("Generates raindrops"),
 					  "Massimo Perga",
 					  "(C) Massimo Perga",
-					  "2006",
+					  "2006-2007",
 					  _("Raindrops..."),
 					  "RGB*, GRAY*",
 					  inParams);
@@ -98,7 +98,7 @@ namespace Gimp.Raindrops
 						 150, 3, _dropSize, 1.0, 
 						 256.0, 1.0, 8.0, 0,
 						 true, 0, 0, null, null);
-      _dropSizeEntry.ValueChanged += delegate(object sender, EventArgs e)
+      _dropSizeEntry.ValueChanged += delegate
 	{
 	  _dropSize = _dropSizeEntry.ValueAsInt;
 	  _preview.Invalidate();
@@ -109,7 +109,7 @@ namespace Gimp.Raindrops
 					       150, 3, _number, 1.0, 
 					       256.0, 1.0, 8.0, 0,
 					       true, 0, 0, null, null);
-      _numberEntry.ValueChanged += delegate(object sender, EventArgs e)
+      _numberEntry.ValueChanged += delegate
 	{
 	  _number = _numberEntry.ValueAsInt;
 	  _preview.Invalidate();
@@ -120,7 +120,7 @@ namespace Gimp.Raindrops
 						150, 3, _fishEye, 1.0, 
 						256.0, 1.0, 8.0, 0,
 						true, 0, 0, null, null);
-      _fishEyeEntry.ValueChanged += delegate(object sender, EventArgs e)
+      _fishEyeEntry.ValueChanged += delegate
 	{
 	  _fishEye = _fishEyeEntry.ValueAsInt;
 	  _preview.Invalidate();

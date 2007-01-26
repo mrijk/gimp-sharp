@@ -92,12 +92,30 @@ namespace Gimp.ncp
       ScaleEntry entry = new ScaleEntry(table, 0, 1, _("Po_ints:"), 150, 3, 
 					_points, 1.0, 256.0, 1.0, 8.0, 0,
 					true, 0, 0, null, null);
-      entry.ValueChanged += PointsUpdate;
+      entry.ValueChanged += delegate
+	{
+	  _points = entry.ValueAsInt;
+	  if (_points > _closestEntry.Upper)
+	  {
+	    _closestEntry.Upper = _points;
+	  }
+	  
+	  if (_points < _closest)
+	  {
+	    _closest = _points;
+	    _closestEntry.Upper = _closest;
+	    _closestEntry.Value = _closest;
+	  }
+	  else
+	  {
+	    InvalidatePreview();
+	  }
+	};
 
       _closestEntry = new ScaleEntry(table, 0, 2, _("C_lose to:"), 150, 3, 
 				     _closest, 1.0, _points, 1.0, 8.0, 0,
 				     true, 0, 0, null, null);
-      _closestEntry.ValueChanged += delegate(object sender, EventArgs e)
+      _closestEntry.ValueChanged += delegate
 	{
 	  _closest = _closestEntry.ValueAsInt;
 	  InvalidatePreview();
@@ -105,7 +123,7 @@ namespace Gimp.ncp
 
       CheckButton color = new CheckButton(_("_Use color"));
       color.Active = _color;
-      color.Toggled += delegate(object sender, EventArgs args)
+      color.Toggled += delegate
 	{
 	  _color = color.Active;
 	  InvalidatePreview();
@@ -119,26 +137,6 @@ namespace Gimp.ncp
     {
       Initialize(_drawable);
       preview.Update(DoNCP);
-    }
-
-    void PointsUpdate(object sender, EventArgs e)
-    {
-      _points = (int) (sender as Adjustment).Value;
-      if (_points > _closestEntry.Upper)
-	{
-	  _closestEntry.Upper = _points;
-	}
-
-      if (_points < _closest)
-	{
-	  _closest = _points;
-	  _closestEntry.Upper = _closest;
-	  _closestEntry.Value = _closest;
-	}
-      else
-	{
-	  InvalidatePreview();
-	}
     }
 
     Coordinate<int>[,] vp;

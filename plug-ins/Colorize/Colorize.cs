@@ -126,41 +126,46 @@ namespace Gimp.Colorize
       CheckButton includeOriginal = 
 	new CheckButton(_("Marked images includes original image"));
       includeOriginal.Active = _includeOriginal;
-      includeOriginal.Toggled += delegate(object sender, EventArgs args) {
-	_includeOriginal = includeOriginal.Active;
-      };
+      includeOriginal.Toggled += delegate 
+	{
+	  _includeOriginal = includeOriginal.Active;
+	};
       table.Attach(includeOriginal, 0, 1, 1, 2);
 
       CheckButton unselectedAreas = 
 	new CheckButton(_("Unselected areas are mask"));
       unselectedAreas.Active = _unselectedAreas;
-      unselectedAreas.Toggled += delegate(object sender, EventArgs args) {
-	_unselectedAreas = unselectedAreas.Active;
-      };
+      unselectedAreas.Toggled += delegate
+	{
+	  _unselectedAreas = unselectedAreas.Active;
+	};
       table.Attach(unselectedAreas, 0, 1, 2, 3);
 
       CheckButton pureWhite = 
 	new CheckButton(_("Pure white is mask"));
       pureWhite.Active = _pureWhite;
-      pureWhite.Toggled += delegate(object sender, EventArgs args) {
-	_pureWhite = pureWhite.Active;
-      };
+      pureWhite.Toggled += delegate
+	{
+	  _pureWhite = pureWhite.Active;
+	};
       table.Attach(pureWhite, 0, 1, 3, 4);
 
       CheckButton useChroma = 
 	new CheckButton(_("Use chroma in addition to luminance (for color images)"));
       useChroma.Active = _useChroma;
-      useChroma.Toggled += delegate(object sender, EventArgs args) {
-	_useChroma = useChroma.Active;
-      };
+      useChroma.Toggled += delegate
+	{
+	  _useChroma = useChroma.Active;
+	};
       table.Attach(useChroma, 0, 1, 4, 5);
 
-      CheckButton useEntireImage = 
+      CheckButton useEntireImage =
 	new CheckButton(_("Unselected areas are mask"));
       useEntireImage.Active = _useEntireImage;
-      useEntireImage.Toggled += delegate(object sender, EventArgs args) {
-	_useEntireImage = useEntireImage.Active;
-      };
+      useEntireImage.Toggled += delegate
+	{
+	  _useEntireImage = useEntireImage.Active;
+	};
       table.Attach(useEntireImage, 0, 1, 5, 6);
 
       return dialog;

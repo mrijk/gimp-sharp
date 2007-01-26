@@ -213,22 +213,22 @@ namespace Gimp.Forge
 				       _fracdim, 0.0, 3.0, 
 				       0.1, 1.0, 1,
 				       true, 0, 0, null, null);
-      _dimensionEntry.ValueChanged += delegate(object sender, EventArgs e)
+      _dimensionEntry.ValueChanged += delegate
 	{
 	  if (forced > 0)
 	    forced--;
 	  else
-	    dimspec = true;
+	  dimspec = true;
 	  _fracdim = _dimensionEntry.Value;
 	};
-
+      
       // Power
       _powerEntry = new ScaleEntry(table, 3, 0, _("_Power:"), 
 				   150, 3, 
 				   _powscale, 0.0, Double.MaxValue, 
 				   0.1, 1.0, 1,
 				   true, 0, 0, null, null);
-      _powerEntry.ValueChanged += delegate(object sender, EventArgs e)
+      _powerEntry.ValueChanged += delegate
 	{
 	  if (forced > 0)
 	    forced--;
@@ -244,7 +244,7 @@ namespace Gimp.Forge
 				     _glaciers, 0.0, Double.MaxValue, 
 				     0.1, 1.0, 0,
 				     true, 0, 0, null, null);
-      _glacierEntry.ValueChanged += delegate(object sender, EventArgs e)
+      _glacierEntry.ValueChanged += delegate
 	{
 	  glacspec = true;
 	  _glaciers = _glacierEntry.Value;
@@ -258,7 +258,7 @@ namespace Gimp.Forge
 				 _icelevel, 0.0, Double.MaxValue, 
 				 0.1, 1.0, 1,
 				 true, 0, 0, null, null);
-      _iceEntry.ValueChanged += delegate(object sender, EventArgs e)
+      _iceEntry.ValueChanged += delegate
 	{
 	  icespec = true;
 	  _icelevel = _iceEntry.Value;
@@ -271,7 +271,7 @@ namespace Gimp.Forge
 				  150, 3, 
 				  _hourangle, 0.0, 24.0, 0.1, 1.0, 0,
 				  true, 0, 0, null, null);
-      _hourEntry.ValueChanged += delegate(object sender, EventArgs e)
+      _hourEntry.ValueChanged += delegate
 	{
 	  hourspec = true;
 	  _hourangle = _hourEntry.Value;
@@ -285,7 +285,7 @@ namespace Gimp.Forge
 					 150, 3, 
 					 _inclangle, -90.0, 90.0, 1, 10.0, 0,
 					 true, 0, 0, null, null);
-      _inclinationEntry.ValueChanged += delegate(object sender, EventArgs e)
+      _inclinationEntry.ValueChanged += delegate
 	{
 	  inclspec = true;
 	  _inclangle = _inclinationEntry.Value;  
@@ -298,7 +298,7 @@ namespace Gimp.Forge
 					150, 3, 
 					_starfraction, 1.0, 100.0, 1.0, 8.0, 0,
 					true, 0, 0, null, null);
-      _starsEntry.ValueChanged += delegate(object sender, EventArgs e)
+      _starsEntry.ValueChanged += delegate
 	{
 	  starspec = true;
 	  _starfraction = _starsEntry.Value;
@@ -312,7 +312,7 @@ namespace Gimp.Forge
 					_starcolour, 0.0, Int32.MaxValue, 
 					1.0, 8.0, 0,
 					true, 0, 0, null, null);
-      _saturationEntry.ValueChanged += delegate(object sender, EventArgs e)
+      _saturationEntry.ValueChanged += delegate
 	{
 	  starcspec = true;
 	  _starcolour = _saturationEntry.Value;

@@ -71,7 +71,7 @@ namespace Gimp.Splitter
 					  _("Splits an image in separate parts using a formula of the form f(x, y) = 0"),
 					  "Maurits Rijk",
 					  "(C) Maurits Rijk",
-					  "1999 - 2006",
+					  "1999 - 2007",
 					  _("Splitter..."),
 					  "RGB*",
 					  in_params);
@@ -103,8 +103,7 @@ namespace Gimp.Splitter
       hbox.Add(new Label("f(x, y):"));
       Entry formula = new Entry();
       formula.Text = _formula;
-      formula.Changed +=
-	delegate(object sender, EventArgs e)
+      formula.Changed += delegate
 	{
 	  _formula = formula.Text;
 	};
@@ -119,14 +118,14 @@ namespace Gimp.Splitter
 
       CheckButton merge = new CheckButton(_("Merge visible layers"));
       merge.Active = _merge;
-      merge.Toggled += delegate(object sender, EventArgs args)
+      merge.Toggled += delegate
 	{
 	  _merge = merge.Active;
 	};
       table.Attach(merge, 0, 1, 3, 4);
 
       Button advanced = new Button(_("Advanced Options..."));
-      advanced.Clicked += delegate(object sender, EventArgs args)
+      advanced.Clicked += delegate
 	{
 	  AdvancedDialog advancedDialog = new AdvancedDialog(_seed, 
 							     _randomSeed);
@@ -146,7 +145,7 @@ namespace Gimp.Splitter
       keep.AppendText(_("Layer 1"));
       keep.AppendText(_("Layer 2"));
       keep.Active = _keepLayer;
-      keep.Changed += delegate(object o, EventArgs args) 
+      keep.Changed += delegate
 	{
 	  _keepLayer = keep.Active;
 	};
@@ -167,8 +166,7 @@ namespace Gimp.Splitter
 
       SpinButton spinner = new SpinButton(int.MinValue, int.MaxValue, 1);
       spinner.Value = _translate_1_x;
-      spinner.ValueChanged += 
-	delegate(object source, System.EventArgs args)
+      spinner.ValueChanged += delegate
 	{
 	  _translate_1_x = spinner.ValueAsInt;
 	};
@@ -177,8 +175,7 @@ namespace Gimp.Splitter
 
       spinner = new SpinButton(int.MinValue, int.MaxValue, 1);
       spinner.Value = _translate_1_y;
-      spinner.ValueChanged += 
-	delegate(object source, System.EventArgs args)
+      spinner.ValueChanged += delegate
 	{
 	  _translate_1_y = spinner.ValueAsInt;
 	};
@@ -187,8 +184,7 @@ namespace Gimp.Splitter
 
       spinner = new SpinButton(0, 360, 1);
       spinner.Value = _rotate_1;
-      spinner.ValueChanged += 
-	delegate(object source, System.EventArgs args)
+      spinner.ValueChanged += delegate
 	{
 	  _rotate_1 = spinner.ValueAsInt;
 	};
@@ -212,8 +208,7 @@ namespace Gimp.Splitter
 
       SpinButton spinner = new SpinButton(int.MinValue, int.MaxValue, 1);
       spinner.Value = _translate_2_x;
-      spinner.ValueChanged += 
-	delegate(object source, System.EventArgs args)
+      spinner.ValueChanged += delegate
 	{
 	  _translate_2_x = spinner.ValueAsInt;
 	};
@@ -222,8 +217,7 @@ namespace Gimp.Splitter
 
       spinner = new SpinButton(int.MinValue, int.MaxValue, 1);
       spinner.Value = _translate_2_y;
-      spinner.ValueChanged += 
-	delegate(object source, System.EventArgs args)
+      spinner.ValueChanged += delegate
 	{
 	  _translate_2_y = spinner.ValueAsInt;
 	};
@@ -232,8 +226,7 @@ namespace Gimp.Splitter
 
       spinner = new SpinButton(0, 360, 1);
       spinner.Value = _rotate_2;
-      spinner.ValueChanged += 
-	delegate(object source, System.EventArgs args)
+      spinner.ValueChanged += delegate
 	{
 	  _rotate_2 = spinner.ValueAsInt;
 	};

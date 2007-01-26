@@ -1,5 +1,5 @@
 // The PictureFrame plug-in
-// Copyright (C) 2006 Oded Coster
+// Copyright (C) 2006-2007 Oded Coster
 //
 // PictureFrame.cs
 //
@@ -47,7 +47,7 @@ namespace Gimp.PictureFrame
 					  _("Picture frame"),
 					  "Oded Coster",
 					  "(C) Oded Coster",
-					  "2006",
+					  "2006-2007",
 					  _("Picture frame..."),
 					  "RGB*, GRAY*");
       procedure.MenuPath = "<Image>/Filters/Render";
@@ -76,7 +76,7 @@ namespace Gimp.PictureFrame
 #else
       FileChooserButton entry = 
 	new FileChooserButton(_("Load Frame..."), FileChooserAction.Open);
-      entry.SelectionChanged += delegate(object o, EventArgs args)
+      entry.SelectionChanged += delegate
 	{
 	  _pictureFrameImagePath = entry.Filename;
 	};

@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2006 Maurits Rijk  m.rijk@chello.nl
+// Copyright (C) 2004-2007 Maurits Rijk  m.rijk@chello.nl
 //
 // RolloverEntry.cs
 //
@@ -32,8 +32,7 @@ namespace Gimp.SliceTool
     {
       CheckButton button = new CheckButton(label);
 
-      button.Clicked += 
-	delegate(object o, EventArgs args)
+      button.Clicked += delegate
 	{
 	  bool active = button.Active;
 	  Sensitive = active;

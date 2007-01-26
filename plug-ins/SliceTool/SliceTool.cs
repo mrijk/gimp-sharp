@@ -56,7 +56,7 @@ namespace Gimp.SliceTool
       new SliceTool(args);
     }
     
-    public SliceTool(string[] args) : base(args, "SliceTool")
+    SliceTool(string[] args) : base(args, "SliceTool")
     {
     }
 
@@ -67,7 +67,7 @@ namespace Gimp.SliceTool
 					  _("The Image Slice Tool is used to apply image slicing and rollovers."),
 					  "Maurits Rijk",
 					  "(C) Maurits Rijk",
-					  "2005-2006",
+					  "2005-2007",
 					  _("Slice Tool..."),
 					  "RGB*, GRAY*");
 
@@ -182,7 +182,7 @@ namespace Gimp.SliceTool
 	  _sliceData.Save(_filename, _format.Apply, _image, _drawable);
 	  SaveBlank(System.IO.Path.GetDirectoryName(_filename));
 	}
-      catch (Exception e)
+      catch (Exception)
 	{
 	  MessageDialog message = 
 	    new MessageDialog(null, DialogFlags.DestroyWithParent,
@@ -235,7 +235,7 @@ namespace Gimp.SliceTool
 	  Save();
 	}
     }
-    
+
     Widget CreatePreview()
     {
       ScrolledWindow window = new ScrolledWindow();
@@ -249,8 +249,7 @@ namespace Gimp.SliceTool
 
       _preview.ButtonPressEvent += OnButtonPress;      
       _preview.MotionNotifyEvent += OnShowCoordinates;
-      _preview.LeaveNotifyEvent += 
-	delegate(object o, LeaveNotifyEventArgs args)
+      _preview.LeaveNotifyEvent += delegate
 	{
 	  _xy.Text = "";
 	};
@@ -260,7 +259,7 @@ namespace Gimp.SliceTool
 
       return window;
     }
-    
+
     void OnButtonPress(object o, ButtonPressEventArgs args)
     {
       MouseFunc func = _func.GetActualFunc(this, (int) args.Event.X,
@@ -305,7 +304,7 @@ namespace Gimp.SliceTool
 
       return handle;
     }
-    
+
     Widget CreateCellProperties()
     {
       GimpFrame frame = new GimpFrame(_("Cell Properties"));
@@ -355,7 +354,7 @@ namespace Gimp.SliceTool
       
       return frame;
     }
-    
+
     Widget CreateRollover()
     {
       GimpFrame frame = new GimpFrame(_("Rollovers"));
