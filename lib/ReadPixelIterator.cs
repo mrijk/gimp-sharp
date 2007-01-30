@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // ReadPixelIterator.cs
 //
@@ -34,6 +34,11 @@ namespace Gimp
     {
       _drawable = drawable;
       _runmode = runmode;
+    }
+
+    public ReadPixelIterator(Drawable drawable) : 
+      this(drawable, RunMode.Noninteractive)
+    {
     }
 	
     public IEnumerator<Pixel> GetEnumerator()

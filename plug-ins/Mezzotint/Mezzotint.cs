@@ -25,8 +25,10 @@ using Gtk;
 
 namespace Gimp.Mezzotint
 {
-  class Mezzotint : PluginWithPreview
+  class Mezzotint : Plugin
   {
+    DrawablePreview _preview;
+
     static void Main(string[] args)
     {
       new Mezzotint(args);
@@ -44,7 +46,7 @@ namespace Gimp.Mezzotint
 					  "Maurits Rijk",
 					  "(C) Maurits Rijk",
 					  "2007",
-					  _("Mezzotint"),
+					  _("Mezzotint..."),
 					  "RGB*");
       procedure.MenuPath = "<Image>/Filters/Noise"; 
       procedure.IconFile = "Mezzotint.png";
@@ -59,6 +61,14 @@ namespace Gimp.Mezzotint
       GimpDialog dialog = DialogNew("Mezzotint", "Mezzotint", IntPtr.Zero, 0,
 				    Gimp.StandardHelpFunc, "Mezzotint");
 
+      VBox vbox = new VBox(false, 12);
+      vbox.BorderWidth = 12;
+      dialog.VBox.PackStart(vbox, true, true, 0);
+
+      _preview = new DrawablePreview(_drawable, false);
+      _preview.Invalidated += UpdatePreview;
+      vbox.PackStart(_preview, true, true, 0);
+
       ComboBox type = ComboBox.NewText();
       type.AppendText("Fine dots");
       type.AppendText("Medium dots");
@@ -72,14 +82,38 @@ namespace Gimp.Mezzotint
       type.AppendText("Long strokes");
       type.Active = 0;
 
-      Vbox.PackStart(type, false, false, 0);
+      vbox.PackStart(type, false, false, 0);
 
       return dialog;
     }
 
-    override protected void UpdatePreview(AspectPreview preview)
+    void UpdatePreview(object sender, EventArgs e)
     {
-      // preview.Update(DoMezzoTint);
+      Rectangle rectangle = _preview.Bounds;
+      Console.WriteLine("UpdatePreview: " + rectangle);
+
+      int rowStride = rectangle.Width * 3;
+      byte[] buffer = new byte[rectangle.Area * 3];	// Fix me!
+
+      PixelRgn srcPR = new PixelRgn(_drawable, rectangle, false, false);
+      for (IntPtr pr = PixelRgn.Register(srcPR); pr != IntPtr.Zero; 
+	   pr = PixelRgn.Process(pr))
+	{
+	  for (int y = srcPR.Y; y < srcPR.Y + srcPR.H; y++)
+	    {
+	      for (int x = srcPR.X; x < srcPR.X + srcPR.W; x++)
+		{
+		  Pixel pixel = srcPR[y, x];
+		  pixel.X = x;
+		  pixel.Y = y;
+		  pixel = DoMezzotint(pixel);
+		  int index = (y - rectangle.Y1) * rowStride +
+		    (x - rectangle.X1) * 3;
+		  pixel.CopyTo(buffer, index);
+		}
+	    }
+	}
+      _preview.DrawBuffer(buffer, rowStride);
     }
 
     override protected void Render(Drawable drawable)
@@ -96,6 +130,14 @@ namespace Gimp.Mezzotint
       });
 
       Display.DisplaysFlush();
+    }
+
+    Pixel DoMezzotint(Pixel pixel)
+    {
+      pixel.Red = (pixel.Red > 127) ? 255 : 0;
+      pixel.Green = (pixel.Green > 127) ? 255 : 0;
+      pixel.Blue = (pixel.Blue > 127) ? 255 : 0;
+      return pixel;
     }
   }
 }

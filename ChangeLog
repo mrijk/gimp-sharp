@@ -1,5 +1,11 @@
-2007-01-26  Maurits  <maurits@localhost>
+2007-01-30  Maurits  <m.rijk@chello.nl>
 
+	* plug-ins/Ministeck/Ministeck.cs: make sure preview is redrawn
+	correctly
+
+2007-01-26  Maurits  <m.rijk@chello.nl>
+
+	* lib/Rectangle.cs: ToString() method
 
 2007-01-26  Maurits  <m.rijk@chello.nl>
 

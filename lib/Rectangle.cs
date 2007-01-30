@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // Rectangle.cs
 //
@@ -106,6 +106,11 @@ namespace Gimp
     public static bool operator!=(Rectangle rectangle1, Rectangle rectangle2)
     {
       return !(rectangle1 == rectangle2);
+    }
+
+    public override string ToString()
+    {
+      return string.Format("({0}, {1}, {2}, {3})", X1, Y1, X2, Y2);
     }
   }
 }
