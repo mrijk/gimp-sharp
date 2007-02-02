@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // Mask.cs
 //
@@ -20,6 +20,7 @@
 //
 
 using System;
+using System.Runtime.InteropServices;
 
 namespace Gimp
 {
@@ -28,5 +29,20 @@ namespace Gimp
     public Mask(Int32 maskID) : base(maskID)
     {
     }
+
+    public Layer Layer
+    {
+      get
+	{
+	  Int32 layerID = gimp_layer_from_mask(_ID);
+	  if (layerID == -1)
+	    return null;
+	  else
+	    return new Layer(layerID);
+	}
+    }
+
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern Int32 gimp_layer_from_mask (Int32 mask_ID);
   }
 }

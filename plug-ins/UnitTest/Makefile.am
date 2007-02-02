@@ -34,11 +34,13 @@ TESTSOURCES = 	TestBrush.cs 			\
 		TestPixelFetcher.cs		\
 		TestPixelRgn.cs			\
 		TestProcedure.cs		\
+		TestRcQuery.cs			\
 		TestRectangle.cs		\
 		TestRegionIterator.cs		\
 		TestRgnIterator.cs		\
 		TestRGB.cs			\
 		TestStroke.cs			\
+		TestUndo.cs			\
 		TestVectors.cs			\
 		TestVersion.cs
 

@@ -1,3 +1,30 @@
+2007-02-02  Maurits  <m.rijk@chello.nl>
+
+	* lib/ImageList.cs: fixed bug when zero images were found
+
+	* lib/Display.cs
+	* lib/Mask.cs: more API coverage
+
+	* lib/Layer.cs: new convenience constructor that takes the layer
+	size from the image...
+
+	* plug-ins/Splitter/Splitter.cs: ... and use it here
+
+	* lib/Gimp.cs: new GIMP 2.4 ColorConfiguration property
+
+	* lib/Tile.cs: convert two getter functions to properties
+
+	* lib/Image.cs: renamed Enabled to UndoEnabled
+
+	* plug-ins/UnitTest/TestRcQuery.cs
+	* plug-ins/UnitTest/TestUndo.cs: new files
+
+	* plug-ins/UnitTest/TestDisplay.cs: more test cases
+
+	* plug-ins/UnitTest/TestMain.cs: move some tests to TestRcQuery.cs
+	
+	* plug-ins/UnitTest/Makefile.am: changed accordingly
+
 2007-01-30  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/Ministeck/Ministeck.cs: make sure preview is redrawn

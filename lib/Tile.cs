@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // Tile.cs
 //
@@ -28,7 +28,7 @@ namespace Gimp
   {
     readonly IntPtr _tile;
 
-    public Tile(IntPtr tile)
+    internal Tile(IntPtr tile)
     {
       _tile = tile;
     }
@@ -53,19 +53,25 @@ namespace Gimp
       gimp_tile_flush(_tile);
     }
 
-    static public void CacheSize(ulong kilobytes)
+    static public ulong CacheSize
     {
-      gimp_tile_cache_size(kilobytes);
+      set
+	{
+	  gimp_tile_cache_size(value);
+	}
     }
 
-    static public void CacheNtiles(ulong ntiles)
+    static public ulong CacheNtiles
     {
-      gimp_tile_cache_ntiles(ntiles);
+      set
+	{
+	  gimp_tile_cache_ntiles(value);
+	}
     }
 
     static public void CacheDefault(Drawable drawable)
     {
-      Tile.CacheNtiles((ulong) (2 * (drawable.Width / Gimp.TileWidth + 1))); 
+      Tile.CacheNtiles = (ulong) (2 * (drawable.Width / Gimp.TileWidth + 1));
     }
 
     [DllImport("libgimp-2.0-0.dll")]
@@ -73,8 +79,7 @@ namespace Gimp
     [DllImport("libgimp-2.0-0.dll")]
     static extern void gimp_tile_ref_zero(IntPtr tile);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern void gimp_tile_unref(IntPtr tile,
-                                       bool dirty);
+    static extern void gimp_tile_unref(IntPtr tile, bool dirty);
     [DllImport("libgimp-2.0-0.dll")]
     static extern void gimp_tile_flush(IntPtr tile);
     [DllImport("libgimp-2.0-0.dll")]

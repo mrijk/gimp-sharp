@@ -1,7 +1,7 @@
 // GIMP# - A C# wrapper around the GIMP Library
 // Copyright (C) 2004-2007 Maurits Rijk
 //
-// TestGimp.cs
+// TestUndo.cs
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -19,62 +19,57 @@
 // Boston, MA 02111-1307, USA.
 //
 
+using System;
+
 using NUnit.Framework;
 
 namespace Gimp
 {
   [TestFixture]
-  public class TestGimp
+  public class TestUndo
   {
-    // [Test]
-    public void Version()
+    int _width = 64;
+    int _height = 128;
+    Image _image;
+
+    [SetUp]
+    public void Init()
     {
-      Version version = Gimp.Version;
-      Assert.IsTrue(version != null);
+      _image = new Image(_width, _height, ImageBaseType.Rgb);
     }
 
-    // [Test]
-    public void MajorVersion()
+    [TearDown]
+    public void Exit()
     {
-      Version version = Gimp.Version;
-      Assert.IsTrue(version.Major >= 2);
-    }
-
-    // [Test]
-    public void MinorVersion()
-    {
-      Version version = Gimp.Version;
-      Assert.IsTrue(version.Minor >= 0);
-    }
-
-    // [Test]
-    public void MicroVersion()
-    {
-      Version version = Gimp.Version;
-      Assert.IsTrue(version.Micro >= 0);
+      _image.Delete();
     }
 
     [Test]
-    public void MonitorResolution()
+    public void EnableDisable()
     {
-      double xres, yres;
-      Gimp.GetMonitorResolution(out xres, out yres);
-      Assert.IsTrue(xres > 0);
-      Assert.IsTrue(yres > 0);
+      _image.UndoDisable();
+      Assert.IsFalse(_image.UndoEnabled);
+
+      _image.UndoEnable();
+      Assert.IsTrue(_image.UndoEnabled);
     }
 
     [Test]
-    public void DefaultComment()
+    public void GroupStartEnd()
     {
-      string comment = Gimp.DefaultComment;
-      Assert.IsTrue(comment != null);
+      // Just call them. I don't know how to test this yet, unless I can 
+      // call the Undo operation programmatically
+      _image.UndoGroupStart();
+      _image.UndoGroupEnd();
     }
 
     [Test]
-    public void ThemeDirectory()
+    public void GroupFreezeThaw()
     {
-      string directory = Gimp.ThemeDirectory;
-      Assert.IsTrue(directory != null);
+      // Just call them. I don't know how to test this yet, unless I can 
+      // call the Undo operation programmatically
+      _image.UndoFreeze();
+      _image.UndoThaw();
     }
   }
 }

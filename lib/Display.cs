@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // Display.cs
 //
@@ -44,22 +44,29 @@ namespace Gimp
         }
     }
 
+    // Since GIMP 2.4
+    public int WindowHandle
+    {
+      get {return gimp_display_get_window_handle(_displayID);}
+    }
+
     public static void DisplaysFlush()
     {
       gimp_displays_flush();
     }
 
-    public static bool DisplaysReconnect(Image oldImage, Image newImage)
+    public static bool Reconnect(Image oldImage, Image newImage)
     {
       Debug.Assert(oldImage != null && newImage != null);
-      return gimp_displays_reconnect(oldImage.ID,
-                                     newImage.ID);
+      return gimp_displays_reconnect(oldImage.ID, newImage.ID);
     }
 
     [DllImport("libgimp-2.0-0.dll")]
     static extern Int32 gimp_display_new(Int32 image_ID);
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_display_delete(Int32 display_ID);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern int gimp_display_get_window_handle(Int32 display_ID);
     [DllImport("libgimp-2.0-0.dll")]
     static extern void gimp_displays_flush();
     [DllImport("libgimp-2.0-0.dll")]

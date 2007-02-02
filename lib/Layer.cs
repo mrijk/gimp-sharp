@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // Layer.cs
 //
@@ -35,6 +35,17 @@ namespace Gimp
     {
       _image = image;
     }
+
+    public Layer(Image image, string name, ImageType type, double opacity, 
+		 LayerModeEffects mode) : 
+      this(image, name, image.Width, image.Height, type, opacity, mode)
+    {
+    }
+
+    public Layer(Image image, string name, ImageType type) :
+      this(image, name, type, 100, LayerModeEffects.Normal)
+    {
+    }
   
     public Layer(Layer layer) : base(gimp_layer_copy(layer.ID))
     {
@@ -45,6 +56,7 @@ namespace Gimp
     {
     }
 
+    // Fix me: can this one be avoided?
     public Layer(Drawable drawable) : base(drawable.ID)
     {
     }
@@ -53,19 +65,17 @@ namespace Gimp
     {
     }
 
-    public void Scale(int new_width, int new_height,
-		      bool local_origin)
+    public void Scale(int new_width, int new_height, bool local_origin)
     {
-      if (!gimp_layer_scale (_ID, new_width, new_height, local_origin))
+      if (!gimp_layer_scale(_ID, new_width, new_height, local_origin))
 	{
 	  throw new Exception();
 	}
     }
 
-    public void Resize(int new_width, int new_height,
-		       int offx, int offy)
+    public void Resize(int new_width, int new_height, int offx, int offy)
     {
-      if (!gimp_layer_resize (_ID, new_width, new_height, offx, offy))
+      if (!gimp_layer_resize(_ID, new_width, new_height, offx, offy))
 	{
 	  throw new Exception();
 	}
@@ -73,7 +83,7 @@ namespace Gimp
 
     public void ResizeToImageSize()
     {
-      if (!gimp_layer_resize_to_image_size (_ID))
+      if (!gimp_layer_resize_to_image_size(_ID))
 	{
 	  throw new Exception();
 	}
@@ -81,7 +91,7 @@ namespace Gimp
 
     public void Translate(int offx, int offy)
     {
-      if (!gimp_layer_translate (_ID, offx, offy))
+      if (!gimp_layer_translate(_ID, offx, offy))
 	{
 	  throw new Exception();
 	}
@@ -135,12 +145,12 @@ namespace Gimp
 	}
     }
 
-    public bool PreserveTrans
+    public bool LockAlpha
     {
-      get {return gimp_layer_get_preserve_trans (_ID);}
+      get {return gimp_layer_get_lock_alpha(_ID);}
       set 
 	{
-	  if (!gimp_layer_set_preserve_trans (_ID, value))
+	  if (!gimp_layer_set_lock_alpha(_ID, value))
 	    {
 	      throw new Exception();
 	    }
@@ -149,10 +159,10 @@ namespace Gimp
 
     public bool ApplyMask
     {
-      get {return gimp_layer_get_apply_mask (_ID);}
+      get {return gimp_layer_get_apply_mask(_ID);}
       set 
 	{
-	  if (!gimp_layer_set_apply_mask (_ID, value))
+	  if (!gimp_layer_set_apply_mask(_ID, value))
 	    {
 	      throw new Exception();
 	    }
@@ -161,10 +171,10 @@ namespace Gimp
 
     public bool ShowMask
     {
-      get {return gimp_layer_get_show_mask (_ID);}
+      get {return gimp_layer_get_show_mask(_ID);}
       set 
 	{
-	  if (!gimp_layer_set_show_mask (_ID, value))
+	  if (!gimp_layer_set_show_mask(_ID, value))
 	    {
 	      throw new Exception();
 	    }
@@ -173,10 +183,10 @@ namespace Gimp
 
     public bool EditMask
     {
-      get {return gimp_layer_get_edit_mask (_ID);}
+      get {return gimp_layer_get_edit_mask(_ID);}
       set 
 	{
-	  if (!gimp_layer_set_edit_mask (_ID, value))
+	  if (!gimp_layer_set_edit_mask(_ID, value))
 	    {
 	      throw new Exception();
 	    }
@@ -185,9 +195,9 @@ namespace Gimp
 
     public double Opacity
     {
-      get {return gimp_layer_get_opacity (_ID);}
+      get {return gimp_layer_get_opacity(_ID);}
       set {
-	if (!gimp_layer_set_opacity (_ID, value))
+	if (!gimp_layer_set_opacity(_ID, value))
 	  {
 	    throw new Exception();
 	  }
@@ -196,10 +206,10 @@ namespace Gimp
   
     public LayerModeEffects Mode
     {
-      get {return gimp_layer_get_mode (_ID);}
+      get {return gimp_layer_get_mode(_ID);}
       set 
 	{
-	  if (!gimp_layer_set_mode (_ID, value))
+	  if (!gimp_layer_set_mode(_ID, value))
 	    {
 	      throw new Exception();
 	    }
@@ -208,7 +218,7 @@ namespace Gimp
 
     public bool FloatingSel
     {
-      get {return gimp_layer_is_floating_sel (_ID);}
+      get {return gimp_layer_is_floating_sel(_ID);}
     }
 
     public void Lower()
@@ -268,10 +278,10 @@ namespace Gimp
     static extern int gimp_layer_new_from_drawable (Int32 drawable_ID,
 						    Int32 dest_image_ID);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_layer_get_preserve_trans (Int32 layer_ID);
+    static extern bool gimp_layer_get_lock_alpha(Int32 layer_ID);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_layer_set_preserve_trans (Int32 layer_ID,
-						      bool preserve_trans);
+    static extern bool gimp_layer_set_lock_alpha(Int32 layer_ID,
+						 bool lock_alpha);
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_layer_get_apply_mask (Int32 layer_ID);
     [DllImport("libgimp-2.0-0.dll")]

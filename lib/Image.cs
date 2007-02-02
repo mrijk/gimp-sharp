@@ -565,7 +565,7 @@ namespace Gimp
         }
     }
 
-    public bool Enabled
+    public bool UndoEnabled
     {
       get {return gimp_image_undo_is_enabled(_imageID);}
     }

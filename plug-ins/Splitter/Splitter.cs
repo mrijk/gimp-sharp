@@ -252,8 +252,7 @@ namespace Gimp.Splitter
       PixelRgn destPR1;
       if (_keepLayer == 0 || _keepLayer == 1)
 	{
-	  layer1 = new Layer(newImage, _("layer_one"), width, height,
-			     ImageType.Rgba, 100, LayerModeEffects.Normal);
+	  layer1 = new Layer(newImage, _("layer_one"), ImageType.Rgba);
 	  layer1.Translate(_translate_1_x, _translate_1_y);
 	  layer1.AddAlpha();
 	  newImage.AddLayer(layer1, 0);
@@ -270,8 +269,7 @@ namespace Gimp.Splitter
       PixelRgn destPR2;
       if (_keepLayer == 0 || _keepLayer == 2)
 	{
-	  layer2 = new Layer(newImage, _("layer_two"), width, height,
-			     ImageType.Rgba, 100, LayerModeEffects.Normal);
+	  layer2 = new Layer(newImage, _("layer_two"), ImageType.Rgba);
 	  layer2.Translate(_translate_2_x, _translate_2_y);
 	  layer2.AddAlpha();
 	  newImage.AddLayer(layer2, 0);

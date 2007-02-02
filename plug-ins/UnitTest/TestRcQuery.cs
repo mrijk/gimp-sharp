@@ -1,7 +1,7 @@
 // GIMP# - A C# wrapper around the GIMP Library
 // Copyright (C) 2004-2007 Maurits Rijk
 //
-// TestDisplay.cs
+// TestRcQuery.cs
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -26,41 +26,28 @@ using NUnit.Framework;
 namespace Gimp
 {
   [TestFixture]
-  public class TestDisplay
+  public class TestRcQuery
   {
     [Test]
-    public void NewAndDelete()
+    public void QueryNonsense()
     {
-      int width = 21;
-      int height = 128;
-      Image image = new Image(width, height, ImageBaseType.Rgb);
-
-      ImageList images = new ImageList();
-      int count = images.Count;
-
-      Display display = new Display(image);
-      display.Delete();
-
-      images.Refresh();
-      Assert.AreEqual(count - 1, images.Count);
+      string value = Gimp.RcQuery("nonsense");
+      Assert.IsTrue(value == null);
     }
 
     [Test]
-    public void Reconnect()
+    public void QueryShowTips()
     {
-      int width = 21;
-      int height = 128;
-      Image oldImage = new Image(width, height, ImageBaseType.Rgb);
-      Image newImage = new Image(width, height, ImageBaseType.Rgb);
+      string value = Gimp.RcQuery("show-tips");
+      Assert.IsTrue(value != null);
+    }
 
-      Assert.IsFalse(Display.Reconnect(oldImage, newImage));
-
-      Display display = new Display(oldImage);
-
-      Assert.IsFalse(Display.Reconnect(newImage, oldImage));
-      Assert.IsTrue(Display.Reconnect(oldImage, newImage));
-
-      display.Delete();
+    [Test]
+    public void Set()
+    {
+      Gimp.RcSet("foo", "bar");
+      string value = Gimp.RcQuery("foo");
+      Assert.AreEqual("bar", value);
     }
   }
 }
