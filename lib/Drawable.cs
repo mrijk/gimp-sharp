@@ -136,6 +136,11 @@ namespace Gimp
 	}
     }
 
+    public Dimensions Dimensions
+    {
+      get {return new Dimensions(Width, Height);}
+    }
+
     public Rectangle MaskBounds
     {
       get 
@@ -208,12 +213,17 @@ namespace Gimp
       get {return gimp_drawable_height(_ID);}
     }
 
-    public void Offsets(out int offset_x, out int offset_y)
+    public virtual Offset Offsets
     {
-      if (!(gimp_drawable_offsets(_ID, out offset_x, out offset_y)))
-        {
-	  throw new GimpSharpException();
-        }
+      get
+	{
+	  int offX, offY;
+	  if (!(gimp_drawable_offsets(_ID, out offX, out offY)))
+	    {
+	      throw new GimpSharpException();
+	    }
+	  return new Offset(offX, offY);
+	}
     }
 
     public bool IsLayer()
@@ -231,14 +241,19 @@ namespace Gimp
       return gimp_drawable_is_channel(_ID);
     }
 
-    public void Offset(bool wrap_around, OffsetType fill_type,
-                       int offset_x, int offset_y)
+    public void Offset(bool wrapAround, OffsetType fillType,
+                       int offsetX, int offsetY)
     {
-      if (!gimp_drawable_offset(_ID, wrap_around, fill_type, offset_x, 
-				offset_y))
+      if (!gimp_drawable_offset(_ID, wrapAround, fillType, offsetX, 
+				offsetY))
         {
 	  throw new GimpSharpException();
         }
+    }
+
+    public void Offset(bool wrapAround, OffsetType fillType, Offset offset)
+    {
+      Offset(wrapAround, fillType, offset.X, offset.Y);
     }
 
     public Parasite ParasiteFind(string name)
@@ -768,6 +783,20 @@ namespace Gimp
     }
 
     // Misc routines
+
+    public override bool Equals(object o)
+    {
+      if (o is Drawable)
+	{
+	  return (o as Drawable).ID == ID;
+	}
+      return false;
+    }
+
+    public override int GetHashCode()
+    {
+      return ID;
+    }
 
     internal Int32 ID
     {

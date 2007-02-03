@@ -1,7 +1,7 @@
 // GIMP# - A C# wrapper around the GIMP Library
 // Copyright (C) 2004-2007 Maurits Rijk
 //
-// Mask.cs
+// Offset.cs
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -20,29 +20,30 @@
 //
 
 using System;
-using System.Runtime.InteropServices;
 
 namespace Gimp
 {
-  public sealed class Mask : Channel
+  public struct Offset
   {
-    internal Mask(Int32 maskID) : base(maskID)
+    int _x;
+    int _y;
+
+    public Offset(int x, int y)
     {
+      _x = x;
+      _y = y;
     }
 
-    public Layer Layer
+    public int X
     {
-      get
-	{
-	  Int32 layerID = gimp_layer_from_mask(_ID);
-	  if (layerID == -1)
-	    return null;
-	  else
-	    return new Layer(layerID);
-	}
+      get {return _x;}
+      set {_x = value;}
     }
 
-    [DllImport("libgimp-2.0-0.dll")]
-    static extern Int32 gimp_layer_from_mask (Int32 mask_ID);
+    public int Y
+    {
+      get {return _y;}
+      set {_y = value;}
+    }
   }
 }

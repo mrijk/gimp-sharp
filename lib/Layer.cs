@@ -65,27 +65,37 @@ namespace Gimp
     {
     }
 
-    public void Scale(int new_width, int new_height, bool local_origin)
+    public void Scale(int newWidth, int newHeight, bool localOrigin)
     {
-      if (!gimp_layer_scale(_ID, new_width, new_height, local_origin))
+      if (!gimp_layer_scale(_ID, newWidth, newHeight, localOrigin))
 	{
-	  throw new Exception();
+	  throw new GimpSharpException();
 	}
     }
 
-    public void Resize(int new_width, int new_height, int offx, int offy)
+    public void Scale(Dimensions dimensions, bool localOrigin)
     {
-      if (!gimp_layer_resize(_ID, new_width, new_height, offx, offy))
+      Scale(dimensions.Width, dimensions.Height, localOrigin);
+    }
+
+    public void Resize(int newWidth, int newHeight, int offx, int offy)
+    {
+      if (!gimp_layer_resize(_ID, newWidth, newHeight, offx, offy))
 	{
-	  throw new Exception();
+	  throw new GimpSharpException();
 	}
+    }
+
+    public void Resize(Dimensions dimensions, Offset offset)
+    {
+      Resize(dimensions.Width, dimensions.Height, offset.X, offset.Y);
     }
 
     public void ResizeToImageSize()
     {
       if (!gimp_layer_resize_to_image_size(_ID))
 	{
-	  throw new Exception();
+	  throw new GimpSharpException();
 	}
     }
 
@@ -93,23 +103,32 @@ namespace Gimp
     {
       if (!gimp_layer_translate(_ID, offx, offy))
 	{
-	  throw new Exception();
+	  throw new GimpSharpException();
 	}
+    }
+
+    public void Translate(Offset offset)
+    {
+      Translate(offset.X, offset.Y);
     }
 
     public void AddAlpha()
     {
       if (!gimp_layer_add_alpha (_ID))
 	{
-	  throw new Exception();
+	  throw new GimpSharpException();
 	}
     }
 
-    public void SetOffsets(int offx, int offy)
+    public new Offset Offsets
     {
-      if (!gimp_layer_set_offsets (_ID, offx, offy))
+      get {return base.Offsets;}
+      set
 	{
-	  throw new Exception();
+	  if (!gimp_layer_set_offsets(_ID, value.X, value.Y))
+	    {
+	      throw new GimpSharpException();
+	    }
 	}
     }
 
@@ -132,7 +151,7 @@ namespace Gimp
 	{
 	  if (!gimp_layer_add_mask(_ID, value.ID))
 	    {
-	      throw new Exception();
+	      throw new GimpSharpException();
 	    }
 	}
     }
@@ -141,7 +160,7 @@ namespace Gimp
     {
       if (!gimp_layer_remove_mask(_ID, mode))
 	{
-	  throw new Exception();
+	  throw new GimpSharpException();
 	}
     }
 
@@ -152,7 +171,7 @@ namespace Gimp
 	{
 	  if (!gimp_layer_set_lock_alpha(_ID, value))
 	    {
-	      throw new Exception();
+	      throw new GimpSharpException();
 	    }
 	}
     }
@@ -164,7 +183,7 @@ namespace Gimp
 	{
 	  if (!gimp_layer_set_apply_mask(_ID, value))
 	    {
-	      throw new Exception();
+	      throw new GimpSharpException();
 	    }
 	}
     }
@@ -176,7 +195,7 @@ namespace Gimp
 	{
 	  if (!gimp_layer_set_show_mask(_ID, value))
 	    {
-	      throw new Exception();
+	      throw new GimpSharpException();
 	    }
 	}
     }
@@ -188,7 +207,7 @@ namespace Gimp
 	{
 	  if (!gimp_layer_set_edit_mask(_ID, value))
 	    {
-	      throw new Exception();
+	      throw new GimpSharpException();
 	    }
 	}
     }
@@ -199,7 +218,7 @@ namespace Gimp
       set {
 	if (!gimp_layer_set_opacity(_ID, value))
 	  {
-	    throw new Exception();
+	    throw new GimpSharpException();
 	  }
       }
     }
@@ -211,12 +230,12 @@ namespace Gimp
 	{
 	  if (!gimp_layer_set_mode(_ID, value))
 	    {
-	      throw new Exception();
+	      throw new GimpSharpException();
 	    }
 	}
     }
 
-    public bool FloatingSel
+    public bool IsFloatingSelection
     {
       get {return gimp_layer_is_floating_sel(_ID);}
     }

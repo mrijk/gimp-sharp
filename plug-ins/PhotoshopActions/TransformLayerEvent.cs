@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // TransformLayerEvent.cs
 //
@@ -66,9 +66,8 @@ namespace Gimp.PhotoshopActions
       double newHeight = ActiveDrawable.Height;
       double oldWidth = newWidth;
       double oldHeight = newHeight;
-      int oldOffx, oldOffy;
 
-      SelectedLayer.Offsets(out oldOffx, out oldOffy);
+      Offset oldOffset = SelectedLayer.Offsets;
 
       DoubleParameter width = Parameters["Wdth"] as DoubleParameter;
       if (width != null)
@@ -93,11 +92,12 @@ namespace Gimp.PhotoshopActions
 	  switch (side.Value)
 	    {
 	    case "Qcs7":
-	      SelectedLayer.SetOffsets(oldOffx, oldOffy);
+	      SelectedLayer.Offsets = oldOffset;
 	      break;
 	    case "Qcs5":
-	      SelectedLayer.SetOffsets(oldOffx + (int) (oldWidth - newWidth), 
-				       oldOffy + (int) (oldHeight - newHeight));
+	      SelectedLayer.Offsets = 
+		new Offset(oldOffset.X + (int) (oldWidth - newWidth), 
+			   oldOffset.Y + (int) (oldHeight - newHeight));
 	      break;
 	    default:
 	      Console.WriteLine("FTcs: " + side.Value);

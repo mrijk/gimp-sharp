@@ -1,7 +1,7 @@
 // GIMP# - A C# wrapper around the GIMP Library
 // Copyright (C) 2004-2007 Maurits Rijk
 //
-// Mask.cs
+// Dimensions.cs
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -20,29 +20,30 @@
 //
 
 using System;
-using System.Runtime.InteropServices;
 
 namespace Gimp
 {
-  public sealed class Mask : Channel
+  public struct Dimensions
   {
-    internal Mask(Int32 maskID) : base(maskID)
+    int _width;
+    int _height;
+
+    public Dimensions(int width, int height)
     {
+      _width = width;
+      _height = height;
     }
 
-    public Layer Layer
+    public int Width
     {
-      get
-	{
-	  Int32 layerID = gimp_layer_from_mask(_ID);
-	  if (layerID == -1)
-	    return null;
-	  else
-	    return new Layer(layerID);
-	}
+      get {return _width;}
+      set {_width = value;}
     }
 
-    [DllImport("libgimp-2.0-0.dll")]
-    static extern Int32 gimp_layer_from_mask (Int32 mask_ID);
+    public int Height
+    {
+      get {return _height;}
+      set {_height = value;}
+    }
   }
 }

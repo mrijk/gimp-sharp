@@ -24,6 +24,7 @@ TESTSOURCES = 	TestBrush.cs 			\
 		TestHSV.cs			\
 		TestImage.cs			\
 		TestLayer.cs			\
+		TestMask.cs			\
 		TestPalette.cs			\
 		TestPaletteEntry.cs		\
 		TestPaletteList.cs		\

@@ -1,3 +1,28 @@
+2007-02-03  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/Splitter/MathExpressionParser.cs: clean-up
+
+	* lib/Drawable.cs: make offsets a property
+
+	* lib/Mask.cs: use Channel as baseclass iso Drawable
+
+	* lib/Selection.cs: use Rectangle class to return boundaries
+
+	* plug-ins/PhotoshopActions/TransformLayerEvent.cs
+	* plug-ins/PhotoshopActions/CutToLayerEvent.cs
+	* plug-ins/PhotoshopActions/CopyToLayerEvent.cs: ... and use it here
+
+	* lib/Offset.cs
+	* lib/Dimensions.cs: new helper classes
+
+	* lib/Makefile.am: changed accordingly
+
+	* plug-ins/UnitTest/TestMask.cs: new unit tests
+	* plug-ins/Makefile.am: changed accordingly
+
+	* lib/Layer.cs: 
+	* plug-ins/UnitTest/TestLayer.cs: more unit tests added
+
 2007-02-02  Maurits  <m.rijk@chello.nl>
 
 	* lib/ImageList.cs: fixed bug when zero images were found

@@ -89,10 +89,9 @@ namespace Gimp
     [Test]
     public void Offsets()
     {
-      int offset_x, offset_y;
-      _drawable.Offsets(out offset_x, out offset_y);
-      Assert.AreEqual(offset_x, 0);
-      Assert.AreEqual(offset_y, 0);      
+      Offset offset = _drawable.Offsets;
+      Assert.AreEqual(0, offset.X);
+      Assert.AreEqual(0, offset.Y);      
     }
 
     [Test]

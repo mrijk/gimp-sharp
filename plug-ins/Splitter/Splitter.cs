@@ -241,12 +241,10 @@ namespace Gimp.Splitter
       MathExpressionParser parser = new MathExpressionParser();
 
       Rectangle rectangle = image.Bounds;
-      int width = rectangle.Width;
-      int height = rectangle.Height;
 
-      parser.Init(_formula, width, height);
+      parser.Init(_formula, image.Dimensions);
 
-      Image newImage = new Image(width, height, image.BaseType);
+      Image newImage = new Image(image.Dimensions, image.BaseType);
 
       Layer layer1;
       PixelRgn destPR1;
@@ -284,8 +282,7 @@ namespace Gimp.Splitter
 
       Pixel transparent = new Pixel(4);
 
-      PixelRgn srcPR = new PixelRgn(drawable, 0, 0, width, height, 
-				    false, false);
+      PixelRgn srcPR = new PixelRgn(drawable, rectangle, false, false);
 
       if (destPR1 != null && destPR2 != null)
 	{
@@ -370,8 +367,8 @@ namespace Gimp.Splitter
 	{
 	  Layer merged = 
 	    newImage.MergeVisibleLayers(MergeType.ExpandAsNecessary);
-	  merged.SetOffsets(0, 0);
-	  newImage.Resize(merged.Width, merged.Height, 0, 0);
+	  merged.Offsets = new Offset(0, 0);
+	  newImage.Resize(merged.Dimensions, merged.Offsets);
 	}
 
       new Display(newImage);

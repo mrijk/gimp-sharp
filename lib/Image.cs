@@ -40,6 +40,11 @@ namespace Gimp
       _imageID = gimp_image_new (width, height, type);
     }
 
+    public Image(Dimensions dimensions, ImageBaseType type) :
+      this(dimensions.Width, dimensions.Height, type)
+    {
+    }
+
     public Image(Image image)
     {
       _imageID = gimp_image_duplicate(image._imageID);
@@ -106,6 +111,11 @@ namespace Gimp
       get {return new Rectangle(0, 0, Width, Height);}
     }
 
+    public Dimensions Dimensions
+    {
+      get {return new Dimensions(Width, Height);}
+    }
+
     public void FreeShadow()
     {
       if (!gimp_image_free_shadow(_imageID))
@@ -130,12 +140,17 @@ namespace Gimp
         }
     }
 
-    public void Resize(int new_width, int new_height, int offx, int offy)
+    public void Resize(int newWidth, int newHeight, int offX, int offY)
     {
-      if (!gimp_image_resize (_imageID, new_width, new_height, offx, offy))
+      if (!gimp_image_resize(_imageID, newWidth, newHeight, offX, offY))
         {
 	  throw new GimpSharpException();
         }
+    }
+
+    public void Resize(Dimensions dimensions, Offset offset)
+    {
+      Resize(dimensions.Width, dimensions.Height, offset.X, offset.Y);
     }
 
     public void ResizeToLayers()
@@ -154,12 +169,22 @@ namespace Gimp
         }
     }
 
+    public void Scale(Dimensions dimensions)
+    {
+      Scale(dimensions.Width, dimensions.Height);
+    }
+
     public void Crop(int new_width, int new_height, int offx, int offy)
     {
       if (!gimp_image_crop(_imageID, new_width, new_height, offx, offy))
         {
 	  throw new GimpSharpException();
         }
+    }
+
+    public void Crop(Dimensions dimensions, Offset offset)
+    {
+      Crop(dimensions.Width, dimensions.Height, offset.X, offset.Y);
     }
 
     public void Crop(Rectangle rectangle)

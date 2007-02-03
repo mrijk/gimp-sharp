@@ -31,7 +31,7 @@ namespace Gimp.Splitter
     {
     }
 
-    public bool Init(string expr, double width, double height)
+    public bool Init(string expr, Dimensions dimensions)
     {
       Microsoft.CSharp.CSharpCodeProvider cp
 	= new Microsoft.CSharp.CSharpCodeProvider();
@@ -65,8 +65,8 @@ namespace Gimp.Splitter
 	      if (ObjType != null)
 		{
 		  myobj = (MyClassBase)Activator.CreateInstance(ObjType);
-		  myobj.w = width;
-		  myobj.h = height;
+		  myobj.w = dimensions.Width;
+		  myobj.h = dimensions.Height;
 		}
 	    }
 	  catch (Exception ex)

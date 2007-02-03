@@ -15,6 +15,7 @@ MYSOURCES = 				\
 	Context.cs			\
 	Coordinate.cs			\
 	CoordinateList.cs		\
+	Dimensions.cs			\
 	Display.cs 			\
 	Drawable.cs			\
 	DrawableComboBox.cs		\
@@ -50,6 +51,7 @@ MYSOURCES = 				\
 	ImageList.cs			\
 	Mask.cs				\
 	Message.cs			\
+	Offset.cs			\
 	Palette.cs			\
 	PaletteEntry.cs			\
 	PaletteList.cs			\
