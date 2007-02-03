@@ -21,6 +21,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading;
 using NUnit.Core;
 using NUnit.Util;
 
@@ -31,8 +32,8 @@ namespace Gimp.UnitTest
   public class UnitTest : Plugin
   {
     [SaveAttribute]
-    string _testDll;
-    Progress _progress;
+    static string _testDll;
+    ProgressBar _progressBar;
     int    _testsPerformed = 0;
     int    _testCasesTotalNumber = 0;
 
@@ -73,24 +74,23 @@ namespace Gimp.UnitTest
       vbox.BorderWidth = 12;
       dialog.VBox.PackStart(vbox, true, true, 0);
 
-      FileChooserButton entry = 
-	new FileChooserButton("Open...", FileChooserAction.Open);
-      // entry.CurrentName = "blah"; // _testDll;
+      FileChooserButton entry = new FileChooserButton("Open...", 
+						      FileChooserAction.Open);
       entry.SelectionChanged += delegate
 	{
 	  _testDll = entry.Filename;
 	};
       vbox.PackStart(entry, false, false, 0);
 
+      _progressBar = new ProgressBar();
+      vbox.PackEnd(_progressBar);
+      
       return dialog;
     }
 
     override protected void Render()
     {
       UnitTester tester = new UnitTester(this);
-
-      _progress  = new Progress("UnitTest execution progress :");
-
       tester.Test(_testDll);
     }
 
@@ -99,14 +99,10 @@ namespace Gimp.UnitTest
       _testsPerformed++;
       double ratio = (double) _testsPerformed / _testCasesTotalNumber;
 
-      if (_progress != null)
+      _progressBar.Update(ratio);
+      while (Application.EventsPending ())
 	{
-	  _progress.Update(ratio);
-	  /*
-	    if(testsPerformed == _testCasesTotalNumber)
-	    {
-	    }
-	  */
+	  Gtk.Application.RunIteration();
 	}
     }
 

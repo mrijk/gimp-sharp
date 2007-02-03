@@ -1,7 +1,7 @@
 // GIMP# - A C# wrapper around the GIMP Library
 // Copyright (C) 2004-2007 Maurits Rijk
 //
-// TestPatternList.cs
+// TestPattern.cs
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -26,33 +26,32 @@ using NUnit.Framework;
 namespace Gimp
 {
   [TestFixture]
-  public class TestPatternList
+  public class TestPattern
   {
     [Test]
-    public void CountAll()
+    public void GetInfo()
     {
       PatternList patterns = new PatternList(null);
-      Assert.IsTrue(patterns.Count > 0);
-    }
-
-    [Test]
-    public void CountNone()
-    {
-      // Test for non-existing patterns
-      PatternList patterns = new PatternList("nonsense");
-      Assert.AreEqual(0, patterns.Count);
-    }
-
-    [Test]
-    public void GetEnumerator()
-    {
-      PatternList patterns = new PatternList(null);
-      int count = 0;
       foreach (Pattern pattern in patterns)
 	{
-	  count++;
+	  int width, height, bpp;
+	  pattern.GetInfo(out width, out height, out bpp);
+	  Assert.IsTrue(width > 0);
+	  Assert.IsTrue(height > 0);
+	  Assert.IsTrue(bpp > 0);
 	}
-      Assert.AreEqual(count, patterns.Count);
+    }
+
+    [Test]
+    public void GetPixels()
+    {
+      PatternList patterns = new PatternList(null);
+      foreach (Pattern pattern in patterns)
+	{
+	  int width, height, bpp, numBytes;
+	  pattern.GetPixels(out width, out height, out bpp, out numBytes);
+	  Assert.AreEqual(width * height * bpp, numBytes);
+	}
     }
   }
 }

@@ -51,6 +51,7 @@ namespace Gimp
 
       Channel channel = new Channel(_image, "test", _width, _height, 100,
 				    new RGB(0, 255, 0));
+      Assert.IsTrue(channel.IsChannel());
       _image.AddChannel(channel, 0);
 
       Assert.AreEqual(before + 1, _image.Channels.Count);
@@ -109,6 +110,19 @@ namespace Gimp
       RGB red = new RGB(255, 0, 0);
       channel.Color = red;
       Assert.AreEqual(red.Bytes, channel.Color.Bytes);
+    }
+
+    [Test]
+    public void CombineMasks()
+    {
+      RGB color = new RGB(0, 255, 0);
+      Channel channelOne = new Channel(_image, "one", color);      
+      Channel channelTwo = new Channel(_image, "two", color);
+
+      _image.AddChannel(channelOne, 0);
+      _image.AddChannel(channelTwo, 0);
+
+      channelOne.CombineMasks(channelTwo, ChannelOps.Add, 0, 0);
     }
   }
 }

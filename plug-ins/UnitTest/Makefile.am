@@ -30,6 +30,7 @@ TESTSOURCES = 	TestBrush.cs 			\
 		TestPaletteList.cs		\
 		TestParasite.cs			\
 		TestPath.cs			\
+		TestPattern.cs			\
 		TestPatternList.cs		\
 		TestPixel.cs			\
 		TestPixelFetcher.cs		\

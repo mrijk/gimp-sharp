@@ -1,5 +1,5 @@
 // The UnitTest plug-in
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // UnitTester.cs
 //
@@ -44,12 +44,12 @@ namespace Gimp.UnitTest
 						string testDll)
     {
       NUnitProject project;
-
+      
       project = NUnitProject.FromAssemblies(new string[]{testDll});
 
       return testDomain.Load(testDll);
     }
-
+    
     public void Test(string testDll)
     {
       TextWriter outWriter = Console.Out;
@@ -57,14 +57,14 @@ namespace Gimp.UnitTest
       Test test = null;
 
       try
-      {        
-        test = MakeTestFromCommandLine(testDomain, testDll);
-      }
+	{        
+	  test = MakeTestFromCommandLine(testDomain, testDll);
+	}
       catch(System.IO.FileNotFoundException fnfe)
-      {
-        new Message("Failed opening " + testDll);
-        return;
-      }
+	{
+	  new Message("Failed opening " + testDll);
+	  return;
+	}
 
 
       if (test == null)
@@ -73,9 +73,10 @@ namespace Gimp.UnitTest
 	  return;
 	}
       _unitTestPlugin.TestCasesTotalNumber = testRunner.CountTestCases();
-
-      EventListener collector = new EventCollector( outWriter, errorWriter, _unitTestPlugin );
-
+      
+      EventListener collector = new EventCollector(outWriter, errorWriter, 
+						   _unitTestPlugin );
+      
       TestResult result = testRunner.Run(collector);
     }
   }

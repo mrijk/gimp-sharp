@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // Pattern.cs
 //
@@ -48,13 +48,32 @@ namespace Gimp
       if (!gimp_pattern_get_info(_name, out width, out height,
                                  out bpp))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
+    }
+
+    public void GetPixels(out int width, out int height, out int bpp,
+			  out int numColorBytes)
+    {
+      IntPtr colorBytes;
+      if (!gimp_pattern_get_pixels(_name, out width, out height,
+				   out bpp, out numColorBytes,
+				   out colorBytes))
+        {
+	  throw new GimpSharpException();
+        }
+      // Fix me: fill array with colors
     }
 
     [DllImport("libgimp-2.0-0.dll")]
     extern static bool gimp_pattern_get_info(string name,
                                              out int width, out int height, 
 					     out int bpp);
+    [DllImport("libgimp-2.0-0.dll")]
+    extern static bool gimp_pattern_get_pixels(string name,
+					       out int width, out int height, 
+					       out int bpp, 
+					       out int num_color_bytes,
+					       out IntPtr color_bytes);
   }
 }

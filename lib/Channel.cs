@@ -32,6 +32,11 @@ namespace Gimp
     {
     }
 
+    public Channel(Image image, string name, RGB color) :
+      this(image, name, image.Width, image.Height, 100, color.GimpRGB)
+    {
+    }
+
     // Private (!) constructor so we can pass rgb by reference
     Channel(Image image, string name, int width, int height,
 	    double opacity, GimpRGB rgb) :
@@ -70,21 +75,36 @@ namespace Gimp
       get 
 	{
           GimpRGB rgb = new GimpRGB();
-          gimp_channel_get_color(_ID, ref rgb);
-          return new RGB(rgb);
+          if (!gimp_channel_get_color(_ID, ref rgb))
+	    {
+	      throw new GimpSharpException();
+	    }
+	  return new RGB(rgb);
 	}
       set 
 	{
           GimpRGB rgb = value.GimpRGB;
-          gimp_channel_set_color(_ID, ref rgb);
+          if (!gimp_channel_set_color(_ID, ref rgb))
+	    {
+	      throw new GimpSharpException();
+	    }
 	}
     }
 
-    public bool CombineMasks(Channel channel, ChannelOps operation,
+    public void CombineMasks(Channel channel, ChannelOps operation,
 			     int offx, int offy)
     {
-      return gimp_channel_combine_masks(_ID, channel.ID, operation,
-					offx, offy);
+      if (!gimp_channel_combine_masks(_ID, channel.ID, operation,
+				      offx, offy))
+	{
+	  throw new GimpSharpException();
+	}
+    }
+
+    public void CombineMasks(Channel channel, ChannelOps operation,
+			     Offset offset)
+    {
+      CombineMasks(channel, operation, offset.X, offset.Y);
     }
 
     [DllImport("libgimp-2.0-0.dll")]
