@@ -42,7 +42,7 @@ namespace Gimp.SliceTool
       _format.AppendText("png");
 
       _apply = new CheckButton(_("Apply to _whole image"));
-      _apply.Activated += delegate(object sender, EventArgs e)
+      _apply.Activated += delegate
 	{
 	  Rectangle.GlobalExtension = Extension;
 	};
@@ -53,21 +53,23 @@ namespace Gimp.SliceTool
     {
       set
 	{
-	  if (value == ".gif")
+	  switch (value)
 	    {
+	    case "gif":
 	      _format.Active = 0;
-	    }
-	  else if (value == ".jpg" || value == ".jpeg")
-	    {
+	      break;
+	    case "jpg":
 	      _format.Active = 1;
-	    }
-	  else if (value == ".png")
-	    {
+	      break;
+	    case "jpeg":
+	      _format.Active = 1;
+	      break;
+	    case "png":
 	      _format.Active = 2;
-	    }
-	  else
-	    {
+	      break;
+	    default:
 	      _format.Active = 2;
+	      break;
 	    }
 
 	  if (_apply.Active)

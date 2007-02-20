@@ -167,7 +167,9 @@ namespace Gimp.SliceTool
       Stream input = assembly.GetManifestResourceStream("blank.png");
       BinaryReader reader = new BinaryReader(input);
       byte[] buffer = reader.ReadBytes((int) input.Length);
-      FileStream fs = new FileStream(path + "/blank.png", FileMode.Create, 
+      string fileName = path + System.IO.Path.DirectorySeparatorChar + 
+	"blank.png";
+      FileStream fs = new FileStream(fileName, FileMode.Create,
 				     FileAccess.Write);
       BinaryWriter writer = new BinaryWriter(fs);
       writer.Write(buffer);
