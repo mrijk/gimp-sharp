@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // PaletteEntry.cs
 //
@@ -29,7 +29,7 @@ namespace Gimp
     readonly string _paletteName;
     readonly int _index;
 
-    public PaletteEntry(Palette palette, int index)
+    internal PaletteEntry(Palette palette, int index)
     {
       _paletteName = palette.Name;
       _index = index;
@@ -75,6 +75,11 @@ namespace Gimp
 	      throw new Exception();
 	    }
 	}
+    }
+
+    internal int Index
+    {
+      get {return _index;}
     }
 
     [DllImport("libgimp-2.0-0.dll")]

@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // TestPixelRgn.cs
 //
@@ -282,8 +282,7 @@ namespace Gimp
 	      for (int x = srcRgn.X; x < srcRgn.X + srcRgn.W; x++)
 		{
 		  Pixel tmp = srcRgn[y, x];
-		  tmp.Alpha = 255;
-		  destRgn[y, x] = tmp;
+		  destRgn[y, x] = new Pixel(tmp.Red, tmp.Green, tmp.Blue, 255);
 		}
 	    }
 	}
@@ -301,8 +300,8 @@ namespace Gimp
 	    {
 	      for (int x = srcRgn.X; x < srcRgn.X + srcRgn.W; x++)
 		{
-		  Assert.AreEqual(pixel, srcRgn[y, x]);
-		  Assert.AreEqual(pixel2, destRgn[y, x]);
+		  Assert.AreEqual(pixel.Color, srcRgn[y, x].Color);
+		  Assert.AreEqual(pixel2.Color, destRgn[y, x].Color);
 		}
 	    }
 	}

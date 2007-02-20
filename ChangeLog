@@ -1,3 +1,15 @@
+2007-02-19  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/Splitter/Splitter.cs: handle non-interactive parameters
+
+2007-02-03  Maurits  <m.rijk@chello.nl>
+
+	* lib/PaletteEntry.cs
+	* lib/PaletteList.cs: 
+	* lib/Palette.cs: more API coverage
+
+	* plug-ins/UnitTest/TestPixelRgn.cs: fix failing tests
+
 2007-02-03  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/UnitTest/UnitTest.cs: progress bar is now part of the

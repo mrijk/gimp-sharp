@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // TestPalette.cs
 //
@@ -31,8 +31,11 @@ namespace Gimp
     [Test]
     public void NewPalette()
     {
+      PaletteList palettes = new PaletteList(null);
+      int count = palettes.Count;
       Palette palette = new Palette("UnitTestPalette");
-      // TODO: Check if number of palettes has increased by 1
+      palettes = new PaletteList(null);
+      Assert.AreEqual(count + 1, palettes.Count);
       palette.Delete();
     }
 
@@ -69,8 +72,8 @@ namespace Gimp
     public void DeleteEntry()
     {
       Palette palette = new Palette("UnitTestPalette");
-      palette.AddEntry("black", new RGB(0, 0, 0));
-      palette.DeleteEntry(0);
+      PaletteEntry entry = palette.AddEntry("black", new RGB(0, 0, 0));
+      palette.DeleteEntry(entry);
       Assert.AreEqual(palette.NumberOfColors, 0);
       palette.Delete();
     }

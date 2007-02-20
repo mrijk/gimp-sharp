@@ -46,7 +46,6 @@ TESTSOURCES = 	TestBrush.cs 			\
 		TestVectors.cs			\
 		TestVersion.cs
 
-
 #		TestPlugins.cs
 
 EXTRA_DIST = $(MYSOURCES) $(TESTSOURCES) UnitTest UnitTest.png

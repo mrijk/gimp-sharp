@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // Palette.cs
 //
@@ -68,7 +68,7 @@ namespace Gimp
     {
       if (!gimp_palette_delete(_name))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
 
@@ -76,10 +76,26 @@ namespace Gimp
     {
       if (!gimp_palette_get_info(_name, out num_colors))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
 
+    // GIMP 2.4
+    public int Columns
+    {
+      get 
+	{
+	  return gimp_palette_get_columns(_name);
+	}
+      set
+	{
+	  if (!gimp_palette_set_columns(_name, value))
+	    {
+	      throw new GimpSharpException();
+	    }
+	}
+    }
+    
     public int NumberOfColors
     {
       get 
@@ -90,28 +106,29 @@ namespace Gimp
 	}
     }
 
-    public void AddEntry(string entry_name, RGB color, out int entry_num)
+    public PaletteEntry AddEntry(string entryName, RGB color)
     {
       GimpRGB rgb = color.GimpRGB;
-      if (!gimp_palette_add_entry(_name, entry_name, ref rgb,
-                                  out entry_num))
+      int entryNum;
+      if (!gimp_palette_add_entry(_name, entryName, ref rgb,
+                                  out entryNum))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
+        }
+      return new PaletteEntry(this, entryNum);
+    }
+
+    public void DeleteEntry(PaletteEntry entry)
+    {
+      if (!gimp_palette_delete_entry(_name, entry.Index))
+        {
+	  throw new GimpSharpException();
         }
     }
 
-    public void AddEntry(string entry_name, RGB color)
+    public bool IsEditable
     {
-      int entry_num;
-      AddEntry(entry_name, color, out entry_num);
-    }
-
-    public void DeleteEntry(int entry_num)
-    {
-      if (!gimp_palette_delete_entry(_name, entry_num))
-        {
-	  throw new Exception();
-        }
+      get {return gimp_palette_is_editable(_name);}
     }
 
     public PaletteEntry this[int index]
@@ -132,11 +149,17 @@ namespace Gimp
     static extern bool gimp_palette_get_info(string name,
                                              out int num_colors);
     [DllImport("libgimp-2.0-0.dll")]
+    static extern int gimp_palette_get_columns(string name);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_palette_set_columns(string name, int columns);
+    [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_palette_add_entry(string name,
                                               string entry_name,
                                               ref GimpRGB color,
                                               out int entry_num);
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_palette_delete_entry(string name, int entry_num);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_palette_is_editable(string name);
   }
 }

@@ -26,31 +26,31 @@ namespace Gimp.Splitter
 {
   public class Splitter : Plugin
   {
-    [SaveAttribute]
+    [SaveAttribute("formula")]
     string _formula = "";
 
-    [SaveAttribute]
+    [SaveAttribute("translate_1_x")]
     int _translate_1_x;
-    [SaveAttribute]
+    [SaveAttribute("translate_1_y")]
     int _translate_1_y;
-    [SaveAttribute]
+    [SaveAttribute("rotate_1")]
     int _rotate_1;
 
-    [SaveAttribute]
+    [SaveAttribute("translate_2_x")]
     int _translate_2_x;
-    [SaveAttribute]
+    [SaveAttribute("translate_2_y")]
     int _translate_2_y;
-    [SaveAttribute]
+    [SaveAttribute("rotate_2")]
     int _rotate_2;
-    [SaveAttribute]
+    [SaveAttribute("keep_layer")]
     int _keepLayer = 0;
 
-    [SaveAttribute]
+    [SaveAttribute("merge")]
     bool _merge = true;
 
-    [SaveAttribute]
+    [SaveAttribute("seed")]
     UInt32 _seed;
-    [SaveAttribute]
+    [SaveAttribute("random_seed")]
     bool _randomSeed;
 
     static void Main(string[] args)
@@ -64,7 +64,29 @@ namespace Gimp.Splitter
 
     override protected IEnumerable<Procedure> ListProcedures()
     {
-      ParamDefList in_params = new ParamDefList();
+      ParamDefList inParams = new ParamDefList();
+      inParams.Add(new ParamDef("formula", "", typeof(string),
+				_("Formula for splitting image")));
+      inParams.Add(new ParamDef("translate_1_x", 0, typeof(int),
+				_("Translation in x first layer")));
+      inParams.Add(new ParamDef("translate_1_y", 0, typeof(int),
+				_("Translation in y first layer")));
+      inParams.Add(new ParamDef("rotate_1", 0, typeof(int),
+				_("Rotation first layer")));
+      inParams.Add(new ParamDef("translate_2_x", 0, typeof(int),
+				_("Translation in x second layer")));
+      inParams.Add(new ParamDef("translate_2_y", 0, typeof(int),
+				_("Translation in y second layer")));
+      inParams.Add(new ParamDef("rotate_2", 0, typeof(int),
+				_("Rotation second layer")));
+      inParams.Add(new ParamDef("keep_layer", 0, typeof(int),
+				_("Keep first (0), second (1) or both (2) layer(s)")));
+      inParams.Add(new ParamDef("merge", true, typeof(bool),
+				_("Merge layers after splitting")));
+      inParams.Add(new ParamDef("seed", 0, typeof(int),
+				_("Value for random seed")));
+      inParams.Add(new ParamDef("random_seed", false, typeof(bool),
+				_("Use specified random seed")));
 
       Procedure procedure = new Procedure("plug_in_splitter",
 					  _("Splits an image."),
@@ -74,7 +96,7 @@ namespace Gimp.Splitter
 					  "1999 - 2007",
 					  _("Splitter..."),
 					  "RGB*",
-					  in_params);
+					  inParams);
       procedure.MenuPath = "<Image>/Filters/Generic";
       procedure.IconFile = "Splitter.png";
       

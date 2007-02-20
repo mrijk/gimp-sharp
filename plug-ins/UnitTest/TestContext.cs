@@ -50,7 +50,12 @@ namespace Gimp
       Assert.AreEqual(foreground.G, result.G);
       Assert.AreEqual(foreground.B, result.B);
       // Fix me: why doesn't Assert.AreEqual(foreground, result) just work?
+      // Answer: because of the undefined alpha channel
     }
+
+    /*
+     * This test does work, but pops up a very annoying GIMP message.
+     * 
 
     [Test]
     [ExpectedException(typeof(Exception))]
@@ -59,6 +64,7 @@ namespace Gimp
       RGB foreground = new RGB(11, 12, 13.44);
       Context.Foreground = foreground;
     }
+    */
 
     [Test]
     public void Background()

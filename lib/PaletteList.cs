@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // PaletteList.cs
 //
@@ -43,13 +43,20 @@ namespace Gimp
 	}
     }
 
+    /*
     public PaletteList()
     {
     }
+    */
 
     IEnumerator<Palette> GetEnumerator()
     {
       return _list.GetEnumerator();
+    }
+
+    public int Count
+    {
+      get {return _list.Count;}
     }
 
     static public void Refresh()
