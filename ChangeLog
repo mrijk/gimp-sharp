@@ -1,3 +1,10 @@
+2007-02-20  Maurits  <m.rijk@chello.nl>
+
+	* lib/Version.cs: added ToString method to make sure that
+	SliceTool writes correct version number
+
+	* lib/Gimp.cs: let Gimp.Version return a string. Fixes #1642362.
+
 2007-02-19  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/Splitter/Splitter.cs: handle non-interactive parameters

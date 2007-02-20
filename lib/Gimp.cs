@@ -41,8 +41,7 @@ namespace Gimp
     {
       get
       {
-        IntPtr tmp = gimp_version();
-        return new Version(Marshal.PtrToStringAuto(tmp));
+        return new Version(gimp_version());
       }
     }
 
@@ -227,7 +226,7 @@ namespace Gimp
     }
     
     [DllImport("libgimp-2.0-0.dll")]
-      static extern IntPtr gimp_version();
+      static extern string gimp_version();
     [DllImport("libgimp-2.0-0.dll")]
       static extern uint gimp_tile_width();
     [DllImport("libgimp-2.0-0.dll")]
