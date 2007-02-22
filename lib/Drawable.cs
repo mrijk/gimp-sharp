@@ -30,17 +30,24 @@ namespace Gimp
   {
     readonly IntPtr _drawable;
     readonly protected Int32 _ID;
+    readonly int _bpp;
 
     public Drawable(Int32 drawableID)
     {
       _ID = drawableID;
-      _drawable = gimp_drawable_get(_ID);
+      _drawable = gimp_drawable_get(drawableID);
+      _bpp = gimp_drawable_bpp(_ID);	// Cache for performance
     }
 
-    public Drawable(IntPtr drawable)
+    /*
+    // TODO: dangereous, how do we fill in the _ID and _bpp? This is called by
+    // DrawablePreview
+
+    internal Drawable(IntPtr drawable)
     {
       _drawable = drawable;
     }
+    */
 
     public void Detach()
     {
@@ -200,7 +207,7 @@ namespace Gimp
 
     public int Bpp
     {
-      get {return gimp_drawable_bpp(_ID);}
+      get {return _bpp;}
     }
 
     public int Width

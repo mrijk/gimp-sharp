@@ -159,32 +159,18 @@ namespace Gimp.Raindrops
 
     void RenderRaindrops(Image image, Drawable drawable, bool isPreview)
     {
-      int width = image.Width;
-      int height = image.Height;
-      Progress progress = null;
+      Dimensions dimensions = image.Dimensions;
+      Progress progress = (isPreview) ? null : new Progress(_("Raindrops..."));
+      PixelFetcher pf = new PixelFetcher(drawable, false);
 
       Tile.CacheDefault(drawable);
 
-      if (!isPreview)
-        progress = new Progress(_("Raindrops..."));
-
-      PixelFetcher pf = new PixelFetcher(drawable, false);
-
-      int  bpp = drawable.Bpp;
-
-      // TODO: to test the following conditions before uncommenting it
-      /*
-	bool hasAlpha = drawable.HasAlpha;
-	if(hasAlpha)
-        bpp--;
-      */
-
-      // FishEye Coefficients
       double newCoeff = (double) Clamp(_fishEye, 1, 100) * 0.01;
 
       Random random = new Random();
 
-      BoolMatrix boolMatrix = new BoolMatrix(width, height);
+      BoolMatrix boolMatrix = new BoolMatrix(dimensions.Width, 
+					     dimensions.Height);
      
       // TODO: find an upper bound so that
       // speed on big drop would be improved
@@ -225,8 +211,8 @@ namespace Gimp.Raindrops
 		      int m = x + i;
 		      int n = y + j;
 
-		      if (IsInside(k, l, width, height) &&
-			  IsInside(m, n, width, height))
+		      if (dimensions.IsInside(k, l) && 
+			  dimensions.IsInside(m, n))
 			{
 			  boolMatrix[n, m] = true;
 
@@ -247,11 +233,11 @@ namespace Gimp.Raindrops
 	      for (int j = -radius - blurRadius ; 
 		   j < newSize - radius + blurRadius ; j++)
 		{
-		  double r = Math.Sqrt (i * i + j * j);
+		  double r = Math.Sqrt(i * i + j * j);
 		  
 		  if (r <= radius * 1.1)
 		    {
-		      Pixel average = new Pixel(bpp);
+		      Pixel average = drawable.CreatePixel();
 		      int blurPixels = 0;
 		      int m, n;
 
@@ -263,7 +249,7 @@ namespace Gimp.Raindrops
 				m = x + i + k;
 				n = y + j + l;
 				
-				if (IsInside(m, n, width, height))
+				if (dimensions.IsInside(m, n))
 				  {
 				    average += pf[n, m];
 				    blurPixels++;
@@ -275,7 +261,7 @@ namespace Gimp.Raindrops
 		      m = x + i;
 		      n = y + j;
 
-		      if (IsInside(m, n, width, height))
+		      if (dimensions.IsInside(m, n))
 			{
 			  pf[n, m] = average / blurPixels;
 			}
@@ -295,11 +281,6 @@ namespace Gimp.Raindrops
       if (!isPreview)
         Display.DisplaysFlush();
 
-    }
-
-    bool IsInside(int x, int y, int width, int height)
-    {
-      return x >= 0 && x < width && y >= 0 && y < height;
     }
 
     int GetBright(double Radius, double OldRadius, double a)

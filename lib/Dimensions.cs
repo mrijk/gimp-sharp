@@ -45,5 +45,10 @@ namespace Gimp
       get {return _height;}
       set {_height = value;}
     }
+
+    public bool IsInside(int x, int y)
+    {
+      return x >= 0 && x < _width && y >= 0 && y < _height;
+    }
   }
 }

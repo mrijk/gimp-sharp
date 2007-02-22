@@ -1,3 +1,15 @@
+2007-02-22  Maurits  <m.rijk@chello.nl>
+
+	* lib/ZoomPreview.cs
+	* lib/DrawablePreview.cs: make sure we always get a fully
+	intialized drawable as return value
+
+	* lib/Drawable.cs: cache bpp for performance in CreatePixel method
+
+	* plug-ins/Raindrops/Raindrops.cs: use Dimensions class
+
+	* lib/Dimensions.cs: added IsInside method
+
 2007-02-20  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/SliceTool/Format.cs: Fixes #1646028

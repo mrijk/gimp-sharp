@@ -1,7 +1,7 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
-// ZoomedPreview.cs
+// ZoomPreview.cs
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -24,16 +24,19 @@ using System.Runtime.InteropServices;
 
 namespace Gimp
 {
-  public class ZoomedPreview : ScrolledPreview
+  public class ZoomPreview : ScrolledPreview
   {
-    public ZoomedPreview(Drawable drawable) : 
+    readonly Drawable _drawable;
+
+    public ZoomPreview(Drawable drawable) : 
       base(gimp_zoom_preview_new(drawable.Ptr))
     {
+      _drawable = drawable;
     }
 
     public Drawable Drawable
     {
-      get {return new Drawable(gimp_zoom_preview_get_drawable(Handle));}
+      get {return _drawable;}
     }
 
     public double Factor
@@ -43,8 +46,6 @@ namespace Gimp
 
     [DllImport("libgimpui-2.0-0.dll")]
     extern static IntPtr gimp_zoom_preview_new(IntPtr drawable);
-    [DllImport("libgimpui-2.0-0.dll")]
-    extern static IntPtr gimp_zoom_preview_get_drawable(IntPtr preview);
     [DllImport("libgimpui-2.0-0.dll")]
     extern static double gimp_zoom_preview_get_factor(IntPtr preview);
   }

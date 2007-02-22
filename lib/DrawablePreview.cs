@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // DrawablePreview.cs
 //
@@ -26,14 +26,19 @@ namespace Gimp
 {
   public class DrawablePreview : ScrolledPreview
   {
+    readonly Drawable _drawable;
+
     public DrawablePreview(Drawable drawable, bool toggle) :
       base(gimp_drawable_preview_new(drawable.Ptr, toggle))
     {
+      _drawable = drawable;
     }
     
     public Drawable Drawable
     {
-      get {return new Drawable(gimp_drawable_preview_get_drawable(Handle));}
+      get {return _drawable;}
+      // Instead of next statement:
+      // get {return new Drawable(gimp_drawable_preview_get_drawable(Handle));}
     }
     
     public void DrawRegion(PixelRgn region)
@@ -45,8 +50,6 @@ namespace Gimp
     [DllImport("libgimpui-2.0-0.dll")]
     extern static IntPtr gimp_drawable_preview_new(IntPtr drawable, 
 						   bool toggle);
-    [DllImport("libgimpui-2.0-0.dll")]
-    extern static IntPtr gimp_drawable_preview_get_drawable(IntPtr preview);
     [DllImport("libgimpui-2.0-0.dll")]
     extern static void gimp_drawable_preview_draw_region(IntPtr preview,
 							 ref GimpPixelRgn region);
