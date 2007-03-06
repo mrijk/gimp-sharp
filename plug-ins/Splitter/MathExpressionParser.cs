@@ -19,6 +19,7 @@
 //
 
 using System;
+using System.CodeDom.Compiler;
 using System.Reflection;
 
 namespace Gimp.Splitter
@@ -33,11 +34,9 @@ namespace Gimp.Splitter
 
     public bool Init(string expr, Dimensions dimensions)
     {
-      Microsoft.CSharp.CSharpCodeProvider cp
-	= new Microsoft.CSharp.CSharpCodeProvider();
-      System.CodeDom.Compiler.ICodeCompiler ic = cp.CreateCompiler();
-      System.CodeDom.Compiler.CompilerParameters cpar
-	= new System.CodeDom.Compiler.CompilerParameters();
+      CodeDomProvider cp = CodeDomProvider.CreateProvider("c#");
+
+      CompilerParameters cpar = new CompilerParameters();
       cpar.GenerateInMemory = true;
       cpar.GenerateExecutable = false;
       cpar.ReferencedAssemblies.Add("System.dll");
@@ -52,10 +51,12 @@ namespace Gimp.Splitter
 	"return "+ expr +";"+
 	"}"+
 	"}";
-      System.CodeDom.Compiler.CompilerResults cr
-	= ic.CompileAssemblyFromSource(cpar,src);
-      foreach (System.CodeDom.Compiler.CompilerError ce in cr.Errors)
-	new Message(ce.ErrorText);
+      CompilerResults cr = cp.CompileAssemblyFromSource(cpar, src);
+
+      foreach (CompilerError ce in cr.Errors)
+	{
+	  new Message(ce.ErrorText);
+	}
 
       if (cr.Errors.Count == 0 && cr.CompiledAssembly != null)
 	{
@@ -81,7 +82,7 @@ namespace Gimp.Splitter
 
     public double Eval(double x, double y)
     {
-      return (myobj != null) ? myobj.eval(x,y) : 0.0;
+      return (myobj != null) ? myobj.eval(x, y) : 0.0;
     }
   }
 }

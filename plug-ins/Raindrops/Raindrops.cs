@@ -131,14 +131,14 @@ namespace Gimp.Raindrops
 
     void UpdatePreview(object sender, EventArgs e)
     {
+      // Fix me: it's probably better to just create a new Drawable iso
+      // a completely new image!
       Image clone = new Image(_image);
       clone.Crop(_preview.Bounds);
 
-      RenderRaindrops(clone, clone.ActiveDrawable, true);
-
-      PixelRgn rgn = new PixelRgn(clone.ActiveDrawable, false, false);
-      _preview.DrawRegion(rgn);
-	
+      Drawable drawable = clone.ActiveDrawable;
+      RenderRaindrops(clone, drawable, true);
+      _preview.Redraw(drawable);
       clone.Delete();
     }
     
@@ -161,9 +161,11 @@ namespace Gimp.Raindrops
     {
       Dimensions dimensions = image.Dimensions;
       Progress progress = (isPreview) ? null : new Progress(_("Raindrops..."));
-      PixelFetcher pf = new PixelFetcher(drawable, false);
+
+      Rectangle bounds = drawable.MaskBounds;
 
       Tile.CacheDefault(drawable);
+      PixelFetcher pf = new PixelFetcher(drawable, false);
 
       double newCoeff = (double) Clamp(_fishEye, 1, 100) * 0.01;
 
@@ -276,11 +278,13 @@ namespace Gimp.Raindrops
       pf.Dispose();
 
       drawable.Flush();
-      drawable.Update();
+      // drawable.MergeShadow(true);
+      drawable.Update(bounds);
 
       if (!isPreview)
-        Display.DisplaysFlush();
-
+	{
+	  Display.DisplaysFlush();
+	}
     }
 
     int GetBright(double Radius, double OldRadius, double a)

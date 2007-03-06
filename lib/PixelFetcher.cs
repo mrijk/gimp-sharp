@@ -121,7 +121,7 @@ namespace Gimp
     static extern void gimp_pixel_fetcher_set_bg_color(IntPtr pf,
 						       ref GimpRGB color);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern IntPtr gimp_pixel_fetcher_destroy (IntPtr drawable);
+    static extern IntPtr gimp_pixel_fetcher_destroy (IntPtr pf);
     [DllImport("libgimp-2.0-0.dll")]
     static extern IntPtr gimp_pixel_fetcher_get_pixel(IntPtr pf,
 						      int x,

@@ -33,20 +33,33 @@ namespace Gimp
     {
       _drawable = drawable;
     }
-    
+
     public Drawable Drawable
     {
       get {return _drawable;}
-      // Instead of next statement:
-      // get {return new Drawable(gimp_drawable_preview_get_drawable(Handle));}
     }
-    
+
     public void DrawRegion(PixelRgn region)
     {
       GimpPixelRgn pr = region.PR;
       gimp_drawable_preview_draw_region(Handle, ref pr);
-      }
-    
+    }
+
+    public void Redraw(Drawable drawable)
+    {
+      Rectangle rectangle = Bounds;
+      int bpp = drawable.Bpp;
+      int rowStride = rectangle.Width * bpp;
+      byte[] buffer = new byte[rectangle.Area * bpp];
+
+      foreach (Pixel pixel in new ReadPixelIterator(drawable))
+	{
+	  int index = pixel.Y * rowStride + pixel.X * bpp;
+	  pixel.CopyTo(buffer, index);
+	}
+      DrawBuffer(buffer, rowStride);
+    }
+
     [DllImport("libgimpui-2.0-0.dll")]
     extern static IntPtr gimp_drawable_preview_new(IntPtr drawable, 
 						   bool toggle);

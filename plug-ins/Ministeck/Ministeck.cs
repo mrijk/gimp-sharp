@@ -122,29 +122,15 @@ namespace Gimp.Ministeck
 
     void UpdatePreview(object sender, EventArgs e)
     {
-      Rectangle rectangle = _preview.Bounds;
-
-      Image clone = new Image(_image);
-      clone.Crop(rectangle);
-
       // Fix me: it's probably better to just create a new Drawable iso
       // a completely new image!
 
+      Image clone = new Image(_image);
+      clone.Crop(_preview.Bounds);
+
       Drawable drawable = clone.ActiveDrawable;
       RenderMinisteck(clone, drawable, true);
-
-      int bpp = drawable.Bpp;
-      int rowStride = rectangle.Width * bpp;
-      byte[] buffer = new byte[rectangle.Area * bpp];
-
-      foreach (Pixel pixel in new ReadPixelIterator(drawable))
-	{
-	  int index = pixel.Y * rowStride + pixel.X * bpp;
-	  pixel.CopyTo(buffer, index);
-	}
-
-      _preview.DrawBuffer(buffer, rowStride);
-
+      _preview.Redraw(drawable);
       clone.Delete();
     }
 
