@@ -308,69 +308,40 @@ namespace Gimp.Splitter
 
       if (destPR1 != null && destPR2 != null)
 	{
-	  for (IntPtr pr = PixelRgn.Register(srcPR, destPR1, destPR2); 
-	       pr != IntPtr.Zero; pr = PixelRgn.Process(pr))
-	    {
-	      for (int y = srcPR.Y; y < srcPR.Y + srcPR.H; y++)
-		{
-		  for (int x = srcPR.X; x < srcPR.X + srcPR.W; x++)
-		    {
-		      Pixel tmp = Copy(srcPR[y, x]);
-		      if (parser.Eval(x, y) < 0)
-			{
-			  destPR1[y, x] = tmp;
-			  destPR2[y, x] = transparent;
-			}
-		      else
-			{
-			  destPR2[y, x] = tmp;
-			  destPR1[y, x] = transparent;
-			}
-		    }
-		}
-	    }
+	  RegionIterator iterator = new RegionIterator(srcPR, destPR1, 
+						       destPR2);
+	  iterator.ForEach(delegate(Pixel src, Pixel dest1, Pixel dest2) 
+	  {
+	    Pixel tmp = Copy(src);
+	    if (parser.Eval(src.X, src.Y) < 0)
+	      {
+		dest1.Set(tmp);
+		dest2.Set(transparent);
+	      }
+	    else
+	      {
+		dest2.Set(tmp);
+		dest1.Set(transparent);
+	      }
+	  });
 	}
       else if (destPR1 != null)
 	{
-	  for (IntPtr pr = PixelRgn.Register(srcPR, destPR1); 
-	       pr != IntPtr.Zero; pr = PixelRgn.Process(pr))
-	    {
-	      for (int y = srcPR.Y; y < srcPR.Y + srcPR.H; y++)
-		{
-		  for (int x = srcPR.X; x < srcPR.X + srcPR.W; x++)
-		    {
-		      if (parser.Eval(x, y) < 0)
-			{
-			  destPR1[y, x] = Copy(srcPR[y, x]);
-			}
-		      else
-			{
-			  destPR1[y, x] = transparent;
-			}
-		    }
-		}				
-	    }
+	  RegionIterator iterator = new RegionIterator(srcPR, destPR1);
+	  iterator.ForEach(delegate(Pixel src, Pixel dest) 
+	  {
+	    dest.Set((parser.Eval(src.X, src.Y) < 0) 
+		     ? Copy(src) : transparent);
+	  });
 	}
       else	// destPR2 != null
 	{
-	  for (IntPtr pr = PixelRgn.Register(srcPR, destPR2); 
-	       pr != IntPtr.Zero; pr = PixelRgn.Process(pr))
-	    {
-	      for (int y = srcPR.Y; y < srcPR.Y + srcPR.H; y++)
-		{
-		  for (int x = srcPR.X; x < srcPR.X + srcPR.W; x++)
-		    {
-		      if (parser.Eval(x, y) < 0)
-			{
-			  destPR2[y, x] = transparent;
-			}
-		      else
-			{
-			  destPR2[y, x] = Copy(srcPR[y, x]);
-			}
-		    }
-		}				
-	    }
+	  RegionIterator iterator = new RegionIterator(srcPR, destPR2);
+	  iterator.ForEach(delegate(Pixel src, Pixel dest) 
+	  {
+	    dest.Set((parser.Eval(src.X, src.Y) >= 0) 
+		     ? Copy(src) : transparent);
+	  });
 	}
 
       if (_rotate_1 != 0 && layer1 != null) 

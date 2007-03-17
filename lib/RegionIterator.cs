@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // RegionIterator.cs
 //
@@ -26,28 +26,75 @@ namespace Gimp
 {
   public sealed class RegionIterator
   {
-    readonly IntPtr _iter;
+    public delegate void IterFuncOne(Pixel p);
+    public delegate void IterFuncTwo(Pixel p1, Pixel p2);
+    public delegate void IterFuncThree(Pixel p1, Pixel p2, Pixel p3);
 
-    [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-    public delegate void RgnFuncSrc(int x, int y, byte[] src, int bpp,
-				    IntPtr data);
+    readonly PixelRgn[] _regions;
 
-    public RegionIterator(Drawable drawable)
+    public RegionIterator(params PixelRgn[] regions)
     {
-      _iter = gimp_rgn_iterator_new(drawable.ID, RunMode.Interactive);
+      _regions = regions;
     }
 
-    public void Iterate(RgnFuncSrc func)
+    // Fix me: there could be some overhead in reading from PixelRgn's that
+    // are write-only! This could be solved by introducing Read/Write/ReadWrite
+    // regions
+
+    public void ForEach(IterFuncOne func)
     {
-      gimp_rgn_iterator_src(_iter, func, IntPtr.Zero);
+      PixelRgn rgn = _regions[0];
+      for (IntPtr pr = PixelRgn.Register(rgn); pr != IntPtr.Zero; 
+	   pr = PixelRgn.Process(pr))
+	{
+	  for (int y = rgn.Y; y < rgn.Y + rgn.H; y++)
+	    {
+	      for (int x = rgn.X; x < rgn.X + rgn.W; x++)
+		{
+		  func(rgn[y, x]);
+		}
+	    }
+	}
     }
 
-    [DllImport("libgimp-2.0-0.dll")]
-    static extern IntPtr gimp_rgn_iterator_new(Int32 drawable,
-					       RunMode unused);
-    [DllImport("libgimp-2.0-0.dll")]
-    static extern void gimp_rgn_iterator_src(IntPtr iter,
-					     RgnFuncSrc func,
-					     IntPtr data);
+    public void ForEach(IterFuncTwo func)
+    {
+      PixelRgn rgn1 = _regions[0];
+      PixelRgn rgn2 = _regions[1];
+      for (IntPtr pr = PixelRgn.Register(rgn1, rgn2); pr != IntPtr.Zero; 
+	   pr = PixelRgn.Process(pr))
+	{
+	  for (int y1 = rgn1.Y, y2 = rgn2.Y; y1 < rgn1.Y + rgn1.H; y1++, y2++)
+	    {
+	      for (int x1 = rgn1.X, x2 = rgn2.X; x1 < rgn1.X + rgn1.W; 
+		   x1++, x2++)
+		{
+		  func(rgn1[y1, x1], rgn2[y2, x2]);
+		}
+	    }
+	}
+    }
+
+    public void ForEach(IterFuncThree func)
+    {
+      PixelRgn rgn1 = _regions[0];
+      PixelRgn rgn2 = _regions[1];
+      PixelRgn rgn3 = _regions[2];
+
+      for (IntPtr pr = PixelRgn.Register(rgn1, rgn2, rgn3); pr != IntPtr.Zero; 
+	   pr = PixelRgn.Process(pr))
+	{
+	  for (int y1 = rgn1.Y, y2 = rgn2.Y, y3 = rgn3.Y;
+	       y1 < rgn1.Y + rgn1.H; y1++, y2++, y3++)
+	    {
+	      for (int x1 = rgn1.X, x2 = rgn2.X, x3 = rgn3.X; 
+		   x1 < rgn1.X + rgn1.W; x1++, x2++)
+		{
+		  func(rgn1[y1, x1], rgn2[y2, x2], rgn3[y3, x3]);
+		}
+	    }
+	}
+    }
+
   }
 }

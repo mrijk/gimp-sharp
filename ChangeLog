@@ -1,3 +1,11 @@
+2007-03-17  Maurits  <m.rijk@chello.nl>
+
+	* lib/Pixel.cs
+	* lib/PixelRgn.cs
+	* lib/RegionIterator.cs: implement general iterator
+
+	* plug-ins/Splitter/Splitter.cs: and use it here
+
 2007-03-06  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/Splitter/MathExpressionParser.cs: fix compiler warning

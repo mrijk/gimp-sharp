@@ -44,6 +44,7 @@ namespace Gimp
     GimpPixelRgn pr = new GimpPixelRgn();
     readonly byte[] _dummy;
     readonly int _bpp;
+    readonly bool _dirty;
 
     public PixelRgn(Drawable drawable, int x, int y, int width, int height,
 		    bool dirty,
@@ -53,6 +54,7 @@ namespace Gimp
 			  shadow);
       _bpp = (int) pr.bpp;
       _dummy = new byte[pr.bpp];
+      _dirty = dirty;
     }
 
     public PixelRgn(Drawable drawable, Rectangle rectangle, bool dirty,
@@ -169,6 +171,11 @@ namespace Gimp
       get {return (int) pr.rowstride;}
     }
 
+    public bool Dirty
+    {
+      get {return _dirty;}
+    }
+
     public GimpPixelRgn PR
     {
       get {return pr;}
@@ -188,7 +195,10 @@ namespace Gimp
 	  IntPtr src = (IntPtr) ((int) pr.data + (row - Y) * Rowstride + 
 				 (col - X) * _bpp);
 	  Marshal.Copy(src, _dummy, 0, _bpp);
-	  return new Pixel(_dummy);
+	  Pixel pixel = new Pixel(this, _dummy);
+	  pixel.X = col;
+	  pixel.Y = row;
+	  return pixel;
 	}
     }
 

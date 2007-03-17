@@ -27,6 +27,8 @@ namespace Gimp
   {
     static Random _random = new Random();
 
+    PixelRgn _rgn;
+
     readonly int _bpp;
     readonly int[] _rgb;
     int _x;
@@ -70,6 +72,16 @@ namespace Gimp
 	{
 	  _rgb[i] = p[i];
 	}
+    }
+
+    internal Pixel(PixelRgn rgn, byte[] rgb) : this(rgb)
+    {
+      _rgn = rgn;
+    }
+
+    public void Set(Pixel pixel)
+    {
+      _rgn[_y, _x] = pixel;
     }
 
     public bool IsSameColor(Pixel pixel)
