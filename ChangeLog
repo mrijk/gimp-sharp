@@ -1,3 +1,11 @@
+2007-04-07  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/Raindrops/Raindrops.cs: fixed #1629354
+
+2007-03-18  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/DifferenceClouds/DifferenceClouds.cs: use RegionIterator
+
 2007-03-17  Maurits  <m.rijk@chello.nl>
 
 	* lib/Pixel.cs

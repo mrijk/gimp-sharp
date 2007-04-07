@@ -60,7 +60,7 @@ namespace Gimp
 
     public RGB BackgroundColor
     {
-      set 
+      set
 	{
 	  GimpRGB rgb = value.GimpRGB;
 	  gimp_pixel_fetcher_set_bg_color(_ptr, ref rgb);
@@ -89,7 +89,7 @@ namespace Gimp
       GC.SuppressFinalize(this);
     }
 
-    protected void Dispose(bool disposing) 
+    protected void Dispose(bool disposing)
     {
       if (disposing)
 	{
@@ -100,7 +100,7 @@ namespace Gimp
 
     public Pixel this[int row, int col]
     {
-      set 
+      set
 	{
 	  PutPixel(col, row, value);
 	}

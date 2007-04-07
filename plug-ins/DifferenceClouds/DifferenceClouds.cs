@@ -169,24 +169,18 @@ namespace Gimp.DifferenceClouds
       Display.DisplaysFlush();
     }
 
-    // Fix me: use Read/Write iterators
     void DoDifference(Drawable sourceDrawable, Drawable toDiffDrawable)
     {
       Rectangle rectangle = sourceDrawable.MaskBounds;
       PixelRgn srcPR = new PixelRgn(sourceDrawable, rectangle, true, true);
       PixelRgn destPR = new PixelRgn(toDiffDrawable, rectangle, false, false);
 
-      for (IntPtr pr = PixelRgn.Register(srcPR, destPR); pr != IntPtr.Zero; 
-	   pr = PixelRgn.Process(pr))
-	{
-	  for (int y = srcPR.Y; y < srcPR.Y + srcPR.H; y++)
-	    {
-	      for (int x = srcPR.X; x < srcPR.X + srcPR.W; x++)
-		{
-		  srcPR[y, x] = MakeAbsDiff(destPR[y, x], srcPR[y, x]);
-		}
-	    }				
-	}
+      RegionIterator iterator = new RegionIterator(srcPR, destPR);
+      iterator.ForEach(delegate(Pixel src, Pixel dest) 
+      {
+	src.Set(MakeAbsDiff(dest, src));
+      });
+
       sourceDrawable.Flush();
       sourceDrawable.MergeShadow(false);
       sourceDrawable.Update(rectangle);

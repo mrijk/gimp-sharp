@@ -40,7 +40,7 @@ namespace Gimp.Raindrops
     {
       new Raindrops(args);
     }
-    
+
     Raindrops(string[] args) : base(args, "Raindrops")
     {
     }
@@ -48,7 +48,7 @@ namespace Gimp.Raindrops
     override protected IEnumerable<Procedure> ListProcedures()
     {
       ParamDefList inParams = new ParamDefList();
- 
+
       inParams.Add(new ParamDef("drop_size", 80, typeof(int),
 				_("Size of raindrops")));
       inParams.Add(new ParamDef("number", 80, typeof(int),
@@ -65,10 +65,10 @@ namespace Gimp.Raindrops
 					  _("Raindrops..."),
 					  "RGB*, GRAY*",
 					  inParams);
-      procedure.MenuPath = "<Image>/Filters/" + 
+      procedure.MenuPath = "<Image>/Filters/" +
 	_("Light and Shadow") + "/" + _("Glass");
       procedure.IconFile = "Raindrops.png";
-      
+
       yield return procedure;
     }
 
@@ -76,8 +76,8 @@ namespace Gimp.Raindrops
     {
       gimp_ui_init("Raindrops", true);
 
-      GimpDialog dialog = DialogNew(_("Raindrops 0.1"), _("Raindrops"), 
-				    IntPtr.Zero, 0, Gimp.StandardHelpFunc, 
+      GimpDialog dialog = DialogNew(_("Raindrops 0.1"), _("Raindrops"),
+				    IntPtr.Zero, 0, Gimp.StandardHelpFunc,
 				    _("Raindrops"));
 
       VBox vbox = new VBox(false, 12);
@@ -93,9 +93,9 @@ namespace Gimp.Raindrops
       table.RowSpacing = 6;
       vbox.PackStart(table, false, false, 0);
 
-      ScaleEntry _dropSizeEntry = new ScaleEntry(table, 0, 1, 
-						 _("_Drop size:"), 
-						 150, 3, _dropSize, 1.0, 
+      ScaleEntry _dropSizeEntry = new ScaleEntry(table, 0, 1,
+						 _("_Drop size:"),
+						 150, 3, _dropSize, 1.0,
 						 256.0, 1.0, 8.0, 0,
 						 true, 0, 0, null, null);
       _dropSizeEntry.ValueChanged += delegate
@@ -104,9 +104,9 @@ namespace Gimp.Raindrops
 	  _preview.Invalidate();
 	};
 
-      ScaleEntry _numberEntry = new ScaleEntry(table, 0, 2, 
-					       _("_Number:"), 
-					       150, 3, _number, 1.0, 
+      ScaleEntry _numberEntry = new ScaleEntry(table, 0, 2,
+					       _("_Number:"),
+					       150, 3, _number, 1.0,
 					       256.0, 1.0, 8.0, 0,
 					       true, 0, 0, null, null);
       _numberEntry.ValueChanged += delegate
@@ -115,9 +115,9 @@ namespace Gimp.Raindrops
 	  _preview.Invalidate();
 	};
 
-      ScaleEntry _fishEyeEntry = new ScaleEntry(table, 0, 3, 
-						_("_Fish eye:"), 
-						150, 3, _fishEye, 1.0, 
+      ScaleEntry _fishEyeEntry = new ScaleEntry(table, 0, 3,
+						_("_Fish eye:"),
+						150, 3, _fishEye, 1.0,
 						256.0, 1.0, 8.0, 0,
 						true, 0, 0, null, null);
       _fishEyeEntry.ValueChanged += delegate
@@ -141,7 +141,7 @@ namespace Gimp.Raindrops
       _preview.Redraw(drawable);
       clone.Delete();
     }
-    
+
     int Clamp(int x, int l, int u)
     {
       return (x < l) ? l : ((x > u) ? u : x);
@@ -167,19 +167,24 @@ namespace Gimp.Raindrops
       Tile.CacheDefault(drawable);
       PixelFetcher pf = new PixelFetcher(drawable, false);
 
+      RgnIterator iter = new RgnIterator(drawable, RunMode.Interactive);
+      iter.IterateSrcDest(delegate (Pixel src) {
+	return src;
+      });
+
       double newCoeff = (double) Clamp(_fishEye, 1, 100) * 0.01;
 
       Random random = new Random();
 
-      BoolMatrix boolMatrix = new BoolMatrix(dimensions.Width, 
+      BoolMatrix boolMatrix = new BoolMatrix(dimensions.Width,
 					     dimensions.Height);
-     
+
       // TODO: find an upper bound so that
       // speed on big drop would be improved
-      // int upper_bound = ; 
+      // int upper_bound = ;
       // upper bound for iteration in  blur search process
 
-      for (int numBlurs = 0 ; numBlurs <= _number ; numBlurs++)
+      for (int numBlurs = 0; numBlurs <= _number; numBlurs++)
 	{
 	  int newSize = random.Next(_dropSize);	// Size of current raindrop
 	  int radius = newSize / 2;		// Half of current raindrop
@@ -195,9 +200,9 @@ namespace Gimp.Raindrops
 	  int x = c.X;
 	  int y = c.Y;
 
-	  for (int i = -radius ; i < newSize - radius ; i++)
+	  for (int i = -radius; i < newSize - radius; i++)
 	    {
-	      for (int j = -radius ; j < newSize - radius ; j++)
+	      for (int j = -radius; j < newSize - radius; j++)
 		{
 		  double r = Math.Sqrt(i * i + j * j);
 		  double a = Math.Atan2(i, j);
@@ -213,12 +218,12 @@ namespace Gimp.Raindrops
 		      int m = x + i;
 		      int n = y + j;
 
-		      if (dimensions.IsInside(k, l) && 
+		      if (dimensions.IsInside(k, l) &&
 			  dimensions.IsInside(m, n))
 			{
 			  boolMatrix[n, m] = true;
 
-			  int bright = GetBright(radius, oldRadius, a); 
+			  int bright = GetBright(radius, oldRadius, a);
 			  Pixel newColor = pf[l, k] + bright;
 			  newColor.Clamp0255();
 			  pf[l, k] = newColor;
@@ -229,14 +234,14 @@ namespace Gimp.Raindrops
 
 	  int blurRadius = newSize / 25 + 1;
 
-	  for (int i = -radius - blurRadius ;  
-	       i < newSize - radius + blurRadius ; i++)
+	  for (int i = -radius - blurRadius;
+	       i < newSize - radius + blurRadius; i++)
 	    {
-	      for (int j = -radius - blurRadius ; 
-		   j < newSize - radius + blurRadius ; j++)
+	      for (int j = -radius - blurRadius;
+		   j < newSize - radius + blurRadius; j++)
 		{
 		  double r = Math.Sqrt(i * i + j * j);
-		  
+		
 		  if (r <= radius * 1.1)
 		    {
 		      Pixel average = drawable.CreatePixel();
@@ -247,19 +252,17 @@ namespace Gimp.Raindrops
 			{
 			  for (int l = -blurRadius; l < blurRadius + 1; l++)
 			    {
-			      {
-				m = x + i + k;
-				n = y + j + l;
-				
-				if (dimensions.IsInside(m, n))
-				  {
-				    average += pf[n, m];
-				    blurPixels++;
-				  }
-			      }
+			      m = x + i + k;
+			      n = y + j + l;
+			
+			      if (dimensions.IsInside(m, n))
+				{
+				  average += pf[n, m];
+				  blurPixels++;
+				}
 			    }
 			}
-		      
+
 		      m = x + i;
 		      n = y + j;
 
