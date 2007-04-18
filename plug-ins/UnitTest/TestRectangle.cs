@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // TestRectangle.cs
 //
@@ -69,6 +69,30 @@ namespace Gimp
     {
       Rectangle rectangle = new Rectangle(13, 14, 129, 132);
       Assert.AreEqual((129 - 13) * (132 - 14), rectangle.Area);
+    }
+
+    [Test]
+    public void Equals()
+    {
+      Rectangle rectangle1 = new Rectangle(13, 14, 129, 132);
+      Rectangle rectangle2 = new Rectangle(23, 24, 129, 132);
+      Rectangle rectangle3 = new Rectangle(13, 14, 129, 132);
+
+      Assert.IsFalse(rectangle1.Equals(rectangle2));
+      Assert.IsTrue(rectangle1.Equals(rectangle3));
+    }
+
+    [Test]
+    public void Operators()
+    {
+      Rectangle rectangle1 = new Rectangle(13, 14, 129, 132);
+      Rectangle rectangle2 = new Rectangle(23, 24, 129, 132);
+      Rectangle rectangle3 = new Rectangle(13, 14, 129, 132);
+
+      Assert.IsFalse(rectangle1 == rectangle2);
+      Assert.IsTrue(rectangle1 != rectangle2);
+      Assert.IsTrue(rectangle1 == rectangle3);
+      Assert.IsFalse(rectangle1 != rectangle3);
     }
   }
 }

@@ -1,7 +1,7 @@
 // GIMP# - A C# wrapper around the GIMP Library
 // Copyright (C) 2004-2007 Maurits Rijk
 //
-// PythonPlugin.cs
+// TestCoordinateList.cs
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -20,35 +20,17 @@
 //
 
 using System;
-using System.Collections.Generic;
-using Gtk;
+
+using NUnit.Framework;
 
 namespace Gimp
 {
-  public class PythonPlugin : Plugin
+  [TestFixture]
+  public class TestCoordinateList
   {
-    public PythonPlugin(string[] args, string package) : 
-      base(PythonPlugin.StripName(args), package)
+    [Test]
+    public void Constructor()
     {
-    }
-
-    override protected IEnumerable<Procedure> ListProcedures()
-    {
-      // yield break;
-      return ListProceduresTwo();
-    }
-
-    virtual protected IEnumerable<Procedure> ListProceduresTwo()
-    {
-      yield break;
-    }
-
-    static string[] StripName(string[] src)
-    {
-      int len = src.Length - 1;
-      string[] dest = new string[len];
-      Array.Copy(src, 1, dest, 0, len);
-      return dest;
     }
   }
 }

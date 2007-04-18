@@ -16,6 +16,9 @@ TESTSOURCES = 	TestBrush.cs 			\
 		TestChannel.cs			\
 		TestChannelList.cs		\
 		TestContext.cs			\
+		TestCoordinate.cs		\
+		TestCoordinateList.cs		\
+		TestDimensions.cs		\
 		TestDisplay.cs			\
 		TestDrawable.cs			\
 		TestFloatingSelection.cs	\

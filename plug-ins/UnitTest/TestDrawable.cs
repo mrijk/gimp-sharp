@@ -81,6 +81,32 @@ namespace Gimp
     }
 
     [Test]
+    public void GetSetName()
+    {
+      _drawable.Name = "foobar";
+      Assert.AreEqual("foobar", _drawable.Name);
+    }
+
+    [Test]
+    public void GetSetVisible()
+    {
+      _drawable.Visible = false;
+      Assert.IsFalse(_drawable.Visible);
+      _drawable.Visible = true;
+      Assert.IsTrue(_drawable.Visible);
+    }
+
+    [Test]
+    public void GetSetLinked()
+    {
+      Assert.IsFalse(_drawable.Linked);
+      _drawable.Linked = true;
+      Assert.IsTrue(_drawable.Linked);
+      _drawable.Linked = false;
+      Assert.IsFalse(_drawable.Linked);
+    }
+
+    [Test]
     public void HasAlpha()
     {
       Assert.IsFalse(_drawable.HasAlpha);
@@ -94,6 +120,59 @@ namespace Gimp
       Assert.AreEqual(0, offset.Y);      
     }
 
+    [Test]
+    public void Bounds()
+    {
+      Rectangle bounds = _drawable.Bounds;
+      Assert.AreEqual(_width, bounds.Width);
+      Assert.AreEqual(_height, bounds.Height);
+    }
+
+    [Test]
+    public void Dimensions()
+    {
+      Dimensions dimensions = _drawable.Dimensions;
+      Assert.AreEqual(_width, dimensions.Width);
+      Assert.AreEqual(_height, dimensions.Height);
+    }
+
+    [Test]
+    public void MaskBounds()
+    {
+      Rectangle bounds = _drawable.MaskBounds;
+      Assert.AreEqual(_width, bounds.Width);
+      Assert.AreEqual(_height, bounds.Height);
+    }
+
+    [Test]
+    public void MaskIntersect()
+    {
+      Rectangle bounds = _drawable.MaskIntersect;
+      Assert.AreEqual(_drawable.Bounds, bounds);	// Select == All
+    }
+
+    [Test]
+    public void Offset()
+    {
+      _drawable.Offset(false, OffsetType.Transparent, 13, 14);
+      Offset offset = _drawable.Offsets;
+      Assert.AreEqual(13, offset.X);
+      Assert.AreEqual(14, offset.Y);
+    }
+
+    [Test]
+    public void IsLayer()
+    {
+      Assert.IsTrue(_drawable.IsLayer());
+    }
+
+    [Test]
+    public void IsChannel()
+    {
+      Assert.IsFalse(_drawable.IsChannel());
+    }
+
+    // TODO: this test fails!
     [Test]
     public void Fill()
     {
@@ -109,6 +188,13 @@ namespace Gimp
 	  Pixel pixel = pf[_height / 2, _width / 2];
 	  Assert.AreEqual(foreground, pixel.Color);
 	}
+    }
+
+    [Test]
+    public void CreatePixel()
+    {
+      Pixel pixel = _drawable.CreatePixel();
+      Assert.AreEqual(_drawable.Bpp, pixel.Bytes.Length);
     }
   }
 }

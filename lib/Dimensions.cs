@@ -50,5 +50,22 @@ namespace Gimp
     {
       return x >= 0 && x < _width && y >= 0 && y < _height;
     }
+
+    public static bool operator==(Dimensions dimensions1, 
+				  Dimensions dimensions2)
+    {
+      return dimensions1.Equals(dimensions2);
+    }
+
+    public static bool operator!=(Dimensions dimensions1, 
+				  Dimensions dimensions2)
+    {
+      return !(dimensions1 == dimensions2);
+    }
+
+    public override string ToString()
+    {
+      return string.Format("({0} X {1})", Width, Height);
+    }
   }
 }

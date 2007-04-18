@@ -1,3 +1,23 @@
+2007-04-18  Maurits  <m.rijk@chello.nl>
+
+	* lib/Dimensions.cs: implement comparison operators
+
+	* plug-ins/UnitTest/TestCoordinate.cs 
+	* plug-ins/UnitTest/TestCoordinates.cs
+	* plug-ins/UnitTest/TestDimensions.cs: new files
+	
+	* plug-ins/UnitTest/Makefile.am: changed accordingly
+
+	* plug-ins/UnitTest/TestRectangle.cs: more test cases
+	
+2007-04-12  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/UnitTest/TestDrawable.cs: more tests
+
+2007-04-09  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/UnitTest/TestDrawable.cs: add a few more unit tests
+
 2007-04-07  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/Raindrops/Raindrops.cs: fixed #1629354
