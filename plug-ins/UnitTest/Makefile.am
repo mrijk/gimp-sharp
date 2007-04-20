@@ -28,6 +28,7 @@ TESTSOURCES = 	TestBrush.cs 			\
 		TestImage.cs			\
 		TestLayer.cs			\
 		TestMask.cs			\
+		TestOffset.cs			\
 		TestPalette.cs			\
 		TestPaletteEntry.cs		\
 		TestPaletteList.cs		\
@@ -44,6 +45,7 @@ TESTSOURCES = 	TestBrush.cs 			\
 		TestRegionIterator.cs		\
 		TestRgnIterator.cs		\
 		TestRGB.cs			\
+		TestSelection.cs		\
 		TestStroke.cs			\
 		TestUndo.cs			\
 		TestVectors.cs			\
