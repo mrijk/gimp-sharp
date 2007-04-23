@@ -51,6 +51,11 @@ namespace Gimp
       return x >= 0 && x < _width && y >= 0 && y < _height;
     }
 
+    public override int GetHashCode()
+    {
+      return _width + _height;
+    }
+
     public static bool operator==(Dimensions dimensions1, 
 				  Dimensions dimensions2)
     {

@@ -57,6 +57,7 @@ namespace Gimp.AverageBlur
       Pixel average = drawable.CreatePixel();
 
       iter.IterateSrc(delegate (Pixel pixel) {average.Add(pixel);});
+      // iter.IterateSrc((pixel) => average.Add(pixel));
       average /= iter.Count;
 
       iter.IterateDest(delegate () {return average;});

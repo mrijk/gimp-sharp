@@ -1,3 +1,32 @@
+2007-04-23  Maurits  <m.rijk@chello.nl>
+
+	* lib/Parasite.cs: try to make this work
+
+	* plug-ins/UnitTest/TestParasite.cs: more testcases
+
+2007-04-21  Maurits  <m.rijk@chello.nl>
+
+	* lib/RGB.cs: implemented ParseName
+
+	* plug-ins/UnitTest/TestRgb.cs
+	* plug-ins/UnitTest/TestSelection.cs: more testcases
+
+2007-04-20  Maurits  <m.rijk@chello.nl>
+
+	* lib/Rectangle.cs
+	* lib/Dimensions.cs: override GetHashCode to avoid compiler warnings
+
+	* lib/Selection.cs: implemented some missing functions
+
+	* lib/CoordinateList.cs: new Count property
+
+	* plug-ins/UnitTest/TestCoordinate.cs: more testcases
+
+	* plug-ins/UnitTest/TestOffset.cs
+	* plug-ins/UnitTest/TestSelection.cs: new files
+
+	* plug-ins/UnitTest/Makefile.am: changed accordingly
+
 2007-04-18  Maurits  <m.rijk@chello.nl>
 
 	* lib/Dimensions.cs: implement comparison operators

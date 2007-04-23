@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // Parasite.cs
 //
@@ -37,10 +37,14 @@ namespace Gimp
     public const int GrandparentPersistent = Persistent << 16;
     public const int GrandparentUndoable = Undoable << 16;
 
-    public Parasite(string name, UInt32 flags, UInt32 size, object data)
+    public Parasite(string name, UInt32 flags, object data)
     {
-      // Fix me: this doesn't work!
-      _parasite = gimp_parasite_new (name, flags, size, (IntPtr) data);
+      // Fix me: this doesn't work for data == string yet!
+      int rawsize = Marshal.SizeOf(data);
+      IntPtr buffer = Marshal.AllocHGlobal(rawsize);
+      Marshal.StructureToPtr(data, buffer, false);
+
+      _parasite = gimp_parasite_new(name, flags, (UInt32) rawsize, buffer);
     }
 
     public Parasite(Parasite parasite)
@@ -112,12 +116,13 @@ namespace Gimp
       get {return gimp_parasite_name(_parasite);}
     }
 
+    // Fix me: doesn't work yet!
     public object Data
     {
       get {return gimp_parasite_data(_parasite);}
     }
 
-    public long DataSize
+    public UInt32 DataSize
     {
       get {return gimp_parasite_data_size(_parasite);}
     }
@@ -152,6 +157,6 @@ namespace Gimp
     [DllImport("libgimp-2.0-0.dll")]
     static extern object gimp_parasite_data(IntPtr parasite);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern long gimp_parasite_data_size(IntPtr parasite);
+    static extern UInt32 gimp_parasite_data_size(IntPtr parasite);
   }
 }

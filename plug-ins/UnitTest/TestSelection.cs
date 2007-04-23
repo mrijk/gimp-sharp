@@ -85,12 +85,61 @@ namespace Gimp
     }
 
     [Test]
+    public void Shrink()
+    {
+      _selection.All();
+      Assert.AreEqual(255, _selection[0, 0]);
+      Assert.AreEqual(255, _selection[0, _height - 1]);
+      Assert.AreEqual(255, _selection[_width - 1, 0]);
+      Assert.AreEqual(255, _selection[_width - 1, _height - 1]);
+
+      _selection.Shrink(1);
+      Assert.AreEqual(0, _selection[0, 0]);
+      Assert.AreEqual(0, _selection[0, _height - 1]);
+      Assert.AreEqual(0, _selection[_width - 1, 0]);
+      Assert.AreEqual(0, _selection[_width - 1, _height - 1]);
+    }
+
+    [Test]
+    public void Grow()
+    {
+      Shrink();
+      _selection.Grow(1);
+      Assert.AreEqual(255, _selection[0, 0]);
+      Assert.AreEqual(255, _selection[0, _height - 1]);
+      Assert.AreEqual(255, _selection[_width - 1, 0]);
+      Assert.AreEqual(255, _selection[_width - 1, _height - 1]);
+    }
+
+    [Test]
     public void Invert()
     {
       _selection.Invert();
       Assert.IsFalse(_selection.Empty);
       _selection.Invert();
       Assert.IsTrue(_selection.Empty);
+    }
+
+    [Test]
+    public void Translate()
+    {
+      _selection.All();
+      Assert.AreEqual(255, _selection[0, 0]);
+      _selection.Translate(1, 1);
+      Assert.AreEqual(0, _selection[0, 0]);
+      Assert.AreEqual(255, _selection[1, 1]);
+      _selection.Translate(new Offset(1, 1));
+      Assert.AreEqual(0, _selection[1, 1]);      
+    }
+
+    [Test]
+    public void Save()
+    {
+      ChannelList channels = _image.Channels;
+      int count = channels.Count;
+      _selection.Save();
+      channels = _image.Channels;
+      Assert.AreEqual(count + 1, channels.Count);
     }
 
     [Test]

@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // Coordinate.cs
 //
@@ -33,6 +33,11 @@ namespace Gimp
     {
       return _list.GetEnumerator();
     }
+
+    public int Count
+    {
+      get {return _list.Count;}
+    }
 	
     public void Add(Coordinate<T> coordinate)
     {
@@ -44,26 +49,64 @@ namespace Gimp
       _list.Add(new Coordinate<T>(x, y));
     }
 
+    public override bool Equals(object o)
+    {
+      if (o is CoordinateList<T>)
+	{
+	  CoordinateList<T> list = o as CoordinateList<T>;
+	  if (list.Count != Count)
+	    {
+	      return false;
+	    }
+	  else
+	    {
+	      for (int i = 0; i < Count; i++)
+		{
+		  if (_list[i] != list._list[i])
+		    {
+		      return false;
+		    }
+		}
+	    }
+	  return true;
+	}
+      return false;
+    }
+
+    public override int GetHashCode()
+    {
+      return _list.GetHashCode();
+    }
+
+    public static bool operator==(CoordinateList<T> list1, 
+				  CoordinateList<T> list2)
+    {
+      return list1.Equals(list2);
+    }
+
+    public static bool operator!=(CoordinateList<T> list1, 
+				  CoordinateList<T> list2)
+    {
+      return !(list1 == list2);
+    }
+
     public T[] ToArray()
     {
-      T[] array = new T[_list.Count * 2];
+      if (Count == 0)
+	{
+	  return null;
+	}
 
+      T[] array = new T[Count * 2];
+      
       int i = 0;
       foreach (Coordinate<T> coordinate in _list)
 	{
 	  array[i++] = coordinate.X;
 	  array[i++] = coordinate.Y;
 	}
-
+      
       return array;
-    }
-	
-    public void Dump()
-    {
-      foreach (Coordinate<T> coordinate in _list)
-	{
-	  Console.WriteLine(coordinate);
-	}
     }
   }
 }

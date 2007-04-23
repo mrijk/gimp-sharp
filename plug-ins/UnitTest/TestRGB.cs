@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // TestRGB.cs
 //
@@ -20,6 +20,8 @@
 //
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
 
 using NUnit.Framework;
 
@@ -107,6 +109,23 @@ namespace Gimp
     }
 
     [Test]
+    public void ParseName()
+    {
+      RGB rgb = new RGB(0, 0, 0);
+      rgb.ParseName("blue");
+      Assert.AreEqual(new RGB(0, 0, 255), rgb);
+    }    
+
+    [Test]
+    [ExpectedException(typeof(GimpSharpException))]
+    public void ParseInvalidName()
+    {
+      RGB rgb = new RGB(0, 0, 0);
+      rgb.ParseName("nonsense");
+      Assert.AreEqual(new RGB(0, 0, 255), rgb);
+    }    
+
+    [Test]
     public void ParseHex()
     {
       RGB rgb = new RGB(0, 0, 0);
@@ -115,7 +134,7 @@ namespace Gimp
     }    
 
     [Test]
-    [ExpectedException(typeof(Exception))]
+    [ExpectedException(typeof(GimpSharpException))]
     public void ParseInvalidHex()
     {
       RGB rgb = new RGB(0, 0, 0);
@@ -139,11 +158,24 @@ namespace Gimp
     }    
 
     [Test]
-    [ExpectedException(typeof(Exception))]
+    [ExpectedException(typeof(GimpSharpException))]
     public void ParseInvalidCss()
     {
       RGB rgb = new RGB(0, 0, 0);
       rgb.ParseCss("#nonsense");
+    }
+
+    [Test]
+    public void ListNames()
+    {
+      List<string> names;
+      List<RGB> colors;
+
+      RGB.ListNames(out names, out colors);
+
+      Assert.IsTrue(names.Count == colors.Count);
+      Assert.IsTrue(names.Count > 0);
+      Assert.IsTrue(names.Contains("blue"));
     }
 
     [Test]

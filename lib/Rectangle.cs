@@ -98,6 +98,11 @@ namespace Gimp
       return false;
     }
 
+    public override int GetHashCode()
+    {
+      return _upperLeft.GetHashCode() + _lowerRight.GetHashCode();
+    }
+
     public static bool operator==(Rectangle rectangle1, Rectangle rectangle2)
     {
       return rectangle1.Equals(rectangle2);

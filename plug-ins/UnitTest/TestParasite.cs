@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // TestParasite.cs
 //
@@ -31,9 +31,44 @@ namespace Gimp
     [Test]
     public void Constructor()
     {
-      // string name = "parasite1";
-      // Parasite parasite = new Parasite(name, 0, 0, null);
-      // Assert.AreEqual(name, parasite.Name);
+      string name = "parasite";
+      // string foo = "foo";
+      int data = 13;
+      Parasite parasite = new Parasite(name, 0, data);
+      Assert.AreEqual(name, parasite.Name);
+    }
+
+    [Test]
+    public void Data()
+    {
+      string name = "parasite";
+      int data = 13;
+      Parasite parasite = new Parasite(name, 0, data);
+      // int value = (int) parasite.Data;
+    }
+
+    [Test]
+    public void DataSize()
+    {
+      string name = "parasite";
+      int data = 13;
+      Parasite parasite = new Parasite(name, 0, data);
+
+      long size = parasite.DataSize;
+      Assert.AreEqual(sizeof(int), size);
+    }
+
+    [Test]
+    public void Equals()
+    {
+      int data = 13;
+      Parasite parasite1 = new Parasite("parasite", 0, data);
+      Parasite parasite2 = new Parasite("parasite", 0, data);
+      Assert.IsTrue(parasite1.Equals(parasite2));
+
+      data = 14;
+      Parasite parasite3 = new Parasite("parasite", 0, data);
+      Assert.IsFalse(parasite1.Equals(parasite3));
     }
   }
 }

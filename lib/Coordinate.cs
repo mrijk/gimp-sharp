@@ -66,6 +66,11 @@ namespace Gimp
       return false;
     }
 
+    public override int GetHashCode()
+    {
+      return _x.GetHashCode() + _y.GetHashCode();
+    }
+
     public static bool operator==(Coordinate<T> coordinate1, 
 				  Coordinate<T> coordinate2)
     {

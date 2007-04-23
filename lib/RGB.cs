@@ -20,8 +20,12 @@
 //
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
+
+using GLib;
 
 namespace Gimp
 {
@@ -125,13 +129,20 @@ namespace Gimp
 
     public void ParseName(string name)
     {
+      IntPtr tmp = Marshaller.StringToPtrGStrdup(name);
+      if (!gimp_rgb_parse_name(ref _rgb, tmp, -1))
+	{
+	  Marshaller.Free(tmp);
+	  throw new GimpSharpException();
+	}
+      Marshaller.Free(tmp);
     }
 
     public void ParseHex(string hex)
     {
       if (!gimp_rgb_parse_hex(ref _rgb, hex, -1))
 	{
-	  throw new Exception();
+	  throw new GimpSharpException();
 	}
     }
 
@@ -139,8 +150,37 @@ namespace Gimp
     {
       if (!gimp_rgb_parse_css(ref _rgb, css, -1))
 	{
-	  throw new Exception();
+	  throw new GimpSharpException();
 	}
+    }
+
+    public static void ListNames(out List<string> names, 
+				 out List<RGB> colors)
+    {
+      IntPtr namesPtr;
+      IntPtr colorsPtr;
+
+      int len = gimp_rgb_list_names(out namesPtr, out colorsPtr);
+
+      names = new List<string>();
+      IntPtr ptr = namesPtr;
+      for (int i = 0; i < len; i++)
+        {
+	  IntPtr tmp = (IntPtr) Marshal.PtrToStructure(ptr, typeof(IntPtr));
+	  names.Add(Marshal.PtrToStringAnsi(tmp));
+	  ptr = (IntPtr)((int)ptr + Marshal.SizeOf(tmp));
+        }
+      Marshaller.Free(namesPtr);
+
+      colors = new List<RGB>();
+      ptr = colorsPtr;
+      for (int i = 0; i < len; i++)
+        {
+	  GimpRGB tmp = (GimpRGB) Marshal.PtrToStructure(ptr, typeof(GimpRGB));
+	  colors.Add(new RGB(tmp));
+	  ptr = (IntPtr)((int)ptr + Marshal.SizeOf(tmp));
+        }
+      Marshaller.Free(colorsPtr);
     }
 
     public void Add(RGB rgb)
@@ -277,21 +317,24 @@ namespace Gimp
 					   string hex,
 					   int len);
     [DllImport("libgimpcolor-2.0-0.dll")]
-    static extern bool gimp_rgb_parse_css (ref GimpRGB rgb,
-					   string css,
-					   int len);
+    static extern bool gimp_rgb_parse_css(ref GimpRGB rgb,
+					  string css,
+					  int len);
     [DllImport("libgimpcolor-2.0-0.dll")]
-    static extern double gimp_rgb_add (ref GimpRGB rgb1,
-				       ref GimpRGB rgb2);
+    static extern int gimp_rgb_list_names(out IntPtr names,
+					  out IntPtr colors);
     [DllImport("libgimpcolor-2.0-0.dll")]
-    static extern double gimp_rgb_subtract (ref GimpRGB rgb1,
-					    ref GimpRGB rgb2);
+    static extern double gimp_rgb_add(ref GimpRGB rgb1,
+				      ref GimpRGB rgb2);
     [DllImport("libgimpcolor-2.0-0.dll")]
-    static extern void gimp_rgb_multiply (ref GimpRGB rgb,
-					  double factor);
+    static extern double gimp_rgb_subtract(ref GimpRGB rgb1,
+					   ref GimpRGB rgb2);
     [DllImport("libgimpcolor-2.0-0.dll")]
-    static extern double gimp_rgb_distance (ref GimpRGB rgb1,
-					    ref GimpRGB rgb2);
+    static extern void gimp_rgb_multiply(ref GimpRGB rgb,
+					 double factor);
+    [DllImport("libgimpcolor-2.0-0.dll")]
+    static extern double gimp_rgb_distance(ref GimpRGB rgb1,
+					   ref GimpRGB rgb2);
     [DllImport("libgimpcolor-2.0-0.dll")]
     static extern double gimp_rgb_max (ref GimpRGB rgb);
     [DllImport("libgimpcolor-2.0-0.dll")]
@@ -302,12 +345,12 @@ namespace Gimp
     static extern void gimp_rgb_gamma (ref GimpRGB rgb,
 				       double gamma);
     [DllImport("libgimpcolor-2.0-0.dll")]
-    static extern double gimp_rgb_luminance (ref GimpRGB rgb);
+    static extern double gimp_rgb_luminance(ref GimpRGB rgb);
     [DllImport("libgimpcolor-2.0-0.dll")]
-    static extern byte gimp_rgb_luminance_uchar (ref GimpRGB rgb);
+    static extern byte gimp_rgb_luminance_uchar(ref GimpRGB rgb);
     [DllImport("libgimpcolor-2.0-0.dll")]
-    static extern double gimp_rgb_intensity (ref GimpRGB rgb);
+    static extern double gimp_rgb_intensity(ref GimpRGB rgb);
     [DllImport("libgimpcolor-2.0-0.dll")]
-    static extern byte gimp_rgb_intensity_uchar (ref GimpRGB rgb);
+    static extern byte gimp_rgb_intensity_uchar(ref GimpRGB rgb);
   }
 }
