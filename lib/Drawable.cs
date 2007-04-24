@@ -20,6 +20,7 @@
 //
 
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 using GLib;
@@ -38,16 +39,6 @@ namespace Gimp
       _drawable = gimp_drawable_get(drawableID);
       _bpp = gimp_drawable_bpp(_ID);	// Cache for performance
     }
-
-    /*
-    // TODO: dangereous, how do we fill in the _ID and _bpp? This is called by
-    // DrawablePreview
-
-    internal Drawable(IntPtr drawable)
-    {
-      _drawable = drawable;
-    }
-    */
 
     public void Detach()
     {
@@ -98,10 +89,28 @@ namespace Gimp
       return new Tile(gimp_drawable_get_tile2(_ID, shadow, x, y));
     }
 
+    // TODO: return 2D array of Pixels
     public byte[] GetThumbnailData(ref int width, ref int height, out int bpp)
     {
       IntPtr src = gimp_drawable_get_thumbnail_data(_ID, ref width,
                                                     ref height, out bpp);
+      byte[] dest = new byte[width * height * bpp];
+      Marshal.Copy(src, dest, 0, width * height * bpp);
+      Marshaller.Free(src);
+
+      return dest;
+    }
+
+    public byte[] GetSubThumbnailData(Rectangle rectangle,
+				      ref int width, ref int height, 
+				      out int bpp)
+    {
+      IntPtr src = gimp_drawable_get_sub_thumbnail_data(_ID, rectangle.X1,
+							rectangle.Y1,
+							rectangle.Width,
+							rectangle.Height,
+							ref width, ref height, 
+							out bpp);
       byte[] dest = new byte[width * height * bpp];
       Marshal.Copy(src, dest, 0, width * height * bpp);
       Marshaller.Free(src);
@@ -190,6 +199,16 @@ namespace Gimp
       get {return gimp_drawable_has_alpha(_ID);}
     }
 
+    public ImageType TypeWithAlpha
+    {
+      get {return gimp_drawable_type_with_alpha(_ID);}
+    }
+
+    public ImageType Type
+    {
+      get {return gimp_drawable_type(_ID);}
+    }
+
     public bool IsRGB
     {
       get {return gimp_drawable_is_rgb(_ID);}
@@ -263,9 +282,24 @@ namespace Gimp
       Offset(wrapAround, fillType, offset.X, offset.Y);
     }
 
+    public void ForegroundExtract(ForegroundExtractMode mode, Mask mask)
+    {
+      if (!gimp_drawable_foreground_extract(_ID, mode, mask.ID))
+        {
+	  throw new GimpSharpException();
+        }
+    }
+
     public Parasite ParasiteFind(string name)
     {
       return new Parasite(gimp_drawable_parasite_find(_ID, name));
+    }
+
+    // TODO: make ParasiteList iso List<Parasite>
+    // TOOD: implement this!
+    public List<Parasite> ParasiteList
+    {
+      get {return null;}
     }
 
     public void ParasiteAttach(Parasite parasite)
@@ -855,6 +889,20 @@ namespace Gimp
                                                           ref int height, 
                                                           out int bpp);
     [DllImport("libgimp-2.0-0.dll")]
+    static extern IntPtr gimp_drawable_get_sub_thumbnail_data(
+							  Int32 drawable_ID,
+							  int src_x,
+							  int src_y,
+							  int src_width,
+							  int src_height,
+                                                          ref int dest_width, 
+                                                          ref int dest_height, 
+                                                          out int bpp);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern void gimp_drawable_get_color_uchar(Int32 drawable_ID,
+						     GimpRGB color,
+						     byte[] color_uchar);
+    [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_drawable_merge_shadow(Int32 drawable_ID,
                                                   bool undo);
     [DllImport("libgimp-2.0-0.dll")]
@@ -883,7 +931,11 @@ namespace Gimp
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_drawable_has_alpha (Int32 drawable_ID);      
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_drawable_is_rgb (Int32 drawable_ID);
+    static extern ImageType gimp_drawable_type_with_alpha(Int32 drawable_ID);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern ImageType gimp_drawable_type(Int32 drawable_ID);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_drawable_is_rgb(Int32 drawable_ID);
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_drawable_is_gray (Int32 drawable_ID);
     [DllImport("libgimp-2.0-0.dll")]
@@ -911,8 +963,16 @@ namespace Gimp
                                             int offset_x,
                                             int offset_y);
     [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_drawable_foreground_extract(Int32 drawable_ID,
+						   ForegroundExtractMode mode,
+							Int32 mask_ID);
+    [DllImport("libgimp-2.0-0.dll")]
     static extern IntPtr gimp_drawable_parasite_find(Int32 drawable_ID,
                                                      string name);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_drawable_parasite_list(Int32 drawable_ID,
+						   out int num_parasites,
+						   out IntPtr parasites);
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_drawable_parasite_attach(Int32 drawable_ID,
                                                      IntPtr parasite);

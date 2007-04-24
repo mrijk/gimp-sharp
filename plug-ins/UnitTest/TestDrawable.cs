@@ -113,6 +113,18 @@ namespace Gimp
     }
 
     [Test]
+    public void TypeWithAlpha()
+    {
+      Assert.AreEqual(ImageType.Rgba, _drawable.TypeWithAlpha);
+    }
+
+    [Test]
+    public void Type()
+    {
+      Assert.AreEqual(ImageType.Rgb, _drawable.Type);
+    }
+
+    [Test]
     public void Offsets()
     {
       Offset offset = _drawable.Offsets;

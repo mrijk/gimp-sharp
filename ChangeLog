@@ -1,3 +1,11 @@
+2007-04-24  Maurits  <m.rijk@chello.nl>
+
+	* lib/GimpBaseEnums.cs: added GimpForegroundExtractMode
+
+	* lib/Drawable.cs: implemented some missing functions
+
+	* plug-ins/UnitTest/TestDrawable.cs: test new functions
+
 2007-04-23  Maurits  <m.rijk@chello.nl>
 
 	* lib/Parasite.cs: try to make this work
