@@ -51,6 +51,17 @@ namespace Gimp
       return x >= 0 && x < _width && y >= 0 && y < _height;
     }
 
+    public override bool Equals(object o)
+    {
+      if (o is Dimensions)
+	{
+	  Dimensions dimensions = (Dimensions) o;
+	  return dimensions._width == _width &&
+	    dimensions._height == _height;
+	}
+      return false;
+    }
+
     public override int GetHashCode()
     {
       return _width + _height;

@@ -28,103 +28,129 @@ namespace Gimp
   [TestFixture]
   public class TestImage
   {
+    int _width = 64;
+    int _height = 128;
+    ImageBaseType _type = ImageBaseType.Rgb;
+
+    Image _image;
+
+    [SetUp]
+    public void Init()
+    {
+      _image = new Image(_width, _height, _type);
+    }
+
+    [TearDown]
+    public void Exit()
+    {
+      _image.Delete();
+    }
+
     [Test]
     public void NewImage()
     {
-      int width = 64;
-      int height = 128;
-      Image image = new Image(width, height, ImageBaseType.Rgb);
-      // Fix me: this if there is a new image
-      image.Delete();
+      // Fix me: test if there is a new image
     }
 
     [Test]
     public void WidthHeightImage()
     {
-      int width = 64;
-      int height = 128;
-      ImageBaseType type = ImageBaseType.Rgb;
-      Image image = new Image(width, height, type);
-      Assert.AreEqual(width, image.Width);
-      Assert.AreEqual(height, image.Height);
-      Assert.AreEqual(type, image.BaseType);
-      image.Delete();
+      Assert.AreEqual(_width, _image.Width);
+      Assert.AreEqual(_height, _image.Height);
+      Assert.AreEqual(_type, _image.BaseType);
     }
 
     [Test]
     public void Duplicate()
     {
-      int width = 64;
-      int height = 128;
-      ImageBaseType type = ImageBaseType.Rgb;
-      Image image = new Image(width, height, type);
-      Image copy = new Image(image);
-      Assert.AreEqual(width, copy.Width);
-      Assert.AreEqual(height, copy.Height);
-      Assert.AreEqual(type, copy.BaseType);
+      Image copy = new Image(_image);
+      Assert.AreEqual(_image.Width, copy.Width);
+      Assert.AreEqual(_image.Height, copy.Height);
+      Assert.AreEqual(_image.BaseType, copy.BaseType);
       copy.Delete();
-      image.Delete();
     }
 
     [Test]
     public void Rotate()
     {
-      int width = 64;
-      int height = 128;
-      ImageBaseType type = ImageBaseType.Rgb;
-      Image image = new Image(width, height, type);
-
-      image.Rotate(RotationType.Rotate90);
-      Assert.AreEqual(width, image.Height);
-      Assert.AreEqual(height, image.Width);
-
-      image.Delete();
+      _image.Rotate(RotationType.Rotate90);
+      Assert.AreEqual(_width, _image.Height);
+      Assert.AreEqual(_height, _image.Width);
     }
 
     [Test]
-    public void Resize()
+    public void ResizeOne()
     {
-      int width = 64;
-      int height = 128;
-      ImageBaseType type = ImageBaseType.Rgb;
-      Image image = new Image(width, height, type);
+      _image.Resize(100, 100, 0, 0);
+      Assert.AreEqual(100, _image.Width);
+      Assert.AreEqual(100, _image.Height);
+    }
 
-      image.Resize(100, 100, 0, 0);
-      Assert.AreEqual(image.Width, 100);
-      Assert.AreEqual(image.Height, 100);
+    [Test]
+    public void ResizeTwo()
+    {
+      _image.Resize(new Dimensions(99, 101), new Offset(0, 0));
+      Assert.AreEqual(99, _image.Width);
+      Assert.AreEqual(101, _image.Height);
+    }
 
-      image.Delete();
+    [Test]
+    public void ScaleOne()
+    {
+      _image.Scale(100, 100);
+      Assert.AreEqual(100, _image.Width);
+      Assert.AreEqual(100, _image.Height);
+    }
+
+    [Test]
+    public void ScaleTwo()
+    {
+      _image.Scale(new Dimensions(99, 101));
+      Assert.AreEqual(99, _image.Width);
+      Assert.AreEqual(101, _image.Height);
+    }
+
+    [Test]
+    public void CropOne()
+    {
+      _image.Crop(32, 33, 0, 0);
+      Assert.AreEqual(32, _image.Width);
+      Assert.AreEqual(33, _image.Height);
+    }
+
+    [Test]
+    public void CropTwo()
+    {
+      _image.Crop(new Dimensions(32, 33), new Offset(0, 0));
+      Assert.AreEqual(32, _image.Width);
+      Assert.AreEqual(33, _image.Height);
+    }
+
+    [Test]
+    public void CropThree()
+    {
+      Rectangle rectangle = new Rectangle(10, 10, 20, 20);
+      _image.Crop(rectangle);
+      Assert.AreEqual(rectangle.Width, _image.Width);
+      Assert.AreEqual(rectangle.Height, _image.Height);
     }
 
     [Test]
     public void ActiveLayer()
     {
-      int width = 64;
-      int height = 128;
-      ImageBaseType type = ImageBaseType.Rgb;
-      Image image = new Image(width, height, type);
-      Layer layer = new Layer(image, "test", width, height,
+      Layer layer = new Layer(_image, "test", _width, _height,
 			      ImageType.Rgb, 100, 
 			      LayerModeEffects.Normal);
-      image.AddLayer(layer, 0);
+      _image.AddLayer(layer, 0);
 
-      Layer active = image.ActiveLayer;
+      Layer active = _image.ActiveLayer;
       Assert.AreEqual(layer.Name, active.Name);
-
-      image.Delete();
     }
 
     // [Test]
     public void Channels()
     {
-      int width = 64;
-      int height = 128;
-      ImageBaseType type = ImageBaseType.Rgb;
-      Image image = new Image(width, height, type);
-
-      ChannelList channels = image.Channels;
-      
-      image.Delete();
+      ChannelList channels = _image.Channels;
     }
   }
 }

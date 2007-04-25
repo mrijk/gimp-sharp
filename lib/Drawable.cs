@@ -73,10 +73,10 @@ namespace Gimp
       set {gimp_drawable_set_linked(_ID, value);}
     }
 
-    public int Tattoo
+    public Tattoo Tattoo
     {
-      get {return gimp_drawable_get_tattoo(_ID);}
-      set {gimp_drawable_set_tattoo(_ID, value);}
+      get {return new Tattoo(gimp_drawable_get_tattoo(_ID));}
+      set {gimp_drawable_set_tattoo(_ID, value.ID);}
     }
 
     public Tile GetTile(bool shadow, int row, int col)

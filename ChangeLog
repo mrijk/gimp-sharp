@@ -1,3 +1,11 @@
+2007-04-25  Maurits  <m.rijk@chello.nl>
+
+	* lib/Dimensions.cs: implemented Equals method to avoid warning
+
+	* lib/Drawable.cs: minor clean-up
+
+	* plug-ins/UnitTest/TestImage.cs: more testcases
+
 2007-04-24  Maurits  <m.rijk@chello.nl>
 
 	* lib/GimpBaseEnums.cs: added GimpForegroundExtractMode
