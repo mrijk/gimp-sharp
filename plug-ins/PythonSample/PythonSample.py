@@ -18,8 +18,12 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
 import sys
-# sys.path.append(r"/usr/lib/gimp/2.0/plug-ins/");
-sys.path.append(r"../../lib")
+import System;
+
+if __name__ == sys.executable:
+    sys.path.append(System.Environment.GetEnvironmentVariable("PLUGINDIR"))
+else:
+    sys.path.append(r"../../lib")
 
 import clr
 clr.AddReference("gimp-sharp.dll")

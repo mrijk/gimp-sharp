@@ -5,6 +5,8 @@ export LD_LIBRARY_PATH=$THISDIR:$LD_LIBRARY_PATH
 
 # Fixme: find out were ironpython is installed!
 
-export MONO_PATH=/usr/lib/ironpython/:/usr/lib/gimp/2.0/plug-ins/:$MONO_PATH
+export MONO_PATH=/usr/lib/ironpython/:$MONO_PATH
+
+export PLUGINDIR=`gimptool-2.0 --gimpplugindir`"/plug-ins"
 
 mono $THISDIR/PythonSample.exe "$@"

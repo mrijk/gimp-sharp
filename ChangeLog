@@ -1,3 +1,9 @@
+2007-05-02  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/PythonSample/PythonSample
+	* plug-ins/PythonSample/PythonSample.py: updates to make this a
+	bit easier to use
+
 2007-04-25  Maurits  <m.rijk@chello.nl>
 
 	* lib/Dimensions.cs: implemented Equals method to avoid warning
