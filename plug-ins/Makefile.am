@@ -45,7 +45,7 @@ SUBDIRS = 			\
 	$(PictureFrame)		\
 	PicturePackage 		\
 	Pointillize		\
-	PythonSample		\
+	$(PythonSample)		\
 	Raindrops		\
 	$(Shatter)		\
 	SliceTool 		\

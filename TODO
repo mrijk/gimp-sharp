@@ -1,4 +1,4 @@
-Release 0.12
+Release 0.13
 ------------
 - PhotoshopActions at 40 % (Maurits)
 
@@ -13,19 +13,19 @@ Release 0.12
 8) Make group
 9)
 
-Release 0.13
+Release 0.14
 ------------
 - Support for Ruby.NET
 - Support for VB
 
-Release 0.14
+Release 0.15
 ------------
 - Documentation (Max, Maurits)
 - Working version of Update Check plug-in (Maurits)
 - PhotoshopActions at 50 %
 - Fully functional version of picture package
 
-Release 0.15
+Release 0.16
 ------------
 - PhotoshopActions at 60 %
 - Generic Lense plug-in
