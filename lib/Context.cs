@@ -1,5 +1,5 @@
-// GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+ // GIMP# - A C# wrapper around the GIMP Library
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // Context.cs
 //
@@ -30,7 +30,7 @@ namespace Gimp
     {
       if (!gimp_context_push())
 	{
-	  throw new Exception();
+	  throw new GimpSharpException();
 	}
     }
 
@@ -38,10 +38,10 @@ namespace Gimp
     {
       if (!gimp_context_pop())
 	{
-	  throw new Exception();
+	  throw new GimpSharpException();
 	}
     }
-  
+
     static public RGB Foreground
     {
       get
@@ -49,7 +49,7 @@ namespace Gimp
 	  GimpRGB rgb = new GimpRGB();
 	  if (!gimp_context_get_foreground(out rgb))
 	    {
-	      throw new Exception();
+	      throw new GimpSharpException();
 	    }
 	  return new RGB(rgb);
 	}
@@ -58,11 +58,11 @@ namespace Gimp
 	  GimpRGB rgb = value.GimpRGB;
 	  if (!gimp_context_set_foreground(ref rgb))
 	    {
-	      throw new Exception();
+	      throw new GimpSharpException();
 	    }
 	}
     }
-  
+
     static public RGB Background
     {
       get
@@ -70,7 +70,7 @@ namespace Gimp
 	  GimpRGB rgb = new GimpRGB();
 	  if (!gimp_context_get_background(out rgb))
 	    {
-	      throw new Exception();
+	      throw new GimpSharpException();
 	    }
 	  return new RGB(rgb);
 	}
@@ -79,27 +79,27 @@ namespace Gimp
 	  GimpRGB rgb = value.GimpRGB;
 	  if (!gimp_context_set_background(ref rgb))
 	    {
-	      throw new Exception();
+	      throw new GimpSharpException();
 	    }
 	}
     }
-  
+
     static public void SetDefaultColors()
     {
       if (!gimp_context_set_default_colors())
 	{
-	  throw new Exception();
+	  throw new GimpSharpException();
 	}
     }
-  
+
     static public void SwapColors()
     {
       if (!gimp_context_swap_colors())
 	{
-	  throw new Exception();
+	  throw new GimpSharpException();
 	}
     }
-  
+
     public static double Opacity
     {
       get {return gimp_context_get_opacity();}
@@ -107,11 +107,11 @@ namespace Gimp
 	{
 	  if (!gimp_context_set_opacity(value))
 	    {
-	      throw new Exception();
+	      throw new GimpSharpException();
 	    }
 	}
     }
-  
+
     public static LayerModeEffects PaintMode
     {
       get {return gimp_context_get_paint_mode();}
@@ -119,11 +119,11 @@ namespace Gimp
 	{
 	  if (!gimp_context_set_paint_mode(value))
 	    {
-	      throw new Exception();
+	      throw new GimpSharpException();
 	    }
 	}
     }
-  
+
     public static Brush Brush
     {
       get {return new Brush(gimp_context_get_brush(), false);}
@@ -131,11 +131,11 @@ namespace Gimp
 	{
 	  if (!gimp_context_set_brush(value.Name))
 	    {
-	      throw new Exception();
+	      throw new GimpSharpException();
 	    }
 	}
     }
-  
+
     public static Pattern Pattern
     {
       get {return new Pattern(gimp_context_get_pattern(), false);}
@@ -143,11 +143,11 @@ namespace Gimp
 	{
 	  if (!gimp_context_set_pattern(value.Name))
 	    {
-	      throw new Exception();
+	      throw new GimpSharpException();
 	    }
 	}
     }
-  
+
     public static Gradient Gradient
     {
       get {return new Gradient(gimp_context_get_gradient(), false);}
@@ -155,11 +155,11 @@ namespace Gimp
 	{
 	  if (!gimp_context_set_gradient(value.Name))
 	    {
-	      throw new Exception();
+	      throw new GimpSharpException();
 	    }
 	}
     }
-  
+
     public static Palette Palette
     {
       get {return new Palette(gimp_context_get_palette(), false);}
@@ -167,11 +167,11 @@ namespace Gimp
 	{
 	  if (!gimp_context_set_palette(value.Name))
 	    {
-	      throw new Exception();
+	      throw new GimpSharpException();
 	    }
 	}
     }
-  
+
     public static string Font
     {
       get {return gimp_context_get_font();}
@@ -179,11 +179,11 @@ namespace Gimp
 	{
 	  if (!gimp_context_set_font(value))
 	    {
-	      throw new Exception();
+	      throw new GimpSharpException();
 	    }
 	}
     }
-  
+
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_context_push();
     [DllImport("libgimp-2.0-0.dll")]

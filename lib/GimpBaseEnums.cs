@@ -114,6 +114,15 @@ namespace Gimp
     SpiralAnticlockwise
   }
 
+  public enum GridStyle
+  {
+    Dots,
+    Intersections,
+    OnOffDash,
+    DoubleDash,
+    Solid
+  }
+
   public enum IconType
   {
     StockId,

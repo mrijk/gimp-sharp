@@ -17,6 +17,7 @@ MYSOURCES = 				\
 	CoordinateList.cs		\
 	Dimensions.cs			\
 	Display.cs 			\
+	DoubleOffset.cs			\
 	Drawable.cs			\
 	DrawableComboBox.cs		\
 	DrawablePreview.cs		\
@@ -38,6 +39,7 @@ MYSOURCES = 				\
 	GimpTypes.cs			\
 	Gimp.cs				\
 	Gradient.cs			\
+	Grid.cs				\
 	GuideCollection.cs		\
 	Guide.cs			\
 	HorizontalGuide.cs		\
@@ -85,6 +87,7 @@ MYSOURCES = 				\
 	ScaleEntry.cs			\
 	ScrolledPreview.cs		\
 	Selection.cs			\
+	Spacing.cs			\
 	Stroke.cs			\
 	Tattoo.cs			\
 	Tile.cs				\

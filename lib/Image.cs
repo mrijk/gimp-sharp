@@ -655,6 +655,11 @@ namespace Gimp
       get {return new GuideCollection(this);}
     }
 
+    public Grid Grid
+    {
+      get {return new Grid(_imageID);}
+    }
+
     // All the dll imports
 
     [DllImport("libgimp-2.0-0.dll")]

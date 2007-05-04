@@ -1,3 +1,28 @@
+2007-05-04  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/UnitTest/TestGrid.cs: new file
+
+	* plug-ins/UnitTest/Makefile.am: changed accordingly
+	
+	* lib/Context.cs: use GimpSharpException is Exception
+
+	* lib/GimpBaseEnums.cs: add GridStyle
+
+	* lib/Image.cs: implement gimp_image_grid* functionality
+
+	* lib/DoubleOffset.cs
+	* lib/Spacing.cs
+	* lib/Grid.cs: new files
+
+	* lib/Makefile.am: changed accordingly
+
+2007-05-04  Maurits  <m.rijk@chello.nl>
+
+	* lib/AssemblyInfo.cs
+
+	* configure.in: 
+	* INSTALL: bumped version nummer to 0.13
+
 2007-05-03  Maurits  <m.rijk@chello.nl>
 
 	* Made 0.12 release
