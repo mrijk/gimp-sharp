@@ -1,5 +1,12 @@
 2007-05-05  Maurits  <m.rijk@chello.nl>
 
+	* lib/GimpPreview.cs: add properties for Size and Position
+
+	* plug-ins/Mezzotint/Mezzotint.cs: 
+	* plug-ins/Forge/Forge.cs: minor clean-up
+
+2007-05-05  Maurits  <m.rijk@chello.nl>
+
 	* NEWS: update
 
 	* plug-ins/UnitTest/TestDrawable.cs: add test for GetThumbnailData

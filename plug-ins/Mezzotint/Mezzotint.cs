@@ -96,23 +96,18 @@ namespace Gimp.Mezzotint
       byte[] buffer = new byte[rectangle.Area * 3];	// Fix me!
 
       PixelRgn srcPR = new PixelRgn(_drawable, rectangle, false, false);
-      for (IntPtr pr = PixelRgn.Register(srcPR); pr != IntPtr.Zero; 
-	   pr = PixelRgn.Process(pr))
-	{
-	  for (int y = srcPR.Y; y < srcPR.Y + srcPR.H; y++)
-	    {
-	      for (int x = srcPR.X; x < srcPR.X + srcPR.W; x++)
-		{
-		  Pixel pixel = srcPR[y, x];
-		  pixel.X = x;
-		  pixel.Y = y;
-		  pixel = DoMezzotint(pixel);
-		  int index = (y - rectangle.Y1) * rowStride +
-		    (x - rectangle.X1) * 3;
-		  pixel.CopyTo(buffer, index);
-		}
-	    }
-	}
+
+      RegionIterator iterator = new RegionIterator(srcPR);
+      iterator.ForEach(delegate(Pixel src) 
+      {
+	int x = src.X;
+	int y = src.Y;
+	Pixel pixel = DoMezzotint(src);
+
+	int index = (y - rectangle.Y1) * rowStride + (x - rectangle.X1) * 3;
+	pixel.CopyTo(buffer, index);
+      });
+
       _preview.DrawBuffer(buffer, rowStride);
     }
 

@@ -437,11 +437,13 @@ namespace Gimp.Forge
     {
       Console.WriteLine("UpdatePreview!");
 
-      int width, height;
-      preview.GetSize(out width, out height);
+      Dimensions dimensions = preview.Size;
+
+      int width = dimensions.Width;
+      int height = dimensions.Height;
 
       byte[] pixelArray = new byte[width * height * 3];
-      RenderForge(null, pixelArray, width, height);
+      RenderForge(null, pixelArray, dimensions);
 
       preview.DrawBuffer(pixelArray, width * 3);
     }
@@ -453,10 +455,9 @@ namespace Gimp.Forge
 
     override protected void Render(Image image, Drawable drawable)
     {
-      int width = drawable.Width;
-      int height = drawable.Height;
+      Dimensions dimensions = drawable.Dimensions;
 
-      if (width < height)
+      if (dimensions.Width < dimensions.Height)
       {
         new Message(_("This filter can be applied just if height <= width"));
         return;
@@ -465,14 +466,14 @@ namespace Gimp.Forge
       Tile.CacheDefault(drawable);
 
       _progress = new Progress(_("Forge..."));
-      RenderForge(drawable, null, width, height);
+      RenderForge(drawable, null, dimensions);
     }
 
-    void RenderForge(Drawable drawable, byte[] pixelArray, int width, 
-		     int height)
+    void RenderForge(Drawable drawable, byte[] pixelArray,
+		     Dimensions dimensions)
     {
       InitParameters();
-      Planet(drawable, pixelArray, width, height);
+      Planet(drawable, pixelArray, dimensions);
     }
 
     void InitParameters()
@@ -541,8 +542,8 @@ namespace Gimp.Forge
     //  GENPLANET  --  Generate planet from elevation array.
     //
 
-    void GenPlanet(Drawable drawable, byte[] pixelArray, int width, 
-		   int height, double[] a, uint n)
+    void GenPlanet(Drawable drawable, byte[] pixelArray, 
+		   Dimensions dimensions, double[] a, uint n)
     {
       const double rgbQuant = 255; 
       const double atthick = 1.03;   /* Atmosphere thickness as a 
@@ -573,6 +574,9 @@ namespace Gimp.Forge
       double dxsq;
       double ds, di, inx;
       double dsq, dsat;
+
+      int width = dimensions.Width;
+      int height = dimensions.Height;
 
       PixelFetcher pf = null; 
 
@@ -858,7 +862,7 @@ namespace Gimp.Forge
     //  PLANET  --	Make a planet.
     //
 
-    void Planet(Drawable drawable, byte[] pixelArray, int width, int height)
+    void Planet(Drawable drawable, byte[] pixelArray, Dimensions dimensions)
     {
       double[] a = null;
 
@@ -917,7 +921,7 @@ namespace Gimp.Forge
 	    }
 	}
 
-      GenPlanet(drawable, pixelArray, width, height, a, meshsize);
+      GenPlanet(drawable, pixelArray, dimensions, a, meshsize);
     }
   }
 }

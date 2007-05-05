@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // GimpPreview.cs
 //
@@ -54,6 +54,26 @@ namespace Gimp
     public void GetSize(out int width, out int height)
     {
       gimp_preview_get_size(Handle, out width, out height);
+    }
+
+    public Offset Position
+    {
+      get
+	{
+	  int x, y;
+	  GetPosition(out x, out y);
+	  return new Offset(x, y);
+	}
+    }
+
+    public Dimensions Size
+    {
+      get
+	{
+	  int width, height;
+	  GetSize(out width, out height);
+	  return new Dimensions(width, height);
+	}
     }
 
     public Rectangle Bounds
