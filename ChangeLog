@@ -1,3 +1,13 @@
+2007-05-05  Maurits  <m.rijk@chello.nl>
+
+	* NEWS: update
+
+	* plug-ins/UnitTest/TestDrawable.cs: add test for GetThumbnailData
+
+	* lib/Pixel.cs: getter func for bpp
+
+	* lib/Drawable.cs: use Pixel class in GetThumbnailData
+
 2007-05-04  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/UnitTest/TestGrid.cs: new file

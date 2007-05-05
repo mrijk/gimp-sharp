@@ -184,6 +184,16 @@ namespace Gimp
       Assert.IsFalse(_drawable.IsChannel());
     }
 
+    [Test]
+    public void GetThumbnailData()
+    {
+      Dimensions dimensions = new Dimensions(16, 32);
+      Pixel[,] thumbnail = _drawable.GetThumbnailData(dimensions);
+      Assert.AreEqual(32, thumbnail.GetLength(0));
+      Assert.AreEqual(16, thumbnail.GetLength(1));
+      Assert.AreEqual(_drawable.Bpp, thumbnail[0, 0].Bpp);
+    }
+
     // TODO: this test fails!
     [Test]
     public void Fill()
@@ -206,7 +216,7 @@ namespace Gimp
     public void CreatePixel()
     {
       Pixel pixel = _drawable.CreatePixel();
-      Assert.AreEqual(_drawable.Bpp, pixel.Bytes.Length);
+      Assert.AreEqual(_drawable.Bpp, pixel.Bpp);
     }
   }
 }

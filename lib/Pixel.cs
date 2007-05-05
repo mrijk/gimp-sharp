@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // Pixel.cs
 //
@@ -77,6 +77,11 @@ namespace Gimp
     internal Pixel(PixelRgn rgn, byte[] rgb) : this(rgb)
     {
       _rgn = rgn;
+    }
+
+    public int Bpp
+    {
+      get {return _bpp;}
     }
 
     public void Set(Pixel pixel)

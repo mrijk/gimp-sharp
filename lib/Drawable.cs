@@ -89,21 +89,26 @@ namespace Gimp
       return new Tile(gimp_drawable_get_tile2(_ID, shadow, x, y));
     }
 
-    // TODO: return 2D array of Pixels
-    public byte[] GetThumbnailData(ref int width, ref int height, out int bpp)
+    byte[] GetThumbnailData(ref int width, ref int height, out int bpp)
     {
       IntPtr src = gimp_drawable_get_thumbnail_data(_ID, ref width,
                                                     ref height, out bpp);
-      byte[] dest = new byte[width * height * bpp];
-      Marshal.Copy(src, dest, 0, width * height * bpp);
-      Marshaller.Free(src);
-
-      return dest;
+      return ConvertIntPtrToByteArray(src, width, height, bpp);
     }
 
-    public byte[] GetSubThumbnailData(Rectangle rectangle,
-				      ref int width, ref int height, 
-				      out int bpp)
+    public Pixel[,] GetThumbnailData(Dimensions dimensions)
+    {
+      int width = dimensions.Width;
+      int height = dimensions.Height;
+      int bpp;
+      byte[] src = GetThumbnailData(ref width, ref height, out bpp);
+
+      return ConvertToPixelArray(src, width, height, bpp);
+    }
+
+    byte[] GetSubThumbnailData(Rectangle rectangle,
+			       ref int width, ref int height, 
+			       out int bpp)
     {
       IntPtr src = gimp_drawable_get_sub_thumbnail_data(_ID, rectangle.X1,
 							rectangle.Y1,
@@ -111,11 +116,44 @@ namespace Gimp
 							rectangle.Height,
 							ref width, ref height, 
 							out bpp);
+      return ConvertIntPtrToByteArray(src, width, height, bpp);
+    }
+
+    public Pixel[,] GetThumbnailData(Rectangle rectangle,
+				     Dimensions dimensions)
+    {
+      int width = dimensions.Width;
+      int height = dimensions.Height;
+      int bpp;
+      byte[] src = GetSubThumbnailData(rectangle, ref width, ref height, 
+				       out bpp);
+      return ConvertToPixelArray(src, width, height, bpp);
+    }
+
+    byte[] ConvertIntPtrToByteArray(IntPtr src, int width, int height, int bpp)
+    {
       byte[] dest = new byte[width * height * bpp];
       Marshal.Copy(src, dest, 0, width * height * bpp);
       Marshaller.Free(src);
-
       return dest;
+    }
+
+    Pixel[,] ConvertToPixelArray(byte[] src, int width, int height, int bpp)
+    {
+      Pixel[,] thumbnail = new Pixel[height, width];
+      
+      int index = 0;
+      for (int y = 0; y < height; y++)
+	{
+	  for (int x = 0; x < width; x++)
+	    {
+	      Pixel pixel = new Pixel(bpp);
+	      pixel.CopyFrom(src, index);
+	      index += bpp;
+	      thumbnail[y, x] = pixel;
+	    }
+	}
+      return thumbnail;
     }
 
     public void Fill(FillType fill_type)

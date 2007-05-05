@@ -1,5 +1,9 @@
 Overview of Changes in Gimp# 0.12
 =================================
+- About 100 new unit tests
+
+Overview of Changes in Gimp# 0.12
+=================================
 - IronPython support
 - Major bugfixes
 - More API coverage and unit tests
