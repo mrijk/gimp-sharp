@@ -81,6 +81,7 @@ MYSOURCES = 				\
 	Rectangle.cs			\
 	RectangleSelectTool.cs		\
 	RegionIterator.cs		\
+	Resolution.cs			\
 	RgnIterator.cs			\
 	SaveAttribute.cs		\
 	SaveAttributeSet.cs		\

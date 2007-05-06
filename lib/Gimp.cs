@@ -188,12 +188,17 @@ namespace Gimp
     {
       get {return gimp_get_module_load_inhibit();}
     }
-    
-    static public void GetMonitorResolution(out double xres, out double yres)
+
+    static public Resolution MonitorResolution
     {
-      if (!gimp_get_monitor_resolution(out xres, out yres))
+      get
 	{
-	  throw new Exception();
+	  double xres, yres;
+	  if (!gimp_get_monitor_resolution(out xres, out yres))
+	    {
+	      throw new Exception();
+	    }
+	  return new Resolution(xres, yres);
 	}
     }
 

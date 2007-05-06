@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // TestImage.cs
 //
@@ -145,6 +145,21 @@ namespace Gimp
 
       Layer active = _image.ActiveLayer;
       Assert.AreEqual(layer.Name, active.Name);
+    }
+
+    [Test]
+    public void PickCorrelateLayer()
+    {
+      Layer layer = new Layer(_image, "test", _width, _height,
+			      ImageType.Rgb, 100, 
+			      LayerModeEffects.Normal);
+      Coordinate<int> c = new Coordinate<int>(_width / 2, _height / 2);
+      Assert.IsNull(_image.PickCorrelateLayer(c));
+
+      _image.AddLayer(layer, 0);
+
+      Layer picked = _image.PickCorrelateLayer(c);
+      Assert.AreEqual(layer, picked);
     }
 
     // [Test]

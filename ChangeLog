@@ -1,3 +1,15 @@
+2007-05-06  Maurits  <m.rijk@chello.nl>
+
+	* lib/Resolution.cs: new file
+
+	* lib/Makefile.am: changed accordingly
+
+	* lib/Gimp.cs
+	* lib/Image.cs: use Resolution class
+	* plug-ins/UnitTest/TestGimp.cs: 
+
+	* plug-ins/UnitTest/TestImage.cs: new unit tests
+
 2007-05-05  Maurits  <m.rijk@chello.nl>
 
 	* lib/GimpPreview.cs: add properties for Size and Position

@@ -57,10 +57,9 @@ namespace Gimp
     [Test]
     public void MonitorResolution()
     {
-      double xres, yres;
-      Gimp.GetMonitorResolution(out xres, out yres);
-      Assert.IsTrue(xres > 0);
-      Assert.IsTrue(yres > 0);
+      Resolution resolution = Gimp.MonitorResolution;
+      Assert.IsTrue(resolution.X > 0);
+      Assert.IsTrue(resolution.Y > 0);
     }
 
     [Test]
