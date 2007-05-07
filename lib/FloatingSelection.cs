@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // FloatingSelection.cs
 //
@@ -34,7 +34,7 @@ namespace Gimp
     {
       if (!gimp_floating_sel_remove (_ID))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
 
@@ -42,7 +42,7 @@ namespace Gimp
     {
       if (!gimp_floating_sel_anchor (_ID))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
 
@@ -52,7 +52,7 @@ namespace Gimp
     {
       if (!gimp_floating_sel_to_layer(_ID))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
       return new Layer(this);
     }
@@ -69,7 +69,7 @@ namespace Gimp
     {
       if (!gimp_floating_sel_rigor (_ID, undo))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
 
@@ -77,7 +77,7 @@ namespace Gimp
     {
       if (!gimp_floating_sel_relax (_ID, undo))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
 

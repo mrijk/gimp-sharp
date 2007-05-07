@@ -43,7 +43,7 @@ namespace Gimp
 	  if (!gimp_palette_entry_get_name(_paletteName, _index, 
 					   out entry_name))
 	    {
-	      throw new Exception();
+	      throw new GimpSharpException();
 	    }
 	  return entry_name;
 	}
@@ -51,7 +51,7 @@ namespace Gimp
 	{
 	  if (!gimp_palette_entry_set_name(_paletteName, _index, value))
 	    {
-	      throw new Exception();
+	      throw new GimpSharpException();
 	    }
 	}
     }
@@ -63,7 +63,7 @@ namespace Gimp
 	  GimpRGB rgb = new GimpRGB();
 	  if (!gimp_palette_entry_get_color(_paletteName, _index, out rgb))
 	    {
-	      throw new Exception();
+	      throw new GimpSharpException();
 	    }
 	  return new RGB(rgb);
 	}
@@ -72,7 +72,7 @@ namespace Gimp
 	  if (!gimp_palette_entry_set_color(_paletteName, _index,
 					    value.GimpRGB))
 	    {
-	      throw new Exception();
+	      throw new GimpSharpException();
 	    }
 	}
     }

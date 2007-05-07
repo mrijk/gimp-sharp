@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // Brush.cs
 //
@@ -59,7 +59,7 @@ namespace Gimp
     {
       if (!gimp_brush_delete(_name))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
 
@@ -69,7 +69,7 @@ namespace Gimp
       if (!gimp_brush_get_info(_name, out width, out height, out mask_bpp,
                                out color_bpp))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
 
@@ -80,7 +80,7 @@ namespace Gimp
           int spacing;
           if (!gimp_brush_get_spacing(_name, out spacing))
             {
-	      throw new Exception();
+	      throw new GimpSharpException();
             }
           return spacing;
 	}
@@ -88,7 +88,7 @@ namespace Gimp
 	{
           if (!gimp_brush_set_spacing(_name, value))
             {
-	      throw new Exception();
+	      throw new GimpSharpException();
             }
 	}
     }

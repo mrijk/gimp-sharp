@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // Path.cs
 //
@@ -39,7 +39,7 @@ namespace Gimp
     {
       if (!gimp_path_delete(_imageID, _name))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
 
@@ -50,7 +50,7 @@ namespace Gimp
 	{
           if (!gimp_path_set_locked(_imageID, _name, value))
             {
-	      throw new Exception();
+	      throw new GimpSharpException();
             }
 	}
     }
@@ -62,7 +62,7 @@ namespace Gimp
 	{
           if (!gimp_path_set_tattoo(_imageID, _name, value.ID))
             {
-	      throw new Exception();
+	      throw new GimpSharpException();
             }
 	}
     }
@@ -74,7 +74,7 @@ namespace Gimp
       if (!gimp_path_to_selection(_imageID, _name, op, antialias, 
                                   feather, feather_radius_x, feather_radius_y))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
 
@@ -82,7 +82,7 @@ namespace Gimp
     {
       if (!gimp_path_import(_imageID, filename, merge, scale))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
 
@@ -92,7 +92,7 @@ namespace Gimp
       if (!gimp_path_import_string(_imageID, importString, length, merge, 
 				   scale))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
 

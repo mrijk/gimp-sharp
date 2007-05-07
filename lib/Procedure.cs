@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // Procedure.cs
 //
@@ -203,7 +203,7 @@ namespace Gimp
 	{
 	  if (!gimp_plugin_menu_register(_name, _menuPath))
 	    {
-	      throw new Exception();
+	      throw new GimpSharpException();
 	    }
 	}
     }
@@ -219,7 +219,7 @@ namespace Gimp
 	  if (!gimp_plugin_icon_register(_name, IconType.InlinePixbuf, 
 					 data.Serialize()))
 	    {
-	      throw new Exception();
+	      throw new GimpSharpException();
 	    }
 	}
     }

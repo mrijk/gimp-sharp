@@ -112,7 +112,7 @@ namespace Gimp
       if (!gimp_register_load_handler(procedural_name, extensions,
 				      prefixes))
 	{
-	  throw new Exception();
+	  throw new GimpSharpException();
 	}
     }
 
@@ -123,7 +123,7 @@ namespace Gimp
 	if (!gimp_register_save_handler(procedural_name, extensions,
 					prefixes))
 	  {
-	    throw new Exception();
+	    throw new GimpSharpException();
 	  }
       }
 
@@ -132,7 +132,7 @@ namespace Gimp
       {
 	if (!gimp_register_file_handler_mime(procedural_name, mime_type))
       {
-        throw new Exception();
+        throw new GimpSharpException();
       }
       }
 
@@ -141,7 +141,7 @@ namespace Gimp
       {
 	if (!gimp_register_thumbnail_loader(load_proc, thumb_proc))
 	  {
-	    throw new Exception();
+	    throw new GimpSharpException();
 	  }
     }
 
@@ -163,7 +163,7 @@ namespace Gimp
       if (!gimp_gimprc_set(token, tmp))
 	{
 	  Marshaller.Free(tmp);
-	  throw new Exception();
+	  throw new GimpSharpException();
 	}
       Marshaller.Free(tmp);
     }
@@ -196,7 +196,7 @@ namespace Gimp
 	  double xres, yres;
 	  if (!gimp_get_monitor_resolution(out xres, out yres))
 	    {
-	      throw new Exception();
+	      throw new GimpSharpException();
 	    }
 	  return new Resolution(xres, yres);
 	}

@@ -1,3 +1,16 @@
+2007-05-07  Maurits  <m.rijk@chello.nl>
+
+	* lib/Procedure.cs
+	* lib/Path.cs
+	* lib/PaletteEntry.cs
+	* lib/Message.cs
+	* lib/Guide.cs
+	* lib/Gradient.cs
+	* lib/Gimp.cs
+	* lib/FloatingSelection.cs
+	* lib/Display.cs
+	* lib/Brush.cs: replace Exception by GimpSharpException
+
 2007-05-06  Maurits  <m.rijk@chello.nl>
 
 	* lib/Resolution.cs: new file

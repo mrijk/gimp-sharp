@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // Guide.cs
 //
@@ -43,7 +43,7 @@ namespace Gimp
     {
       if (!gimp_image_delete_guide(_imageID, _guideID))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
 

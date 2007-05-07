@@ -40,7 +40,7 @@ namespace Gimp
       Debug.Assert(_displayID != -1);
       if (!gimp_display_delete(_displayID))
         {
-	  throw new Exception();
+	  throw new GimpSharpException();
         }
     }
 
