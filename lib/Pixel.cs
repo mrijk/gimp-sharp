@@ -20,6 +20,9 @@
 //
 
 using System;
+using System.Runtime.InteropServices;
+
+using GLib;
 
 namespace Gimp
 {
@@ -286,6 +289,31 @@ namespace Gimp
     public override string ToString()
     {
       return string.Format("({0} {1} {2})", _rgb[0], _rgb[1], _rgb[2]);
+    }
+
+    static internal Pixel[,] ConvertToPixelArray(IntPtr src, 
+						 Dimensions dimensions,
+						 int bpp)
+    {
+      int width = dimensions.Width;
+      int height = dimensions.Height;
+      byte[] dest = new byte[width * height * bpp];
+      Marshal.Copy(src, dest, 0, width * height * bpp);
+
+      Pixel[,] thumbnail = new Pixel[height, width];
+      
+      int index = 0;
+      for (int y = 0; y < height; y++)
+	{
+	  for (int x = 0; x < width; x++)
+	    {
+	      Pixel pixel = new Pixel(bpp);
+	      pixel.CopyFrom(dest, index);
+	      index += bpp;
+	      thumbnail[y, x] = pixel;
+	    }
+	}
+      return thumbnail;
     }
   }
 }

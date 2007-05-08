@@ -1,3 +1,16 @@
+2007-05-08  Maurits  <m.rijk@chello.nl>
+
+	* lib/Image.cs: use RGB array for colormap
+
+	* plug-ins/KoalaPaint/KoalaPaint.cs
+	* plug-ins/neo/neo.cs: changed accordingly
+
+	* lib/Pixel.cs: add internal helper routine to convert an IntPtr
+	to an Pixel array...
+
+	* lib/Image.cs
+	* lib/Drawable.cs: ... and use it here
+
 2007-05-07  Maurits  <m.rijk@chello.nl>
 
 	* lib/Procedure.cs

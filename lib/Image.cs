@@ -503,32 +503,56 @@ namespace Gimp
                                                           tattoo.ID));
     }
 
-    // TODO: use RGB class here!
-    public byte[] Colormap
+    public RGB[] Colormap
     {
       get
 	{
           int num_colors;
           IntPtr cmap = gimp_image_get_colormap(_imageID, out num_colors);
-          byte[] colormap = new byte[num_colors];
-          Marshal.Copy(cmap, colormap, 0, num_colors);
+	  RGB[] rgb = new RGB[num_colors];
+	  byte[] tmp = new byte[3];
+
+	  int index = 0;
+	  for (int i = 0; i < num_colors; i++) 
+	    {
+	      Marshal.Copy(cmap, tmp, index, 3);
+	      rgb[i] = new RGB(tmp[0], tmp[1], tmp[2]);
+	      index += 3;
+	    }
+
           Marshaller.Free(cmap);
-          return colormap;
+          return rgb;
 	}
 
       set
 	{
-          if (!gimp_image_set_colormap(_imageID, value, value.Length / 3))
+	  int num_colors = value.Length;
+	  byte[] colormap = new byte[num_colors * 3];
+	  int index = 0;
+	  foreach (RGB rgb in value)
+	    {
+	      byte red, green, blue;
+	      rgb.GetUchar(out colormap[index + 0],
+			   out colormap[index + 1], 
+			   out colormap[index + 2]);
+	      index += 3;
+	    }
+
+          if (!gimp_image_set_colormap(_imageID, colormap, num_colors))
             {
 	      throw new GimpSharpException();
             }
 	}
     }
 
-    public Pixel[,] GetThumbnailData(Dimensions dimensions)
+    public Pixel[,] GetThumbnail(Dimensions dimensions, Transparency alpha)
     {
-      // Fix me: implement this, reuse code from Drawable.cs
-      return null;
+      IntPtr src = gimp_image_get_thumbnail(_imageID, dimensions.Width,
+					    dimensions.Height, alpha);
+      int bpp = ActiveDrawable.Bpp;
+      Pixel[,] thumbnail = Pixel.ConvertToPixelArray(src, dimensions, bpp);
+      Marshaller.Free(src);
+      return thumbnail;
     }
 
     public Parasite ParasiteFind(string name)

@@ -1,5 +1,5 @@
 // The neo plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 // Original code for GIMP 1.0 by Alain Gaymard
 //
 // neo.cs
@@ -43,7 +43,7 @@ namespace Gimp.neo
 				     _("This plug-in loads Neochrome images."),
 				     "Maurits Rijk",
 				     "(C) Maurits Rijk",
-				     "2006",
+				     "2006-2007",
 				     _("Neochrome Image"));
     }
 
@@ -58,9 +58,9 @@ namespace Gimp.neo
     {
       if (File.Exists(filename))
 	{
-	  BinaryReader reader = new BinaryReader(File.Open(filename, 
+	  BinaryReader reader = new BinaryReader(File.Open(filename,
 							   FileMode.Open));
-	  
+	
 	  // Read the header
 	  byte[] head = reader.ReadBytes(4);
 	  byte[] pal = reader.ReadBytes(32);
@@ -71,14 +71,14 @@ namespace Gimp.neo
 
 	  // convert pal: 0..7 -> 0..255
 	  byte[] tab = new byte[]{0, 36, 73, 109, 146, 182, 219, 255};
-	  byte[] cmap = new byte[16 * 3];
+	  RGB[] cmap = new RGB[16];
 
-	  for (int i = 0, j = 0; i < 16; i++)
+	  for (int i = 0; i < 16; i++)
 	    {
 	      uint col = (uint) ((pal[2 * i] << 8) | pal[2 * i + 1]);
-	      cmap[j++] = tab[(col >> 8) & 7];
-	      cmap[j++] = tab[(col >> 4) & 7];
-	      cmap[j++] = tab[(col >> 0) & 7];
+	      cmap[i].R = tab[(col >> 8) & 7];
+	      cmap[i].G = tab[(col >> 4) & 7];
+	      cmap[i].B = tab[(col >> 0) & 7];
 	    }
 
 	  const int NEO_WIDTH = 320;
@@ -92,12 +92,12 @@ namespace Gimp.neo
 
 	  byte[] buf = new byte[NEO_WIDTH * NEO_HEIGHT];
 	  int bufp = 0;
-	  
-	  for (int y = 0; y < NEO_HEIGHT; y++, bufp += NEO_WIDTH) 
+	
+	  for (int y = 0; y < NEO_HEIGHT; y++, bufp += NEO_WIDTH)
 	    {
 	      byte[] line = reader.ReadBytes(160);
 	      int l = 0;
-	      for (int x = 0; x < NEO_WIDTH; l += 8) 
+	      for (int x = 0; x < NEO_WIDTH; l += 8)
 		{
 		  uint p0 = (uint) ((line[l + 0] << 8) | line[l + 1]);
 		  uint p1 = (uint) ((line[l + 2] << 8) | line[l + 3]);
@@ -121,9 +121,9 @@ namespace Gimp.neo
 		    }
 		}
 	    }
-	  
+
 	  rgn.SetRect(buf, 0, 0, NEO_WIDTH, NEO_HEIGHT);
-	  
+
 	  reader.Close();
 
 	  return image;
