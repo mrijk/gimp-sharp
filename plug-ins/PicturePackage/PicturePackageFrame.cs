@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // PicturePackageFrame.cs
 //
@@ -50,9 +50,18 @@ namespace Gimp.PicturePackage
       return combo;
     }
 
-    protected GimpTable Table
+    protected void Attach(Widget widget, uint leftAttach, uint rightAttach, 
+			  uint topAttach, uint bottomAttach)
     {
-      get {return _table;}
+      _table.Attach(widget, leftAttach, rightAttach, topAttach, bottomAttach);
+    }
+
+    protected void AttachAligned(int column, int row, string labelText,
+				 double xalign, double yalign, Widget widget,
+				 int colspan, bool leftAlign)
+    {
+      _table.AttachAligned(column, row, labelText, xalign, yalign, widget,
+			   colspan, leftAlign);
     }
   }
 }

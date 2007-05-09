@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // SaveAttributeSet.cs
 //
@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections;
 using System.Reflection;
 
 namespace Gimp
@@ -47,7 +46,7 @@ namespace Gimp
 		{
 		  SaveAttribute saveAttribute = attribute as SaveAttribute;
 		  saveAttribute.Field = field;
-		  yield return attribute as SaveAttribute;
+		  yield return saveAttribute;
 		}
 	    }
 	}

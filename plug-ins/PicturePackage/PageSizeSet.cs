@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // PageSizeSet.cs
 //
@@ -26,11 +26,7 @@ namespace Gimp.PicturePackage
 {
   public class PageSizeSet
   {
-    List<PageSize> _set = new List<PageSize>();
-
-    public PageSizeSet()
-    {
-    }
+    readonly List<PageSize> _set = new List<PageSize>();
 
     public void Add(PageSize size)
     {
@@ -48,7 +44,7 @@ namespace Gimp.PicturePackage
 
     public PageSize this[int index]
     {
-      get {return (PageSize) _set[index];}
+      get {return _set[index];}
     }
   }
 }

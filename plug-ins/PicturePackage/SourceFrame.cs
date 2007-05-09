@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // SourceFrame.cs
 //
@@ -44,10 +44,10 @@ namespace Gimp.PicturePackage
 
       RadioButton button = new RadioButton(_("_Image"));
       button.Clicked += OnImageClicked;
-      Table.Attach(button, 0, 1, 0, 1);
+      Attach(button, 0, 1, 0, 1);
 
       HBox hbox = new HBox();
-      Table.Attach(hbox, 1, 2, 0, 1);
+      Attach(hbox, 1, 2, 0, 1);
 
       _imageBox = new ImageComboBox();
       _imageBox.Changed += OnImageChanged;
@@ -61,17 +61,17 @@ namespace Gimp.PicturePackage
 
       button = new RadioButton(button, _("_File"));
       button.Clicked += OnFileClicked;
-      Table.Attach(button, 0, 1, 1, 2);
+      Attach(button, 0, 1, 1, 2);
 
       button = new RadioButton(button, _("Fol_der"));
       button.Clicked += OnFolderClicked;
-      Table.Attach(button, 0, 1, 2, 3);
+      Attach(button, 0, 1, 2, 3);
 
       _include = new CheckButton(_("_Include All Subfolders"));
       _include.Active = _recursive;
       _include.Sensitive = false;
       _include.Toggled += OnIncludeToggled;
-      Table.Attach(_include, 1, 2, 2, 3);
+      Attach(_include, 1, 2, 2, 3);
 
       SetFileEntry(false);
       _choose.Sensitive = false;
@@ -100,8 +100,8 @@ namespace Gimp.PicturePackage
 	}
 
       _choose.Show();
-      Table.Attach(_choose, 1, 2, 1, 2, AttachOptions.Shrink,
-		   AttachOptions.Fill, 0, 0);	
+      _table.Attach(_choose, 1, 2, 1, 2, AttachOptions.Shrink,
+		    AttachOptions.Fill, 0, 0);	
     }
 
     void OnImageChanged (object o, EventArgs args) 

@@ -102,13 +102,10 @@ namespace Gimp.Ministeck
       CheckButton limit = new CheckButton(_("_Limit Shapes"));
       table.Attach(limit, 2, 3, 0, 1);
       limit.Active = _limit;
-      limit.Toggled += delegate
-	{
-	  _limit = limit.Active;
-	};
+      limit.Toggled += delegate {_limit = limit.Active;};
 
-      GimpColorButton colorButton = 
-	new GimpColorButton("", 16, 16, _color, ColorAreaType.COLOR_AREA_FLAT);
+      GimpColorButton colorButton = new GimpColorButton("", 16, 16, _color, 
+							ColorAreaType.Flat);
       colorButton.Update = true;
       colorButton.ColorChanged += delegate
 	{

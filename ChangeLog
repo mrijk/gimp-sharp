@@ -1,3 +1,30 @@
+2007-05-09  Maurits  <m.rijk@chello.nl>
+
+	* lib/GimpColorButton.cs: use Capitalized letters for enums
+
+	* plug-ins/SliceTool/PreferencesDialog.cs
+	* plug-ins/Ministeck/Ministeck.cs: changed accordingly
+
+	* plug-ins/PicturePackage/PicturePackageFrame.cs: convenience method
+
+	* plug-ins/PicturePackage/PageSizeSet.cs
+	* plug-ins/PicturePackage/PicturePackage.cs
+	* plug-ins/PicturePackage/Rectangle.cs
+	* plug-ins/PicturePackage/RectangleSet.cs
+	* plug-ins/PicturePackage/Layout.cs
+	* plug-ins/PicturePackage/ImageRenderer.cs
+	* plug-ins/PicturePackage/ImageProvider.cs
+	* plug-ins/PicturePackage/FrontImageProvider.cs
+	* plug-ins/PicturePackage/FileImageProvider.cs
+	* plug-ins/PicturePackage/Enums.cs
+	* plug-ins/PicturePackage/SourceFrame.cs
+	* plug-ins/PicturePackage/DocumentFrame.cs
+	* plug-ins/PicturePackage/LabelFrame.cs: clean-up
+
+2007-05-09  Maurits  <m.rijk@chello.nl>
+
+	* lib/SaveAttributeSet.cs: remove unneeded cast and import
+
 2007-05-08  Maurits  <m.rijk@chello.nl>
 
 	* lib/Image.cs: use RGB array for colormap

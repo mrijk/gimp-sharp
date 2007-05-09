@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2006 Maurits Rijk, Massimo Perga
+// Copyright (C) 2004-2007 Maurits Rijk, Massimo Perga
 //
 // Rectangle.cs
 //
@@ -52,8 +52,10 @@ namespace Gimp.PicturePackage
       renderer.Render(image, _x, _y, _w, _h);
     }
 
-    public bool Inside(double x, double y)
+    public bool Inside(Coordinate<double> c)
     {
+      double x = c.X;
+      double y = c.Y;
       return x >= _x && x <= _x + _w && y >= _y && y <= _y + _h;
     }
 
@@ -63,7 +65,8 @@ namespace Gimp.PicturePackage
       set {_provider = value;}
     }
 
-    public static void SwapCoordinates(ref Rectangle rectA, ref Rectangle rectB)
+    public static void SwapCoordinates(ref Rectangle rectA, 
+				       ref Rectangle rectB)
     {
         SwapCoordinate(ref rectA._x, ref rectB._x); 
         SwapCoordinate(ref rectA._y, ref rectB._y); 

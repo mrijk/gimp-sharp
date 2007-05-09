@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // DocumentFrame.cs
 //
@@ -26,11 +26,9 @@ namespace Gimp.PicturePackage
 {
   public class DocumentFrame : PicturePackageFrame
   {
-    PicturePackage _parent;
     ComboBox _size;
     ComboBox _layout;
 
-    LayoutSet _fullLayoutSet;
     LayoutSet _layoutSet;
     PageSizeSet _sizes;
 
@@ -39,40 +37,44 @@ namespace Gimp.PicturePackage
     public DocumentFrame(PicturePackage parent, LayoutSet layoutSet) : 
       base(5, 3, "Document")
     {
-      _parent = parent;
-      _fullLayoutSet = layoutSet;
       _layoutSet = layoutSet;
       _resolution = parent.Resolution;
 
       _size = ComboBox.NewText();
       FillPageSizeMenu(layoutSet);
-      _size.Changed += OnSizeChanged;
-      Table.AttachAligned(0, 0, _("_Page Size:"), 0.0, 0.5, _size, 2, false);
+      _size.Changed += delegate
+	{
+	  _layoutSet = layoutSet.GetLayouts(_sizes[_size.Active], _resolution);
+	  FillLayoutMenu(_layoutSet);
+	};
+      AttachAligned(0, 0, _("_Page Size:"), 0.0, 0.5, _size, 2, false);
 
       _layout = ComboBox.NewText();
       FillLayoutMenu(_layoutSet);
-      _layout.Changed += OnLayoutChanged;
-      Table.AttachAligned(0, 1, _("_Layout:"), 0.0, 0.5, _layout, 2, false);
+      _layout.Changed += delegate
+	{layoutSet.Selected = _layoutSet[_layout.Active];};
+      AttachAligned(0, 1, _("_Layout:"), 0.0, 0.5, _layout, 2, false);
 
       SpinButton resolution = new SpinButton (_resolution, 1200, 1);
-      Table.AttachAligned(0, 2, _("_Resolution:"), 0.0, 0.5, resolution, 1, 
-			  true);
-      resolution.ValueChanged += OnResolutionChanged;
+      AttachAligned(0, 2, _("_Resolution:"), 0.0, 0.5, resolution, 1, true);
+      resolution.ValueChanged += delegate 
+	{parent.Resolution = resolution.ValueAsInt;};
 
       ComboBox units = CreateComboBox("pixels/inch", "pixels/cm", "pixels/mm");
       units.Active = parent.Units;
-      units.Changed += OnUnitsChanged;
-      Table.Attach(units, 2, 3, 2, 3);	
+      units.Changed += delegate {parent.Resolution = units.Active;};
+
+      Attach(units, 2, 3, 2, 3);	
 
       ComboBox mode = CreateComboBox(_("Grayscale"), _("RGB Color"));
-      mode.Active =  _parent.ColorMode;
-      mode.Changed += OnModeChanged;
-      Table.AttachAligned(0, 3, _("_Mode:"), 0.0, 0.5, mode, 2, false);
+      mode.Active = parent.ColorMode;
+      mode.Changed += delegate {parent.ColorMode = mode.Active;};
+      AttachAligned(0, 3, _("_Mode:"), 0.0, 0.5, mode, 2, false);
 
       CheckButton flatten = new CheckButton(_("Flatten All Layers"));
       flatten.Active = parent.Flatten;
-      flatten.Toggled += FlattenToggled;
-      Table.Attach(flatten, 0, 2, 4, 5);
+      flatten.Toggled += delegate {parent.Flatten = flatten.Active;};
+      Attach(flatten, 0, 2, 4, 5);
     }
 
     void FillPageSizeMenu(LayoutSet layoutSet)
@@ -95,39 +97,6 @@ namespace Gimp.PicturePackage
 	  _layout.AppendText(layout.Name);
 	}
       _layout.Active = 0;
-    }
-
-    void OnSizeChanged (object o, EventArgs args) 
-    {
-      int nr = (o as ComboBox).Active;
-      _layoutSet = _fullLayoutSet.GetLayouts(_sizes[nr], _resolution);
-      FillLayoutMenu(_layoutSet);
-    }
-
-    void OnLayoutChanged (object o, EventArgs args) 
-    {
-      int nr = (o as ComboBox).Active;
-      _fullLayoutSet.Selected = _layoutSet[nr];
-    }
-
-    void OnResolutionChanged (object o, EventArgs args) 
-    {
-      _parent.Resolution = (o as SpinButton).ValueAsInt;
-    }
-
-    void OnUnitsChanged (object o, EventArgs args) 
-    {
-      _parent.Resolution = (o as ComboBox).Active;
-    }
-
-    void OnModeChanged (object o, EventArgs args) 
-    {
-      _parent.ColorMode = (o as ComboBox).Active;
-    }
-
-    void FlattenToggled (object sender, EventArgs args)
-    {
-      _parent.Flatten = (sender as CheckButton).Active;
     }
   }
 }

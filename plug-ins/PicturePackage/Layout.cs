@@ -77,9 +77,9 @@ namespace Gimp.PicturePackage
       _rectangles.Add(rectangle);
     }
 
-    public Rectangle Find(double x, double y)
+    public Rectangle Find(Coordinate<double> c)
     {
-      return _rectangles.Find(x, y);
+      return _rectangles.Find(c);
     }
 
     public bool Render(ProviderFactory factory, Renderer renderer)
@@ -95,8 +95,7 @@ namespace Gimp.PicturePackage
 	}
       else
 	{
-	  return new PageSize(_width / resolution,
-			      _height / resolution);
+	  return new PageSize(_width / resolution, _height / resolution);
 	}
     }
 

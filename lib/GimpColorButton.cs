@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // GimpColorButton.cs
 //
@@ -30,27 +30,21 @@ namespace Gimp
 {
   public enum ColorAreaType
   {
-    COLOR_AREA_FLAT = 0,
-    COLOR_AREA_SMALL_CHECKS,
-    COLOR_AREA_LARGE_CHECKS
+    Flat = 0,
+    SmallChecks,
+    LargeChecks
   };
 
   public class GimpColorButton : Button
   {
-    internal GimpColorButton(string title,
-			   int width,
-			   int height,
-			   GimpRGB color,
-			   ColorAreaType type) : 
+    internal GimpColorButton(string title, int width, int height,
+			     GimpRGB color, ColorAreaType type) : 
       base(gimp_color_button_new(title, width, height, ref color, type))
     {
     }
 
-    public GimpColorButton(string title,
-			   int width,
-			   int height,
-			   RGB color,
-			   ColorAreaType type) : 
+    public GimpColorButton(string title, int width, int height,
+			   RGB color, ColorAreaType type) : 
       this(title, width, height, color.GimpRGB, type)
     {
     }
@@ -111,8 +105,7 @@ namespace Gimp
     }
 
     [DllImport("libgimpwidgets-2.0-0.dll")]
-    extern static IntPtr gimp_color_button_new(
-					       string title,
+    extern static IntPtr gimp_color_button_new(string title,
 					       int width,
 					       int height,
 					       ref GimpRGB color,

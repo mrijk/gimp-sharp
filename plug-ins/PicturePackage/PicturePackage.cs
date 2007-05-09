@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2006 Maurits Rijk, Massimo Perga
+// Copyright (C) 2004-2007 Maurits Rijk, Massimo Perga
 //
 // PicturePackage.cs
 //
@@ -42,26 +42,21 @@ namespace Gimp.PicturePackage
     Preview _preview;
     System.Threading.Thread _renderThread;
 
-    [SaveAttribute]
+    [SaveAttribute("flatten")]
     bool _flatten = false;
-
-    [SaveAttribute]
+    [SaveAttribute("resolution")]
     int _resolution = 72;
-
-    [SaveAttribute]
+    [SaveAttribute("units")]
     int _units = 0;		// Fix me: should become an enum
-
-    [SaveAttribute]
-    int _colorMode = 1;		// ColorMode.COLOR;
-
-    [SaveAttribute]
+    [SaveAttribute("color_mode")]
+    int _colorMode = 1;		// ColorMode.Color
+    [SaveAttribute("label")]
     string _label = "";
-
-    [SaveAttribute]
+    [SaveAttribute("position")]
     int _position;
 
-    private Gdk.Point _beginDnDPoint = new Point(0,0);
-    private Gdk.Point _leaveDnDPoint = new Point(0,0);
+    private Coordinate<double> _beginDnDPoint;
+    private Coordinate<double> _leaveDnDPoint;
     private bool _beginDnDSet;
     private bool _leaveDnDSet = false;
 
@@ -79,7 +74,7 @@ namespace Gimp.PicturePackage
       RootWindow
     };
 
-    static bool have_drag = false;
+    static bool _haveDrag = false;
 
     private static TargetEntry[] targetTable = new TargetEntry [] {
       new TargetEntry ("dummy", 0, (uint)TargetType.String),
@@ -259,13 +254,14 @@ namespace Gimp.PicturePackage
     }
 #endif
 
-    Rectangle FindRectangle(double x, double y)
+    Rectangle FindRectangle(Coordinate<double> c)
     {
       int offx, offy;
       double zoom = _layout.Boundaries(_preview.WidthRequest, 
 				       _preview.HeightRequest, 
 				       out offx, out offy);
-      return _layout.Find((x - offx) / zoom, (y - offy) / zoom);		
+      return _layout.Find(new Coordinate<double>((c.X - offx) / zoom, 
+						 (c.Y - offy) / zoom));
     }
 
     void RenderRectangle(Rectangle rectangle, string filename)
@@ -290,9 +286,9 @@ namespace Gimp.PicturePackage
 	}		
     }
 
-    void LoadRectangle(double x, double y, string filename)
+    void LoadRectangle(Coordinate<double> c, string filename)
     {
-      Rectangle rectangle = FindRectangle(x, y);
+      Rectangle rectangle = FindRectangle(c);
       if (rectangle != null)
 	{
 	  RenderRectangle(rectangle, filename);
@@ -303,8 +299,8 @@ namespace Gimp.PicturePackage
 
     void PreviewClicked(object o, ButtonPressEventArgs args)
     {
-      _rectangle = FindRectangle(args.Event.X, args.Event.Y);
-      // Open the "Load" dialog if the right button is pressed
+      _rectangle = FindRectangle(new Coordinate<double>(args.Event.X, 
+							args.Event.Y));
       if (_rectangle != null)
 	{
 	  if (args.Event.Button == 3)
@@ -327,10 +323,15 @@ namespace Gimp.PicturePackage
       string draggedFileName = null;
 
       if (text.StartsWith("file:"))
-        draggedFileName = (text.Substring(7)).Trim('\t',(char)0x0a,(char)0x0d);
+	{
+	  draggedFileName = (text.Substring(7)).Trim('\t',(char)0x0a,
+						     (char)0x0d);
+	}
       else if (text.StartsWith("http://"))
-        draggedFileName = (text.Trim('\t',(char)0x0a,(char)0x0d));
-      LoadRectangle((double) args.X, (double) args.Y, draggedFileName);
+	{
+	  draggedFileName = (text.Trim('\t',(char)0x0a,(char)0x0d));
+	}
+      LoadRectangle(new Coordinate<double>(args.X, args.Y), draggedFileName);
       Gtk.Drag.Finish(args.Context, true, false, args.Time);
       _preview.QueueDraw();
     }
@@ -454,7 +455,7 @@ namespace Gimp.PicturePackage
     static void HandleTargetDragLeave(object sender, DragLeaveArgs args)
     {
       Console.WriteLine("HandleTargetDragLeave");
-      have_drag = false;
+      _haveDrag = false;
 
       // FIXME?  Kinda wonky binding.
       //(sender as Gtk.Image).FromPixbuf = trashcan_closed_pixbuf;
@@ -463,8 +464,8 @@ namespace Gimp.PicturePackage
     static void HandleTargetDragMotion (object sender, DragMotionArgs args)
     {
       Console.WriteLine("HandleTargetDragMotion");
-      if (! have_drag) {
-        have_drag = true;
+      if (! _haveDrag) {
+        _haveDrag = true;
         // FIXME?  Kinda wonky binding.
         // (sender as Gtk.Image).FromPixbuf = trashcan_open_pixbuf;
       }
@@ -485,7 +486,7 @@ namespace Gimp.PicturePackage
     {
       Console.WriteLine("HandleTargetDragDrop");
       Console.WriteLine ("drop");
-      have_drag = false;
+      _haveDrag = false;
       //  (sender as Gtk.Image).FromPixbuf = trashcan_closed_pixbuf;
       
 #if BROKEN   // Context.Targets is not defined in the bindings
@@ -548,16 +549,14 @@ namespace Gimp.PicturePackage
 
     void HandlePopupMotion (object sender, DragMotionArgs args)
     {
-      if(!_beginDnDSet)
+      if (!_beginDnDSet)
 	{
-	  _beginDnDPoint.X = args.X;
-	  _beginDnDPoint.Y = args.Y;
+	  _beginDnDPoint = new Coordinate<double>(args.X, args.Y);
 	  _beginDnDSet = true;
 	}
-      else if(!_leaveDnDSet)
+      else if (!_leaveDnDSet)
 	{
-	  _leaveDnDPoint.X = args.X;
-	  _leaveDnDPoint.Y = args.Y;
+	  _leaveDnDPoint = new Coordinate<double>(args.X, args.Y);
 	}
       //Console.WriteLine ("HandlePopupMotion {0} {1}", args.X, args.Y);
       Console.WriteLine ("HandlePopupMotion {0} {1}", args.X, args.Y);
@@ -605,13 +604,14 @@ namespace Gimp.PicturePackage
 
     void HandlePopupEnd (object sender, DragEndArgs args)
     {
-      Console.WriteLine ("HandlePopupEnd");
+      Console.WriteLine("HandlePopupEnd");
 
-      Rectangle rectA = FindRectangle(_beginDnDPoint.X, _beginDnDPoint.Y);
-      Rectangle rectB = FindRectangle(_leaveDnDPoint.X, _leaveDnDPoint.Y);
-      if(rectA != null && rectB != null)
-        Rectangle.SwapCoordinates(ref rectA, ref rectB);
-      
+      Rectangle rectA = FindRectangle(_beginDnDPoint);
+      Rectangle rectB = FindRectangle(_leaveDnDPoint);
+      if (rectA != null && rectB != null)
+	{
+	  Rectangle.SwapCoordinates(ref rectA, ref rectB);
+	}
 
       //      Rectangle rectB = 
 
@@ -631,7 +631,6 @@ namespace Gimp.PicturePackage
 	}
 	}
       */
-      
     }
 
     static void HandlePopupDataGet (object sender, DragDataGetArgs args)

@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // ImageProvider.cs
 //
@@ -24,10 +24,6 @@ namespace Gimp.PicturePackage
 {
   abstract public class ImageProvider
   {
-    public ImageProvider()
-    {
-    }
-    
     abstract public Image GetImage();
     virtual public void Release() {}
   }

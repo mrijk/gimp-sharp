@@ -27,9 +27,8 @@ namespace Gimp.SliceTool
     GimpColorButton _active;
     GimpColorButton _inactive;
 
-    public PreferencesDialog() : base(_("Slice Preferences"), 
-        _("SliceTool"), IntPtr.Zero, 
-        0, null, _("SliceTool"))
+    public PreferencesDialog() : base(_("Slice Preferences"), _("SliceTool"), 
+				      IntPtr.Zero, 0, null, _("SliceTool"))
     {
       GimpTable table = new GimpTable(2, 2, false);
       table.BorderWidth = 12;
@@ -38,13 +37,13 @@ namespace Gimp.SliceTool
       VBox.PackStart(table, true, true, 0);
 
       _active = new GimpColorButton("", 16, 16, new RGB(255, 0, 0),
-				    ColorAreaType.COLOR_AREA_FLAT);
+				    ColorAreaType.Flat);
       _active.Update = true;
       table.AttachAligned(0, 0, _("Active tile border color:"),
 			  0.0, 0.5, _active, 1, true);
 
       _inactive = new GimpColorButton("", 16, 16, new RGB(0, 255, 0),
-				      ColorAreaType.COLOR_AREA_FLAT);
+				      ColorAreaType.Flat);
       _inactive.Update = true;
       table.AttachAligned(0, 1, _("Inactive tile border color:"), 
 			  0.0, 0.5, _inactive, 1, true);

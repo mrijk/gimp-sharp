@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // ImageRendererer.cs
 //
@@ -24,9 +24,9 @@ namespace Gimp.PicturePackage
 {
   public class ImageRenderer : Renderer
   {
-    Image _composed;
-    double _resolution;
-    bool _convert;
+    readonly Image _composed;
+    readonly double _resolution;
+    readonly bool _convert;
 
     public ImageRenderer(Layout layout, Image composed, double resolution)
     {

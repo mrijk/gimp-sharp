@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // Enums.cs
 //
@@ -22,7 +22,7 @@ namespace Gimp.PicturePackage
 {
   public enum ColorMode
     {
-      GRAY,
-      COLOR
+      Gray,
+      Color
     }
 }

@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // FrontImageProvider.cs
 //
@@ -24,7 +24,7 @@ namespace Gimp.PicturePackage
 {
   public class FrontImageProvider : ImageProvider
   {
-    Image _image;
+    readonly Image _image;
 
     public FrontImageProvider(Image image)
     {

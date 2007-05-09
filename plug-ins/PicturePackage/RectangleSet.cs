@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2006 Maurits Rijk, Massimo Perga
+// Copyright (C) 2004-2007 Maurits Rijk, Massimo Perga
 //
 // RectangleSet.cs
 //
@@ -26,7 +26,7 @@ namespace Gimp.PicturePackage
 {
   public class RectangleSet 
   {
-    List<Rectangle> _set = new List<Rectangle>();
+    readonly List<Rectangle> _set = new List<Rectangle>();
 
     public RectangleSet()
     {
@@ -47,11 +47,11 @@ namespace Gimp.PicturePackage
       get {return _set[index];}
     }
 
-    public Rectangle Find(double x, double y)
+    public Rectangle Find(Coordinate<double> c)
     {
       foreach (Rectangle rectangle in _set)
 	{
-	  if (rectangle.Inside(x, y))
+	  if (rectangle.Inside(c))
 	    return rectangle;
 	}
       return null;
@@ -59,7 +59,7 @@ namespace Gimp.PicturePackage
 
     public bool Render(ProviderFactory factory, Renderer renderer)
     {
-			bool retVal = false;
+      bool retVal = false;
       factory.Reset();
       foreach (Rectangle rectangle in _set)
 	{
@@ -80,7 +80,7 @@ namespace Gimp.PicturePackage
 	      else
 		{
 		  rectangle.Render(image, renderer);
-			retVal = true;
+		  retVal = true;
 		}
 	      factory.Cleanup(provider);
 	    }

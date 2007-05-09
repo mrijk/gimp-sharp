@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // FileImageProvider.cs
 //
@@ -25,8 +25,8 @@ namespace Gimp.PicturePackage
   public class FileImageProvider : ImageProvider
   {
     Image _image;
-    string _filename;
-    string _rawFilename;
+    readonly string _filename;
+    readonly string _rawFilename;
 
     public FileImageProvider(string filename)
     {
