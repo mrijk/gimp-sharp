@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006-2007 Maurits Rijk
 //
-// SelectChannelByNameEvent.cs
+// NewChannelEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,29 +23,43 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class SelectChannelByNameEvent : SelectEvent
+  public class NewChannelEvent : MakeEvent
   {
-    string _name;
+    [Parameter("ClrI")]
+    EnumParameter _colorIndicates;
+    [Parameter("Clr")]
+    ObjcParameter _objc;
+    [Parameter("Opct")]
+    int _opacity;
 
-    public SelectChannelByNameEvent(ActionEvent srcEvent, string name) : 
+    public NewChannelEvent(MakeEvent srcEvent, ObjcParameter myObject) : 
       base(srcEvent)
     {
-      _name = name;
+      myObject.Fill(this);
     }
 
-    public override string EventForDisplay
+    protected override IEnumerable ListParameters()
     {
-      get {return base.EventForDisplay + " channel \"" + _name + "\"";}
+      RGB rgb = _objc.GetColor();
+      byte red, green, blue;
+      rgb.GetUchar(out red, out green, out blue);
+
+      yield return "New: channel";
+      yield return "Color Indicates: " + _colorIndicates;
+      yield return "Color:";
+      yield return "Red: " + red;
+      yield return "Green: " + green;
+      yield return "Blue: " + blue;
+      yield return "Opacity: " + _opacity;
     }
 
     override public bool Execute()
     {
-#if false
-      Console.WriteLine("Visible: " + (Parameters["MkVs"] != null));
-#endif
-      SelectedChannel = ActiveImage.Channels[_name];
-      ActiveImage.ActiveChannel = SelectedChannel;
-
+      RGB rgb = _objc.GetColor();
+      Channel channel = new Channel(ActiveImage, "Alpha 1", 
+				    ActiveImage.Width, ActiveImage.Height,
+				    _opacity, rgb);
+      ActiveImage.AddChannel(channel, -1);
       return true;
     }
   }

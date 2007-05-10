@@ -70,6 +70,7 @@ MYSOURCES = 				\
 	DuplicateDocumentEvent.cs	\
 	DuplicateLayerByNameEvent.cs	\
 	DuplicateLayerEvent.cs		\
+	DuplicateSelectionEvent.cs	\
 	DustAndScratchesEvent.cs	\
 	EmbossEvent.cs			\
 	EnmrType.cs			\
@@ -133,6 +134,7 @@ MYSOURCES = 				\
 	MoveLayerEvent.cs		\
 	MoveOffsetEvent.cs		\
 	NameType.cs			\
+	NewChannelEvent.cs		\
 	NewDocumentEvent.cs		\
 	ObArParameter.cs		\
 	ObjcParameter.cs		\

@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006-2007 Maurits Rijk
 //
-// SelectChannelByNameEvent.cs
+// DuplicateSelectionEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,29 +23,30 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class SelectChannelByNameEvent : SelectEvent
+  public class DuplicateSelectionEvent : DuplicateEvent
   {
+    [Parameter("Nm")]
     string _name;
 
-    public SelectChannelByNameEvent(ActionEvent srcEvent, string name) : 
-      base(srcEvent)
+    public DuplicateSelectionEvent(DuplicateEvent srcEvent) : base(srcEvent) 
     {
-      _name = name;
+      Parameters.Fill(this);
     }
 
     public override string EventForDisplay
     {
-      get {return base.EventForDisplay + " channel \"" + _name + "\"";}
+      get {return base.EventForDisplay + " Selection";}
+    }
+
+    protected override IEnumerable ListParameters()
+    {
+      yield return "Name: " + _name;
     }
 
     override public bool Execute()
     {
-#if false
-      Console.WriteLine("Visible: " + (Parameters["MkVs"] != null));
-#endif
-      SelectedChannel = ActiveImage.Channels[_name];
-      ActiveImage.ActiveChannel = SelectedChannel;
-
+      Channel channel = ActiveImage.Selection.Save();
+      channel.Name = _name;
       return true;
     }
   }

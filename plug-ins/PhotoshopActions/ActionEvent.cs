@@ -49,6 +49,10 @@ namespace Gimp.PhotoshopActions
     static List<Layer> _selectedLayers = new List<Layer>();
     static Layer _selectedLayer;
 
+    // TODO: this is a hack
+    static Channel _selectedChannel;
+    static string _selectedChannelName;
+
     public ActionEvent()
     {
     }
@@ -113,6 +117,24 @@ namespace Gimp.PhotoshopActions
     public static LinkedLayersSet LinkedLayersSet
     {
       get {return _linkedLayersSet;}
+    }
+
+    public static Channel SelectedChannel
+    {
+      get {return _selectedChannel;}
+      set 
+	{
+	  _selectedChannel = value;
+	}
+    }
+
+    public static string SelectedChannelName
+    {
+      get {return _selectedChannelName;}
+      set 
+	{
+	  _selectedChannelName = value;
+	}
     }
 
     public virtual string EventForDisplay

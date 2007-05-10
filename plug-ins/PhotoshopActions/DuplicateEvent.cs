@@ -87,7 +87,14 @@ namespace Gimp.PhotoshopActions
 	      switch (type.ClassID2)
 		{
 		case "Chnl":
-		  Console.WriteLine("Duplicate Channel!");
+		  if (type.Key == "fsel")
+		    {
+		      return new DuplicateSelectionEvent(this);
+		    }
+		  else
+		    {
+		      Console.WriteLine("Duplicate Channel!");
+		    }
 		  break;
 		default:
 		  Console.WriteLine("DuplicateEvent: {0} unknown", type.Key);

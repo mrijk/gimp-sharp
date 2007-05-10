@@ -855,6 +855,11 @@ namespace Gimp
       get {return _drawable;}
     }
 
+    public override string ToString()
+    {
+      return "Drawable: " + _ID;
+    }
+
     [DllImport("libgimp-2.0-0.dll")]
     static extern IntPtr gimp_drawable_get(Int32 drawable_ID);
     [DllImport("libgimp-2.0-0.dll")]

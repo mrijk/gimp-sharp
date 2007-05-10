@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // Abbreviations.cs
 //
@@ -36,6 +36,7 @@ namespace Gimp.PhotoshopActions
       _map["BckC"] = "background color";
       _map["Bckg"] = "background";
       _map["Blck"] = "black";
+      _map["Bl"]   = "blue";
       _map["BrbW"] = "brush wide blurry";
       _map["BrSm"] = "brush simple";
       _map["CBrn"] = "color burn";

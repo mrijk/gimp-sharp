@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // MakeEvent.cs
 //
@@ -57,6 +57,8 @@ namespace Gimp.PhotoshopActions
 	    {
 	    case "AdjL":
 	      return new AddAdjustmentLayerEvent(this);
+	    case "Chnl":
+	      return new NewChannelEvent(this, _object as ObjcParameter);
 	    case "Dcmn":
 	      return new NewDocumentEvent(this, _object as ObjcParameter);
 	    case "Gd":

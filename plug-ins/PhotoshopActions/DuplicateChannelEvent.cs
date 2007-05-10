@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // DuplicateChannelEvent.cs
 //
@@ -33,6 +33,20 @@ namespace Gimp.PhotoshopActions
       _name = name;
     }
 
+    public override string EventForDisplay
+    {
+      get {
+	if (_name == "Trgt")
+	  {
+	    return "Duplicate current channel";
+	  }
+	else
+	  {
+	    return base.EventForDisplay;
+	  }
+      }
+    }
+
     public override bool IsExecutable
     {
       get 
@@ -43,28 +57,45 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
-      yield return "Channel: " + _name;
+      if (_name == "Trgt")
+	{
+	  yield break;
+	}
+      else
+	{
+	  yield return "Channel: " + _name;
+	}
     }
 
     override public bool Execute()
     {
       Channel channel = null;
 
-      switch (_name)
+      if (SelectedChannel == null)
 	{
-	case "Rd":
-	  channel = new Channel(ActiveImage, ChannelType.Red, "Red copy");
-	  break;
-	case "Grn":
-	  channel = new Channel(ActiveImage, ChannelType.Green, "Green copy");
-	  break;
-	case "Bl":
-	  channel = new Channel(ActiveImage, ChannelType.Blue, "Blue copy");
+	  switch (SelectedChannelName)
+	    {
+	    case "Rd":
+	      channel = new Channel(ActiveImage, ChannelType.Red, "Red copy");
+	      break;
+	    case "Grn":
+	      channel = new Channel(ActiveImage, ChannelType.Green, 
+				    "Green copy");
+	      break;
+	    case "Bl":
+	      channel = new Channel(ActiveImage, ChannelType.Blue, 
+				    "Blue copy");
 	  break;	  
-	default:
-	  Console.WriteLine("DuplicateChannel: " + _name);
-	  break;
+	    default:
+	      Console.WriteLine("DuplicateChannel: " + _name);
+	      break;
+	    }
 	}
+      else
+	{
+	  channel = new Channel(SelectedChannel);
+	}
+
       if (channel != null)
 	{
 	  ActiveImage.AddChannel(channel, -1);

@@ -2,16 +2,16 @@ Release 0.13
 ------------
 - PhotoshopActions at 40 % (Maurits)
 
-0) Set selection to polygon
-1) Merge Layers
-2)
-3) Transform current layer, offset only
-4) Polar Coordinates
-5) Play
-6) Contract
-7)
-8) Make group
-9)
+1) Set selection to polygon
+2) Merge Layers
+3) Set/Clear quick mask
+4) Transform current layer, offset only
+5) Polar Coordinates
+6) Play
+7) Contract
+8) 
+9) Make group
+10)
 
 Release 0.14
 ------------

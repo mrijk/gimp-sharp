@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // StopEvent.cs
 //
@@ -33,6 +33,7 @@ namespace Gimp.PhotoshopActions
     protected override IEnumerable ListParameters()
     {
       yield return "Message: " + _message;
+      yield return ((_continue) ? "With" : "Without") + " Continue";
     }
 
     override public bool Execute()

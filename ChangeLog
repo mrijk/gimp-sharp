@@ -1,3 +1,21 @@
+2007-05-10  Maurits  <m.rijk@chello.nl>
+
+	* lib/ChannelList.cs: make GetEnumerator public
+
+	* plug-ins/PhotoshopActions/NewChannelEvent.cs
+	* plug-ins/PhotoshopActions/DuplicateSelectionEvent.cs: new file
+	
+	* plug-ins/PhotoshopActions/Makefile.am: changed accordingly
+
+	* plug-ins/PhotoshopActions/GlowingEdgesEvent.cs
+	* plug-ins/PhotoshopActions/SelectChannelByNameEvent.cs
+	* plug-ins/PhotoshopActions/PhotoshopActions.cs
+	* plug-ins/PhotoshopActions/Abbreviations.cs
+	* plug-ins/PhotoshopActions/SelectChannelEvent.cs
+	* plug-ins/PhotoshopActions/StopEvent.cs
+	* plug-ins/PhotoshopActions/MoveLayerEvent.cs: pick up Photoshop
+	action files again
+
 2007-05-09  Maurits  <m.rijk@chello.nl>
 
 	* lib/GimpColorButton.cs: use Capitalized letters for enums
@@ -22,7 +40,7 @@
 	* plug-ins/PicturePackage/LabelFrame.cs: clean-up
 
 2007-05-09  Maurits  <m.rijk@chello.nl>
-
+	
 	* lib/SaveAttributeSet.cs: remove unneeded cast and import
 
 2007-05-08  Maurits  <m.rijk@chello.nl>

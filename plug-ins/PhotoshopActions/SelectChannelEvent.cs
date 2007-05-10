@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // SelectChannelEvent.cs
 //
@@ -32,11 +32,37 @@ namespace Gimp.PhotoshopActions
       _name = name;
     }
 
+    public override string EventForDisplay
+    {
+      get 
+	{
+	  Channel channel = ActiveImage.Channels[_name];
+	  if (channel == null)	// Default channel
+	    {
+	      return base.EventForDisplay + " " + Abbreviations.Get(_name) + 
+		" channel";
+	    }
+	  else
+	    {
+	      return base.EventForDisplay + " channel \"" + _name + "\"";
+	    }
+	}
+    }
+
     override public bool Execute()
     {
-      // SelectedChannel = ActiveImage.Channels[_name];
-      Console.WriteLine("SelectChannelEvent: implement me! " +
-			ActiveImage.Channels);
+      Channel channel = ActiveImage.Channels[_name];
+      if (channel == null)	// Default channel
+	{
+	  SelectedChannelName = _name;
+	  SelectedChannel = null;
+	}
+      else
+	{
+	  SelectedChannel = channel;
+	  Console.WriteLine("SelectChannelEvent: " + _name);
+	}
+
       return true;
     }
   }

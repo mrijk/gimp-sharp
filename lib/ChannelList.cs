@@ -47,7 +47,22 @@ namespace Gimp
 	}
     }
 
-    IEnumerator<Channel> GetEnumerator()
+    public Channel this[string name]
+    {
+      get 
+	{
+	  foreach (Channel channel in _list)
+	    {
+	      if (channel.Name == name)
+		{
+		  return channel;
+		}
+	    }
+	  return null;
+	}
+    }
+
+    public IEnumerator<Channel> GetEnumerator()
     {
       return _list.GetEnumerator();
     }

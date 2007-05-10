@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // MoveLayerEvent.cs
 //
@@ -40,7 +40,7 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
-      yield return "direction: " + _direction;
+      yield return "To: " + Abbreviations.Get(_direction) + " layer";
     }
 
     override public bool Execute()
@@ -52,6 +52,9 @@ namespace Gimp.PhotoshopActions
 	  break;
 	case "Frwr":
 	  SelectedLayer.Raise();
+	  break;
+	case "Prvs":
+	  Console.WriteLine("Implement MoveLayerEvent: " + _direction);
 	  break;
 	default:
 	  Console.WriteLine("MoveLayerEvents: " + _direction);
