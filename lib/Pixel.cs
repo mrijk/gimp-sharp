@@ -33,19 +33,22 @@ namespace Gimp
     PixelRgn _rgn;
 
     readonly int _bpp;
+    readonly int _bppWithoutAlpha;
     readonly int[] _rgb;
     int _x;
     int _y;
-	
+
     public Pixel(int bpp)
     {
       _bpp = bpp;
+      _bppWithoutAlpha = (HasAlpha) ? _bpp - 1 : _bpp;
       _rgb = new int[_bpp];
     }
 
     public Pixel(byte[] rgb)
     {
       _bpp = rgb.Length;
+      _bppWithoutAlpha = (HasAlpha) ? _bpp - 1 : _bpp;
       _rgb = new int[_bpp];
 
       for (int i = 0; i < _bpp; i++)
@@ -85,6 +88,34 @@ namespace Gimp
     public int Bpp
     {
       get {return _bpp;}
+    }
+
+    public delegate int FillDestFunc();
+    public delegate int FillSrcDestFunc(int src);
+
+    public void Fill(FillDestFunc func)
+    {
+      for (int i = 0; i < _bppWithoutAlpha; i++)
+	{
+	  _rgb[i] = func();
+	}
+    }
+
+    public void Fill(FillSrcDestFunc func)
+    {
+      for (int i = 0; i < _bppWithoutAlpha; i++)
+	{
+	  _rgb[i] = func(_rgb[i]);
+	}
+    }
+
+    public void FillSame(FillDestFunc func)
+    {
+      int val = func();
+      for (int i = 0; i < _bppWithoutAlpha; i++)
+	{
+	  _rgb[i] = val;
+	}
     }
 
     public void Set(Pixel pixel)

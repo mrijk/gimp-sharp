@@ -531,7 +531,6 @@ namespace Gimp
 	  int index = 0;
 	  foreach (RGB rgb in value)
 	    {
-	      byte red, green, blue;
 	      rgb.GetUchar(out colormap[index + 0],
 			   out colormap[index + 1], 
 			   out colormap[index + 2]);

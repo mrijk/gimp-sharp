@@ -118,10 +118,7 @@ namespace Gimp.Mezzotint
 
       iter.IterateSrcDest(delegate (Pixel pixel)
       {
-	pixel.Red = (pixel.Red > 127) ? 255 : 0;
-	pixel.Green = (pixel.Green > 127) ? 255 : 0;
-	pixel.Blue = (pixel.Blue > 127) ? 255 : 0;
-	return pixel;
+	return DoMezzotint(pixel);
       });
 
       Display.DisplaysFlush();
@@ -129,9 +126,7 @@ namespace Gimp.Mezzotint
 
     Pixel DoMezzotint(Pixel pixel)
     {
-      pixel.Red = (pixel.Red > 127) ? 255 : 0;
-      pixel.Green = (pixel.Green > 127) ? 255 : 0;
-      pixel.Blue = (pixel.Blue > 127) ? 255 : 0;
+      pixel.Fill(delegate(int val) {return (val > 127) ? 255 : 0;});
       return pixel;
     }
   }

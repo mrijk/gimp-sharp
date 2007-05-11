@@ -144,20 +144,24 @@ namespace Gimp.ncp
     int[] _distances;
     int[] _data, _under, _over;
 
-    byte[] _dest;
     int _bpp;
-    bool _has_alpha;
+    bool _hasAlpha;
     int _width, _height;
+    Pixel _pixel;
 
     void Initialize(Drawable drawable)
     {
       Rectangle rectangle = drawable.MaskBounds;
 
       _bpp = drawable.Bpp;
-      _has_alpha = drawable.HasAlpha;
-      if (_has_alpha)
-	_bpp--;
-      _dest = new byte[_bpp];
+      _pixel = drawable.CreatePixel();
+
+      _hasAlpha = drawable.HasAlpha;
+      if (_hasAlpha)
+	{
+	  _bpp--;
+	  _pixel.Alpha = 255;
+	}
 
       _width = rectangle.Width;
       _height = rectangle.Height;
@@ -192,7 +196,6 @@ namespace Gimp.ncp
 	      vp[b, i + 2 * _points] = new Coordinate<int>(px, py + offy);
 	      vp[b, i + 3 * _points] = new Coordinate<int>(px + offx,
 							   py + offy);
-
 	      i++;
 	    }
 	}		
@@ -260,37 +263,34 @@ namespace Gimp.ncp
 
     Pixel DoNCP(int x, int y)
     {
-      for (int b = 0; b < _bpp; b++) 
+      int b = 0;
+      Pixel.FillDestFunc func = delegate {return Calc(b++, x, y);};
+
+      if (_color)
 	{
-	  // compute distance to each point
-	  for (int k = 0; k < _points * 4; k++) 
-	    {
-	      Coordinate<int> p = vp[b, k];
-	      int x2 = x - p.X;
-	      int y2 = y - p.Y;
-	      _distances[k] = x2 * x2 + y2 * y2;
-	    }
-
-	  byte val = (byte) (255.0 * Math.Sqrt((double) Select(_closest) / 
-					       (_width * _height)));
-
-	  // invert
-	  val = (byte) (255 - val);
-	  if (_color) 
-	    { 
-	      _dest[b] = val;
-	    }
-	  else 
-	    {
-	      for (int l = 0; l < _bpp; l++) 
-		_dest[l] = val;
-	      break;
-	    }
+	  _pixel.Fill(func);
 	}
-      if (_has_alpha) 
-	_dest[_bpp]= 255;
+      else
+	{
+	  _pixel.FillSame(func);
+	}
+      return _pixel;
+    }
 
-      return new Pixel(_dest);
+    int Calc(int b, int x, int y)
+    {
+      // compute distance to each point
+      for (int k = 0; k < _points * 4; k++) 
+	{
+	  Coordinate<int> p = vp[b, k];
+	  int x2 = x - p.X;
+	  int y2 = y - p.Y;
+	  _distances[k] = x2 * x2 + y2 * y2;
+	}
+      
+      int val = (int) (255.0 * Math.Sqrt((double) Select(_closest) / 
+					 (_width * _height)));      
+      return 255 - val;	// invert
     }
   }
 }
