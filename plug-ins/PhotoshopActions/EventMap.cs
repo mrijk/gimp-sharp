@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // EventMap.cs
 //
@@ -112,6 +112,7 @@ namespace Gimp.PhotoshopActions
       _map["maximum"] = "MaximumEvent";
       _map["median"] = "MedianEvent";
       _map["mergeLayers"] = _map["MrgL"] = "MergeLayersEvent";
+      _map["mergeLayersNew"] = "MergeLayersNewEvent";
       _map["mergeVisible"] = "MergeVisibleEvent";
       _map["mezzotint"] = _map["Mztn"] = "MezzotintEvent";
       _map["minimum"] = "MinimumEvent";

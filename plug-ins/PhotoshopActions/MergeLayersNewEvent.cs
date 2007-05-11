@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006-2007 Maurits Rijk
 //
-// ExchangeEvent.cs
+// MergeLayersNewEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,16 +22,12 @@ using System;
 
 namespace Gimp.PhotoshopActions
 {
-  public class ExchangeEvent : ActionEvent
+  public class MergeLayersNewEvent : ActionEvent
   {
-    public override string EventForDisplay
-    {
-      get {return base.EventForDisplay + " Swatches";}
-    }
-
     override public bool Execute()
     {
-      Context.SwapColors();
+      Console.WriteLine("MergeLayersNewEvent: verify this!");
+      ActiveImage.MergeVisibleLayers(MergeType.ExpandAsNecessary);
       return true;
     }
   }

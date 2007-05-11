@@ -1,11 +1,11 @@
 Release 0.13
 ------------
-- PhotoshopActions at 40 % (Maurits)
+- PhotoshopActions at 50 % (Maurits)
 
 1) Set selection to polygon
 2) Merge Layers
 3) Set/Clear quick mask
-4) Transform current layer, offset only
+4)
 5) Polar Coordinates
 6) Play
 7) Contract
@@ -15,19 +15,19 @@ Release 0.13
 
 Release 0.14
 ------------
+- PhotoshopActions at 55 %
 - Support for Ruby.NET
 - Support for VB
 
 Release 0.15
 ------------
+- PhotoshopActions at 60 %
 - Documentation (Max, Maurits)
 - Working version of Update Check plug-in (Maurits)
-- PhotoshopActions at 50 %
 - Fully functional version of picture package
 
 Release 0.16
 ------------
-- PhotoshopActions at 60 %
 - Generic Lense plug-in
 - First version of PhotoFrame plug-in
 

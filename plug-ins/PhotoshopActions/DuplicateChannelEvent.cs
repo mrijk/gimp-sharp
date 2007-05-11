@@ -57,13 +57,14 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
-      if (_name == "Trgt")
+      TextParameter name = Parameters["Nm"] as TextParameter;
+      if (name == null)
 	{
 	  yield break;
 	}
       else
 	{
-	  yield return "Channel: " + _name;
+	  yield return "Name: \"" + name.Value + "\"";
 	}
     }
 

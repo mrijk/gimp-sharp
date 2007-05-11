@@ -60,6 +60,13 @@ namespace Gimp.PhotoshopActions
     protected override IEnumerable ListParameters()
     {
       yield return "To: layer " + _index;
+
+      BoolParameter adjust = Parameters["Adjs"] as BoolParameter;
+      if (adjust != null)
+	{
+	  yield return ((adjust.Value) ? "With" : "Without") + 
+	    " Adjust Selection";
+	}
     }
 
     override public bool Execute()

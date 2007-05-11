@@ -124,6 +124,7 @@ MYSOURCES = 				\
 	MaximumEvent.cs			\
 	MedianEvent.cs			\
 	MergeLayersEvent.cs		\
+	MergeLayersNewEvent.cs		\
 	MergeVisibleEvent.cs		\
 	MezzotintEvent.cs		\
 	MinimumEvent.cs			\

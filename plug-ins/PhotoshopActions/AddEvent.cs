@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // AddEvent.cs
 //
@@ -19,18 +19,39 @@
 //
 
 using System;
+using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
   public class AddEvent : ActionEvent
   {
-    public override bool IsExecutable
+    [Parameter("null")]
+    ReferenceParameter _obj;
+    
+    string _name;
+
+    public override string EventForDisplay
     {
-      get {return false;}
+      get 
+	{
+	  if (_obj.Set[0] is NameType)
+	    {
+	      _name = (_obj.Set[0] as NameType).Key;
+	      return base.EventForDisplay + " channel \"" + _name + "\"";
+	    }
+	  return base.EventForDisplay;
+	}
+    }
+
+    protected override IEnumerable ListParameters()
+    {
+      yield return "To: Selection";
     }
 
     override public bool Execute()
     {
+      Channel channel = ActiveImage.Channels[_name];
+      ActiveImage.Selection.Combine(channel, ChannelOps.Add);
       return true;
     }
   }

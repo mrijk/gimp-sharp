@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // ResetEvent.cs
 //
@@ -29,7 +29,7 @@ namespace Gimp.PhotoshopActions
 
     public override string EventForDisplay
     {
-      get {return base.EventForDisplay + " swatches";}
+      get {return base.EventForDisplay + " Swatches";}
     }
 
     override public bool Execute()

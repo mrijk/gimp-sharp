@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // BoolParameter.cs
 //
@@ -40,6 +40,11 @@ namespace Gimp.PhotoshopActions
     public override void Fill(Object obj, FieldInfo field)
     {
       field.SetValue(obj, _value);
+    }
+
+    public string Format(string s)
+    {
+      return ((_value) ? "With " : "Without ") + s;
     }
   }
 }

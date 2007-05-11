@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // SubtractEvent.cs
 //
@@ -20,24 +20,40 @@
 
 using System.Collections;
 
+// Fix me: can probably be combined width AddEvent.cs (move functionality to
+// base class)
+
 namespace Gimp.PhotoshopActions
 {
   public class SubtractEvent : ActionEvent
   {
-    public override bool IsExecutable
+    [Parameter("null")]
+    ReferenceParameter _obj;
+    
+    string _name;
+
+    public override string EventForDisplay
     {
-      get {return false;}
+      get 
+	{
+	  if (_obj.Set[0] is NameType)
+	    {
+	      _name = (_obj.Set[0] as NameType).Key;
+	      return base.EventForDisplay + " channel \"" + _name + "\"";
+	    }
+	  return base.EventForDisplay;
+	}
     }
 
-    /*
     protected override IEnumerable ListParameters()
     {
-      // yield return "Radius: " + _radius + " pixels";
+      yield return "To: Selection";
     }
-    */
 
     override public bool Execute()
     {
+      Channel channel = ActiveImage.Channels[_name];
+      ActiveImage.Selection.Combine(channel, ChannelOps.Subtract);
       return true;
     }
   }

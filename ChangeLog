@@ -1,5 +1,24 @@
 2007-05-11  Maurits  <m.rijk@chello.nl>
 
+	* plug-ins/PhotoshopActions/DuplicateSelectionEvent.cs
+	* plug-ins/PhotoshopActions/MoveOffsetEvent.cs
+	* plug-ins/PhotoshopActions/AddEvent.cs
+	* plug-ins/PhotoshopActions/SubtractEvent.cs: implemented
+	
+	* plug-ins/PhotoshopActions/BoolParameter.cs: convenience method
+
+	* plug-ins/PhotoshopActions/MergeLayersNewEvent.cs: new file
+
+	* plug-ins/PhotoshopActions/Makefile
+	* plug-ins/PhotoshopActions/EventMap.cs: changed accordingly
+
+	* plug-ins/PhotoshopActions/MoveLayerByIndexEvent.cs
+	* plug-ins/PhotoshopActions/FillEvent.cs
+	* plug-ins/PhotoshopActions/ResetEvent.cs
+	* plug-ins/PhotoshopActions/ExchangeEvent.cs: minor clean-up
+
+2007-05-11  Maurits  <m.rijk@chello.nl>
+
 	* lib/Image.cs: remove unused variables
 
 	* lib/Pixel.cs: add Fill methods

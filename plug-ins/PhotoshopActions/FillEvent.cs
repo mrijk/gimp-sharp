@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // FillEvent.cs
 //
@@ -29,6 +29,8 @@ namespace Gimp.PhotoshopActions
     ObjcParameter _from;
     [Parameter("Tlrn")]
     int _tolerance;
+    [Parameter("AntA")]
+    bool _antiAlias;
     [Parameter("Usng")]
     EnumParameter _using;
     [Parameter("Opct")]
@@ -50,6 +52,10 @@ namespace Gimp.PhotoshopActions
 	{
 	  yield return "From: ";
 	}
+
+      yield return "Tolerance: " + _tolerance;
+
+      yield return ((_antiAlias) ? "With" : "Without") + " Anti-alias";
 
       if (_using != null)
 	{

@@ -25,13 +25,26 @@ namespace Gimp.PhotoshopActions
 {
   public class TransformLayerEvent : TransformEvent
   {
+    bool _needScaling;
+    bool _needPosition;
+
+    double _horizontal;
+    double _vertical;
+
     public override bool IsExecutable
     {
       get 
 	{
 	  DoubleParameter width = Parameters["Wdth"] as DoubleParameter;
 	  DoubleParameter height = Parameters["Hght"] as DoubleParameter;
-	  return width != null || height != null;
+	  
+	  _needScaling = width != null || height != null;
+	  
+	  ObjcParameter position = Parameters["Pstn"] as ObjcParameter;
+
+	  _needPosition = position != null;
+
+	  return _needScaling || _needPosition;  
 	}
     }
 
@@ -57,11 +70,27 @@ namespace Gimp.PhotoshopActions
 	{
 	  yield return "Width: " + width.Value;
 	}
+
+      ObjcParameter position = Parameters["Pstn"] as ObjcParameter;
+      if (position != null)
+	{
+	  if (position.Contains("Hrzn"))
+	    _horizontal = position.GetValueAsDouble("Hrzn");
+	  if (position.Contains("Vrtc"))
+	    _vertical = position.GetValueAsDouble("Vrtc");
+	  yield return String.Format("Position: {0}, {1}", _horizontal,
+				     _vertical);
+	}
+
+      BoolParameter relative = Parameters["Rltv"] as BoolParameter;
+      if (relative != null)
+	{
+	  yield return relative.Format("Relative");
+	}
     }
 
     override public bool Execute()
     {
-      bool needScaling = false;
       double newWidth = ActiveDrawable.Width;
       double newHeight = ActiveDrawable.Height;
       double oldWidth = newWidth;
@@ -73,20 +102,18 @@ namespace Gimp.PhotoshopActions
       if (width != null)
 	{
 	  newWidth = width.GetPixels(SelectedLayer.Width);
-	  needScaling = true;
 	}
 
       DoubleParameter height = Parameters["Hght"] as DoubleParameter;
       if (height != null)
 	{
 	  newHeight = width.GetPixels(SelectedLayer.Height);
-	  needScaling = true;
 	}
 
-      SelectedLayer.Scale((int) newWidth, (int) newHeight, true);
-
-      if (needScaling)
+      if (_needScaling)
 	{
+	  SelectedLayer.Scale((int) newWidth, (int) newHeight, true);
+
 	  EnumParameter side = Parameters["FTcs"] as EnumParameter;
 
 	  switch (side.Value)
@@ -103,6 +130,11 @@ namespace Gimp.PhotoshopActions
 	      Console.WriteLine("FTcs: " + side.Value);
 	      break;
 	    }
+	}
+
+      if (_needPosition)
+	{
+	  SelectedLayer.Translate((int) _horizontal, (int) _vertical);
 	}
 
       return true;
