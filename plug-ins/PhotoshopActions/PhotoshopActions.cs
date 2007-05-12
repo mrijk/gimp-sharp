@@ -131,6 +131,8 @@ namespace Gimp.PhotoshopActions
       }, 
 				       IntPtr.Zero, null);
 
+      ActionEvent.ActionSetCollection = _set;
+
       return dialog;
     }
 
@@ -179,7 +181,8 @@ namespace Gimp.PhotoshopActions
 		{
 		  _set.Add(actions);
 
-		  TreeIter iter = store.AppendValues(actions.Name, actions);
+		  TreeIter iter = store.AppendValues(actions.ExtendedName, 
+						     actions);
 		  foreach (Action action in actions)
 		    {
 		      TreeIter iter1 = store.AppendValues(iter, action.Name,

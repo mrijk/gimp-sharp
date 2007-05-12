@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // ActionSet.cs
 //
@@ -50,7 +50,12 @@ namespace Gimp.PhotoshopActions
 
     public string Name
     {
-      get {return _name + " (" + _setChildren + ")";}
+      get {return _name;}
+    }
+
+    public string ExtendedName
+    {
+      get {return Name + " (" + _setChildren + ")";}
     }
 
     public void Add(Action action)
@@ -66,6 +71,19 @@ namespace Gimp.PhotoshopActions
     public void Execute(int action)
     {
       _set[action].Execute();
+    }
+
+    public bool Execute(string actionName)
+    {
+      foreach (Action action in _set)
+	{
+	  if (action.Name == actionName)
+	    {
+	      action.Execute();
+	      return true;
+	    }
+	}
+      return false;
     }
 
     public void Execute(int action, int n)

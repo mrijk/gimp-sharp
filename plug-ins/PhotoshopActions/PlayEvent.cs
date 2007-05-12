@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // PlayEvent.cs
 //
@@ -28,25 +28,30 @@ namespace Gimp.PhotoshopActions
     [Parameter("null")]
     ReferenceParameter _obj;
 
-    string _set;
+    string _setName;
     string _action;
-
-    public override bool IsExecutable
-    {
-      get {return false;}
-    }
 
     protected override IEnumerable ListParameters()
     {
       _action = (_obj.Set[0] as NameType).Key;
-      _set = (_obj.Set[1] as NameType).Key;
+      _setName = (_obj.Set[1] as NameType).Key;
 
       yield return String.Format("Action \"{0}\" of set \"{1}\"", 
-				 _action, _set);
+				 _action, _setName);
     }
 
     override public bool Execute()
     {
+      foreach (ActionSet set in ActionEvent.ActionSetCollection)
+	{
+	  if (set.Name == _setName)
+	    {
+	      if (!set.Execute(_action))
+		{
+		  Console.WriteLine("Couldn't execute: " + _action);
+		}
+	    }
+	}
       return true;
     }
   }

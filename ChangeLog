@@ -1,3 +1,14 @@
+2007-05-12  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/PhotoshopActions/ActionSet.cs: execute by name
+
+	* plug-ins/PhotoshopActions/PlayEvent.cs: implemented
+
+	* plug-ins/PhotoshopActions/PhotoshopActions.cs: minor changes
+
+	* plug-ins/PhotoshopActions/SurfaceBlurEvent.cs: mapped to
+	selective Gaussian blur for the time being
+
 2007-05-11  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/PhotoshopActions/DuplicateSelectionEvent.cs

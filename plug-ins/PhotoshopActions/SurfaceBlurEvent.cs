@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // SurfaceBlurEvent.cs
 //
@@ -30,11 +30,6 @@ namespace Gimp.PhotoshopActions
     [Parameter("Thsh")]
     int _threshold;
 
-    public override bool IsExecutable
-    {
-      get {return false;}
-    }
-
     protected override IEnumerable ListParameters()
     {
       yield return "Radius: " + _radius;
@@ -43,7 +38,10 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
-      return false;
+      Console.WriteLine("SurfaceBlur mapped to Selective Gaussian Blur!");
+      int maxDelta = (int) _threshold;
+      RunProcedure("plug_in_sel_gauss", _radius, maxDelta);
+      return true;
     }
   }
 }

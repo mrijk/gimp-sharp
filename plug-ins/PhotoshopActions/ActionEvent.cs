@@ -28,6 +28,8 @@ namespace Gimp.PhotoshopActions
 {
   abstract public class ActionEvent : IExecutable
   {
+    static List<ActionSet> _actionSetCollection;
+
     /*
     readonly byte _expanded;
     readonly byte _enabled;
@@ -62,6 +64,12 @@ namespace Gimp.PhotoshopActions
       _eventForDisplay = srcEvent._eventForDisplay;
       _numberOfItems = srcEvent._numberOfItems;
       _parameters = srcEvent._parameters;
+    }
+
+    public static List<ActionSet> ActionSetCollection
+    {
+      get {return _actionSetCollection;}
+      set {_actionSetCollection = value;}
     }
 
     public ParameterSet Parameters
