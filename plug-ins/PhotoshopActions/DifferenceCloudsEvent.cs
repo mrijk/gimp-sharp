@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // DifferenceCloudsEvent.cs
 //
@@ -28,12 +28,13 @@ namespace Gimp.PhotoshopActions
     {
       get 
 	{
-	  return false;
+	  return Gimp.Version > new Version("2.3.10");
 	}
     }
 
     override public bool Execute()
     {
+      RunProcedure("plug_in_solid_noise", false, false, 0, 5, 4, 4);
       return true;
     }
   }

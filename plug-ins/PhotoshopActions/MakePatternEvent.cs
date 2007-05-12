@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006-2007 Maurits Rijk
 //
-// DeleteLayerByNameEvent.cs
+// MakePatternEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,28 +18,41 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
+using System;
+using System.Collections;
+
 namespace Gimp.PhotoshopActions
 {
-  public class DeleteLayerByNameEvent : DeleteEvent
+  public class MakePatternEvent : MakeEvent
   {
+    [Parameter("Nm")]
     string _name;
 
-    public DeleteLayerByNameEvent(ActionEvent srcEvent, string name) : 
-      base(srcEvent)
+    public MakePatternEvent(MakeEvent srcEvent) : base(srcEvent)
     {
-      _name = name;
+      Parameters.Fill(this);
+    }
+
+    public override bool IsExecutable
+    {
+      get {return false;}
     }
 
     public override string EventForDisplay
     {
-      get {return base.EventForDisplay + " layer \"" + _name + "\"";}
+      get {return base.EventForDisplay + " Pattern";}
+    }
+
+    protected override IEnumerable ListParameters()
+    {
+      yield return "Name: \"" + _name + "\"";
     }
 
     override public bool Execute()
     {
-      Layer layer = ActiveImage.Layers[_name];
-      ActiveImage.RemoveLayer(layer);
-      return true;
+      // Look for script-fu-selection-to-pattern as example. The basic idea
+      // is to create a new image and save it as a .pat file 
+      return false;
     }
   }
 }

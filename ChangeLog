@@ -1,5 +1,22 @@
 2007-05-12  Maurits  <m.rijk@chello.nl>
 
+	* plug-ins/PhotoshopActions/ConvertModeEvent.cs: use abbreviations
+
+	* plug-ins/PhotoshopActions/DifferenceCloudsEvent.cs: implemented
+
+	* plug-ins/PhotoshopActions/MakePatternEvent.cs: new file
+
+	* plug-ins/PhotoshopActions/Makefile.am: changed accordingly
+	
+	* plug-ins/PhotoshopActions/MakeEvent.cs: added MakePatternEvent
+
+	* plug-ins/PhotoshopActions/DeleteLayerByNameEvent.cs: implemented
+
+	* plug-ins/PhotoshopActions/AddToEvent.cs
+	* plug-ins/PhotoshopActions/NewDocumentEvent.cs: more complete output
+
+2007-05-12  Maurits  <m.rijk@chello.nl>
+
 	* plug-ins/PhotoshopActions/FillEvent.cs: fill with White
 
 	* plug-ins/PhotoshopActions/Abbreviations.cs: new abbreviations

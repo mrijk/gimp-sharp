@@ -26,7 +26,11 @@ namespace Gimp.PhotoshopActions
 {
   public class AddLayerEvent : ActionEvent
   {
+    [Parameter("below")]
     bool _below;
+    [Parameter("Usng")]
+    ObjcParameter _objc;
+
     readonly LayerModeEffects _mode = LayerModeEffects.Normal;
 
     public AddLayerEvent(ActionEvent srcEvent, ObjcParameter _object) : 
@@ -66,6 +70,11 @@ namespace Gimp.PhotoshopActions
     public override string EventForDisplay
     {
       get {return base.EventForDisplay + " layer";}
+    }
+
+    protected override IEnumerable ListParameters()
+    {
+      yield return Format(_below, "Below");
     }
 
     override public bool Execute()

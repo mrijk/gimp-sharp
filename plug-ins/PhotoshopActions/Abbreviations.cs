@@ -76,6 +76,7 @@ namespace Gimp.PhotoshopActions
       _map["Pyrm"] = "pyramids";
       _map["Rndm"] = "random";
       _map["RctP"] = "Rectangular to Polar";
+      _map["RGBM"] = "RGB color mode";
       _map["RptE"] = "repeat edge pixels";
       _map["Rtcl"] = "reticulation";
       _map["SBMN"] = "smart blur mode normal";

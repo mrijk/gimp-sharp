@@ -89,6 +89,8 @@ namespace Gimp.PhotoshopActions
 	      return new AddLayerEvent(this, _obj.Set);
 	    case "Path":
 	      return new MakePathEvent(this);
+	    case "Ptrn":
+	      return new MakePatternEvent(this);
 	    case "SnpS":
 	      return new MakeSnapshotEvent(this);
 	    case "TxLr":

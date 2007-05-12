@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // AddToEvent.cs
 //
@@ -19,21 +19,45 @@
 //
 
 using System;
+using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
   public class AddToEvent : ActionEvent
   {
     [Parameter("T")]
-    ObjcParameter _rectangle;
+    ObjcParameter _objc;
+
+    public override string EventForDisplay
+    {
+      get {return base.EventForDisplay + " Selection";}
+    }
+
+    protected override IEnumerable ListParameters()
+    {
+      if (_objc.ClassID2 == "Sngr")
+	{
+	  yield return "From: single row";
+	  DoubleParameter top = _objc.Parameters["Top"] as DoubleParameter;
+	  if (top != null)
+	    {
+	      yield return "Top: " + top.Value;
+	    }
+	}
+      else
+	{
+	  Console.WriteLine("AddToEvent: unknown classID2: " + _objc.ClassID2);
+	  yield break;
+	}
+    }
 
     override public bool Execute()
     {
-      DoubleParameter top = _rectangle.Parameters["Top"] as DoubleParameter;
-      DoubleParameter left = _rectangle.Parameters["Left"] as DoubleParameter;
-      DoubleParameter bottom = _rectangle.Parameters["Btom"] 
+      DoubleParameter top = _objc.Parameters["Top"] as DoubleParameter;
+      DoubleParameter left = _objc.Parameters["Left"] as DoubleParameter;
+      DoubleParameter bottom = _objc.Parameters["Btom"] 
 	as DoubleParameter;
-      DoubleParameter right = _rectangle.Parameters["Rght"] as DoubleParameter;
+      DoubleParameter right = _objc.Parameters["Rght"] as DoubleParameter;
 
       double x = left.Value;
       double y = top.Value;

@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // NewDocumentEvent.cs
 //
@@ -26,7 +26,7 @@ namespace Gimp.PhotoshopActions
   public class NewDocumentEvent : ActionEvent
   {
     [Parameter("Md")]
-    Parameter _mode;
+    TypeParameter _mode;
     [Parameter("Wdth")]
     double _width;
     [Parameter("Hght")]
@@ -48,13 +48,13 @@ namespace Gimp.PhotoshopActions
       myObject.Fill(this);
     }
 
-    public override string EventForDisplay
-    {
-      get {return base.EventForDisplay + " document";}
-    }
-
     protected override IEnumerable ListParameters()
     {
+      yield return "New: document";
+      if (_mode != null)
+	{
+	  yield return "Mode: " + Abbreviations.Get(_mode.Value);
+	}
       yield return "Width: " + _width;
       yield return "Height: " + _height;
       yield return "Resolution: " + _resolution;

@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // ConvertModeEvent.cs
 //
@@ -49,20 +49,7 @@ namespace Gimp.PhotoshopActions
       if (_type is TypeParameter)
 	{
 	  string type = (_type as TypeParameter).Value;
-	  string mode;
-
-	  switch (type)
-	    {
-	    case "RGBM":
-	      mode = "RGB color mode";
-	      break;
-	    default:
-	      mode = type;
-	      break;
-	    }
-
-
-	  yield return "To: " + mode;
+	  yield return "To: " + Abbreviations.Get(type);
 	}
     }
 

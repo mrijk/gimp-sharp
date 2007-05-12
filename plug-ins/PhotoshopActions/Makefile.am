@@ -121,6 +121,7 @@ MYSOURCES = 				\
 	MakeEvent.cs			\
 	MakeGroupEvent.cs		\
 	MakePathEvent.cs		\
+	MakePatternEvent.cs		\
 	MakeSnapshotEvent.cs		\
 	MaximumEvent.cs			\
 	MedianEvent.cs			\
