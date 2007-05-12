@@ -23,6 +23,7 @@ MYSOURCES = 				\
 	AddToEvent.cs			\
 	AliasParameter.cs		\
 	AlignEvent.cs			\
+	ApplyImageEvent.cs		\
 	AverageEvent.cs			\
 	BlurMethodEvent.cs		\
 	BoolParameter.cs		\
@@ -179,6 +180,7 @@ MYSOURCES = 				\
 	SelectEllipseEvent.cs		\
 	SelectEvent.cs			\
 	SelectionEvent.cs		\
+	SelectChannelByIndexEvent.cs	\
 	SelectChannelByNameEvent.cs	\
 	SelectChannelEvent.cs		\
 	SelectLayerByNameEvent.cs	\
@@ -189,8 +191,10 @@ MYSOURCES = 				\
 	SelectSnapshotEvent.cs		\
 	SetBackgroundColorEvent.cs	\
 	SetChannelPropertyEvent.cs	\
+	SetChannelToSelectionEvent.cs	\
 	SetColorEvent.cs		\
 	SetEvent.cs			\
+	SetFileInfoEvent.cs		\
 	SetForegroundColorEvent.cs	\
 	SetLayerEffectsEvent.cs		\
 	SetLayerPropertyEvent.cs	\
@@ -229,6 +233,7 @@ MYSOURCES = 				\
 	UnimplementedEvent.cs		\
 	UnlinkEvent.cs			\
 	UnsharpMaskEvent.cs		\
+	VariationsEvent.cs		\
 	WaterPaperEvent.cs		\
 	WaveEvent.cs			\
 	WindEvent.cs

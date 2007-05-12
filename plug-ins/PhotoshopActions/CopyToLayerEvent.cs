@@ -38,8 +38,11 @@ namespace Gimp.PhotoshopActions
 	  ActiveImage.FloatingSelection.Offsets = 
 	    new Offset(rectangle.X1, rectangle.Y1);
 	  Layer layer = ActiveImage.FloatingSelection.ToLayer();
+
 	  // Fix me: why can't I use layer here?
-	  new Layer(ActiveImage.ActiveDrawable).ResizeToImageSize();
+	  Layer dummy = new Layer(ActiveImage.ActiveDrawable);
+	  dummy.ResizeToImageSize();
+	  dummy.Name = "Layer 1";
 	}
       else
 	{

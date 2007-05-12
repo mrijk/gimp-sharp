@@ -33,7 +33,7 @@ namespace Gimp.PhotoshopActions
     protected override IEnumerable ListParameters()
     {
       yield return "Message: " + _message;
-      yield return ((_continue) ? "With" : "Without") + " Continue";
+      yield return Format(_continue, "Continue");
     }
 
     override public bool Execute()

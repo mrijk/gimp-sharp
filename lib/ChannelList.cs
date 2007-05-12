@@ -47,6 +47,11 @@ namespace Gimp
 	}
     }
 
+    public Channel this[int index]
+    {
+      get {return _list[index];}
+    }
+
     public Channel this[string name]
     {
       get 

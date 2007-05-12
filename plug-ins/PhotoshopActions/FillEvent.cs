@@ -78,6 +78,9 @@ namespace Gimp.PhotoshopActions
 
       switch (_using.Value)
 	{
+	case "BckC":
+	  fillType = FillType.Background;
+	  break;
 	case "Blck":
 	  Context.Foreground = new RGB(0, 0, 0);
 	  fillType = FillType.Foreground;
@@ -85,18 +88,21 @@ namespace Gimp.PhotoshopActions
 	case "FrgC":
 	  fillType = FillType.Foreground;
 	  break;
-	case "BckC":
-	  fillType = FillType.Background;
+	case "Wht":
+	  Context.Foreground = new RGB(255, 255, 255);
+	  fillType = FillType.Foreground;
 	  break;
 	default:
 	  fillType = FillType.Foreground;
-	  Console.WriteLine("FillEvent: with {0} not supported!", _using);
+	  Console.WriteLine("FillEvent: with {0} not supported!", 
+			    _using.Value);
 	  break;
 	}
 
+      Drawable drawable = ActiveImage.ActiveDrawable;
       if (_from == null)
 	{
-	  ActiveDrawable.EditFill(fillType);
+	  drawable.EditFill(fillType);
 	}
       else
 	{
@@ -104,11 +110,11 @@ namespace Gimp.PhotoshopActions
 	    {
 	      double x = _from.GetValueAsDouble("Hrzn");
 	      double y = _from.GetValueAsDouble("Vrtc");
-	      
-	      ActiveDrawable.EditBucketFill(BucketFillMode.Foreground,
-					    LayerModeEffects.Normal,
-					    100.0, _tolerance, false, true,
-					    SelectCriterion.Composite, x, y);
+
+	      drawable.EditBucketFill(BucketFillMode.Foreground,
+				      LayerModeEffects.Normal,
+				      100.0, _tolerance, false, true,
+				      SelectCriterion.Composite, x, y);
 	    }
 	}
 

@@ -40,6 +40,7 @@ namespace Gimp.PhotoshopActions
       _map["BrbW"] = "brush wide blurry";
       _map["BrSm"] = "brush simple";
       _map["CBrn"] = "color burn";
+      _map["Clcl"] = "calculation";
       _map["Clr"]  = "color";
       _map["Cntr"] = "center";
       _map["CrnH"] = "Current History State";
@@ -50,9 +51,12 @@ namespace Gimp.PhotoshopActions
       _map["GrnE"] = "grain enlarged";
       _map["GrnH"] = "grain horizontal";
       _map["GrnR"] = "grain regular";
+      _map["Grys"] = "grayscale mode";
       _map["Gsn"]  = "gaussian";
       _map["HrdL"] = "hard light";
+      _map["HrzO"] = "Horizontal Only";
       _map["Insd"] = "inside";
+      _map["Invr"] = "Invert Source";
       _map["Lghn"] = "lighten";
       _map["Lmns"] = "luminosity";
       _map["LngL"] = "long lines";
@@ -68,9 +72,10 @@ namespace Gimp.PhotoshopActions
       _map["Ovrl"] = "overlay";
       _map["PntD"] = "paint daubs";
       _map["Prvs"] = "previous";
+      _map["PrsT"] = "Preserve Transparency";
       _map["Pyrm"] = "pyramids";
       _map["Rndm"] = "random";
-      _map["RctP"] = "rectangular to polar";
+      _map["RctP"] = "Rectangular to Polar";
       _map["RptE"] = "repeat edge pixels";
       _map["Rtcl"] = "reticulation";
       _map["SBMN"] = "smart blur mode normal";

@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // SetEvent.cs
 //
@@ -77,6 +77,8 @@ namespace Gimp.PhotoshopActions
 		case "Prpr":
 		  switch (property.Key)
 		    {
+		    case "FlIn":
+		      return new SetFileInfoEvent(this);
 		    case "Lefx":
 		      return new SetLayerEffectsEvent(this);
 		    case "QucM":
@@ -101,7 +103,21 @@ namespace Gimp.PhotoshopActions
 		case "Lyr":
 		  return new SetLayerPropertyEvent(this);
 		default:
-		  Console.WriteLine("SetEvent.Parse: unknown key " + enmr.Key);
+		  Console.WriteLine("SetEvent.Parse-1: unknown key " + 
+				    enmr.Key);
+		  break;
+		}
+	    }
+	  else if (_obj.Set[0] is IndexType)
+	    {
+	      IndexType index = _obj.Set[0] as IndexType;
+	      switch (index.Key)
+		{
+		case "Chnl":
+		  return new SetChannelToSelectionEvent(this, index.Index);
+		default:
+		  Console.WriteLine("SetEvent.Parse-2: unknown key " + 
+				    index.Key);
 		  break;
 		}
 	    }

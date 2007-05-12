@@ -151,6 +151,11 @@ namespace Gimp.PhotoshopActions
       set {_eventForDisplay = value;}
     }
 
+    public string Format(bool value, string s)
+    {
+      return ((value) ? "With " : "Without ") + s;
+    }
+
     public int NumberOfItems
     {
       get {return _numberOfItems;}

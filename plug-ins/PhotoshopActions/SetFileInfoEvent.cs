@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006-2007 Maurits Rijk
 //
-// MoveLayerEvent.cs
+// SetFileInfoEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,44 +23,39 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class MoveLayerEvent : MoveEvent
+  public class SetFileInfoEvent : ActionEvent
   {
-    readonly string _direction;
+    [Parameter("T")]
+    ObjcParameter _objc;
 
-    public MoveLayerEvent(ActionEvent srcEvent, string direction) 
-      : base(srcEvent)
-    {
-      _direction = direction;
-    }
+    [Parameter("Cpyr")]
+    bool _copyright;
+    [Parameter("CprN")]
+    string _copyrightNotice;
+    [Parameter("URL")]
+    string _url;
     
+    public SetFileInfoEvent(ActionEvent srcEvent) : base(srcEvent)
+    {
+      Parameters.Fill(this);
+      _objc.Fill(this);
+    }
+
     public override string EventForDisplay
     {
-      get {return base.EventForDisplay + " current layer";}
+      get {return base.EventForDisplay + " File Info of current document";}
     }
 
     protected override IEnumerable ListParameters()
     {
-      yield return "To: " + Abbreviations.Get(_direction) + " layer";
+      yield return Format(_copyright, "Copyright");
+      yield return "Copyright Notice: " + _copyrightNotice;
+      yield return "URL: " + _url;
     }
 
     override public bool Execute()
     {
-      switch (_direction)
-	{
-	case "Bckw":
-	  SelectedLayer.Lower();
-	  break;
-	case "Frwr":
-	  SelectedLayer.Raise();
-	  break;
-	case "Prvs":
-	  // TODO: What's the difference with this and "Bckw"?
-	  SelectedLayer.Lower();
-	  break;
-	default:
-	  Console.WriteLine("MoveLayerEvents: " + _direction);
-	  break;
-	}
+      Console.WriteLine("fix me: fileinfo not stored yet!");
       return true;
     }
   }

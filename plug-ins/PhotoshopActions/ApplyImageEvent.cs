@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006-2007 Maurits Rijk
 //
-// MoveLayerEvent.cs
+// ApplyImageEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,45 +23,33 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class MoveLayerEvent : MoveEvent
+  public class ApplyImageEvent : ActionEvent
   {
-    readonly string _direction;
+    [Parameter("With")]
+    ObjcParameter _objc;
+    [Parameter("Invr")]
+    bool _invertSource;
+    [Parameter("PrsT")]
+    bool _preserveTransparency;
 
-    public MoveLayerEvent(ActionEvent srcEvent, string direction) 
-      : base(srcEvent)
+    public override bool IsExecutable
     {
-      _direction = direction;
-    }
-    
-    public override string EventForDisplay
-    {
-      get {return base.EventForDisplay + " current layer";}
+      get {return false;}
     }
 
     protected override IEnumerable ListParameters()
     {
-      yield return "To: " + Abbreviations.Get(_direction) + " layer";
+      _objc.Fill(this);
+
+      yield return "With: " + Abbreviations.Get(_objc.ClassID2);
+      yield return "Source: ";
+      yield return Format(_invertSource, Abbreviations.Get("Invr"));
+      yield return Format(_preserveTransparency, Abbreviations.Get("PrsT"));
     }
 
     override public bool Execute()
     {
-      switch (_direction)
-	{
-	case "Bckw":
-	  SelectedLayer.Lower();
-	  break;
-	case "Frwr":
-	  SelectedLayer.Raise();
-	  break;
-	case "Prvs":
-	  // TODO: What's the difference with this and "Bckw"?
-	  SelectedLayer.Lower();
-	  break;
-	default:
-	  Console.WriteLine("MoveLayerEvents: " + _direction);
-	  break;
-	}
-      return true;
+      return false;
     }
   }
 }

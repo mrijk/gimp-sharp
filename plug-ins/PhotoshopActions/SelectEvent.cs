@@ -111,6 +111,18 @@ namespace Gimp.PhotoshopActions
 		  break;
 		}
 	    }
+	  else if (parameter is IndexType)
+	    {
+	      IndexType index = parameter as IndexType;
+	      switch (index.Key)
+		{
+		case "Chnl":
+		  return new SelectChannelByIndexEvent(this, index.Index);
+		default:
+		  Console.WriteLine("index.Key: " + index.Key);
+		  break;
+		}
+	    }
 	  else
 	    {
 	      Console.WriteLine("SelectEvent-1: " + parameter);

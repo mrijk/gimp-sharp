@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // AddLayerEvent.cs
 //
@@ -76,6 +76,7 @@ namespace Gimp.PhotoshopActions
       Layer layer = new Layer(image, "New Layer", image.Width, image.Height,
 			      ImageType.Rgba, 100, _mode);
       image.AddLayer(layer, 0);
+      image.ActiveLayer = layer;
       SelectedLayer = layer;
 
       layer.Fill(FillType.Transparent);

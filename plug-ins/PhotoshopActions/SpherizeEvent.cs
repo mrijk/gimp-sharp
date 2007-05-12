@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // SpherizeEvent.cs
 //
@@ -30,11 +30,6 @@ namespace Gimp.PhotoshopActions
     [Parameter("SphM")]
     EnumParameter _mode;
 
-    public override bool IsExecutable
-    {
-      get {return false;}
-    }
-
     protected override IEnumerable ListParameters()
     {
       yield return "Amount: " + _amount;
@@ -43,7 +38,10 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
-      return false;
+      // Fix me: finetune next formula
+      double refraction = 1 + _amount / 100.0;
+      RunProcedure("plug_in_applylens", refraction, true, false, false);
+      return true;
     }
   }
 }

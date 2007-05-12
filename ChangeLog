@@ -1,5 +1,34 @@
 2007-05-12  Maurits  <m.rijk@chello.nl>
 
+	* plug-ins/PhotoshopActions/FillEvent.cs: fill with White
+
+	* plug-ins/PhotoshopActions/Abbreviations.cs: new abbreviations
+
+	* lib/ChannelList.cs: implemented this[int] method
+
+	* lib/Selection.cs: bug fix in Load
+
+	* plug-ins/PhotoshopActions/SpherizeEvent.cs: implemented
+
+	* plug-ins/PhotoshopActions/ApplyImageEvent.cs
+	* plug-ins/PhotoshopActions/SelectChannelByIndexEvent.cs
+	* plug-ins/PhotoshopActions/SetChannelToSelectionEvent.cs
+	* plug-ins/PhotoshopActions/VariationsEvent.cs
+	* plug-ins/PhotoshopActions/SetFileInfoEvent.cs: new files
+
+	* plug-ins/PhotoshopActions/EventMap.cs: 
+	* plug-ins/PhotoshopActions/Makefile.am: changed accordingly
+
+	* plug-ins/PhotoshopActions/SetEvent.cs: handle new SetFileInfoEvent
+
+2007-05-12  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/PhotoshopActions/ActionEvent.cs: new convenience routine
+
+	* plug-ins/PhotoshopActions/StopEvent.cs: ... and use it
+
+2007-05-12  Maurits  <m.rijk@chello.nl>
+
 	* plug-ins/PhotoshopActions/ActionSet.cs: execute by name
 
 	* plug-ins/PhotoshopActions/PlayEvent.cs: implemented

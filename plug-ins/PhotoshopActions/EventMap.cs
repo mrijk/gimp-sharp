@@ -40,6 +40,7 @@ namespace Gimp.PhotoshopActions
       _map["addNoise"] = _map["AdNs"] = "AddNoiseEvent";
       _map["addTo"] = "AddToEvent";
       _map["align"] = _map["Algn"] = "AlignEvent";
+      _map["applyImageEvent"] = "ApplyImageEvent";
       _map["Avrg"] = "AverageEvent";
       _map["blurMethod"] = _map["BlrM"] = "BlurMethodEvent";
       _map["border"] = "BorderEvent";
@@ -173,6 +174,7 @@ namespace Gimp.PhotoshopActions
       _map["ungroup"] = "UngroupEvent";
       _map["unlink"] = "UnlinkEvent";
       _map["unsharpMask"] = _map["UnsM"] = "UnsharpMaskEvent";
+      _map["variations"] = "VariationsEvent";
       _map["waterPaper"] = "WaterPaperEvent";
       _map["wave"] = "WaveEvent";
       _map["wind"] = _map["Wnd"] = "WindEvent";

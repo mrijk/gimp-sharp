@@ -82,9 +82,9 @@ namespace Gimp
 					    drawable.ID, offx, offy));
     }
 
-    public void Load()
+    public void Load(Channel channel)
     {
-      if (!gimp_selection_load(_imageID))
+      if (!gimp_selection_load(channel.ID))
         {
 	  throw new GimpSharpException();
         }

@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006-2007 Maurits Rijk
 //
-// MoveLayerEvent.cs
+// SetChannelToSelectionEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,44 +23,30 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class MoveLayerEvent : MoveEvent
+  public class SetChannelToSelectionEvent : SetEvent
   {
-    readonly string _direction;
+    readonly int _index;
 
-    public MoveLayerEvent(ActionEvent srcEvent, string direction) 
-      : base(srcEvent)
+    public SetChannelToSelectionEvent(SetEvent srcEvent, int index) : 
+      base(srcEvent)
     {
-      _direction = direction;
+      _index = index;
     }
-    
+
     public override string EventForDisplay
     {
-      get {return base.EventForDisplay + " current layer";}
+      get {return base.EventForDisplay + " channel " + _index;}
     }
 
     protected override IEnumerable ListParameters()
     {
-      yield return "To: " + Abbreviations.Get(_direction) + " layer";
+      yield return "To: Selection";
     }
 
     override public bool Execute()
     {
-      switch (_direction)
-	{
-	case "Bckw":
-	  SelectedLayer.Lower();
-	  break;
-	case "Frwr":
-	  SelectedLayer.Raise();
-	  break;
-	case "Prvs":
-	  // TODO: What's the difference with this and "Bckw"?
-	  SelectedLayer.Lower();
-	  break;
-	default:
-	  Console.WriteLine("MoveLayerEvents: " + _direction);
-	  break;
-	}
+      Channel channel = ActiveImage.Channels[_index];
+      ActiveImage.Selection.Load(channel);
       return true;
     }
   }
