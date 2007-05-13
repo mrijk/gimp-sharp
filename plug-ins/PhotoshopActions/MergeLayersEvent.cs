@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // MergeLayersEvent.cs
 //
@@ -26,13 +26,8 @@ namespace Gimp.PhotoshopActions
   {
     override public bool Execute()
     {
-      if (ActiveImage == null)
-	{
-	  Console.WriteLine("Please open image first");
-	  return false;
-	}
-
-      ActiveImage.MergeVisibleLayers(MergeType.ExpandAsNecessary);
+      SelectedLayer = 
+	ActiveImage.MergeVisibleLayers(MergeType.ExpandAsNecessary);
       return true;
     }
   }

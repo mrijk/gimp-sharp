@@ -30,30 +30,27 @@ namespace Gimp.PhotoshopActions
     [Parameter("Dtl")]
     int _detail;
     [Parameter("Drkn")]
-    int _darken;
-
-    public override bool IsExecutable
-    {
-      get {return false;}
-    }
+    int _darkness;
 
     protected override IEnumerable ListParameters()
     {
       if (_gefk != null)
 	{
-	  yield return "Effect: " + _gefk.Value;
+	  yield return "Effect: " + Abbreviations.Get(_gefk.Value);
 	}
       yield return "Detail: " + _detail;
-      yield return "Darken: " + _darken;
+      yield return "Darkness: " + _darkness;
     }
 
     override public bool Execute()
     {
-      if (ActiveImage == null)
-	{
-	  Console.WriteLine("Please open image first");
-	  return false;
-	}
+      // TODO: fine-tune these parameters
+      double maskRadius = 8.5;
+      double sharpness = _detail / 24.0;
+      double pctBlack = 0;
+      double pctWhite = (50.0 - _darkness) / 50.0;
+      RunProcedure("plug_in_photocopy", maskRadius, sharpness, pctBlack,
+		   pctWhite);
       return true;
     }
   }

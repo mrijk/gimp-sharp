@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006-2007 Maurits Rijk
 //
-// DuplicateDocumentEvent.cs
+// CopyEffectsEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,39 +23,16 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class DuplicateDocumentEvent : DuplicateEvent
+  public class CopyEffectsEvent : ActionEvent
   {
-    [Parameter("Nm")]
-    string _name;
-
-    readonly string _which;
-
-    public DuplicateDocumentEvent(DuplicateEvent srcEvent, string which) : 
-      base(srcEvent) 
+    public override bool IsExecutable
     {
-      _which = which;
-      Parameters.Fill(this);
+      get {return false;}
     }
 
-    public override string EventForDisplay
-    {
-      get {return base.EventForDisplay + " " + Abbreviations.Get(_which) + 
-	     " document";}
-    }
-
-    protected override IEnumerable ListParameters()
-    {
-      yield return "Name: \"" + _name + "\"";
-    }
-    
     override public bool Execute()
     {
-      ActiveImage = new Image(ActiveImage);
-      new Display(ActiveImage);
-
-      // Fix me: fill in name into image.
-
-      return true;
+      return false;
     }
   }
 }

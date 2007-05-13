@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // AddNoiseEvent.cs
 //
@@ -27,26 +27,20 @@ namespace Gimp.PhotoshopActions
   {
     [Parameter("Dstr")]
     EnumParameter _distribution;
-    [Parameter("Amnt")]
+    [Parameter("Nose")]
     double _amount;
     [Parameter("Mnch")]
     bool _monochrome;
 
     protected override IEnumerable ListParameters()
     {
-      yield return "Amount: " + _amount;
       yield return "Distribution: " + Abbreviations.Get(_distribution.Value);
-      yield return (_monochrome ? "With:" : "Without") + " Monochrome";
+      yield return "Percent: " + _amount;
+      yield return Format(_monochrome, Abbreviations.Get("Mnch"));
     }
 
     override public bool Execute()
     {
-      if (ActiveImage == null)
-	{
-	  Console.WriteLine("Please open image first");
-	  return false;
-	}
-
       double noise = _amount / 100;
       RunProcedure("plug_in_rgb_noise", !_monochrome, 0, noise, noise, noise, 
 		   1.0);

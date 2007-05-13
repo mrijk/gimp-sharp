@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // SetLayerPropertyEvent.cs
 //
@@ -44,6 +44,9 @@ namespace Gimp.PhotoshopActions
 	{
 	  switch (parameter.Name)
 	    {
+	    case "Lefx":
+	      yield return "Scale: ";
+	      break;
 	    case "Md":
 	      string mode = (parameter as EnumParameter).Value;
 	      yield return "Mode: " + Abbreviations.Get(mode);

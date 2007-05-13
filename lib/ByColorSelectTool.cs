@@ -1,7 +1,7 @@
 // GIMP# - A C# wrapper around the GIMP Library
 // Copyright (C) 2004-2007 Maurits Rijk
 //
-// RectangleSelectTool.cs
+// ByColorSelectTool.cs
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -24,33 +24,36 @@ using System.Runtime.InteropServices;
 
 namespace Gimp
 {
-  public sealed class RectangleSelectTool
+  public sealed class ByColorSelectTool
   {
-    readonly Int32 _imageID;
+    readonly Int32 _drawableID;
 
-    public RectangleSelectTool(Image image)
+    public ByColorSelectTool(Drawable drawable)
     {
-      _imageID = image.ID;
+      _drawableID = drawable.ID;
     }
 
-    public void Select(double x, double y, double width, double height,
-		       ChannelOps operation, bool feather, 
-		       double featherRadius)
+    public void Select(RGB color, int threshold, ChannelOps operation, 
+		       bool antialias, bool feather, double featherRadius,
+		       bool sampleMerged)
     {
-      if (!gimp_rect_select(_imageID, x, y, width, height, operation,
-			    feather, featherRadius))
+      GimpRGB rgb = color.GimpRGB;
+      if (!gimp_by_color_select(_drawableID, ref rgb, threshold, operation, 
+				antialias, feather, featherRadius, 
+				sampleMerged))
 	{
 	  throw new GimpSharpException();
 	}
     }
+
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_rect_select(Int32 image_ID,
-					double x,
-					double y,
-					double width,
-					double height,
-					ChannelOps operation,
-					bool feather,
-					double feather_radius);
+    static extern bool gimp_by_color_select(Int32 drawable_ID,
+					    ref GimpRGB color,
+					    int threshold,
+					    ChannelOps operation,
+					    bool antialias,
+					    bool feather,
+					    double feather_radius,
+					    bool sample_merged);
   }
 }

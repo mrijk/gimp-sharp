@@ -50,6 +50,11 @@ namespace Gimp.PhotoshopActions
 	{
 	  string type = (_type as TypeParameter).Value;
 	  yield return "To: " + Abbreviations.Get(type);
+	} 
+      else if (_type is ObjcParameter)
+	{
+	  ObjcParameter objc = _type as ObjcParameter;
+	  yield return "To: " + Abbreviations.Get(objc.ClassID2);
 	}
     }
 

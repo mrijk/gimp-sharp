@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // ColorRangeEvent.cs
 //
@@ -25,8 +25,14 @@ namespace Gimp.PhotoshopActions
 {
   public class ColorRangeEvent : ActionEvent
   {
+    [Parameter("Fzns")]
+    int _fuzziness;
     [Parameter("Clrs")]
     EnumParameter _colors;
+    [Parameter("Mnm")]
+    ObjcParameter _minimum;
+    [Parameter("Mxm")]
+    ObjcParameter _maximum;
 
     public override bool IsExecutable
     {
@@ -35,14 +41,17 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
+      yield return "Fuzziness: " + _fuzziness;
       if (_colors != null)
 	{
-	  yield return "Colors: " + Abbreviations.Get(_colors.Value);
+	  yield return Format(_colors, "Colors");
 	}
     }
 
     override public bool Execute()
     {
+      // TODO: this event selects a color range. We can select a single color
+      // with the ByColorSelectTool
       return false;
     }
   }

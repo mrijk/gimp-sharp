@@ -25,7 +25,7 @@ namespace Gimp.PhotoshopActions
 {
   public class DuplicateChannelEvent : ActionEvent
   {
-    string _name;
+    readonly string _name;
 
     public DuplicateChannelEvent(ActionEvent srcEvent, string name) : 
       base(srcEvent) 

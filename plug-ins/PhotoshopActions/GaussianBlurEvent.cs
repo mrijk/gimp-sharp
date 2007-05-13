@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // GaussianBlurEvent.cs
 //
@@ -30,7 +30,7 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
-      yield return "Radius: " + _radius;
+      yield return String.Format("Radius: {0:F3}", _radius);
     }
 
     override public bool Execute()

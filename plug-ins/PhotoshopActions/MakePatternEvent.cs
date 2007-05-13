@@ -33,11 +33,6 @@ namespace Gimp.PhotoshopActions
       Parameters.Fill(this);
     }
 
-    public override bool IsExecutable
-    {
-      get {return false;}
-    }
-
     public override string EventForDisplay
     {
       get {return base.EventForDisplay + " Pattern";}
@@ -52,6 +47,37 @@ namespace Gimp.PhotoshopActions
     {
       // Look for script-fu-selection-to-pattern as example. The basic idea
       // is to create a new image and save it as a .pat file 
+
+      Selection selection = ActiveImage.Selection;
+      bool nonEmpty;
+      Rectangle bounds = selection.Bounds(out nonEmpty);
+      int width = bounds.Width;
+      int height = bounds.Height;
+
+      Image image = new Image(width, height, ActiveImage.BaseType);
+      Layer layer = new Layer(image, "test", width, height,
+			      ImageType.Rgb, 100, 
+			      LayerModeEffects.Normal);
+      image.AddLayer(layer, 0);
+      Console.WriteLine("{0} {1}", image.Width, image.Height);
+
+      ActiveDrawable.EditCopy();
+      layer.EditPaste(true);
+
+      string filename = Gimp.Directory + System.IO.Path.DirectorySeparatorChar 
+	+ "patterns" + System.IO.Path.DirectorySeparatorChar + 
+	_name + ".pat";
+
+      image.Save(RunMode.Noninteractive, filename, filename);
+   
+      // Fix me: next lines should work so we can actually set the name
+      // of the pattern!
+      // Procedure procedure = new Procedure("file_pat_save");
+      // procedure.Run(image, layer, filename, filename, _name);
+
+      image.Delete();
+      PatternList.Refresh();
+
       return false;
     }
   }

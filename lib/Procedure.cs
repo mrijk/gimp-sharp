@@ -181,8 +181,14 @@ namespace Gimp
 		      _params[i].data.d_float = (double) obj;
 		    }
 		  break;
+		case PDBArgType.String:
+		  _params[i].type = PDBArgType.String;
+		  _params[i].data.d_string = 
+		    Marshal.StringToHGlobalAuto(obj as string);
+		  break;
 		default:
-		  Console.WriteLine("Implement this!");
+		  Console.WriteLine("Procedure: Implement this: " +
+				    paramDef[i].type);
 		  break;
 		}
 	      i++;

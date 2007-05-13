@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // DoubleParameter.cs
 //
@@ -57,6 +57,26 @@ namespace Gimp.PhotoshopActions
     {
       field.SetValue(obj, _value);
       // TODO: also fill the units!?
+    }
+
+    public override string Format()
+    {
+      return String.Format("{0}: {1:F3}{2}", Abbreviations.Get(Name), _value,
+			   UnitString);
+    }
+
+    string UnitString
+    {
+      get
+	{
+	  switch (_units)
+	    {
+	    case "#Prc":
+	      return "%";
+	    default:
+	      return "";
+	    }
+	}
     }
 
     public double GetPixels(double x)

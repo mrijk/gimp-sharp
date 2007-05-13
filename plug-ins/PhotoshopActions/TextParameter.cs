@@ -41,5 +41,10 @@ namespace Gimp.PhotoshopActions
     {
       field.SetValue(obj, _value);
     }
+
+    public override string Format()
+    {
+      return String.Format("{0}: {1}", Abbreviations.Get(Name), _value);
+    }
   }
 }

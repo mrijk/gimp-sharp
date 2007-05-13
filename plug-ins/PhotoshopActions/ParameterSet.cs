@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // ParameterSet.cs
 //
@@ -21,6 +21,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Reflection;
 
 namespace Gimp.PhotoshopActions
@@ -63,6 +64,14 @@ namespace Gimp.PhotoshopActions
     {
       Parse(parser, numberOfItems);
       Fill(obj);
+    }
+
+    public IEnumerable ListParameters()
+    {
+      foreach (Parameter child in _set.Values)
+	{
+	  yield return child.Format();
+	}
     }
 
     public void Fill(Object obj)

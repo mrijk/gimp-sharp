@@ -41,6 +41,7 @@ MYSOURCES = 				\
 	ColorRangeEvent.cs		\
 	ContractEvent.cs		\
 	ConvertModeEvent.cs		\
+	CopyEffectsEvent.cs		\
 	CopyEvent.cs			\
 	CopyMergedEvent.cs		\
 	CopyToLayerEvent.cs		\
@@ -149,6 +150,7 @@ MYSOURCES = 				\
 	Parameter.cs			\
 	ParameterAttribute.cs		\
 	ParameterSet.cs			\
+	PasteEffectsEvent.cs		\
 	PasteEvent.cs			\
 	PathParameter.cs		\
 	PhotocopyEvent.cs		\
@@ -176,6 +178,7 @@ MYSOURCES = 				\
 	RotateEvent.cs			\
 	ResetEvent.cs			\
 	SaveEvent.cs			\
+	ScaleEffectsEvent.cs		\
 	SelectAllEvent.cs		\
 	SelectAllLayersEvent.cs		\
 	SelectDocumentEvent.cs		\

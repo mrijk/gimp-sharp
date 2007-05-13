@@ -1,4 +1,41 @@
 2007-05-13  Maurits  <m.rijk@chello.nl>
+	
+	* lib/Procedure.cs: handle strings as parameters
+
+	* plug-ins/PhotoshopActions/MakePatternEvent.cs: implemented
+
+	* plug-ins/PhotoshopActions/PhotocopyEvent.cs: implemented
+
+	* plug-ins/PhotoshopActions/GaussianBlurEvent.cs: nice format
+
+	* plug-ins/PhotoshopActions/AddTextLayerEvent.cs: added comment
+
+	* plug-ins/PhotoshopActions/CopyEffectsEvent.cs
+	* plug-ins/PhotoshopActions/PasteEffectsEvent.cs
+	* plug-ins/PhotoshopActions/ScaleEffectsEvent.cs: new files
+	
+	* plug-ins/PhotoshopActions/EventMap.cs
+	* plug-ins/PhotoshopActions/Makefile.am: changed accordingly
+
+	* lib/ByColorSelectTool.cs: new files
+	* lib/Makefile.am: changed accordingly
+
+	* lib/RectangleSelectTool.cs: made _imageID readonly
+
+	* plug-ins/PhotoshopActions/Abbreviations.cs: more abbreviations
+
+	* plug-ins/PhotoshopActions/SetLayerPropertyEvent.cs
+	* plug-ins/PhotoshopActions/AddNoiseEvent.cs
+	* plug-ins/PhotoshopActions/ColorRangeEvent.cs
+	* plug-ins/PhotoshopActions/PasteEvent.cs
+	* plug-ins/PhotoshopActions/CloseEvent.cs
+	* plug-ins/PhotoshopActions/ConvertModeEvent.cs
+	* plug-ins/PhotoshopActions/HideLayerEvent.cs
+	* plug-ins/PhotoshopActions/HueSaturationEvent.cs
+	* plug-ins/PhotoshopActions/DuplicateDocumentEvent.cs
+	* plug-ins/PhotoshopActions/DuplicateEvent.cs: more verbosity
+
+2007-05-13  Maurits  <m.rijk@chello.nl>
 
 	* lib/Selection.cs: removed warning
 

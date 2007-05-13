@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // ObjcParameter.cs
 //
@@ -19,6 +19,7 @@
 //
 
 using System;
+using System.Collections;
 using System.Reflection;
 
 namespace Gimp.PhotoshopActions
@@ -75,6 +76,14 @@ namespace Gimp.PhotoshopActions
     public override void Fill(Object obj, FieldInfo field)
     {
       field.SetValue(obj, this);
+    }
+
+    public IEnumerable ListParameters()
+    {
+      foreach (Parameter child in _children)
+	{
+	  yield return child.Format();
+	}
     }
 
     public RGB GetColor()

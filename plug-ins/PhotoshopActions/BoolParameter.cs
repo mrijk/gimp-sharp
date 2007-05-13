@@ -42,6 +42,13 @@ namespace Gimp.PhotoshopActions
       field.SetValue(obj, _value);
     }
 
+    public override string Format()
+    {
+      return String.Format("{0} {1}",
+			   (_value) ? "With" : "Without",
+			   Abbreviations.Get(Name));
+    }
+
     public string Format(string s)
     {
       return ((_value) ? "With " : "Without ") + s;

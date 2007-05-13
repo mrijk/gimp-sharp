@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // MergeVisibleEvent.cs
 //
@@ -33,7 +33,7 @@ namespace Gimp.PhotoshopActions
 	}
 
       // TODO: check this!
-      ActiveImage.MergeVisibleLayers(MergeType.FlattenImage);
+      SelectedLayer = ActiveImage.MergeVisibleLayers(MergeType.FlattenImage);
       return true;
     }
   }

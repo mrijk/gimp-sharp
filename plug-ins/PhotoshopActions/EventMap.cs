@@ -55,6 +55,7 @@ namespace Gimp.PhotoshopActions
       _map["colorRange"] = _map["ClrR"] = "ColorRangeEvent";
       _map["contract"] = _map["Cntc"] = "ContractEvent";
       _map["convertMode"] = _map["CnvM"] = "ConvertModeEvent";
+      _map["copyEffects"] = "CopyEffectsEvent";
       _map["copyEvent"] = _map["copy"] = "CopyEvent";
       _map["copyMerged"] = "CopyMergedEvent";
       _map["copyToLayer"] = _map["CpTL"] = "CopyToLayerEvent";
@@ -126,6 +127,7 @@ namespace Gimp.PhotoshopActions
       _map["open"] = "OpenEvent";
       _map["paintDaubs"] = "PaintDaubsEvent";
       _map["paste"] = _map["past"] = "PasteEvent";
+      _map["pasteEffects"] = "PasteEffectsEvent";
       _map["photocopy"] = "PhotocopyEvent";
       _map["pinch"] = "PinchEvent";
       _map["plaster"] = "PlasterEvent";
@@ -145,6 +147,7 @@ namespace Gimp.PhotoshopActions
       _map["ripple"] = "RippleEvent";
       _map["rotateEventEnum"] = _map["Rtte"] = "RotateEvent";
       _map["save"] = "SaveEvent";
+      _map["scaleEffectsEvent"] = "ScaleEffectsEvent";
       _map["select"] = _map["slct"] = "SelectEvent";
       _map["selectAllLayers"] = "SelectAllLayersEvent";
       _map["set"] = _map["setd"] = "SetEvent";

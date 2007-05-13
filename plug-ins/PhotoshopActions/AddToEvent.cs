@@ -35,20 +35,27 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
-      if (_objc.ClassID2 == "Sngr")
+      return _objc.ListParameters();
+      /*
+      switch (_objc.ClassID2)
 	{
+	case "Rctn":
+	  DoubleParameter tmp = _objc.Parameters["Top"] as DoubleParameter;
+	  yield return String.Format("Top: {0:F3}", tmp.Value);
+	  break;
+	case "Sngr":
 	  yield return "From: single row";
 	  DoubleParameter top = _objc.Parameters["Top"] as DoubleParameter;
 	  if (top != null)
 	    {
 	      yield return "Top: " + top.Value;
 	    }
-	}
-      else
-	{
+	  break;
+	default:
 	  Console.WriteLine("AddToEvent: unknown classID2: " + _objc.ClassID2);
-	  yield break;
+	  break;
 	}
+      */
     }
 
     override public bool Execute()

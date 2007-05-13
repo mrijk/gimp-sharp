@@ -10,6 +10,7 @@ MYSOURCES = 				\
 	AssemblyInfo.cs			\
 	Brush.cs			\
 	BrushList.cs			\
+	ByColorSelectTool.cs		\
 	Channel.cs 			\
 	ChannelList.cs 			\
 	Context.cs			\

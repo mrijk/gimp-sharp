@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // LevelsEvent.cs
 //
@@ -36,6 +36,10 @@ namespace Gimp.PhotoshopActions
 	  if (objc.Contains("Gmm"))
 	    {
 	      yield return "Gamma: " + objc.GetValueAsDouble("Gmm");
+	    }
+	  if (objc.Contains("Chnl"))
+	    {
+	      yield return "Channel: ";	// Fix me!
 	    }
 	}
     }

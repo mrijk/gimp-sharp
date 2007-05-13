@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // CloseEvent.cs
 //
@@ -19,6 +19,7 @@
 //
 
 using System;
+using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
@@ -26,6 +27,14 @@ namespace Gimp.PhotoshopActions
   {
     [Parameter("Svng")]
     EnumParameter _saving;
+
+    protected override IEnumerable ListParameters()
+    {
+      if (_saving != null)
+	{
+	  yield return Format(_saving, "Saving");
+	}
+    }
 
     override public bool Execute()
     {

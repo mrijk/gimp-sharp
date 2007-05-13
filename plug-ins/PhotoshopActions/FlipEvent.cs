@@ -40,6 +40,7 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
+#if false
       Image image = ActiveImage;
 
       if (_axis.Value == "Hrzn")
@@ -50,7 +51,22 @@ namespace Gimp.PhotoshopActions
 	{
 	  image.Flip(OrientationType.Vertical);
 	}
+#else	// We need to flip the drawable, not the whole image!
 
+
+      Drawable drawable = ActiveImage.ActiveDrawable;
+
+      if (_axis.Value == "Hrzn")
+	{
+	  drawable.TransformFlipSimple(OrientationType.Horizontal, true,
+				       0.0, false);
+	}
+      else
+	{
+	  drawable.TransformFlipSimple(OrientationType.Vertical, true,
+				       0.0, false);
+	}      
+#endif
       return true;
     }
   }

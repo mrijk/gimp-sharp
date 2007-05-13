@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // HueSaturationEvent.cs
 //
@@ -34,7 +34,7 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
-      yield return _colorization ? "With" : "Without" + " Colorize";
+      yield return Format(_colorization, Abbreviations.Get("Clrz"));
       yield return "Hue: " + _hue;
       yield return "Saturation: " + _saturation;
       yield return "Lightness: " + _lightness;

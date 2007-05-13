@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // RasterizeTypeLayerEvent.cs
 //
@@ -30,8 +30,14 @@ namespace Gimp.PhotoshopActions
       get {return false;}
     }
 
+    public override string EventForDisplay
+    {
+      get {return "Rasterize Type Layer";}
+    }
+
     override public bool Execute()
     {
+      // Turn text into normal layer
       return false;
     }
   }

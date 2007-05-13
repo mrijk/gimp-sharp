@@ -33,11 +33,6 @@ namespace Gimp.PhotoshopActions
       _type = type;
     }
 
-    public override bool IsExecutable
-    {
-      get {return false;}
-    }
-
     protected override IEnumerable ListParameters()
     {
       yield return "To: " + Abbreviations.Get(_type) + " channel";
@@ -45,6 +40,7 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
+      ActiveImage.Selection.LayerAlpha(SelectedLayer);
       return false;
     }
   }

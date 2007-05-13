@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // CloudsEvent.cs
 //
@@ -24,7 +24,7 @@ namespace Gimp.PhotoshopActions
   {
     override public bool Execute()
     {
-      RunProcedure("plug_in_plasma", 0, 15.0);
+      RunProcedure("plug_in_plasma", 0, 1.0);
       ActiveDrawable.Desaturate();
 
       return true;

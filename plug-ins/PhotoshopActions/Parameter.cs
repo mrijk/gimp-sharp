@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // Parameter.cs
 //
@@ -35,5 +35,6 @@ namespace Gimp.PhotoshopActions
 
     public abstract void Parse(ActionParser parser);
     public virtual void Fill(Object obj, FieldInfo field) {}
+    public virtual string Format() {return "fix me!";}
   }
 }

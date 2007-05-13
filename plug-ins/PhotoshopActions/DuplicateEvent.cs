@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // DuplicateEvent.cs
 //
@@ -58,7 +58,7 @@ namespace Gimp.PhotoshopActions
 		case "Chnl":
 		  return new DuplicateChannelEvent(this, type.Value);
 		case "Dcmn":
-		  return new DuplicateDocumentEvent(this);
+		  return new DuplicateDocumentEvent(this, type.Value);
 		case "Lyr":
 		  return new DuplicateLayerEvent(this);
 		default:

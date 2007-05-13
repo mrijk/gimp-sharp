@@ -34,6 +34,7 @@ namespace Gimp.PhotoshopActions
     {
       yield return "Message: " + _message;
       yield return Format(_continue, "Continue");
+      // return Parameters.ListParameters();
     }
 
     override public bool Execute()

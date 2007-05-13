@@ -182,6 +182,7 @@ namespace Gimp.PhotoshopActions
     protected virtual IEnumerable ListParameters()
     {
       yield break;
+      // return Parameters.ListParameters();
     }
 
     public virtual ActionEvent Parse(ActionParser parser)
