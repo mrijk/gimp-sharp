@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006-2007 Maurits Rijk
 //
-// SelectPolygonEvent.cs
+// SelectionFromChannelEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,14 +23,14 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class SelectPolygonEvent : SelectionEvent
+  public class SelectionFromChannelEvent : SelectionEvent
   {
-    readonly ObjcParameter _objc;
+    readonly string _type;
 
-    public SelectPolygonEvent(SelectionEvent srcEvent, ObjcParameter objc) : 
+    public SelectionFromChannelEvent(SelectionEvent srcEvent, string type) :
       base(srcEvent)
     {
-      _objc = objc;
+      _type = type;
     }
 
     public override bool IsExecutable
@@ -40,15 +40,12 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
-      yield return "To: polygon";
+      yield return "To: " + Abbreviations.Get(_type) + " channel";
     }
 
     override public bool Execute()
     {
-      FreeSelectTool tool = new FreeSelectTool(ActiveImage);
-
-
-      return true;
+      return false;
     }
   }
 }

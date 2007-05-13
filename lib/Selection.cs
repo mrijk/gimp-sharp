@@ -27,11 +27,7 @@ namespace Gimp
   public sealed class Selection : Channel
   {
     readonly Int32 _imageID;
-    /*
-    public Selection(Image image) : this(image.ID)
-    {
-    }
-    */
+
     internal Selection(Int32 imageID, Int32 selectionID) : base(selectionID)
     {
       _imageID = imageID;
@@ -193,8 +189,6 @@ namespace Gimp
     extern static bool gimp_selection_all (Int32 image_ID);
     [DllImport("libgimp-2.0-0.dll")]
     extern static bool gimp_selection_none (Int32 image_ID);
-    [DllImport("libgimp-2.0-0.dll")]
-    extern static bool gimp_selection_clear (Int32 image_ID);
     [DllImport("libgimp-2.0-0.dll")]
     extern static bool gimp_selection_is_empty (Int32 image_ID);
     [DllImport("libgimp-2.0-0.dll")]

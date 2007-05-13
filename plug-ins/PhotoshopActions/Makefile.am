@@ -53,6 +53,7 @@ MYSOURCES = 				\
 	CutToLayerEvent.cs		\
 	DarkStrokesEvent.cs		\
 	DebugOutput.cs			\
+	DefinePatternEvent.cs		\
 	DeleteChannelEvent.cs		\
 	DeleteEvent.cs			\
 	DeleteGuideEvent.cs		\
@@ -181,6 +182,7 @@ MYSOURCES = 				\
 	SelectEllipseEvent.cs		\
 	SelectEvent.cs			\
 	SelectionEvent.cs		\
+	SelectionFromChannelEvent.cs	\
 	SelectChannelByIndexEvent.cs	\
 	SelectChannelByNameEvent.cs	\
 	SelectChannelEvent.cs		\

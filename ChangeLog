@@ -1,3 +1,20 @@
+2007-05-13  Maurits  <m.rijk@chello.nl>
+
+	* lib/Selection.cs: removed warning
+
+	* plug-ins/PhotoshopActions/Abbreviations.cs: more abbreviations
+
+	* plug-ins/PhotoshopActions/ActionEvent.cs: convenience routine
+	for formatting
+
+	* plug-ins/PhotoshopActions/FlipEvent.cs: make more verbose
+
+	* plug-ins/PhotoshopActions/SelectionFromChannelEvent.cs
+	* plug-ins/PhotoshopActions/DefinePatternEvent.cs: new files
+
+	* plug-ins/PhotoshopActions/EventMap.cs
+	* plug-ins/PhotoshopActions/Makefile.am: changed accordingly
+
 2007-05-12  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/PhotoshopActions/ConvertModeEvent.cs: use abbreviations

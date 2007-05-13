@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // FlipEvent.cs
 //
@@ -19,6 +19,7 @@
 //
 
 using System;
+using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
@@ -27,15 +28,19 @@ namespace Gimp.PhotoshopActions
     [Parameter("Axis")]
     EnumParameter _axis;
 
+    public override string EventForDisplay
+    {
+      get {return base.EventForDisplay + " current layer";}
+    }
+
+    protected override IEnumerable ListParameters()
+    {
+      yield return Format(_axis, "Axis");
+    }
+
     override public bool Execute()
     {
       Image image = ActiveImage;
-
-      if (image == null)
-	{
-	  Console.WriteLine("Please open image first");
-	  return false;
-	}
 
       if (_axis.Value == "Hrzn")
 	{

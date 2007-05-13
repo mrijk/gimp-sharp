@@ -55,18 +55,18 @@ namespace Gimp.PhotoshopActions
 
       yield return "Tolerance: " + _tolerance;
 
-      yield return ((_antiAlias) ? "With" : "Without") + " Anti-alias";
+      yield return Format(_antiAlias, "Anti-alias");
 
       if (_using != null)
 	{
-	  yield return "Using: " + Abbreviations.Get(_using.Value);
+	  yield return Format(_using, "Using");
 	}
 
       yield return "Opacity: " + _opacity + " %";
 
       if (_mode != null)
 	{
-	  yield return "Mode: " + Abbreviations.Get(_mode.Value);
+	  yield return Format(_mode, "Mode");
 	}
     }
 

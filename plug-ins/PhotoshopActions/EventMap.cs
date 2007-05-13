@@ -66,6 +66,7 @@ namespace Gimp.PhotoshopActions
       _map["cutout"] = "CutoutEvent";
       _map["cutToLayer"] = _map["CtTL"] = "CutToLayerEvent";
       _map["darkStrokes"] = "DarkStrokesEvent";
+      _map["definePattern"] = _map["DfnP"] = "DefinePatternEvent";
       _map["delete"] = _map["Dlt"] = "DeleteEvent";
       _map["desaturate"] = _map["Dstt"] = "DesaturateEvent";
       _map["despeckle"] = "DespeckleEvent";

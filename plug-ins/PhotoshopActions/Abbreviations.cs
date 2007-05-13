@@ -33,6 +33,8 @@ namespace Gimp.PhotoshopActions
       _map["AdBt"] = "bottom edges";
       _map["AdCH"] = "horizontal centers";
       _map["AdCV"] = "vertical centers";
+      _map["AdLf"] = "left edges";
+      _map["AdTp"] = "top edges";
       _map["BckC"] = "background color";
       _map["Bckg"] = "background";
       _map["Blck"] = "black";
@@ -54,6 +56,7 @@ namespace Gimp.PhotoshopActions
       _map["Grys"] = "grayscale mode";
       _map["Gsn"]  = "gaussian";
       _map["HrdL"] = "hard light";
+      _map["Hrzn"] = "horizontal";
       _map["HrzO"] = "Horizontal Only";
       _map["Insd"] = "inside";
       _map["Invr"] = "Invert Source";
@@ -73,6 +76,7 @@ namespace Gimp.PhotoshopActions
       _map["PntD"] = "paint daubs";
       _map["Prvs"] = "previous";
       _map["PrsT"] = "Preserve Transparency";
+      _map["Ptrn"] = "pattern";
       _map["Pyrm"] = "pyramids";
       _map["Rndm"] = "random";
       _map["RctP"] = "Rectangular to Polar";
@@ -88,7 +92,9 @@ namespace Gimp.PhotoshopActions
       _map["Shdw"] = "shadow";
       _map["Sml"]  = "small";
       _map["Trns"] = "transparent";
+      _map["Trsp"] = "transparency";
       _map["Unfr"] = "uniform";
+      _map["Vrtc"] = "vertical";
       _map["Wht"]  = "white";
       _map["Wrp"]  = "wrap";
       _map["WrpA"] = "wrap around";

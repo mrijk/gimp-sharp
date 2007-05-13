@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // TransformSelectionEvent.cs
 //
@@ -25,11 +25,6 @@ namespace Gimp.PhotoshopActions
 {
   public class TransformSelectionEvent : TransformEvent
   {
-    public override bool IsExecutable
-    {
-      get {return false;}
-    }
-
     public TransformSelectionEvent(TransformEvent srcEvent) : base(srcEvent)
     {
     }
@@ -58,6 +53,30 @@ namespace Gimp.PhotoshopActions
 	{
 	  yield return "Height: " + height.Value;
 	}
+    }
+
+    override public bool Execute()
+    {
+      DoubleParameter width = Parameters["Wdth"] as DoubleParameter;
+      double widthPercentage = (width == null) ? 100 : width.Value;
+
+      DoubleParameter height = Parameters["Hght"] as DoubleParameter;
+      double heightPercentage = (height == null) ? 100 : height.Value;
+
+      bool nonEmpty;
+      Rectangle bounds = ActiveImage.Selection.Bounds(out nonEmpty);
+      double newWidth = bounds.Width * widthPercentage / 100;
+      double newHeight = bounds.Height * heightPercentage / 100;
+
+      // TODO: always rescale from the center
+      double x = bounds.X1 + (bounds.Width - newWidth) / 2;
+      double y = bounds.Y1 + (bounds.Height - newHeight) / 2;
+
+      // TODO: for now assume that the selection is always rectangular
+      RectangleSelectTool tool = new RectangleSelectTool(ActiveImage);
+      tool.Select(x, y, newWidth, newHeight, ChannelOps.Replace, false, 0);
+
+      return true;
     }
   }
 }

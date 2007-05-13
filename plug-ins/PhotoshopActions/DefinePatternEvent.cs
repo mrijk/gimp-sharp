@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006-2007 Maurits Rijk
 //
-// SelectPolygonEvent.cs
+// DefinePatternEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,32 +23,17 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class SelectPolygonEvent : SelectionEvent
+  public class DefinePatternEvent : ActionEvent
   {
-    readonly ObjcParameter _objc;
-
-    public SelectPolygonEvent(SelectionEvent srcEvent, ObjcParameter objc) : 
-      base(srcEvent)
-    {
-      _objc = objc;
-    }
-
     public override bool IsExecutable
     {
       get {return false;}
     }
 
-    protected override IEnumerable ListParameters()
-    {
-      yield return "To: polygon";
-    }
-
     override public bool Execute()
     {
-      FreeSelectTool tool = new FreeSelectTool(ActiveImage);
-
-
-      return true;
+      // TODO: create a pattern from the current selection?
+      return false;
     }
   }
 }

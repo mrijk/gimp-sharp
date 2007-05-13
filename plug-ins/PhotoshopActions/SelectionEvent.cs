@@ -87,12 +87,24 @@ namespace Gimp.PhotoshopActions
       else if (_parameter is ReferenceParameter)
 	{
 	  ReferenceParameter enmr = _parameter as ReferenceParameter;
-	  /*
-	  if (enmr.Key == "Chnl")
+
+	  if (enmr.Set[0] is EnmrType)
 	    {
+	      EnmrType type = enmr.Set[0] as EnmrType;
+	      switch (type.Key)
+		{
+		case "Chnl":
+		  return new SelectionFromChannelEvent(this, type.Value);
+		  break;
+		default:
+		  Console.WriteLine("SelectionEvent-3: " + type.Key);
+		  break;
+		}
 	    }
-	  */
-	  Console.WriteLine("SelectionEvent-3: implement this");
+	  else
+	    {
+	      Console.WriteLine("SelectionEvent-4: " + enmr.Set[0]);
+	    }
 	}
       else
 	{

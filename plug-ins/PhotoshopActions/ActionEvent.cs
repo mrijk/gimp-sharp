@@ -21,6 +21,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 using Gtk;
 
@@ -151,9 +152,15 @@ namespace Gimp.PhotoshopActions
       set {_eventForDisplay = value;}
     }
 
-    public string Format(bool value, string s)
+    protected string Format(bool value, string s)
     {
       return ((value) ? "With " : "Without ") + s;
+    }
+
+    protected string Format(EnumParameter parameter, string s)
+    {
+      Debug.Assert(parameter != null);
+      return s + ": " + Abbreviations.Get(parameter.Value);
     }
 
     public int NumberOfItems
