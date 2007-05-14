@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // ObArParameter.cs
 //
@@ -28,9 +28,17 @@ namespace Gimp.PhotoshopActions
     string _classID;
     string _classID2;
 
+    // Fix me: this is only working for point arrays!!!!
+    CoordinateList<double> _value = new CoordinateList<double>();
+
     public string ClassID2
     {
       get {return _classID2;}
+    }
+
+    public CoordinateList<double> Value
+    {
+      get {return _value;}
     }
 
     public override void Parse(ActionParser parser)
@@ -74,7 +82,19 @@ namespace Gimp.PhotoshopActions
 	    case "UnFl":
 	      for (int j = 0; j < numberOfItems; j++)
 		{
-		  parser.ReadDouble();
+		  double val = parser.ReadDouble();
+
+		  Coordinate<double> c;
+		  if (i == 0)
+		    {
+		      c = new Coordinate<double>();
+		      _value.Add(c);
+		      c.X = val;
+		    }
+		  else
+		    {
+		      _value[j].Y = val;
+		    }
 		}
 	      break;
 	    default:

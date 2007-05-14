@@ -88,15 +88,17 @@ namespace Gimp.PhotoshopActions
 	case "FrgC":
 	  fillType = FillType.Foreground;
 	  break;
+	case "Ptrn":
+	  fillType = FillType.Pattern;
+	  break;
 	case "Wht":
 	  Context.Foreground = new RGB(255, 255, 255);
 	  fillType = FillType.Foreground;
 	  break;
 	default:
-	  fillType = FillType.Foreground;
 	  Console.WriteLine("FillEvent: with {0} not supported!", 
 			    _using.Value);
-	  break;
+	  return false;
 	}
 
       Drawable drawable = ActiveImage.ActiveDrawable;

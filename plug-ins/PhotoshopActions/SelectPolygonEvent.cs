@@ -33,20 +33,25 @@ namespace Gimp.PhotoshopActions
       _objc = objc;
     }
 
-    public override bool IsExecutable
-    {
-      get {return false;}
-    }
-
     protected override IEnumerable ListParameters()
     {
       yield return "To: polygon";
+      ObArParameter array = _objc.Parameters["Pts"] as ObArParameter;
+
+      yield return "Points: point list";
+      foreach (Coordinate<double> c in array.Value)
+	{
+	  yield return String.Format("Point: {0} pixels, {1} pixels", 
+				     c.X, c.Y);
+	}
     }
 
     override public bool Execute()
     {
       FreeSelectTool tool = new FreeSelectTool(ActiveImage);
 
+      ObArParameter array = _objc.Parameters["Pts"] as ObArParameter;
+      tool.Select(array.Value, ChannelOps.Replace);
 
       return true;
     }

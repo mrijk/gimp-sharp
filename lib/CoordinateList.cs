@@ -49,6 +49,12 @@ namespace Gimp
       _list.Add(new Coordinate<T>(x, y));
     }
 
+    public Coordinate<T> this[int index]
+    {
+      get {return _list[index];}
+      set {_list[index] = value;}
+    }
+
     public override bool Equals(object o)
     {
       if (o is CoordinateList<T>)

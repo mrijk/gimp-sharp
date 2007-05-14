@@ -1,3 +1,15 @@
+2007-05-14  Maurits  <m.rijk@chello.nl>
+
+	* lib/CoordinateList.cs: added this[] method
+
+	* plug-ins/PhotoshopActions/ObArParameter.cs: read and store
+	coordinates 
+
+	* plug-ins/PhotoshopActions/DefinePatternEvent.cs: implemented
+
+	* plug-ins/PhotoshopActions/FillEvent.cs: support for filling with
+	a pattern
+
 2007-05-13  Maurits  <m.rijk@chello.nl>
 	
 	* lib/Procedure.cs: handle strings as parameters

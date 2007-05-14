@@ -25,15 +25,11 @@ namespace Gimp.PhotoshopActions
 {
   public class DefinePatternEvent : ActionEvent
   {
-    public override bool IsExecutable
-    {
-      get {return false;}
-    }
-
     override public bool Execute()
     {
-      // TODO: create a pattern from the current selection?
-      return false;
+      // TODO: check if pattern "Clipboard" is actually available
+      Context.Pattern = new Pattern("Clipboard");
+      return true;
     }
   }
 }
