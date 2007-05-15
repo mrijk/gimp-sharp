@@ -25,15 +25,8 @@ namespace Gimp.PhotoshopActions
 {
   public class AlignEvent : ActionEvent
   {
-    [Parameter("null")]
-    ReferenceParameter _obj;
     [Parameter("Usng")]
     EnumParameter _using;
-
-    public override bool IsExecutable
-    {
-      get {return false;}
-    }
 
     public override string EventForDisplay
     {
@@ -47,7 +40,35 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
-      return false;
+      // TODO: assume we are only aligning to the selection
+
+      bool nonEmpty;
+      Rectangle bounds = ActiveImage.Selection.Bounds(out nonEmpty);
+      Layer layer = SelectedLayer;
+      Offset offset = layer.Offsets;
+
+      switch (_using.Value)
+	{
+	case "AdLf":
+	  offset.X = bounds.X1;
+	  break;
+	case "AdRg":
+	  offset.X = bounds.X2 - layer.Width;
+	  break;
+	case "AdTp":
+	  offset.Y = bounds.Y1;
+	  break;
+	case "AdBt":
+	  offset.Y = bounds.Y2 - layer.Height;
+	  break;
+	default:
+	  Console.WriteLine("AlignEvent: " + _using.Value);
+	  break;
+	}
+
+      layer.Offsets = offset;
+
+      return true;
     }
   }
 }

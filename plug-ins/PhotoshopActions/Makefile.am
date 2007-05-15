@@ -25,6 +25,7 @@ MYSOURCES = 				\
 	AlignEvent.cs			\
 	ApplyImageEvent.cs		\
 	AverageEvent.cs			\
+	BlurEvent.cs			\
 	BlurMethodEvent.cs		\
 	BoolParameter.cs		\
 	BorderEvent.cs			\
@@ -205,6 +206,7 @@ MYSOURCES = 				\
 	SetLayerEffectsEvent.cs		\
 	SetLayerPropertyEvent.cs	\
 	SetQuickMaskEvent.cs		\
+	SharpenEdgesEvent.cs		\
 	SharpenEvent.cs			\
 	SharpenMoreEvent.cs		\
 	ShearEvent.cs			\

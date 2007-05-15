@@ -42,6 +42,7 @@ namespace Gimp.PhotoshopActions
       _map["align"] = _map["Algn"] = "AlignEvent";
       _map["applyImageEvent"] = "ApplyImageEvent";
       _map["Avrg"] = "AverageEvent";
+      _map["blur"] = _map["Blr"] = "BlurEvent";
       _map["blurMethod"] = _map["BlrM"] = "BlurMethodEvent";
       _map["border"] = "BorderEvent";
       _map["brightnessEvent"] = _map["BrgC"] = "BrightnessEvent";
@@ -152,10 +153,11 @@ namespace Gimp.PhotoshopActions
       _map["selectAllLayers"] = "SelectAllLayersEvent";
       _map["set"] = _map["setd"] = "SetEvent";
       _map["sharpen"] = _map["Shrp"] = "SharpenEvent";
+      _map["ShrE"] = "SharpenEdgesEvent";
       _map["sharpenMore"] = "SharpenMoreEvent";
       _map["shear"] = "ShearEvent";
       _map["show"] = "ShowEvent";
-      _map["smartBlur"] = "SmartBlurEvent";
+      _map["smartBlur"] = _map["SmrB"] = "SmartBlurEvent";
       _map["smoothness"] = "SmoothnessEvent";
       _map["solarize"] = "SolarizeEvent";
       _map["spatter"] = "SpatterEvent";

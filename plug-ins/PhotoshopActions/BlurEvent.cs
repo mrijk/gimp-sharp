@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006-2007 Maurits Rijk
 //
-// SmartBlurEvent.cs
+// BlurEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,34 +19,16 @@
 //
 
 using System;
-using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class SmartBlurEvent : ActionEvent
+  public class BlurEvent : ActionEvent
   {
-    [Parameter("Rds")]
-    double _radius;
-    [Parameter("Thsh")]
-    double _threshold;
-    [Parameter("SmBQ")]
-    EnumParameter _quality;
-    [Parameter("SmBM")]
-    EnumParameter _mode;
-
-    protected override IEnumerable ListParameters()
-    {
-      yield return String.Format("Radius: {0:F3}", _radius);
-      yield return String.Format("Threshold: {0:F3}", _threshold);
-      yield return "Quality: " + Abbreviations.Get(_quality.Value);
-      yield return "Mode: " + Abbreviations.Get(_mode.Value);
-    }
-
     override public bool Execute()
     {
-      RunProcedure("plug_in_sel_gauss", _radius, (int) _threshold);
+      RunProcedure("plug_in_blur");
 
-      return true;
+      return false;
     }
   }
 }

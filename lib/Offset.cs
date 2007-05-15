@@ -45,5 +45,10 @@ namespace Gimp
       get {return _y;}
       set {_y = value;}
     }
+
+    public override string ToString()
+    {
+      return string.Format("({0}, {1})", _x, _y);
+    }
   }
 }

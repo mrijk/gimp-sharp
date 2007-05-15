@@ -25,11 +25,6 @@ namespace Gimp.PhotoshopActions
 {
   public class RasterizeTypeLayerEvent : ActionEvent
   {
-    public override bool IsExecutable
-    {
-      get {return false;}
-    }
-
     public override string EventForDisplay
     {
       get {return "Rasterize Type Layer";}
@@ -37,8 +32,9 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
-      // Turn text into normal layer
-      return false;
+      // We don't do anything here because the text layer is automatically
+      // rasterized if we apply a filter on it!
+      return true;
     }
   }
 }
