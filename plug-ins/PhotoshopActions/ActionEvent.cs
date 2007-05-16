@@ -154,13 +154,18 @@ namespace Gimp.PhotoshopActions
 
     protected string Format(bool value, string s)
     {
-      return ((value) ? "With " : "Without ") + s;
+      return ((value) ? "With " : "Without ") + Abbreviations.Get(s);
+    }
+
+    protected string Format(int value, string s)
+    {
+      return Abbreviations.Get(s) + ": " + value;
     }
 
     protected string Format(EnumParameter parameter, string s)
     {
       Debug.Assert(parameter != null);
-      return s + ": " + Abbreviations.Get(parameter.Value);
+      return Abbreviations.Get(s) + ": " + Abbreviations.Get(parameter.Value);
     }
 
     public int NumberOfItems

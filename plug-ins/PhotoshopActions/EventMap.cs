@@ -53,6 +53,7 @@ namespace Gimp.PhotoshopActions
       _map["close"] = "CloseEvent";
       _map["clouds"] = _map["Clds"] = "CloudsEvent";
       _map["colorBalance"] = _map["ClrB"] = "ColorBalanceEvent";
+      _map["colorPalette"] = "ColorPaletteEvent";
       _map["colorRange"] = _map["ClrR"] = "ColorRangeEvent";
       _map["contract"] = _map["Cntc"] = "ContractEvent";
       _map["convertMode"] = _map["CnvM"] = "ConvertModeEvent";
@@ -77,6 +78,7 @@ namespace Gimp.PhotoshopActions
       _map["diffuse"] = "DiffuseEvent";
       _map["displace"] = "DisplaceEvent";
       _map["draw"] = "DrawEvent";
+      _map["dryBrush"] = "DryBrushEvent";
       _map["duplicate"] = _map["Dplc"] = "DuplicateEvent";
       _map["dustAndScratches"] = "DustAndScratchesEvent";
       _map["emboss"] = _map["Embs"] = "EmbossEvent";
@@ -100,6 +102,7 @@ namespace Gimp.PhotoshopActions
       _map["gradientClassEvent"] = _map["Grdn"] = "GradientClassEvent";
       _map["gradientMapEvent"] = "GradientMapEvent";
       _map["grain"] = "GrainEvent";
+      _map["graphicPen"] = "GraphicPenEvent";
       _map["groupEvent"] = "GroupEvent";
       _map["grow"] = "GrowEvent";
       _map["hide"] = "HideEvent";
@@ -127,6 +130,7 @@ namespace Gimp.PhotoshopActions
       _map["offset"] = "OffsetEvent";
       _map["open"] = "OpenEvent";
       _map["paintDaubs"] = "PaintDaubsEvent";
+      _map["paletteKnife"] = "PaletteKnifeEvent";
       _map["paste"] = _map["past"] = "PasteEvent";
       _map["pasteEffects"] = "PasteEffectsEvent";
       _map["photocopy"] = "PhotocopyEvent";
@@ -151,6 +155,7 @@ namespace Gimp.PhotoshopActions
       _map["scaleEffectsEvent"] = "ScaleEffectsEvent";
       _map["select"] = _map["slct"] = "SelectEvent";
       _map["selectAllLayers"] = "SelectAllLayersEvent";
+      _map["separationSetup"] = "SeparationSetupEvent";
       _map["set"] = _map["setd"] = "SetEvent";
       _map["sharpen"] = _map["Shrp"] = "SharpenEvent";
       _map["ShrE"] = "SharpenEdgesEvent";
@@ -167,6 +172,7 @@ namespace Gimp.PhotoshopActions
       _map["sumie"] = "SumieEvent";
       _map["surfaceBlur"] = "SurfaceBlurEvent";
       _map["stamp"] = "StampEvent";
+      _map["traceContour"] = "TraceContourEvent";
       _map["stop"] = _map["Stop"] = "StopEvent";
       _map["stroke"] = _map["Strk"] = "StrokeEvent";
       _map["stainedGlass"] = _map["StnG"] = "StainedGlassEvent";
@@ -181,6 +187,7 @@ namespace Gimp.PhotoshopActions
       _map["unlink"] = "UnlinkEvent";
       _map["unsharpMask"] = _map["UnsM"] = "UnsharpMaskEvent";
       _map["variations"] = "VariationsEvent";
+      _map["watercolor"] = "WatercolorEvent";
       _map["waterPaper"] = "WaterPaperEvent";
       _map["wave"] = "WaveEvent";
       _map["wind"] = _map["Wnd"] = "WindEvent";

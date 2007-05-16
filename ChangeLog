@@ -1,3 +1,25 @@
+2007-05-16  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/PhotoshopActions/TexturizerEvent.cs: more verbosity
+
+	* plug-ins/PhotoshopActions/SelectEvent.cs: select menu item
+
+	* plug-ins/PhotoshopActions/Abbreviations.cs: more abbreviations
+
+	* plug-ins/PhotoshopActions/WatercolorEvent.cs
+	* plug-ins/PhotoshopActions/SeparationSetupEvent.cs
+	* plug-ins/PhotoshopActions/DryBrushEvent.cs
+	* plug-ins/PhotoshopActions/PaletteKnifeEvent.cs
+	* plug-ins/PhotoshopActions/GraphicPenEvent.cs
+	* plug-ins/PhotoshopActions/ColorPaletteEvent.cs
+	* plug-ins/PhotoshopActions/SetAdjustmentLayerEvent.cs
+	* plug-ins/PhotoshopActions/SelectMenuItemEvent.cs
+	* plug-ins/PhotoshopActions/TraceContourEvent.cs: new files
+
+	* plug-ins/PhotoshopActions/Makefile.am: changed accordingly
+
+	* plug-ins/PhotoshopActions/EventMap.cs: new events added
+
 2007-05-15  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/PhotoshopActions/RasterizeTypeLayerEvent.cs: implemented

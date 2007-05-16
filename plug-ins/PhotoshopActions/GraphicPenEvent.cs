@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006-2007 Maurits Rijk
 //
-// TexturizerEvent.cs
+// GraphicPenEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,18 +23,14 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class TexturizerEvent : ActionEvent
+  public class GraphicPenEvent : ActionEvent
   {
-    [Parameter("TxtT")]
-    EnumParameter _textureType;
-    [Parameter("Scln")]
-    int _scaling;
-    [Parameter("Rlf")]
-    int _relief;
-    [Parameter("InvT")]
-    bool _invertTexture;
-    [Parameter("LghD")]
-    EnumParameter _lightDirection;
+    [Parameter("StrL")]
+    int _strokeLength;
+    [Parameter("LgDr")]
+    int _lightDark;
+    [Parameter("SDir")]
+    EnumParameter _strokeDirection;
 
     public override bool IsExecutable
     {
@@ -43,13 +39,9 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
-      if (_textureType != null)
-	yield return Format(_textureType, "TxtT");
-      yield return Format(_scaling, "Scln");
-      yield return Format(_relief, "Rlf");
-      yield return Format(_invertTexture, "InvT");
-      if (_lightDirection != null)
-	yield return Format(_lightDirection, "LghD");
+      yield return Format(_strokeLength, "StrL");
+      yield return Format(_lightDark, "LgDr");
+      yield return Format(_strokeDirection, "SDir");
     }
 
     override public bool Execute()

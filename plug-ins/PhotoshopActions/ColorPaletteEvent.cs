@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006-2007 Maurits Rijk
 //
-// TexturizerEvent.cs
+// ColorPaletteEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,19 +23,8 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class TexturizerEvent : ActionEvent
+  public class ColorPaletteEvent : ActionEvent
   {
-    [Parameter("TxtT")]
-    EnumParameter _textureType;
-    [Parameter("Scln")]
-    int _scaling;
-    [Parameter("Rlf")]
-    int _relief;
-    [Parameter("InvT")]
-    bool _invertTexture;
-    [Parameter("LghD")]
-    EnumParameter _lightDirection;
-
     public override bool IsExecutable
     {
       get {return false;}
@@ -43,13 +32,7 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
-      if (_textureType != null)
-	yield return Format(_textureType, "TxtT");
-      yield return Format(_scaling, "Scln");
-      yield return Format(_relief, "Rlf");
-      yield return Format(_invertTexture, "InvT");
-      if (_lightDirection != null)
-	yield return Format(_lightDirection, "LghD");
+      yield break;
     }
 
     override public bool Execute()

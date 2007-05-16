@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // SelectEvent.cs
 //
@@ -94,6 +94,8 @@ namespace Gimp.PhotoshopActions
 		  return new SelectChannelEvent(this, enmr.Value);
 		case "Lyr":
 		  return new SelectLayerEvent(this, enmr.Value);
+		case "Mn":
+		  return new SelectMenuItemEvent(this, enmr.Value);
 		default:
 		  Console.WriteLine("SelectEvent.Enmr: " + enmr.Key);
 		  break;

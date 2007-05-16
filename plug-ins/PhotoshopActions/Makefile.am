@@ -39,6 +39,7 @@ MYSOURCES = 				\
 	CloseEvent.cs			\
 	CloudsEvent.cs			\
 	ColorBalanceEvent.cs		\
+	ColorPaletteEvent.cs		\
 	ColorRangeEvent.cs		\
 	ContractEvent.cs		\
 	ConvertModeEvent.cs		\
@@ -69,6 +70,7 @@ MYSOURCES = 				\
 	DoubleParameter.cs		\
 	DifferenceCloudsEvent.cs	\
 	DrawEvent.cs			\
+	DryBrushEvent.cs		\
 	DuplicateChannelEvent.cs	\
 	DuplicateEvent.cs		\
 	DuplicateDocumentEvent.cs	\
@@ -100,6 +102,7 @@ MYSOURCES = 				\
 	GradientClassEvent.cs		\
 	GradientMapEvent.cs		\
 	GrainEvent.cs			\
+	GraphicPenEvent.cs		\
 	GroupEvent.cs			\
 	GrowEvent.cs			\
 	HideChannelEvent.cs		\
@@ -148,6 +151,7 @@ MYSOURCES = 				\
 	OffsetEvent.cs			\
 	OpenEvent.cs			\
 	PaintDaubsEvent.cs		\
+	PaletteKnifeEvent.cs		\
 	Parameter.cs			\
 	ParameterAttribute.cs		\
 	ParameterSet.cs			\
@@ -192,10 +196,13 @@ MYSOURCES = 				\
 	SelectChannelEvent.cs		\
 	SelectLayerByNameEvent.cs	\
 	SelectLayerEvent.cs		\
+	SelectMenuItemEvent.cs		\
 	SelectNoneEvent.cs		\
 	SelectPolygonEvent.cs		\
 	SelectRectangleEvent.cs		\
 	SelectSnapshotEvent.cs		\
+	SeparationSetupEvent.cs		\
+	SetAdjustmentLayerEvent.cs	\
 	SetBackgroundColorEvent.cs	\
 	SetChannelPropertyEvent.cs	\
 	SetChannelToSelectionEvent.cs	\
@@ -231,6 +238,7 @@ MYSOURCES = 				\
 	ThresholdClassEvent.cs		\
 	TilesEvent.cs			\
 	TornEdgesEvent.cs		\
+	TraceContourEvent.cs		\
 	TransformEvent.cs		\
 	TransformLayerEvent.cs		\
 	TransformSelectionEvent.cs	\
@@ -242,6 +250,7 @@ MYSOURCES = 				\
 	UnlinkEvent.cs			\
 	UnsharpMaskEvent.cs		\
 	VariationsEvent.cs		\
+	WatercolorEvent.cs		\
 	WaterPaperEvent.cs		\
 	WaveEvent.cs			\
 	WindEvent.cs

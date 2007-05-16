@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006-2007 Maurits Rijk
 //
-// TexturizerEvent.cs
+// SetAdjustmentLayerEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,38 +23,34 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class TexturizerEvent : ActionEvent
+  public class SetAdjustmentLayerEvent : SetEvent
   {
-    [Parameter("TxtT")]
-    EnumParameter _textureType;
-    [Parameter("Scln")]
-    int _scaling;
-    [Parameter("Rlf")]
-    int _relief;
-    [Parameter("InvT")]
-    bool _invertTexture;
-    [Parameter("LghD")]
-    EnumParameter _lightDirection;
+    [Parameter("T")]
+    ObjcParameter _objc;
+
+    public SetAdjustmentLayerEvent(SetEvent srcEvent) : base(srcEvent)
+    {
+      Parameters.Fill(this);
+    }
 
     public override bool IsExecutable
     {
       get {return false;}
     }
 
+    public override string EventForDisplay
+    {
+      get {return base.EventForDisplay + " current adjustment layer";}
+    }
+
     protected override IEnumerable ListParameters()
     {
-      if (_textureType != null)
-	yield return Format(_textureType, "TxtT");
-      yield return Format(_scaling, "Scln");
-      yield return Format(_relief, "Rlf");
-      yield return Format(_invertTexture, "InvT");
-      if (_lightDirection != null)
-	yield return Format(_lightDirection, "LghD");
+      yield break;
     }
 
     override public bool Execute()
     {
-      return false;
+      return true;
     }
   }
 }

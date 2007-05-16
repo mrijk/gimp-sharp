@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006-2007 Maurits Rijk
 //
-// TexturizerEvent.cs
+// SelectMenuItemEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,42 +19,36 @@
 //
 
 using System;
-using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class TexturizerEvent : ActionEvent
+  public class SelectMenuItemEvent : SelectEvent
   {
-    [Parameter("TxtT")]
-    EnumParameter _textureType;
-    [Parameter("Scln")]
-    int _scaling;
-    [Parameter("Rlf")]
-    int _relief;
-    [Parameter("InvT")]
-    bool _invertTexture;
-    [Parameter("LghD")]
-    EnumParameter _lightDirection;
+    string _name;
+
+    public SelectMenuItemEvent(SelectEvent srcEvent, string name) : 
+      base(srcEvent)
+    {
+      _name = name;
+    }
 
     public override bool IsExecutable
     {
       get {return false;}
     }
 
-    protected override IEnumerable ListParameters()
+    public override string EventForDisplay
     {
-      if (_textureType != null)
-	yield return Format(_textureType, "TxtT");
-      yield return Format(_scaling, "Scln");
-      yield return Format(_relief, "Rlf");
-      yield return Format(_invertTexture, "InvT");
-      if (_lightDirection != null)
-	yield return Format(_lightDirection, "LghD");
+      get 
+	{
+	  return base.EventForDisplay + " " + Abbreviations.Get(_name) + 
+	    " menu item";
+	}
     }
 
     override public bool Execute()
     {
-      return false;
+      return true;
     }
   }
 }

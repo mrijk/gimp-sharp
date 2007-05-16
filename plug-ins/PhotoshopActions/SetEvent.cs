@@ -98,6 +98,8 @@ namespace Gimp.PhotoshopActions
 	      EnmrType enmr = _obj.Set[0] as EnmrType;
 	      switch (enmr.Key)
 		{
+		case "AdjL":
+		  return new SetAdjustmentLayerEvent(this);
 		case "Chnl":
 		  return new SetChannelPropertyEvent(this);
 		case "Lyr":

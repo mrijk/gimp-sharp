@@ -30,6 +30,7 @@ namespace Gimp.PhotoshopActions
 
     static Abbreviations()
     {
+      _map["ActP"] = "Actual Pixels";
       _map["AdBt"] = "bottom edges";
       _map["AdCH"] = "horizontal centers";
       _map["AdCV"] = "vertical centers";
@@ -55,15 +56,19 @@ namespace Gimp.PhotoshopActions
       _map["CrnH"] = "Current History State";
       _map["Cyn" ] = "cyan";
       _map["Drkn"] = "darken";
+      _map["Edg"]  = "Edge";
       _map["Elps"] = "Ellipse";
       _map["FllD"] = "full document";
       _map["FrgC"] = "foreground color";
+      _map["Frnt"] = "front";
       _map["Frst"] = "first";
+      _map["FtOn"] = "Fit On Screen";
       _map["GlwE"] = "glowing edges";
       _map["Grn"]  = "green";
       _map["GrnE"] = "grain enlarged";
       _map["GrnH"] = "grain horizontal";
       _map["GrnR"] = "grain regular";
+      _map["Gry"]  = "gray";
       _map["Grys"] = "grayscale mode";
       _map["Gsn"]  = "gaussian";
       _map["HrdL"] = "hard light";
@@ -71,8 +76,13 @@ namespace Gimp.PhotoshopActions
       _map["HrzO"] = "Horizontal Only";
       _map["Insd"] = "inside";
       _map["Invr"] = "Invert Source";
+      _map["InvT"] = "Invert Texture";
       _map["LbCM"] = "Lab color mode";
+      _map["LDBL"] = "Bottom Left";
+      _map["LDTp"] = "Top";
       _map["Left"] = "Left";
+      _map["LgDr"] = "Light/Dark Balance";
+      _map["LghD"] = "Light Direction";
       _map["Lghn"] = "lighten";
       _map["Lght"] = "lightness";
       _map["Lmns"] = "luminosity";
@@ -83,6 +93,8 @@ namespace Gimp.PhotoshopActions
       _map["LPLf"] = "light position left";
       _map["LPRg"] = "light position right";
       _map["LPTp"] = "light position top";
+      _map["Lvl"]  = "Level";
+      _map["Lwr"]  = "lower";
       _map["Mgnt"] = "magenta";
       _map["Mltp"] = "multiply";
       _map["Mnch"] = "Monochromatic";
@@ -100,6 +112,7 @@ namespace Gimp.PhotoshopActions
       _map["Pyrm"] = "pyramids";
       _map["Rd"]   = "red";
       _map["Rght"] = "Right";
+      _map["Rlf"]  = "Relief";
       _map["Rndm"] = "random";
       _map["RctP"] = "Rectangular to Polar";
       _map["RGBM"] = "RGB color mode";
@@ -109,13 +122,20 @@ namespace Gimp.PhotoshopActions
       _map["SBQH"] = "smart blur quality high";
       _map["SBQH"] = "smart blur quality low";
       _map["SBQH"] = "smart blur quality medium";
+      _map["Scln"] = "Scaling";
       _map["Scrn"] = "screen";
+      _map["SDir"] = "Stroke Direction";
+      _map["SDLD"] = "Left Diagonal";
       _map["SftL"] = "soft light";
       _map["Shdw"] = "shadow";
       _map["Sml"]  = "small";
+      _map["StrL"] = "Stroke Length";
       _map["Top"]  = "Top";
       _map["Trns"] = "transparent";
       _map["Trsp"] = "transparency";
+      _map["TxCa"] = "Canvas";
+      _map["TxSt"] = "Sandstone";
+      _map["TxtT"] = "Texture Type";
       _map["Unfr"] = "uniform";
       _map["Vrtc"] = "vertical";
       _map["Wht"]  = "white";
