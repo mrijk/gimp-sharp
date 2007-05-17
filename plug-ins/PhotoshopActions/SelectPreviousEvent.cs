@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006-2007 Maurits Rijk
 //
-// MosaicEvent.cs
+// SelectPreviousEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,19 +23,24 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class MosaicEvent : ActionEvent
+  public class SelectPreviousEvent : SelectionEvent
   {
-    [Parameter("ClSz")]
-    double _size;
+    public SelectPreviousEvent(SelectionEvent srcEvent) : base(srcEvent)
+    {
+    }
+
+    public override bool IsExecutable
+    {
+      get {return false;}
+    }
 
     protected override IEnumerable ListParameters()
     {
-      yield return Format(_size, "ClSz");
+      yield return "To: previous";
     }
 
     override public bool Execute()
     {
-      RunProcedure("plug_in_pixelize", (int) _size);
       return true;
     }
   }

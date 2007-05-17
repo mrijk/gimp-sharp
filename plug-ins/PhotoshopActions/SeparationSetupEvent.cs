@@ -25,6 +25,13 @@ namespace Gimp.PhotoshopActions
 {
   public class SeparationSetupEvent : ActionEvent
   {
+    [Parameter("StrL")]
+    int _strokeLength;
+    [Parameter("SprR")]
+    int _sprayRadius;
+    [Parameter("SDir")]
+    EnumParameter _strokeDirection;
+
     public override bool IsExecutable
     {
       get {return false;}
@@ -32,7 +39,9 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
-      yield break;
+      yield return Format(_strokeLength, "StrL");
+      yield return Format(_sprayRadius, "SprR");
+      yield return Format(_strokeDirection, "SDir");
     }
 
     override public bool Execute()

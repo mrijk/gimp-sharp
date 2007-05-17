@@ -162,6 +162,11 @@ namespace Gimp.PhotoshopActions
       return Abbreviations.Get(s) + ": " + value;
     }
 
+    protected string Format(double value, string s)
+    {
+      return String.Format("{0}: {1:F3}", Abbreviations.Get(s), value);
+    }
+
     protected string Format(EnumParameter parameter, string s)
     {
       Debug.Assert(parameter != null);

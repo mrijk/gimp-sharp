@@ -1,3 +1,21 @@
+2007-05-17  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/PhotoshopActions/SelectPreviousEvent.cs: new file
+
+	* plug-ins/PhotoshopActions/Makefile.am: changed accordingly
+
+	* plug-ins/PhotoshopActions/Abbreviations.cs: more abbreviations
+
+	* plug-ins/PhotoshopActions/ColorPaletteEvent.cs
+	* plug-ins/PhotoshopActions/DryBrushEvent.cs
+	* plug-ins/PhotoshopActions/HighPassEvent.cs
+	* plug-ins/PhotoshopActions/MergeVisibleEvent.cs
+	* plug-ins/PhotoshopActions/MosaicEvent.cs
+	* plug-ins/PhotoshopActions/PaletteKnifeEvent.cs
+	* plug-ins/PhotoshopActions/SeparationSetupEvent.cs
+	* plug-ins/PhotoshopActions/WatercolorEvent.cs
+	* plug-ins/PhotoshopActions/DeleteLayerEvent.cs: more verbosity
+
 2007-05-16  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/PhotoshopActions/TexturizerEvent.cs: more verbosity

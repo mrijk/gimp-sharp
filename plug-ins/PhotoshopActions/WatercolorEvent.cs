@@ -25,6 +25,13 @@ namespace Gimp.PhotoshopActions
 {
   public class WatercolorEvent : ActionEvent
   {
+    [Parameter("BrsD")]
+    int _brushDetail;
+    [Parameter("ShdI")]
+    int _shadowIntensity;
+    [Parameter("Txtr")]
+    int _texture;
+
     public override bool IsExecutable
     {
       get {return false;}
@@ -32,7 +39,9 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
-      yield break;
+      yield return Format(_brushDetail, "BrsD");
+      yield return Format(_shadowIntensity, "ShdI");
+      yield return Format(_texture, "Txtr");
     }
 
     override public bool Execute()

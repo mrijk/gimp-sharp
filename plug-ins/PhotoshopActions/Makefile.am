@@ -199,6 +199,7 @@ MYSOURCES = 				\
 	SelectMenuItemEvent.cs		\
 	SelectNoneEvent.cs		\
 	SelectPolygonEvent.cs		\
+	SelectPreviousEvent.cs		\
 	SelectRectangleEvent.cs		\
 	SelectSnapshotEvent.cs		\
 	SeparationSetupEvent.cs		\

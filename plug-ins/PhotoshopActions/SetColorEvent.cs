@@ -19,8 +19,9 @@
 //
 
 using System;
+using System.Collections;
 
-using Gtk;
+// using Gtk;
 
 namespace Gimp.PhotoshopActions
 {
@@ -33,6 +34,11 @@ namespace Gimp.PhotoshopActions
     {
       Parameters.Fill(this);
       _objc.Fill(this);
+    }
+
+    protected override IEnumerable ListParameters()
+    {
+      yield return "To: ";
     }
 
     protected RGB Color

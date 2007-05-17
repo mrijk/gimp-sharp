@@ -25,6 +25,13 @@ namespace Gimp.PhotoshopActions
 {
   public class ColorPaletteEvent : ActionEvent
   {
+    [Parameter("Pncl")]
+    int _pencilWidth;
+    [Parameter("StrP")]
+    int _strokePressure;
+    [Parameter("PprB")]
+    int _paperBrightness;
+
     public override bool IsExecutable
     {
       get {return false;}
@@ -32,7 +39,9 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
-      yield break;
+      yield return Format(_pencilWidth, "Pncl");
+      yield return Format(_strokePressure, "StrP");
+      yield return Format(_paperBrightness, "PprB");
     }
 
     override public bool Execute()

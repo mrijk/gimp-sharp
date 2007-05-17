@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // HighPassEvent.cs
 //
@@ -25,9 +25,17 @@ namespace Gimp.PhotoshopActions
 {
   public class HighPassEvent : ActionEvent
   {
+    [Parameter("Rds")]
+    double _radius;
+
     public override bool IsExecutable
     {
       get {return false;}
+    }
+
+    protected override IEnumerable ListParameters()
+    {
+      yield return Format(_radius, "Rds");
     }
 
     override public bool Execute()

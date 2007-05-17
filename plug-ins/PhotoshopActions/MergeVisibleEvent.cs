@@ -19,11 +19,21 @@
 //
 
 using System;
+using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
   public class MergeVisibleEvent : ActionEvent
   {
+    [Parameter("Dplc")]
+    bool _duplicate;
+
+    protected override IEnumerable ListParameters()
+    {
+      if (Parameters["Dplc"] != null)
+	yield return Format(_duplicate, "Dplc");
+    }
+
     override public bool Execute()
     {
       if (ActiveImage == null)

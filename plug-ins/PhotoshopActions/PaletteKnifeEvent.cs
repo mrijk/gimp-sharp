@@ -25,6 +25,13 @@ namespace Gimp.PhotoshopActions
 {
   public class PaletteKnifeEvent : ActionEvent
   {
+    [Parameter("StrS")]
+    int _strokeSize;
+    [Parameter("StDt")]
+    int _strokeDetail;
+    [Parameter("Sftn")]
+    int _softness;
+
     public override bool IsExecutable
     {
       get {return false;}
@@ -32,7 +39,9 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
-      yield break;
+      yield return Format(_strokeSize, "StrS");
+      yield return Format(_strokeDetail, "StDt");
+      yield return Format(_softness, "Sftn");
     }
 
     override public bool Execute()

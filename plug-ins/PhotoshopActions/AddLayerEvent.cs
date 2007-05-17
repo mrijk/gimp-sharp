@@ -60,7 +60,7 @@ namespace Gimp.PhotoshopActions
     public AddLayerEvent(ActionEvent srcEvent, List<ReferenceType> set) : 
       base(srcEvent) 
     {
-      if (set.Count != 2)
+      if (set.Count != 1)
 	{
 	  Console.WriteLine("AddLayerEvent, Count: " + set.Count);
 	  // Fill _below
@@ -74,7 +74,8 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
-      yield return Format(_below, "Below");
+      if (Parameters["below"] != null)
+	yield return Format(_below, "Below");
     }
 
     override public bool Execute()

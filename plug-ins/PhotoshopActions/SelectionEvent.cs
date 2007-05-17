@@ -79,6 +79,8 @@ namespace Gimp.PhotoshopActions
 	      return new SelectAllEvent(this);
 	    case "None":
 	      return new SelectNoneEvent(this);
+	    case "Prvs":
+	      return new SelectPreviousEvent(this);
 	    default:
 	      Console.WriteLine("SelectionEvent-1: " + type);
 	      break;
