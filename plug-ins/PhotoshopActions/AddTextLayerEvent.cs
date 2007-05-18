@@ -19,11 +19,15 @@
 //
 
 using System;
+using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
   public class AddTextLayerEvent : MakeEvent
   {
+    [Parameter("Txt")]
+    string _text;
+
     public override bool IsExecutable
     {
       get {return false;}
@@ -38,9 +42,18 @@ namespace Gimp.PhotoshopActions
       get {return base.EventForDisplay + " text layer";}
     }
 
+    protected override IEnumerable ListParameters()
+    {
+      ObjcParameter _using = Parameters["Usng"] as ObjcParameter;
+      _using.Fill(this);
+      yield return "Text: \"" + _text + "\"";
+    }
+
     override public bool Execute()
     {
-      // TODO: Use gimp_text_fontname to add text!
+      Layer layer = new TextLayer(ActiveImage, 10, 10, _text, 0, true,
+				  48, SizeType.Points, "Sans");
+
       return true;
     }
   }

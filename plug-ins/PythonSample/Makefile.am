@@ -13,7 +13,7 @@ EXTRA_DIST = $(MYSOURCES) PythonSample PythonSample.png
 CLEANFILES = PythonSample.exe
 
 PythonSample.exe : $(MYSOURCES) PythonSample.png $(GIMPSHARPLIB)
-	$(IPY) -O -X:SaveAssemblies $(MYSOURCES) $(ASSEMBLIES) 
+	$(IPY) -O -X:SaveAssemblies $(MYSOURCES) /resource:PythonSample.png $(ASSEMBLIES) 
 
 install:
 	$(INSTALL_DATA) PythonSample.exe $(DESTDIR)$(GIMPPLUGINDIR)

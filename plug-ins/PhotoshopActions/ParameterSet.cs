@@ -21,7 +21,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Reflection;
 
 namespace Gimp.PhotoshopActions
@@ -66,7 +65,7 @@ namespace Gimp.PhotoshopActions
       Fill(obj);
     }
 
-    public IEnumerable ListParameters()
+    public IEnumerable<string> ListParameters()
     {
       foreach (Parameter child in _set.Values)
 	{

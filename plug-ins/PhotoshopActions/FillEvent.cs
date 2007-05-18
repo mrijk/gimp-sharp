@@ -59,14 +59,14 @@ namespace Gimp.PhotoshopActions
 
       if (_using != null)
 	{
-	  yield return Format(_using, "Using");
+	  yield return Format(_using, "Usng");
 	}
 
       yield return "Opacity: " + _opacity + " %";
 
       if (_mode != null)
 	{
-	  yield return Format(_mode, "Mode");
+	  yield return Format(_mode, "Md");
 	}
     }
 

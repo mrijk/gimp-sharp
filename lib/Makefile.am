@@ -92,6 +92,7 @@ MYSOURCES = 				\
 	Spacing.cs			\
 	Stroke.cs			\
 	Tattoo.cs			\
+	TextLayer.cs			\
 	Tile.cs				\
 	Vectors.cs			\
 	Version.cs			\

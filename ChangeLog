@@ -1,3 +1,14 @@
+2007-05-18  Maurits  <m.rijk@chello.nl>
+
+	* lib/TextLayer.cs: new file
+	* lib/Makefile.am: changed accordingly
+
+	* plug-ins/PhotoshopActions/AddTextLayerEvent.cs: first steps on
+	implementing this
+
+	* plug-ins/PhotoshopActions/MoveOffsetEvent.cs: 
+	* plug-ins/PhotoshopActions/TransformLayerEvent.cs: better formatting
+
 2007-05-17  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/PhotoshopActions/SelectPreviousEvent.cs: new file

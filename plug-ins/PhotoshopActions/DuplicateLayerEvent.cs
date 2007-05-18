@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // DuplicateLayerEvent.cs
 //
@@ -19,11 +19,15 @@
 //
 
 using System;
+using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
   public class DuplicateLayerEvent : DuplicateEvent
   {
+    [Parameter("Nm")]
+    string _name;
+
     public DuplicateLayerEvent(DuplicateEvent srcEvent) : base(srcEvent) 
     {
     }
@@ -33,6 +37,12 @@ namespace Gimp.PhotoshopActions
       get {return base.EventForDisplay + " current layer";}
     }
 
+    protected override IEnumerable ListParameters()
+    {
+      if (_name != null)
+	yield return "Name: \"" + _name + "\"";
+    }
+
     override public bool Execute()
     {
       Layer layer = new Layer(SelectedLayer);
@@ -40,6 +50,11 @@ namespace Gimp.PhotoshopActions
       ActiveDrawable = layer;
       SelectedLayer = layer;
  
+      if (_name != null)
+	{
+	  layer.Name = _name;
+	}
+
       return true;
     }
   }

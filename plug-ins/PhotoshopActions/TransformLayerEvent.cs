@@ -68,7 +68,7 @@ namespace Gimp.PhotoshopActions
       DoubleParameter width = Parameters["Wdth"] as DoubleParameter;
       if (width != null)
 	{
-	  yield return "Width: " + width.Value;
+	  yield return width.Format();
 	}
 
       ObjcParameter position = Parameters["Pstn"] as ObjcParameter;

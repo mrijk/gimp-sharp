@@ -76,7 +76,7 @@ namespace Gimp.PhotoshopActions
       _map["Grys"] = "grayscale mode";
       _map["Gsn"]  = "gaussian";
       _map["HrdL"] = "hard light";
-      _map["Hrzn"] = "horizontal";
+      _map["Hrzn"] = "Horizontal";
       _map["HrzO"] = "Horizontal Only";
       _map["Insd"] = "inside";
       _map["Invr"] = "Invert Source";
@@ -153,7 +153,8 @@ namespace Gimp.PhotoshopActions
       _map["Txtr"] = "Texture";
       _map["TxtT"] = "Texture Type";
       _map["Unfr"] = "uniform";
-      _map["Vrtc"] = "vertical";
+      _map["Vrtc"] = "Vertical";
+      _map["Wdth"] = "Width";
       _map["Wht"]  = "white";
       _map["Wrp"]  = "wrap";
       _map["WrpA"] = "wrap around";

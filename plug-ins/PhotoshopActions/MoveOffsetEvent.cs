@@ -43,8 +43,7 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
-      yield return "Horizontal: " + _vertical;
-      yield return "Vertical: " + _horizontal;
+      yield return String.Format("To: {0:F3}, {1:F3}", _vertical, _horizontal);
     }
 
     override public bool Execute()

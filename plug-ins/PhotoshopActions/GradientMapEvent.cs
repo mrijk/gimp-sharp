@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // GradientMapEvent.cs
 //
@@ -18,12 +18,22 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
+using System.Collections;
+
 namespace Gimp.PhotoshopActions
 {
   public class GradientMapEvent : ActionEvent
   {
     [Parameter("Grad")]
     ObjcParameter _gradient;
+    [Parameter("Nm")]
+    string _name;
+
+    protected override IEnumerable ListParameters()
+    {
+      _gradient.Fill(this);
+      yield return "Name: " + _name;
+    }
 
     override public bool Execute()
     {
