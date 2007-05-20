@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // WindEvent.cs
 //
@@ -40,8 +40,8 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
-      yield return "Mode: " + _mode.Value;
-      yield return "Direction: " + _direction.Value;
+      yield return Format(_mode, "WndM");
+      yield return Format(_direction, "Drct");
     }
 
     override public bool Execute()

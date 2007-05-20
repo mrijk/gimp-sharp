@@ -28,11 +28,6 @@ namespace Gimp.PhotoshopActions
     [Parameter("Txt")]
     string _text;
 
-    public override bool IsExecutable
-    {
-      get {return false;}
-    }
-
     public AddTextLayerEvent(MakeEvent srcEvent) : base(srcEvent) 
     {
     }

@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006-2007 Maurits Rijk
 //
-// MergeVisibleEvent.cs
+// AngledStrokesEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,29 +23,30 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class MergeVisibleEvent : ActionEvent
+  public class AngledStrokesEvent : ActionEvent
   {
-    [Parameter("Dplc")]
-    bool _duplicate;
+    [Parameter("DrcB")]
+    int _directionBalance;
+    [Parameter("StrL")]
+    int _strokeLength;
+    [Parameter("Shrp")]
+    int _sharpness;
+
+    public override bool IsExecutable
+    {
+      get {return false;}
+    }
 
     protected override IEnumerable ListParameters()
     {
-      //     if (Parameters["Dplc"] != null)
-      // yield return Format(_duplicate, "Dplc");
-      yield break;
+      yield return Format(_directionBalance, "DrcB");
+      yield return Format(_strokeLength, "StrL");
+      yield return Format(_sharpness, "Shrp");
     }
 
     override public bool Execute()
     {
-      if (ActiveImage == null)
-	{
-	  Console.WriteLine("Please open image first");
-	  return false;
-	}
-
-      // TODO: check this!
-      SelectedLayer = ActiveImage.MergeVisibleLayers(MergeType.FlattenImage);
-      return true;
+      return false;
     }
   }
 }

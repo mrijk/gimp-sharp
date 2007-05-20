@@ -86,6 +86,9 @@ namespace Gimp.PhotoshopActions
 	      
 	      switch (type.ClassID2)
 		{
+		case "Lyr":
+		  return new DuplicateLayerByNameEvent(this, type.Key);
+		  break;
 		case "Chnl":
 		  if (type.Key == "fsel")
 		    {
@@ -103,7 +106,7 @@ namespace Gimp.PhotoshopActions
 	    }
 	  else
 	    {
-	      Console.WriteLine("DuplicateEvent: {0} unknown", _obj.Set[0]);
+	      Console.WriteLine("DuplicateEvent-2: {0} unknown", _obj.Set[0]);
 	    }
 	}
       return this;

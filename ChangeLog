@@ -1,3 +1,22 @@
+2007-05-19  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/PhotoshopActions/SmoothnessEvent.cs: added comment
+
+	* plug-ins/PhotoshopActions/DuplicateEvent.cs: implemented
+	Duplicate background channel
+
+	* plug-ins/PhotoshopActions/ExtrudeEvent.cs
+	* plug-ins/PhotoshopActions/WindEvent.cs: more verbosity
+
+	* plug-ins/PhotoshopActions/ColorHalfToneEvent.cs
+	* plug-ins/PhotoshopActions/AngledStrokesEvent.cs
+	* plug-ins/PhotoshopActions/MosaicPluginEvent.cs 
+	* plug-ins/PhotoshopActions/ChalkCharcoalEvent.cs
+	* plug-ins/PhotoshopActions/HalftoneScreenEvent.cs: new files
+
+	* plug-ins/PhotoshopActions/EventMap.cs
+	* plug-ins/PhotoshopActions/Makefile.am: changed accordingly
+
 2007-05-18  Maurits  <m.rijk@chello.nl>
 
 	* lib/TextLayer.cs: new file

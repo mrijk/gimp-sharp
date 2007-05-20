@@ -27,6 +27,8 @@ namespace Gimp.PhotoshopActions
   {
     [Parameter("T")]
     Parameter _type;
+    [Parameter("Dpth")]
+    int _depth;
 
     public override bool IsExecutable
     {
@@ -39,6 +41,10 @@ namespace Gimp.PhotoshopActions
 		{
 		  return true;
 		}
+	    }
+	  else if (_depth == 8)
+	    {
+	      return true;
 	    }
 	  return false;
 	}
@@ -55,6 +61,12 @@ namespace Gimp.PhotoshopActions
 	{
 	  ObjcParameter objc = _type as ObjcParameter;
 	  yield return "To: " + Abbreviations.Get(objc.ClassID2);
+	}
+
+      if (Parameters["Dpth"] != null)
+	{
+	  _depth = (Parameters["Dpth"] as LongParameter).Value;
+	  yield return "Depth: " + _depth;
 	}
     }
 
@@ -77,6 +89,10 @@ namespace Gimp.PhotoshopActions
 				type.Value);
 	      break;
 	    }
+	}
+      else if (_depth == 8)
+	{
+	  // Do nothing
 	}
       else
 	{

@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // SmoothnessEvent.cs
 //
@@ -40,11 +40,7 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
-      if (ActiveImage == null)
-	{
-	  Console.WriteLine("Please open image first");
-	  return false;
-	}
+      // This event smoothes the selection
       return true;
     }
   }

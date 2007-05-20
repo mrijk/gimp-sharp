@@ -42,6 +42,7 @@ namespace Gimp.PhotoshopActions
       _map["Bckg"] = "background";
       _map["Blck"] = "black";
       _map["Bl"]   = "blue";
+      _map["Blks"] = "Blocks";
       _map["BrbW"] = "brush wide blurry";
       _map["BrsD"] = "Brush Detail";
       _map["BrSm"] = "brush simple";
@@ -57,11 +58,17 @@ namespace Gimp.PhotoshopActions
       _map["Cntn"] = "Continue";
       _map["Cntr"] = "center";
       _map["CrnH"] = "Current History State";
+      _map["CrrL"] = "current layer";
       _map["Cyn" ] = "cyan";
       _map["Dplc"] = "Duplicate";
+      _map["DrcB"] = "Direction Balance";
       _map["Drkn"] = "darken";
       _map["Edg"]  = "Edge";
       _map["Elps"] = "Ellipse";
+      _map["ExtF"] = "Solid Front Faces";
+      _map["ExtM"] = "Mask Incomplete Blocks";
+      _map["ExtR"] = "Random";
+      _map["ExtT"] = "Type";
       _map["FllD"] = "full document";
       _map["FrgC"] = "foreground color";
       _map["Frnt"] = "front";
@@ -72,6 +79,7 @@ namespace Gimp.PhotoshopActions
       _map["GrnE"] = "grain enlarged";
       _map["GrnH"] = "grain horizontal";
       _map["GrnR"] = "grain regular";
+      _map["GrtW"] = "Grout Width";
       _map["Gry"]  = "gray";
       _map["Grys"] = "grayscale mode";
       _map["Gsn"]  = "gaussian";
@@ -88,6 +96,7 @@ namespace Gimp.PhotoshopActions
       _map["Left"] = "Left";
       _map["LgDr"] = "Light/Dark Balance";
       _map["LghD"] = "Light Direction";
+      _map["LghG"] = "Lighten Grout";
       _map["Lghn"] = "lighten";
       _map["Lght"] = "lightness";
       _map["Lmns"] = "luminosity";
@@ -99,6 +108,7 @@ namespace Gimp.PhotoshopActions
       _map["LPRg"] = "light position right";
       _map["LPTp"] = "light position top";
       _map["Lvl"]  = "Level";
+      _map["LvlB"] = "Level-based";
       _map["Lwr"]  = "lower";
       _map["Mgnt"] = "magenta";
       _map["Mltp"] = "multiply";
@@ -113,6 +123,7 @@ namespace Gimp.PhotoshopActions
       _map["Pncl"] = "Pencil Width";
       _map["PntD"] = "paint daubs";
       _map["PprB"] = "Paper Brightness";
+      _map["PrnS"] = "Print Size";
       _map["Prvs"] = "previous";
       _map["PrsT"] = "Preserve Transparency";
       _map["Ptrn"] = "pattern";
@@ -139,12 +150,14 @@ namespace Gimp.PhotoshopActions
       _map["Sftn"] = "Softness";
       _map["ShdI"] = "Shadow Intensity";
       _map["Shdw"] = "shadow";
+      _map["Shrp"] = "Sharpness";
       _map["Sml"]  = "small";
       _map["SprR"] = "Spray Radius";
       _map["StrD"] = "Stroke Detail";
       _map["StrL"] = "Stroke Length";
       _map["StrP"] = "Stroke Pressure";
       _map["StrS"] = "Stroke Size";
+      _map["TlSz"] = "Tile Size";
       _map["Top"]  = "Top";
       _map["Trns"] = "transparent";
       _map["Trsp"] = "transparency";
@@ -156,6 +169,7 @@ namespace Gimp.PhotoshopActions
       _map["Vrtc"] = "Vertical";
       _map["Wdth"] = "Width";
       _map["Wht"]  = "white";
+      _map["Wnd"]  = "Wind";
       _map["Wrp"]  = "wrap";
       _map["WrpA"] = "wrap around";
       _map["WvSn"] = "wave sine";

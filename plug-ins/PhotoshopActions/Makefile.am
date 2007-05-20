@@ -23,6 +23,7 @@ MYSOURCES = 				\
 	AddToEvent.cs			\
 	AliasParameter.cs		\
 	AlignEvent.cs			\
+	AngledStrokesEvent.cs		\
 	ApplyImageEvent.cs		\
 	AverageEvent.cs			\
 	BlurEvent.cs			\
@@ -31,6 +32,7 @@ MYSOURCES = 				\
 	BorderEvent.cs			\
 	BrightnessEvent.cs		\
 	CanvasSizeEvent.cs		\
+	ChalkCharcoalEvent.cs		\
 	ChannelMixerEvent.cs		\
 	ChromeEvent.cs			\
 	ClassType.cs			\
@@ -39,6 +41,7 @@ MYSOURCES = 				\
 	CloseEvent.cs			\
 	CloudsEvent.cs			\
 	ColorBalanceEvent.cs		\
+	ColorHalftoneEvent.cs		\
 	ColorPaletteEvent.cs		\
 	ColorRangeEvent.cs		\
 	ContractEvent.cs		\
@@ -105,6 +108,7 @@ MYSOURCES = 				\
 	GraphicPenEvent.cs		\
 	GroupEvent.cs			\
 	GrowEvent.cs			\
+	HalftoneScreenEvent.cs		\
 	HideChannelEvent.cs		\
 	HideEvent.cs			\
 	HideLayerEvent.cs		\
@@ -137,6 +141,7 @@ MYSOURCES = 				\
 	MezzotintEvent.cs		\
 	MinimumEvent.cs			\
 	MosaicEvent.cs			\
+	MosaicPluginEvent.cs		\
 	MotionBlurEvent.cs		\
 	MoveEvent.cs			\
 	MoveLayerByIndexEvent.cs	\

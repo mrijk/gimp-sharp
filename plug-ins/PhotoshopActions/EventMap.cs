@@ -40,6 +40,7 @@ namespace Gimp.PhotoshopActions
       _map["addNoise"] = _map["AdNs"] = "AddNoiseEvent";
       _map["addTo"] = "AddToEvent";
       _map["align"] = _map["Algn"] = "AlignEvent";
+      _map["angledStrokes"] = "AngledStrokesEvent";
       _map["applyImageEvent"] = "ApplyImageEvent";
       _map["Avrg"] = "AverageEvent";
       _map["blur"] = _map["Blr"] = "BlurEvent";
@@ -48,11 +49,13 @@ namespace Gimp.PhotoshopActions
       _map["brightnessEvent"] = _map["BrgC"] = "BrightnessEvent";
       _map["canvasSize"] = _map["CnvS"] = "CanvasSizeEvent";
       _map["channelMixer"] = _map["ChnM"] = "ChannelMixerEvent";
+      _map["chalkCharcoal"] = "ChalkCharcoalEvent";
       _map["chrome"] = _map["Chrm"] = "ChromeEvent";
       _map["clearEvent"] = "ClearEvent";
       _map["close"] = "CloseEvent";
       _map["clouds"] = _map["Clds"] = "CloudsEvent";
       _map["colorBalance"] = _map["ClrB"] = "ColorBalanceEvent";
+      _map["colorHalftone"] = "ColorHalftoneEvent";
       _map["colorPalette"] = "ColorPaletteEvent";
       _map["colorRange"] = _map["ClrR"] = "ColorRangeEvent";
       _map["contract"] = _map["Cntc"] = "ContractEvent";
@@ -105,6 +108,7 @@ namespace Gimp.PhotoshopActions
       _map["graphicPen"] = "GraphicPenEvent";
       _map["groupEvent"] = "GroupEvent";
       _map["grow"] = "GrowEvent";
+      _map["halftoneScreen"] = "HalftoneScreenEvent";
       _map["hide"] = "HideEvent";
       _map["highPass"] = _map["HghP"] = "HighPassEvent";
       _map["hueSaturation"] = _map["HStr"] = "HueSaturationEvent";
@@ -124,6 +128,7 @@ namespace Gimp.PhotoshopActions
       _map["mezzotint"] = _map["Mztn"] = "MezzotintEvent";
       _map["minimum"] = "MinimumEvent";
       _map["mosaic"] = _map["Msc"] = "MosaicEvent";
+      _map["mosaicPlugin"] = "MosaicPluginEvent";
       _map["move"] = "MoveEvent";
       _map["motionBlur"] = _map["MtnB"] = "MotionBlurEvent";
       _map["oceanRipple"] = "OceanRippleEvent";

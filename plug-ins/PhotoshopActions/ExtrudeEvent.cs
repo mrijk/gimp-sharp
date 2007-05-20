@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // ExtrudeEvent.cs
 //
@@ -44,13 +44,12 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
-      yield return "Extrude Size: " + _extrudeSize;
-      yield return "Extrude Depth: " + _extrudeDepth;
-      yield return "Extrude Solid Face: " + _extrudeSolidFace;
-      yield return "Extrude Mask Incomplete: " + _extrudeMaskIncomplete;
-      yield return "Extrude Type: " + Abbreviations.Get(_extrudeType.Value);
-      yield return "Extrude Random: " + 
-	Abbreviations.Get(_extrudeRandom.Value);
+      yield return "Size: " + _extrudeSize;
+      yield return "Depth: " + _extrudeDepth;
+      yield return Format(_extrudeSolidFace, "ExtF");
+      yield return Format(_extrudeMaskIncomplete, "ExtM");
+      yield return Format(_extrudeType, "ExtT");
+      yield return Format(_extrudeRandom, "ExtR");
     }
 
     override public bool Execute()
