@@ -104,6 +104,8 @@ namespace Gimp.PhotoshopActions
 		  return new SetChannelPropertyEvent(this);
 		case "Lyr":
 		  return new SetLayerPropertyEvent(this);
+		case "TxLr":
+		  return new SetTextLayerPropertyEvent(this);
 		default:
 		  Console.WriteLine("SetEvent.Parse-1: unknown key " + 
 				    enmr.Key);

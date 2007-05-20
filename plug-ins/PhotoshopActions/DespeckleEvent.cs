@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // DespeckleEvent.cs
 //
@@ -24,13 +24,10 @@ namespace Gimp.PhotoshopActions
 {
   public class DespeckleEvent : ActionEvent
   {
-    public override bool IsExecutable
-    {
-      get {return false;}
-    }
-
     override public bool Execute()
     {
+      // Despeckle with default values
+      RunProcedure("plug_in_despeckle", 3, 1, 7, 248);
       return true;
     }
   }

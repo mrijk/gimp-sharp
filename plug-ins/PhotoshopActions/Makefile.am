@@ -184,6 +184,7 @@ MYSOURCES = 				\
 	RemoveWhiteMatteEvent.cs	\
 	ReplaceColorEvent.cs		\
 	RevealAllEvent.cs		\
+	RevertEvent.cs			\
 	RippleEvent.cs			\
 	RotateEvent.cs			\
 	ResetEvent.cs			\
@@ -199,6 +200,7 @@ MYSOURCES = 				\
 	SelectChannelByIndexEvent.cs	\
 	SelectChannelByNameEvent.cs	\
 	SelectChannelEvent.cs		\
+	SelectiveColorEvent.cs		\
 	SelectLayerByNameEvent.cs	\
 	SelectLayerEvent.cs		\
 	SelectMenuItemEvent.cs		\
@@ -219,6 +221,7 @@ MYSOURCES = 				\
 	SetLayerEffectsEvent.cs		\
 	SetLayerPropertyEvent.cs	\
 	SetQuickMaskEvent.cs		\
+	SetTextLayerPropertyEvent.cs	\
 	SharpenEdgesEvent.cs		\
 	SharpenEvent.cs			\
 	SharpenMoreEvent.cs		\

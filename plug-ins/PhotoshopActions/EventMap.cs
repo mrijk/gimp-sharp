@@ -154,12 +154,14 @@ namespace Gimp.PhotoshopActions
       _map["replaceColor"] = "ReplaceColorEvent";
       _map["reset"] = _map["Rset"] = "ResetEvent";
       _map["revealAll"] = "RevealAllEvent";
+      _map["revert"] = "RevertEvent";
       _map["ripple"] = "RippleEvent";
       _map["rotateEventEnum"] = _map["Rtte"] = "RotateEvent";
       _map["save"] = "SaveEvent";
       _map["scaleEffectsEvent"] = "ScaleEffectsEvent";
       _map["select"] = _map["slct"] = "SelectEvent";
       _map["selectAllLayers"] = "SelectAllLayersEvent";
+      _map["selectiveColr"] = "SelectiveColorEvent";
       _map["separationSetup"] = "SeparationSetupEvent";
       _map["set"] = _map["setd"] = "SetEvent";
       _map["sharpen"] = _map["Shrp"] = "SharpenEvent";

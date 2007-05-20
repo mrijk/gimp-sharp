@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006-2007 Maurits Rijk
 //
-// ShearEvent.cs
+// SelectiveColorEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,17 +23,8 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class ShearEvent : ActionEvent
+  public class SelectiveColorEvent : ActionEvent
   {
-    [Parameter("ShrP")]
-    ListParameter _shearPoints;
-    [Parameter("UndA")]
-    EnumParameter _undefinedArea;
-    [Parameter("ShrS")]
-    int _shearStart;
-    [Parameter("ShrE")]
-    int _shearEnd;
-
     public override bool IsExecutable
     {
       get {return false;}
@@ -41,16 +32,11 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
-      yield return "shearPoints: " + "Fix me!";
-      yield return "Undefined Area: " + 
-	Abbreviations.Get(_undefinedArea.Value);
-      yield return "Shear Start: " + _shearStart;
-      yield return "Shear End: " + _shearEnd;
+      yield break;
     }
 
     override public bool Execute()
     {
-      // Implement this using the shear tool
       return false;
     }
   }
