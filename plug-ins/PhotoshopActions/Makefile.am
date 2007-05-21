@@ -117,6 +117,7 @@ MYSOURCES = 				\
 	IExecutable.cs			\
 	ImageSizeEvent.cs		\
 	IndexType.cs			\
+	IntersectWithEvent.cs		\
 	InverseEvent.cs			\
 	InvertEvent.cs			\
 	LensFlareEvent.cs		\

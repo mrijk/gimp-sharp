@@ -30,7 +30,18 @@ namespace Gimp.PhotoshopActions
 
     public override bool IsExecutable
     {
-      get {return false;}
+      get 
+	{
+	  return Parameters["From"] != null;
+	}
+    }
+
+    protected override IEnumerable ListParameters()
+    {
+      if (Parameters["From"] != null)
+	{
+	  yield return "From: Selection";
+	}
     }
 
     public override string EventForDisplay
@@ -40,6 +51,10 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
+      if (Parameters["From"] != null)
+	{
+	  RunProcedure("plug_in_sel2path");
+	}
       return true;
     }
   }

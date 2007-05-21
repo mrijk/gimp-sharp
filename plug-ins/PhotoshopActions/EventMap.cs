@@ -113,6 +113,7 @@ namespace Gimp.PhotoshopActions
       _map["highPass"] = _map["HghP"] = "HighPassEvent";
       _map["hueSaturation"] = _map["HStr"] = "HueSaturationEvent";
       _map["imageSize"] = _map["ImgS"] = "ImageSizeEvent";
+      _map["interfaceWhite"] = "IntersectWithEvent";
       _map["inverse"] = _map["Invs"] = "InverseEvent";
       _map["invert"] = _map["Invr"] = "InvertEvent";
       _map["lensFlare"] = "LensFlareEvent";

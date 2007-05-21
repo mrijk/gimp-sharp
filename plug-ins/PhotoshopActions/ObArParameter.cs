@@ -30,6 +30,7 @@ namespace Gimp.PhotoshopActions
 
     // Fix me: this is only working for point arrays!!!!
     CoordinateList<double> _value = new CoordinateList<double>();
+    string _units;
 
     public string ClassID2
     {
@@ -39,6 +40,11 @@ namespace Gimp.PhotoshopActions
     public CoordinateList<double> Value
     {
       get {return _value;}
+    }
+
+    public string Units
+    {
+      get {return _units;}
     }
 
     public override void Parse(ActionParser parser)
@@ -70,9 +76,9 @@ namespace Gimp.PhotoshopActions
 	{
 	  string key = parser.ReadTokenOrString();
 	  string type = parser.ReadFourByteString();
-	  string units = parser.ReadFourByteString();
+	  _units = parser.ReadFourByteString();
 	  
-	  DebugOutput.Dump("key: {0} ({1}) {2}", key, type, units);
+	  DebugOutput.Dump("key: {0} ({1}) {2}", key, type, _units);
 	  
 	  int numberOfItems = parser.ReadInt32();
 	  DebugOutput.Dump("NumberOfItems2: " + numberOfItems);

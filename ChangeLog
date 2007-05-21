@@ -1,3 +1,26 @@
+2007-05-21  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/PhotoshopActions/MakePathEvent.cs: implemented make
+	path from selection
+
+	* plug-ins/PhotoshopActions/IntersectWithEvent.cs: new file
+
+	* plug-ins/PhotoshopActions/EventMap.cs
+	* plug-ins/PhotoshopActions/Makefile.am: changed accordingly
+
+2007-05-20  Maurits  <m.rijk@chello.nl>
+
+	* plug-ins/PhotoshopActions/DespeckleEvent.cs: implemented
+
+	* plug-ins/PhotoshopActions/SetEvent.cs: set text layer properties
+
+	* plug-ins/PhotoshopActions/RevertEvent.cs
+	* plug-ins/PhotoshopActions/SetTextLayerPropertyEvent.cs
+	* plug-ins/PhotoshopActions/SelectiveColorEvent.cs: new files
+	
+	* plug-ins/PhotoshopActions/EventMap.cs
+	* plug-ins/PhotoshopActions/Makefile.am: changed accordingly
+
 2007-05-19  Maurits  <m.rijk@chello.nl>
 
 	* plug-ins/PhotoshopActions/SmoothnessEvent.cs: added comment

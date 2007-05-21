@@ -120,6 +120,7 @@ namespace Gimp.PhotoshopActions
       _map["Otsd"] = "outside";
       _map["Ovrl"] = "overlay";
       _map["Phtc"] = "Photocopy";
+      _map["Plgn"] = "polygon";
       _map["Pncl"] = "Pencil Width";
       _map["PntD"] = "paint daubs";
       _map["PprB"] = "Paper Brightness";
