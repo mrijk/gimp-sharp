@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // ImageSizeEvent.cs
 //
@@ -34,12 +34,16 @@ namespace Gimp.PhotoshopActions
     [Parameter("CnsP")]
     bool _constrainProportions;
     [Parameter("Intr")]
-    EnumParameter _Intersect;	// ???
+    EnumParameter _interpolation;
 
     protected override IEnumerable ListParameters()
     {
       yield return "Width: " + _width;
       yield return "Height: " + _height;
+      if (_interpolation != null)
+	{
+	  yield return Format(_interpolation, "Intr");
+	}
     }
 
     override public bool Execute()

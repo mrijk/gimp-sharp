@@ -95,7 +95,7 @@ namespace Gimp.PhotoshopActions
       _map["fill"] = _map["Fl"] = "FillEvent";
       _map["filmGrain"] = "FilmGrainEvent";
       _map["findEdges"] = _map["FndE"] =  "FindEdgesEvent";
-      _map["flattenImage"] = "FlattenImageEvent";
+      _map["flattenImage"] = _map["FltI"] = "FlattenImageEvent";
       _map["flip"] = _map["Flip"] = "FlipEvent";
       _map["fragment"] = "FragmentEvent";
       _map["GEfc"] = "FilterGalleryEvent";

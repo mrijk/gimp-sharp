@@ -196,6 +196,7 @@ MYSOURCES = 				\
 	SelectDocumentEvent.cs		\
 	SelectEllipseEvent.cs		\
 	SelectEvent.cs			\
+	SelectionByIndexEvent.cs	\
 	SelectionEvent.cs		\
 	SelectionFromChannelEvent.cs	\
 	SelectChannelByIndexEvent.cs	\
@@ -206,6 +207,7 @@ MYSOURCES = 				\
 	SelectLayerEvent.cs		\
 	SelectMenuItemEvent.cs		\
 	SelectNoneEvent.cs		\
+	SelectPixelEvent.cs		\
 	SelectPolygonEvent.cs		\
 	SelectPreviousEvent.cs		\
 	SelectRectangleEvent.cs		\

@@ -38,11 +38,14 @@ namespace Gimp.PhotoshopActions
       _map["AdRg"] = "right edges";
       _map["AdTp"] = "top edges";
       _map["Anno"] = "none";
+      _map["Bcbc"] = "bicubic";
       _map["BckC"] = "background color";
       _map["Bckg"] = "background";
       _map["Blck"] = "black";
       _map["Bl"]   = "blue";
       _map["Blks"] = "Blocks";
+      _map["BlrM"] = "Method";
+      _map["BlrQ"] = "Quality";
       _map["BrbW"] = "brush wide blurry";
       _map["BrsD"] = "Brush Detail";
       _map["BrSm"] = "brush simple";
@@ -62,7 +65,9 @@ namespace Gimp.PhotoshopActions
       _map["Cyn" ] = "cyan";
       _map["Dplc"] = "Duplicate";
       _map["DrcB"] = "Direction Balance";
+      _map["Drct"] = "Direction";
       _map["Drkn"] = "darken";
+      _map["Dstr"] = "Distribution";
       _map["Edg"]  = "Edge";
       _map["Elps"] = "Ellipse";
       _map["ExtF"] = "Solid Front Faces";
@@ -74,6 +79,7 @@ namespace Gimp.PhotoshopActions
       _map["Frnt"] = "front";
       _map["Frst"] = "first";
       _map["FtOn"] = "Fit On Screen";
+      _map["Gd"]   = "good";
       _map["GlwE"] = "glowing edges";
       _map["Grn"]  = "green";
       _map["GrnE"] = "grain enlarged";
@@ -87,6 +93,7 @@ namespace Gimp.PhotoshopActions
       _map["Hrzn"] = "Horizontal";
       _map["HrzO"] = "Horizontal Only";
       _map["Insd"] = "inside";
+      _map["Intr"] = "Interpolation";
       _map["Invr"] = "Invert Source";
       _map["InvT"] = "Invert Texture";
       _map["LbCM"] = "Lab color mode";
@@ -94,6 +101,7 @@ namespace Gimp.PhotoshopActions
       _map["LDTp"] = "Top";
       _map["LDTR"] = "Top Right";
       _map["Left"] = "Left";
+      _map["Lft"]  = "Left";
       _map["LgDr"] = "Light/Dark Balance";
       _map["LghD"] = "Light Direction";
       _map["LghG"] = "Lighten Grout";
@@ -171,6 +179,7 @@ namespace Gimp.PhotoshopActions
       _map["Wdth"] = "Width";
       _map["Wht"]  = "white";
       _map["Wnd"]  = "Wind";
+      _map["WndM"] = "Method";
       _map["Wrp"]  = "wrap";
       _map["WrpA"] = "wrap around";
       _map["WvSn"] = "wave sine";

@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006-2007 Maurits Rijk
 //
-// AddNoiseEvent.cs
+// SelectionByIndexEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,29 +23,26 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class AddNoiseEvent : ActionEvent
+  public class SelectionByIndexEvent : SelectionEvent
   {
-    [Parameter("Dstr")]
-    EnumParameter _distribution;
-    [Parameter("Amnt")]
-    int _amount;
-    [Parameter("Mnch")]
-    bool _monochrome;
+    readonly int _index;
+
+    public SelectionByIndexEvent(SelectionEvent srcEvent, int index) :
+      base(srcEvent)
+    {
+      _index = index;
+    }
 
     protected override IEnumerable ListParameters()
     {
-      yield return "Amount: " + _amount;
-      yield return Format(_distribution, "Dstr");
-      yield return Format(_monochrome, Abbreviations.Get("Mnch"));
+      yield return "To: channel " + _index;
     }
 
     override public bool Execute()
     {
-      double noise = _amount / 100.0;
-      RunProcedure("plug_in_rgb_noise", !_monochrome, 0, noise, noise, noise, 
-		   1.0);
-
-      return true;
+      Channel channel = ActiveImage.Channels[_index];
+      ActiveImage.Selection.Combine(channel, ChannelOps.Add);
+      return false;
     }
   }
 }

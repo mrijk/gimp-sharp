@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // RadialBlurEvent.cs
 //
@@ -35,8 +35,8 @@ namespace Gimp.PhotoshopActions
     protected override IEnumerable ListParameters()
     {
       yield return "Amount: " + _amount;
-      yield return "Blur Mode: " + Abbreviations.Get(_blurMode.Value);
-      yield return "Blur Quality: " + Abbreviations.Get(_blurQuality.Value);
+      yield return Format(_blurMode, "BlrM");
+      yield return Format(_blurQuality, "BlrQ");
     }
 
     override public bool Execute()

@@ -1,4 +1,20 @@
-2007-05-21  Maurits  <m.rijk@chello.nl>
+2007-05-22  Maurits  <maurits.rijk@gmail.com>
+
+	* plug-ins/PhotoshopActions/AddNoiseEvent.cs: bug fix
+
+	* plug-ins/PhotoshopActions/RadialBlurEvent.cs: clean-up
+
+	* plug-ins/PhotoshopActions/SelectionEvent.cs: add selection from
+	channel by index
+
+	* plug-ins/PhotoshopActions/SelectPixelEvent.cs
+	* plug-ins/PhotoshopActions/SelectionByIndexEvent.cs: new files
+	
+	* plug-ins/PhotoshopActions/Makefile.am: changed accordingly
+
+	* plug-ins/PhotoshopActions/ImageSizeEvent.cs: more verbose
+
+2007-05-21  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/MakePathEvent.cs: implemented make
 	path from selection
@@ -8,7 +24,7 @@
 	* plug-ins/PhotoshopActions/EventMap.cs
 	* plug-ins/PhotoshopActions/Makefile.am: changed accordingly
 
-2007-05-20  Maurits  <m.rijk@chello.nl>
+2007-05-20  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/DespeckleEvent.cs: implemented
 
@@ -21,7 +37,7 @@
 	* plug-ins/PhotoshopActions/EventMap.cs
 	* plug-ins/PhotoshopActions/Makefile.am: changed accordingly
 
-2007-05-19  Maurits  <m.rijk@chello.nl>
+2007-05-19  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/SmoothnessEvent.cs: added comment
 
@@ -40,7 +56,7 @@
 	* plug-ins/PhotoshopActions/EventMap.cs
 	* plug-ins/PhotoshopActions/Makefile.am: changed accordingly
 
-2007-05-18  Maurits  <m.rijk@chello.nl>
+2007-05-18  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/TextLayer.cs: new file
 	* lib/Makefile.am: changed accordingly
@@ -51,7 +67,7 @@
 	* plug-ins/PhotoshopActions/MoveOffsetEvent.cs: 
 	* plug-ins/PhotoshopActions/TransformLayerEvent.cs: better formatting
 
-2007-05-17  Maurits  <m.rijk@chello.nl>
+2007-05-17  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/SelectPreviousEvent.cs: new file
 
@@ -69,7 +85,7 @@
 	* plug-ins/PhotoshopActions/WatercolorEvent.cs
 	* plug-ins/PhotoshopActions/DeleteLayerEvent.cs: more verbosity
 
-2007-05-16  Maurits  <m.rijk@chello.nl>
+2007-05-16  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/TexturizerEvent.cs: more verbosity
 
@@ -91,7 +107,7 @@
 
 	* plug-ins/PhotoshopActions/EventMap.cs: new events added
 
-2007-05-15  Maurits  <m.rijk@chello.nl>
+2007-05-15  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/RasterizeTypeLayerEvent.cs: implemented
 
@@ -109,7 +125,7 @@
 
 	* lib/Offset.cs: added ToString method
 
-2007-05-14  Maurits  <m.rijk@chello.nl>
+2007-05-14  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/CoordinateList.cs: added this[] method
 
@@ -121,7 +137,7 @@
 	* plug-ins/PhotoshopActions/FillEvent.cs: support for filling with
 	a pattern
 
-2007-05-13  Maurits  <m.rijk@chello.nl>
+2007-05-13  Maurits  <maurits.rijk@gmail.com>
 	
 	* lib/Procedure.cs: handle strings as parameters
 
@@ -158,7 +174,7 @@
 	* plug-ins/PhotoshopActions/DuplicateDocumentEvent.cs
 	* plug-ins/PhotoshopActions/DuplicateEvent.cs: more verbosity
 
-2007-05-13  Maurits  <m.rijk@chello.nl>
+2007-05-13  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Selection.cs: removed warning
 
@@ -175,7 +191,7 @@
 	* plug-ins/PhotoshopActions/EventMap.cs
 	* plug-ins/PhotoshopActions/Makefile.am: changed accordingly
 
-2007-05-12  Maurits  <m.rijk@chello.nl>
+2007-05-12  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/ConvertModeEvent.cs: use abbreviations
 
@@ -192,7 +208,7 @@
 	* plug-ins/PhotoshopActions/AddToEvent.cs
 	* plug-ins/PhotoshopActions/NewDocumentEvent.cs: more complete output
 
-2007-05-12  Maurits  <m.rijk@chello.nl>
+2007-05-12  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/FillEvent.cs: fill with White
 
@@ -215,13 +231,13 @@
 
 	* plug-ins/PhotoshopActions/SetEvent.cs: handle new SetFileInfoEvent
 
-2007-05-12  Maurits  <m.rijk@chello.nl>
+2007-05-12  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/ActionEvent.cs: new convenience routine
 
 	* plug-ins/PhotoshopActions/StopEvent.cs: ... and use it
 
-2007-05-12  Maurits  <m.rijk@chello.nl>
+2007-05-12  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/ActionSet.cs: execute by name
 
@@ -232,7 +248,7 @@
 	* plug-ins/PhotoshopActions/SurfaceBlurEvent.cs: mapped to
 	selective Gaussian blur for the time being
 
-2007-05-11  Maurits  <m.rijk@chello.nl>
+2007-05-11  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/DuplicateSelectionEvent.cs
 	* plug-ins/PhotoshopActions/MoveOffsetEvent.cs
@@ -251,7 +267,7 @@
 	* plug-ins/PhotoshopActions/ResetEvent.cs
 	* plug-ins/PhotoshopActions/ExchangeEvent.cs: minor clean-up
 
-2007-05-11  Maurits  <m.rijk@chello.nl>
+2007-05-11  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Image.cs: remove unused variables
 
@@ -260,7 +276,7 @@
 	* plug-ins/Mezzotint/Mezzotint.cs
 	* plug-ins/ncp/ncp.cs: use new Pixel methods
 
-2007-05-10  Maurits  <m.rijk@chello.nl>
+2007-05-10  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/ChannelList.cs: make GetEnumerator public
 
@@ -278,7 +294,7 @@
 	* plug-ins/PhotoshopActions/MoveLayerEvent.cs: pick up Photoshop
 	action files again
 
-2007-05-09  Maurits  <m.rijk@chello.nl>
+2007-05-09  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/GimpColorButton.cs: use Capitalized letters for enums
 
@@ -301,11 +317,11 @@
 	* plug-ins/PicturePackage/DocumentFrame.cs
 	* plug-ins/PicturePackage/LabelFrame.cs: clean-up
 
-2007-05-09  Maurits  <m.rijk@chello.nl>
+2007-05-09  Maurits  <maurits.rijk@gmail.com>
 	
 	* lib/SaveAttributeSet.cs: remove unneeded cast and import
 
-2007-05-08  Maurits  <m.rijk@chello.nl>
+2007-05-08  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Image.cs: use RGB array for colormap
 
@@ -318,7 +334,7 @@
 	* lib/Image.cs
 	* lib/Drawable.cs: ... and use it here
 
-2007-05-07  Maurits  <m.rijk@chello.nl>
+2007-05-07  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Procedure.cs
 	* lib/Path.cs
@@ -331,7 +347,7 @@
 	* lib/Display.cs
 	* lib/Brush.cs: replace Exception by GimpSharpException
 
-2007-05-06  Maurits  <m.rijk@chello.nl>
+2007-05-06  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Resolution.cs: new file
 
@@ -343,14 +359,14 @@
 
 	* plug-ins/UnitTest/TestImage.cs: new unit tests
 
-2007-05-05  Maurits  <m.rijk@chello.nl>
+2007-05-05  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/GimpPreview.cs: add properties for Size and Position
 
 	* plug-ins/Mezzotint/Mezzotint.cs:
 	* plug-ins/Forge/Forge.cs: minor clean-up
 
-2007-05-05  Maurits  <m.rijk@chello.nl>
+2007-05-05  Maurits  <maurits.rijk@gmail.com>
 
 	* NEWS: update
 
@@ -360,7 +376,7 @@
 
 	* lib/Drawable.cs: use Pixel class in GetThumbnailData
 
-2007-05-04  Maurits  <m.rijk@chello.nl>
+2007-05-04  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/UnitTest/TestGrid.cs: new file
 
@@ -378,27 +394,27 @@
 
 	* lib/Makefile.am: changed accordingly
 
-2007-05-04  Maurits  <m.rijk@chello.nl>
+2007-05-04  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/AssemblyInfo.cs
 
 	* configure.in:
 	* INSTALL: bumped version nummer to 0.13
 
-2007-05-03  Maurits  <m.rijk@chello.nl>
+2007-05-03  Maurits  <maurits.rijk@gmail.com>
 
 	* Made 0.12 release
 
 	* TODO
 	* NEWS: updated
 
-2007-05-02  Maurits  <m.rijk@chello.nl>
+2007-05-02  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PythonSample/PythonSample
 	* plug-ins/PythonSample/PythonSample.py: updates to make this a
 	bit easier to use
 
-2007-04-25  Maurits  <m.rijk@chello.nl>
+2007-04-25  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Dimensions.cs: implemented Equals method to avoid warning
 
@@ -406,7 +422,7 @@
 
 	* plug-ins/UnitTest/TestImage.cs: more testcases
 
-2007-04-24  Maurits  <m.rijk@chello.nl>
+2007-04-24  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/GimpBaseEnums.cs: added GimpForegroundExtractMode
 
@@ -414,20 +430,20 @@
 
 	* plug-ins/UnitTest/TestDrawable.cs: test new functions
 
-2007-04-23  Maurits  <m.rijk@chello.nl>
+2007-04-23  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Parasite.cs: try to make this work
 
 	* plug-ins/UnitTest/TestParasite.cs: more testcases
 
-2007-04-21  Maurits  <m.rijk@chello.nl>
+2007-04-21  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/RGB.cs: implemented ParseName
 
 	* plug-ins/UnitTest/TestRgb.cs
 	* plug-ins/UnitTest/TestSelection.cs: more testcases
 
-2007-04-20  Maurits  <m.rijk@chello.nl>
+2007-04-20  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Rectangle.cs
 	* lib/Dimensions.cs: override GetHashCode to avoid compiler warnings
@@ -443,7 +459,7 @@
 
 	* plug-ins/UnitTest/Makefile.am: changed accordingly
 
-2007-04-18  Maurits  <m.rijk@chello.nl>
+2007-04-18  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Dimensions.cs: implement comparison operators
 
@@ -455,23 +471,23 @@
 
 	* plug-ins/UnitTest/TestRectangle.cs: more test cases
 	
-2007-04-12  Maurits  <m.rijk@chello.nl>
+2007-04-12  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/UnitTest/TestDrawable.cs: more tests
 
-2007-04-09  Maurits  <m.rijk@chello.nl>
+2007-04-09  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/UnitTest/TestDrawable.cs: add a few more unit tests
 
-2007-04-07  Maurits  <m.rijk@chello.nl>
+2007-04-07  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Raindrops/Raindrops.cs: fixed #1629354
 
-2007-03-18  Maurits  <m.rijk@chello.nl>
+2007-03-18  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/DifferenceClouds/DifferenceClouds.cs: use RegionIterator
 
-2007-03-17  Maurits  <m.rijk@chello.nl>
+2007-03-17  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Pixel.cs
 	* lib/PixelRgn.cs
@@ -479,12 +495,12 @@
 
 	* plug-ins/Splitter/Splitter.cs: and use it here
 
-2007-03-06  Maurits  <m.rijk@chello.nl>
+2007-03-06  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Splitter/MathExpressionParser.cs: fix compiler warning
 	by replacing obsolete class
 
-2007-02-23  Maurits  <m.rijk@chello.nl>
+2007-02-23  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/PixelFetcher.cs
 	* lib/PluginWithPreview.cs: minor clean-up
@@ -495,7 +511,7 @@
 	* plug-ins/Ministeck/Ministeck.cs:
 	* plug-ins/Raindrops/Raindrops.cs:
 
-2007-02-22  Maurits  <m.rijk@chello.nl>
+2007-02-22  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/ZoomPreview.cs
 	* lib/DrawablePreview.cs: make sure we always get a fully
@@ -507,25 +523,25 @@
 
 	* lib/Dimensions.cs: added IsInside method
 
-2007-02-20  Maurits  <m.rijk@chello.nl>
+2007-02-20  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/SliceTool/Format.cs: Fixes #1646028
 
 	* plug-ins/SliceTool/SliceTool.cs: use DirectorySeparatorChar
 	instead of hard-coded '/'.
 
-2007-02-20  Maurits  <m.rijk@chello.nl>
+2007-02-20  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Version.cs: added ToString method to make sure that
 	SliceTool writes correct version number
 
 	* lib/Gimp.cs: let Gimp.Version return a string. Fixes #1642362
 
-2007-02-19  Maurits  <m.rijk@chello.nl>
+2007-02-19  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Splitter/Splitter.cs: handle non-interactive parameters
 
-2007-02-03  Maurits  <m.rijk@chello.nl>
+2007-02-03  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/PaletteEntry.cs
 	* lib/PaletteList.cs:
@@ -533,7 +549,7 @@
 
 	* plug-ins/UnitTest/TestPixelRgn.cs: fix failing tests
 
-2007-02-03  Maurits  <m.rijk@chello.nl>
+2007-02-03  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/UnitTest/UnitTest.cs: progress bar is now part of the
 	main dialog. Fixes #1481318
@@ -551,7 +567,7 @@
 	* plug-ins/UnitTest/TestPattern.cs: new file
 	* plug-ins/UnitTest/Makefile.am: changed accordingly
 
-2007-02-03  Maurits  <m.rijk@chello.nl>
+2007-02-03  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Splitter/MathExpressionParser.cs: clean-up
 
@@ -576,7 +592,7 @@
 	* lib/Layer.cs:
 	* plug-ins/UnitTest/TestLayer.cs: more unit tests added
 
-2007-02-02  Maurits  <m.rijk@chello.nl>
+2007-02-02  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/ImageList.cs: fixed bug when zero images were found
 
@@ -603,16 +619,16 @@
 	
 	* plug-ins/UnitTest/Makefile.am: changed accordingly
 
-2007-01-30  Maurits  <m.rijk@chello.nl>
+2007-01-30  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Ministeck/Ministeck.cs: make sure preview is redrawn
 	correctly
 
-2007-01-26  Maurits  <m.rijk@chello.nl>
+2007-01-26  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Rectangle.cs: ToString() method
 
-2007-01-26  Maurits  <m.rijk@chello.nl>
+2007-01-26  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/SliceTool/PreferencesDialog.cs
 	* plug-ins/SliceTool/TableDialog.cs: improve i18n stuff
@@ -633,14 +649,14 @@
 	* plug-ins/UpdateCheck/UpdateCheck.cs
 	* plug-ins/ncp/ncp.cs: removing unneeded parameters from delegates
 
-2007-01-25  Maurits  <m.rijk@chello.nl>
+2007-01-25  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Mezzotint/*: initial code for Mezzotint plug-in
 	
 	* configure.in
 	* plug-ins/Makefile.am: changed accordingly
 
-2007-01-24  Maurits  <m.rijk@chello.nl>
+2007-01-24  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/RGB.cs: add convenience routine Divide and setters for R, G
 	and B.
@@ -658,7 +674,7 @@
 	* plug-ins/Swirlies/Swirly.cs: pass RGB parameter iso separate r,
 	g and b values.
 
-2007-01-23  Maurits  <m.rijk@chello.nl>
+2007-01-23  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Forge/Complex.cs
 	* plug-ins/Forge/ComplexMatrix.cs
@@ -670,7 +686,7 @@
 
 	* plug-ins/Forge/SpectralSynthesis.cs: use Complex class
 	
-2007-01-21  Maurits  <m.rijk@chello.nl>
+2007-01-21  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/PixelFetcher.cs: added PixelFetcher constructor with default
 	setting for shadow paramater to false
@@ -684,7 +700,7 @@
 	* plug-ins/Ministeck/ShapeSet.cs
 	* plug-ins/Fragment/Fragment.cs: minor clean-up
 
-2007-01-20  Maurits  <m.rijk@chello.nl>
+2007-01-20  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Colorize/UmfPack.cs: new file to hold all UMFPACK
 	marshalling
@@ -692,7 +708,7 @@
 	* plug-ins/Colorize/Colorize.cs
 	* plug-ins/Colorize/Makefile.am: changed accordingly
 
-2007-01-20  Maurits  <m.rijk@chello.nl>
+2007-01-20  Maurits  <maurits.rijk@gmail.com>
 
 	* NEWS
 	* TODO: updated
@@ -714,7 +730,7 @@
 
 	* plug-ins/PythonSample/PythonSample.py: minor improvements
 	
-2007-01-19  Maurits  <m.rijk@chello.nl>
+2007-01-19  Maurits  <maurits.rijk@gmail.com>
 	
 	* plug-ins/Forge/FourierTransform.cs
 	* plug-ins/Forge/SpectralSynthesis.cs
@@ -724,7 +740,7 @@
 
 	* plug-ins/Forge/Makefile.am: changed accordingly
 
-2007-01-18  Maurits  <m.rijk@chello.nl>
+2007-01-18  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Drawable.cs: factory method to generate pixels...
 
@@ -740,7 +756,7 @@
 
 	* plug-ins/PythonSample/PythonSample.py: minor improvements
 
-2007-01-16  Maurits  <m.rijk@chello.nl>
+2007-01-16  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/PythonPlugin.cs: added copyright header
 
@@ -748,13 +764,13 @@
 	IterateDestSimple functions because IronPython can't see
 	difference between multiple overloads
 
-2007-01-16  Maurits  <m.rijk@chello.nl>
+2007-01-16  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/PythonPlugin.cs: strip executable name from arguments
 	
 	* plug-ins/PythonSample/PythonSample.py: first somewhat working version
 
-2007-01-14  Maurits  <m.rijk@chello.nl>
+2007-01-14  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/PythonPlugin.cs: introduced because somehow IronPython can't
 	derive from abstract C# classes.
@@ -764,25 +780,25 @@
 	* plug-ins/PythonSample/*
 	* plug-ins/Makefile.am: add IronPython demo
 
-2007-01-12  Maurits  <m.rijk@chello.nl>
+2007-01-12  Maurits  <maurits.rijk@gmail.com>
 
 	* configure.in: check for IronPython availability
 
-2007-01-12  Maurits  <m.rijk@chello.nl>
+2007-01-12  Maurits  <maurits.rijk@gmail.com>
 
 	* configure.in: report if gmcs is not available. Fixes #1522995
 
-2007-01-11  Maurits  <m.rijk@chello.nl>
+2007-01-11  Maurits  <maurits.rijk@gmail.com>
 
 	* configure.in: check for availability of gimptool. Fixes #1630914
 
-2007-01-10  Maurits  <m.rijk@chello.nl>
+2007-01-10  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/SliceTool/Format.cs
 	* plug-ins/SliceTool/SliceTool.cs: improve usability suggested by
 	Alan Horkan. Fixes #1524108
 
-2007-01-07  Maurits  <m.rijk@chello.nl>
+2007-01-07  Maurits  <maurits.rijk@gmail.com>
 
 	* README: minor update
 
@@ -791,7 +807,7 @@
 
 	* configure.in: bumped version number to 0.12 and depend on Mono 1.2.x
 
-2007-01-06  Maurits  <m.rijk@chello.nl>
+2007-01-06  Maurits  <maurits.rijk@gmail.com>
 
 	* Made 0.11 release
 
@@ -801,7 +817,7 @@
 
 	* java/stubs/Makefile.am : commented out EXTRA_DIST line
 
-2007-01-06  Maurits  <m.rijk@chello.nl>
+2007-01-06  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Colorize/Colorize.cs: let menu path depend on GIMP version
 
@@ -815,7 +831,7 @@
 	* plug-ins/Splitter/Splitter.cs: make sure Alpha channel is added
 	to layers
 
-2007-01-06  Maurits  <m.rijk@chello.nl>
+2007-01-06  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Raindrops/Raindrops.cs: split of some functionality and
 	put this into...
@@ -824,7 +840,7 @@
 
 	* plug-ins/Raindrops/Makefile.am: changed accordingly
 
-2007-01-05  Maurits  <m.rijk@chello.nl>
+2007-01-05  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/ActionEvent.cs
 	* plug-ins/PhotoshopActions/SetColorEvent.cs: minor clean-up
@@ -840,7 +856,7 @@
 
 	* plug-ins/UnitTest/TestPixelFetcher.cs: minor clean-up
 
-2007-01-04  Maurits  <m.rijk@chello.nl>
+2007-01-04  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/RGB.cs: fix Equals method
 
@@ -851,7 +867,7 @@
 
 	* plug-ins/UnitTest/TestChannel.cs: more tests added
 
-2007-01-03  Maurits  <m.rijk@chello.nl>
+2007-01-03  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/PixelFetcher.cs: overload GetPixel method with
 	Coordinate<int>. Removed Get/PutPixel method with byte[] argument.
@@ -865,7 +881,7 @@
 
 	* plug-ins/Pointillize/Makefile.am: changed accordingly
 
-2006-12-27  Maurits  <m.rijk@chello.nl>
+2006-12-27  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Pixel.cs: added properties to get X and Y
 
@@ -888,7 +904,7 @@
 	* plug-ins/Splitter/po/he.po
 	* plug-ins/Splitter/po/it.po : fixes for bug #1526127
 
-2006-12-20  Maurits  <m.rijk@chello.nl>
+2006-12-20  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/DrawablePreview.cs: layout
 
@@ -898,7 +914,7 @@
 
 	* lib/Makefile.am: changed accordingly
 
-2006-12-18  Maurits  <m.rijk@chello.nl>
+2006-12-18  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/ParamDef.cs
 	* lib/ParamDefList.cs: add support for double parameters, fixes
@@ -906,7 +922,7 @@
 
 	* plug-ins/wbmp/wbmp.cs: code clean-up, minor improvements
 
-2006-12-17  Maurits  <m.rijk@chello.nl>
+2006-12-17  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Forge/Forge.cs: GUI clean-up, almost finished
 
@@ -914,11 +930,11 @@
 
 	* plug-ins/Forge/Forge.cs : fix for bug #1617115
 
-2006-12-16  Maurits  <m.rijk@chello.nl>
+2006-12-16  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/ScaleEntry.cs: add missing API.
 
-2006-12-16  Maurits  <m.rijk@chello.nl>
+2006-12-16  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/UpdateCheck/UpdateCheck.cs
 	* plug-ins/UnitTest/UnitTest.cs
@@ -939,11 +955,11 @@
 	* lib/PluginWithPreview.cs
 	* lib/Plugin.cs: clean-up dialog handling
 
-2006-12-16  Maurits  <m.rijk@chello.nl>
+2006-12-16  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Ministeck/ShapeSet.cs: minor clean-up
 
-2006-12-15  Maurits  <m.rijk@chello.nl>
+2006-12-15  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/AspectPreview.cs: new Update routine...
 
@@ -959,7 +975,7 @@
 
 	* plug-ins/Forge/Forge.cs: minor clean-up
 
-2006-12-15  Maurits  <m.rijk@chello.nl>
+2006-12-15  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Fragment/Fragment.cs: switch row/col in call to PixelFetcher
 
@@ -981,11 +997,11 @@
 	* plug-ins/UpdateCheck/UpdateCheck.cs
 	* plug-ins/wbmp/wbmp.cs: implement ListProcedures()
 
-2006-12-14  Maurits  <m.rijk@chello.nl>
+2006-12-14  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/GimpPreview.cs: new Bounds property
 
-2006-12-14  Maurits  <m.rijk@chello.nl>
+2006-12-14  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Coordinate.cs: added Equals operator
 
@@ -1004,7 +1020,7 @@
 	* plug-ins/ncp/ncp.cs
 	* plug-ins/neo/neo.cs: implement ListProcedures()
 	
-2006-12-12  Maurits  <m.rijk@chello.nl>
+2006-12-12  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Rectangle.cs: new class
 
@@ -1018,7 +1034,7 @@
 	* plug-ins/ncp/ncp.cs:
 	* plug-ins/Pointillize/Pointillize.cs: use new Rectangle class
 
-2006-12-10  Maurits  <m.rijk@chello.nl>
+2006-12-10  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/DifferenceClouds/DifferenceClouds.cs
 	* plug-ins/Forge/Forge.cs: minor code clean-up
@@ -1030,12 +1046,12 @@
 
 	* plug-ins/Forge/Pixel.cs : removed from the repository
 
-2006-12-08  Maurits  <m.rijk@chello.nl>
+2006-12-08  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/DifferenceClouds/DifferenceClouds.cs: use Pixel class
 	and some code clean-up.
 
-2006-12-07  Maurits  <m.rijk@chello.nl>
+2006-12-07  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Coordinate.cs: add constructor
 
@@ -1043,7 +1059,7 @@
 	* plug-ins/Pointillize/ColorCoordinateSet.cs
 	* plug-ins/Pointillize/Pointillize.cs: use Pixel class
 
-2006-12-06  Maurits  <m.rijk@chello.nl>
+2006-12-06  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Ministeck/Ministeck.cs
 	* plug-ins/Ministeck/Painter.cs
@@ -1057,11 +1073,11 @@
 	* plug-ins/UnitTest/TestPixelFetcher.cs
 	* plug-ins/Fragment/Fragment.cs: changed accordingly
 
-2006-12-05  Maurits  <m.rijk@chello.nl>
+2006-12-05  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Pixel.cs: implement Add/Substract/etc. functions
 
-2006-12-04  Maurits  <m.rijk@chello.nl>
+2006-12-04  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Pixel.cs: added SameColor function
 
@@ -1085,7 +1101,7 @@
 	* java/sample_plugin/Makefile.am : changed to support latest Mono /
 	IKVM versions
 
-2006-12-01  Maurits  <m.rijk@chello.nl>
+2006-12-01  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Colorize/Colorize.cs: first working version!
 
@@ -1098,7 +1114,7 @@
 	* INSTALL
 	* NEWS: updated
 
-2006-11-30  Maurits  <m.rijk@chello.nl>
+2006-11-30  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Pixel.cs: add CopyFrom method
 
@@ -1107,28 +1123,28 @@
 	* plug-ins/Colorize/Colorize.cs
 	* plug-ins/UnitTest/TestPixelRgn.cs: changed accordingly
 
-2006-11-29  Maurits  <m.rijk@chello.nl>
+2006-11-29  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Colorize/Colorize.cs: starting to replace slow
 	Get/SetRow functions
 
-2006-11-29  Maurits  <m.rijk@chello.nl>
+2006-11-29  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/UnitTest/TestPixelRgn.cs:
 	* plug-ins/DifferenceClouds/DifferenceClouds.cs
 	* plug-ins/Splitter/Splitter.cs: use Pixel class
 
-2006-11-26  Maurits  <m.rijk@chello.nl>
+2006-11-26  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/RgnIterator.cs: use Pixel class in iterators
 
 	* plug-ins/AverageBlur/AverageBlur.cs: changed accordingly
 
-2006-11-25  Maurits  <m.rijk@chello.nl>
+2006-11-25  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Raindrops/Raindrops.cs: use Pixel class
 
-2006-11-25  Maurits  <m.rijk@chello.nl>
+2006-11-25  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/UnitTest/TestPixel.cs: new file
 	
@@ -1143,13 +1159,13 @@
 
 	* lib/PixelFetcher.cs: added convenience routines that use Pixel class
 
-2006-11-25  Maurits  <m.rijk@chello.nl>
+2006-11-25  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Forge/Forge.cs: minor clean-up
 
 	* lib/Drawable.cs: added convenience routine Update()
 
-2006-11-24  Maurits  <m.rijk@chello.nl>
+2006-11-24  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/AverageBlur/AverageBlur.cs: use new ReadPixelIterator class
 
@@ -1160,18 +1176,18 @@
 
 	* lib/Makefile.am: changed accordingly
 	
-2006-11-23  Maurits  <m.rijk@chello.nl>
+2006-11-23  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Colorize/Colorize.cs: debugging
 
-2006-11-22  Maurits  <m.rijk@chello.nl>
+2006-11-22  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Channel.cs: make sure base class (Drawable) is correctly
 	initialized.
 
 	* plug-ins/Colorize/Colorize.cs: enable UMFPACK routines
 
-2006-11-19  Maurits  <m.rijk@chello.nl>
+2006-11-19  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Colorize/umfpackwrapper.c: add small wrapper to make
 	sure that UMFPACK library is correctly initialized
@@ -1180,7 +1196,7 @@
 	
 	* plug-ins/Colorize/Colorize.cs: more work on algorithm porting
 
-2006-11-18  Maurits  <m.rijk@chello.nl>
+2006-11-18  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Drawable.cs
 	* lib/Image.cs: fix some stuff for correct inheritence hierarchy
@@ -1189,11 +1205,11 @@
 
 	* lib/Selection.cs: derive from Channel
 
-2006-11-18  Maurits  <m.rijk@chello.nl>
+2006-11-18  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Colorize/Colorize.cs: start porting actual algorithm
 
-2006-11-17  Maurits  <m.rijk@chello.nl>
+2006-11-17  Maurits  <maurits.rijk@gmail.com>
 
 	* configure.in: check for libumfpack
 
@@ -1203,41 +1219,41 @@
 
 	* lib/Makefile.am: changed accordingly
 
-2006-11-16  Maurits  <m.rijk@chello.nl>
+2006-11-16  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Colorize/Colorize.cs: finish GUI (no preview yet)
 
-2006-11-15  Maurits  <m.rijk@chello.nl>
+2006-11-15  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Colorize/*: new plug-in
 
 	* configure.in
 	* plug-ins/Makefile.am: changed accordingly
 
-2006-10-11  Maurits  <m.rijk@chello.nl>
+2006-10-11  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/UnitTest/TestStroke.cs
 	* plug-ins/UnitTest/TestVectors.cs: new files to test vectors class
 
 	* plug-ins/UnitTest/Makefile.am: changed accordingly
 
-2006-10-11  Maurits  <m.rijk@chello.nl>
+2006-10-11  Maurits  <maurits.rijk@gmail.com>
 
 	* NEWS: update
 
-2006-10-04  Maurits  <m.rijk@chello.nl>
+2006-10-04  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Stroke.cs: new file for GIMP 2.4 vectors class
 
 	* lib/Makefile.am: changed accordingly
 
-2006-09-28  Maurits  <m.rijk@chello.nl>
+2006-09-28  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Vectors.cs: implement new (GIMP 2.4) Vectors class
 
 	* lib/Makefile.am: changed accordingly
 
-2006-09-26  Maurits  <m.rijk@chello.nl>
+2006-09-26  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/UnitTest/TestPixelRgn.cs: clean-up images after test
 
@@ -1247,7 +1263,7 @@
 
 	* plug-ins/Pointillize/Pointillize.cs: enabled icon (still ugly)
 
-2006-09-23  Maurits  <m.rijk@chello.nl>
+2006-09-23  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/GimpFrame.cs: added _() function for i18n
 
@@ -1275,7 +1291,7 @@
 	* lib/Plugin.cs
 	* lib/PluginWithPreview.cs: move i18n to base classes
 
-2006-09-21  Maurits  <m.rijk@chello.nl>
+2006-09-21  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Makefile.am
 	* lib/FilePlugin.cs
@@ -1298,15 +1314,15 @@
 	* plug-ins/wbmp/Makefile.am:
 	* plug-ins/wbmp/wbmp.cs: changed accordingly
 
-2006-09-20  Maurits  <m.rijk@chello.nl>
+2006-09-20  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PictureFrame/PictureFrame.cs: minor layout clean-up
 
-2006-09-16  Maurits  <m.rijk@chello.nl>
+2006-09-16  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/UnitTest/UnitTest.cs: minor layout clean-up
 
-2006-09-14  Maurits  <m.rijk@chello.nl>
+2006-09-14  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/PhotocopyEvent.cs: more verbosity
 
@@ -1319,7 +1335,7 @@
 	* plug-ins/PhotoshopActions/EventMap.cs
 	* plug-ins/PhotoshopActions/Makefile.am: changed accordingly
 
-2006-09-10  Maurits  <m.rijk@chello.nl>
+2006-09-10  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/DeleteLayerByNameEvent.cs: new file
 
@@ -1330,25 +1346,25 @@
 
 	* plug-ins/PhotoshopActions/LensFlareEvent.cs: : more verbosity
 
-2006-09-09  Maurits  <m.rijk@chello.nl>
+2006-09-09  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/RadialBlurEvent.cs: more verbosity
 
 	* plug-ins/PhotoshopActions/Abbreviations.cs: more abbreviations
 
-2006-08-26  Maurits  <m.rijk@chello.nl>
+2006-08-26  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/DiffuseEvent.cs: more verbosity
 
 	* plug-ins/PhotoshopActions/Abbreviations.cs: more abbreviations
 
-2006-08-25  Maurits  <m.rijk@chello.nl>
+2006-08-25  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/DuplicateLayerByNameEvent.cs: implemented
 
 	* AUTHORS: added Oded Coster
 
-2006-08-24  Maurits  <m.rijk@chello.nl>
+2006-08-24  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/SelectEvent.cs: select snapshot
 
@@ -1368,12 +1384,12 @@
 
 	* plug-ins/PhotoshopActions/Abbreviations.cs: more abbreviations
 
-2006-08-23  Maurits  <m.rijk@chello.nl>
+2006-08-23  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/LinkedLayersSet.cs
 	* plug-ins/PhotoshopActions/LinkEvent.cs: implemented
 
-2006-08-22  Maurits  <m.rijk@chello.nl>
+2006-08-22  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/GroupEvent.cs
 	* plug-ins/PhotoshopActions/StampEvent.cs
@@ -1385,12 +1401,12 @@
 
 	* plug-ins/PhotoshopActions/Abbreviations.cs: more abbreviations
 
-2006-08-21  Maurits  <m.rijk@chello.nl>
+2006-08-21  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/Action.cs
 	* plug-ins/PhotoshopActions/FadeEvent.cs: implementation of Fade event
 
-2006-08-20  Maurits  <m.rijk@chello.nl>
+2006-08-20  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/CutoutEvent.cs
 	* plug-ins/PhotoshopActions/DarkStrokesEvent.cs
@@ -1400,7 +1416,7 @@
 	* plug-ins/PhotoshopActions/EventMap.cs
 	* plug-ins/PhotoshopActions/Makefile.am: changed accordingly
 
-2006-08-18  Maurits  <m.rijk@chello.nl>
+2006-08-18  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/WaterPaperEvent.cs: more verbosity
 
@@ -1408,7 +1424,7 @@
 
 	* plug-ins/PhotoshopActions/Abbreviations.cs: more abbreviations
 
-2006-08-17  Maurits  <m.rijk@chello.nl>
+2006-08-17  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/LinkedLayers.cs
 	* plug-ins/PhotoshopActions/LinkedLayersSet.cs: start implementing
@@ -1419,7 +1435,7 @@
 	* plug-ins/PhotoshopActions/EventMap.cs
 	* plug-ins/PhotoshopActions/Makefile.am: changed accordingly
 
-2006-08-16  Maurits  <m.rijk@chello.nl>
+2006-08-16  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Drawable.cs
 	* lib/GimpEnums.cs: wrap new gimp_edit_bucket_fill_full method
@@ -1444,7 +1460,7 @@
 	* java/sample_plugin/JAverageBlur.java
 	* java/sample_plugin/Makefile.am : sample Java / IKVM plugin
 
-2006-08-11  Maurits  <m.rijk@chello.nl>
+2006-08-11  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/AccentedEdgesEvent.cs
 	* plug-ins/PhotoshopActions/SumieEvent.cs
@@ -1457,7 +1473,7 @@
 
 	* plug-ins/PhotoshopActions/SpatterEvent.cs: more verbosity
 
-2006-08-10  Maurits  <m.rijk@chello.nl>
+2006-08-10  Maurits  <maurits.rijk@gmail.com>
 
 	* TODO: updated
 
@@ -1465,7 +1481,7 @@
 
 	* plug-ins/PhotoshopActions/SelectDocumentEvent.cs: implemented
 
-2006-08-10  Maurits  <m.rijk@chello.nl>
+2006-08-10  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/SetLayerPropertyEvent.cs: added
 	multiply mode
@@ -1487,7 +1503,7 @@
 	* plug-ins/PhotoshopActions/SmoothnessEvent.cs
 	* plug-ins/PhotoshopActions/SpherizeEvent.cs: more verbosity
 
-2006-08-09  Maurits  <m.rijk@chello.nl>
+2006-08-09  Maurits  <maurits.rijk@gmail.com>
 
 	* AUTHORS: updated list of authors
 
@@ -1502,7 +1518,7 @@
 	* plug-ins/PhotoshopActions/EventMap.cs
 	* plug-ins/PhotoshopActions/Makefile.am: changed accordingly
 
-2006-08-07  Maurits  <m.rijk@chello.nl>
+2006-08-07  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/PhotoshopActions.cs: bumped version
 	number to 0.3
@@ -1543,7 +1559,7 @@
 	* plug-ins/UpdateCheck/po/fr.po
 	* plug-ins/wbmp/po/fr.po : added French translations
 
-2006-07-21  Maurits  <m.rijk@chello.nl>
+2006-07-21  Maurits  <maurits.rijk@gmail.com>
 
 	* Made 0.10 release
 
@@ -1551,7 +1567,7 @@
 	* NEWS
 	* INSTALL: bumped version number to 0.11
 
-2006-07-20  Maurits  <m.rijk@chello.nl>
+2006-07-20  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Fragment/po/Makefile.am: add EXTRA_DIST
 
@@ -1664,7 +1680,7 @@
 	* plug-ins/Pointillize/po/en.po
 	* plug-ins/Pointillize/po/it.po : added to the repository
 
-2006-07-19  Maurits  <m.rijk@chello.nl>
+2006-07-19  Maurits  <maurits.rijk@gmail.com>
 	
 	* plug-ins/Raindrops/po/nl.po
 	* plug-ins/Raindrops/po/Makefile.am (LINGUAS): added nl
@@ -1743,14 +1759,14 @@
 	* plug-ins/wbmp/po/en.po
 	* plug-ins/wbmp/po/it.po : added to the repository
 
-2006-07-18  Maurits  <m.rijk@chello.nl>
+2006-07-18  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/CopyToLayerEvent.cs
 	* plug-ins/PhotoshopActions/CutToLayerEvent.cs: implemented
 
 	* lib/FloatingSelection.cs: implemented ToLayer method
 
-2006-07-17  Maurits  <m.rijk@chello.nl>
+2006-07-17  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PicturePackage/Layout.cs
 	* plug-ins/PicturePackage/Rectangle.cs: use CultureInfo("en_US")
@@ -1846,7 +1862,7 @@
 	* plug-ins/Raindrops/po/en.po
 	* plug-ins/Raindrops/po/it.po : added to the repository
 
-2006-07-15  Maurits  <m.rijk@chello.nl>
+2006-07-15  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/SmartBlurEvent.cs
 	* plug-ins/PhotoshopActions/PosterizationEvent.cs
@@ -1855,7 +1871,7 @@
 	* plug-ins/PhotoshopActions/MoveLayerByIndexEvent.cs: implemented,
 	still needs to be verified
 
-2006-07-14  Maurits  <m.rijk@chello.nl>
+2006-07-14  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/Abbreviations.cs: new abbreviations added
 
@@ -1875,7 +1891,7 @@
 	* plug-ins/PhotoshopActions/UnlinkEvent.cs
 	* plug-ins/PhotoshopActions/AddTextLayerEvent.cs: more verbosity
 
-2006-07-14  Maurits  <m.rijk@chello.nl>
+2006-07-14  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/MakeGroupEvent.cs
 	* plug-ins/PhotoshopActions/RevealAllEvent.cs: new files
@@ -1890,7 +1906,7 @@
 	* plug-ins/PhotoshopActions/ShowLayerEvent.cs
 	* plug-ins/PhotoshopActions/SelectLayerByNameEvent.cs: more verbosity
 
-2006-07-13  Maurits  <m.rijk@chello.nl>
+2006-07-13  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/GimpBaseEnums.cs: use full names in BucketFillMode
 
@@ -1910,11 +1926,11 @@
 	* configure.in
 	* plug-ins/Makefile.am: changed accordingly
 
-2006-07-12  Maurits  <m.rijk@chello.nl>
+2006-07-12  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/GradientMapEvent.cs: implemented
 
-2006-07-12  Maurits  <m.rijk@chello.nl>
+2006-07-12  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/HueSaturationEvent.cs: fix crash
 
@@ -1931,7 +1947,7 @@
 	* plug-ins/PhotoshopActions/EventMap.cs
 	* plug-ins/PhotoshopActions/Makefile.am: changed accordingly
 
-2006-07-12  Maurits  <m.rijk@chello.nl>
+2006-07-12  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/TransformEvent.cs: started with
 	transform layers.
@@ -1960,7 +1976,7 @@
 	* plug-ins/PhotoshopActions/EventMap.cs
 	* plug-ins/PhotoshopActions/Makefile.am: changed accordingly
 
-2006-07-11  Maurits  <m.rijk@chello.nl>
+2006-07-11  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/AlignEvent.cs
 	* plug-ins/PhotoshopActions/GlassEvent.cs
@@ -1979,7 +1995,7 @@
 	* plug-ins/PhotoshopActions/DiffuseGlowEvent.cs: replaced
 	FillParameters by ListParameters function
 
-2006-07-11  Maurits  <m.rijk@chello.nl>
+2006-07-11  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Mask.cs: removed warning
 
@@ -1993,7 +2009,7 @@
 	* plug-ins/PhotoshopActions/GradientClassEvent.cs: initial
 	implementation
 
-2006-07-11  Maurits  <m.rijk@chello.nl>
+2006-07-11  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/CanvasSizeEvent.cs
 	* plug-ins/PhotoshopActions/ImageSizeEvent.cs: implemented
@@ -2013,7 +2029,7 @@
 	* plug-ins/PhotoshopActions/EventMap.cs
 	* plug-ins/PhotoshopActions/Makefile.am: changed accordingly
 
-2006-07-10  Maurits  <m.rijk@chello.nl>
+2006-07-10  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Procedure.cs: convert bool to Int32 if needed in RunProcedure
 
@@ -2032,14 +2048,14 @@
 	* lib/Makefile.am: changed accordingly
 
 
-2006-07-09  Maurits  <m.rijk@chello.nl>
+2006-07-09  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/WindEvent.cs: new file
 
 	* plug-ins/PhotoshopActions/EventMap.cs
 	* plug-ins/PhotoshopActions/Makefile.am: changed accordingly
 
-2006-07-09  Maurits  <m.rijk@chello.nl>
+2006-07-09  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/ActionEvent.cs
 	* plug-ins/PhotoshopActions/HideEvent.cs
@@ -2058,7 +2074,7 @@
 	* plug-ins/PhotoshopActions/EventMap.cs: support older action
 	files.
 
-2006-07-08  Maurits  <m.rijk@chello.nl>
+2006-07-08  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/ShowEvent.cs
 	* plug-ins/PhotoshopActions/DuplicateEvent.cs: removed some warnings
@@ -2072,7 +2088,7 @@
 
 	* lib/Layer.cs: new convenience funcs to raise and lower layers
 
-2006-07-07  Maurits  <m.rijk@chello.nl>
+2006-07-07  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/SelectLayerByNameEvent.cs
 	* plug-ins/PhotoshopActions/MoveLayerEvent.cs: new files
@@ -2082,25 +2098,25 @@
 	* plug-ins/PhotoshopActions/MoveEvent.cs
 	* plug-ins/PhotoshopActions/AddLayerEvent.cs: implementation
 
-2006-07-06  Maurits  <m.rijk@chello.nl>
+2006-07-06  Maurits  <maurits.rijk@gmail.com>
 
 	* configure.in: bumped version to 0.10
 
 	* NEWS
 	* INSTALL: updated
 
-2006-07-05  Maurits  <m.rijk@chello.nl>
+2006-07-05  Maurits  <maurits.rijk@gmail.com>
 
 	* Made 0.9 release
 
-2006-07-05  Maurits  <m.rijk@chello.nl>
+2006-07-05  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/CoordinateList.cs: bug fix
 
 	* plug-ins/UnitTest/Makefile.am: make sure that Test*.cs are also
 	distributed
 
-2006-07-05  Maurits  <m.rijk@chello.nl>
+2006-07-05  Maurits  <maurits.rijk@gmail.com>
 
 	* NEWS: updated
 
@@ -2120,14 +2136,14 @@
 
 	* plug-ins/Makefile.am: always build Pointillize plug-in
 
-2006-07-04  Maurits  <m.rijk@chello.nl>
+2006-07-04  Maurits  <maurits.rijk@gmail.com>
 	
 	* plug-ins/Pointillize/*.cs: major speed-up
 
 	* plug-ins/DifferenceClouds/DifferenceClouds: removed profiling
 	information
 
-2006-07-03  Maurits  <m.rijk@chello.nl>
+2006-07-03  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Procedure.cs: call procedure optionally with less parameters
 
@@ -2138,12 +2154,12 @@
 	* configure.in
 	* plug-ins/Makefile.am (SUBDIRS): changed accordingly
 
-2006-07-02  Maurits  <m.rijk@chello.nl>
+2006-07-02  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/gimp-sharp.dll.config: updated so fix for bug #1514493 also
 	works on Linux.
 
-2006-06-30  Maurits  <m.rijk@chello.nl>
+2006-06-30  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/DeleteGuideEvent.cs
 	* plug-ins/PhotoshopActions/SetLayerEffectsEvent.cs: new files
@@ -2157,7 +2173,7 @@
 
 	* lib/Gimp.cs: fixed bug #1514493
 
-2006-06-30  Maurits  <m.rijk@chello.nl>
+2006-06-30  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/ShowLayerEvent.cs
 	* plug-ins/PhotoshopActions/HideLayerEvent.cs
@@ -2198,11 +2214,11 @@
 	* configure.in
 	* plug-ins/Makefile.am: added rules for DifferenceClouds support
 
-2006-06-29  Maurits  <m.rijk@chello.nl>
+2006-06-29  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/PhotoshopActions.cs: use directoryseparator
 
-2006-06-29  Maurits  <m.rijk@chello.nl>
+2006-06-29  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/ThresholdClassEvent.cs
 	* plug-ins/PhotoshopActions/DustAndScratchesEvent.cs
@@ -2224,7 +2240,7 @@
 	* plug-ins/PhotoshopActions/CurvesEvent.cs
 	* lib/Drawable.cs: use new Coordinate class
 
-2006-06-28  Maurits  <m.rijk@chello.nl>
+2006-06-28  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/UnsharpMaskEvent.cs: using yield construct
 	to return parameters.
@@ -2237,7 +2253,7 @@
 
 	* lib/Drawable.cs: implemented CurvesSpline and CurvesSplineExplicit
 
-2006-06-27  Maurits  <m.rijk@chello.nl>
+2006-06-27  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/ReleType.cs: improved debugging output
 
@@ -2252,7 +2268,7 @@
 	* plug-ins/PhotoshopActions/EventMap.cs
 	* plug-ins/PhotoshopActions/Makefile: changed accordingly
 
-2006-06-26  Maurits  <m.rijk@chello.nl>
+2006-06-26  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/MergeLayersEvent.cs: changed MergeType
 
@@ -2273,12 +2289,12 @@
 	* plug-ins/PhotoshopActions/EventMap.cs
 	* plug-ins/PhotoshopActions/Makefile: changed accordingly
 
-2006-06-25  Maurits  <m.rijk@chello.nl>
+2006-06-25  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/ObArParameter.cs: new file
 	* plug-ins/PhotoshopActions/Makefile: changed accordingly
 
-2006-06-25  Maurits  <m.rijk@chello.nl>
+2006-06-25  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Gimp.cs: removed debug output
 
@@ -2292,7 +2308,7 @@
 	* plug-ins/PhotoshopActions/EventMap.cs
 	* plug-ins/PhotoshopActions/Makefile: changed accordingly
 
-2006-06-25  Maurits  <m.rijk@chello.nl>
+2006-06-25  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/RectangleSelectTool.cs: new file
 	* lib/Makefile.am: changed accordingly
@@ -2319,7 +2335,7 @@
 
 	* plug-ins/PhotoshopActions/Makefile: changed accordingly
 
-2006-06-24  Maurits  <m.rijk@chello.nl>
+2006-06-24  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/StrokeEvent.cs: new file
 
@@ -2332,7 +2348,7 @@
 	* plug-ins/PhotoshopActions/DiffuseGlowEvent.cs: mapped to
 	softglow plug-in
 
-2006-06-24  Maurits  <m.rijk@chello.nl>
+2006-06-24  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/UnitTest/TestReportDialog.cs: minor clean-up
 
@@ -2348,7 +2364,7 @@
 
 	* plug-ins/PhotoshopActions/CopyToLayerEvent.cs: implemented
 
-2006-06-23  Maurits  <m.rijk@chello.nl>
+2006-06-23  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/LayerList.cs: made GetEnumerator public
 
@@ -2367,7 +2383,7 @@
 	* plug-ins/PhotoshopActions/EventMap.cs
 	* plug-ins/PhotoshopActions/Makefile: changed accordingly
 
-2006-06-22  Maurits  <m.rijk@chello.nl>
+2006-06-22  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/ChannelMixerEvent.cs: new file
 
@@ -2377,7 +2393,7 @@
 	* plug-ins/PhotoshopActions/*Event.cs
 	* plug-ins/PhotoshopActions/PhotoshopActions.cs: show parameters
 
-2006-06-21  Maurits  <m.rijk@chello.nl>
+2006-06-21  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Drawable.cs
 	* lib/Image.cs: moved EditCopyVisible
@@ -2390,11 +2406,11 @@
 	* plug-ins/PhotoshopActions/EventMap.cs
 	* plug-ins/PhotoshopActions/Makefile: changed accordingly
 
-2006-06-20  Maurits  <m.rijk@chello.nl>
+2006-06-20  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Makefile.am: enable new AverageBlur plug-in by default.
 
-2006-06-20  Maurits  <m.rijk@chello.nl>
+2006-06-20  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Procedure.cs: new constructor for procedures without input
 	and output parameters.
@@ -2408,14 +2424,14 @@
 	* INSTALL
 	* NEWS: updated
 
-2006-06-19  Maurits  <m.rijk@chello.nl>
+2006-06-19  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/AverageBlur/*: placeholder for new plug-in
 
 	* plug-ins/Makefile.am
 	* configure.in: changed accordingly
 
-2006-06-19  Maurits  <m.rijk@chello.nl>
+2006-06-19  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/ReferenceParameter.cs: parse Offset type
 
@@ -2427,7 +2443,7 @@
 
 	* TODO: update for future releases
 
-2006-06-18  Maurits  <m.rijk@chello.nl>
+2006-06-18  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Drawable.cs: fixed typo
 
@@ -2444,7 +2460,7 @@
 	* plug-ins/PhotoshopActions/EventMap.cs
 	* plug-ins/PhotoshopActions/Makefile: changed accordingly
 
-2006-06-18  Maurits  <m.rijk@chello.nl>
+2006-06-18  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/LayerList.cs: added method to lookup layer by name.
 
@@ -2454,7 +2470,7 @@
 	* plug-ins/PhotoshopActions/EventMap.cs
 	* plug-ins/PhotoshopActions/Makefile: changed accordingly
 
-2006-06-18  Maurits  <m.rijk@chello.nl>
+2006-06-18  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/ActionParser.cs: replaced series of if
 	statements by switch.
@@ -2472,7 +2488,7 @@
 	* plug-ins/PhotoshopActions/EventMap.cs
 	* plug-ins/PhotoshopActions/Makefile: changed accordingly
 
-2006-06-17  Maurits  <m.rijk@chello.nl>
+2006-06-17  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/EnmrType.cs: new files
 
@@ -2482,7 +2498,7 @@
 
 	* plug-ins/Forge/Forge.cs: closed tasks 127930 and 127670
 
-2006-06-16  Maurits  <m.rijk@chello.nl>
+2006-06-16  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/ResetEvent.cs: implemented
 
@@ -2490,7 +2506,7 @@
 
 	* plug-ins/PhotoshopActions/Makefile: changed accordingly
 
-2006-06-15  Maurits  <m.rijk@chello.nl>
+2006-06-15  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/*Event.cs: renamed Image to
 	ActiveImage and Drawable to ActiveDrawable.
@@ -2501,7 +2517,7 @@
 
 	* plug-ins/PhotoshopActions/Makefile: changed accordingly
 
-2006-06-14  Maurits  <m.rijk@chello.nl>
+2006-06-14  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/DifferenceCloudsEvent.cs:
 	* plug-ins/PhotoshopActions/SharpenMoreEvent.cs
@@ -2527,7 +2543,7 @@
 
 	* NEWS: updated
 
-2006-06-12  Maurits  <m.rijk@chello.nl>
+2006-06-12  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/GimpSharpException.cs: new constructor with message parameter
 
@@ -2540,7 +2556,7 @@
 	* plug-ins/PhotoshopActions/EventMap.cs
 	* plug-ins/PhotoshopActions/Makefile: changed accordingly
 
-2006-06-11  Maurits  <m.rijk@chello.nl>
+2006-06-11  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/CopyToLayerEvent.cs
 	* plug-ins/PhotoshopActions/MergeLayersEvent.cs
@@ -2551,7 +2567,7 @@
 	* plug-ins/PhotoshopActions/EventMap.cs
 	* plug-ins/PhotoshopActions/Makefile: changed accordingly
 
-2006-06-11  Maurits  <m.rijk@chello.nl>
+2006-06-11  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/SmoothnessEvent.cs:
 	* plug-ins/PhotoshopActions/Makefile: changed accordingly
@@ -2560,7 +2576,7 @@
 	* plug-ins/PhotoshopActions/HueSaturationEvent.cs
 	* plug-ins/PhotoshopActions/InvertEvent.cs: implemented
 
-2006-06-11  Maurits  <m.rijk@chello.nl>
+2006-06-11  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Image.cs: small API changes
 	* plug-ins/wbmp/wbmp.cs: changed accordingly
@@ -2572,7 +2588,7 @@
 	* plug-ins/PhotoshopActions/TypeParameter.cs: new files
 	* plug-ins/PhotoshopActions/Makefile: changed accordingly
 
-2006-06-11  Maurits  <m.rijk@chello.nl>
+2006-06-11  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/MedianEvent.cs
 	* plug-ins/PhotoshopActions/MotionBlurEvent.cs
@@ -2581,7 +2597,7 @@
 	* plug-ins/PhotoshopActions/EventMap.cs
 	* plug-ins/PhotoshopActions/Makefile: changed accordingly
 
-2006-06-10  Maurits  <m.rijk@chello.nl>
+2006-06-10  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/SharpenEvent.cs
 	* plug-ins/PhotoshopActions/DesaturateEvent.cs: implemented
@@ -2598,13 +2614,13 @@
 	* plug-ins/PhotoshopActions/EventMap.cs
 	* plug-ins/PhotoshopActions/Makefile: changed accordingly
 
-2006-06-10  Maurits  <m.rijk@chello.nl>
+2006-06-10  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/ListParameter.cs: new file
 
 	* plug-ins/PhotoshopActions/Makefile: changed accordingly
 
-2006-06-10  Maurits  <m.rijk@chello.nl>
+2006-06-10  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Makefile.am: enable some plug-ins by default
 
@@ -2620,7 +2636,7 @@
 	* plug-ins/PhotoshopActions/ActionParser.cs: initial support for older
 	(pre 6) Photoshop action files
 
-2006-06-09  Maurits  <m.rijk@chello.nl>
+2006-06-09  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Procedure.cs: implemented double parameter
 
@@ -2636,7 +2652,7 @@
 
 	* plug-ins/PhotoshopActions/Makefile: changed accordingly
 
-2006-06-08  Maurits  <m.rijk@chello.nl>
+2006-06-08  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/*.cs: many changes to collect
 	statistics on succesful parsings and executable code.
@@ -2646,7 +2662,7 @@
 	* plug-ins/Forge/Forge.cs: improved Preview generation and added
 	support for scripting
 
-2006-06-07  Maurits  <m.rijk@chello.nl>
+2006-06-07  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/Action.cs
 	* plug-ins/PhotoshopActions/ActionEvent.cs: actions can now stop
@@ -2663,7 +2679,7 @@
 
 	* plug-ins/Forge/Forge.cs: replaced Frame with GimpFrame
 
-2006-06-06  Maurits  <m.rijk@chello.nl>
+2006-06-06  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/AddGuideEvent.cs
 	* plug-ins/PhotoshopActions/Objc.cs: new file
@@ -2682,14 +2698,14 @@
 	* plug-ins/PhotoshopActions/PhotoshopActions.cs: add support for
 	actually playing the actions
 
-2006-06-05  Maurits  <m.rijk@chello.nl>
+2006-06-05  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Forge/Pixel.cs: new file, reusable code split from
 	Forge so we can later move it to the GIMP# library.
 
 	* plug-ins/Forge/Makefile.am: changed accordingly
 
-2006-06-05  Maurits  <m.rijk@chello.nl>
+2006-06-05  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/UnitTest/TestRGB.cs: new test
 
@@ -2700,7 +2716,7 @@
 	* plug-ins/PhotoshopActions/EventMap.cs
 	* plug-ins/PhotoshopActions/Makefile: changed accordingly
 
-2006-06-04  Maurits  <m.rijk@chello.nl>
+2006-06-04  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/BrightnessEvent.cs
 	* plug-ins/PhotoshopActions/CloudsEvent.cs: new files
@@ -2714,7 +2730,7 @@
 
 	* NEWS: updated
 
-2006-06-03  Maurits  <m.rijk@chello.nl>
+2006-06-03  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/RGB.cs: added constructor using HSV
 
@@ -2744,7 +2760,7 @@
 
 	* plug-ins/Forge/Forge.cs: fixed clouds generation bug
 
-2006-05-31  Maurits  <m.rijk@chello.nl>
+2006-05-31  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/*.cs: lots and lots of changes
 
@@ -2762,11 +2778,11 @@
 
 	* plug-ins/Forge/Forge.cs: fixed issue on planet generation
 
-2006-05-30  Maurits  <m.rijk@chello.nl>
+2006-05-30  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/*: lots of changes
 
-2006-05-29  Maurits  <m.rijk@chello.nl>
+2006-05-29  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Gimp.cs: corrected wrong .dll import for gimp_directory()
 
@@ -2775,7 +2791,7 @@
 	* plug-ins/Makefile.am: changed accordingly
 	* configure.in:
 
-2006-05-24  Maurits  <m.rijk@chello.nl>
+2006-05-24  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/FreeSelectTool.cs: new file
 
@@ -2785,14 +2801,14 @@
 
 	* plug-ins/Forge/Forge.cs: new file
 
-2006-05-23  Maurits  <m.rijk@chello.nl>
+2006-05-23  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/UnitTest/TestPath.cs: new file with unit test for
 	Path. The Path class is needed for the Shatter plut-in.
 
 	* plug-ins/UnitTest/Makefile.am: changed accordingly
 
-2006-05-23  Maurits  <m.rijk@chello.nl>
+2006-05-23  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Shatter/ShardSet.cs: new file
 
@@ -2800,7 +2816,7 @@
 
 	* plug-ins/Shatter/Shatter.cs: initial GUI
 
-2006-05-22  Maurits  <m.rijk@chello.nl>
+2006-05-22  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/ncp/ncp.cs: minor clean-up
 
@@ -2809,7 +2825,7 @@
 	* configure.in
 	* plug-ins/Makefile.am: changed accordingly
 	
-2006-05-18  Maurits  <m.rijk@chello.nl>
+2006-05-18  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Context.cs: fixed bug with passing GimpRGB structs
 	* lib/PixelFetcher.cs: completed coverage of gimp_pixel_fetcher API
@@ -2821,12 +2837,12 @@
 
 	* plug-ins/Raindrops/Raindrops.cs: added Undo support
 
-2006-05-16  Maurits  <m.rijk@chello.nl>
+2006-05-16  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Raindrops/Raindrops.cs: added call to CacheNtiles which
 	makes this plug-in a lot faster.
 
-2006-05-14  Maurits  <m.rijk@chello.nl>
+2006-05-14  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/PixelFetcher.cs: : implemented IDisposable
 	* plug-ins/Raindrops/Raindrops.cs: using Dispose method
@@ -2841,7 +2857,7 @@
 	* plug-ins/Raindrops/Raindrops.cs: added explicit pixel fetcher
 	Destroy.
 
-2006-05-12  Maurits  <m.rijk@chello.nl>
+2006-05-12  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/PluginWithPreview.cs: new file
 	
@@ -2852,7 +2868,7 @@
 	* plug-ins/ncp/ncp.cs
 	* plug-ins/Swirlies/Swirlies.cs: derive from PluginWithPreview
 
-2006-05-12  Maurits  <m.rijk@chello.nl>
+2006-05-12  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/ScaleEntry.cs: added ValueAsInt property...
 	* plug-ins/ncp/ncp.cs: ... and use it
@@ -2861,7 +2877,7 @@
 	named parameters so this plug-in can now be called from other
 	scripts. Some minor clean-up.
 
-2006-05-12  Maurits  <m.rijk@chello.nl>
+2006-05-12  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/PixelFetcher.cs: put gimp_pixel_fetcher_destroy in Finalize
 	function
@@ -2870,7 +2886,7 @@
 	* plug-ins/Ministeck/Painter.cs
 	* plug-ins/UnitTest/TestPixelFetcher.cs: changed accordingly
 
-2006-05-10  Maurits  <m.rijk@chello.nl>
+2006-05-10  Maurits  <maurits.rijk@gmail.com>
 
 	* NEWS: updated
 
@@ -2881,13 +2897,13 @@
 
 	* plug-ins/UnitTest/Makefile.am: changed accordingly
 
-2006-05-08  Maurits  <m.rijk@chello.nl>
+2006-05-08  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Ministeck/Ministeck.cs: minor clean-up
 
 	* lib/ParamDefList.cs: support for Color parameters.
 
-2006-05-03  Maurits  <m.rijk@chello.nl>
+2006-05-03  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/ParamDef.cs: added support for parameters of type RGB
 
@@ -2896,7 +2912,7 @@
 	* plug-ins/UnitTest/TestPlugins.cs: added testcase for Ministeck
 	plug-in.
 
-2006-05-02  Maurits  <m.rijk@chello.nl>
+2006-05-02  Maurits  <maurits.rijk@gmail.com>
 
 	* NEWS: update
 
@@ -2908,7 +2924,7 @@
 	* lib/SaveAttributeSet.cs: new file
 	* lib/Makefile.am: changed accordingly
 
-2006-05-02  Maurits  <m.rijk@chello.nl>
+2006-05-02  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/ncp/ncp.cs: added parameters
 	
@@ -2916,7 +2932,7 @@
 
 	* lib/ParamDef.cs: marshal/unmarshall bool to PDBArgType.Int32
 
-2006-05-02  Maurits  <m.rijk@chello.nl>
+2006-05-02  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Procedure.cs: fixed bug with Ministeck plug-in (1480556)
 
@@ -2956,18 +2972,18 @@
 	* plug-ins/UnitTest/EventCollector.cs:
 	* plug-ins/UnitTest/UnitTester.cs: GUI support
 
-2006-04-27  Maurits  <m.rijk@chello.nl>
+2006-04-27  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/ncp/ncp.cs: use named attributes
 
 	* lib/Plugin.cs
 	* lib/SaveAttribute.cs: added names to attributes
 
-2006-04-27  Maurits  <m.rijk@chello.nl>
+2006-04-27  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/ecw/ecw.cs: start implementing save feature
 
-2006-04-26  Maurits  <m.rijk@chello.nl>
+2006-04-26  Maurits  <maurits.rijk@gmail.com>
 
 	* INSTALL: updated for 0.9
 
@@ -2975,23 +2991,23 @@
 
 	* configure.in: bumped version number to 0.9
 
-2006-04-25  Maurits  <m.rijk@chello.nl>
+2006-04-25  Maurits  <maurits.rijk@gmail.com>
 
 	* Made 0.8 release
 
-2006-04-25  Maurits  <m.rijk@chello.nl>
+2006-04-25  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/UnitTest/Makefile.am: make sure that testcase are also
 	distributed.
 
 	* TODO: updated
 
-2006-04-24  Maurits  <m.rijk@chello.nl>
+2006-04-24  Maurits  <maurits.rijk@gmail.com>
 	
 	* INSTALL : updated with information on how to build the jpeg2000
 	plug-in.
 
-2006-04-24  Maurits  <m.rijk@chello.nl>
+2006-04-24  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Makefile.am: only build ecw when libecw is
 	available. Fixes #1474636
@@ -3006,14 +3022,14 @@
 
 	* plug-ins/UnitTest/Makefile.am: now installing gimptest.dll as well.
 	
-2006-04-23  Maurits  <m.rijk@chello.nl>
+2006-04-23  Maurits  <maurits.rijk@gmail.com>
 
 	* configure.in
 	* plug-ins/Makefile.am
 	* plug-ins/RedEye/*: removed RedEye plug-in since GIMP now
 	comes with it's own red eye removal tool.
 
-2006-04-22  Maurits  <m.rijk@chello.nl>
+2006-04-22  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Parasite.cs: capitalized flag values.
 
@@ -3025,11 +3041,11 @@
 	* lib/Parasite.cs: added GetHashCode() to avoid compiler
 	warnings. Also overloaded == and != operator.
 
-2006-04-21  Maurits  <m.rijk@chello.nl>
+2006-04-21  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/FloatingSelection.cs: added Attach method
 
-2006-04-21  Maurits  <m.rijk@chello.nl>
+2006-04-21  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/UnitTest/EventCollector.cs: put statistics in message
 	dialog instead of console so it's easier to read in win32.
@@ -3043,7 +3059,7 @@
 	* lib/HSV.cs: new file
 	* lib/Makefile.am: changed accordingly
 
-2006-04-20  Maurits  <m.rijk@chello.nl>
+2006-04-20  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Makefile.am: always build ecw (jpeg2000) plug-in
 
@@ -3058,7 +3074,7 @@
 
 	* plug-ins/UnitTest/TestRGB.cs: more testcases
 
-2006-04-19  Maurits  <m.rijk@chello.nl>
+2006-04-19  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/SliceTool/PreviewRenderer.cs
 	* lib/RGB.cs: more API coverage, renamed GetUChar to GetUchar
@@ -3069,27 +3085,27 @@
 
 	* plug-ins/UnitTest/Makefile.am: changed accordingly	
 
-2006-04-18  Maurits  <m.rijk@chello.nl>
+2006-04-18  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Splitter/MathExpressionParser.cs: show GIMP error
 	message instead of dumping to the console.
 
 	* lib/Message.cs: reference the right .dll's
 
-2006-04-17  Maurits  <m.rijk@chello.nl>
+2006-04-17  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Splitter/Splitter.cs: fixed bug in handling transparency.
 
 	* plug-ins/UnitTest/TestPixelRgn.cs: another test to check
 	transparency.
 
-2006-04-16  Maurits  <m.rijk@chello.nl>
+2006-04-16  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/UnitTest/TestPixelRgn.cs: new test set
 
 	* plug-ins/UnitTest/Makefile.am: changed accordingly
 
-2006-04-14  Maurits  <m.rijk@chello.nl>
+2006-04-14  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/UnitTest/TestLayer.cs
 	* plug-ins/UnitTest/TestImage.cs: added new testcase
@@ -3113,11 +3129,11 @@
 	* plug-ins/PicturePackage/PicturePackage.cs: fixed
 	issue with Drag & Drop from desktop.
 
-2006-04-12  Maurits  <m.rijk@chello.nl>
+2006-04-12  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/wbmp/wbmp.cs: reindented code
 
-2006-04-12  Maurits  <m.rijk@chello.nl>
+2006-04-12  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Splitter/Splitter.cs
 	* plug-ins/Splitter/MathExpressionParser.cs
@@ -3131,7 +3147,7 @@
 	* plug-ins/wbmp/wbmp.cs: added support for wbmp export and
 	images larger than 127x127
 
-2006-04-11  Maurits  <m.rijk@chello.nl>
+2006-04-11  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/GimpBaseEnums.cs: changed all enums to Capitalized iso UPPERCASE.
 
@@ -3156,7 +3172,7 @@
 	* lib/FilePlugin.cs
 	* lib/Plugin.cs: changed accordingly
 
-2006-04-10  Maurits  <m.rijk@chello.nl>
+2006-04-10  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/wbmp/wbmp.cs: new code to save in wbmp format from
 	Max. Still needs testing/debugging.
@@ -3170,7 +3186,7 @@
 	* lib/GimpTypes.cs
 	* lib/ParamDefList.cs: added GimpParamCust structure for 64-bit support
 
-2006-04-01  Maurits  <m.rijk@chello.nl>
+2006-04-01  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PicturePackage/PageSizeSet.cs: use generics since bug
 	in binsearch is fixed in Mono 1.1.13.6
@@ -3178,7 +3194,7 @@
 	* configure.in: small alignment improvement and check for Mono
 	1.1.13.6
 	
-2006-03-24  Maurits  <m.rijk@chello.nl>
+2006-03-24  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/RgnIterator.cs: added iterator functions implemented by Max
 
@@ -3187,7 +3203,7 @@
 
 	* plug-ins/ecw/ecw.cs: added jp2 as fileextension
 
-2006-03-23  Maurits  <m.rijk@chello.nl>
+2006-03-23  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/ecw/ecw.cs: read jpeg2000 files
 
@@ -3203,7 +3219,7 @@
 	* plug-ins/PicturePackage/RectangleSet.cs: [Task ID 109073]
 	Picture Package: disable OK button when no image is loaded
 
-2006-03-22  Maurits  <m.rijk@chello.nl>
+2006-03-22  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/ecw/ecwwrapper.c: new small wrapper to make sure that all
 	ECW libraries are loaded
@@ -3212,7 +3228,7 @@
 	
 	* plug-ins/ecw/ecw.cs: some initial hacking on this plug-in
 
-2006-03-21  Maurits  <m.rijk@chello.nl>
+2006-03-21  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/wbmp/wbmp.cs
 	* plug-ins/UnitTest/TestRgnIterator.cs
@@ -3238,7 +3254,7 @@
 	* lib/GimpEnums.cs: changed lots of enums to capitalized instead of
 	uppercase.
 
-2006-03-21  Maurits  <m.rijk@chello.nl>
+2006-03-21  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/PixelRgn.cs: new constructor
 
@@ -3250,7 +3266,7 @@
 	* plug-ins/neo/neo.cs
 	* plug-ins/wbmp/wbmp.cs: use NewImage
 
-2006-03-20  Maurits  <m.rijk@chello.nl>
+2006-03-20  Maurits  <maurits.rijk@gmail.com>
 
 	* NEWS: updated
 	
@@ -3263,15 +3279,15 @@
 	* configure.in: added (unused) test for libecw library (Enhanced
 	Compressed Wavelet).
 	
-2006-03-19  Maurits  <m.rijk@chello.nl>
+2006-03-19  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/UpdateCheck/UpdateCheck.cs: implemented proxy support.
 
-2006-03-18  Maurits  <m.rijk@chello.nl>
+2006-03-18  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/UpdateCheck/UpdateCheck.cs: added UI for proxy support.
 
-2006-03-17  Maurits  <m.rijk@chello.nl>
+2006-03-17  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/UnitTest/TestGimp.cs: new tests for gimprc functions
 
@@ -3279,19 +3295,19 @@
 
 	* lib/Gimp.cs: new gimprc functions
 
-2006-03-17  Maurits  <m.rijk@chello.nl>
+2006-03-17  Maurits  <maurits.rijk@gmail.com>
 
 	* INSTALL: updated to describe new configuration flag.
 
 	* configure.in
 	* plug-ins/Makefile.am: make building incomplete plug-ins optional
 
-2006-03-15  Maurits  <m.rijk@chello.nl>
+2006-03-15  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/SliceTool/SliceData.cs: reset changed to false after
 	initialization. Fixes #1439261.
 
-2006-03-14  Maurits  <m.rijk@chello.nl>
+2006-03-14  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/UnitTest/TestVersion.cs: new file to test Version class
 
@@ -3299,7 +3315,7 @@
 
 	* lib/Version.cs: made a bit more robust
 
-2006-03-14  Maurits  <m.rijk@chello.nl>
+2006-03-14  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/AssemblyInfo.cs: new file
 
@@ -3312,29 +3328,29 @@
 	
 	* plug-ins/UpdateCheck/Makefile.am: changed accordingly
 
-2006-03-13  Maurits  <m.rijk@chello.nl>
+2006-03-13  Maurits  <maurits.rijk@gmail.com>
 
 	* configure.in: check for mono >= 1.1.13.4 which has quite a few
 	bugs fixed.
 
-2006-03-12  Maurits  <m.rijk@chello.nl>
+2006-03-12  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/UnitTest/TestRgnIterator.cs: new file
 
 	* plug-ins/UnitTest/Makefile.am: changed accordingly
 
-2006-03-12  Maurits  <m.rijk@chello.nl>
+2006-03-12  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Pdn/Pdn.cs: default indentation
 
 	* plug-ins/Makefile.am
 	* configure.in: made building Paint.NET plug-in optional
 
-2006-03-11  Maurits  <m.rijk@chello.nl>
+2006-03-11  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Splitter/Splitter.cs: use advanced dialog
 
-2006-03-10  Maurits  <m.rijk@chello.nl>
+2006-03-10  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Splitter/MyClassBase.cs: fixed indentation
 
@@ -3342,7 +3358,7 @@
 
 	* plug-ins/Splitter/Makefile.am: changed accordingly
 
-2006-03-09  Maurits  <m.rijk@chello.nl>
+2006-03-09  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/UnitTest/UnitTester.cs: renamed class
 
@@ -3353,17 +3369,17 @@
 	* plug-ins/ncp/ncp.cs
 	* plug-ins/PicturePackage/LabelFrame.cs: minor clean-up
 
-2006-03-08  Maurits  <m.rijk@chello.nl>
+2006-03-08  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Drawable.cs: complete coverage of gimpdrawabletransform
 	routines, soon needed by Splitter plug-in.
 
-2006-03-07  Maurits  <m.rijk@chello.nl>
+2006-03-07  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Procedure.cs: fixed #1436462 (FilePlugin generates warning
 	for save function)
 
-2006-03-07  Maurits  <m.rijk@chello.nl>
+2006-03-07  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/UpdateCheck/UpdateCheck.cs: implemented dialog
 
@@ -3374,12 +3390,12 @@
 
 	* lib/Makefile.am: changed accordingly
 
-2006-03-05  Maurits  <m.rijk@chello.nl>
+2006-03-05  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/UpdateCheck/UpdateCheck.cs: added some code to read
 	version information from a .xml file on our sourceforge account.
 
-2006-03-04  Maurits  <m.rijk@chello.nl>
+2006-03-04  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/UpdateCheck/Makefile.am
 	* plug-ins/UpdateCheck/UpdateCheck
@@ -3391,7 +3407,7 @@
 
 	* configure.in: changed accordingly
 
-2006-03-03  Maurits  <m.rijk@chello.nl>
+2006-03-03  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Pdn/Pdn: replaced reference to ncp plug-in
 	
@@ -3404,14 +3420,14 @@
 	* plug-ins/Pdn/Pdn.cs: added basic support to PDN file format
 	for feature #1425883
 
-2006-03-02  Maurits  <m.rijk@chello.nl>
+2006-03-02  Maurits  <maurits.rijk@gmail.com>
 
 	* NEWS: update
 
 	* plug-ins/Raindrops/Raindrops.cs: basic dialog ready. Still have
 	to port from Krita filter.
 
-2006-03-02  Maurits  <m.rijk@chello.nl>
+2006-03-02  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Gimp.cs: added properties for GIMP major, minor and micro version
 
@@ -3421,7 +3437,7 @@
 
 	* plug-ins/Raindrops/Raindrops.png: nicer icon
 
-2006-03-02  Maurits  <m.rijk@chello.nl>
+2006-03-02  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Raindrops/Makefile.am
 	* plug-ins/Raindrops/Raindrops
@@ -3448,11 +3464,11 @@
 	* ./configure.in
 	* plug-ins/Makefile.am: added support for Pdn plug-in
 
-2006-03-01  Maurits  <m.rijk@chello.nl>
+2006-03-01  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Splitter/MathExpressionParser.cs: fixed #1436895
 
-2006-03-01  Maurits  <m.rijk@chello.nl>
+2006-03-01  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/ParamDefList.cs: removed debugging output
 
@@ -3465,32 +3481,32 @@
 	* plug-ins/Ministeck/ShapeSet.cs: add option to select realistic
 	number of shapes
 
-2006-02-28  Maurits  <m.rijk@chello.nl>
+2006-02-28  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/FilePlugin.cs
 	* lib/ParamDef
 	* lib/ParamDefList.cs: quick and dirty hack to make sure filenames
 	are marshalled correctly on win32.
 
-2006-02-28  Maurits  <m.rijk@chello.nl>
+2006-02-28  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/RGB.cs: added convenience routine
 	* plug-ins/Ministeck/Painter.cs: and use it
 
-2006-02-28  Maurits  <m.rijk@chello.nl>
+2006-02-28  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Ministeck/ShapeDescription.cs: Minor clean-up
 
-2006-02-27  Maurits  <m.rijk@chello.nl>
+2006-02-27  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/SliceTool/Preview.cs
 	* plug-ins/SliceTool/SliceTool.cs: center preview area
 
-2006-02-25  Maurits  <m.rijk@chello.nl>
+2006-02-25  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/PreviewArea.cs: gimp_preview_area_set_max_size wrapped.
 
-2006-02-25  Maurits  <m.rijk@chello.nl>
+2006-02-25  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Splitter/Splitter.cs: fixed crash after "Re-show
 	filter" and implemented translation.
@@ -3499,7 +3515,7 @@
 
 	* plug-ins/UnitTest/Makefile.am: changed accordingly
 
-2006-02-25  Maurits  <m.rijk@chello.nl>
+2006-02-25  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/UnitTest/TestPalette.cs: make sure we clean up after an
 	exception is thrown
@@ -3510,12 +3526,12 @@
 	* plug-ins/UnitTest/TestDrawable.cs
 	* plug-ins/UnitTest/TestImage.cs: use new Image.Equals method
 
-2006-02-25  Maurits  <m.rijk@chello.nl>
+2006-02-25  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Dialog.cs
 	* lib/Plugin.cs: the close button on a window now closes the plug-in.
 
-2006-02-25  Maurits  <m.rijk@chello.nl>
+2006-02-25  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/SliceTool/cursor-*.png: improved cursor files
 
@@ -3540,7 +3556,7 @@
 	* plug-ins/wbmp/Makefile.am: added /target:winexe to hide Win
 	console window
 
-2006-02-24  Maurits  <m.rijk@chello.nl>
+2006-02-24  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/SliceTool/RolloverEntry.cs: moved callback to anonymous
 	delegate
@@ -3557,7 +3573,7 @@
 	* plug-ins/SliceTool/SelectFunc.cs
 	* plug-ins/SliceTool/SliceTool.cs: support for new cursors
 
-2006-02-24  Maurits  <m.rijk@chello.nl>
+2006-02-24  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/UnitTest/TestProcedure.cs: new file
 
@@ -3570,7 +3586,7 @@
 	* plug-ins/SliceTool/SliceTool.cs: removed obsolete calls to Unref
 	and Free for IconSource and Iconset.
 
-2006-02-24  Maurits  <m.rijk@chello.nl>
+2006-02-24  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Ministeck/ShapeSet.cs
 
@@ -3586,7 +3602,7 @@
 	* lib/ImageList.cs
 	* lib/ChannelList.cs: simplified GetEnumerator
 
-2006-02-24  Maurits  <m.rijk@chello.nl>
+2006-02-24  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Plugin.cs
 	* plug-ins/Ministeck/Ministeck.cs
@@ -3599,33 +3615,33 @@
 	* plug-ins/Swirlies/Swirlies.cs
 	* plug-ins/UnitTest/UnitTest.cs: replaced DoSomething by Render
 
-2006-02-23  Maurits  <m.rijk@chello.nl>
+2006-02-23  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Palette.cs: simplified Enumerator
 
 	* lib/GuideCollection.cs: use yield construction
 
-2006-02-23  Maurits  <m.rijk@chello.nl>
+2006-02-23  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/UnitTest/TestGuide.cs: new file
 
 	* plug-ins/UnitTest/Makefile.am: changed accordingly
 
-2006-02-23  Maurits  <m.rijk@chello.nl>
+2006-02-23  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Makefile.am: UnitTest plug-in is now built optionally
 
 	* INSTALL: install instructions updated for building the UnitTest
 	plug-in
 
-2006-02-23  Maurits  <m.rijk@chello.nl>
+2006-02-23  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Swirlies/Swirlies.cs: first try at putting preview
 	update in a thread
 
 	* plug-ins/PicturePackage/Preview.cs: minor code clean-up
 
-2006-02-23  Maurits  <m.rijk@chello.nl>
+2006-02-23  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/UnitTest/UnitTest.png: new file
 	
@@ -3633,7 +3649,7 @@
 
 	* plug-ins/UnitTest/Makefile.am: changed accordingly
 
-2006-02-22  Maurits  <m.rijk@chello.nl>
+2006-02-22  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Layer.cs: marked constructor internal
 
@@ -3663,11 +3679,11 @@
 	* lib/Tattoo.cs
 	* lib/Tile.cs: made some variables readonly
 
-2006-02-21  Maurits  <m.rijk@chello.nl>
+2006-02-21  Maurits  <maurits.rijk@gmail.com>
 
 	* NEWS: updated
 
-2006-02-21  Maurits  <m.rijk@chello.nl>
+2006-02-21  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Palette.cs: fixed bug in Rename method (thanks to unit testing!)
 	Implemented enumerator with yield keyword
@@ -3676,11 +3692,11 @@
 	
 	* lib/Makefile.am: changed accordingly
 
-2006-02-20  Maurits  <m.rijk@chello.nl>
+2006-02-20  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/UnitTest/TestPalette.cs: added a few tests.
 
-2006-02-20  Maurits  <m.rijk@chello.nl>
+2006-02-20  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/RGB.cs
 	* lib/GimpColorButton.cs
@@ -3689,7 +3705,7 @@
 	* plug-ins/SliceTool/PreferencesDialog.cs: made GimpRGB an
 	internal class.
 
-2006-02-19  Maurits  <m.rijk@chello.nl>
+2006-02-19  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/UnitTest/TestPalette.cs
 	* plug-ins/UnitTest/TestPaletteEntry.cs
@@ -3699,7 +3715,7 @@
 
 	* plug-ins/UnitTest/TestPatternList.cs: added testcases
 
-2006-02-18  Maurits  <m.rijk@chello.nl>
+2006-02-18  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/UnitTest/EventCollector.cs
 	* plug-ins/UnitTest/UnitTester.cs: new files
@@ -3708,7 +3724,7 @@
 
 	* plug-ins/UnitTest/Makefile.am: changed accordingly
 
-2006-02-18  Maurits  <m.rijk@chello.nl>
+2006-02-18  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Guide.cs
 	* lib/HorizontalGuide.cs
@@ -3716,7 +3732,7 @@
 
 	* lib/Makefile.am: changed accordingly
 
-2006-02-18  Maurits  <m.rijk@chello.nl>
+2006-02-18  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/UnitTest/TestContext.cs
 	* plug-ins/UnitTest/TestDisplay.cs
@@ -3724,7 +3740,7 @@
 
 	* plug-ins/UnitTest/Makefile.am: changed accordingly
 
-2006-02-17  Maurits  <m.rijk@chello.nl>
+2006-02-17  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/UnitTest/TestBrush.cs
 	* plug-ins/UnitTest/TestChannel.cs:
@@ -3734,11 +3750,11 @@
 	
 	* lib/*.cs: marking classes as sealed
 
-2006-02-17  Maurits  <m.rijk@chello.nl>
+2006-02-17  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/UnitTest/: new plug-in for unit testing.
 
-2006-02-15  Maurits  <m.rijk@chello.nl>
+2006-02-15  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/*/Makefile.am: made Makefiles slightly more robust.
 
@@ -3752,19 +3768,19 @@
 	* lib/ChannelList.cs: added generic enumerator, making this
 	classes more strongly typed.
 
-2006-02-14  Maurits  <m.rijk@chello.nl>
+2006-02-14  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/FileEntry.cs
 	* lib/IntComboBox.cs: fixed two dumb ocpy & paste errors
 
-2006-02-12  Maurits  <m.rijk@chello.nl>
+2006-02-12  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Image.cs: fixed incorrect calls in RaiseLayerToTop and
 	LowerLayerToBottom.
 
 	* lib/Layer.cs: Implemented a few more methods.
 
-2006-02-12  Maurits  <m.rijk@chello.nl>
+2006-02-12  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Makefile.am
 	* lib/VoidObjectSignal.cs: deleted
@@ -3773,7 +3789,7 @@
 	* lib/GimpColorButton.cs
 	* lib/GimpPreview.cs: simplified signal handling
 
-2006-02-12  Maurits  <m.rijk@chello.nl>
+2006-02-12  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PicturePackage/DocumentFrame.cs: clear ComboBox before
 	filling with new items.
@@ -3782,29 +3798,29 @@
 
 	* plug-ins/SliceTool/SliceTool.cs: replaced more deprecated functions.
 
-2006-02-11  Maurits  <m.rijk@chello.nl>
+2006-02-11  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/SliceTool/*.cs: reformat + added copyright in all headers.
 
-2006-02-10  Maurits  <m.rijk@chello.nl>
+2006-02-10  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PicturePackage/*.cs: added copyright in header and
 	replaced OptionMenu by ComboBox.
 
-2006-02-09  Maurits  <m.rijk@chello.nl>
+2006-02-09  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Gimp.cs: hopefully gimp_directory() is now marshalled
 	correctly on Windows.
 	
 	* */Makefile.am: switch to using gtk-sharp-2.0
 
-2006-02-05  Maurits  <m.rijk@chello.nl>
+2006-02-05  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Gimp.cs
 	* lib/GimpDialog.cs
 	* lib/Plugin.cs: support for help
 
-2006-02-03  Maurits  <m.rijk@chello.nl>
+2006-02-03  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/FilePlugin.cs
 	* lib/ParamDef.cs
@@ -3813,14 +3829,14 @@
 	* plug-ins/KoalaPaint/KoalaPaint.cs
 	* plug-ins/wbmp/wbmp.cs: loading files works again.
 
-2006-02-02  Maurits  <m.rijk@chello.nl>
+2006-02-02  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/FilePlugin.cs
 	* lib/Plugin.cs
 	* plug-ins/KoalaPaint/KoalaPaint.cs
 	* plug-ins/wbmp/wbmp.cs: loading files almost ready in new framework
 
-2006-02-01  Maurits  <m.rijk@chello.nl>
+2006-02-01  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/FilePlugin.cs
 	* lib/ParamDef.cs
@@ -3829,7 +3845,7 @@
 
 	* docs/FAQ: Updated
 
-2006-01-31  Maurits  <m.rijk@chello.nl>
+2006-01-31  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/FilePlugin.cs
 	* lib/ParamDef.cs
@@ -3842,7 +3858,7 @@
 	* plug-ins/Splitter/Splitter.cs
 	* plug-ins/Swirlies/Swirlies.cs: more refactoring
 
-2006-01-30  Maurits  <m.rijk@chello.nl>
+2006-01-30  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Procedure.cs
 	* lib/ProcedureSet.cs
@@ -3851,12 +3867,12 @@
 	* plug-ins/Ministeck/Ministeck.cs
 	* plug-ins/RedEye/RedEye.cs: refactoring procedures
 
-2006-01-29  Maurits  <m.rijk@chello.nl>
+2006-01-29  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Procedure
 	* lib/ProcedureSet.cs: new files for procedure abstraction.
 
-2006-01-26  Maurits  <m.rijk@chello.nl>
+2006-01-26  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/FilePlugin.cs: initial work on adding save procedure
 
@@ -3864,7 +3880,7 @@
 	* plug-ins/wbmp/wbmp.cs: registering of load procedure now done in
 	base class FilePlugin.
 
-2006-01-25  Maurits  <m.rijk@chello.nl>
+2006-01-25  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/ParamDef.cs
 	* lib/ParamDefList.cs
@@ -3877,18 +3893,18 @@
 	* plug-ins/Swirlies/Swirlies.cs: first working version, including
 	a nice preview. It's still very very slow.
 
-2006-01-23  Maurits  <m.rijk@chello.nl>
+2006-01-23  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Swirlies/Swirlies.cs
 	* plug-ins/Swirlies/Swirly.cs: algorithm almost complete
 
-2006-01-20  Maurits  <m.rijk@chello.nl>
+2006-01-20  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Splitter/Splitter.png: new file
 	
 	* plug-ins/Splitter/Makefile.am: changed accordingly
 	
-2006-01-20  Maurits  <m.rijk@chello.nl>
+2006-01-20  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Swirlies/Makefile.am
 	* plug-ins/Swirlies/Swirlies
@@ -3898,7 +3914,7 @@
 	* configure.in
 	* plug-ins/Makefile.am: changed accordingly
 
-2006-01-19  Maurits  <m.rijk@chello.nl>
+2006-01-19  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Splitter/Splitter.cs: call new parser
 
@@ -3907,7 +3923,7 @@
 
 	* plug-ins/Splitter/Makefile.am: changed accordingly
 
-2006-01-19  Maurits  <m.rijk@chello.nl>
+2006-01-19  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PicturePackage/DirImageProviderFactory.cs: removed warning
 
@@ -3917,46 +3933,46 @@
 	* plug-ins/SliceTool/SliceSet.cs
 	* plug-ins/SliceTool/PropertySet.cs: use generics
 
-2006-01-19  Maurits  <m.rijk@chello.nl>
+2006-01-19  Maurits  <maurits.rijk@gmail.com>
 
 	* configure.in
 	* NEWS
 	* INSTALL: updated for 0.8
 
-2006-01-17  Maurits  <m.rijk@chello.nl>
+2006-01-17  Maurits  <maurits.rijk@gmail.com>
 
 	* Made 0.7.1 release
 
-2006-01-13  Maurits  <m.rijk@chello.nl>
+2006-01-13  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/ParamDef.cs
 	* lib/ParamDefList.cs: start with smarter implementation of GIMP
 	parameters.
 
-2006-01-12  Maurits  <m.rijk@chello.nl>
+2006-01-12  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Ministeck/ShapeSet.cs: code clean-up
 
-2006-01-08  Maurits  <m.rijk@chello.nl>
+2006-01-08  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PicturePackage/PageSizeSet.cs: reverting a change from
 	ArrayList to generices since BinarySearch gives an unexpected result.
 
-2006-01-07  Maurits  <m.rijk@chello.nl>
+2006-01-07  Maurits  <maurits.rijk@gmail.com>
 
 	* configure.in: set version to 0.7.1 and removed last traces of
 	the C wrapper code
 
-2006-01-07  Maurits  <m.rijk@chello.nl>
+2006-01-07  Maurits  <maurits.rijk@gmail.com>
 
 	* wrapper/*: removed since we don't need a wrapper anymore
 
-2006-01-05  Maurits  <m.rijk@chello.nl>
+2006-01-05  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Plugin.cs: replaced LoadImageHelper routine by Pixbuf
 	constructor.
 
-2006-01-04  Maurits  <m.rijk@chello.nl>
+2006-01-04  Maurits  <maurits.rijk@gmail.com>
 
 	* configure.in: added check on OS (Win32 or Linux). Contributed by
 	Max Perga
@@ -3967,33 +3983,33 @@
 	* plug-ins/SliceTool/*.cs: introduced generics in a few more
 	places instead of the old ArrayList.
 
-2006-01-03  Maurits  <m.rijk@chello.nl>
+2006-01-03  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Plugin.cs: removed wrapper code
 
-2006-01-02  Maurits  <m.rijk@chello.nl>
+2006-01-02  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/gimp-sharp.dll.config
 	* lib/*.cs: replaced all *.so by *.dll to make the code portable
 	to win32
 
-2006-01-02  Maurits  <m.rijk@chello.nl>
+2006-01-02  Maurits  <maurits.rijk@gmail.com>
 
 	* AUTHORS: Added Massimo (Max) Perga
 
-2005-12-16  Maurits  <m.rijk@chello.nl>
+2005-12-16  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Ministeck/*.cs: clean-up Ministeck plug-in
 
-2005-05-09  Maurits  <m.rijk@chello.nl>
+2005-05-09  Maurits  <maurits.rijk@gmail.com>
 
 	* Made 0.7 release
 
-2005-05-05  Maurits  <m.rijk@chello.nl>
+2005-05-05  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/*.cs: added LGPL header in all files
 
-2005-05-04  Maurits  <m.rijk@chello.nl>
+2005-05-04  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Makefile.am: added new files
 
@@ -4003,68 +4019,68 @@
 	* lib/Pattern.cs
 	* lib/PatternList.cs: new files
 
-2005-04-18  Maurits  <m.rijk@chello.nl>
+2005-04-18  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/gimp-sharp.dll.config
 	* lib/Context.cs: new files
 
-2005-04-14  Maurits  <m.rijk@chello.nl>
+2005-04-14  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Parasite.cs
 	* lib/Tile.cs: new files
 
-2005-04-05  Maurits  <m.rijk@chello.nl>
+2005-04-05  Maurits  <maurits.rijk@gmail.com>
 
 	* Made 0.6 release
 
-2005-01-27  Maurits  <m.rijk@chello.nl>
+2005-01-27  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/wbmp/*: new plug-in to read wbmp files.
 
-2005-01-16  Maurits  <m.rijk@chello.nl>
+2005-01-16  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/SliceTool/RolloverEntry.cs: new file
 
-2005-01-13  Maurits  <m.rijk@chello.nl>
+2005-01-13  Maurits  <maurits.rijk@gmail.com>
 
 	* Made 0.5 release
 
-2005-01-10  Maurits  <m.rijk@chello.nl>
+2005-01-10  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/SliceTool/Format.cs: new file
 
 	* lib/GimpStock.cs: new file
 
-2005-01-08  Maurits  <m.rijk@chello.nl>
+2005-01-08  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/SliceTool/TableDialog.cs: new file
 
-2005-01-05  Maurits  <m.rijk@chello.nl>
+2005-01-05  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/SliceTool/*: new plug-in
 
-2004-12-22  Maurits  <m.rijk@chello.nl>
+2004-12-22  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/ncp/ncp.cs: Minor clean-up
 
-2004-12-20  Maurits  <m.rijk@chello.nl>
+2004-12-20  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Plugin.cs: split of get/set data stuff into...
 	
 	* lib/Makefile.am
 	* lib/PersistentStorage.cs: new file
 
-2004-12-10  Maurits  <m.rijk@chello.nl>
+2004-12-10  Maurits  <maurits.rijk@gmail.com>
 
 	* Made 0.4 release
 
-2004-12-07  Maurits  <m.rijk@chello.nl>
+2004-12-07  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Tattoo.cs:
 
 	* lib/ImageList.cs: new files
 
-2004-12-03  Maurits  <m.rijk@chello.nl>
+2004-12-03  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PicturePackage/*.cs: major enhancements
 
@@ -4072,11 +4088,11 @@
 
 	* lib/PaletteList.cs: new file
 
-2004-12-02  Maurits  <m.rijk@chello.nl>
+2004-12-02  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/ncp/ncp.cs: major speed-up, now 20 times as fast.
 
-2004-11-29  Maurits  <m.rijk@chello.nl>
+2004-11-29  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Makefile.am: changed accordingly
 
@@ -4085,7 +4101,7 @@
 	* lib/DrawablePreview.cs
 	* lib/AspectPreview.cs: new files
 
-2004-11-25  Maurits  <m.rijk@chello.nl>
+2004-11-25  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PicturePackage/Makefile.am
 	* plug-ins/PicturePackage/DocumentFrame.cs
@@ -4095,7 +4111,7 @@
 	* lib/Makefile.am
 	* lib/GimpDialog.cs: new file
 
-2004-11-24  Maurits  <m.rijk@chello.nl>
+2004-11-24  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PicturePackage/Makefile.am
 	* plug-ins/PicturePackage/PageSize.cs:
@@ -4104,81 +4120,81 @@
 	* lib/Makefile.am
 	* lib/FileEntry.cs: new file
 
-2004-11-21  Maurits  <m.rijk@chello.nl>
+2004-11-21  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Image.cs: added more functions.
 
 	* lib/Makefile.am
 	* lib/Channel.cs: new file
 
-2004-11-20  Maurits  <m.rijk@chello.nl>
+2004-11-20  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Ministeck/Ministeck.cs: added progress indicator
 
 	* lib/Image.cs: Bunch of new functions.
 
-2004-11-19  Maurits  <m.rijk@chello.nl>
+2004-11-19  Maurits  <maurits.rijk@gmail.com>
 
 	* Made 0.3 release
 
-2004-11-16  Maurits  <m.rijk@chello.nl>
+2004-11-16  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Ministeck/MinisteckPalette.cs: new file
 
-2004-11-13  Maurits  <m.rijk@chello.nl>
+2004-11-13  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/PixelFetcher.cs: new file
 
-2004-11-11  Maurits  <m.rijk@chello.nl>
+2004-11-11  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PicturePackage/PicturePackage.cs: include
 	picture-package.xml file in resource.
 
-2004-11-10  Maurits  <m.rijk@chello.nl>
+2004-11-10  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/ParamDef.cs: new file
 
-2004-11-06  Maurits  <m.rijk@chello.nl>
+2004-11-06  Maurits  <maurits.rijk@gmail.com>
 
 	* Made 0.2 release
 
-2004-11-06  Maurits  <m.rijk@chello.nl>
+2004-11-06  Maurits  <maurits.rijk@gmail.com>
 
 	* RGB.cs
 	* GimpTypes.cs: new files
 
-2004-11-05  Maurits  <m.rijk@chello.nl>
+2004-11-05  Maurits  <maurits.rijk@gmail.com>
 
 	* Palette.cs: new file
 
-2004-11-02  Maurits  <m.rijk@chello.nl>
+2004-11-02  Maurits  <maurits.rijk@gmail.com>
 
 	* MS-*.cs: bunch of new files for Ministeck plug-in
 
-2004-11-01  Maurits  <m.rijk@chello.nl>
+2004-11-01  Maurits  <maurits.rijk@gmail.com>
 
 	* GimpEnums.cs: new file
 
-2004-10-31  Maurits  <m.rijk@chello.nl>
+2004-10-31  Maurits  <maurits.rijk@gmail.com>
 
 	* GimpColorButton.cs: completed API
 
-2004-10-30  Maurits  <m.rijk@chello.nl>
+2004-10-30  Maurits  <maurits.rijk@gmail.com>
 
 	* GimpColorButton.cs: new file
 
-2004-10-29  Maurits  <m.rijk@chello.nl>
+2004-10-29  Maurits  <maurits.rijk@gmail.com>
 
 	* SaveAttribute.cs: new file
 
-2004-10-20  Maurits  <m.rijk@chello.nl>
+2004-10-20  Maurits  <maurits.rijk@gmail.com>
 
 	* PP-preview.cs: new file
 
 	* ncp
 	* PicturePackage: Slightly improved scripts
 
-2004-10-16  Maurits  <m.rijk@chello.nl>
+2004-10-16  Maurits  <maurits.rijk@gmail.com>
 
 	* PicturePackage.cs: new plug-in started
 

@@ -98,10 +98,26 @@ namespace Gimp.PhotoshopActions
 		case "Chnl":
 		  return new SelectionFromChannelEvent(this, type.Value);
 		  break;
+		case "Pxel":
+		  return new SelectPixelEvent(this, type.Value);
+		  break;
 		default:
 		  Console.WriteLine("SelectionEvent-3: " + type.Key);
 		  break;
 		}
+	    }
+	  else if (enmr.Set[0] is IndexType)
+	    {
+	      IndexType index = enmr.Set[0] as IndexType;
+	      switch (index.Key)
+		{
+		case "Chnl":
+		  return new SelectionByIndexEvent(this, index.Index);
+		  break;
+		default:
+		  Console.WriteLine("SelectionEvent-5: " + index.Key);
+		  break;
+		}	      
 	    }
 	  else
 	    {
