@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006-2007 Maurits Rijk
 //
-// DiffuseEvent.cs
+// SetHistoryStateEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,24 +23,36 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class DiffuseEvent : ActionEvent
+  public class SetHistoryStateEvent : SetEvent
   {
-    [Parameter("Md")]
-    EnumParameter _mode;
-
-    public override bool IsExecutable
+    public SetHistoryStateEvent(SetEvent srcEvent) : base(srcEvent)
     {
-      get {return _mode.Value == "Nrml";}
     }
 
+    public override string EventForDisplay
+    {
+      get {return base.EventForDisplay + " Current History State";}
+    }
+ 
     protected override IEnumerable ListParameters()
     {
-      yield return Format(_mode, "Md");
+      Parameter type = Parameters["T"];
+
+      if (type is ReferenceParameter)
+	{
+	  ReferenceParameter reference = type as ReferenceParameter;
+	  string name = (reference.Set[0] as NameType).Key;
+	  yield return Format(name, "Nm");
+	}
+      else
+	{
+	  yield break;
+	}
     }
 
     override public bool Execute()
     {
-      RunProcedure("plug_in_spread", 5, 5);
+      // Not really implemented, but we can safely ignore this
       return true;
     }
   }

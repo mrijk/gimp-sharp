@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006-2007 Maurits Rijk
 //
-// DiffuseEvent.cs
+// RasterizeLayerEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,24 +23,26 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class DiffuseEvent : ActionEvent
+  public class RasterizeLayerEvent : ActionEvent
   {
-    [Parameter("Md")]
-    EnumParameter _mode;
+    [Parameter("What")]
+    EnumParameter _item;
 
-    public override bool IsExecutable
+    public override string EventForDisplay
     {
-      get {return _mode.Value == "Nrml";}
+      get {return "Rasterize";}
     }
 
     protected override IEnumerable ListParameters()
     {
-      yield return Format(_mode, "Md");
+      if (_item != null)
+	yield return Format(_item, "What");
     }
 
     override public bool Execute()
     {
-      RunProcedure("plug_in_spread", 5, 5);
+      // We don't do anything here becausea the text layer is automatically
+      // rasterized if we apply a filter on it!
       return true;
     }
   }

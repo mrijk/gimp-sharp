@@ -88,6 +88,9 @@ namespace Gimp.PhotoshopActions
 		      break;
 		    }
 		  break;
+		case "HstS":
+		  return new SetHistoryStateEvent(this);
+		  break;
 		default:
 		  Console.WriteLine("SetEvent.Parse: " + property.ClassID2);
 		  break;
@@ -122,6 +125,19 @@ namespace Gimp.PhotoshopActions
 		default:
 		  Console.WriteLine("SetEvent.Parse-2: unknown key " + 
 				    index.Key);
+		  break;
+		}
+	    }
+	  else if (_obj.Set[0] is NameType)
+	    {
+	      NameType name = _obj.Set[0] as NameType;
+	      switch (name.ClassID2)
+		{
+		case "Lyr":
+		  return new SetLayerPropertyEvent(this, name.Key);
+		default:
+		  Console.WriteLine("SetEvent.Parse-3: unknown class " + 
+				    name.ClassID2);
 		  break;
 		}
 	    }

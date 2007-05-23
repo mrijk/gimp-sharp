@@ -172,6 +172,7 @@ plug-ins/AverageBlur/Makefile
 plug-ins/AverageBlur/po/Makefile
 plug-ins/Colorize/Makefile
 plug-ins/Colorize/po/Makefile
+plug-ins/CountTool/Makefile
 plug-ins/DifferenceClouds/Makefile
 plug-ins/DifferenceClouds/po/Makefile
 plug-ins/ecw/Makefile

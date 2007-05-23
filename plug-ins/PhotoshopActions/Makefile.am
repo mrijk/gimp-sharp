@@ -13,6 +13,7 @@ MYSOURCES = 				\
 	ActionEvent.cs			\
 	ActionParser.cs			\
 	ActionSet.cs			\
+	AdaptCorrectEvent.cs		\
 	AddEvent.cs			\
 	AddAdjustmentLayerEvent.cs	\
 	AddGuideEvent.cs		\
@@ -169,6 +170,7 @@ MYSOURCES = 				\
 	PatchworkEvent.cs		\
 	PathParameter.cs		\
 	PhotocopyEvent.cs		\
+	PhotoFilterEvent.cs		\
 	PhotoshopActions.cs		\
 	PinchEvent.cs			\
 	PlasterEvent.cs			\
@@ -181,6 +183,7 @@ MYSOURCES = 				\
 	PropertyType.cs			\
 	PurgeEvent.cs			\
 	RadialBlurEvent.cs		\
+	RasterizeLayerEvent.cs		\
 	RasterizeTypeLayerEvent.cs	\
 	RawDataParameter.cs		\
 	ReferenceParameter.cs		\
@@ -226,6 +229,7 @@ MYSOURCES = 				\
 	SetEvent.cs			\
 	SetFileInfoEvent.cs		\
 	SetForegroundColorEvent.cs	\
+	SetHistoryStateEvent.cs		\
 	SetLayerEffectsEvent.cs		\
 	SetLayerPropertyEvent.cs	\
 	SetQuickMaskEvent.cs		\

@@ -81,9 +81,32 @@ namespace Gimp.PhotoshopActions
       TreeView view = new TreeView(store);
       sw.Add(view);        
 
-      CellRendererText textRenderer = new CellRendererText ();
+      CellRendererToggle activeRenderer = new CellRendererToggle();
+      activeRenderer.Activatable = true;
+      TreeViewColumn columnOne = 
+	view.AppendColumn("Enabled", activeRenderer, 
+			  new TreeCellDataFunc(RenderActive));
+      activeRenderer.Toggled += delegate(object o, ToggledArgs args)
+	{
+	  TreeIter iter;
+	  TreePath path = new TreePath(args.Path);
+	  if (store.GetIter(out iter, path))
+	  {
+	    IExecutable executable = store.GetValue(iter, 1) as IExecutable;
+	    executable.IsEnabled = !executable.IsEnabled;
+
+	    path.Down();
+	    while (store.GetIter(out iter, path))
+	      {
+		store.EmitRowChanged(path, iter);
+		path.Next();
+	      }
+	  }
+	};
+
+      CellRendererText textRenderer = new CellRendererText();
       TreeViewColumn column = 
-	view.AppendColumn("Set Name",textRenderer, 
+	view.AppendColumn("Set Name", textRenderer, 
 			  new TreeCellDataFunc(RenderText));
 
       HBox hbox = new HBox();
@@ -136,11 +159,28 @@ namespace Gimp.PhotoshopActions
       return dialog;
     }
 
-    private void RenderText(TreeViewColumn column, CellRenderer cell, 
-			    TreeModel model, TreeIter iter)
+    void RenderActive(TreeViewColumn column, CellRenderer cell, 
+		    TreeModel model, TreeIter iter)
     {
-      string name = model.GetValue (iter, 0) as string;
-      IExecutable executable = model.GetValue (iter, 1) as IExecutable;
+      IExecutable executable = model.GetValue(iter, 1) as IExecutable;
+      CellRendererToggle toggle = cell as CellRendererToggle;
+
+      if (executable != null)
+	{
+	  toggle.Visible = true;
+	  toggle.Active = executable.IsEnabled;
+	}
+      else
+	{
+	  toggle.Visible = false;
+	}
+    }
+
+    void RenderText(TreeViewColumn column, CellRenderer cell, 
+		    TreeModel model, TreeIter iter)
+    {
+      string name = model.GetValue(iter, 0) as string;
+      IExecutable executable = model.GetValue(iter, 1) as IExecutable;
       CellRendererText text = cell as CellRendererText;
 
       text.Text = name;
@@ -166,7 +206,7 @@ namespace Gimp.PhotoshopActions
 
       int nrScripts = 0;
 
-      DebugOutput.Quiet = false;
+      DebugOutput.Quiet = true;
 
       foreach (string fileName in Directory.GetFiles(scriptDir))
 	{

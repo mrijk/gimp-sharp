@@ -9,6 +9,7 @@ ecw = ecw
 endif
 
 if BUILD_INCOMPLETE
+CountTool = CountTool
 Mezzotint = Mezzotint
 Shatter = Shatter
 DifferenceClouds = DifferenceClouds
@@ -31,6 +32,7 @@ AUTOMAKE_OPTIONS = gnu
 SUBDIRS = 			\
 	AverageBlur		\
 	$(Colorize)		\
+	$(CountTool)		\
 	$(DifferenceClouds)	\
 	$(ecw)			\
 	Forge	 		\

@@ -27,15 +27,28 @@ namespace Gimp.PhotoshopActions
   {
     [Parameter("T")]
     ObjcParameter _objc;
+    
+    readonly string _name;
 
     public SetLayerPropertyEvent(SetEvent srcEvent) : base(srcEvent)
     {
       Parameters.Fill(this);
     }
 
+    public SetLayerPropertyEvent(SetEvent srcEvent, string name) : 
+      this(srcEvent)
+    {
+      _name = name;
+    }
+
     public override string EventForDisplay
     {
-      get {return base.EventForDisplay + " current layer";}
+      get 
+	{
+	  return base.EventForDisplay + ((_name == null) 
+					 ? " current layer"
+					 : " layer \"" + _name + "\"");
+	}
     }
 
     protected override IEnumerable ListParameters()
@@ -72,6 +85,9 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
+      Layer layer = (_name == null) ? SelectedLayer 
+	: ActiveImage.Layers["_name"];
+
       foreach (Parameter parameter in _objc.Parameters)
 	{
 	  switch (parameter.Name)
@@ -82,23 +98,23 @@ namespace Gimp.PhotoshopActions
 		{
 		case "Drkn":
 		  // TODO: not a perfect match
-		  SelectedLayer.Mode = LayerModeEffects.DarkenOnly;
+		  layer.Mode = LayerModeEffects.DarkenOnly;
 		  break;
 		case "Lghn":
 		  // TODO: not a perfect match
-		  SelectedLayer.Mode = LayerModeEffects.LightenOnly;
+		  layer.Mode = LayerModeEffects.LightenOnly;
 		  break;
 		case "Mltp":
-		  SelectedLayer.Mode = LayerModeEffects.Multiply;
+		  layer.Mode = LayerModeEffects.Multiply;
 		  break;
 		case "Nrml":
-		  SelectedLayer.Mode = LayerModeEffects.Normal;
+		  layer.Mode = LayerModeEffects.Normal;
 		  break;
 		case "Ovrl":
-		  SelectedLayer.Mode = LayerModeEffects.Overlay;
+		  layer.Mode = LayerModeEffects.Overlay;
 		  break;
 		case "Scrn":
-		  SelectedLayer.Mode = LayerModeEffects.Screen;
+		  layer.Mode = LayerModeEffects.Screen;
 		  break;
 		default:
 		  Console.WriteLine("Implement set layer mode: " + mode);
@@ -106,10 +122,10 @@ namespace Gimp.PhotoshopActions
 		}
 	      break;
 	    case "Nm":
-	      SelectedLayer.Name = (parameter as TextParameter).Value;
+	      layer.Name = (parameter as TextParameter).Value;
 	      break;
 	    case "Opct":
-	      SelectedLayer.Opacity = (parameter as DoubleParameter).Value;
+	      layer.Opacity = (parameter as DoubleParameter).Value;
 	      break;
 	    default:
 	      Console.WriteLine("SetLayerPropertyEvent: " + parameter.Name);

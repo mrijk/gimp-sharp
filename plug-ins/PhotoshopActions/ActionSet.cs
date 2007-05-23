@@ -28,6 +28,8 @@ namespace Gimp.PhotoshopActions
   {
     List<Action> _set = new List<Action>();
 
+    bool _enabled = true;
+
     string _name;
     byte _expanded;
     int _setChildren;
@@ -101,14 +103,18 @@ namespace Gimp.PhotoshopActions
 	    }
 
 	  // TODO: there are smarter constructs for this!
-	  foreach (Action action in _set)
-	    {
-	      if (!action.IsExecutable)
-		{
-		  return false;
-		}
-	    }
-	  return true;
+	  return !_set.Exists(delegate(Action action) {
+	    return !action.IsExecutable;});
+	}
+    }
+
+    public bool IsEnabled
+    {
+      get {return _enabled;}
+      set 
+	{
+	  _enabled = value;
+	  _set.ForEach(delegate(Action action) {action.IsEnabled = value;});
 	}
     }
 

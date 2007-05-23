@@ -31,9 +31,10 @@ namespace Gimp.PhotoshopActions
   {
     static List<ActionSet> _actionSetCollection;
 
+    bool _enabled;
+
     /*
     readonly byte _expanded;
-    readonly byte _enabled;
     readonly byte _withDialog;
     readonly byte _dialogOptions;
     */
@@ -87,6 +88,12 @@ namespace Gimp.PhotoshopActions
     public virtual bool IsExecutable
     {
       get {return true;}
+    }
+
+    public bool IsEnabled
+    {
+      get {return _enabled;}
+      set {_enabled = value;}
     }
 
     public static Drawable ActiveDrawable
@@ -157,9 +164,14 @@ namespace Gimp.PhotoshopActions
       return ((value) ? "With " : "Without ") + Abbreviations.Get(s);
     }
 
+    protected string Format(string value, string s)
+    {
+      return String.Format("{0}: \"{1}\"", Abbreviations.Get(s), value);
+    }
+
     protected string Format(int value, string s)
     {
-      return Abbreviations.Get(s) + ": " + value;
+      return String.Format("{0}: {1}", Abbreviations.Get(s), value);
     }
 
     protected string Format(double value, string s)

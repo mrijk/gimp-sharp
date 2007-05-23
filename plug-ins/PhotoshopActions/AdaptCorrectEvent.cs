@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006-2007 Maurits Rijk
 //
-// DiffuseEvent.cs
+// AdaptCorrectEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,24 +23,15 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class DiffuseEvent : ActionEvent
+  public class AdaptCorrectEvent : ActionEvent
   {
-    [Parameter("Md")]
-    EnumParameter _mode;
-
     public override bool IsExecutable
     {
-      get {return _mode.Value == "Nrml";}
-    }
-
-    protected override IEnumerable ListParameters()
-    {
-      yield return Format(_mode, "Md");
+      get {return false;}
     }
 
     override public bool Execute()
     {
-      RunProcedure("plug_in_spread", 5, 5);
       return true;
     }
   }

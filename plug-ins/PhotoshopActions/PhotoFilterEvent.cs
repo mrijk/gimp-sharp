@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006-2007 Maurits Rijk
 //
-// DiffuseEvent.cs
+// PhotoFilterEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,24 +23,30 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class DiffuseEvent : ActionEvent
+  public class PhotoFilterEvent : ActionEvent
   {
-    [Parameter("Md")]
-    EnumParameter _mode;
+    [Parameter("Clr")]
+    ObjcParameter _color;
+    [Parameter("Dnst")]
+    int _density;
+    [Parameter("PrsL")]
+    bool _preserveLuminosity;
 
     public override bool IsExecutable
     {
-      get {return _mode.Value == "Nrml";}
+      get {return false;}
     }
 
     protected override IEnumerable ListParameters()
     {
-      yield return Format(_mode, "Md");
+      // Fix me: output color
+      yield return "Filter Color";
+      yield return Format(_density, "Dnst");
+      yield return Format(_preserveLuminosity, "PrsL");
     }
 
     override public bool Execute()
     {
-      RunProcedure("plug_in_spread", 5, 5);
       return true;
     }
   }

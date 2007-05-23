@@ -91,6 +91,14 @@ namespace Gimp
 	}
     }
 
+    public PreviewArea Area
+    {
+      get
+	{
+	  return new PreviewArea(gimp_preview_get_area(Handle));
+	}
+    }
+
     public void Draw()
     {
       gimp_preview_draw(Handle);
@@ -137,6 +145,8 @@ namespace Gimp
     [DllImport("libgimpwidgets-2.0-0.dll")]
     extern static void gimp_preview_get_size(IntPtr preview,
 					     out int width, out int height);
+    [DllImport("libgimpwidgets-2.0-0.dll")]
+    extern static IntPtr gimp_preview_get_area(IntPtr preview);
     [DllImport("libgimpwidgets-2.0-0.dll")]
     extern static void gimp_preview_draw(IntPtr preview);
     [DllImport("libgimpwidgets-2.0-0.dll")]

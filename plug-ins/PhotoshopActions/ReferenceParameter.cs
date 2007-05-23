@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // ReferenceParameter.cs
 //

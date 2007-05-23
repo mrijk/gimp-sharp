@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2006 Maurits Rijk  m.rijk@chello.nl
+// Copyright (C) 2004-2007 Maurits Rijk  m.rijk@chello.nl
 //
 // Preview.cs
 //
@@ -29,7 +29,6 @@ namespace Gimp.SliceTool
   {
     Gdk.GC _gc;
     Drawable _drawable;
-    SliceTool _parent;
     PreviewRenderer _renderer;
 
     Cursor _cursor;
@@ -39,33 +38,20 @@ namespace Gimp.SliceTool
       SetMaxSize(drawable.Width, drawable.Height);
 
       _drawable = drawable;
-      _parent = parent;
 
-      ExposeEvent += OnExposed;
-      Realized += OnRealized;
-      SizeAllocated += OnSizeAllocated;
+      ExposeEvent += delegate {parent.Redraw(_renderer);};
+      Realized += delegate
+	{
+	  _gc = new Gdk.GC(GdkWindow);
+	  _renderer = new PreviewRenderer(this, _gc, _drawable.Width,
+					  _drawable.Height);
+	  FillWithImage();
+	};
+      SizeAllocated += delegate {FillWithImage();};
 
       Events = EventMask.ButtonPressMask | EventMask.ButtonReleaseMask | 
 	EventMask.PointerMotionHintMask | EventMask.PointerMotionMask |
 	EventMask.LeaveNotifyMask;
-    }
-
-    void OnExposed (object o, ExposeEventArgs args)
-    {	
-      _parent.Redraw(_renderer);
-    }
-
-    void OnRealized (object o, EventArgs args)
-    {
-      _gc = new Gdk.GC(GdkWindow);
-      _renderer = new PreviewRenderer(this, _gc, 
-				      _drawable.Width, _drawable.Height);
-      FillWithImage();
-    }
-
-    void OnSizeAllocated(object o, SizeAllocatedArgs args)
-    {
-      FillWithImage();
     }
 
     void FillWithImage()
@@ -73,9 +59,8 @@ namespace Gimp.SliceTool
       int width = _drawable.Width;
       int height = _drawable.Height;
 
-      PixelRgn rgn = new PixelRgn(_drawable, 0, 0, width, height, 
-				  false, false);
-      
+      PixelRgn rgn = new PixelRgn(_drawable, false, false);
+
       byte[] buf = rgn.GetRect(0, 0, width, height);
       Draw(0, 0, width, height, ImageType.Rgb, buf, width * _drawable.Bpp);
     }

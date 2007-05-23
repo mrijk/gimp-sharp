@@ -39,7 +39,12 @@ namespace Gimp.PhotoshopActions
 	    }
 	  if (objc.Contains("Chnl"))
 	    {
-	      yield return "Channel: ";	// Fix me!
+	      ReferenceParameter channel = objc.Parameters["Chnl"] as 
+		ReferenceParameter;
+	      string value = (channel.Set[0] as EnmrType).Value;
+	      yield return String.Format("{0}: {1}", 
+					 Abbreviations.Get("Chnl"), 
+					 Abbreviations.Get(value));
 	    }
 	}
     }

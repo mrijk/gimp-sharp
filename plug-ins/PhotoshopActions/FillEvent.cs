@@ -102,7 +102,7 @@ namespace Gimp.PhotoshopActions
 	}
 
       Drawable drawable = ActiveImage.ActiveDrawable;
-      if (_from == null)
+      if (_from == null && _mode == null)
 	{
 	  drawable.EditFill(fillType);
 	}
@@ -110,11 +110,30 @@ namespace Gimp.PhotoshopActions
 	{
 	  if (Gimp.Version > new Version("2.3.10"))
 	    {
-	      double x = _from.GetValueAsDouble("Hrzn");
-	      double y = _from.GetValueAsDouble("Vrtc");
+	      LayerModeEffects layerMode = LayerModeEffects.Normal;
+	      double x, y;
 
+	      if (_mode != null)
+		{
+		  switch (_mode.Value)
+		    {
+		    case "Mltp":
+		      layerMode = LayerModeEffects.Multiply;
+		      break;
+		    default:
+		      Console.WriteLine("FillEvent: with {0} not supported!", 
+					_mode.Value);
+		      break;
+		    }
+		  x = y = 0;
+		}
+	      else
+		{
+		  x = _from.GetValueAsDouble("Hrzn");
+		  y = _from.GetValueAsDouble("Vrtc");
+		}
 	      drawable.EditBucketFill(BucketFillMode.Foreground,
-				      LayerModeEffects.Normal,
+				      layerMode,
 				      100.0, _tolerance, false, true,
 				      SelectCriterion.Composite, x, y);
 	    }

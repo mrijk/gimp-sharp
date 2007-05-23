@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // Action.cs
 //
@@ -27,6 +27,8 @@ namespace Gimp.PhotoshopActions
   public class Action : IExecutable
   {
     List<ActionEvent> _set = new List<ActionEvent>();
+
+    bool _enabled = true;
 
     string _name;
     byte _shiftKey;
@@ -81,14 +83,19 @@ namespace Gimp.PhotoshopActions
 	      return false;
 	    }
 
-	  foreach (ActionEvent actionEvent in _set)
-	    {
-	      if (!actionEvent.IsExecutable)
-		{
-		  return false;
-		}
-	    }
-	  return true;
+	  return !_set.Exists(delegate(ActionEvent actionEvent) {
+	    return !actionEvent.IsExecutable;});
+	}
+    }
+
+    public bool IsEnabled
+    {
+      get {return _enabled;}
+      set 
+	{
+	  _enabled = value;
+	  _set.ForEach(delegate(ActionEvent actionEvent) {
+	    actionEvent.IsEnabled = value;});
 	}
     }
 

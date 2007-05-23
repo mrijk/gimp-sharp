@@ -189,6 +189,7 @@ namespace Gimp.PhotoshopActions
 	  DebugOutput.Dump("NumberOfItems: " + actionEvent.NumberOfItems);
 	  
 	  actionEvent = actionEvent.Parse(this);
+	  actionEvent.IsEnabled = (enabled == 0) ? false : true;
 
 	  return actionEvent;
 	} 

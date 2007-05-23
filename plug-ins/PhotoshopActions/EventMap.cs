@@ -36,6 +36,7 @@ namespace Gimp.PhotoshopActions
     public EventMap()
     {
       _map["accentedEdges"] = "AccentedEdgesEvent";
+      _map["adaptCorrect"] = "AdaptCorrectEvent";
       _map["add"] = "AddEvent";
       _map["addNoise"] = _map["AdNs"] = "AddNoiseEvent";
       _map["addTo"] = "AddToEvent";
@@ -143,6 +144,7 @@ namespace Gimp.PhotoshopActions
       _map["paste"] = _map["past"] = "PasteEvent";
       _map["pasteEffects"] = "PasteEffectsEvent";
       _map["patchwork"] = "PatchworkEvent";
+      _map["photoFilter"] = "PhotoFilterEvent";
       _map["photocopy"] = "PhotocopyEvent";
       _map["pinch"] = "PinchEvent";
       _map["plaster"] = "PlasterEvent";
@@ -154,6 +156,7 @@ namespace Gimp.PhotoshopActions
       _map["posterization"] = "PosterizationEvent";
       _map["purge"] = _map["Prge"] = "PurgeEvent";
       _map["radialBlur"] = _map["RdlB"] = "RadialBlurEvent";
+      _map["rasterizeLayer"] = "RasterizeLayerEvent"; 
       _map["rasterizeTypeLayer"] = _map["RstT"] = "RasterizeTypeLayerEvent"; 
       _map["removeWhiteMatte"] = "RemoveWhiteMatteEvent";
       _map["replaceColor"] = "ReplaceColorEvent";

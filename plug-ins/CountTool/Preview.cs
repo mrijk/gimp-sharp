@@ -1,7 +1,7 @@
-// The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// The Count Tool plug-in
+// Copyright (C) 2004-2007 Maurits Rijk
 //
-// DiffuseEvent.cs
+// Preview.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,29 +19,25 @@
 //
 
 using System;
-using System.Collections;
 
-namespace Gimp.PhotoshopActions
+using Gdk;
+using Gtk;
+
+namespace Gimp.CountTool
 {
-  public class DiffuseEvent : ActionEvent
+  public class Preview : ZoomPreview
   {
-    [Parameter("Md")]
-    EnumParameter _mode;
-
-    public override bool IsExecutable
+    public Preview(Drawable drawable) : base(drawable)
     {
-      get {return _mode.Value == "Nrml";}
-    }
+      PreviewArea area = Area;
+      area.Events = EventMask.ButtonPressMask | EventMask.ButtonReleaseMask | 
+	EventMask.PointerMotionHintMask | EventMask.PointerMotionMask |
+	EventMask.LeaveNotifyMask;
 
-    protected override IEnumerable ListParameters()
-    {
-      yield return Format(_mode, "Md");
-    }
-
-    override public bool Execute()
-    {
-      RunProcedure("plug_in_spread", 5, 5);
-      return true;
+      ButtonPressEvent += delegate
+	{
+	  Console.WriteLine("Clicked");
+	};
     }
   }
 }

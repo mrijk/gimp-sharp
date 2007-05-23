@@ -1,3 +1,32 @@
+2007-05-23  Maurits  <maurits@gmail.com>
+
+	* plug-ins/PhotoshopActions/LevelsEvent.cs: more verbose
+
+	* plug-ins/PhotoshopActions/SelectSnapshotEvent.cs: mark as implemented
+
+	* plug-ins/PhotoshopActions/DiffuseEvent.cs: mapped to Spread plug-in
+
+	* plug-ins/PhotoshopActions/Abbreviations.cs: more abbreviations
+
+	* plug-ins/PhotoshopActions/AdaptCorrectEvent.cs
+	* plug-ins/PhotoshopActions/SetHistoryStateEvent.cs
+	* plug-ins/PhotoshopActions/PhotoFilterEvent.cs
+	* plug-ins/PhotoshopActions/RasterizeLayerEvent.cs: new files
+
+	* plug-ins/PhotoshopActions/EventMap.cs
+	* plug-ins/PhotoshopActions/Makefile.am: changed accordingly
+
+	* plug-ins/PhotoshopActions/Action.cs
+	* plug-ins/PhotoshopActions/ActionSet.cs
+	* plug-ins/PhotoshopActions/ActionEvent.cs
+	* plug-ins/PhotoshopActions/PhotoshopActions.cs: show toggle
+	buttons for enabled actions
+
+	* plug-ins/SliceTool/Preview.cs: clean-up
+
+	* lib/GimpPreview.cs
+	* lib/PreviewArea.cs: 
+
 2007-05-23  Maurits  <maurits.rijk@gmail.com>
 
 	* NEWS: updated
