@@ -66,6 +66,7 @@ namespace Gimp.PhotoshopActions
       _map["copyToLayer"] = _map["CpTL"] = "CopyToLayerEvent";
       _map["craquelure"] = _map["Crql"] = "CraquelureEvent";
       _map["crop"] = "CropEvent";
+      _map["crosshatch"] = "CrosshatchEvent";
       _map["crystallize"] = "CrystallizeEvent";
       _map["curves"] = _map["Crvs"] = "CurvesEvent";
       _map["cut"] = "CutEvent";
@@ -113,11 +114,13 @@ namespace Gimp.PhotoshopActions
       _map["highPass"] = _map["HghP"] = "HighPassEvent";
       _map["hueSaturation"] = _map["HStr"] = "HueSaturationEvent";
       _map["imageSize"] = _map["ImgS"] = "ImageSizeEvent";
+      _map["inkOutlines"] = "InkOutlinesEvent";
       _map["interfaceWhite"] = "IntersectWithEvent";
       _map["inverse"] = _map["Invs"] = "InverseEvent";
       _map["invert"] = _map["Invr"] = "InvertEvent";
       _map["lensFlare"] = "LensFlareEvent";
       _map["levels"] = _map["Lvls"] = "LevelsEvent";
+      _map["lightingEffects"] = _map["LghE"] = "LightingEffectsEvent";
       _map["link"] = _map["Lnk"] = "LinkEvent";
       _map["linkSelectedLayers"] = "LinkSelectedLayersEvent";
       _map["make"] = _map["Mk"] = "MakeEvent";
@@ -139,6 +142,7 @@ namespace Gimp.PhotoshopActions
       _map["paletteKnife"] = "PaletteKnifeEvent";
       _map["paste"] = _map["past"] = "PasteEvent";
       _map["pasteEffects"] = "PasteEffectsEvent";
+      _map["patchwork"] = "PatchworkEvent";
       _map["photocopy"] = "PhotocopyEvent";
       _map["pinch"] = "PinchEvent";
       _map["plaster"] = "PlasterEvent";
@@ -154,6 +158,7 @@ namespace Gimp.PhotoshopActions
       _map["removeWhiteMatte"] = "RemoveWhiteMatteEvent";
       _map["replaceColor"] = "ReplaceColorEvent";
       _map["reset"] = _map["Rset"] = "ResetEvent";
+      _map["reticulation"] = "ReticulationEvent";
       _map["revealAll"] = "RevealAllEvent";
       _map["revert"] = "RevertEvent";
       _map["ripple"] = "RippleEvent";

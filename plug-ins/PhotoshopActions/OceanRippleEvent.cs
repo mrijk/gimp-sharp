@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // OceanRippleEvent.cs
 //
@@ -37,8 +37,8 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
-      yield return "Ripple Size: " + _rippleSize;
-      yield return "Ripple Magnitude: " + _rippleMagnitude;
+      yield return Format(_rippleSize, "RplS");
+      yield return Format(_rippleMagnitude, "RplM");
     }
 
     override public bool Execute()

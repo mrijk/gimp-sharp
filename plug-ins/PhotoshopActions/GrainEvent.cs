@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // GrainEvent.cs
 //
@@ -39,9 +39,9 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
-      yield return "Intensity: " + _intensity;
-      yield return "Center: " + _center;
-      yield return "Type: " + Abbreviations.Get(_type.Value);
+      yield return Format(_intensity, "Intn");
+      yield return Format(_center, "Cntr");
+      yield return Format(_type, "Grnt");
     }
 
     override public bool Execute()

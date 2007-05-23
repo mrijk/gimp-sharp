@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // SumieEvent.cs
 //
@@ -30,7 +30,7 @@ namespace Gimp.PhotoshopActions
     [Parameter("StrP")]
     int _strokePressure;
     [Parameter("Cntr")]
-    int _center;
+    int _contrast;
 
     public override bool IsExecutable
     {
@@ -39,9 +39,9 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
-      yield return "Stroke width: " + _strokeWidth;
-      yield return "Stroke pressure: " + _strokePressure;
-      yield return "Center: " + _center;
+      yield return Format(_strokeWidth, "StrW");
+      yield return Format(_strokePressure, "StrP");
+      yield return Format(_contrast, "Cntr");;
     }
 
     override public bool Execute()

@@ -44,8 +44,8 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
-      yield return "Size: " + _extrudeSize;
-      yield return "Depth: " + _extrudeDepth;
+      yield return Format(_extrudeSize, "ExtS");
+      yield return Format(_extrudeDepth, "ExtD");
       yield return Format(_extrudeSolidFace, "ExtF");
       yield return Format(_extrudeMaskIncomplete, "ExtM");
       yield return Format(_extrudeType, "ExtT");

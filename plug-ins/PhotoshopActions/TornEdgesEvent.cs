@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // TornEdgesEvent.cs
 //
@@ -39,9 +39,9 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
-      yield return "Image Balance: " + _imageBalance;
-      yield return "Smoothen: " + _smoothen;
-      yield return "Center: " + _center;
+      yield return Format(_imageBalance, "ImgB");
+      yield return Format(_smoothen, "Smth");
+      yield return Format(_center, "Cntr");
     }
 
     override public bool Execute()

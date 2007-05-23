@@ -52,6 +52,7 @@ MYSOURCES = 				\
 	CopyToLayerEvent.cs		\
 	CraquelureEvent.cs		\
 	CropEvent.cs			\
+	CrosshatchEvent.cs		\
 	CrystallizeEvent.cs		\
 	CurvesEvent.cs			\
 	CutEvent.cs			\
@@ -117,11 +118,13 @@ MYSOURCES = 				\
 	IExecutable.cs			\
 	ImageSizeEvent.cs		\
 	IndexType.cs			\
+	InkOutlinesEvent.cs		\
 	IntersectWithEvent.cs		\
 	InverseEvent.cs			\
 	InvertEvent.cs			\
 	LensFlareEvent.cs		\
 	LevelsEvent.cs			\
+	LightingEffectsEvent.cs		\
 	LinkedLayers.cs			\
 	LinkedLayersSet.cs		\
 	LinkEvent.cs			\
@@ -163,6 +166,7 @@ MYSOURCES = 				\
 	ParameterSet.cs			\
 	PasteEffectsEvent.cs		\
 	PasteEvent.cs			\
+	PatchworkEvent.cs		\
 	PathParameter.cs		\
 	PhotocopyEvent.cs		\
 	PhotoshopActions.cs		\
@@ -184,6 +188,7 @@ MYSOURCES = 				\
 	ReleType.cs			\
 	RemoveWhiteMatteEvent.cs	\
 	ReplaceColorEvent.cs		\
+	ReticulationEvent.cs		\
 	RevealAllEvent.cs		\
 	RevertEvent.cs			\
 	RippleEvent.cs			\

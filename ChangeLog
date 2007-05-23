@@ -1,3 +1,22 @@
+2007-05-23  Maurits  <maurits.rijk@gmail.com>
+
+	* NEWS: updated
+
+	* plug-ins/PhotoshopActions/LensFlareEvent.cs
+	* plug-ins/PhotoshopActions/OceanRippleEvent.cs
+	* plug-ins/PhotoshopActions/GrainEvent.cs
+	* plug-ins/PhotoshopActions/ExtrudeEvent.cs: 
+	* plug-ins/PhotoshopActions/SumieEvent.cs: minor clean-up
+
+	* plug-ins/PhotoshopActions/PatchworkEvent.cs
+	* plug-ins/PhotoshopActions/InkOutlinesEvent.cs
+	* plug-ins/PhotoshopActions/CrosshatchEvent.cs
+	* plug-ins/PhotoshopActions/ReticulationEvent.cs
+	* plug-ins/PhotoshopActions/LightingEffectsEvent.cs: new files
+	
+	* plug-ins/PhotoshopActions/EventMap.cs
+	* plug-ins/PhotoshopActions/Makefile.am: changed accordingly
+
 2007-05-22  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/AddNoiseEvent.cs: bug fix

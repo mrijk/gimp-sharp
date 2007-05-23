@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006 Maurits Rijk
 //
-// LensFlareEvent.cs
+// ReticulationEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,30 +23,16 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class LensFlareEvent : ActionEvent
+  public class ReticulationEvent : ActionEvent
   {
-    [Parameter("Brgh")]
-    int _brightness;
-    [Parameter("FlrC")]
-    ObjcParameter _flareCenter;
-    [Parameter("Lns")]
-    EnumParameter _lens;
-
     public override bool IsExecutable
     {
       get {return false;}
     }
 
-    protected override IEnumerable ListParameters()
-    {
-      yield return Format(_brightness, "Brgh");
-      yield return "Flare Center: " + "fixme!";
-      yield return Format(_lens, "Lns");
-    }
-
     override public bool Execute()
     {
-      return true;
+      return false;
     }
   }
 }
