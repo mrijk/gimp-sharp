@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // SaveEvent.cs
 //
@@ -19,18 +19,48 @@
 //
 
 using System;
+using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
   public class SaveEvent : ActionEvent
   {
-    public override bool IsExecutable
+    string _path;
+
+    protected override IEnumerable ListParameters()
     {
-      get {return false;}
+      Parameter saveAs = Parameters["As"];
+      if (saveAs != null)
+	{
+	  string fileType = "unknown extension";
+
+	  if (saveAs is ObjcParameter)
+	    fileType = (saveAs as ObjcParameter).ClassID2;
+	  else if (saveAs is TextParameter)
+	    fileType = (saveAs as TextParameter).Value;
+
+	  yield return "As: " + Abbreviations.Get(fileType);
+	  yield return "Byte Order: ";
+	}
+
+      Parameter saveIn = Parameters["In"];
+      if (saveIn != null)
+	{
+	  if (saveIn is AliasParameter)
+	    _path = "Fix me: SaveEvent.AliasParameter";
+	  else if (saveIn is PathParameter)
+	    _path = (saveIn as PathParameter).Path;
+	  else
+	    _path = "Fix me: unknown path (SaveEvent)";
+
+	  yield return "In: " + _path;
+	}
     }
 
     override public bool Execute()
     {
+      string filename = _path + ActiveImage.Filename;
+      ActiveImage.Save(RunMode.Noninteractive, filename, filename);
       return true;
     }
   }

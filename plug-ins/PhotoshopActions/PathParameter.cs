@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // PathParameter.cs
 //
@@ -34,16 +34,6 @@ namespace Gimp.PhotoshopActions
 
     public override void Parse(ActionParser parser)
     {
-#if false
-      // TODO: figure out what these first 17 bytes are
-      for (int i = 0; i < 17; i++)
-	parser.ReadByte();
-
-      _path = parser.ReadString();
-
-      for (int i = 0; i < 188; i++)
-	parser.ReadByte();
-#else
       int nr1 = parser.ReadInt32();
 
       string txt = parser.ReadFourByteString();
@@ -52,11 +42,11 @@ namespace Gimp.PhotoshopActions
 
       int length = parser.ReadInt32();
 
-      for (int i = 0; i < 3; i++)
+      for (int i = 0; i < 2; i++)
 	parser.ReadByte();
 
       _path = parser.ReadUnicodeString(length);
-#endif
+      parser.ReadByte();
     }
 
     public override void Fill(Object obj, FieldInfo field)

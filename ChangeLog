@@ -1,3 +1,19 @@
+2007-05-24  Maurits  <maurits.rijk@gmail.com>
+
+	* plug-ins/PhotoshopActions/OpenEvent.cs: more verbose
+
+	* plug-ins/PhotoshopActions/PathParameter.cs: fixed bug with
+	incorrect alignment of path
+
+	* plug-ins/PhotoshopActions/SaveEvent.cs: implemented
+
+	* plug-ins/PhotoshopActions/SelectionEvent.cs: select selection
+	from channel by name
+
+	* plug-ins/CountTool/Preview.cs: 
+	* plug-ins/CountTool/CountTool.cs: initial support to store and
+	display coordinates
+
 2007-05-23  Maurits  <maurits@gmail.com>
 
 	* plug-ins/PhotoshopActions/LevelsEvent.cs: more verbose

@@ -42,7 +42,7 @@ namespace Gimp.PhotoshopActions
 
     string _eventForDisplay;
     protected int _numberOfItems;
-    ParameterSet _parameters;
+    readonly ParameterSet _parameters = new ParameterSet();
 
     static Drawable _activeDrawable;
     static Image _activeImage;
@@ -214,7 +214,7 @@ namespace Gimp.PhotoshopActions
 
     public virtual ActionEvent Parse(ActionParser parser)
     {
-      _parameters = new ParameterSet();
+      // _parameters = new ParameterSet();
       DebugOutput.Level++;
       _parameters.Parse(parser, this, NumberOfItems);
       DebugOutput.Level--;

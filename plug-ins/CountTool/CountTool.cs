@@ -27,6 +27,8 @@ namespace Gimp.CountTool
 {
   class CountTool : Plugin
   {
+    readonly CoordinateList<int> _coordinates = new CoordinateList<int>();
+
     static void Main(string[] args)
     {
       new CountTool(args);
@@ -62,10 +64,49 @@ namespace Gimp.CountTool
       hbox.BorderWidth = 12;
       dialog.VBox.PackStart(hbox, true, true, 0);
 
-      Preview preview = new Preview(_drawable);
+      Preview preview = new Preview(_drawable, _coordinates);
       hbox.PackStart(preview, true, true, 0);
 
+      ScrolledWindow sw = new ScrolledWindow();
+      hbox.Add(sw);
+
+      TreeStore store = new TreeStore(typeof(Coordinate<int>));
+      for (int i = 0; i < 10; i++)
+	{
+	  Coordinate<int> coordinate = new Coordinate<int>(10 * i, 10 * i);
+	  _coordinates.Add(coordinate);
+	  store.AppendValues(coordinate);
+	}
+
+      TreeView view = new TreeView(store);
+      sw.Add(view);        
+
+      CellRendererText textRenderer = new CellRendererText();
+      view.AppendColumn("X", textRenderer, new TreeCellDataFunc(RenderX));
+      view.AppendColumn("Y", textRenderer, new TreeCellDataFunc(RenderY));
+      
       return dialog;
+    }
+
+    void RenderX(TreeViewColumn column, CellRenderer cell, 
+		 TreeModel model, TreeIter iter)
+    {
+      Coordinate<int> c = model.GetValue(iter, 0) as Coordinate<int>;
+      RenderCoordinate(cell, c.X);
+    }
+
+    void RenderY(TreeViewColumn column, CellRenderer cell, 
+		 TreeModel model, TreeIter iter)
+    {
+      Coordinate<int> c = model.GetValue(iter, 0) as Coordinate<int>;
+      RenderCoordinate(cell, c.Y);
+    }
+
+    void RenderCoordinate(CellRenderer cell, int value)
+    {
+      CellRendererText text = cell as CellRendererText;
+      text.Text = String.Format("{0}", value);
+      text.Editable = true;
     }
 
     override protected void Render(Drawable drawable)

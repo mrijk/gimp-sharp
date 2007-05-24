@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // OpenEvent.cs
 //
@@ -18,7 +18,7 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
+using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
@@ -26,6 +26,11 @@ namespace Gimp.PhotoshopActions
   {
     [Parameter("null")]
     string _path;
+
+    protected override IEnumerable ListParameters()
+    {
+      yield return _path;
+    }
 
     override public bool Execute()
     {

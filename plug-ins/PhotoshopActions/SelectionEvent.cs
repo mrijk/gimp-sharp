@@ -119,6 +119,19 @@ namespace Gimp.PhotoshopActions
 		  break;
 		}	      
 	    }
+	  else if (enmr.Set[0] is NameType)
+	    {
+	      NameType name = enmr.Set[0] as NameType;
+	      switch (name.ClassID2)
+		{
+		case "Chnl":
+		  return new SelectionFromChannelEvent(this, name.Key);
+		  break;
+		default:
+		  Console.WriteLine("SelectionEvent-6: " + name.ClassID2);
+		  break;
+		}	      
+	    }
 	  else
 	    {
 	      Console.WriteLine("SelectionEvent-4: " + enmr.Set[0]);

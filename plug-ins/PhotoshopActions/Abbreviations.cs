@@ -141,7 +141,9 @@ namespace Gimp.PhotoshopActions
       _map["Nrml"] = "normal";
       _map["Otsd"] = "outside";
       _map["Ovrl"] = "overlay";
+      _map["Pht3"] = "Photoshop";
       _map["Phtc"] = "Photocopy";
+      _map["PhtP"] = "Photoshop PDF";
       _map["Plgn"] = "polygon";
       _map["PlrR"] = "Polar to Rectangular";
       _map["Pncl"] = "Pencil Width";

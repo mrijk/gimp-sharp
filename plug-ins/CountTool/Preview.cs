@@ -22,21 +22,46 @@ using System;
 
 using Gdk;
 using Gtk;
+using Pango;
 
 namespace Gimp.CountTool
 {
   public class Preview : ZoomPreview
   {
-    public Preview(Drawable drawable) : base(drawable)
+    readonly CoordinateList<int> _coordinates;
+
+    public Preview(Drawable drawable, CoordinateList<int> coordinates) : 
+      base(drawable)
     {
+      _coordinates = coordinates;
+
       PreviewArea area = Area;
       area.Events = EventMask.ButtonPressMask | EventMask.ButtonReleaseMask | 
 	EventMask.PointerMotionHintMask | EventMask.PointerMotionMask |
 	EventMask.LeaveNotifyMask;
 
-      ButtonPressEvent += delegate
+      ButtonPressEvent += delegate(object o, ButtonPressEventArgs args)
 	{
-	  Console.WriteLine("Clicked");
+	  // Fix me: calculate real-world coordinates
+	  _coordinates.Add(new Coordinate<int>((int) args.Event.X,
+					       (int) args.Event.Y));
+	};
+
+      ExposeEvent += delegate 
+	{
+	  Pango.Layout layout = new Pango.Layout(area.PangoContext);
+	  layout.FontDescription = FontDescription.FromString("Tahoma 16");
+
+	  int i = 0;
+	  foreach (Coordinate<int> coordinate in _coordinates)
+	  {
+	    layout.SetMarkup(String.Format("{0}", i));
+	  // Fix me: transfer from real-world coordinates
+	    area.GdkWindow.DrawLayout(Style.TextGC(StateType.Normal), 
+				      coordinate.X, coordinate.Y, 
+				      layout);
+	    i++;
+	  }
 	};
     }
   }
