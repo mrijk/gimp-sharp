@@ -37,11 +37,13 @@ namespace Gimp.PhotoshopActions
       _map["AdLf"] = "left edges";
       _map["AdRg"] = "right edges";
       _map["AdTp"] = "top edges";
+      _map["Amnt"] = "Amount";
       _map["Anno"] = "none";
       _map["Bcbc"] = "bicubic";
       _map["BckC"] = "background color";
       _map["Bckg"] = "background";
       _map["Blck"] = "black";
+      _map["BlcL"] = "Foreground Level";
       _map["Bl"]   = "blue";
       _map["Blks"] = "Blocks";
       _map["BlrM"] = "Method";
@@ -66,6 +68,7 @@ namespace Gimp.PhotoshopActions
       _map["CrnH"] = "Current History State";
       _map["CrrL"] = "current layer";
       _map["Cyn" ] = "cyan";
+      _map["Dfnt"] = "Definition";
       _map["Dnst"] = "Density";
       _map["Dplc"] = "Duplicate";
       _map["DrcB"] = "Direction Balance";
@@ -73,6 +76,7 @@ namespace Gimp.PhotoshopActions
       _map["DrkI"] = "Dark Intensity";
       _map["Drkn"] = "darken";
       _map["Dstr"] = "Distribution";
+      _map["Dtl"]  = "Detail";
       _map["Edg"]  = "Edge";
       _map["Elps"] = "Ellipse";
       _map["ExtD"] = "Depth";
@@ -92,11 +96,13 @@ namespace Gimp.PhotoshopActions
       _map["GrnE"] = "Enlarged";
       _map["GrnH"] = "Horizontal";
       _map["GrnR"] = "Regular";
+      _map["Grns"] = "Graininess";
       _map["Grnt"] = "Grain Type";
       _map["GrtW"] = "Grout Width";
       _map["Gry"]  = "gray";
       _map["Grys"] = "grayscale mode";
       _map["Gsn"]  = "gaussian";
+      _map["HlSz"] = "Size";
       _map["HrdL"] = "hard light";
       _map["Hrzn"] = "Horizontal";
       _map["HrzO"] = "Horizontal Only";
@@ -108,6 +114,7 @@ namespace Gimp.PhotoshopActions
       _map["InvT"] = "Invert Texture";
       _map["LbCM"] = "Lab color mode";
       _map["LDBL"] = "Bottom Left";
+      _map["LDBt"] = "Bottom";
       _map["LDTp"] = "Top";
       _map["LDTR"] = "Top Right";
       _map["Left"] = "Left";
@@ -138,6 +145,7 @@ namespace Gimp.PhotoshopActions
       _map["N"]    = "no";
       _map["Nkn1"] = "105mm Prime";
       _map["Nm"]   = "Name";
+      _map["NmbR"] = "Ridges";
       _map["Nrml"] = "normal";
       _map["Otsd"] = "outside";
       _map["Ovrl"] = "overlay";
@@ -147,6 +155,7 @@ namespace Gimp.PhotoshopActions
       _map["Plgn"] = "polygon";
       _map["PlrR"] = "Polar to Rectangular";
       _map["Pncl"] = "Pencil Width";
+      _map["PndR"] = "Pond Ripples";
       _map["PntD"] = "paint daubs";
       _map["PprB"] = "Paper Brightness";
       _map["PrnS"] = "Print Size";
@@ -159,11 +168,13 @@ namespace Gimp.PhotoshopActions
       _map["Rds"]  = "Radius";
       _map["Rght"] = "Right";
       _map["Rlf"]  = "Relief";
+      _map["Rlg"]  = "Relief";
       _map["Rndm"] = "random";
       _map["RctP"] = "Rectangular to Polar";
       _map["RGBM"] = "RGB color mode";
       _map["RplM"] = "Ripple Magnitude";
       _map["RplS"] = "Ripple Size";
+      _map["Rpt"]  = "repeat";
       _map["RptE"] = "repeat edge pixels";
       _map["Rtcl"] = "reticulation";
       _map["SBME"] = "Edge Only";
@@ -172,7 +183,9 @@ namespace Gimp.PhotoshopActions
       _map["SBQL"] = "smart blur quality low";
       _map["SBQM"] = "smart blur quality medium";
       _map["Scln"] = "Scaling";
+      _map["ScrL"] = "Line";
       _map["Scrn"] = "screen";
+      _map["ScrT"] = "Pattern Type";
       _map["SDir"] = "Stroke Direction";
       _map["SDLD"] = "Left Diagonal";
       _map["SDLD"] = "Right Diagonal";
@@ -196,6 +209,7 @@ namespace Gimp.PhotoshopActions
       _map["Trns"] = "transparent";
       _map["Trsp"] = "transparency";
       _map["TxCa"] = "Canvas";
+      _map["TxFr"] = "Frosted";
       _map["TxSt"] = "Sandstone";
       _map["Txtr"] = "Texture";
       _map["TxtT"] = "Texture Type";
@@ -204,6 +218,7 @@ namespace Gimp.PhotoshopActions
       _map["Vrtc"] = "Vertical";
       _map["Wdth"] = "Width";
       _map["Wht"]  = "white";
+      _map["WhtL"] = "Background Level";
       _map["Wnd"]  = "Wind";
       _map["WndM"] = "Method";
       _map["Wrp"]  = "wrap";
@@ -212,6 +227,7 @@ namespace Gimp.PhotoshopActions
       _map["WvSq"] = "wave square";
       _map["Yllw"] = "yellow";
       _map["Zm"]   = "zoom";
+      _map["ZZTy"] = "Style";
     }
 
     public static string Get(string key)

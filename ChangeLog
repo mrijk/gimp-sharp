@@ -1,3 +1,37 @@
+2007-05-26  Maurits  <maurits.rijk@gmail.com>
+	
+	* plug-ins/PhotoshopActions/DeleteLayerByNameEvent.cs: minor clean-up
+
+	* plug-ins/PhotoshopActions/DuplicateEvent.cs: duplicate channel
+	by name added
+
+	* plug-ins/PhotoshopActions/SelectionEvent.cs: selecion of
+	single column or row
+
+	* plug-ins/PhotoshopActions/SetChannelPropertyEvent.cs: partly
+	implemented
+
+	* plug-ins/PhotoshopActions/GlassEvent.cs
+	* plug-ins/PhotoshopActions/HalftoneScreenEvent.cs
+	* plug-ins/PhotoshopActions/DeleteChannelEvent.cs
+	* plug-ins/PhotoshopActions/ReticulationEvent.cs: more verbose
+
+	* plug-ins/PhotoshopActions/Abbreviations.cs: added
+
+	* plug-ins/PhotoshopActions/DeleteChannelByNameEvent.cs
+	* plug-ins/PhotoshopActions/DuplicateChannelByNameEvent.cs
+	* plug-ins/PhotoshopActions/BasReliefEvent.cs
+	* plug-ins/PhotoshopActions/MosaicTilesEvent.cs
+	* plug-ins/PhotoshopActions/NotePaperEvent.cs
+	* plug-ins/PhotoshopActions/ZigZagEvent.cs
+	* plug-ins/PhotoshopActions/SelectSingleColumnEvent.cs
+	* plug-ins/PhotoshopActions/SelectSingleRowEvent.cs
+	* plug-ins/PhotoshopActions/SimilarEvent.cs
+	* plug-ins/PhotoshopActions/SpongeEvent.cs: new files
+
+	* plug-ins/PhotoshopActions/EventMap.cs
+	* plug-ins/PhotoshopActions/Makefile.am: changed accordingly
+
 2007-05-24  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/OpenEvent.cs: more verbose

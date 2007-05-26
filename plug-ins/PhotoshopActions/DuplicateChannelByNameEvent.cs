@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006-2007 Maurits Rijk
 //
-// DeleteChannelEvent.cs
+// DuplicateChannelByNameEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,17 +18,29 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
+using System;
+
 namespace Gimp.PhotoshopActions
 {
-  public class DeleteChannelEvent : ActionEvent
+  public class DuplicateChannelByNameEvent : DuplicateEvent
   {
-    public DeleteChannelEvent(ActionEvent srcEvent) : base(srcEvent)
+    readonly string _name;
+
+    public DuplicateChannelByNameEvent(DuplicateEvent srcEvent, string name) : 
+      base(srcEvent) 
     {
+      _name = name;
+    }
+
+    public override string EventForDisplay
+    {
+      get {return base.EventForDisplay + " channel \"" + _name + "\"";}
     }
 
     override public bool Execute()
     {
-      ActiveImage.RemoveChannel(ActiveImage.ActiveChannel);
+      Channel channel = ActiveImage.Channels[_name];
+      ActiveImage.AddChannel(new Channel(channel), 0);
       return true;
     }
   }

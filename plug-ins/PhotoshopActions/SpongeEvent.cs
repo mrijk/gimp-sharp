@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006-2007 Maurits Rijk
 //
-// DeleteChannelEvent.cs
+// SpongeEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,17 +18,34 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
+using System;
+using System.Collections;
+
 namespace Gimp.PhotoshopActions
 {
-  public class DeleteChannelEvent : ActionEvent
+  public class SpongeEvent : ActionEvent
   {
-    public DeleteChannelEvent(ActionEvent srcEvent) : base(srcEvent)
+    [Parameter("BrsS")]
+    int _brushSize;
+    [Parameter("Dfnt")]
+    int _definition;
+    [Parameter("Smth")]
+    int _smoothen;
+
+    public override bool IsExecutable
     {
+      get {return false;}
+    }
+
+    protected override IEnumerable ListParameters()
+    {
+      yield return Format(_brushSize, "BrsS");
+      yield return Format(_definition, "Dfnt");
+      yield return Format(_smoothen, "Smth");
     }
 
     override public bool Execute()
     {
-      ActiveImage.RemoveChannel(ActiveImage.ActiveChannel);
       return true;
     }
   }

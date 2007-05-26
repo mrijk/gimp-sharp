@@ -25,8 +25,12 @@ namespace Gimp.PhotoshopActions
 {
   public class HalftoneScreenEvent : ActionEvent
   {
-    [Parameter("BrsD")]
-    int _brushDetail;
+    [Parameter("HlSz")]
+    int _size;
+    [Parameter("Cntr")]
+    int _contrast;
+    [Parameter("ScrT")]
+    EnumParameter _patternType;
 
     public override bool IsExecutable
     {
@@ -35,7 +39,9 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
-      yield break;
+      yield return Format(_size, "HlSz");
+      yield return Format(_contrast, "Cntr");
+      yield return Format(_patternType, "ScrT");
     }
 
     override public bool Execute()

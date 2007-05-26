@@ -71,7 +71,7 @@ namespace Gimp.PhotoshopActions
 	      switch (type.ClassID2)
 		{
 		case "Chnl":
-		  return new DeleteChannelEvent(this);
+		  return new DeleteChannelByNameEvent(this, type.Key);
 		case "Lyr":
 		  return new DeleteLayerEvent(this);
 		default:

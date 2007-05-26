@@ -22,7 +22,7 @@ namespace Gimp.PhotoshopActions
 {
   public class DeleteLayerByNameEvent : DeleteEvent
   {
-    string _name;
+    readonly string _name;
 
     public DeleteLayerByNameEvent(ActionEvent srcEvent, string name) : 
       base(srcEvent)

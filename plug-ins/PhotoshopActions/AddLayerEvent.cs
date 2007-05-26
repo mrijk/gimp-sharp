@@ -44,11 +44,23 @@ namespace Gimp.PhotoshopActions
 
       switch (mode.Value)
 	{
+	case "Dfrn":
+	  _mode = LayerModeEffects.Difference;
+	  break;
 	case "Drkn":
 	  _mode = LayerModeEffects.DarkenOnly;
 	  break;
 	case "Lghn":
 	  _mode = LayerModeEffects.LightenOnly;
+	  break;
+	case "Mltp":
+	  _mode = LayerModeEffects.Multiply;
+	  break;
+	case "Ovrl":
+	  _mode = LayerModeEffects.Overlay;
+	  break;
+	case "Scrn":
+	  _mode = LayerModeEffects.Screen;
 	  break;
 	default:
 	  Console.WriteLine("AddLayerEvent, unknown mode: " + mode.Value);

@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006-2007 Maurits Rijk
 //
-// DeleteChannelEvent.cs
+// DeleteChannelByNameEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -20,15 +20,25 @@
 
 namespace Gimp.PhotoshopActions
 {
-  public class DeleteChannelEvent : ActionEvent
+  public class DeleteChannelByNameEvent : DeleteEvent
   {
-    public DeleteChannelEvent(ActionEvent srcEvent) : base(srcEvent)
+    readonly string _name;
+
+    public DeleteChannelByNameEvent(DeleteEvent srcEvent, string name) : 
+      base(srcEvent)
     {
+      _name = name;
+    }
+
+    public override string EventForDisplay
+    {
+      get {return base.EventForDisplay + " channel \"" + _name + "\"";}
     }
 
     override public bool Execute()
     {
-      ActiveImage.RemoveChannel(ActiveImage.ActiveChannel);
+      Channel channel = ActiveImage.Channels[_name];
+      ActiveImage.RemoveChannel(channel);
       return true;
     }
   }

@@ -27,6 +27,7 @@ MYSOURCES = 				\
 	AngledStrokesEvent.cs		\
 	ApplyImageEvent.cs		\
 	AverageEvent.cs			\
+	BasReliefEvent.cs		\
 	BlurEvent.cs			\
 	BlurMethodEvent.cs		\
 	BoolParameter.cs		\
@@ -65,6 +66,7 @@ MYSOURCES = 				\
 	DeleteChannelEvent.cs		\
 	DeleteEvent.cs			\
 	DeleteGuideEvent.cs		\
+	DeleteChannelByNameEvent.cs	\
 	DeleteLayerByNameEvent.cs	\
 	DeleteLayerEvent.cs		\
 	DesaturateEvent.cs		\
@@ -79,6 +81,7 @@ MYSOURCES = 				\
 	DuplicateChannelEvent.cs	\
 	DuplicateEvent.cs		\
 	DuplicateDocumentEvent.cs	\
+	DuplicateChannelByNameEvent.cs	\
 	DuplicateLayerByNameEvent.cs	\
 	DuplicateLayerEvent.cs		\
 	DuplicateSelectionEvent.cs	\
@@ -146,6 +149,7 @@ MYSOURCES = 				\
 	MezzotintEvent.cs		\
 	MinimumEvent.cs			\
 	MosaicEvent.cs			\
+	MosaicTilesEvent.cs		\
 	MosaicPluginEvent.cs		\
 	MotionBlurEvent.cs		\
 	MoveEvent.cs			\
@@ -155,6 +159,7 @@ MYSOURCES = 				\
 	NameType.cs			\
 	NewChannelEvent.cs		\
 	NewDocumentEvent.cs		\
+	NotePaperEvent.cs		\
 	ObArParameter.cs		\
 	ObjcParameter.cs		\
 	OceanRippleEvent.cs		\
@@ -219,6 +224,8 @@ MYSOURCES = 				\
 	SelectPolygonEvent.cs		\
 	SelectPreviousEvent.cs		\
 	SelectRectangleEvent.cs		\
+	SelectSingleColumnEvent.cs	\
+	SelectSingleRowEvent.cs		\
 	SelectSnapshotEvent.cs		\
 	SeparationSetupEvent.cs		\
 	SetAdjustmentLayerEvent.cs	\
@@ -241,11 +248,13 @@ MYSOURCES = 				\
 	ShowChannelEvent.cs		\
 	ShowEvent.cs			\
 	ShowLayerEvent.cs		\
+	SimilarEvent.cs			\
 	SmartBlurEvent.cs		\
 	SmoothnessEvent.cs		\
 	SolarizeEvent.cs		\
 	SpatterEvent.cs			\
 	SpherizeEvent.cs		\
+	SpongeEvent.cs			\
 	StainedGlassEvent.cs		\
 	StampEvent.cs			\
 	StopEvent.cs			\
@@ -274,7 +283,8 @@ MYSOURCES = 				\
 	WatercolorEvent.cs		\
 	WaterPaperEvent.cs		\
 	WaveEvent.cs			\
-	WindEvent.cs
+	WindEvent.cs			\
+	ZigZagEvent.cs
 
 EXTRA_DIST = $(MYSOURCES) PhotoshopActions PhotoshopActions.png
 

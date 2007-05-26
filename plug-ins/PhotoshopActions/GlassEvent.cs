@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // GlassEvent.cs
 //
@@ -25,9 +25,29 @@ namespace Gimp.PhotoshopActions
 {
   public class GlassEvent : ActionEvent
   {
+    [Parameter("Dstr")]
+    int _distortion;
+    [Parameter("Smth")]
+    int _smoothen;
+    [Parameter("TxtT")]
+    EnumParameter _textureType;
+    [Parameter("Scln")]
+    int _scaling;
+    [Parameter("InvT")]
+    bool _invertTexture;
+
     public override bool IsExecutable
     {
       get {return false;}
+    }
+
+    protected override IEnumerable ListParameters()
+    {
+      yield return Format(_distortion, "Dstr");
+      yield return Format(_smoothen, "Smth");
+      yield return Format(_textureType, "TxtT");
+      yield return Format(_scaling, "Scln");
+      yield return Format(_invertTexture, "InvT");
     }
 
     override public bool Execute()

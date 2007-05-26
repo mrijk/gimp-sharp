@@ -64,6 +64,10 @@ namespace Gimp.PhotoshopActions
 	      return new SelectPolygonEvent(this, objc);
 	    case "Rctn":
 	      return new SelectRectangleEvent(this, objc);
+	    case "Sngc":
+	      return new SelectSingleRowEvent(this, objc);
+	    case "Sngr":
+	      return new SelectSingleRowEvent(this, objc);
 	    default:
 	      Console.WriteLine("SelectionEvent Implement " + classID2);
 	      break;

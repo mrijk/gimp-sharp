@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // SetChannelPropertyEvent.cs
 //
@@ -19,6 +19,7 @@
 //
 
 using System;
+using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
@@ -27,18 +28,51 @@ namespace Gimp.PhotoshopActions
     [Parameter("T")]
     ObjcParameter _objc;
 
-    public override bool IsExecutable
-    {
-      get {return false;}
-    }
-
     public SetChannelPropertyEvent(ActionEvent srcEvent) : base(srcEvent)
     {
       Parameters.Fill(this);
     }
 
+    public override string EventForDisplay
+    {
+      get 
+	{
+	  return base.EventForDisplay + " current channel";
+	}
+    }
+
+    protected override IEnumerable ListParameters()
+    {
+      foreach (Parameter parameter in _objc.Parameters)
+	{
+	  switch (parameter.Name)
+	    {
+	    case "Nm":
+	      string name = (parameter as TextParameter).Value;
+	      yield return Format(name, "Nm");
+	      break;
+	    default:
+	      Console.WriteLine("SetChannelProperty: " + parameter.Name);
+	      break;
+	    }
+	}
+    }
+
     override public bool Execute()
     {
+      Channel channel = ActiveImage.ActiveChannel;
+      foreach (Parameter parameter in _objc.Parameters)
+	{
+	  switch (parameter.Name)
+	    {
+	    case "Nm":
+	      channel.Name = (parameter as TextParameter).Value;
+	      break;
+	    default:
+	      Console.WriteLine("SetChannelPropertyEvent: " + parameter.Name);
+	      break;
+	    }
+	}
       return true;
     }
   }

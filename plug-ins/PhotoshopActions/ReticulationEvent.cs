@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // ReticulationEvent.cs
 //
@@ -25,9 +25,23 @@ namespace Gimp.PhotoshopActions
 {
   public class ReticulationEvent : ActionEvent
   {
+    [Parameter("Dnst")]
+    int _density;
+    [Parameter("BlcL")]
+    int _foregroundLevel;
+    [Parameter("WhtL")]
+    int _backgroundLevel;
+
     public override bool IsExecutable
     {
       get {return false;}
+    }
+
+    protected override IEnumerable ListParameters()
+    {
+      yield return Format(_density, "Dnst");
+      yield return Format(_foregroundLevel, "BlcL");
+      yield return Format(_backgroundLevel, "WhtL");
     }
 
     override public bool Execute()
