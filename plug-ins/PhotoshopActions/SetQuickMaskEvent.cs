@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // SetQuickMaskEvent.cs
 //
@@ -36,7 +36,7 @@ namespace Gimp.PhotoshopActions
 
     public override string EventForDisplay
     {
-      get {return base.EventForDisplay + " quick mask";}
+      get {return base.EventForDisplay + " Quick Mask";}
     }
 
     override public bool Execute()

@@ -48,6 +48,7 @@ namespace Gimp.PhotoshopActions
       _map["Blks"] = "Blocks";
       _map["BlrM"] = "Method";
       _map["BlrQ"] = "Quality";
+      _map["Blst"] = "Blast";
       _map["BrbW"] = "brush wide blurry";
       _map["Brgh"] = "Brightness";
       _map["BrsD"] = "Brush Detail";
@@ -134,6 +135,7 @@ namespace Gimp.PhotoshopActions
       _map["LPLf"] = "light position left";
       _map["LPRg"] = "light position right";
       _map["LPTp"] = "light position top";
+      _map["Lrg"]  = "Large";
       _map["Lvl"]  = "Level";
       _map["LvlB"] = "Level-based";
       _map["Lwr"]  = "lower";
@@ -147,6 +149,7 @@ namespace Gimp.PhotoshopActions
       _map["Nm"]   = "Name";
       _map["NmbR"] = "Ridges";
       _map["Nrml"] = "normal";
+      _map["Orng"] = "orange";
       _map["Otsd"] = "outside";
       _map["Ovrl"] = "overlay";
       _map["Pht3"] = "Photoshop";
@@ -198,6 +201,7 @@ namespace Gimp.PhotoshopActions
       _map["Smth"] = "Smoothness";
       _map["SprR"] = "Spray Radius";
       _map["SqrS"] = "Square Size";
+      _map["Stgr"] = "Stagger";
       _map["StrD"] = "Stroke Detail";
       _map["Strg"] = "Strength";
       _map["StrL"] = "Stroke Length";

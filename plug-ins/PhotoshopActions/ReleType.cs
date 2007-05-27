@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // ReleType.cs
 //
@@ -46,7 +46,10 @@ namespace Gimp.PhotoshopActions
 
     public override void Parse(ActionParser parser)
     {
-      _classID = parser.ReadTokenOrUnicodeString();
+      if (!parser.PreSix)
+	{
+	  _classID = parser.ReadTokenOrUnicodeString();
+	}
       _classID2 = parser.ReadTokenOrString();
       _offset = parser.ReadInt32();
 

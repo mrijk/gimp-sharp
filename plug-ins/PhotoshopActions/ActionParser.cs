@@ -173,6 +173,7 @@ namespace Gimp.PhotoshopActions
 	  if (!actionEvent.HasDescriptor)
 	    {
 	      DebugOutput.Dump("HasDescriptor: " + actionEvent.HasDescriptor);
+	      actionEvent.IsEnabled = (enabled == 0) ? false : true;
 	      return actionEvent;
 	    }
 

@@ -38,6 +38,7 @@ MYSOURCES = 				\
 	ChannelMixerEvent.cs		\
 	ChromeEvent.cs			\
 	ClassType.cs			\
+	ClearEffectsEvent.cs		\
 	ClearEvent.cs			\
 	ClearQuickMaskEvent.cs		\
 	CloseEvent.cs			\
@@ -93,12 +94,14 @@ MYSOURCES = 				\
 	EventMap.cs			\
 	ExchangeEvent.cs		\
 	ExpandEvent.cs			\
+	ExternalPluginEvent.cs		\
 	ExtrudeEvent.cs			\
 	FacetEvent.cs			\
 	FeatherEvent.cs			\
 	FadeEvent.cs			\
 	FillEvent.cs			\
 	FilmGrainEvent.cs		\
+	FilterEvent.cs			\
 	FilterGalleryEvent.cs		\
 	FindEdgesEvent.cs		\
 	FlattenImageEvent.cs		\

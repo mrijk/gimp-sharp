@@ -57,6 +57,9 @@ namespace Gimp.PhotoshopActions
 	{
 	  switch (parameter.Name)
 	    {
+	    case "Clr":
+	      yield return Format(parameter as EnumParameter, "Clr");
+	      break;
 	    case "Lefx":
 	      yield return "Scale: ";
 	      break;

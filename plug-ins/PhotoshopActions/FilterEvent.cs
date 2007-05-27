@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
-// ClearQuickMaskEvent.cs
+// FilterEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,25 +23,24 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class ClearQuickMaskEvent : ClearEvent
+  public class FilterEvent : ActionEvent
   {
-    public ClearQuickMaskEvent(ClearEvent srcEvent) : base(srcEvent)
-    {
-    }
+    [Parameter("Usng")]
+    string _using;
 
     public override bool IsExecutable
     {
       get {return false;}
     }
 
-    public override string EventForDisplay
+    protected override IEnumerable ListParameters()
     {
-      get {return base.EventForDisplay + " Quick Mask";}
+      yield return Format(_using, "Usng");
     }
 
     override public bool Execute()
     {
-      return false;
+      return true;
     }
   }
 }

@@ -38,15 +38,24 @@ namespace Gimp.PhotoshopActions
 
       string txt = parser.ReadFourByteString();
 
-      int nr2 = parser.ReadByte();
-
-      int length = parser.ReadInt32();
-
-      for (int i = 0; i < 2; i++)
-	parser.ReadByte();
-
-      _path = parser.ReadUnicodeString(length);
-      parser.ReadByte();
+      if (txt == "txtu")
+	{
+	  int nr2 = parser.ReadByte();
+	  
+	  int length = parser.ReadInt32();
+	  
+	  for (int i = 0; i < 2; i++)
+	    parser.ReadByte();
+	  
+	  _path = parser.ReadUnicodeString(length);
+	  parser.ReadByte();
+	}
+      else
+	{
+	  parser.ReadBytes(9);
+	  _path = parser.ReadString();
+	  parser.ReadBytes(255 - _path.Length);
+	}
     }
 
     public override void Fill(Object obj, FieldInfo field)

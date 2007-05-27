@@ -30,13 +30,9 @@ namespace Gimp.PhotoshopActions
       get {return false;}
     }
 
-    protected override IEnumerable ListParameters()
-    {
-      yield return "To: single row";
-    }
-
     override public bool Execute()
     {
+      // Select similar layers
       return true;
     }
   }

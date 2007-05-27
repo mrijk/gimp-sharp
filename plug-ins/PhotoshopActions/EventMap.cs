@@ -35,7 +35,7 @@ namespace Gimp.PhotoshopActions
 
     public EventMap()
     {
-      _map["accentedEdges"] = "AccentedEdgesEvent";
+      _map["accentedEdges"] = _map["AccE"] = "AccentedEdgesEvent";
       _map["adaptCorrect"] = "AdaptCorrectEvent";
       _map["add"] = _map["Add"] = "AddEvent";
       _map["addNoise"] = _map["AdNs"] = "AddNoiseEvent";
@@ -44,8 +44,8 @@ namespace Gimp.PhotoshopActions
       _map["angledStrokes"] = _map["AngS"] = "AngledStrokesEvent";
       _map["applyImageEvent"] = "ApplyImageEvent";
       _map["Avrg"] = "AverageEvent";
-      _map["BsRl"] = "BasReliefEvent";
-      _map["blur"] = _map["Blr"] = "BlurEvent";
+      _map["basRelief"] = _map["BsRl"] = "BasReliefEvent";
+      _map["blurEvent"] = _map["blur"] = _map["Blr"] = "BlurEvent";
       _map["blurMethod"] = _map["BlrM"] = "BlurMethodEvent";
       _map["border"] = _map["Brdr"] = "BorderEvent";
       _map["brightnessEvent"] = _map["BrgC"] = "BrightnessEvent";
@@ -53,7 +53,7 @@ namespace Gimp.PhotoshopActions
       _map["channelMixer"] = _map["ChnM"] = "ChannelMixerEvent";
       _map["chalkCharcoal"] = _map["ChlC"] = "ChalkCharcoalEvent";
       _map["chrome"] = _map["Chrm"] = "ChromeEvent";
-      _map["clearEvent"] = "ClearEvent";
+      _map["clearEvent"] = _map["Cler"] = "ClearEvent";
       _map["close"] = _map["Cls"] = "CloseEvent";
       _map["clouds"] = _map["Clds"] = "CloudsEvent";
       _map["colorBalance"] = _map["ClrB"] = "ColorBalanceEvent";
@@ -83,10 +83,11 @@ namespace Gimp.PhotoshopActions
       _map["diffuseGlow"] = _map["DfsG"] = "DiffuseGlowEvent";
       _map["diffuse"] = _map["Dfs"] = "DiffuseEvent";
       _map["displace"] = "DisplaceEvent";
+      _map["dlfx"] = "ClearEffectsEvent";
       _map["draw"] = _map["Draw"] = "DrawEvent";
       _map["dryBrush"] = _map["DryB"] = "DryBrushEvent";
       _map["duplicate"] = _map["Dplc"] = "DuplicateEvent";
-      _map["dustAndScratches"] = "DustAndScratchesEvent";
+      _map["dustAndScratches"] = _map["DstS"] = "DustAndScratchesEvent";
       _map["emboss"] = _map["Embs"] = "EmbossEvent";
       _map["equalize"] = _map["Eqlz"] = "EqualizeEvent";
       _map["exchange"] = _map["Exch"] = "ExchangeEvent";
@@ -97,6 +98,7 @@ namespace Gimp.PhotoshopActions
       _map["feather"] = _map["Fthr"] = "FeatherEvent";
       _map["fill"] = _map["Fl"] = "FillEvent";
       _map["filmGrain"] = _map["FlmG"] = "FilmGrainEvent";
+      _map["filter"] = _map["Fltr"] = "FilterEvent";
       _map["findEdges"] = _map["FndE"] =  "FindEdgesEvent";
       _map["flattenImage"] = _map["FltI"] = "FlattenImageEvent";
       _map["flip"] = _map["Flip"] = "FlipEvent";
@@ -138,10 +140,11 @@ namespace Gimp.PhotoshopActions
       _map["move"] = "MoveEvent";
       _map["motionBlur"] = _map["MtnB"] = "MotionBlurEvent";
       _map["MscT"] = "MosaicTilesEvent";
-      _map["NtPr"] = "NotePaperEvent";
+      _map["ncdO"] = "ExternalPluginEvent";
+      _map["notePaper"] = _map["NtPr"] = "NotePaperEvent";
       _map["oceanRipple"] = _map["OcnR"] = "OceanRippleEvent";
       _map["offset"] = _map["Ofst"] = "OffsetEvent";
-      _map["open"] = "OpenEvent";
+      _map["open"] = _map["Opn"] = "OpenEvent";
       _map["paintDaubs"] = _map["PntD"] = "PaintDaubsEvent";
       _map["paletteKnife"] = "PaletteKnifeEvent";
       _map["paste"] = _map["past"] = "PasteEvent";
@@ -204,12 +207,12 @@ namespace Gimp.PhotoshopActions
       _map["transform"] = _map["Trnf"] = "TransformEvent";
       _map["trim"] = "TrimEvent";
       _map["twirl"] = _map["Twrl"] = "TwirlEvent";
-      _map["ungroup"] = "UngroupEvent";
+      _map["ungroup"] = _map["Ungr"] = "UngroupEvent";
       _map["unlink"] = _map["Unlk"] = "UnlinkEvent";
       _map["unsharpMask"] = _map["UnsM"] = "UnsharpMaskEvent";
       _map["variations"] = _map["Vrtn"] = "VariationsEvent";
       _map["watercolor"] = _map["WtrC"] = "WatercolorEvent";
-      _map["waterPaper"] = _map["StrP"] = "WaterPaperEvent";
+      _map["waterPaper"] = _map["WtrP"] = "WaterPaperEvent";
       _map["wave"] = _map["Wave"] = "WaveEvent";
       _map["wind"] = _map["Wnd"] = "WindEvent";
       _map["zigZag"] = _map["ZgZg"] = "ZigZagEvent";
