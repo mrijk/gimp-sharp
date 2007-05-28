@@ -64,6 +64,7 @@ MYSOURCES = 				\
 	DarkStrokesEvent.cs		\
 	DebugOutput.cs			\
 	DefinePatternEvent.cs		\
+	DeInterlaceEvent.cs		\
 	DeleteChannelEvent.cs		\
 	DeleteEvent.cs			\
 	DeleteGuideEvent.cs		\
@@ -71,6 +72,7 @@ MYSOURCES = 				\
 	DeleteLayerByNameEvent.cs	\
 	DeleteLayerEvent.cs		\
 	DesaturateEvent.cs		\
+	DeselectEvent.cs		\
 	DespeckleEvent.cs		\
 	DiffuseEvent.cs			\
 	DiffuseGlowEvent.cs		\
@@ -163,6 +165,7 @@ MYSOURCES = 				\
 	NewChannelEvent.cs		\
 	NewDocumentEvent.cs		\
 	NotePaperEvent.cs		\
+	NTSCColorsEvent.cs		\
 	ObArParameter.cs		\
 	ObjcParameter.cs		\
 	OceanRippleEvent.cs		\
@@ -199,12 +202,13 @@ MYSOURCES = 				\
 	ReleType.cs			\
 	RemoveWhiteMatteEvent.cs	\
 	ReplaceColorEvent.cs		\
+	ResetEvent.cs			\
 	ReticulationEvent.cs		\
 	RevealAllEvent.cs		\
 	RevertEvent.cs			\
 	RippleEvent.cs			\
 	RotateEvent.cs			\
-	ResetEvent.cs			\
+	RoughPastelsEvent.cs		\
 	SaveEvent.cs			\
 	ScaleEffectsEvent.cs		\
 	SelectAllEvent.cs		\

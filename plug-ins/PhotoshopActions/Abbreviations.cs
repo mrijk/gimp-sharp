@@ -68,6 +68,7 @@ namespace Gimp.PhotoshopActions
       _map["Cntr"] = "Contrast";
       _map["CrnH"] = "Current History State";
       _map["CrrL"] = "current layer";
+      _map["Crtl"] = "Interpolation";
       _map["Cyn" ] = "cyan";
       _map["Dfnt"] = "Definition";
       _map["Dnst"] = "Density";
@@ -79,6 +80,7 @@ namespace Gimp.PhotoshopActions
       _map["Dstr"] = "Distribution";
       _map["Dtl"]  = "Detail";
       _map["Edg"]  = "Edge";
+      _map["ElmO"] = "Odd Fields";
       _map["Elps"] = "Ellipse";
       _map["ExtD"] = "Depth";
       _map["ExtF"] = "Solid Front Faces";
@@ -109,6 +111,8 @@ namespace Gimp.PhotoshopActions
       _map["HrzO"] = "Horizontal Only";
       _map["ImgB"] = "Image Balance";
       _map["Insd"] = "inside";
+      _map["IntC"] = "Create";
+      _map["IntE"] = "Eliminate";
       _map["Intn"] = "Intensity";
       _map["Intr"] = "Interpolation";
       _map["Invr"] = "Invert Source";
@@ -145,6 +149,7 @@ namespace Gimp.PhotoshopActions
       _map["Md"]   = "Mode";
       _map["Msge"] = "Message";
       _map["N"]    = "no";
+      _map["Nkn"]  = "35mm Prime";
       _map["Nkn1"] = "105mm Prime";
       _map["Nm"]   = "Name";
       _map["NmbR"] = "Ridges";
@@ -201,6 +206,7 @@ namespace Gimp.PhotoshopActions
       _map["Smth"] = "Smoothness";
       _map["SprR"] = "Spray Radius";
       _map["SqrS"] = "Square Size";
+      _map["StDt"] = "Stroke Detail";
       _map["Stgr"] = "Stagger";
       _map["StrD"] = "Stroke Detail";
       _map["Strg"] = "Strength";
@@ -212,6 +218,7 @@ namespace Gimp.PhotoshopActions
       _map["Top"]  = "Top";
       _map["Trns"] = "transparent";
       _map["Trsp"] = "transparency";
+      _map["TxBl"] = "Blocks";
       _map["TxCa"] = "Canvas";
       _map["TxFr"] = "Frosted";
       _map["TxSt"] = "Sandstone";
