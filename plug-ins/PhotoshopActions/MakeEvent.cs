@@ -95,6 +95,8 @@ namespace Gimp.PhotoshopActions
 	      return new MakeSnapshotEvent(this);
 	    case "TxLr":
 	      return new AddTextLayerEvent(this);
+	    case "TxLy":
+	      return new AddTextLayerEvent(this);
 	    default:
 	      Console.WriteLine("MakeEvent-1: {0} not implemented", 
 				classType.ClassID2);

@@ -26,6 +26,7 @@ MYSOURCES = 				\
 	AlignEvent.cs			\
 	AngledStrokesEvent.cs		\
 	ApplyImageEvent.cs		\
+	ApplyStyleEvent.cs		\
 	AverageEvent.cs			\
 	BasReliefEvent.cs		\
 	BlurEvent.cs			\
@@ -178,6 +179,7 @@ MYSOURCES = 				\
 	ParameterSet.cs			\
 	PasteEffectsEvent.cs		\
 	PasteEvent.cs			\
+	PasteIntoEvent.cs		\
 	PatchworkEvent.cs		\
 	PathParameter.cs		\
 	PhotocopyEvent.cs		\
@@ -194,6 +196,7 @@ MYSOURCES = 				\
 	PropertyType.cs			\
 	PurgeEvent.cs			\
 	RadialBlurEvent.cs		\
+	RasterizeAllEvent.cs		\
 	RasterizeLayerEvent.cs		\
 	RasterizeTypeLayerEvent.cs	\
 	RawDataParameter.cs		\

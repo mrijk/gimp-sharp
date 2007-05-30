@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006-2007 Maurits Rijk
 //
-// PasteEvent.cs
+// RasterizeAllEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,26 +18,29 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
+using System;
 using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class PasteEvent : ActionEvent
+  public class RasterizeAllEvent : ActionEvent
   {
-    [Parameter("AntA")]
-    EnumParameter _antiAlias;
+    /*
+    public override string EventForDisplay
+    {
+      get {return "Rasterize";}
+    }
 
     protected override IEnumerable ListParameters()
     {
-      if (_antiAlias != null)
-	{
-	  yield return Format(_antiAlias, "Anti-alias");
-	}
+      if (_item != null)
+	yield return Format(_item, "What");
     }
-
+    */
     override public bool Execute()
     {
-      ActiveDrawable.EditPaste(false);
+      // We don't do anything here becausea the layers are automatically
+      // rasterized if we apply a filter to them!
       return true;
     }
   }

@@ -45,7 +45,10 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
-      yield return "Name: \"" + _name + "\"";
+      if (_name != null)
+	{
+	  yield return "Name: \"" + _name + "\"";
+	}
     }
     
     override public bool Execute()

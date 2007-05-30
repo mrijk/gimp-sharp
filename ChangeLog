@@ -1,3 +1,22 @@
+2007-05-30  Maurits  <maurits.rijk@chello.nl>
+
+	* plug-ins/PhotoshopActions/RasterizeAllEvent.cs: new files
+
+	* plug-ins/PhotoshopActions/EventMap.cs: 
+
+	* plug-ins/PhotoshopActions/EventMap.cs
+	* plug-ins/PhotoshopActions/Makefile.am: changed accordingly
+
+2007-05-29  Maurits  <maurits.rijk@gmail.com>
+
+	* plug-ins/PhotoshopActions/PasteIntoEvent.cs
+	* plug-ins/PhotoshopActions/ApplyStyleEvent.cs: new files
+
+	* plug-ins/PhotoshopActions/EventMap.cs
+	* plug-ins/PhotoshopActions/Makefile.am: changed accordingly
+
+	* plug-ins/PhotoshopActions/EventMap.cs: more mappings
+
 2007-05-28  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/Abbreviations.cs: more abbreviations

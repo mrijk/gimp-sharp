@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006-2007 Maurits Rijk
 //
-// PasteEvent.cs
+// PasteIntoEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,22 +22,11 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class PasteEvent : ActionEvent
+  public class PasteIntoEvent : ActionEvent
   {
-    [Parameter("AntA")]
-    EnumParameter _antiAlias;
-
-    protected override IEnumerable ListParameters()
-    {
-      if (_antiAlias != null)
-	{
-	  yield return Format(_antiAlias, "Anti-alias");
-	}
-    }
-
     override public bool Execute()
     {
-      ActiveDrawable.EditPaste(false);
+      ActiveDrawable.EditPaste(true);
       return true;
     }
   }

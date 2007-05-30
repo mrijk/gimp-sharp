@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006-2007 Maurits Rijk
 //
-// PasteEvent.cs
+// ApplyStyleEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,26 +18,37 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
+using System;
 using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class PasteEvent : ActionEvent
+  public class ApplyStyleEvent : ActionEvent
   {
-    [Parameter("AntA")]
-    EnumParameter _antiAlias;
+    [Parameter("null")]
+    ReferenceParameter _obj;
+
+    public override bool IsExecutable
+    {
+      get {return false;}
+    }
+
+    public override string EventForDisplay
+    {
+      get 
+	{
+	  NameType name = _obj.Set[0] as NameType;
+	  return base.EventForDisplay + " style \"" + name.Key + "\"";
+	}
+    }
 
     protected override IEnumerable ListParameters()
     {
-      if (_antiAlias != null)
-	{
-	  yield return Format(_antiAlias, "Anti-alias");
-	}
+      yield return "To: current layer";
     }
 
     override public bool Execute()
     {
-      ActiveDrawable.EditPaste(false);
       return true;
     }
   }

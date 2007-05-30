@@ -40,9 +40,22 @@ namespace Gimp.PhotoshopActions
       _map["add"] = _map["Add"] = "AddEvent";
       _map["addNoise"] = _map["AdNs"] = "AddNoiseEvent";
       _map["addTo"] = _map["AddT"] = "AddToEvent";
+      _map["Alien Skin Eye Candy 4000 Shadowlab"] = 
+	_map["Alien Skin Eye Candy 4000 Bevel Boss"] = 
+	_map["Alien Skin Eye Candy 4000 Chrome"] = 
+	_map["Alien Skin Eye Candy 4000 Drip"] = 
+	_map["Alien Skin Eye Candy 4000 Fire"] = 
+	_map["Alien Skin Eye Candy 4000 Gradient Glow"] =
+	_map["Alien Skin Eye Candy 4000 Jiggle"] = 
+	_map["Alien Skin Eye Candy 4000 Melt"] = 
+	_map["Alien Skin Eye Candy 4000 Smoke"] = 
+	_map["Alien Skin Eye Candy 4000 Water Drops"] = 
+	_map["Alien Skin Eye Candy 4000 Wood"] = 
+	_map["Alien Skin Eye Candy 4000 Glass"] = "ExternalPluginEvent";
       _map["align"] = _map["Algn"] = "AlignEvent";
       _map["angledStrokes"] = _map["AngS"] = "AngledStrokesEvent";
       _map["applyImageEvent"] = "ApplyImageEvent";
+      _map["applyStyle"] = "ApplyStyleEvent";
       _map["Avrg"] = "AverageEvent";
       _map["basRelief"] = _map["BsRl"] = "BasReliefEvent";
       _map["blurEvent"] = _map["blur"] = _map["Blr"] = "BlurEvent";
@@ -90,12 +103,11 @@ namespace Gimp.PhotoshopActions
       _map["dryBrush"] = _map["DryB"] = "DryBrushEvent";
       _map["duplicate"] = _map["Dplc"] = "DuplicateEvent";
       _map["dustAndScratches"] = _map["DstS"] = "DustAndScratchesEvent";
-      _map["eccA"] = "ExternalPluginEvent";
-      _map["ecdS"] = "ExternalPluginEvent";
-      _map["ecgL"] = "ExternalPluginEvent";
-      _map["ecgO"] = "ExternalPluginEvent";
-      _map["eciN"] = "ExternalPluginEvent";
-      _map["ecmT"] = "ExternalPluginEvent";
+      _map["eccA"] = _map["eccH"] = _map["ecdS"] = _map["ecfI"] = 
+	_map["ecgL"] = _map["ecgO"] = _map["eciN"] = _map["ecjI"] = 
+	_map["ecmT"] = _map["ecoU"] = _map["ecpS"] = _map["ecwD"] = 
+	_map["ecwE"] = "ExternalPluginEvent";
+      _map["editInImageReady"] = "ExternalPluginEvent";
       _map["emboss"] = _map["Embs"] = "EmbossEvent";
       _map["equalize"] = _map["Eqlz"] = "EqualizeEvent";
       _map["exchange"] = _map["Exch"] = "ExchangeEvent";
@@ -141,6 +153,12 @@ namespace Gimp.PhotoshopActions
       _map["mergeLayers"] = _map["MrgL"] = "MergeLayersEvent";
       _map["mergeLayersNew"] = "MergeLayersNewEvent";
       _map["mergeVisible"] = _map["MrgV"] = "MergeVisibleEvent";
+      _map["MetaCreations KPT Materializer"] = 
+	_map["MetaCreations KPT5 ShapeShifter"] = 
+	_map["MetaCreations KPT5   Blurrrr"] = 
+	_map["MetaCreations KPT Gel"] = 
+	_map["MetaCreations KPT5  FraxPlorer"] = 
+	_map["MetaCreations KPT LensFlare"] = "ExternalPluginEvent";
       _map["mezzotint"] = _map["Mztn"] = "MezzotintEvent";
       _map["minimum"] = _map["Mnm"] = "MinimumEvent";
       _map["mosaic"] = _map["Msc"] = "MosaicEvent";
@@ -148,11 +166,9 @@ namespace Gimp.PhotoshopActions
       _map["move"] = "MoveEvent";
       _map["motionBlur"] = _map["MtnB"] = "MotionBlurEvent";
       _map["MscT"] = "MosaicTilesEvent";
-      _map["ncdO"] = "ExternalPluginEvent";
-      _map["nceL"] = "ExternalPluginEvent";
-      _map["ncfL"] = "ExternalPluginEvent";
-      _map["ncsM"] = "ExternalPluginEvent";
-      _map["nctV"] = "ExternalPluginEvent";
+      _map["ncbE"] = _map["nccL"] = _map["nccR"] = _map["ncdO"] = 
+	_map["ncdI"] = _map["nceL"] = _map["ncfL"] = _map["nclI"] = 
+	_map["ncsM"] = _map["ncsT"] = _map["nctV"] = "ExternalPluginEvent";
       _map["notePaper"] = _map["NtPr"] = "NotePaperEvent";
       _map["NTSC"] = "NTSCColorsEvent";
       _map["oceanRipple"] = _map["OcnR"] = "OceanRippleEvent";
@@ -162,23 +178,25 @@ namespace Gimp.PhotoshopActions
       _map["paletteKnife"] = "PaletteKnifeEvent";
       _map["paste"] = _map["past"] = "PasteEvent";
       _map["pasteEffects"] = _map["PaFX"] = "PasteEffectsEvent";
+      _map["PstI"] = "PasteIntoEvent";
       _map["patchwork"] = _map["Ptch"] = "PatchworkEvent";
       _map["photoFilter"] = "PhotoFilterEvent";
       _map["photocopy"] = _map["Phtc"] = "PhotocopyEvent";
       _map["pinch"] = _map["Pnch"] = "PinchEvent";
       _map["plaster"] = _map["Plst"] = "PlasterEvent";
       _map["plasticWrap"] = _map["PlsW"] = "PlasticWrapEvent";
-      _map["play"] = "PlayEvent";
+      _map["play"] = _map["Ply"] = "PlayEvent";
       _map["pointillize"] = "PointillizeEvent";
       _map["polar"] = _map["Plr"] = "PolarEvent";
       _map["posterEdges"] = _map["PstE"] = "PosterEdgesEvent";
       _map["posterization"] = "PosterizationEvent";
       _map["purge"] = _map["Prge"] = "PurgeEvent";
       _map["radialBlur"] = _map["RdlB"] = "RadialBlurEvent";
+      _map["rasterizeAll"] = "RasterizeAllEvent"; 
       _map["rasterizeLayer"] = "RasterizeLayerEvent"; 
       _map["rasterizeTypeLayer"] = _map["RstT"] = "RasterizeTypeLayerEvent"; 
       _map["removeWhiteMatte"] = "RemoveWhiteMatteEvent";
-      _map["replaceColor"] = "ReplaceColorEvent";
+      _map["replaceColor"] = _map["RplC"] = "ReplaceColorEvent";
       _map["reset"] = _map["Rset"] = "ResetEvent";
       _map["reticulation"] = _map["Rtcl"] = "ReticulationEvent";
       _map["revealAll"] = "RevealAllEvent";
