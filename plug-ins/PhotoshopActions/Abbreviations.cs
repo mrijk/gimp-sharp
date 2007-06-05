@@ -38,6 +38,7 @@ namespace Gimp.PhotoshopActions
       _map["AdRg"] = "right edges";
       _map["AdTp"] = "top edges";
       _map["Amnt"] = "Amount";
+      _map["Angl"] = "angle";
       _map["Anno"] = "none";
       _map["Bcbc"] = "bicubic";
       _map["BckC"] = "background color";
@@ -57,7 +58,9 @@ namespace Gimp.PhotoshopActions
       _map["BtmM"] = "bitmap mode";
       _map["Btom"] = "Bottom";
       _map["CBrn"] = "color burn";
+      _map["ChlA"] = "Chalk Area";
       _map["Chnl"] = "Channel";
+      _map["ChrA"] = "Charcoal Area";
       _map["Clcl"] = "calculation";
       _map["Clr"]  = "color";
       _map["Clrz"] = "Colorize";
@@ -71,6 +74,7 @@ namespace Gimp.PhotoshopActions
       _map["Crtl"] = "Interpolation";
       _map["Cyn" ] = "cyan";
       _map["Dfnt"] = "Definition";
+      _map["Dmtr"] = "diameter";
       _map["Dnst"] = "Density";
       _map["Dplc"] = "Duplicate";
       _map["DrcB"] = "Direction Balance";
@@ -107,6 +111,7 @@ namespace Gimp.PhotoshopActions
       _map["Gsn"]  = "gaussian";
       _map["HlSz"] = "Size";
       _map["HrdL"] = "hard light";
+      _map["Hrdn"] = "hardness";
       _map["Hrzn"] = "Horizontal";
       _map["HrzO"] = "Horizontal Only";
       _map["ImgB"] = "Image Balance";
@@ -121,6 +126,7 @@ namespace Gimp.PhotoshopActions
       _map["LDBL"] = "Bottom Left";
       _map["LDBt"] = "Bottom";
       _map["LDTp"] = "Top";
+      _map["LDTL"] = "Top Left";
       _map["LDTR"] = "Top Right";
       _map["Left"] = "Left";
       _map["Lft"]  = "Left";
@@ -138,6 +144,7 @@ namespace Gimp.PhotoshopActions
       _map["LPBt"] = "light position bottom";
       _map["LPLf"] = "light position left";
       _map["LPRg"] = "light position right";
+      _map["LPTL"] = "Top Left";
       _map["LPTp"] = "light position top";
       _map["Lrg"]  = "Large";
       _map["Lvl"]  = "Level";
@@ -178,6 +185,7 @@ namespace Gimp.PhotoshopActions
       _map["Rlf"]  = "Relief";
       _map["Rlg"]  = "Relief";
       _map["Rndm"] = "random";
+      _map["Rndn"] = "roundness";
       _map["RctP"] = "Rectangular to Polar";
       _map["RGBM"] = "RGB color mode";
       _map["RplM"] = "Ripple Magnitude";
@@ -196,7 +204,7 @@ namespace Gimp.PhotoshopActions
       _map["ScrT"] = "Pattern Type";
       _map["SDir"] = "Stroke Direction";
       _map["SDLD"] = "Left Diagonal";
-      _map["SDLD"] = "Right Diagonal";
+      _map["SDRD"] = "Right Diagonal";
       _map["SftL"] = "soft light";
       _map["Sftn"] = "Softness";
       _map["ShdI"] = "Shadow Intensity";
@@ -204,6 +212,7 @@ namespace Gimp.PhotoshopActions
       _map["Shrp"] = "Sharpness";
       _map["Sml"]  = "small";
       _map["Smth"] = "Smoothness";
+      _map["Spcn"] = "spacing";
       _map["SprR"] = "Spray Radius";
       _map["SqrS"] = "Square Size";
       _map["StDt"] = "Stroke Detail";
@@ -219,9 +228,11 @@ namespace Gimp.PhotoshopActions
       _map["Trns"] = "transparent";
       _map["Trsp"] = "transparency";
       _map["TxBl"] = "Blocks";
+      _map["TxBr"] = "Brick";
       _map["TxCa"] = "Canvas";
       _map["TxFr"] = "Frosted";
       _map["TxSt"] = "Sandstone";
+      _map["TxtC"] = "Texture Coverage";
       _map["Txtr"] = "Texture";
       _map["TxtT"] = "Texture Type";
       _map["Unfr"] = "uniform";

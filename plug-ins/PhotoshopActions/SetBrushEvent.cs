@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006-2007 Maurits Rijk
 //
-// ChalkCharcoalEvent.cs
+// SetBrushEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,30 +23,52 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class ChalkCharcoalEvent : ActionEvent
+  public class SetBrushEvent : SetEvent
   {
-    [Parameter("ChrA")]
-    int _charcoalArea;
-    [Parameter("ChlA")]
-    int _chalkArea;
-    [Parameter("StrP")]
-    int _strokePressure;
+    [Parameter("T")]
+    ObjcParameter _objc;
+    [Parameter("Dmtr")]
+    double _diameter;
+    [Parameter("Hrdn")]
+    double _hardness;
+    [Parameter("Spcn")]
+    double _spacing;
+    [Parameter("Angl")]
+    double _angle;
+    [Parameter("Rndn")]
+    double _roundness;
+    [Parameter("Nm")]
+    string _name;
+
+    public SetBrushEvent(SetEvent srcEvent) : base(srcEvent)
+    {
+      Parameters.Fill(this);
+      _objc.Fill(this);
+    }
 
     public override bool IsExecutable
     {
       get {return false;}
     }
 
+    public override string EventForDisplay
+    {
+      get {return base.EventForDisplay + " current brush";}
+    }
+
     protected override IEnumerable ListParameters()
     {
-      yield return Format(_charcoalArea, "ChrA");
-      yield return Format(_chalkArea, "ChlA");
-      yield return Format(_strokePressure, "StrP");
+      yield return Format(_diameter, "Dmtr");
+      yield return Format(_hardness, "Hrdn");
+      yield return Format(_spacing, "Spcn");
+      yield return Format(_angle, "Angl");
+      yield return Format(_roundness, "Rndn");
+      yield return Format(_name, "Nm");
     }
 
     override public bool Execute()
     {
-      return false;
+      return true;
     }
   }
 }

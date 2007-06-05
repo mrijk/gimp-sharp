@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006-2007 Maurits Rijk
 //
-// ChalkCharcoalEvent.cs
+// SprayedStrokesEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,14 +23,14 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class ChalkCharcoalEvent : ActionEvent
+  public class SprayedStrokesEvent : ActionEvent
   {
-    [Parameter("ChrA")]
-    int _charcoalArea;
-    [Parameter("ChlA")]
-    int _chalkArea;
-    [Parameter("StrP")]
-    int _strokePressure;
+    [Parameter("StrL")]
+    int _strokeLength;
+    [Parameter("SprR")]
+    int _sprayRadius;
+    [Parameter("SDir")]
+    EnumParameter _strokeDirection;
 
     public override bool IsExecutable
     {
@@ -39,9 +39,9 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
-      yield return Format(_charcoalArea, "ChrA");
-      yield return Format(_chalkArea, "ChlA");
-      yield return Format(_strokePressure, "StrP");
+      yield return Format(_strokeLength, "StrL");
+      yield return Format(_sprayRadius, "SprR");
+      yield return Format(_strokeDirection, "SDir");
     }
 
     override public bool Execute()

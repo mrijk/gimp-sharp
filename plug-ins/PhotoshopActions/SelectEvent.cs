@@ -125,6 +125,11 @@ namespace Gimp.PhotoshopActions
 		  break;
 		}
 	    }
+	  else if (parameter is ClassType)
+	    {
+	      ClassType type = parameter as ClassType;
+	      return new SelectBrushEvent(this, type.ClassID2);
+	    }
 	  else
 	    {
 	      Console.WriteLine("SelectEvent-1: " + parameter);

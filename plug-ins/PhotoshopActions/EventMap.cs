@@ -123,6 +123,7 @@ namespace Gimp.PhotoshopActions
       _map["flattenImage"] = _map["FltI"] = "FlattenImageEvent";
       _map["flip"] = _map["Flip"] = "FlipEvent";
       _map["fragment"] = _map["Frgm"] = "FragmentEvent";
+      _map["fresco"] = "FrescoEvent";
       _map["GEfc"] = "FilterGalleryEvent";
       _map["gaussianBlur"] = _map["GsnB"] = "GaussianBlurEvent";
       _map["glass"] = _map["Gls"] = "GlassEvent";
@@ -223,6 +224,7 @@ namespace Gimp.PhotoshopActions
       _map["spatter"] = _map["Spt"] = "SpatterEvent";
       _map["spherize"] = _map["Sphr"] = "SpherizeEvent";
       _map["sponge"] = _map["Spng"] = "SpongeEvent";
+      _map["SprS"] = "SprayedStrokesEvent";
       _map["subtract"] = _map["Sbtr"] = "SubtractEvent";
       _map["subtractFrom"] = _map["SbtF"] = "SubtractFromEvent";
       _map["sumie"] = _map["Smie"] = "SumieEvent";
@@ -239,11 +241,12 @@ namespace Gimp.PhotoshopActions
       _map["transform"] = _map["Trnf"] = "TransformEvent";
       _map["trim"] = "TrimEvent";
       _map["twirl"] = _map["Twrl"] = "TwirlEvent";
+      _map["underpainting"] = "UnderpaintingEvent";
       _map["ungroup"] = _map["Ungr"] = "UngroupEvent";
       _map["unlink"] = _map["Unlk"] = "UnlinkEvent";
       _map["unsharpMask"] = _map["UnsM"] = "UnsharpMaskEvent";
       _map["variations"] = _map["Vrtn"] = "VariationsEvent";
-      _map["watercolor"] = _map["WtrC"] = "WatercolorEvent";
+      _map["watercolor"] = _map["Wtrc"] = "WatercolorEvent";
       _map["waterPaper"] = _map["WtrP"] = "WaterPaperEvent";
       _map["wave"] = _map["Wave"] = "WaveEvent";
       _map["wind"] = _map["Wnd"] = "WindEvent";

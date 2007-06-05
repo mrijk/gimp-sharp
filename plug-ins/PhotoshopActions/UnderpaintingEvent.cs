@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006-2007 Maurits Rijk
 //
-// ChalkCharcoalEvent.cs
+// UnderpaintingEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,14 +23,22 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class ChalkCharcoalEvent : ActionEvent
+  public class UnderpaintingEvent : ActionEvent
   {
-    [Parameter("ChrA")]
-    int _charcoalArea;
-    [Parameter("ChlA")]
-    int _chalkArea;
-    [Parameter("StrP")]
-    int _strokePressure;
+    [Parameter("BrsS")]
+    int _brushSize;
+    [Parameter("TxtC")]
+    int _textureCoverage;
+    [Parameter("TxtT")]
+    EnumParameter _textureType;
+    [Parameter("Scln")]
+    int _scaling;
+    [Parameter("Rlf")]
+    int _relief;
+    [Parameter("InvT")]
+    bool _invertTexture;
+    [Parameter("LghD")]
+    EnumParameter _lightDirection;
 
     public override bool IsExecutable
     {
@@ -39,14 +47,18 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
-      yield return Format(_charcoalArea, "ChrA");
-      yield return Format(_chalkArea, "ChlA");
-      yield return Format(_strokePressure, "StrP");
+      yield return Format(_brushSize, "BrsS");
+      yield return Format(_textureCoverage, "TxtC");
+      yield return Format(_textureType, "TxtT");
+      yield return Format(_scaling, "Scln");
+      yield return Format(_relief, "Rlf");
+      yield return Format(_invertTexture, "InvT");
+      yield return Format(_lightDirection, "LghD");
     }
 
     override public bool Execute()
     {
-      return false;
+      return true;
     }
   }
 }

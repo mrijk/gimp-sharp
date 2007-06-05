@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006-2007 Maurits Rijk
 //
-// ChalkCharcoalEvent.cs
+// SelectBrushEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,30 +23,28 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class ChalkCharcoalEvent : ActionEvent
+  public class SelectBrushEvent : SelectEvent
   {
-    [Parameter("ChrA")]
-    int _charcoalArea;
-    [Parameter("ChlA")]
-    int _chalkArea;
-    [Parameter("StrP")]
-    int _strokePressure;
+    readonly string _type;
+
+    public SelectBrushEvent(SelectEvent srcEvent, string type) : base(srcEvent)
+    {
+      _type = type;
+    }
 
     public override bool IsExecutable
     {
       get {return false;}
     }
 
-    protected override IEnumerable ListParameters()
+    public override string EventForDisplay
     {
-      yield return Format(_charcoalArea, "ChrA");
-      yield return Format(_chalkArea, "ChlA");
-      yield return Format(_strokePressure, "StrP");
+      get {return base.EventForDisplay + " brush";}
     }
-
+ 
     override public bool Execute()
     {
-      return false;
+      return true;
     }
   }
 }

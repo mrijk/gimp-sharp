@@ -110,6 +110,7 @@ MYSOURCES = 				\
 	FlattenImageEvent.cs		\
 	FlipEvent.cs			\
 	FragmentEvent.cs		\
+	FrescoEvent.cs			\
 	GaussianBlurEvent.cs		\
 	GlassEvent.cs			\
 	GlowingEdgesEvent.cs		\
@@ -222,6 +223,7 @@ MYSOURCES = 				\
 	SelectionByIndexEvent.cs	\
 	SelectionEvent.cs		\
 	SelectionFromChannelEvent.cs	\
+	SelectBrushEvent.cs		\
 	SelectChannelByIndexEvent.cs	\
 	SelectChannelByNameEvent.cs	\
 	SelectChannelEvent.cs		\
@@ -240,6 +242,7 @@ MYSOURCES = 				\
 	SeparationSetupEvent.cs		\
 	SetAdjustmentLayerEvent.cs	\
 	SetBackgroundColorEvent.cs	\
+	SetBrushEvent.cs		\
 	SetChannelPropertyEvent.cs	\
 	SetChannelToSelectionEvent.cs	\
 	SetColorEvent.cs		\
@@ -265,6 +268,7 @@ MYSOURCES = 				\
 	SpatterEvent.cs			\
 	SpherizeEvent.cs		\
 	SpongeEvent.cs			\
+	SprayedStrokesEvent.cs		\
 	StainedGlassEvent.cs		\
 	StampEvent.cs			\
 	StopEvent.cs			\
@@ -285,6 +289,7 @@ MYSOURCES = 				\
 	TrimEvent.cs			\
 	TypeParameter.cs		\
 	TwirlEvent.cs			\
+	UnderpaintingEvent.cs		\
 	UngroupEvent.cs			\
 	UnimplementedEvent.cs		\
 	UnlinkEvent.cs			\

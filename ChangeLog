@@ -1,8 +1,21 @@
-2007-05-30  Maurits  <maurits.rijk@chello.nl>
+2007-06-05  Maurits  <maurits.rijk@gmail.com>
+
+	* plug-ins/PhotoshopActions/ChalkCharcoalEvent.cs: more verbose
+
+	* plug-ins/PhotoshopActions/Abbreviations.cs: more abbreviations
+
+	* plug-ins/PhotoshopActions/SetBrushEvent.cs
+	* plug-ins/PhotoshopActions/SelectBrushEvent.cs
+	* plug-ins/PhotoshopActions/SprayedStrokesEvent.cs
+	* plug-ins/PhotoshopActions/UnderpaintingEvent.cs 
+	* plug-ins/PhotoshopActions/FrescoEvent.cs: new files
+
+	* plug-ins/PhotoshopActions/EventMap.cs
+	* plug-ins/PhotoshopActions/Makefile.am: changed accordingly
+
+2007-05-30  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/RasterizeAllEvent.cs: new files
-
-	* plug-ins/PhotoshopActions/EventMap.cs: 
 
 	* plug-ins/PhotoshopActions/EventMap.cs
 	* plug-ins/PhotoshopActions/Makefile.am: changed accordingly

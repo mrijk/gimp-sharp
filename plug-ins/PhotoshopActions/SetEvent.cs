@@ -103,6 +103,8 @@ namespace Gimp.PhotoshopActions
 		{
 		case "AdjL":
 		  return new SetAdjustmentLayerEvent(this);
+		case "Brsh":
+		  return new SetBrushEvent(this);
 		case "Chnl":
 		  return new SetChannelPropertyEvent(this);
 		case "Lyr":
