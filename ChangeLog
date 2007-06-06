@@ -1,3 +1,23 @@
+2007-06-06  Maurits  <maurits.rijk@gmail.com>
+
+	* plug-ins/PhotoshopActions/SetQuickMaskEvent.cs
+	* plug-ins/PhotoshopActions/ClearQuickMaskEvent.cs: implemented
+
+	* plug-ins/PhotoshopActions/ClearEvent.cs: minor bug fix
+
+	* plug-ins/PhotoshopActions/Abbreviations.cs: more abbreviations
+
+	* plug-ins/PhotoshopActions/SelectionEvent.cs: minor clean-up
+
+	* lib/FuzzySelectTool.cs: new file
+	* lib/Makefile.am: changed accordingly
+
+	* plug-ins/PhotoshopActions/NeonGlowEvent.cs: 
+	* plug-ins/PhotoshopActions/SelectPointEvent.cs: new files
+	
+	* plug-ins/PhotoshopActions/EventMap.cs
+	* plug-ins/PhotoshopActions/Makefile.am: changed accordingly
+
 2007-06-05  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/ChalkCharcoalEvent.cs: more verbose

@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006-2007 Maurits Rijk
 //
-// SetQuickMaskEvent.cs
+// SelectPointEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,22 +23,38 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class SetQuickMaskEvent : SetEvent
+  public class SelectPointEvent : SelectionEvent
   {
-    public SetQuickMaskEvent(SetEvent srcEvent) : base(srcEvent)
+    [Parameter("Tlrn")]
+    readonly int _tolerance;
+    [Parameter("AntA")]
+    readonly bool _antiAlias;
+    [Parameter("Cntg")]
+    readonly bool _contiguous;
+
+    Coordinate<double> _coordinate;
+
+    public SelectPointEvent(SelectionEvent srcEvent, ObjcParameter objc) : 
+      base(srcEvent)
     {
+      _coordinate = new Coordinate<double>(objc.GetValueAsDouble("Hrzn"),
+					   objc.GetValueAsDouble("Vrtc"));
     }
 
-    public override string EventForDisplay
+    protected override IEnumerable ListParameters()
     {
-      get {return base.EventForDisplay + " Quick Mask";}
+      yield return String.Format("To: {0} pixels, {1} pixels", _coordinate.X,
+				 _coordinate.Y);
+      yield return Format(_tolerance, "Tlrn");
+      yield return Format(_antiAlias, "AntA");
+      yield return Format(_contiguous, "Cntg");
     }
 
     override public bool Execute()
     {
-      Channel channel = ActiveImage.Selection.Save();
-      channel.Name = "Quick Mask";
-      channel.Visible = true;
+      FuzzySelectTool tool = new FuzzySelectTool(ActiveImage);
+      tool.Select(_coordinate, _tolerance, ChannelOps.Replace, _antiAlias,
+		  false, 0, false);
 
       return true;
     }

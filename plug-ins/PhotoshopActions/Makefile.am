@@ -164,6 +164,7 @@ MYSOURCES = 				\
 	MoveLayerEvent.cs		\
 	MoveOffsetEvent.cs		\
 	NameType.cs			\
+	NeonGlowEvent.cs		\
 	NewChannelEvent.cs		\
 	NewDocumentEvent.cs		\
 	NotePaperEvent.cs		\
@@ -233,6 +234,7 @@ MYSOURCES = 				\
 	SelectMenuItemEvent.cs		\
 	SelectNoneEvent.cs		\
 	SelectPixelEvent.cs		\
+	SelectPointEvent.cs		\
 	SelectPolygonEvent.cs		\
 	SelectPreviousEvent.cs		\
 	SelectRectangleEvent.cs		\

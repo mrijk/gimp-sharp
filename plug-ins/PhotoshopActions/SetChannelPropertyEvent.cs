@@ -51,6 +51,10 @@ namespace Gimp.PhotoshopActions
 	      string name = (parameter as TextParameter).Value;
 	      yield return Format(name, "Nm");
 	      break;
+	    case "Opct":
+	      double opacity = (parameter as DoubleParameter).Value;
+	      yield return "Opacity: " + opacity;
+	      break;
 	    default:
 	      Console.WriteLine("SetChannelProperty: " + parameter.Name);
 	      break;
@@ -67,6 +71,9 @@ namespace Gimp.PhotoshopActions
 	    {
 	    case "Nm":
 	      channel.Name = (parameter as TextParameter).Value;
+	      break;
+	    case "Opct":
+	      channel.Opacity = (parameter as DoubleParameter).Value;
 	      break;
 	    default:
 	      Console.WriteLine("SetChannelPropertyEvent: " + parameter.Name);

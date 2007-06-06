@@ -170,6 +170,7 @@ namespace Gimp.PhotoshopActions
       _map["ncbE"] = _map["nccL"] = _map["nccR"] = _map["ncdO"] = 
 	_map["ncdI"] = _map["nceL"] = _map["ncfL"] = _map["nclI"] = 
 	_map["ncsM"] = _map["ncsT"] = _map["nctV"] = "ExternalPluginEvent";
+      _map["NGlw"] = "NeonGlowEvent";
       _map["notePaper"] = _map["NtPr"] = "NotePaperEvent";
       _map["NTSC"] = "NTSCColorsEvent";
       _map["oceanRipple"] = _map["OcnR"] = "OceanRippleEvent";

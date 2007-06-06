@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006-2007 Maurits Rijk
 //
-// SetQuickMaskEvent.cs
+// NeonGlowEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,23 +23,29 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class SetQuickMaskEvent : SetEvent
+  public class NeonGlowEvent : ActionEvent
   {
-    public SetQuickMaskEvent(SetEvent srcEvent) : base(srcEvent)
+    [Parameter("Sz")]
+    int _size;
+    [Parameter("Brgh")]
+    int _brightness;
+    [Parameter("Clr")]
+    ObjcParameter _color;
+
+    public override bool IsExecutable
     {
+      get {return false;}
     }
 
-    public override string EventForDisplay
+    protected override IEnumerable ListParameters()
     {
-      get {return base.EventForDisplay + " Quick Mask";}
+      yield return Format(_size, "Sz");
+      yield return Format(_brightness, "Brgh");
+      yield return Format(_color.ClassID2, "Clr");
     }
 
     override public bool Execute()
     {
-      Channel channel = ActiveImage.Selection.Save();
-      channel.Name = "Quick Mask";
-      channel.Visible = true;
-
       return true;
     }
   }

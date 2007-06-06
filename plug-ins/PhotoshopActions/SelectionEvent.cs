@@ -62,6 +62,8 @@ namespace Gimp.PhotoshopActions
 	      return new SelectEllipseEvent(this, objc);
 	    case "Plgn":
 	      return new SelectPolygonEvent(this, objc);
+	    case "Pnt":
+	      return new SelectPointEvent(this, objc);
 	    case "Rctn":
 	      return new SelectRectangleEvent(this, objc);
 	    case "Sngc":
@@ -101,10 +103,8 @@ namespace Gimp.PhotoshopActions
 		{
 		case "Chnl":
 		  return new SelectionFromChannelEvent(this, type.Value);
-		  break;
 		case "Pxel":
 		  return new SelectPixelEvent(this, type.Value);
-		  break;
 		default:
 		  Console.WriteLine("SelectionEvent-3: " + type.Key);
 		  break;
@@ -117,7 +117,6 @@ namespace Gimp.PhotoshopActions
 		{
 		case "Chnl":
 		  return new SelectionByIndexEvent(this, index.Index);
-		  break;
 		default:
 		  Console.WriteLine("SelectionEvent-5: " + index.Key);
 		  break;
@@ -130,7 +129,6 @@ namespace Gimp.PhotoshopActions
 		{
 		case "Chnl":
 		  return new SelectionFromChannelEvent(this, name.Key);
-		  break;
 		default:
 		  Console.WriteLine("SelectionEvent-6: " + name.ClassID2);
 		  break;

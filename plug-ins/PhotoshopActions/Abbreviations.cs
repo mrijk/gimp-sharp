@@ -35,6 +35,7 @@ namespace Gimp.PhotoshopActions
       _map["AdCH"] = "horizontal centers";
       _map["AdCV"] = "vertical centers";
       _map["AdLf"] = "left edges";
+      _map["AntA"] = "Anti-alias";
       _map["AdRg"] = "right edges";
       _map["AdTp"] = "top edges";
       _map["Amnt"] = "Amount";
@@ -67,6 +68,7 @@ namespace Gimp.PhotoshopActions
       _map["ClSz"] = "Cell Size";
       _map["Cmps"] = "composite channel";
       _map["CMYM"] = "CMYK color mode";
+      _map["Cntg"] = "Contiguous";
       _map["Cntn"] = "Continue";
       _map["Cntr"] = "Contrast";
       _map["CrnH"] = "Current History State";
@@ -187,6 +189,7 @@ namespace Gimp.PhotoshopActions
       _map["Rndm"] = "random";
       _map["Rndn"] = "roundness";
       _map["RctP"] = "Rectangular to Polar";
+      _map["RGBC"] = "RGB color";
       _map["RGBM"] = "RGB color mode";
       _map["RplM"] = "Ripple Magnitude";
       _map["RplS"] = "Ripple Size";
@@ -223,6 +226,8 @@ namespace Gimp.PhotoshopActions
       _map["StrP"] = "Stroke Pressure";
       _map["StrS"] = "Stroke Size";
       _map["StrW"] = "Stroke Width";
+      _map["Sz"]   = "Size";
+      _map["Tlrn"] = "Tolerance";
       _map["TlSz"] = "Tile Size";
       _map["Top"]  = "Top";
       _map["Trns"] = "transparent";
