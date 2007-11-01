@@ -89,7 +89,7 @@ namespace Gimp
     }
 
     [Test]
-    [ExpectedException(typeof(Exception))]
+    [ExpectedException(typeof(GimpSharpException))]
     public void ThisOutOfRange()
     {
       Palette palette = new Palette("UnitTestPalette");

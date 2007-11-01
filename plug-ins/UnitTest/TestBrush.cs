@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // TestBrush.cs
 //
@@ -37,6 +37,18 @@ namespace Gimp
       Assert.AreEqual(brushName, brush.Name);
       Assert.AreEqual(count + 1, new BrushList(null).Count);
       brush.Delete();
+      Assert.AreEqual(count, new BrushList(null).Count);
+    }
+
+    [Test]
+    public void Rename()
+    {
+      string brushName = "Gimp#Brush";
+      Brush brush = new Brush(brushName);
+      string newName = "Gimp#Brush2";
+      string name = brush.Rename(newName);
+      Assert.AreEqual(newName, brush.Name);
+      brush.Delete();
     }
 
     [Test]
@@ -50,6 +62,52 @@ namespace Gimp
       // Assert.AreEqual(0, width);
       // Fix me: insert more Asserts here!
       brush.Delete();
+    }
+
+    [Test]
+    public void Spacing()
+    {
+      string brushName = "Gimp#Brush";
+      Brush brush = new Brush(brushName);
+      brush.Spacing = 13;
+      Assert.AreEqual(13, brush.Spacing);
+      brush.Delete();
+    }
+
+    [Test]
+    public void Spikes()
+    {
+      string brushName = "Gimp#Brush";
+      Brush brush = new Brush(brushName);
+      brush.Spikes = 13;
+      Assert.AreEqual(13, brush.Spikes);
+      brush.Delete();
+    }
+
+    [Test]
+    public void Angle()
+    {
+      string brushName = "Gimp#Brush";
+      Brush brush = new Brush(brushName);
+      brush.Angle = 0.10;
+      Assert.AreEqual(0.10, brush.Angle, 0.000001);
+      brush.Delete();
+    }
+
+    [Test]
+    public void IsEditable()
+    {
+      string brushName = "Gimp#Brush";
+      Brush brush = new Brush(brushName);
+      Assert.IsTrue(brush.Editable);
+      brush.Delete();
+
+      BrushList brushes = new BrushList("Bird");
+      Assert.AreEqual(1, brushes.Count);
+      foreach (Brush bird in brushes)
+	{
+	  Assert.IsFalse(bird.Editable);
+	}
     }
   }
 }

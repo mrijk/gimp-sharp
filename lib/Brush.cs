@@ -93,7 +93,7 @@ namespace Gimp
 	}
     }
 	
-    public int Shape
+    public BrushGeneratedShape Shape
     {
       get {return gimp_brush_get_shape(_name);}
       set {gimp_brush_set_shape(_name, value);}
@@ -156,9 +156,10 @@ namespace Gimp
     [DllImport("libgimp-2.0-0.dll")]
     extern static bool gimp_brush_set_spacing(string name, int spacing);
     [DllImport("libgimp-2.0-0.dll")]
-    extern static int gimp_brush_get_shape(string name);
+    extern static BrushGeneratedShape gimp_brush_get_shape(string name);
     [DllImport("libgimp-2.0-0.dll")]
-    extern static int gimp_brush_set_shape(string name, int shape_in);
+    extern static int gimp_brush_set_shape(string name, 
+					   BrushGeneratedShape shape_in);
     [DllImport("libgimp-2.0-0.dll")]
     extern static int gimp_brush_get_spikes(string name);
     [DllImport("libgimp-2.0-0.dll")]

@@ -134,7 +134,7 @@ namespace Gimp.Ministeck
     void RenderMinisteck(Image image, Drawable drawable, bool preview)
     {
       image.UndoGroupStart();
-      RunProcedure("plug_in_pixelize", image, drawable, _size);
+      RunProcedure("plug_in_pixelize", _size);
 
       MinisteckPalette palette = new MinisteckPalette();
       image.ConvertIndexed(ConvertDitherType.No, ConvertPaletteType.Custom,

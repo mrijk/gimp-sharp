@@ -1,3 +1,21 @@
+2007-11-01  Maurits  <maurits.rijk@gmail.com>
+
+	* lib/Display.cs: more GIMP 2.4 coverage
+
+	* lib/GimpEnums.cs: BrushGeneratedShape added
+
+	* lib/Brush.cs: use new enum
+
+	* plug-ins/UnitTest/TestBrush.cs: added more tests
+
+2007-07-22  Maurits  <maurits.rijk@gmail.com>
+
+	* plug-ins/UnitTest/TestPalette.cs: fix failing unit test
+
+2007-07-14  Maurits  <maurit.rijk@gmail.com>
+
+	* plug-ins/Ministeck/Ministeck.cs: minor clean-up
+
 2007-06-06  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/SetQuickMaskEvent.cs

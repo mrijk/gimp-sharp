@@ -45,6 +45,12 @@ namespace Gimp
     }
 
     // Since GIMP 2.4
+
+    public bool Valid
+    {
+      get {return gimp_display_is_valid(_displayID);}
+    }
+
     public int WindowHandle
     {
       get {return gimp_display_get_window_handle(_displayID);}
@@ -65,6 +71,8 @@ namespace Gimp
     static extern Int32 gimp_display_new(Int32 image_ID);
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_display_delete(Int32 display_ID);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_display_is_valid(Int32 display_ID);
     [DllImport("libgimp-2.0-0.dll")]
     static extern int gimp_display_get_window_handle(Int32 display_ID);
     [DllImport("libgimp-2.0-0.dll")]

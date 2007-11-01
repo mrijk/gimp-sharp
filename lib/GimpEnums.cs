@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // GimpEnums.cs
 //
@@ -25,6 +25,13 @@ namespace Gimp
   {
     Hard,
     Soft
+  }
+
+  public enum BrushGeneratedShape
+  {
+    Circle,
+    Square,
+    Diamond
   }
 
   public enum ConvertDitherType
