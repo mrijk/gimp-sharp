@@ -364,12 +364,17 @@ namespace Gimp
         }
     }
 
-    public void EditPaste(bool paste_into)
+    public void EditPaste(bool pasteInto)
     {
-      if (!gimp_edit_paste(_ID, paste_into))
+      if (!gimp_edit_paste(_ID, pasteInto))
         {
 	  throw new GimpSharpException();
         }
+    }
+
+    public string EditNamedCut(string bufferName)
+    {
+      return gimp_edit_named_cut(_ID, bufferName);
     }
 
     public void EditClear()
@@ -1282,6 +1287,19 @@ namespace Gimp
     static extern bool gimp_edit_paste(Int32 drawable_ID, 
 				       bool paste_into);
     [DllImport("libgimp-2.0-0.dll")]
+    static extern string gimp_edit_named_cut(Int32 drawable_ID, 
+					     string buffer_name);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern string gimp_edit_named_copy(Int32 drawable_ID, 
+					      string buffer_name);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern string gimp_edit_named_copy_visible(Int32 drawable_ID, 
+						      string buffer_name);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern Int32 gimp_edit_named_paste(Int32 drawable_ID, 
+					      string buffer_name,
+					      bool past_into);
+    [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_edit_clear(Int32 drawable_ID);
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_edit_fill(Int32 drawable_ID,
@@ -1296,16 +1314,16 @@ namespace Gimp
                                              double x,
                                              double y);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_edit_bucket_fill_full (Int32 drawable_ID,
-						   BucketFillMode fill_mode,
-						   LayerModeEffects paint_mode,
-						   double opacity,
-						   double threshold,
-						   bool sample_merged,
-						   bool fill_transparent,
-						   SelectCriterion select_criterion,
-						   double x,
-						   double y);
+    static extern bool gimp_edit_bucket_fill_full(Int32 drawable_ID,
+						  BucketFillMode fill_mode,
+						  LayerModeEffects paint_mode,
+						  double opacity,
+						  double threshold,
+						  bool sample_merged,
+						  bool fill_transparent,
+						  SelectCriterion select_criterion,
+						  double x,
+						  double y);
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_edit_blend(Int32 drawable_ID,
 				       BlendMode blend_mode,

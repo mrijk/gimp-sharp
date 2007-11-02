@@ -70,11 +70,24 @@ namespace Gimp
       return _imageID.GetHashCode();
     }
 
-    public static Image Load(RunMode run_mode, string filename, 
+    public static Image Load(RunMode runMode, string filename, 
                              string raw_filename)
     {
-      Int32 imageID = gimp_file_load(run_mode, filename, raw_filename);
+      Int32 imageID = gimp_file_load(runMode, filename, raw_filename);
       return (imageID >= 0) ? new Image(imageID) : null;
+    }
+
+    public Layer LoadLayer(RunMode runMode, string filename)
+    {
+      return new Layer(gimp_file_load_layer(runMode, _imageID, filename));
+    }
+
+    public LayerList LoadLayers(RunMode runMode, string filename)
+    {
+      int numLayers;
+      IntPtr ptr = gimp_file_load_layers(runMode, _imageID, filename, 
+					 out numLayers);
+      return new LayerList(ptr, numLayers);
     }
 
     public bool Save(RunMode run_mode, string filename, string raw_filename)
@@ -918,6 +931,15 @@ namespace Gimp
     [DllImport("libgimp-2.0-0.dll")]
     static extern Int32 gimp_file_load(RunMode run_mode, string filename,
                                        string raw_filename);
+    [DllImport("libgimp-2.0-0.dll")]
+      static extern Int32 gimp_file_load_layer(RunMode run_mode, 
+					       Int32 image_ID,
+					       string filename);
+    [DllImport("libgimp-2.0-0.dll")]
+      static extern IntPtr gimp_file_load_layers(RunMode run_mode, 
+						Int32 image_ID,
+						string filename,
+						 out int num_layers);
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_file_save(RunMode run_mode, Int32 image_ID,
                                       Int32 drawable_ID, string filename,

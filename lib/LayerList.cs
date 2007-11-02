@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // LayerList.cs
 //
@@ -28,20 +28,33 @@ namespace Gimp
 {
   public sealed class LayerList
   {
-    readonly List<Layer> _list = new List<Layer>();
+    readonly List<Layer> _list;
 
     public LayerList(Image image)
     {
       int num_layers;
       IntPtr list = gimp_image_get_layers(image.ID, out num_layers);
+      _list = LayerListFromPtr(list, num_layers);
+    }
 
-      int[] dest = new int[num_layers];
-      Marshal.Copy(list, dest, 0, num_layers);
+    internal LayerList(IntPtr ptr, int numLayers)
+    {
+      _list = LayerListFromPtr(ptr, numLayers);
+    }
+
+    List<Layer> LayerListFromPtr(IntPtr ptr, int numLayers)
+    {
+      List<Layer> list = new List<Layer>();
+
+      int[] dest = new int[numLayers];
+      Marshal.Copy(ptr, dest, 0, numLayers);
 
       foreach (int layerID in dest)
         {
-	  _list.Add(new Layer(layerID));
+	  list.Add(new Layer(layerID));
         }
+
+      return list;
     }
 
     public IEnumerator<Layer> GetEnumerator()
