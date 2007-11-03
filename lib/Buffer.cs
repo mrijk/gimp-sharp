@@ -20,6 +20,8 @@
 //
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace Gimp
@@ -39,6 +41,22 @@ namespace Gimp
         {
 	  throw new GimpSharpException();
         }
+    }
+
+    static public List<Buffer> GetBuffers(string filter)
+    {
+      List<Buffer> buffers = new List<Buffer>();
+
+      int numBuffers;
+      IntPtr ptr = gimp_buffers_get_list(filter, out numBuffers);
+
+      for (int i = 0; i < numBuffers; i++)
+        {
+	  IntPtr tmp = (IntPtr) Marshal.PtrToStructure(ptr, typeof(IntPtr));
+	  buffers.Add(new Buffer(Marshal.PtrToStringAnsi(tmp)));
+	  ptr = (IntPtr)((int)ptr + Marshal.SizeOf(tmp));
+        }
+      return buffers;
     }
 
     public string Name
@@ -62,6 +80,14 @@ namespace Gimp
       get {return gimp_buffer_get_bytes(_name);}
     }
 
+    public ImageBaseType ImageType
+    {
+      get {return gimp_buffer_get_image_type(_name);}
+    }
+
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern IntPtr gimp_buffers_get_list(string filter, 
+					       out int num_buffers);
     [DllImport("libgimp-2.0-0.dll")]
     static extern string gimp_buffer_rename(string buffer_name, 
 					    string new_name);

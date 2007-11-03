@@ -364,17 +364,43 @@ namespace Gimp
         }
     }
 
-    public void EditPaste(bool pasteInto)
+    public FloatingSelection EditPaste(bool pasteInto)
     {
-      if (!gimp_edit_paste(_ID, pasteInto))
-        {
-	  throw new GimpSharpException();
-        }
+      return new FloatingSelection(gimp_edit_paste(_ID, pasteInto));
     }
 
-    public string EditNamedCut(string bufferName)
+    static public FloatingSelection EditPasteAsNew()
     {
-      return gimp_edit_named_cut(_ID, bufferName);
+      return new FloatingSelection(gimp_edit_paste_as_new());
+    }
+
+    public Buffer EditNamedCut(string bufferName)
+    {
+      string name = gimp_edit_named_cut(_ID, bufferName);
+      return (name == null) ? null : new Buffer(name);
+    }
+
+    public Buffer EditNamedCopy(string bufferName)
+    {
+      string name = gimp_edit_named_copy(_ID, bufferName);
+      return (name == null) ? null : new Buffer(name);
+    }
+
+    public Buffer EditNamedCopyVisible(string bufferName)
+    {
+      string name = gimp_edit_named_copy_visible(_ID, bufferName);
+      return (name == null) ? null : new Buffer(name);
+    }
+
+    public FloatingSelection EditNamedPaste(string bufferName, bool pasteInto)
+    {
+      return new FloatingSelection(gimp_edit_named_paste(_ID, bufferName, 
+							 pasteInto));
+    }
+
+    static public FloatingSelection EditNamedPasteAsNew(string bufferName)
+    {
+      return new FloatingSelection(gimp_edit_named_paste_as_new(bufferName));
     }
 
     public void EditClear()
@@ -1284,8 +1310,9 @@ namespace Gimp
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_edit_copy(Int32 drawable_ID);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_edit_paste(Int32 drawable_ID, 
-				       bool paste_into);
+    static extern Int32 gimp_edit_paste(Int32 drawable_ID, bool paste_into);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern Int32 gimp_edit_paste_as_new();
     [DllImport("libgimp-2.0-0.dll")]
     static extern string gimp_edit_named_cut(Int32 drawable_ID, 
 					     string buffer_name);
@@ -1299,6 +1326,8 @@ namespace Gimp
     static extern Int32 gimp_edit_named_paste(Int32 drawable_ID, 
 					      string buffer_name,
 					      bool past_into);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern Int32 gimp_edit_named_paste_as_new(string buffer_name);
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_edit_clear(Int32 drawable_ID);
     [DllImport("libgimp-2.0-0.dll")]

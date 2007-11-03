@@ -1,3 +1,10 @@
+2007-11-03  Maurits  <maurits.rijk@gmail.com>
+
+	* lib/Buffer.cs
+	* lib/Drawable.cs: more GIMP 2.4 coverage
+
+	* plug-ins/UnitTest/TestDrawable.cs: test new functionality
+
 2007-11-02  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Buffer.cs: new file

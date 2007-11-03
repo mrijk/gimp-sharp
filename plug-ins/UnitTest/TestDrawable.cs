@@ -218,5 +218,40 @@ namespace Gimp
       Pixel pixel = _drawable.CreatePixel();
       Assert.AreEqual(_drawable.Bpp, pixel.Bpp);
     }
+
+    [Test]
+    public void EditNamedCopy()
+    {
+      Buffer buffer = _drawable.EditNamedCopy("foo");
+      Assert.AreEqual(buffer.Name, "foo");
+      Assert.AreEqual(_image.Width, buffer.Width);
+      Assert.AreEqual(_image.Height, buffer.Height);
+      Assert.AreEqual(_drawable.Bpp, buffer.Bytes);
+      // Assert.AreEqual(_drawable.Type, buffer.ImageType);
+      buffer.Delete();
+    }
+
+    [Test]
+    public void EditNamedCut()
+    {
+      int bpp = _drawable.Bpp;
+      Buffer buffer = _drawable.EditNamedCut("foo");
+      Assert.AreEqual(buffer.Name, "foo");
+      Assert.AreEqual(_image.Width, buffer.Width);
+      Assert.AreEqual(_image.Height, buffer.Height);
+      Assert.AreEqual(bpp, buffer.Bytes);
+      // Assert.AreEqual(_drawable.Type, buffer.ImageType);
+      buffer.Delete();
+    }
+
+    [Test]
+    public void EditNamedPaste()
+    {
+      Buffer buffer = _drawable.EditNamedCopy("foo");
+      FloatingSelection selection = _drawable.EditNamedPaste("foo", false);
+      Assert.AreEqual(_drawable.Width, selection.Width);
+      Assert.AreEqual(_drawable.Height, selection.Height);      
+      buffer.Delete();
+    }
   }
 }
