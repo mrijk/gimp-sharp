@@ -1,3 +1,11 @@
+2007-11-05  Maurits  <maurits.rijk@gmail.com>
+
+	* lib/Drawable.cs: more GIMP 2.4 coverage
+
+	* lib/LayerList.cs: fix bug when image returns 0 layers
+
+	* plug-ins/UnitTest/TestDrawable.cs: test new functionality
+
 2007-11-03  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Buffer.cs

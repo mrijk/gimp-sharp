@@ -46,14 +46,16 @@ namespace Gimp
     {
       List<Layer> list = new List<Layer>();
 
-      int[] dest = new int[numLayers];
-      Marshal.Copy(ptr, dest, 0, numLayers);
-
-      foreach (int layerID in dest)
-        {
-	  list.Add(new Layer(layerID));
-        }
-
+      if (numLayers != 0)
+	{
+	  int[] dest = new int[numLayers];
+	  Marshal.Copy(ptr, dest, 0, numLayers);
+	  
+	  foreach (int layerID in dest)
+	    {
+	      list.Add(new Layer(layerID));
+	    }
+	}
       return list;
     }
 

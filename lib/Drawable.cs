@@ -55,6 +55,11 @@ namespace Gimp
       return gimp_drawable_delete(_ID);
     }
 
+    public bool IsValid
+    {
+      get {return gimp_drawable_is_valid(_ID);}
+    }
+
     public string Name
     {
       get {return gimp_drawable_get_name(_ID);}
@@ -899,6 +904,8 @@ namespace Gimp
     static extern void gimp_drawable_flush(IntPtr drawable);
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_drawable_delete(Int32 drawable_ID);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_drawable_is_valid(Int32 drawable_ID);
     [DllImport("libgimp-2.0-0.dll")]
     static extern string gimp_drawable_get_name(Int32 drawable_ID);
     [DllImport("libgimp-2.0-0.dll")]

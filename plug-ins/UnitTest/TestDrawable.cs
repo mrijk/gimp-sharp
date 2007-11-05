@@ -75,6 +75,12 @@ namespace Gimp
     }
 
     [Test]
+    public void IsValid()
+    {
+      Assert.IsTrue(_drawable.IsValid);
+    }
+
+    [Test]
     public void Name()
     {
       Assert.AreEqual(_drawable.Name, "test");
@@ -218,24 +224,69 @@ namespace Gimp
       Pixel pixel = _drawable.CreatePixel();
       Assert.AreEqual(_drawable.Bpp, pixel.Bpp);
     }
+    
+    // Edit opereations
+    // Maybe move these to a seperate file later
+
+    [Test]
+    public void EditCut()
+    {
+      int count = _image.Layers.Count;
+      _drawable.EditCut();
+      Assert.AreEqual(count - 1, _image.Layers.Count);
+    }
+
+    [Test]
+    public void EditCopy()
+    {
+      int count = _image.Layers.Count;
+      _drawable.EditCopy();
+      Assert.AreEqual(count, _image.Layers.Count);
+    }
+
+    /* Fix me: check if this is a function of an image or a drawable!
+    [Test]
+    public void EditCopyVisible()
+    {
+      int count = _image.Layers.Count;
+      _drawable.EditCopyVisible();
+      Assert.AreEqual(count, _image.Layers.Count);
+    }
+    */
+
+    [Test]
+    public void EditPaste()
+    {
+      int count = _image.Layers.Count;
+      _drawable.EditCopy();
+      Assert.AreEqual(count, _image.Layers.Count);
+      FloatingSelection selection = _drawable.EditPaste(true);
+      Assert.AreEqual(count + 1, _image.Layers.Count);
+      Assert.AreEqual(_image.FloatingSelection, selection);
+    }
 
     [Test]
     public void EditNamedCopy()
     {
+      int count = Buffer.GetBuffers(null).Count;
       Buffer buffer = _drawable.EditNamedCopy("foo");
+      Assert.AreEqual(count + 1, Buffer.GetBuffers(null).Count);
       Assert.AreEqual(buffer.Name, "foo");
       Assert.AreEqual(_image.Width, buffer.Width);
       Assert.AreEqual(_image.Height, buffer.Height);
       Assert.AreEqual(_drawable.Bpp, buffer.Bytes);
       // Assert.AreEqual(_drawable.Type, buffer.ImageType);
       buffer.Delete();
+      Assert.AreEqual(count, Buffer.GetBuffers(null).Count);
     }
 
     [Test]
     public void EditNamedCut()
     {
+      int count = Buffer.GetBuffers(null).Count;
       int bpp = _drawable.Bpp;
       Buffer buffer = _drawable.EditNamedCut("foo");
+      Assert.AreEqual(count + 1, Buffer.GetBuffers(null).Count);
       Assert.AreEqual(buffer.Name, "foo");
       Assert.AreEqual(_image.Width, buffer.Width);
       Assert.AreEqual(_image.Height, buffer.Height);
@@ -247,8 +298,12 @@ namespace Gimp
     [Test]
     public void EditNamedPaste()
     {
+      int count = Buffer.GetBuffers(null).Count;
       Buffer buffer = _drawable.EditNamedCopy("foo");
+      Assert.AreEqual(count + 1, Buffer.GetBuffers(null).Count);
       FloatingSelection selection = _drawable.EditNamedPaste("foo", false);
+      Assert.AreEqual(_image.FloatingSelection, selection);
+      Assert.AreEqual(count + 1, Buffer.GetBuffers(null).Count);
       Assert.AreEqual(_drawable.Width, selection.Width);
       Assert.AreEqual(_drawable.Height, selection.Height);      
       buffer.Delete();
