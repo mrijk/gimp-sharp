@@ -42,6 +42,7 @@ MYSOURCES = 				\
 	GimpTypes.cs			\
 	Gimp.cs				\
 	Gradient.cs			\
+	GradientList.cs			\
 	Grid.cs				\
 	GuideCollection.cs		\
 	Guide.cs			\

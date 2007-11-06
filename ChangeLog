@@ -1,3 +1,21 @@
+2007-11-06  Maurits  <maurits.rijk@gmail.com>
+
+	* lib/GradientList.cs: new file
+	
+	* lib/Makefile.am: changed accordingly
+
+	* lib/ScrolledPreview.cs: make all functions public
+
+	* lib/Gradient.cs
+	* lib/Pattern.cs
+	* lib/Palette.cs: add Equals and GetHashCode methods
+
+	* lib/PaletteList.cs: GetEnumerator should be public
+
+	* lib/Context.cs: more GIMP 2.4 coverage
+
+	* plug-ins/UnitTest/TestContext.cs: test new functionality
+
 2007-11-05  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Drawable.cs: more GIMP 2.4 coverage

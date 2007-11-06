@@ -58,6 +58,20 @@ namespace Gimp
 	}
     }
 
+    public override bool Equals(object o)
+    {
+      if (o is Palette)
+	{
+	  return (o as Palette)._name == _name;
+	}
+      return false;
+    }
+
+    public override int GetHashCode()
+    {
+      return _name.GetHashCode();
+    }
+
     public string Rename(string new_name)
     {
       _name = gimp_palette_rename(_name, new_name);
@@ -80,7 +94,6 @@ namespace Gimp
         }
     }
 
-    // GIMP 2.4
     public int Columns
     {
       get 

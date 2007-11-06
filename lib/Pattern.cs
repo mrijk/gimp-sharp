@@ -43,10 +43,23 @@ namespace Gimp
       get {return _name;}
     }
 
+    public override bool Equals(object o)
+    {
+      if (o is Pattern)
+	{
+	  return (o as Pattern)._name == _name;
+	}
+      return false;
+    }
+
+    public override int GetHashCode()
+    {
+      return _name.GetHashCode();
+    }
+
     public void GetInfo(out int width, out int height, out int bpp)
     {
-      if (!gimp_pattern_get_info(_name, out width, out height,
-                                 out bpp))
+      if (!gimp_pattern_get_info(_name, out width, out height, out bpp))
         {
 	  throw new GimpSharpException();
         }

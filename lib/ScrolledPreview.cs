@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // ScrolledPreview.cs
 //
@@ -32,12 +32,13 @@ namespace Gimp
     {
     }
 
-    void SetPosition(int x, int y)
+    public void SetPosition(int x, int y)
     {
       gimp_scrolled_preview_set_position(Handle, x, y);
     }
 
-    void SetPolicy(PolicyType hscrollbarPolicy, PolicyType vscrollbarPolicy)
+    public void SetPolicy(PolicyType hscrollbarPolicy, 
+			  PolicyType vscrollbarPolicy)
     {
       gimp_scrolled_preview_set_policy(Handle, hscrollbarPolicy, 
 				       vscrollbarPolicy);

@@ -1,7 +1,7 @@
 // GIMP# - A C# wrapper around the GIMP Library
 // Copyright (C) 2004-2007 Maurits Rijk
 //
-// PaletteList.cs
+// GradientList.cs
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -26,30 +26,23 @@ using System.Runtime.InteropServices;
 
 namespace Gimp
 {
-  public sealed class PaletteList
+  public sealed class GradientList
   {
-    readonly List<Palette> _list = new List<Palette>();
+    readonly List<Gradient> _list = new List<Gradient>();
 
-    public PaletteList(string filter)
+    public GradientList(string filter)
     {
-      int num_palettes;
-      IntPtr ptr = gimp_palettes_get_list(filter, out num_palettes);
-
-      for (int i = 0; i < num_palettes; i++)
-	{
-          IntPtr tmp = (IntPtr) Marshal.PtrToStructure(ptr, typeof(IntPtr));
-          _list.Add(new Palette(Marshal.PtrToStringAnsi(tmp), false));
-          ptr = (IntPtr)((int)ptr + Marshal.SizeOf(tmp));
-	}
+      int num_gradients;
+      IntPtr ptr = gimp_gradients_get_list(filter, out num_gradients);
+      for (int i = 0; i < num_gradients; i++)
+        {
+	  IntPtr tmp = (IntPtr) Marshal.PtrToStructure(ptr, typeof(IntPtr));
+	  _list.Add(new Gradient(Marshal.PtrToStringAnsi(tmp), false));
+	  ptr = (IntPtr)((int)ptr + Marshal.SizeOf(tmp));
+        }
     }
 
-    /*
-    public PaletteList()
-    {
-    }
-    */
-
-    public IEnumerator<Palette> GetEnumerator()
+    public IEnumerator<Gradient> GetEnumerator()
     {
       return _list.GetEnumerator();
     }
@@ -61,13 +54,13 @@ namespace Gimp
 
     static public void Refresh()
     {
-      gimp_palettes_refresh();
+      gimp_gradients_refresh();
     }
 
     [DllImport("libgimp-2.0-0.dll")]
-    static extern void gimp_palettes_refresh();
+    extern static void gimp_gradients_refresh();
     [DllImport("libgimp-2.0-0.dll")]
-    static extern IntPtr gimp_palettes_get_list(string filter,
-						out int num_palettes);
+    extern static IntPtr gimp_gradients_get_list(string filter, 
+                                                out int num_gradients);
   }
 }

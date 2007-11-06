@@ -184,6 +184,18 @@ namespace Gimp
 	}
     }
 
+    public static string PaintMethod
+    {
+      get {return gimp_context_get_paint_method();}
+      set
+	{
+	  if (!gimp_context_set_paint_method(value))
+	    {
+	      throw new GimpSharpException();
+	    }
+	}
+    }
+
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_context_push();
     [DllImport("libgimp-2.0-0.dll")]
@@ -228,5 +240,9 @@ namespace Gimp
     static extern string gimp_context_get_font();
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_context_set_font(string name);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern string gimp_context_get_paint_method();
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_context_set_paint_method(string name);
   }
 }

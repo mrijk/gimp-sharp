@@ -43,6 +43,20 @@ namespace Gimp
       _name = gimp_gradient_duplicate(gradient._name);
     }
 
+    public override bool Equals(object o)
+    {
+      if (o is Gradient)
+	{
+	  return (o as Gradient)._name == _name;
+	}
+      return false;
+    }
+
+    public override int GetHashCode()
+    {
+      return _name.GetHashCode();
+    }
+
     public string Rename(string new_name)
     {
       _name = gimp_gradient_rename(_name, new_name);

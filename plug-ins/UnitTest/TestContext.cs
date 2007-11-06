@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // TestContext.cs
 //
@@ -91,6 +91,36 @@ namespace Gimp
     {
       Context.PaintMode = LayerModeEffects.Multiply;
       Assert.AreEqual(LayerModeEffects.Multiply, Context.PaintMode);
+    }
+
+    [Test]
+    public void Pattern()
+    {
+      foreach (Pattern pattern in new PatternList(null))
+	{
+	  Context.Pattern = pattern;
+	  Assert.AreEqual(pattern, Context.Pattern);
+	}
+    }
+
+    [Test]
+    public void Gradient()
+    {
+      foreach (Gradient gradient in new GradientList(null))
+	{
+	  Context.Gradient = gradient;
+	  Assert.AreEqual(gradient, Context.Gradient);
+	}
+    }
+
+    [Test]
+    public void Palette()
+    {
+      foreach (Palette palette in new PaletteList(null))
+	{
+	  Context.Palette = palette;
+	  Assert.AreEqual(palette, Context.Palette);
+	}
     }
   }
 }
