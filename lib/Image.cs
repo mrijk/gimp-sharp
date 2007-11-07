@@ -20,6 +20,8 @@
 //
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 using Gdk;
@@ -104,10 +106,15 @@ namespace Gimp
 	  throw new GimpSharpException();
         }
     }
-       
+    
+    public bool IsValid
+    {
+      get {return gimp_image_is_valid(_imageID);}
+    }
+
     public ImageBaseType BaseType
     {
-      get {return gimp_image_base_type (_imageID);}
+      get {return gimp_image_base_type(_imageID);}
     }
 
     public int Width
@@ -567,6 +574,27 @@ namespace Gimp
       return thumbnail;
     }
 
+    public List<Vectors> Vectors
+    {
+      get
+	{
+	  List<Vectors> list = new List<Vectors>();
+	  int numVectors;
+	  IntPtr ptr = gimp_image_get_vectors(_imageID, out numVectors);
+	  if (numVectors > 0)
+	    {
+	      int[] dest = new int[numVectors];
+	      Marshal.Copy(ptr, dest, 0, numVectors);
+	      
+	      foreach (int vectorsID in dest)
+		{
+		  list.Add(new Vectors(vectorsID));
+		}
+	    }
+	  return list;
+	}
+    }
+
     public Parasite ParasiteFind(string name)
     {
       return new Parasite(gimp_image_parasite_find(_imageID, name));
@@ -594,6 +622,75 @@ namespace Gimp
         {
 	  throw new GimpSharpException();
         }
+    }
+
+    public void AddVectors(Vectors vectors, int position)
+    {
+      if (!gimp_image_add_vectors(_imageID, vectors.ID, position))
+        {
+	  throw new GimpSharpException();
+        }
+    }
+
+    public void RemoveVectors(Vectors vectors)
+    {
+      if (!gimp_image_remove_vectors(_imageID, vectors.ID))
+        {
+	  throw new GimpSharpException();
+        }
+    }
+
+    public Vectors ActiveVectors
+    {
+      get
+	{
+	  int vectorsID = gimp_image_get_active_vectors(_imageID);
+	  return (vectorsID == -1) ? null : new Vectors(vectorsID);
+	}
+      set
+	{
+	  if (!gimp_image_set_active_vectors(_imageID, value.ID))
+	    {
+	      throw new GimpSharpException();
+	    }
+	}
+    }
+
+    public void LowerVectors(Vectors vectors)
+    {
+      if (!gimp_image_lower_vectors(_imageID, vectors.ID))
+        {
+	  throw new GimpSharpException();
+        }
+    }
+
+    public void RaiseVectors(Vectors vectors)
+    {
+      if (!gimp_image_raise_vectors(_imageID, vectors.ID))
+        {
+	  throw new GimpSharpException();
+        }
+    }
+
+    public void LowerVectorsToBottom(Vectors vectors)
+    {
+      if (!gimp_image_lower_vectors_to_bottom(_imageID, vectors.ID))
+        {
+	  throw new GimpSharpException();
+        }
+    }
+
+    public void RaiseVectorsToTop(Vectors vectors)
+    {
+      if (!gimp_image_raise_vectors_to_top(_imageID, vectors.ID))
+        {
+	  throw new GimpSharpException();
+        }
+    }
+
+    public int GetVectorsPosition(Vectors vectors)
+    {
+      return gimp_image_get_vectors_position(_imageID, vectors.ID);
     }
 
     public void ConvertRgb()
@@ -730,32 +827,34 @@ namespace Gimp
     // All the dll imports
 
     [DllImport("libgimp-2.0-0.dll")]
-    static extern Int32 gimp_image_new (int width, int height, 
-                                        ImageBaseType type);
+    static extern Int32 gimp_image_new(int width, int height, 
+				       ImageBaseType type);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern Int32 gimp_image_duplicate (Int32 image_ID);
+    static extern Int32 gimp_image_duplicate(Int32 image_ID);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_delete (Int32 image_ID);
+    static extern bool gimp_image_delete(Int32 image_ID);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern ImageBaseType gimp_image_base_type (Int32 image_ID);
+    static extern bool gimp_image_is_valid(Int32 image_ID);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern int gimp_image_width (Int32 image_ID);
+    static extern ImageBaseType gimp_image_base_type(Int32 image_ID);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern int gimp_image_height (Int32 image_ID);
+    static extern int gimp_image_width(Int32 image_ID);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_free_shadow (Int32 image_ID);
+    static extern int gimp_image_height(Int32 image_ID);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_flip (Int32 image_ID,
-                                        OrientationType flip_type);
+    static extern bool gimp_image_free_shadow(Int32 image_ID);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_rotate (Int32 image_ID,
-                                          RotationType rotate_type);
+    static extern bool gimp_image_flip(Int32 image_ID,
+				       OrientationType flip_type);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_resize (Int32 image_ID,
-                                          int new_width,
-                                          int new_height,
-                                          int offx,
-                                          int offy);
+    static extern bool gimp_image_rotate(Int32 image_ID,
+					 RotationType rotate_type);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_image_resize(Int32 image_ID,
+					 int new_width,
+					 int new_height,
+					 int offx,
+					 int offy);
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_image_resize_to_layers (Int32 image_ID);
     [DllImport("libgimp-2.0-0.dll")]
@@ -897,28 +996,59 @@ namespace Gimp
                                                  out int num_colors);
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_image_set_colormap(Int32 image_ID, 
-					       byte[] colormap, 
+					       byte[] colormap,
                                                int num_colors);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern IntPtr gimp_image_parasite_find(Int32 drawable_ID,
+    static extern IntPtr gimp_image_get_vectors(Int32 image_ID,
+						out int num_vectors);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern IntPtr gimp_image_parasite_find(Int32 image_ID,
                                                   string name);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_parasite_attach(Int32 drawable_ID,
+    static extern bool gimp_image_parasite_attach(Int32 image_ID,
                                                   IntPtr parasite);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_parasite_detach(Int32 drawable_ID,
+    static extern bool gimp_image_parasite_detach(Int32 imagee_ID,
                                                   string name);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_attach_new_parasite(Int32 drawable_ID,
+    static extern bool gimp_image_attach_new_parasite(Int32 image_ID,
                                                       string name, 
                                                       int flags,
                                                       int size,
                                                       object data);
 
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_convert_rgb (Int32 image_ID);
+    static extern bool gimp_image_add_vectors(Int32 image_ID,
+					      Int32 vectors_ID,
+					      int position);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_convert_grayscale (Int32 image_ID);
+    static extern bool gimp_image_remove_vectors(Int32 image_ID,
+						 Int32 vectors_ID);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern Int32 gimp_image_get_active_vectors(Int32 image_ID);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_image_set_active_vectors(Int32 image_ID,
+						     Int32 active_vectors_ID);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_image_lower_vectors(Int32 image_ID,
+						Int32 vectors_ID);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_image_raise_vectors(Int32 image_ID,
+						Int32 vectors_ID);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_image_lower_vectors_to_bottom(Int32 image_ID,
+							  Int32 vectors_ID);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_image_raise_vectors_to_top(Int32 image_ID,
+						       Int32 vectors_ID);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern int gimp_image_get_vectors_position(Int32 image_ID,
+						      Int32 vectors_ID);
+
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_image_convert_rgb(Int32 image_ID);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_image_convert_grayscale(Int32 image_ID);
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_image_convert_indexed 
     (Int32 image_ID,

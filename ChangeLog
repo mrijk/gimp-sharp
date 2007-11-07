@@ -1,3 +1,11 @@
+2007-11-07  Maurits  <maurits.rijk@gmail.com>
+
+	* lib/Vectors.cs: internal constructor
+	
+	* lib/Image.cs: more GIMP 2.4 coverage
+
+	* lib/Drawable.cs: gimp_spline_curves_explicit -> gimp_curves_explicit
+
 2007-11-06  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/GradientList.cs: new file

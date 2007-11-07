@@ -572,11 +572,11 @@ namespace Gimp
         }
     }
 
-    public void CurvesSplineExplicit(HistogramChannel channel, 
-				     CoordinateList<byte> controlPoints)
+    public void CurvesExplicit(HistogramChannel channel, 
+			       CoordinateList<byte> controlPoints)
     {
       byte[] array = controlPoints.ToArray();
-      if (!gimp_curves_spline_explicit(_ID, channel, array.Length, array))
+      if (!gimp_curves_explicit(_ID, channel, array.Length, array))
         {
 	  throw new GimpSharpException();
         }
@@ -1062,15 +1062,15 @@ namespace Gimp
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_invert (Int32 drawable_ID);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_curves_spline (Int32 drawable_ID,
-                                           HistogramChannel channel,
-                                           int num_points,
-                                           byte[] control_pts);
+    static extern bool gimp_curves_spline(Int32 drawable_ID,
+					  HistogramChannel channel,
+					  int num_points,
+					  byte[] control_pts);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_curves_spline_explicit (Int32 drawable_ID,
-                                                    HistogramChannel channel,
-                                                    int num_points,
-                                                    byte[] control_pts);
+    static extern bool gimp_curves_explicit(Int32 drawable_ID,
+					    HistogramChannel channel,
+					    int num_points,
+					    byte[] control_pts);
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_color_balance (Int32 drawable_ID,
                                            TransferMode transfer_mode,
