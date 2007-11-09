@@ -189,10 +189,12 @@ namespace Gimp
     Drawable,
     Selection,
     Boundary,
-    Path,
+    Vectors,
     Parasite,
     Status,
-    End
+    End,
+
+    Path = Vectors // deprecated
   }
 
   public enum PDBProcType
@@ -252,5 +254,30 @@ namespace Gimp
   {
     Forward,
     Backward
+  }
+
+  public enum TransformResize
+  {
+    Adjust = 0,
+    Clip = 1,
+    Crop,                
+    CropWithAspect 
+  }
+
+  public enum UserDirectory
+  {
+    Desktop,
+    Documents,
+    Download,
+    Music,
+    Pictures,
+    PublicShare,
+    Templates,
+    Videos
+  }
+
+  public enum VectorsStrokeType
+  {
+    Bezier
   }
 }

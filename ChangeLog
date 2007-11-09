@@ -1,3 +1,18 @@
+2007-11-09  Maurits  <maurits.rijk@gmail.com>
+
+	* lib/GimpBaseEnums.cs: add new GIMP 2.4 enums
+
+	* lib/Stroke.cs: return ID for internal use by Vectors class
+
+	* lib/Tattoo.cs: implemented Equals method
+
+	* lib/ParasiteList.cs: new file
+	* lib/Makefile.am: changed accordingly
+
+	* lib/Vectors.cs: implement more gimp_vectors API
+
+	* plug-ins/UnitTest/TestVectors.cs: ...and add unit tests
+
 2007-11-07  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Vectors.cs: internal constructor

@@ -64,6 +64,7 @@ MYSOURCES = 				\
 	ParamDef.cs			\
 	ParamDefList.cs			\
 	Parasite.cs			\
+	ParasiteList.cs			\
 	Path.cs				\
 	Pattern.cs			\
 	PatternList.cs			\

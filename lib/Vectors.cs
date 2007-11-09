@@ -43,6 +43,11 @@ namespace Gimp
       get {return _ID;}
     }
 
+    public bool IsValid
+    {
+      get {return gimp_vectors_is_valid(_ID);}
+    }
+
     public Image Image
     {
       get {return new Image(gimp_vectors_get_image(_ID));}
@@ -96,6 +101,24 @@ namespace Gimp
 	}
     }
 
+    public void RemoveStroke(Stroke stroke)
+    {
+      if (!gimp_vectors_remove_stroke(_ID, stroke.ID))
+	{
+	  throw new GimpSharpException();
+	}
+    }
+
+    public void ToSelection(ChannelOps operation, bool antialias, bool feather,
+			    double featherRadiusX, double featherRadiusY)
+    {
+      if (!gimp_vectors_to_selection(_ID, operation, antialias, feather,
+				     featherRadiusX, featherRadiusY))
+        {
+	  throw new GimpSharpException();
+        }
+    }
+
     public void ParasiteAttach(Parasite parasite)
     {
       if (!gimp_vectors_parasite_attach(_ID, parasite.Ptr))
@@ -114,7 +137,46 @@ namespace Gimp
 
     public Parasite ParasiteFind(string name)
     {
-      return new Parasite(gimp_vectors_parasite_find(_ID, name));
+      IntPtr found = gimp_vectors_parasite_find(_ID, name);
+      return (found == IntPtr.Zero) ? null : new Parasite(found);
+    }
+
+    public ParasiteList ParasiteList
+    {
+      get
+	{
+	  ParasiteList list = new ParasiteList();
+	  int numParasites;
+	  IntPtr parasites;
+	  if (gimp_vectors_parasite_list(_ID, out numParasites,
+					  out parasites))
+	    {
+	      for (int i = 0; i < numParasites; i++)
+		{
+		  IntPtr tmp = (IntPtr) Marshal.PtrToStructure(parasites, 
+							       typeof(IntPtr));
+		  string name = Marshal.PtrToStringAnsi(tmp);
+		  Parasite parasite = ParasiteFind(name);
+		  list.Add(parasite);
+		  parasites = (IntPtr)((int) parasites + Marshal.SizeOf(tmp));
+		}
+	    }
+	  else
+	    {
+	      throw new GimpSharpException();
+	    }
+	  return list;
+	}
+    }
+
+    public Stroke NewFromPoints(VectorsStrokeType type, 
+				CoordinateList<double> controlpoints,
+				bool closed)
+    {
+      double[] tmp = controlpoints.ToArray();
+      int strokeID = gimp_vectors_stroke_new_from_points(_ID, type, tmp.Length,
+							 tmp, closed);
+      return new Stroke(_ID, strokeID);
     }
 
     public Stroke BezierStrokeNewEllipse(Coordinate<double> c, 
@@ -135,6 +197,10 @@ namespace Gimp
     }
 
     [DllImport("libgimp-2.0-0.dll")]
+    extern static Int32 gimp_vectors_new(Int32 image_ID, string name);
+    [DllImport("libgimp-2.0-0.dll")]
+    extern static bool gimp_vectors_is_valid(Int32 image_ID);
+    [DllImport("libgimp-2.0-0.dll")]
     extern static Int32 gimp_vectors_get_image(Int32 vectors_ID);
     [DllImport("libgimp-2.0-0.dll")]
     extern static bool gimp_vectors_get_linked(Int32 vectors_ID);
@@ -145,8 +211,6 @@ namespace Gimp
     [DllImport("libgimp-2.0-0.dll")]
     extern static bool gimp_vectors_get_visible(Int32 vectors_ID);
     [DllImport("libgimp-2.0-0.dll")]
-    extern static Int32 gimp_vectors_new(Int32 image_ID, string name);
-    [DllImport("libgimp-2.0-0.dll")]
     extern static bool gimp_vectors_set_linked(Int32 vectors_ID, bool linked);
     [DllImport("libgimp-2.0-0.dll")]
     extern static bool gimp_vectors_set_name(Int32 vectors_ID, string name);
@@ -155,6 +219,16 @@ namespace Gimp
     [DllImport("libgimp-2.0-0.dll")]
     extern static bool gimp_vectors_set_visible(Int32 vectors_ID, 
 						bool visible);
+    [DllImport("libgimp-2.0-0.dll")]
+    extern static bool gimp_vectors_remove_stroke(Int32 vectors_ID,
+						  int stroke_id);
+    [DllImport("libgimp-2.0-0.dll")]
+    extern static bool gimp_vectors_to_selection(Int32 vectors_ID,
+						 ChannelOps operation,
+						 bool antialias,
+						 bool feather,
+						 double feather_radius_x,
+						 double feather_radius_y);
     [DllImport("libgimp-2.0-0.dll")]
     extern static bool gimp_vectors_parasite_attach(Int32 vectors_ID,
 						    IntPtr parasite);
@@ -167,7 +241,13 @@ namespace Gimp
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_vectors_parasite_list(Int32 drawable_ID,
 						  out int num_parasites,
-						  ref IntPtr parasites);
+						  out IntPtr parasites);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern int gimp_vectors_stroke_new_from_points(Int32 drawable_ID,
+						     VectorsStrokeType type,
+						     int num_points,
+						     double[] controlpoints,
+						     bool closed);
     [DllImport("libgimp-2.0-0.dll")]
     static extern int gimp_vectors_bezier_stroke_new_ellipse(Int32 vectors_ID,
 							     double x0,

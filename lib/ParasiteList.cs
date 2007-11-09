@@ -1,7 +1,7 @@
 // GIMP# - A C# wrapper around the GIMP Library
 // Copyright (C) 2004-2007 Maurits Rijk
 //
-// Tattoo.cs
+// ParasiteList.cs
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -20,35 +20,32 @@
 //
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Gimp
 {
-  public sealed class Tattoo
+  public sealed class ParasiteList
   {
-    readonly int _tattooID;
+    readonly List<Parasite> _list = new List<Parasite>();
 
-    public Tattoo(int tattooID)
+    public ParasiteList()
     {
-      _tattooID = tattooID;
     }
 
-    public override bool Equals(object o)
+    public IEnumerator<Parasite> GetEnumerator()
     {
-      if (o is Tattoo)
-	{
-	  return (o as Tattoo)._tattooID == _tattooID;
-	}
-      return false;
+      return _list.GetEnumerator();
     }
 
-    public override int GetHashCode()
+    public void Add(Parasite parasite)
     {
-      return _tattooID.GetHashCode();
+      _list.Add(parasite);
     }
 
-    public int ID
+    public int Count
     {
-      get {return _tattooID;}
+      get {return _list.Count;}
     }
   }
 }
