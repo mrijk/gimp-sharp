@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // TestStroke.cs
 //
@@ -28,9 +28,31 @@ namespace Gimp
   [TestFixture]
   public class TestStroke
   {
-    [Test]
-    public void FirstTest()
+    int _width = 64;
+    int _height = 128;
+    Image _image;
+
+    [SetUp]
+    public void Init()
     {
+      _image = new Image(_width, _height, ImageBaseType.Rgb);
+
+      Layer layer = new Layer(_image, "test", _width, _height,
+			      ImageType.Rgb, 100, 
+			      LayerModeEffects.Normal);
+      _image.AddLayer(layer, 0);
+    }
+
+    [TearDown]
+    public void Exit()
+    {
+      // _image.Delete();
+    }
+
+    [Test]
+    public void NewFromPoints()
+    {
+      Vectors vectors = new Vectors(_image, "firstVector");
     }
   }
 }

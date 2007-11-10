@@ -1,3 +1,10 @@
+2007-11-10  Maurits  <maurits.rijk@gmail.com>
+
+	* lib/Vectors.cs
+	* lib/Stroke.cs: more GIMP 2.4 coverage 
+
+	* plug-ins/UnitTest/TestVectors.cs: more tests
+
 2007-11-09  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/GimpBaseEnums.cs: add new GIMP 2.4 enums

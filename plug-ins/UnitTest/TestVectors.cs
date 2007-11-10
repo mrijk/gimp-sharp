@@ -84,7 +84,7 @@ namespace Gimp
     public void GetSetTattoo()
     {
       Vectors vectors = new Vectors(_image, "firstVector");
-      Tattoo tattoo =  = new Tattoo(13);
+      Tattoo tattoo = new Tattoo(13);
       vectors.Tattoo = tattoo;
       Assert.AreEqual(tattoo, vectors.Tattoo);
     }
@@ -140,8 +140,92 @@ namespace Gimp
     public void Add()
     {
       Vectors vectors = new Vectors(_image, "firstVector");
+      Assert.AreEqual(0, _image.Vectors.Count);
       _image.AddVectors(vectors, -1);
+      Assert.AreEqual(1, _image.Vectors.Count);
       Assert.IsTrue(vectors.IsValid);
+    }
+
+    [Test]
+    public void Remove()
+    {
+      Vectors first = new Vectors(_image, "firstVector");
+      _image.AddVectors(first, -1);
+      _image.RemoveVectors(first);
+    }
+
+    [Test]
+    public void PositionOne()
+    {
+      Vectors first = new Vectors(_image, "firstVector");
+      Vectors second = new Vectors(_image, "secondVector");
+      _image.AddVectors(first, -1);
+      _image.AddVectors(second, -1);
+      Assert.AreEqual(1, _image.GetVectorsPosition(first));
+      Assert.AreEqual(0, _image.GetVectorsPosition(second));
+    }
+
+    [Test]
+    public void PositionTwo()
+    {
+      Vectors first = new Vectors(_image, "firstVector");
+      Vectors second = new Vectors(_image, "secondVector");
+      _image.AddVectors(first, -1);
+      _image.AddVectors(second, -1);
+      Assert.AreEqual(1, first.Position);
+      Assert.AreEqual(0, second.Position);
+    }
+
+    [Test]
+    public void LowerVectors()
+    {
+      Vectors first = new Vectors(_image, "firstVector");
+      Vectors second = new Vectors(_image, "secondVector");
+      _image.AddVectors(first, -1);
+      _image.AddVectors(second, -1);
+
+      _image.LowerVectors(second);
+      Assert.AreEqual(0, _image.GetVectorsPosition(first));
+      Assert.AreEqual(1, _image.GetVectorsPosition(second));
+    }
+
+    [Test]
+    public void RaiseVectors()
+    {
+      Vectors first = new Vectors(_image, "firstVector");
+      Vectors second = new Vectors(_image, "secondVector");
+      _image.AddVectors(first, -1);
+      _image.AddVectors(second, -1);
+
+      _image.RaiseVectors(first);
+      Assert.AreEqual(0, _image.GetVectorsPosition(first));
+      Assert.AreEqual(1, _image.GetVectorsPosition(second));
+    }
+
+    [Test]
+    public void LowerVectorsToBottom()
+    {
+      Vectors first = new Vectors(_image, "firstVector");
+      Vectors second = new Vectors(_image, "secondVector");
+      _image.AddVectors(first, -1);
+      _image.AddVectors(second, -1);
+
+      _image.LowerVectorsToBottom(second);
+      Assert.AreEqual(0, _image.GetVectorsPosition(first));
+      Assert.AreEqual(1, _image.GetVectorsPosition(second));
+    }
+
+    [Test]
+    public void RaiseVectorsToTop()
+    {
+      Vectors first = new Vectors(_image, "firstVector");
+      Vectors second = new Vectors(_image, "secondVector");
+      _image.AddVectors(first, -1);
+      _image.AddVectors(second, -1);
+
+      _image.RaiseVectorsToTop(first);
+      Assert.AreEqual(0, _image.GetVectorsPosition(first));
+      Assert.AreEqual(1, _image.GetVectorsPosition(second));
     }
   }
 }

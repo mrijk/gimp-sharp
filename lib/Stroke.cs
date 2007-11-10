@@ -53,16 +53,59 @@ namespace Gimp
       return gimp_vectors_stroke_get_length(_vectorsID, _strokeID, precision);
     }
 
-    public double GetPointAtDist(double dist, double precision,
-				 out double yPoint, out double slope, 
-				 out bool valid)
+    public CoordinateList<double> GetPoints(out bool closed)
     {
-      return gimp_vectors_stroke_get_point_at_dist(_vectorsID, _strokeID,
-						   dist, precision, out yPoint,
-						   out slope, out valid);
+      CoordinateList<double> controlpoints = new CoordinateList<double>();
+      VectorsStrokeType type;
+      int numPoints;
+      IntPtr ptr;
+
+      type = gimp_vectors_stroke_get_points(_vectorsID, _strokeID, 
+					    out numPoints, out ptr,
+					    out closed);
+      double[] dest = new double[2 * numPoints];
+      Marshal.Copy(ptr, dest, 0, 2 * numPoints);
+      for (int i = 0; i < 2 * numPoints; i += 2)
+	{
+	  controlpoints.Add(new Coordinate<double>(dest[i], dest[i + 1]));
+	}
+      return controlpoints;
     }
 
-    public void Scale(int scaleX, int scaleY)
+    public Coordinate<double> GetPointAtDist(double dist, double precision,
+					     out double slope, out bool valid)
+    {
+      double xPoint, yPoint;
+      if (!gimp_vectors_stroke_get_point_at_dist(_vectorsID, _strokeID,
+						 dist, precision, 
+						 out xPoint, out yPoint,
+						 out slope, out valid))
+	{
+	  throw new GimpSharpException();
+	}
+      return new Coordinate<double>(xPoint, yPoint);
+    }
+
+    public CoordinateList<double> Interpolate(double precision, 
+					      out bool closed)
+    {
+      CoordinateList<double> coords = new CoordinateList<double>();
+      int numCoords;
+
+      IntPtr ptr = gimp_vectors_stroke_interpolate(_vectorsID, _strokeID,
+						   precision, out numCoords,
+						   out closed);
+      // Fix me: move this to CoordinateList class
+      double[] dest = new double[2 * numCoords];
+      Marshal.Copy(ptr, dest, 0, 2 * numCoords);
+      for (int i = 0; i < 2 * numCoords; i += 2)
+	{
+	  coords.Add(new Coordinate<double>(dest[i], dest[i + 1]));
+	}
+      return coords;
+    }
+
+    public void Scale(double scaleX, double scaleY)
     {
       if (!gimp_vectors_stroke_scale(_vectorsID, _strokeID, scaleX, scaleY))
 	{
@@ -73,6 +116,32 @@ namespace Gimp
     public void Translate(int offX, int offY)
     {
       if (!gimp_vectors_stroke_translate(_vectorsID, _strokeID, offX, offY))
+	{
+	  throw new GimpSharpException();
+	}
+    }
+
+    public void Flip(OrientationType flipType, double axis)
+    {
+      if (!gimp_vectors_stroke_flip(_vectorsID, _strokeID, flipType, axis))
+	{
+	  throw new GimpSharpException();
+	}
+    }
+
+    public void FlipFree(double x1, double y1, double x2, double y2)
+    {
+      if (!gimp_vectors_stroke_flip_free(_vectorsID, _strokeID, x1, y1, 
+					 x2, y2))
+	{
+	  throw new GimpSharpException();
+	}
+    }
+
+    public void Rotate(double centerX, double centerY, double angle)
+    {
+      if (!gimp_vectors_stroke_rotate(_vectorsID, _strokeID, centerX, centerY,
+				      angle))
 	{
 	  throw new GimpSharpException();
 	}
@@ -113,17 +182,47 @@ namespace Gimp
 							int stroke_id,
 							double precision);
     [DllImport("libgimp-2.0-0.dll")]
-    extern static double gimp_vectors_stroke_get_point_at_dist
+    extern static VectorsStrokeType gimp_vectors_stroke_get_points(
+						      Int32 vectors_ID, 
+						      int stroke_id,
+						      out int num_points,
+						      out IntPtr controlpoints,
+						      out bool closed);
+    [DllImport("libgimp-2.0-0.dll")]
+    extern static bool gimp_vectors_stroke_get_point_at_dist
     (Int32 vectors_ID, int stroke_id, double dist, double precision,
-     out double y_point, out double slope, out bool valid);
+     out double x_point, out double y_point, out double slope, out bool valid);
+    [DllImport("libgimp-2.0-0.dll")]
+    extern static IntPtr gimp_vectors_stroke_interpolate(Int32 vectors_ID,
+							 int stroke_id,
+							 double precision,
+							 out int num_coords,
+							 out bool closed);
     [DllImport("libgimp-2.0-0.dll")]
     extern static bool gimp_vectors_stroke_scale(Int32 vectors_ID,
 						 int stroke_id,
-						 int scale_x, int scale_y);
+						 double scale_x, 
+						 double scale_y);
     [DllImport("libgimp-2.0-0.dll")]
     extern static bool gimp_vectors_stroke_translate(Int32 vectors_ID,
 						     int stroke_id,
 						     int off_x, int off_y);
+    [DllImport("libgimp-2.0-0.dll")]
+    extern static bool gimp_vectors_stroke_rotate(Int32 vectors_ID,
+						  int stroke_id,
+						  double center_x,
+						  double center_y,
+						  double angle);
+    [DllImport("libgimp-2.0-0.dll")]
+    extern static bool gimp_vectors_stroke_flip(Int32 vectors_ID,
+						int stroke_id,
+						OrientationType flip_type,
+						double axis);
+    [DllImport("libgimp-2.0-0.dll")]
+    extern static bool gimp_vectors_stroke_flip_free(Int32 vectors_ID,
+						     int stroke_id,
+						     double x1, double y1,
+						     double x2, double y2);
     [DllImport("libgimp-2.0-0.dll")]
     extern static bool gimp_vectors_stroke_conicto(Int32 vectors_ID,
 						   int stroke_id,

@@ -53,6 +53,11 @@ namespace Gimp
       get {return new Image(gimp_vectors_get_image(_ID));}
     }
 
+    public int Position
+    {
+      get {return Image.GetVectorsPosition(this);}
+    }
+
     public bool Linked
     {
       get {return gimp_vectors_get_linked(_ID);}
