@@ -1,3 +1,11 @@
+2007-11-12  Maurits  <maurits.rijk@gmail.com>
+
+	* lib/Stroke.cs: bugfix
+
+	* lib/Vectors.cs: implement gimp_vectors_get_strokes
+
+	* plug-ins/UnitTest/TestStroke.cs: more tests
+
 2007-11-10  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Vectors.cs

@@ -38,21 +38,78 @@ namespace Gimp
       _image = new Image(_width, _height, ImageBaseType.Rgb);
 
       Layer layer = new Layer(_image, "test", _width, _height,
-			      ImageType.Rgb, 100, 
-			      LayerModeEffects.Normal);
+			      ImageType.Rgb, 100, LayerModeEffects.Normal);
       _image.AddLayer(layer, 0);
     }
 
     [TearDown]
     public void Exit()
     {
-      // _image.Delete();
+      _image.Delete();
     }
 
     [Test]
     public void NewFromPoints()
     {
       Vectors vectors = new Vectors(_image, "firstVector");
+      CoordinateList<double> controlpoints = new CoordinateList<double>();
+      controlpoints.Add(new Coordinate<double>(50, 50));
+      controlpoints.Add(new Coordinate<double>(100, 100));
+      controlpoints.Add(new Coordinate<double>(150, 150));
+      Stroke stroke = vectors.NewFromPoints(VectorsStrokeType.Bezier,
+					    controlpoints, false);
+      Assert.AreEqual(1, vectors.Strokes.Count);
+    }
+
+    [Test]
+    public void GetPoints()
+    {
+      Vectors vectors = new Vectors(_image, "firstVector");
+      CoordinateList<double> controlpoints = new CoordinateList<double>();
+      controlpoints.Add(new Coordinate<double>(50, 50));
+      controlpoints.Add(new Coordinate<double>(100, 100));
+      controlpoints.Add(new Coordinate<double>(150, 150));
+      Stroke stroke = vectors.NewFromPoints(VectorsStrokeType.Bezier,
+					    controlpoints, false);
+      
+      bool closed;
+      CoordinateList<double> points = stroke.GetPoints(out closed);
+      Assert.AreEqual(controlpoints, points);
+      Assert.IsFalse(closed);
+    }
+
+    [Test]
+    public void Close()
+    {
+      Vectors vectors = new Vectors(_image, "firstVector");
+      CoordinateList<double> controlpoints = new CoordinateList<double>();
+      controlpoints.Add(new Coordinate<double>(50, 50));
+      controlpoints.Add(new Coordinate<double>(100, 100));
+      controlpoints.Add(new Coordinate<double>(150, 150));
+      Stroke stroke = vectors.NewFromPoints(VectorsStrokeType.Bezier,
+					    controlpoints, false);
+      stroke.Close();
+      bool closed;
+      CoordinateList<double> points = stroke.GetPoints(out closed);
+      Assert.IsTrue(closed);
+    }
+
+    [Test]
+    public void Scale()
+    {
+      Vectors vectors = new Vectors(_image, "firstVector");
+      CoordinateList<double> controlpoints = new CoordinateList<double>();
+      controlpoints.Add(new Coordinate<double>(50, 50));
+      controlpoints.Add(new Coordinate<double>(100, 100));
+      controlpoints.Add(new Coordinate<double>(150, 150));
+      Stroke stroke = vectors.NewFromPoints(VectorsStrokeType.Bezier,
+					    controlpoints, false);
+      double precision = 0.001;
+      stroke.Close();
+      double oldLength = stroke.GetLength(precision);
+      stroke.Scale(2, 2);
+      double newLength = stroke.GetLength(precision);
+      Assert.IsTrue(Math.Abs(2 * oldLength - newLength) < precision);
     }
   }
 }

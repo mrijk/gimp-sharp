@@ -65,7 +65,7 @@ namespace Gimp
 					    out closed);
       double[] dest = new double[2 * numPoints];
       Marshal.Copy(ptr, dest, 0, 2 * numPoints);
-      for (int i = 0; i < 2 * numPoints; i += 2)
+      for (int i = 0; i < numPoints; i += 2)
 	{
 	  controlpoints.Add(new Coordinate<double>(dest[i], dest[i + 1]));
 	}

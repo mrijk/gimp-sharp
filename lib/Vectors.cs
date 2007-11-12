@@ -20,6 +20,8 @@
 //
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace Gimp
@@ -46,6 +48,27 @@ namespace Gimp
     public bool IsValid
     {
       get {return gimp_vectors_is_valid(_ID);}
+    }
+
+    public List<Stroke> Strokes
+    {
+      get
+	{
+	  List<Stroke> list = new List<Stroke>();
+	  int numStrokes;
+	  IntPtr ptr = gimp_vectors_get_strokes(_ID, out numStrokes);
+	  if (numStrokes > 0)
+	    {
+	      int[] dest = new int[numStrokes];
+	      Marshal.Copy(ptr, dest, 0, numStrokes);
+	      
+	      foreach (int strokeID in dest)
+		{
+		  list.Add(new Stroke(_ID, strokeID));
+		}
+	    }
+	  return list;
+	}
     }
 
     public Image Image
@@ -205,6 +228,9 @@ namespace Gimp
     extern static Int32 gimp_vectors_new(Int32 image_ID, string name);
     [DllImport("libgimp-2.0-0.dll")]
     extern static bool gimp_vectors_is_valid(Int32 image_ID);
+    [DllImport("libgimp-2.0-0.dll")]
+    extern static IntPtr gimp_vectors_get_strokes(Int32 vectors_ID,
+						  out int num_strokes);
     [DllImport("libgimp-2.0-0.dll")]
     extern static Int32 gimp_vectors_get_image(Int32 vectors_ID);
     [DllImport("libgimp-2.0-0.dll")]
