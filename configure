@@ -1834,7 +1834,7 @@ fi
 
 # Define the identity of the package.
  PACKAGE=gimp-sharp
- VERSION=0.13
+ VERSION=0.14
 
 
 cat >>confdefs.h <<_ACEOF
@@ -19807,7 +19807,7 @@ echo "${ECHO_T}no" >&6
 fi
 
 
-VERSION="0.13"
+VERSION="0.14"
 
 
 # Extract the first word of "pkg-config", so it can be a program name with args.
@@ -20018,12 +20018,12 @@ if test -n "$PKG_CONFIG"; then
         pkg_cv_MONO_CFLAGS="$MONO_CFLAGS"
     else
         if test -n "$PKG_CONFIG" && \
-    { (echo "$as_me:$LINENO: \$PKG_CONFIG --exists --print-errors \"mono >= 1.2\"") >&5
-  ($PKG_CONFIG --exists --print-errors "mono >= 1.2") 2>&5
+    { (echo "$as_me:$LINENO: \$PKG_CONFIG --exists --print-errors \"mono >= 1.2.6\"") >&5
+  ($PKG_CONFIG --exists --print-errors "mono >= 1.2.6") 2>&5
   ac_status=$?
   echo "$as_me:$LINENO: \$? = $ac_status" >&5
   (exit $ac_status); }; then
-  pkg_cv_MONO_CFLAGS=`$PKG_CONFIG --cflags "mono >= 1.2" 2>/dev/null`
+  pkg_cv_MONO_CFLAGS=`$PKG_CONFIG --cflags "mono >= 1.2.6" 2>/dev/null`
 else
   pkg_failed=yes
 fi
@@ -20036,12 +20036,12 @@ if test -n "$PKG_CONFIG"; then
         pkg_cv_MONO_LIBS="$MONO_LIBS"
     else
         if test -n "$PKG_CONFIG" && \
-    { (echo "$as_me:$LINENO: \$PKG_CONFIG --exists --print-errors \"mono >= 1.2\"") >&5
-  ($PKG_CONFIG --exists --print-errors "mono >= 1.2") 2>&5
+    { (echo "$as_me:$LINENO: \$PKG_CONFIG --exists --print-errors \"mono >= 1.2.6\"") >&5
+  ($PKG_CONFIG --exists --print-errors "mono >= 1.2.6") 2>&5
   ac_status=$?
   echo "$as_me:$LINENO: \$? = $ac_status" >&5
   (exit $ac_status); }; then
-  pkg_cv_MONO_LIBS=`$PKG_CONFIG --libs "mono >= 1.2" 2>/dev/null`
+  pkg_cv_MONO_LIBS=`$PKG_CONFIG --libs "mono >= 1.2.6" 2>/dev/null`
 else
   pkg_failed=yes
 fi
@@ -20060,14 +20060,14 @@ else
         _pkg_short_errors_supported=no
 fi
         if test $_pkg_short_errors_supported = yes; then
-	        MONO_PKG_ERRORS=`$PKG_CONFIG --short-errors --errors-to-stdout --print-errors "mono >= 1.2"`
+	        MONO_PKG_ERRORS=`$PKG_CONFIG --short-errors --errors-to-stdout --print-errors "mono >= 1.2.6"`
         else
-	        MONO_PKG_ERRORS=`$PKG_CONFIG --errors-to-stdout --print-errors "mono >= 1.2"`
+	        MONO_PKG_ERRORS=`$PKG_CONFIG --errors-to-stdout --print-errors "mono >= 1.2.6"`
         fi
 	# Put the nasty error message in config.log where it belongs
 	echo "$MONO_PKG_ERRORS" >&5
 
-	{ { echo "$as_me:$LINENO: error: Package requirements (mono >= 1.2) were not met:
+	{ { echo "$as_me:$LINENO: error: Package requirements (mono >= 1.2.6) were not met:
 
 $MONO_PKG_ERRORS
 
@@ -20078,7 +20078,7 @@ Alternatively, you may set the environment variables MONO_CFLAGS
 and MONO_LIBS to avoid the need to call pkg-config.
 See the pkg-config man page for more details.
 " >&5
-echo "$as_me: error: Package requirements (mono >= 1.2) were not met:
+echo "$as_me: error: Package requirements (mono >= 1.2.6) were not met:
 
 $MONO_PKG_ERRORS
 

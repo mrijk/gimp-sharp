@@ -1,5 +1,5 @@
 // The SliceTool plug-in
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // RectangleSet.cs
 //
@@ -27,7 +27,7 @@ namespace Gimp.SliceTool
 {
   public class RectangleSet
   {
-    List<Rectangle> _set = new List<Rectangle>();
+    readonly List<Rectangle> _set = new List<Rectangle>();
     Rectangle _selected;
     bool _changed = false;
     
@@ -89,17 +89,13 @@ namespace Gimp.SliceTool
 	      created.Add(rectangle.Slice(slice));
 	    }
 	}
-      
-      foreach (Rectangle rectangle in created)
-	{
-	  Add(rectangle);
-	}
+
+      created._set.ForEach(rectangle => Add(rectangle));
     }
     
     public Rectangle Find(int x, int y)
     {
-      return _set.Find(delegate(Rectangle rectangle) 
-      {return rectangle.IsInside(x, y);});
+      return _set.Find(rectangle => rectangle.IsInside(x, y));
     }
     
     public Rectangle Select(int x, int y)
@@ -132,22 +128,20 @@ namespace Gimp.SliceTool
     public void WriteSlices(Image image, string path, string name, 
 			    bool useGlobalExtension)
     {
-      foreach (Rectangle rectangle in _set)
-	{
-	  rectangle.WriteSlice(image, path, name, useGlobalExtension);
-	}
+      _set.ForEach(rectangle =>
+		   rectangle.WriteSlice(image, path, name, 
+					useGlobalExtension));
     }
     
     public void Save(StreamWriter w)
     {
-      _set.ForEach(delegate(Rectangle rectangle) {rectangle.Save(w);}); 
+      _set.ForEach(rectangle => rectangle.Save(w));
       _changed = false;
     }
     
     public void Resolve(SliceSet hslices, SliceSet vslices)
     {
-      _set.ForEach(delegate(Rectangle rectangle) 
-      {rectangle.Resolve(hslices, vslices);});
+      _set.ForEach(rectangle => rectangle.Resolve(hslices, vslices));
     }
   }
 }

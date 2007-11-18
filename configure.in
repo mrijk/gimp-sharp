@@ -1,7 +1,7 @@
 dnl Process this file with autoconf to produce a configure script.
 
 AC_INIT(README)
-AM_INIT_AUTOMAKE(gimp-sharp, 0.13)
+AM_INIT_AUTOMAKE(gimp-sharp, 0.14)
 AM_PROG_LIBTOOL
 AM_CONFIG_HEADER(config.h)
 
@@ -9,7 +9,7 @@ dnl find and test the C compiler
 AC_PROG_INSTALL
 AC_PROG_MAKE_SET
       
-VERSION="0.13"
+VERSION="0.14"
 AC_SUBST(VERSION)
 
 AC_PATH_PROG(PKG_CONFIG, pkg-config, no)
@@ -23,7 +23,7 @@ if test "$MONO" = "no"; then
 fi
 AC_SUBST(MONO)
 
-PKG_CHECK_MODULES(MONO, mono >= 1.2)
+PKG_CHECK_MODULES(MONO, mono >= 1.2.6)
 AC_SUBST(MONO_CFLAGS)
 AC_SUBST(MONO_LIBS)
 

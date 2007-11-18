@@ -49,12 +49,7 @@ namespace Gimp.PicturePackage
 
     public Rectangle Find(Coordinate<double> c)
     {
-      foreach (Rectangle rectangle in _set)
-	{
-	  if (rectangle.Inside(c))
-	    return rectangle;
-	}
-      return null;
+      return _set.Find(rectangle => rectangle.Inside(c));
     }
 
     public bool Render(ProviderFactory factory, Renderer renderer)
@@ -88,12 +83,12 @@ namespace Gimp.PicturePackage
 	    {
 	      rectangle.Render(provider.GetImage(), renderer);
 	      provider.Release();
-				retVal = true;
+	      retVal = true;
 	    }
 	}
       factory.Cleanup();
       renderer.Cleanup();
-			return retVal;
+      return retVal;
     }
 
     public int Count

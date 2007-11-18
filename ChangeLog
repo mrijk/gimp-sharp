@@ -1,3 +1,22 @@
+2007-11-18  Maurits  <maurits.rijk@gmail.com>
+
+	* TODO
+	* NEWS: updated
+	
+	* plug-ins/PicturePackage/RectangleSet.cs: 
+	* plug-ins/AverageBlur/AverageBlur.cs: 
+	* plug-ins/SliceTool/SliceSet.cs
+	* plug-ins/SliceTool/RectangleSet.cs: use lambda functions in a
+	few places
+
+	* configure.in:
+	* INSTALL: bumped version nummer to 0.14. Minimum Mono requirement
+	is now 1.2.6
+
+2007-11-18  Maurits  <maurits.rijk@gmail.com>
+
+	* lib/ParamDefList.cs: make compatible with Mono 1.2.6
+
 2007-11-12  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Stroke.cs: bugfix

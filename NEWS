@@ -1,3 +1,7 @@
+Overview of Changes in Gimp# 0.14
+=================================
+- use C# 3.0 features
+
 Overview of Changes in Gimp# 0.13
 =================================
 - Photoshop actions plug-in can now play about 50 %

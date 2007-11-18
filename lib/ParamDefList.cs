@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk, Massimo Perga
+// Copyright (C) 2004-2007 Maurits Rijk, Massimo Perga
 //
 // ParamDefList.cs
 //
@@ -65,10 +65,6 @@ namespace Gimp
       get {return _set[index];}
     }
 
-    //
-    // Used for marshalling
-    //
-
     public void Marshall(IntPtr paramPtr, int n_params)
     {
       for (int i = 0; i < n_params; i++)
@@ -77,7 +73,7 @@ namespace Gimp
 	    Marshal.PtrToStructure(paramPtr, typeof(GimpParamCust));
 		
 	  GimpParam param = new GimpParam();
-	  param.type = (PDBArgType) paramCust.cust;
+	  param.type = (PDBArgType) paramCust.cust.ToInt32();
 	  param.data = paramCust.data;
 	  
 	  Type type = this[i].Type;
@@ -177,8 +173,7 @@ namespace Gimp
 	}
     }
 
-    public GimpParamDef[] GetGimpParamDef(bool uses_image,
-					  bool uses_drawable)
+    public GimpParamDef[] GetGimpParamDef(bool usesImage, bool usesDrawable)
     {
       GimpParamDef[] args = new GimpParamDef[_set.Count];
       int i = 0;

@@ -56,8 +56,7 @@ namespace Gimp.SliceTool
     {
       get 
 	{
-	  return _changed || 
-	    _set.Exists(delegate(Slice slice) {return slice.Changed;});	
+	  return _changed || _set.Exists(slice => slice.Changed);
 	}
       set {_changed = value;}
     }
@@ -83,20 +82,17 @@ namespace Gimp.SliceTool
 
     public void Draw(PreviewRenderer renderer)
     {
-      _set.ForEach(delegate(Slice slice) {slice.Draw(renderer);});
+      _set.ForEach(slice => slice.Draw(renderer));
     }
 
     public Slice Find(int x, int y)
     {
-      return _set.Find(delegate(Slice slice) {return slice.PointOn(x, y);});
+      return _set.Find(slice => slice.PointOn(x, y));
     }
 
     public bool IsEndPoint(Slice s)
     {
-      return _set.Exists(delegate(Slice slice)
-      {
-	return slice.Begin == s || slice.End == s;
-      });
+      return _set.Exists(slice => slice.Begin == s || slice.End == s);
     }
 
     public void Remove(Slice slice)
@@ -107,18 +103,18 @@ namespace Gimp.SliceTool
     public void SetIndex()
     {
       int index = 0;
-      _set.ForEach(delegate(Slice slice) {slice.Index = index++;});
+      _set.ForEach(slice => {slice.Index = index++;});
     }
 
     public void Save(StreamWriter w)
     {
-      _set.ForEach(delegate(Slice slice) {slice.Save(w);});
+      _set.ForEach(slice => slice.Save(w));
       _changed = false;
     }
 
     public void Resolve(SliceSet slices)
     {
-      _set.ForEach(delegate(Slice slice) {slice.Resolve(slices);});
+      _set.ForEach(slice => slice.Resolve(slices));
     }
   }
 }
