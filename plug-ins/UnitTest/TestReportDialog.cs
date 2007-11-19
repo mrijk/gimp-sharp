@@ -1,5 +1,5 @@
 // TestReportDialog for UnitTest plug-in
-// Copyright (C) 2006 Massimo Perga  massimo.perga@gmail.com
+// Copyright (C) 2006-2007 Massimo Perga  massimo.perga@gmail.com
 //
 // TestReportDialog.cs
 //
@@ -20,6 +20,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Gtk;
 
 namespace Gimp.UnitTest
@@ -28,13 +29,13 @@ namespace Gimp.UnitTest
   {
     GimpColorButton _active;
     GimpColorButton _inactive;
-    ArrayList				_resultsAL;
+    List<string>    _resultsAL;
     Entry filterEntry;
 
     TreeModelFilter filter;
 
     public TestReportDialog(int passedNumber, int failedNumber, 
-			    ArrayList resultsAL) :
+			    List<string> resultsAL) :
       base("UnitTest", "UnitTest", IntPtr.Zero, 0, null, "UnitTest", 
 	   Stock.Ok, ResponseType.Ok)
     {
@@ -62,7 +63,11 @@ namespace Gimp.UnitTest
       // Create an Entry used to filter the tree
       filterEntry = new Entry ();
       // Fire off an event when the text in the Entry changes
-      filterEntry.Changed += OnFilterEntryTextChanged;
+      filterEntry.Changed += delegate
+	{
+	  filter.Refilter ();
+	};
+
       // Create a nice label describing the Entry
       Label filterLabel = new Label ("Assembly Search:");
       // Put them both into a little box so they show up side by side
@@ -107,34 +112,35 @@ namespace Gimp.UnitTest
 
       // Add some data to the store
       for (int i = 0; i < _resultsAL.Count; i++)
-      {
-        string tmp = (string) _resultsAL[i];
-
-        int pos = tmp.IndexOf(":");
-        string assembly = tmp.Substring(0, pos);
-        // +2 because of the ': '
-        testReport = tmp.Substring(pos + 2, tmp.Length - (pos + 2));
-        resultListStore.AppendValues(assembly, testReport);
-      }
+	{
+	  string tmp = _resultsAL[i];
+	  
+	  int pos = tmp.IndexOf(":");
+	  string assembly = tmp.Substring(0, pos);
+	  // +2 because of the ': '
+	  testReport = tmp.Substring(pos + 2, tmp.Length - (pos + 2));
+	  resultListStore.AppendValues(assembly, testReport);
+	}
 
       // Set the renderer for the assembly cell
-      assemblyColumn.SetCellDataFunc (assemblyNameCell, new TreeCellDataFunc (RenderAssembly));
+      assemblyColumn.SetCellDataFunc(assemblyNameCell, 
+				     new TreeCellDataFunc(RenderAssembly));
       // Set the renderer for the result cell
-      resultColumn.SetCellDataFunc (resultReportCell, new TreeCellDataFunc (RenderResult));
+      resultColumn.SetCellDataFunc(resultReportCell, 
+				   new TreeCellDataFunc(RenderResult));
 
-
-      filter = new TreeModelFilter (resultListStore, null);
-      filter.VisibleFunc = new TreeModelFilterVisibleFunc (FilterTree);
+      filter = new TreeModelFilter(resultListStore, null);
+      filter.VisibleFunc = new TreeModelFilterVisibleFunc(FilterTree);
       tree.Model = filter;
       // Insert the TreeView inside a ScrolledWindow to add scrolling 
-      ScrolledWindow sw = new ScrolledWindow ();
+      ScrolledWindow sw = new ScrolledWindow();
       sw.ShadowType = ShadowType.EtchedIn;
-      sw.SetPolicy (PolicyType.Automatic, PolicyType.Automatic);
+      sw.SetPolicy(PolicyType.Automatic, PolicyType.Automatic);
       sw.Add(tree);
 
       HBox swBox = new HBox();
 
-      swBox.PackStart (sw, true, true, 20);
+      swBox.PackStart(sw, true, true, 20);
 
       // Attach the labels to the table
       table.AttachAligned(0, 0, "", 0.0, 0.5, passedLabel, 1, true);
@@ -162,13 +168,7 @@ namespace Gimp.UnitTest
       set {_inactive.Color = value;}
     }
 
-    private void OnFilterEntryTextChanged (object o, System.EventArgs args)
-    {
-      // Since the filter text changed, tell the filter to re-determine which rows to display
-      filter.Refilter ();
-    }
-
-    private bool FilterTree (TreeModel model, TreeIter iter)
+    bool FilterTree(TreeModel model, TreeIter iter)
     {
       string testName = model.GetValue (iter, 0).ToString ();
 
@@ -178,24 +178,19 @@ namespace Gimp.UnitTest
       return (testName.IndexOf(filterEntry.Text) > -1);
     }
 
-    private void RenderAssembly (TreeViewColumn column, CellRenderer cell, 
-				 TreeModel model, TreeIter iter)
+    void RenderAssembly(TreeViewColumn column, CellRenderer cell, 
+			TreeModel model, TreeIter iter)
     {
-      string assembly = (string) model.GetValue (iter, 0);
-      string result = (string) model.GetValue (iter, 1);
-      if (result.CompareTo("OK") == 0) 
-      {
-        (cell as CellRendererText).Foreground = "darkgreen";
-      } 
-      else 
-      {
-        (cell as CellRendererText).Foreground = "red";
-      }
-      (cell as CellRendererText).Text = assembly;
+      string assembly = (string) model.GetValue(iter, 0);
+      string result = (string) model.GetValue(iter, 1);
+      CellRendererText text = cell as CellRendererText;
+
+      text.Foreground = (result == "OK") ? "darkgreen" : "red";
+      text.Text = assembly;
     }
 
-    private void RenderResult (TreeViewColumn column, CellRenderer cell, 
-			       TreeModel model, TreeIter iter)
+    void RenderResult(TreeViewColumn column, CellRenderer cell, 
+		      TreeModel model, TreeIter iter)
     {
       string result = (string) model.GetValue (iter, 1);
 

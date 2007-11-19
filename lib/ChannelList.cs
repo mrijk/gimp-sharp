@@ -39,11 +39,13 @@ namespace Gimp
 	{
 	  int[] dest = new int[num_channels];
 	  Marshal.Copy(list, dest, 0, num_channels);
-	  
+
 	  foreach (int ChannelID in dest)
 	    {
 	      _list.Add(new Channel(ChannelID));
 	    }
+
+	  // Array.ForEach(dest, ChannelID => _list.Add(new Channel(ChannelID)));
 	}
     }
 
@@ -56,14 +58,7 @@ namespace Gimp
     {
       get 
 	{
-	  foreach (Channel channel in _list)
-	    {
-	      if (channel.Name == name)
-		{
-		  return channel;
-		}
-	    }
-	  return null;
+	  return _list.Find(channel => channel.Name == name);
 	}
     }
 

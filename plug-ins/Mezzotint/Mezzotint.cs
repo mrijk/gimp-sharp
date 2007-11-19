@@ -90,7 +90,6 @@ namespace Gimp.Mezzotint
     void UpdatePreview(object sender, EventArgs e)
     {
       Rectangle rectangle = _preview.Bounds;
-      Console.WriteLine("UpdatePreview: " + rectangle);
 
       int rowStride = rectangle.Width * 3;
       byte[] buffer = new byte[rectangle.Area * 3];	// Fix me!
@@ -115,11 +114,7 @@ namespace Gimp.Mezzotint
     {
       RgnIterator iter = new RgnIterator(drawable, RunMode.Interactive);
       iter.Progress = new Progress(_("Mezzotint"));
-
-      iter.IterateSrcDest(delegate (Pixel pixel)
-      {
-	return DoMezzotint(pixel);
-      });
+      iter.IterateSrcDest(pixel => DoMezzotint(pixel));
 
       Display.DisplaysFlush();
     }

@@ -104,10 +104,7 @@ namespace Gimp
 
       BrushList brushes = new BrushList("Bird");
       Assert.AreEqual(1, brushes.Count);
-      foreach (Brush bird in brushes)
-	{
-	  Assert.IsFalse(bird.Editable);
-	}
+      brushes.ForEach(bird => Assert.IsFalse(brush.Editable));
     }
   }
 }

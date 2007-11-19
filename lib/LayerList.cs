@@ -78,14 +78,7 @@ namespace Gimp
     {
       get 
 	{
-	  foreach (Layer layer in _list)
-	    {
-	      if (layer.Name == name)
-		{
-		  return layer;
-		}
-	    }
-	  return null;
+	  return _list.Find(layer => layer.Name == name);
 	}
     }
 

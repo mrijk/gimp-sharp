@@ -129,7 +129,6 @@ namespace Gimp
 
       IntPtr paramPtr = return_vals;
 
-
       for (int i = 0; i < n_return_vals; i++)
 	{
 	  foo = this[i].GetGimpParam();
@@ -148,14 +147,7 @@ namespace Gimp
 
     public ParamDef Lookup(string name)
     {
-      foreach (ParamDef p in _set)
-	{
-	  if (p.Name == name)
-	    {
-	      return p;
-	    }
-	}
-      return null;
+      return _set.Find(p => p.Name == name);
     }
 
     public object GetValue(string name)

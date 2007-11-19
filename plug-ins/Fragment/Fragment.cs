@@ -59,7 +59,6 @@ namespace Gimp.Fragment
       using (PixelFetcher pf = new PixelFetcher(drawable))
 	{
 	  pf.EdgeMode = EdgeMode.Black;
-	  
 	  iter.IterateDest(delegate (int x, int y) 
 	  {
 	    return (pf[y - 4, x - 4] +

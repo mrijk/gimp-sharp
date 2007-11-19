@@ -1,10 +1,25 @@
+2007-11-19  Maurits  <maurits.rijk@gmail.com>
+
+	* plug-ins/UnitTest/EventCollector.cs
+	* plug-ins/UnitTest/TestReportDialog.cs: get rid of ArrayList
+
+	* lib/BrushList.cs: added ForEach method
+
+	* plug-ins/UnitTest/TestBrush.cs: ...and use it
+
+	* plug-ins/Mezzotint/Mezzotint.cs
+	* lib/ParamDefList.cs: 
+	* lib/ChannelList.cs
+	* lib/LayerList.cs: use lambda functions in a
+	few places
+
 2007-11-18  Maurits  <maurits.rijk@gmail.com>
 
 	* TODO
 	* NEWS: updated
 	
-	* plug-ins/PicturePackage/RectangleSet.cs: 
-	* plug-ins/AverageBlur/AverageBlur.cs: 
+	* plug-ins/PicturePackage/RectangleSet.cs
+	* plug-ins/AverageBlur/AverageBlur.cs
 	* plug-ins/SliceTool/SliceSet.cs
 	* plug-ins/SliceTool/RectangleSet.cs: use lambda functions in a
 	few places

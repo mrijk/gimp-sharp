@@ -27,7 +27,7 @@ namespace Gimp
 {
   public class CoordinateList<T>
   {
-    List<Coordinate<T>> _list = new List<Coordinate<T>>();
+    readonly List<Coordinate<T>> _list = new List<Coordinate<T>>();
 
     public IEnumerator<Coordinate<T>> GetEnumerator()
     {
@@ -106,12 +106,11 @@ namespace Gimp
       T[] array = new T[Count * 2];
       
       int i = 0;
-      foreach (Coordinate<T> coordinate in _list)
+      _list.ForEach(coordinate =>
 	{
 	  array[i++] = coordinate.X;
 	  array[i++] = coordinate.Y;
-	}
-      
+	});
       return array;
     }
   }

@@ -20,6 +20,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using NUnit.Core;
 using NUnit.Util;
@@ -33,7 +34,7 @@ namespace Gimp.UnitTest
     int _nrOk = 0;
     int _nrFailed = 0;
     UnitTest  _unitTestPlugin;
-    readonly ArrayList resultsAL;
+    readonly List<string> _resultsAL;
 
     public EventCollector(TextWriter outWriter, TextWriter errorWriter, 
 			  UnitTest unitTestPlugin ) :
@@ -44,7 +45,7 @@ namespace Gimp.UnitTest
 
     public EventCollector(TextWriter outWriter, TextWriter errorWriter )
     {
-      resultsAL = new ArrayList();
+      _resultsAL = new List<string>();
     }
 
     public void RunStarted(Test[] tests)
@@ -54,7 +55,7 @@ namespace Gimp.UnitTest
     public void RunFinished(TestResult[] results)
     {
       TestReportDialog dialog = new TestReportDialog(_nrOk, _nrFailed, 
-						     resultsAL);
+						     _resultsAL);
       TestReportDialog.ShowHelpButton(false);
       dialog.ShowAll();
       ResponseType type = dialog.Run();
@@ -74,16 +75,14 @@ namespace Gimp.UnitTest
     {
       if (testResult.Executed)
 	{
-	  if(testResult.IsFailure)
+	  if (testResult.IsFailure)
 	    {
-          //Console.WriteLine(testResult.ToString() + " failed");
-          //new Message (testResult.ToString() + " failed");
-	      resultsAL.Add(testResult.ToString());
+	      _resultsAL.Add(testResult.ToString());
 	      _nrFailed++;
 	    }
 	  else
 	    {
-	      resultsAL.Add(testResult.ToString() + "OK");
+	      _resultsAL.Add(testResult.ToString() + "OK");
 	      _nrOk++;
 	    }
 	  _unitTestPlugin.UpdateProgressStatus();
@@ -96,14 +95,13 @@ namespace Gimp.UnitTest
 
     public void SuiteStarted(TestSuite suite) 
     {
-      //				Console.WriteLine("SuiteStarted");
     }
 
     public void SuiteFinished(TestSuiteResult suiteResult) 
     {
     }
     
-    public void UnhandledException( Exception exception )
+    public void UnhandledException(Exception exception)
     {
       Console.WriteLine("UnhandledException");
     }
