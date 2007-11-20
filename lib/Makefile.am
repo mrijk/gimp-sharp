@@ -108,7 +108,7 @@ EXTRA_DIST = $(MYSOURCES) $(LIBRARY).config
 all: $(LIBRARY)
 
 $(LIBRARY): $(MYSOURCES)
-	$(CSC) -target:library $(ASSEMBLIES) $(MYSOURCES) -out:$(LIBRARY)
+	$(CSC) $(CSC_FLAGS) -target:library $(ASSEMBLIES) $(MYSOURCES) -out:$(LIBRARY)
 
 clean:
 	rm -f gimp-sharp.dll

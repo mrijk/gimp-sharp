@@ -31,20 +31,15 @@ namespace Gimp.PicturePackage
     protected PicturePackageFrame(uint rows, uint columns, string label) : 
       base(label)
     {
-      _table = new GimpTable(rows, columns, false);
-      _table.ColumnSpacing = 6;
-      _table.RowSpacing = 6;
+      _table = new GimpTable(rows, columns, false) {
+	ColumnSpacing = 6, RowSpacing = 6};
       Add(_table);
     }
 
     protected ComboBox CreateComboBox(params string[] items)
     {
       ComboBox combo = ComboBox.NewText();
-
-      foreach (string item in items)
-	{
-	  combo.AppendText(item);
-	}
+      Array.ForEach(items, item => combo.AppendText(item));
       combo.Active = 1;
 
       return combo;

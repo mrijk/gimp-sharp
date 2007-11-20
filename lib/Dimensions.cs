@@ -25,30 +25,18 @@ namespace Gimp
 {
   public struct Dimensions
   {
-    int _width;
-    int _height;
+    public int Width {get; set;}
+    public int Height {get; set;}
 
     public Dimensions(int width, int height)
     {
-      _width = width;
-      _height = height;
-    }
-
-    public int Width
-    {
-      get {return _width;}
-      set {_width = value;}
-    }
-
-    public int Height
-    {
-      get {return _height;}
-      set {_height = value;}
+      Width = width;
+      Height = height;
     }
 
     public bool IsInside(int x, int y)
     {
-      return x >= 0 && x < _width && y >= 0 && y < _height;
+      return x >= 0 && x < Width && y >= 0 && y < Height;
     }
 
     public override bool Equals(object o)
@@ -56,15 +44,15 @@ namespace Gimp
       if (o is Dimensions)
 	{
 	  Dimensions dimensions = (Dimensions) o;
-	  return dimensions._width == _width &&
-	    dimensions._height == _height;
+	  return dimensions.Width == Width &&
+	    dimensions.Height == Height;
 	}
       return false;
     }
 
     public override int GetHashCode()
     {
-      return _width + _height;
+      return Width + Height;
     }
 
     public static bool operator==(Dimensions dimensions1, 

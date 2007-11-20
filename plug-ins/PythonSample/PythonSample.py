@@ -44,7 +44,7 @@ class PythonSample(PythonPlugin):
         procedure.MenuPath = "<Image>/Filters/Generic"
 
         # Fix me: I haven't figure out how to embed a resource with IronPython
-        procedure.IconFile = "PythonSample.png"
+        # procedure.IconFile = "PythonSample.png"
 
         yield procedure
 

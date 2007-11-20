@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // PageSize.cs
 //
@@ -24,30 +24,20 @@ namespace Gimp.PicturePackage
 {
   public class PageSize : IComparable
   {
-    readonly double _width;
-    readonly double _height;
+    public double Width {get; private set;}
+    public double Height {get; private set;}
 
     public PageSize(double width, double height)
     {
-      _width = width;
-      _height = height;
-    }
-
-    public double Width
-    {
-      get {return _width;}
-    }
-
-    public double Height
-    {
-      get {return _height;}
+      Width = width;
+      Height = height;
     }
 
     public int CompareTo(object obj)
     {
       PageSize size = obj as PageSize;
-      int result = _width.CompareTo(size.Width);
-      return (result == 0) ? _height.CompareTo(size.Height) : result;
+      int result = Width.CompareTo(size.Width);
+      return (result == 0) ? Height.CompareTo(size.Height) : result;
     }
   }
 }

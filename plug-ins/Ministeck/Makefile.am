@@ -26,7 +26,7 @@ SUBDIRS = po
 CLEANFILES = Ministeck.exe
 
 Ministeck.exe : $(MYSOURCES) Ministeck.png $(GIMPSHARPLIB)
-	$(CSC) $(MYSOURCES) /resource:Ministeck.png -out:$@ $(ASSEMBLIES)
+	$(CSC) $(CSC_FLAGS) $(MYSOURCES) /resource:Ministeck.png -out:$@ $(ASSEMBLIES)
 
 install:
 	$(INSTALL_DATA) Ministeck.exe $(DESTDIR)$(GIMPPLUGINDIR)

@@ -37,7 +37,7 @@ SUBDIRS = po
 CLEANFILES = PicturePackage.exe
 
 PicturePackage.exe : $(MYSOURCES) picture-package.xml PicturePackage.png $(GIMPSHARPLIB)
-	$(CSC) $(MYSOURCES) /resource:picture-package.xml /resource:PicturePackage.png -out:$@ $(ASSEMBLIES)
+	$(CSC) $(CSC_FLAGS) $(MYSOURCES) /resource:picture-package.xml /resource:PicturePackage.png -out:$@ $(ASSEMBLIES)
 
 install:
 	$(INSTALL_DATA) PicturePackage.exe $(DESTDIR)$(GIMPPLUGINDIR)

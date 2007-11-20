@@ -28,21 +28,21 @@ namespace Gimp.PicturePackage
   public class Layout
   {
     RectangleSet _rectangles = new RectangleSet();
-    readonly string _name;
+    public string Name {get; private set;}
+    public Unit Unit {get; private set;}
     readonly double _width;
     readonly double _height;
-    readonly Unit   _unit;
 
     public Layout(XmlNode node)
     {
       CultureInfo cultureInfo = new CultureInfo("en-US");
       XmlAttributeCollection attributes = node.Attributes;
       XmlAttribute name = (XmlAttribute) attributes.GetNamedItem("name");
-      _name = name.Value;
+      Name = name.Value;
 
       XmlAttribute width = (XmlAttribute) attributes.GetNamedItem("width");
-      _width = (width == null) ? 0 :  Convert.ToDouble(width.Value,
-						       cultureInfo);
+      _width = (width == null) ? 0 : Convert.ToDouble(width.Value,
+						      cultureInfo);
 
       XmlAttribute height = (XmlAttribute) attributes.GetNamedItem("height");
       _height = (height == null) ? 0 : Convert.ToDouble(height.Value,
@@ -51,17 +51,17 @@ namespace Gimp.PicturePackage
       XmlAttribute units = (XmlAttribute) attributes.GetNamedItem("units");
       if (units == null)
 	{
-	  _unit = Unit.Inch;
+	  Unit = Unit.Inch;
 	}
       else 
 	{
 	  if (units.Value == "inches")
 	    {
-	      _unit = Unit.Inch;
+	      Unit = Unit.Inch;
 	    }
 	  else if (units.Value == "pixels")
 	    {
-	      _unit = Unit.Pixel;
+	      Unit = Unit.Pixel;
 	    }
 	}
 	  
@@ -89,7 +89,7 @@ namespace Gimp.PicturePackage
 
     public PageSize GetPageSize(int resolution)
     {
-      if (_unit == Unit.Inch)
+      if (Unit == Unit.Inch)
 	{
 	  return new PageSize(_width, _height);
 	}
@@ -101,7 +101,7 @@ namespace Gimp.PicturePackage
 
     public PageSize GetPageSizeInPixels(int resolution)
     {
-      if (_unit == Unit.Inch)
+      if (Unit == Unit.Inch)
 	{
 	  return new PageSize(_width * resolution, _height * resolution);
 	}
@@ -122,16 +122,6 @@ namespace Gimp.PicturePackage
       y = (ph - h) / 2;
 
       return zoom;
-    }
-
-    public string Name
-    {
-      get {return _name;}
-    }
-
-    public Unit Unit
-    {
-      get {return _unit;}
     }
   }
 }

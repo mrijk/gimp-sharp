@@ -34,6 +34,11 @@ namespace Gimp
       return _list.GetEnumerator();
     }
 
+    public void ForEach(Action<Coordinate<T>> action)
+    {
+      _list.ForEach(action);
+    }
+
     public int Count
     {
       get {return _list.Count;}

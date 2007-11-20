@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // Coordinate.cs
 //
@@ -25,35 +25,23 @@ namespace Gimp
 {
   public class Coordinate<T>
   {
-    T _x;
-    T _y;
-	
+    public T X {get; set;}	
+    public T Y {get; set;}
+
     public Coordinate()
     {
     }
 	
     public Coordinate(T x, T y)
     {
-      _x = x;
-      _y = y;
+      X = x;
+      Y = y;
     }
 
     public Coordinate(Coordinate<T> c)
     {
-      _x = c._x;
-      _y = c._y;
-    }
-	
-    public T X
-    {
-      get {return _x;}
-      set {_x = value;}
-    }
-	
-    public T Y
-    {
-      get {return _y;}
-      set {_y = value;}
+      X = c.X;
+      Y = c.Y;
     }
 
     public override bool Equals(object o)
@@ -61,14 +49,14 @@ namespace Gimp
       if (o is Coordinate<T>)
 	{
 	  Coordinate<T> coordinate = o as Coordinate<T>;
-	  return coordinate._x.Equals(_x) && coordinate._y.Equals(_y);
+	  return coordinate.X.Equals(X) && coordinate.Y.Equals(Y);
 	}
       return false;
     }
 
     public override int GetHashCode()
     {
-      return _x.GetHashCode() + _y.GetHashCode();
+      return X.GetHashCode() + Y.GetHashCode();
     }
 
     public static bool operator==(Coordinate<T> coordinate1, 
@@ -85,7 +73,7 @@ namespace Gimp
 
     public override string ToString()
     {
-      return string.Format("({0}, {1})", _x, _y);
+      return string.Format("({0}, {1})", X, Y);
     }
   }
 }

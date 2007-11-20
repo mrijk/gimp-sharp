@@ -23,25 +23,13 @@ namespace Gimp
 {
   public struct Resolution
   {
-    double _x;
-    double _y;
+    public double X {get; set;}
+    public double Y {get; set;}
 
     public Resolution(double x, double y)
     {
-      _x = x;
-      _y = y;
-    }
-
-    public double X
-    {
-      get {return _x;}
-      set {_x = value;}
-    }
-
-    public double Y
-    {
-      get {return _y;}
-      set {_y = value;}
+      X = x;
+      Y = y;
     }
   }
 }

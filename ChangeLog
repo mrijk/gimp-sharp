@@ -1,3 +1,34 @@
+2007-11-20  Maurits  <maurits.rijk@gmail.com>
+
+	* plug-ins/PicturePackage/PicturePackageFrame.cs
+	* plug-ins/PicturePackage/LayoutSet.cs
+	* plug-ins/PicturePackage/Layout.cs
+	* plug-ins/PicturePackage/FileImageProviderFactory.cs
+	* plug-ins/PicturePackage/FileImageProvider.cs
+	* plug-ins/PicturePackage/DirImageProviderFactory.cs
+	* plug-ins/PicturePackage/ProviderFactory.cs: minor clean-up
+
+	* plug-ins/PicturePackage/PageSize.cs: use C# 3.0 features
+
+	* plug-ins/PicturePackage/Makefile.am: use CSC_FLAGS
+
+	* lib/CoordinateList.cs: added ForEach method...
+
+	* plug-ins/Ministeck/Shape.cs: ... and use it
+
+	* plug-ins/Pointillize/Makefile.am: use CSC_FLAGS
+
+	* plug-ins/Pointillize/ColorCoordinate.cs: more C# 3.0 features
+
+	* lib/Resolution.cs
+	* lib/DoubleOffset.cs
+	* lib/Dimensions.cs
+	* lib/Coordinate.cs: more C# 3.0 features
+
+	* configure.in: enable -langversion:linq in gmcs
+
+	* lib/Makefile.am: use CSC_FLAGS
+
 2007-11-19  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/UnitTest/EventCollector.cs

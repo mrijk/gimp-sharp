@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // FileImageProviderFactory.cs
 //
@@ -18,13 +18,11 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-
 namespace Gimp.PicturePackage
 {
   public class FileImageProviderFactory : ProviderFactory
   {
-    ImageProvider _provider;
+    readonly ImageProvider _provider;
 
     public FileImageProviderFactory(string filename)
     {
@@ -38,7 +36,6 @@ namespace Gimp.PicturePackage
 
     public override void Cleanup()
     {
-//      Console.WriteLine("Cleanup: " + _provider);
       _provider.Release();
     }
   }

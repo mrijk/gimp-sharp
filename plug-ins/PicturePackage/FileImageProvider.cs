@@ -28,10 +28,8 @@ namespace Gimp.PicturePackage
     readonly string _filename;
     readonly string _rawFilename;
 
-    public FileImageProvider(string filename)
+    public FileImageProvider(string filename) : this(filename, filename)
     {
-      _filename = filename;
-      _rawFilename = filename;
     }
 
     public FileImageProvider(string filename, string rawFilename)

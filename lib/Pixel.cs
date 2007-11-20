@@ -35,8 +35,6 @@ namespace Gimp
     readonly int _bpp;
     readonly int _bppWithoutAlpha;
     readonly int[] _rgb;
-    int _x;
-    int _y;
 
     public Pixel(int bpp)
     {
@@ -120,7 +118,7 @@ namespace Gimp
 
     public void Set(Pixel pixel)
     {
-      _rgn[_y, _x] = pixel;
+      _rgn[Y, X] = pixel;
     }
 
     public bool IsSameColor(Pixel pixel)
@@ -182,17 +180,9 @@ namespace Gimp
 	}
     }
 
-    public int X
-    {
-      get {return _x;}
-      set {_x = value;}
-    }
+    public int X {get; set;}
 	
-    public int Y
-    {
-      get {return _y;}
-      set {_y = value;}
-    }
+    public int Y {get; set;}
 
     public int this[int index]
     {

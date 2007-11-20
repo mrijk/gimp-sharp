@@ -60,10 +60,9 @@ namespace Gimp.PicturePackage
     
     void LoadXmlDocument(XmlDocument doc)
     {
-      XmlNodeList nodeList;
       XmlElement root = doc.DocumentElement;
 
-      nodeList = root.SelectNodes("/picture-package/layout");
+      XmlNodeList nodeList = root.SelectNodes("/picture-package/layout");
 
       foreach (XmlNode layout in nodeList)
 	{
@@ -105,10 +104,7 @@ namespace Gimp.PicturePackage
     public PageSizeSet GetPageSizeSet(int resolution)
     {
       PageSizeSet set = new PageSizeSet();
-      foreach (Layout layout in _set)
-	{
-	  set.Add(layout.GetPageSize(resolution));
-	}
+      _set.ForEach(layout => set.Add(layout.GetPageSize(resolution)));
       return set;
     }
 

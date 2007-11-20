@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // DirImageProviderFactory.cs
 //
@@ -25,7 +25,7 @@ namespace Gimp.PicturePackage
 {
   public class DirImageProviderFactory : ProviderFactory
   {
-    string[] _files;
+    readonly string[] _files;
     int _index = 0;
 
     public DirImageProviderFactory(string parent, bool recursive)
@@ -42,13 +42,13 @@ namespace Gimp.PicturePackage
     {
       while (_index < _files.Length)
 	{
-	string file = _files[_index++];
-
-	FileImageProvider provider = new FileImageProvider(file, file);
-	if (provider.GetImage() != null)
-	  {
-	  return provider;
-	  }
+	  string file = _files[_index++];
+	  
+	  FileImageProvider provider = new FileImageProvider(file, file);
+	  if (provider.GetImage() != null)
+	    {
+	      return provider;
+	    }
 	}
       return null;
     }
@@ -58,4 +58,4 @@ namespace Gimp.PicturePackage
       provider.Release();
     }
   }
-  }
+}

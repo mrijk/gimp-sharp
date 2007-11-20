@@ -1,5 +1,5 @@
 // The Pointillize plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // ColorCoordinate.cs
 //
@@ -24,16 +24,11 @@ namespace Gimp.Pointillize
 {
   public class ColorCoordinate : Coordinate<int>
   {
-    Pixel _color;
+    public Pixel Color {get; private set;}
 
     public ColorCoordinate(Coordinate<int> c, Pixel color) : base(c)
     {
-      _color = color;
-    }
-
-    public Pixel Color
-    {
-      get {return _color;}
+      Color = color;
     }
 
     public int Distance(int x, int y)

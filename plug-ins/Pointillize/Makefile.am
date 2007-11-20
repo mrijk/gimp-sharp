@@ -17,7 +17,7 @@ SUBDIRS = po
 CLEANFILES = Pointillize.exe
 
 Pointillize.exe : $(MYSOURCES) Pointillize.png $(GIMPSHARPLIB)
-	$(CSC) $(MYSOURCES) /resource:Pointillize.png -out:$@ $(ASSEMBLIES)
+	$(CSC) $(CSC_FLAGS) $(MYSOURCES) /resource:Pointillize.png -out:$@ $(ASSEMBLIES)
 
 install:
 	$(INSTALL_DATA) Pointillize.exe $(DESTDIR)$(GIMPPLUGINDIR)

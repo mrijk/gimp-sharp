@@ -1,5 +1,5 @@
 // The Ministeck plug-in
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // Shape.cs
 //
@@ -107,10 +107,7 @@ namespace Gimp.Ministeck
     {
       Fill(x, y, shape);
       A[x, y] = true;
-      foreach (Coordinate<int> c in shape)
-	{
-	  A[x + c.X, y + c.Y] = true;
-	}
+      shape.ForEach(c => {A[x + c.X, y + c.Y] = true;});
     }
 
     protected void LineStart(int x, int y)
