@@ -1,3 +1,11 @@
+2007-11-21  Maurits  <maurits.rijk@gmail.com>
+
+	* lib/DrawableList.cs: new file
+
+	* lib/Makefile.am: changed accordingly
+
+	* lib/ImageList.cs: use C# 3.0 features
+
 2007-11-20  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PicturePackage/PicturePackageFrame.cs

@@ -21,6 +21,7 @@ MYSOURCES = 				\
 	Display.cs 			\
 	DoubleOffset.cs			\
 	Drawable.cs			\
+	DrawableList.cs			\
 	DrawableComboBox.cs		\
 	DrawablePreview.cs		\
 	EllipseSelectTool.cs		\

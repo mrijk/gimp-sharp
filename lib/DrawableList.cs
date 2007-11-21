@@ -1,7 +1,7 @@
 // GIMP# - A C# wrapper around the GIMP Library
 // Copyright (C) 2004-2007 Maurits Rijk
 //
-// ImageList.cs
+// DrawableList.cs
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -26,39 +26,16 @@ using System.Runtime.InteropServices;
 
 namespace Gimp
 {
-  public sealed class ImageList
+  abstract class DrawableList<T> where T : Drawable
   {
-    readonly List<Image> _list = new List<Image>();
+    readonly List<T> _list = new List<T>();
 
-    public ImageList()
-    {
-      Refresh();
-    }
-
-    public void Refresh()
-    {
-      _list.Clear();
-      int numImages;
-      IntPtr list = gimp_image_list(out numImages);
-
-      if (numImages != 0)
-	{
-	  int[] dest = new int[numImages];
-	  Marshal.Copy(list, dest, 0, numImages);
-	  
-	  foreach (int imageID in dest)
-	    {
-	      _list.Add(new Image(imageID));
-	    }
-	}
-    }
-
-    public IEnumerator<Image> GetEnumerator()
+    public IEnumerator<T> GetEnumerator()
     {
       return _list.GetEnumerator();
     }
 
-    public void ForEach(Action<Image> action)
+    public void ForEach(Action<T> action)
     {
       _list.ForEach(action);
     }
@@ -68,17 +45,19 @@ namespace Gimp
       get {return _list.Count;}
     }
 
-    public Image this[int index]
+    public T this[int index]
     {
       get {return _list[index];}
     }
 
-    public int GetIndex(Image key)
+    public T this[string name]
     {
-      return _list.FindIndex(image => image.ID == key.ID);
+      get {return _list.Find(drawable => drawable.Name == name);}
     }
 
-    [DllImport("libgimp-2.0-0.dll")]
-    static extern IntPtr gimp_image_list(out int num_images);
+    public int GetIndex(T key)
+    {
+      return _list.FindIndex(drawable => drawable.Name == key.Name);
+    }
   }
 }
