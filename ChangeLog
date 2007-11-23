@@ -1,3 +1,13 @@
+2007-11-23  Maurits  <maurits.rijk@gmail.com>
+
+	* lib/ParamDefList.cs
+	* lib/Spacing.cs: clean-up using C# 3.0 features
+
+	* lib/DrawableList.cs: make public
+
+	* lib/ChannelList.cs
+	* lib/LayerList.cs: derive from DrawableList
+
 2007-11-21  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/DrawableList.cs: new file

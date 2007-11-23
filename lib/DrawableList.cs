@@ -26,13 +26,18 @@ using System.Runtime.InteropServices;
 
 namespace Gimp
 {
-  abstract class DrawableList<T> where T : Drawable
+  public abstract class DrawableList<T> where T : Drawable
   {
     readonly List<T> _list = new List<T>();
 
     public IEnumerator<T> GetEnumerator()
     {
       return _list.GetEnumerator();
+    }
+
+    protected void Add(T drawable)
+    {
+      _list.Add(drawable);
     }
 
     public void ForEach(Action<T> action)

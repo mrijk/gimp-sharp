@@ -20,32 +20,26 @@
 //
 
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace Gimp
 {
-  public sealed class LayerList
+  public sealed class LayerList : DrawableList<Layer>
   {
-    readonly List<Layer> _list;
-
     public LayerList(Image image)
     {
       int num_layers;
       IntPtr list = gimp_image_get_layers(image.ID, out num_layers);
-      _list = LayerListFromPtr(list, num_layers);
+      LayerListFromPtr(list, num_layers);
     }
 
     internal LayerList(IntPtr ptr, int numLayers)
     {
-      _list = LayerListFromPtr(ptr, numLayers);
+      LayerListFromPtr(ptr, numLayers);
     }
 
-    List<Layer> LayerListFromPtr(IntPtr ptr, int numLayers)
+    void LayerListFromPtr(IntPtr ptr, int numLayers)
     {
-      List<Layer> list = new List<Layer>();
-
       if (numLayers != 0)
 	{
 	  int[] dest = new int[numLayers];
@@ -53,47 +47,9 @@ namespace Gimp
 	  
 	  foreach (int layerID in dest)
 	    {
-	      list.Add(new Layer(layerID));
+	      Add(new Layer(layerID));
 	    }
 	}
-      return list;
-    }
-
-    public IEnumerator<Layer> GetEnumerator()
-    {
-      return _list.GetEnumerator();
-    }
-
-    public int Count
-    {
-      get {return _list.Count;}
-    }
-
-    public Layer this[int index]
-    {
-      get {return _list[index];}
-    }
-
-    public Layer this[string name]
-    {
-      get 
-	{
-	  return _list.Find(layer => layer.Name == name);
-	}
-    }
-
-    public int GetIndex(Layer layer)
-    {
-      int index = 0;
-      foreach (Layer l in _list)
-	{
-	  if (l.Name == layer.Name)
-	    {
-	      break;
-	    }
-	  index++;
-	}
-      return index;
     }
 
     [DllImport("libgimp-2.0-0.dll")]

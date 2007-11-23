@@ -34,11 +34,13 @@ namespace Gimp
 
     public ParamDefList(bool usesImage, bool usesDrawable)
     {
-      _set = new List<ParamDef>();
-      Add(new ParamDef("run_mode", typeof(Int32),
-		       "Interactive, non-interactive"));
-      Add(new ParamDef("image", typeof(Image), "Input image"));
-      Add(new ParamDef("drawable", typeof(Drawable), "Input drawable"));
+      _set = new List<ParamDef>()
+	{
+	  new ParamDef("run_mode", typeof(Int32),
+		       "Interactive, non-interactive"),
+	  new ParamDef("image", typeof(Image), "Input image"),
+	  new ParamDef("drawable", typeof(Drawable), "Input drawable")
+	};
     }
 
     public ParamDefList() : this(true, true)

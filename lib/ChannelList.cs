@@ -20,16 +20,12 @@
 //
 
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace Gimp
 {
-  public sealed class ChannelList
+  public sealed class ChannelList : DrawableList<Channel>
   {
-    readonly List<Channel> _list = new List<Channel>();
-
     public ChannelList(Image image)
     {
       int num_channels;
@@ -42,34 +38,9 @@ namespace Gimp
 
 	  foreach (int ChannelID in dest)
 	    {
-	      _list.Add(new Channel(ChannelID));
+	      Add(new Channel(ChannelID));
 	    }
-
-	  // Array.ForEach(dest, ChannelID => _list.Add(new Channel(ChannelID)));
 	}
-    }
-
-    public Channel this[int index]
-    {
-      get {return _list[index];}
-    }
-
-    public Channel this[string name]
-    {
-      get 
-	{
-	  return _list.Find(channel => channel.Name == name);
-	}
-    }
-
-    public IEnumerator<Channel> GetEnumerator()
-    {
-      return _list.GetEnumerator();
-    }
-
-    public int Count
-    {
-      get {return _list.Count;}
     }
 
     [DllImport("libgimp-2.0-0.dll")]
