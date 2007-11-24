@@ -21,7 +21,8 @@ SUBDIRS = po
 CLEANFILES = Forge.exe
 
 Forge.exe : $(MYSOURCES) Forge.png $(GIMPSHARPLIB)
-	$(CSC) $(MYSOURCES) /resource:Forge.png -out:$@ $(ASSEMBLIES)
+	$(CSC) $(CSC_FLAGS) $(MYSOURCES) /resource:Forge.png \
+	-out:$@ $(ASSEMBLIES)
 
 install:
 	$(INSTALL_DATA) Forge.exe $(DESTDIR)$(GIMPPLUGINDIR)

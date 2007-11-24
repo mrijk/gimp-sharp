@@ -28,7 +28,7 @@ using GLib;
 
 namespace Gimp
 {
-  public class ParamDefList
+  public class ParamDefList : IEnumerable<ParamDef>
   {
     readonly List<ParamDef> _set;
 
@@ -57,9 +57,14 @@ namespace Gimp
       _set = new List<ParamDef>(list);
     }
 
-    IEnumerator<ParamDef> GetEnumerator()
+    public IEnumerator<ParamDef> GetEnumerator()
     {
       return _set.GetEnumerator();
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+      return GetEnumerator();
     }
 
     public ParamDef this[int index]

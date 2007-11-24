@@ -43,22 +43,24 @@ namespace Gimp.Pointillize
 
     override protected IEnumerable<Procedure> ListProcedures()
     {
-      ParamDefList inParams = new ParamDefList();
-      inParams.Add(new ParamDef("cell_size", 30, typeof(int), "Cell size"));
+      ParamDefList inParams = new ParamDefList()
+	{
+	  new ParamDef("cell_size", 30, typeof(int), "Cell size")
+	};
 
-      Procedure procedure = new Procedure("plug_in_pointillize",
-					  _("Create pointillist paintings"),
-					  _("Create pointillist paintings"),
-					  "Maurits Rijk",
-					  "(C) Maurits Rijk",
-					  "2006",
-					  _("Pointillize..."),
-					  "RGB*, GRAY*",
-					  inParams);
-      procedure.MenuPath = "<Image>/Filters/Artistic";
-      procedure.IconFile = "Pointillize.png";
-
-      yield return procedure;
+      yield return new Procedure("plug_in_pointillize",
+				 _("Create pointillist paintings"),
+				 _("Create pointillist paintings"),
+				 "Maurits Rijk",
+				 "(C) Maurits Rijk",
+				 "2006-2007",
+				 _("Pointillize..."),
+				 "RGB*, GRAY*",
+				 inParams)
+	{
+	  MenuPath = "<Image>/Filters/Artistic",
+	  IconFile = "Pointillize.png"
+	};
     }
 
     override protected GimpDialog CreateDialog()

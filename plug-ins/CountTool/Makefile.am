@@ -17,7 +17,7 @@ EXTRA_DIST = $(MYSOURCES) 	\
 CLEANFILES = CountTool.exe
 
 CountTool.exe : $(MYSOURCES) CountTool.png $(GIMPSHARPLIB)
-	$(CSC) $(MYSOURCES) /resource:CountTool.png	\
+	$(CSC) $(CSC_FLAGS) $(MYSOURCES) /resource:CountTool.png	\
 		-out:$@ $(ASSEMBLIES)
 
 install:

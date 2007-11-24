@@ -11,7 +11,7 @@ MYSOURCES = Fragment.cs
 EXTRA_DIST = $(MYSOURCES) Fragment
 
 Fragment.exe : $(MYSOURCES) $(GIMPSHARPLIB)
-	$(CSC) $(MYSOURCES) -out:$@ $(ASSEMBLIES)
+	$(CSC) $(CSC_FLAGS) $(MYSOURCES) -out:$@ $(ASSEMBLIES)
 SUBDIRS = po
 
 CLEANFILES = Fragment.exe

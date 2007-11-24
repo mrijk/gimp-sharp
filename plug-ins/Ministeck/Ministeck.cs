@@ -47,27 +47,28 @@ namespace Gimp.Ministeck
 
     override protected IEnumerable<Procedure> ListProcedures()
     {
-      ParamDefList inParams = new ParamDefList();
-      inParams.Add(new ParamDef("limit", true, typeof(bool), 
-          _("Use real life ratio for number of pieces if true")));
-      inParams.Add(new ParamDef("size", 16, typeof(int), 
-				_("Default size")));
-      inParams.Add(new ParamDef("color", new RGB(0, 0, 0), typeof(RGB), 
-				_("Color for the outline")));
-
-      Procedure procedure = new Procedure("plug_in_ministeck",
-					  _("Generates Ministeck"),
-					  _("Generates Ministeck"),
-					  "Maurits Rijk",
-					  "(C) Maurits Rijk",
-					  "2004-2007",
-					  _("Ministeck..."),
-					  "RGB*, GRAY*",
-					  inParams);
-      procedure.MenuPath = "<Image>/Filters/Artistic";
-      procedure.IconFile = "Ministeck.png";
-
-      yield return procedure;
+      ParamDefList inParams = new ParamDefList()
+	{
+	  new ParamDef("limit", true, typeof(bool), 
+		       _("Use real life ratio for number of pieces if true")),
+	  new ParamDef("size", 16, typeof(int), 
+		       _("Default size")),
+	  new ParamDef("color", new RGB(0, 0, 0), typeof(RGB), 
+		       _("Color for the outline"))
+	};
+      yield return new Procedure("plug_in_ministeck",
+				 _("Generates Ministeck"),
+				 _("Generates Ministeck"),
+				 "Maurits Rijk",
+				 "(C) Maurits Rijk",
+				 "2004-2007",
+				 _("Ministeck..."),
+				 "RGB*, GRAY*",
+				 inParams)
+	{
+	  MenuPath = "<Image>/Filters/Artistic",
+	  IconFile = "Ministeck.png"
+	};
     }
 
     override protected GimpDialog CreateDialog()
@@ -77,17 +78,15 @@ namespace Gimp.Ministeck
       GimpDialog dialog = DialogNew(_("Ministeck"), _("ministeck"), 
 				    IntPtr.Zero, 0, null, _("ministeck"));
 	
-      VBox vbox = new VBox(false, 12);
-      vbox.BorderWidth = 12;
+      VBox vbox = new VBox(false, 12) {BorderWidth = 12};
       dialog.VBox.PackStart(vbox, true, true, 0);
 
       _preview = new DrawablePreview(_drawable, false);
       _preview.Invalidated += UpdatePreview;
       vbox.PackStart(_preview, true, true, 0);
 
-      GimpTable table = new GimpTable(2, 2, false);
-      table.ColumnSpacing = 6;
-      table.RowSpacing = 6;
+      GimpTable table = new GimpTable(2, 2, false)
+	{ColumnSpacing = 6, RowSpacing = 6};
       vbox.PackStart(table, false, false, 0);
 
       SpinButton size = new SpinButton(3, 100, 1);

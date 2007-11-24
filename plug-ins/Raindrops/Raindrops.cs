@@ -47,29 +47,27 @@ namespace Gimp.Raindrops
 
     override protected IEnumerable<Procedure> ListProcedures()
     {
-      ParamDefList inParams = new ParamDefList();
+      ParamDefList inParams = new ParamDefList()
+	{
+	  new ParamDef("drop_size", 80, typeof(int), _("Size of raindrops")),
+	  new ParamDef("number", 80, typeof(int), _("Number of raindrops")),
+	  new ParamDef("fish_eye", 30, typeof(int), _("Fisheye effect"))
+	};
 
-      inParams.Add(new ParamDef("drop_size", 80, typeof(int),
-				_("Size of raindrops")));
-      inParams.Add(new ParamDef("number", 80, typeof(int),
-				_("Number of raindrops")));
-      inParams.Add(new ParamDef("fish_eye", 30, typeof(int),
-				_("Fisheye effect")));
-
-      Procedure procedure = new Procedure("plug_in_raindrops",
-					  _("Generates raindrops"),
-					  _("Generates raindrops"),
-					  "Massimo Perga",
-					  "(C) Massimo Perga",
-					  "2006-2007",
-					  _("Raindrops..."),
-					  "RGB*, GRAY*",
-					  inParams);
-      procedure.MenuPath = "<Image>/Filters/" +
-	_("Light and Shadow") + "/" + _("Glass");
-      procedure.IconFile = "Raindrops.png";
-
-      yield return procedure;
+      yield return new Procedure("plug_in_raindrops",
+				 _("Generates raindrops"),
+				 _("Generates raindrops"),
+				 "Massimo Perga",
+				 "(C) Massimo Perga",
+				 "2006-2007",
+				 _("Raindrops..."),
+				 "RGB*, GRAY*",
+				 inParams)
+	{
+	  MenuPath = "<Image>/Filters/" + _("Light and Shadow") + "/" + 
+	    _("Glass"),
+	  IconFile = "Raindrops.png"
+	};
     }
 
     override protected GimpDialog CreateDialog()
@@ -80,17 +78,15 @@ namespace Gimp.Raindrops
 				    IntPtr.Zero, 0, Gimp.StandardHelpFunc,
 				    _("Raindrops"));
 
-      VBox vbox = new VBox(false, 12);
-      vbox.BorderWidth = 12;
+      VBox vbox = new VBox(false, 12) {BorderWidth = 12};
       dialog.VBox.PackStart(vbox, true, true, 0);
 
       _preview = new DrawablePreview(_drawable, false);
       _preview.Invalidated += UpdatePreview;
       vbox.PackStart(_preview, true, true, 0);
 
-      GimpTable table = new GimpTable(2, 2, false);
-      table.ColumnSpacing = 6;
-      table.RowSpacing = 6;
+      GimpTable table = new GimpTable(2, 2, false)
+	{ColumnSpacing = 6, RowSpacing = 6};
       vbox.PackStart(table, false, false, 0);
 
       ScaleEntry _dropSizeEntry = new ScaleEntry(table, 0, 1,

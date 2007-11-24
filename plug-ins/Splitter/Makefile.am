@@ -18,7 +18,8 @@ SUBDIRS = po
 CLEANFILES = Splitter.exe
 
 Splitter.exe : $(MYSOURCES) Splitter.png $(GIMPSHARPLIB)
-	$(CSC) $(MYSOURCES) /resource:Splitter.png -out:$@ $(ASSEMBLIES)
+	$(CSC) $(CSC_FLAGS) $(MYSOURCES) /resource:Splitter.png \
+	-out:$@ $(ASSEMBLIES)
 
 install:
 	$(INSTALL_DATA) Splitter.exe $(DESTDIR)$(GIMPPLUGINDIR)

@@ -14,7 +14,7 @@ SUBDIRS = po
 CLEANFILES = AverageBlur.exe
 
 AverageBlur.exe : $(MYSOURCES) AverageBlur.png $(GIMPSHARPLIB)
-	$(CSC) $(MYSOURCES) /resource:AverageBlur.png -out:$@ $(ASSEMBLIES)
+	$(CSC) $(CSC_FLAGS) $(MYSOURCES) /resource:AverageBlur.png -out:$@ $(ASSEMBLIES)
 
 install:
 	$(INSTALL_DATA) AverageBlur.exe $(DESTDIR)$(GIMPPLUGINDIR)

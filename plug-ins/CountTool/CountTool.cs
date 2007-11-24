@@ -40,17 +40,17 @@ namespace Gimp.CountTool
 
     override protected IEnumerable<Procedure> ListProcedures()
     {
-      Procedure procedure = new Procedure("plug_in_count_tool",
-					  _("Count Tool"),
-					  _("Count Tool"),
-					  "Maurits Rijk",
-					  "(C) Maurits Rijk",
-					  "2006-2007",
-					  _("Count Tool..."),
-					  "RGB*, GRAY*");
-      procedure.MenuPath = "<Image>/Filters/Generic"; 
-
-      yield return procedure;
+      yield return new Procedure("plug_in_count_tool",
+				 _("Count Tool"),
+				 _("Count Tool"),
+				 "Maurits Rijk",
+				 "(C) Maurits Rijk",
+				 "2006-2007",
+				 _("Count Tool..."),
+				 "RGB*, GRAY*")
+	{
+	  MenuPath = "<Image>/Filters/Generic"
+	};
     }
 
     override protected GimpDialog CreateDialog()
@@ -60,8 +60,7 @@ namespace Gimp.CountTool
       GimpDialog dialog = DialogNew("CountTool 0.1", "CountTool", IntPtr.Zero, 
 				    0, Gimp.StandardHelpFunc, "CountTool");
 
-      HBox hbox = new HBox(false, 12);
-      hbox.BorderWidth = 12;
+      HBox hbox = new HBox(false, 12) {BorderWidth = 12};
       dialog.VBox.PackStart(hbox, true, true, 0);
 
       Preview preview = new Preview(_drawable, _coordinates);

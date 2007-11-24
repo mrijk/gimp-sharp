@@ -14,7 +14,8 @@ SUBDIRS = po
 CLEANFILES = Mezzotint.exe
 
 Mezzotint.exe : $(MYSOURCES) Mezzotint.png $(GIMPSHARPLIB)
-	$(CSC) $(MYSOURCES) /resource:Mezzotint.png -out:$@ $(ASSEMBLIES)
+	$(CSC) $(CSC_FLAGS) $(MYSOURCES) /resource:Mezzotint.png \
+	-out:$@ $(ASSEMBLIES)
 
 install:
 	$(INSTALL_DATA) Mezzotint.exe $(DESTDIR)$(GIMPPLUGINDIR)

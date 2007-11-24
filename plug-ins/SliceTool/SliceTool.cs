@@ -62,19 +62,18 @@ namespace Gimp.SliceTool
 
     override protected IEnumerable<Procedure> ListProcedures()
     {
-      Procedure procedure = new Procedure("plug_in_slice_tool",
-					  _("Slice Tool"),
-					  _("The Image Slice Tool is used to apply image slicing and rollovers."),
-					  "Maurits Rijk",
-					  "(C) Maurits Rijk",
-					  "2005-2007",
-					  _("Slice Tool..."),
-					  "RGB*, GRAY*");
-
-      procedure.MenuPath = "<Image>/Filters/Web";
-      procedure.IconFile = "SliceTool.png";
-
-      yield return procedure;
+      yield return new Procedure("plug_in_slice_tool",
+				 _("Slice Tool"),
+				 _("The Image Slice Tool is used to apply image slicing and rollovers."),
+				 "Maurits Rijk",
+				 "(C) Maurits Rijk",
+				 "2005-2007",
+				 _("Slice Tool..."),
+				 "RGB*, GRAY*")
+	{
+	  MenuPath = "<Image>/Filters/Web",
+	  IconFile = "SliceTool.png"
+	};
     }
     
     override protected GimpDialog CreateDialog()
@@ -91,8 +90,7 @@ namespace Gimp.SliceTool
       
       SetTitle(null);
       
-      VBox vbox = new VBox(false, 12);
-      vbox.BorderWidth = 12;
+      VBox vbox = new VBox(false, 12) {BorderWidth = 12};
       dialog.VBox.PackStart(vbox, true, true, 0);
       
       HBox hbox = new HBox();
@@ -107,9 +105,7 @@ namespace Gimp.SliceTool
       // Create coordinates
       hbox = new HBox();
       vbox.PackStart(hbox, true, true, 0);
-      _xy = new Entry();
-      _xy.WidthChars = 16;
-      _xy.IsEditable = false;
+      _xy = new Entry() {WidthChars = 16, IsEditable = false};
       hbox.PackStart(_xy, false, false, 0);
       
       hbox = new HBox(false, 24);
@@ -286,23 +282,35 @@ namespace Gimp.SliceTool
       toggle.Active = true;
       toggle.SetTooltip(tooltips, _("Select Rectangle"), "arrow");
       tools.Insert(toggle, -1);
-      toggle.Clicked += OnSelect;
+      toggle.Clicked += delegate
+	{
+	  OnFunc(toggle, new SelectFunc(this, _sliceData, _preview));
+	};
       
       toggle = new ToggleToolButton(GimpStock.TOOL_CROP);
       tooltips.SetTip(toggle, _("Create a new Slice"), "create");
       // toggle.SetTooltip(tooltips, "Create a new Slice", "create");
       tools.Insert(toggle, -1);
-      toggle.Clicked += OnCreateSlice;
+      toggle.Clicked += delegate
+	{
+	  OnFunc(toggle, new CreateFunc(_sliceData, _preview));
+	};
       
       toggle = new ToggleToolButton(GimpStock.TOOL_ERASER);
       toggle.SetTooltip(tooltips, _("Remove Slice"), "delete");
       tools.Insert(toggle, -1);
-      toggle.Clicked += OnRemoveSlice;
+      toggle.Clicked += delegate
+	{
+	  OnFunc(toggle, new RemoveFunc(_sliceData, _preview));
+	};
 
       toggle = new ToggleToolButton(GimpStock.GRID);
       toggle.SetTooltip(tooltips, _("Insert Table"), "grid");
       tools.Insert(toggle, -1);
-      toggle.Clicked += OnCreateTable;
+      toggle.Clicked += delegate
+	{
+	  OnFunc(toggle, new CreateTableFunc(_sliceData, _preview));
+	};
 
       return handle;
     }
@@ -314,9 +322,8 @@ namespace Gimp.SliceTool
       VBox vbox = new VBox(false, 12);
       frame.Add(vbox);
 
-      GimpTable table = new GimpTable(3, 2, false);
-      table.ColumnSpacing = 6;
-      table.RowSpacing = 6;
+      GimpTable table = new GimpTable(3, 2, false)
+	{ColumnSpacing = 6, RowSpacing = 6};
       
       vbox.Add(table);
 			
@@ -333,9 +340,8 @@ namespace Gimp.SliceTool
       HBox hbox = new HBox(false, 12);
       vbox.Add(hbox);
 
-      table = new GimpTable(3, 4, false);
-      table.ColumnSpacing = 6;
-      table.RowSpacing = 6;
+      table = new GimpTable(3, 4, false)
+	{ColumnSpacing = 6, RowSpacing = 6};
       hbox.PackStart(table, false, false, 0);
 
       _left = new Label("    ");
@@ -509,26 +515,6 @@ namespace Gimp.SliceTool
 	}
     }
 
-    void OnSelect(object o, EventArgs args)
-    {
-      OnFunc(o, new SelectFunc(this, _sliceData, _preview));
-    }
-
-    void OnCreateSlice(object o, EventArgs args)
-    {
-      OnFunc(o, new CreateFunc(_sliceData, _preview));
-    }
-
-    void OnRemoveSlice(object o, EventArgs args)
-    {
-      OnFunc(o, new RemoveFunc(_sliceData, _preview));
-    }
-
-    void OnCreateTable(object o, EventArgs args)
-    {
-      OnFunc(o, new CreateTableFunc(_sliceData, _preview));
-    }
-
     void OnShowCoordinates(object o, MotionNotifyEventArgs args)
     {
       int x, y;
@@ -537,7 +523,7 @@ namespace Gimp.SliceTool
       if (ev.IsHint) 
 	{
 	  ModifierType s;
-	  ev.Window.GetPointer (out x, out y, out s);
+	  ev.Window.GetPointer(out x, out y, out s);
 	} 
       else 
 	{

@@ -63,31 +63,25 @@ namespace Gimp.Colorize
 
     override protected IEnumerable<Procedure> ListProcedures()
     {
-      ParamDefList inParams = new ParamDefList();
-      inParams.Add(new ParamDef("points", 12, typeof(int),
-				 _("Number of points")));
+      ParamDefList inParams = new ParamDefList()
+	{
+	  new ParamDef("points", 12, typeof(int), _("Number of points"))
+	};
 
-      Procedure procedure = new Procedure("plug_in_colorize",
+      yield return new Procedure("plug_in_colorize",
           _("Re-color images using optimization techniques."),
           _("Fix me!"),
           "Maurits Rijk",
           "(C) Maurits Rijk",
-          "2006",
+          "2006-2007",
           "Colorize...",
           "RGB*, GRAY*",
-          inParams);
-
-      if (Gimp.Version.Major >= 2 && Gimp.Version.Minor >= 3)
+          inParams)
 	{
-	  procedure.MenuPath = "<Image>/Colors";
-	}
-      else
-	{
-	  procedure.MenuPath = "<Image>/Filters/Generic";
-	}
-      procedure.IconFile = "Colorize.png";
-
-      yield return procedure;
+	  MenuPath = (Gimp.Version.Major >= 2 && Gimp.Version.Minor >= 3)
+	  ? "<Image>/Colors" : "<Image>/Filters/Generic",
+	  IconFile = "Colorize.png"
+	};
     }
 
     void DialogMarkedCallback()
@@ -108,13 +102,11 @@ namespace Gimp.Colorize
       GimpDialog dialog = DialogNew("Colorize", "Colorize", IntPtr.Zero, 0,
 				    Gimp.StandardHelpFunc, "Colorize");
 
-      VBox vbox = new VBox(false, 12);
-      vbox.BorderWidth = 12;
+      VBox vbox = new VBox(false, 12) {BorderWidth = 12};
       dialog.VBox.PackStart(vbox, true, true, 0);
 
-      GimpTable table = new GimpTable(6, 1, false);
-      table.ColumnSpacing = 6;
-      table.RowSpacing = 6;
+      GimpTable table = new GimpTable(6, 1, false)
+	{ColumnSpacing = 6, RowSpacing = 6};
       vbox.PackStart(table, true, true, 0);
 
       _combo = new DrawableComboBox(DialogMarkedConstrain, IntPtr.Zero);

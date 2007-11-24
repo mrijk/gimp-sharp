@@ -13,7 +13,8 @@ EXTRA_DIST = $(MYSOURCES) PictureFrame PictureFrame.png
 CLEANFILES = PictureFrame.exe
 
 PictureFrame.exe : $(MYSOURCES) PictureFrame.png $(GIMPSHARPLIB)
-	$(CSC) $(MYSOURCES) /resource:PictureFrame.png -out:$@ $(ASSEMBLIES)
+	$(CSC) $(CSC_FLAGS) $(MYSOURCES) /resource:PictureFrame.png \
+	-out:$@ $(ASSEMBLIES)
 
 install:
 	$(INSTALL_DATA) PictureFrame.exe $(DESTDIR)$(GIMPPLUGINDIR)

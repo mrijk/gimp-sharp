@@ -14,7 +14,7 @@ SUBDIRS = po
 CLEANFILES = ncp.exe
 
 ncp.exe : $(MYSOURCES) ncp.png $(GIMPSHARPLIB)
-	$(CSC) $(MYSOURCES) /resource:ncp.png -out:$@ $(ASSEMBLIES)
+	$(CSC) $(CSC_FLAGS) $(MYSOURCES) /resource:ncp.png -out:$@ $(ASSEMBLIES)
 
 install:
 	$(INSTALL_DATA) ncp.exe $(DESTDIR)$(GIMPPLUGINDIR)

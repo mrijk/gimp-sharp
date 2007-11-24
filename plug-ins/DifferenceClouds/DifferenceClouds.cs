@@ -56,23 +56,24 @@ namespace Gimp.DifferenceClouds
 
     override protected IEnumerable<Procedure> ListProcedures()
     {
-      ParamDefList inParams = new ParamDefList();
-      inParams.Add(new ParamDef("turbulence", 0, typeof(double), 
-				 _("Turbulence of the cloud")));
-
-      Procedure procedure = new Procedure("plug_in_difference_clouds",
-					  _("Creates difference clouds."),
-					  _("Creates difference clouds."),
-					  "Massimo Perga",
-					  "(C) Massimo Perga",
-					  "2006-2007",
-					  _("Difference Clouds..."),
-					  "RGB*",
-					  inParams);
-      procedure.MenuPath = "<Image>/Filters/Render/Clouds";
-      procedure.IconFile = "DifferenceClouds.png";
-
-      yield return procedure;
+      ParamDefList inParams = new ParamDefList()
+	{
+	  new ParamDef("turbulence", 0, typeof(double),
+		       _("Turbulence of the cloud"))
+	};
+      yield return new Procedure("plug_in_difference_clouds",
+				 _("Creates difference clouds."),
+				 _("Creates difference clouds."),
+				 "Massimo Perga",
+				 "(C) Massimo Perga",
+				 "2006-2007",
+				 _("Difference Clouds..."),
+				 "RGB*",
+				 inParams)
+	{
+	  MenuPath = "<Image>/Filters/Render/Clouds",
+	    IconFile = "DifferenceClouds.png"
+	};
     }
 
     override protected GimpDialog CreateDialog()
@@ -84,13 +85,11 @@ namespace Gimp.DifferenceClouds
 				    Gimp.StandardHelpFunc, 
 				    _("Difference Clouds"));
 
-      VBox vbox = new VBox(false, 12);
-      vbox.BorderWidth = 12;
+      VBox vbox = new VBox(false, 12) {BorderWidth = 12};
       dialog.VBox.PackStart(vbox, true, true, 0);
 
-      GimpTable table = new GimpTable(3, 4, false);
-      table.ColumnSpacing = 6;
-      table.RowSpacing = 6;
+      GimpTable table = new GimpTable(3, 4, false)
+	{ColumnSpacing = 6, RowSpacing = 6};
 
       RandomSeed seed = new RandomSeed(ref _rseed, ref _random_seed);
       table.AttachAligned(0, 0, _("Random _Seed:"), 0.0, 0.5, seed, 2, true);
@@ -176,10 +175,7 @@ namespace Gimp.DifferenceClouds
       PixelRgn destPR = new PixelRgn(toDiffDrawable, rectangle, false, false);
 
       RegionIterator iterator = new RegionIterator(srcPR, destPR);
-      iterator.ForEach(delegate(Pixel src, Pixel dest) 
-      {
-	src.Set(MakeAbsDiff(dest, src));
-      });
+      iterator.ForEach((src, dest) => src.Set(MakeAbsDiff(dest, src)));
 
       sourceDrawable.Flush();
       sourceDrawable.MergeShadow(false);

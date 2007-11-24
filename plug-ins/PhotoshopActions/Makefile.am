@@ -306,7 +306,8 @@ MYSOURCES = 				\
 EXTRA_DIST = $(MYSOURCES) PhotoshopActions PhotoshopActions.png
 
 PhotoshopActions.exe : $(MYSOURCES) PhotoshopActions.png $(GIMPSHARPLIB)
-	$(CSC) $(MYSOURCES) /resource:PhotoshopActions.png -out:$@ $(ASSEMBLIES)
+	$(CSC) $(CSC_FLAGS) $(MYSOURCES) /resource:PhotoshopActions.png \
+	-out:$@ $(ASSEMBLIES)
 
 clean:
 	rm -f PhotoshopActions.exe

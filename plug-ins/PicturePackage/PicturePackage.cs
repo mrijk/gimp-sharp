@@ -98,20 +98,19 @@ namespace Gimp.PicturePackage
     {
       ParamDefList inParams = new ParamDefList();
 
-      Procedure procedure = new Procedure("plug_in_picture_package",
-					  _("Picture package"),
-					  _("Picture package"),
-					  "Maurits Rijk, Massimo Perga",
-					  "Maurits Rijk, Massimo Perga",
-					  "2004-2006",
-					  _("Picture Package..."),
-					  "",
-					  inParams);
-
-      procedure.MenuPath = "<Toolbox>/Xtns/Extensions";
-      procedure.IconFile = "PicturePackage.png";
-
-      yield return procedure;
+      yield return new Procedure("plug_in_picture_package",
+				 _("Picture package"),
+				 _("Picture package"),
+				 "Maurits Rijk, Massimo Perga",
+				 "Maurits Rijk, Massimo Perga",
+				 "2004-2007",
+				 _("Picture Package..."),
+				 "",
+				 inParams)
+	{
+	  MenuPath = "<Toolbox>/Xtns/Extensions",
+	  IconFile = "PicturePackage.png"
+	};
     }
 
     override protected GimpDialog CreateDialog()
@@ -124,8 +123,7 @@ namespace Gimp.PicturePackage
 				    _("PicturePackage"), IntPtr.Zero, 0, null, 
 				    _("PicturePackage"));
 
-      HBox hbox = new HBox(false, 12);
-      hbox.BorderWidth = 12;
+      HBox hbox = new HBox(false, 12) {BorderWidth = 12};
       dialog.VBox.PackStart(hbox, true, true, 0);
 
       VBox vbox = new VBox(false, 12);
@@ -143,8 +141,7 @@ namespace Gimp.PicturePackage
       Frame frame = new Frame();
       hbox.PackStart(frame, true, true, 0);
 
-      VBox fbox = new VBox();
-      fbox.BorderWidth = 12;
+      VBox fbox = new VBox() {BorderWidth = 12};
       frame.Add(fbox);
 
       Tooltips tips = new Tooltips();
@@ -153,9 +150,7 @@ namespace Gimp.PicturePackage
       fbox.Add(eventBox);
       tips.SetTip(eventBox, _("Right click to select picture"), "preview");
 
-      _preview = new Preview(this);
-      _preview.WidthRequest = 400;
-      _preview.HeightRequest = 500;
+      _preview = new Preview(this) {WidthRequest = 400, HeightRequest = 500};
       _preview.ButtonPressEvent += PreviewClicked;
 
       //      _preview.DragDataReceived += OnDragDataReceived;

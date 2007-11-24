@@ -16,7 +16,8 @@ SUBDIRS = po
 CLEANFILES = UpdateCheck.exe
 
 UpdateCheck.exe : $(MYSOURCES) UpdateCheck.png $(GIMPSHARPLIB)
-	$(CSC) $(MYSOURCES) /resource:UpdateCheck.png -out:$@ $(ASSEMBLIES)
+	$(CSC) $(CSC_FLAGS) $(MYSOURCES) /resource:UpdateCheck.png \
+	-out:$@ $(ASSEMBLIES)
 
 install:
 	$(INSTALL_DATA) UpdateCheck.exe $(DESTDIR)$(GIMPPLUGINDIR)

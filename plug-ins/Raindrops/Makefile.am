@@ -16,7 +16,8 @@ SUBDIRS = po
 CLEANFILES = Raindrops.exe
 
 Raindrops.exe : $(MYSOURCES) Raindrops.png $(GIMPSHARPLIB)
-	$(CSC) $(MYSOURCES) /resource:Raindrops.png -out:$@ $(ASSEMBLIES)
+	$(CSC) $(CSC_FLAGS) $(MYSOURCES) /resource:Raindrops.png \
+	-out:$@ $(ASSEMBLIES)
 
 install:
 	$(INSTALL_DATA) Raindrops.exe $(DESTDIR)$(GIMPPLUGINDIR)

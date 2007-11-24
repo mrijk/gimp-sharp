@@ -28,9 +28,10 @@ namespace Gimp.PicturePackage
 {
   public class Rectangle
   {
-    public double _x, _y, _w, _h;
-    ImageProvider _provider;
+    double _x, _y, _w, _h;
     CultureInfo _cultureInfo = new CultureInfo("en-US");
+
+    public ImageProvider Provider {get; set;}
 
     public Rectangle(XmlNode node)
     {
@@ -44,7 +45,7 @@ namespace Gimp.PicturePackage
     double GetAttribute(XmlAttributeCollection attributes, string name)
     {
       XmlAttribute val = (XmlAttribute) attributes.GetNamedItem(name);
-      return (val == null) ? 0 :  Convert.ToDouble(val.Value, _cultureInfo);
+      return (val == null) ? 0 : Convert.ToDouble(val.Value, _cultureInfo);
     }
 
     public void Render(Image image, Renderer renderer)
@@ -59,21 +60,14 @@ namespace Gimp.PicturePackage
       return x >= _x && x <= _x + _w && y >= _y && y <= _y + _h;
     }
 
-    public ImageProvider Provider
-    {
-      get {return _provider;}
-      set {_provider = value;}
-    }
-
     public static void SwapCoordinates(ref Rectangle rectA, 
 				       ref Rectangle rectB)
     {
-        SwapCoordinate(ref rectA._x, ref rectB._x); 
-        SwapCoordinate(ref rectA._y, ref rectB._y); 
-        SwapCoordinate(ref rectA._w, ref rectB._w); 
-        SwapCoordinate(ref rectA._h, ref rectB._h); 
+      SwapCoordinate(ref rectA._x, ref rectB._x); 
+      SwapCoordinate(ref rectA._y, ref rectB._y); 
+      SwapCoordinate(ref rectA._w, ref rectB._w); 
+      SwapCoordinate(ref rectA._h, ref rectB._h); 
     }
-
 
     private static void SwapCoordinate(ref double a, ref double b)
     {

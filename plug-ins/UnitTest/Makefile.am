@@ -57,11 +57,13 @@ TESTSOURCES = 	TestBrush.cs 			\
 EXTRA_DIST = $(MYSOURCES) $(TESTSOURCES) UnitTest UnitTest.png
 
 UnitTest.exe : $(MYSOURCES) $(GIMPSHARPLIB)
-	$(CSC) /target:winexe $(MYSOURCES) /resource:UnitTest.png -out:$@ $(ASSEMBLIES)
+	$(CSC) $(CSC_FLAGS) /target:winexe $(MYSOURCES) \
+	/resource:UnitTest.png -out:$@ $(ASSEMBLIES)
 
 
 gimptest.dll : $(TESTSOURCES) $(GIMPSHARPLIB)
-	$(CSC) -target:library $(ASSEMBLIES) $(TESTSOURCES) -out:gimptest.dll
+	$(CSC) $(CSC_FLAGS) -target:library $(ASSEMBLIES) $(TESTSOURCES) \
+	-out:gimptest.dll
 
 clean:
 	rm -f UnitTest.exe gimptest.dll

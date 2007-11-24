@@ -29,7 +29,7 @@ namespace Gimp
 {
   public class Procedure
   {
-    string _name;
+    public string Name {get; set;}
     string _blurb;
     string _help;
     string _author;
@@ -38,8 +38,9 @@ namespace Gimp
     string _menu_path;
     string _image_types;
 
-    string _menuPath;	// Fix me: this name looks to much like _menu_path
-    string _iconFile;
+    // Fix me: this name looks to much like _menu_path
+    public string MenuPath {get; set;}
+    public string IconFile {get; set;}
 
     ParamDefList _inParams;
     ParamDefList _outParams;
@@ -51,7 +52,7 @@ namespace Gimp
 		     ParamDefList inParams,
 		     ParamDefList outParams)
     {
-      _name = name;
+      Name = name;
       _blurb = blurb;
       _help = help;
       _author = author;
@@ -84,7 +85,7 @@ namespace Gimp
 
     public Procedure(string name)
     {
-      _name = name;
+      Name = name;
     }
 
     public void Install(bool usesImage, bool usesDrawable)
@@ -104,7 +105,7 @@ namespace Gimp
 	  returnLen = returnVals.Length;
 	}
       
-      gimp_install_procedure(_name, _blurb, _help, _author, _copyright, _date, 
+      gimp_install_procedure(Name, _blurb, _help, _author, _copyright, _date, 
 			     _menu_path, _image_types, PDBProcType.Plugin, 
 			     args.Length, returnLen, args, returnVals);
       MenuRegister();
@@ -119,7 +120,7 @@ namespace Gimp
       IntPtr argsPtr;
       IntPtr return_vals;
     
-      if (gimp_procedural_db_proc_info(_name, 
+      if (gimp_procedural_db_proc_info(Name, 
 				       out _blurb, 
 				       out _help,
 				       out _author,
@@ -195,19 +196,19 @@ namespace Gimp
 	    }
 
 	  int n_return_vals;
-	  gimp_run_procedure2(_name, out n_return_vals, i, _params);
+	  gimp_run_procedure2(Name, out n_return_vals, i, _params);
 	}
       else
 	{
-	  Console.WriteLine(_name + " not found!");
+	  Console.WriteLine(Name + " not found!");
 	}
     }
 
     public void MenuRegister()
     {
-      if (_menuPath != null)
+      if (MenuPath != null)
 	{
-	  if (!gimp_plugin_menu_register(_name, _menuPath))
+	  if (!gimp_plugin_menu_register(Name, MenuPath))
 	    {
 	      throw new GimpSharpException();
 	    }
@@ -216,34 +217,18 @@ namespace Gimp
 
     public void IconRegister()
     {
-      if (_iconFile != null)
+      if (IconFile != null)
 	{
-	  Pixbuf pixbuf = new Pixbuf(Assembly.GetEntryAssembly(), _iconFile);
+	  Pixbuf pixbuf = new Pixbuf(Assembly.GetEntryAssembly(), IconFile);
 	  
 	  Pixdata data = new Pixdata();
 	  data.FromPixbuf(pixbuf, false);
-	  if (!gimp_plugin_icon_register(_name, IconType.InlinePixbuf, 
+	  if (!gimp_plugin_icon_register(Name, IconType.InlinePixbuf, 
 					 data.Serialize()))
 	    {
 	      throw new GimpSharpException();
 	    }
 	}
-    }
-
-    public string Name
-    {
-      get {return _name;}
-      set {_name = value;}
-    }
-
-    public string MenuPath
-    {
-      set {_menuPath = value;}
-    }
-
-    public string IconFile
-    {
-      set {_iconFile = value;}
     }
 
     public ParamDefList InParams

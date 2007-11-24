@@ -35,7 +35,7 @@ namespace Gimp.UnitTest
     static string _testDll;
     ProgressBar _progressBar;
     int    _testsPerformed = 0;
-    int    _testCasesTotalNumber = 0;
+    public int TestCasesTotalNumber {get; set;}
 
     static void Main(string[] args)
     {
@@ -48,19 +48,18 @@ namespace Gimp.UnitTest
 
     override protected IEnumerable<Procedure> ListProcedures()
     {
-      Procedure procedure = new Procedure("plug_in_unit_test",
-					  "Unit Test",
-					  "Unit Test",
-					  "Maurits Rijk, Massimo Perga",
-					  "(C) Maurits Rijk, Massimo Perga",
-					  "2004-2007",
-					  "Unit Test...",
-					  "");
-
-      procedure.MenuPath = "<Toolbox>/Xtns/Extensions";
-      procedure.IconFile = "UnitTest.png";
-
-      yield return procedure;
+      yield return new Procedure("plug_in_unit_test",
+				 "Unit Test",
+				 "Unit Test",
+				 "Maurits Rijk, Massimo Perga",
+				 "(C) Maurits Rijk, Massimo Perga",
+				 "2004-2007",
+				 "Unit Test...",
+				 "")
+	{
+	  MenuPath = "<Toolbox>/Xtns/Extensions",
+	  IconFile = "UnitTest.png"
+	};
     }
 
     override protected GimpDialog CreateDialog()
@@ -70,8 +69,7 @@ namespace Gimp.UnitTest
       GimpDialog dialog = DialogNew("UnitTest", "UnitTest", IntPtr.Zero, 0,
 				    Gimp.StandardHelpFunc, "UnitTest");
 
-      VBox vbox = new VBox(false, 12);
-      vbox.BorderWidth = 12;
+      VBox vbox = new VBox(false, 12) {BorderWidth = 12};
       dialog.VBox.PackStart(vbox, true, true, 0);
 
       FileChooserButton entry = new FileChooserButton("Open...", 
@@ -97,19 +95,13 @@ namespace Gimp.UnitTest
     public void UpdateProgressStatus()
     {
       _testsPerformed++;
-      double ratio = (double) _testsPerformed / _testCasesTotalNumber;
+      double ratio = (double) _testsPerformed / TestCasesTotalNumber;
 
       _progressBar.Update(ratio);
       while (Application.EventsPending ())
 	{
 	  Gtk.Application.RunIteration();
 	}
-    }
-
-    public int TestCasesTotalNumber
-    {
-      set {_testCasesTotalNumber = value;}
-      get {return _testCasesTotalNumber;}
     }
   }
 }

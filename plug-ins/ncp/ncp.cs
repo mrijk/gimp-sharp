@@ -50,27 +50,25 @@ namespace Gimp.ncp
 
     override protected IEnumerable<Procedure> ListProcedures()
     {
-      ParamDefList inParams = new ParamDefList();
-      inParams.Add(new ParamDef("points", 12, typeof(int),
-				 _("Number of points")));
-      inParams.Add(new ParamDef("closest", 1, typeof(int),
-				 _("Closest point")));
-      inParams.Add(new ParamDef("color", 1, typeof(bool),
-				 _("Color (true), B&W (false)")));
+      ParamDefList inParams = new ParamDefList() {
+	new ParamDef("points", 12, typeof(int), _("Number of points")),
+	new ParamDef("closest", 1, typeof(int), _("Closest point")),
+	new ParamDef("color", 1, typeof(bool), _("Color (true), B&W (false)"))
+      };
 
-      Procedure procedure = new Procedure("plug_in_ncp",
-					  _("Generates 2D textures"),
-					  _("Generates 2D textures"),
-					  "Maurits Rijk",
-					  "(C) Maurits Rijk",
-					  "2004-2006",
-					  "NCP...",
-					  "RGB*, GRAY*",
-					  inParams);
-      procedure.MenuPath = "<Image>/Filters/Render";
-      procedure.IconFile = "ncp.png";
-
-      yield return procedure;
+      yield return new Procedure("plug_in_ncp",
+				 _("Generates 2D textures"),
+				 _("Generates 2D textures"),
+				 "Maurits Rijk",
+				 "(C) Maurits Rijk",
+				 "2004-2007",
+				 "NCP...",
+				 "RGB*, GRAY*",
+				 inParams)
+	{
+	  MenuPath = "<Image>/Filters/Render",
+	  IconFile = "ncp.png"
+	};
     }
 
     override protected GimpDialog CreateDialog()
@@ -80,9 +78,11 @@ namespace Gimp.ncp
       GimpDialog dialog = DialogNew("ncp", "ncp", IntPtr.Zero, 0,
 				    Gimp.StandardHelpFunc, "ncp");
 
-      GimpTable table = new GimpTable(4, 3, false);
-      table.ColumnSpacing = 6;
-      table.RowSpacing = 6;
+      GimpTable table = new GimpTable(4, 3, false)
+	{
+	  ColumnSpacing = 6, 
+	  RowSpacing = 6
+	};
       Vbox.PackStart(table, false, false, 0);
 
       RandomSeed seed = new RandomSeed(ref _seed, ref _random_seed);

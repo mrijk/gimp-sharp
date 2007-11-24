@@ -64,43 +64,44 @@ namespace Gimp.Splitter
 
     override protected IEnumerable<Procedure> ListProcedures()
     {
-      ParamDefList inParams = new ParamDefList();
-      inParams.Add(new ParamDef("formula", "", typeof(string),
-				_("Formula for splitting image")));
-      inParams.Add(new ParamDef("translate_1_x", 0, typeof(int),
-				_("Translation in x first layer")));
-      inParams.Add(new ParamDef("translate_1_y", 0, typeof(int),
-				_("Translation in y first layer")));
-      inParams.Add(new ParamDef("rotate_1", 0, typeof(int),
-				_("Rotation first layer")));
-      inParams.Add(new ParamDef("translate_2_x", 0, typeof(int),
-				_("Translation in x second layer")));
-      inParams.Add(new ParamDef("translate_2_y", 0, typeof(int),
-				_("Translation in y second layer")));
-      inParams.Add(new ParamDef("rotate_2", 0, typeof(int),
-				_("Rotation second layer")));
-      inParams.Add(new ParamDef("keep_layer", 0, typeof(int),
-				_("Keep first (0), second (1) or both (2) layer(s)")));
-      inParams.Add(new ParamDef("merge", true, typeof(bool),
-				_("Merge layers after splitting")));
-      inParams.Add(new ParamDef("seed", 0, typeof(int),
-				_("Value for random seed")));
-      inParams.Add(new ParamDef("random_seed", false, typeof(bool),
-				_("Use specified random seed")));
-
-      Procedure procedure = new Procedure("plug_in_splitter",
-					  _("Splits an image."),
-					  _("Splits an image in separate parts using a formula of the form f(x, y) = 0"),
-					  "Maurits Rijk",
-					  "(C) Maurits Rijk",
-					  "1999 - 2007",
-					  _("Splitter..."),
-					  "RGB*",
-					  inParams);
-      procedure.MenuPath = "<Image>/Filters/Generic";
-      procedure.IconFile = "Splitter.png";
-      
-      yield return procedure;
+      ParamDefList inParams = new ParamDefList()
+	{
+	  new ParamDef("formula", "", typeof(string),
+		       _("Formula for splitting image")),
+	  new ParamDef("translate_1_x", 0, typeof(int),
+		       _("Translation in x first layer")),
+	  new ParamDef("translate_1_y", 0, typeof(int),
+		       _("Translation in y first layer")),
+	  new ParamDef("rotate_1", 0, typeof(int),
+		       _("Rotation first layer")),
+	  new ParamDef("translate_2_x", 0, typeof(int),
+		       _("Translation in x second layer")),
+	  new ParamDef("translate_2_y", 0, typeof(int),
+		       _("Translation in y second layer")),
+	  new ParamDef("rotate_2", 0, typeof(int),
+		       _("Rotation second layer")),
+	  new ParamDef("keep_layer", 0, typeof(int),
+		       _("Keep first (0), second (1) or both (2) layer(s)")),
+	  new ParamDef("merge", true, typeof(bool),
+		       _("Merge layers after splitting")),
+	  new ParamDef("seed", 0, typeof(int),
+		       _("Value for random seed")),
+	  new ParamDef("random_seed", false, typeof(bool),
+		       _("Use specified random seed"))
+	};
+      yield return new Procedure("plug_in_splitter",
+				 _("Splits an image."),
+				 _("Splits an image in separate parts using a formula of the form f(x, y) = 0"),
+				 "Maurits Rijk",
+				 "(C) Maurits Rijk",
+				 "1999 - 2007",
+				 _("Splitter..."),
+				 "RGB*",
+				 inParams)
+	  {
+	    MenuPath = "<Image>/Filters/Generic",
+	    IconFile = "Splitter.png"
+	  };
     }
 
     override protected GimpDialog CreateDialog()
@@ -110,13 +111,11 @@ namespace Gimp.Splitter
       GimpDialog dialog = DialogNew(_("Splitter"), _("splitter"),
 				    IntPtr.Zero, 0, null, _("splitter"));
 
-      VBox vbox = new VBox(false, 12);
-      vbox.BorderWidth = 12;
+      VBox vbox = new VBox(false, 12) {BorderWidth = 12};
       dialog.VBox.PackStart(vbox, true, true, 0);
 
-      GimpTable table = new GimpTable(4, 2, false);
-      table.ColumnSpacing = 6;
-      table.RowSpacing = 6;
+      GimpTable table = new GimpTable(4, 2, false)
+	{ColumnSpacing = 6, RowSpacing = 6};
       vbox.PackStart(table, false, false, 0);
 
       HBox hbox = new HBox(false, 6);
@@ -180,10 +179,8 @@ namespace Gimp.Splitter
     {
       GimpFrame frame = new GimpFrame(_("Layer 1"));
 
-      GimpTable table = new GimpTable(3, 3, false);
-      table.BorderWidth = 12;
-      table.RowSpacing = 12;
-      table.ColumnSpacing = 12;
+      GimpTable table = new GimpTable(3, 3, false)
+	{BorderWidth = 12, RowSpacing = 12, ColumnSpacing = 12};
       frame.Add(table);
 
       SpinButton spinner = new SpinButton(int.MinValue, int.MaxValue, 1);
@@ -222,10 +219,8 @@ namespace Gimp.Splitter
     {
       GimpFrame frame = new GimpFrame(_("Layer 2"));
 
-      GimpTable table = new GimpTable(3, 3, false);
-      table.BorderWidth = 12;
-      table.RowSpacing = 12;
-      table.ColumnSpacing = 12;
+      GimpTable table = new GimpTable(3, 3, false)
+	{BorderWidth = 12, RowSpacing = 12, ColumnSpacing = 12};
       frame.Add(table);
 
       SpinButton spinner = new SpinButton(int.MinValue, int.MaxValue, 1);
@@ -310,38 +305,34 @@ namespace Gimp.Splitter
 	{
 	  RegionIterator iterator = new RegionIterator(srcPR, destPR1, 
 						       destPR2);
-	  iterator.ForEach(delegate(Pixel src, Pixel dest1, Pixel dest2) 
-	  {
-	    Pixel tmp = Copy(src);
-	    if (parser.Eval(src.X, src.Y) < 0)
+	  iterator.ForEach((src, dest1, dest2) =>
+	    {
+	      Pixel tmp = Copy(src);
+	      if (parser.Eval(src.X, src.Y) < 0)
 	      {
 		dest1.Set(tmp);
 		dest2.Set(transparent);
 	      }
-	    else
+	      else
 	      {
 		dest2.Set(tmp);
 		dest1.Set(transparent);
 	      }
-	  });
+	    });
 	}
       else if (destPR1 != null)
 	{
 	  RegionIterator iterator = new RegionIterator(srcPR, destPR1);
-	  iterator.ForEach(delegate(Pixel src, Pixel dest) 
-	  {
-	    dest.Set((parser.Eval(src.X, src.Y) < 0) 
-		     ? Copy(src) : transparent);
-	  });
+	  iterator.ForEach((src, dest) =>
+			   dest.Set((parser.Eval(src.X, src.Y) < 0) 
+				    ? Copy(src) : transparent));
 	}
       else	// destPR2 != null
 	{
 	  RegionIterator iterator = new RegionIterator(srcPR, destPR2);
-	  iterator.ForEach(delegate(Pixel src, Pixel dest) 
-	  {
-	    dest.Set((parser.Eval(src.X, src.Y) >= 0) 
-		     ? Copy(src) : transparent);
-	  });
+	  iterator.ForEach((src, dest) =>
+			   dest.Set((parser.Eval(src.X, src.Y) >= 0) 
+				    ? Copy(src) : transparent));
 	}
 
       if (_rotate_1 != 0 && layer1 != null) 
@@ -371,19 +362,10 @@ namespace Gimp.Splitter
 
     Pixel Copy(Pixel src)
     {
-      if (src.HasAlpha)
-	{
-	  return src;
-	}
-      else
-	{
-	  Pixel pixel = new Pixel(4);
-	  pixel.Red = src.Red;
-	  pixel.Green = src.Green;
-	  pixel.Blue = src.Blue;
-	  pixel.Alpha = 255;
-	  return pixel;
-	}
+      return (src.HasAlpha) 
+	? src 
+	: new Pixel(4) {Red = src.Red, Green = src.Green, Blue = src.Blue, 
+			  Alpha = 255};
     }
   }
 }

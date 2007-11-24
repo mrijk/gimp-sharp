@@ -20,7 +20,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 using Gtk;
 
@@ -42,18 +41,18 @@ namespace Gimp.PictureFrame
 
     override protected IEnumerable<Procedure> ListProcedures()
     {
-      Procedure procedure = new Procedure("plug_in_picture_frame",
-					  _("Picture frame"),
-					  _("Picture frame"),
-					  "Oded Coster",
-					  "(C) Oded Coster",
-					  "2006-2007",
-					  _("Picture frame..."),
-					  "RGB*, GRAY*");
-      procedure.MenuPath = "<Image>/Filters/Render";
-      procedure.IconFile = "PictureFrame.png";
-
-      yield return procedure;
+      yield return new Procedure("plug_in_picture_frame",
+				 _("Picture frame"),
+				 _("Picture frame"),
+				 "Oded Coster",
+				 "(C) Oded Coster",
+				 "2006-2007",
+				 _("Picture frame..."),
+				 "RGB*, GRAY*")
+	{
+	  MenuPath = "<Image>/Filters/Render",
+	  IconFile = "PictureFrame.png"
+	};
     }
 
     override protected GimpDialog CreateDialog()
@@ -65,8 +64,7 @@ namespace Gimp.PictureFrame
 				    Gimp.StandardHelpFunc, "Picture Frame");
       dialog.Modal = false;
 
-      VBox vbox = new VBox(false, 12);
-      vbox.BorderWidth = 12;
+      VBox vbox = new VBox(false, 12) {BorderWidth = 12};
       dialog.VBox.PackStart(vbox, true, true, 0);
       
 #if false
@@ -86,28 +84,27 @@ namespace Gimp.PictureFrame
       return dialog;
     }
     
-    override protected void Render(Image image, Drawable original_drawable)
+    override protected void Render(Image image, Drawable drawable)
     {
       try
 	{
 	  Image frame = Image.Load(RunMode.Interactive, 
 				   _pictureFrameImagePath, 
 				   _pictureFrameImagePath);
-	  Layer new_layer = new Layer(frame.ActiveLayer, image);
-	  
-	  new_layer.Visible = true;
+	  Layer newLayer = new Layer(frame.ActiveLayer, image) 
+	    {Visible = true};
           
 	  image.UndoGroupStart();
 	  
-	  image.AddLayer(new_layer, -1); 
-	  image.ActiveLayer = new_layer;
+	  image.AddLayer(newLayer, -1); 
+	  image.ActiveLayer = newLayer;
 	  
 	  image.UndoGroupEnd();
 	  Display.DisplaysFlush();
 	  
 	  frame.Delete();
 	}
-      catch(Exception ex) 
+      catch (Exception ex) 
 	{	
 	  throw new GimpSharpException(); 
 	}

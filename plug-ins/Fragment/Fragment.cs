@@ -36,17 +36,17 @@ namespace Gimp.Fragment
 
     override protected IEnumerable<Procedure> ListProcedures()
     {
-      Procedure procedure = new Procedure("plug_in_fragment",
-					  _("Fragments the picture"),
-					  _("Creates four copies of the pixels in the selection, averages them, and offsets them from each other."),
-					  "Maurits Rijk",
-					  "(C) Maurits Rijk",
-					  "2006-2007",
-					  _("Fragment"),
-					  "RGB*, GRAY*");
-      procedure.MenuPath = "<Image>/Filters/Distorts";
-
-      yield return procedure;
+      yield return new Procedure("plug_in_fragment",
+				 _("Fragments the picture"),
+				 _("Creates four copies of the pixels in the selection, averages them, and offsets them from each other."),
+				 "Maurits Rijk",
+				 "(C) Maurits Rijk",
+				 "2006-2007",
+				 _("Fragment"),
+				 "RGB*, GRAY*")
+	{
+	  MenuPath = "<Image>/Filters/Distorts"
+	};
     }
 
     override protected void Render(Drawable drawable)
@@ -56,16 +56,16 @@ namespace Gimp.Fragment
       RgnIterator iter = new RgnIterator(drawable, RunMode.Interactive);
       iter.Progress = new Progress(_("Fragment"));
 
-      using (PixelFetcher pf = new PixelFetcher(drawable))
+      using (PixelFetcher pf = new PixelFetcher(drawable) 
+	{EdgeMode = EdgeMode.Black})
 	{
-	  pf.EdgeMode = EdgeMode.Black;
-	  iter.IterateDest(delegate (int x, int y) 
-	  {
-	    return (pf[y - 4, x - 4] +
-		    pf[y - 4, x + 4] +
-		    pf[y + 4, x - 4] +
-		    pf[y + 4, x + 4]) / 4;
-	  });
+	  iter.IterateDest((x, y) => 
+	    {
+	      return (pf[y - 4, x - 4] +
+		      pf[y - 4, x + 4] +
+		      pf[y + 4, x - 4] +
+		      pf[y + 4, x + 4]) / 4;
+	    });
 	}
 
       Display.DisplaysFlush();

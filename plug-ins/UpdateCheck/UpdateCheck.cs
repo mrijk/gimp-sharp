@@ -56,18 +56,18 @@ namespace Gimp.UpdateCheck
 
     override protected IEnumerable<Procedure> ListProcedures()
     {
-      Procedure procedure = new Procedure("plug_in_update_check",
-					  _("Check for updates"),
-					  _("Check for updates"),
-					  "Maurits Rijk",
-					  "(C) Maurits Rijk",
-					  "2006-2007",
-					  _("Check for Updates..."),
-					  "");
-      procedure.MenuPath = "<Toolbox>/Xtns/Extensions";
-      procedure.IconFile = "UpdateCheck.png";
-
-      yield return procedure;
+      yield return new Procedure("plug_in_update_check",
+				 _("Check for updates"),
+				 _("Check for updates"),
+				 "Maurits Rijk",
+				 "(C) Maurits Rijk",
+				 "2006-2007",
+				 _("Check for Updates..."),
+				 "")
+	{
+	  MenuPath = "<Toolbox>/Xtns/Extensions",
+	  IconFile = "UpdateCheck.png"
+	};
     }
 
     override protected GimpDialog CreateDialog()
@@ -78,13 +78,11 @@ namespace Gimp.UpdateCheck
 				    IntPtr.Zero, 0, Gimp.StandardHelpFunc, 
 				    _("UpdateCheck"));
 
-      VBox vbox = new VBox(false, 12);
-      vbox.BorderWidth = 12;
+      VBox vbox = new VBox(false, 12) {BorderWidth = 12};
       dialog.VBox.PackStart(vbox, true, true, 0);
 
-      GimpTable table = new GimpTable(4, 3, false);
-      table.ColumnSpacing = 6;
-      table.RowSpacing = 6;
+      GimpTable table = new GimpTable(4, 3, false)
+	{ColumnSpacing = 6, RowSpacing = 6};
       vbox.PackStart(table, true, true, 0);
 
       CheckButton checkGimp = new CheckButton(_("Check _GIMP"));
@@ -135,8 +133,7 @@ namespace Gimp.UpdateCheck
       hbox.Sensitive = _enableProxy;
       hbox.Add(new Label(_("HTTP Proxy:")));
 
-      Entry httpProxy = new Entry();
-      httpProxy.Text = _httpProxy;
+      Entry httpProxy = new Entry() {Text = _httpProxy};
       hbox.Add(httpProxy);
       proxyBox.Add(hbox);
       httpProxy.Changed += delegate
@@ -145,9 +142,7 @@ namespace Gimp.UpdateCheck
 	};
       
       hbox.Add(new Label(_("Port:")));
-      Entry port = new Entry();
-      port.Text = _port;
-      port.WidthChars = 4;
+      Entry port = new Entry() {Text = _port, WidthChars = 4};
       hbox.Add(port);
       port.Changed += delegate
 	{

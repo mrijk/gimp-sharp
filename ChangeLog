@@ -1,3 +1,47 @@
+2007-11-24  Maurits  <maurits.rijk@gmail.com>
+
+	* plug-ins/Colorize/Colorize.cs
+	* plug-ins/CountTool/CountTool.cs
+	* plug-ins/DifferenceClouds/DifferenceClouds.cs
+	* plug-ins/Forge/Forge.cs
+	* plug-ins/Ministeck/Ministeck.cs
+	* plug-ins/ncp/ncp.cs: 
+	* plug-ins/PhotoshopActions/PhotoshopActions.cs
+	* plug-ins/PictureFrame/PictureFrame.cs
+	* plug-ins/PicturePackage/PicturePackage.cs
+	* plug-ins/Pointillize/Pointillize.cs
+	* plug-ins/Raindrops/Raindrops.cs
+	* plug-ins/SliceTool/SliceTool.cs
+	* plug-ins/Splitter/Splitter.cs
+	* plug-ins/Swirlies/Swirlies.cs
+	* plug-ins/UnitTest/UnitTest.cs
+	* plug-ins/UpdateCheck/UpdateCheck.cs
+	* lib/Procedure.cs: clean-up using C# 3.0 features
+
+	* lib/ParamDefList.cs: added GetEnumerator so we can use
+	collection initializers
+
+	* plug-ins/PicturePackage/Rectangle.cs: clean-up
+
+	* plug-ins/AverageBlur/Makefile.am
+	* plug-ins/Colorize/Makefile.am
+	* plug-ins/CountTool/Makefile.am
+	* plug-ins/DifferenceClouds/Makefile.am
+	* plug-ins/Forge/Makefile.am
+	* plug-ins/Fragment/Makefile.am
+	* plug-ins/Mezzotint/Makefile.am
+	* plug-ins/ncp/Makefile.am
+	* plug-ins/PhotoshopActions/Makefile.am
+	* plug-ins/PictureFrame/Makefile.am
+	* plug-ins/Raindrops/Makefile.am
+	* plug-ins/SliceTool/Makefile.am
+	* plug-ins/Splitter/Makefile.am
+	* plug-ins/UnitTest/Makefile.am
+	* plug-ins/UpdateCheck/Makefile.am
+	* plug-ins/Swirlies/Makefile.am: use CSC_FLAGS
+
+	* plug-ins/Swirlies/Swirlies.cs: minor clean-up
+
 2007-11-23  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/ParamDefList.cs

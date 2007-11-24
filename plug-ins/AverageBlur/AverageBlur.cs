@@ -36,17 +36,15 @@ namespace Gimp.AverageBlur
 
     override protected IEnumerable<Procedure> ListProcedures()
     {
-      Procedure procedure = new Procedure("plug_in_average_blur",
-					  _("Average blur"),
-					  _("Average blur"),
-					  "Maurits Rijk",
-					  "(C) Maurits Rijk",
-					  "2006-2007",
-					  _("Average"),
-					  "RGB*, GRAY*");
-      procedure.MenuPath = "<Image>/Filters/Blur"; 
-
-      yield return procedure;
+      yield return new Procedure("plug_in_average_blur",
+				 _("Average blur"),
+				 _("Average blur"),
+				 "Maurits Rijk",
+				 "(C) Maurits Rijk",
+				 "2006-2007",
+				 _("Average"),
+				 "RGB*, GRAY*")
+	{MenuPath = "<Image>/Filters/Blur"};
     }
 
     override protected void Render(Drawable drawable)

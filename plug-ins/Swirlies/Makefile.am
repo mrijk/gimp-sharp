@@ -14,7 +14,8 @@ SUBDIRS = po
 CLEANFILES = Swirlies.exe
 
 Swirlies.exe : $(MYSOURCES) Swirlies.png $(GIMPSHARPLIB)
-	$(CSC) $(MYSOURCES) /resource:Swirlies.png -out:$@ $(ASSEMBLIES)
+	$(CSC) $(CSC_FLAGS) $(MYSOURCES) /resource:Swirlies.png \
+	-out:$@ $(ASSEMBLIES)
 
 install:
 	$(INSTALL_DATA) Swirlies.exe $(DESTDIR)$(GIMPPLUGINDIR)

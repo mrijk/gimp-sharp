@@ -40,18 +40,18 @@ namespace Gimp.Mezzotint
 
     override protected IEnumerable<Procedure> ListProcedures()
     {
-      Procedure procedure = new Procedure("plug_in_mezzotint",
-					  _("Mezzotint"),
-					  _("Mezzotint"),
-					  "Maurits Rijk",
-					  "(C) Maurits Rijk",
-					  "2007",
-					  _("Mezzotint..."),
-					  "RGB*");
-      procedure.MenuPath = "<Image>/Filters/Noise"; 
-      procedure.IconFile = "Mezzotint.png";
-
-      yield return procedure;
+      yield return new Procedure("plug_in_mezzotint",
+				 _("Mezzotint"),
+				 _("Mezzotint"),
+				 "Maurits Rijk",
+				 "(C) Maurits Rijk",
+				 "2007",
+				 _("Mezzotint..."),
+				 "RGB*")
+	{
+	  MenuPath = "<Image>/Filters/Noise",
+	  IconFile = "Mezzotint.png"
+	};
     }
 
     override protected GimpDialog CreateDialog()
@@ -61,8 +61,7 @@ namespace Gimp.Mezzotint
       GimpDialog dialog = DialogNew("Mezzotint", "Mezzotint", IntPtr.Zero, 0,
 				    Gimp.StandardHelpFunc, "Mezzotint");
 
-      VBox vbox = new VBox(false, 12);
-      vbox.BorderWidth = 12;
+      VBox vbox = new VBox(false, 12) {BorderWidth = 12};
       dialog.VBox.PackStart(vbox, true, true, 0);
 
       _preview = new DrawablePreview(_drawable, false);
@@ -97,16 +96,15 @@ namespace Gimp.Mezzotint
       PixelRgn srcPR = new PixelRgn(_drawable, rectangle, false, false);
 
       RegionIterator iterator = new RegionIterator(srcPR);
-      iterator.ForEach(delegate(Pixel src) 
-      {
-	int x = src.X;
-	int y = src.Y;
-	Pixel pixel = DoMezzotint(src);
-
-	int index = (y - rectangle.Y1) * rowStride + (x - rectangle.X1) * 3;
-	pixel.CopyTo(buffer, index);
-      });
-
+      iterator.ForEach(src =>
+	{
+	  int x = src.X;
+	  int y = src.Y;
+	  Pixel pixel = DoMezzotint(src);
+	  
+	  int index = (y - rectangle.Y1) * rowStride + (x - rectangle.X1) * 3;
+	  pixel.CopyTo(buffer, index);
+	});
       _preview.DrawBuffer(buffer, rowStride);
     }
 
@@ -115,13 +113,12 @@ namespace Gimp.Mezzotint
       RgnIterator iter = new RgnIterator(drawable, RunMode.Interactive);
       iter.Progress = new Progress(_("Mezzotint"));
       iter.IterateSrcDest(pixel => DoMezzotint(pixel));
-
       Display.DisplaysFlush();
     }
 
     Pixel DoMezzotint(Pixel pixel)
     {
-      pixel.Fill(delegate(int val) {return (val > 127) ? 255 : 0;});
+      pixel.Fill(val => (val > 127) ? 255 : 0);
       return pixel;
     }
   }

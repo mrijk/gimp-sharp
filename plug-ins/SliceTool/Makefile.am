@@ -47,7 +47,7 @@ SUBDIRS = po
 CLEANFILES = SliceTool.exe
 
 SliceTool.exe : $(MYSOURCES) SliceTool.png $(GIMPSHARPLIB)
-	$(CSC) $(MYSOURCES) /resource:SliceTool.png	\
+	$(CSC) $(CSC_FLAGS) $(MYSOURCES) /resource:SliceTool.png	\
 			  /resource:blank.png		\
 			  /resource:cursor-eraser.png	\
 			  /resource:cursor-select.png	\

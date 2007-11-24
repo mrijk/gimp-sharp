@@ -14,7 +14,8 @@ SUBDIRS = po
 CLEANFILES = DifferenceClouds.exe
 
 DifferenceClouds.exe : $(MYSOURCES) DifferenceClouds.png $(GIMPSHARPLIB)
-	$(CSC) $(MYSOURCES) /resource:DifferenceClouds.png -out:$@ $(ASSEMBLIES)
+	$(CSC) $(CSC_FLAGS) $(MYSOURCES) /resource:DifferenceClouds.png \
+	-out:$@ $(ASSEMBLIES)
 
 install:
 	$(INSTALL_DATA) DifferenceClouds.exe $(DESTDIR)$(GIMPPLUGINDIR)

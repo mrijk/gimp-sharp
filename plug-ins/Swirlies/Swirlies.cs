@@ -57,20 +57,19 @@ namespace Gimp.Swirlies
     {
       ParamDefList in_params = new ParamDefList();
 
-      Procedure procedure = new Procedure("plug_in_swirlies",
-					  _("Generates 2D textures"),
-					  _("Generates 2D textures"),
-					  "Maurits Rijk",
-					  "(C) Maurits Rijk",
-					  "2006-2007",
-					  _("Swirlies..."),
-					  "RGB",
-					  in_params);
-
-      procedure.MenuPath = "<Image>/Filters/Render";
-      procedure.IconFile = "Swirlies.png";
-
-      yield return procedure;
+      yield return new Procedure("plug_in_swirlies",
+				 _("Generates 2D textures"),
+				 _("Generates 2D textures"),
+				 "Maurits Rijk",
+				 "(C) Maurits Rijk",
+				 "2006-2007",
+				 _("Swirlies..."),
+				 "RGB",
+				 in_params)
+	{
+	  MenuPath = "<Image>/Filters/Render",
+	  IconFile = "Swirlies.png"
+	};
     }
 
     override protected GimpDialog CreateDialog()
@@ -82,9 +81,8 @@ namespace Gimp.Swirlies
       _progress = new ProgressBar();
       Vbox.PackStart(_progress, false, false, 0);
       
-      GimpTable table = new GimpTable(4, 3, false);
-      table.ColumnSpacing = 6;
-      table.RowSpacing = 6;
+      GimpTable table = new GimpTable(4, 3, false)
+	{ColumnSpacing = 6, RowSpacing = 6};
       Vbox.PackStart(table, false, false, 0);
 
       RandomSeed seed = new RandomSeed(ref _seed, ref _random_seed);
@@ -138,7 +136,7 @@ namespace Gimp.Swirlies
 
 	      DoSwirlies(x_orig, y_orig).CopyTo(buffer, index);
 	    }
-	  Application.Invoke (delegate {
+	  Application.Invoke(delegate {
 	    _progress.Update((double) y / height);
 	  });
 	}
@@ -181,10 +179,9 @@ namespace Gimp.Swirlies
       const double zoom = 0.5;
       const int terms = 5;
 
-      foreach (Swirly swirly in _swirlies)
-	{
-	  swirly.CalculateOnePoint(terms, _width, _height, zoom, x, y, rgb);
-	}
+      _swirlies.ForEach(swirly => 
+			swirly.CalculateOnePoint(terms, _width, _height, zoom, 
+						 x, y, rgb));
 
       return new Pixel(FloatToIntPixel(RemapColorRange(rgb.R)),
 		       FloatToIntPixel(RemapColorRange(rgb.G)),
@@ -193,11 +190,11 @@ namespace Gimp.Swirlies
     
     double RemapColorRange(double val)
     {
-      const double _post_gain = 0.35;
-      const double _pre_gain = 10000;
+      const double postGain = 0.35;
+      const double preGain = 10000;
 
       val = Math.Abs(val);
-      return Math.Tanh(_post_gain * Math.Log(1 + _pre_gain * val));
+      return Math.Tanh(postGain * Math.Log(1 + preGain * val));
     }
 
     int FloatToIntPixel(double val)
