@@ -150,10 +150,25 @@ AC_ARG_WITH(python,[  --with-ironpython       support for the IronPython (defaul
 if test "x$with_ironpython" == xyes; then
    iron_python=yes
    AC_PATH_PROG(IPY, ipy, no)
-   if test "$IRONPYTHON" = "no"; then
+   if test "$IPY" = "no"; then
         AC_MSG_ERROR(['ipy' (IronPython) is not in your PATH.])
    fi
    AC_SUBST(IPY)
+fi
+
+#
+# Check if we want to support Nemerle
+#
+
+nemerle=no
+AC_ARG_WITH(nemerle,[  --with-nemerle       support for the Nemerle (default-no)])
+if test "x$with_nemerle" == xyes; then
+   nemerle=yes
+   AC_PATH_PROG(NCC, ncc, no)
+   if test "$NCC" = "no"; then
+        AC_MSG_ERROR(['ncc' (Nemerle) is not in your PATH.])
+   fi
+   AC_SUBST(NCC)
 fi
 
 AM_CONDITIONAL(BUILD_COLORIZE, test x$have_umfpack = xyes)
@@ -163,6 +178,7 @@ AM_CONDITIONAL(BUILD_INCOMPLETE, test x$incomplete = xyes)
 AM_CONDITIONAL(BUILD_ECW, test x"$have_libecw" = xyes)
 AM_CONDITIONAL(BUILD_JAVA, test x$java = xyes)
 AM_CONDITIONAL(BUILD_IRONPYTHON, test x$iron_python = xyes)
+AM_CONDITIONAL(BUILD_NEMERLE, test x$nemerle = xyes)
 
 dnl read Makefile.in and write Makefile
 AC_CONFIG_FILES([
@@ -190,6 +206,7 @@ plug-ins/Mezzotint/Makefile
 plug-ins/Mezzotint/po/Makefile 
 plug-ins/Ministeck/Makefile 
 plug-ins/Ministeck/po/Makefile 
+plug-ins/NemerleSample/Makefile
 plug-ins/neo/Makefile
 plug-ins/neo/po/Makefile
 plug-ins/Pdn/Makefile 
@@ -228,4 +245,5 @@ GIMP-SHARP Features:
   ECW		    : $have_libecw
   Java support      : $java
   IronPython support: $iron_python
+  Nemerle support   : $nemerle
 ]);

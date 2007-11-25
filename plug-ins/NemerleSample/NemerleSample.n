@@ -1,0 +1,66 @@
+// The NemerleSample plug-in
+// Copyright (C) 2007 Maurits Rijk
+//
+// NemerleSample.n
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+
+using System;
+using System.Collections.Generic;
+
+namespace Gimp.NemerleSample
+{
+  public class NemerleSample : Plugin
+  {
+    public static Main(args : array [string]) : void
+    {
+      NemerleSample(args);
+    }
+    
+    this(args : array [string]) 
+    {
+      base(args, "AverageBlur");
+    }
+
+    override protected ListProcedures() : IEnumerable[Procedure]
+    {
+      def procedure = Procedure("plug_in_nemerle_sample",
+		      "Sample Nemerle plug-in: takes the average of all colors",
+		      "Sample Nemerle plug-in: takes the average of all colors",
+		      "Maurits Rijk",
+		      "(C) Maurits Rijk",
+		      "2007",
+		      "NemerleSample",
+		      "RGB*, GRAY*");
+      procedure.MenuPath = "<Image>/Filters/Generic";
+      procedure.IconFile = "NemerleSample.png";
+      yield procedure;
+    }
+
+    override protected Render(drawable : Drawable) : void
+    {
+      def iter = RgnIterator(drawable, RunMode.Interactive);
+      iter.Progress = Progress("Average");
+
+      def average = drawable.CreatePixel();
+      iter.IterateSrc(fun (pixel : Pixel) : void {average.Add(pixel)});
+      average.Divide(iter.Count);
+
+      iter.IterateDest(fun () {average});
+
+      Display.DisplaysFlush();
+    }
+  }
+}

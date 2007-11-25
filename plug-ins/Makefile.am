@@ -20,6 +20,10 @@ if BUILD_IRONPYTHON
 PythonSample = PythonSample
 endif
 
+if BUILD_NEMERLE
+NemerleSample = NemerleSample
+endif
+
 if BUILD_PDN
 Pdn = Pdn
 endif
@@ -42,6 +46,7 @@ SUBDIRS = 			\
 	Ministeck		\
 	ncp 			\
 	neo			\
+	$(NemerleSample)	\
 	$(Pdn)			\
 	PhotoshopActions	\
 	$(PictureFrame)		\

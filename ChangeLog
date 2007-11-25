@@ -1,3 +1,13 @@
+2007-11-25  Maurits  <maurits.rijk@gmail.com>
+
+	* NEWS: updated
+
+	* configure.in: check for Nemerle compiler
+
+	* plug-ins/NemerleSample/*: added
+
+	* plug-ins/Makefile.am: changed accordingly
+
 2007-11-24  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Colorize/Colorize.cs

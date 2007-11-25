@@ -463,7 +463,7 @@ ac_includes_default="\
 # include <unistd.h>
 #endif"
 
-ac_subst_vars='SHELL PATH_SEPARATOR PACKAGE_NAME PACKAGE_TARNAME PACKAGE_VERSION PACKAGE_STRING PACKAGE_BUGREPORT exec_prefix prefix program_transform_name bindir sbindir libexecdir datadir sysconfdir sharedstatedir localstatedir libdir includedir oldincludedir infodir mandir build_alias host_alias target_alias DEFS ECHO_C ECHO_N ECHO_T LIBS INSTALL_PROGRAM INSTALL_SCRIPT INSTALL_DATA CYGPATH_W PACKAGE VERSION ACLOCAL AUTOCONF AUTOMAKE AUTOHEADER MAKEINFO install_sh STRIP ac_ct_STRIP INSTALL_STRIP_PROGRAM mkdir_p AWK SET_MAKE am__leading_dot AMTAR am__tar am__untar build build_cpu build_vendor build_os host host_cpu host_vendor host_os CC CFLAGS LDFLAGS CPPFLAGS ac_ct_CC EXEEXT OBJEXT DEPDIR am__include am__quote AMDEP_TRUE AMDEP_FALSE AMDEPBACKSLASH CCDEPMODE am__fastdepCC_TRUE am__fastdepCC_FALSE EGREP LN_S ECHO AR ac_ct_AR RANLIB ac_ct_RANLIB CPP CXX CXXFLAGS ac_ct_CXX CXXDEPMODE am__fastdepCXX_TRUE am__fastdepCXX_FALSE CXXCPP F77 FFLAGS ac_ct_F77 LIBTOOL PKG_CONFIG MONO ac_pt_PKG_CONFIG MONO_CFLAGS MONO_LIBS MONO_DEPENDENCY_CFLAGS MONO_DEPENDENCY_LIBS RUNTIME CSC CSC_FLAGS GIMPTOOL GIMPPLUGINDIR GIMPLOCALE ECW LIBECW LIBUMFPACK LIBZ PSP IPY BUILD_COLORIZE_TRUE BUILD_COLORIZE_FALSE BUILD_UNITTEST_TRUE BUILD_UNITTEST_FALSE BUILD_PDN_TRUE BUILD_PDN_FALSE BUILD_INCOMPLETE_TRUE BUILD_INCOMPLETE_FALSE BUILD_ECW_TRUE BUILD_ECW_FALSE BUILD_JAVA_TRUE BUILD_JAVA_FALSE BUILD_IRONPYTHON_TRUE BUILD_IRONPYTHON_FALSE LIBOBJS LTLIBOBJS'
+ac_subst_vars='SHELL PATH_SEPARATOR PACKAGE_NAME PACKAGE_TARNAME PACKAGE_VERSION PACKAGE_STRING PACKAGE_BUGREPORT exec_prefix prefix program_transform_name bindir sbindir libexecdir datadir sysconfdir sharedstatedir localstatedir libdir includedir oldincludedir infodir mandir build_alias host_alias target_alias DEFS ECHO_C ECHO_N ECHO_T LIBS INSTALL_PROGRAM INSTALL_SCRIPT INSTALL_DATA CYGPATH_W PACKAGE VERSION ACLOCAL AUTOCONF AUTOMAKE AUTOHEADER MAKEINFO install_sh STRIP ac_ct_STRIP INSTALL_STRIP_PROGRAM mkdir_p AWK SET_MAKE am__leading_dot AMTAR am__tar am__untar build build_cpu build_vendor build_os host host_cpu host_vendor host_os CC CFLAGS LDFLAGS CPPFLAGS ac_ct_CC EXEEXT OBJEXT DEPDIR am__include am__quote AMDEP_TRUE AMDEP_FALSE AMDEPBACKSLASH CCDEPMODE am__fastdepCC_TRUE am__fastdepCC_FALSE EGREP LN_S ECHO AR ac_ct_AR RANLIB ac_ct_RANLIB CPP CXX CXXFLAGS ac_ct_CXX CXXDEPMODE am__fastdepCXX_TRUE am__fastdepCXX_FALSE CXXCPP F77 FFLAGS ac_ct_F77 LIBTOOL PKG_CONFIG MONO ac_pt_PKG_CONFIG MONO_CFLAGS MONO_LIBS MONO_DEPENDENCY_CFLAGS MONO_DEPENDENCY_LIBS RUNTIME CSC CSC_FLAGS GIMPTOOL GIMPPLUGINDIR GIMPLOCALE ECW LIBECW LIBUMFPACK LIBZ PSP IPY NCC BUILD_COLORIZE_TRUE BUILD_COLORIZE_FALSE BUILD_UNITTEST_TRUE BUILD_UNITTEST_FALSE BUILD_PDN_TRUE BUILD_PDN_FALSE BUILD_INCOMPLETE_TRUE BUILD_INCOMPLETE_FALSE BUILD_ECW_TRUE BUILD_ECW_FALSE BUILD_JAVA_TRUE BUILD_JAVA_FALSE BUILD_IRONPYTHON_TRUE BUILD_IRONPYTHON_FALSE BUILD_NEMERLE_TRUE BUILD_NEMERLE_FALSE LIBOBJS LTLIBOBJS'
 ac_subst_files=''
 
 # Initialize some variables set by options.
@@ -1067,6 +1067,7 @@ Optional Packages:
   --with-incomplete       build incomplete plug-ins (default-no)
   --with-java             support for the Java language (default-no)
   --with-ironpython       support for the IronPython (default-no)
+  --with-nemerle       support for the Nemerle (default-no)
 
 Some influential environment variables:
   CC          C compiler command
@@ -3674,7 +3675,7 @@ ia64-*-hpux*)
   ;;
 *-*-irix6*)
   # Find out which ABI we are using.
-  echo '#line 3677 "configure"' > conftest.$ac_ext
+  echo '#line 3678 "configure"' > conftest.$ac_ext
   if { (eval echo "$as_me:$LINENO: \"$ac_compile\"") >&5
   (eval $ac_compile) 2>&5
   ac_status=$?
@@ -5253,7 +5254,7 @@ fi
 
 
 # Provide some information about the compiler.
-echo "$as_me:5256:" \
+echo "$as_me:5257:" \
      "checking for Fortran 77 compiler version" >&5
 ac_compiler=`set X $ac_compile; echo $2`
 { (eval echo "$as_me:$LINENO: \"$ac_compiler --version </dev/null >&5\"") >&5
@@ -6351,11 +6352,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:6354: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:6355: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:6358: \$? = $ac_status" >&5
+   echo "$as_me:6359: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -6613,11 +6614,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:6616: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:6617: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:6620: \$? = $ac_status" >&5
+   echo "$as_me:6621: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -6675,11 +6676,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:6678: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:6679: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "$as_me:6682: \$? = $ac_status" >&5
+   echo "$as_me:6683: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized
@@ -8069,7 +8070,7 @@ linux*)
   libsuff=
   case "$host_cpu" in
   x86_64*|s390x*|powerpc64*)
-    echo '#line 8072 "configure"' > conftest.$ac_ext
+    echo '#line 8073 "configure"' > conftest.$ac_ext
     if { (eval echo "$as_me:$LINENO: \"$ac_compile\"") >&5
   (eval $ac_compile) 2>&5
   ac_status=$?
@@ -8944,7 +8945,7 @@ else
   lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
   lt_status=$lt_dlunknown
   cat > conftest.$ac_ext <<EOF
-#line 8947 "configure"
+#line 8948 "configure"
 #include "confdefs.h"
 
 #if HAVE_DLFCN_H
@@ -9042,7 +9043,7 @@ else
   lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
   lt_status=$lt_dlunknown
   cat > conftest.$ac_ext <<EOF
-#line 9045 "configure"
+#line 9046 "configure"
 #include "confdefs.h"
 
 #if HAVE_DLFCN_H
@@ -11297,11 +11298,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:11300: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:11301: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:11304: \$? = $ac_status" >&5
+   echo "$as_me:11305: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -11359,11 +11360,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:11362: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:11363: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "$as_me:11366: \$? = $ac_status" >&5
+   echo "$as_me:11367: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized
@@ -11882,7 +11883,7 @@ linux*)
   libsuff=
   case "$host_cpu" in
   x86_64*|s390x*|powerpc64*)
-    echo '#line 11885 "configure"' > conftest.$ac_ext
+    echo '#line 11886 "configure"' > conftest.$ac_ext
     if { (eval echo "$as_me:$LINENO: \"$ac_compile\"") >&5
   (eval $ac_compile) 2>&5
   ac_status=$?
@@ -12757,7 +12758,7 @@ else
   lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
   lt_status=$lt_dlunknown
   cat > conftest.$ac_ext <<EOF
-#line 12760 "configure"
+#line 12761 "configure"
 #include "confdefs.h"
 
 #if HAVE_DLFCN_H
@@ -12855,7 +12856,7 @@ else
   lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
   lt_status=$lt_dlunknown
   cat > conftest.$ac_ext <<EOF
-#line 12858 "configure"
+#line 12859 "configure"
 #include "confdefs.h"
 
 #if HAVE_DLFCN_H
@@ -13740,11 +13741,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:13743: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:13744: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:13747: \$? = $ac_status" >&5
+   echo "$as_me:13748: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -13802,11 +13803,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:13805: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:13806: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "$as_me:13809: \$? = $ac_status" >&5
+   echo "$as_me:13810: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized
@@ -15176,7 +15177,7 @@ linux*)
   libsuff=
   case "$host_cpu" in
   x86_64*|s390x*|powerpc64*)
-    echo '#line 15179 "configure"' > conftest.$ac_ext
+    echo '#line 15180 "configure"' > conftest.$ac_ext
     if { (eval echo "$as_me:$LINENO: \"$ac_compile\"") >&5
   (eval $ac_compile) 2>&5
   ac_status=$?
@@ -15954,11 +15955,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:15957: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:15958: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:15961: \$? = $ac_status" >&5
+   echo "$as_me:15962: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -16216,11 +16217,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:16219: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:16220: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:16223: \$? = $ac_status" >&5
+   echo "$as_me:16224: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -16278,11 +16279,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:16281: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:16282: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "$as_me:16285: \$? = $ac_status" >&5
+   echo "$as_me:16286: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized
@@ -17672,7 +17673,7 @@ linux*)
   libsuff=
   case "$host_cpu" in
   x86_64*|s390x*|powerpc64*)
-    echo '#line 17675 "configure"' > conftest.$ac_ext
+    echo '#line 17676 "configure"' > conftest.$ac_ext
     if { (eval echo "$as_me:$LINENO: \"$ac_compile\"") >&5
   (eval $ac_compile) 2>&5
   ac_status=$?
@@ -18547,7 +18548,7 @@ else
   lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
   lt_status=$lt_dlunknown
   cat > conftest.$ac_ext <<EOF
-#line 18550 "configure"
+#line 18551 "configure"
 #include "confdefs.h"
 
 #if HAVE_DLFCN_H
@@ -18645,7 +18646,7 @@ else
   lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
   lt_status=$lt_dlunknown
   cat > conftest.$ac_ext <<EOF
-#line 18648 "configure"
+#line 18649 "configure"
 #include "confdefs.h"
 
 #if HAVE_DLFCN_H
@@ -20956,9 +20957,70 @@ else
 echo "${ECHO_T}no" >&6
 fi
 
-   if test "$IRONPYTHON" = "no"; then
+   if test "$IPY" = "no"; then
         { { echo "$as_me:$LINENO: error: 'ipy' (IronPython) is not in your PATH." >&5
 echo "$as_me: error: 'ipy' (IronPython) is not in your PATH." >&2;}
+   { (exit 1); exit 1; }; }
+   fi
+
+fi
+
+#
+# Check if we want to support Nemerle
+#
+
+nemerle=no
+
+# Check whether --with-nemerle or --without-nemerle was given.
+if test "${with_nemerle+set}" = set; then
+  withval="$with_nemerle"
+
+fi;
+if test "x$with_nemerle" == xyes; then
+   nemerle=yes
+   # Extract the first word of "ncc", so it can be a program name with args.
+set dummy ncc; ac_word=$2
+echo "$as_me:$LINENO: checking for $ac_word" >&5
+echo $ECHO_N "checking for $ac_word... $ECHO_C" >&6
+if test "${ac_cv_path_NCC+set}" = set; then
+  echo $ECHO_N "(cached) $ECHO_C" >&6
+else
+  case $NCC in
+  [\\/]* | ?:[\\/]*)
+  ac_cv_path_NCC="$NCC" # Let the user override the test with a path.
+  ;;
+  *)
+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+for as_dir in $PATH
+do
+  IFS=$as_save_IFS
+  test -z "$as_dir" && as_dir=.
+  for ac_exec_ext in '' $ac_executable_extensions; do
+  if $as_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
+    ac_cv_path_NCC="$as_dir/$ac_word$ac_exec_ext"
+    echo "$as_me:$LINENO: found $as_dir/$ac_word$ac_exec_ext" >&5
+    break 2
+  fi
+done
+done
+
+  test -z "$ac_cv_path_NCC" && ac_cv_path_NCC="no"
+  ;;
+esac
+fi
+NCC=$ac_cv_path_NCC
+
+if test -n "$NCC"; then
+  echo "$as_me:$LINENO: result: $NCC" >&5
+echo "${ECHO_T}$NCC" >&6
+else
+  echo "$as_me:$LINENO: result: no" >&5
+echo "${ECHO_T}no" >&6
+fi
+
+   if test "$NCC" = "no"; then
+        { { echo "$as_me:$LINENO: error: 'ncc' (Nemerle) is not in your PATH." >&5
+echo "$as_me: error: 'ncc' (Nemerle) is not in your PATH." >&2;}
    { (exit 1); exit 1; }; }
    fi
 
@@ -21035,7 +21097,17 @@ else
 fi
 
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          ac_config_files="$ac_config_files Makefile lib/Makefile java/Makefile java/stubs/Makefile plug-ins/Makefile plug-ins/AverageBlur/Makefile plug-ins/AverageBlur/po/Makefile plug-ins/Colorize/Makefile plug-ins/Colorize/po/Makefile plug-ins/CountTool/Makefile plug-ins/DifferenceClouds/Makefile plug-ins/DifferenceClouds/po/Makefile plug-ins/ecw/Makefile plug-ins/Forge/Makefile plug-ins/Forge/po/Makefile plug-ins/Fragment/Makefile plug-ins/Fragment/po/Makefile plug-ins/KoalaPaint/Makefile plug-ins/KoalaPaint/po/Makefile plug-ins/ncp/Makefile plug-ins/ncp/po/Makefile plug-ins/Mezzotint/Makefile plug-ins/Mezzotint/po/Makefile plug-ins/Ministeck/Makefile plug-ins/Ministeck/po/Makefile plug-ins/neo/Makefile plug-ins/neo/po/Makefile plug-ins/Pdn/Makefile plug-ins/PhotoshopActions/Makefile plug-ins/PictureFrame/Makefile plug-ins/PicturePackage/Makefile plug-ins/PicturePackage/po/Makefile plug-ins/Pointillize/Makefile plug-ins/Pointillize/po/Makefile plug-ins/PythonSample/Makefile plug-ins/Raindrops/Makefile plug-ins/Raindrops/po/Makefile plug-ins/Shatter/Makefile plug-ins/SliceTool/Makefile plug-ins/SliceTool/po/Makefile plug-ins/Splitter/Makefile plug-ins/Splitter/po/Makefile plug-ins/Swirlies/Makefile plug-ins/Swirlies/po/Makefile plug-ins/UnitTest/Makefile plug-ins/UpdateCheck/Makefile plug-ins/UpdateCheck/po/Makefile plug-ins/wbmp/Makefile plug-ins/wbmp/po/Makefile"
+
+if test x$nemerle = xyes; then
+  BUILD_NEMERLE_TRUE=
+  BUILD_NEMERLE_FALSE='#'
+else
+  BUILD_NEMERLE_TRUE='#'
+  BUILD_NEMERLE_FALSE=
+fi
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ac_config_files="$ac_config_files Makefile lib/Makefile java/Makefile java/stubs/Makefile plug-ins/Makefile plug-ins/AverageBlur/Makefile plug-ins/AverageBlur/po/Makefile plug-ins/Colorize/Makefile plug-ins/Colorize/po/Makefile plug-ins/CountTool/Makefile plug-ins/DifferenceClouds/Makefile plug-ins/DifferenceClouds/po/Makefile plug-ins/ecw/Makefile plug-ins/Forge/Makefile plug-ins/Forge/po/Makefile plug-ins/Fragment/Makefile plug-ins/Fragment/po/Makefile plug-ins/KoalaPaint/Makefile plug-ins/KoalaPaint/po/Makefile plug-ins/ncp/Makefile plug-ins/ncp/po/Makefile plug-ins/Mezzotint/Makefile plug-ins/Mezzotint/po/Makefile plug-ins/Ministeck/Makefile plug-ins/Ministeck/po/Makefile plug-ins/NemerleSample/Makefile plug-ins/neo/Makefile plug-ins/neo/po/Makefile plug-ins/Pdn/Makefile plug-ins/PhotoshopActions/Makefile plug-ins/PictureFrame/Makefile plug-ins/PicturePackage/Makefile plug-ins/PicturePackage/po/Makefile plug-ins/Pointillize/Makefile plug-ins/Pointillize/po/Makefile plug-ins/PythonSample/Makefile plug-ins/Raindrops/Makefile plug-ins/Raindrops/po/Makefile plug-ins/Shatter/Makefile plug-ins/SliceTool/Makefile plug-ins/SliceTool/po/Makefile plug-ins/Splitter/Makefile plug-ins/Splitter/po/Makefile plug-ins/Swirlies/Makefile plug-ins/Swirlies/po/Makefile plug-ins/UnitTest/Makefile plug-ins/UpdateCheck/Makefile plug-ins/UpdateCheck/po/Makefile plug-ins/wbmp/Makefile plug-ins/wbmp/po/Makefile"
 
 
 cat >confcache <<\_ACEOF
@@ -21196,6 +21268,13 @@ if test -z "${BUILD_IRONPYTHON_TRUE}" && test -z "${BUILD_IRONPYTHON_FALSE}"; th
   { { echo "$as_me:$LINENO: error: conditional \"BUILD_IRONPYTHON\" was never defined.
 Usually this means the macro was only invoked conditionally." >&5
 echo "$as_me: error: conditional \"BUILD_IRONPYTHON\" was never defined.
+Usually this means the macro was only invoked conditionally." >&2;}
+   { (exit 1); exit 1; }; }
+fi
+if test -z "${BUILD_NEMERLE_TRUE}" && test -z "${BUILD_NEMERLE_FALSE}"; then
+  { { echo "$as_me:$LINENO: error: conditional \"BUILD_NEMERLE\" was never defined.
+Usually this means the macro was only invoked conditionally." >&5
+echo "$as_me: error: conditional \"BUILD_NEMERLE\" was never defined.
 Usually this means the macro was only invoked conditionally." >&2;}
    { (exit 1); exit 1; }; }
 fi
@@ -21668,6 +21747,7 @@ do
   "plug-ins/Mezzotint/po/Makefile" ) CONFIG_FILES="$CONFIG_FILES plug-ins/Mezzotint/po/Makefile" ;;
   "plug-ins/Ministeck/Makefile" ) CONFIG_FILES="$CONFIG_FILES plug-ins/Ministeck/Makefile" ;;
   "plug-ins/Ministeck/po/Makefile" ) CONFIG_FILES="$CONFIG_FILES plug-ins/Ministeck/po/Makefile" ;;
+  "plug-ins/NemerleSample/Makefile" ) CONFIG_FILES="$CONFIG_FILES plug-ins/NemerleSample/Makefile" ;;
   "plug-ins/neo/Makefile" ) CONFIG_FILES="$CONFIG_FILES plug-ins/neo/Makefile" ;;
   "plug-ins/neo/po/Makefile" ) CONFIG_FILES="$CONFIG_FILES plug-ins/neo/po/Makefile" ;;
   "plug-ins/Pdn/Makefile" ) CONFIG_FILES="$CONFIG_FILES plug-ins/Pdn/Makefile" ;;
@@ -21863,6 +21943,7 @@ s,@LIBUMFPACK@,$LIBUMFPACK,;t t
 s,@LIBZ@,$LIBZ,;t t
 s,@PSP@,$PSP,;t t
 s,@IPY@,$IPY,;t t
+s,@NCC@,$NCC,;t t
 s,@BUILD_COLORIZE_TRUE@,$BUILD_COLORIZE_TRUE,;t t
 s,@BUILD_COLORIZE_FALSE@,$BUILD_COLORIZE_FALSE,;t t
 s,@BUILD_UNITTEST_TRUE@,$BUILD_UNITTEST_TRUE,;t t
@@ -21877,6 +21958,8 @@ s,@BUILD_JAVA_TRUE@,$BUILD_JAVA_TRUE,;t t
 s,@BUILD_JAVA_FALSE@,$BUILD_JAVA_FALSE,;t t
 s,@BUILD_IRONPYTHON_TRUE@,$BUILD_IRONPYTHON_TRUE,;t t
 s,@BUILD_IRONPYTHON_FALSE@,$BUILD_IRONPYTHON_FALSE,;t t
+s,@BUILD_NEMERLE_TRUE@,$BUILD_NEMERLE_TRUE,;t t
+s,@BUILD_NEMERLE_FALSE@,$BUILD_NEMERLE_FALSE,;t t
 s,@LIBOBJS@,$LIBOBJS,;t t
 s,@LTLIBOBJS@,$LTLIBOBJS,;t t
 CEOF
@@ -22604,6 +22687,7 @@ GIMP-SHARP Features:
   ECW		    : $have_libecw
   Java support      : $java
   IronPython support: $iron_python
+  Nemerle support   : $nemerle
 " >&5
 echo "${ECHO_T}
 Building GIMP-SHARP with prefix=$prefix
@@ -22614,4 +22698,5 @@ GIMP-SHARP Features:
   ECW		    : $have_libecw
   Java support      : $java
   IronPython support: $iron_python
+  Nemerle support   : $nemerle
 " >&6;
