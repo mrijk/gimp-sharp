@@ -1,0 +1,81 @@
+// The NemerleSample plug-in
+// Copyright (C) 2007 Maurits Rijk
+//
+// BooSample.b
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+
+// namespace Gimp.BooSample
+
+import System
+import System.Collections
+import System.Collections.Generic
+
+import Gimp
+
+/*
+class Procedure:
+	def Name():
+		return "myName"
+
+class Plugin:
+	def constructor (args as (string)):
+		pass
+*/
+
+[Module]
+class BooSample(Plugin):
+
+	def constructor(args as (string)):
+		super(args, "BooSample")
+		print "Constructor!"
+
+	override def ListProcedures() as IEnumerable[of Procedure]:
+		print "ListProcedures"
+		yield Procedure("plug_in_boo_sample",
+				"Sample Boo plug-in: takes the average of all colors",
+                                "Sample Boo plug-in: takes the average of all colors",
+                                "Maurits Rijk",
+                                "(C) Maurits Rijk",
+                                "2007",
+                                "PythonSample",
+                                "RGB*, GRAY*")
+
+	override def Render(image as Image, drawable as Drawable):
+		iter = RgnIterator(drawable, RunMode.Interactive)
+		iter.Progress = Progress("Average")
+
+		// average = drawable.CreatePixel()
+
+// [STAThread]
+def Main(argv as (string)):
+	print "Yo!"
+	plugin = BooSample(argv)
+//	for procedure in plugin.ListProcedures():
+//		print procedure.Name()
+
+/*
+foo = ArrayList()
+foo.Add("foo")
+foo.Add("bar")
+print foo.Count
+
+bar = List[of int]()
+bar.Add(13)
+bar.Add(14)
+print bar.Count
+
+bar.ForEach({x | print x})
+*/

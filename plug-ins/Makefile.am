@@ -1,5 +1,9 @@
 ## Process this file with automake to produce Makefile.in
 
+if BUILD_BOO
+BooSample = BooSample
+endif
+
 if BUILD_COLORIZE
 Colorize = Colorize
 endif
@@ -35,6 +39,7 @@ endif
 AUTOMAKE_OPTIONS = gnu
 SUBDIRS = 			\
 	AverageBlur		\
+	$(Boo)			\
 	$(Colorize)		\
 	$(CountTool)		\
 	$(DifferenceClouds)	\

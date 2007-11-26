@@ -1,3 +1,15 @@
+2007-11-26  Maurits  <maurits.rijk@gmail.com>
+
+	* configure.in: added support for Boo
+
+	* plug-ins/BooSample/*: added
+
+	* plug-ins/Makefile.am: changed accordingly
+		
+2007-11-25  Maurits  <maurits.rijk@gmail.com>
+
+	* configure.in: check for Visual Basic compiler
+
 2007-11-25  Maurits  <maurits.rijk@gmail.com>
 
 	* NEWS: updated

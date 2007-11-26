@@ -146,7 +146,7 @@ fi
 #
 
 iron_python=no
-AC_ARG_WITH(python,[  --with-ironpython       support for the IronPython (default-no)])
+AC_ARG_WITH(python,[  --with-ironpython       support for IronPython (default-no)])
 if test "x$with_ironpython" == xyes; then
    iron_python=yes
    AC_PATH_PROG(IPY, ipy, no)
@@ -161,7 +161,7 @@ fi
 #
 
 nemerle=no
-AC_ARG_WITH(nemerle,[  --with-nemerle       support for the Nemerle (default-no)])
+AC_ARG_WITH(nemerle,[  --with-nemerle       support for Nemerle (default-no)])
 if test "x$with_nemerle" == xyes; then
    nemerle=yes
    AC_PATH_PROG(NCC, ncc, no)
@@ -171,6 +171,22 @@ if test "x$with_nemerle" == xyes; then
    AC_SUBST(NCC)
 fi
 
+#
+# Check if we want to support Visual Basic
+#
+
+visual_basic=no
+AC_ARG_WITH(vb,[  --with-vb       support for Visual Basic (default-no)])
+if test "x$with_vb" == xyes; then
+   visual_basic=yes
+   AC_PATH_PROG(VBNC, vbnc, no)
+   if test "$VBNC" = "no"; then
+        AC_MSG_ERROR(['vbnc' (Visual Basic) is not in your PATH.])
+   fi
+   AC_SUBST(VBNC)
+fi
+
+AM_CONDITIONAL(BUILD_BOO, test x$boo = xyes)
 AM_CONDITIONAL(BUILD_COLORIZE, test x$have_umfpack = xyes)
 AM_CONDITIONAL(BUILD_UNITTEST, test x$unittest = xyes)
 AM_CONDITIONAL(BUILD_PDN, test x$pdn = xyes)
@@ -179,6 +195,7 @@ AM_CONDITIONAL(BUILD_ECW, test x"$have_libecw" = xyes)
 AM_CONDITIONAL(BUILD_JAVA, test x$java = xyes)
 AM_CONDITIONAL(BUILD_IRONPYTHON, test x$iron_python = xyes)
 AM_CONDITIONAL(BUILD_NEMERLE, test x$nemerle = xyes)
+AM_CONDITIONAL(BUILD_VISUALBASIC, test x$visual_basic = xyes)
 
 dnl read Makefile.in and write Makefile
 AC_CONFIG_FILES([
@@ -188,6 +205,7 @@ java/stubs/Makefile
 plug-ins/Makefile 
 plug-ins/AverageBlur/Makefile
 plug-ins/AverageBlur/po/Makefile
+plug-ins/BooSample/Makefile
 plug-ins/Colorize/Makefile
 plug-ins/Colorize/po/Makefile
 plug-ins/CountTool/Makefile
@@ -239,11 +257,13 @@ dnl Print a summary of features enabled/disabled:
 AC_MSG_RESULT([
 Building GIMP-SHARP with prefix=$prefix
 GIMP-SHARP Features:
-  Unit Tests	    : $unittest
-  Paint.NET	    : $pdn
-  Incomplete	    : $incomplete
-  ECW		    : $have_libecw
-  Java support      : $java
-  IronPython support: $iron_python
-  Nemerle support   : $nemerle
+  Unit Tests	      : $unittest
+  Paint.NET	      : $pdn
+  Incomplete	      : $incomplete
+  ECW		      : $have_libecw
+  Boo support         : $boo
+  IronPython support  : $iron_python
+  Java support        : $java
+  Nemerle support     : $nemerle
+  Visual Basic support: $visual_basic
 ]);
