@@ -2,6 +2,7 @@ Overview of Changes in Gimp# 0.14
 =================================
 - use C# 3.0 features
 - Added Nemerle (http://nemerle.org) sample
+- Added Boo (http://boo.codehaus.org) sample
 
 Overview of Changes in Gimp# 0.13
 =================================

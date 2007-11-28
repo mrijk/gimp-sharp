@@ -25,57 +25,36 @@ import System.Collections.Generic
 
 import Gimp
 
-/*
-class Procedure:
-	def Name():
-		return "myName"
-
-class Plugin:
-	def constructor (args as (string)):
-		pass
-*/
-
 [Module]
 class BooSample(Plugin):
 
-	def constructor(args as (string)):
-		super(args, "BooSample")
-		print "Constructor!"
+  def constructor(args as (string)):
+    super(args, "BooSample")
 
-	override def ListProcedures() as IEnumerable[of Procedure]:
-		print "ListProcedures"
-		yield Procedure("plug_in_boo_sample",
-				"Sample Boo plug-in: takes the average of all colors",
-                                "Sample Boo plug-in: takes the average of all colors",
-                                "Maurits Rijk",
-                                "(C) Maurits Rijk",
-                                "2007",
-                                "PythonSample",
-                                "RGB*, GRAY*")
+  override def ListProcedures() as IEnumerable[of Procedure]:
+    procedure = Procedure("plug_in_boo_sample",
+			  "Sample Boo plug-in: takes the average of all colors",
+			  "Sample Boo plug-in: takes the average of all colors",
+			  "Maurits Rijk",
+			  "(C) Maurits Rijk",
+			  "2007",
+			  "BooSample",
+			  "RGB*, GRAY*")
+    procedure.MenuPath = "<Image>/Filters/Generic"
+    procedure.IconFile = "BooSample.png"
+    yield procedure
 
-	override def Render(image as Image, drawable as Drawable):
-		iter = RgnIterator(drawable, RunMode.Interactive)
-		iter.Progress = Progress("Average")
+  override protected def Render(drawable as Drawable):
+    iter = RgnIterator(_drawable, RunMode.Interactive)
+    iter.Progress = Progress("Average")
 
-		// average = drawable.CreatePixel()
+    average = _drawable.CreatePixel()
+    iter.IterateSrc({pixel as Pixel | average.Add(pixel)})
+    average.Divide(iter.Count)
 
-// [STAThread]
+    iter.IterateDest({return average})
+
+    Display.DisplaysFlush()
+
 def Main(argv as (string)):
-	print "Yo!"
-	plugin = BooSample(argv)
-//	for procedure in plugin.ListProcedures():
-//		print procedure.Name()
-
-/*
-foo = ArrayList()
-foo.Add("foo")
-foo.Add("bar")
-print foo.Count
-
-bar = List[of int]()
-bar.Add(13)
-bar.Add(14)
-print bar.Count
-
-bar.ForEach({x | print x})
-*/
+  BooSample(argv)

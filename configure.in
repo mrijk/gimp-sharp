@@ -142,6 +142,21 @@ if test "x$with_java" == xyes; then
 fi
 
 #
+# Check if we want to support Boo
+#
+
+boo=no
+AC_ARG_WITH(boo,[  --with-boo       support for Boo (default-no)])
+if test "x$with_boo" == xyes; then
+   boo=yes
+   AC_PATH_PROG(BOOC, booc, no)
+   if test "$BOOC" = "no"; then
+        AC_MSG_ERROR(['booc' (Boo) is not in your PATH.])
+   fi
+   AC_SUBST(BOOC)
+fi
+
+#
 # Check if we want to support IronPython
 #
 

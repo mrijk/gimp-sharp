@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // Plugin.cs
 //
@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Reflection;
@@ -111,7 +112,7 @@ namespace Gimp
 				    BindingFlags.NonPublic | 
 				    BindingFlags.Instance))
 	{
-	  if (method.Name.Equals("Render"))
+	  if (method.Name == "Render")
 	    {
 	      foreach (ParameterInfo parameter in method.GetParameters())
 		{
@@ -299,14 +300,11 @@ namespace Gimp
 
     void CallRender()
     {
-#if true
-      int m_start = Environment.TickCount;
-#else
-      // Fixme: not implemented in Mono yet :(
       Stopwatch stopWatch = new Stopwatch();
-#endif
+      stopWatch.Start();
+
       GetRequiredParameters();
-      
+
       if (_usesDrawable && _usesImage)
 	{
 	  Render(_image, _drawable);
@@ -323,14 +321,12 @@ namespace Gimp
 	{
 	  Render();
 	}
-#if true
-      int m_time= Environment.TickCount - m_start;
-      if (m_time<0)
-	m_time &=0x7FFFFFFF;
-      Console.WriteLine("Processing time {0:0.0} seconds.", 
-			(double)m_time / 1000 );
-#else
-#endif
+
+      stopWatch.Stop();
+      TimeSpan ts = stopWatch.Elapsed;
+      Console.WriteLine(String.Format("Processing time: {0:00}:{1:00}:{2:00}.{3:00}",
+				      ts.Hours, ts.Minutes, ts.Seconds, 
+				      ts.Milliseconds / 10));
     }
     
     virtual protected void Reset() {}

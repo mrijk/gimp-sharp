@@ -1,3 +1,18 @@
+2007-11-28  Maurits  <maurits.rijk@gmail.com>
+
+	* NEWS: updated
+
+	* lib/Plugin.cs: use Stopwatch class
+
+	* plug-ins/BooSample/BooSample.png: add Boo icon
+
+	* plug-ins/BooSample/Makefile.am
+	* plug-ins/BooSample/BooSample.b: finished implementation
+
+2007-11-27  Maurits  <maurits.rijk@gmail.com>
+
+	* configure.in: check for Boo
+
 2007-11-26  Maurits  <maurits.rijk@gmail.com>
 
 	* configure.in: added support for Boo

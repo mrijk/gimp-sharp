@@ -39,7 +39,7 @@ endif
 AUTOMAKE_OPTIONS = gnu
 SUBDIRS = 			\
 	AverageBlur		\
-	$(Boo)			\
+	$(BooSample)		\
 	$(Colorize)		\
 	$(CountTool)		\
 	$(DifferenceClouds)	\
