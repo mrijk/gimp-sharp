@@ -262,6 +262,7 @@ plug-ins/Swirlies/po/Makefile
 plug-ins/UnitTest/Makefile 
 plug-ins/UpdateCheck/Makefile 
 plug-ins/UpdateCheck/po/Makefile 
+plug-ins/VisualBasicSample/Makefile
 plug-ins/wbmp/Makefile
 plug-ins/wbmp/po/Makefile
 ])

@@ -1,3 +1,13 @@
+2007-11-29  Maurits  <maurits.rijk@gmail.com>
+
+	* plug-ins/VisualBasicSample/*: added
+	
+	* configure.in
+	* plug-ins/Makefile.am: support for Visual Basic
+
+	* plug-ins/BooSample/Makefile.am
+	* plug-ins/BooSample/BooSample.boo: renamed extension .b to .boo
+
 2007-11-28  Maurits  <maurits.rijk@gmail.com>
 
 	* NEWS: updated

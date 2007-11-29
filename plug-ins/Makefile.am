@@ -36,6 +36,10 @@ if BUILD_UNITTEST
 UnitTest = UnitTest
 endif
 
+if BUILD_VISUALBASIC
+VisualBasicSample = VisualBasicSample
+endif
+
 AUTOMAKE_OPTIONS = gnu
 SUBDIRS = 			\
 	AverageBlur		\
@@ -65,6 +69,7 @@ SUBDIRS = 			\
 	Swirlies 		\
 	$(UnitTest) 		\
 	UpdateCheck		\
+	$(VisualBasicSample)	\
 	wbmp
 
 
