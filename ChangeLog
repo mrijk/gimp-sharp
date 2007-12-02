@@ -1,3 +1,16 @@
+2007-12-02  Maurits  <maurits.rijk@gmail.com>
+
+	* plug-ins/FSharpSample/FSharpSample.fs: Render function implemented
+
+2007-12-01  Maurits  <maurits.rijk@gmail.com>
+
+	* plug-ins/FSharpSample/*
+	* plug-ins/Makefile.am: support for F#
+
+	* docs/FAQ: updated
+
+	* configure.in: check for F#
+
 2007-11-29  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/VisualBasicSample/*: added

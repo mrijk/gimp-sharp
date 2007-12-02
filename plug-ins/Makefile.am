@@ -12,6 +12,10 @@ if BUILD_ECW
 ecw = ecw
 endif
 
+if BUILD_FSHARP
+FSharpSample = FSharpSample
+endif
+
 if BUILD_INCOMPLETE
 CountTool = CountTool
 Mezzotint = Mezzotint
@@ -50,6 +54,7 @@ SUBDIRS = 			\
 	$(ecw)			\
 	Forge	 		\
 	Fragment		\
+	$(FSharpSample)		\
 	KoalaPaint 		\
 	$(Mezzotint)		\
 	Ministeck		\

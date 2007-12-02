@@ -16,7 +16,14 @@ Q: why not Java?
 
 A: hm, I have to think about a politically correct answer. But the
 real reason is that I had to learn C# and .NET couple of years ago and
-I needed a fun project. Besides, C# is quite a nice language.
+I needed a fun project. Besides, C# is quite a nice language. Update:
+you can use Java with IKVM.
+
+
+Q: what languages are supported?
+
+A: C#, Java (using IKVM), Pyton (using IronPython), Visual Basic,
+Nemerle and Boo.
 
 
 Q: how often will you release?

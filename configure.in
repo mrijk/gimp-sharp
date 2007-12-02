@@ -157,6 +157,21 @@ if test "x$with_boo" == xyes; then
 fi
 
 #
+# Check if we want to support F#
+#
+
+fsharp=no
+AC_ARG_WITH(fsharp,[  --with-fsharp       support for F\# (default-no)])
+if test "x$with_fsharp" == xyes; then
+   fsharp=yes
+   AC_PATH_PROG(FSC, fsc, no)
+   if test "$FSC" = "no"; then
+        AC_MSG_ERROR(['fsc' (FSharp) is not in your PATH.])
+   fi
+   AC_SUBST(FSC)
+fi
+
+#
 # Check if we want to support IronPython
 #
 
@@ -203,6 +218,7 @@ fi
 
 AM_CONDITIONAL(BUILD_BOO, test x$boo = xyes)
 AM_CONDITIONAL(BUILD_COLORIZE, test x$have_umfpack = xyes)
+AM_CONDITIONAL(BUILD_FSHARP, test x$fsharp = xyes)
 AM_CONDITIONAL(BUILD_UNITTEST, test x$unittest = xyes)
 AM_CONDITIONAL(BUILD_PDN, test x$pdn = xyes)
 AM_CONDITIONAL(BUILD_INCOMPLETE, test x$incomplete = xyes)
@@ -231,6 +247,7 @@ plug-ins/Forge/Makefile
 plug-ins/Forge/po/Makefile
 plug-ins/Fragment/Makefile
 plug-ins/Fragment/po/Makefile
+plug-ins/FSharpSample/Makefile
 plug-ins/KoalaPaint/Makefile
 plug-ins/KoalaPaint/po/Makefile
 plug-ins/ncp/Makefile 
@@ -278,6 +295,7 @@ GIMP-SHARP Features:
   Incomplete	      : $incomplete
   ECW		      : $have_libecw
   Boo support         : $boo
+  FSharp support      : $fsharp
   IronPython support  : $iron_python
   Java support        : $java
   Nemerle support     : $nemerle
