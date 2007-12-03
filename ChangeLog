@@ -1,3 +1,9 @@
+2007-12-03  Maurits  <maurits.rijk@gmail.com>
+
+	* NEWS: updated
+
+	* plug-ins/FSharpSample/FSharpSample.fs: first working version
+
 2007-12-02  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/FSharpSample/FSharpSample.fs: Render function implemented

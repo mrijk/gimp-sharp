@@ -109,6 +109,7 @@ namespace Gimp
     {
       foreach (MethodInfo method in 
 	       GetType().GetMethods(BindingFlags.DeclaredOnly |
+				    BindingFlags.Public | 
 				    BindingFlags.NonPublic | 
 				    BindingFlags.Instance))
 	{

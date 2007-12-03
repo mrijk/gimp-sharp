@@ -1,7 +1,7 @@
 // The FSharpSample plug-in
 // Copyright (C) 2007 Maurits Rijk
 //
-// FSharpSample.n
+// FSharpSample.fs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -34,8 +34,10 @@ type FSharpSample = class
       inherit Plugin(args, "FSharpSample")
     }
 
-//  override x.ListProcedures() as IEnumerable<'Procedure> =
-//    base.ListProcedures()
+  override x.ListProcedures() : seq<Procedure> =
+    let procedure = new Procedure("plug_in_fsharp_sample", "Sample F# plug-in: takes the average of all colors", "Sample F# plug-in: takes the average of all colors", "Maurits Rijk", "(C) Maurits Rijk", "2007", "FSharpSample", "RGB*, GRAY*")
+    procedure.MenuPath <- "<Image>/Filters/Generic"
+    [procedure] :> seq<Procedure>
 
   override x.Render(drawable : Drawable) = 
     let iter = new RgnIterator(drawable, RunMode.Interactive)
@@ -46,13 +48,13 @@ type FSharpSample = class
     average.Divide(iter.Count) |> ignore
 
     iter.IterateDest(fun () -> average)
-
-    base.Render(drawable)
+    Display.DisplaysFlush();
 
 end
 
 let main() =
-  let _ = new FSharpSample(Sys.argv)
-  ()
+  let len = Array.length Sys.argv - 1
+  let argv = Array.sub Sys.argv 1 len
+  new FSharpSample(argv) |> ignore
 
 main()
