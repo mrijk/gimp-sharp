@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // GimpTable.cs
 //
@@ -35,24 +35,24 @@ namespace Gimp
 
     public void AttachAligned(int column, int row, string label_text,
 			      double xalign, double yalign, Widget widget,
-			      int colspan, bool left_align)
+			      int colspan, bool leftAlign)
     {
       IntPtr ptr = gimp_table_attach_aligned(Handle, column, row, 
 					     label_text, (float) xalign, 
 					     (float) yalign, widget.Handle, 
-					     colspan, left_align);
+					     colspan, leftAlign);
       // return new Widget(ptr);
     }
 
     [DllImport("libgimpwidgets-2.0-0.dll")]
-    extern static IntPtr gimp_table_attach_aligned (IntPtr 	table,
-						    int	column,
-						    int     row,
-						    string 	label_text,
-						    float   xalign,
-						    float   yalign,
-						    IntPtr  widget,
-						    int     colspan,
-						    bool    left_align);
+    extern static IntPtr gimp_table_attach_aligned(IntPtr  table,
+						   int	   column,
+						   int     row,
+						   string  label_text,
+						   float   xalign,
+						   float   yalign,
+						   IntPtr  widget,
+						   int     colspan,
+						   bool    left_align);
   }
 }

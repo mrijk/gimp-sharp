@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // DrawableComboBox.cs
 //
@@ -22,8 +22,6 @@
 using System;
 using System.Runtime.InteropServices;
 
-using Gtk;
-
 namespace Gimp
 {
   public delegate bool DrawableConstraintFunc(Int32 imageId, Int32 drawableId,
@@ -42,14 +40,8 @@ namespace Gimp
 
     public new Drawable Active
     {
-      get 
-	{
-	  return new Drawable(base.Active);
-	}
-      set
-	{
-	  base.Active = value.ID;
-	}
+      get {return new Drawable(base.Active);}
+      set {base.Active = value.ID;}
     }
  
     [DllImport("libgimpui-2.0-0.dll")]

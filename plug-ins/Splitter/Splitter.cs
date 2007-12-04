@@ -124,10 +124,7 @@ namespace Gimp.Splitter
       hbox.Add(new Label("f(x, y):"));
       Entry formula = new Entry();
       formula.Text = _formula;
-      formula.Changed += delegate
-	{
-	  _formula = formula.Text;
-	};
+      formula.Changed += delegate {_formula = formula.Text;};
       hbox.Add(formula);
       hbox.Add(new Label("= 0"));
 
@@ -139,10 +136,7 @@ namespace Gimp.Splitter
 
       CheckButton merge = new CheckButton(_("Merge visible layers"));
       merge.Active = _merge;
-      merge.Toggled += delegate
-	{
-	  _merge = merge.Active;
-	};
+      merge.Toggled += delegate {_merge = merge.Active;};
       table.Attach(merge, 0, 1, 3, 4);
 
       Button advanced = new Button(_("Advanced Options..."));
@@ -166,10 +160,7 @@ namespace Gimp.Splitter
       keep.AppendText(_("Layer 1"));
       keep.AppendText(_("Layer 2"));
       keep.Active = _keepLayer;
-      keep.Changed += delegate
-	{
-	  _keepLayer = keep.Active;
-	};
+      keep.Changed += delegate {_keepLayer = keep.Active;};
       table.AttachAligned(0, 5, _("Keep:"), 0.0, 0.5, keep, 1, true);
 
       return dialog;
@@ -183,31 +174,19 @@ namespace Gimp.Splitter
 	{BorderWidth = 12, RowSpacing = 12, ColumnSpacing = 12};
       frame.Add(table);
 
-      SpinButton spinner = new SpinButton(int.MinValue, int.MaxValue, 1);
-      spinner.Value = _translate_1_x;
-      spinner.ValueChanged += delegate
-	{
-	  _translate_1_x = spinner.ValueAsInt;
-	};
-      spinner.WidthChars = 4;
+      SpinButton spinner = new SpinButton(int.MinValue, int.MaxValue, 1)
+	{Value = _translate_1_x, WidthChars = 4};
+      spinner.ValueChanged += delegate {_translate_1_x = spinner.ValueAsInt;};
       table.AttachAligned(0, 0, _("Translate X:"), 0.0, 0.5, spinner, 1, true);
 
-      spinner = new SpinButton(int.MinValue, int.MaxValue, 1);
-      spinner.Value = _translate_1_y;
-      spinner.ValueChanged += delegate
-	{
-	  _translate_1_y = spinner.ValueAsInt;
-	};
-      spinner.WidthChars = 4;
+      spinner = new SpinButton(int.MinValue, int.MaxValue, 1)
+	{Value = _translate_1_y, WidthChars = 4};
+      spinner.ValueChanged += delegate {_translate_1_y = spinner.ValueAsInt;};
       table.AttachAligned(0, 1, _("Translate Y:"), 0.0, 0.5, spinner, 1, true);
 
-      spinner = new SpinButton(0, 360, 1);
-      spinner.Value = _rotate_1;
-      spinner.ValueChanged += delegate
-	{
-	  _rotate_1 = spinner.ValueAsInt;
-	};
-      spinner.WidthChars = 4;
+      spinner = new SpinButton(0, 360, 1)
+	{Value = _rotate_1, WidthChars = 4};
+      spinner.ValueChanged += delegate {_rotate_1 = spinner.ValueAsInt;};
       table.AttachAligned(0, 2, _("Rotate:"), 0.0, 0.5, spinner, 1, true);
 
       return frame;
@@ -223,31 +202,19 @@ namespace Gimp.Splitter
 	{BorderWidth = 12, RowSpacing = 12, ColumnSpacing = 12};
       frame.Add(table);
 
-      SpinButton spinner = new SpinButton(int.MinValue, int.MaxValue, 1);
-      spinner.Value = _translate_2_x;
-      spinner.ValueChanged += delegate
-	{
-	  _translate_2_x = spinner.ValueAsInt;
-	};
-      spinner.WidthChars = 4;
+      SpinButton spinner = new SpinButton(int.MinValue, int.MaxValue, 1)
+	{Value = _translate_2_x, WidthChars = 4};
+      spinner.ValueChanged += delegate {_translate_2_x = spinner.ValueAsInt;};
       table.AttachAligned(0, 0, _("Translate X:"), 0.0, 0.5, spinner, 1, true);
 
-      spinner = new SpinButton(int.MinValue, int.MaxValue, 1);
-      spinner.Value = _translate_2_y;
-      spinner.ValueChanged += delegate
-	{
-	  _translate_2_y = spinner.ValueAsInt;
-	};
-      spinner.WidthChars = 4;
+      spinner = new SpinButton(int.MinValue, int.MaxValue, 1)
+	{Value = _translate_2_y, WidthChars = 4};
+      spinner.ValueChanged += delegate {_translate_2_y = spinner.ValueAsInt;};
       table.AttachAligned(0, 1, _("Translate Y:"), 0.0, 0.5, spinner, 1, true);
 
-      spinner = new SpinButton(0, 360, 1);
-      spinner.Value = _rotate_2;
-      spinner.ValueChanged += delegate
-	{
-	  _rotate_2 = spinner.ValueAsInt;
-	};
-      spinner.WidthChars = 4;
+      spinner = new SpinButton(0, 360, 1)
+	{Value = _rotate_2, WidthChars = 4};
+      spinner.ValueChanged += delegate {_rotate_2 = spinner.ValueAsInt;};
       table.AttachAligned(0, 2, _("Rotate:"), 0.0, 0.5, spinner, 1, true);
 
       return frame;

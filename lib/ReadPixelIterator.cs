@@ -40,11 +40,12 @@ namespace Gimp
       this(drawable, RunMode.Noninteractive)
     {
     }
-	
+
     public IEnumerator<Pixel> GetEnumerator()
     {
       PixelRgn srcPR = new PixelRgn(_drawable, _drawable.MaskBounds,
 				    false, false);
+
       for (IntPtr pr = PixelRgn.Register(srcPR); pr != IntPtr.Zero; 
 	   pr = PixelRgn.Process(pr))
 	{
@@ -52,10 +53,7 @@ namespace Gimp
 	    {
 	      for (int x = srcPR.X; x < srcPR.X + srcPR.W; x++)
 		{
-		  Pixel pixel = srcPR[y, x];
-		  pixel.X = x;
-		  pixel.Y = y;
-		  yield return pixel;
+		  yield return srcPR[y, x];
 		}
 	    }
 	}

@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // FileEntry.cs
 //
@@ -30,8 +30,8 @@ namespace Gimp
   public class FileEntry : HBox
   {
     public FileEntry(string title, string filename, bool dir_only, 
-		     bool check_valid) :
-      base(gimp_file_entry_new(title, filename, dir_only, check_valid))
+		     bool checkValid) :
+      base(gimp_file_entry_new(title, filename, dir_only, checkValid))
     {
     }
 
@@ -44,23 +44,22 @@ namespace Gimp
     [GLib.Signal("filename_changed")]
     public event EventHandler FilenameChanged {
       add {
-	GLib.Signal sig = GLib.Signal.Lookup (this, "filename_changed");
+	GLib.Signal sig = GLib.Signal.Lookup(this, "filename_changed");
 	sig.AddDelegate (value);
       }
       remove {
-	GLib.Signal sig = GLib.Signal.Lookup (this, "filename_changed");
+	GLib.Signal sig = GLib.Signal.Lookup(this, "filename_changed");
 	sig.RemoveDelegate (value);     
       }
     }
 
     [DllImport("libgimpwidgets-2.0-0.dll")]
-    extern static IntPtr gimp_file_entry_new (string title, string filename, 
-					      bool dir_only, 
-					      bool check_valid);
+    extern static IntPtr gimp_file_entry_new(string title, string filename, 
+					     bool dir_only, bool check_valid);
     [DllImport("libgimpwidgets-2.0-0.dll")]
-    extern static string gimp_file_entry_get_filename (IntPtr entry);
+    extern static string gimp_file_entry_get_filename(IntPtr entry);
     [DllImport("libgimpwidgets-2.0-0.dll")]
-    extern static void gimp_file_entry_set_filename (IntPtr entry, 
-						     string filename);
+    extern static void gimp_file_entry_set_filename(IntPtr entry, 
+						    string filename);
   }
 }

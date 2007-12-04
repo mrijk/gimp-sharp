@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // IntComboBox.cs
 //
@@ -66,8 +66,8 @@ namespace Gimp
 
     public void Append(string label, int value)
     {
-      gimp_int_combo_box_append(Handle, IntStoreColumns.LABEL, label,
-				IntStoreColumns.VALUE, value, -1);
+      gimp_int_combo_box_append(Handle, IntStoreColumns.Label, label,
+				IntStoreColumns.Value, value, -1);
     }
 
     public void Connect(int value, IntComboBoxCallback callback, IntPtr data)

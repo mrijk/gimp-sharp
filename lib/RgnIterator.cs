@@ -137,10 +137,7 @@ namespace Gimp
 	    {
 	      for (int x = srcPR.X; x < srcPR.X + srcPR.W; x++)
 		{
-		  Pixel pixel = srcPR[y, x];
-		  pixel.X = x;
-		  pixel.Y = y;
-		  destPR[y, x] = func(pixel);
+		  destPR[y, x] = func(srcPR[y, x]);
 		}
 	    }				
 	}

@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // EllipseSelectTool.cs
 //
@@ -26,7 +26,7 @@ namespace Gimp
 {
   public sealed class EllipseSelectTool
   {
-    Int32 _imageID;
+    readonly Int32 _imageID;
 
     public EllipseSelectTool(Image image)
     {
@@ -44,14 +44,14 @@ namespace Gimp
 	}
     }
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_ellipse_select (Int32 image_ID,
-					    double x,
-					    double y,
-					    double width,
-					    double height,
-					    ChannelOps operation,
-					    bool antialias,
+    static extern bool gimp_ellipse_select(Int32 image_ID,
+					   double x,
+					   double y,
+					   double width,
+					   double height,
+					   ChannelOps operation,
+					   bool antialias,
 					    bool feather,
-					    double feather_radius);
+					   double feather_radius);
   }
 }

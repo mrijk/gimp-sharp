@@ -1,3 +1,27 @@
+2007-12-04  Maurits  <maurits.rijk@gmail.com>
+
+	* lib/Mask.cs
+	* lib/ParamDef.cs
+	* lib/DrawableComboBox.cs
+	* lib/EllipseSelectTool.cs
+	* lib/FileEntry.cs
+	* lib/FilePlugin.cs
+	* lib/FreeSelectTool.cs
+	* lib/GimpTable.cs
+	* lib/GuideCollection.cs
+	* lib/ImageComboBox.cs
+	* lib/IntComboBox.cs
+	* lib/IntStore.cs
+	* lib/SaveAttribute.cs: minor clean-up
+
+2007-12-03  Maurits  <maurits.rijk@gmail.com>
+
+	* plug-ins/Splitter/Splitter.cs: clean-up
+
+	* lib/RgnIterator.cs
+	* lib/PixelRgn.cs
+	* lib/ReadPixelIterator.cs: simplified somewhat
+
 2007-12-03  Maurits  <maurits.rijk@gmail.com>
 
 	* NEWS: updated

@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // GuideCollection.cs
 //
@@ -21,13 +21,12 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections;
 
 namespace Gimp
 {
   public sealed class GuideCollection
   {
-    Image _image;
+    readonly Image _image;
 
     public GuideCollection(Image image)
     {

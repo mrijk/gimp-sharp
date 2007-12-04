@@ -37,6 +37,7 @@ type FSharpSample = class
   override x.ListProcedures() : seq<Procedure> =
     let procedure = new Procedure("plug_in_fsharp_sample", "Sample F# plug-in: takes the average of all colors", "Sample F# plug-in: takes the average of all colors", "Maurits Rijk", "(C) Maurits Rijk", "2007", "FSharpSample", "RGB*, GRAY*")
     procedure.MenuPath <- "<Image>/Filters/Generic"
+    procedure.IconFile <- "FSharpSample.png"
     [procedure] :> seq<Procedure>
 
   override x.Render(drawable : Drawable) = 

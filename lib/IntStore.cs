@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // IntStore.cs
 //
@@ -20,14 +20,14 @@
 //
 
 namespace Gimp
-  {
+{
   public enum IntStoreColumns
-    {
-     VALUE,
-     LABEL,
-     STOCK_ID,
-     PIXBUF,
-     USER_DATA,
-     NUM_COLUMNS
-    }
+  {
+    Value,
+    Label,
+    StockId,
+    Pixbuf,
+    UserData,
+    NumColumns
   }
+}

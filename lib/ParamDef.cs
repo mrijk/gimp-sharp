@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // ParamDef.cs
 //
@@ -30,14 +30,14 @@ namespace Gimp
     readonly string _name;
     readonly string _description;
     readonly Type   _type;
-    object _value;
+    public object Value {get; set;}
 
-    GimpParamDef _paramDef = new GimpParamDef();
+    readonly GimpParamDef _paramDef = new GimpParamDef();
 
     public ParamDef(string name, object value, Type type, string description)
     {
       _name = name;
-      _value = value;
+      Value = value;
       _type = type;
       _description = description;
     }
@@ -88,19 +88,19 @@ namespace Gimp
       switch (param.type)
 	{
 	case PDBArgType.Int32:
-	  param.data.d_int32 = (Int32) _value;
+	  param.data.d_int32 = (Int32) Value;
 	  break;
 	case PDBArgType.Float:
-	  param.data.d_float = (double) _value;
+	  param.data.d_float = (double) Value;
 	  break;
 	case PDBArgType.String:
-	  param.data.d_string = Marshal.StringToHGlobalAuto((string) _value);
+	  param.data.d_string = Marshal.StringToHGlobalAuto((string) Value);
 	  break;
 	case PDBArgType.Image:
-	  param.data.d_image = ((Image) _value).ID;
+	  param.data.d_image = (Value as Image).ID;
 	  break;
 	case PDBArgType.Status:
-	  param.data.d_status = (PDBStatusType) _value;
+	  param.data.d_status = (PDBStatusType) Value;
 	  break;
 	default:
 	  Console.WriteLine("GetGimpParam: couldn't create");
@@ -113,12 +113,6 @@ namespace Gimp
     public string Name
     {
       get {return _name;}
-    }
-
-    public object Value
-    {
-      get {return _value;}
-      set {_value = value;}
     }
 
     public string Description

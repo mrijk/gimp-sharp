@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // FreeSelectTool.cs
 //
@@ -26,7 +26,7 @@ namespace Gimp
 {
   public sealed class FreeSelectTool
   {
-    Int32 _imageID;
+    readonly Int32 _imageID;
 
     public FreeSelectTool(Image image)
     {
@@ -50,12 +50,12 @@ namespace Gimp
     }
 
     [DllImport("libgimp-2.0-0.dll")]
-    extern static bool gimp_free_select (Int32 image_ID,
-					 int num_segs,
-					 double[] segs,
-					 ChannelOps operation,
-					 bool antialias,
-					 bool feather,
-					 double feather_radius);
+    extern static bool gimp_free_select(Int32 image_ID,
+					int num_segs,
+					double[] segs,
+					ChannelOps operation,
+					bool antialias,
+					bool feather,
+					double feather_radius);
   }
 }

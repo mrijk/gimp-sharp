@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // PixelRgn.cs
 //
@@ -25,18 +25,18 @@ using System.Runtime.InteropServices;
 namespace Gimp
 {
   [StructLayout(LayoutKind.Sequential)]
-  public struct GimpPixelRgn
+  internal struct GimpPixelRgn
   {
     public IntPtr     data;  	       /* pointer to region data */
-    IntPtr	      drawable;      /* pointer to drawable */
+    public IntPtr     drawable;      /* pointer to drawable */
     public uint       bpp;           /* bytes per pixel */
     public uint       rowstride;     /* bytes per pixel row */
     public uint       x, y;          /* origin */
     public uint       w, h;          /* width and height of region */
     // uint         dirty : 1;     /* will this region be dirtied? */
     // uint         shadow : 1;    /* will this region use the shadow or normal tiles */
-    public uint		 dirty_shadow;
-    uint         process_count;      /* used internally */
+    public uint	      dirty_shadow;
+    public uint        process_count;      /* used internally */
   }
 
   public sealed class PixelRgn
@@ -47,8 +47,7 @@ namespace Gimp
     readonly bool _dirty;
 
     public PixelRgn(Drawable drawable, int x, int y, int width, int height,
-		    bool dirty,
-		    bool shadow)
+		    bool dirty, bool shadow)
     {
       gimp_pixel_rgn_init(ref pr, drawable.Ptr, x, y, width, height, dirty, 
 			  shadow);
@@ -176,7 +175,7 @@ namespace Gimp
       get {return _dirty;}
     }
 
-    public GimpPixelRgn PR
+    internal GimpPixelRgn PR
     {
       get {return pr;}
     }
@@ -195,10 +194,7 @@ namespace Gimp
 	  IntPtr src = (IntPtr) ((int) pr.data + (row - Y) * Rowstride + 
 				 (col - X) * _bpp);
 	  Marshal.Copy(src, _dummy, 0, _bpp);
-	  Pixel pixel = new Pixel(this, _dummy);
-	  pixel.X = col;
-	  pixel.Y = row;
-	  return pixel;
+	  return new Pixel(this, _dummy) {X = col, Y = row};
 	}
     }
 

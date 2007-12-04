@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // ImageComboBox.cs
 //
@@ -22,29 +22,26 @@
 using System;
 using System.Runtime.InteropServices;
 
-using Gtk;
-
 namespace Gimp
+{
+  public class ImageComboBox : IntComboBox
   {
-    public class ImageComboBox : IntComboBox
+    public ImageComboBox() : 
+      base(gimp_image_combo_box_new(IntPtr.Zero, IntPtr.Zero))
     {
-      public ImageComboBox() : 
-	base(gimp_image_combo_box_new(IntPtr.Zero, IntPtr.Zero))
-      {
-      }
-
-      public new Image Active
-      {
-	get 
-	  {
+    }
+    
+    public new Image Active
+    {
+      get 
+	{
 	  int imageID = base.Active;
 	  return (imageID == -1) ? null : new Image(imageID);
-	  }
-      }
-
-      [DllImport("libgimpui-2.0-0.dll")]
-      extern static IntPtr gimp_image_combo_box_new (
-	IntPtr constraint,
-	IntPtr data);
+	}
     }
+    
+    [DllImport("libgimpui-2.0-0.dll")]
+    extern static IntPtr gimp_image_combo_box_new(IntPtr constraint,
+						  IntPtr data);
   }
+}

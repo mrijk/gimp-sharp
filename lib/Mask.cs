@@ -35,10 +35,7 @@ namespace Gimp
       get
 	{
 	  Int32 layerID = gimp_layer_from_mask(_ID);
-	  if (layerID == -1)
-	    return null;
-	  else
-	    return new Layer(layerID);
+	  return (layerID == -1) ? null : new Layer(layerID);
 	}
     }
 

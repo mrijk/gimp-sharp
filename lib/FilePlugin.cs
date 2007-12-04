@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // FilePlugin.cs
 //
@@ -71,17 +71,16 @@ namespace Gimp
 					  string copyright, string date, 
 					  string menu_path)
     {
-      ParamDefList inParams = new ParamDefList(true);
-      inParams.Add(new ParamDef("run_mode", typeof(Int32), 
-				"Interactive, non-interactive"));
-      inParams.Add(new ParamDef("filename", typeof(FileName), 
-				"The name of the file to load"));
-      inParams.Add(new ParamDef("raw_filename", typeof(FileName), 
-				"The name entered"));
+      ParamDefList inParams = new ParamDefList(true) {
+	new ParamDef("run_mode", typeof(Int32),
+		     "Interactive, non-interactive"),
+	new ParamDef("filename", typeof(FileName), 
+		     "The name of the file to load"),
+	new ParamDef("raw_filename", typeof(FileName), 
+		     "The name entered")};
 
-      ParamDefList outParams = new ParamDefList(true);
-      outParams.Add(new ParamDef("image", typeof(Image), 
-				 "Output image"));
+      ParamDefList outParams = new ParamDefList(true) {
+	new ParamDef("image", typeof(Image), "Output image")};
 
       _loadProcedure = new Procedure(name, blurb, help, author, copyright, 
 				     date, menu_path, null, 
@@ -96,17 +95,17 @@ namespace Gimp
 					  string menu_path,
 					  string image_types)
     {
-      ParamDefList inParams = new ParamDefList(true);
-      inParams.Add(new ParamDef("run_mode", typeof(Int32), 
-				"Interactive, non-interactive"));
-      inParams.Add(new ParamDef("image", typeof(Image), 
-				"Input image"));
-      inParams.Add(new ParamDef("drawable", typeof(Drawable), 
-				"Drawable to save"));
-      inParams.Add(new ParamDef("filename", typeof(FileName),
-				"The name of the file to save the image in"));
-      inParams.Add(new ParamDef("raw_filename", typeof(FileName),
-				"The name of the file to save the image in"));
+      ParamDefList inParams = new ParamDefList(true) {
+	new ParamDef("run_mode", typeof(Int32), 
+		     "Interactive, non-interactive"),
+	new ParamDef("image", typeof(Image), 
+		     "Input image"),
+	new ParamDef("drawable", typeof(Drawable), 
+		     "Drawable to save"),
+	new ParamDef("filename", typeof(FileName),
+		     "The name of the file to save the image in"),
+	new ParamDef("raw_filename", typeof(FileName),
+		     "The name of the file to save the image in")};
 
       _saveProcedure = new Procedure(name, blurb, help, author, copyright, 
 				     date, menu_path, image_types, inParams);
@@ -129,8 +128,7 @@ namespace Gimp
 			     ImageType type, string filename)
     {
       Image image = new Image(width, height, baseType);
-      Layer layer = new Layer(image, "Background", width, height, type,
-			      100, LayerModeEffects.Normal);
+      Layer layer = new Layer(image, "Background", type);
       image.AddLayer(layer, 0);
       image.Filename = filename;
 

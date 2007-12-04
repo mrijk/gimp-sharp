@@ -219,8 +219,16 @@ namespace Gimp
     {
       if (IconFile != null)
 	{
-	  Pixbuf pixbuf = new Pixbuf(Assembly.GetEntryAssembly(), IconFile);
-	  
+	  Pixbuf pixbuf;
+	  try
+	    {
+	      pixbuf = new Pixbuf(Assembly.GetEntryAssembly(), IconFile);
+	    }
+	  catch
+	    {
+	      Console.WriteLine("Icon file: " + IconFile + " not found!");
+	      return;
+	    }
 	  Pixdata data = new Pixdata();
 	  data.FromPixbuf(pixbuf, false);
 	  if (!gimp_plugin_icon_register(Name, IconType.InlinePixbuf, 
