@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2006 Maurits Rijk  m.rijk@chello.nl
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // MouseFunc.cs
 //
@@ -57,25 +57,23 @@ namespace Gimp.SliceTool
       _preview.QueueDraw();
     }
 
-    virtual protected void OnPress(int x, int y) {}
+    virtual protected void OnPress(Coordinate<int> c) {}
     virtual protected void OnRelease() {}
-    virtual protected void OnMove(int x, int y) {}
+    virtual protected void OnMove(Coordinate<int> c) {}
     
-    virtual public Cursor GetCursor(int x, int y)
+    virtual public Cursor GetCursor(Coordinate<int> c)
     {
       return _defaultCursor;
     }
 
-    virtual public MouseFunc GetActualFunc(SliceTool parent, int x, int y) 
+    virtual public MouseFunc GetActualFunc(SliceTool parent, 
+					   Coordinate<int> c) 
     {
       return this;
     }
 
     public void OnButtonPress(object o, ButtonPressEventArgs args)
     {
-      int x = (int) args.Event.X;
-      int y = (int) args.Event.Y;
-
       if (_useRelease)
 	{
 	  AddReleaseEvent();
@@ -85,7 +83,8 @@ namespace Gimp.SliceTool
 	{
 	  AddMotionNotifyEvent();
 	}
-      OnPress(x, y);
+
+      OnPress(new Coordinate<int>((int) args.Event.X, (int) args.Event.Y));
     }
 
     protected void AddReleaseEvent()
@@ -113,7 +112,7 @@ namespace Gimp.SliceTool
       if (ev.IsHint) 
 	{
 	  ModifierType s;
-	  ev.Window.GetPointer (out x, out y, out s);
+	  ev.Window.GetPointer(out x, out y, out s);
 	} 
       else 
 	{
@@ -121,7 +120,7 @@ namespace Gimp.SliceTool
 	  y = (int) ev.Y;
 	}
 
-      OnMove(x, y);
+      OnMove(new Coordinate<int>(x, y));
     }
   }
 }

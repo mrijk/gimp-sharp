@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2006 Maurits Rijk  m.rijk@chello.nl
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // VerticalSlice.cs
 //
@@ -65,14 +65,14 @@ namespace Gimp.SliceTool
       return copy;		
     }
 
-    override public void SetPosition(int x, int y)
+    override public void SetPosition(Coordinate<int> c)
     {
-      X = x;
+      X = c.X;
     }
 
-    override public bool PointOn(int x, int y)
+    override public bool PointOn(Coordinate<int> c)
     {
-      return y >= Y1 && y <= Y2 && Math.Abs(x - X) < 5;
+      return c.Y >= Y1 && c.Y <= Y2 && Math.Abs(c.X - X) < 5;
     }
  
     override public void Save(StreamWriter w)
@@ -88,12 +88,12 @@ namespace Gimp.SliceTool
 
     public int Y1
     {
-      get {return _begin.Position;}
+      get {return Begin.Position;}
     }
 
     public int Y2
     {
-      get {return _end.Position;}
+      get {return End.Position;}
     }
 
     override public Cursor Cursor

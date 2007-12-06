@@ -28,8 +28,8 @@ namespace Gimp.SliceTool
   public class RectangleSet
   {
     readonly List<Rectangle> _set = new List<Rectangle>();
-    Rectangle _selected;
-    bool _changed = false;
+    public Rectangle Selected {get; private set;}
+    public bool Changed {get; set;}
     
     public RectangleSet()
     {
@@ -42,17 +42,17 @@ namespace Gimp.SliceTool
     
     public void Add(Rectangle rectangle)
     {
-      _changed = true;
+      Changed = true;
       _set.Add(rectangle);
-      if (_selected == null)
+      if (Selected == null)
 	{
-	  _selected = rectangle;
+	  Selected = rectangle;
 	}
     }
     
     public void Remove(Rectangle rectangle)
     {
-      _changed = true;
+      Changed = true;
       _set.Remove(rectangle);
     }
     
@@ -63,19 +63,8 @@ namespace Gimp.SliceTool
     
     public void Clear()
     {
-      _changed = true;
+      Changed = true;
       _set.Clear();
-    }
-    
-    public Rectangle Selected
-    {
-      get {return _selected;}
-    }
-    
-    public bool Changed
-    {
-      get {return _changed;}
-      set {_changed = value;}
     }
     
     public void Slice(Slice slice)
@@ -93,15 +82,15 @@ namespace Gimp.SliceTool
       created._set.ForEach(rectangle => Add(rectangle));
     }
     
-    public Rectangle Find(int x, int y)
+    public Rectangle Find(Coordinate<int> c)
     {
-      return _set.Find(rectangle => rectangle.IsInside(x, y));
+      return _set.Find(rectangle => rectangle.IsInside(c));
     }
     
-    public Rectangle Select(int x, int y)
+    public Rectangle Select(Coordinate<int> c)
     {
-      _selected = Find(x, y);
-      return _selected;
+      Selected = Find(c);
+      return Selected;
     }
     
     public void WriteHTML(StreamWriter w, string name, bool useGlobalExtension)
@@ -136,7 +125,7 @@ namespace Gimp.SliceTool
     public void Save(StreamWriter w)
     {
       _set.ForEach(rectangle => rectangle.Save(w));
-      _changed = false;
+      Changed = false;
     }
     
     public void Resolve(SliceSet hslices, SliceSet vslices)

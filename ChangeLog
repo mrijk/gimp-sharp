@@ -1,3 +1,23 @@
+2007-12-06  Maurits  <maurit.rijk@gmail.com>
+
+	* plug-ins/SliceTool/Format.cs
+	* plug-ins/SliceTool/Property.cs
+	* plug-ins/SliceTool/SliceTool.cs
+	* plug-ins/SliceTool/SliceSet.cs
+	* plug-ins/SliceTool/RectangleSet.cs
+	* plug-ins/SliceTool/SliceData.cs
+	* plug-ins/SliceTool/VerticalSlize.cs
+	* plug-ins/SliceTool/HorizontalSlice.cs
+	* plug-ins/SliceTool/Slice.cs
+	* plug-ins/SliceTool/SelectFunc.cs
+	* plug-ins/SliceTool/CreateFunc.cs
+	* plug-ins/SliceTool/RemoveFunc.cs
+	* plug-ins/SliceTool/MouseFunc.cs: use Coordinate class
+
+	* lib/Offset.cs: use C# 3.0 features
+
+	* TODO: updated
+
 2007-12-04  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Mask.cs

@@ -25,30 +25,18 @@ namespace Gimp
 {
   public struct Offset
   {
-    int _x;
-    int _y;
+    public int X {get; set;}
+    public int Y {get; set;}
 
     public Offset(int x, int y)
     {
-      _x = x;
-      _y = y;
-    }
-
-    public int X
-    {
-      get {return _x;}
-      set {_x = value;}
-    }
-
-    public int Y
-    {
-      get {return _y;}
-      set {_y = value;}
+      X = x;
+      Y = y;
     }
 
     public override string ToString()
     {
-      return string.Format("({0}, {1})", _x, _y);
+      return string.Format("({0}, {1})", X, Y);
     }
   }
 }

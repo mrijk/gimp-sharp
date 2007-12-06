@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2006 Maurits Rijk  m.rijk@chello.nl
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // Property.cs
 //
@@ -25,27 +25,21 @@ namespace Gimp.SliceTool
 {
   public class Property
   {
-    string _name;
-    string _value;
-    bool _changed = false;
+    public string Name {get; private set;}
+    public bool Changed {get; set;}
+    string _value = "";
 
     public Property(string name)
     {
-      _name = name;
-      _value = "";
+      Name = name;
     }
 
     public void WriteHTML(StreamWriter w)
     {
-      if (_value.Length > 0)
+      if (Value.Length > 0)
         {
-	  w.Write(" {0}=\"{1}\"", _name, _value);
+	  w.Write(" {0}=\"{1}\"", Name, Value);
         }
-    }
-
-    public string Name
-    {
-      get {return _name;}
     }
 
     public virtual string Value
@@ -56,15 +50,9 @@ namespace Gimp.SliceTool
           if (value != _value)
             {
 	      _value = value;
-	      _changed = true;
+	      Changed = true;
             }
 	}
-    }
-
-    public bool Changed
-    {
-      get {return _changed;}
-      set {_changed = value;}
     }
   }
 }

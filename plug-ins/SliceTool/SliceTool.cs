@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2007 Maurits Rijk  m.rijk@chello.nl
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // SliceTool.cs
 //
@@ -260,9 +260,9 @@ namespace Gimp.SliceTool
 
     void OnButtonPress(object o, ButtonPressEventArgs args)
     {
-      MouseFunc func = _func.GetActualFunc(this, (int) args.Event.X,
-					   (int) args.Event.Y);
-      func.OnButtonPress(o, args);
+      Coordinate<int> c = new Coordinate<int>((int) args.Event.X,
+					      (int) args.Event.Y);
+      _func.GetActualFunc(this, c).OnButtonPress(o, args);
     }
 
     Widget CreateToolbar()
@@ -534,12 +534,12 @@ namespace Gimp.SliceTool
       _xy.Text = "x: " + x + ", y: " + y;
       args.RetVal = true;
 
-      SetCursor(x, y);
+      SetCursor(new Coordinate<int>(x, y));
     }
 
-    void SetCursor(int x, int y)
+    void SetCursor(Coordinate<int> c)
     {
-      _preview.SetCursor(_func.GetCursor(x, y));
+      _preview.SetCursor(_func.GetCursor(c));
     }
 
     override protected void Render(Image image, Drawable drawable)

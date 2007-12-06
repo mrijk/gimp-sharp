@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2006 Maurits Rijk  m.rijk@chello.nl
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // SelectFunc.cs
 //
@@ -40,12 +40,12 @@ namespace Gimp.SliceTool
       _renderer = preview.Renderer;
     }
 
-    override protected void OnPress(int x, int y) 
+    override protected void OnPress(Coordinate<int> c)
     {
-      Slice slice = _sliceData.FindSlice(x, y);
+      Slice slice = _sliceData.FindSlice(c);
       if (slice == null)
 	{
-	  Rectangle rectangle = _sliceData.SelectRectangle(x, y);
+	  Rectangle rectangle = _sliceData.SelectRectangle(c);
 	  if (rectangle != _rectangle)
 	    {
 	      _parent.SetRectangleData(_rectangle);
@@ -70,24 +70,18 @@ namespace Gimp.SliceTool
       Redraw();
     }
 		
-    override protected void OnMove(int x, int y) 
+    override protected void OnMove(Coordinate<int> c)
     {
       _slice.Draw(_renderer);
-      _slice.SetPosition(x, y);
+      _slice.SetPosition(c);
       _slice.Draw(_renderer);		
     }
 
-    override public Cursor GetCursor(int x, int y)
+    override public Cursor GetCursor(Coordinate<int> c)
     {
-      Slice slice = _sliceData.FindSlice(x, y);
-      if (slice != null && !slice.Locked)
-	{
-	  return slice.Cursor;
-	}
-      else
-	{
-	  return base.GetCursor(x, y);
-	}
+      Slice slice = _sliceData.FindSlice(c);
+      return (slice != null && !slice.Locked)
+	? slice.Cursor : base.GetCursor(c);
     }
   }
 }

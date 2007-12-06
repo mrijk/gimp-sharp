@@ -1,5 +1,5 @@
 // The SliceTool plug-in
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // CreateTableFunc.cs
 //
@@ -28,7 +28,7 @@ namespace Gimp.SliceTool
   public class CreateTableFunc : MouseFunc
   {
     static readonly Cursor _cursor;
-    SliceData _sliceData;
+    readonly SliceData _sliceData;
 
     public CreateTableFunc(SliceData sliceData, Preview preview) : 
       base(preview, false, false)
@@ -41,35 +41,28 @@ namespace Gimp.SliceTool
       _cursor = LoadCursor("cursor-table.png");
     }
 
-    override protected void OnPress(int x, int y) 
+    override protected void OnPress(Coordinate<int> c) 
     {
       TableDialog dialog = new TableDialog();
       dialog.ShowAll();
-      ResponseType type = dialog.Run();
-      if (type == ResponseType.Ok)
+      if (dialog.Run() == ResponseType.Ok)
 	{
-	  _sliceData.CreateTable(x, y, dialog.Rows, dialog.Columns);
+	  _sliceData.CreateTable(c, dialog.Rows, dialog.Columns);
 	  Redraw();
 	}
       dialog.Destroy();
     }
 
-    override public Cursor GetCursor(int x, int y)
+    override public Cursor GetCursor(Coordinate<int> c)
     {
-      Slice slice = _sliceData.FindSlice(x, y);
-      if (slice != null && !slice.Locked)
-	{
-	  return slice.Cursor;
-	}
-      else
-	{
-	  return _cursor;
-	}
+      Slice slice = _sliceData.FindSlice(c);
+      return (slice != null && !slice.Locked) ? slice.Cursor : _cursor;
     }
 
-    override public MouseFunc GetActualFunc(SliceTool parent, int x, int y)
+    override public MouseFunc GetActualFunc(SliceTool parent,
+					    Coordinate<int> c)
     {
-      Slice slice = _sliceData.FindSlice(x, y);
+      Slice slice = _sliceData.FindSlice(c);
       if (slice == null || slice.Locked)
 	{
 	  return this;

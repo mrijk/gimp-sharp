@@ -85,9 +85,9 @@ namespace Gimp.SliceTool
       _set.ForEach(slice => slice.Draw(renderer));
     }
 
-    public Slice Find(int x, int y)
+    public Slice Find(Coordinate<int> c)
     {
-      return _set.Find(slice => slice.PointOn(x, y));
+      return _set.Find(slice => slice.PointOn(c));
     }
 
     public bool IsEndPoint(Slice s)

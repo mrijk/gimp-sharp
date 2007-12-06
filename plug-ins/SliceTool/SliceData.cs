@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2006 Maurits Rijk  m.rijk@chello.nl
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // SliceData.cs
 //
@@ -41,20 +41,20 @@ namespace Gimp.SliceTool
       int width = drawable.Width;
       int height = drawable.Height;
 
-      VerticalSlice left = new VerticalSlice(null, null, 0);
-      left.Locked = true;
+      VerticalSlice left = new VerticalSlice(null, null, 0) 
+	{Locked = true};
       _verticalSlices.Add(left);
 
-      VerticalSlice right = new VerticalSlice(null, null, width);
-      right.Locked = true;
+      VerticalSlice right = new VerticalSlice(null, null, width) 
+	{Locked = true};
       _verticalSlices.Add(right);
 
-      HorizontalSlice top = new HorizontalSlice(left, right, 0);
-      top.Locked = true;
+      HorizontalSlice top = new HorizontalSlice(left, right, 0) 
+	{Locked = true};
       _horizontalSlices.Add(top);
 
-      HorizontalSlice bottom = new HorizontalSlice(left, right, height);
-      bottom.Locked = true;
+      HorizontalSlice bottom = new HorizontalSlice(left, right, height)
+	{Locked = true};
       _horizontalSlices.Add(bottom);
 
       left.Begin = right.Begin = top;
@@ -74,32 +74,32 @@ namespace Gimp.SliceTool
       _rectangles.Slice(slice);
     }
 
-    public Rectangle FindRectangle(int x, int y)
+    public Rectangle FindRectangle(Coordinate<int> c)
     {
-      return _rectangles.Find(x, y);
+      return _rectangles.Find(c);
     }
 
-    public Rectangle SelectRectangle(int x, int y)
+    public Rectangle SelectRectangle(Coordinate<int> c)
     {
-      return _rectangles.Select(x, y);
+      return _rectangles.Select(c);
     }
 
-    public Slice FindSlice(int x, int y)
+    public Slice FindSlice(Coordinate<int> c)
     {
-      Slice slice = _horizontalSlices.Find(x, y);
+      Slice slice = _horizontalSlices.Find(c);
       if (slice == null)
         {
-	  slice = _verticalSlices.Find(x, y);
+	  slice = _verticalSlices.Find(c);
         }
       return slice;
     }
 
-    public Slice MayRemove(int x, int y)
+    public Slice MayRemove(Coordinate<int> c)
     {
-      Slice slice = _horizontalSlices.Find(x, y);
+      Slice slice = _horizontalSlices.Find(c);
       if (slice == null)
         {
-	  slice = _verticalSlices.Find(x, y);
+	  slice = _verticalSlices.Find(c);
 	  if (slice != null && !_horizontalSlices.IsEndPoint(slice))
 	    {
 	      return slice;
@@ -152,9 +152,9 @@ namespace Gimp.SliceTool
       _verticalSlices.Remove(slice);
     }
 
-    public void CreateTable(int x, int y, int rows, int columns)
+    public void CreateTable(Coordinate<int> c, int rows, int columns)
     {
-      Rectangle rectangle = new Rectangle(_rectangles.Find(x, y));
+      Rectangle rectangle = new Rectangle(_rectangles.Find(c));
       int width = rectangle.Width;
       int height = rectangle.Height;
       int x1 = rectangle.X1;

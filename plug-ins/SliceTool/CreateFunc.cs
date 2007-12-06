@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2006 Maurits Rijk  m.rijk@chello.nl
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // CreateFunc.cs
 //
@@ -47,12 +47,12 @@ namespace Gimp.SliceTool
       _cursor = LoadCursor("cursor-slice.png");
     }
 
-    override protected void OnPress(int x, int y) 
+    override protected void OnPress(Coordinate<int> c) 
     {
-      _x = x;
-      _y = y;
-      _rectangle = _sliceData.FindRectangle(x, y);
-      _slice = _rectangle.CreateHorizontalSlice(y);
+      _x = c.X;
+      _y = c.Y;
+      _rectangle = _sliceData.FindRectangle(c);
+      _slice = _rectangle.CreateHorizontalSlice(_y);
       _horizontal = true;
       _renderer.Function = Gdk.Function.Equiv;
       _slice.Draw(_renderer);
@@ -66,16 +66,19 @@ namespace Gimp.SliceTool
       Redraw();
     }
 		
-    override protected void OnMove(int x, int y) 
+    override protected void OnMove(Coordinate<int> c) 
     {
       Rectangle rectangle;
+      int x = c.X;
+      int y = c.Y;
+
       if (_horizontal)
 	{
-	  rectangle = _sliceData.FindRectangle(x, _y);
+	  rectangle = _sliceData.FindRectangle(new Coordinate<int>(x, _y));
 	}
       else
 	{
-	  rectangle = _sliceData.FindRectangle(_x, y);
+	  rectangle = _sliceData.FindRectangle(new Coordinate<int>(_x, y));
 	}
 
       bool rectangleChanged = rectangle != _endRectangle;
@@ -124,22 +127,16 @@ namespace Gimp.SliceTool
 	}
     }
 
-    override public Cursor GetCursor(int x, int y)
+    override public Cursor GetCursor(Coordinate<int> c)
     {
-      Slice slice = _sliceData.FindSlice(x, y);
-      if (slice != null && !slice.Locked)
-	{
-	  return slice.Cursor;
-	}
-      else
-	{
-	  return _cursor;
-	}
+      Slice slice = _sliceData.FindSlice(c);
+      return (slice != null && !slice.Locked) ? slice.Cursor : _cursor;
     }
 
-    override public MouseFunc GetActualFunc(SliceTool parent, int x, int y)
+    override public MouseFunc GetActualFunc(SliceTool parent, 
+					    Coordinate<int> c)
     {
-      Slice slice = _sliceData.FindSlice(x, y);
+      Slice slice = _sliceData.FindSlice(c);
       if (slice == null || slice.Locked)
 	{
 	  return this;

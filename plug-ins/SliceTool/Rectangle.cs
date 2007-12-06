@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2006 Maurits Rijk  m.rijk@chello.nl
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // Rectangle.cs
 //
@@ -26,39 +26,41 @@ namespace Gimp.SliceTool
 {
   public class Rectangle : IComparable
   {
-    VerticalSlice _left, _right;
-    HorizontalSlice _top, _bottom;
+    public VerticalSlice Left {get; set;}
+    public VerticalSlice Right {get; set;}
+    public HorizontalSlice Top {get; set;}
+    public HorizontalSlice Bottom {get; set;}
     
     PropertySet _properties = new PropertySet();
 
     bool _include = true;
 
     static string _globalExtension = "png";
-    string _extension;
+    public string Extension {get; set;}
 
     public Rectangle(VerticalSlice left, VerticalSlice right,
                      HorizontalSlice top, HorizontalSlice bottom)
     {
-      _left = left;
-      _right = right;
-      _top = top;
-      _bottom = bottom;
+      Left = left;
+      Right = right;
+      Top = top;
+      Bottom = bottom;
     }
 
     public Rectangle(Rectangle rectangle)
     {
-      _left = rectangle._left;
-      _right = rectangle._right;
-      _top = rectangle._top;
-      _bottom = rectangle._bottom;
+      Left = rectangle.Left;
+      Right = rectangle.Right;
+      Top = rectangle.Top;
+      Bottom = rectangle.Bottom;
     }
 
     public Rectangle(XmlNode node)
     {
-      _left = new VerticalSlice(GetValueOfNode(node, "left"));
-      _right = new VerticalSlice(GetValueOfNode(node, "right"));
-      _top = new HorizontalSlice(GetValueOfNode(node, "top"));
-      _bottom = new HorizontalSlice(GetValueOfNode(node, "bottom"));
+      Left = new VerticalSlice(GetValueOfNode(node, "left"));
+      Right = new VerticalSlice(GetValueOfNode(node, "right"));
+      Top = new HorizontalSlice(GetValueOfNode(node, "top"));
+      Bottom = new HorizontalSlice(GetValueOfNode(node, "bottom"));
     }
 
     int GetValueOfNode(XmlNode node, string item)
@@ -111,6 +113,8 @@ namespace Gimp.SliceTool
       else if (slice == Bottom && Y2 <= Y1)
         {
 	  Bottom.Y = Top.Y;
+	  return true;
+	  // Fix me: shouldn't this have 'return true'?????
         }
       return false;
     }
@@ -173,9 +177,9 @@ namespace Gimp.SliceTool
         }
     }
 
-    public bool IsInside(int x, int y)
+    public bool IsInside(Coordinate<int> c)
     {
-      return x >= X1 && x <= X2 && y >= Y1 && y <= Y2;
+      return c.X >= X1 && c.X <= X2 && c.Y >= Y1 && c.Y <= Y2;
     }
 
     public void Draw(PreviewRenderer renderer)
@@ -195,14 +199,14 @@ namespace Gimp.SliceTool
 
     string GetFilename(string name, bool useGlobalExtension)
     {
-      string extension = (_extension == null || useGlobalExtension)
-        ? _globalExtension : _extension;
+      string extension = (Extension == null || useGlobalExtension)
+        ? _globalExtension : Extension;
       return string.Format("{0}_{1}x{2}.{3}", name, Top.Index, Left.Index, 
                            extension);
     }
 
-    public void WriteHTML(StreamWriter w, string name, bool useGlobalExtension, 
-                          int index)
+    public void WriteHTML(StreamWriter w, string name, 
+			  bool useGlobalExtension, int index)
     {
       w.WriteLine("<td rowspan=\"{0}\" colspan=\"{1}\" width=\"{2}\" height=\"{3}\">",
                   Bottom.Index - Top.Index, Right.Index - Left.Index, 
@@ -270,48 +274,24 @@ namespace Gimp.SliceTool
       Bottom = hslices[Bottom.Index] as HorizontalSlice;
     }
 
-    public VerticalSlice Left
-    {
-      get {return _left;}
-      set {_left = value;}
-    }
-
-    public VerticalSlice Right
-    {
-      get {return _right;}
-      set {_right = value;}
-    }
-
-    public HorizontalSlice Top
-    {
-      get {return _top;}
-      set {_top = value;}
-    }
-
-    public HorizontalSlice Bottom
-    {
-      get {return _bottom;}
-      set {_bottom = value;}
-    }
-
     public int X1
     {
-      get {return _left.X;}
+      get {return Left.X;}
     }
 
     public int Y1
     {
-      get {return _top.Y;}
+      get {return Top.Y;}
     }
 
     public int X2
     {
-      get {return _right.X;}
+      get {return Right.X;}
     }
 
     public int Y2
     {
-      get {return _bottom.Y;}
+      get {return Bottom.Y;}
     }
 
     public int Width
@@ -338,12 +318,6 @@ namespace Gimp.SliceTool
     {
       get {return _include;}
       set {_include = value;}
-    }
-
-    public string Extension
-    {
-      get {return _extension;}
-      set {_extension = value;}
     }
 
     public static string GlobalExtension

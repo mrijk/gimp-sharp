@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2006 Maurits Rijk  m.rijk@chello.nl
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // Slice.cs
 //
@@ -28,17 +28,17 @@ namespace Gimp.SliceTool
 {
   abstract public class Slice : IComparable
   {
-    protected Slice _begin;
-    protected Slice _end;
+    public Slice Begin {get; set;}
+    public Slice End {get; set;}
     protected int _position;
-    int _index;
-    bool _locked;
-    bool _changed = false;
+    public int Index {get; set;}
+    public bool Locked {get; set;}
+    public bool Changed {get; private set;}
     
     protected Slice(Slice begin, Slice end, int position)
     {
-      _begin = begin;
-      _end = end;
+      Begin = begin;
+      End = end;
       _position = position;
     }
     
@@ -48,7 +48,7 @@ namespace Gimp.SliceTool
 
     protected Slice(int index)
     {
-      _index = index;
+      Index = index;
     }
 
     public int CompareTo(object obj)
@@ -61,47 +61,18 @@ namespace Gimp.SliceTool
     abstract public bool IntersectsWith(Rectangle rectangle);
     abstract public bool IsPartOf(Rectangle rectangle);
     abstract public Rectangle SliceRectangle(Rectangle rectangle);
-    abstract public void SetPosition(int x, int y);
-    abstract public bool PointOn(int x, int y);
+    abstract public void SetPosition(Coordinate<int> c);
+    abstract public bool PointOn(Coordinate<int> c);
     abstract public void Save(StreamWriter w);
     
-    public int Index
-    {
-      get {return _index;}
-      set {_index = value;}
-    }
-
-    public Slice Begin
-    {
-      get {return _begin;}
-      set {_begin = value;}
-    }
-
-    public Slice End
-    {
-      get {return _end;}
-      set {_end = value;}
-    }
-
     public int Position
     {
       get {return _position;}
       set 
 	{
-	  _changed = (_position != value);
+	  Changed = (_position != value);
 	  _position = value;
 	}
-    }
-
-    public bool Locked
-    {
-      get {return _locked;}
-      set {_locked = value;}
-    }
-
-    public bool Changed
-    {
-      get {return _changed;}
     }
 
     abstract public Cursor Cursor
@@ -112,17 +83,17 @@ namespace Gimp.SliceTool
     protected void Save(StreamWriter w, string type)
     {
       w.WriteLine("\t<slice type=\"{0}\" position=\"{1}\" index=\"{2}\" begin=\"{3}\" end=\"{4}\"/>", 
-		  type, Position, Index, _begin.Index, _end.Index);
-      _changed = false;
+		  type, Position, Index, Begin.Index, End.Index);
+      Changed = false;
     }
 
     public void Load(XmlNode slice)
     {
       _position = GetValueOfNode(slice, "position");
-      _index = GetValueOfNode(slice, "index");
-      _begin = new HorizontalSlice(GetValueOfNode(slice, "begin"));
-      _end = new HorizontalSlice(GetValueOfNode(slice, "end"));
-      _changed = false;
+      Index = GetValueOfNode(slice, "index");
+      Begin = new HorizontalSlice(GetValueOfNode(slice, "begin"));
+      End = new HorizontalSlice(GetValueOfNode(slice, "end"));
+      Changed = false;
     }
 
     int GetValueOfNode(XmlNode slice, string item)
@@ -134,8 +105,8 @@ namespace Gimp.SliceTool
 
     public void Resolve(SliceSet slices)
     {
-      _begin = slices[_begin.Index];
-      _end = slices[_end.Index];
+      Begin = slices[Begin.Index];
+      End = slices[End.Index];
     }
   }
 }
