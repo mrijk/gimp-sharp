@@ -270,6 +270,7 @@ plug-ins/PythonSample/Makefile
 plug-ins/Raindrops/Makefile 
 plug-ins/Raindrops/po/Makefile 
 plug-ins/Shatter/Makefile
+plug-ins/Sky/Makefile
 plug-ins/SliceTool/Makefile 
 plug-ins/SliceTool/po/Makefile 
 plug-ins/Splitter/Makefile 

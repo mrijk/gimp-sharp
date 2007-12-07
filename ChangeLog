@@ -1,3 +1,9 @@
+2007-12-07  Maurits  <maurits.rijk@gmail.com>
+
+	* plug-ins/Makefile.am
+	* plug-ins/Sky/*
+	* configure.in: add initial Sky plug-in code
+
 2007-12-06  Maurits  <maurit.rijk@gmail.com>
 
 	* plug-ins/SliceTool/Format.cs
