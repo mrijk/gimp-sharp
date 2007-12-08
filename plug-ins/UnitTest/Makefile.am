@@ -50,6 +50,8 @@ TESTSOURCES = 	TestBrush.cs 			\
 		TestStroke.cs			\
 		TestUndo.cs			\
 		TestVectors.cs			\
+		TestVector2.cs			\
+		TestVector3.cs			\
 		TestVersion.cs
 
 #		TestPlugins.cs

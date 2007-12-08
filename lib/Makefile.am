@@ -100,6 +100,8 @@ MYSOURCES = 				\
 	TextLayer.cs			\
 	Tile.cs				\
 	Vectors.cs			\
+	Vector2.cs			\
+	Vector3.cs			\
 	Version.cs			\
 	VerticalGuide.cs		\
 	ZoomPreview.cs

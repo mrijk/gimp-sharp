@@ -1,3 +1,22 @@
+2007-12-08  Maurits  <maurit.rijk@gmail.com>
+
+	* lib/gimp-sharp.dll.config: mapping for libgimpmath added
+
+	* plug-ins/UnitTest/TestVector2.cs
+	* plug-ins/UnitTest/TestVector3.cs: new files
+
+	* plug-ins/UnitTest/Makefile.am: changed accordingly
+
+	* lib/Vector2.cs
+	* lib/Vector3.cs: new files
+
+	* lib/Makefile.am: changed accordingly
+
+	* plug-ins/Sky/TMatrix.cs: new file
+	* plug-ins/Sky/Makefile.am: changed accordingly
+
+	* plug-ins/Sky/Sky.cs: start building GUI
+
 2007-12-07  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Makefile.am
