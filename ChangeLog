@@ -1,3 +1,13 @@
+2007-12-09  Maurits  <maurits.rijk@gmail.com>
+
+	* plug-ins/Sky/Octave.cs
+	* plug-ins/Sky/TRandom.cs
+	* plug-ins/Sky/Perlin3D.cs: new files
+
+	* plug-ins/Sky/Makefile.am: changed accordingly
+
+	* plug-ins/Sky/Sky.cs: porting
+
 2007-12-08  Maurits  <maurit.rijk@gmail.com>
 
 	* lib/gimp-sharp.dll.config: mapping for libgimpmath added

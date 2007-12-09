@@ -53,9 +53,14 @@ namespace Gimp.Sky
     RGB _shadowColor = new RGB(0, 0, 0);
 
     double _cameraDistance;
+    const double _planetRadius = 6375.0;
+    const double _cloudHeight = 5.0;
     int _width, _height;
     TMatrix _transform;
     Vector3 _cameraLocation;
+    Perlin3D _clouds;
+
+    RGB _horizonColor2, _skyColor2;
 
     static void Main(string[] args)
     {
@@ -189,14 +194,21 @@ namespace Gimp.Sky
     {
       const double lensAngle = 70.0;
       const double earthRadius = 6375.0;
+      double[] amplitudes = new double[]{1.0, 0.5, 0.25, 0.125, 0.0625,
+					 0.03125, 0.05, 0.05, 0.04, 
+					 0.0300};
 
       _width = drawable.Width;
       _height = drawable.Height;
+      _clouds = new Perlin3D(10, 16.0, amplitudes, _seed);
       _cameraDistance = _width * 0.5 / Math.Tan(lensAngle * Math.PI / 180.0);
       TMatrix temp1 = new TMatrix(_tilt, 1);
       TMatrix temp2 = new TMatrix(_rotation, 2);
       _transform = TMatrix.Combine(temp1, temp2);
       _cameraLocation = new Vector3(0.0, earthRadius + 0.2, 0.0);
+
+      _horizonColor2 = FromScreen(_horizonColor);
+      _skyColor2 = FromScreen(_skyColor);
     }
 
     override protected void Render(Drawable drawable)
@@ -211,11 +223,98 @@ namespace Gimp.Sky
 
     Pixel DoSky(int x, int y)
     {
+      double scale = 1.0 / 100.0;
       Vector3 ray = new Vector3(x - _width * 0.5, _height - 1 - y, 
 				_cameraDistance);
       Vector3 worldRay = _transform.Transform(ray);
+      worldRay.Normalize();
+
+      double skyDistance, dummy;
+      Vector3 intersection, intersection2;
+      bool result1 = SphereIntersect(_planetRadius, worldRay, 
+				     out intersection, out skyDistance);
+      bool result2 = SphereIntersect(_planetRadius + _cloudHeight * 0.9,
+				     worldRay, out intersection2, out dummy);
+
+      double value = (intersection.Y - _cameraLocation.Y) /
+	(_planetRadius + _cloudHeight - _cameraLocation.Y);
+
+      RGB rgb = Interpolate(Math.Pow(value, 200.0), _horizonColor2, 
+			    _skyColor2);
+
+      if (_sunShow)
+	{
+	  // Fix me: draw sun
+	}
+
+      if (result1 && result2)
+	{
+	  double offset = _planetRadius + _cloudHeight;
+	  DrawCloudPoint(rgb, Math.Pow(value, 100.0), x, y,
+			 (intersection.X + offset) * scale,
+			 (intersection.Z + offset) * scale,
+			 (intersection2.X + offset) * scale,
+			 (intersection2.Z + offset) * scale);
+	}
 
       return new Pixel(255, 0, 0);
+    }
+
+    RGB Interpolate(double value, RGB rgb1, RGB rgb2)
+    {
+      double r = value * rgb2.R + (1.0 - value) * rgb1.R;
+      double g = value * rgb2.G + (1.0 - value) * rgb1.G;
+      double b = value * rgb2.B + (1.0 - value) * rgb1.B;
+
+      return new RGB(r, g, b);
+    }
+
+    void DrawCloudPoint(RGB rgb, double value, int x, int y,
+			double cloudX, double cloudY, 
+			double shadowX, double shadowY)
+    {
+      double offsetX = _time * 0.25;
+      double offsetY = _time * 0.33;
+
+      // double point1 = 
+    }
+
+    RGB FromScreen(RGB rgb)
+    {
+      const double gamma = 1.5;
+
+      return new RGB(Math.Pow(rgb.R, gamma),
+		     Math.Pow(rgb.G, gamma),
+		     Math.Pow(rgb.B, gamma));
+    }
+
+    bool SphereIntersect(double radius, Vector3 cameraRay, 
+			 out Vector3 intersection, out double dist)
+    {
+      dist = 0.0;
+      intersection = null;
+
+      // Sphere is the center of the world
+      Vector3 point = new Vector3(-_cameraLocation.X, -_cameraLocation.Y,
+				  -_cameraLocation.Z);
+      double distance = cameraRay.InnerProduct(point);
+      
+      double halfChordSqr = radius * radius + distance * distance
+	- point.InnerProduct(point);
+      if (halfChordSqr < 0.0001)
+	return false;
+
+      double minDist = distance + Math.Sqrt(halfChordSqr);
+      if (minDist < 0.0)
+	return false;
+
+      dist = minDist;
+
+      intersection = new Vector3(_cameraLocation.X + cameraRay.X * minDist,
+				 _cameraLocation.Y + cameraRay.Y * minDist,
+				 _cameraLocation.Z + cameraRay.Z * minDist);
+
+      return true;
     }
   }
 }
