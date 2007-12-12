@@ -71,16 +71,35 @@ namespace Gimp.Sky
       return new Vector3(x, y, z);
     }
 
+    static public TMatrix Multiply(TMatrix in1, TMatrix in2)
+    {
+      TMatrix result = new TMatrix();
+
+      for (int i = 0; i < 4; i++)
+	{
+	  for(int j = 0; j < 4; j++)
+	    {
+	      double sum = 0.0;
+
+	      for (int k = 0; k < 4; k++)
+		{
+		  sum += in1._data[i, k] * in2._data[k, j];
+		}
+	      result._data[i, j] = sum;
+	    }
+	}
+      return result;
+    }
+
     static public TMatrix Combine(TMatrix in1, TMatrix in2)
     {
-      /*
-      int i;
+      TMatrix result = TMatrix.Multiply(in1, in2);
 
-      t_matrix_multiply (in1, in2, out);
-      for (i = 0; i < 3; i++)
-	out->data[i][3] = in1->data[i][3] + in2->data[i][3];
-      */
-      return new TMatrix();
+      for (int i = 0; i < 3; i++)
+	{
+	  result._data[i, 3] = in1._data[i, 3] + in2._data[i, 3];
+	}
+      return result;
     }
   }
 }

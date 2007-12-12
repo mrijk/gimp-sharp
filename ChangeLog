@@ -1,3 +1,10 @@
+2007-12-12  Maurits  <maurits.rijk@gmail.com>
+
+	* lib/Pixel.cs: allow setting of color
+
+	* plug-ins/Sky/Sky.cs
+	* plug-ins/Sky/TMatrix.cs: continue porting
+
 2007-12-09  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Sky/Octave.cs

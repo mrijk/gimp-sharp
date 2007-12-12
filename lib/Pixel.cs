@@ -139,6 +139,15 @@ namespace Gimp
 	{
 	  return new RGB(Red, Green, Blue);
 	}
+
+      set
+	{
+	  byte r, g, b;
+	  value.GetUchar(out r, out g, out b);
+	  _rgb[0] = r;
+	  _rgb[1] = g;
+	  _rgb[2] = b;
+	}
     }
 
     public byte[] Bytes

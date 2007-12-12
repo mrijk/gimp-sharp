@@ -69,5 +69,13 @@ namespace Gimp.Sky
 	  frequency *= 2.0;
 	}
     }
+
+    public double Get(double x, double y, double z)
+    {
+      double sum = 0.0;
+      foreach (Octave octave in _octaves)
+	sum += octave.Get(x, y, z);
+      return sum;
+    }
   }
 }
