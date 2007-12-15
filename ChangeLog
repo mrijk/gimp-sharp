@@ -1,3 +1,11 @@
+2007-12-15  Maurits  <maurits.rijk@gmail.com>
+
+	* plug-ins/Sky/Sky.cs: first working version
+
+2007-12-14  Maurits  <maurits.rijk@gmail.com>
+
+	* plug-ins/Sky/Sky.cs: continue porting
+
 2007-12-12  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Pixel.cs: allow setting of color

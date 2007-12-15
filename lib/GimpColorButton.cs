@@ -115,7 +115,7 @@ namespace Gimp
 						   ref GimpRGB color);
     [DllImport("libgimpwidgets-2.0-0.dll")]
     extern static void gimp_color_button_get_color(IntPtr button,
-						   ref GimpRGB color);
+    						   ref GimpRGB color);
     [DllImport("libgimpwidgets-2.0-0.dll")]
     extern static bool gimp_color_button_has_alpha(IntPtr button);
     [DllImport("libgimpwidgets-2.0-0.dll")]

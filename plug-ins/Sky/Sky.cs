@@ -115,19 +115,41 @@ namespace Gimp.Sky
       VBox vbox = new VBox(false, 12) {BorderWidth = 12};
       dialog.VBox.PackStart(vbox, true, true, 0);
 
-      // Sun parameters
+
+      CreateSunParameters(vbox);
+      CreateCameraParameters(vbox);
+      CreateColorParameters(vbox);
+
+      return dialog;
+    }
+
+    void CreateSunParameters(VBox vbox)
+    {
       GimpFrame frame = new GimpFrame(_("Sun"));
       vbox.Add(frame);
 
       GimpTable table = new GimpTable(3, 2, false)
 	{ColumnSpacing = 6, RowSpacing = 6};
       frame.Add(table);
-      ScaleEntry sunX = new ScaleEntry(table, 0, 1, _("_X:"), 150, 3, 
+
+      ScaleEntry sunX = new ScaleEntry(table, 0, 1, _("_X:"), 150, 4, 
 				       _sunX, 0.0, 1.0, 0.01, 0.1, 2,
 				       true, 0, 0, null, null);
-      ScaleEntry sunY = new ScaleEntry(table, 0, 2, _("_Y:"), 150, 3, 
+      sunX.ValueChanged += delegate
+	{
+	  _sunX = sunX.Value;
+	  InvalidatePreview();
+	};
+
+      ScaleEntry sunY = new ScaleEntry(table, 0, 2, _("_Y:"), 150, 4, 
 				       _sunY, 0.0, 1.0, 0.01, 0.1, 2,
 				       true, 0, 0, null, null);
+      sunY.ValueChanged += delegate
+	{
+	  _sunY = sunY.Value;
+	  InvalidatePreview();
+	};
+
       CheckButton sunShow = new CheckButton(_("_Show sun")) 
 	{Active = _sunShow};
       sunShow.Toggled += delegate
@@ -136,60 +158,94 @@ namespace Gimp.Sky
 	  InvalidatePreview();
 	};
       table.Attach(sunShow, 0, 2, 3, 4);
+    }
 
-      // Camera parameters
-      frame = new GimpFrame(_("Camera"));
+    void CreateCameraParameters(VBox vbox)
+    {
+      Frame frame = new GimpFrame(_("Camera"));
       vbox.Add(frame);
-      table = new GimpTable(2, 1, false)
+      GimpTable table = new GimpTable(2, 1, false)
 	{ColumnSpacing = 6, RowSpacing = 6};
       frame.Add(table);
       ScaleEntry rotation = new ScaleEntry(table, 0, 1, _("_Rotation angle:"), 
 					   150, 3, _rotation, 0.0, 90.0, 
 					   1.0, 8.0, 0, true, 0, 0, 
 					   null, null);
+      rotation.ValueChanged += delegate
+	{
+	  _rotation = rotation.Value;
+	  InvalidatePreview();
+	};
+
       ScaleEntry tilt = new ScaleEntry(table, 0, 2, _("_Tilt angle:"), 
 				       150, 3, _tilt, 0.0, 90.0, 1.0, 8.0, 0,
 				       true, 0, 0, null, null);
+      tilt.ValueChanged += delegate
+	{
+	  _tilt = tilt.Value;
+	  InvalidatePreview();
+	};
+    }
 
-      // Colors
-      frame = new GimpFrame(_("Colors"));
+    void CreateColorParameters(VBox vbox)
+    {
+      Frame frame = new GimpFrame(_("Colors"));
       vbox.Add(frame);
-      table = new GimpTable(5, 2, false)
+      GimpTable table = new GimpTable(5, 2, false)
 	{ColumnSpacing = 6, RowSpacing = 6};
       frame.Add(table);
 
-      GimpColorButton colorButton = new GimpColorButton("", 16, 16, 
-							_horizonColor, 
-							ColorAreaType.Flat);
-      colorButton.Update = true;
-      table.AttachAligned(0, 0, _("_Horizon:"), 0.0, 0.5, colorButton, 1, 
+      GimpColorButton horizon = new GimpColorButton("", 16, 16, 
+						    _horizonColor, 
+						    ColorAreaType.Flat);
+      horizon.Update = true;
+      horizon.ColorChanged += delegate
+	{
+	  _horizonColor = horizon.Color;
+	  _preview.Invalidate();
+	};
+      table.AttachAligned(0, 0, _("_Horizon:"), 0.0, 0.5, horizon, 1, true);
+
+      GimpColorButton sky = new GimpColorButton("", 16, 16, _skyColor,
+						ColorAreaType.Flat);
+      sky.Update = true;
+      table.AttachAligned(0, 1, _("S_ky:"), 0.0, 0.5, sky, 1, true);
+      sky.ColorChanged += delegate
+	{
+	  _skyColor = sky.Color;
+	  _preview.Invalidate();
+	};
+
+      GimpColorButton sun = new GimpColorButton("", 16, 16, _sunColor,
+						ColorAreaType.Flat);
+      sun.Update = true;
+      sun.ColorChanged += delegate
+	{
+	  _sunColor = sun.Color;
+	  _preview.Invalidate();
+	};
+      table.AttachAligned(0, 2, _("S_un:"), 0.0, 0.5, sun, 1, true);
+
+      GimpColorButton cloud = new GimpColorButton("", 16, 16, _cloudColor,
+						  ColorAreaType.Flat);
+      cloud.Update = true;
+      cloud.ColorChanged += delegate
+	{
+	  _cloudColor = cloud.Color;
+	  _preview.Invalidate();
+	};
+      table.AttachAligned(0, 3, _("C_loud:"), 0.0, 0.5, cloud, 1, 
 			  true);
 
-      colorButton = new GimpColorButton("", 16, 16, _skyColor,
-					ColorAreaType.Flat);
-      colorButton.Update = true;
-      table.AttachAligned(0, 1, _("S_ky:"), 0.0, 0.5, colorButton, 1, 
-			  true);
-
-      colorButton = new GimpColorButton("", 16, 16, _sunColor,
-					ColorAreaType.Flat);
-      colorButton.Update = true;
-      table.AttachAligned(0, 2, _("S_un:"), 0.0, 0.5, colorButton, 1, 
-			  true);
-
-      colorButton = new GimpColorButton("", 16, 16, _cloudColor,
-					ColorAreaType.Flat);
-      colorButton.Update = true;
-      table.AttachAligned(0, 3, _("C_loud:"), 0.0, 0.5, colorButton, 1, 
-			  true);
-
-      colorButton = new GimpColorButton("", 16, 16, _shadowColor,
-					ColorAreaType.Flat);
-      colorButton.Update = true;
-      table.AttachAligned(0, 4, _("Sh_adow:"), 0.0, 0.5, colorButton, 1, 
-			  true);
-
-      return dialog;
+      GimpColorButton shadow = new GimpColorButton("", 16, 16, _shadowColor,
+						   ColorAreaType.Flat);
+      shadow.Update = true;
+      shadow.ColorChanged += delegate
+	{
+	  _shadowColor = shadow.Color;
+	  _preview.Invalidate();
+	};
+      table.AttachAligned(0, 4, _("Sh_adow:"), 0.0, 0.5, shadow, 1, true);
     }
 
     override protected void UpdatePreview(AspectPreview preview)
@@ -237,15 +293,15 @@ namespace Gimp.Sky
 
     Pixel DoSky(int x, int y)
     {
-      double scale = 1.0 / 100.0;
+      const double scale = 1.0 / 100.0;
       Vector3 ray = new Vector3(x - _width * 0.5, _height - 1 - y, 
 				_cameraDistance);
       Vector3 worldRay = _transform.Transform(ray);
       worldRay.Normalize();
 
       double skyDistance, dummy;
-      Vector3 intersection = SphereIntersect(_planetRadius, worldRay, 
-					     out skyDistance);
+      Vector3 intersection = SphereIntersect(_planetRadius + _cloudHeight, 
+					     worldRay, out skyDistance);
       Vector3 intersection2 = 
 	SphereIntersect(_planetRadius + _cloudHeight * 0.9,
 			worldRay, out dummy);
@@ -259,8 +315,7 @@ namespace Gimp.Sky
 
       if (_sunShow)
 	{
-	  RGB sun = DrawSun(x, y, _width / 35, rgb);
-	  return new Pixel(3) {Color = sun};
+	  rgb = DrawSun(x, y, _width / 35, rgb);
 	}
 
       if (intersection != null && intersection2 != null)
