@@ -33,6 +33,10 @@ namespace Gimp
       _vector = gimp_vector3_new(x, y, z);
     }
 
+    Vector3(Vector3 vector) : this(vector.X, vector.Y, vector.Z)
+    {
+    }
+
     Vector3(GimpVector3 vector)
     {
       _vector = vector;
@@ -88,6 +92,24 @@ namespace Gimp
     {
       gimp_vector3_sub(ref _vector, ref _vector, ref vector._vector);
       return this;
+    }
+
+    public static Vector3 operator + (Vector3 v1, Vector3 v2)
+    {
+      return (new Vector3(v1)).Add(v2);
+
+    }
+
+    public static Vector3 operator - (Vector3 v1, Vector3 v2)
+    {
+      return (new Vector3(v1)).Sub(v2);
+    }
+
+    public static Vector3 operator - (Vector3 vector)
+    {
+      Vector3 v = new Vector3(vector);
+      v.Neg();
+      return v;
     }
 
     public double InnerProduct(Vector3 vector)

@@ -44,9 +44,8 @@ namespace Gimp
       SetUchar(red, green, blue);
     }
 
-    public RGB(RGB rgb)
+    public RGB(RGB rgb) : this(rgb.R, rgb.G, rgb.B)
     {
-      _rgb = rgb._rgb;
     }
 
     public RGB(HSV hsv)
@@ -264,6 +263,15 @@ namespace Gimp
     public double IntensityUchar
     {
       get {return gimp_rgb_intensity_uchar(ref _rgb);}
+    }
+
+    public static RGB Interpolate(double value, RGB rgb1, RGB rgb2)
+    {
+      double r = rgb1.R + value * (rgb2.R - rgb1.R);
+      double g = rgb1.G + value * (rgb2.G - rgb1.G);
+      double b = rgb1.B + value * (rgb2.B - rgb1.B);
+
+      return new RGB(r, g, b);
     }
 
     public byte[] Bytes

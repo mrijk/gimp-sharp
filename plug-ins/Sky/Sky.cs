@@ -1,6 +1,9 @@
 // The Sky plug-in
 // Copyright (C) 2004-2007 Maurits Rijk
 //
+// Code ported from Physically Modeled Media Plug-In for The GIMP
+//                  Copyright (c) 2000-2001 David A. Bartold
+//
 // Sky.cs
 //
 // This program is free software; you can redistribute it and/or modify
@@ -44,8 +47,7 @@ namespace Gimp.Sky
     [SaveAttribute("horizon_color")]
     RGB _horizonColor = new RGB(0.31, 0.35, 0.40);
     [SaveAttribute("sky_color")]
-    RGB _skyColor = new RGB(0.10, 0.20, 0.30);
-    //    RGB _skyColor = new RGB(0.01, 0.04, 0.18);
+    RGB _skyColor = new RGB(0.01, 0.04, 0.18);
     [SaveAttribute("sun_color")]
     RGB _sunColor = new RGB(0.995, 0.90, 0.83);
     [SaveAttribute("cloud_color")]
@@ -87,7 +89,19 @@ namespace Gimp.Sky
 	new ParamDef("sun_x", 0.2, typeof(double), 
 		     _("Sun's x coordinate (0.0 - 1.0)")),
 	new ParamDef("sun_y", 0.2, typeof(double), 
-		     _("Sun's y coordinate (0.0 - 1.0)"))
+		     _("Sun's y coordinate (0.0 - 1.0)")),
+	new ParamDef("time", 0.0, typeof(double),
+		     _("Time in hours (0.0 - 24.0)")),
+	new ParamDef("horizon_color", new RGB(0.31, 0.35, 0.40), typeof(RGB),
+		     _("Horizon color")),
+	new ParamDef("sky_color", new RGB(0.01, 0.04, 0.18), typeof(RGB),
+		     _("Color at highest point in the sky")),
+	new ParamDef("sun_color", new RGB(0.995, 0.90, 0.83), typeof(RGB),
+		     _("Sun color")),
+	new ParamDef("cloud_color", new RGB(1.0, 1.0, 1.0), typeof(RGB),
+		     _("Cloud color")),
+	new ParamDef("shadow_color", new RGB(0, 0, 0), typeof(RGB),
+		     _("Cloud shadow color"))
       };
 
       yield return new Procedure("plug_in_sky",
@@ -310,8 +324,8 @@ namespace Gimp.Sky
       double value = (intersectionY - _cameraLocation.Y) /
 	(_planetRadius + _cloudHeight - _cameraLocation.Y);
 
-      RGB rgb = Interpolate(Math.Pow(value, 200.0), _horizonColor2, 
-			    _skyColor2);
+      RGB rgb = RGB.Interpolate(Math.Pow(value, 200.0), _horizonColor2, 
+				_skyColor2);
 
       if (_sunShow)
 	{
@@ -346,7 +360,7 @@ namespace Gimp.Sky
 	{
 	  double value = 1.0 - 1.0 /
 	    Math.Pow(200.0, (distance - sunSize) / (dist - sunSize));
-	  return Interpolate(value, _sunColor2, rgb);
+	  return RGB.Interpolate(value, _sunColor2, rgb);
 	}
       return rgb;
     }
@@ -361,12 +375,17 @@ namespace Gimp.Sky
        * and see for yourself.
        */
       const double gamma = 1.5;
-
+#if true
       double r = Math.Pow(Clip(rgb.R * 1.6 - 0.2), 1.0 / gamma) * 255.0;
       double g = Math.Pow(Clip(rgb.G * 1.6 - 0.2), 1.0 / gamma) * 255.0;
       double b = Math.Pow(Clip(rgb.B * 1.6 - 0.2), 1.0 / gamma) * 255.0;
-
       return new Pixel((int) r, (int) g, (int) b);
+#else
+      RGB result = rgb * 1.6 - 0.2;
+      result.Clamp();
+      result.Gamma(gamma);
+      return new Pixel(result);
+#endif
     }
 
     double Clip(double x)
@@ -374,20 +393,11 @@ namespace Gimp.Sky
       return Math.Max(Math.Min(x, 1.0), 0.0);
     }
 
-    void Expose (RGB inoutRGB, double value, RGB rgb)
+    void Expose(RGB inoutRGB, double value, RGB rgb)
     {
       inoutRGB.R = value * rgb.R + inoutRGB.R * (1.0 - value);
       inoutRGB.G = value * rgb.G + inoutRGB.G * (1.0 - value);
       inoutRGB.B = value * rgb.B + inoutRGB.B * (1.0 - value);
-    }
-
-    RGB Interpolate(double value, RGB rgb1, RGB rgb2)
-    {
-      double r = value * rgb2.R + (1.0 - value) * rgb1.R;
-      double g = value * rgb2.G + (1.0 - value) * rgb1.G;
-      double b = value * rgb2.B + (1.0 - value) * rgb1.B;
-
-      return new RGB(r, g, b);
     }
 
     Pixel DrawCloudPoint(RGB rgb, double value, int x, int y,
@@ -413,7 +423,7 @@ namespace Gimp.Sky
 	point2 = Math.Pow((point2 - 0.56) / (1.0 - 0.56), 0.9);
       
       // Apply shadow 
-      RGB rgb1 = Interpolate(point2, _cloudColor2, _shadowColor2);
+      RGB rgb1 = RGB.Interpolate(point2, _cloudColor2, _shadowColor2);
       Expose(rgb, Math.Min(value * point1, 1.0), rgb1);
 
       return SetFore(rgb);
@@ -422,20 +432,17 @@ namespace Gimp.Sky
     RGB FromScreen(RGB rgb)
     {
       const double gamma = 1.5;
-
-      return new RGB(Math.Pow(rgb.R, gamma),
-		     Math.Pow(rgb.G, gamma),
-		     Math.Pow(rgb.B, gamma));
+      RGB result = new RGB(rgb);
+      result.Gamma(1 / gamma);
+      return result;
     }
 
-    Vector3 SphereIntersect(double radius, Vector3 cameraRay, 
-			    out double dist)
+    Vector3 SphereIntersect(double radius, Vector3 cameraRay, out double dist)
     {
       dist = 0.0;
 
       // Sphere is the center of the world
-      Vector3 point = new Vector3(-_cameraLocation.X, -_cameraLocation.Y,
-				  -_cameraLocation.Z);
+      Vector3 point = -_cameraLocation;
       double distance = cameraRay.InnerProduct(point);
       
       double halfChordSqr = radius * radius + distance * distance
@@ -443,11 +450,9 @@ namespace Gimp.Sky
       if (halfChordSqr < 0.0001)
 	return null;
 
-      double minDist = distance + Math.Sqrt(halfChordSqr);
-      if (minDist < 0.0)
+      double dist = distance + Math.Sqrt(halfChordSqr);
+      if (dist < 0.0)
 	return null;
-
-      dist = minDist;
 
       return new Vector3(_cameraLocation.X + cameraRay.X * minDist,
 			 _cameraLocation.Y + cameraRay.Y * minDist,

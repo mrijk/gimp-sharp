@@ -1,3 +1,14 @@
+2007-12-18  Maurits  <maurits.rijk@gmail.com>
+
+	* lib/Vector3.cs
+	* lib/RGB.cs: added convenience routines...
+
+	* plug-ins/Sky/Sky.cs: ...and use them
+
+2007-12-15  Maurits  <maurits.rijk@gmail.com>
+
+	* NEWS: updated
+
 2007-12-15  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Sky/Sky.cs: first working version
