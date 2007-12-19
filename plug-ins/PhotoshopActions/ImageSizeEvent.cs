@@ -38,16 +38,38 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
-      yield return "Width: " + _width;
-      yield return "Height: " + _height;
+      DoubleParameter width = Parameters["Wdth"] as DoubleParameter;
+      if (width != null)
+	yield return width.Format();
+      
+      DoubleParameter height = Parameters["Hght"] as DoubleParameter;
+      if (height != null)
+	yield return height.Format();
+      
       if (_interpolation != null)
 	{
 	  yield return Format(_interpolation, "Intr");
 	}
     }
-
+    
     override public bool Execute()
-    {
+    {      
+      DoubleParameter width = Parameters["Wdth"] as DoubleParameter; 
+      if (width != null)
+	_width = width.GetPixels(ActiveImage.Width);
+
+      DoubleParameter height = Parameters["Hght"] as DoubleParameter; 
+      if (height != null)
+	_height = height.GetPixels(ActiveImage.Height);
+      
+      if (_constrainProportions)
+	{
+	  if (_width != 0 && _height == 0)
+	    _height = ActiveImage.Height * _width / ActiveImage.Width;
+	  if (_width == 0 && _height != 0)
+	    _width = ActiveImage.Width * _height / ActiveImage.Height;
+	}
+      
       ActiveImage.Scale((int) _width, (int) _height);
       return true;
     }

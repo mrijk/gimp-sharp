@@ -1,3 +1,8 @@
+2007-12-19  Maurits  <maurits.rijk@gmail.com>
+
+	* plug-ins/PhotoshopActions/ImageSizeEvent.cs: applied patch from
+	Ivo Rytlr
+
 2007-12-18  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Vector3.cs
