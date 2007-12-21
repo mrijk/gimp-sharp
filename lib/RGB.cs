@@ -202,6 +202,27 @@ namespace Gimp
       Multiply(1 / factor);
     }
 
+    public static RGB operator*(RGB rgb, double factor)
+    {
+      RGB result = new RGB(rgb);
+      result.Multiply(factor);
+      return result;
+    }
+
+    public static RGB operator+(RGB rgb, double v)
+    {
+      RGB result = new RGB(rgb);
+      result.R += v;
+      result.G += v;
+      result.B += v;
+      return result;
+    }
+
+    public static RGB operator-(RGB rgb, double v)
+    {
+      return rgb + (-v);
+    }
+
     public static RGB operator-(RGB rgb1, RGB rgb2)
     {
       RGB result = new RGB(rgb1);

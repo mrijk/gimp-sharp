@@ -374,23 +374,10 @@ namespace Gimp.Sky
        * results won't resemble a photo.  Try removing the contrast adjustment
        * and see for yourself.
        */
-      const double gamma = 1.5;
-#if true
-      double r = Math.Pow(Clip(rgb.R * 1.6 - 0.2), 1.0 / gamma) * 255.0;
-      double g = Math.Pow(Clip(rgb.G * 1.6 - 0.2), 1.0 / gamma) * 255.0;
-      double b = Math.Pow(Clip(rgb.B * 1.6 - 0.2), 1.0 / gamma) * 255.0;
-      return new Pixel((int) r, (int) g, (int) b);
-#else
       RGB result = rgb * 1.6 - 0.2;
       result.Clamp();
-      result.Gamma(gamma);
-      return new Pixel(result);
-#endif
-    }
-
-    double Clip(double x)
-    {
-      return Math.Max(Math.Min(x, 1.0), 0.0);
+      result.Gamma(1.5);
+      return new Pixel(3){Color = result};
     }
 
     void Expose(RGB inoutRGB, double value, RGB rgb)
@@ -416,7 +403,7 @@ namespace Gimp.Sky
 	point1 = 0.0;
       else
 	point1 = Math.Pow((point1 - 0.525) / (1.0 - 0.525), 0.4);
-
+      
       if (point2 < 0.56)
 	point2 = 0.0;
       else
@@ -425,10 +412,10 @@ namespace Gimp.Sky
       // Apply shadow 
       RGB rgb1 = RGB.Interpolate(point2, _cloudColor2, _shadowColor2);
       Expose(rgb, Math.Min(value * point1, 1.0), rgb1);
-
+      
       return SetFore(rgb);
     }
-
+    
     RGB FromScreen(RGB rgb)
     {
       const double gamma = 1.5;
@@ -436,7 +423,7 @@ namespace Gimp.Sky
       result.Gamma(1 / gamma);
       return result;
     }
-
+    
     Vector3 SphereIntersect(double radius, Vector3 cameraRay, out double dist)
     {
       dist = 0.0;
@@ -450,13 +437,8 @@ namespace Gimp.Sky
       if (halfChordSqr < 0.0001)
 	return null;
 
-      double dist = distance + Math.Sqrt(halfChordSqr);
-      if (dist < 0.0)
-	return null;
-
-      return new Vector3(_cameraLocation.X + cameraRay.X * minDist,
-			 _cameraLocation.Y + cameraRay.Y * minDist,
-			 _cameraLocation.Z + cameraRay.Z * minDist);
+      dist = distance + Math.Sqrt(halfChordSqr);
+      return (dist < 0.0) ? null : _cameraLocation + cameraRay * dist;
     }
   }
 }

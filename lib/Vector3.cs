@@ -112,6 +112,13 @@ namespace Gimp
       return v;
     }
 
+    public static Vector3 operator * (Vector3 vector, double factor)
+    {
+      Vector3 v = new Vector3(vector);
+      v.Mul(factor);
+      return v;
+    }
+
     public double InnerProduct(Vector3 vector)
     {
       return gimp_vector3_inner_product(ref _vector, ref vector._vector);
