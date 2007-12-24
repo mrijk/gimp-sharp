@@ -1,3 +1,20 @@
+2007-12-23  Maurits  <maurits.rijk@gmail.com>
+
+	* lib/Vector3.cs: new default constructor
+
+	* plug-ins/Forge/Forge.cs: use Vector3 class
+
+	* plug-ins/Sky/Sky.cs: add random seed widget
+
+	* plug-ins/Makefile.am: Sky plug-in considered complete now
+
+	* plug-ins/ncp/ncp.cs: bugfix for preview not reacting on changes
+	of random seed widget
+
+2007-12-22  Maurits  <maurits.rijk@gmail.com>
+
+	* lib/RandomSeed.cs: add accessors for the toggle and spinbutton
+
 2007-12-21  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Vector3.cs

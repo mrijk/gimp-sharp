@@ -556,11 +556,10 @@ namespace Gimp.Forge
 
       uint  rpix_offset = 0; // Offset to simulate the pointer for rpix
       double athfac = Math.Sqrt(atthick * atthick - 1.0);
-      double[] sunvec = new double[3];
+      Vector3 sunvec = new Vector3();
       const double starClose = 2;
       const double atSatFac = 1.0;
 
-      double shang, siang;
       double r;
       double t = 0;
       double t1 = 0;
@@ -590,18 +589,19 @@ namespace Gimp.Forge
 
 	  // Compute incident light direction vector.
 
-	  shang = hourspec ? _hourangle : Cast(0, 2 * Math.PI);
-	  siang = inclspec ? _inclangle : Cast(-Math.PI * 0.12, Math.PI * 0.12);
+	  double shang = hourspec ? _hourangle : Cast(0, 2 * Math.PI);
+	  double siang = inclspec ? _inclangle 
+	    : Cast(-Math.PI * 0.12, Math.PI * 0.12);
 
-	  sunvec[0] = Math.Sin(shang) * Math.Cos(siang);
-	  sunvec[1] = Math.Sin(siang);
-	  sunvec[2] = Math.Cos(shang) * Math.Cos(siang);
+	  sunvec.X = Math.Sin(shang) * Math.Cos(siang);
+	  sunvec.Y = Math.Sin(siang);
+	  sunvec.Z = Math.Cos(shang) * Math.Cos(siang);
 
 	  // Allow only 25% of random pictures to be crescents
 
 	  if (!hourspec && ((_random.Next() % 100) < 75)) 
 	    {
-	      sunvec[2] = Math.Abs(sunvec[2]);
+	      sunvec.Z = Math.Abs(sunvec.Z);
 	    }
 
 	  // Prescale the grid points into intensities.
@@ -667,9 +667,9 @@ namespace Gimp.Forge
 	    dy = 2 * (((height / 2) - i) / ((double) height));
 	    dysq = dy * dy;
 	    sqomdysq = Math.Sqrt(1.0 - dysq);
-	    svx = sunvec[0];
-	    svy = sunvec[1] * dy;
-	    svz = sunvec[2] * sqomdysq;
+	    svx = sunvec.X;
+	    svy = sunvec.Y * dy;
+	    svz = sunvec.Z * sqomdysq;
 	    byf = (int)(Math.Floor(by) * n);
 	    byc = byf + (int)n;
 	    t = by - Math.Floor(by);
@@ -721,8 +721,8 @@ namespace Gimp.Forge
           rpix_offset = (uint)(width/2 - lcos);
 
           for (int j = (int)((width / 2) - lcos); 
-              j <= (int)((width / 2) + lcos); 
-              j++) 
+	       j <= (int)((width / 2) + lcos); 
+	       j++) 
           {
             r = 0.0;
             byte ir = 0;
@@ -749,9 +749,9 @@ namespace Gimp.Forge
 
               /* Land area.  Look up colour based on elevation from
                  precomputed colour map table. */
-              ir = pgnd[ix,0];
-              ig = pgnd[ix,1];
-              ib = pgnd[ix,2];
+              ir = pgnd[ix, 0];
+              ig = pgnd[ix, 1];
+              ib = pgnd[ix, 2];
             } 
             else 
             {
@@ -794,15 +794,10 @@ namespace Gimp.Forge
               dsq = ds * ds;
               dsat = atSatFac * ((Math.Sqrt(atthick * atthick - dsq) -
                     Math.Sqrt(1.0 * 1.0 - dsq)) / athfac);
-              //#define 	    AtSat(x,y) x = ((x)*(1.0-dsat))+(y)*dsat
-              /*
-                 AtSat(ir, 127);
-                 AtSat(ig, 127);
-                 AtSat(ib, 255);
-                 */
-              ir = (byte)((ir*(1.0-dsat))+127*dsat);
-              ig = (byte)((ig*(1.0-dsat))+127*dsat);
-              ib = (byte)((ib*(1.0-dsat))+255*dsat);
+
+              ir = (byte) (ir * (1.0 - dsat) + 127 * dsat);
+              ig = (byte) (ig * (1.0 - dsat) + 127 * dsat);
+              ib = (byte) (ib * (1.0 - dsat) + 255 * dsat);
 
               inx = planetAmbient + (1.0 - planetAmbient) * di;
               ir = (byte)(ir * inx);
@@ -816,34 +811,34 @@ namespace Gimp.Forge
           /* Left stars */
           //#define StarClose	2
           for (int j = 0; j < width / 2 - (lcos + starClose); j++) 
-          {
-            pixels[j] = starFactory.Generate();
-          }
+	    {
+	      pixels[j] = starFactory.Generate();
+	    }
 
           /* Right stars */
           for (int j = (int) (width / 2 + (lcos + starClose)); j < width; 
-              j++) 
-          {
-            pixels[j] = starFactory.Generate();
+	       j++) 
+	    {
+	      pixels[j] = starFactory.Generate();
           }
         }
-
+	
         if (drawable != null)
-        {
-          for (int x = 0; x < pixels.Length; x++) 
-          {
-            pf.PutPixel(x, i, pixels[x]);
-          }
-
-          _progress.Update((double)i/height);
-        }
+	  {
+	    for (int x = 0; x < pixels.Length; x++) 
+	      {
+		pf.PutPixel(x, i, pixels[x]);
+	      }
+	    
+	    _progress.Update((double)i/height);
+	  }
         else
-        {
-          for (int x = 0; x < pixels.Length; x++) 
-          {
-            pixels[x].CopyTo(pixelArray, 3 * (i * width + x));
-          }
-        }
+	  {
+	    for (int x = 0; x < pixels.Length; x++) 
+	      {
+		pixels[x].CopyTo(pixelArray, 3 * (i * width + x));
+	      }
+	  }
       }
 
       if (drawable != null)
@@ -857,7 +852,7 @@ namespace Gimp.Forge
     }
 
     //
-    //  PLANET  --	Make a planet.
+    //  PLANET  -- Make a planet.
     //
 
     void Planet(Drawable drawable, byte[] pixelArray, Dimensions dimensions)

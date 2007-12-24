@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // RandomSeed.cs
 //
@@ -26,12 +26,25 @@ using Gtk;
 
 namespace Gimp
   {
-    public class RandomSeed : Widget
+    public class RandomSeed : HBox
     {
       public RandomSeed(ref UInt32 seed, ref bool random_seed) : 
 	base(gimp_random_seed_new (ref seed, ref random_seed))
       {
       }
+
+      // Warning: next few functions could break in future GIMP versions!
+
+      public SpinButton SpinButton
+      {
+	get {return Children[0] as SpinButton;}
+      }
+
+      public ToggleButton Toggle
+      {
+	get {return Children[2] as ToggleButton;}
+      }
+
       [DllImport("libgimpwidgets-2.0-0.dll")]
       extern static IntPtr gimp_random_seed_new (ref UInt32 seed,
 						 ref bool random_seed);

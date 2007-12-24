@@ -22,7 +22,6 @@ Mezzotint = Mezzotint
 Shatter = Shatter
 DifferenceClouds = DifferenceClouds
 PictureFrame = PictureFrame
-Sky = Sky
 endif
 
 if BUILD_IRONPYTHON
@@ -70,7 +69,7 @@ SUBDIRS = 			\
 	$(PythonSample)		\
 	Raindrops		\
 	$(Shatter)		\
-	$(Sky)			\
+	Sky			\
 	SliceTool 		\
 	Splitter 		\
 	Swirlies 		\

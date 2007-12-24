@@ -33,6 +33,10 @@ namespace Gimp
       _vector = gimp_vector3_new(x, y, z);
     }
 
+    public Vector3() : this(0.0, 0.0, 0.0)
+    {
+    }
+
     Vector3(Vector3 vector) : this(vector.X, vector.Y, vector.Z)
     {
     }
@@ -55,16 +59,19 @@ namespace Gimp
     public double X
     {
       get {return _vector.x;}
+      set {_vector.x = value;}
     }
 
     public double Y
     {
       get {return _vector.y;}
+      set {_vector.y = value;}
     }
 
     public double Z
     {
       get {return _vector.z;}
+      set {_vector.z = value;}
     }
 
     public void Mul(double factor)

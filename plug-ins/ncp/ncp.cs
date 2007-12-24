@@ -86,6 +86,14 @@ namespace Gimp.ncp
       Vbox.PackStart(table, false, false, 0);
 
       RandomSeed seed = new RandomSeed(ref _seed, ref _random_seed);
+      seed.Toggle.Toggled += delegate
+	{
+	  InvalidatePreview();
+	};
+      seed.SpinButton.ValueChanged += delegate
+	{
+	  InvalidatePreview();
+	};
 
       table.AttachAligned(0, 0, _("Random _Seed:"), 0.0, 0.5, seed, 2, true);
 

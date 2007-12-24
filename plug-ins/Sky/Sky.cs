@@ -35,7 +35,7 @@ namespace Gimp.Sky
     [SaveAttribute("rotation")]
     double _rotation;
     [SaveAttribute("seed")]
-    int _seed;
+    UInt32 _seed;
     [SaveAttribute("sun_show")]
     bool _sunShow = true;
     [SaveAttribute("sun_x")]
@@ -54,6 +54,9 @@ namespace Gimp.Sky
     RGB _cloudColor = new RGB(1.0, 1.0, 1.0);
     [SaveAttribute("shadow_color")]
     RGB _shadowColor = new RGB(0, 0, 0);
+
+    [SaveAttribute("random_seed")]
+    bool _random_seed;
 
     double _cameraDistance;
     const double _planetRadius = 6375.0;
@@ -114,7 +117,7 @@ namespace Gimp.Sky
 				 "RGB*",
 				 inParams)
 	{
-	  MenuPath = "<Image>/Filters/Media/",
+	  MenuPath = "<Image>/Filters/Render/",
 	  IconFile = "Sky.png"
 	};
     }
@@ -129,12 +132,31 @@ namespace Gimp.Sky
       VBox vbox = new VBox(false, 12) {BorderWidth = 12};
       dialog.VBox.PackStart(vbox, true, true, 0);
 
-
+      CreateRandomEntry(vbox);
       CreateSunParameters(vbox);
       CreateCameraParameters(vbox);
       CreateColorParameters(vbox);
 
       return dialog;
+    }
+
+    void CreateRandomEntry(VBox vbox)
+    {
+      GimpTable table = new GimpTable(1, 3, false)
+	{ColumnSpacing = 6, RowSpacing = 6};
+      vbox.Add(table);
+
+      RandomSeed seed = new RandomSeed(ref _seed, ref _random_seed);
+      seed.Toggle.Toggled += delegate
+	{
+	  InvalidatePreview();
+	};
+      seed.SpinButton.ValueChanged += delegate
+	{
+	  InvalidatePreview();
+	};
+
+      table.AttachAligned(0, 0, _("Random _Seed:"), 0.0, 0.5, seed, 2, true);
     }
 
     void CreateSunParameters(VBox vbox)
@@ -277,7 +299,7 @@ namespace Gimp.Sky
 					 0.0300};
       _width = drawable.Width;
       _height = drawable.Height;
-      _clouds = new Perlin3D(10, 16.0, amplitudes, _seed);
+      _clouds = new Perlin3D(10, 16.0, amplitudes, (int) _seed);
       _cameraDistance = _width * 0.5 / Math.Tan(lensAngle * Math.PI / 180.0);
 
       _intSunX = (int) Math.Round((_width - 1) * _sunX);
