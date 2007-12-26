@@ -50,8 +50,6 @@ Namespace Gimp.VisualBasicSample
     average.Divide(iter.Count)
 
     iter.IterateDest(AddressOf SetAverage)
-
-    Display.DisplaysFlush()
   End Sub
 
   Sub Add(pixel As Pixel)

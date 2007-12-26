@@ -323,8 +323,6 @@ namespace Gimp.Sky
       RgnIterator iter = new RgnIterator(drawable, RunMode.Interactive);
       iter.Progress = new Progress("Sky");
       iter.IterateDest(DoSky);
-
-      Display.DisplaysFlush();
     }
 
     Pixel DoSky(int x, int y)

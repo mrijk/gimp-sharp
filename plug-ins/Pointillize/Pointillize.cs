@@ -72,8 +72,7 @@ namespace Gimp.Pointillize
       GimpTable table = new GimpTable(1, 3, false);
 
       ScaleEntry entry = new ScaleEntry(table, 0, 1, _("Cell _Size:"), 150, 3,
-					_cellSize, 3.0, 300.0, 1.0, 8.0, 0,
-					true, 0, 0, null, null);
+					_cellSize, 3.0, 300.0, 1.0, 8.0, 0);
       entry.ValueChanged += delegate
 	{
 	  _cellSize = entry.ValueAsInt;
@@ -98,8 +97,6 @@ namespace Gimp.Pointillize
       RgnIterator iter = new RgnIterator(drawable, RunMode.Interactive);
       iter.Progress = new Progress(_("Pointillize"));
       iter.IterateDest(DoPointillize);
-			
-      Display.DisplaysFlush();
     }
 
     void Initialize(Drawable drawable)

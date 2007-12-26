@@ -67,8 +67,6 @@ namespace Gimp.Fragment
 		      pf[y + 4, x + 4]) / 4;
 	    });
 	}
-
-      Display.DisplaysFlush();
     }
   }
 }

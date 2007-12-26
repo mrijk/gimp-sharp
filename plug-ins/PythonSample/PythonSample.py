@@ -60,8 +60,6 @@ class PythonSample(PythonPlugin):
 
         iter.IterateDestSimple(lambda: average)
 
-        Display.DisplaysFlush()
-
 if __name__ == sys.executable:
     plugin = PythonSample(Array[str](sys.argv), "PythonSample")
 

@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // WaveEvent.cs
 //
@@ -53,17 +53,16 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
-      yield return "Wave Type: " + Abbreviations.Get(_waveType.Value);
-      yield return "Number of Generators: " + _numberOfGenerators;
-      yield return "Wave length min: " + _wavelengthMin;
-      yield return "Wave length max: " + _wavelengthMax;
-      yield return "Amplitude min: " + _amplitudeMin;
-      yield return "Amplitude min: " + _amplitudeMax;
-      yield return "Scale horizontal: " + _scaleHorizontal;
-      yield return "Scale vertical: " + _scaleVertical;
-      yield return "Undefined Area: " + 
-	Abbreviations.Get(_undefinedArea.Value);
-      yield return "Random Seed: " + _randomSeed;
+      yield return Format(_waveType, "Wvtp");
+      yield return Format(_numberOfGenerators, "NmbG");
+      yield return Format(_wavelengthMin, "WLMn");
+      yield return Format(_wavelengthMax, "WLMx");
+      yield return Format(_amplitudeMin, "AmMn");
+      yield return Format(_amplitudeMax, "AmMx");
+      yield return Format(_scaleHorizontal, "SclH");
+      yield return Format(_scaleVertical, "SclV");
+      yield return Format(_undefinedArea, "UndA");
+      yield return Format(_randomSeed, "RndS");
     }
 
     override public bool Execute()

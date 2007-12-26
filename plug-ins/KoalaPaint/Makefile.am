@@ -14,7 +14,7 @@ SUBDIRS = po
 CLEANFILES = KoalaPaint.exe
 
 KoalaPaint.exe: $(SOURCES) $(GIMPSHARPLIB)
-	$(CSC) $(SOURCES) -out:$@ $(ASSEMBLIES)
+	$(CSC) $(CSC_FLAGS) $(SOURCES) -out:$@ $(ASSEMBLIES)
 
 install:
 	$(INSTALL_DATA) KoalaPaint.exe $(DESTDIR)$(GIMPPLUGINDIR)

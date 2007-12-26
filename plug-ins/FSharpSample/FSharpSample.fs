@@ -49,7 +49,6 @@ type FSharpSample = class
     average.Divide(iter.Count) |> ignore
 
     iter.IterateDest(fun () -> average)
-    Display.DisplaysFlush();
 
 end
 

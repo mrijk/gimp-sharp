@@ -1,5 +1,5 @@
 // The Shatter plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
 // Shatter.cs
 //
@@ -49,7 +49,7 @@ namespace Gimp.Shatter
 					  "Shatter an image",
 					  "Maurits Rijk",
 					  "(C) Maurits Rijk",
-					  "2006",
+					  "2006-2007",
 					  "Shatter...",
 					  "RGB*, GRAY*",
 					  inParams);
@@ -96,8 +96,6 @@ namespace Gimp.Shatter
 	{
 	  tool.Select(shard.GetValues(), ChannelOps.Replace);
 	}
-
-      Display.DisplaysFlush();
     }
   }
 }

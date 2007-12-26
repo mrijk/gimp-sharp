@@ -113,7 +113,6 @@ namespace Gimp.Mezzotint
       RgnIterator iter = new RgnIterator(drawable, RunMode.Interactive);
       iter.Progress = new Progress(_("Mezzotint"));
       iter.IterateSrcDest(pixel => DoMezzotint(pixel));
-      Display.DisplaysFlush();
     }
 
     Pixel DoMezzotint(Pixel pixel)

@@ -59,8 +59,6 @@ namespace Gimp.NemerleSample
       average.Divide(iter.Count);
 
       iter.IterateDest(fun () {average});
-
-      Display.DisplaysFlush();
     }
   }
 }

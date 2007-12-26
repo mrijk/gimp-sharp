@@ -100,7 +100,6 @@ namespace Gimp.PictureFrame
 	  image.ActiveLayer = newLayer;
 	  
 	  image.UndoGroupEnd();
-	  Display.DisplaysFlush();
 	  
 	  frame.Delete();
 	}

@@ -89,8 +89,7 @@ namespace Gimp.Ministeck
 	{ColumnSpacing = 6, RowSpacing = 6};
       vbox.PackStart(table, false, false, 0);
 
-      SpinButton size = new SpinButton(3, 100, 1);
-      size.Value = _size;
+      SpinButton size = new SpinButton(3, 100, 1) {Value = _size};
       table.AttachAligned(0, 0, _("_Size:"), 0.0, 0.5, size, 2, true);
       size.ValueChanged += delegate
 	{
@@ -201,9 +200,6 @@ namespace Gimp.Ministeck
 
       drawable.Flush();
       drawable.Update();
-
-      if (!preview)
-	Display.DisplaysFlush();
     }
 
     override protected void Render(Image image, Drawable drawable)

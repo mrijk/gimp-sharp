@@ -54,7 +54,5 @@ class BooSample(Plugin):
 
     iter.IterateDest({return average})
 
-    Display.DisplaysFlush()
-
 def Main(argv as (string)):
   BooSample(argv)

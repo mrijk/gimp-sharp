@@ -847,7 +847,6 @@ namespace Gimp.Forge
 
         drawable.Flush();
         drawable.Update();
-        Display.DisplaysFlush();
       }
     }
 

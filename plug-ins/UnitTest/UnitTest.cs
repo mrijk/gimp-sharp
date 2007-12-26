@@ -20,8 +20,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Threading;
 using NUnit.Core;
 using NUnit.Util;
 
@@ -42,7 +40,7 @@ namespace Gimp.UnitTest
       new UnitTest(args);
     }
 
-    public UnitTest(string[] args) : base(args, "UnitTest")
+    UnitTest(string[] args) : base(args, "UnitTest")
     {
     }
 
@@ -72,7 +70,7 @@ namespace Gimp.UnitTest
       VBox vbox = new VBox(false, 12) {BorderWidth = 12};
       dialog.VBox.PackStart(vbox, true, true, 0);
 
-      FileChooserButton entry = new FileChooserButton("Open...", 
+      FileChooserButton entry = new FileChooserButton(_("Open..."), 
 						      FileChooserAction.Open);
       entry.SelectionChanged += delegate
 	{
@@ -95,9 +93,8 @@ namespace Gimp.UnitTest
     public void UpdateProgressStatus()
     {
       _testsPerformed++;
-      double ratio = (double) _testsPerformed / TestCasesTotalNumber;
 
-      _progressBar.Update(ratio);
+      _progressBar.Fraction = (double) _testsPerformed / TestCasesTotalNumber;
       while (Application.EventsPending ())
 	{
 	  Gtk.Application.RunIteration();

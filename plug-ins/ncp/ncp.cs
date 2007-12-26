@@ -98,8 +98,7 @@ namespace Gimp.ncp
       table.AttachAligned(0, 0, _("Random _Seed:"), 0.0, 0.5, seed, 2, true);
 
       ScaleEntry entry = new ScaleEntry(table, 0, 1, _("Po_ints:"), 150, 3, 
-					_points, 1.0, 256.0, 1.0, 8.0, 0,
-					true, 0, 0, null, null);
+					_points, 1.0, 256.0, 1.0, 8.0, 0);
       entry.ValueChanged += delegate
 	{
 	  _points = entry.ValueAsInt;
@@ -121,8 +120,7 @@ namespace Gimp.ncp
 	};
 
       _closestEntry = new ScaleEntry(table, 0, 2, _("C_lose to:"), 150, 3, 
-				     _closest, 1.0, _points, 1.0, 8.0, 0,
-				     true, 0, 0, null, null);
+				     _closest, 1.0, _points, 1.0, 8.0, 0);
       _closestEntry.ValueChanged += delegate
 	{
 	  _closest = _closestEntry.ValueAsInt;
@@ -154,7 +152,7 @@ namespace Gimp.ncp
 
     int _bpp;
     bool _hasAlpha;
-    int _width, _height;
+    int _area;
     Pixel _pixel;
 
     void Initialize(Drawable drawable)
@@ -171,11 +169,12 @@ namespace Gimp.ncp
 	  _pixel.Alpha = 255;
 	}
 
-      _width = rectangle.Width;
-      _height = rectangle.Height;
+      int width = rectangle.Width;
+      int height = rectangle.Height;
+      _area = rectangle.Area;
 
-      int xmid = _width / 2;
-      int ymid = _height / 2;
+      int xmid = width / 2;
+      int ymid = height / 2;
 
       _distances = new int[4 * _points];
       _data = new int[4 * _points];
@@ -185,7 +184,7 @@ namespace Gimp.ncp
       vp = new Coordinate<int>[_bpp, 4 * _points];
 
       RandomCoordinateGenerator generator = 
-	new RandomCoordinateGenerator((int) _seed, _width - 1, _height - 1, 
+	new RandomCoordinateGenerator((int) _seed, width - 1, height - 1, 
 				      _points);
  
       for (int b = 0; b < _bpp; b++) 
@@ -196,8 +195,8 @@ namespace Gimp.ncp
 	      int px = c.X;
 	      int py = c.Y;
 
-	      int offx = (px < xmid) ? _width : -_width;
-	      int offy = (py < ymid) ? _height : -_height;
+	      int offx = (px < xmid) ? width : -width;
+	      int offy = (py < ymid) ? height : -height;
 
 	      vp[b, i] = new Coordinate<int>(px, py);
 	      vp[b, i + _points] = new Coordinate<int>(px + offx, py);
@@ -220,8 +219,6 @@ namespace Gimp.ncp
       RgnIterator iter = new RgnIterator(drawable, RunMode.Interactive);
       iter.Progress = new Progress("NCP");
       iter.IterateDest(DoNCP);
-			
-      Display.DisplaysFlush();
     }
 
     int Select(int n)
@@ -272,7 +269,7 @@ namespace Gimp.ncp
     Pixel DoNCP(int x, int y)
     {
       int b = 0;
-      Pixel.FillDestFunc func = delegate {return Calc(b++, x, y);};
+      Pixel.FillDestFunc func = () => Calc(b++, x, y);
 
       if (_color)
 	{
@@ -296,8 +293,8 @@ namespace Gimp.ncp
 	  _distances[k] = x2 * x2 + y2 * y2;
 	}
       
-      int val = (int) (255.0 * Math.Sqrt((double) Select(_closest) / 
-					 (_width * _height)));      
+      int val = (int) (255.0 * Math.Sqrt((double) Select(_closest) / _area));
+
       return 255 - val;	// invert
     }
   }

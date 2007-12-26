@@ -92,8 +92,7 @@ namespace Gimp.Raindrops
       ScaleEntry _dropSizeEntry = new ScaleEntry(table, 0, 1,
 						 _("_Drop size:"),
 						 150, 3, _dropSize, 1.0,
-						 256.0, 1.0, 8.0, 0,
-						 true, 0, 0, null, null);
+						 256.0, 1.0, 8.0, 0);
       _dropSizeEntry.ValueChanged += delegate
 	{
 	  _dropSize = _dropSizeEntry.ValueAsInt;
@@ -103,8 +102,7 @@ namespace Gimp.Raindrops
       ScaleEntry _numberEntry = new ScaleEntry(table, 0, 2,
 					       _("_Number:"),
 					       150, 3, _number, 1.0,
-					       256.0, 1.0, 8.0, 0,
-					       true, 0, 0, null, null);
+					       256.0, 1.0, 8.0, 0);
       _numberEntry.ValueChanged += delegate
 	{
 	  _number = _numberEntry.ValueAsInt;
@@ -114,8 +112,7 @@ namespace Gimp.Raindrops
       ScaleEntry _fishEyeEntry = new ScaleEntry(table, 0, 3,
 						_("_Fish eye:"),
 						150, 3, _fishEye, 1.0,
-						256.0, 1.0, 8.0, 0,
-						true, 0, 0, null, null);
+						256.0, 1.0, 8.0, 0);
       _fishEyeEntry.ValueChanged += delegate
 	{
 	  _fishEye = _fishEyeEntry.ValueAsInt;
@@ -164,9 +161,7 @@ namespace Gimp.Raindrops
       PixelFetcher pf = new PixelFetcher(drawable, false);
 
       RgnIterator iter = new RgnIterator(drawable, RunMode.Interactive);
-      iter.IterateSrcDest(delegate (Pixel src) {
-	return src;
-      });
+      iter.IterateSrcDest(src => src);
 
       double newCoeff = (double) Clamp(_fishEye, 1, 100) * 0.01;
 
@@ -279,11 +274,6 @@ namespace Gimp.Raindrops
       drawable.Flush();
       // drawable.MergeShadow(true);
       drawable.Update(bounds);
-
-      if (!isPreview)
-	{
-	  Display.DisplaysFlush();
-	}
     }
 
     int GetBright(double Radius, double OldRadius, double a)

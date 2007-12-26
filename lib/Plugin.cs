@@ -323,6 +323,10 @@ namespace Gimp
 	  Render();
 	}
 
+      // TODO: maybe a check could/should be added here if we need to flush
+      // the displays at all.
+      Display.DisplaysFlush();
+
       stopWatch.Stop();
       TimeSpan ts = stopWatch.Elapsed;
       Console.WriteLine(String.Format("Processing time: {0:00}:{1:00}:{2:00}.{3:00}",

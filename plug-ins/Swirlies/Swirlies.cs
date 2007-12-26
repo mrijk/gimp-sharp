@@ -90,8 +90,8 @@ namespace Gimp.Swirlies
       table.AttachAligned(0, 0, _("Random _Seed:"), 0.0, 0.5, seed, 2, true);
 
       ScaleEntry entry = new ScaleEntry(table, 0, 1, _("Po_ints:"), 
-					150, 3, _points, 1.0, 16.0, 1.0, 8.0, 
-					0, true, 0, 0, null, null);
+					150, 3, _points, 1.0, 16.0, 1.0, 8.0,
+					0);
       entry.ValueChanged += delegate
 	{
 	  _points = entry.ValueAsInt;
@@ -168,8 +168,6 @@ namespace Gimp.Swirlies
       RgnIterator iter = new RgnIterator(drawable, RunMode.Interactive);
       iter.Progress = new Progress(_("Swirlies"));
       iter.IterateDest(new RgnIterator.IterFuncDestFull(DoSwirlies));
-      
-      Display.DisplaysFlush();
     }
 
     Pixel DoSwirlies(int x, int y)

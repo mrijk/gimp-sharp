@@ -35,6 +35,8 @@ namespace Gimp.PhotoshopActions
       _map["AdCH"] = "horizontal centers";
       _map["AdCV"] = "vertical centers";
       _map["AdLf"] = "left edges";
+      _map["AmMn"] = "Amplitude min";
+      _map["AmMx"] = "Amplitude max";
       _map["AntA"] = "Anti-alias";
       _map["AdRg"] = "right edges";
       _map["AdTp"] = "top edges";
@@ -161,6 +163,7 @@ namespace Gimp.PhotoshopActions
       _map["Nkn"]  = "35mm Prime";
       _map["Nkn1"] = "105mm Prime";
       _map["Nm"]   = "Name";
+      _map["NmbG"] = "Number of Generators";
       _map["NmbR"] = "Ridges";
       _map["Nrml"] = "normal";
       _map["Orng"] = "orange";
@@ -191,6 +194,7 @@ namespace Gimp.PhotoshopActions
       _map["RctP"] = "Rectangular to Polar";
       _map["RGBC"] = "RGB color";
       _map["RGBM"] = "RGB color mode";
+      _map["RndS"] = "Random Seed";
       _map["RplM"] = "Ripple Magnitude";
       _map["RplS"] = "Ripple Size";
       _map["Rpt"]  = "repeat";
@@ -201,7 +205,9 @@ namespace Gimp.PhotoshopActions
       _map["SBQH"] = "smart blur quality high";
       _map["SBQL"] = "smart blur quality low";
       _map["SBQM"] = "smart blur quality medium";
+      _map["SclH"] = "Scale horizontal";
       _map["Scln"] = "Scaling";
+      _map["SclV"] = "Scale vertical";
       _map["ScrL"] = "Line";
       _map["Scrn"] = "screen";
       _map["ScrT"] = "Pattern Type";
@@ -240,18 +246,22 @@ namespace Gimp.PhotoshopActions
       _map["TxtC"] = "Texture Coverage";
       _map["Txtr"] = "Texture";
       _map["TxtT"] = "Texture Type";
+      _map["UndA"] = "Undefined Area";
       _map["Unfr"] = "uniform";
       _map["Usng"] = "Using";
       _map["Vrtc"] = "Vertical";
       _map["Wdth"] = "Width";
       _map["Wht"]  = "white";
       _map["WhtL"] = "Background Level";
+      _map["WLMn"] = "Wave length min";
+      _map["WLMx"] = "Wave length max";
       _map["Wnd"]  = "Wind";
       _map["WndM"] = "Method";
       _map["Wrp"]  = "wrap";
       _map["WrpA"] = "wrap around";
       _map["WvSn"] = "wave sine";
       _map["WvSq"] = "wave square";
+      _map["Wvtp"] = "Wave Type";
       _map["Yllw"] = "yellow";
       _map["Zm"]   = "zoom";
       _map["ZZTy"] = "Style";

@@ -28,22 +28,21 @@ namespace Gimp.DifferenceClouds
   class DifferenceClouds : Plugin
   {
     Random _random = null;
-    ScaleEntry _turbulenceEntry = null;
     Progress _progressBar = null;
-    private uint   _count;
+    uint _count;
 
     [SaveAttribute("seed")]
-    UInt32 _rseed;	      		// Current random seed
+    UInt32 _rseed;
     [SaveAttribute("random_seed")]
     bool _random_seed;
     [SaveAttribute("turbulence")]
-    private double _turbulence;
+    double _turbulence;
 
-    private int _progress;
-    private int _maxProgress;
-    private int _alpha, _bpp;
-    private bool _hasAlpha;
-    private byte [,] _indexedColorsMap = new byte[256, 3];
+    int _progress;
+    int _maxProgress;
+    int _alpha, _bpp;
+    bool _hasAlpha;
+    byte [,] _indexedColorsMap = new byte[256, 3];
 
     static void Main(string[] args)
     {
@@ -94,9 +93,10 @@ namespace Gimp.DifferenceClouds
       RandomSeed seed = new RandomSeed(ref _rseed, ref _random_seed);
       table.AttachAligned(0, 0, _("Random _Seed:"), 0.0, 0.5, seed, 2, true);
 
-      _turbulenceEntry = new ScaleEntry(table, 0, 1, _("_Turbulence"), 150, 3,
-					_turbulence, 0.0, 7.0, 0.1, 1.0, 1, 
-					true, 0, 0, null, null);
+      ScaleEntry _turbulenceEntry = new ScaleEntry(table, 0, 1, 
+						   _("_Turbulence"), 150, 3,
+						   _turbulence, 0.0, 7.0, 0.1, 
+						   1.0, 1);
       _turbulenceEntry.ValueChanged += delegate
 	{
 	  _turbulence = _turbulenceEntry.Value;
@@ -119,11 +119,11 @@ namespace Gimp.DifferenceClouds
       _random = new Random((int)_rseed);
 
       Layer activeLayer = image.ActiveLayer;
-      Layer newLayer = new Layer(activeLayer);
-      newLayer.Name = "_DifferenceClouds_";      
-      newLayer.Visible = false;
-      newLayer.Mode = activeLayer.Mode;
-      newLayer.Opacity = activeLayer.Opacity;
+      Layer newLayer = new Layer(activeLayer)
+	{
+	  Name = "_DifferenceClouds_", Visible = false,
+	  Mode = activeLayer.Mode, Opacity = activeLayer.Opacity
+	};
 
       // Initialization steps
       _bpp = drawable.Bpp;
@@ -165,7 +165,6 @@ namespace Gimp.DifferenceClouds
       DoDifference(drawable, newLayer);
       
       drawable.Update(rectangle);
-      Display.DisplaysFlush();
     }
 
     void DoDifference(Drawable sourceDrawable, Drawable toDiffDrawable)

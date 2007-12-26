@@ -484,8 +484,6 @@ namespace Gimp.Colorize
       drawable.Update(dstRgn.X, dstRgn.Y, dstRgn.W, dstRgn.H);
 
       progress.Update(1.0);
-
-      Display.DisplaysFlush();
     }
   }
 }

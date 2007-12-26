@@ -74,6 +74,21 @@ namespace Gimp
       set {_vector.z = value;}
     }
 
+    public override bool Equals(object o)
+    {
+      if (o is Vector3)
+	{
+	  Vector3 vector = o as Vector3;
+	  return vector.X == X && vector.Y == Y && vector.Z == Z;
+	}
+      return false;
+    }
+
+    public override int GetHashCode()
+    {
+      return X.GetHashCode() + Y.GetHashCode() + Z.GetHashCode();
+    }
+
     public void Mul(double factor)
     {
       gimp_vector3_mul(ref _vector, factor);
