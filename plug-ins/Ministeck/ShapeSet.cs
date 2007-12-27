@@ -47,8 +47,18 @@ namespace Gimp.Ministeck
     public IEnumerator<Shape> GetEnumerator()
     {
       long index = (long) (_random.NextDouble() * _combinations);
-      foreach (Shape shape in GeneratePermutation(index))
-	yield return shape;
+      return GeneratePermutation(index).GetEnumerator();
+    }
+
+    public void Fits(bool[,] A, Coordinate<int> c)
+    {
+      foreach (Shape shape in this)
+	{
+	  if (shape.Fits(A, c))
+	    {
+	      break;
+	    }
+	}
     }
 
     List<Shape> GeneratePermutation(long index)
@@ -69,7 +79,7 @@ namespace Gimp.Ministeck
       for (int j = 0; j < len; j++)
 	{
 	  int idx = (int) (index / fac[j]);
-	  
+
 	  int tmp = idn[j];
 	  idn[j] = idn[j + idx];
 	  idn[j + idx] = tmp;

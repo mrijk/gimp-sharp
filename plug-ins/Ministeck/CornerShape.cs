@@ -1,5 +1,5 @@
 // The Ministeck plug-in
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // CornerShape.cs
 //
@@ -46,11 +46,11 @@ namespace Gimp.Ministeck
       Combine(_shape1, _shape2, _shape3, _shape4);
     }
 
-    protected override void Fill(int x, int y, ShapeDescription shape)
+    protected override void Fill(Coordinate<int> c, ShapeDescription shape)
     {
       int _size = Shape._painter.Size;
 
-      LineStart(x, y);
+      LineStart(c);
       if (shape == _shape1)
 	{
 	  HLine(2 * _size);

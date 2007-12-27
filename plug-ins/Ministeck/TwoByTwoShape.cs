@@ -1,5 +1,5 @@
 // The Ministeck plug-in
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // TwoByTwoShape.cs
 //
@@ -34,9 +34,9 @@ namespace Gimp.Ministeck
       Combine(shape);
     }
 
-    protected override void Fill(int x, int y, ShapeDescription shape)
+    protected override void Fill(Coordinate<int> c, ShapeDescription shape)
     {
-      Rectangle(x, y, 2, 2);
+      Rectangle(c, 2, 2);
     }
   }
 }

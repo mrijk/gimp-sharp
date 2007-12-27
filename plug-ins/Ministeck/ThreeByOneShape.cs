@@ -1,5 +1,5 @@
 // The Ministeck plug-in
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // ThreeByOneShape.cs
 //
@@ -17,8 +17,6 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
-
-using System;
 
 namespace Gimp.Ministeck
 {
@@ -38,15 +36,15 @@ namespace Gimp.Ministeck
       Combine(_shape1, _shape2);
     }
 
-    protected override void Fill(int x, int y, ShapeDescription shape)
+    protected override void Fill(Coordinate<int> c, ShapeDescription shape)
     {
       if (shape == _shape1)	// Vertical
 	{
-	  Rectangle(x, y, 1, 3);
+	  Rectangle(c, 1, 3);
 	}
       else			// Horizontal
 	{
-	  Rectangle(x, y, 3, 1);
+	  Rectangle(c, 3, 1);
 	}
     }
   }

@@ -1,5 +1,5 @@
 // The Ministeck plug-in
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2007 Maurits Rijk
 //
 // TwoByOneShape.cs
 //
@@ -18,8 +18,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-
 namespace Gimp.Ministeck
 {
   public class TwoByOneShape : Shape
@@ -35,15 +33,15 @@ namespace Gimp.Ministeck
       Combine(_shape1, _shape2);
     }
 
-    protected override void Fill(int x, int y, ShapeDescription shape)
+    protected override void Fill(Coordinate<int> c, ShapeDescription shape)
     {
       if (shape == _shape1)	// Vertical
 	{
-	  Rectangle(x, y, 1, 2);
+	  Rectangle(c, 1, 2);
 	}
       else			// Horizontal
 	{
-	  Rectangle(x, y, 2, 1);
+	  Rectangle(c, 2, 1);
 	}
     }
   }

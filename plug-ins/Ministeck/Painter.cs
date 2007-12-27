@@ -52,18 +52,18 @@ namespace Gimp.Ministeck
       return _pf[y * _size, x * _size];
     }
 
-    public void LineStart(int x, int y)
+    public void LineStart(Coordinate<int> c)
     {
-      _x = x * _size;
-      _y = y * _size;
+      _x = c.X * _size;
+      _y = c.Y * _size;
     }
-      
-    public void Rectangle(int x, int y, int w, int h)
+ 
+    public void Rectangle(Coordinate<int> c, int w, int h)
     {
       w *= _size;
       h *= _size;
 	
-      LineStart(x, y);
+      LineStart(c);
       HLine(w);
       VLine(h);
       HLine(-w);

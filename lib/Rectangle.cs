@@ -36,6 +36,13 @@ namespace Gimp
       _lowerRight.Y = y2;
     }
 
+    public Rectangle(Coordinate<int> upperLeft, int width, int height)
+    {
+      _upperLeft = upperLeft;
+      _lowerRight = new Coordinate<int>(upperLeft.X + width,
+					upperLeft.Y + height);
+    }
+
     public Rectangle(Coordinate<int> upperLeft, Coordinate<int> lowerRight)
     {
       _upperLeft = upperLeft;

@@ -61,15 +61,15 @@ namespace Gimp.Ministeck
 	}
     }
 
-    public bool Fits(bool[,] A, int x, int y)
+    public bool Fits(bool[,] A, Coordinate<int> c)
     {
       int index = _random.Next(0, _set.Count);
 
       foreach (ShapeDescription shape in _set[index])
 	{
-	  if (Fits(A, x, y, shape))
+	  if (Fits(A, c.X, c.Y, shape))
 	    {
-	      Fill(A, x, y, shape);
+	      Fill(A, c, shape);
 	      return true;
 	    }
 	}
@@ -101,23 +101,23 @@ namespace Gimp.Ministeck
       return true;
     }
 
-    abstract protected void Fill(int x, int y, ShapeDescription shape) ;
+    abstract protected void Fill(Coordinate<int> c, ShapeDescription shape) ;
 
-    void Fill(bool[,] A, int x, int y, ShapeDescription shape)
+    void Fill(bool[,] A, Coordinate<int> c, ShapeDescription shape)
     {
-      Fill(x, y, shape);
-      A[x, y] = true;
-      shape.ForEach(c => {A[x + c.X, y + c.Y] = true;});
+      Fill(c, shape);
+      A[c.X, c.Y] = true;
+      shape.ForEach(sc => {A[c.X + sc.X, c.Y + sc.Y] = true;});
     }
 
-    protected void LineStart(int x, int y)
+    protected void LineStart(Coordinate<int> c)
     {
-      _painter.LineStart(x, y);
+      _painter.LineStart(c);
     }
 
-    protected void Rectangle(int x, int y, int w, int h)
+    protected void Rectangle(Coordinate<int> c, int w, int h)
     {
-      _painter.Rectangle(x, y, w, h);
+      _painter.Rectangle(c, w, h);
     }
 
     protected void HLine(int len)

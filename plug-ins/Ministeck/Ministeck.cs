@@ -184,13 +184,7 @@ namespace Gimp.Ministeck
 		{
 		  if (!A[x, y])
 		    {
-		      foreach (Shape shape in shapes)
-			{
-			  if (shape.Fits(A, x, y))
-			    {
-			      break;
-			    }
-			}
+		      shapes.Fits(A, new Coordinate<int>(x, y));
 		    }
 		}
 	      if (!preview)

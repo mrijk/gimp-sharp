@@ -1,3 +1,11 @@
+2007-12-27  Maurits  <maurits.rijk@gmail.com>
+
+	* plug-ins/Ministeck/Painter.cs
+	* plug-ins/Ministeck/ThreeByOneShape.cs
+	* plug-ins/Ministeck/CornerShape.cs
+	* plug-ins/Ministeck/Shape.cs
+	* plug-ins/Ministeck/Painter.cs: use Coordinate class
+
 2007-12-26  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Vector3.cs: add Equals and GetHashCode methods
