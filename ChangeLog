@@ -1,3 +1,9 @@
+2007-12-28  Maurits  <maurits.rijk@gmail.com>
+
+	* lib/Vector2.cs: more coverage
+
+	* plug-ins/UnitTest/TestVector2.cs: more tests
+
 2007-12-27  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Ministeck/Painter.cs
