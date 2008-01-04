@@ -1,3 +1,18 @@
+2008-01-04  Maurits  <maurits.rijk@gmail.com>
+
+	* lib/CoordinateList.cs: internal constructor to create
+	CoordinateList from an IntPtr...
+
+	* lib/Stroke.cs: ... and use it
+
+	* configure.in
+	* NEWS
+	* INSTALL: bumped version nummer to 0.15
+
+2008-01-03  Maurits  <maurits.rijk@gmail.com>
+
+	* Made 0.14 release
+	
 2007-12-28  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Vector2.cs: more coverage

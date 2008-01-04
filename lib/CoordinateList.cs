@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2008 Maurits Rijk
 //
 // Coordinate.cs
 //
@@ -22,12 +22,29 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 namespace Gimp
 {
   public class CoordinateList<T>
   {
     readonly List<Coordinate<T>> _list = new List<Coordinate<T>>();
+
+    public CoordinateList()
+    {
+    }
+
+    internal CoordinateList(IntPtr ptr, int numCoords)
+    {
+      for (int i = 0; i < numCoords; i += 2)
+	{
+	  T x = (T) Marshal.PtrToStructure(ptr, typeof(T));
+	  ptr = (IntPtr) ((int) ptr + Marshal.SizeOf(x));
+	  T y = (T) Marshal.PtrToStructure(ptr, typeof(T));
+	  ptr = (IntPtr) ((int) ptr + Marshal.SizeOf(y));
+	  Add(new Coordinate<T>(x, y));
+	}
+    }
 
     public IEnumerator<Coordinate<T>> GetEnumerator()
     {

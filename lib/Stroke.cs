@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2008 Maurits Rijk
 //
 // Stroke.cs
 //
@@ -55,7 +55,6 @@ namespace Gimp
 
     public CoordinateList<double> GetPoints(out bool closed)
     {
-      CoordinateList<double> controlpoints = new CoordinateList<double>();
       VectorsStrokeType type;
       int numPoints;
       IntPtr ptr;
@@ -63,13 +62,7 @@ namespace Gimp
       type = gimp_vectors_stroke_get_points(_vectorsID, _strokeID, 
 					    out numPoints, out ptr,
 					    out closed);
-      double[] dest = new double[2 * numPoints];
-      Marshal.Copy(ptr, dest, 0, 2 * numPoints);
-      for (int i = 0; i < numPoints; i += 2)
-	{
-	  controlpoints.Add(new Coordinate<double>(dest[i], dest[i + 1]));
-	}
-      return controlpoints;
+      return new CoordinateList<double>(ptr, numPoints);
     }
 
     public Coordinate<double> GetPointAtDist(double dist, double precision,
@@ -89,20 +82,12 @@ namespace Gimp
     public CoordinateList<double> Interpolate(double precision, 
 					      out bool closed)
     {
-      CoordinateList<double> coords = new CoordinateList<double>();
       int numCoords;
 
       IntPtr ptr = gimp_vectors_stroke_interpolate(_vectorsID, _strokeID,
 						   precision, out numCoords,
 						   out closed);
-      // Fix me: move this to CoordinateList class
-      double[] dest = new double[2 * numCoords];
-      Marshal.Copy(ptr, dest, 0, 2 * numCoords);
-      for (int i = 0; i < 2 * numCoords; i += 2)
-	{
-	  coords.Add(new Coordinate<double>(dest[i], dest[i + 1]));
-	}
-      return coords;
+      return new CoordinateList<double>(ptr, numCoords);
     }
 
     public void Scale(double scaleX, double scaleY)
