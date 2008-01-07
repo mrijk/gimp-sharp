@@ -248,6 +248,7 @@ plug-ins/Forge/po/Makefile
 plug-ins/Fragment/Makefile
 plug-ins/Fragment/po/Makefile
 plug-ins/FSharpSample/Makefile
+plug-ins/GemImg/Makefile
 plug-ins/KoalaPaint/Makefile
 plug-ins/KoalaPaint/po/Makefile
 plug-ins/ncp/Makefile 

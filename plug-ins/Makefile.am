@@ -18,6 +18,7 @@ endif
 
 if BUILD_INCOMPLETE
 CountTool = CountTool
+GemImg = GemImg
 Mezzotint = Mezzotint
 Shatter = Shatter
 DifferenceClouds = DifferenceClouds
@@ -55,6 +56,7 @@ SUBDIRS = 			\
 	Forge	 		\
 	Fragment		\
 	$(FSharpSample)		\
+	$(GemImg)		\
 	KoalaPaint 		\
 	$(Mezzotint)		\
 	Ministeck		\

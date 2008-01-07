@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2008 Maurits Rijk
 //
 // AssemblyInfo.cs
 //
@@ -27,8 +27,8 @@ using System.Reflection;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Maurits Rijk")]
 [assembly: AssemblyProduct("GIMP#")]
-[assembly: AssemblyCopyright("©2004-2007 All Rights Reserved")]
+[assembly: AssemblyCopyright("©2004-2008 All Rights Reserved")]
 [assembly: AssemblyTrademark("")]
 #endregion
 
-[assembly: AssemblyVersion("0.13.0")]
+[assembly: AssemblyVersion("0.15.0")]

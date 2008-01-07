@@ -1,5 +1,5 @@
 // The Ministeck plug-in
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2008 Maurits Rijk
 //
 // Ministeck.cs
 //
@@ -61,7 +61,7 @@ namespace Gimp.Ministeck
 				 _("Generates Ministeck"),
 				 "Maurits Rijk",
 				 "(C) Maurits Rijk",
-				 "2004-2007",
+				 "2004-2008",
 				 _("Ministeck..."),
 				 "RGB*, GRAY*",
 				 inParams)
@@ -100,7 +100,11 @@ namespace Gimp.Ministeck
       CheckButton limit = new CheckButton(_("_Limit Shapes"));
       table.Attach(limit, 2, 3, 0, 1);
       limit.Active = _limit;
-      limit.Toggled += delegate {_limit = limit.Active;};
+      limit.Toggled += delegate 
+	{
+	  _limit = limit.Active;
+	  _preview.Invalidate();
+	};
 
       GimpColorButton colorButton = new GimpColorButton("", 16, 16, _color, 
 							ColorAreaType.Flat);
@@ -111,6 +115,24 @@ namespace Gimp.Ministeck
 	  _preview.Invalidate();
 	};
       table.AttachAligned(0, 1, _("C_olor:"), 0.0, 0.5, colorButton, 1, true);
+      
+      Expander expander = new Expander(_("Colors Needed"));
+      vbox.PackStart(expander, false, false, 0);
+      GimpTable colorTable = new GimpTable(4, 6, false)
+	{ColumnSpacing = 6, RowSpacing = 6};
+      for (uint i = 0; i < 6; i++)
+	{
+	  for (uint j = 0; j < 6; j++)
+	    {
+	      RGB rgb = new RGB(i * 40 / 256.0, 
+				j * 40 / 256.0, 
+				(i + j) * 20 / 256.0);
+	      GimpColorButton color = new GimpColorButton("", 16, 16, rgb,
+							  ColorAreaType.Flat);
+	      colorTable.Attach(color, i, i + 1, j, j + 1);
+	    }
+	}
+      expander.Add(colorTable);
 
       return dialog;
     }
