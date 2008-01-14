@@ -60,8 +60,6 @@ namespace Gimp.GemImg
 
     override protected Image Load(string filename)
     {
-      byte[] bitmap;
-
       if (File.Exists(filename))
 	{
 	  BinaryReader reader = new BinaryReader(File.Open(filename, 
@@ -69,14 +67,42 @@ namespace Gimp.GemImg
 
 	  if (ReadHeader(reader))
 	    {
+	      RGB[] colormap = new RGB[] {
+		new RGB(255,255,255),    
+		new RGB(255,0,0),        
+		new RGB(0,255,0),        
+		new RGB(255,255,0),
+		new RGB(0,0,255),
+		new RGB(255,0,255),      
+		new RGB(0,255,255),
+		new RGB(181,181,181),
+		new RGB(84,84,84),
+		new RGB(127,0,0),
+		new RGB(0,127,0),
+		new RGB(127,127,0),
+		new RGB(0,0,127),
+		new RGB(127,0,127),
+		new RGB(0,127,127),
+		new RGB(0,0,0)
+	      };
+
 	      Image image = NewImage(_imageWidth, _imageHeight,
 				     ImageBaseType.Indexed,
 				     ImageType.Indexed, filename);
+	      image.Colormap = colormap;
+	      PixelRgn rgn = new PixelRgn(image.Layers[0], true, false);
 
-	      for (int y = 0; y < _imageHeight; y++)
+	      int bparrow = (_imageWidth + 7) / 8;
+
+	      for (int y = 0; y < _imageHeight; )
 		{
-		  Console.Write("-----> {0}: ", y);
-		  ReadLine(reader);
+		  byte[] line = new byte[bparrow * 8];
+		  int count = ReadLine(reader, line);
+		  do
+		    {
+		      rgn.SetRow(line, 0, y++);
+		    }
+		  while (--count > 0);
 		}
 
 	      return image;
@@ -123,11 +149,14 @@ namespace Gimp.GemImg
       return true;
     }
 
-    void ReadLine(BinaryReader reader)
+    int ReadLine(BinaryReader reader, byte[] line)
     {
+      int vrc = 0;
       for (int plane = 0; plane < _planes; plane++)
 	{
+	  byte shift = (byte) (1 << plane);
 	  int x = 0;
+
 	  while (x < _imageWidth)
 	    {
 	      byte ch = reader.ReadByte();
@@ -136,24 +165,24 @@ namespace Gimp.GemImg
 		  ch = reader.ReadByte();
 		  if (ch == 0)
 		    {
-		      x += ReadRepeatedRows(reader);
+		      vrc = ReadRepeatedRows(reader);
 		    }
 		  else
 		    {
-		      x += ReadPattern(reader, ch);
+		      x = ReadPattern(reader, ch, x, line, shift);
 		    }
 		}
 	      else if (ch == 0x80)
 		{
-		  x += ReadLiteralString(reader);
+		  x = ReadLiteralString(reader, x, line, shift);
 		}
 	      else
 		{
-		  x += ReadRLE(ch);
+		  x = ReadRLE(ch, x, line, shift);
 		}
 	    }
-	  Console.WriteLine(x);
 	}
+      return vrc;
     }
 
     int ReadRepeatedRows(BinaryReader reader)
@@ -165,33 +194,65 @@ namespace Gimp.GemImg
 	  Console.WriteLine("img: File may be corrupted or not in the expexted format!");
 	  throw new GimpSharpException();
 	}
-      int repetitions = reader.ReadByte();
-
-      Console.WriteLine("ReadRepeatedRows: " + repetitions);
-
-      return repetitions * _imageWidth * 8;
+      return reader.ReadByte();
     }
 
-    int ReadPattern(BinaryReader reader, int repetitions)
+    int ReadPattern(BinaryReader reader, int repetitions, int x, byte[] line,
+		    int shift)
     {
-      byte[] tmp = reader.ReadBytes(_patternSize);
-      Console.WriteLine("ReadPattern: " + repetitions);
-      return repetitions * _patternSize * 8;
+      byte[] pattern = reader.ReadBytes(_patternSize);
+
+      for (int i = 0; i < repetitions; i++)
+	{
+	  for (int j = 0; j < _patternSize ; j++)
+	    {
+	      for (int k = 7; k >= 0; k--)
+		{
+		  byte val = (byte) 
+		    (((pattern[j] & (0x01 << k)) >> k) * shift);
+		  line[x++] |= val;
+		}
+	    }
+	}
+
+      return x;
     }
 
-    int ReadLiteralString(BinaryReader reader)
+    int ReadLiteralString(BinaryReader reader, int x, byte[] line, byte shift)
     {
       int count = reader.ReadByte();
       byte[] tmp = reader.ReadBytes(count);
-      Console.WriteLine("ReadLiteralString: " + count);
-      return count * 8;
+
+      for (int i = 0; i < count; i++)
+	{
+	  int bit = 0x01 << 7;
+	  for (int j = 7; j >= 0 ; j--, x++)
+	    {
+	      if ((tmp[i] & bit) != 0)
+		{
+		  line[x] += shift;
+		}
+	      bit >>= 1;
+	    }
+	}
+      return x;
     }
 
-    int ReadRLE(byte ch)
+    int ReadRLE(byte ch, int x, byte[] line, byte shift)
     {
       int count = ch & 0x7F;
-      Console.WriteLine("ReadRLE: " + count);
-      return count * 8;
+
+      for (int i = 0; i < count; i++)
+	{
+	  for (int j = 0; j < 8; j++, x++)
+	    {
+	      if ((ch & 0x80) != 0)
+		{
+		  line[x] += shift;
+		}
+	    }
+	}
+      return x;
     }
 
     int ReadShort(BinaryReader reader)

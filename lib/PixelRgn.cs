@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2008 Maurits Rijk
 //
 // PixelRgn.cs
 //
@@ -143,6 +143,11 @@ namespace Gimp
 	}
 
       gimp_pixel_rgn_set_row(ref pr, buf, x, y, width);
+    }
+
+    public void SetRow(byte[] row, int x, int y)
+    {
+      gimp_pixel_rgn_set_row(ref pr, row, x, y, row.Length);
     }
 
     public int X
