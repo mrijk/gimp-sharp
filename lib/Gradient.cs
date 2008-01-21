@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2008 Maurits Rijk
 //
 // Gradient.cs
 //
@@ -24,23 +24,19 @@ using System.Runtime.InteropServices;
 
 namespace Gimp
 {
-  public sealed class Gradient
+  public sealed class Gradient : DataObject
   {
-    string _name;
-
-    public Gradient(string name)
+    public Gradient(string name) : base(gimp_gradient_new(name))
     {
-      _name = gimp_gradient_new(name);
     }
 
-    internal Gradient(string name, bool unused)
+    internal Gradient(string name, bool unused) : base(name, unused)
     {
-      _name = name;
     }
 
-    public Gradient(Gradient gradient)
+    public Gradient(Gradient gradient) : 
+      base(gimp_gradient_duplicate(gradient._name))
     {
-      _name = gimp_gradient_duplicate(gradient._name);
     }
 
     public override bool Equals(object o)
@@ -57,16 +53,10 @@ namespace Gimp
       return _name.GetHashCode();
     }
 
-    public string Rename(string new_name)
+    public override string Rename(string new_name)
     {
       _name = gimp_gradient_rename(_name, new_name);
       return _name;
-    }
-
-    public string Name
-    {
-      get {return _name;}
-      set {Rename(value);}
     }
 
     public void Delete()

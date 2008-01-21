@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2008 Maurits Rijk
 //
 // PaletteList.cs
 //
@@ -20,43 +20,24 @@
 //
 
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace Gimp
 {
-  public sealed class PaletteList
+  public sealed class PaletteList : DataObjectList<Palette>
   {
-    readonly List<Palette> _list = new List<Palette>();
-
-    public PaletteList(string filter)
-    {
-      int num_palettes;
-      IntPtr ptr = gimp_palettes_get_list(filter, out num_palettes);
-
-      for (int i = 0; i < num_palettes; i++)
-	{
-          IntPtr tmp = (IntPtr) Marshal.PtrToStructure(ptr, typeof(IntPtr));
-          _list.Add(new Palette(Marshal.PtrToStringAnsi(tmp), false));
-          ptr = (IntPtr)((int)ptr + Marshal.SizeOf(tmp));
-	}
-    }
-
-    /*
-    public PaletteList()
+    public PaletteList(string filter) : base(filter)
     {
     }
-    */
 
-    public IEnumerator<Palette> GetEnumerator()
+    protected override IntPtr GetList(string filter, out int numDataObjects)
     {
-      return _list.GetEnumerator();
+      return gimp_palettes_get_list(filter, out numDataObjects);
     }
 
-    public int Count
+    protected override void Add(string name)
     {
-      get {return _list.Count;}
+      Add(new Palette(name, false));
     }
 
     static public void Refresh()

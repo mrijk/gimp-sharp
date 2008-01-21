@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2008 Maurits Rijk
 //
 // GradientList.cs
 //
@@ -20,36 +20,24 @@
 //
 
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace Gimp
 {
-  public sealed class GradientList
+  public sealed class GradientList : DataObjectList<Gradient>
   {
-    readonly List<Gradient> _list = new List<Gradient>();
-
-    public GradientList(string filter)
+    public GradientList(string filter) : base(filter)
     {
-      int num_gradients;
-      IntPtr ptr = gimp_gradients_get_list(filter, out num_gradients);
-      for (int i = 0; i < num_gradients; i++)
-        {
-	  IntPtr tmp = (IntPtr) Marshal.PtrToStructure(ptr, typeof(IntPtr));
-	  _list.Add(new Gradient(Marshal.PtrToStringAnsi(tmp), false));
-	  ptr = (IntPtr)((int)ptr + Marshal.SizeOf(tmp));
-        }
     }
 
-    public IEnumerator<Gradient> GetEnumerator()
+    protected override IntPtr GetList(string filter, out int numDataObjects)
     {
-      return _list.GetEnumerator();
+      return gimp_gradients_get_list(filter, out numDataObjects);
     }
 
-    public int Count
+    protected override void Add(string name)
     {
-      get {return _list.Count;}
+      Add(new Gradient(name, false));
     }
 
     static public void Refresh()

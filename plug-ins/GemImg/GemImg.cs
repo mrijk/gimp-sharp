@@ -96,7 +96,8 @@ namespace Gimp.GemImg
 
 	      for (int y = 0; y < _imageHeight; )
 		{
-		  byte[] line = new byte[bparrow * 8];
+		  // byte[] line = new byte[bparrow * 8];
+		  byte[] line = new byte[_imageWidth];
 		  int count = ReadLine(reader, line);
 		  do
 		    {

@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2008 Maurits Rijk
 //
 // BrushList.cs
 //
@@ -20,41 +20,24 @@
 //
 
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace Gimp
 {
-  public sealed class BrushList
+  public sealed class BrushList : DataObjectList<Brush>
   {
-    readonly List<Brush> _list = new List<Brush>();
-
-    public BrushList(string filter)
+    public BrushList(string filter) : base(filter)
     {
-      int num_brushes;
-      IntPtr ptr = gimp_brushes_get_list(filter, out num_brushes);
-      for (int i = 0; i < num_brushes; i++)
-        {
-	  IntPtr tmp = (IntPtr) Marshal.PtrToStructure(ptr, typeof(IntPtr));
-	  _list.Add(new Brush(Marshal.PtrToStringAnsi(tmp), false));
-	  ptr = (IntPtr)((int)ptr + Marshal.SizeOf(tmp));
-        }
     }
 
-    public IEnumerator<Brush> GetEnumerator()
+    protected override IntPtr GetList(string filter, out int numDataObjects)
     {
-      return _list.GetEnumerator();
+      return gimp_brushes_get_list(filter, out numDataObjects);
     }
 
-    public void ForEach(Action<Brush> action)
+    protected override void Add(string name)
     {
-      _list.ForEach(action);
-    }
-
-    public int Count
-    {
-      get {return _list.Count;}
+      Add(new Brush(name, false));
     }
 
     static public void Refresh()

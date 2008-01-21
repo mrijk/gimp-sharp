@@ -1,3 +1,18 @@
+2008-01-21  Maurits  <maurits.rijk@gmail.com>
+
+	* lib/DataObject.cs
+	* lib/DataObjectList.cs: new files
+
+	* lib/Makefile.am: changed accordingly
+
+	* lib/Palette.cs
+	* lib/Gradient.cs
+	* lib/Brush.cs: derive from DataObject
+
+	* lib/PaletteList.cs
+	* lib/GradientList.cs
+	* lib/BrushList.cs: derive from DataObjectList
+
 2008-01-14  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Makefile.am: always build GemImg

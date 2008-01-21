@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2008 Maurits Rijk
 //
 // Palette.cs
 //
@@ -25,28 +25,19 @@ using System.Runtime.InteropServices;
 
 namespace Gimp
 {
-  public sealed class Palette
+  public sealed class Palette : DataObject
   {
-    string _name;
-
-    public Palette(string name)
+    public Palette(string name) : base(gimp_palette_new(name))
     {
-      _name = gimp_palette_new(name);
     }
 
-    internal Palette(string name, bool unused)
+    internal Palette(string name, bool unused) : base(name, unused)
     {
-      _name = name;
     }
 
-    public Palette(Palette palette)
+    public Palette(Palette palette) : 
+      base(gimp_palette_duplicate(palette._name))
     {
-      _name = gimp_palette_duplicate(palette._name);
-    }
-
-    public string Name
-    {
-      get {return _name;}
     }
 
     public IEnumerator<PaletteEntry> GetEnumerator()
@@ -72,9 +63,9 @@ namespace Gimp
       return _name.GetHashCode();
     }
 
-    public string Rename(string new_name)
+    public override string Rename(string newName)
     {
-      _name = gimp_palette_rename(_name, new_name);
+      _name = gimp_palette_rename(_name, newName);
       return _name;
     }
 

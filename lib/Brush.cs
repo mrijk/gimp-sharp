@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2008 Maurits Rijk
 //
 // Brush.cs
 //
@@ -24,35 +24,24 @@ using System.Runtime.InteropServices;
 
 namespace Gimp
 {
-  public sealed class Brush
+  public sealed class Brush : DataObject
   {
-    string _name;
-
-    public Brush(string name)
+    public Brush(string name) : base(gimp_brush_new(name))
     {
-      _name = gimp_brush_new(name);
     }
 
-    internal Brush(string name, bool unused)
+    internal Brush(string name, bool unused) : base(name, unused)
     {
-      _name = name;
     }
 
-    public Brush(Brush brush)
+    public Brush(Brush brush) : base(gimp_brush_duplicate(brush._name))
     {
-      _name = gimp_brush_duplicate(brush._name);
     }
 
-    public string Rename(string new_name)
+    public override string Rename(string newName)
     {
-      _name = gimp_brush_rename(_name, new_name);
+      _name = gimp_brush_rename(_name, newName);
       return _name;
-    }
-
-    public string Name
-    {
-      get {return _name;}
-      set {Rename(value);}
     }
 
     public void Delete()

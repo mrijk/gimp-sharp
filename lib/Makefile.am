@@ -17,6 +17,8 @@ MYSOURCES = 				\
 	Context.cs			\
 	Coordinate.cs			\
 	CoordinateList.cs		\
+	DataObject.cs			\
+	DataObjectList.cs		\
 	Dimensions.cs			\
 	Display.cs 			\
 	DoubleOffset.cs			\
