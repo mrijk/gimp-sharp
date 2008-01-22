@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk, Massimo Perga
+// Copyright (C) 2004-2008 Maurits Rijk, Massimo Perga
 //
 // GimpTypes.cs
 //
@@ -46,7 +46,7 @@ namespace Gimp
     [FieldOffset(0)]
     public Int32    	d_drawable;
     [FieldOffset(0)]
-    GimpParasite    	d_parasite;
+    internal GimpParasite    	d_parasite;
     [FieldOffset(0)]
     public PDBStatusType	d_status;
   };
@@ -58,7 +58,6 @@ namespace Gimp
     public string name;
     public string description;
   };
-  
 
   [StructLayout(LayoutKind.Sequential)]
   public struct GimpParam
@@ -94,9 +93,9 @@ namespace Gimp
   internal struct GimpParasite
   {
     // string  name;  
-    IntPtr  name;
-    Int32   flags; 
-    Int32   size;  
-    IntPtr  data;  
+    public IntPtr  name;
+    public Int32   flags; 
+    public Int32   size;  
+    public IntPtr  data;  
   };
 }

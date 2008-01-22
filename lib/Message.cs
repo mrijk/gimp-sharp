@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2008 Maurits Rijk
 //
 // Message.cs
 //
@@ -34,7 +34,7 @@ namespace Gimp
         }
     }
 
-    static MessageHandlerType Handler
+    static public MessageHandlerType Handler
     {
       get {return gimp_message_get_handler();}
       set {gimp_message_set_handler(value);}

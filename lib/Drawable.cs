@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2008 Maurits Rijk
 //
 // Drawable.cs
 //
@@ -198,6 +198,14 @@ namespace Gimp
     public Image Image
     {
       get {return new Image(gimp_drawable_get_image(_ID));}
+    }
+
+    public byte[] GetColorUchar(RGB color)
+    {
+      byte[] colorUchar = new byte[_bpp];
+      GimpRGB rgb = color.GimpRGB;
+      gimp_drawable_get_color_uchar(_ID, ref rgb, colorUchar);
+      return colorUchar;
     }
 
     public bool MergeShadow(bool undo)
@@ -949,7 +957,7 @@ namespace Gimp
                                                           out int bpp);
     [DllImport("libgimp-2.0-0.dll")]
     static extern void gimp_drawable_get_color_uchar(Int32 drawable_ID,
-						     GimpRGB color,
+						     ref GimpRGB color,
 						     byte[] color_uchar);
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_drawable_merge_shadow(Int32 drawable_ID,

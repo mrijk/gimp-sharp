@@ -55,13 +55,12 @@ namespace Gimp
 
     public CoordinateList<double> GetPoints(out bool closed)
     {
-      VectorsStrokeType type;
       int numPoints;
       IntPtr ptr;
 
-      type = gimp_vectors_stroke_get_points(_vectorsID, _strokeID, 
-					    out numPoints, out ptr,
-					    out closed);
+      // Ignore return type
+      gimp_vectors_stroke_get_points(_vectorsID, _strokeID, out numPoints, 
+				     out ptr, out closed);
       return new CoordinateList<double>(ptr, numPoints);
     }
 

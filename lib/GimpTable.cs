@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2008 Maurits Rijk
 //
 // GimpTable.cs
 //
@@ -37,10 +37,10 @@ namespace Gimp
 			      double xalign, double yalign, Widget widget,
 			      int colspan, bool leftAlign)
     {
-      IntPtr ptr = gimp_table_attach_aligned(Handle, column, row, 
-					     label_text, (float) xalign, 
-					     (float) yalign, widget.Handle, 
-					     colspan, leftAlign);
+      gimp_table_attach_aligned(Handle, column, row, 
+				label_text, (float) xalign, 
+				(float) yalign, widget.Handle, 
+				colspan, leftAlign);
       // return new Widget(ptr);
     }
 

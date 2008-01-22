@@ -1,3 +1,11 @@
+2008-01-22  Maurits  <maurits.rijk@gmail.com>
+
+	* lib/GimpTypes.cs
+	* lib/Drawable.cs
+	* lib/Message.cs 
+	* lib/Stroke.cs
+	* lib/GimpTable.cs: removing some warnings
+
 2008-01-21  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/DataObject.cs
