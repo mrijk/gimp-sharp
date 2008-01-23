@@ -3,44 +3,44 @@
 # This file is distributed under the same license as the gimp-sharp package.
 # Alexandre Prokoudine <alexandre.prokoudine@gmail.com>, 2006.
 # , fuzzy
-# 
-# 
+#
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: gimp-sharp 0.10\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-07-16 08:42+0200\n"
+"POT-Creation-Date: 2008-01-23 01:11+0300\n"
 "PO-Revision-Date: 2006-07-20 03:05+0400\n"
 "Last-Translator: Alexandre Prokoudine <alexandre.prokoudine@gmail.com>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit"
+"Content-Transfer-Encoding: 8bit\n"
 
-#: wbmp.cs:45
+#: ../wbmp.cs:41
 msgid "Loads wbmp images"
 msgstr "Загружает изображения в формате wbmp"
 
-#: wbmp.cs:46
+#: ../wbmp.cs:42
 msgid "This plug-in loads wbmp images."
 msgstr "Это расширение загружает изображения в формате wbmp"
 
-#: wbmp.cs:50 wbmp.cs:58
+#: ../wbmp.cs:46 ../wbmp.cs:54
 msgid "wbmp Image"
 msgstr "Изображение wbmp"
 
-#: wbmp.cs:53
+#: ../wbmp.cs:49
 msgid "Saves wbmp images"
 msgstr "Сохраняет изображения в формате wbmp"
 
-#: wbmp.cs:54
+#: ../wbmp.cs:50
 msgid "This plug-in saves wbmp images."
 msgstr "Это расширение сохраняет изображения в формате wbmp"
 
-#: wbmp.cs:93
+#: ../wbmp.cs:86
 msgid "Loading "
 msgstr "Загрузка"
 
-#: wbmp.cs:171
+#: ../wbmp.cs:147
 msgid "Saving "
 msgstr "Сохранение"

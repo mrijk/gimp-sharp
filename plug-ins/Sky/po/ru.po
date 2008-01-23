@@ -1,0 +1,136 @@
+# Russian translation of gimp-sharp.
+# Copyright (C) 2006 THE gimp-sharp'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the gimp-sharp package.
+# Alexandre Prokoudine <alexandre.prokoudine@gmail.com>, 2006.
+# , fuzzy
+#
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gimp-sharp 0.10\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2008-01-23 01:00+0300\n"
+"PO-Revision-Date: 2006-07-20 01:34+0400\n"
+"Last-Translator: Alexandre Prokoudine <alexandre.prokoudine@gmail.com>\n"
+"Language-Team: Russian <ru@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../Sky.cs:85
+msgid "Camera tilt angle (0.0 - 90.0)"
+msgstr ""
+
+#: ../Sky.cs:87
+msgid "Camera rotation angle (0.0 - 90.0)"
+msgstr ""
+
+#: ../Sky.cs:89
+msgid "Random seed, -1 to use current time"
+msgstr ""
+
+#: ../Sky.cs:91
+msgid "Show sun? (bool)"
+msgstr ""
+
+#: ../Sky.cs:93
+msgid "Sun's x coordinate (0.0 - 1.0)"
+msgstr ""
+
+#: ../Sky.cs:95
+msgid "Sun's y coordinate (0.0 - 1.0)"
+msgstr ""
+
+#: ../Sky.cs:97
+msgid "Time in hours (0.0 - 24.0)"
+msgstr ""
+
+#: ../Sky.cs:99
+msgid "Horizon color"
+msgstr ""
+
+#: ../Sky.cs:101
+msgid "Color at highest point in the sky"
+msgstr ""
+
+#: ../Sky.cs:103
+msgid "Sun color"
+msgstr ""
+
+#: ../Sky.cs:105
+msgid "Cloud color"
+msgstr ""
+
+#: ../Sky.cs:107
+msgid "Cloud shadow color"
+msgstr ""
+
+#: ../Sky.cs:111 ../Sky.cs:112
+msgid "Sky"
+msgstr ""
+
+#: ../Sky.cs:116
+msgid "Sky..."
+msgstr ""
+
+#: ../Sky.cs:159
+msgid "Random _Seed:"
+msgstr ""
+
+#: ../Sky.cs:164
+msgid "Sun"
+msgstr ""
+
+#: ../Sky.cs:171
+msgid "_X:"
+msgstr ""
+
+#: ../Sky.cs:180
+msgid "_Y:"
+msgstr ""
+
+#: ../Sky.cs:189
+msgid "_Show sun"
+msgstr ""
+
+#: ../Sky.cs:201
+msgid "Camera"
+msgstr ""
+
+#: ../Sky.cs:206
+msgid "_Rotation angle:"
+msgstr ""
+
+#: ../Sky.cs:216
+msgid "_Tilt angle:"
+msgstr ""
+
+#: ../Sky.cs:228
+msgid "Colors"
+msgstr ""
+
+#: ../Sky.cs:243
+msgid "_Horizon:"
+msgstr ""
+
+#: ../Sky.cs:248
+msgid "S_ky:"
+msgstr ""
+
+#: ../Sky.cs:263
+msgid "S_un:"
+msgstr ""
+
+#: ../Sky.cs:273
+msgid "C_loud:"
+msgstr ""
+
+#: ../Sky.cs:284
+msgid "Sh_adow:"
+msgstr ""
+
+#~ msgid "Average blur"
+#~ msgstr "Усреднённое размывание"
+
+#~ msgid "Average"
+#~ msgstr "Усреднённое"

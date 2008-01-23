@@ -45,12 +45,12 @@ namespace Gimp.Shatter
       inParams.Add(new ParamDef("pieces", 4, typeof(int), "Number of shards"));
 
       Procedure procedure = new Procedure("plug_in_shatter",
-					  "Shatter an image",
-					  "Shatter an image",
+					  _("Shatter an image"),
+					  _("Shatter an image"),
 					  "Maurits Rijk",
 					  "(C) Maurits Rijk",
 					  "2006-2007",
-					  "Shatter...",
+					  _("Shatter..."),
 					  "RGB*, GRAY*",
 					  inParams);
       procedure.MenuPath = "<Image>/Filters/Distorts";

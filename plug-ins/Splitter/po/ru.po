@@ -3,144 +3,133 @@
 # This file is distributed under the same license as the gimp-sharp package.
 # Alexandre Prokoudine <alexandre.prokoudine@gmail.com>, 2006.
 # , fuzzy
-# 
-# 
+#
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: gimp-sharp 0.10\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-07-16 08:42+0200\n"
+"POT-Creation-Date: 2008-01-23 01:07+0300\n"
 "PO-Revision-Date: 2006-07-20 03:05+0400\n"
 "Last-Translator: Alexandre Prokoudine <alexandre.prokoudine@gmail.com>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit"
+"Content-Transfer-Encoding: 8bit\n"
 
-#: AdvancedDialog.cs:34
+#: ../AdvancedDialog.cs:33
 msgid "Advanced Settings"
 msgstr "Расширенные параметры"
 
-#: AdvancedDialog.cs:35 AdvancedDialog.cs:36 Splitter.cs:95
+#: ../AdvancedDialog.cs:33 ../AdvancedDialog.cs:34 ../Splitter.cs:111
 msgid "Splitter"
 msgstr "Разделитель"
 
-#: AdvancedDialog.cs:49
+#: ../AdvancedDialog.cs:47
 msgid "Random _Seed:"
 msgstr "Случайное начальное число:"
 
-#: Splitter.cs:75
+#: ../Splitter.cs:70
+msgid "Formula for splitting image"
+msgstr ""
+
+#: ../Splitter.cs:72
+msgid "Translation in x first layer"
+msgstr ""
+
+#: ../Splitter.cs:74
+msgid "Translation in y first layer"
+msgstr ""
+
+#: ../Splitter.cs:76
+msgid "Rotation first layer"
+msgstr ""
+
+#: ../Splitter.cs:78
+msgid "Translation in x second layer"
+msgstr ""
+
+#: ../Splitter.cs:80
+msgid "Translation in y second layer"
+msgstr ""
+
+#: ../Splitter.cs:82
+msgid "Rotation second layer"
+msgstr ""
+
+#: ../Splitter.cs:84
+msgid "Keep first (0), second (1) or both (2) layer(s)"
+msgstr ""
+
+#: ../Splitter.cs:86
+msgid "Merge layers after splitting"
+msgstr ""
+
+#: ../Splitter.cs:88
+msgid "Value for random seed"
+msgstr ""
+
+#: ../Splitter.cs:90
+msgid "Use specified random seed"
+msgstr ""
+
+#: ../Splitter.cs:93
 msgid "Splits an image."
 msgstr "Делит изображение на части"
 
-#: Splitter.cs:76
+#: ../Splitter.cs:94
 msgid ""
 "Splits an image in separate parts using a formula of the form f(x, y) = 0"
 msgstr "Делит изображение на части, исопльзуя формулу вида f(x, y) = 0"
 
-#: Splitter.cs:80
+#: ../Splitter.cs:98
 msgid "Splitter..."
 msgstr "Разделитель..."
 
-#: Splitter.cs:96 Splitter.cs:97
+#: ../Splitter.cs:111 ../Splitter.cs:112
 msgid "splitter"
 msgstr "разделитель"
 
-#: Splitter.cs:129
+#: ../Splitter.cs:137
 msgid "Merge visible layers"
 msgstr "Свести видимые слои"
 
-#: Splitter.cs:138
+#: ../Splitter.cs:142
 msgid "Advanced Options..."
 msgstr "Расширенные параметры..."
 
-#: Splitter.cs:155
+#: ../Splitter.cs:159
 msgid "Both Layers"
 msgstr "Оба слоя"
 
-#: MathExpressionParser.cs:43
-msgid "System.dll"
-msgstr ""
-
-#: MathExpressionParser.cs:46
-msgid ""
-"using System;class myclass : Gimp.Splitter.MyClassBase{public myclass(){}"
-"public override double eval(double x,double y){return "
-msgstr ""
-
-
-#: MathExpressionParser.cs:52
-msgid ";}}"
-msgstr ""
-
-#: MathExpressionParser.cs:62
-msgid "myclass"
-msgstr ""
-
-#: Splitter.cs:69
-msgid "plug_in_splitter"
-msgstr ""
-
-#: Splitter.cs:72
-msgid "Maurits Rijk"
-msgstr ""
-
-#: Splitter.cs:73
-msgid "(C) Maurits Rijk"
-msgstr ""
-
-#: Splitter.cs:74
-msgid "1999 - 2006"
-msgstr ""
-
-#: Splitter.cs:76
-msgid "RGB*"
-msgstr ""
-
-#: Splitter.cs:78
-msgid "<Image>/Filters/Generic"
-msgstr ""
-
-#: Splitter.cs:79
-msgid "Splitter.png"
-msgstr ""
-
-#: Splitter.cs:103
-msgid "f(x, y):"
-msgstr ""
-
-#: Splitter.cs:112
-msgid "= 0"
-msgstr ""
-
-#: Splitter.cs:146 Splitter.cs:160
+#: ../Splitter.cs:160 ../Splitter.cs:171
 msgid "Layer 1"
 msgstr ""
 
-#: Splitter.cs:147 Splitter.cs:205
+#: ../Splitter.cs:161 ../Splitter.cs:199
 msgid "Layer 2"
 msgstr ""
 
-#: Splitter.cs:153
+#: ../Splitter.cs:164
 msgid "Keep:"
 msgstr ""
 
-#: Splitter.cs:176 Splitter.cs:221
+#: ../Splitter.cs:180 ../Splitter.cs:208
 msgid "Translate X:"
 msgstr ""
 
-#: Splitter.cs:186 Splitter.cs:231
+#: ../Splitter.cs:185 ../Splitter.cs:213
 msgid "Translate Y:"
 msgstr ""
 
-#: Splitter.cs:196 Splitter.cs:241
+#: ../Splitter.cs:190 ../Splitter.cs:218
 msgid "Rotate:"
 msgstr ""
 
-#: Splitter.cs:263
+#: ../Splitter.cs:237
 msgid "layer_one"
 msgstr ""
 
-#: Splitter.cs:280
+#: ../Splitter.cs:254
 msgid "layer_two"
 msgstr ""

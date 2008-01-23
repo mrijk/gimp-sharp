@@ -3,40 +3,40 @@
 # This file is distributed under the same license as the gimp-sharp package.
 # Alexandre Prokoudine <alexandre.prokoudine@gmail.com>, 2006.
 # , fuzzy
-# 
-# 
+#
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: gimp-sharp 0.10\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-07-16 08:42+0200\n"
+"POT-Creation-Date: 2008-01-23 01:09+0300\n"
 "PO-Revision-Date: 2006-07-20 03:05+0400\n"
 "Last-Translator: Alexandre Prokoudine <alexandre.prokoudine@gmail.com>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit"
+"Content-Transfer-Encoding: 8bit\n"
 
-#: Swirlies.cs:68 Swirlies.cs:69
+#: ../Swirlies.cs:61 ../Swirlies.cs:62
 msgid "Generates 2D textures"
 msgstr "Создаёт двухмерные текстуры"
 
-#: Swirlies.cs:73
+#: ../Swirlies.cs:66
 msgid "Swirlies..."
 msgstr "Завитки..."
 
-#: Swirlies.cs:87 Swirlies.cs:185
+#: ../Swirlies.cs:77 ../Swirlies.cs:169
 msgid "Swirlies"
 msgstr "Завитки..."
 
-#: Swirlies.cs:88 Swirlies.cs:89
+#: ../Swirlies.cs:77 ../Swirlies.cs:78
 msgid "swirlies"
 msgstr "завитки"
 
-#: Swirlies.cs:102
+#: ../Swirlies.cs:90
 msgid "Random _Seed:"
 msgstr "Случайное начальное число"
 
-#: Swirlies.cs:106
+#: ../Swirlies.cs:92
 msgid "Po_ints:"
 msgstr "То_чек:"

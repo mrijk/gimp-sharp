@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gimp-sharp 0.10\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-01-23 00:04+0300\n"
+"POT-Creation-Date: 2008-01-23 00:42+0300\n"
 "PO-Revision-Date: 2006-07-20 01:34+0400\n"
 "Last-Translator: Alexandre Prokoudine <alexandre.prokoudine@gmail.com>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -17,10 +17,20 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../AverageBlur.cs:40 ../AverageBlur.cs:41
-msgid "Average blur"
-msgstr "Усреднённое размывание"
+#: ../PictureFrame.cs:45 ../PictureFrame.cs:46
+msgid "Picture frame"
+msgstr ""
 
-#: ../AverageBlur.cs:45 ../AverageBlur.cs:53
-msgid "Average"
-msgstr "Усреднённое"
+#: ../PictureFrame.cs:50
+msgid "Picture frame..."
+msgstr ""
+
+#: ../PictureFrame.cs:76
+msgid "Load Frame..."
+msgstr ""
+
+#~ msgid "Average blur"
+#~ msgstr "Усреднённое размывание"
+
+#~ msgid "Average"
+#~ msgstr "Усреднённое"
