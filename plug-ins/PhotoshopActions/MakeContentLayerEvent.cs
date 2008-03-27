@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // MakeContentLayerEvent.cs
 //
@@ -24,6 +24,11 @@ namespace Gimp.PhotoshopActions
 {
   public class MakeContentLayerEvent : MakeEvent
   {
+    [Parameter("Type")]    
+    ObjcParameter _type;
+    [Parameter("Clr")]    
+    ObjcParameter _clr;
+
     public MakeContentLayerEvent(MakeEvent srcEvent) : base(srcEvent)
     {
     }
@@ -35,7 +40,22 @@ namespace Gimp.PhotoshopActions
 
     public override string EventForDisplay
     {
-      get {return base.EventForDisplay + " content layer";}
+      get {return base.EventForDisplay + " fill layer";}
+    }
+
+    protected override IEnumerable ListParameters()
+    {
+      ObjcParameter _using = Parameters["Usng"] as ObjcParameter;
+      _using.Fill(this);
+      _type.Fill(this);
+      RGB rgb = _clr.GetColor();
+
+      yield return "Using: fill layer";
+      yield return "Type: ";
+      yield return "Slot Color: ";
+      yield return "Red: " + rgb.R;
+      yield return "Green: " + rgb.G;
+      yield return "Blue: " + rgb.B;
     }
 
     override public bool Execute()

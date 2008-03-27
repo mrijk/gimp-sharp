@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk, Massimo Perga
+// Copyright (C) 2004-2008 Maurits Rijk, Massimo Perga
 //
 // GimpDialog.cs
 //

@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // SetLayerPropertyEvent.cs
 //
@@ -60,6 +60,10 @@ namespace Gimp.PhotoshopActions
 	    case "Clr":
 	      yield return Format(parameter as EnumParameter, "Clr");
 	      break;
+	    case "fillOpacity":
+	      double fillOpacity = (parameter as DoubleParameter).Value;
+	      yield return "Fill Opacity: " + fillOpacity;
+	      break;
 	    case "Lefx":
 	      yield return "Scale: ";
 	      break;
@@ -99,6 +103,9 @@ namespace Gimp.PhotoshopActions
 	      string mode = (parameter as EnumParameter).Value;
 	      switch (mode)
 		{
+		case "CBrn":
+		  layer.Mode = LayerModeEffects.Burn;
+		  break;
 		case "Drkn":
 		  // TODO: not a perfect match
 		  layer.Mode = LayerModeEffects.DarkenOnly;

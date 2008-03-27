@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // Abbreviations.cs
 //
@@ -61,6 +61,7 @@ namespace Gimp.PhotoshopActions
       _map["BtmM"] = "bitmap mode";
       _map["Btom"] = "Bottom";
       _map["CBrn"] = "color burn";
+      _map["CDdg"] = "color dodge";
       _map["ChlA"] = "Chalk Area";
       _map["Chnl"] = "Channel";
       _map["ChrA"] = "Charcoal Area";
@@ -109,6 +110,7 @@ namespace Gimp.PhotoshopActions
       _map["GrnR"] = "Regular";
       _map["Grns"] = "Graininess";
       _map["Grnt"] = "Grain Type";
+      _map["GrSf"] = "Soft";
       _map["GrtW"] = "Grout Width";
       _map["Gry"]  = "gray";
       _map["Grys"] = "grayscale mode";
@@ -262,6 +264,7 @@ namespace Gimp.PhotoshopActions
       _map["WvSn"] = "wave sine";
       _map["WvSq"] = "wave square";
       _map["Wvtp"] = "Wave Type";
+      _map["Xclu"] = "exclusion";
       _map["Yllw"] = "yellow";
       _map["Zm"]   = "zoom";
       _map["ZZTy"] = "Style";
