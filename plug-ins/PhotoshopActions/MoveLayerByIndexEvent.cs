@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // MoveLayerByIndexEvent.cs
 //
@@ -91,8 +91,23 @@ namespace Gimp.PhotoshopActions
 	    }
 	}
 
-      ActiveImage.RemoveLayer(layer);
-      ActiveImage.AddLayer(layer, _index);
+      int diff = layer.Position - _index;
+      if (diff < 0)
+	{
+	  diff = -diff;
+	  for (int i = 0; i < diff; i++)
+	    {
+	      layer.Lower();
+	    }
+	}
+      else if (diff > 0)
+	{
+	  for (int i = 0; i < diff; i++)
+	    {
+	      layer.Raise();
+	    }
+	}
+
       SelectedLayer = layer;
 
       return true;

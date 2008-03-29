@@ -1,3 +1,11 @@
+2008-03-29  Maurits  <maurits.rijk@gmail.com>
+
+	* lib/Layer.cs: added convenience routine
+
+	* plug-ins/PhotoshopActions/CurvesEvent.cs: move verbose
+
+	* plug-ins/PhotoshopActions/PhotoshopActions.cs: bumped number to 0.5
+
 2008-03-27  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/Abbreviations.cs: new abbreviations

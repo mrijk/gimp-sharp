@@ -126,6 +126,10 @@ namespace Gimp.PhotoshopActions
 		case "Scrn":
 		  layer.Mode = LayerModeEffects.Screen;
 		  break;
+		case "Xclu":
+		  // Fix me: not the best match
+		  layer.Mode = LayerModeEffects.Difference;
+		  break;
 		default:
 		  Console.WriteLine("Implement set layer mode: " + mode);
 		  break;

@@ -18,6 +18,7 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
+using System;
 using System.Collections;
 
 namespace Gimp.PhotoshopActions
@@ -29,13 +30,16 @@ namespace Gimp.PhotoshopActions
     [Parameter("Clr")]    
     ObjcParameter _clr;
 
+    static int _layerNr = 0;
+
     public MakeContentLayerEvent(MakeEvent srcEvent) : base(srcEvent)
     {
     }
 
     public override bool IsExecutable
     {
-      get {return false;}
+      // Fix me: only works for solid color right now, not for patterns etc.!
+      get {return true;}
     }
 
     public override string EventForDisplay
@@ -53,13 +57,26 @@ namespace Gimp.PhotoshopActions
       yield return "Using: fill layer";
       yield return "Type: ";
       yield return "Slot Color: ";
-      yield return "Red: " + rgb.R;
-      yield return "Green: " + rgb.G;
-      yield return "Blue: " + rgb.B;
+      yield return String.Format("Red: {0}", rgb.R * 255);
+      yield return String.Format("Green: {0}", rgb.G * 255);
+      yield return String.Format("Blue: {0}", rgb.B * 255);
     }
 
     override public bool Execute()
     {
+      Image image = ActiveImage;
+
+      _layerNr++;
+      Layer layer = new Layer(image, "Color Fill " + _layerNr, ImageType.Rgba);
+      image.AddLayer(layer, 0);
+      image.ActiveLayer = layer;
+      SelectedLayer = layer;
+
+      Context.Push();
+      Context.Foreground = _clr.GetColor();
+      layer.Fill(FillType.Foreground);
+      Context.Pop();
+
       return true;
     }
   }

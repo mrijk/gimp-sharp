@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2008 Maurits Rijk
 //
 // Layer.cs
 //
@@ -26,14 +26,11 @@ namespace Gimp
 {
   public class Layer : Drawable
   {    
-    readonly Image _image;
-
     public Layer(Image image, string name, int width, int height, 
 		 ImageType type, double opacity, LayerModeEffects mode) : 
       base(gimp_layer_new(image.ID, name, width, height, type, 
 			  opacity, mode))
     {
-      _image = image;
     }
 
     public Layer(Image image, string name, ImageType type, double opacity, 
@@ -240,14 +237,19 @@ namespace Gimp
       get {return gimp_layer_is_floating_sel(_ID);}
     }
 
+    public int Position
+    {
+      get {return Image.GetLayerPosition(this);}
+    }
+
     public void Lower()
     {
-      _image.LowerLayer(this);
+      Image.LowerLayer(this);
     }
 
     public void Raise()
     {
-      _image.RaiseLayer(this);
+      Image.RaiseLayer(this);
     }
 
     [DllImport("libgimp-2.0-0.dll")]

@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // CurvesEvent.cs
 //
@@ -19,6 +19,7 @@
 //
 
 using System;
+using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
@@ -26,6 +27,44 @@ namespace Gimp.PhotoshopActions
   {
     [Parameter("Adjs")]
     ListParameter _adjustment;
+
+    protected override IEnumerable ListParameters()
+    {
+      yield return "Adjustment: curves adjustment list";
+      yield return "curves adjustment";
+      yield return "Channel: composite channel";
+      yield return "Curve: point list";
+     
+      foreach (Coordinate<byte> c in GetControlPoints())
+	{
+	  yield return String.Format("point: {0}, {1}", c.X, c.Y);
+	}
+    }
+
+    CoordinateList<byte> GetControlPoints()
+    {
+      ObjcParameter objc = _adjustment[0] as ObjcParameter;
+      
+      ReferenceParameter obj = objc.Parameters["Chnl"] as 
+	ReferenceParameter;
+      
+      ListParameter curve = objc.Parameters["Crv"] as ListParameter;
+
+      CoordinateList<byte> controlPoints = new CoordinateList<byte>();
+      
+      foreach (Parameter parameter in curve)
+	{
+	  ObjcParameter point = parameter as ObjcParameter;
+	  double x = 
+	    (point.Parameters["Hrzn"] as DoubleParameter).Value;
+	  double y = 
+	    (point.Parameters["Vrtc"] as DoubleParameter).Value;
+	  
+	  controlPoints.Add(new Coordinate<byte>((byte) x, (byte) y));
+	}
+      
+      return controlPoints;
+    }
 
     override public bool Execute()
     {
@@ -46,10 +85,10 @@ namespace Gimp.PhotoshopActions
 	      ObjcParameter point = parameter as ObjcParameter;
 	      double x = 
 		(point.Parameters["Hrzn"] as DoubleParameter).Value;
-		  double y = 
-		    (point.Parameters["Vrtc"] as DoubleParameter).Value;
-		  
-		  controlPoints.Add(new Coordinate<byte>((byte) x, (byte) y));
+	      double y = 
+		(point.Parameters["Vrtc"] as DoubleParameter).Value;
+	      
+	      controlPoints.Add(new Coordinate<byte>((byte) x, (byte) y));
 	    }
 
 	  HistogramChannel channel;
