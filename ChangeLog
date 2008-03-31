@@ -1,3 +1,7 @@
+2008-03-31  Maurits  <maurits.rijk@gmail.com>
+
+	* plug-ins/PhotoshopActions/EventMap.cs: more event mappings
+
 2008-03-29  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Layer.cs: added convenience routine

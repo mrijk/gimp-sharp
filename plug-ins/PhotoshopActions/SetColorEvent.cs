@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // SetColorEvent.cs
 //
@@ -21,16 +21,15 @@
 using System;
 using System.Collections;
 
-// using Gtk;
-
 namespace Gimp.PhotoshopActions
 {
   public class SetColorEvent : ActionEvent
   {
     [Parameter("T")]
-    ObjcParameter _objc;
+    protected ObjcParameter _objc;
+    // Fix me: protected so that introspection can find it
 
-    public SetColorEvent(ActionEvent srcEvent) : base(srcEvent)
+    public SetColorEvent(SetEvent srcEvent) : base(srcEvent)
     {
       Parameters.Fill(this);
       _objc.Fill(this);

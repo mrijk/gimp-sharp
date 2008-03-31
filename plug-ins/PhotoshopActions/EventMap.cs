@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // EventMap.cs
 //
@@ -51,7 +51,8 @@ namespace Gimp.PhotoshopActions
 	_map["Alien Skin Eye Candy 4000 Smoke"] = 
 	_map["Alien Skin Eye Candy 4000 Water Drops"] = 
 	_map["Alien Skin Eye Candy 4000 Wood"] = 
-	_map["Alien Skin Eye Candy 4000 Glass"] = "ExternalPluginEvent";
+	_map["Alien Skin Eye Candy 4000 Glass"] = 
+	_map["Alien Skin Splat Resurface"] = "ExternalPluginEvent";
       _map["align"] = _map["Algn"] = "AlignEvent";
       _map["angledStrokes"] = _map["AngS"] = "AngledStrokesEvent";
       _map["applyImageEvent"] = "ApplyImageEvent";
@@ -125,7 +126,7 @@ namespace Gimp.PhotoshopActions
       _map["fragment"] = _map["Frgm"] = "FragmentEvent";
       _map["fresco"] = "FrescoEvent";
       _map["GEfc"] = "FilterGalleryEvent";
-      _map["gaussianBlur"] = _map["GsnB"] = "GaussianBlurEvent";
+      _map["gaussianBlur"] = _map["GsnB"] = _map["GblR"] = "GaussianBlurEvent";
       _map["glass"] = _map["Gls"] = "GlassEvent";
       _map["glowingEdges"] = _map["GlwE"] = "GlowingEdgesEvent";
       _map["gradientClassEvent"] = _map["Grdn"] = "GradientClassEvent";

@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // SetBackgroundColorEvent.cs
 //
@@ -24,7 +24,7 @@ namespace Gimp.PhotoshopActions
 {
   public class SetBackgroundColorEvent : SetColorEvent
   {
-    public SetBackgroundColorEvent(ActionEvent srcEvent) : base(srcEvent)
+    public SetBackgroundColorEvent(SetEvent srcEvent) : base(srcEvent)
     {
     }
     

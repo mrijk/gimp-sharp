@@ -51,15 +51,21 @@ namespace Gimp.PhotoshopActions
     {
       ObjcParameter _using = Parameters["Usng"] as ObjcParameter;
       _using.Fill(this);
+      /*
       _type.Fill(this);
       RGB rgb = _clr.GetColor();
+      */
+      // Fix me: this fails for gradient layers because those have different
+      // fields with name 'Type'. 
 
       yield return "Using: fill layer";
       yield return "Type: ";
       yield return "Slot Color: ";
+      /*
       yield return String.Format("Red: {0}", rgb.R * 255);
       yield return String.Format("Green: {0}", rgb.G * 255);
       yield return String.Format("Blue: {0}", rgb.B * 255);
+      */
     }
 
     override public bool Execute()

@@ -77,10 +77,14 @@ namespace Gimp.PhotoshopActions
     {
       Type type = obj.GetType();
 
-      foreach (FieldInfo field in type.GetFields(BindingFlags.Instance |  
+      // Console.WriteLine("Type: " + type);
+
+      foreach (FieldInfo field in type.GetFields(BindingFlags.Instance |
 						 BindingFlags.NonPublic | 
 						 BindingFlags.Public))
 	{
+	  // Console.WriteLine("Fill: " + field);
+
 	  foreach (object attribute in field.GetCustomAttributes(true))
 	    {
 	      if (attribute is ParameterAttribute)
@@ -100,7 +104,8 @@ namespace Gimp.PhotoshopActions
 		    }
 		}
 	    }
-	}    
+	}
+      // Console.WriteLine("Done");
     }
   }
 }
