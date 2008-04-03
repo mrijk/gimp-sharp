@@ -205,6 +205,7 @@ MYSOURCES = 				\
 	ReferenceParameter.cs		\
 	ReferenceType.cs		\
 	ReleType.cs			\
+	RemoveBlackMatteEvent.cs	\
 	RemoveWhiteMatteEvent.cs	\
 	ReplaceColorEvent.cs		\
 	ResetEvent.cs			\

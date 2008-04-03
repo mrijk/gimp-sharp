@@ -1,3 +1,10 @@
+2008-04-03  Maurits  <maurits.rijk@gmail.com>
+
+	* plug-ins/PhotoshopActions/RemoveBlackMatteEvent.cs: new file
+
+	* plug-ins/PhotoshopActions/Makefile.am
+	* plug-ins/PhotoshopActions/EventMap.cs: changed accordingly
+
 2008-03-31  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/EventMap.cs: more event mappings

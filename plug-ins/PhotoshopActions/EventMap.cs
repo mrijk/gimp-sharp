@@ -198,6 +198,7 @@ namespace Gimp.PhotoshopActions
       _map["rasterizeAll"] = "RasterizeAllEvent"; 
       _map["rasterizeLayer"] = "RasterizeLayerEvent"; 
       _map["rasterizeTypeLayer"] = _map["RstT"] = "RasterizeTypeLayerEvent"; 
+      _map["removeBlackMatte"] = "RemoveBlackMatteEvent";
       _map["removeWhiteMatte"] = "RemoveWhiteMatteEvent";
       _map["replaceColor"] = _map["RplC"] = "ReplaceColorEvent";
       _map["reset"] = _map["Rset"] = "ResetEvent";
