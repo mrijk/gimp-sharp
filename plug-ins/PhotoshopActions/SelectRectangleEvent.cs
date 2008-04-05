@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // SelectRectangleEvent.cs
 //
@@ -44,6 +44,7 @@ namespace Gimp.PhotoshopActions
       GetBounds(_objc, out x, out y, out width, out height);
       RectangleSelectTool tool = new RectangleSelectTool(ActiveImage);
       tool.Select(x, y, width, height, ChannelOps.Replace, false, 0);
+      RememberCurrentSelection();
 
       return true;
     }

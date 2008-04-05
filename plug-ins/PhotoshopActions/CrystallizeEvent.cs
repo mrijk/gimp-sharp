@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // CrystallizeEvent.cs
 //
@@ -40,7 +40,7 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
-      return false;
+      return true;
     }
   }
 }

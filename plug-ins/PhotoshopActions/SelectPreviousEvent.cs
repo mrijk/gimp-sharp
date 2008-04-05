@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // SelectPreviousEvent.cs
 //
@@ -29,11 +29,6 @@ namespace Gimp.PhotoshopActions
     {
     }
 
-    public override bool IsExecutable
-    {
-      get {return false;}
-    }
-
     protected override IEnumerable ListParameters()
     {
       yield return "To: previous";
@@ -41,6 +36,7 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
+      RestorePreviousSelection();
       return true;
     }
   }

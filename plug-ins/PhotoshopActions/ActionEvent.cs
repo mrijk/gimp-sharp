@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // ActionEvent.cs
 //
@@ -56,6 +56,8 @@ namespace Gimp.PhotoshopActions
     // TODO: this is a hack
     static Channel _selectedChannel;
     static string _selectedChannelName;
+
+    static Channel _previousSelection;
 
     public ActionEvent()
     {
@@ -232,6 +234,16 @@ namespace Gimp.PhotoshopActions
     {
       Procedure procedure = new Procedure(name);
       procedure.Run(_activeImage, _activeDrawable, list);
+    }
+
+    protected void RememberCurrentSelection()
+    {
+      _previousSelection = _activeImage.Selection.Save();
+    }
+
+    protected void RestorePreviousSelection()
+    {
+      _activeImage.Selection.Load(_previousSelection);
     }
 
     protected void GetBounds(ObjcParameter objc, out double x, out double y,

@@ -37,6 +37,8 @@ namespace Gimp.PhotoshopActions
     override public bool Execute()
     {
       ActiveImage.Selection.All();
+      RememberCurrentSelection();
+
       return true;
     }
   }

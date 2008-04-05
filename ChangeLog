@@ -1,3 +1,13 @@
+2008-04-05  Maurits  <maurits.rijk@gmail.com>
+
+	* plug-ins/PhotoshopActions/SelectPreviousEvent.cs
+	* plug-ins/PhotoshopActions/SelectEllipseEvent.cs
+	* plug-ins/PhotoshopActions/SelectRectangleEvent.cs
+	* plug-ins/PhotoshopActions/SelectPolygonEvent.cs
+	* plug-ins/PhotoshopActions/SelectAllEvent.cs
+	* plug-ins/PhotoshopActions/ActionEvent.cs: implement support for
+	"Select previous selection"
+
 2008-04-03  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/RemoveBlackMatteEvent.cs: new file

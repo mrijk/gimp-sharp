@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // SelectPolygonEvent.cs
 //
@@ -52,6 +52,7 @@ namespace Gimp.PhotoshopActions
 
       ObArParameter array = _objc.Parameters["Pts"] as ObArParameter;
       tool.Select(array.Value, ChannelOps.Replace);
+      RememberCurrentSelection();
 
       return true;
     }
