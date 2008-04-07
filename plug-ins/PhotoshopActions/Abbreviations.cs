@@ -37,6 +37,10 @@ namespace Gimp.PhotoshopActions
       _map["AdLf"] = "left edges";
       _map["AmMn"] = "Amplitude min";
       _map["AmMx"] = "Amplitude max";
+      _map["Ang1"] = "Channel 1";
+      _map["Ang2"] = "Channel 2";
+      _map["Ang3"] = "Channel 3";
+      _map["Ang4"] = "Channel 4";
       _map["AntA"] = "Anti-alias";
       _map["AdRg"] = "right edges";
       _map["AdTp"] = "top edges";
@@ -238,6 +242,7 @@ namespace Gimp.PhotoshopActions
       _map["Tlrn"] = "Tolerance";
       _map["TlSz"] = "Tile Size";
       _map["Top"]  = "Top";
+      _map["Trgt"] = "current";
       _map["Trns"] = "transparent";
       _map["Trsp"] = "transparency";
       _map["TxBl"] = "Blocks";
@@ -248,6 +253,7 @@ namespace Gimp.PhotoshopActions
       _map["TxtC"] = "Texture Coverage";
       _map["Txtr"] = "Texture";
       _map["TxtT"] = "Texture Type";
+      _map["TxTL"] = "Tiny Lens";
       _map["UndA"] = "Undefined Area";
       _map["Unfr"] = "uniform";
       _map["Usng"] = "Using";

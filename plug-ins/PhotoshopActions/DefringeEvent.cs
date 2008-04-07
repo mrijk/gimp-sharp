@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
-// SelectBrushEvent.cs
+// DefringeEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,25 +23,24 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class SelectBrushEvent : SelectEvent
+  public class DefringeEvent : ActionEvent
   {
-    readonly string _type;
+    [Parameter("Wdth")]
+    double _width;
 
-    public SelectBrushEvent(SelectEvent srcEvent, string type) : base(srcEvent)
+    public override bool IsExecutable
     {
-      _type = type;
+      get {return false;}
     }
 
-    public override string EventForDisplay
+    protected override IEnumerable ListParameters()
     {
-      get {return base.EventForDisplay + " brush";}
+      yield return Format(_width, "Wdth");
     }
- 
+
     override public bool Execute()
     {
-      // This is just selecting the Brush menu in the GUI. Nothing to implement
-      // here.
-      return true;
+      return false;
     }
   }
 }

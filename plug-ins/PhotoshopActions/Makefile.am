@@ -65,6 +65,7 @@ MYSOURCES = 				\
 	DarkStrokesEvent.cs		\
 	DebugOutput.cs			\
 	DefinePatternEvent.cs		\
+	DefringeEvent.cs		\
 	DeInterlaceEvent.cs		\
 	DeleteChannelEvent.cs		\
 	DeleteEvent.cs			\
@@ -142,6 +143,7 @@ MYSOURCES = 				\
 	LinkSelectedLayersEvent.cs	\
 	ListParameter.cs		\
 	LongParameter.cs		\
+	MakeBackgroundLayerEvent.cs	\
 	MakeContentLayerEvent.cs	\
 	MakeEvent.cs			\
 	MakeGroupEvent.cs		\
@@ -225,6 +227,7 @@ MYSOURCES = 				\
 	SelectionByIndexEvent.cs	\
 	SelectionEvent.cs		\
 	SelectionFromChannelEvent.cs	\
+	SelectBrushByIndexEvent.cs	\
 	SelectBrushEvent.cs		\
 	SelectChannelByIndexEvent.cs	\
 	SelectChannelByNameEvent.cs	\

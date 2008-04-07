@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006-2008 Maurits Rijk
 //
-// SelectBrushEvent.cs
+// SelectBrushByIndexEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,28 +19,31 @@
 //
 
 using System;
-using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class SelectBrushEvent : SelectEvent
+  public class SelectBrushByIndexEvent : ActionEvent
   {
-    readonly string _type;
+    readonly int _index;
 
-    public SelectBrushEvent(SelectEvent srcEvent, string type) : base(srcEvent)
+    public SelectBrushByIndexEvent(ActionEvent srcEvent, int index) :
+      base(srcEvent)
     {
-      _type = type;
+      _index = index;
+    }
+
+    public override bool IsExecutable
+    {
+      get {return false;}
     }
 
     public override string EventForDisplay
     {
-      get {return base.EventForDisplay + " brush";}
+      get {return base.EventForDisplay + " brush " + _index;}
     }
- 
+
     override public bool Execute()
     {
-      // This is just selecting the Brush menu in the GUI. Nothing to implement
-      // here.
       return true;
     }
   }

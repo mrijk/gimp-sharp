@@ -1,3 +1,17 @@
+2008-04-07  Maurits  <maurits.rijk@gmail.com>
+
+	* plug-ins/PhotoshopActions/Abbreviations.cs: more abbreviations
+
+	* plug-ins/PhotoshopActions/DefringeEvent.cs
+	* plug-ins/PhotoshopActions/SelectBrushByIndexEvent.cs
+	* plug-ins/PhotoshopActions/MakeBackgroundLayerEvent.cs: new files
+
+	* plug-ins/PhotoshopActions/EventMap.cs
+	* plug-ins/PhotoshopActions/Makefile.am: changed accordingly
+
+	* plug-ins/PhotoshopActions/MakeEvent.cs: implement "Make
+	background layer"
+
 2008-04-05  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/SelectPreviousEvent.cs

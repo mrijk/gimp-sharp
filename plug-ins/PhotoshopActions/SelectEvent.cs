@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // SelectEvent.cs
 //
@@ -118,10 +118,12 @@ namespace Gimp.PhotoshopActions
 	      IndexType index = parameter as IndexType;
 	      switch (index.Key)
 		{
+		case "Brsh":
+		  return new SelectBrushByIndexEvent(this, index.Index);
 		case "Chnl":
 		  return new SelectChannelByIndexEvent(this, index.Index);
 		default:
-		  Console.WriteLine("index.Key: " + index.Key);
+		  Console.WriteLine("SelectEvent index.Key: " + index.Key);
 		  break;
 		}
 	    }

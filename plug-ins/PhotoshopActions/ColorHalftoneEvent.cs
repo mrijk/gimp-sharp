@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // ColorHalftoneEvent.cs
 //
@@ -25,8 +25,16 @@ namespace Gimp.PhotoshopActions
 {
   public class ColorHalftoneEvent : ActionEvent
   {
-    [Parameter("BrsD")]
-    int _brushDetail;
+    [Parameter("Rds")]
+    int _radius;
+    [Parameter("Ang1")]
+    int _channel1;
+    [Parameter("Ang2")]
+    int _channel2;
+    [Parameter("Ang3")]
+    int _channel3;
+    [Parameter("Ang4")]
+    int _channel4;
 
     public override bool IsExecutable
     {
@@ -35,7 +43,11 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
-      yield break;
+      yield return Format(_radius, "Rds");
+      yield return Format(_channel1, "Ang1");
+      yield return Format(_channel2, "Ang2");
+      yield return Format(_channel3, "Ang3");
+      yield return Format(_channel4, "Ang4");
     }
 
     override public bool Execute()
