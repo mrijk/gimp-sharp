@@ -1,3 +1,18 @@
+2008-04-12  Maurits  <maurits.rijk@gmail.com>
+
+	* plug-ins/PhotoshopActions/DeselectEvent.cs: deselect path
+
+	* plug-ins/PhotoshopActions/DeselectPathEvent.cs
+	* plug-ins/PhotoshopActions/SelectHistoryStateEvent.cs: new files
+
+	* plug-ins/PhotoshopActions/Makefile.am: changed accordingly
+
+	* plug-ins/PhotoshopActions/SelectEvent.cs: select history state
+
+	* plug-ins/PhotoshopActions/LightingEffectsEvent.cs: more verbose
+
+	* plug-ins/PhotoshopActions/Abbreviations.cs: more abbreviations
+
 2008-04-07  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/Abbreviations.cs: more abbreviations

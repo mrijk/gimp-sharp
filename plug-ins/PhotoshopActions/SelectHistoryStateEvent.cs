@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006-2008 Maurits Rijk
 //
-// DeselectEvent.cs
+// SelectHistoryStateEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,60 +19,31 @@
 //
 
 using System;
-using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class DeselectEvent : ActionEvent
+  public class SelectHistoryStateEvent : ActionEvent
   {
-    [Parameter("null")]
-    ReferenceParameter _obj;
+    string _name;
 
-    readonly bool _executable;
-
-    public DeselectEvent()
+    public SelectHistoryStateEvent(ActionEvent srcEvent, string name) : 
+      base(srcEvent)
     {
-    }
-
-    public DeselectEvent(ActionEvent srcEvent) : base(srcEvent)
-    {
-      _executable = true;
+      _name = name;
     }
 
     public override bool IsExecutable
     {
-      get {return _executable;}
+      get {return false;}
     }
 
-    override public ActionEvent Parse(ActionParser parser)
+    public override string EventForDisplay
     {
-      ActionEvent myEvent = base.Parse(parser);
-
-      ReferenceType parameter = _obj.Set[0];
-
-      if (parameter is ClassType)
+      get 
 	{
-	  ClassType type = parameter as ClassType;
-	  switch (type.ClassID2)
-	    {
-	    case "Path":
-	      return new DeselectPathEvent(this);
-	    default:
-	      Console.WriteLine("DeselectEvent.class: " + type.ClassID2);
-	      break;
-	    }
+	  return base.EventForDisplay + " " + Abbreviations.Get(_name) + 
+	    " history state";
 	}
-      else
-	{
-	  Console.WriteLine("DeselectEvent: " + parameter);
-	}
-
-      return myEvent;
-    }
-
-    protected override IEnumerable ListParameters()
-    {
-      yield break;
     }
 
     override public bool Execute()

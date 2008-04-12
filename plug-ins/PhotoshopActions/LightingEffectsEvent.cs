@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // LightingEffectsEvent.cs
 //
@@ -25,9 +25,38 @@ namespace Gimp.PhotoshopActions
 {
   public class LightingEffectsEvent : ActionEvent
   {
+    [Parameter("CrnL")]
+    int _currentLight;
+    [Parameter("Glos")]
+    int _gloss;
+    [Parameter("Mtrl")]
+    int _material;
+    [Parameter("Exps")]
+    int _exposure;
+    [Parameter("AmbB")]
+    int _ambience;
+    [Parameter("WhHi")]
+    bool _whiteIsHigh;
+    [Parameter("BmpA")]
+    int _height;
+    [Parameter("FrmW")]
+    double _frameWidth;
+
     public override bool IsExecutable
     {
       get {return false;}
+    }
+
+    protected override IEnumerable ListParameters()
+    {
+      yield return Format(_currentLight, "CrnL");
+      yield return Format(_gloss, "Glos");
+      yield return Format(_material, "Mtrl");
+      yield return Format(_exposure, "Exps");
+      yield return Format(_ambience, "AmbB");
+      yield return Format(_whiteIsHigh, "WhHi");
+      yield return Format(_height, "BmpA");
+      yield return Format(_frameWidth, "FrmW");
     }
 
     override public bool Execute()

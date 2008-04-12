@@ -75,6 +75,7 @@ MYSOURCES = 				\
 	DeleteLayerEvent.cs		\
 	DesaturateEvent.cs		\
 	DeselectEvent.cs		\
+	DeselectPathEvent.cs		\
 	DespeckleEvent.cs		\
 	DiffuseEvent.cs			\
 	DiffuseGlowEvent.cs		\
@@ -232,6 +233,7 @@ MYSOURCES = 				\
 	SelectChannelByIndexEvent.cs	\
 	SelectChannelByNameEvent.cs	\
 	SelectChannelEvent.cs		\
+	SelectHistoryStateEvent.cs	\
 	SelectiveColorEvent.cs		\
 	SelectLayerByNameEvent.cs	\
 	SelectLayerEvent.cs		\

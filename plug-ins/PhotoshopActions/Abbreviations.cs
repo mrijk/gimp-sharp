@@ -35,6 +35,8 @@ namespace Gimp.PhotoshopActions
       _map["AdCH"] = "horizontal centers";
       _map["AdCV"] = "vertical centers";
       _map["AdLf"] = "left edges";
+      _map["AmbB"] = "Ambience";
+      _map["AmbC"] = "Ambient Color";
       _map["AmMn"] = "Amplitude min";
       _map["AmMx"] = "Amplitude max";
       _map["Ang1"] = "Channel 1";
@@ -57,6 +59,7 @@ namespace Gimp.PhotoshopActions
       _map["BlrM"] = "Method";
       _map["BlrQ"] = "Quality";
       _map["Blst"] = "Blast";
+      _map["BmpA"] = "Height";
       _map["BrbW"] = "brush wide blurry";
       _map["Brgh"] = "Brightness";
       _map["BrsD"] = "Brush Detail";
@@ -79,6 +82,7 @@ namespace Gimp.PhotoshopActions
       _map["Cntn"] = "Continue";
       _map["Cntr"] = "Contrast";
       _map["CrnH"] = "Current History State";
+      _map["CrnL"] = "Current Light";
       _map["CrrL"] = "current layer";
       _map["Crtl"] = "Interpolation";
       _map["Cyn" ] = "cyan";
@@ -88,6 +92,7 @@ namespace Gimp.PhotoshopActions
       _map["Dplc"] = "Duplicate";
       _map["DrcB"] = "Direction Balance";
       _map["Drct"] = "Direction";
+      _map["Drft"] = "draft";
       _map["DrkI"] = "Dark Intensity";
       _map["Drkn"] = "darken";
       _map["Dstr"] = "Distribution";
@@ -95,6 +100,7 @@ namespace Gimp.PhotoshopActions
       _map["Edg"]  = "Edge";
       _map["ElmO"] = "Odd Fields";
       _map["Elps"] = "Ellipse";
+      _map["Exps"] = "Exposure";
       _map["ExtD"] = "Depth";
       _map["ExtF"] = "Solid Front Faces";
       _map["ExtM"] = "Mask Incomplete Blocks";
@@ -103,10 +109,12 @@ namespace Gimp.PhotoshopActions
       _map["ExtT"] = "Type";
       _map["FllD"] = "full document";
       _map["FrgC"] = "foreground color";
+      _map["FrmW"] = "Frame Width";
       _map["Frnt"] = "front";
       _map["Frst"] = "first";
       _map["FtOn"] = "Fit On Screen";
       _map["Gd"]   = "good";
+      _map["Glos"] = "Gloss";
       _map["GlwE"] = "glowing edges";
       _map["Grn"]  = "green";
       _map["GrnE"] = "Enlarged";
@@ -157,6 +165,7 @@ namespace Gimp.PhotoshopActions
       _map["LPTL"] = "Top Left";
       _map["LPTp"] = "light position top";
       _map["Lrg"]  = "Large";
+      _map["Lst"]  = "last";
       _map["Lvl"]  = "Level";
       _map["LvlB"] = "Level-based";
       _map["Lwr"]  = "lower";
@@ -165,6 +174,8 @@ namespace Gimp.PhotoshopActions
       _map["Mnch"] = "Monochromatic";
       _map["Md"]   = "Mode";
       _map["Msge"] = "Message";
+      _map["Msk"]  = "mask";
+      _map["Mtrl"] = "Material";
       _map["N"]    = "no";
       _map["Nkn"]  = "35mm Prime";
       _map["Nkn1"] = "105mm Prime";
@@ -259,6 +270,7 @@ namespace Gimp.PhotoshopActions
       _map["Usng"] = "Using";
       _map["Vrtc"] = "Vertical";
       _map["Wdth"] = "Width";
+      _map["WhHi"] = "White is High";
       _map["Wht"]  = "white";
       _map["WhtL"] = "Background Level";
       _map["WLMn"] = "Wave length min";

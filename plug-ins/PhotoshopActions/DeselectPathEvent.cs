@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006-2008 Maurits Rijk
 //
-// DeselectEvent.cs
+// DeselectPathEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,60 +23,26 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class DeselectEvent : ActionEvent
+  public class DeselectPathEvent : DeselectEvent
   {
-    [Parameter("null")]
-    ReferenceParameter _obj;
-
-    readonly bool _executable;
-
-    public DeselectEvent()
+    public DeselectPathEvent(DeselectEvent srcEvent) : base(srcEvent)
     {
-    }
-
-    public DeselectEvent(ActionEvent srcEvent) : base(srcEvent)
-    {
-      _executable = true;
     }
 
     public override bool IsExecutable
     {
-      get {return _executable;}
+      get {return false;}
     }
 
-    override public ActionEvent Parse(ActionParser parser)
+    public override string EventForDisplay
     {
-      ActionEvent myEvent = base.Parse(parser);
-
-      ReferenceType parameter = _obj.Set[0];
-
-      if (parameter is ClassType)
-	{
-	  ClassType type = parameter as ClassType;
-	  switch (type.ClassID2)
-	    {
-	    case "Path":
-	      return new DeselectPathEvent(this);
-	    default:
-	      Console.WriteLine("DeselectEvent.class: " + type.ClassID2);
-	      break;
-	    }
-	}
-      else
-	{
-	  Console.WriteLine("DeselectEvent: " + parameter);
-	}
-
-      return myEvent;
+      get {return base.EventForDisplay + " path";}
     }
-
-    protected override IEnumerable ListParameters()
-    {
-      yield break;
-    }
-
+ 
     override public bool Execute()
     {
+      // This is just selecting the Brush menu in the GUI. Nothing to implement
+      // here.
       return true;
     }
   }

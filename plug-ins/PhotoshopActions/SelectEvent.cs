@@ -92,6 +92,8 @@ namespace Gimp.PhotoshopActions
 		{
 		case "Chnl":
 		  return new SelectChannelEvent(this, enmr.Value);
+		case "HstS":
+		  return new SelectHistoryStateEvent(this, enmr.Value);
 		case "Lyr":
 		  return new SelectLayerEvent(this, enmr.Value);
 		case "Mn":
