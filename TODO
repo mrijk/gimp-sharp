@@ -2,7 +2,7 @@ Release 0.15
 ------------
 - PhotoshopActions at 50 % (Maurits)
 
-0) Set selection to previous
+0) Smooth selection
 1) Set selection to polygon
 2) Merge Layers
 3) Set/Clear quick mask

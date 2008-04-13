@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006-2008 Maurits Rijk
 //
-// SmoothnessEvent.cs
+// SetContentLayerEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,25 +23,40 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class SmoothnessEvent : ActionEvent
+  public class SetContentLayerEvent : SetEvent
   {
-    [Parameter("Rds")]
-    double _radius;
+    [Parameter("T")]
+    ObjcParameter _objc;
+    [Parameter("Clr")]
+    ObjcParameter _color;
+
+    public SetContentLayerEvent(SetEvent srcEvent) : base(srcEvent)
+    {
+      Parameters.Fill(this);
+      _objc.Fill(this);
+    }
 
     public override bool IsExecutable
     {
       get {return false;}
     }
-    
+
+    public override string EventForDisplay
+    {
+      get {return base.EventForDisplay + " current fill layer";}
+    }
+
     protected override IEnumerable ListParameters()
     {
-      yield return "Radius: " + _radius;
+      RGB rgb = _color.GetColor();
+      yield return "Slot Color: RGB color";
+      yield return String.Format("Red: {0:F3}", rgb.R * 255);
+      yield return String.Format("Green: {0:F3}", rgb.G * 255);
+      yield return String.Format("Blue: {0:F3}", rgb.B * 255);
     }
 
     override public bool Execute()
     {
-      // This event smoothes the selection
-      // Figure out how distort script-fu does this!
       return true;
     }
   }

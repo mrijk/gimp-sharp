@@ -133,6 +133,7 @@ namespace Gimp.PhotoshopActions
       _map["Hrzn"] = "Horizontal";
       _map["HrzO"] = "Horizontal Only";
       _map["ImgB"] = "Image Balance";
+      _map["IndC"] = "indexed color mode";
       _map["Insd"] = "inside";
       _map["IntC"] = "Create";
       _map["IntE"] = "Eliminate";
@@ -169,6 +170,7 @@ namespace Gimp.PhotoshopActions
       _map["Lvl"]  = "Level";
       _map["LvlB"] = "Level-based";
       _map["Lwr"]  = "lower";
+      _map["Mdm"]  = "medium";
       _map["Mgnt"] = "magenta";
       _map["Mltp"] = "multiply";
       _map["Mnch"] = "Monochromatic";
@@ -183,6 +185,7 @@ namespace Gimp.PhotoshopActions
       _map["NmbG"] = "Number of Generators";
       _map["NmbR"] = "Ridges";
       _map["Nrml"] = "normal";
+      _map["Nxt"]  = "next";
       _map["Orng"] = "orange";
       _map["Otsd"] = "outside";
       _map["Ovrl"] = "overlay";

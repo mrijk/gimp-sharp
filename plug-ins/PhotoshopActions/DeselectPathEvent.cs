@@ -41,8 +41,6 @@ namespace Gimp.PhotoshopActions
  
     override public bool Execute()
     {
-      // This is just selecting the Brush menu in the GUI. Nothing to implement
-      // here.
       return true;
     }
   }

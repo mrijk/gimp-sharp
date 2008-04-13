@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // SetEvent.cs
 //
@@ -63,6 +63,7 @@ namespace Gimp.PhotoshopActions
 		    case "FrgC":
 		      return new SetForegroundColorEvent(this);
 		    default:
+		      Console.WriteLine("SetEvent.Clr.Prpr: " + property.Key);
 		      break;
 		    }
 		  break;
@@ -107,6 +108,8 @@ namespace Gimp.PhotoshopActions
 		  return new SetBrushEvent(this);
 		case "Chnl":
 		  return new SetChannelPropertyEvent(this);
+		case "contentLayer":
+		  return new SetContentLayerEvent(this);
 		case "Lyr":
 		  return new SetLayerPropertyEvent(this);
 		case "TxLr":
@@ -135,6 +138,8 @@ namespace Gimp.PhotoshopActions
 	      NameType name = _obj.Set[0] as NameType;
 	      switch (name.ClassID2)
 		{
+		case "Chnl":
+		  return new SetChannelByNameToSelectionEvent(this, name.Key);
 		case "Lyr":
 		  return new SetLayerPropertyEvent(this, name.Key);
 		default:

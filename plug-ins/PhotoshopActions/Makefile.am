@@ -251,9 +251,11 @@ MYSOURCES = 				\
 	SetAdjustmentLayerEvent.cs	\
 	SetBackgroundColorEvent.cs	\
 	SetBrushEvent.cs		\
+	SetChannelByNameToSelectionEvent.cs	\
 	SetChannelPropertyEvent.cs	\
 	SetChannelToSelectionEvent.cs	\
 	SetColorEvent.cs		\
+	SetContentLayerEvent.cs		\
 	SetEvent.cs			\
 	SetFileInfoEvent.cs		\
 	SetForegroundColorEvent.cs	\

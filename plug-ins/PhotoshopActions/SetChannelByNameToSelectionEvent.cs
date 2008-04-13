@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006-2008 Maurits Rijk
 //
-// SmoothnessEvent.cs
+// SetChannelByNameToSelectionEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,25 +23,30 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class SmoothnessEvent : ActionEvent
+  public class SetChannelByNameToSelectionEvent : SetEvent
   {
-    [Parameter("Rds")]
-    double _radius;
+    readonly string _name;
 
-    public override bool IsExecutable
+    public SetChannelByNameToSelectionEvent(SetEvent srcEvent, string name) : 
+      base(srcEvent)
     {
-      get {return false;}
+      _name = name;
     }
-    
+
+    public override string EventForDisplay
+    {
+      get {return base.EventForDisplay + " channel \"" + _name + "\"";}
+    }
+
     protected override IEnumerable ListParameters()
     {
-      yield return "Radius: " + _radius;
+      yield return "To: Selection";
     }
 
     override public bool Execute()
     {
-      // This event smoothes the selection
-      // Figure out how distort script-fu does this!
+      Channel channel = ActiveImage.Channels[_name];
+      ActiveImage.Selection.Load(channel);
       return true;
     }
   }

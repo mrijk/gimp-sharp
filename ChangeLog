@@ -1,3 +1,27 @@
+2008-04-13  Maurits  <maurits.rijk@gmail.com>
+
+	* plug-ins/PhotoshopActions/ConvertModeEvent.cs: support for
+	indexed color mode
+
+	* plug-ins/PhotoshopActions/SetChannelByNameToSelectionEvent.cs:
+	new file
+
+	* plug-ins/PhotoshopActions/Makefile.am: changed accordingly
+
+	* plug-ins/PhotoshopActions/SetEvent.cs: use 
+	SetChannelByNameToSelectionEvent
+
+	* plug-ins/PhotoshopActions/Abbreviations.cs: more abbreviations
+
+2008-04-12  Maurits  <maurits.rijk@gmail.com>
+
+	* plug-ins/PhotoshopActions/SetContentLayerEvent.cs: new file
+
+	* plug-ins/PhotoshopActions/Makefile.am: changed accordingly
+
+	* plug-ins/PhotoshopActions/SetEvent.cs: set content layer
+	properties
+
 2008-04-12  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/DeselectEvent.cs: deselect path
