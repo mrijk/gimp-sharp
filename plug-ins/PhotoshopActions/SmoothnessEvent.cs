@@ -28,11 +28,6 @@ namespace Gimp.PhotoshopActions
     [Parameter("Rds")]
     double _radius;
 
-    public override bool IsExecutable
-    {
-      get {return false;}
-    }
-    
     protected override IEnumerable ListParameters()
     {
       yield return "Radius: " + _radius;
@@ -40,8 +35,20 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
-      // This event smoothes the selection
-      // Figure out how distort script-fu does this!
+      Image image = ActiveImage;
+
+      Layer layer = new Layer(image, "tmpLayer", ImageType.Rgba);
+      image.AddLayer(layer, 0);
+      layer.EditFill(FillType.Foreground);
+
+      Selection selection = image.Selection;
+      selection.None();
+
+      RunProcedure("plug_in_gauss", image, layer, _radius, _radius, 1);
+      RunProcedure("plug_in_threshold_alpha", image, layer, 127);
+      selection.LayerAlpha(layer);
+      image.RemoveLayer(layer);
+
       return true;
     }
   }

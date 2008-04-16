@@ -232,8 +232,14 @@ namespace Gimp.PhotoshopActions
 
     protected void RunProcedure(string name, params object[] list)
     {
+      RunProcedure(name, _activeImage, _activeDrawable, list);
+    }
+
+    protected void RunProcedure(string name, Image image, Drawable drawable,
+				params object[] list)
+    {
       Procedure procedure = new Procedure(name);
-      procedure.Run(_activeImage, _activeDrawable, list);
+      procedure.Run(image, drawable, list);
     }
 
     protected void RememberCurrentSelection()

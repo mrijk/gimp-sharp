@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2008 Maurits Rijk
 //
 // Image.cs
 //
@@ -822,6 +822,11 @@ namespace Gimp
     public Grid Grid
     {
       get {return new Grid(_imageID);}
+    }
+
+    public override string ToString()
+    {
+      return "Image: " + ID;
     }
 
     // All the dll imports

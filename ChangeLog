@@ -1,3 +1,11 @@
+2008-04-16  Maurits  <maurits.rijk@gmail.com>
+
+	* plug-ins/PhotoshopActions/SmoothnessEvent.cs: implemented
+
+2008-04-15  Maurits  <maurits.rijk@gmail.com>
+
+	* lib/Image.cs: added ToString method
+
 2008-04-13  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/ConvertModeEvent.cs: support for
