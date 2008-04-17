@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006-2008 Maurits Rijk
 //
-// AliasParameter.cs
+// SmudgeStickEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -19,32 +19,34 @@
 //
 
 using System;
-using System.Reflection;
+using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class AliasParameter : Parameter
+  public class SmudgeStickEvent : ActionEvent
   {
-    byte[] _data;
+    [Parameter("BrsS")]
+    int _brushSize;
+    [Parameter("BrsD")]
+    int _brushDetail;
+    [Parameter("Txtr")]
+    int _texture;
 
-    public byte[] Data
+    public override bool IsExecutable
     {
-      get {return _data;}
+      get {return false;}
     }
 
-    public override void Parse(ActionParser parser)
+    protected override IEnumerable ListParameters()
     {
-      int length = parser.ReadInt32();
-      _data = parser.ReadBytes(length);
+      yield return Format(_brushSize, "BrsS");
+      yield return Format(_brushDetail, "BrsD");
+      yield return Format(_texture, "Txtr");
     }
 
-    public override void Fill(Object obj, FieldInfo field)
+    override public bool Execute()
     {
-      if (field.FieldType is AliasParameter) {
-	field.SetValue(obj, _data);
-      } else {
-	Console.WriteLine("AliasParameter.Fill: " + field.FieldType);
-      }
+      return true;
     }
   }
 }

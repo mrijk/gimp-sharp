@@ -274,6 +274,7 @@ MYSOURCES = 				\
 	SimilarEvent.cs			\
 	SmartBlurEvent.cs		\
 	SmoothnessEvent.cs		\
+	SmudgeStickEvent.cs		\
 	SolarizeEvent.cs		\
 	SpatterEvent.cs			\
 	SpherizeEvent.cs		\

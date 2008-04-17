@@ -224,6 +224,7 @@ namespace Gimp.PhotoshopActions
       _map["similar"] = _map["Smlr"] = "SimilarEvent";
       _map["smartBlur"] = _map["SmrB"] = "SmartBlurEvent";
       _map["smoothness"] = _map["Smth"] = "SmoothnessEvent";
+      _map["smudgeStick"] = "SmudgeStickEvent";
       _map["solarize"] = _map["Slrz"] = "SolarizeEvent";
       _map["spatter"] = _map["Spt"] = "SpatterEvent";
       _map["spherize"] = _map["Sphr"] = "SpherizeEvent";

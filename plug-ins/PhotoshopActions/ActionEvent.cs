@@ -183,8 +183,12 @@ namespace Gimp.PhotoshopActions
 
     protected string Format(EnumParameter parameter, string s)
     {
-      Debug.Assert(parameter != null);
-      return Abbreviations.Get(s) + ": " + Abbreviations.Get(parameter.Value);
+      if (parameter == null) {
+	return Abbreviations.Get(s) + ": fixme!";
+      } else {
+	return Abbreviations.Get(s) + ": " + 
+	  Abbreviations.Get(parameter.Value);
+      }
     }
 
     public int NumberOfItems
