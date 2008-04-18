@@ -29,7 +29,7 @@ namespace Gimp.PhotoshopActions
     int _strokeLength;
     [Parameter("StDt")]
     int _strokeDetail;
-    // [Parameter("TxtT")]
+    [Parameter("TxtT")]
     EnumParameter _textureType;
     [Parameter("Scln")]
     int _scaling;
@@ -49,8 +49,7 @@ namespace Gimp.PhotoshopActions
     {
       yield return Format(_strokeLength, "StrL");
       yield return Format(_strokeDetail, "StDt");
-      // yield return Format(_textureType, "TxtT");
-      yield return "Texture type: fix me!";
+      yield return Format(_textureType, "TxtT");
       yield return Format(_scaling, "Scln");
       yield return Format(_relief, "Rlf");
       yield return Format(_invertTexture, "InvT");

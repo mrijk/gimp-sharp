@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // AddGuideEvent.cs
 //
@@ -19,15 +19,16 @@
 //
 
 using System;
+using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
   public class AddGuideEvent : ActionEvent
   {
-    [Parameter("Ornt")]
-    EnumParameter _orientation;
     [Parameter("Pstn")]
     double _position;
+    [Parameter("Ornt")]
+    EnumParameter _orientation;
 
     string _units = "#Prc";	// Fix me!
 
@@ -45,9 +46,11 @@ namespace Gimp.PhotoshopActions
 	}
     }
 
-    public override string EventForDisplay
+    protected override IEnumerable ListParameters()
     {
-      get {return base.EventForDisplay + " guide";}
+      yield return "New: guide";
+      yield return Format(_position, "Pstn");
+      yield return Format(_orientation, "Ornt");
     }
 
     override public bool Execute()

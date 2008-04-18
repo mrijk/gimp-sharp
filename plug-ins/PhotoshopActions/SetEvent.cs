@@ -60,6 +60,8 @@ namespace Gimp.PhotoshopActions
 		    {
 		    case "BckC":
 		      return new SetBackgroundColorEvent(this);
+		    case "ClrT":
+		      return new SetColorTableEvent(this);
 		    case "FrgC":
 		      return new SetForegroundColorEvent(this);
 		    default:

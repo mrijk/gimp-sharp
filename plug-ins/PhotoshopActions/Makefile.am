@@ -254,6 +254,7 @@ MYSOURCES = 				\
 	SetChannelByNameToSelectionEvent.cs	\
 	SetChannelPropertyEvent.cs	\
 	SetChannelToSelectionEvent.cs	\
+	SetColorTableEvent.cs		\
 	SetColorEvent.cs		\
 	SetContentLayerEvent.cs		\
 	SetEvent.cs			\

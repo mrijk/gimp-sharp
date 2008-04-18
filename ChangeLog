@@ -1,3 +1,14 @@
+2008-04-18  Maurits  <maurits.rijk@gmail.com>
+
+	* plug-ins/PhotoshopActions/SetColorTableEvent.cs: new file
+
+	* plug-ins/PhotoshopActions/SetEvent.cs
+	* plug-ins/PhotoshopActions/Makefile.am: changed accordingly
+
+	* plug-ins/PhotoshopActions/Abbreviations.cs: more abbreviations
+
+	* plug-ins/PhotoshopActions/AddGuideEvent.cs: make more verbose
+	
 2008-04-17  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/SmudgeStickEvent.cs: new file

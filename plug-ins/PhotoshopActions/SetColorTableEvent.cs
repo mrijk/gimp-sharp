@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006-2008 Maurits Rijk
 //
-// TrimEvent.cs
+// SetColorTableColorEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,18 +23,11 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class TrimEvent : ActionEvent
+  public class SetColorTableEvent : ActionEvent
   {
-    [Parameter("trimBasedOn")]
-    EnumParameter _trimBasedOn;
-    [Parameter("Top")]
-    bool _top;
-    [Parameter("Btom")]
-    bool _bottom;
-    [Parameter("Left")]
-    bool _left;
-    [Parameter("Rght")]
-    bool _right;
+    public SetColorTableEvent(SetEvent srcEvent) : base(srcEvent)
+    {
+    }
 
     public override bool IsExecutable
     {
@@ -43,12 +36,17 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
-      yield return Format(_trimBasedOn, "trimBasedOn");
-      // yield return "Based On: " + Abbreviations.Get(_trimBasedOn.Value);
-      yield return Format(_top, "Top");
-      yield return Format(_bottom, "Btom");
-      yield return Format(_left, "Left");
-      yield return Format(_right, "Rght");
+      Parameter to = Parameters["T"];
+
+      if (to is EnumParameter)
+	yield return Format(to as EnumParameter, "To:");
+      else
+	yield return "Fix me!";
+    }
+
+    public override string EventForDisplay
+    {
+      get {return base.EventForDisplay + " Color Table";}
     }
 
     override public bool Execute()

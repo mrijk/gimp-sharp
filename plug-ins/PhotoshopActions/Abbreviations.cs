@@ -52,6 +52,7 @@ namespace Gimp.PhotoshopActions
       _map["Bcbc"] = "bicubic";
       _map["BckC"] = "background color";
       _map["Bckg"] = "background";
+      _map["BlcB"] = "black body";
       _map["Blck"] = "black";
       _map["BlcL"] = "Foreground Level";
       _map["Bl"]   = "blue";
@@ -60,6 +61,7 @@ namespace Gimp.PhotoshopActions
       _map["BlrQ"] = "Quality";
       _map["Blst"] = "Blast";
       _map["BmpA"] = "Height";
+      _map["bottomRightPixelColor"] = "bottom right pixel color";
       _map["BrbW"] = "brush wide blurry";
       _map["Brgh"] = "Brightness";
       _map["BrsD"] = "Brush Detail";
@@ -87,6 +89,7 @@ namespace Gimp.PhotoshopActions
       _map["Crtl"] = "Interpolation";
       _map["Cyn" ] = "cyan";
       _map["Dfnt"] = "Definition";
+      _map["Dfrn"] = "difference";
       _map["Dmtr"] = "diameter";
       _map["Dnst"] = "Density";
       _map["Dplc"] = "Duplicate";
@@ -187,6 +190,7 @@ namespace Gimp.PhotoshopActions
       _map["Nrml"] = "normal";
       _map["Nxt"]  = "next";
       _map["Orng"] = "orange";
+      _map["Ornt"] = "Orientation";
       _map["Otsd"] = "outside";
       _map["Ovrl"] = "overlay";
       _map["Pht3"] = "Photoshop";
@@ -202,6 +206,7 @@ namespace Gimp.PhotoshopActions
       _map["PrsL"] = "Preserve Luminosity";
       _map["Prvs"] = "previous";
       _map["PrsT"] = "Preserve Transparency";
+      _map["Pstn"] = "Position";
       _map["Ptrn"] = "pattern";
       _map["Pyrm"] = "pyramids";
       _map["Rd"]   = "red";
@@ -253,6 +258,7 @@ namespace Gimp.PhotoshopActions
       _map["StrS"] = "Stroke Size";
       _map["StrW"] = "Stroke Width";
       _map["Sz"]   = "Size";
+      _map["trimBasedOn"] = "Based on";
       _map["Tlrn"] = "Tolerance";
       _map["TlSz"] = "Tile Size";
       _map["Top"]  = "Top";
