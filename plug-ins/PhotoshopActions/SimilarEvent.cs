@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // SimilarEvent.cs
 //
@@ -25,9 +25,25 @@ namespace Gimp.PhotoshopActions
 {
   public class SimilarEvent : ActionEvent
   {
+    [Parameter("Tlrn")]
+    readonly int _tolerance;
+    [Parameter("AntA")]
+    readonly bool _antiAlias;
+
     public override bool IsExecutable
     {
       get {return false;}
+    }
+
+    public override string EventForDisplay
+    {
+      get {return base.EventForDisplay + " Selection";}
+    }
+
+    protected override IEnumerable ListParameters()
+    {
+      yield return Format(_tolerance, "Tlrn");
+      yield return Format(_antiAlias, "AntA");
     }
 
     override public bool Execute()

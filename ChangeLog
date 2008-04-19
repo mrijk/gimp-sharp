@@ -1,3 +1,8 @@
+2008-04-19  Maurits  <maurits.rijk@gmail.com>
+
+	* plug-ins/PhotoshopActions/SetLayerEffectsEvent.cs
+	* plug-ins/PhotoshopActions/SimilarEvent.cs: more verbose
+
 2008-04-18  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/SetColorTableEvent.cs: new file

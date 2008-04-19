@@ -230,6 +230,7 @@ namespace Gimp.PhotoshopActions
       _map["SBQH"] = "smart blur quality high";
       _map["SBQL"] = "smart blur quality low";
       _map["SBQM"] = "smart blur quality medium";
+      _map["Scl"]  = "Scale";
       _map["SclH"] = "Scale horizontal";
       _map["Scln"] = "Scaling";
       _map["SclV"] = "Scale vertical";

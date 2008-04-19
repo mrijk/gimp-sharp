@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // SetLayerEffectsEvent.cs
 //
@@ -25,8 +25,12 @@ namespace Gimp.PhotoshopActions
 {
   public class SetLayerEffectsEvent : ActionEvent
   {
+    [Parameter("T")]
+    ObjcParameter _objc;
+
     public SetLayerEffectsEvent(ActionEvent srcEvent) : base(srcEvent)
     {
+      Parameters.Fill(this);
     }
 
     public override bool IsExecutable
@@ -36,7 +40,28 @@ namespace Gimp.PhotoshopActions
 
     public override string EventForDisplay
     {
-      get {return base.EventForDisplay + " layer effects";}
+      get {return base.EventForDisplay + " Layer Styles of current layer";}
+    }
+
+    protected override IEnumerable ListParameters()
+    {
+      yield return "To: layer styles";
+
+      Parameter p = _objc.Parameters["Scl"];
+      if (p != null) {
+	DoubleParameter scale = p as DoubleParameter;
+	yield return Format(scale.Value, "Scl");
+      }
+
+      p = _objc.Parameters["IrGl"];
+      if (p != null) {
+	yield return "Inner Glow: inner glow";
+      }
+
+      p = _objc.Parameters["ebbl"];
+      if (p != null) {
+	yield return "Bevel and Emboss: bevel and emboss";
+      }
     }
 
     override public bool Execute()
