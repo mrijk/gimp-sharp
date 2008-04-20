@@ -37,6 +37,7 @@ MYSOURCES = 				\
 	CanvasSizeEvent.cs		\
 	ChalkCharcoalEvent.cs		\
 	ChannelMixerEvent.cs		\
+	CharcoalEvent.cs		\
 	ChromeEvent.cs			\
 	ClassType.cs			\
 	ClearEffectsEvent.cs		\
@@ -151,6 +152,7 @@ MYSOURCES = 				\
 	MakePathEvent.cs		\
 	MakePatternEvent.cs		\
 	MakeSnapshotEvent.cs		\
+	MakeStyleEvent.cs		\
 	MaximumEvent.cs			\
 	MedianEvent.cs			\
 	MergeLayersEvent.cs		\

@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // ShowChannelEvent.cs
 //
@@ -22,13 +22,22 @@ using System;
 
 namespace Gimp.PhotoshopActions
 {
-  public class ShowChannelEvent : ActionEvent
+  public class ShowChannelEvent : ShowEvent
   {
     string _channel;
 
-    public ShowChannelEvent(string channel)
+    public ShowChannelEvent(ShowEvent srcEvent, string channel) : 
+      base(srcEvent)
     {
       _channel = channel;
+    }
+
+    public override string EventForDisplay
+    {
+      get 
+	{
+	  return base.EventForDisplay + " channel \"" + _channel + "\"";
+	}
     }
 
     override public bool Execute()
@@ -36,13 +45,13 @@ namespace Gimp.PhotoshopActions
       switch (_channel)
 	{
 	case "Rd":
-	  ActiveImage.SetComponentVisible(ChannelType.Red, false);
+	  ActiveImage.SetComponentVisible(ChannelType.Red, true);
 	  break;
 	case "Grn":
-	  ActiveImage.SetComponentVisible(ChannelType.Green, false);
+	  ActiveImage.SetComponentVisible(ChannelType.Green, true);
 	  break;
 	case "Bl":
-	  ActiveImage.SetComponentVisible(ChannelType.Blue, false);
+	  ActiveImage.SetComponentVisible(ChannelType.Blue, true);
 	  break;
 	default:
 	  Console.WriteLine("ShowChannelEvent: " + _channel);

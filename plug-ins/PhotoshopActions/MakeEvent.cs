@@ -95,6 +95,8 @@ namespace Gimp.PhotoshopActions
 	      return new MakePatternEvent(this);
 	    case "SnpS":
 	      return new MakeSnapshotEvent(this);
+	    case "Styl":
+	      return new MakeStyleEvent(this);
 	    case "TxLr":
 	      return new AddTextLayerEvent(this);
 	    case "TxLy":

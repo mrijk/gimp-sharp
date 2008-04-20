@@ -71,6 +71,7 @@ namespace Gimp.PhotoshopActions
       _map["Btom"] = "Bottom";
       _map["CBrn"] = "color burn";
       _map["CDdg"] = "color dodge";
+      _map["ChAm"] = "Charcoal Thickness";
       _map["ChlA"] = "Chalk Area";
       _map["Chnl"] = "Channel";
       _map["ChrA"] = "Charcoal Area";
@@ -86,6 +87,7 @@ namespace Gimp.PhotoshopActions
       _map["CrnH"] = "Current History State";
       _map["CrnL"] = "Current Light";
       _map["CrrL"] = "current layer";
+      _map["CrsD"] = "Coarse Dots";
       _map["Crtl"] = "Interpolation";
       _map["Cyn" ] = "cyan";
       _map["Dfnt"] = "Definition";
@@ -181,6 +183,7 @@ namespace Gimp.PhotoshopActions
       _map["Msge"] = "Message";
       _map["Msk"]  = "mask";
       _map["Mtrl"] = "Material";
+      _map["MztT"] = "Type";
       _map["N"]    = "no";
       _map["Nkn"]  = "35mm Prime";
       _map["Nkn1"] = "105mm Prime";
@@ -257,6 +260,7 @@ namespace Gimp.PhotoshopActions
       _map["StrL"] = "Stroke Length";
       _map["StrP"] = "Stroke Pressure";
       _map["StrS"] = "Stroke Size";
+      _map["Strt"] = "saturation";
       _map["StrW"] = "Stroke Width";
       _map["Sz"]   = "Size";
       _map["trimBasedOn"] = "Based on";

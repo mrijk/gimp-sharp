@@ -66,6 +66,7 @@ namespace Gimp.PhotoshopActions
       _map["canvasSize"] = _map["CnvS"] = "CanvasSizeEvent";
       _map["channelMixer"] = _map["ChnM"] = "ChannelMixerEvent";
       _map["chalkCharcoal"] = _map["ChlC"] = "ChalkCharcoalEvent";
+      _map["charcoal"] = "CharcoalEvent";
       _map["chrome"] = _map["Chrm"] = "ChromeEvent";
       _map["clearEvent"] = _map["Cler"] = "ClearEvent";
       _map["close"] = _map["Cls"] = "CloseEvent";

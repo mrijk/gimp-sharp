@@ -1,3 +1,17 @@
+2008-04-20  Maurits  <maurits.rijk@gmail.com>
+	
+	* plug-ins/PhotoshopActions/Abbreviations.cs: more abbreviations
+
+	* plug-ins/PhotoshopActions/MezzotintEvent.cs: minor clean-up
+
+	* plug-ins/PhotoshopActions/CharcoalEvent.cs
+	* plug-ins/PhotoshopActions/MakeStyleEvent.cs: new files
+
+	* plug-ins/PhotoshopActions/HideEvent.cs
+	* plug-ins/PhotoshopActions/MakeEvent.cs
+	* plug-ins/PhotoshopActions/EventMap.cs
+	* plug-ins/PhotoshopActions/Makefile.am: changed accordingly
+	
 2008-04-19  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/SetLayerEffectsEvent.cs

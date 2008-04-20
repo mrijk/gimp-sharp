@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006-2008 Maurits Rijk
 //
-// MezzotintEvent.cs
+// MakeStyleEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,15 +18,15 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
 using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class MezzotintEvent : ActionEvent
+  public class MakeStyleEvent : MakeEvent
   {
-    [Parameter("MztT")]
-    EnumParameter _mezzotintType;
+    public MakeStyleEvent(MakeEvent srcEvent) : base(srcEvent)
+    {
+    }
 
     public override bool IsExecutable
     {
@@ -35,7 +35,12 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
-      yield return Format(_mezzotintType, "MztT");
+      yield return "Using: style";
+    }
+
+    public override string EventForDisplay
+    {
+      get {return base.EventForDisplay + " style";}
     }
 
     override public bool Execute()

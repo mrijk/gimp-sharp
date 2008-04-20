@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // HideEvent.cs
 //
@@ -58,7 +58,7 @@ namespace Gimp.PhotoshopActions
 	    case "Lyr":
 	      return new HideLayerEvent(this);
 	    case "Chnl":
-	      return new HideChannelEvent(enmr.Value);
+	      return new HideChannelEvent(this, enmr.Value);
 	    default:
 	      Console.WriteLine("Can't hide " + enmr.Key);
 	      break;
@@ -70,6 +70,8 @@ namespace Gimp.PhotoshopActions
 	  
 	  switch (name.ClassID2)
 	    {
+	    case "Chnl":
+	      return new HideChannelEvent(this, name.Key);
 	    case "Lyr":
 	      return new HideLayerEvent(this, name.Key);
 	    default:

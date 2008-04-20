@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006-2008 Maurits Rijk
 //
-// MezzotintEvent.cs
+// CharcoalEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,10 +23,14 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class MezzotintEvent : ActionEvent
+  public class CharcoalEvent : ActionEvent
   {
-    [Parameter("MztT")]
-    EnumParameter _mezzotintType;
+    [Parameter("ChAm")]
+    int _charcoalThickness;
+    [Parameter("Dtl")]
+    int _detail;
+    [Parameter("LgDr")]
+    int _lightDarkBalance;
 
     public override bool IsExecutable
     {
@@ -35,12 +39,14 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
-      yield return Format(_mezzotintType, "MztT");
+      yield return Format(_charcoalThickness, "ChAm");
+      yield return Format(_detail, "Dtl");
+      yield return Format(_lightDarkBalance, "LgDr");
     }
 
     override public bool Execute()
     {
-      return true;
+      return false;
     }
   }
 }

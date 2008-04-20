@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // HideChannelEvent.cs
 //
@@ -22,13 +22,22 @@ using System;
 
 namespace Gimp.PhotoshopActions
 {
-  public class HideChannelEvent : ActionEvent
+  public class HideChannelEvent : HideEvent
   {
     string _channel;
 
-    public HideChannelEvent(string channel)
+    public HideChannelEvent(HideEvent srcEvent, string channel) : 
+      base(srcEvent)
     {
       _channel = channel;
+    }
+
+    public override string EventForDisplay
+    {
+      get 
+	{
+	  return base.EventForDisplay + " channel \"" + _channel + "\"";
+	}
     }
 
     override public bool Execute()
