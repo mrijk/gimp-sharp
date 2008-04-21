@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // ReplaceColorEvent.cs
 //
@@ -19,18 +19,29 @@
 //
 
 using System;
+using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
   public class ReplaceColorEvent : ActionEvent
   {
-    double _luminance;
-    int _hue, _saturation, _lightness;
+    [Parameter("Fzns")]
+    int _fuzziness;
+    [Parameter("H")]
+    int _hue;
+    [Parameter("Strt")]
+    int _saturation;
+    [Parameter("Lght")]
+    int _lightness;
 
-    public ReplaceColorEvent()
+    protected override IEnumerable ListParameters()
     {
+      yield return Format(_fuzziness, "Fzns");
+      yield return Format(_hue, "H");
+      yield return Format(_saturation, "Strt");
+      yield return Format(_lightness, "Lght");
     }
-    
+
     public override bool IsExecutable
     {
       get 
@@ -38,37 +49,5 @@ namespace Gimp.PhotoshopActions
 	  return false;
 	}
     }
-#if false
-    override public ActionEvent Parse(ActionParser parser)
-    {
-      int unknownFzns = parser.ReadLong("Fzns");
-
-      // Minimum
-      parser.ParseToken("Mnm");
-      
-      Objc objc = parser.ParseObjc();
-
-      _luminance = parser.ReadDouble("Lmnc");
-
-      double unknownA = parser.ReadDouble("A");
-      double unknownB = parser.ReadDouble("B");
-
-      // Maximum
-      parser.ParseToken("Mxm");
-
-      objc = parser.ParseObjc();
-
-      _luminance = parser.ReadDouble("Lmnc");
-
-      unknownA = parser.ReadDouble("A");
-      unknownB = parser.ReadDouble("B");
-
-      _hue = parser.ReadLong("H");
-      _saturation = parser.ReadLong("Strt");
-      _lightness = parser.ReadLong("Lght");
-
-      return this;
-    }
-#endif
   }
 }

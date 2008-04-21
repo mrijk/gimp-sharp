@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006-2008 Maurits Rijk
 //
-// MotionBlurEvent.cs
+// MakeAnnotationEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,29 +18,48 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
 using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class MotionBlurEvent : ActionEvent
+  public class MakeAnnotationEvent : MakeEvent
   {
-    [Parameter("Angl")]
-    int _angle;
-    [Parameter("Dstn")]
-    double _distance;
+    [Parameter("Usng")]
+    ObjcParameter _using;
+    [Parameter("Lctn")]
+    ObjcParameter _location;
+    [Parameter("Sz")]
+    ObjcParameter _size;
+    [Parameter("annotType")]
+    EnumParameter _type;
+
+
+    public MakeAnnotationEvent(MakeEvent srcEvent) : base(srcEvent)
+    {
+      Parameters.Fill(this);
+      _using.Fill(this);
+    }
+
+    public override bool IsExecutable
+    {
+      get {return false;}
+    }
+
+    public override string EventForDisplay
+    {
+      get {return base.EventForDisplay + " Annotation";}
+    }
 
     protected override IEnumerable ListParameters()
     {
-      yield return "Angle: " + _angle;
-      yield return "Distance: " + _distance;
+      yield return "Using: Annotation";
+      yield return "Location: fix me!";
+      yield return "Size: fix me!";
+      yield return Format(_type, "annotType");
     }
 
     override public bool Execute()
     {
-      int angle = 360 - _angle;
-      RunProcedure("plug_in_mblur", 0, (int) _distance, angle);
-
       return true;
     }
   }

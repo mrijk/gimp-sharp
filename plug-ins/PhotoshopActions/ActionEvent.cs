@@ -31,14 +31,14 @@ namespace Gimp.PhotoshopActions
   {
     static List<ActionSet> _actionSetCollection;
 
-    bool _enabled;
+    public bool IsEnabled {get; set;}
+    public bool HasDescriptor {get; set;}
 
     /*
     readonly byte _expanded;
     readonly byte _withDialog;
     readonly byte _dialogOptions;
     */
-    bool _hasDescriptor;
 
     string _eventForDisplay;
     protected int _numberOfItems;
@@ -81,21 +81,9 @@ namespace Gimp.PhotoshopActions
       get {return _parameters;}
     }
 
-    public bool HasDescriptor
-    {
-      get {return _hasDescriptor;}
-      set {_hasDescriptor = value;}
-    }
-
     public virtual bool IsExecutable
     {
       get {return true;}
-    }
-
-    public bool IsEnabled
-    {
-      get {return _enabled;}
-      set {_enabled = value;}
     }
 
     public static Drawable ActiveDrawable
@@ -124,6 +112,7 @@ namespace Gimp.PhotoshopActions
 	{
 	  _selectedLayer = value;
 	  _activeImage.ActiveLayer = value;
+	  ActiveDrawable = value;
 	}
     }
 

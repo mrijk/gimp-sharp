@@ -43,6 +43,8 @@ namespace Gimp.PhotoshopActions
       _map["Ang2"] = "Channel 2";
       _map["Ang3"] = "Channel 3";
       _map["Ang4"] = "Channel 4";
+      _map["annotText"] = "text";
+      _map["annotType"] = "Type";
       _map["AntA"] = "Anti-alias";
       _map["AdRg"] = "right edges";
       _map["AdTp"] = "top edges";
@@ -113,11 +115,14 @@ namespace Gimp.PhotoshopActions
       _map["ExtS"] = "Size";
       _map["ExtT"] = "Type";
       _map["FllD"] = "full document";
+      _map["FncK"] = "Function Key";
+      _map["FnDt"] = "Fine Dots";
       _map["FrgC"] = "foreground color";
       _map["FrmW"] = "Frame Width";
       _map["Frnt"] = "front";
       _map["Frst"] = "first";
       _map["FtOn"] = "Fit On Screen";
+      _map["Fzns"] = "Fuzziness";
       _map["Gd"]   = "good";
       _map["Glos"] = "Gloss";
       _map["GlwE"] = "glowing edges";
@@ -132,6 +137,7 @@ namespace Gimp.PhotoshopActions
       _map["Gry"]  = "gray";
       _map["Grys"] = "grayscale mode";
       _map["Gsn"]  = "gaussian";
+      _map["H"]    = "Hue";
       _map["HlSz"] = "Size";
       _map["HrdL"] = "hard light";
       _map["Hrdn"] = "hardness";
@@ -182,6 +188,7 @@ namespace Gimp.PhotoshopActions
       _map["Md"]   = "Mode";
       _map["Msge"] = "Message";
       _map["Msk"]  = "mask";
+      _map["Mthd"] = "Method";
       _map["Mtrl"] = "Material";
       _map["MztT"] = "Type";
       _map["N"]    = "no";
@@ -213,6 +220,7 @@ namespace Gimp.PhotoshopActions
       _map["Ptrn"] = "pattern";
       _map["Pyrm"] = "pyramids";
       _map["Rd"]   = "red";
+      _map["Rdl"]  = "radial";
       _map["Rds"]  = "Radius";
       _map["Rght"] = "Right";
       _map["Rlf"]  = "Relief";
@@ -222,6 +230,7 @@ namespace Gimp.PhotoshopActions
       _map["RctP"] = "Rectangular to Polar";
       _map["RGBC"] = "RGB color";
       _map["RGBM"] = "RGB color mode";
+      _map["Rltv"] = "relative";
       _map["RndS"] = "Random Seed";
       _map["RplM"] = "Ripple Magnitude";
       _map["RplS"] = "Ripple Size";
@@ -264,6 +273,7 @@ namespace Gimp.PhotoshopActions
       _map["StrW"] = "Stroke Width";
       _map["Sz"]   = "Size";
       _map["trimBasedOn"] = "Based on";
+      _map["T"]    = "To";
       _map["Tlrn"] = "Tolerance";
       _map["TlSz"] = "Tile Size";
       _map["Top"]  = "Top";

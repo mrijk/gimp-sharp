@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // FillEvent.cs
 //
@@ -119,6 +119,9 @@ namespace Gimp.PhotoshopActions
 		    {
 		    case "Mltp":
 		      layerMode = LayerModeEffects.Multiply;
+		      break;
+		    case "Nrml":
+		      layerMode = LayerModeEffects.Normal ;
 		      break;
 		    default:
 		      Console.WriteLine("FillEvent: with {0} not supported!", 

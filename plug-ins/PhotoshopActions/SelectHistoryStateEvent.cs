@@ -25,11 +25,18 @@ namespace Gimp.PhotoshopActions
   public class SelectHistoryStateEvent : ActionEvent
   {
     string _name;
+    int _offset;
 
     public SelectHistoryStateEvent(ActionEvent srcEvent, string name) : 
       base(srcEvent)
     {
       _name = name;
+    }
+
+    public SelectHistoryStateEvent(ActionEvent srcEvent, int offset) :
+      base(srcEvent)
+    {
+      _offset = offset;
     }
 
     public override bool IsExecutable
@@ -41,8 +48,15 @@ namespace Gimp.PhotoshopActions
     {
       get 
 	{
-	  return base.EventForDisplay + " " + Abbreviations.Get(_name) + 
-	    " history state";
+	  if (_name == null)
+	    {
+	      return base.EventForDisplay + " history state " + _offset;
+	    }
+	  else
+	    {
+	      return base.EventForDisplay + " " + Abbreviations.Get(_name) + 
+		" history state";
+	    }
 	}
     }
 

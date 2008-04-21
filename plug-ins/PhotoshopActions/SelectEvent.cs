@@ -110,6 +110,8 @@ namespace Gimp.PhotoshopActions
 		{
 		case "Dcmn":
 		  return new SelectDocumentEvent(this, rele.Offset);
+		case "HstS":
+		  return new SelectHistoryStateEvent(this, rele.Offset);
 		default:
 		  Console.WriteLine("rele.ClassID2: " + rele.ClassID2);
 		  break;

@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // SelectiveColorEvent.cs
 //
@@ -25,6 +25,11 @@ namespace Gimp.PhotoshopActions
 {
   public class SelectiveColorEvent : ActionEvent
   {
+    [Parameter("Mthd")]
+    EnumParameter _method;
+    [Parameter("ClrC")]
+    ListParameter _colors;
+
     public override bool IsExecutable
     {
       get {return false;}
@@ -32,7 +37,9 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
-      yield break;
+      yield return "Color Correction: color correction list";
+      yield return "Fix me: " + _colors.Count;
+      yield return Format(_method, "Mthd");
     }
 
     override public bool Execute()

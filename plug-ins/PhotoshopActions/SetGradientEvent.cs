@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006-2008 Maurits Rijk
 //
-// MotionBlurEvent.cs
+// SetGradientEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,24 +23,34 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class MotionBlurEvent : ActionEvent
+  public class SetGradientEvent : SetEvent
   {
-    [Parameter("Angl")]
-    int _angle;
-    [Parameter("Dstn")]
-    double _distance;
+    [Parameter("T")]
+    string _path;
+    
+    public SetGradientEvent(SetEvent srcEvent) : base(srcEvent)
+    {
+      Parameters.Fill(this);
+    }
+
+    public override bool IsExecutable
+    {
+      get {return false;}
+    }
+
+    public override string EventForDisplay
+    {
+      get {return base.EventForDisplay + 
+	     " Gradients of current application";}
+    }
 
     protected override IEnumerable ListParameters()
     {
-      yield return "Angle: " + _angle;
-      yield return "Distance: " + _distance;
+      yield return Format(_path, "T");
     }
 
     override public bool Execute()
     {
-      int angle = 360 - _angle;
-      RunProcedure("plug_in_mblur", 0, (int) _distance, angle);
-
       return true;
     }
   }

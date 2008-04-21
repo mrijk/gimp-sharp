@@ -82,6 +82,8 @@ namespace Gimp.PhotoshopActions
 		    {
 		    case "FlIn":
 		      return new SetFileInfoEvent(this);
+		    case "Grdn":
+		      return new SetGradientEvent(this);
 		    case "Lefx":
 		      return new SetLayerEffectsEvent(this);
 		    case "QucM":

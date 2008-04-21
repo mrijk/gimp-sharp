@@ -106,6 +106,9 @@ namespace Gimp.PhotoshopActions
 		case "CBrn":
 		  layer.Mode = LayerModeEffects.Burn;
 		  break;
+		case "CDdg":
+		  layer.Mode = LayerModeEffects.Dodge;
+		  break;
 		case "Drkn":
 		  // TODO: not a perfect match
 		  layer.Mode = LayerModeEffects.DarkenOnly;

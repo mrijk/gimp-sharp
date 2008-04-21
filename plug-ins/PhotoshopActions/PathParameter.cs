@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // PathParameter.cs
 //
@@ -25,12 +25,7 @@ namespace Gimp.PhotoshopActions
 {
   public class PathParameter : Parameter
   {
-    string _path;
-
-    public string Path
-    {
-      get {return _path;}
-    }
+    public string Path {get; private set;}
 
     public override void Parse(ActionParser parser)
     {
@@ -47,20 +42,20 @@ namespace Gimp.PhotoshopActions
 	  for (int i = 0; i < 2; i++)
 	    parser.ReadByte();
 	  
-	  _path = parser.ReadUnicodeString(length);
+	  Path = parser.ReadUnicodeString(length);
 	  parser.ReadByte();
 	}
       else
 	{
 	  parser.ReadBytes(9);
-	  _path = parser.ReadString();
-	  parser.ReadBytes(255 - _path.Length);
+	  Path = parser.ReadString();
+	  parser.ReadBytes(255 - Path.Length);
 	}
     }
 
     public override void Fill(Object obj, FieldInfo field)
     {
-      field.SetValue(obj, _path);
+      field.SetValue(obj, Path);
     }
   }
 }

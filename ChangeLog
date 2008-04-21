@@ -1,3 +1,22 @@
+2008-04-21  Maurits  <maurits.rijk@gmail.com>
+
+	* plug-ins/PhotoshopActions/SetLayerPropertyEvent.cs: map "color
+	dodge" mode to LayerModeEffects.Dodge
+
+	* plug-ins/PhotoshopActions/ActionEvent.cs
+	* plug-ins/PhotoshopActions/PathParameter.cs: minor clean-up
+
+	* plug-ins/PhotoshopActions/SelectiveColorEvent.cs: more verbose
+
+	* plug-ins/PhotoshopActions/SetGradientEvent.cs
+	* plug-ins/PhotoshopActions/MakeActionEvent.cs
+	* plug-ins/PhotoshopActions/MakeAnnotationEvent.cs: new files
+
+	* plug-ins/PhotoshopActions/MakeEvent.cs
+	* plug-ins/PhotoshopActions/Makefile.am: changed accordingly
+
+	* plug-ins/PhotoshopActions/Abbreviations.cs: more abbreviations
+
 2008-04-20  Maurits  <maurits.rijk@gmail.com>
 	
 	* plug-ins/PhotoshopActions/Abbreviations.cs: more abbreviations

@@ -145,6 +145,8 @@ MYSOURCES = 				\
 	LinkSelectedLayersEvent.cs	\
 	ListParameter.cs		\
 	LongParameter.cs		\
+	MakeActionEvent.cs		\
+	MakeAnnotationEvent.cs		\
 	MakeBackgroundLayerEvent.cs	\
 	MakeContentLayerEvent.cs	\
 	MakeEvent.cs			\
@@ -262,6 +264,7 @@ MYSOURCES = 				\
 	SetEvent.cs			\
 	SetFileInfoEvent.cs		\
 	SetForegroundColorEvent.cs	\
+	SetGradientEvent.cs		\
 	SetHistoryStateEvent.cs		\
 	SetLayerEffectsEvent.cs		\
 	SetLayerPropertyEvent.cs	\

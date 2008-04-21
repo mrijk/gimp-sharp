@@ -79,8 +79,12 @@ namespace Gimp.PhotoshopActions
 	  ClassType classType = _obj.Set[0] as ClassType;
 	  switch (classType.ClassID2)
 	    {
+	    case "Actn":
+	      return new MakeActionEvent(this);
 	    case "AdjL":
 	      return new AddAdjustmentLayerEvent(this);
+	    case "annotation":
+	      return new MakeAnnotationEvent(this);
 	    case "BckL":
 	      return new MakeBackgroundLayerEvent(this);
 	    case "contentLayer":
