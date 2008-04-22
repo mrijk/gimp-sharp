@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // MergeLayersEvent.cs
 //
@@ -27,7 +27,8 @@ namespace Gimp.PhotoshopActions
     override public bool Execute()
     {
       SelectedLayer = 
-	ActiveImage.MergeVisibleLayers(MergeType.ExpandAsNecessary);
+	ActiveImage.MergeDown(SelectedLayer, MergeType.ExpandAsNecessary);
+
       return true;
     }
   }

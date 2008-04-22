@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // DuplicateLayerByNameEvent.cs
 //
@@ -24,7 +24,7 @@ namespace Gimp.PhotoshopActions
 {
   public class DuplicateLayerByNameEvent : DuplicateEvent
   {
-    readonly string _name;
+    string _name;
 
     public DuplicateLayerByNameEvent(DuplicateEvent srcEvent, string name) : 
       base(srcEvent) 
@@ -34,13 +34,26 @@ namespace Gimp.PhotoshopActions
 
     public override string EventForDisplay
     {
-      get {return base.EventForDisplay + " layer \"" + _name + "\"";}
+      get 
+	{
+	  if (_name == "Bckg")
+	    {
+	      _name = "Background";
+	      return base.EventForDisplay + " " + _name;
+	    }
+	  else
+	    {
+	      return base.EventForDisplay + " layer \"" + _name + "\"";
+	    }
+	}
     }
 
     override public bool Execute()
     {
       Layer layer = ActiveImage.Layers[_name];
-      ActiveImage.AddLayer(new Layer(layer), 0);
+      Layer newLayer = new Layer(layer);
+      ActiveImage.AddLayer(newLayer, layer.Position);
+      SelectedLayer = newLayer;
       return true;
     }
   }

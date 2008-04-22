@@ -74,7 +74,8 @@ namespace Gimp.PhotoshopActions
 
       if (SelectedChannel == null)
 	{
-	  switch (SelectedChannelName)
+	  // switch (SelectedChannelName)
+	  switch (_name)
 	    {
 	    case "Rd":
 	      channel = new Channel(ActiveImage, ChannelType.Red, "Red copy");
@@ -86,7 +87,7 @@ namespace Gimp.PhotoshopActions
 	    case "Bl":
 	      channel = new Channel(ActiveImage, ChannelType.Blue, 
 				    "Blue copy");
-	  break;	  
+	      break;	  
 	    default:
 	      Console.WriteLine("DuplicateChannel: " + _name);
 	      break;

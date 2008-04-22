@@ -1,3 +1,9 @@
+2008-04-22  Maurits  <maurits.rijk@gmail.com>
+
+	* plug-ins/PhotoshopActions/DuplicateLayerByNameEvent.cs
+	* plug-ins/PhotoshopActions/MergeLayersEvent.cs: bug fix to get
+	yet another action file verified
+
 2008-04-21  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/SetLayerPropertyEvent.cs: map "color

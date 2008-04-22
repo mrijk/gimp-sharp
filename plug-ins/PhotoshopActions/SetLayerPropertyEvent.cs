@@ -113,6 +113,9 @@ namespace Gimp.PhotoshopActions
 		  // TODO: not a perfect match
 		  layer.Mode = LayerModeEffects.DarkenOnly;
 		  break;
+		case "HrdL":
+		  layer.Mode = LayerModeEffects.Hardlight;
+		  break;
 		case "Lghn":
 		  // TODO: not a perfect match
 		  layer.Mode = LayerModeEffects.LightenOnly;
