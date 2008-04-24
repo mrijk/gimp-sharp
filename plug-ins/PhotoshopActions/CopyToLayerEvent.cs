@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // CopyToLayerEvent.cs
 //
@@ -46,7 +46,12 @@ namespace Gimp.PhotoshopActions
 	}
       else
 	{
-	  // TODO: what does PS handle this?
+	  Image image = ActiveImage;
+	  Layer layer = new Layer(SelectedLayer);
+	  layer.Name = "Layer 1";
+	  image.AddLayer(layer, 0);
+	  image.ActiveLayer = layer;
+	  SelectedLayer = layer;
 	}
       return true;
     }

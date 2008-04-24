@@ -1,3 +1,13 @@
+2008-04-24  Maurits  <maurits.rijk@gmail.com>
+
+	* plug-ins/PhotoshopActions/WindEvent.cs: tweak parameters
+
+	* plug-ins/PhotoshopActions/PolarEvent.cs: bug fix
+
+2008-04-23  Maurits  <maurits.rijk@gmail.com>
+
+	* plug-ins/PhotoshopActions/Abbreviations.cs: more abbreviations
+
 2008-04-22  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/DuplicateLayerByNameEvent.cs

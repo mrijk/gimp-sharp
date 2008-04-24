@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // PolarEvent.cs
 //
@@ -30,14 +30,15 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
-      yield return "Convert: " + Abbreviations.Get(_convert.Value);
+      // yield return "Convert: " + Abbreviations.Get(_convert.Value);
+      yield return Format(_convert, "Cnvr");
     }
 
     override public bool Execute()
     {
       bool polrec = (_convert.Value == "RctP");
 
-      RunProcedure("plug_in_polar_coords", 100, 0, false, true, polrec);
+      RunProcedure("plug_in_polar_coords", 0, 0, false, true, polrec);
 
       return true;
     }

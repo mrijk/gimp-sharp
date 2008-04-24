@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // WindEvent.cs
 //
@@ -48,7 +48,7 @@ namespace Gimp.PhotoshopActions
     {
       int direction = (_direction.Value == "Lft") ? 0 : 1;
       int algorithm = (_mode.Value == "Wnd") ? 0 : 1;
-      RunProcedure("plug_in_wind", 10, direction, 10, algorithm, 0);
+      RunProcedure("plug_in_wind", 40, direction, 7, algorithm, 0);
       return true;
     }
   }

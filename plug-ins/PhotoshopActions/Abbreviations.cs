@@ -86,6 +86,7 @@ namespace Gimp.PhotoshopActions
       _map["Cntg"] = "Contiguous";
       _map["Cntn"] = "Continue";
       _map["Cntr"] = "Contrast";
+      _map["Cnvr"] = "Convert";
       _map["CrnH"] = "Current History State";
       _map["CrnL"] = "Current Light";
       _map["CrrL"] = "current layer";
@@ -166,6 +167,7 @@ namespace Gimp.PhotoshopActions
       _map["LghI"] = "Light Intensity";
       _map["Lghn"] = "lighten";
       _map["Lght"] = "lightness";
+      _map["linearLight"] = "linear light";
       _map["Lmns"] = "luminosity";
       _map["LngL"] = "long lines";
       _map["Lnr"]  = "linear";

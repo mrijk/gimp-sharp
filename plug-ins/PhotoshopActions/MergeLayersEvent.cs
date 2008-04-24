@@ -27,7 +27,8 @@ namespace Gimp.PhotoshopActions
     override public bool Execute()
     {
       SelectedLayer = 
-	ActiveImage.MergeDown(SelectedLayer, MergeType.ExpandAsNecessary);
+	ActiveImage.MergeDown(ActiveImage.ActiveLayer, 
+			      MergeType.ExpandAsNecessary);
 
       return true;
     }
