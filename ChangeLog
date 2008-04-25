@@ -1,3 +1,11 @@
+2008-04-25  Maurits  <maurits.rijk@gmail.com>
+
+	* plug-ins/PhotoshopActions/Abbreviations.cs: more abbreviations
+
+	* plug-ins/PhotoshopActions/MakeEvent.cs: simplify
+
+	* plug-ins/PhotoshopActions/AddLayerEvent.cs: handle parameters
+
 2008-04-24  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/WindEvent.cs: tweak parameters

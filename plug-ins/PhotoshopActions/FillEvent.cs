@@ -74,36 +74,35 @@ namespace Gimp.PhotoshopActions
     {
       Context.Push();
 
-      FillType fillType;
-
-      switch (_using.Value)
-	{
-	case "BckC":
-	  fillType = FillType.Background;
-	  break;
-	case "Blck":
-	  Context.Foreground = new RGB(0, 0, 0);
-	  fillType = FillType.Foreground;
-	  break;
-	case "FrgC":
-	  fillType = FillType.Foreground;
-	  break;
-	case "Ptrn":
-	  fillType = FillType.Pattern;
-	  break;
-	case "Wht":
-	  Context.Foreground = new RGB(255, 255, 255);
-	  fillType = FillType.Foreground;
-	  break;
-	default:
-	  Console.WriteLine("FillEvent: with {0} not supported!", 
-			    _using.Value);
-	  return false;
-	}
-
       Drawable drawable = ActiveImage.ActiveDrawable;
       if (_from == null && _mode == null)
 	{
+	  FillType fillType;
+	  switch (_using.Value)
+	    {
+	    case "BckC":
+	      fillType = FillType.Background;
+	      break;
+	    case "Blck":
+	      Context.Foreground = new RGB(0, 0, 0);
+	      fillType = FillType.Foreground;
+	      break;
+	    case "FrgC":
+	      fillType = FillType.Foreground;
+	      break;
+	    case "Ptrn":
+	      fillType = FillType.Pattern;
+	      break;
+	    case "Wht":
+	      Context.Foreground = new RGB(255, 255, 255);
+	      fillType = FillType.Foreground;
+	      break;
+	    default:
+	      Console.WriteLine("FillEvent: with {0} not supported!", 
+				_using.Value);
+	      return false;
+	    }
+
 	  drawable.EditFill(fillType);
 	}
       else
@@ -135,9 +134,28 @@ namespace Gimp.PhotoshopActions
 		  x = _from.GetValueAsDouble("Hrzn");
 		  y = _from.GetValueAsDouble("Vrtc");
 		}
-	      drawable.EditBucketFill(BucketFillMode.Foreground,
-				      layerMode,
-				      100.0, _tolerance, false, true,
+
+	      BucketFillMode fillMode;
+
+	      switch (_using.Value)
+		{
+		case "BckC":
+		  fillMode = BucketFillMode.Background;
+		  break;
+		case "FrgC":
+		  fillMode = BucketFillMode.Foreground;
+		  break;
+		case "Ptrn":
+		  fillMode = BucketFillMode.Pattern;
+		  break;
+		default:
+		  Console.WriteLine("FillEvent: with {0} not supported!", 
+				    _using.Value);
+		  return false;
+		}
+
+	      drawable.EditBucketFill(fillMode, layerMode,
+				      _opacity, _tolerance, false, true,
 				      SelectCriterion.Composite, x, y);
 	    }
 	}

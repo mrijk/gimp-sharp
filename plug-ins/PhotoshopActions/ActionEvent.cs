@@ -237,7 +237,9 @@ namespace Gimp.PhotoshopActions
 
     protected void RememberCurrentSelection()
     {
+      Layer tmp = SelectedLayer;
       _previousSelection = _activeImage.Selection.Save();
+      SelectedLayer = tmp;
     }
 
     protected void RestorePreviousSelection()
@@ -249,15 +251,19 @@ namespace Gimp.PhotoshopActions
 			     out double width, out double height)
     {
       ParameterSet parameters = objc.Parameters;
-      double top = (parameters["Top"] as DoubleParameter).Value;
-      double left = (parameters["Left"] as DoubleParameter).Value;
-      double bottom = (parameters["Btom"] as DoubleParameter).Value;
-      double right = (parameters["Rght"] as DoubleParameter).Value;
+      double top = (parameters["Top"] as DoubleParameter).
+	GetPixels(ActiveImage.Height);
+      double left = (parameters["Left"] as DoubleParameter).
+	GetPixels(ActiveImage.Width);
+      double bottom = (parameters["Btom"] as DoubleParameter).
+	GetPixels(ActiveImage.Height);
+      double right = (parameters["Rght"] as DoubleParameter).
+	GetPixels(ActiveImage.Width);
       
-      x = left * ActiveImage.Width / 100;
-      y = top * ActiveImage.Height / 100;
-      width = (right - left) * ActiveImage.Width / 100 + 1;
-      height = (bottom - top) * ActiveImage.Height / 100 + 1;
+      x = left;
+      y = top;
+      width = right - left + 1;
+      height = bottom - top + 1;
     }
   }
 }

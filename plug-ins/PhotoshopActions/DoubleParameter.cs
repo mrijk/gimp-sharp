@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // DoubleParameter.cs
 //
@@ -26,17 +26,12 @@ namespace Gimp.PhotoshopActions
   public class DoubleParameter : Parameter
   {
     bool _hasUnits;
-    double _value;
+    public double Value {get; set;}
     string _units;
 
     public DoubleParameter(bool hasUnits)
     {
       _hasUnits = hasUnits;
-    }
-
-    public double Value
-    {
-      get {return _value;}
     }
 
     public string Units
@@ -50,19 +45,26 @@ namespace Gimp.PhotoshopActions
 	{
 	  _units = parser.ReadFourByteString();
 	}
-      _value = parser.ReadDouble();
+      Value = parser.ReadDouble();
     }
 
     public override void Fill(Object obj, FieldInfo field)
     {
-      field.SetValue(obj, _value);
+      field.SetValue(obj, Value);
       // TODO: also fill the units!?
     }
 
     public override string Format()
     {
-      return String.Format("{0}: {1:F3}{2}", Abbreviations.Get(Name), _value,
-			   UnitString);
+      switch (_units)
+	{
+	case "#Pxl":
+	  return String.Format("{0}: {1} {2}", Abbreviations.Get(Name), 
+			       Value, UnitString);
+	default:
+	  return String.Format("{0}: {1:F3}{2}", Abbreviations.Get(Name), 
+			       Value, UnitString);
+	}
     }
 
     string UnitString
@@ -73,7 +75,10 @@ namespace Gimp.PhotoshopActions
 	    {
 	    case "#Prc":
 	      return "%";
+	    case "#Pxl":
+	      return "pixels";
 	    default:
+	      Console.WriteLine("units: " + _units);
 	      return "";
 	    }
 	}
@@ -83,16 +88,15 @@ namespace Gimp.PhotoshopActions
     {
       if (_units == null)
 	{
-	  return _value;
+	  return Value;
 	}
 
       switch (_units)
 	{
 	case "#Prc":
-	  return _value * x / 100.0;
+	  return Value * x / 100.0;
 	default:
-	  Console.WriteLine("Unknown unit: " + _units);
-	  return _value;
+	  return Value;
 	}
     }
   }

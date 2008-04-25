@@ -63,6 +63,11 @@ namespace Gimp.PhotoshopActions
 	{
 	  yield return "Name: " + _name;
 	}
+
+      if (Parameters["TglO"] != null)
+	{
+	  yield return Parameters["TglO"].Format();
+	}
     }
 
     override public bool Execute()

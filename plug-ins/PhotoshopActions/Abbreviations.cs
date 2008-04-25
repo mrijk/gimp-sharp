@@ -276,6 +276,7 @@ namespace Gimp.PhotoshopActions
       _map["Sz"]   = "Size";
       _map["trimBasedOn"] = "Based on";
       _map["T"]    = "To";
+      _map["TglO"] = "Toggle Others";
       _map["Tlrn"] = "Tolerance";
       _map["TlSz"] = "Tile Size";
       _map["Top"]  = "Top";

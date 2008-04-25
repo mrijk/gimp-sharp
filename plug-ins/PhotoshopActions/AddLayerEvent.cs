@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // AddLayerEvent.cs
 //
@@ -30,53 +30,15 @@ namespace Gimp.PhotoshopActions
     bool _below;
     [Parameter("Usng")]
     ObjcParameter _objc;
+    [Parameter("Nm")]
+    string _name;
+    [Parameter("Md")]
+    EnumParameter _mode;
 
-    readonly LayerModeEffects _mode = LayerModeEffects.Normal;
-
-    public AddLayerEvent(ActionEvent srcEvent, ObjcParameter _object) : 
-      base(srcEvent) 
+    public AddLayerEvent(ActionEvent srcEvent) : base(srcEvent) 
     {
-      EnumParameter mode = _object.Parameters["Md"] as EnumParameter;
-      if (mode == null)
-	{
-	  return;
-	}
-
-      switch (mode.Value)
-	{
-	case "Dfrn":
-	  _mode = LayerModeEffects.Difference;
-	  break;
-	case "Drkn":
-	  _mode = LayerModeEffects.DarkenOnly;
-	  break;
-	case "Lghn":
-	  _mode = LayerModeEffects.LightenOnly;
-	  break;
-	case "Mltp":
-	  _mode = LayerModeEffects.Multiply;
-	  break;
-	case "Ovrl":
-	  _mode = LayerModeEffects.Overlay;
-	  break;
-	case "Scrn":
-	  _mode = LayerModeEffects.Screen;
-	  break;
-	default:
-	  Console.WriteLine("AddLayerEvent, unknown mode: " + mode.Value);
-	  _mode = LayerModeEffects.Normal;
-	  break;
-	}
-    }
-
-    public AddLayerEvent(ActionEvent srcEvent, List<ReferenceType> set) : 
-      base(srcEvent) 
-    {
-      if (set.Count != 1)
-	{
-	  Console.WriteLine("AddLayerEvent, Count: " + set.Count);
-	  // Fill _below
-	}
+      Parameters.Fill(this);
+      _objc.Fill(this);
     }
 
     public override string EventForDisplay
@@ -86,8 +48,49 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
+      yield return "Using: layer";
+
+      if (_name != null)
+	yield return Format(_name, "Nm");
+      
+      if (_mode != null)
+	yield return Format(_mode, "Md");
+
       if (Parameters["below"] != null)
 	yield return Format(_below, "Below");
+    }
+
+    LayerModeEffects GetMode()
+    {
+      LayerModeEffects mode = LayerModeEffects.Normal;
+
+      switch (_mode.Value)
+	{
+	case "Dfrn":
+	  mode = LayerModeEffects.Difference;
+	  break;
+	case "Drkn":
+	  mode = LayerModeEffects.DarkenOnly;
+	  break;
+	case "Lghn":
+	  mode = LayerModeEffects.LightenOnly;
+	  break;
+	case "Mltp":
+	  mode = LayerModeEffects.Multiply;
+	  break;
+	case "Ovrl":
+	  mode = LayerModeEffects.Overlay;
+	  break;
+	case "Scrn":
+	  mode = LayerModeEffects.Screen;
+	  break;
+	default:
+	  Console.WriteLine("AddLayerEvent, unknown mode: " + _mode.Value);
+	  mode = LayerModeEffects.Normal;
+	  break;
+	}
+
+      return mode;
     }
 
     override public bool Execute()
@@ -95,8 +98,9 @@ namespace Gimp.PhotoshopActions
       // Fix me: do something with Image.ImageBaseType
       Image image = ActiveImage;
 
-      Layer layer = new Layer(image, "New Layer", image.Width, image.Height,
-			      ImageType.Rgba, 100, _mode);
+      Layer layer = new Layer(image, 
+			      (_name == null) ? "New Layer" : _name, 
+			      ImageType.Rgba, 100, GetMode());
       image.AddLayer(layer, 0);
       image.ActiveLayer = layer;
       SelectedLayer = layer;

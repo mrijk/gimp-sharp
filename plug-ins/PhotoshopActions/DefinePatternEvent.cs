@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // DefinePatternEvent.cs
 //
@@ -28,6 +28,7 @@ namespace Gimp.PhotoshopActions
     override public bool Execute()
     {
       // TODO: check if pattern "Clipboard" is actually available
+      ActiveDrawable.EditCopy();
       Context.Pattern = new Pattern("Clipboard");
       return true;
     }
