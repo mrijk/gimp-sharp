@@ -95,7 +95,7 @@ namespace Gimp.PhotoshopActions
       _map["deInterlace"] = "DeInterlaceEvent";
       _map["delete"] = _map["Dlt"] = "DeleteEvent";
       _map["desaturate"] = _map["Dstt"] = "DesaturateEvent";
-      _map["deselect"] = "DeselectEvent";
+      _map["deselect"] = _map["Dslc"] = "DeselectEvent";
       _map["despeckle"] = _map["Dspc"] = "DespeckleEvent";
       _map["differenceClouds"] = _map["DfrC"] = "DifferenceCloudsEvent";
       _map["diffuseGlow"] = _map["DfsG"] = "DiffuseGlowEvent";

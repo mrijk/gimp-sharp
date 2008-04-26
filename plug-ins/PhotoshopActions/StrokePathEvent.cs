@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006-2008 Maurits Rijk
 //
-// DuplicateSelectionEvent.cs
+// StrokePathColorEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,31 +23,29 @@ using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
-  public class DuplicateSelectionEvent : DuplicateEvent
+  public class StrokePathEvent : StrokeEvent
   {
-    [Parameter("Nm")]
-    string _name;
-
-    public DuplicateSelectionEvent(DuplicateEvent srcEvent) : base(srcEvent) 
+    public StrokePathEvent(StrokeEvent srcEvent) : base(srcEvent)
     {
-      Parameters.Fill(this);
     }
 
-    public override string EventForDisplay
+    public override bool IsExecutable
     {
-      get {return base.EventForDisplay + " Selection";}
+      get {return false;}
     }
 
     protected override IEnumerable ListParameters()
     {
-      if (_name != null)
-	yield return "Name: \"" + _name + "\"";
+      yield break;
+    }
+
+    public override string EventForDisplay
+    {
+      get {return base.EventForDisplay + " Work Path";}
     }
 
     override public bool Execute()
     {
-      Channel channel = ActiveImage.Selection.Save();
-      channel.Name = _name;
       return true;
     }
   }

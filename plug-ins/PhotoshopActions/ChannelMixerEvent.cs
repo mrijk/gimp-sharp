@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // ChannelMixerEvent.cs
 //
@@ -40,6 +40,7 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
+      yield return Format(_monochrome, "Mnch");
       yield return "Red: " + _r + " %";
       yield return "Green: " + _g + " %";
       yield return "Blue: " + _b + " %";
@@ -51,11 +52,11 @@ namespace Gimp.PhotoshopActions
 
       if (_monochrome)
 	{
-	  LongParameter red, green, blue;
+	  DoubleParameter red, green, blue;
 
-	  red = _grey.Parameters["Rd"] as LongParameter;
-	  green = _grey.Parameters["Grn"] as LongParameter;
-	  blue = _grey.Parameters["Bl"] as LongParameter;
+	  red = _grey.Parameters["Rd"] as DoubleParameter;
+	  green = _grey.Parameters["Grn"] as DoubleParameter;
+	  blue = _grey.Parameters["Bl"] as DoubleParameter;
 
 	  if (red != null)
 	    _r = red.Value;
@@ -86,10 +87,24 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
-      RunProcedure("plug_in_colors_channel_mixer", _monochrome,
-		   _r / 100, 0.0, 0.0,
-		   0.0, _g / 100, 0.0,
-		   0.0, 0.0, _b / 100);
+      double r = _r / 100;
+      double g = _g / 100;
+      double b = _b / 100;
+
+      if (_monochrome)
+	{
+	  RunProcedure("plug_in_colors_channel_mixer", _monochrome,
+		       r, g, b,
+		       r, g, b,
+		       r, g, b);
+	}
+      else
+	{
+	  RunProcedure("plug_in_colors_channel_mixer", _monochrome,
+		       r, 0.0, 0.0,
+		       0.0, g, 0.0,
+		       0.0, 0.0, b);
+	}
       return true;
     }
   }

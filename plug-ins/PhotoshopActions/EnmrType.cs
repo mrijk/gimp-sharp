@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // EnmrParameter.cs
 //
@@ -19,49 +19,28 @@
 //
 
 using System;
-using System.Reflection;
 
 namespace Gimp.PhotoshopActions
 {
   public class EnmrType : ReferenceType
   {
-    string _classID;
-    string _key;
-    string _type;
-    string _value;
-
-    public string ClassID
-    {
-      get {return _classID;}
-    }
-
-    public string Key
-    {
-      get {return _key;}
-    }
-
-    public string Type
-    {
-      get {return _type;}
-    }
-
-    public string Value
-    {
-      get {return _value;}
-    }
-
+    public string ClassID {get; private set;}
+    public string Key {get; private set;}
+    public string Type {get; private set;}
+    public string Value {get; private set;}
+    
     public override void Parse(ActionParser parser)
     {
       if (!parser.PreSix)
 	{
-	  _classID = parser.ReadTokenOrUnicodeString();
+	  ClassID = parser.ReadTokenOrUnicodeString();
 	}
-      _key = parser.ReadTokenOrString();
-      _type = parser.ReadTokenOrString();
-      _value = parser.ReadTokenOrString();
+      Key = parser.ReadTokenOrString();
+      Type = parser.ReadTokenOrString();
+      Value = parser.ReadTokenOrString();
 
       DebugOutput.Dump("Enmr: c = {0}, k = {1}, t = {2}, v = {3}",
-		       _classID, _key, _type, _value);
+		       ClassID, Key, Type, Value);
     }
   }
 }

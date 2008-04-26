@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // StrokeEvent.cs
 //
@@ -36,12 +36,54 @@ namespace Gimp.PhotoshopActions
     [Parameter("Clr")]
     ObjcParameter _color;
 
+    [Parameter("null")]
+    ReferenceParameter _obj;
+
+    readonly bool _executable;
+
+    public StrokeEvent()
+    {
+    }
+
+    public StrokeEvent(ActionEvent srcEvent) : base(srcEvent)
+    {
+      _executable = true;
+    }
+
+    public override bool IsExecutable
+    {
+      get {return _executable;}
+    }
+
     protected override IEnumerable ListParameters()
     {
       yield return "Width: " + _width;
       yield return "Location: " + Abbreviations.Get(_location.Value);
       yield return "Opacity: " + _opacity + "%";
       yield return "Mode: " + Abbreviations.Get(_mode.Value);
+    }
+
+    override public ActionEvent Parse(ActionParser parser)
+    {
+      ActionEvent myEvent = base.Parse(parser);
+
+      if (_obj != null)
+	{
+	  if (_obj.Set[0] is PropertyType)
+	    {
+	      PropertyType property = _obj.Set[0] as PropertyType;
+
+	      switch (property.ClassID2)
+		{
+		case "Path":
+		  return new StrokePathEvent(this);
+		default:
+		  Console.WriteLine("StrokeEvent: " + property.ClassID2);
+		  break;
+		}
+	    }
+	}
+      return this;
     }
 
     override public bool Execute()

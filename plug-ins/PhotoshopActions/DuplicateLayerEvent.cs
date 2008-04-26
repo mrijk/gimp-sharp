@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // DuplicateLayerEvent.cs
 //
@@ -20,6 +20,7 @@
 
 using System;
 using System.Collections;
+using System.Text.RegularExpressions;
 
 namespace Gimp.PhotoshopActions
 {
@@ -47,13 +48,24 @@ namespace Gimp.PhotoshopActions
     {
       Layer layer = new Layer(SelectedLayer);
       ActiveImage.AddLayer(layer, 0);
-      ActiveDrawable = layer;
-      SelectedLayer = layer;
- 
+
       if (_name != null)
 	{
 	  layer.Name = _name;
 	}
+      else
+	{
+	  Regex rx = new Regex(@"(.*copy)#(.+)");
+	  Match m = rx.Match(layer.Name);
+	  if (m.Groups.Count == 3)
+	    {
+	      int nr = Convert.ToInt32("1") + 1;
+	      layer.Name = m.Groups[1] + " " + nr;
+	    }
+	}
+
+      ActiveDrawable = layer;
+      SelectedLayer = layer;
 
       return true;
     }

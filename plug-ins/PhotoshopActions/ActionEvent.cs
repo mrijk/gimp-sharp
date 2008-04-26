@@ -198,13 +198,10 @@ namespace Gimp.PhotoshopActions
 
     protected virtual IEnumerable ListParameters()
     {
-      yield break;
-      /*
       foreach (String s in Parameters.ListParameters())
 	{
 	  yield return s;
 	}
-      */
     }
 
     public virtual ActionEvent Parse(ActionParser parser)
@@ -262,8 +259,8 @@ namespace Gimp.PhotoshopActions
       
       x = left;
       y = top;
-      width = right - left + 1;
-      height = bottom - top + 1;
+      width = right - left;
+      height = bottom - top;
     }
   }
 }

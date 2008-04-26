@@ -1,3 +1,18 @@
+2008-04-26  Maurits  <maurits.rijk@gmail.com>
+
+	* plug-ins/PhotoshopActions/StrokePathEvent.cs: new file
+
+	* plug-ins/PhotoshopActions/StrokeEvent.cs: changed accordingly
+
+	* plug-ins/PhotoshopActions/MedianEvent.cs
+	* plug-ins/PhotoshopActions/GaussianBlurEvent.cs: clean-up
+
+	* plug-ins/PhotoshopActions/ChannelMixerEvent.cs
+	* plug-ins/PhotoshopActions/SetLayerPropertyEvent.cs
+	* plug-ins/PhotoshopActions/AddEvent.cs: bug fixes
+
+	* plug-ins/PhotoshopActions/EnmrType.cs: minor clean-up
+
 2008-04-25  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/Abbreviations.cs: more abbreviations

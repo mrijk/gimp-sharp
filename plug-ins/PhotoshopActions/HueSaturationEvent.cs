@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // HueSaturationEvent.cs
 //
@@ -80,8 +80,8 @@ namespace Gimp.PhotoshopActions
 	}
 
       ActiveDrawable.HueSaturation(HueRange.All, (double) _hue, 
-				   (double) _saturation,
-				   (double) _lightness);
+				   (double) _lightness,
+				   (double) _saturation);
       return true;
     }
   }

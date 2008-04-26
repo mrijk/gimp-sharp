@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // MedianEvent.cs
 //
@@ -18,8 +18,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-
 namespace Gimp.PhotoshopActions
 {
   public class MedianEvent : ActionEvent
@@ -29,7 +27,7 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
-      RunProcedure("plug_in_despeckle", (int) _radius, 0, 7, 248);
+      RunProcedure("plug_in_despeckle", (int) _radius, 0, -1, 256);
 
       return true;
     }

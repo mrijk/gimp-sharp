@@ -38,7 +38,8 @@ namespace Gimp.PhotoshopActions
     public AddLayerEvent(ActionEvent srcEvent) : base(srcEvent) 
     {
       Parameters.Fill(this);
-      _objc.Fill(this);
+      if (_objc != null)
+	_objc.Fill(this);
     }
 
     public override string EventForDisplay
@@ -63,6 +64,9 @@ namespace Gimp.PhotoshopActions
     LayerModeEffects GetMode()
     {
       LayerModeEffects mode = LayerModeEffects.Normal;
+
+      if (_mode == null)
+	return mode;
 
       switch (_mode.Value)
 	{

@@ -290,6 +290,7 @@ MYSOURCES = 				\
 	StampEvent.cs			\
 	StopEvent.cs			\
 	StrokeEvent.cs			\
+	StrokePathEvent.cs		\
 	SubtractEvent.cs		\
 	SubtractFromEvent.cs		\
 	SumieEvent.cs			\

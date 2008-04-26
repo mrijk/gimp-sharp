@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // AddEvent.cs
 //
@@ -39,6 +39,11 @@ namespace Gimp.PhotoshopActions
 	      _name = (_obj.Set[0] as NameType).Key;
 	      return base.EventForDisplay + " channel \"" + _name + "\"";
 	    }
+	  else if (_obj.Set[0] is EnmrType)
+	    {
+	      _name = Abbreviations.Get((_obj.Set[0] as EnmrType).Value);
+	      return base.EventForDisplay + " " + _name + " channel";
+	    }
 	  return base.EventForDisplay;
 	}
     }
@@ -50,7 +55,13 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
-      Channel channel = ActiveImage.Channels[_name];
+      Console.WriteLine("Count: " + ActiveImage.Channels.Count);
+
+      // Channel channel = ActiveImage.Channels[_name];
+
+      Channel channel = new Channel(ActiveImage, ChannelType.Green, "Green");
+      ActiveImage.AddChannel(channel, 0);
+
       ActiveImage.Selection.Combine(channel, ChannelOps.Add);
       return true;
     }

@@ -53,6 +53,8 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
+      yield return "To: layer";
+
       foreach (Parameter parameter in _objc.Parameters)
 	{
 	  switch (parameter.Name)
@@ -131,6 +133,9 @@ namespace Gimp.PhotoshopActions
 		  break;
 		case "Scrn":
 		  layer.Mode = LayerModeEffects.Screen;
+		  break;
+		case "Strt":
+		  layer.Mode = LayerModeEffects.Saturation;
 		  break;
 		case "Xclu":
 		  // Fix me: not the best match
