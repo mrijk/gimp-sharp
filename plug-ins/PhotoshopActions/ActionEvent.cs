@@ -196,6 +196,7 @@ namespace Gimp.PhotoshopActions
 	}
     }
 
+    // Fix me: make sure that parameters are ordered!
     protected virtual IEnumerable ListParameters()
     {
       foreach (String s in Parameters.ListParameters())

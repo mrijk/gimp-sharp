@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // TypeParameter.cs
 //
@@ -25,29 +25,19 @@ namespace Gimp.PhotoshopActions
 {
   public class TypeParameter : Parameter
   {
-    string _type;
-    string _value;
-
-    public string Type
-    {
-      get {return _type;}
-    }
-
-    public string Value
-    {
-      get {return _value;}
-    }
+    public string Type {get; private set;}
+    public string Value {get; private set;}
 
     public override void Parse(ActionParser parser)
     {
       if (parser.PreSix)
 	{
-	  _value = parser.ReadFourByteString();
+	  Value = parser.ReadFourByteString();
 	}
       else
 	{
-	  _type = parser.ReadUnicodeString();
-	  _value = parser.ReadTokenOrString();
+	  Type = parser.ReadUnicodeString();
+	  Value = parser.ReadTokenOrString();
 	}
     }
 

@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // EnumParameter.cs
 //
@@ -25,36 +25,32 @@ namespace Gimp.PhotoshopActions
 {
   public class EnumParameter : Parameter
   {
-    string _type;
-    string _value;
-
-    public string Type
-    {
-      get {return _type;}
-    }
-
-    public string Value
-    {
-      get {return _value;}
-    }
+    public string Type {get; private set;}
+    public string Value {get; private set;}
 
     public override void Parse(ActionParser parser)
     {
       if (parser.PreSix)
 	{
-	  _type = parser.ReadFourByteString();
-	  _value = parser.ReadFourByteString();
+	  Type = parser.ReadFourByteString();
+	  Value = parser.ReadFourByteString();
 	}
       else
 	{
-	  _type = parser.ReadTokenOrString();
-	  _value = parser.ReadTokenOrString();
+	  Type = parser.ReadTokenOrString();
+	  Value = parser.ReadTokenOrString();
 	}
     }
 
     public override void Fill(Object obj, FieldInfo field)
     {
       field.SetValue(obj, this);
+    }
+
+    public override string Format()
+    {
+      return String.Format("{0}: {1}", Abbreviations.Get(Name), 
+			   Abbreviations.Get(Value));
     }
   }
 }

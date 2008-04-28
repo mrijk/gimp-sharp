@@ -1,3 +1,25 @@
+2008-04-28  Maurits  <maurits.rijk@gmail.com>
+
+	* plug-ins/PhotoshopActions/CrystallizeEvent.cs
+	* plug-ins/PhotoshopActions/RippleEvent.cs
+	* plug-ins/PhotoshopActions/AddNoiseEvent.cs
+	* plug-ins/PhotoshopActions/WindEvent.cs: simplified
+
+	* plug-ins/PhotoshopActions/ParameterSet.cs: make sure parameters
+	stay ordered
+
+	* plug-ins/PhotoshopActions/Abbreviations.cs: more abbreviations
+
+	* plug-ins/PhotoshopActions/Parameter.cs
+	* plug-ins/PhotoshopActions/RawDataParameter.cs
+	* plug-ins/PhotoshopActions/TypeParameter.cs
+	* plug-ins/PhotoshopActions/TextParameter.cs
+	* plug-ins/PhotoshopActions/ListParameter.cs
+	* plug-ins/PhotoshopActions/EnumParameter.cs
+	* plug-ins/PhotoshopActions/DoubleParameter.cs
+	* plug-ins/PhotoshopActions/BoolParameter.cs
+	* plug-ins/PhotoshopActions/LongParameter.cs: minor clean-up
+
 2008-04-26  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/StrokePathEvent.cs: new file

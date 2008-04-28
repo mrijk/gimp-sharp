@@ -139,6 +139,7 @@ namespace Gimp.PhotoshopActions
       _map["Grys"] = "grayscale mode";
       _map["Gsn"]  = "gaussian";
       _map["H"]    = "Hue";
+      _map["HghS"] = "Highlight strength";
       _map["HlSz"] = "Size";
       _map["HrdL"] = "hard light";
       _map["Hrdn"] = "hardness";

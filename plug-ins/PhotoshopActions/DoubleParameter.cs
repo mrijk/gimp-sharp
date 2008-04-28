@@ -27,23 +27,18 @@ namespace Gimp.PhotoshopActions
   {
     bool _hasUnits;
     public double Value {get; set;}
-    string _units;
+    public string Units {get; private set;}
 
     public DoubleParameter(bool hasUnits)
     {
       _hasUnits = hasUnits;
     }
 
-    public string Units
-    {
-      get {return _units;}
-    }
-
     public override void Parse(ActionParser parser)
     {
       if (_hasUnits)
 	{
-	  _units = parser.ReadFourByteString();
+	  Units = parser.ReadFourByteString();
 	}
       Value = parser.ReadDouble();
     }
@@ -56,7 +51,7 @@ namespace Gimp.PhotoshopActions
 
     public override string Format()
     {
-      switch (_units)
+      switch (Units)
 	{
 	case "#Pxl":
 	  return String.Format("{0}: {1} {2}", Abbreviations.Get(Name), 
@@ -71,14 +66,14 @@ namespace Gimp.PhotoshopActions
     {
       get
 	{
-	  switch (_units)
+	  switch (Units)
 	    {
 	    case "#Prc":
 	      return "%";
 	    case "#Pxl":
 	      return "pixels";
 	    default:
-	      Console.WriteLine("units: " + _units);
+	      Console.WriteLine("units: " + Units);
 	      return "";
 	    }
 	}
@@ -86,12 +81,12 @@ namespace Gimp.PhotoshopActions
 
     public double GetPixels(double x)
     {
-      if (_units == null)
+      if (Units == null)
 	{
 	  return Value;
 	}
 
-      switch (_units)
+      switch (Units)
 	{
 	case "#Prc":
 	  return Value * x / 100.0;

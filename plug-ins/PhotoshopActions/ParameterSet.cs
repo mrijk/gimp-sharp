@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // ParameterSet.cs
 //
@@ -28,6 +28,7 @@ namespace Gimp.PhotoshopActions
   public class ParameterSet
   {
     Dictionary<string, Parameter> _set = new Dictionary<string, Parameter>();
+    List<Parameter> _list = new List<Parameter>();
 
     public int Count
     {
@@ -36,15 +37,16 @@ namespace Gimp.PhotoshopActions
 
     public Parameter this[string name]
     {
-      get {
-	Parameter parameter;
-	return (_set.TryGetValue(name, out parameter)) ? parameter : null;
-      }
+      get 
+	{
+	  Parameter parameter;
+	  return (_set.TryGetValue(name, out parameter)) ? parameter : null;
+	}
     }
 
     public IEnumerator<Parameter> GetEnumerator()
     {
-      return _set.Values.GetEnumerator();
+      return _list.GetEnumerator();
     }
 
     public void Parse(ActionParser parser, int numberOfItems)
@@ -55,6 +57,7 @@ namespace Gimp.PhotoshopActions
 	  if (parameter != null)
 	    {
 	      _set[parameter.Name] = parameter;
+	      _list.Add(parameter);
 	    }
 	}
     }
@@ -67,7 +70,7 @@ namespace Gimp.PhotoshopActions
 
     public IEnumerable<string> ListParameters()
     {
-      foreach (Parameter child in _set.Values)
+      foreach (Parameter child in _list)
 	{
 	  yield return child.Format();
 	}

@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // LongParameter.cs
 //
@@ -25,21 +25,21 @@ namespace Gimp.PhotoshopActions
 {
   public class LongParameter : Parameter
   {
-    int _value;
-
-    public int Value
-    {
-      get {return _value;}
-    }
+    public int Value {get; private set;}
 
     public override void Parse(ActionParser parser)
     {
-      _value = parser.ReadInt32();
+      Value = parser.ReadInt32();
     }
 
     public override void Fill(Object obj, FieldInfo field)
     {
-      field.SetValue(obj, _value);
+      field.SetValue(obj, Value);
+    }
+
+    public override string Format()
+    {
+      return String.Format("{0}: {1}", Abbreviations.Get(Name), Value);
     }
   }
 }

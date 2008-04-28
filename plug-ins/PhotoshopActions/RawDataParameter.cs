@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // RawDataParameter.cs
 //
@@ -25,22 +25,17 @@ namespace Gimp.PhotoshopActions
 {
   public class RawDataParameter : Parameter
   {
-    byte[] _data;
-
-    public byte[] Data
-    {
-      get {return _data;}
-    }
+    public byte[] Data {get; private set;}
 
     public override void Parse(ActionParser parser)
     {
       int length = parser.ReadInt32();
-      _data = parser.ReadBytes(length);
+      Data = parser.ReadBytes(length);
     }
 
     public override void Fill(Object obj, FieldInfo field)
     {
-      field.SetValue(obj, _data);
+      field.SetValue(obj, Data);
     }
   }
 }

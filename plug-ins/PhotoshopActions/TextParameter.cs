@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // TextParameter.cs
 //
@@ -25,26 +25,21 @@ namespace Gimp.PhotoshopActions
 {
   public class TextParameter : Parameter
   {
-    string _value;
-
-    public string Value
-    {
-      get {return _value;}
-    }
+    public string Value {get; private set;}
 
     public override void Parse(ActionParser parser)
     {
-      _value = parser.ReadUnicodeString();
+      Value = parser.ReadUnicodeString();
     }
 
     public override void Fill(Object obj, FieldInfo field)
     {
-      field.SetValue(obj, _value);
+      field.SetValue(obj, Value);
     }
 
     public override string Format()
     {
-      return String.Format("{0}: {1}", Abbreviations.Get(Name), _value);
+      return String.Format("{0}: {1}", Abbreviations.Get(Name), Value);
     }
   }
 }

@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // PlasticWrapEvent.cs
 //
@@ -35,13 +35,6 @@ namespace Gimp.PhotoshopActions
     public override bool IsExecutable
     {
       get {return false;}
-    }
-
-    protected override IEnumerable ListParameters()
-    {
-      yield return "Highlight strength: " + _highlightStrength;
-      yield return "Detail: " + _detail;
-      yield return "Smoothness: " + _smoothness;
     }
 
     override public bool Execute()

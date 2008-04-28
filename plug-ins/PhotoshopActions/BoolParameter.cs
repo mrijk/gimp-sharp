@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // BoolParameter.cs
 //
@@ -25,33 +25,28 @@ namespace Gimp.PhotoshopActions
 {
   public class BoolParameter : Parameter
   {
-    bool _value;
-
-    public bool Value
-    {
-      get {return _value;}
-    }
+    public bool Value {get; private set;}
 
     public override void Parse(ActionParser parser)
     {
-      _value = (parser.ReadByte() == 0) ? false : true;
+      Value = (parser.ReadByte() == 0) ? false : true;
     }
 
     public override void Fill(Object obj, FieldInfo field)
     {
-      field.SetValue(obj, _value);
+      field.SetValue(obj, Value);
     }
 
     public override string Format()
     {
       return String.Format("{0} {1}",
-			   (_value) ? "With" : "Without",
+			   (Value) ? "With" : "Without",
 			   Abbreviations.Get(Name));
     }
 
     public string Format(string s)
     {
-      return ((_value) ? "With " : "Without ") + s;
+      return ((Value) ? "With " : "Without ") + s;
     }
   }
 }

@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // Parameter.cs
 //
@@ -25,13 +25,7 @@ namespace Gimp.PhotoshopActions
 {
   public abstract class Parameter
   {
-    string _name;
-
-    public string Name
-    {
-      get {return _name;}
-      set {_name = value;}
-    }
+    public string Name {get; set;}
 
     public abstract void Parse(ActionParser parser);
     public virtual void Fill(Object obj, FieldInfo field) {}

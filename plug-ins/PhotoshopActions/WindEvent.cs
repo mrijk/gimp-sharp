@@ -19,7 +19,6 @@
 //
 
 using System;
-using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
@@ -36,12 +35,6 @@ namespace Gimp.PhotoshopActions
 	{
 	  return _mode.Value == "Wnd";
 	}
-    }
-
-    protected override IEnumerable ListParameters()
-    {
-      yield return Format(_mode, "WndM");
-      yield return Format(_direction, "Drct");
     }
 
     override public bool Execute()

@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // ListParameter.cs
 //
@@ -27,7 +27,7 @@ namespace Gimp.PhotoshopActions
 {
   public class ListParameter : Parameter
   {
-    List<Parameter> _set = new List<Parameter>();
+    readonly List<Parameter> _set = new List<Parameter>();
 
     public List<Parameter> Set
     {
