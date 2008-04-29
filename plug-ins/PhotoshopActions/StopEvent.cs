@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // StopEvent.cs
 //
@@ -18,7 +18,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System.Collections;
 using Gtk;
 
 namespace Gimp.PhotoshopActions
@@ -29,13 +28,6 @@ namespace Gimp.PhotoshopActions
     string _message;
     [Parameter("Cntn")]
     bool _continue;
-
-    protected override IEnumerable ListParameters()
-    {
-      yield return "Message: " + _message;
-      yield return Format(_continue, "Continue");
-      // return Parameters.ListParameters();
-    }
 
     override public bool Execute()
     {

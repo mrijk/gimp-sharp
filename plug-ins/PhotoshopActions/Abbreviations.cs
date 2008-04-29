@@ -103,6 +103,7 @@ namespace Gimp.PhotoshopActions
       _map["Drft"] = "draft";
       _map["DrkI"] = "Dark Intensity";
       _map["Drkn"] = "darken";
+      _map["Dstn"] = "Distance";
       _map["Dstr"] = "Distribution";
       _map["Dtl"]  = "Detail";
       _map["Edg"]  = "Edge";
@@ -263,6 +264,7 @@ namespace Gimp.PhotoshopActions
       _map["Sml"]  = "small";
       _map["Smth"] = "Smoothness";
       _map["Spcn"] = "spacing";
+      _map["SphM"] = "Mode";
       _map["SprR"] = "Spray Radius";
       _map["SqrS"] = "Square Size";
       _map["StDt"] = "Stroke Detail";

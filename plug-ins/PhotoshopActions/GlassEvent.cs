@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // GlassEvent.cs
 //
@@ -17,9 +17,6 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
-
-using System;
-using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
@@ -39,15 +36,6 @@ namespace Gimp.PhotoshopActions
     public override bool IsExecutable
     {
       get {return false;}
-    }
-
-    protected override IEnumerable ListParameters()
-    {
-      yield return Format(_distortion, "Dstr");
-      yield return Format(_smoothen, "Smth");
-      yield return Format(_textureType, "TxtT");
-      yield return Format(_scaling, "Scln");
-      yield return Format(_invertTexture, "InvT");
     }
 
     override public bool Execute()

@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // BrightnessEvent.cs
 //
@@ -18,9 +18,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-using System.Collections;
-
 namespace Gimp.PhotoshopActions
 {
   public class BrightnessEvent : ActionEvent
@@ -29,12 +26,6 @@ namespace Gimp.PhotoshopActions
     int _brightness;
     [Parameter("Cntr")]
     int _contrast;
-
-    protected override IEnumerable ListParameters()
-    {
-      yield return "Brightness: " + _brightness;
-      yield return "Contrast: " + _contrast;
-    }
 
     public override bool Execute()
     {

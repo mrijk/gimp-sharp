@@ -18,9 +18,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-using System.Collections;
-
 namespace Gimp.PhotoshopActions
 {
   public class MotionBlurEvent : ActionEvent
@@ -29,12 +26,6 @@ namespace Gimp.PhotoshopActions
     int _angle;
     [Parameter("Dstn")]
     double _distance;
-
-    protected override IEnumerable ListParameters()
-    {
-      yield return "Angle: " + _angle;
-      yield return "Distance: " + _distance;
-    }
 
     override public bool Execute()
     {

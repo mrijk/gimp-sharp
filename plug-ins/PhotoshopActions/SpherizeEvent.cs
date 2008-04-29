@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // SpherizeEvent.cs
 //
@@ -18,9 +18,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-using System.Collections;
-
 namespace Gimp.PhotoshopActions
 {
   public class SpherizeEvent : ActionEvent
@@ -29,12 +26,6 @@ namespace Gimp.PhotoshopActions
     int _amount;
     [Parameter("SphM")]
     EnumParameter _mode;
-
-    protected override IEnumerable ListParameters()
-    {
-      yield return "Amount: " + _amount;
-      yield return "Mode: " + Abbreviations.Get(_mode.Value);
-    }
 
     override public bool Execute()
     {

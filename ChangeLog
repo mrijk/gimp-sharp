@@ -1,3 +1,24 @@
+2008-04-29  Maurits  <maurits.rijk@gmail.com>
+
+	* plug-ins/PhotoshopActions/LongParameter.cs: capitalize parameter
+	name
+
+	* plug-ins/PhotoshopActions/WaveEvent.cs
+	* plug-ins/PhotoshopActions/ExpandEvent.cs
+	* plug-ins/PhotoshopActions/ContractEvent.cs
+	* plug-ins/PhotoshopActions/TilesEvent.cs
+	* plug-ins/PhotoshopActions/GlassEvent.cs
+	* plug-ins/PhotoshopActions/BrightnessEvent.cs
+	* plug-ins/PhotoshopActions/TexturizerEvent.cs
+	* plug-ins/PhotoshopActions/TwirlEvent.cs: 
+	* plug-ins/PhotoshopActions/PatchworkEvent.cs
+	* plug-ins/PhotoshopActions/ZigZagEvent.cs
+	* plug-ins/PhotoshopActions/MotionBlurEvent.cs
+	* plug-ins/PhotoshopActions/MakePatternEvent.cs
+	* plug-ins/PhotoshopActions/ChalkCharcoalEvent.cs
+	* plug-ins/PhotoshopActions/StopEvent.cs: clean-up ListParameters 
+	routine
+
 2008-04-28  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/CrystallizeEvent.cs

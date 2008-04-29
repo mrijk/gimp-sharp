@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // TilesEvent.cs
 //
@@ -19,7 +19,6 @@
 //
 
 using System;
-using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
@@ -31,13 +30,6 @@ namespace Gimp.PhotoshopActions
     int _maximumOffset;
     [Parameter("FlCl")]
     EnumParameter _fillColor;
-
-    protected override IEnumerable ListParameters()
-    {
-      yield return "Number Of Tiles: " + _numberOfTiles;
-      yield return "Maximum Offset: " + _maximumOffset;
-      yield return "Fill Empty With: " + _fillColor.Value;
-    }
 
     override public bool Execute()
     {

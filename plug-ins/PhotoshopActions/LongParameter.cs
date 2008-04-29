@@ -39,7 +39,9 @@ namespace Gimp.PhotoshopActions
 
     public override string Format()
     {
-      return String.Format("{0}: {1}", Abbreviations.Get(Name), Value);
+      string s = Abbreviations.Get(Name);
+      s = char.ToUpper(s[0]) + s.Substring(1);
+      return String.Format("{0}: {1}", s, Value);
     }
   }
 }

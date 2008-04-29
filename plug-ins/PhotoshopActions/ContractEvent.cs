@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // ContractEvent.cs
 //
@@ -18,19 +18,12 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System.Collections;
-
 namespace Gimp.PhotoshopActions
 {
   public class ContractEvent : ActionEvent
   {
     [Parameter("By")]
     double _by;
-
-    protected override IEnumerable ListParameters()
-    {
-      yield return "By: " + (int) _by + " pixels";
-    }
 
     override public bool Execute()
     {
