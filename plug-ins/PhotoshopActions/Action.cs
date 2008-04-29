@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // Action.cs
 //
@@ -30,55 +30,22 @@ namespace Gimp.PhotoshopActions
 
     bool _enabled = true;
 
-    string _name;
-    byte _shiftKey;
-    byte _commandKey;
-    int _colorIndex;
-    byte _expanded;
-    int _nrOfChildren;
+    public byte ShiftKey {private get; set;}
+    public byte CommandKey {private get; set;}
+    public int ColorIndex {private get; set;}
+    public byte Expanded {get; set;}
+    public int NrOfChildren {get; set;}
+    public string Name {get; set;}
 
     public Action()
     {
-    }
-
-    public byte ShiftKey
-    {
-      set {_shiftKey = value;}
-    }
-
-    public byte CommandKey
-    {
-      set {_commandKey = value;}
-    }
-
-    public int ColorIndex
-    {
-      set {_colorIndex = value;}
-    }
-
-    public byte Expanded
-    {
-      get {return _expanded;}
-      set {_expanded = value;}
-    }
-
-    public int NrOfChildren
-    {
-      get {return _nrOfChildren;}
-      set {_nrOfChildren = value;}
-    }
-
-    public string Name
-    {
-      get {return _name;}
-      set {_name = value;}
     }
 
     public bool IsExecutable
     {
       get
 	{
-	  if (_set.Count != _nrOfChildren)
+	  if (ActionEvents != NrOfChildren)
 	    {
 	      return false;
 	    }
@@ -101,10 +68,7 @@ namespace Gimp.PhotoshopActions
 
     public int ActionEvents
     {
-      get
-	{
-	  return _set.Count;
-	}
+      get {return _set.Count;}
     }
 
     public int ExecutableActionEvents
@@ -130,14 +94,14 @@ namespace Gimp.PhotoshopActions
 
     public void Execute()
     {
-      for (int i = 0; i < _set.Count; i++)
+      for (int i = 0; i < ActionEvents; i++)
 	{
 	  ActionEvent actionEvent = _set[i];
 
 	  // Check if we need to save the layer because of a following
 	  // Fade event.
 
-	  if (i < _set.Count - 1)
+	  if (i < ActionEvents - 1)
 	    {
 	      ActionEvent next = _set[i + 1];
 	      if (next is FadeEvent)

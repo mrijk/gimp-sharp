@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // PasteEvent.cs
 //
@@ -18,22 +18,12 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System.Collections;
-
 namespace Gimp.PhotoshopActions
 {
   public class PasteEvent : ActionEvent
   {
     [Parameter("AntA")]
     EnumParameter _antiAlias;
-
-    protected override IEnumerable ListParameters()
-    {
-      if (_antiAlias != null)
-	{
-	  yield return Format(_antiAlias, "Anti-alias");
-	}
-    }
 
     override public bool Execute()
     {

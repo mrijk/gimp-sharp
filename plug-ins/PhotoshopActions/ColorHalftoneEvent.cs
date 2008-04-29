@@ -18,9 +18,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-using System.Collections;
-
 namespace Gimp.PhotoshopActions
 {
   public class ColorHalftoneEvent : ActionEvent
@@ -39,15 +36,6 @@ namespace Gimp.PhotoshopActions
     public override bool IsExecutable
     {
       get {return false;}
-    }
-
-    protected override IEnumerable ListParameters()
-    {
-      yield return Format(_radius, "Rds");
-      yield return Format(_channel1, "Ang1");
-      yield return Format(_channel2, "Ang2");
-      yield return Format(_channel3, "Ang3");
-      yield return Format(_channel4, "Ang4");
     }
 
     override public bool Execute()

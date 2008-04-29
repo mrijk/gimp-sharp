@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // FeatherEvent.cs
 //
@@ -18,20 +18,12 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-using System.Collections;
-
 namespace Gimp.PhotoshopActions
 {
   public class FeatherEvent : ActionEvent
   {
     [Parameter("Rds")]
     double _radius;
-
-    protected override IEnumerable ListParameters()
-    {
-      yield return "Radius: " + _radius + " pixels";
-    }
 
     override public bool Execute()
     {

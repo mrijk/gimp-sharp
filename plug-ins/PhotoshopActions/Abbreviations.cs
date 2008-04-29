@@ -107,6 +107,10 @@ namespace Gimp.PhotoshopActions
       _map["Dstr"] = "Distribution";
       _map["Dtl"]  = "Detail";
       _map["Edg"]  = "Edge";
+      _map["EdgB"] = "Edge Brightness";
+      _map["EdgI"] = "Edge Intensity";
+      _map["EdgT"] = "Edge Thickness";
+      _map["EdgW"] = "Edge Width";
       _map["ElmO"] = "Odd Fields";
       _map["Elps"] = "Ellipse";
       _map["Exps"] = "Exposure";
@@ -141,6 +145,7 @@ namespace Gimp.PhotoshopActions
       _map["Gsn"]  = "gaussian";
       _map["H"]    = "Hue";
       _map["HghS"] = "Highlight strength";
+      _map["Hght"] = "Height";
       _map["HlSz"] = "Size";
       _map["HrdL"] = "hard light";
       _map["Hrdn"] = "hardness";
@@ -156,6 +161,7 @@ namespace Gimp.PhotoshopActions
       _map["Invr"] = "Invert Source";
       _map["InvT"] = "Invert Texture";
       _map["LbCM"] = "Lab color mode";
+      _map["Lctn"] = "Location";
       _map["LDBL"] = "Bottom Left";
       _map["LDBt"] = "Bottom";
       _map["LDTp"] = "Top";
@@ -171,6 +177,7 @@ namespace Gimp.PhotoshopActions
       _map["Lght"] = "lightness";
       _map["linearLight"] = "linear light";
       _map["Lmns"] = "luminosity";
+      _map["Ln"]   = "line"; 
       _map["LngL"] = "long lines";
       _map["Lnr"]  = "linear";
       _map["Lns"]  = "Lens";
@@ -221,6 +228,7 @@ namespace Gimp.PhotoshopActions
       _map["Prvs"] = "previous";
       _map["PrsT"] = "Preserve Transparency";
       _map["Pstn"] = "Position";
+      _map["Pstr"] = "Posterization";
       _map["Ptrn"] = "pattern";
       _map["Pyrm"] = "pyramids";
       _map["Rd"]   = "red";

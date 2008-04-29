@@ -39,7 +39,7 @@ namespace Gimp.PhotoshopActions
       Parameter to = Parameters["T"];
 
       if (to is EnumParameter)
-	yield return Format(to as EnumParameter, "To:");
+	yield return Format(to as EnumParameter, "To");
       else
 	yield return "Fix me!";
     }

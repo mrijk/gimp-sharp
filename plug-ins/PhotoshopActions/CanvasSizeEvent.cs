@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // CanvasSizeEvent.cs
 //
@@ -19,7 +19,6 @@
 //
 
 using System;
-using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
@@ -35,20 +34,6 @@ namespace Gimp.PhotoshopActions
     EnumParameter _vertical;
     [Parameter("canvasExtensionColorType")]
     EnumParameter _extensionColorType;
-
-    protected override IEnumerable ListParameters()
-    {
-      yield return "Width: " + _width;
-      yield return "Height: " + _height;
-      if (_horizontal != null)
-	{
-	  yield return "Horizontal: " + Abbreviations.Get(_horizontal.Value);
-	}
-      if (_horizontal != null)
-	{
-	  yield return "Vertical: " + Abbreviations.Get(_horizontal.Value);
-	}
-    }
 
     override public bool Execute()
     {

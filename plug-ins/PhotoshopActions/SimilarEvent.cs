@@ -18,9 +18,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-using System.Collections;
-
 namespace Gimp.PhotoshopActions
 {
   public class SimilarEvent : ActionEvent
@@ -38,12 +35,6 @@ namespace Gimp.PhotoshopActions
     public override string EventForDisplay
     {
       get {return base.EventForDisplay + " Selection";}
-    }
-
-    protected override IEnumerable ListParameters()
-    {
-      yield return Format(_tolerance, "Tlrn");
-      yield return Format(_antiAlias, "AntA");
     }
 
     override public bool Execute()

@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // ActionSet.cs
 //
@@ -21,6 +21,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Gimp.PhotoshopActions
 {
@@ -30,34 +31,18 @@ namespace Gimp.PhotoshopActions
 
     bool _enabled = true;
 
-    string _name;
-    byte _expanded;
-    int _setChildren;
+    public string Name {get; private set;}
+    public byte Expanded {private get; set;}
+    public int SetChildren {get; set;}
 
     public ActionSet(string name)
     {
-      _name = name;
-    }
-
-    public byte Expanded
-    {
-      set {_expanded = value;}
-    }
-
-    public int SetChildren
-    {
-      get {return _setChildren;}
-      set {_setChildren = value;}
-    }
-
-    public string Name
-    {
-      get {return _name;}
+      Name = name;
     }
 
     public string ExtendedName
     {
-      get {return Name + " (" + _setChildren + ")";}
+      get {return Name + " (" + SetChildren + ")";}
     }
 
     public void Add(Action action)
@@ -97,14 +82,13 @@ namespace Gimp.PhotoshopActions
     {
       get
 	{
-	  if (_setChildren != _set.Count)
+	  if (SetChildren != NrOfActions)
 	    {
 	      return false;	// Not fully parsed
 	    }
 
 	  // TODO: there are smarter constructs for this!
-	  return !_set.Exists(delegate(Action action) {
-	    return !action.IsExecutable;});
+	  return !_set.Exists(action => !action.IsExecutable);
 	}
     }
 
@@ -114,7 +98,7 @@ namespace Gimp.PhotoshopActions
       set 
 	{
 	  _enabled = value;
-	  _set.ForEach(delegate(Action action) {action.IsEnabled = value;});
+	  _set.ForEach(action => action.IsEnabled = value);
 	}
     }
 
@@ -122,12 +106,7 @@ namespace Gimp.PhotoshopActions
     {
       get 
 	{
-	  int sum = 0;
-	  foreach (Action action in _set)
-	    {
-	      sum += action.ActionEvents;
-	    }
-	  return sum;
+	  return _set.Select(action => action.ActionEvents).Sum();
 	}
     }
     
@@ -135,12 +114,7 @@ namespace Gimp.PhotoshopActions
     {
       get 
 	{
-	  int sum = 0;
-	  foreach (Action action in _set)
-	    {
-	      sum += action.ExecutableActionEvents;
-	    }
-	  return sum;
+	  return _set.Select(action => action.ExecutableActionEvents).Sum();
 	}
     }
 
@@ -153,15 +127,7 @@ namespace Gimp.PhotoshopActions
     {
       get 
 	{
-	  int sum = 0;
-	  foreach (Action action in _set)
-	    {
-	      if (action.IsExecutable)
-		{
-		  sum++;
-		}
-	    }
-	  return sum;
+	  return _set.Where(action => action.IsExecutable).Count();
 	}
     }
   }

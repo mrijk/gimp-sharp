@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // GlowingEdgesEvent.cs
 //
@@ -18,9 +18,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-using System.Collections;
-
 namespace Gimp.PhotoshopActions
 {
   public class GlowingEdgesEvent : ActionEvent
@@ -34,20 +31,8 @@ namespace Gimp.PhotoshopActions
     [Parameter("Smth")]
     int _smoothness;
 
-    protected override IEnumerable ListParameters()
-    {
-      if (_gefk != null)
-	{
-	  yield return "Effect: " + Abbreviations.Get(_gefk.Value);
-	}
-      yield return "Edge width: " + _edgeWidth;
-      yield return "Edge brightness: " + _edgeBrightness;
-      yield return "Smoothness: " + _smoothness;
-    }
-
     override public bool Execute()
     {
-      Console.WriteLine("Fix me: Glowing Edges is mapped on Neon");
       double radius = _edgeWidth;
       double amount = 0;
       RunProcedure("plug_in_neon", radius, amount);

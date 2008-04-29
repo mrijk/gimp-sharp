@@ -19,7 +19,6 @@
 //
 
 using System;
-using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
@@ -53,14 +52,6 @@ namespace Gimp.PhotoshopActions
     public override bool IsExecutable
     {
       get {return _executable;}
-    }
-
-    protected override IEnumerable ListParameters()
-    {
-      yield return "Width: " + _width;
-      yield return "Location: " + Abbreviations.Get(_location.Value);
-      yield return "Opacity: " + _opacity + "%";
-      yield return "Mode: " + Abbreviations.Get(_mode.Value);
     }
 
     override public ActionEvent Parse(ActionParser parser)

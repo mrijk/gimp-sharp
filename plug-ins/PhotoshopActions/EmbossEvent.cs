@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // EmbossEvent.cs
 //
@@ -18,9 +18,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-using System.Collections;
-
 namespace Gimp.PhotoshopActions
 {
   public class EmbossEvent : ActionEvent
@@ -32,21 +29,8 @@ namespace Gimp.PhotoshopActions
     [Parameter("Amnt")]
     int _amount;
 
-    protected override IEnumerable ListParameters()
-    {
-      yield return "Angle: " + _angle;
-      yield return "Height: " + _height;
-      yield return "Amount: " + _amount;
-    }
-
     override public bool Execute()
     {
-      if (ActiveImage == null)
-	{
-	  Console.WriteLine("Please open image first");
-	  return false;
-	}
-
       // Fix me: check parameters
 
       RunProcedure("plug_in_emboss", (double) _angle, (double) _amount, 

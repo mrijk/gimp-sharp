@@ -1,5 +1,28 @@
 2008-04-29  Maurits  <maurits.rijk@gmail.com>
 
+	* plug-ins/PhotoshopActions/Action.cs
+	* plug-ins/PhotoshopActions/ActionSet.cs: minor clean-up using C#
+	3.0 features
+
+	* plug-ins/PhotoshopActions/AccentedEdgesEvent.cs
+	* plug-ins/PhotoshopActions/PosterEdgesEvent.cs
+	* plug-ins/PhotoshopActions/AngledStrokesEvent.cs
+	* plug-ins/PhotoshopActions/SmoothnessEvent.cs
+	* plug-ins/PhotoshopActions/CrosshatchEvent.cs
+	* plug-ins/PhotoshopActions/ColorHalftoneEvent.cs
+	* plug-ins/PhotoshopActions/StampEvent.cs
+	* plug-ins/PhotoshopActions/EmbossEvent.cs
+	* plug-ins/PhotoshopActions/UnderpaintingEvent.cs
+	* plug-ins/PhotoshopActions/DryBrushEvent.cs
+	* plug-ins/PhotoshopActions/SimilarEvent.cs
+	* plug-ins/PhotoshopActions/CanvasSizeEvent.cs
+	* plug-ins/PhotoshopActions/PasteEvent.cs
+	* plug-ins/PhotoshopActions/FeatherEvent.cs
+	* plug-ins/PhotoshopActions/StopEvent.cs: clean-up ListParameters 
+	routine
+
+2008-04-29  Maurits  <maurits.rijk@gmail.com>
+
 	* plug-ins/PhotoshopActions/LongParameter.cs: capitalize parameter
 	name
 
