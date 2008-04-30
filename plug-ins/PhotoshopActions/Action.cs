@@ -21,12 +21,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Gimp.PhotoshopActions
 {
   public class Action : IExecutable
   {
-    List<ActionEvent> _set = new List<ActionEvent>();
+    readonly List<ActionEvent> _set = new List<ActionEvent>();
 
     bool _enabled = true;
 
@@ -45,13 +46,8 @@ namespace Gimp.PhotoshopActions
     {
       get
 	{
-	  if (ActionEvents != NrOfChildren)
-	    {
-	      return false;
-	    }
-
-	  return !_set.Exists(delegate(ActionEvent actionEvent) {
-	    return !actionEvent.IsExecutable;});
+	  return ActionEvents == NrOfChildren &&
+	    _set.TrueForAll(actionEvent => actionEvent.IsExecutable);
 	}
     }
 
@@ -61,8 +57,7 @@ namespace Gimp.PhotoshopActions
       set 
 	{
 	  _enabled = value;
-	  _set.ForEach(delegate(ActionEvent actionEvent) {
-	    actionEvent.IsEnabled = value;});
+	  _set.ForEach(actionEvent => actionEvent.IsEnabled = value);
 	}
     }
 
@@ -75,15 +70,7 @@ namespace Gimp.PhotoshopActions
     {
       get
 	{
-	  int sum = 0;
-	  foreach (ActionEvent actionEvent in _set)
-	    {
-	      if (actionEvent.IsExecutable)
-		{
-		  sum++;
-		}
-	    }
-	  return sum;
+	  return _set.Where(actionEvent => actionEvent.IsExecutable).Count();
 	}
     }
 

@@ -40,8 +40,9 @@ namespace Gimp.PhotoshopActions
     readonly byte _dialogOptions;
     */
 
+    public int NumberOfItems {get; set;}
+
     string _eventForDisplay;
-    protected int _numberOfItems;
     readonly ParameterSet _parameters = new ParameterSet();
 
     static Drawable _activeDrawable;
@@ -66,7 +67,7 @@ namespace Gimp.PhotoshopActions
     public ActionEvent(ActionEvent srcEvent)
     {
       _eventForDisplay = srcEvent._eventForDisplay;
-      _numberOfItems = srcEvent._numberOfItems;
+      NumberOfItems = srcEvent.NumberOfItems;
       _parameters = srcEvent._parameters;
     }
 
@@ -180,12 +181,6 @@ namespace Gimp.PhotoshopActions
       }
     }
 
-    public int NumberOfItems
-    {
-      get {return _numberOfItems;}
-      set {_numberOfItems = value;}
-    }
-
     public void FillStore(TreeStore store, TreeIter iter)
     {
       iter = store.AppendValues(iter, EventForDisplay, this);
@@ -196,7 +191,6 @@ namespace Gimp.PhotoshopActions
 	}
     }
 
-    // Fix me: make sure that parameters are ordered!
     protected virtual IEnumerable ListParameters()
     {
       foreach (String s in Parameters.ListParameters())

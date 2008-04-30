@@ -115,7 +115,7 @@ namespace Gimp.Ministeck
 	  _preview.Invalidate();
 	};
       table.AttachAligned(0, 1, _("C_olor:"), 0.0, 0.5, colorButton, 1, true);
-      
+#if false      
       Expander expander = new Expander(_("Colors Needed"));
       vbox.PackStart(expander, false, false, 0);
       GimpTable colorTable = new GimpTable(4, 6, false)
@@ -133,7 +133,7 @@ namespace Gimp.Ministeck
 	    }
 	}
       expander.Add(colorTable);
-
+#endif
       return dialog;
     }
 
@@ -154,7 +154,7 @@ namespace Gimp.Ministeck
     void RenderMinisteck(Image image, Drawable drawable, bool preview)
     {
       image.UndoGroupStart();
-      RunProcedure("plug_in_pixelize", _size);
+      RunProcedure("plug_in_pixelize", image, drawable, _size);
 
       MinisteckPalette palette = new MinisteckPalette();
       image.ConvertIndexed(ConvertDitherType.No, ConvertPaletteType.Custom,

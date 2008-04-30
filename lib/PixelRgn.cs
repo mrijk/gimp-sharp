@@ -41,7 +41,8 @@ namespace Gimp
 
   public sealed class PixelRgn
   {
-    GimpPixelRgn pr = new GimpPixelRgn();
+    IntPtr _tmp;
+    GimpPixelRgn pr; //  = new GimpPixelRgn();
     readonly byte[] _dummy;
     readonly int _bpp;
     readonly bool _dirty;
@@ -49,11 +50,19 @@ namespace Gimp
     public PixelRgn(Drawable drawable, int x, int y, int width, int height,
 		    bool dirty, bool shadow)
     {
+      _tmp = Marshal.AllocCoTaskMem(Marshal.SizeOf(typeof(GimpPixelRgn)));
+      pr = (GimpPixelRgn) Marshal.PtrToStructure(_tmp, typeof(GimpPixelRgn));
+
       gimp_pixel_rgn_init(ref pr, drawable.Ptr, x, y, width, height, dirty, 
 			  shadow);
       _bpp = (int) pr.bpp;
       _dummy = new byte[pr.bpp];
       _dirty = dirty;
+    }
+
+    ~PixelRgn()
+    {
+      Marshal.FreeCoTaskMem(_tmp);
     }
 
     public PixelRgn(Drawable drawable, Rectangle rectangle, bool dirty,

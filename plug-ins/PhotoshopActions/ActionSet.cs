@@ -82,13 +82,8 @@ namespace Gimp.PhotoshopActions
     {
       get
 	{
-	  if (SetChildren != NrOfActions)
-	    {
-	      return false;	// Not fully parsed
-	    }
-
-	  // TODO: there are smarter constructs for this!
-	  return !_set.Exists(action => !action.IsExecutable);
+	  return SetChildren == NrOfActions &&
+	    _set.TrueForAll(action => action.IsExecutable);
 	}
     }
 
