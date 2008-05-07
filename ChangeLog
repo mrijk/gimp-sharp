@@ -1,3 +1,22 @@
+2008-05-07  Maurits  <maurits.rijk@gmail.com>
+
+	* plug-ins/PhotoshopActions/FadeEvent.cs
+	* plug-ins/PhotoshopActions/CraquelureEvent.cs
+	* plug-ins/PhotoshopActions/DisplaceEvent.cs: clean-up
+	ListParameters routine
+
+	* plug-ins/PhotoshopActions/Abbreviations.cs: more abbreviations
+
+	* plug-ins/PhotoshopActions/PathParameter.cs: override Format
+
+2008-05-06  Maurits  <maurits.rijk@gmail.com>
+
+	* plug-ins/PhotoshopActions/TraceContourEvent.cs
+	* plug-ins/PhotoshopActions/InkOutlinesEvent.cs
+	* plug-ins/PhotoshopActions/MosaicTilesEvent.cs
+	* plug-ins/PhotoshopActions/NotePaperEvent.cs: clean-up
+	ListParameters routine
+
 2008-04-30  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/PixelRgn.cs: variant of Ivo's patch

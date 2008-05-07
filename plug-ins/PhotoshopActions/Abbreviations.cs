@@ -88,6 +88,9 @@ namespace Gimp.PhotoshopActions
       _map["Cntr"] = "Contrast";
       _map["Cnvr"] = "Convert";
       _map["CrnH"] = "Current History State";
+      _map["CrcB"] = "Crack brightness";
+      _map["CrcD"] = "Crack depth";
+      _map["CrcS"] = "Crack spacing";
       _map["CrnL"] = "Current Light";
       _map["CrrL"] = "current layer";
       _map["CrsD"] = "Coarse Dots";
@@ -103,6 +106,8 @@ namespace Gimp.PhotoshopActions
       _map["Drft"] = "draft";
       _map["DrkI"] = "Dark Intensity";
       _map["Drkn"] = "darken";
+      _map["DspF"] = "Displace File";
+      _map["DspM"] = "Displacement Map";
       _map["Dstn"] = "Distance";
       _map["Dstr"] = "Distribution";
       _map["Dtl"]  = "Detail";
@@ -151,6 +156,7 @@ namespace Gimp.PhotoshopActions
       _map["Hrdn"] = "hardness";
       _map["Hrzn"] = "Horizontal";
       _map["HrzO"] = "Horizontal Only";
+      _map["HrzS"] = "Horizontal Scale";
       _map["ImgB"] = "Image Balance";
       _map["IndC"] = "indexed color mode";
       _map["Insd"] = "inside";
@@ -210,6 +216,7 @@ namespace Gimp.PhotoshopActions
       _map["NmbR"] = "Ridges";
       _map["Nrml"] = "normal";
       _map["Nxt"]  = "next";
+      _map["Opct"] = "Opacity";
       _map["Orng"] = "orange";
       _map["Ornt"] = "Orientation";
       _map["Otsd"] = "outside";
@@ -307,6 +314,7 @@ namespace Gimp.PhotoshopActions
       _map["Unfr"] = "uniform";
       _map["Usng"] = "Using";
       _map["Vrtc"] = "Vertical";
+      _map["VrtS"] = "Vertical Scale";
       _map["Wdth"] = "Width";
       _map["WhHi"] = "White is High";
       _map["Wht"]  = "white";

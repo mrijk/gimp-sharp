@@ -39,10 +39,9 @@ namespace Gimp
     public uint        process_count;      /* used internally */
   }
 
-  public sealed class PixelRgn
+  public unsafe sealed class PixelRgn
   {
-    IntPtr _tmp;
-    GimpPixelRgn pr; //  = new GimpPixelRgn();
+    GimpPixelRgn* pr = null;
     readonly byte[] _dummy;
     readonly int _bpp;
     readonly bool _dirty;
@@ -50,19 +49,18 @@ namespace Gimp
     public PixelRgn(Drawable drawable, int x, int y, int width, int height,
 		    bool dirty, bool shadow)
     {
-      _tmp = Marshal.AllocCoTaskMem(Marshal.SizeOf(typeof(GimpPixelRgn)));
-      pr = (GimpPixelRgn) Marshal.PtrToStructure(_tmp, typeof(GimpPixelRgn));
-
-      gimp_pixel_rgn_init(ref pr, drawable.Ptr, x, y, width, height, dirty, 
-			  shadow);
-      _bpp = (int) pr.bpp;
-      _dummy = new byte[pr.bpp];
+      pr = (GimpPixelRgn*)g_malloc(sizeof(GimpPixelRgn));
+      gimp_pixel_rgn_init(ref *pr, drawable.Ptr, x, y, width, height, dirty, 
+        shadow);
+      _bpp = (int) pr->bpp;
+      _dummy = new byte[pr->bpp];
       _dirty = dirty;
     }
-
+    
     ~PixelRgn()
     {
-      Marshal.FreeCoTaskMem(_tmp);
+      g_free((void*)pr);
+      pr = null;
     }
 
     public PixelRgn(Drawable drawable, Rectangle rectangle, bool dirty,
@@ -79,19 +77,19 @@ namespace Gimp
 
     public static IntPtr Register(PixelRgn rgn)
     {
-      return gimp_pixel_rgns_register(1, ref rgn.pr);
+      return gimp_pixel_rgns_register(1, ref *rgn.pr);
     }
 
     public static IntPtr Register(PixelRgn rgn1, PixelRgn rgn2)
     {
-      return gimp_pixel_rgns_register(2, ref rgn1.pr, ref rgn2.pr);
+      return gimp_pixel_rgns_register(2, ref *rgn1.pr, ref *rgn2.pr);
     }
 
     public static IntPtr Register(PixelRgn rgn1, PixelRgn rgn2, 
 				  PixelRgn rgn3)
     {
-      return gimp_pixel_rgns_register(3, ref rgn1.pr, ref rgn2.pr,
-				      ref rgn3.pr);
+      return gimp_pixel_rgns_register(3, ref *rgn1.pr, ref *rgn2.pr,
+              ref *rgn3.pr);
     }
 
     public static IntPtr Process(IntPtr priPtr)
@@ -101,30 +99,30 @@ namespace Gimp
 
     public void GetPixel(byte[] buf, int x, int y)
     {
-      gimp_pixel_rgn_get_pixel(ref pr, buf, x, y);
+      gimp_pixel_rgn_get_pixel(ref *pr, buf, x, y);
     }
 
     public void SetPixel(byte[] buf, int x, int y)
     {
-      gimp_pixel_rgn_set_pixel(ref pr, buf, x, y);
+      gimp_pixel_rgn_set_pixel(ref *pr, buf, x, y);
     }
 
     public byte[] GetRect(int x, int y, int width, int height)
     {
       byte[] buf = new byte[width * _bpp * height];
-      gimp_pixel_rgn_get_rect(ref pr, buf, x, y, width, height);
+      gimp_pixel_rgn_get_rect(ref *pr, buf, x, y, width, height);
       return buf;
     }
 
     public void SetRect(byte[] buf, int x, int y, int width, int height)
     {
-      gimp_pixel_rgn_set_rect(ref pr, buf, x, y, width, height);
+      gimp_pixel_rgn_set_rect(ref *pr, buf, x, y, width, height);
     }
 
     public Pixel[] GetRow(int x, int y, int width)
     {
       byte[] buf = new byte[width * _bpp];
-      gimp_pixel_rgn_get_row(ref pr, buf, x, y, width);
+      gimp_pixel_rgn_get_row(ref *pr, buf, x, y, width);
 
       Pixel[] row = new Pixel[width];
 
@@ -151,37 +149,37 @@ namespace Gimp
 	  index += _bpp;
 	}
 
-      gimp_pixel_rgn_set_row(ref pr, buf, x, y, width);
+      gimp_pixel_rgn_set_row(ref *pr, buf, x, y, width);
     }
 
     public void SetRow(byte[] row, int x, int y)
     {
-      gimp_pixel_rgn_set_row(ref pr, row, x, y, row.Length);
+      gimp_pixel_rgn_set_row(ref *pr, row, x, y, row.Length);
     }
 
     public int X
     {
-      get {return (int) pr.x;}
+      get {return (int) pr->x;}
     }
 
     public int Y
     {
-      get {return (int) pr.y;}
+      get {return (int) pr->y;}
     }
 
     public int W
     {
-      get {return (int) pr.w;}
+      get {return (int) pr->w;}
     }
 
     public int H
     {
-      get {return (int) pr.h;}
+      get {return (int) pr->h;}
     }
 
     public int Rowstride
     {
-      get {return (int) pr.rowstride;}
+      get {return (int) pr->rowstride;}
     }
 
     public bool Dirty
@@ -191,27 +189,32 @@ namespace Gimp
 
     internal GimpPixelRgn PR
     {
-      get {return pr;}
+      get {return *pr;}
     }
 
     public Pixel this[int row, int col]
     {
       set
 	{
-	  IntPtr dest = (IntPtr) ((int) pr.data + (row - Y) * Rowstride + 
+	  IntPtr dest = (IntPtr) ((int) pr->data + (row - Y) * Rowstride + 
 				  (col - X) * _bpp);
 	  Marshal.Copy(value.Bytes, 0, dest, _bpp);
 	}
 
       get
 	{
-	  IntPtr src = (IntPtr) ((int) pr.data + (row - Y) * Rowstride + 
+	  IntPtr src = (IntPtr) ((int) pr->data + (row - Y) * Rowstride + 
 				 (col - X) * _bpp);
 	  Marshal.Copy(src, _dummy, 0, _bpp);
 	  return new Pixel(this, _dummy) {X = col, Y = row};
 	}
     }
 
+    [DllImport("libglib-2.0-0.dll")]
+    static extern void* g_malloc (long n_bytes); 
+    [DllImport("libglib-2.0-0.dll")]
+    static extern void	g_free (void* mem); 
+    
     [DllImport("libgimp-2.0-0.dll")]
     static extern void gimp_pixel_rgn_init (ref GimpPixelRgn pr,
 					    IntPtr drawable,

@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // FadeEvent.cs
 //
@@ -19,7 +19,6 @@
 //
 
 using System;
-using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
@@ -31,12 +30,6 @@ namespace Gimp.PhotoshopActions
     EnumParameter _mode;
 
     Layer _previousLayer;
-
-    protected override IEnumerable ListParameters()
-    {
-      yield return "Opacity: " + _opacity + "%";
-      yield return "Mode: " + Abbreviations.Get(_mode.Value);
-    }
 
     public Layer PreviousLayer
     {

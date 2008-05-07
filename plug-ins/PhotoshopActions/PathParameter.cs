@@ -53,6 +53,11 @@ namespace Gimp.PhotoshopActions
 	}
     }
 
+    public override string Format()
+    {
+      return String.Format("{0}: \"{1}\"", Abbreviations.Get(Name), Path);
+    }
+
     public override void Fill(Object obj, FieldInfo field)
     {
       field.SetValue(obj, Path);

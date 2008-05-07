@@ -57,7 +57,7 @@ namespace Gimp.PhotoshopActions
       set 
 	{
 	  _enabled = value;
-	  _set.ForEach(actionEvent => actionEvent.IsEnabled = value);
+	  _set.ForEach(actionEvent => {actionEvent.IsEnabled = value;});
 	}
     }
 

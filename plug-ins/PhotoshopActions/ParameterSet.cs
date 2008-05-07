@@ -72,7 +72,10 @@ namespace Gimp.PhotoshopActions
     {
       foreach (Parameter child in _list)
 	{
-	  yield return child.Format();
+	  if (child.Name != "null")
+	    {
+	      yield return child.Format();
+	    }
 	}
     }
 

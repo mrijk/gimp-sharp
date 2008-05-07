@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // DisplaceEvent.cs
 //
@@ -17,8 +17,6 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
-
-using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
@@ -38,17 +36,6 @@ namespace Gimp.PhotoshopActions
     public override bool IsExecutable
     {
       get {return false;}
-    }
-
-    protected override IEnumerable ListParameters()
-    {
-      yield return "Horizontal Scale: " + _horizontalScale;
-      yield return "Vertical Scale: " + _verticalScale;
-      yield return "Displacement Map: " + 
-	Abbreviations.Get(_displacementMap.Value);
-      yield return "Undefined Area: " + 
-	Abbreviations.Get(_undefinedArea.Value);
-      yield return "Displace File: " + _displaceFile;
     }
 
     override public bool Execute()
