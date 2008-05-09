@@ -7,10 +7,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gimp-sharp 0.10\n"
+"Project-Id-Version: gimp-sharp 0.15\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-01-23 00:20+0300\n"
-"PO-Revision-Date: 2006-07-20 03:05+0400\n"
+"POT-Creation-Date: 2008-05-09 11:10+0200\n"
+"PO-Revision-Date: 2008-05-09 11:11+0100\n"
 "Last-Translator: Alexandre Prokoudine <alexandre.prokoudine@gmail.com>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -29,11 +29,13 @@ msgstr "Размер по умолчанию"
 msgid "Color for the outline"
 msgstr "Цвет контура"
 
-#: ../Ministeck.cs:60 ../Ministeck.cs:61
+#: ../Ministeck.cs:60
+#: ../Ministeck.cs:61
 msgid "Generates Ministeck"
-msgstr "Создаёт министек"
+msgstr "Создает министек"
 
-#: ../Ministeck.cs:65 ../Ministeck.cs:179
+#: ../Ministeck.cs:65
+#: ../Ministeck.cs:201
 msgid "Ministeck..."
 msgstr "Министек..."
 
@@ -41,7 +43,8 @@ msgstr "Министек..."
 msgid "Ministeck"
 msgstr "Министек"
 
-#: ../Ministeck.cs:78 ../Ministeck.cs:79
+#: ../Ministeck.cs:78
+#: ../Ministeck.cs:79
 msgid "ministeck"
 msgstr "министек"
 
@@ -53,21 +56,11 @@ msgstr "_Размер:"
 msgid "_Limit Shapes"
 msgstr "Ограничить _фигуры"
 
-#: ../Ministeck.cs:113
+#: ../Ministeck.cs:117
 msgid "C_olor:"
 msgstr "_Цвет:"
 
-#~ msgid "first"
-#~ msgstr "первый"
+#: ../Ministeck.cs:119
+msgid "Colors Needed"
+msgstr "Необходимые цвета"
 
-#~ msgid "last"
-#~ msgstr "последний"
-
-#~ msgid "black"
-#~ msgstr "чёрный"
-
-#~ msgid "dark blue"
-#~ msgstr "тёмно-синий"
-
-#~ msgid "light blue"
-#~ msgstr "голубой"

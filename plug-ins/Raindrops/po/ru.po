@@ -3,80 +3,68 @@
 # This file is distributed under the same license as the gimp-sharp package.
 # Alexandre Prokoudine <alexandre.prokoudine@gmail.com>, 2006.
 # , fuzzy
-# 
-# 
+#
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: gimp-sharp 0.10\n"
+"Project-Id-Version: gimp-sharp 0.15\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-07-16 08:42+0200\n"
-"PO-Revision-Date: 2006-07-20 03:05+0400\n"
+"POT-Creation-Date: 2008-05-09 11:32+0200\n"
+"PO-Revision-Date: 2008-05-09 11:33+0100\n"
 "Last-Translator: Alexandre Prokoudine <alexandre.prokoudine@gmail.com>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit"
+"Content-Transfer-Encoding: 8bit\n"
 
-#: Raindrops.cs:50 Raindrops.cs:73 Raindrops.cs:74
-msgid "Generates raindrops"
-msgstr "Создать дождевые капли"
-
-#: Raindrops.cs:66
+#: ../Raindrops.cs:52
 msgid "Size of raindrops"
 msgstr "Размер капель"
 
-#: Raindrops.cs:68
+#: ../Raindrops.cs:53
 msgid "Number of raindrops"
 msgstr "Количество капель"
 
-#: Raindrops.cs:70
+#: ../Raindrops.cs:54
 msgid "Fisheye effect"
 msgstr "Эффект «рыбьего глаза»"
 
-#: Raindrops.cs:78 Raindrops.cs:226
+#: ../Raindrops.cs:58
+#: ../Raindrops.cs:59
+msgid "Generates raindrops"
+msgstr "Создать дождевые капли"
+
+#: ../Raindrops.cs:63
+#: ../Raindrops.cs:156
 msgid "Raindrops..."
 msgstr "Дождевые капли..."
 
-#: Raindrops.cs:81
-msgid "<Image>/"
-msgstr ""
-
-#: Raindrops.cs:82
-msgid "Filters"
-msgstr ""
-
-#: Raindrops.cs:82 Raindrops.cs:83
-msgid "/"
-msgstr ""
-
-#: Raindrops.cs:83
+#: ../Raindrops.cs:67
 msgid "Light and Shadow"
-msgstr ""
+msgstr "Свет и тень"
 
-#: Raindrops.cs:84
+#: ../Raindrops.cs:68
 msgid "Glass"
 msgstr "Стекло"
 
-#: Raindrops.cs:96
+#: ../Raindrops.cs:77
 msgid "Raindrops 0.1"
 msgstr "Дождевые капли 0.1"
 
-#: Raindrops.cs:97
+#: ../Raindrops.cs:77
+#: ../Raindrops.cs:79
 msgid "Raindrops"
 msgstr "Дождевые капли"
 
-#: Raindrops.cs:114
+#: ../Raindrops.cs:93
 msgid "_Drop size:"
 msgstr "_Размер капли:"
 
-#: Raindrops.cs:124
+#: ../Raindrops.cs:103
 msgid "_Number:"
 msgstr "_Количество"
 
-#: Raindrops.cs:134
+#: ../Raindrops.cs:113
 msgid "_Fish eye:"
 msgstr "«Рыбий глаз»"
 
-#: Raindrops.cs:189
-msgid "This filter can be applied just over layers"
-msgstr "Этот фильтр может быть применён просто поверх слоёв"

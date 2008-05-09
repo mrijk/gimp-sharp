@@ -7,10 +7,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gimp-sharp 0.10\n"
+"Project-Id-Version: gimp-sharp 0.15\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-01-23 01:00+0300\n"
-"PO-Revision-Date: 2006-07-20 01:34+0400\n"
+"POT-Creation-Date: 2008-05-09 15:09+0200\n"
+"PO-Revision-Date: 2008-05-09 15:38+0100\n"
 "Last-Translator: Alexandre Prokoudine <alexandre.prokoudine@gmail.com>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -19,11 +19,11 @@ msgstr ""
 
 #: ../Sky.cs:85
 msgid "Camera tilt angle (0.0 - 90.0)"
-msgstr ""
+msgstr "Угол наклона камеры (0.0 - 90.0)"
 
 #: ../Sky.cs:87
 msgid "Camera rotation angle (0.0 - 90.0)"
-msgstr ""
+msgstr "Угол вращения камеры (0.0 - 90.0)"
 
 #: ../Sky.cs:89
 msgid "Random seed, -1 to use current time"
@@ -31,106 +31,107 @@ msgstr ""
 
 #: ../Sky.cs:91
 msgid "Show sun? (bool)"
-msgstr ""
+msgstr "Показать Солнце? (да/нет)"
 
 #: ../Sky.cs:93
 msgid "Sun's x coordinate (0.0 - 1.0)"
-msgstr ""
+msgstr "Координата X Солнца (0.0 - 1.0)"
 
 #: ../Sky.cs:95
 msgid "Sun's y coordinate (0.0 - 1.0)"
-msgstr ""
+msgstr "Координата Y Солнца (0.0 - 1.0)"
 
 #: ../Sky.cs:97
 msgid "Time in hours (0.0 - 24.0)"
-msgstr ""
+msgstr "Время в часах (0.0 - 24.0)"
 
 #: ../Sky.cs:99
 msgid "Horizon color"
-msgstr ""
+msgstr "Цвет горизонта"
 
 #: ../Sky.cs:101
 msgid "Color at highest point in the sky"
-msgstr ""
+msgstr "Цвет неба в зените"
 
 #: ../Sky.cs:103
 msgid "Sun color"
-msgstr ""
+msgstr "Цвет Солнца"
 
 #: ../Sky.cs:105
 msgid "Cloud color"
-msgstr ""
+msgstr "Цвет облаков"
 
 #: ../Sky.cs:107
 msgid "Cloud shadow color"
-msgstr ""
+msgstr "Цвет тени от облаков"
 
-#: ../Sky.cs:111 ../Sky.cs:112
+#: ../Sky.cs:111
+#: ../Sky.cs:112
 msgid "Sky"
-msgstr ""
+msgstr "Небо"
 
 #: ../Sky.cs:116
 msgid "Sky..."
-msgstr ""
+msgstr "Небо..."
 
 #: ../Sky.cs:159
 msgid "Random _Seed:"
-msgstr ""
+msgstr "Случайно _зерно:"
 
 #: ../Sky.cs:164
 msgid "Sun"
-msgstr ""
+msgstr "Солнце"
 
 #: ../Sky.cs:171
 msgid "_X:"
-msgstr ""
+msgstr "_X:"
 
 #: ../Sky.cs:180
 msgid "_Y:"
-msgstr ""
+msgstr "_Y:"
 
 #: ../Sky.cs:189
 msgid "_Show sun"
-msgstr ""
+msgstr "_Показать Солнце"
 
 #: ../Sky.cs:201
 msgid "Camera"
-msgstr ""
+msgstr "Камера"
 
 #: ../Sky.cs:206
 msgid "_Rotation angle:"
-msgstr ""
+msgstr "_Угол вращения:"
 
 #: ../Sky.cs:216
 msgid "_Tilt angle:"
-msgstr ""
+msgstr "Угол _наклона:"
 
 #: ../Sky.cs:228
 msgid "Colors"
-msgstr ""
+msgstr "Цвета"
 
 #: ../Sky.cs:243
 msgid "_Horizon:"
-msgstr ""
+msgstr "_Горизонт:"
 
 #: ../Sky.cs:248
 msgid "S_ky:"
-msgstr ""
+msgstr "Н_ебо:"
 
 #: ../Sky.cs:263
 msgid "S_un:"
-msgstr ""
+msgstr "Со_лнце:"
 
 #: ../Sky.cs:273
 msgid "C_loud:"
-msgstr ""
+msgstr "О_блако:"
 
 #: ../Sky.cs:284
 msgid "Sh_adow:"
-msgstr ""
+msgstr "Т_ень:"
 
 #~ msgid "Average blur"
 #~ msgstr "Усреднённое размывание"
-
 #~ msgid "Average"
 #~ msgstr "Усреднённое"
+

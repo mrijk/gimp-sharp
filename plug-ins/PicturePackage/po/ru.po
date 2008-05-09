@@ -7,10 +7,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gimp-sharp 0.10\n"
+"Project-Id-Version: gimp-sharp 0.15\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-01-23 00:47+0300\n"
-"PO-Revision-Date: 2006-07-20 16:05+0400\n"
+"POT-Creation-Date: 2008-05-09 11:17+0200\n"
+"PO-Revision-Date: 2008-05-09 11:31+0100\n"
 "Last-Translator: Alexandre Prokoudine <alexandre.prokoudine@gmail.com>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -45,7 +45,8 @@ msgstr "Р_ежим:"
 msgid "Flatten All Layers"
 msgstr "Свести все слои"
 
-#: ../LabelFrame.cs:37 ../LabelFrame.cs:77
+#: ../LabelFrame.cs:37
+#: ../LabelFrame.cs:77
 msgid "None"
 msgstr "Никакой"
 
@@ -141,25 +142,27 @@ msgstr "На 90° влево"
 msgid "Rotate:"
 msgstr "Вращать:"
 
-#: ../PicturePackage.cs:102 ../PicturePackage.cs:103
+#: ../PicturePackage.cs:102
+#: ../PicturePackage.cs:103
 msgid "Picture package"
-msgstr "Упаковка изображений"
+msgstr "Раскладка изображений"
 
 #: ../PicturePackage.cs:107
 msgid "Picture Package..."
-msgstr "Упаковка изображений..."
+msgstr "Раскладка изображений..."
 
 #: ../PicturePackage.cs:122
 msgid "Picture Package 0.6.2"
-msgstr "Упаковка изображений 0.6.2"
+msgstr "Раскладка изображений 0.6.2"
 
-#: ../PicturePackage.cs:123 ../PicturePackage.cs:124
+#: ../PicturePackage.cs:123
+#: ../PicturePackage.cs:124
 msgid "PicturePackage"
-msgstr ""
+msgstr "Раскладка изображений"
 
 #: ../PicturePackage.cs:151
 msgid "Right click to select picture"
-msgstr "Щёлкните правой клавишей мыши для выбора изображения"
+msgstr "Щелкните правой клавишей мыши для выбора изображения"
 
 #: ../SourceFrame.cs:45
 msgid "_Image"
@@ -177,15 +180,15 @@ msgstr "_Папка"
 msgid "_Include All Subfolders"
 msgstr "_Включить все подпапки"
 
-#: ../SourceFrame.cs:89 ../SourceFrame.cs:96
+#: ../SourceFrame.cs:89
+#: ../SourceFrame.cs:96
 msgid "Open..."
 msgstr "Открыть..."
 
 #~ msgid "Document"
 #~ msgstr "Документ"
-
 #~ msgid "Label"
 #~ msgstr "Метка"
-
 #~ msgid "Source"
 #~ msgstr "Источник"
+

@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gimp-sharp 0.10\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-01-23 00:16+0300\n"
-"PO-Revision-Date: 2006-07-20 03:05+0400\n"
+"POT-Creation-Date: 2008-05-09 11:05+0200\n"
+"PO-Revision-Date: 2008-05-09 11:06+0100\n"
 "Last-Translator: Alexandre Prokoudine <alexandre.prokoudine@gmail.com>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #: ../Forge.cs:129
 msgid "Clouds (true), Planet or Stars (false)"
-msgstr "Облака (true), планета или звёзды (false)"
+msgstr "Облака (true), планета или звезды (false)"
 
 #: ../Forge.cs:131
 msgid "Stars (true), Planet or Clouds (false)"
@@ -61,20 +61,22 @@ msgstr "Коэфф. насыщенности"
 msgid "Random generated seed"
 msgstr "Случайно сгенерированное начальное число"
 
-#: ../Forge.cs:152 ../Forge.cs:153
+#: ../Forge.cs:152
+#: ../Forge.cs:153
 msgid "Creates an artificial world."
 msgstr "Создаёт искусственный мир."
 
-#: ../Forge.cs:157 ../Forge.cs:466
+#: ../Forge.cs:157
+#: ../Forge.cs:466
 msgid "Forge..."
 msgstr "Демиург..."
 
 #: ../Forge.cs:170
-#, fuzzy
 msgid "Forge 0.2"
-msgstr "Демиург 0.1"
+msgstr "Демиург 0.2"
 
-#: ../Forge.cs:170 ../Forge.cs:171
+#: ../Forge.cs:170
+#: ../Forge.cs:171
 msgid "Forge"
 msgstr "Демиург"
 
@@ -84,65 +86,54 @@ msgid "Type"
 msgstr "Тип"
 
 #: ../Forge.cs:184
-#, fuzzy
 msgid "Pl_anet"
-msgstr "Планета"
+msgstr "_Планета"
 
 #: ../Forge.cs:187
-#, fuzzy
 msgid "C_louds"
-msgstr "Облака"
+msgstr "О_блака"
 
 #: ../Forge.cs:190
-#, fuzzy
 msgid "_Night"
-msgstr "Ночь"
+msgstr "_Ночь"
 
 #: ../Forge.cs:209
-#, fuzzy
 msgid "_Dimension (0.0 - 3.0):"
-msgstr "Измерение·(0.0·-·3.0):"
+msgstr "_Измерение·(0.0·-·3.0):"
 
 #. Power
 #: ../Forge.cs:224
-#, fuzzy
 msgid "_Power:"
-msgstr "Сила:"
+msgstr "С_ила:"
 
 #. Glaciers
 #: ../Forge.cs:240
-#, fuzzy
 msgid "_Glaciers"
-msgstr "Ледники:"
+msgstr "_Ледники:"
 
 #. Ice
 #: ../Forge.cs:254
-#, fuzzy
 msgid "_Ice"
-msgstr "Лёд:"
+msgstr "Л_ед:"
 
 #. Hour
 #: ../Forge.cs:268
-#, fuzzy
 msgid "Ho_ur (0 - 24):"
-msgstr "Час (0 - 24):"
+msgstr "_Час (0 - 24):"
 
 #: ../Forge.cs:282
-#, fuzzy
 msgid "I_nclination (-90 - 90):"
-msgstr "Наклон (-90·-·90):"
+msgstr "Н_аклон (-90·-·90):"
 
 #. Star percentage
 #: ../Forge.cs:295
-#, fuzzy
 msgid "_Stars (0 - 100):"
-msgstr "Звёзды (0 - 100):"
+msgstr "_Звезды (0 - 100):"
 
 #. Saturation
 #: ../Forge.cs:308
-#, fuzzy
 msgid "Sa_turation:"
-msgstr "Насыщенность:"
+msgstr "Нас_ыщенность:"
 
 #: ../Forge.cs:460
 msgid "This filter can be applied just if height <= width"
@@ -150,6 +141,6 @@ msgstr "Этот фильтр может быть применён только 
 
 #~ msgid "Seed:"
 #~ msgstr "Начальное число:"
-
 #~ msgid "This filter can be applied just over layers"
 #~ msgstr "Этот фильтр может быть применён просто поверх слоёв"
+

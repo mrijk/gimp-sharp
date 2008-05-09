@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gimp-sharp 0.10\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-01-23 00:14+0300\n"
-"PO-Revision-Date: 2006-07-20 01:45+0400\n"
+"POT-Creation-Date: 2008-05-09 10:57+0200\n"
+"PO-Revision-Date: 2008-05-09 11:04+0100\n"
 "Last-Translator: Alexandre Prokoudine <alexandre.prokoudine@gmail.com>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -21,26 +21,28 @@ msgstr ""
 msgid "Turbulence of the cloud"
 msgstr "Турбулентность облака"
 
-#: ../DifferenceClouds.cs:64 ../DifferenceClouds.cs:65
+#: ../DifferenceClouds.cs:64
+#: ../DifferenceClouds.cs:65
 msgid "Creates difference clouds."
-msgstr "Создаёт облака различия."
+msgstr "Создает разностные облака"
 
-#: ../DifferenceClouds.cs:69 ../DifferenceClouds.cs:118
+#: ../DifferenceClouds.cs:69
+#: ../DifferenceClouds.cs:118
 msgid "Difference Clouds..."
-msgstr "Облака различия..."
+msgstr "Разностные облака..."
 
 #: ../DifferenceClouds.cs:82
-#, fuzzy
 msgid "Difference Clouds 0.2"
-msgstr "Облака различия 0.1"
+msgstr "Разностные облака 0.2"
 
-#: ../DifferenceClouds.cs:83 ../DifferenceClouds.cs:85
+#: ../DifferenceClouds.cs:83
+#: ../DifferenceClouds.cs:85
 msgid "Difference Clouds"
-msgstr "Облака различия"
+msgstr "Разностные облака"
 
 #: ../DifferenceClouds.cs:94
 msgid "Random _Seed:"
-msgstr ""
+msgstr "Случайное _зерно:"
 
 #: ../DifferenceClouds.cs:97
 msgid "_Turbulence"
@@ -48,18 +50,14 @@ msgstr "Т_урбулентность"
 
 #~ msgid "turbulence"
 #~ msgstr "турбулентность"
-
 #~ msgid "<Image>"
 #~ msgstr "<Image>"
-
 #~ msgid "Filters"
 #~ msgstr "Фильтры"
-
 #~ msgid "Render"
 #~ msgstr "Рендеринг"
-
 #~ msgid "Clouds"
 #~ msgstr "Облака"
-
 #~ msgid "Seed:"
 #~ msgstr "Начальное число:"
+
