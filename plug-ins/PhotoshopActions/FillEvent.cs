@@ -19,7 +19,6 @@
 //
 
 using System;
-using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
@@ -43,30 +42,6 @@ namespace Gimp.PhotoshopActions
       get 
 	{
 	  return _from == null || Gimp.Version > new Version("2.3.10");
-	}
-    }
-
-    protected override IEnumerable ListParameters()
-    {
-      if (_from != null)
-	{
-	  yield return "From: ";
-	}
-
-      yield return "Tolerance: " + _tolerance;
-
-      yield return Format(_antiAlias, "Anti-alias");
-
-      if (_using != null)
-	{
-	  yield return Format(_using, "Usng");
-	}
-
-      yield return "Opacity: " + _opacity + " %";
-
-      if (_mode != null)
-	{
-	  yield return Format(_mode, "Md");
 	}
     }
 

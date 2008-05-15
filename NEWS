@@ -1,8 +1,12 @@
+Overview of Changes in Gimp# 0.16
+=================================
+
 Overview of Changes in Gimp# 0.15
 =================================
-- Many improvements to get Photoshop action plug-in usable: 10 actions
+- Many improvements to get Photoshop actions plug-in usable: 10 actions
   are now verified
 - Ported abandoned plug-in to load GEM image files
+- Russian translation updated
 
 Overview of Changes in Gimp# 0.14
 =================================

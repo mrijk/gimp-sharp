@@ -1,8 +1,7 @@
-Release 0.15
+Release 0.16
 ------------
-- PhotoshopActions at 50 % (Maurits)
+- 20 verified Photoshop action files
 
-0) Smooth selection
 1) Set selection to polygon
 2) Merge Layers
 3) Set/Clear quick mask
@@ -14,19 +13,19 @@ Release 0.15
 9) Convert mode to IndC
 10)
 
-Release 0.16
-------------
-- PhotoshopActions at 55 %
-- Support for Ruby.NET or IronRuby
-
 Release 0.17
 ------------
-- PhotoshopActions at 60 %
+- 30 verified Photoshop action files
+- Support for Ruby.NET or IronRuby
+
+Release 0.18
+------------
+- 40 verified Photoshop action files
 - Documentation (Max, Maurits)
 - Working version of Update Check plug-in (Maurits)
 - Fully functional version of picture package
 
-Release 0.18
+Release 0.19
 ------------
 - Generic Lense plug-in
 - First version of PhotoFrame plug-in

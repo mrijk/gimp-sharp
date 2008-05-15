@@ -63,7 +63,7 @@ namespace Gimp.PhotoshopActions
     {
       gimp_ui_init("PhotoshopActions", true);
 
-      GimpDialog dialog = DialogNew("Photoshop Actions 0.5", 
+      GimpDialog dialog = DialogNew("Photoshop Actions 0.6", 
 				    "PhotoshopActions",
 				    IntPtr.Zero, 0, Gimp.StandardHelpFunc, 
 				    "PhotoshopActions");

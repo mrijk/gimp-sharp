@@ -70,16 +70,13 @@ namespace Gimp.PhotoshopActions
 	      yield return "Scale: ";
 	      break;
 	    case "Md":
-	      string mode = (parameter as EnumParameter).Value;
-	      yield return "Mode: " + Abbreviations.Get(mode);
+	      yield return parameter.Format();	      
 	      break;
 	    case "Nm":
-	      string name = (parameter as TextParameter).Value;
-	      yield return "Name: \"" + name + "\"";
+	      yield return parameter.Format();	      
 	      break;
 	    case "Opct":
-	      double opacity = (parameter as DoubleParameter).Value;
-	      yield return "Opacity: " + opacity;
+	      yield return parameter.Format();
 	      break;
 	    case "PrsT":
 	      bool preserveTransparency = (parameter as BoolParameter).Value;

@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // SelectPixelEvent.cs
 //
@@ -35,7 +35,7 @@ namespace Gimp.PhotoshopActions
 
     public override bool IsExecutable
     {
-      get {return _type == "None";}
+      get {return _type == "None" || _type == "Al";}
     }
 
     protected override IEnumerable ListParameters()
@@ -45,7 +45,14 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
-      ActiveImage.Selection.None();
+      if (_type == "None")
+	{
+	  ActiveImage.Selection.None();
+	}
+      else if (_type == "Al")
+	{
+	  ActiveImage.Selection.All();
+	}
       return false;
     }
   }

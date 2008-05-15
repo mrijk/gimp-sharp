@@ -31,4 +31,4 @@ using System.Reflection;
 [assembly: AssemblyTrademark("")]
 #endregion
 
-[assembly: AssemblyVersion("0.15.0")]
+[assembly: AssemblyVersion("0.16.0")]

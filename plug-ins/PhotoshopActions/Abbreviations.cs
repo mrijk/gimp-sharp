@@ -35,6 +35,7 @@ namespace Gimp.PhotoshopActions
       _map["AdCH"] = "horizontal centers";
       _map["AdCV"] = "vertical centers";
       _map["AdLf"] = "left edges";
+      _map["Al"]   = "all";
       _map["AmbB"] = "Ambience";
       _map["AmbC"] = "Ambient Color";
       _map["AmMn"] = "Amplitude min";
@@ -143,11 +144,13 @@ namespace Gimp.PhotoshopActions
       _map["GrnR"] = "Regular";
       _map["Grns"] = "Graininess";
       _map["Grnt"] = "Grain Type";
+      _map["GrnV"] = "Vertical";
       _map["GrSf"] = "Soft";
       _map["GrtW"] = "Grout Width";
       _map["Gry"]  = "gray";
       _map["Grys"] = "grayscale mode";
       _map["Gsn"]  = "gaussian";
+      _map["GudG"] = "Guides & Grid & Slices Preferences";
       _map["H"]    = "Hue";
       _map["HghS"] = "Highlight strength";
       _map["Hght"] = "Height";
@@ -256,6 +259,7 @@ namespace Gimp.PhotoshopActions
       _map["Rpt"]  = "repeat";
       _map["RptE"] = "repeat edge pixels";
       _map["Rtcl"] = "reticulation";
+      _map["RvlS"] = "reveal selection";
       _map["SBME"] = "Edge Only";
       _map["SBMN"] = "smart blur mode normal";
       _map["SBQH"] = "smart blur quality high";
@@ -275,6 +279,7 @@ namespace Gimp.PhotoshopActions
       _map["Sftn"] = "Softness";
       _map["ShdI"] = "Shadow Intensity";
       _map["Shdw"] = "shadow";
+      _map["showNone"] = "Show None";
       _map["Shrp"] = "Sharpness";
       _map["Sml"]  = "small";
       _map["Smth"] = "Smoothness";
@@ -294,7 +299,10 @@ namespace Gimp.PhotoshopActions
       _map["Sz"]   = "Size";
       _map["trimBasedOn"] = "Based on";
       _map["T"]    = "To";
+      _map["TgGr"] = "Toggle Grid";
       _map["TglO"] = "Toggle Others";
+      _map["TglR"] = "Toggle Rulers";
+      _map["TgSn"] = "Toggle Snap To Grid";
       _map["Tlrn"] = "Tolerance";
       _map["TlSz"] = "Tile Size";
       _map["Top"]  = "Top";
