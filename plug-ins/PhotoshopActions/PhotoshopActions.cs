@@ -229,7 +229,7 @@ namespace Gimp.PhotoshopActions
 							  action);
 		      foreach (ActionEvent actionEvent in action)
 			{
-			  // Console.WriteLine(actionEvent.EventForDisplay);
+			  Console.WriteLine(actionEvent.EventForDisplay);
 			  actionEvent.FillStore(store, iter1);
 			}
 		    }

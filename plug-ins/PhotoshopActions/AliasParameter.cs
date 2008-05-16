@@ -19,6 +19,7 @@
 //
 
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace Gimp.PhotoshopActions
@@ -36,6 +37,11 @@ namespace Gimp.PhotoshopActions
     {
       int length = parser.ReadInt32();
       _data = parser.ReadBytes(length);
+    }
+
+    public override IEnumerable<string> Format()
+    {
+      yield return String.Format("{0}: ???", Abbreviations.Get(Name));
     }
 
     public override void Fill(Object obj, FieldInfo field)

@@ -19,6 +19,7 @@
 //
 
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace Gimp.PhotoshopActions
@@ -53,9 +54,10 @@ namespace Gimp.PhotoshopActions
 	}
     }
 
-    public override string Format()
+    public override IEnumerable<string> Format()
     {
-      return String.Format("{0}: \"{1}\"", Abbreviations.Get(Name), Path);
+      yield return String.Format("{0}: \"{1}\"", Abbreviations.Get(Name), 
+				 Path);
     }
 
     public override void Fill(Object obj, FieldInfo field)

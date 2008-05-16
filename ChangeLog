@@ -1,3 +1,26 @@
+2008-05-16  Maurits  <maurits.rijk@gmail.com>
+
+	* plug-ins/PhotoshopActions/Abbreviations.cs: more abbreviations
+
+	* plug-ins/PhotoshopActions/SetLayerEffectsEvent.cs
+	* plug-ins/PhotoshopActions/SetColorEvent.cs: clean-up
+	ListParameters routine
+
+	* plug-ins/PhotoshopActions/ReferenceParameter.cs
+	* plug-ins/PhotoshopActions/RawDataParameter.cs
+	* plug-ins/PhotoshopActions/ParameterSet.cs
+	* plug-ins/PhotoshopActions/ObjcParameter.cs
+	* plug-ins/PhotoshopActions/ObArParameter.cs
+	* plug-ins/PhotoshopActions/ListParameter.cs
+	* plug-ins/PhotoshopActions/AliasParameter.cs
+	* plug-ins/PhotoshopActions/PathParameter.cs
+	* plug-ins/PhotoshopActions/LongParameter.cs
+	* plug-ins/PhotoshopActions/EnumParameter.cs
+	* plug-ins/PhotoshopActions/DoubleParameter.cs
+	* plug-ins/PhotoshopActions/BoolParameter.cs
+	* plug-ins/PhotoshopActions/Parameter.cs: let Format memberfunc
+	routine list of strings instead of single string
+
 2008-05-15  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/RoughPastelsEvent.cs

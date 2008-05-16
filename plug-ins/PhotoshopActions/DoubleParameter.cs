@@ -19,6 +19,7 @@
 //
 
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace Gimp.PhotoshopActions
@@ -49,16 +50,18 @@ namespace Gimp.PhotoshopActions
       // TODO: also fill the units!?
     }
 
-    public override string Format()
+    public override IEnumerable<string> Format()
     {
       switch (Units)
 	{
 	case "#Pxl":
-	  return String.Format("{0}: {1} {2}", Abbreviations.Get(Name), 
-			       Value, UnitString);
+	  yield return String.Format("{0}: {1} {2}", UppercaseName, Value, 
+				     UnitString);
+	  break;
 	default:
-	  return String.Format("{0}: {1:F3}{2}", Abbreviations.Get(Name), 
-			       Value, UnitString);
+	  yield return String.Format("{0}: {1:F3}{2}", UppercaseName, Value,
+				     UnitString);
+	  break;
 	}
     }
 
@@ -68,12 +71,17 @@ namespace Gimp.PhotoshopActions
 	{
 	  switch (Units)
 	    {
+	    case "#Ang":
+	      return "";	// Fix me: should be angle character
 	    case "#Prc":
 	      return "%";
 	    case "#Pxl":
 	      return "pixels";
 	    default:
-	      Console.WriteLine("units: " + Units);
+	      if (Units != null)
+		{
+		  Console.WriteLine("units: " + Units);
+		}
 	      return "";
 	    }
 	}

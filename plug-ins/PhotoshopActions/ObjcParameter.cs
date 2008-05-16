@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // ObjcParameter.cs
 //
@@ -20,6 +20,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace Gimp.PhotoshopActions
@@ -66,6 +67,22 @@ namespace Gimp.PhotoshopActions
       DebugOutput.Level++;
       _children.Parse(parser, numberOfItems);
       DebugOutput.Level--;
+    }
+
+    public override IEnumerable<string> Format()
+    {
+      if (Name != null)
+	{
+	  yield return String.Format("{0}: {1}", UppercaseName, 
+				     Abbreviations.Get(ClassID2));
+	}
+      foreach (Parameter child in _children)
+	{
+	  foreach (string s in child.Format())
+	    {
+	      yield return s;
+	    }
+	}
     }
 
     public void Fill(Object obj)

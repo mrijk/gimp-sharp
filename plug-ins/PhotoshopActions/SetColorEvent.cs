@@ -18,9 +18,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-using System.Collections;
-
 namespace Gimp.PhotoshopActions
 {
   public class SetColorEvent : ActionEvent
@@ -33,11 +30,6 @@ namespace Gimp.PhotoshopActions
     {
       Parameters.Fill(this);
       _objc.Fill(this);
-    }
-
-    protected override IEnumerable ListParameters()
-    {
-      yield return "To: ";
     }
 
     protected RGB Color

@@ -41,8 +41,8 @@ namespace Gimp.PhotoshopActions
     */
 
     public int NumberOfItems {get; set;}
+    public virtual string EventForDisplay {get; set;}
 
-    string _eventForDisplay;
     readonly ParameterSet _parameters = new ParameterSet();
 
     static Drawable _activeDrawable;
@@ -66,7 +66,7 @@ namespace Gimp.PhotoshopActions
     
     public ActionEvent(ActionEvent srcEvent)
     {
-      _eventForDisplay = srcEvent._eventForDisplay;
+      EventForDisplay = srcEvent.EventForDisplay;
       NumberOfItems = srcEvent.NumberOfItems;
       _parameters = srcEvent._parameters;
     }
@@ -145,12 +145,6 @@ namespace Gimp.PhotoshopActions
 	}
     }
 
-    public virtual string EventForDisplay
-    {
-      get {return _eventForDisplay;}
-      set {_eventForDisplay = value;}
-    }
-
     protected string Format(bool value, string s)
     {
       return ((value) ? "With " : "Without ") + Abbreviations.Get(s);
@@ -211,7 +205,7 @@ namespace Gimp.PhotoshopActions
 
     public virtual bool Execute()
     {
-      Console.WriteLine("Execute {0} not implemented", _eventForDisplay);
+      Console.WriteLine("Execute {0} not implemented", EventForDisplay);
       return true;
     }
 

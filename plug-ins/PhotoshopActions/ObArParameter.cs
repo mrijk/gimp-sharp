@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // ObArParameter.cs
 //
@@ -19,6 +19,7 @@
 //
 
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace Gimp.PhotoshopActions
@@ -108,6 +109,11 @@ namespace Gimp.PhotoshopActions
 	      break;
 	    }
 	}
+    }
+
+    public override IEnumerable<string> Format()
+    {
+      yield return "ObarParameter";
     }
 
     public override void Fill(Object obj, FieldInfo field)

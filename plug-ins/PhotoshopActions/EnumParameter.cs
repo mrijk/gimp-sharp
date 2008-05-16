@@ -19,6 +19,7 @@
 //
 
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace Gimp.PhotoshopActions
@@ -47,10 +48,10 @@ namespace Gimp.PhotoshopActions
       field.SetValue(obj, this);
     }
 
-    public override string Format()
+    public override IEnumerable<string> Format()
     {
-      return String.Format("{0}: {1}", Abbreviations.Get(Name), 
-			   Abbreviations.Get(Value));
+      yield return String.Format("{0}: {1}", Abbreviations.Get(Name), 
+				 Abbreviations.Get(Value));
     }
   }
 }

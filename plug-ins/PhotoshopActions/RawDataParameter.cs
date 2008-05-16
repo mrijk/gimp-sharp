@@ -19,6 +19,7 @@
 //
 
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace Gimp.PhotoshopActions
@@ -31,6 +32,11 @@ namespace Gimp.PhotoshopActions
     {
       int length = parser.ReadInt32();
       Data = parser.ReadBytes(length);
+    }
+
+    public override IEnumerable<string> Format()
+    {
+      yield return "RawDataParameter";
     }
 
     public override void Fill(Object obj, FieldInfo field)

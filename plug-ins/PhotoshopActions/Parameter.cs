@@ -19,6 +19,7 @@
 //
 
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace Gimp.PhotoshopActions
@@ -26,9 +27,18 @@ namespace Gimp.PhotoshopActions
   public abstract class Parameter
   {
     public string Name {get; set;}
-
+    
     public abstract void Parse(ActionParser parser);
     public virtual void Fill(Object obj, FieldInfo field) {}
-    public virtual string Format() {return "fix me!";}
+    public abstract IEnumerable<string> Format();
+
+    protected string UppercaseName
+    {
+      get
+	{
+	  string s = Abbreviations.Get(Name);
+	  return char.ToUpper(s[0]) + s.Substring(1);
+	}
+    }
   }
 }

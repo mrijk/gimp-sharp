@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // ReferenceParameter.cs
 //
@@ -76,6 +76,11 @@ namespace Gimp.PhotoshopActions
 	      _set.Add(referenceType);
 	    }
 	}
+    }
+
+    public override IEnumerable<string> Format()
+    {
+      yield return "ReferenceParameter";
     }
 
     public override void Fill(Object obj, FieldInfo field)

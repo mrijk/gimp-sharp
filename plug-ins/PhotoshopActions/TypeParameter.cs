@@ -19,6 +19,7 @@
 //
 
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace Gimp.PhotoshopActions
@@ -39,6 +40,11 @@ namespace Gimp.PhotoshopActions
 	  Type = parser.ReadUnicodeString();
 	  Value = parser.ReadTokenOrString();
 	}
+    }
+
+    public override IEnumerable<string> Format()
+    {
+      yield return "TypeParameter";
     }
 
     public override void Fill(Object obj, FieldInfo field)

@@ -87,6 +87,18 @@ namespace Gimp.PhotoshopActions
 	}
     }
 
+    public override IEnumerable<string> Format()
+    {
+      yield return String.Format("{0}: {1}", UppercaseName, "list (fix me!)");
+      foreach (Parameter parameter in Set)
+	{
+	  foreach (string s in parameter.Format())
+	    {
+	      yield return s;
+	    }
+	}
+    }
+
     public override void Fill(Object obj, FieldInfo field)
     {
       field.SetValue(obj, this);

@@ -45,12 +45,14 @@ namespace Gimp.PhotoshopActions
       get {return _gradient != null || _with != null;}
     }
 
+    /*
     protected override IEnumerable ListParameters()
     {
       yield return "Type: " + Abbreviations.Get(_type.Value);
       yield return ((_dither) ? "With" : "Without") + " Dither";
       yield return ((_useMask) ? "With" : "Without") + " Use Mask";
     }
+    */
 
     static public Gradient CreateGradient(string name, ListParameter colors)
     {
