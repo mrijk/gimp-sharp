@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006-2008 Maurits Rijk
 //
-// ReferenceType.cs
+// SelectCurrentHistoryStateEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,13 +18,33 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System.Collections.Generic;
+using System;
 
 namespace Gimp.PhotoshopActions
 {
-  public abstract class ReferenceType
+  public class SelectCurrentHistoryStateEvent : ActionEvent
   {
-    public abstract void Parse(ActionParser parser);
-    public virtual IEnumerable<string> Format() {yield return "fixme!";}
+    public SelectCurrentHistoryStateEvent(SelectEvent srcEvent) : 
+      base(srcEvent)
+    {
+    }
+
+    public override bool IsExecutable
+    {
+      get {return false;}
+    }
+
+    public override string EventForDisplay
+    {
+      get 
+	{
+	  return base.EventForDisplay + " Current History State ";
+	}
+    }
+
+    override public bool Execute()
+    {
+      return true;
+    }
   }
 }

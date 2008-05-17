@@ -18,9 +18,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-using System.Collections;
-
 namespace Gimp.PhotoshopActions
 {
   public class TrimEvent : ActionEvent
@@ -39,16 +36,6 @@ namespace Gimp.PhotoshopActions
     public override bool IsExecutable
     {
       get {return false;}
-    }
-
-    protected override IEnumerable ListParameters()
-    {
-      yield return Format(_trimBasedOn, "trimBasedOn");
-      // yield return "Based On: " + Abbreviations.Get(_trimBasedOn.Value);
-      yield return Format(_top, "Top");
-      yield return Format(_bottom, "Btom");
-      yield return Format(_left, "Left");
-      yield return Format(_right, "Rght");
     }
 
     override public bool Execute()

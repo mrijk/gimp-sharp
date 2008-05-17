@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // ActionParser.cs
 //
@@ -29,30 +29,14 @@ namespace Gimp.PhotoshopActions
     BinaryReader _binReader;
     EventMap _map = new EventMap();
 
-    bool _preSix;
-
-    int _parsingFailed;
-    int _oldVersions;
+    public bool PreSix {get; private set;}
+    public int ParsingFailed {get; private set;}
+    public int OldVersions {get; private set;}
 
     public ActionParser(Image image, Drawable drawable)
     {
       ActionEvent.ActiveImage = image;
       ActionEvent.ActiveDrawable = drawable;
-    }
-
-    public bool PreSix
-    {
-      get {return _preSix;}
-    }
-
-    public int ParsingFailed
-    {
-      get {return _parsingFailed;}
-    }
-
-    public int OldVersions
-    {
-      get {return _oldVersions;}
     }
 
     public void DumpStatistics()
@@ -69,12 +53,12 @@ namespace Gimp.PhotoshopActions
 	  if (version != 16 && version != 12)
 	    {
 	      Console.WriteLine("Old version {0} not supported", version);
-	      _parsingFailed++;
-	      _oldVersions++;
+	      ParsingFailed++;
+	      OldVersions++;
 	      return null;
 	    }
 
-	  _preSix = (version < 16);
+	  PreSix = (version < 16);
 
 	  ActionSet actions = new ActionSet(ReadUnicodeString());
 
@@ -130,7 +114,7 @@ namespace Gimp.PhotoshopActions
 	    }
 	  else
 	    {
-	      _parsingFailed++;
+	      ParsingFailed++;
 	      break;
 	    }
 	  DebugOutput.Level--;
@@ -165,7 +149,9 @@ namespace Gimp.PhotoshopActions
 	    }
 	  
 	  ActionEvent actionEvent = _map.Lookup(eventName);
-	  actionEvent.EventForDisplay = ReadString();
+	  // actionEvent.EventForDisplay = ReadString();
+	  string tmp = ReadString();
+	  actionEvent.EventForDisplay = Abbreviations.GetUppercased(eventName);
 
 	  DebugOutput.Dump("EventName: " + eventName);
 
@@ -177,7 +163,7 @@ namespace Gimp.PhotoshopActions
 	      return actionEvent;
 	    }
 
-	  if (_preSix == false)
+	  if (PreSix == false)
 	    {
 	      string classID = ReadUnicodeString();
 	      DebugOutput.Dump("ClassID: " + classID);
@@ -347,7 +333,7 @@ namespace Gimp.PhotoshopActions
     public Parameter ReadItem()
     {
       string key;
-      if (_preSix)
+      if (PreSix)
 	{
 	  key = ReadFourByteString();
 	}
@@ -439,7 +425,7 @@ namespace Gimp.PhotoshopActions
 
     public string ReadTokenOrString()
     {
-      if (_preSix)
+      if (PreSix)
 	{
 	  return ReadFourByteString();
 	}

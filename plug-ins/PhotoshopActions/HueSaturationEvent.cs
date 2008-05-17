@@ -19,7 +19,6 @@
 //
 
 using System;
-using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
@@ -31,14 +30,6 @@ namespace Gimp.PhotoshopActions
     ListParameter _adjustment;
 
     int _hue, _saturation, _lightness;
-
-    protected override IEnumerable ListParameters()
-    {
-      yield return Format(_colorization, Abbreviations.Get("Clrz"));
-      yield return "Hue: " + _hue;
-      yield return "Saturation: " + _saturation;
-      yield return "Lightness: " + _lightness;
-    }
 
     public override bool IsExecutable
     {
@@ -73,12 +64,6 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
-      if (ActiveDrawable == null)
-	{
-	  Console.WriteLine("Please open image first");
-	  return false;
-	}
-
       ActiveDrawable.HueSaturation(HueRange.All, (double) _hue, 
 				   (double) _lightness,
 				   (double) _saturation);

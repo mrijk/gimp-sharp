@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // ReleType.cs
 //
@@ -18,43 +18,25 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-using System.Reflection;
-
 namespace Gimp.PhotoshopActions
 {
   public class ReleType : ReferenceType
   {
-    string _classID;
-    string _classID2;
-    int _offset;
-
-    public string ClassID
-    {
-      get {return _classID;}
-    }
-
-    public string ClassID2
-    {
-      get {return _classID2;}
-    }
-
-    public int Offset
-    {
-      get {return _offset;}
-    }
+    public string ClassID {get; private set;}
+    public string ClassID2 {get; private set;}
+    public int Offset {get; private set;}
 
     public override void Parse(ActionParser parser)
     {
       if (!parser.PreSix)
 	{
-	  _classID = parser.ReadTokenOrUnicodeString();
+	  ClassID = parser.ReadTokenOrUnicodeString();
 	}
-      _classID2 = parser.ReadTokenOrString();
-      _offset = parser.ReadInt32();
+      ClassID2 = parser.ReadTokenOrString();
+      Offset = parser.ReadInt32();
 
-      DebugOutput.Dump("Rele: c = {0}, c2 = {1}, i = {2}", _classID, 
-		       _classID2, _offset);
+      DebugOutput.Dump("Rele: c = {0}, c2 = {1}, i = {2}", ClassID, ClassID2, 
+		       Offset);
     }
   }
 }

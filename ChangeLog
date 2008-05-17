@@ -1,3 +1,42 @@
+2008-05-17  Maurits  <maurits.rijk@gmail.com>
+
+	* plug-ins/PhotoshopActions/ReferenceType.cs
+	* plug-ins/PhotoshopActions/EnmrType.cs
+	* plug-ins/PhotoshopActions/ReleType.cs
+	* plug-ins/PhotoshopActions/PropertyType.cs
+	* plug-ins/PhotoshopActions/IndexType.cs
+	* plug-ins/PhotoshopActions/ClassType.cs
+	* plug-ins/PhotoshopActions/ActionParser.cs: minor clean-up
+
+	* plug-ins/PhotoshopActions/EventMap.cs: add new event
+
+	* plug-ins/PhotoshopActions/SelectCurrentHistoryStateEvent.cs
+	* plug-ins/PhotoshopActions/CreateClippingMaskEvent.cs
+	* plug-ins/PhotoshopActions/DeleteChannelByIndexEvent.cs: new files
+
+	* plug-ins/PhotoshopActions/Makefile.am: changed accordingly
+
+	* plug-ins/PhotoshopActions/ChannelMixerEvent.cs
+	* plug-ins/PhotoshopActions/MakePathEvent.cs
+	* plug-ins/PhotoshopActions/RasterizeLayerEvent.cs
+	* plug-ins/PhotoshopActions/DuplicateSelectionEvent.cs
+	* plug-ins/PhotoshopActions/PinchEvent.cs
+	* plug-ins/PhotoshopActions/LightingEffectsEvent.cs
+	* plug-ins/PhotoshopActions/AddToEvent.cs
+	* plug-ins/PhotoshopActions/ThresholdClassEvent.cs
+	* plug-ins/PhotoshopActions/SetChannelPropertyEvent.cs
+	* plug-ins/PhotoshopActions/SetHistoryStateEvent.cs
+	* plug-ins/PhotoshopActions/OffsetEvent.cs
+	* plug-ins/PhotoshopActions/TrimEvent.cs
+	* plug-ins/PhotoshopActions/SelectAllEvent.cs
+	* plug-ins/PhotoshopActions/CloseEvent.cs
+	* plug-ins/PhotoshopActions/ImageSizeEvent.cs
+	* plug-ins/PhotoshopActions/HueSaturationEvent.cs
+	* plug-ins/PhotoshopActions/SetLayerPropertyEvent.cs: clean-up
+	ListParameters routine
+
+	* plug-ins/PhotoshopActions/Abbreviations.cs: more abbreviations
+
 2008-05-16  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/Abbreviations.cs: more abbreviations

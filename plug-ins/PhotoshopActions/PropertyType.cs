@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // PropertyParameter.cs
 //
@@ -18,44 +18,26 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-using System.Reflection;
-
 namespace Gimp.PhotoshopActions
 {
   public class PropertyType : ReferenceType
   {
-    string _classID;
-    string _classID2;
-    string _key;
-
-    public string ClassID
-    {
-      get {return _classID;}
-    }
-
-    public string ClassID2
-    {
-      get {return _classID2;}
-    }
-
-    public string Key
-    {
-      get {return _key;}
-    }
+    public string ClassID {get; private set;}
+    public string ClassID2 {get; private set;}
+    public string Key {get; private set;}
 
     public override void Parse(ActionParser parser)
     {
       if (!parser.PreSix)
 	{
-	  _classID = parser.ReadTokenOrUnicodeString();
+	  ClassID = parser.ReadTokenOrUnicodeString();
 	}
 
-      _classID2 = parser.ReadTokenOrString();
-      _key = parser.ReadTokenOrString();
+      ClassID2 = parser.ReadTokenOrString();
+      Key = parser.ReadTokenOrString();
 
-      DebugOutput.Dump("prop: c = {0}, c2 = {1}, k = {2}", _classID,
-		       _classID2, _key);
+      DebugOutput.Dump("prop: c = {0}, c2 = {1}, k = {2}", ClassID,
+		       ClassID2, Key);
     }
   }
 }

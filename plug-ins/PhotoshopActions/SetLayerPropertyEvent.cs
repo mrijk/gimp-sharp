@@ -51,44 +51,6 @@ namespace Gimp.PhotoshopActions
 	}
     }
 
-    protected override IEnumerable ListParameters()
-    {
-      yield return "To: layer";
-
-      foreach (Parameter parameter in _objc.Parameters)
-	{
-	  switch (parameter.Name)
-	    {
-	    case "Clr":
-	      yield return Format(parameter as EnumParameter, "Clr");
-	      break;
-	    case "fillOpacity":
-	      double fillOpacity = (parameter as DoubleParameter).Value;
-	      yield return "Fill Opacity: " + fillOpacity;
-	      break;
-	    case "Lefx":
-	      yield return "Scale: ";
-	      break;
-	    case "Md":
-	      yield return parameter.Format();	      
-	      break;
-	    case "Nm":
-	      yield return parameter.Format();	      
-	      break;
-	    case "Opct":
-	      yield return parameter.Format();
-	      break;
-	    case "PrsT":
-	      bool preserveTransparency = (parameter as BoolParameter).Value;
-	      yield return "Preserve transparency: " + preserveTransparency;
-	      break;
-	    default:
-	      Console.WriteLine("SetLayerProperty: " + parameter.Name);
-	      break;
-	    }
-	}
-    }
-
     override public bool Execute()
     {
       Layer layer = (_name == null) ? SelectedLayer 
@@ -107,6 +69,9 @@ namespace Gimp.PhotoshopActions
 		  break;
 		case "CDdg":
 		  layer.Mode = LayerModeEffects.Dodge;
+		  break;
+		case "Dfrn":
+		  layer.Mode = LayerModeEffects.Difference;
 		  break;
 		case "Drkn":
 		  // TODO: not a perfect match

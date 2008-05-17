@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // AddToEvent.cs
 //
@@ -18,9 +18,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-using System.Collections;
-
 namespace Gimp.PhotoshopActions
 {
   public class AddToEvent : ActionEvent
@@ -31,31 +28,6 @@ namespace Gimp.PhotoshopActions
     public override string EventForDisplay
     {
       get {return base.EventForDisplay + " Selection";}
-    }
-
-    protected override IEnumerable ListParameters()
-    {
-      return _objc.ListParameters();
-      /*
-      switch (_objc.ClassID2)
-	{
-	case "Rctn":
-	  DoubleParameter tmp = _objc.Parameters["Top"] as DoubleParameter;
-	  yield return String.Format("Top: {0:F3}", tmp.Value);
-	  break;
-	case "Sngr":
-	  yield return "From: single row";
-	  DoubleParameter top = _objc.Parameters["Top"] as DoubleParameter;
-	  if (top != null)
-	    {
-	      yield return "Top: " + top.Value;
-	    }
-	  break;
-	default:
-	  Console.WriteLine("AddToEvent: unknown classID2: " + _objc.ClassID2);
-	  break;
-	}
-      */
     }
 
     override public bool Execute()

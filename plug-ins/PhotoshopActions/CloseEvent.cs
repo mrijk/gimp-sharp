@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // CloseEvent.cs
 //
@@ -18,23 +18,12 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-using System.Collections;
-
 namespace Gimp.PhotoshopActions
 {
   public class CloseEvent : ActionEvent
   {
     [Parameter("Svng")]
     EnumParameter _saving;
-
-    protected override IEnumerable ListParameters()
-    {
-      if (_saving != null)
-	{
-	  yield return Format(_saving, "Saving");
-	}
-    }
 
     override public bool Execute()
     {

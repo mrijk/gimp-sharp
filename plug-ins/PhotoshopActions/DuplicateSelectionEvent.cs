@@ -18,9 +18,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-using System.Collections;
-
 namespace Gimp.PhotoshopActions
 {
   public class DuplicateSelectionEvent : DuplicateEvent
@@ -36,12 +33,6 @@ namespace Gimp.PhotoshopActions
     public override string EventForDisplay
     {
       get {return base.EventForDisplay + " Selection";}
-    }
-
-    protected override IEnumerable ListParameters()
-    {
-      if (_name != null)
-	yield return "Name: \"" + _name + "\"";
     }
 
     override public bool Execute()

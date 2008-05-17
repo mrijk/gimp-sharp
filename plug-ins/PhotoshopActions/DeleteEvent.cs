@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // DeleteEvent.cs
 //
@@ -90,6 +90,18 @@ namespace Gimp.PhotoshopActions
 		default:
 		  Console.WriteLine("DeleteEvent-3: {0} unknown", 
 				    type.ClassID2);
+		  break;
+		}
+	    }
+	  else if (_obj.Set[0] is IndexType)
+	    {
+	      IndexType type = _obj.Set[0] as IndexType;
+	      switch (type.Key)
+		{
+		case "Chnl":
+		  return new DeleteChannelByIndexEvent(this, type.Index);
+		default:
+		  Console.WriteLine("DeleteEvent-4: {0} unknown", type.Key);
 		  break;
 		}
 	    }

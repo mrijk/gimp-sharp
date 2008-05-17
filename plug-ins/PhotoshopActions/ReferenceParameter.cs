@@ -80,12 +80,22 @@ namespace Gimp.PhotoshopActions
 
     public override IEnumerable<string> Format()
     {
-      yield return "ReferenceParameter";
+      // yield return "ReferenceParameter";
+      foreach (ReferenceType type in _set)
+	{
+	  foreach (string s in type.Format())
+	    {
+	      yield return s;
+	    }
+	}
     }
 
     public override void Fill(Object obj, FieldInfo field)
     {
-      field.SetValue(obj, this);
+      if (CheckFillType(field))
+	{
+	  field.SetValue(obj, this);
+	}
     }
   }
 }

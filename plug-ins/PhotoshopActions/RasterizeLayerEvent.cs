@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // RasterizeLayerEvent.cs
 //
@@ -18,9 +18,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-using System.Collections;
-
 namespace Gimp.PhotoshopActions
 {
   public class RasterizeLayerEvent : ActionEvent
@@ -31,12 +28,6 @@ namespace Gimp.PhotoshopActions
     public override string EventForDisplay
     {
       get {return "Rasterize";}
-    }
-
-    protected override IEnumerable ListParameters()
-    {
-      if (_item != null)
-	yield return Format(_item, "What");
     }
 
     override public bool Execute()

@@ -56,6 +56,7 @@ MYSOURCES = 				\
 	CopyMergedEvent.cs		\
 	CopyToLayerEvent.cs		\
 	CraquelureEvent.cs		\
+	CreateClippingMaskEvent.cs	\
 	CropEvent.cs			\
 	CrosshatchEvent.cs		\
 	CrystallizeEvent.cs		\
@@ -71,6 +72,7 @@ MYSOURCES = 				\
 	DeleteChannelEvent.cs		\
 	DeleteEvent.cs			\
 	DeleteGuideEvent.cs		\
+	DeleteChannelByIndexEvent.cs	\
 	DeleteChannelByNameEvent.cs	\
 	DeleteLayerByNameEvent.cs	\
 	DeleteLayerEvent.cs		\
@@ -237,6 +239,7 @@ MYSOURCES = 				\
 	SelectChannelByIndexEvent.cs	\
 	SelectChannelByNameEvent.cs	\
 	SelectChannelEvent.cs		\
+	SelectCurrentHistoryStateEvent.cs	\
 	SelectHistoryStateEvent.cs	\
 	SelectiveColorEvent.cs		\
 	SelectLayerByNameEvent.cs	\

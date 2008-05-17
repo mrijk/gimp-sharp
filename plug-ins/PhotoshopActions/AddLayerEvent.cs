@@ -35,6 +35,8 @@ namespace Gimp.PhotoshopActions
     [Parameter("Md")]
     EnumParameter _mode;
 
+    static int _layerNr = 1;
+
     public AddLayerEvent(ActionEvent srcEvent) : base(srcEvent) 
     {
       Parameters.Fill(this);
@@ -46,7 +48,7 @@ namespace Gimp.PhotoshopActions
     {
       get {return base.EventForDisplay + " layer";}
     }
-
+    /*
     protected override IEnumerable ListParameters()
     {
       yield return "Using: layer";
@@ -60,7 +62,7 @@ namespace Gimp.PhotoshopActions
       if (Parameters["below"] != null)
 	yield return Format(_below, "Below");
     }
-
+    */
     LayerModeEffects GetMode()
     {
       LayerModeEffects mode = LayerModeEffects.Normal;
@@ -102,8 +104,17 @@ namespace Gimp.PhotoshopActions
       // Fix me: do something with Image.ImageBaseType
       Image image = ActiveImage;
 
-      Layer layer = new Layer(image, 
-			      (_name == null) ? "New Layer" : _name, 
+      string name;
+      if (_name == null)
+	{
+	  name = "Layer " + _layerNr++;
+	}
+      else
+	{
+	  name = _name;
+	}
+
+      Layer layer = new Layer(image, name,
 			      ImageType.Rgba, 100, GetMode());
       image.AddLayer(layer, 0);
       image.ActiveLayer = layer;

@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // ClassParameter.cs
 //
@@ -18,35 +18,22 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-using System.Reflection;
-
 namespace Gimp.PhotoshopActions
 {
   public class ClassType : ReferenceType
   {
-    string _classID;
-    string _classID2;
-
-    public string ClassID
-    {
-      get {return _classID;}
-    }
-
-    public string ClassID2
-    {
-      get {return _classID2;}
-    }
+    public string ClassID {get; private set;}
+    public string ClassID2 {get; private set;}
 
     public override void Parse(ActionParser parser)
     {
       if (!parser.PreSix)
 	{
-	  _classID = parser.ReadTokenOrUnicodeString();
+	  ClassID = parser.ReadTokenOrUnicodeString();
 	}
-      _classID2 = parser.ReadTokenOrString();
+      ClassID2 = parser.ReadTokenOrString();
 
-      DebugOutput.Dump("class: c = {0}, c2 = {1}", _classID, _classID2);
+      DebugOutput.Dump("class: c = {0}, c2 = {1}", ClassID, ClassID2);
     }
   }
 }

@@ -50,7 +50,7 @@ namespace Gimp.PhotoshopActions
 	  return false;
 	}
     }
-
+#if false
     protected override IEnumerable ListParameters()
     {
       if (_type is TypeParameter)
@@ -70,7 +70,7 @@ namespace Gimp.PhotoshopActions
 	  yield return "Depth: " + _depth;
 	}
     }
-
+#endif
     override public bool Execute()
     {
       if (_type is TypeParameter)

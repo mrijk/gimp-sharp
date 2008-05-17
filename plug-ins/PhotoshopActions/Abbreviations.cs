@@ -34,7 +34,11 @@ namespace Gimp.PhotoshopActions
       _map["AdBt"] = "bottom edges";
       _map["AdCH"] = "horizontal centers";
       _map["AdCV"] = "vertical centers";
+      _map["Adjs"] = "Adjustment";
       _map["AdLf"] = "left edges";
+      _map["AdNs"] = _map["addNoise"] = "Add Noise";
+      _map["AdRg"] = "right edges";
+      _map["AdTp"] = "top edges";
       _map["Al"]   = "all";
       _map["AmbB"] = "Ambience";
       _map["AmbC"] = "Ambient Color";
@@ -48,11 +52,12 @@ namespace Gimp.PhotoshopActions
       _map["annotType"] = "Type";
       _map["AntA"] = "Anti-alias";
       _map["antialiasGloss"] = "Anti-alias Gloss";
-      _map["AdRg"] = "right edges";
-      _map["AdTp"] = "top edges";
       _map["Amnt"] = "Amount";
       _map["Angl"] = "angle";
       _map["Anno"] = "none";
+      _map["Aply"] = "Apply";
+      _map["autoBlackWhite"] = "Auto Black & White";
+      _map["autoNeutrals"] = "Auto Neutrals";
       _map["Bcbc"] = "bicubic";
       _map["BckC"] = "background color";
       _map["Bckg"] = "background";
@@ -83,16 +88,23 @@ namespace Gimp.PhotoshopActions
       _map["ChrA"] = "Charcoal Area";
       _map["Ckmt"] = "Spread";
       _map["Clcl"] = "calculation";
+      _map["Cler"] = "Clear";
       _map["Clr"]  = "color";
+      _map["ClrB"] = "Color Balance";
       _map["Clrs"] = "Colors";
       _map["Clrz"] = "Colorize";
       _map["ClSz"] = "Cell Size";
       _map["Cmps"] = "composite channel";
       _map["CMYM"] = "CMYK color mode";
+      _map["CnsP"] = "Constrain Proportions";
+      _map["Cntc"] = "Contract";
       _map["Cntg"] = "Contiguous";
       _map["Cntn"] = "Continue";
       _map["Cntr"] = "Contrast";
       _map["Cnvr"] = "Convert";
+      _map["convertMode"] = "Convert Mode";
+      _map["copy"] = "Copy";
+      _map["copyToLayer"] = "Layer via Copy";
       _map["CrnH"] = "Current History State";
       _map["CrcB"] = "Crack brightness";
       _map["CrcD"] = "Crack depth";
@@ -101,10 +113,13 @@ namespace Gimp.PhotoshopActions
       _map["CrrL"] = "current layer";
       _map["CrsD"] = "Coarse Dots";
       _map["Crtl"] = "Interpolation";
+      _map["Crvs"] = "Curves";
       _map["CstS"] = "custom stops";
       _map["Cyn" ] = "cyan";
+      _map["DfnP"] = "Define Pattern";
       _map["Dfnt"] = "Definition";
       _map["Dfrn"] = "difference";
+      _map["Dlt"]  = "Delete";
       _map["Dmtr"] = "diameter";
       _map["Dnst"] = "Density";
       _map["Dplc"] = "Duplicate";
@@ -118,6 +133,7 @@ namespace Gimp.PhotoshopActions
       _map["DspM"] = "Displacement Map";
       _map["Dstn"] = "Distance";
       _map["Dstr"] = "Distribution";
+      _map["Dstt"] = "Desaturate";
       _map["Dthr"] = "Dither";
       _map["Dtl"]  = "Detail";
       _map["Edg"]  = "Edge";
@@ -128,6 +144,7 @@ namespace Gimp.PhotoshopActions
       _map["ElmO"] = "Odd Fields";
       _map["Elps"] = "Ellipse";
       _map["enab"] = "Enabled";
+      _map["Expn"] = "Expand";
       _map["Exps"] = "Exposure";
       _map["ExtD"] = "Depth";
       _map["ExtF"] = "Solid Front Faces";
@@ -135,7 +152,11 @@ namespace Gimp.PhotoshopActions
       _map["ExtR"] = "Random";
       _map["ExtS"] = "Size";
       _map["ExtT"] = "Type";
+      _map["fill"] = "Fill";
+      _map["Fl"]   = "fill";
       _map["FllD"] = "full document";
+      _map["FltI"] = _map["flattenImage"] = "Flatten Image";
+      _map["Fltt"] = "Flatten";
       _map["FncK"] = "Function Key";
       _map["FnDt"] = "Fine Dots";
       _map["FrgC"] = "foreground color";
@@ -144,10 +165,14 @@ namespace Gimp.PhotoshopActions
       _map["Frst"] = "first";
       _map["FtOn"] = "Fit On Screen";
       _map["Fzns"] = "Fuzziness";
+      _map["GblR"] = "Gaussian Blur";
       _map["Gd"]   = "good";
       _map["Glos"] = "Gloss";
       _map["GlwE"] = "glowing edges";
+      _map["Gmm"]  = "Gamma";
+      _map["GsnB"] = _map["gaussianBlur"] = "Gaussian Blur";
       _map["GrdF"] = "Form";
+      _map["Grdn"] = _map["gradientClassEvent"] = "Gradient";
       _map["Grn"]  = "green";
       _map["GrnE"] = "Enlarged";
       _map["GrnH"] = "Horizontal";
@@ -155,6 +180,8 @@ namespace Gimp.PhotoshopActions
       _map["Grns"] = "Graininess";
       _map["Grnt"] = "Grain Type";
       _map["GrnV"] = "Vertical";
+      _map["groupEvent"] = "Group";
+      _map["GrpL"] = "Create Clipping Mask";
       _map["GrSf"] = "Soft";
       _map["GrtW"] = "Grout Width";
       _map["Gry"]  = "gray";
@@ -162,6 +189,7 @@ namespace Gimp.PhotoshopActions
       _map["Gsn"]  = "gaussian";
       _map["GudG"] = "Guides & Grid & Slices Preferences";
       _map["H"]    = "Hue";
+      _map["Hd"]   = "Hide";
       _map["HghS"] = "Highlight strength";
       _map["Hght"] = "Height";
       _map["hglO"] = "Highlight Opacity";
@@ -172,6 +200,7 @@ namespace Gimp.PhotoshopActions
       _map["HrzO"] = "Horizontal Only";
       _map["HrzS"] = "Horizontal Scale";
       _map["HSBC"] = "HSB color";
+      _map["HStr"] = _map["hueSaturation"] = "Hue/Saturation";
       _map["ImgB"] = "Image Balance";
       _map["IndC"] = "indexed color mode";
       _map["InrB"] = "inner bevel";
@@ -181,6 +210,7 @@ namespace Gimp.PhotoshopActions
       _map["Intn"] = "Intensity";
       _map["Intr"] = "Interpolation";
       _map["Invr"] = "Invert Source";
+      _map["Invs"] = "Inverse";
       _map["InvT"] = "Invert Texture";
       _map["IrGl"] = "Inner Glow";
       _map["IrSh"] = "Inner Shadow";
@@ -199,10 +229,13 @@ namespace Gimp.PhotoshopActions
       _map["Lft"]  = "Left";
       _map["LgDr"] = "Light/Dark Balance";
       _map["LghD"] = "Light Direction";
+      _map["LghE"] = _map["lightingEffects"] = "Lighting Effects";
       _map["LghG"] = "Lighten Grout";
       _map["LghI"] = "Light Intensity";
       _map["Lghn"] = "lighten";
+      _map["LghS"] = "Light Source";
       _map["Lght"] = "lightness";
+      _map["LghT"] = "Light Type";
       _map["linearLight"] = "linear light";
       _map["Lmns"] = "luminosity";
       _map["Ln"]   = "line"; 
@@ -218,14 +251,22 @@ namespace Gimp.PhotoshopActions
       _map["Lrg"]  = "Large";
       _map["Lst"]  = "last";
       _map["Lvl"]  = "Level";
+      _map["Lvls"] = "Levels";
       _map["LvlB"] = "Level-based";
       _map["Lwr"]  = "lower";
+      _map["Lyr"]  = "layer";
+      _map["Md"]   = "Mode";
       _map["Mdm"]  = "medium";
+      _map["MdmS"] = "Medium Strokes";
       _map["Mdpn"] = "Midpoint";
       _map["Mgnt"] = "magenta";
+      _map["Mk"]   = "Make";
       _map["Mltp"] = "multiply";
       _map["Mnch"] = "Monochromatic";
-      _map["Md"]   = "Mode";
+      _map["mosaicPlug"] = "Mosaic Tiles";
+      _map["MtnB"] = _map["motionBlur"] = "Motion Blur";
+      _map["MrgL"] = _map["mergeLayers"] = "Merge Layers";
+      _map["MrgV"] = "Merge Visible";
       _map["Msge"] = "Message";
       _map["Msk"]  = "mask";
       _map["Mthd"] = "Method";
@@ -241,15 +282,19 @@ namespace Gimp.PhotoshopActions
       _map["Nrml"] = "normal";
       _map["Nw"]   = "New";
       _map["Nxt"]  = "next";
+      _map["Opn"]  = "Open";
+      _map["Ofst"] = "Offset";
       _map["Opct"] = "Opacity";
       _map["Orng"] = "orange";
       _map["Ornt"] = "Orientation";
       _map["Otsd"] = "outside";
       _map["Ovrl"] = "overlay";
+      _map["past"] = "Paste";
       _map["Pht3"] = "Photoshop";
       _map["Phtc"] = "Photocopy";
       _map["PhtP"] = "Photoshop PDF";
       _map["Plgn"] = "polygon";
+      _map["Plr"]  = "Polarize";
       _map["PlrR"] = "Polar to Rectangular";
       _map["Pncl"] = "Pencil Width";
       _map["PndR"] = "Pond Ripples";
@@ -259,10 +304,13 @@ namespace Gimp.PhotoshopActions
       _map["PrsL"] = "Preserve Luminosity";
       _map["Prvs"] = "previous";
       _map["PrsT"] = "Preserve Transparency";
+      _map["PstI"] = "Paste Into";
       _map["Pstn"] = "Position";
       _map["Pstr"] = "Posterization";
       _map["Ptrn"] = "pattern";
       _map["Pyrm"] = "pyramids";
+      _map["Rctn"] = "rectangle";
+      _map["RctP"] = "Rectangular to Polar";
       _map["Rd"]   = "red";
       _map["Rdl"]  = "radial";
       _map["Rds"]  = "Radius";
@@ -271,7 +319,6 @@ namespace Gimp.PhotoshopActions
       _map["Rlg"]  = "Relief";
       _map["Rndm"] = "random";
       _map["Rndn"] = "roundness";
-      _map["RctP"] = "Rectangular to Polar";
       _map["RGBC"] = "RGB color";
       _map["RGBM"] = "RGB color mode";
       _map["Rltv"] = "relative";
@@ -280,13 +327,18 @@ namespace Gimp.PhotoshopActions
       _map["RplS"] = "Ripple Size";
       _map["Rpt"]  = "repeat";
       _map["RptE"] = "repeat edge pixels";
+      _map["Rset"] = "Reset";
+      _map["Rslt"] = "Resolution";
       _map["Rtcl"] = "reticulation";
+      _map["Rtte"] = "Rotate";
       _map["RvlS"] = "reveal selection";
+      _map["Rvrs"] = "Reverse";
       _map["SBME"] = "Edge Only";
       _map["SBMN"] = "smart blur mode normal";
       _map["SBQH"] = "smart blur quality high";
       _map["SBQL"] = "smart blur quality low";
       _map["SBQM"] = "smart blur quality medium";
+      _map["Sbtr"] = "Subtract Selection";
       _map["Scl"]  = "Scale";
       _map["SclH"] = "Scale horizontal";
       _map["Scln"] = "Scaling";
@@ -300,6 +352,7 @@ namespace Gimp.PhotoshopActions
       _map["SdwC"] = "Shadow Color";
       _map["SwdM"] = "Shadow Mode";
       _map["sdwO"] = "Shadow Opacity";
+      _map["setd"] = "Set";
       _map["SfBL"] = "smooth";
       _map["SftL"] = "soft light";
       _map["Sftn"] = "Softness";
@@ -307,21 +360,28 @@ namespace Gimp.PhotoshopActions
       _map["Shdw"] = "shadow";
       _map["showNone"] = "Show None";
       _map["Shrp"] = "Sharpness";
+      _map["Shw"]  = "Show";
+      _map["slct"] = "Select";
+      _map["Slrz"] = "Solarize";
       _map["Sml"]  = "small";
       _map["Smth"] = "Smoothness";
+      _map["SnpS"] = "snapshot";
       _map["Spcn"] = "spacing";
       _map["SphM"] = "Mode";
+      _map["Spng"] = "Sponge";
       _map["SprR"] = "Spray Radius";
       _map["SqrS"] = "Square Size";
       _map["StDt"] = "Stroke Detail";
       _map["Stgr"] = "Stagger";
       _map["StrD"] = "Stroke Detail";
       _map["Strg"] = "Strength";
+      _map["Strk"] = "Stroke";
       _map["StrL"] = "Stroke Length";
       _map["StrP"] = "Stroke Pressure";
       _map["StrS"] = "Stroke Size";
       _map["Strt"] = "saturation";
       _map["StrW"] = "Stroke Width";
+      _map["Svng"] = "Saving";
       _map["Sz"]   = "Size";
       _map["trimBasedOn"] = "Based on";
       _map["T"]    = "To";
@@ -329,10 +389,13 @@ namespace Gimp.PhotoshopActions
       _map["TglO"] = "Toggle Others";
       _map["TglR"] = "Toggle Rulers";
       _map["TgSn"] = "Toggle Snap To Grid";
+      _map["Thrs"] = "Threshold";
       _map["Tlrn"] = "Tolerance";
       _map["TlSz"] = "Tile Size";
       _map["Top"]  = "Top";
+      _map["topLeftPixelColor"] = "top left pixel color";
       _map["Trgt"] = "current";
+      _map["Trnf"] = "Transform";
       _map["Trns"] = "transparent";
       _map["Trsp"] = "transparency";
       _map["TxBl"] = "Blocks";
@@ -350,6 +413,8 @@ namespace Gimp.PhotoshopActions
       _map["useShape"] = "Apply Shape";
       _map["useTexture"] = "Apply Texture";
       _map["Usng"] = "Using";
+      _map["Vct0"] = "Vector 0";
+      _map["Vct1"] = "Vector 1";
       _map["Vrtc"] = "Vertical";
       _map["VrtS"] = "Vertical Scale";
       _map["Wdth"] = "Width";
@@ -383,6 +448,12 @@ namespace Gimp.PhotoshopActions
 	{
 	  return key;
 	}
+    }
+
+    public static string GetUppercased(string key)
+    {
+      string s = Get(key);
+      return char.ToUpper(s[0]) + s.Substring(1);
     }
   }
 }

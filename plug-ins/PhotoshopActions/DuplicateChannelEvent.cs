@@ -36,13 +36,17 @@ namespace Gimp.PhotoshopActions
     public override string EventForDisplay
     {
       get {
-	if (_name == "Trgt")
+	switch (_name)
 	  {
+	  case "Trgt":
 	    return "Duplicate current channel";
-	  }
-	else
-	  {
-	    return base.EventForDisplay;
+	  case "Rd":
+	  case "Grn":
+	  case "Bl":
+	    return base.EventForDisplay + " " + Abbreviations.Get(_name) + 
+	      " channel";
+	  default:
+	    return base.EventForDisplay + "channel";
 	  }
       }
     }

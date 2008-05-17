@@ -45,12 +45,15 @@ namespace Gimp.PhotoshopActions
 
     public override void Fill(Object obj, FieldInfo field)
     {
-      field.SetValue(obj, this);
+      if (CheckFillType(field))
+	{
+	  field.SetValue(obj, this);
+	}
     }
 
     public override IEnumerable<string> Format()
     {
-      yield return String.Format("{0}: {1}", Abbreviations.Get(Name), 
+      yield return String.Format("{0}: {1}", UppercaseName,
 				 Abbreviations.Get(Value));
     }
   }

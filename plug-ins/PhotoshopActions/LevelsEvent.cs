@@ -27,7 +27,7 @@ namespace Gimp.PhotoshopActions
   {
     [Parameter("Adjs")]
     ListParameter _adjustment;
-
+#if false
     protected override IEnumerable ListParameters()
     {
       if (_adjustment != null)
@@ -48,7 +48,7 @@ namespace Gimp.PhotoshopActions
 	    }
 	}
     }
-
+#endif
     override public bool Execute()
     {
       if (Parameters["AuCo"] != null)

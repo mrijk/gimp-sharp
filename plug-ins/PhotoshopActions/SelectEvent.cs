@@ -76,13 +76,15 @@ namespace Gimp.PhotoshopActions
 	  else if (parameter is PropertyType)
 	    {
 	      PropertyType property = parameter as PropertyType;
-	      if (property.Key == "Bckg")
+	      switch (property.Key)
 		{
+		case "Bckg":
 		  return new SelectLayerByNameEvent(this, "Background");
-		}
-	      else
-		{
+		case "CrnH":
+		  return new SelectCurrentHistoryStateEvent(this);
+		default:
 		  Console.WriteLine("Property: " + property.Key);
+		  break;
 		}
 	    }
 	  else if (parameter is EnmrType)

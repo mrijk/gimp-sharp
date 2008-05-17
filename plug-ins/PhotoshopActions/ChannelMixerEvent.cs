@@ -18,9 +18,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-using System.Collections;
-
 namespace Gimp.PhotoshopActions
 {
   public class ChannelMixerEvent : ActionEvent
@@ -37,14 +34,6 @@ namespace Gimp.PhotoshopActions
     ObjcParameter _blue;
 
     double _r, _g, _b;
-
-    protected override IEnumerable ListParameters()
-    {
-      yield return Format(_monochrome, "Mnch");
-      yield return "Red: " + _r + " %";
-      yield return "Green: " + _g + " %";
-      yield return "Blue: " + _b + " %";
-    }
 
     override public ActionEvent Parse(ActionParser parser)
     {

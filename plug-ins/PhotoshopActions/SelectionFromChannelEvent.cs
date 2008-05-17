@@ -32,12 +32,12 @@ namespace Gimp.PhotoshopActions
     {
       _type = type;
     }
-
+    /*
     protected override IEnumerable ListParameters()
     {
-      yield return "To: " + Abbreviations.Get(_type) + " channel";
+      yield return "To: " + Abbreviations.Get(_type) + " channelX";
     }
-
+    */
     override public bool Execute()
     {
       ActiveImage.Selection.LayerAlpha(SelectedLayer);

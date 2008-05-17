@@ -56,7 +56,7 @@ namespace Gimp.PhotoshopActions
     {
       get {return base.EventForDisplay + " current layer";}
     }
-
+#if false
     protected override IEnumerable ListParameters()
     {
       ObjcParameter objc = Parameters["Ofst"] as ObjcParameter;
@@ -88,7 +88,7 @@ namespace Gimp.PhotoshopActions
 	  yield return relative.Format("Relative");
 	}
     }
-
+#endif
     override public bool Execute()
     {
       double newWidth = ActiveDrawable.Width;

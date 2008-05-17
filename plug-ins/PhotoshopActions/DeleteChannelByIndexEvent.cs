@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2007 Maurits Rijk
 //
-// ReferenceType.cs
+// DeleteChannelByIndexEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,13 +18,33 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System.Collections.Generic;
+using System;
 
 namespace Gimp.PhotoshopActions
 {
-  public abstract class ReferenceType
+  public class DeleteChannelByIndexEvent : ActionEvent
   {
-    public abstract void Parse(ActionParser parser);
-    public virtual IEnumerable<string> Format() {yield return "fixme!";}
+    readonly int _index;
+
+    public DeleteChannelByIndexEvent(ActionEvent srcEvent, int index) :
+      base(srcEvent)
+    {
+      _index = index;
+    }
+
+    public override string EventForDisplay
+    {
+      get 
+	{
+	  return base.EventForDisplay + " channel " + _index;
+	}
+    }
+
+    override public bool Execute()
+    {
+      Channel channel = ActiveImage.Channels[_index - 4];
+      ActiveImage.RemoveChannel(channel);
+      return true;
+    }
   }
 }

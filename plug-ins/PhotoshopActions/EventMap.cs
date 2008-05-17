@@ -137,6 +137,7 @@ namespace Gimp.PhotoshopActions
       _map["graphicPen"] = "GraphicPenEvent";
       _map["groupEvent"] = "GroupEvent";
       _map["grow"] = _map["Grow"] = "GrowEvent";
+      _map["GrpL"] = "CreateClippingMaskEvent";
       _map["halftoneScreen"] = _map["HlfS"] = "HalftoneScreenEvent";
       _map["hide"] = _map["Hd"] = "HideEvent";
       _map["highPass"] = _map["HghP"] = "HighPassEvent";

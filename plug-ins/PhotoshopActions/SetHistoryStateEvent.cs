@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // SetHistoryStateEvent.cs
 //
@@ -18,9 +18,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-using System.Collections;
-
 namespace Gimp.PhotoshopActions
 {
   public class SetHistoryStateEvent : SetEvent
@@ -32,22 +29,6 @@ namespace Gimp.PhotoshopActions
     public override string EventForDisplay
     {
       get {return base.EventForDisplay + " Current History State";}
-    }
- 
-    protected override IEnumerable ListParameters()
-    {
-      Parameter type = Parameters["T"];
-
-      if (type is ReferenceParameter)
-	{
-	  ReferenceParameter reference = type as ReferenceParameter;
-	  string name = (reference.Set[0] as NameType).Key;
-	  yield return Format(name, "Nm");
-	}
-      else
-	{
-	  yield break;
-	}
     }
 
     override public bool Execute()

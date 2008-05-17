@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // MakePathEvent.cs
 //
@@ -18,8 +18,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System.Collections;
-
 namespace Gimp.PhotoshopActions
 {
   public class MakePathEvent : MakeEvent
@@ -33,14 +31,6 @@ namespace Gimp.PhotoshopActions
       get 
 	{
 	  return Parameters["From"] != null;
-	}
-    }
-
-    protected override IEnumerable ListParameters()
-    {
-      if (Parameters["From"] != null)
-	{
-	  yield return "From: Selection";
 	}
     }
 

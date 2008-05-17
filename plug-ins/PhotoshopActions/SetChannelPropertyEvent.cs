@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // SetChannelPropertyEvent.cs
 //
@@ -19,7 +19,6 @@
 //
 
 using System;
-using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
@@ -38,27 +37,6 @@ namespace Gimp.PhotoshopActions
       get 
 	{
 	  return base.EventForDisplay + " current channel";
-	}
-    }
-
-    protected override IEnumerable ListParameters()
-    {
-      foreach (Parameter parameter in _objc.Parameters)
-	{
-	  switch (parameter.Name)
-	    {
-	    case "Nm":
-	      string name = (parameter as TextParameter).Value;
-	      yield return Format(name, "Nm");
-	      break;
-	    case "Opct":
-	      double opacity = (parameter as DoubleParameter).Value;
-	      yield return "Opacity: " + opacity;
-	      break;
-	    default:
-	      Console.WriteLine("SetChannelProperty: " + parameter.Name);
-	      break;
-	    }
 	}
     }
 

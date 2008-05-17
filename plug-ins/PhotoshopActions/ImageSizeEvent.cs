@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // ImageSizeEvent.cs
 //
@@ -19,7 +19,6 @@
 //
 
 using System;
-using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
@@ -36,22 +35,6 @@ namespace Gimp.PhotoshopActions
     [Parameter("Intr")]
     EnumParameter _interpolation;
 
-    protected override IEnumerable ListParameters()
-    {
-      DoubleParameter width = Parameters["Wdth"] as DoubleParameter;
-      if (width != null)
-	yield return width.Format();
-      
-      DoubleParameter height = Parameters["Hght"] as DoubleParameter;
-      if (height != null)
-	yield return height.Format();
-      
-      if (_interpolation != null)
-	{
-	  yield return Format(_interpolation, "Intr");
-	}
-    }
-    
     override public bool Execute()
     {      
       DoubleParameter width = Parameters["Wdth"] as DoubleParameter; 

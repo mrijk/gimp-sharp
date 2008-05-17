@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // DeleteChannelEvent.cs
 //
@@ -24,6 +24,11 @@ namespace Gimp.PhotoshopActions
   {
     public DeleteChannelEvent(ActionEvent srcEvent) : base(srcEvent)
     {
+    }
+
+    public override string EventForDisplay
+    {
+      get {return base.EventForDisplay + " current channel";}
     }
 
     override public bool Execute()

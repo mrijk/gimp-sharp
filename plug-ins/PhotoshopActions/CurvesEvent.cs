@@ -51,6 +51,10 @@ namespace Gimp.PhotoshopActions
       ListParameter curve = objc.Parameters["Crv"] as ListParameter;
 
       CoordinateList<byte> controlPoints = new CoordinateList<byte>();
+
+      // Dirty hack. Fixme!
+      if (curve == null)
+	return controlPoints;
       
       foreach (Parameter parameter in curve)
 	{

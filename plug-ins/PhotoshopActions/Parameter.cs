@@ -34,11 +34,19 @@ namespace Gimp.PhotoshopActions
 
     protected string UppercaseName
     {
-      get
-	{
-	  string s = Abbreviations.Get(Name);
-	  return char.ToUpper(s[0]) + s.Substring(1);
-	}
+      get {return Abbreviations.GetUppercased(Name);}
+    }
+
+    protected bool CheckFillType(FieldInfo field)
+    {
+      if (field.FieldType == GetType() || 
+	  GetType().IsSubclassOf(field.FieldType)) {
+	return true;
+      } else {
+	Console.WriteLine("Parameter.Fill: " + GetType());
+	Console.WriteLine("Parameter.Fill: " + field.FieldType);
+	return false;
+      }
     }
   }
 }

@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // OffsetEvent.cs
 //
@@ -18,9 +18,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-using System.Collections;
-
 namespace Gimp.PhotoshopActions
 {
   public class OffsetEvent : ActionEvent
@@ -31,13 +28,6 @@ namespace Gimp.PhotoshopActions
     int _vertical;
     [Parameter("Fl")]
     EnumParameter _fillMode;
-
-    protected override IEnumerable ListParameters()
-    {
-      yield return "Horizontal: " + _horizontal;
-      yield return "Vertical: " + _vertical;
-      yield return "Fill: " + Abbreviations.Get(_fillMode.Value);
-    }
 
     override public bool Execute()
     {

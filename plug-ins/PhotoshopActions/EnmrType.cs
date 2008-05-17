@@ -19,6 +19,7 @@
 //
 
 using System;
+using System.Collections.Generic;
 
 namespace Gimp.PhotoshopActions
 {
@@ -41,6 +42,12 @@ namespace Gimp.PhotoshopActions
 
       DebugOutput.Dump("Enmr: c = {0}, k = {1}, t = {2}, v = {3}",
 		       ClassID, Key, Type, Value);
+    }
+ 
+    public override IEnumerable<string> Format()
+    {
+      yield return String.Format("{0}: {1}", Abbreviations.Get(Key), 
+				 Abbreviations.Get(Value));
     }
   }
 }

@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // ShowLayerEvent.cs
 //
@@ -57,6 +57,7 @@ namespace Gimp.PhotoshopActions
       get {return base.EventForDisplay + " current layer";}
     }
 
+#if false
     protected override IEnumerable ListParameters()
     {
       if (_name != null)
@@ -69,7 +70,7 @@ namespace Gimp.PhotoshopActions
 	  yield return Parameters["TglO"].Format();
 	}
     }
-
+#endif
     override public bool Execute()
     {
       if (_layer == null)

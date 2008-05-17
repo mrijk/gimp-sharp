@@ -18,9 +18,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-using System.Collections;
-
 namespace Gimp.PhotoshopActions
 {
   public class LightingEffectsEvent : ActionEvent
@@ -45,18 +42,6 @@ namespace Gimp.PhotoshopActions
     public override bool IsExecutable
     {
       get {return false;}
-    }
-
-    protected override IEnumerable ListParameters()
-    {
-      yield return Format(_currentLight, "CrnL");
-      yield return Format(_gloss, "Glos");
-      yield return Format(_material, "Mtrl");
-      yield return Format(_exposure, "Exps");
-      yield return Format(_ambience, "AmbB");
-      yield return Format(_whiteIsHigh, "WhHi");
-      yield return Format(_height, "BmpA");
-      yield return Format(_frameWidth, "FrmW");
     }
 
     override public bool Execute()
