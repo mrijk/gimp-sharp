@@ -40,7 +40,30 @@ namespace Gimp.PhotoshopActions
       get 
 	{
 	  Parameter parameter;
+#if false
 	  return (_set.TryGetValue(name, out parameter)) ? parameter : null;
+#else
+	  _set.TryGetValue(name, out parameter);
+	  if (parameter == null)
+	    {
+	      foreach (Parameter p in this)
+		{
+		  if (p is ObjcParameter)
+		    {
+		      Parameter found = (p as ObjcParameter).Parameters[name];
+		      if (found != null)
+			{
+			  return found;
+			}
+		    }
+		}
+	      return null;
+	    }
+	  else
+	    {
+	      return parameter;
+	    }
+#endif
 	}
     }
 

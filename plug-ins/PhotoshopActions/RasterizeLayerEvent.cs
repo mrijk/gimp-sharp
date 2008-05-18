@@ -27,11 +27,12 @@ namespace Gimp.PhotoshopActions
 
     public override string EventForDisplay
     {
-      get {return "Rasterize";}
+      get {return "Rasterize current layer";}
     }
 
     override public bool Execute()
     {
+      SelectedLayer = ActiveImage.ActiveLayer ;
       // We don't do anything here becausea the text layer is automatically
       // rasterized if we apply a filter on it!
       return true;

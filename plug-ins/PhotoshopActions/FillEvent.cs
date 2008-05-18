@@ -73,7 +73,7 @@ namespace Gimp.PhotoshopActions
 	      fillType = FillType.Foreground;
 	      break;
 	    default:
-	      Console.WriteLine("FillEvent: with {0} not supported!", 
+	      Console.WriteLine("FillEvent-1: with {0} not supported!", 
 				_using.Value);
 	      return false;
 	    }
@@ -98,7 +98,7 @@ namespace Gimp.PhotoshopActions
 		      layerMode = LayerModeEffects.Normal ;
 		      break;
 		    default:
-		      Console.WriteLine("FillEvent: with {0} not supported!", 
+		      Console.WriteLine("FillEvent-2: with {0} not supported!", 
 					_mode.Value);
 		      break;
 		    }
@@ -117,6 +117,10 @@ namespace Gimp.PhotoshopActions
 		case "BckC":
 		  fillMode = BucketFillMode.Background;
 		  break;
+		case "Blck":
+		  Context.Foreground = new RGB(0, 0, 0);
+		  fillMode = BucketFillMode.Foreground;
+		  break;
 		case "FrgC":
 		  fillMode = BucketFillMode.Foreground;
 		  break;
@@ -124,7 +128,7 @@ namespace Gimp.PhotoshopActions
 		  fillMode = BucketFillMode.Pattern;
 		  break;
 		default:
-		  Console.WriteLine("FillEvent: with {0} not supported!", 
+		  Console.WriteLine("FillEvent-3: with {0} not supported!", 
 				    _using.Value);
 		  return false;
 		}

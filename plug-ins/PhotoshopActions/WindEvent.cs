@@ -39,9 +39,9 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
-      int direction = (_direction.Value == "Lft") ? 0 : 1;
+      int direction = (_direction.Value == "Lft") ? 1 : 0;
       int algorithm = (_mode.Value == "Wnd") ? 0 : 1;
-      RunProcedure("plug_in_wind", 40, direction, 7, algorithm, 0);
+      RunProcedure("plug_in_wind", 40, direction, 30, algorithm, 0);
       return true;
     }
   }

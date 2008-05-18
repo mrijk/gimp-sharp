@@ -1,3 +1,14 @@
+2008-05-18  Maurits  <maurits.rijk@gmail.com>
+
+	* plug-ins/PhotoshopActions/NewDocumentEvent.cs: clean-up
+	ListParameters routine
+
+	* plug-ins/PhotoshopActions/TypeParameter.cs: implement Format func
+
+	* plug-ins/PhotoshopActions/Abbreviations.cs: new abbreviations
+
+	* plug-ins/PhotoshopActions/SelectionFromChannelEvent.cs: bug fix
+
 2008-05-17  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/ReferenceType.cs

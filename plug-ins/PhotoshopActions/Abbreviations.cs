@@ -88,6 +88,7 @@ namespace Gimp.PhotoshopActions
       _map["ChrA"] = "Charcoal Area";
       _map["Ckmt"] = "Spread";
       _map["Clcl"] = "calculation";
+      _map["Clds"] = "Clouds";
       _map["Cler"] = "Clear";
       _map["Clr"]  = "color";
       _map["ClrB"] = "Color Balance";
@@ -102,7 +103,7 @@ namespace Gimp.PhotoshopActions
       _map["Cntn"] = "Continue";
       _map["Cntr"] = "Contrast";
       _map["Cnvr"] = "Convert";
-      _map["convertMode"] = "Convert Mode";
+      _map["CnvM"] = _map["convertMode"] = "Convert Mode";
       _map["copy"] = "Copy";
       _map["copyToLayer"] = "Layer via Copy";
       _map["CrnH"] = "Current History State";
@@ -116,6 +117,7 @@ namespace Gimp.PhotoshopActions
       _map["Crvs"] = "Curves";
       _map["CstS"] = "custom stops";
       _map["Cyn" ] = "cyan";
+      _map["Dcmn"] = "document";
       _map["DfnP"] = "Define Pattern";
       _map["Dfnt"] = "Definition";
       _map["Dfrn"] = "difference";
@@ -158,6 +160,7 @@ namespace Gimp.PhotoshopActions
       _map["FltI"] = _map["flattenImage"] = "Flatten Image";
       _map["Fltt"] = "Flatten";
       _map["FncK"] = "Function Key";
+      _map["FndE"] = "Find Edges";
       _map["FnDt"] = "Fine Dots";
       _map["FrgC"] = "foreground color";
       _map["FrmW"] = "Frame Width";
@@ -267,6 +270,7 @@ namespace Gimp.PhotoshopActions
       _map["MtnB"] = _map["motionBlur"] = "Motion Blur";
       _map["MrgL"] = _map["mergeLayers"] = "Merge Layers";
       _map["MrgV"] = "Merge Visible";
+      _map["Msc"]  = "Mosaic";
       _map["Msge"] = "Message";
       _map["Msk"]  = "mask";
       _map["Mthd"] = "Method";
@@ -294,7 +298,7 @@ namespace Gimp.PhotoshopActions
       _map["Phtc"] = "Photocopy";
       _map["PhtP"] = "Photoshop PDF";
       _map["Plgn"] = "polygon";
-      _map["Plr"]  = "Polarize";
+      _map["Plr"]  = "Polar Coordinates";
       _map["PlrR"] = "Polar to Rectangular";
       _map["Pncl"] = "Pencil Width";
       _map["PndR"] = "Pond Ripples";

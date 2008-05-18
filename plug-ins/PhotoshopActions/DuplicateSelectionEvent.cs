@@ -37,8 +37,10 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
+      Layer layer = ActiveImage.ActiveLayer;
       Channel channel = ActiveImage.Selection.Save();
-      channel.Name = _name;
+      channel.Name = (_name == null) ? "Alpha 1" : _name;
+      SelectedLayer = layer;
       return true;
     }
   }

@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // NewDocumentEvent.cs
 //
@@ -48,34 +48,29 @@ namespace Gimp.PhotoshopActions
       myObject.Fill(this);
     }
 
-    protected override IEnumerable ListParameters()
+    override protected IEnumerable ListParameters()
     {
-      yield return "New: document";
-      if (_mode != null)
-	{
-	  yield return "Mode: " + Abbreviations.Get(_mode.Value);
-	}
-      yield return "Width: " + _width;
-      yield return "Height: " + _height;
-      yield return "Resolution: " + _resolution;
-
-      yield return "Pixel Aspect Ratio: " + _pixelScaleFactor;
-      if (_fill != null)
-	{
-	  yield return "Fill: " + Abbreviations.Get(_fill.Value);
-	}
-      yield return "Depth: " + _depth;
-      if (_profile != null)
-	{
-	  yield return "Profile: \"" + _profile + "\"";
-	}
+      DoubleParameter.Resolution = _resolution;
+      return base.ListParameters();
     }
 
     override public bool Execute()
     {
       ImageBaseType type = ImageBaseType.Rgb;	// Fix me!
-      int width = (int) _width;
-      int height = (int) _height;
+
+      switch (_mode.Value)
+	{
+	case "Grys":
+	  type = ImageBaseType.Gray;
+	  break;
+	default:
+	  Console.WriteLine("Type: " + _mode.Value);
+	  type = ImageBaseType.Rgb;
+	  break;
+	}
+
+      int width = (int) (Parameters["Wdth"] as DoubleParameter).GetPixels(0);
+      int height = (int) (Parameters["Hght"] as DoubleParameter).GetPixels(0);
 
       ImageType imageType;
       FillType fillType;
@@ -83,17 +78,19 @@ namespace Gimp.PhotoshopActions
       switch (_fill.Value)
 	{
 	case "Trns":
-	  imageType = ImageType.Rgba;
+	  imageType = (type == ImageBaseType.Gray) 
+	    ? ImageType.Graya : ImageType.Rgba;
 	  fillType = FillType.Transparent;
 	  break;
 	default:
-	  imageType = ImageType.Rgb;
+	  imageType = (type == ImageBaseType.Gray) 
+	    ? ImageType.Gray : ImageType.Rgb;
 	  fillType = FillType.White;
 	  break;
 	}
 
       Image image = new Image(width, height, type);
-      Layer layer = new Layer(image, "Layer 1", width, height,
+      Layer layer = new Layer(image, "Background", width, height,
 			      imageType, 100, LayerModeEffects.Normal);
       image.AddLayer(layer, 0);
 

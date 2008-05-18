@@ -38,7 +38,7 @@ namespace Gimp.PhotoshopActions
     {
       bool polrec = (_convert.Value == "RctP");
 
-      RunProcedure("plug_in_polar_coords", 0, 0, false, true, polrec);
+      RunProcedure("plug_in_polar_coords", 100, 0, true, true, polrec);
 
       return true;
     }

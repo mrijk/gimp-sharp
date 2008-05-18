@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // SelectionFromChannelEvent.cs
 //
@@ -19,28 +19,30 @@
 //
 
 using System;
-using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
   public class SelectionFromChannelEvent : SelectionEvent
   {
-    readonly string _type;
+    readonly string _name;
 
-    public SelectionFromChannelEvent(SelectionEvent srcEvent, string type) :
+    public SelectionFromChannelEvent(SelectionEvent srcEvent, string name) :
       base(srcEvent)
     {
-      _type = type;
+      _name = name;
     }
-    /*
-    protected override IEnumerable ListParameters()
-    {
-      yield return "To: " + Abbreviations.Get(_type) + " channelX";
-    }
-    */
+
     override public bool Execute()
     {
-      ActiveImage.Selection.LayerAlpha(SelectedLayer);
+      if (_name == "Trsp")
+	{
+	  ActiveImage.Selection.LayerAlpha(ActiveImage.ActiveLayer);
+	}
+      else
+	{
+	  Channel channel = ActiveImage.Channels[_name];
+	  ActiveImage.Selection.Combine(channel, ChannelOps.Replace);
+	}
       return false;
     }
   }

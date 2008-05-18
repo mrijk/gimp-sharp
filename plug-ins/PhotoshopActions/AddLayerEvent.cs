@@ -101,7 +101,6 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
-      // Fix me: do something with Image.ImageBaseType
       Image image = ActiveImage;
 
       string name;
@@ -114,8 +113,21 @@ namespace Gimp.PhotoshopActions
 	  name = _name;
 	}
 
-      Layer layer = new Layer(image, name,
-			      ImageType.Rgba, 100, GetMode());
+      ImageType imageType;
+      switch (image.BaseType)
+	{
+	case ImageBaseType.Rgb:
+	  imageType = ImageType.Rgba;
+	  break;
+	case ImageBaseType.Gray:
+	  imageType = ImageType.Gray;
+	  break;
+	default:
+	  imageType = ImageType.Rgba;
+	  break;
+	}
+
+      Layer layer = new Layer(image, name, imageType, 100, GetMode());
       image.AddLayer(layer, 0);
       image.ActiveLayer = layer;
       SelectedLayer = layer;

@@ -29,6 +29,7 @@ namespace Gimp.PhotoshopActions
     bool _hasUnits;
     public double Value {get; set;}
     public string Units {get; private set;}
+    static public double Resolution {private get; set;}
 
     public DoubleParameter(bool hasUnits)
     {
@@ -58,8 +59,17 @@ namespace Gimp.PhotoshopActions
 	  yield return String.Format("{0}: {1} {2}", UppercaseName, Value, 
 				     UnitString);
 	  break;
+	case "#Rlt":
+	  yield return String.Format("{0}: {1:F3} {2}", UppercaseName, 
+				     Value / 72,
+				     UnitString);
+	  break;
+	case "#Rsl":
+	  yield return String.Format("{0}: {1} {2}", UppercaseName, 
+				     Value, UnitString);
+	  break;
 	default:
-	  yield return String.Format("{0}: {1:F3}{2}", UppercaseName, Value,
+	  yield return String.Format("{0}: {1:F3} {2}", UppercaseName, Value,
 				     UnitString);
 	  break;
 	}
@@ -77,6 +87,10 @@ namespace Gimp.PhotoshopActions
 	      return "%";
 	    case "#Pxl":
 	      return "pixels";
+	    case "#Rlt":
+	      return "inches";
+	    case "#Rsl":
+	      return "per inch";
 	    default:
 	      if (Units != null)
 		{
@@ -98,6 +112,8 @@ namespace Gimp.PhotoshopActions
 	{
 	case "#Prc":
 	  return Value * x / 100.0;
+	case "#Rlt":
+	  return Value * Resolution / 72;
 	default:
 	  return Value;
 	}

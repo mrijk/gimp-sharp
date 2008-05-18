@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2008 Maurits Rijk
 //
 // FindEdgesEvent.cs
 //
@@ -26,8 +26,12 @@ namespace Gimp.PhotoshopActions
   {
     override public bool Execute()
     {
+#if false
       RunProcedure("plug_in_sobel", 1, 1, 1);
       ActiveDrawable.Invert();
+#else
+      RunProcedure("plug_in_dog", 3, 1, true, true);
+#endif
       return true;
     }
   }
