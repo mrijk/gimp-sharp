@@ -226,6 +226,8 @@ namespace Gimp
     public void Run(string name, int n_params, IntPtr paramPtr,
 		    ref int n_return_vals, out IntPtr return_vals)
     {
+Console.WriteLine("Plugin.Run: " + n_params);
+
       _name = name;
 
       GetRequiredParameters();

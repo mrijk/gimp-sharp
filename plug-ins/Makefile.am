@@ -32,6 +32,10 @@ if BUILD_NEMERLE
 NemerleSample = NemerleSample
 endif
 
+if BUILD_OXYGENE
+OxygeneSample = OxygeneSample
+endif
+
 if BUILD_PDN
 Pdn = Pdn
 endif
@@ -62,6 +66,7 @@ SUBDIRS = 			\
 	ncp 			\
 	neo			\
 	$(NemerleSample)	\
+	$(OxygeneSample)	\
 	$(Pdn)			\
 	PhotoshopActions	\
 	$(PictureFrame)		\

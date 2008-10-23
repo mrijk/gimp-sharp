@@ -188,13 +188,14 @@ namespace Gimp
     Channel,
     Drawable,
     Selection,
-    Boundary,
+    ColorArray,
     Vectors,
     Parasite,
     Status,
     End,
 
-    Path = Vectors // deprecated
+    Path = Vectors, // deprecated
+    Boundary = ColorArray // deprecated
   }
 
   public enum PDBProcType

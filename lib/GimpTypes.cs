@@ -59,7 +59,7 @@ namespace Gimp
     public string description;
   };
 
-  [StructLayout(LayoutKind.Sequential)]
+  [StructLayout(LayoutKind.Sequential, Pack=1)]
   public struct GimpParam
   {
     public PDBArgType type;

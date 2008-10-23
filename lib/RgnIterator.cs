@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2008 Maurits Rijk
 //
 // RgnIterator.cs
 //
@@ -34,18 +34,13 @@ namespace Gimp
     readonly RunMode _runmode;
     readonly Rectangle _rectangle;
 
-    Progress _progress;
+    public Progress Progress {get; set;}
 
     public RgnIterator(Drawable drawable, RunMode runmode)
     {
       _drawable = drawable;
       _runmode = runmode;
       _rectangle = drawable.MaskBounds;
-    }
-
-    public Progress Progress
-    {
-      set {_progress = value;}
     }
 
     public int Count
@@ -80,7 +75,7 @@ namespace Gimp
 	  if (_runmode != RunMode.Noninteractive)
 	    {
 	      area_so_far += destPR.W * destPR.H;
-	      _progress.Update ((double) area_so_far / (double) total_area);
+	      Progress.Update ((double) area_so_far / (double) total_area);
 	    }
 	}
       _drawable.Flush();
@@ -107,7 +102,7 @@ namespace Gimp
 	  if (_runmode != RunMode.Noninteractive)
 	    {
 	      area_so_far += destPR.W * destPR.H;
-	      _progress.Update ((double) area_so_far / (double) total_area);
+	      Progress.Update ((double) area_so_far / (double) total_area);
 	    }
 	}
       _drawable.Flush();

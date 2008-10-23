@@ -23,7 +23,7 @@ if test "$MONO" = "no"; then
 fi
 AC_SUBST(MONO)
 
-PKG_CHECK_MODULES(MONO, mono >= 1.2.6)
+PKG_CHECK_MODULES(MONO, mono >= 2.0)
 AC_SUBST(MONO_CFLAGS)
 AC_SUBST(MONO_LIBS)
 
@@ -55,7 +55,7 @@ if test "x$OS" != "xWindows_NT"; then
 
     dnl GIMPPLUGINDIR=/usr/local/lib/gimp/2.0/plug-ins
 
-    GIMPPLUGINDIR=`gimptool-2.0 -n --install-admin README | head -1 | sed "s/\(.* \)\\(.*\\)/\2/g"`
+    GIMPPLUGINDIR=`gimptool-2.0 -n --install-admin-bin README | head -1 | sed "s/\(.* \)\\(.*\\)/\2/g"`
 
     AC_SUBST(GIMPPLUGINDIR)
 
@@ -146,7 +146,7 @@ fi
 #
 
 boo=no
-AC_ARG_WITH(boo,[  --with-boo       support for Boo (default-no)])
+AC_ARG_WITH(boo,[  --with-boo              support for Boo (default-no)])
 if test "x$with_boo" == xyes; then
    boo=yes
    AC_PATH_PROG(BOOC, booc, no)
@@ -161,7 +161,7 @@ fi
 #
 
 fsharp=no
-AC_ARG_WITH(fsharp,[  --with-fsharp       support for F\# (default-no)])
+AC_ARG_WITH(fsharp,[  --with-fsharp           support for F\# (default-no)])
 if test "x$with_fsharp" == xyes; then
    fsharp=yes
    AC_PATH_PROG(FSC, fsc, no)
@@ -191,7 +191,7 @@ fi
 #
 
 nemerle=no
-AC_ARG_WITH(nemerle,[  --with-nemerle       support for Nemerle (default-no)])
+AC_ARG_WITH(nemerle,[  --with-nemerle          support for Nemerle (default-no)])
 if test "x$with_nemerle" == xyes; then
    nemerle=yes
    AC_PATH_PROG(NCC, ncc, no)
@@ -202,11 +202,26 @@ if test "x$with_nemerle" == xyes; then
 fi
 
 #
+# Check if we want to support Oxygene
+#
+
+oxygene=no
+AC_ARG_WITH(nemerle,[  --with-oxygene          support for Oxygene (default-no)])
+if test "x$with_oxygene" == xyes; then
+   oxygene=yes
+   AC_PATH_PROG(Oxygene, Oxygene.exe, no)
+   if test "$Oxygene" = "no"; then
+        AC_MSG_ERROR(['Oxygene.exe' (Oxygene) is not in your PATH.])
+   fi
+   AC_SUBST(Oxygene)
+fi
+
+#
 # Check if we want to support Visual Basic
 #
 
 visual_basic=no
-AC_ARG_WITH(vb,[  --with-vb       support for Visual Basic (default-no)])
+AC_ARG_WITH(vb,[  --with-vb               support for Visual Basic (default-no)])
 if test "x$with_vb" == xyes; then
    visual_basic=yes
    AC_PATH_PROG(VBNC, vbnc, no)
@@ -226,6 +241,7 @@ AM_CONDITIONAL(BUILD_ECW, test x"$have_libecw" = xyes)
 AM_CONDITIONAL(BUILD_JAVA, test x$java = xyes)
 AM_CONDITIONAL(BUILD_IRONPYTHON, test x$iron_python = xyes)
 AM_CONDITIONAL(BUILD_NEMERLE, test x$nemerle = xyes)
+AM_CONDITIONAL(BUILD_OXYGENE, test x$oxygene = xyes)
 AM_CONDITIONAL(BUILD_VISUALBASIC, test x$visual_basic = xyes)
 
 dnl read Makefile.in and write Makefile
@@ -260,6 +276,7 @@ plug-ins/Ministeck/po/Makefile
 plug-ins/NemerleSample/Makefile
 plug-ins/neo/Makefile
 plug-ins/neo/po/Makefile
+plug-ins/OxygeneSample/Makefile
 plug-ins/Pdn/Makefile 
 plug-ins/PhotoshopActions/Makefile 
 plug-ins/PictureFrame/Makefile 
@@ -301,5 +318,6 @@ GIMP-SHARP Features:
   IronPython support  : $iron_python
   Java support        : $java
   Nemerle support     : $nemerle
+  Oxygene support     : $oxygene 
   Visual Basic support: $visual_basic
 ]);
