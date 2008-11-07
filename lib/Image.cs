@@ -182,9 +182,9 @@ namespace Gimp
         }
     }
        
-    public void Scale(int new_width, int new_height)
+    public void Scale(int newWidth, int newHeight)
     {
-      if (!gimp_image_scale(_imageID, new_width, new_height))
+      if (!gimp_image_scale(_imageID, newWidth, newHeight))
         {
 	  throw new GimpSharpException();
         }
@@ -195,9 +195,22 @@ namespace Gimp
       Scale(dimensions.Width, dimensions.Height);
     }
 
-    public void Crop(int new_width, int new_height, int offx, int offy)
+    public void Scale(int newWidth, int newHeight, InterpolationType interpolation)
     {
-      if (!gimp_image_crop(_imageID, new_width, new_height, offx, offy))
+      if (!gimp_image_scale_full(_imageID, newWidth, newHeight, interpolation))
+        {
+	  throw new GimpSharpException();
+        }
+    }
+
+    public void Scale(Dimensions dimensions, InterpolationType interpolation)
+    {
+      Scale(dimensions.Width, dimensions.Height, interpolation);
+    }
+
+    public void Crop(int newWidth, int newHeight, int offx, int offy)
+    {
+      if (!gimp_image_crop(_imageID, newWidth, newHeight, offx, offy))
         {
 	  throw new GimpSharpException();
         }
@@ -595,6 +608,11 @@ namespace Gimp
 	}
     }
 
+    public Vectors GetVectorsByTattoo(Tattoo tattoo)
+    {
+      return new Vectors(gimp_image_get_vectors_by_tattoo(_imageID, tattoo.ID));
+    }
+
     public Parasite ParasiteFind(string name)
     {
       return new Parasite(gimp_image_parasite_find(_imageID, name));
@@ -867,6 +885,11 @@ namespace Gimp
                                          int new_width,
                                          int new_height);
     [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_image_scale_full (Int32 image_ID,
+                                              int new_width,
+                                              int new_height,
+                                              InterpolationType interpolation);
+    [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_image_crop (Int32 image_ID,
                                         int new_width, int new_height,
                                         int offx, int offy);
@@ -1006,6 +1029,9 @@ namespace Gimp
     [DllImport("libgimp-2.0-0.dll")]
     static extern IntPtr gimp_image_get_vectors(Int32 image_ID,
 						out int num_vectors);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern Int32 gimp_image_get_vectors_by_tattoo(Int32 image_ID,
+                                                         int tattoo);
     [DllImport("libgimp-2.0-0.dll")]
     static extern IntPtr gimp_image_parasite_find(Int32 image_ID,
                                                   string name);

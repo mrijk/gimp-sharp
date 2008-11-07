@@ -1,3 +1,10 @@
+2008-10-24  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* lib/TextLayer.cs
+	* lib/Image.cs
+	* lib/Layer.cs
+	* lib/Drawable.cs: implemented new GIMP 2.6 functionality
+
 2008-10-22  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* plug-ins/OxygeneSample/*

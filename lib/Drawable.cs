@@ -129,6 +129,14 @@ namespace Gimp
       return thumbnail;
     }
 
+    public void FreeShadow()
+    {
+      if (!gimp_drawable_free_shadow(_ID))
+        {
+	  throw new GimpSharpException();
+        }
+    }
+
     public void Fill(FillType fill_type)
     {
       if (!gimp_drawable_fill(_ID, fill_type))
@@ -284,6 +292,11 @@ namespace Gimp
     public bool IsChannel()
     {
       return gimp_drawable_is_channel(_ID);
+    }
+
+    public bool IsTextLayer()
+    {
+      return gimp_drawable_is_text_layer(_ID);
     }
 
     public void Offset(bool wrapAround, OffsetType fillType,
@@ -963,6 +976,8 @@ namespace Gimp
     static extern bool gimp_drawable_merge_shadow(Int32 drawable_ID,
                                                   bool undo);
     [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_drawable_free_shadow(Int32 drawable_ID);
+    [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_drawable_fill(Int32 drawable_ID,
                                           FillType fill_type);
     [DllImport("libgimp-2.0-0.dll")]
@@ -1013,6 +1028,8 @@ namespace Gimp
     static extern bool gimp_drawable_is_layer_mask(Int32 drawable_ID);
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_drawable_is_channel(Int32 drawable_ID);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_drawable_is_text_layer(Int32 drawable_ID);
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_drawable_offset(Int32 drawable_ID,
                                             bool wrap_around,

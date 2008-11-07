@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2008 Maurits Rijk
 //
 // Vectors.cs
 //
@@ -33,6 +33,11 @@ namespace Gimp
     public Vectors(Image image, string name)
     {
       _ID = gimp_vectors_new(image.ID, name);
+    }
+
+    public Vectors(Vectors vectors)
+    {
+      _ID = gimp_vectors_copy(vectors.ID);
     }
 
     internal Vectors(Int32 ID)
@@ -226,6 +231,8 @@ namespace Gimp
 
     [DllImport("libgimp-2.0-0.dll")]
     extern static Int32 gimp_vectors_new(Int32 image_ID, string name);
+    [DllImport("libgimp-2.0-0.dll")]
+    extern static Int32 gimp_vectors_copy(Int32 vectors_ID);
     [DllImport("libgimp-2.0-0.dll")]
     extern static bool gimp_vectors_is_valid(Int32 image_ID);
     [DllImport("libgimp-2.0-0.dll")]

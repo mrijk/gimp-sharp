@@ -48,8 +48,13 @@ namespace Gimp
     {
     }
 
-    public Layer(Drawable drawable, Image dest_image) :
-      base(gimp_layer_new_from_drawable(drawable.ID, dest_image.ID))
+    public Layer(Drawable drawable, Image destImage) :
+      base(gimp_layer_new_from_drawable(drawable.ID, destImage.ID))
+    {
+    }
+
+    public Layer(Image image, Image destImage, string name) :
+      base(gimp_layer_new_from_visible(image.ID, destImage.ID, name))
     {
     }
 
@@ -73,6 +78,21 @@ namespace Gimp
     public void Scale(Dimensions dimensions, bool localOrigin)
     {
       Scale(dimensions.Width, dimensions.Height, localOrigin);
+    }
+
+    public void Scale(int newWidth, int newHeight, bool localOrigin, 
+                      InterpolationType interpolation)
+    {
+      if (!gimp_layer_scale_full(_ID, newWidth, newHeight, localOrigin, interpolation))
+	{
+	  throw new GimpSharpException();
+	}
+    }
+
+    public void Scale(Dimensions dimensions, bool localOrigin,
+                      InterpolationType interpolation)
+    {
+      Scale(dimensions.Width, dimensions.Height, localOrigin, interpolation);
     }
 
     public void Resize(int newWidth, int newHeight, int offx, int offy)
@@ -268,6 +288,12 @@ namespace Gimp
 					 int new_height,
 					 bool local_origin);
     [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_layer_scale_full (Int32 layer_ID,
+                                              int new_width,
+                                              int new_height,
+                                              bool local_origin,
+                                              InterpolationType interpolation);
+    [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_layer_resize (Int32 layer_ID,
 					  int new_width,
 					  int new_height,
@@ -298,6 +324,10 @@ namespace Gimp
     [DllImport("libgimp-2.0-0.dll")]
     static extern int gimp_layer_new_from_drawable (Int32 drawable_ID,
 						    Int32 dest_image_ID);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern int gimp_layer_new_from_visible (Int32 image_ID,
+                                                   Int32 dest_image_ID,
+                                                   string name);
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_layer_get_lock_alpha(Int32 layer_ID);
     [DllImport("libgimp-2.0-0.dll")]

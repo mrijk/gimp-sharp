@@ -32,7 +32,7 @@ PKG_CHECK_MODULES(MONO_DEPENDENCY, mono, has_mono=true, has_mono=false)
 if test "x$has_mono" = "xtrue"; then
     AC_PATH_PROG(RUNTIME, mono, no)
     AC_PATH_PROG(CSC, gmcs, no)
-    CSC_FLAGS="-langversion:linq"
+    CSC_FLAGS=
     AC_SUBST(CSC_FLAGS)
     LIB_PREFIX=.so
     LIB_SUFFIX=
@@ -187,6 +187,21 @@ if test "x$with_ironpython" == xyes; then
 fi
 
 #
+# Check if we want to support IronRuby
+#
+
+iron_ruby=no
+AC_ARG_WITH(ironruby,[  --with-ironruby         support for IronRuby (default-no)])
+if test "x$with_ironruby" == xyes; then
+   iron_ruby=yes
+   AC_PATH_PROG(IR, ir.cmd, no)
+   if test "$IR" = "no"; then
+        AC_MSG_ERROR(['ir' (IronRuby) is not in your PATH.])
+   fi
+   AC_SUBST(IR)
+fi
+
+#
 # Check if we want to support Nemerle
 #
 
@@ -206,7 +221,7 @@ fi
 #
 
 oxygene=no
-AC_ARG_WITH(nemerle,[  --with-oxygene          support for Oxygene (default-no)])
+AC_ARG_WITH(oxygene,[  --with-oxygene          support for Oxygene (default-no)])
 if test "x$with_oxygene" == xyes; then
    oxygene=yes
    AC_PATH_PROG(Oxygene, Oxygene.exe, no)
@@ -240,6 +255,7 @@ AM_CONDITIONAL(BUILD_INCOMPLETE, test x$incomplete = xyes)
 AM_CONDITIONAL(BUILD_ECW, test x"$have_libecw" = xyes)
 AM_CONDITIONAL(BUILD_JAVA, test x$java = xyes)
 AM_CONDITIONAL(BUILD_IRONPYTHON, test x$iron_python = xyes)
+AM_CONDITIONAL(BUILD_IRONRUBY, test x$iron_ruby = xyes)
 AM_CONDITIONAL(BUILD_NEMERLE, test x$nemerle = xyes)
 AM_CONDITIONAL(BUILD_OXYGENE, test x$oxygene = xyes)
 AM_CONDITIONAL(BUILD_VISUALBASIC, test x$visual_basic = xyes)
@@ -287,6 +303,7 @@ plug-ins/Pointillize/po/Makefile
 plug-ins/PythonSample/Makefile
 plug-ins/Raindrops/Makefile 
 plug-ins/Raindrops/po/Makefile 
+plug-ins/RubySample/Makefile
 plug-ins/Shatter/Makefile
 plug-ins/Sky/Makefile
 plug-ins/SliceTool/Makefile 
@@ -316,6 +333,7 @@ GIMP-SHARP Features:
   Boo support         : $boo
   FSharp support      : $fsharp
   IronPython support  : $iron_python
+  IronRuby support    : $iron_ruby
   Java support        : $java
   Nemerle support     : $nemerle
   Oxygene support     : $oxygene 

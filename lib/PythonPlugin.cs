@@ -27,6 +27,8 @@ namespace Gimp
 {
   public class PythonPlugin : Plugin
   {
+  public PythonPlugin() {}
+
     public PythonPlugin(string[] args, string package) : 
       base(PythonPlugin.StripName(args), package)
     {

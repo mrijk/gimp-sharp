@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2008 Maurits Rijk
 //
 // Plugin.cs
 //
@@ -20,6 +20,7 @@
 //
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -38,7 +39,7 @@ namespace Gimp
     // Set of registered procedures
     protected ProcedureSet _procedures = new ProcedureSet();
 
-    protected string _name;
+    public string Name {get; set;}
 
     bool _usesDrawable = false;
     bool _usesImage = false;
@@ -69,6 +70,27 @@ namespace Gimp
     
     static GimpPlugInInfo _info = new GimpPlugInInfo();
 
+    public string[] Args {get; set;}
+    public Plugin() {}
+
+    public void Go()
+    {
+      Catalog.Init(Name, Gimp.LocaleDirectory);
+
+      _info.Init = new InitProc(Init);
+      _info.Quit = new QuitProc(Quit);
+      _info.Query = new QueryProc(Query);
+      _info.Run = new RunProc(Run);
+
+      string[] progargs = new string[Args.Length + 1];
+      progargs[0] = "gimp-sharp";
+      Args.CopyTo(progargs, 1);
+
+      Console.WriteLine("Go: " + progargs[1]);
+
+      gimp_main(ref _info, progargs.Length, progargs);
+    }
+
     public Plugin(string[] args, string package)
     {
       Catalog.Init(package, Gimp.LocaleDirectory);
@@ -80,7 +102,7 @@ namespace Gimp
 
       string[] progargs = new string[args.Length + 1];
       progargs[0] = "gimp-sharp";
-      args.CopyTo (progargs, 1);
+      args.CopyTo(progargs, 1);
 
       gimp_main(ref _info, progargs.Length, progargs);
     }
@@ -88,11 +110,6 @@ namespace Gimp
     static protected string _(string s)
     {
       return Catalog.GetString(s);
-    }
-
-    public string Name
-    {
-      get {return _name;}
     }
 
     protected virtual void Init() 
@@ -228,7 +245,7 @@ namespace Gimp
     {
 Console.WriteLine("Plugin.Run: " + n_params);
 
-      _name = name;
+      Name = name;
 
       GetRequiredParameters();
 
