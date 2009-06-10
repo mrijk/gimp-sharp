@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2008 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // RgnIterator.cs
 //
@@ -35,6 +35,13 @@ namespace Gimp
     readonly Rectangle _rectangle;
 
     public Progress Progress {get; set;}
+
+
+    public RgnIterator(Drawable drawable, String progressText) : 
+      this(drawable, RunMode.Interactive)
+    {
+      Progress = new Progress(progressText);
+    }
 
     public RgnIterator(Drawable drawable, RunMode runmode)
     {

@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2008 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // TextLayer.cs
 //
@@ -34,6 +34,12 @@ namespace Gimp
     {    
     }
 
+    public TextLayer(Image image, string text, string fontName, double size,
+		     Unit unit) : 
+      base(gimp_text_layer_new(image.ID, text, fontName, size, unit))
+    {
+    }
+
     [DllImport("libgimp-2.0-0.dll")]
     static extern Int32 gimp_text_fontname(Int32 image_ID,
 					   Int32 drawable_ID,
@@ -45,5 +51,11 @@ namespace Gimp
 					   double size,
 					   SizeType size_type,
 					   string fontname);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern Int32 gimp_text_layer_new(Int32 image_ID,
+					    string text,
+					    string fontname,
+					    double size,
+					    Unit unit);
   }
 }

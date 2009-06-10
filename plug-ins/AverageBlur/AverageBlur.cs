@@ -1,5 +1,5 @@
 // The AverageBlur plug-in
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // AverageBlur.cs
 //
@@ -41,7 +41,7 @@ namespace Gimp.AverageBlur
 				 _("Average blur"),
 				 "Maurits Rijk",
 				 "(C) Maurits Rijk",
-				 "2006-2007",
+				 "2006-2009",
 				 _("Average"),
 				 "RGB*, GRAY*")
 	{MenuPath = "<Image>/Filters/Blur"};
@@ -49,11 +49,10 @@ namespace Gimp.AverageBlur
 
     override protected void Render(Drawable drawable)
     {
-      RgnIterator iter = new RgnIterator(drawable, RunMode.Interactive);
-      iter.Progress = new Progress(_("Average"));
+      var iter = new RgnIterator(drawable, _("Average"));
 
-      Pixel average = drawable.CreatePixel();
-      iter.IterateSrc(pixel => {average.Add(pixel);});
+      var average = drawable.CreatePixel();
+      iter.IterateSrc(pixel => average.Add(pixel));
       average /= iter.Count;
 
       iter.IterateDest(() => average);

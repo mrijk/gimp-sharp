@@ -1,3 +1,9 @@
+2009-06-10  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* lib/RgnIterator.cs: new convenience constructor
+
+	* plug-ins/AverageBlur/AverageBlur.cs: minor code clean-up
+
 2008-10-24  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* lib/TextLayer.cs

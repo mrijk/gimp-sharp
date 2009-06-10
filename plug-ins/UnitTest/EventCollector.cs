@@ -29,7 +29,7 @@ using Gtk;
 
 namespace Gimp.UnitTest
 {
-  public class EventCollector : LongLivingMarshalByRefObject, EventListener
+  public class EventCollector : MarshalByRefObject, EventListener
   {
     int _nrOk = 0;
     int _nrFailed = 0;
@@ -52,6 +52,10 @@ namespace Gimp.UnitTest
     {
     }
 
+    public void RunStarted(string foo, int bar)
+    {
+    }
+
     public void RunFinished(TestResult[] results)
     {
       TestReportDialog dialog = new TestReportDialog(_nrOk, _nrFailed, 
@@ -68,6 +72,14 @@ namespace Gimp.UnitTest
     }
 
     public void RunFinished(Exception exception)
+    {
+    }
+
+    public void RunFinished(TestResult testResult)
+    {
+    }
+
+    public void TestOutput(TestOutput testOutput)
     {
     }
 
@@ -93,7 +105,11 @@ namespace Gimp.UnitTest
     {
     }
 
-    public void SuiteStarted(TestSuite suite) 
+    public void TestStarted(TestName testName)
+    {
+    }
+
+    public void SuiteStarted(TestName name) 
     {
     }
 
