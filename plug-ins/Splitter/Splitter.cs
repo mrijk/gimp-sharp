@@ -1,5 +1,5 @@
 // The Splitter plug-in
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // Splitter.cs
 //
@@ -64,7 +64,7 @@ namespace Gimp.Splitter
 
     override protected IEnumerable<Procedure> ListProcedures()
     {
-      ParamDefList inParams = new ParamDefList()
+      var inParams = new ParamDefList()
 	{
 	  new ParamDef("formula", "", typeof(string),
 		       _("Formula for splitting image")),
@@ -94,7 +94,7 @@ namespace Gimp.Splitter
 				 _("Splits an image in separate parts using a formula of the form f(x, y) = 0"),
 				 "Maurits Rijk",
 				 "(C) Maurits Rijk",
-				 "1999 - 2007",
+				 "1999 - 2009",
 				 _("Splitter..."),
 				 "RGB*",
 				 inParams)
@@ -108,38 +108,38 @@ namespace Gimp.Splitter
     {
       gimp_ui_init("splitter", true);
 
-      GimpDialog dialog = DialogNew(_("Splitter"), _("splitter"),
-				    IntPtr.Zero, 0, null, _("splitter"));
+      var dialog = DialogNew(_("Splitter"), _("splitter"),
+			     IntPtr.Zero, 0, null, _("splitter"));
 
-      VBox vbox = new VBox(false, 12) {BorderWidth = 12};
+      var vbox = new VBox(false, 12) {BorderWidth = 12};
       dialog.VBox.PackStart(vbox, true, true, 0);
 
-      GimpTable table = new GimpTable(4, 2, false)
+      var table = new GimpTable(4, 2, false)
 	{ColumnSpacing = 6, RowSpacing = 6};
       vbox.PackStart(table, false, false, 0);
 
-      HBox hbox = new HBox(false, 6);
+      var hbox = new HBox(false, 6);
       table.Attach(hbox, 0, 2, 0, 1);
 
       hbox.Add(new Label("f(x, y):"));
-      Entry formula = new Entry();
+      var formula = new Entry();
       formula.Text = _formula;
       formula.Changed += delegate {_formula = formula.Text;};
       hbox.Add(formula);
       hbox.Add(new Label("= 0"));
 
-      GimpFrame frame1 = CreateLayerFrame1();
+      var frame1 = CreateLayerFrame1();
       table.Attach(frame1, 0, 1, 1, 2);
 
-      GimpFrame frame2 = CreateLayerFrame2();
+      var frame2 = CreateLayerFrame2();
       table.Attach(frame2, 1, 2, 1, 2);
 
-      CheckButton merge = new CheckButton(_("Merge visible layers"));
+      var merge = new CheckButton(_("Merge visible layers"));
       merge.Active = _merge;
       merge.Toggled += delegate {_merge = merge.Active;};
       table.Attach(merge, 0, 1, 3, 4);
 
-      Button advanced = new Button(_("Advanced Options..."));
+      var advanced = new Button(_("Advanced Options..."));
       advanced.Clicked += delegate
 	{
 	  AdvancedDialog advancedDialog = new AdvancedDialog(_seed, 
@@ -168,13 +168,13 @@ namespace Gimp.Splitter
 
     GimpFrame CreateLayerFrame1()
     {
-      GimpFrame frame = new GimpFrame(_("Layer 1"));
+      var frame = new GimpFrame(_("Layer 1"));
 
-      GimpTable table = new GimpTable(3, 3, false)
+      var table = new GimpTable(3, 3, false)
 	{BorderWidth = 12, RowSpacing = 12, ColumnSpacing = 12};
       frame.Add(table);
 
-      SpinButton spinner = new SpinButton(int.MinValue, int.MaxValue, 1)
+      var spinner = new SpinButton(int.MinValue, int.MaxValue, 1)
 	{Value = _translate_1_x, WidthChars = 4};
       spinner.ValueChanged += delegate {_translate_1_x = spinner.ValueAsInt;};
       table.AttachAligned(0, 0, _("Translate X:"), 0.0, 0.5, spinner, 1, true);
@@ -196,13 +196,13 @@ namespace Gimp.Splitter
     // however can't address ref or out parameters :(
     GimpFrame CreateLayerFrame2()
     {
-      GimpFrame frame = new GimpFrame(_("Layer 2"));
+      var frame = new GimpFrame(_("Layer 2"));
 
-      GimpTable table = new GimpTable(3, 3, false)
+      var table = new GimpTable(3, 3, false)
 	{BorderWidth = 12, RowSpacing = 12, ColumnSpacing = 12};
       frame.Add(table);
 
-      SpinButton spinner = new SpinButton(int.MinValue, int.MaxValue, 1)
+      var spinner = new SpinButton(int.MinValue, int.MaxValue, 1)
 	{Value = _translate_2_x, WidthChars = 4};
       spinner.ValueChanged += delegate {_translate_2_x = spinner.ValueAsInt;};
       table.AttachAligned(0, 0, _("Translate X:"), 0.0, 0.5, spinner, 1, true);
@@ -222,13 +222,13 @@ namespace Gimp.Splitter
 
     override protected void Render(Image image, Drawable drawable)
     {
-      MathExpressionParser parser = new MathExpressionParser();
+      var parser = new MathExpressionParser();
 
-      Rectangle rectangle = image.Bounds;
+      var rectangle = image.Bounds;
 
       parser.Init(_formula, image.Dimensions);
 
-      Image newImage = new Image(image.Dimensions, image.BaseType);
+      var newImage = new Image(image.Dimensions, image.BaseType);
 
       Layer layer1;
       PixelRgn destPR1;
@@ -264,17 +264,16 @@ namespace Gimp.Splitter
 	  destPR2 = null;
 	}
 
-      Pixel transparent = new Pixel(4);
+      var transparent = new Pixel(4);
 
-      PixelRgn srcPR = new PixelRgn(drawable, rectangle, false, false);
+      var srcPR = new PixelRgn(drawable, rectangle, false, false);
 
       if (destPR1 != null && destPR2 != null)
 	{
-	  RegionIterator iterator = new RegionIterator(srcPR, destPR1, 
-						       destPR2);
+	  var iterator = new RegionIterator(srcPR, destPR1, destPR2);
 	  iterator.ForEach((src, dest1, dest2) =>
 	    {
-	      Pixel tmp = Copy(src);
+	      var tmp = Copy(src);
 	      if (parser.Eval(src.X, src.Y) < 0)
 	      {
 		dest1.Set(tmp);
@@ -289,14 +288,14 @@ namespace Gimp.Splitter
 	}
       else if (destPR1 != null)
 	{
-	  RegionIterator iterator = new RegionIterator(srcPR, destPR1);
+	  var iterator = new RegionIterator(srcPR, destPR1);
 	  iterator.ForEach((src, dest) =>
 			   dest.Set((parser.Eval(src.X, src.Y) < 0) 
 				    ? Copy(src) : transparent));
 	}
       else	// destPR2 != null
 	{
-	  RegionIterator iterator = new RegionIterator(srcPR, destPR2);
+	  var iterator = new RegionIterator(srcPR, destPR2);
 	  iterator.ForEach((src, dest) =>
 			   dest.Set((parser.Eval(src.X, src.Y) >= 0) 
 				    ? Copy(src) : transparent));
@@ -316,7 +315,7 @@ namespace Gimp.Splitter
 
       if (_merge) 
 	{
-	  Layer merged = 
+	  var merged = 
 	    newImage.MergeVisibleLayers(MergeType.ExpandAsNecessary);
 	  merged.Offsets = new Offset(0, 0);
 	  newImage.Resize(merged.Dimensions, merged.Offsets);

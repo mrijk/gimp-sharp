@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // PicturePackageFrame.cs
 //
@@ -38,7 +38,7 @@ namespace Gimp.PicturePackage
 
     protected ComboBox CreateComboBox(params string[] items)
     {
-      ComboBox combo = ComboBox.NewText();
+      var combo = ComboBox.NewText();
       Array.ForEach(items, item => combo.AppendText(item));
       combo.Active = 1;
 

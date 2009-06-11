@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2008 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // Drawable.cs
 //
@@ -29,15 +29,19 @@ namespace Gimp
 {
   public class Drawable
   {
-    readonly IntPtr _drawable;
-    readonly protected Int32 _ID;
-    readonly int _bpp;
+    protected IntPtr _drawable;
+    protected Int32 _ID;
+    protected int _bpp;
 
     public Drawable(Int32 drawableID)
     {
       _ID = drawableID;
       _drawable = gimp_drawable_get(drawableID);
       _bpp = gimp_drawable_bpp(_ID);	// Cache for performance
+    }
+
+    internal Drawable()
+    {
     }
 
     public void Detach()
@@ -905,6 +909,12 @@ namespace Gimp
     internal Int32 ID
     {
       get {return _ID;}
+      set 
+	{
+	  _ID = value;
+	  _drawable = gimp_drawable_get(_ID);
+	  _bpp = gimp_drawable_bpp(_ID);	// Cache for performance
+	}
     }
 
     internal IntPtr Ptr

@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // LabelFrame.cs
 //
@@ -34,28 +34,49 @@ namespace Gimp.PicturePackage
 
     public LabelFrame(PicturePackage parent) : base(3, 3, "Label")
     {
-      ComboBox content = CreateComboBox(_("None"), _("Custom Text"), 
-					_("Filename"), _("Copyright"),
-					_("Caption"), _("Credits"), 
-					_("Title"));
+      CreateContentTypeWidget();
+      CreateTextWidget(parent);
+      CreateFontWidget();
+      CreateColorAndOpacityWidget();
+      CreatePositionWidget(parent);
+      CreateRotateWidget();
+
+      SetLabelFrameSensitivity(0);
+    }
+
+    void CreateContentTypeWidget()
+    {
+      var content = CreateComboBox(_("None"), _("Custom Text"), 
+				   _("Filename"), _("Copyright"),
+				   _("Caption"), _("Credits"), 
+				   _("Title"));
       content.Active = 0;
       content.Changed += delegate {SetLabelFrameSensitivity(content.Active);};
       AttachAligned(0, 0, _("Content:"), 0.0, 0.5, content, 1, false);
+    }
 
+    void CreateTextWidget(PicturePackage parent)
+    {
       _entry = new Entry();
       _entry.Changed += delegate {parent.Label = _entry.Text;};
       AttachAligned(0, 1, _("Custom Text:"), 0.0, 0.5, _entry, 1, true);
+    }
 
-      Button font = new Button(Stock.SelectFont);
+    void CreateFontWidget()
+    {
+      var font = new Button(Stock.SelectFont);
       font.Clicked += delegate
 	{
-	  FontSelectionDialog fs = new FontSelectionDialog(_("Select Font"));
+	  var fs = new FontSelectionDialog(_("Select Font"));
 	  fs.Run();
 	  fs.Hide();
 	};
       AttachAligned(0, 2, _("Font:"), 0.0, 0.5, font, 1, true);
+    }
 
-      HBox hbox = new HBox(false, 12);
+    void CreateColorAndOpacityWidget()
+    {
+      var hbox = new HBox(false, 12);
 
       _color = new GimpColorButton("", 16, 16, new RGB(0, 0, 0),
 				   ColorAreaType.Flat);
@@ -67,21 +88,25 @@ namespace Gimp.PicturePackage
       hbox.Add(_opacity);
       hbox.Add(new Label("%"));
       AttachAligned(0, 3, _("Color:"), 0.0, 0.5, hbox, 1, true);
+    }
 
+    void CreatePositionWidget(PicturePackage parent)
+    {
       _position = CreateComboBox(_("Centered"), _("Top Left"),
 				 _("Bottom Left"), _("Top Right"),
 				 _("Bottom Right"));
       _position.Changed += delegate {parent.Position = _position.Active;};
       AttachAligned(0, 4, _("Position:"), 0.0, 0.5, _position, 1, false);
+    }
 
+    void CreateRotateWidget()
+    {
       _rotate = CreateComboBox(_("None"), 
 			       _("45 Degrees Right"),
 			       _("90 Degrees Right"), 
 			       _("45 Degrees Left"),
-			    _("90 Degrees Left"));
+			       _("90 Degrees Left"));
       AttachAligned(0, 5, _("Rotate:"), 0.0, 0.5, _rotate, 1, false);
-
-      SetLabelFrameSensitivity(0);
     }
 
     void SetLabelFrameSensitivity(int history)

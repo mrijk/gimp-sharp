@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // ChannelList.cs
 //
@@ -26,21 +26,8 @@ namespace Gimp
 {
   public sealed class ChannelList : DrawableList<Channel>
   {
-    public ChannelList(Image image)
+    public ChannelList(Image image) : base(image, gimp_image_get_channels)
     {
-      int num_channels;
-      IntPtr list = gimp_image_get_channels(image.ID, out num_channels);
-
-      if (num_channels > 0)
-	{
-	  int[] dest = new int[num_channels];
-	  Marshal.Copy(list, dest, 0, num_channels);
-
-	  foreach (int ChannelID in dest)
-	    {
-	      Add(new Channel(ChannelID));
-	    }
-	}
     }
 
     [DllImport("libgimp-2.0-0.dll")]

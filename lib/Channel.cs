@@ -58,6 +58,10 @@ namespace Gimp
     {
     }
 
+    internal Channel()
+    {
+    }
+
     public bool ShowMasked
     {
       get {return gimp_channel_get_show_masked(_ID);}

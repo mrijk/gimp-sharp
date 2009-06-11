@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // Procedure.cs
 //
@@ -132,8 +132,8 @@ namespace Gimp
 				       out return_vals))
 	{	
 	  // Get parameter types
-	  GimpParamDef[] paramDef = new GimpParamDef[num_args];
-	  GimpParam[] _params = new GimpParam[num_args];
+	  var paramDef = new GimpParamDef[num_args];
+	  var _params = new GimpParam[num_args];
 	  
 	  // First 3 parameters are default
 
@@ -228,7 +228,7 @@ namespace Gimp
 	      Console.WriteLine("Icon file: " + IconFile + " not found!");
 	      return;
 	    }
-	  Pixdata data = new Pixdata();
+	  var data = new Pixdata();
 	  data.FromPixbuf(pixbuf, false);
 	  if (!gimp_plugin_icon_register(Name, IconType.InlinePixbuf, 
 					 data.Serialize()))

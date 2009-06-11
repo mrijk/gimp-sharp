@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2007 Maurits Rijk, Massimo Perga
+// Copyright (C) 2004-2009 Maurits Rijk, Massimo Perga
 //
 // PicturePackage.cs
 //
@@ -96,14 +96,14 @@ namespace Gimp.PicturePackage
 
     override protected IEnumerable<Procedure> ListProcedures()
     {
-      ParamDefList inParams = new ParamDefList();
+      var inParams = new ParamDefList();
 
       yield return new Procedure("plug_in_picture_package",
 				 _("Picture package"),
 				 _("Picture package"),
 				 "Maurits Rijk, Massimo Perga",
 				 "Maurits Rijk, Massimo Perga",
-				 "2004-2007",
+				 "2004-2009",
 				 _("Picture Package..."),
 				 "",
 				 inParams)
@@ -119,14 +119,14 @@ namespace Gimp.PicturePackage
 
       _layoutSet.Load();
 
-      GimpDialog dialog = DialogNew(_("Picture Package 0.6.2"),
-				    _("PicturePackage"), IntPtr.Zero, 0, null, 
-				    _("PicturePackage"));
+      var dialog = DialogNew(_("Picture Package 0.6.2"),
+			     _("PicturePackage"), IntPtr.Zero, 0, null, 
+			     _("PicturePackage"));
 
-      HBox hbox = new HBox(false, 12) {BorderWidth = 12};
+      var hbox = new HBox(false, 12) {BorderWidth = 12};
       dialog.VBox.PackStart(hbox, true, true, 0);
 
-      VBox vbox = new VBox(false, 12);
+      var vbox = new VBox(false, 12);
       hbox.PackStart(vbox, false, false, 0);
 
       _sf = new SourceFrame(this);
@@ -135,18 +135,18 @@ namespace Gimp.PicturePackage
       _df = new DocumentFrame(this, _layoutSet);
       vbox.PackStart(_df, false, false, 0);
 
-      LabelFrame lf = new LabelFrame(this);
+      var lf = new LabelFrame(this);
       vbox.PackStart(lf, false, false, 0);
 
-      Frame frame = new Frame();
+      var frame = new Frame();
       hbox.PackStart(frame, true, true, 0);
 
-      VBox fbox = new VBox() {BorderWidth = 12};
+      var fbox = new VBox() {BorderWidth = 12};
       frame.Add(fbox);
 
-      Tooltips tips = new Tooltips();
+      var tips = new Tooltips();
 
-      EventBox eventBox = new EventBox();
+      var eventBox = new EventBox();
       fbox.Add(eventBox);
       tips.SetTip(eventBox, _("Right click to select picture"), "preview");
 
@@ -261,16 +261,18 @@ namespace Gimp.PicturePackage
 
     void RenderRectangle(Rectangle rectangle, string filename)
     {
-      ImageProvider provider = new FileImageProvider(filename);
+      var provider = new FileImageProvider(filename);
       rectangle.Provider = provider;
-      Image image = provider.GetImage();
+      var image = provider.GetImage();
       if (image != null)
 	{
-	  Renderer renderer = _preview.GetRenderer(_layout);
+	  var renderer = _preview.GetRenderer(_layout);
 	  rectangle.Render(image, renderer);
 	  // Fix for OK button when Drag & Drop happens
 	  if(DialogState == DialogStateType.SrcImgInvalid)
-	    DialogState = DialogStateType.SrcImgValid; 
+	    {
+	      DialogState = DialogStateType.SrcImgValid;
+	    }
 	  renderer.Cleanup();
 	  provider.Release();
 	}
@@ -283,7 +285,7 @@ namespace Gimp.PicturePackage
 
     void LoadRectangle(Coordinate<double> c, string filename)
     {
-      Rectangle rectangle = FindRectangle(c);
+      var rectangle = FindRectangle(c);
       if (rectangle != null)
 	{
 	  RenderRectangle(rectangle, filename);
@@ -300,7 +302,7 @@ namespace Gimp.PicturePackage
 	{
 	  if (args.Event.Button == 3)
 	    {
-	      FileSelection selection = new FileSelection("Select image");
+	      var selection = new FileSelection("Select image");
 	      selection.Response += OnFileSelectionResponse;
 	      selection.Run();
 	    }
@@ -313,7 +315,7 @@ namespace Gimp.PicturePackage
 
     void OnDragDataReceived(object o, DragDataReceivedArgs args)
     {
-      SelectionData data = args.SelectionData;
+      var data = args.SelectionData;
       string text = (new System.Text.ASCIIEncoding()).GetString(data.Data);
       string draggedFileName = null;
 
@@ -333,7 +335,7 @@ namespace Gimp.PicturePackage
 
     void OnFileSelectionResponse (object o, ResponseArgs args)
     {
-      FileSelection fs = o as FileSelection;
+      var fs = o as FileSelection;
       if (args.ResponseId == ResponseType.Ok)
 	{
 	  RenderRectangle(_rectangle, fs.Filename);
@@ -349,7 +351,7 @@ namespace Gimp.PicturePackage
 
       int width = (int) size.Width;
       int height = (int) size.Height;
-      Image composed = new Image(width, height, ImageBaseType.Rgb);
+      var composed = new Image(width, height, ImageBaseType.Rgb);
 
       if(_layout.Render(_loader, new ImageRenderer(_layout, composed, 
 						   _resolution)))

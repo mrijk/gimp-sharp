@@ -80,6 +80,11 @@ namespace Gimp.PicturePackage
       return _set.GetEnumerator();
     }
     
+    public void ForEach(Action<Layout> action)
+    {
+      _set.ForEach(action);
+    }
+
     public Layout this[int index]
     {
       get {return _set[index];}

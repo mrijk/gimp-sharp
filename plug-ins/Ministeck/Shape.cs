@@ -1,5 +1,5 @@
 // The Ministeck plug-in
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // Shape.cs
 //
@@ -42,17 +42,17 @@ namespace Gimp.Ministeck
 
     protected void Combine(params ShapeDescription[] list)
     {
-      ShapeDescriptionSet empty = new ShapeDescriptionSet();
+      var empty = new ShapeDescriptionSet();
       _set.Add(empty);
 
-      foreach (ShapeDescription val in list)
+      foreach (var val in list)
 	{
-	  List<ShapeDescriptionSet> copy = new List<ShapeDescriptionSet>();
+	  var copy = new List<ShapeDescriptionSet>();
 	  foreach (ShapeDescriptionSet ele in _set)
 	    {
 	      for (int i = 0; i <= ele.Count; i++)
 		{
-		  ShapeDescriptionSet tmp = new ShapeDescriptionSet(ele);
+		  var tmp = new ShapeDescriptionSet(ele);
 		  tmp.Insert(i, val);
 		  copy.Add(tmp);
 		}
@@ -65,7 +65,7 @@ namespace Gimp.Ministeck
     {
       int index = _random.Next(0, _set.Count);
 
-      foreach (ShapeDescription shape in _set[index])
+      foreach (var shape in _set[index])
 	{
 	  if (Fits(A, c.X, c.Y, shape))
 	    {
@@ -78,12 +78,12 @@ namespace Gimp.Ministeck
 
     bool Fits(bool[,] A, int x, int y, ShapeDescription shape)
     {
-      Pixel color = _painter.GetPixel(x, y);
+      var color = _painter.GetPixel(x, y);
 
       int width = A.GetLength(0);
       int height = A.GetLength(1);
 
-      foreach (Coordinate<int> c in shape)
+      foreach (var c in shape)
 	{
 	  int cx = x + c.X;
 	  int cy = y + c.Y;
@@ -92,7 +92,7 @@ namespace Gimp.Ministeck
 	      return false;
 	    }
 
-	  Pixel pixel = _painter.GetPixel(cx, cy);
+	  var pixel = _painter.GetPixel(cx, cy);
 	  if (!pixel.IsSameColor(color))
 	    {
 	      return false;

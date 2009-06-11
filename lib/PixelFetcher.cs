@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // PixelFetcher.cs
 //
@@ -89,7 +89,7 @@ namespace Gimp
       GC.SuppressFinalize(this);
     }
 
-    protected void Dispose(bool disposing)
+    void Dispose(bool disposing)
     {
       if (disposing)
 	{

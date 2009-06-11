@@ -1,4 +1,31 @@
+2009-06-11  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* lib/Vectors.cs
+	* lib/ImageList.cs
+	* lib/ChannelList.cs
+	* lib/LayerList.cs: clean-up
+
+	* plug-ins/PicturePackage/LabelFrame.cs
+	* plug-ins/PicturePackage/RectangleSet.cs
+	* plug-ins/PicturePackage/Preview.cs
+	* plug-ins/PicturePackage/PicturePackageFrame.cs
+	* plug-ins/PicturePackage/PageSizeSet.cs
+	* plug-ins/PicturePackage/DirImageProviderFactory.cs
+	* plug-ins/PicturePackage/PicturePackage.cs
+	* plug-ins/PicturePackage/DocumentFrame.cs: some refactoring
+
 2009-06-10  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/Pointillize/Pointillize.cs
+	* plug-ins/Splitter/Splitter.cs
+	* plug-ins/Ministeck/Shape.cs
+	* plug-ins/Ministeck/Ministeck.cs
+	* plug-ins/KoalaPaint/KoalaPaint.cs
+	* plug-ins/DifferenceClouds/DifferenceClouds.cs
+	* plug-ins/neo/neo.cs
+	* plug-ins/GemImg/GemImg.cs
+	* plug-ins/wbmp/wbmp.cs
+	* plug-ins/ncp/ncp.cs: some refactoring
 
 	* lib/RgnIterator.cs: new convenience constructor
 

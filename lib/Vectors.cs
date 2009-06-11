@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2008 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // Vectors.cs
 //
@@ -59,18 +59,15 @@ namespace Gimp
     {
       get
 	{
-	  List<Stroke> list = new List<Stroke>();
+	  var list = new List<Stroke>();
 	  int numStrokes;
 	  IntPtr ptr = gimp_vectors_get_strokes(_ID, out numStrokes);
 	  if (numStrokes > 0)
 	    {
-	      int[] dest = new int[numStrokes];
+	      var dest = new int[numStrokes];
 	      Marshal.Copy(ptr, dest, 0, numStrokes);
-	      
-	      foreach (int strokeID in dest)
-		{
-		  list.Add(new Stroke(_ID, strokeID));
-		}
+	      Array.ForEach(dest, 
+			    strokeID => list.Add(new Stroke(_ID, strokeID)));
 	    }
 	  return list;
 	}

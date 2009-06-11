@@ -1,5 +1,5 @@
 // The neo plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2009 Maurits Rijk
 // Original code for GIMP 1.0 by Alain Gaymard
 //
 // neo.cs
@@ -43,7 +43,7 @@ namespace Gimp.neo
 				     _("This plug-in loads Neochrome images."),
 				     "Maurits Rijk",
 				     "(C) Maurits Rijk",
-				     "2006-2007",
+				     "2006-2009",
 				     _("Neochrome Image"));
     }
 
@@ -58,8 +58,7 @@ namespace Gimp.neo
     {
       if (File.Exists(filename))
 	{
-	  BinaryReader reader = new BinaryReader(File.Open(filename,
-							   FileMode.Open));
+	  var reader = new BinaryReader(File.Open(filename, FileMode.Open));
 	
 	  // Read the header
 	  byte[] head = reader.ReadBytes(4);
@@ -84,11 +83,11 @@ namespace Gimp.neo
 	  const int NEO_WIDTH = 320;
 	  const int NEO_HEIGHT = 200;
 
-	  Image image = NewImage(NEO_WIDTH, NEO_HEIGHT, ImageBaseType.Indexed,
-				 ImageType.Indexed, filename);
+	  var image = NewImage(NEO_WIDTH, NEO_HEIGHT, ImageBaseType.Indexed,
+			       ImageType.Indexed, filename);
 	  image.Colormap = cmap;
 
-	  PixelRgn rgn = new PixelRgn(image.Layers[0], true, false);
+	  var rgn = new PixelRgn(image.Layers[0], true, false);
 
 	  byte[] buf = new byte[NEO_WIDTH * NEO_HEIGHT];
 	  int bufp = 0;

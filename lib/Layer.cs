@@ -67,6 +67,10 @@ namespace Gimp
     {
     }
 
+    internal Layer()
+    {
+    }
+
     public void Scale(int newWidth, int newHeight, bool localOrigin)
     {
       if (!gimp_layer_scale(_ID, newWidth, newHeight, localOrigin))

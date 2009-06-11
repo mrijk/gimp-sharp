@@ -1,5 +1,5 @@
 // The ncp plug-in
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // ncp.cs
 //
@@ -50,7 +50,7 @@ namespace Gimp.ncp
 
     override protected IEnumerable<Procedure> ListProcedures()
     {
-      ParamDefList inParams = new ParamDefList() {
+      var inParams = new ParamDefList() {
 	new ParamDef("points", 12, typeof(int), _("Number of points")),
 	new ParamDef("closest", 1, typeof(int), _("Closest point")),
 	new ParamDef("color", 1, typeof(bool), _("Color (true), B&W (false)"))
@@ -61,7 +61,7 @@ namespace Gimp.ncp
 				 _("Generates 2D textures"),
 				 "Maurits Rijk",
 				 "(C) Maurits Rijk",
-				 "2004-2007",
+				 "2004-2009",
 				 "NCP...",
 				 "RGB*, GRAY*",
 				 inParams)
@@ -75,30 +75,36 @@ namespace Gimp.ncp
     {
       gimp_ui_init("ncp", true);
 
-      GimpDialog dialog = DialogNew("ncp", "ncp", IntPtr.Zero, 0,
+      var dialog = DialogNew("ncp", "ncp", IntPtr.Zero, 0,
 				    Gimp.StandardHelpFunc, "ncp");
 
-      GimpTable table = new GimpTable(4, 3, false)
+      var table = new GimpTable(4, 3, false)
 	{
 	  ColumnSpacing = 6, 
 	  RowSpacing = 6
 	};
       Vbox.PackStart(table, false, false, 0);
 
-      RandomSeed seed = new RandomSeed(ref _seed, ref _random_seed);
-      seed.Toggle.Toggled += delegate
-	{
-	  InvalidatePreview();
-	};
-      seed.SpinButton.ValueChanged += delegate
-	{
-	  InvalidatePreview();
-	};
+      CreateRandomSeedWidget(table);
+      CreatePointsWidget(table);
+      CreateClosestEntryWidget(table);
+      CreateUseColorWidget(table);
+			
+      return dialog;
+    }
 
+    void CreateRandomSeedWidget(GimpTable table)
+    {
+      var seed = new RandomSeed(ref _seed, ref _random_seed);
+      seed.Toggle.Toggled += delegate {InvalidatePreview();};
+      seed.SpinButton.ValueChanged += delegate {InvalidatePreview();};
       table.AttachAligned(0, 0, _("Random _Seed:"), 0.0, 0.5, seed, 2, true);
+    }
 
-      ScaleEntry entry = new ScaleEntry(table, 0, 1, _("Po_ints:"), 150, 3, 
-					_points, 1.0, 256.0, 1.0, 8.0, 0);
+    void CreatePointsWidget(GimpTable table)
+    {
+      var entry = new ScaleEntry(table, 0, 1, _("Po_ints:"), 150, 3, 
+				 _points, 1.0, 256.0, 1.0, 8.0, 0);
       entry.ValueChanged += delegate
 	{
 	  _points = entry.ValueAsInt;
@@ -118,7 +124,10 @@ namespace Gimp.ncp
 	    InvalidatePreview();
 	  }
 	};
+    }
 
+    void CreateClosestEntryWidget(GimpTable table)
+    {
       _closestEntry = new ScaleEntry(table, 0, 2, _("C_lose to:"), 150, 3, 
 				     _closest, 1.0, _points, 1.0, 8.0, 0);
       _closestEntry.ValueChanged += delegate
@@ -126,17 +135,17 @@ namespace Gimp.ncp
 	  _closest = _closestEntry.ValueAsInt;
 	  InvalidatePreview();
 	};
+    }
 
-      CheckButton color = new CheckButton(_("_Use color"));
-      color.Active = _color;
+    void CreateUseColorWidget(GimpTable table)
+    {
+      var color = new CheckButton(_("_Use color")) {Active = _color};
       color.Toggled += delegate
 	{
 	  _color = color.Active;
 	  InvalidatePreview();
 	};
       table.Attach(color, 0, 1, 3, 4);
-			
-      return dialog;
     }
 
     override protected void UpdatePreview(AspectPreview preview)
@@ -157,7 +166,7 @@ namespace Gimp.ncp
 
     void Initialize(Drawable drawable)
     {
-      Rectangle rectangle = drawable.MaskBounds;
+      var rectangle = drawable.MaskBounds;
 
       _bpp = drawable.Bpp;
       _pixel = drawable.CreatePixel();
@@ -216,8 +225,7 @@ namespace Gimp.ncp
     override protected void Render(Drawable drawable)
     {
       Initialize(drawable);
-      RgnIterator iter = new RgnIterator(drawable, RunMode.Interactive);
-      iter.Progress = new Progress("NCP");
+      var iter = new RgnIterator(drawable, "NCP");
       iter.IterateDest(DoNCP);
     }
 
@@ -287,7 +295,7 @@ namespace Gimp.ncp
       // compute distance to each point
       for (int k = 0; k < _points * 4; k++) 
 	{
-	  Coordinate<int> p = vp[b, k];
+	  var p = vp[b, k];
 	  int x2 = x - p.X;
 	  int y2 = y - p.Y;
 	  _distances[k] = x2 * x2 + y2 * y2;

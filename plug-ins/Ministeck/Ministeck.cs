@@ -1,5 +1,5 @@
 // The Ministeck plug-in
-// Copyright (C) 2004-2008 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // Ministeck.cs
 //
@@ -47,7 +47,7 @@ namespace Gimp.Ministeck
 
     override protected IEnumerable<Procedure> ListProcedures()
     {
-      ParamDefList inParams = new ParamDefList()
+      var inParams = new ParamDefList()
 	{
 	  new ParamDef("limit", true, typeof(bool), 
 		       _("Use real life ratio for number of pieces if true")),
@@ -61,7 +61,7 @@ namespace Gimp.Ministeck
 				 _("Generates Ministeck"),
 				 "Maurits Rijk",
 				 "(C) Maurits Rijk",
-				 "2004-2008",
+				 "2004-2009",
 				 _("Ministeck..."),
 				 "RGB*, GRAY*",
 				 inParams)
@@ -75,21 +75,21 @@ namespace Gimp.Ministeck
     {
       gimp_ui_init("ministeck", true);
 
-      GimpDialog dialog = DialogNew(_("Ministeck"), _("ministeck"), 
-				    IntPtr.Zero, 0, null, _("ministeck"));
+      var dialog = DialogNew(_("Ministeck"), _("ministeck"), 
+			     IntPtr.Zero, 0, null, _("ministeck"));
 	
-      VBox vbox = new VBox(false, 12) {BorderWidth = 12};
+      var vbox = new VBox(false, 12) {BorderWidth = 12};
       dialog.VBox.PackStart(vbox, true, true, 0);
 
       _preview = new DrawablePreview(_drawable, false);
       _preview.Invalidated += UpdatePreview;
       vbox.PackStart(_preview, true, true, 0);
 
-      GimpTable table = new GimpTable(2, 2, false)
+      var table = new GimpTable(2, 2, false) 
 	{ColumnSpacing = 6, RowSpacing = 6};
       vbox.PackStart(table, false, false, 0);
 
-      SpinButton size = new SpinButton(3, 100, 1) {Value = _size};
+      var size = new SpinButton(3, 100, 1) {Value = _size};
       table.AttachAligned(0, 0, _("_Size:"), 0.0, 0.5, size, 2, true);
       size.ValueChanged += delegate
 	{
@@ -97,7 +97,7 @@ namespace Gimp.Ministeck
 	  _preview.Invalidate();
 	};
 
-      CheckButton limit = new CheckButton(_("_Limit Shapes"));
+      var limit = new CheckButton(_("_Limit Shapes"));
       table.Attach(limit, 2, 3, 0, 1);
       limit.Active = _limit;
       limit.Toggled += delegate 
@@ -106,8 +106,8 @@ namespace Gimp.Ministeck
 	  _preview.Invalidate();
 	};
 
-      GimpColorButton colorButton = new GimpColorButton("", 16, 16, _color, 
-							ColorAreaType.Flat);
+      var colorButton = new GimpColorButton("", 16, 16, _color, 
+					    ColorAreaType.Flat);
       colorButton.Update = true;
       colorButton.ColorChanged += delegate
 	{
@@ -142,10 +142,10 @@ namespace Gimp.Ministeck
       // Fix me: it's probably better to just create a new Drawable iso
       // a completely new image!
 
-      Image clone = new Image(_image);
+      var clone = new Image(_image);
       clone.Crop(_preview.Bounds);
 
-      Drawable drawable = clone.ActiveDrawable;
+      var drawable = clone.ActiveDrawable;
       RenderMinisteck(clone, drawable, true);
       _preview.Redraw(drawable);
       clone.Delete();
@@ -156,7 +156,7 @@ namespace Gimp.Ministeck
       image.UndoGroupStart();
       RunProcedure("plug_in_pixelize", image, drawable, _size);
 
-      MinisteckPalette palette = new MinisteckPalette();
+      var palette = new MinisteckPalette();
       image.ConvertIndexed(ConvertDitherType.No, ConvertPaletteType.Custom,
 			   0, false, false, "Ministeck");
       palette.Delete();
@@ -169,7 +169,7 @@ namespace Gimp.Ministeck
       int width = drawable.Width / _size;
       int height = drawable.Height / _size;
 
-      using (Painter painter = new Painter(drawable, _size, _color))
+      using (var painter = new Painter(drawable, _size, _color))
 	{
 	  Shape.Painter = painter;
 
@@ -177,7 +177,7 @@ namespace Gimp.Ministeck
 
 	  // Fill in shapes
       
-	  ShapeSet shapes = new ShapeSet();
+	  var shapes = new ShapeSet();
 
 	  if (_limit)
 	    {

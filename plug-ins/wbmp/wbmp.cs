@@ -1,5 +1,5 @@
 // The wbmp plug-in
-// Copyright (C) 2004-2006 Maurits Rijk, Massimo Perga
+// Copyright (C) 2004-2009 Maurits Rijk, Massimo Perga
 //
 // wbmp.cs
 //
@@ -42,7 +42,7 @@ namespace Gimp.wbmp
 				     _("This plug-in loads wbmp images."),
 				     "Maurits Rijk, Massimo Perga",
 				     "(C) Maurits Rijk, Massimo Perga",
-				     "2005-2006",
+				     "2005-2009",
 				     _("wbmp Image"));
       
       yield return FileSaveProcedure("file_wbmp_save",
@@ -50,7 +50,7 @@ namespace Gimp.wbmp
 				     _("This plug-in saves wbmp images."),
 				     "Maurits Rijk, Massimo Perga",
 				     "(C) Maurits Rijk, Massimo Perga",
-				     "2006",
+				     "2006-2009",
 				     _("wbmp Image"),
 				     "RGB*");
     }
@@ -66,8 +66,7 @@ namespace Gimp.wbmp
     {
       if (File.Exists(filename))
 	{
-	  BinaryReader reader = new BinaryReader(File.Open(filename, 
-							   FileMode.Open));
+	  var reader = new BinaryReader(File.Open(filename, FileMode.Open));
 
 	  byte type = reader.ReadByte();
 	  if (type != 0)
@@ -83,21 +82,21 @@ namespace Gimp.wbmp
 	      return null;
 	    }
 
-	  Progress _progress = new Progress(_("Loading ") + filename);
+	  var progress = new Progress(_("Loading ") + filename);
 
 	  int width = ReadDimension(reader);
 	  int height = ReadDimension(reader);
 
-	  Image image = new Image(width, height, ImageBaseType.Gray);
+	  var image = new Image(width, height, ImageBaseType.Gray);
 
-	  Layer layer = new Layer(image, "Background", width, height,
-				  ImageType.Gray, 100,
-				  LayerModeEffects.Normal);
+	  var layer = new Layer(image, "Background", width, height,
+				ImageType.Gray, 100,
+				LayerModeEffects.Normal);
 	  image.AddLayer(layer, 0);
 
 	  image.Filename = filename;
 
-	  PixelRgn rgn = new PixelRgn(layer, true, false);
+	  var rgn = new PixelRgn(layer, true, false);
 	  byte[] buf = new byte[width * height];
 	  int bufp = 0;
 
@@ -119,7 +118,7 @@ namespace Gimp.wbmp
 			}
 		      bufp++;
 		    }
-		  _progress.Update((double) row / height);
+		  progress.Update((double) row / height);
 		}
 	      catch (Exception e)
 		{
@@ -144,7 +143,7 @@ namespace Gimp.wbmp
       int width = drawable.Width;
       int height = drawable.Height;
 			
-      Progress _progress = new Progress(_("Saving ") + filename);
+      var progress = new Progress(_("Saving ") + filename);
 
       // If the image is not already indexed
       if (!drawable.IsIndexed)
@@ -154,8 +153,7 @@ namespace Gimp.wbmp
 			       0, false, false, "");
 	}
 
-      BinaryWriter writer = new BinaryWriter(File.Open(filename, 
-						       FileMode.Create));
+      var writer = new BinaryWriter(File.Open(filename, FileMode.Create));
 
       writer.Write((byte) 0);	// Write type
       writer.Write((byte) 0);	// Fixed header
@@ -165,7 +163,7 @@ namespace Gimp.wbmp
 
       image.Flatten();
 
-      PixelRgn rgn = new PixelRgn(drawable, true, false);
+      var rgn = new PixelRgn(drawable, true, false);
       byte[] wbmpImage = new byte[(width + 7) / 8 * height];
       byte[] buf = rgn.GetRect(0, 0, width, height);
 
@@ -189,7 +187,7 @@ namespace Gimp.wbmp
 		  writer.Write(wbmpImage[indexInWbmpImage]);
 		}
 	    }
-	  _progress.Update((double) row / height);
+	  progress.Update((double) row / height);
 	}
 
       writer.Close();

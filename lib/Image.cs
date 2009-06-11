@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2008 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // Image.cs
 //
@@ -591,18 +591,15 @@ namespace Gimp
     {
       get
 	{
-	  List<Vectors> list = new List<Vectors>();
+	  var list = new List<Vectors>();
 	  int numVectors;
 	  IntPtr ptr = gimp_image_get_vectors(_imageID, out numVectors);
 	  if (numVectors > 0)
 	    {
-	      int[] dest = new int[numVectors];
+	      var dest = new int[numVectors];
 	      Marshal.Copy(ptr, dest, 0, numVectors);
-	      
-	      foreach (int vectorsID in dest)
-		{
-		  list.Add(new Vectors(vectorsID));
-		}
+	      Array.ForEach(dest, vectorsID => 
+			    list.Add(new Vectors(vectorsID)));
 	    }
 	  return list;
 	}

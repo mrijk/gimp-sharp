@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2008 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // DrawableList.cs
 //
@@ -22,12 +22,35 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 namespace Gimp
 {
-  public abstract class DrawableList<T> where T : Drawable
+  public abstract class DrawableList<T> where T : Drawable, new()
   {
     readonly List<T> _list = new List<T>();
+
+    protected delegate IntPtr GetDrawablesFunc(Int32 drawable_ID, 
+					       out int num_drawables);
+
+    protected DrawableList() {}
+
+    protected DrawableList(Image image, GetDrawablesFunc getDrawables)
+    {
+      int numDrawables;
+      IntPtr ptr = getDrawables(image.ID, out numDrawables);
+      FillListFromPtr(ptr, numDrawables);
+    }
+    
+    protected void FillListFromPtr(IntPtr ptr, int numDrawables)
+    {
+      if (numDrawables > 0)
+	{
+	  var dest = new int[numDrawables];
+	  Marshal.Copy(ptr, dest, 0, numDrawables);
+	  Array.ForEach(dest, drawableID => Add(new T() {ID = drawableID}));
+	}
+    }
 
     public IEnumerator<T> GetEnumerator()
     {

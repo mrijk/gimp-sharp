@@ -42,7 +42,7 @@ namespace Gimp.Pointillize
 
       _backgroundColor = new Pixel(Context.Background.Bytes);
 
-      PixelFetcher pf = new PixelFetcher(drawable, false);
+      var pf = new PixelFetcher(drawable, false);
 
       _width = drawable.Width;
       _height = drawable.Height;
@@ -64,10 +64,10 @@ namespace Gimp.Pointillize
 	  int x = c.X;
 	  int y = c.Y;
 
-	  Pixel color = pf.GetPixel(c);
+	  var color = pf.GetPixel(c);
 	  color.AddNoise(5);
 
-	  ColorCoordinate coordinate = new ColorCoordinate(c, color);
+	  var coordinate = new ColorCoordinate(c, color);
 	  Add(coordinate);
 
 	  int row = y * _matrixRows / _height;
@@ -117,20 +117,20 @@ namespace Gimp.Pointillize
 
     public Pixel GetColor(Coordinate<int> c)
     {
-      int distance = int.MaxValue;
-      ColorCoordinate closest = null;
-
       int row = c.Y * _matrixRows / _height;
       int col = c.X * _matrixColumns / _width;
       
-      List<ColorCoordinate> list = _matrix[row, col];
+      var list = _matrix[row, col];
 
-      if (list == null)
-	{
-	  return _backgroundColor;
-	}
+      return (list == null) ? _backgroundColor : GetNearestColor(list, c);
+    }
 
-      foreach (ColorCoordinate coordinate in list)
+    Pixel GetNearestColor(List<ColorCoordinate> list, Coordinate<int> c)
+    {
+      int distance = int.MaxValue;
+      ColorCoordinate closest = null;
+
+      list.ForEach(coordinate => 
 	{
 	  int d = coordinate.Distance(c);
 	  if (d < distance)
@@ -138,7 +138,7 @@ namespace Gimp.Pointillize
 	      distance = d;
 	      closest = coordinate;
 	    }
-	}
+	});
 
       return distance < _cellSize * _cellSize / 4
 	? closest.Color : _backgroundColor;

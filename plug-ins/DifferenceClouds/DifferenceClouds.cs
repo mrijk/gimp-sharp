@@ -1,5 +1,5 @@
 // The Difference Clouds plug-in
-// Copyright (C) 2006-2007 Massimo Perga (massimo.perga@gmail.com)
+// Copyright (C) 2006-2009 Massimo Perga (massimo.perga@gmail.com)
 //
 // DifferenceClouds.cs
 //
@@ -55,7 +55,7 @@ namespace Gimp.DifferenceClouds
 
     override protected IEnumerable<Procedure> ListProcedures()
     {
-      ParamDefList inParams = new ParamDefList()
+      var inParams = new ParamDefList()
 	{
 	  new ParamDef("turbulence", 0, typeof(double),
 		       _("Turbulence of the cloud"))
@@ -65,7 +65,7 @@ namespace Gimp.DifferenceClouds
 				 _("Creates difference clouds."),
 				 "Massimo Perga",
 				 "(C) Massimo Perga",
-				 "2006-2007",
+				 "2006-2009",
 				 _("Difference Clouds..."),
 				 "RGB*",
 				 inParams)
@@ -79,24 +79,24 @@ namespace Gimp.DifferenceClouds
     {
       gimp_ui_init("Difference Clouds", true);
 
-      GimpDialog dialog = DialogNew(_("Difference Clouds 0.2"),
-				    _("Difference Clouds"), IntPtr.Zero, 0,
-				    Gimp.StandardHelpFunc, 
-				    _("Difference Clouds"));
+      var dialog = DialogNew(_("Difference Clouds 0.2"),
+			     _("Difference Clouds"), IntPtr.Zero, 0,
+			     Gimp.StandardHelpFunc, 
+			     _("Difference Clouds"));
 
       VBox vbox = new VBox(false, 12) {BorderWidth = 12};
       dialog.VBox.PackStart(vbox, true, true, 0);
 
-      GimpTable table = new GimpTable(3, 4, false)
+      var table = new GimpTable(3, 4, false)
 	{ColumnSpacing = 6, RowSpacing = 6};
 
-      RandomSeed seed = new RandomSeed(ref _rseed, ref _random_seed);
+      var seed = new RandomSeed(ref _rseed, ref _random_seed);
       table.AttachAligned(0, 0, _("Random _Seed:"), 0.0, 0.5, seed, 2, true);
 
-      ScaleEntry _turbulenceEntry = new ScaleEntry(table, 0, 1, 
-						   _("_Turbulence"), 150, 3,
-						   _turbulence, 0.0, 7.0, 0.1, 
-						   1.0, 1);
+      var _turbulenceEntry = new ScaleEntry(table, 0, 1, 
+					    _("_Turbulence"), 150, 3,
+					    _turbulence, 0.0, 7.0, 0.1, 
+					    1.0, 1);
       _turbulenceEntry.ValueChanged += delegate
 	{
 	  _turbulence = _turbulenceEntry.Value;
@@ -118,8 +118,8 @@ namespace Gimp.DifferenceClouds
       _progressBar = new Progress(_("Difference Clouds..."));
       _random = new Random((int)_rseed);
 
-      Layer activeLayer = image.ActiveLayer;
-      Layer newLayer = new Layer(activeLayer)
+      var activeLayer = image.ActiveLayer;
+      var newLayer = new Layer(activeLayer)
 	{
 	  Name = "_DifferenceClouds_", Visible = false,
 	  Mode = activeLayer.Mode, Opacity = activeLayer.Opacity
@@ -127,13 +127,13 @@ namespace Gimp.DifferenceClouds
 
       // Initialization steps
       _bpp = drawable.Bpp;
-      PixelFetcher pf = new PixelFetcher(drawable, true);
+      var pf = new PixelFetcher(drawable, true);
       _progress = 0;
       _hasAlpha = newLayer.HasAlpha;
       _alpha = (_hasAlpha) ? _bpp - 1 : _bpp;
       InitializeIndexedColorsMap();
 
-      Rectangle rectangle = drawable.MaskBounds;
+      var rectangle = drawable.MaskBounds;
       _maxProgress = rectangle.Area;
 
       if (rectangle.Width > 0 && rectangle.Height > 0)
@@ -169,11 +169,11 @@ namespace Gimp.DifferenceClouds
 
     void DoDifference(Drawable sourceDrawable, Drawable toDiffDrawable)
     {
-      Rectangle rectangle = sourceDrawable.MaskBounds;
-      PixelRgn srcPR = new PixelRgn(sourceDrawable, rectangle, true, true);
-      PixelRgn destPR = new PixelRgn(toDiffDrawable, rectangle, false, false);
+      var rectangle = sourceDrawable.MaskBounds;
+      var srcPR = new PixelRgn(sourceDrawable, rectangle, true, true);
+      var destPR = new PixelRgn(toDiffDrawable, rectangle, false, false);
 
-      RegionIterator iterator = new RegionIterator(srcPR, destPR);
+      var iterator = new RegionIterator(srcPR, destPR);
       iterator.ForEach((src, dest) => src.Set(MakeAbsDiff(dest, src)));
 
       sourceDrawable.Flush();
@@ -183,7 +183,7 @@ namespace Gimp.DifferenceClouds
 
     Pixel MakeAbsDiff(Pixel dest, Pixel src)
     {
-      Pixel pixel = new Pixel(_bpp);
+      var pixel = new Pixel(_bpp);
 
       int tmpVal = 0;
       for (int i = 0; i < _bpp; i++)
@@ -239,10 +239,10 @@ namespace Gimp.DifferenceClouds
 	      return false;
 	    }
 
-	  Pixel tl = pf[y1, x1];
-	  Pixel tr = pf[y1, x2];
-	  Pixel bl = pf[y2, x1];
-	  Pixel br = pf[y2, x2];
+	  var tl = pf[y1, x1];
+	  var tr = pf[y1, x2];
+	  var bl = pf[y2, x1];
+	  var br = pf[y2, x2];
 
 	  int ran = (int)((256.0 / (2.0 * scaleDepth)) * _turbulence);
 
@@ -315,7 +315,7 @@ namespace Gimp.DifferenceClouds
 
     Pixel RandomRGB()
     {
-      Pixel pixel = new Pixel(_bpp);
+      var pixel = new Pixel(_bpp);
 
       for (int i = 0; i < _bpp; i++)
 	{

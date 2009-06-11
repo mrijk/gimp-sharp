@@ -1,5 +1,5 @@
 // The Pointillize plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2009 Maurits Rijk
 //
 // Pointillize.cs
 //
@@ -43,7 +43,7 @@ namespace Gimp.Pointillize
 
     override protected IEnumerable<Procedure> ListProcedures()
     {
-      ParamDefList inParams = new ParamDefList()
+      var inParams = new ParamDefList()
 	{
 	  new ParamDef("cell_size", 30, typeof(int), "Cell size")
 	};
@@ -53,7 +53,7 @@ namespace Gimp.Pointillize
 				 _("Create pointillist paintings"),
 				 "Maurits Rijk",
 				 "(C) Maurits Rijk",
-				 "2006-2007",
+				 "2006-2009",
 				 _("Pointillize..."),
 				 "RGB*, GRAY*",
 				 inParams)
@@ -65,14 +65,14 @@ namespace Gimp.Pointillize
 
     override protected GimpDialog CreateDialog()
     {
-      GimpDialog dialog = DialogNew(_("Pointillize"), _("Pointillize"), 
-				    IntPtr.Zero, 0, Gimp.StandardHelpFunc, 
-				    _("Pointillize"));
+      var dialog = DialogNew(_("Pointillize"), _("Pointillize"), 
+			     IntPtr.Zero, 0, Gimp.StandardHelpFunc, 
+			     _("Pointillize"));
 
-      GimpTable table = new GimpTable(1, 3, false);
+      var table = new GimpTable(1, 3, false);
 
-      ScaleEntry entry = new ScaleEntry(table, 0, 1, _("Cell _Size:"), 150, 3,
-					_cellSize, 3.0, 300.0, 1.0, 8.0, 0);
+      var entry = new ScaleEntry(table, 0, 1, _("Cell _Size:"), 150, 3,
+				 _cellSize, 3.0, 300.0, 1.0, 8.0, 0);
       entry.ValueChanged += delegate
 	{
 	  _cellSize = entry.ValueAsInt;
@@ -94,8 +94,7 @@ namespace Gimp.Pointillize
     {
       Initialize(drawable);
 
-      RgnIterator iter = new RgnIterator(drawable, RunMode.Interactive);
-      iter.Progress = new Progress(_("Pointillize"));
+      var iter = new RgnIterator(drawable, _("Pointillize"));
       iter.IterateDest(DoPointillize);
     }
 

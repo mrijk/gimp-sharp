@@ -1,5 +1,5 @@
 // The KoalaPaint plug-in
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // KoalaPaint.cs
 //
@@ -70,7 +70,7 @@ namespace Gimp.KoalaPaint
 			  _("This plug-in loads images of the Koala Paint file format."),
 			  "Maurits Rijk",
 			  "(C) Maurits Rijk",
-			  "1999 - 2006",
+			  "1999 - 2009",
 			  _("KoalaPaint Image"));
     }
 
@@ -82,12 +82,10 @@ namespace Gimp.KoalaPaint
 
     override protected Image Load(string filename)
     {
-      byte[] bitmap;
-
       if (File.Exists(filename))
 	{
-	  BinaryReader reader = new BinaryReader(File.Open(filename, 
-							   FileMode.Open));
+	  byte[] bitmap;
+	  var reader = new BinaryReader(File.Open(filename, FileMode.Open));
 	
 	  reader.ReadBytes(2);
 	  bitmap = reader.ReadBytes(8000);
@@ -95,12 +93,12 @@ namespace Gimp.KoalaPaint
 	  _color = reader.ReadBytes(1000);
 	  _background = reader.ReadByte();
 
-	  Image image = NewImage(KOALA_WIDTH, KOALA_HEIGHT, 
-				 ImageBaseType.Indexed, ImageType.Indexed, 
-				 filename);
+	  var image = NewImage(KOALA_WIDTH, KOALA_HEIGHT, 
+			       ImageBaseType.Indexed, ImageType.Indexed, 
+			       filename);
 	  image.Colormap = _colormap;
 
-	  PixelRgn rgn = new PixelRgn(image.Layers[0], true, false);
+	  var rgn = new PixelRgn(image.Layers[0], true, false);
 
 	  byte[] buf = new byte[KOALA_WIDTH * KOALA_HEIGHT];
 	  int bufp = 8;

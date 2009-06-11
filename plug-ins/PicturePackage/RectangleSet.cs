@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2007 Maurits Rijk, Massimo Perga
+// Copyright (C) 2004-2009 Maurits Rijk, Massimo Perga
 //
 // RectangleSet.cs
 //
@@ -58,7 +58,7 @@ namespace Gimp.PicturePackage
       factory.Reset();
       foreach (Rectangle rectangle in _set)
 	{
-	  ImageProvider provider = rectangle.Provider;
+	  var provider = rectangle.Provider;
 
 	  if (provider == null)
 	    {
@@ -67,7 +67,7 @@ namespace Gimp.PicturePackage
 		{
 		  break;
 		}
-	      Image image = provider.GetImage();
+	      var image = provider.GetImage();
 	      if (image == null)
 		{
 //		  Console.WriteLine("Couldn't load image!");

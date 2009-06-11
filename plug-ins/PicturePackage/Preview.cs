@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // Preview.cs
 //
@@ -44,7 +44,7 @@ namespace Gimp.PicturePackage
       Realized += OnRealized;
       ExposeEvent += OnExposed;
 
-      TargetEntry[] targets = new TargetEntry[]{
+      var targets = new TargetEntry[]{
 	new TargetEntry("image/jpeg", 0, 0),
 	new TargetEntry("image/png", 0, 0),
 	new TargetEntry("text/plain", 0, 1),
@@ -56,7 +56,7 @@ namespace Gimp.PicturePackage
       Events = EventMask.ButtonPressMask;
     }
 
-    void OnExposed (object o, ExposeEventArgs args)
+    void OnExposed(object o, ExposeEventArgs args)
     {
       if (_firstTime)
 	{
@@ -95,9 +95,9 @@ namespace Gimp.PicturePackage
 
     public void DrawLabel(int position, string label)
     {
-      Pango.Layout layout = new Pango.Layout(this.PangoContext);
+      var layout = new Pango.Layout(this.PangoContext);
       layout.FontDescription = FontDescription.FromString ("Tahoma 16");
-      layout.SetMarkup (label);
+      layout.SetMarkup(label);
 
       int width, height;
       layout.GetPixelSize(out width, out height);

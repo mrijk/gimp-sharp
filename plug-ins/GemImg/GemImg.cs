@@ -1,5 +1,5 @@
 // The GemImg plug-in
-// Copyright (C) 2004-2008 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // GemImg.cs
 //
@@ -48,7 +48,7 @@ namespace Gimp.GemImg
 			  _("This plug-in loads images of the GEM-Image file format."),
 			  "Maurits Rijk",
 			  "(C) Maurits Rijk",
-			  "2008",
+			  "2008-2009",
 			  _("GEM Image"));
     }
 
@@ -62,8 +62,7 @@ namespace Gimp.GemImg
     {
       if (File.Exists(filename))
 	{
-	  BinaryReader reader = new BinaryReader(File.Open(filename, 
-							   FileMode.Open));
+	  var reader = new BinaryReader(File.Open(filename, FileMode.Open));
 
 	  if (ReadHeader(reader))
 	    {
@@ -86,11 +85,11 @@ namespace Gimp.GemImg
 		new RGB(0,0,0)
 	      };
 
-	      Image image = NewImage(_imageWidth, _imageHeight,
-				     ImageBaseType.Indexed,
-				     ImageType.Indexed, filename);
+	      var image = NewImage(_imageWidth, _imageHeight,
+				   ImageBaseType.Indexed,
+				   ImageType.Indexed, filename);
 	      image.Colormap = colormap;
-	      PixelRgn rgn = new PixelRgn(image.Layers[0], true, false);
+	      var rgn = new PixelRgn(image.Layers[0], true, false);
 
 	      int bparrow = (_imageWidth + 7) / 8;
 

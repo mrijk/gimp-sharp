@@ -226,7 +226,6 @@ namespace Gimp
 	      object value = inParam.GetValue(name);
 	      if (value != null)
 		{
-		  Console.WriteLine("Setting " + name + ": " + value);
 		  attribute.Field.SetValue(this, value);
 		}
 	    }
@@ -243,8 +242,6 @@ namespace Gimp
     public void Run(string name, int n_params, IntPtr paramPtr,
 		    ref int n_return_vals, out IntPtr return_vals)
     {
-Console.WriteLine("Plugin.Run: " + n_params);
-
       Name = name;
 
       GetRequiredParameters();
