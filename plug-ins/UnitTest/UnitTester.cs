@@ -43,14 +43,12 @@ namespace Gimp.UnitTest
     private static bool MakeTestFromCommandLine(TestDomain testDomain,
 						string testDll)
     {
-      NUnitProject project;
-     
+      ServiceManager.Services.AddService(new DomainManager());
+
       Console.WriteLine("Loading: " + testDll);
-      project = NUnitProject.FromAssemblies(new string[]{testDll});
       Console.WriteLine("1");
       TestPackage package = new TestPackage(testDll);
-      package.TestName = testDll;
-      Console.WriteLine("1a");
+      Console.WriteLine("1a: " + testDomain);
       return testDomain.Load(package);
     }
     
@@ -71,18 +69,20 @@ namespace Gimp.UnitTest
 	  return;
 	}
 
-
       if (!success)
 	{
 	  Console.Error.WriteLine("Unable to locate fixture");
 	  return;
 	}
-      _unitTestPlugin.TestCasesTotalNumber = testRunner.CountTestCases(null);
+      _unitTestPlugin.TestCasesTotalNumber = testRunner.CountTestCases(TestFilter.Empty);
+      Console.WriteLine("3");
       
       EventListener collector = new EventCollector(outWriter, errorWriter, 
 						   _unitTestPlugin );
+      Console.WriteLine("4");
       
       TestResult result = testRunner.Run(collector);
+      Console.WriteLine("5");
     }
   }
 }

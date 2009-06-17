@@ -1,3 +1,8 @@
+2009-06-17  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/UnitTest/EventCollector.cs: make UnitTest plug-in work
+	with latest NUnit
+
 2009-06-11  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* lib/Vectors.cs

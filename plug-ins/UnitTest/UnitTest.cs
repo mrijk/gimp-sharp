@@ -95,7 +95,7 @@ namespace Gimp.UnitTest
       _testsPerformed++;
 
       _progressBar.Fraction = (double) _testsPerformed / TestCasesTotalNumber;
-      while (Application.EventsPending ())
+      while (Application.EventsPending())
 	{
 	  Gtk.Application.RunIteration();
 	}

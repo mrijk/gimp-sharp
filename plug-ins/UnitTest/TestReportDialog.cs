@@ -109,18 +109,19 @@ namespace Gimp.UnitTest
       // and Unit Test Error 
       ListStore resultListStore = new ListStore(typeof (string), 
 						typeof (string));
-
       // Add some data to the store
       for (int i = 0; i < _resultsAL.Count; i++)
 	{
 	  string tmp = _resultsAL[i];
-	  
+
 	  int pos = tmp.IndexOf(":");
 	  string assembly = tmp.Substring(0, pos);
 	  // +2 because of the ': '
 	  testReport = tmp.Substring(pos + 2, tmp.Length - (pos + 2));
 	  resultListStore.AppendValues(assembly, testReport);
 	}
+
+      Console.WriteLine("TRD: 2");
 
       // Set the renderer for the assembly cell
       assemblyColumn.SetCellDataFunc(assemblyNameCell, 

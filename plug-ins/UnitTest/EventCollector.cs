@@ -1,5 +1,5 @@
 // The UnitTest plug-in
-// Copyright (C) 2004-2007 Maurits Rijk, Massimo Perga
+// Copyright (C) 2004-2009 Maurits Rijk, Massimo Perga
 //
 // EventCollector.cs
 //
@@ -73,10 +73,17 @@ namespace Gimp.UnitTest
 
     public void RunFinished(Exception exception)
     {
+      Console.WriteLine("RunFinished!");
     }
 
     public void RunFinished(TestResult testResult)
     {
+      TestReportDialog dialog = new TestReportDialog(_nrOk, _nrFailed, 
+						     _resultsAL);
+      TestReportDialog.ShowHelpButton(false);
+      dialog.ShowAll();
+      dialog.Run();
+      dialog.Destroy();
     }
 
     public void TestOutput(TestOutput testOutput)
@@ -89,12 +96,12 @@ namespace Gimp.UnitTest
 	{
 	  if (testResult.IsFailure)
 	    {
-	      _resultsAL.Add(testResult.ToString());
+	      _resultsAL.Add(testResult.Name + ": ");
 	      _nrFailed++;
 	    }
 	  else
 	    {
-	      _resultsAL.Add(testResult.ToString() + "OK");
+	      _resultsAL.Add(testResult.Name + ": OK");
 	      _nrOk++;
 	    }
 	  _unitTestPlugin.UpdateProgressStatus();
