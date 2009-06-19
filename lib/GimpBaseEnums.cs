@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // GimpBaseEnums.cs
 //
@@ -242,6 +242,20 @@ namespace Gimp
     Never,
     Query,
     Always
+  }
+
+  public enum TextDirection
+  {
+    Ltr,
+    Rtl
+  }
+
+  public enum TextJustification
+  {
+    Left,
+    Right,
+    Center,
+    Fill
   }
 
   public enum TransferMode

@@ -58,17 +58,6 @@ namespace Gimp.UnitTest
 
     public void RunFinished(TestResult[] results)
     {
-      TestReportDialog dialog = new TestReportDialog(_nrOk, _nrFailed, 
-						     _resultsAL);
-      TestReportDialog.ShowHelpButton(false);
-      dialog.ShowAll();
-      ResponseType type = dialog.Run();
-      /*
-         if (type == ResponseType.Ok)
-         {
-         }
-         */
-      dialog.Destroy();
     }
 
     public void RunFinished(Exception exception)

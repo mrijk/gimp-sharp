@@ -44,6 +44,11 @@ namespace Gimp
     {
     }
 
+    static internal Drawable Create(Int32 drawableID)
+    {
+      return new Drawable(drawableID);
+    }
+
     public void Detach()
     {
       gimp_drawable_detach(_drawable);
@@ -464,7 +469,6 @@ namespace Gimp
 	}
     }
 
-    // Only available in GIMP 2.4.x!
     public void EditBucketFill(BucketFillMode fillMode,
 			       LayerModeEffects paintMode,
 			       double opacity,

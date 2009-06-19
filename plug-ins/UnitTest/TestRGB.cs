@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // TestRGB.cs
 //
@@ -303,7 +303,7 @@ namespace Gimp
       RGB rgb1 = new RGB(red, green, blue);
       RGB rgb2 = new RGB(red, green + 0.11, blue);
 
-      Assert.AreEqual(0.11, rgb1.Distance(rgb2));
+      Assert.AreEqual(0.11, rgb1.Distance(rgb2), 0.001);
     }
 
     [Test]

@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // TestProcedure.cs
 //
@@ -32,17 +32,24 @@ namespace Gimp
     public void New()
     {
       string name = "name";
-      Procedure procedure = new Procedure(name, "blurb", "help", 
-					  "author", "copyright", 
-					  "date", "menu_path", 
-					  "RGB", null, null);
+      var procedure = new Procedure(name, "blurb", "help", 
+				    "author", "copyright", 
+				    "date", "menu_path", 
+				    "RGB", null, null);
       Assert.AreEqual(name, procedure.Name);
+    }
+
+    [Test]
+    public void Exists()
+    {
+      Assert.IsFalse(Procedure.Exists("non-existant"));
+      Assert.IsTrue(Procedure.Exists("gimp-version"));
     }
 
     [Test]
     public void Run()
     {
-      Procedure procedure = new Procedure("plug_in_pixelize");
+      var procedure = new Procedure("plug_in_pixelize");
       // procedure.Run(image, drawable, 10);
     }
   }

@@ -121,8 +121,6 @@ namespace Gimp.UnitTest
 	  resultListStore.AppendValues(assembly, testReport);
 	}
 
-      Console.WriteLine("TRD: 2");
-
       // Set the renderer for the assembly cell
       assemblyColumn.SetCellDataFunc(assemblyNameCell, 
 				     new TreeCellDataFunc(RenderAssembly));

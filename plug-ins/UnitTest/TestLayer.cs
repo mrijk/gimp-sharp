@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // TestLayer.cs
 //
@@ -47,7 +47,7 @@ namespace Gimp
     [Test]
     public void ConstructorOne()
     {
-      Layer layer = new Layer(_image, "test", _width, _height,
+      var layer = new Layer(_image, "test", _width, _height,
 			      ImageType.Rgb, 100, 
 			      LayerModeEffects.Normal);
       _image.AddLayer(layer, 0);
@@ -57,8 +57,8 @@ namespace Gimp
     [Test]
     public void ConstructorTwo()
     {
-      Layer layer = new Layer(_image, "test", ImageType.Rgb, 100, 
-			      LayerModeEffects.Normal);
+      var layer = new Layer(_image, "test", ImageType.Rgb, 100, 
+			    LayerModeEffects.Normal);
       _image.AddLayer(layer, 0);
       Assert.AreEqual(1, _image.Layers.Count);
       Assert.AreEqual(_image.Width, layer.Width);
@@ -68,7 +68,7 @@ namespace Gimp
     [Test]
     public void ConstructorThree()
     {
-      Layer layer = new Layer(_image, "test", ImageType.Rgb);
+      var layer = new Layer(_image, "test", ImageType.Rgb);
       _image.AddLayer(layer, 0);
       Assert.AreEqual(1, _image.Layers.Count);
       Assert.AreEqual(_image.Width, layer.Width);
@@ -78,17 +78,36 @@ namespace Gimp
     }
 
     [Test]
+    public void ConstructorFour()
+    {
+      var layer = new Layer(_image, "test", ImageType.Rgb);
+      _image.AddLayer(layer, 0);
+
+      var image = new Image(_width, _height, ImageBaseType.Rgb);
+      layer = new Layer(_image, image, "new_from_visible");
+      image.AddLayer(layer, 0);
+
+      Assert.AreEqual(1, image.Layers.Count);
+      Assert.AreEqual(image.Width, layer.Width);
+      Assert.AreEqual(image.Height, layer.Height);
+      Assert.AreEqual(100, layer.Opacity);
+      Assert.AreEqual(LayerModeEffects.Normal, layer.Mode);
+
+      image.Delete();
+    }
+
+    [Test]
     public void CopyConstructor()
     {
-      Layer layerOne = new Layer(_image, "test", ImageType.Rgb);
-      Layer layerTwo = new Layer(layerOne);
+      var layerOne = new Layer(_image, "test", ImageType.Rgb);
+      var layerTwo = new Layer(layerOne);
       Assert.AreEqual(layerOne.Width, layerTwo.Width);
     }
 
     [Test]
     public void ScaleOne()
     {
-      Layer layer = new Layer(_image, "test", ImageType.Rgb);
+      var layer = new Layer(_image, "test", ImageType.Rgb);
       _image.AddLayer(layer, 0);
       layer.Scale(2 * _width, 2 * _height, false);
       Assert.AreEqual(2 * _width, layer.Width);
@@ -96,9 +115,20 @@ namespace Gimp
     }
 
     [Test]
+    public void ScaleTwo()
+    {
+      var layer = new Layer(_image, "test", ImageType.Rgb);
+      _image.AddLayer(layer, 0);
+      layer.Scale(new Dimensions(2 * _width, 2 * _height), false,
+		  InterpolationType.None);
+      Assert.AreEqual(2 * _width, layer.Width);
+      Assert.AreEqual(2 * _height, layer.Height);
+    }
+
+    [Test]
     public void Resize()
     {
-      Layer layer = new Layer(_image, "test", ImageType.Rgb);
+      var layer = new Layer(_image, "test", ImageType.Rgb);
       _image.AddLayer(layer, 0);
       layer.Resize(2 * _width, 2 * _height, 0, 0);
       Assert.AreEqual(2 * _width, layer.Width);
@@ -108,7 +138,7 @@ namespace Gimp
     [Test]
     public void ResizeToImageSize()
     {
-      Layer layer = new Layer(_image, "test", _width / 2, _height / 2,
+      var layer = new Layer(_image, "test", _width / 2, _height / 2,
 			      ImageType.Rgb, 100, 
 			      LayerModeEffects.Normal);
       _image.AddLayer(layer, 0);
@@ -120,7 +150,7 @@ namespace Gimp
     [Test]
     public void Translate()
     {
-      Layer layer = new Layer(_image, "test", ImageType.Rgb);
+      var layer = new Layer(_image, "test", ImageType.Rgb);
       _image.AddLayer(layer, 0);
       layer.Translate(-10, 10);
 
@@ -132,7 +162,7 @@ namespace Gimp
     [Test]
     public void AddAlpha()
     {
-      Layer layer = new Layer(_image, "test", ImageType.Rgb);
+      var layer = new Layer(_image, "test", ImageType.Rgb);
       _image.AddLayer(layer, 0);
 
       int bpp = layer.Bpp;
@@ -144,7 +174,7 @@ namespace Gimp
     [Test]
     public void SetOffsets()
     {
-      Layer layer = new Layer(_image, "test", ImageType.Rgb);
+      var layer = new Layer(_image, "test", ImageType.Rgb);
       _image.AddLayer(layer, 0);
 
       Offset offset = new Offset(13, 14);
@@ -156,7 +186,7 @@ namespace Gimp
     [Test]
     public void CreateMask()
     {
-      Layer layer = new Layer(_image, "test", ImageType.Rgba);
+      var layer = new Layer(_image, "test", ImageType.Rgba);
       layer.AddAlpha();
       _image.AddLayer(layer, 0);
 
@@ -170,7 +200,7 @@ namespace Gimp
     [Test]
     public void RemoveMask()
     {
-      Layer layer = new Layer(_image, "test", ImageType.Rgba);
+      var layer = new Layer(_image, "test", ImageType.Rgba);
       layer.AddAlpha();
       _image.AddLayer(layer, 0);
 
@@ -185,7 +215,7 @@ namespace Gimp
     [Test]
     public void NewFromDrawable()
     {
-      Layer layer = new Layer(_image, "test", ImageType.Rgb);
+      var layer = new Layer(_image, "test", ImageType.Rgb);
       _image.AddLayer(layer, 0);
 
       Layer copy = new Layer(layer, _image);
@@ -195,7 +225,7 @@ namespace Gimp
     [Test]
     public void LockAlpha()
     {
-      Layer layer = new Layer(_image, "test", ImageType.Rgba);
+      var layer = new Layer(_image, "test", ImageType.Rgba);
       layer.AddAlpha();
       _image.AddLayer(layer, 0);
 
@@ -209,7 +239,7 @@ namespace Gimp
     [Test]
     public void ApplyMask()
     {
-      Layer layer = new Layer(_image, "test", ImageType.Rgba);
+      var layer = new Layer(_image, "test", ImageType.Rgba);
       layer.AddAlpha();
       _image.AddLayer(layer, 0);
 
@@ -224,7 +254,7 @@ namespace Gimp
     [Test]
     public void ShowMask()
     {
-      Layer layer = new Layer(_image, "test", ImageType.Rgba);
+      var layer = new Layer(_image, "test", ImageType.Rgba);
       layer.AddAlpha();
       _image.AddLayer(layer, 0);
 
@@ -239,7 +269,7 @@ namespace Gimp
     [Test]
     public void EditMask()
     {
-      Layer layer = new Layer(_image, "test", ImageType.Rgba);
+      var layer = new Layer(_image, "test", ImageType.Rgba);
       layer.AddAlpha();
       _image.AddLayer(layer, 0);
 
@@ -254,18 +284,18 @@ namespace Gimp
     [Test]
     public void Opacity()
     {
-      Layer layer = new Layer(_image, "test", ImageType.Rgba);
+      var layer = new Layer(_image, "test", ImageType.Rgba);
       layer.AddAlpha();
       _image.AddLayer(layer, 0);
 
       layer.Opacity = 3.14;
-      Assert.AreEqual(3.14, layer.Opacity);
+      Assert.AreEqual(3.14, layer.Opacity, 0.0001);
     }
 
     [Test]
     public void Mode()
     {
-      Layer layer = new Layer(_image, "test", ImageType.Rgba);
+      var layer = new Layer(_image, "test", ImageType.Rgba);
       layer.AddAlpha();
       _image.AddLayer(layer, 0);
 
@@ -276,7 +306,7 @@ namespace Gimp
     [Test]
     public void IsFloatingSelection()
     {
-      Layer layer = new Layer(_image, "test", ImageType.Rgba);
+      var layer = new Layer(_image, "test", ImageType.Rgba);
       layer.AddAlpha();
       _image.AddLayer(layer, 0);
 

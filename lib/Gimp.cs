@@ -45,6 +45,11 @@ namespace Gimp
       }
     }
 
+    static public string PdbError
+    {
+      get {return gimp_get_pdb_error();}
+    }
+
     static public uint TileWidth
     {
       get {return gimp_tile_width();}
@@ -232,6 +237,8 @@ namespace Gimp
     
     [DllImport("libgimp-2.0-0.dll")]
       static extern string gimp_version();
+    [DllImport("libgimp-2.0-0.dll")]
+      static extern string gimp_get_pdb_error();
     [DllImport("libgimp-2.0-0.dll")]
       static extern uint gimp_tile_width();
     [DllImport("libgimp-2.0-0.dll")]

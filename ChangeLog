@@ -1,3 +1,17 @@
+2009-06-18  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/UnitTest/TestTextLayer.cs: new file
+
+	* lib/GimpBaseEnums.cs
+	* lib/TextLayer.cs
+	* lib/Gimp.cs: GIMP 2.6 functionality
+
+	* plug-ins/UnitTest/TestProcedure.cs: new tests
+
+	* plug-ins/UnitTest/TestLayer.cs
+	* plug-ins/UnitTest/TestBrush.cs
+	* plug-ins/UnitTest/TestVector2.cs: fixed tests
+
 2009-06-17  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* plug-ins/UnitTest/EventCollector.cs: make UnitTest plug-in work

@@ -44,11 +44,7 @@ namespace Gimp.UnitTest
 						string testDll)
     {
       ServiceManager.Services.AddService(new DomainManager());
-
-      Console.WriteLine("Loading: " + testDll);
-      Console.WriteLine("1");
       TestPackage package = new TestPackage(testDll);
-      Console.WriteLine("1a: " + testDomain);
       return testDomain.Load(package);
     }
     
@@ -61,7 +57,6 @@ namespace Gimp.UnitTest
       try
 	{        
 	  success = MakeTestFromCommandLine(testDomain, testDll);
-	  Console.WriteLine("2: " + success);
 	}
       catch(System.IO.FileNotFoundException fnfe)
 	{
@@ -75,14 +70,10 @@ namespace Gimp.UnitTest
 	  return;
 	}
       _unitTestPlugin.TestCasesTotalNumber = testRunner.CountTestCases(TestFilter.Empty);
-      Console.WriteLine("3");
       
       EventListener collector = new EventCollector(outWriter, errorWriter, 
-						   _unitTestPlugin );
-      Console.WriteLine("4");
-      
+						   _unitTestPlugin );      
       TestResult result = testRunner.Run(collector);
-      Console.WriteLine("5");
     }
   }
 }

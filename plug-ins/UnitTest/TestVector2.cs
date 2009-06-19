@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // TestVector2.cs
 //
@@ -86,7 +86,7 @@ namespace Gimp
     {
       Vector2 vector = new Vector2(1, 2);
       vector.Normalize();
-      Assert.AreEqual(1, vector.Length);
+      Assert.AreEqual(1.0, vector.Length, 0.0001);
     }
 
     [Test]

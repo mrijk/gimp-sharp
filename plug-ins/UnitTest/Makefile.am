@@ -48,6 +48,7 @@ TESTSOURCES = 	TestBrush.cs 			\
 		TestRGB.cs			\
 		TestSelection.cs		\
 		TestStroke.cs			\
+		TestTextLayer.cs		\
 		TestUndo.cs			\
 		TestVectors.cs			\
 		TestVector2.cs			\

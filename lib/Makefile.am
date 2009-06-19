@@ -30,6 +30,7 @@ MYSOURCES = 				\
 	FileEntry.cs			\
 	FilePlugin.cs			\
 	FloatingSelection.cs		\
+	FontSize.cs			\
 	FreeSelectTool.cs		\
 	FuzzySelectTool.cs		\
 	GimpBaseEnums.cs		\

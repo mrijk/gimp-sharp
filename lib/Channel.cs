@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2008 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // Channel.cs
 //
@@ -44,7 +44,6 @@ namespace Gimp
     {
     }
 
-    // GIMP 2.4
     public Channel(Image image, ChannelType component, string name) : 
       base(gimp_channel_new_from_component(image.ID, component, name))
     {
@@ -58,7 +57,7 @@ namespace Gimp
     {
     }
 
-    internal Channel()
+    public Channel()
     {
     }
 

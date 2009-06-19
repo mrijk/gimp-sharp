@@ -34,10 +34,98 @@ namespace Gimp
     {    
     }
 
-    public TextLayer(Image image, string text, string fontName, double size,
-		     Unit unit) : 
-      base(gimp_text_layer_new(image.ID, text, fontName, size, unit))
+    public TextLayer(Image image, string text, string fontName, FontSize size) :
+      base(gimp_text_layer_new(image.ID, text, fontName, size.Size, size.Unit))
     {
+    }
+
+    public string Text
+    {
+      get {return gimp_text_layer_get_text(ID);}
+      set
+      {
+	if (!gimp_text_layer_set_text(ID, value))
+	{
+	  throw new GimpSharpException();
+	}
+      }
+    }
+
+    public string Font
+    {
+      get {return gimp_text_layer_get_font(ID);}
+      set
+      {
+	if (!gimp_text_layer_set_font(ID, value))
+	{
+	  throw new GimpSharpException();
+	}
+      }
+    }
+
+    public FontSize FontSize
+    {
+      get
+      {
+	Unit unit;
+	double size = gimp_text_layer_get_font_size(ID, out unit); 
+	return new FontSize(size, unit);
+      }
+      set
+      {
+	if (!gimp_text_layer_set_font_size(ID, value.Size, value.Unit))
+	{
+	  throw new GimpSharpException();
+	}
+      }
+    }
+
+    public bool Antialias
+    {
+      get {return gimp_text_layer_get_antialias(ID);}
+      set
+      {
+	if (!gimp_text_layer_set_antialias(ID, value))
+	{
+	  throw new GimpSharpException();
+	}
+      }
+    }
+
+    public bool Kerning
+    {
+      get {return gimp_text_layer_get_kerning(ID);}
+      set
+      {
+	if (!gimp_text_layer_set_kerning(ID, value))
+	{
+	  throw new GimpSharpException();
+	}
+      }
+    }
+
+    public string Language
+    {
+      get {return gimp_text_layer_get_language(ID);}
+      set
+      {
+	if (!gimp_text_layer_set_language(ID, value))
+	{
+	  throw new GimpSharpException();
+	}
+      }
+    }
+
+    public TextDirection BaseDirection
+    {
+      get {return gimp_text_layer_get_base_direction(ID);}
+      set
+      {
+	if (!gimp_text_layer_set_base_direction(ID, value))
+	{
+	  throw new GimpSharpException();
+	}
+      }
     }
 
     [DllImport("libgimp-2.0-0.dll")]
@@ -57,5 +145,41 @@ namespace Gimp
 					    string fontname,
 					    double size,
 					    Unit unit);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern string gimp_text_layer_get_text(Int32 layer_ID);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_text_layer_set_text(Int32 layer_ID, string text);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern string gimp_text_layer_get_font(Int32 layer_ID);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_text_layer_set_font(Int32 layer_ID, string font);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern double gimp_text_layer_get_font_size(Int32 layer_ID,
+						       out Unit unit);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_text_layer_set_font_size(Int32 layer_ID, 
+						     double font_size,
+						     Unit unit);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_text_layer_get_antialias(Int32 layer_ID);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_text_layer_set_antialias(Int32 layer_ID, 
+						     bool antialias);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_text_layer_get_kerning(Int32 layer_ID);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_text_layer_set_kerning(Int32 layer_ID, 
+						   bool kerning);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern string gimp_text_layer_get_language(Int32 layer_ID);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_text_layer_set_language(Int32 layer_ID, 
+						    string language);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern TextDirection gimp_text_layer_get_base_direction(
+       Int32 layer_ID);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_text_layer_set_base_direction(Int32 layer_ID, 
+					     TextDirection direction);
   }
 }

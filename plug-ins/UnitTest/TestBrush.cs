@@ -101,10 +101,15 @@ namespace Gimp
       Brush brush = new Brush(brushName);
       Assert.IsTrue(brush.Editable);
       brush.Delete();
+    }
 
-      BrushList brushes = new BrushList("Bird");
+
+    [Test]
+    public void IsNotEditable()
+    {
+      BrushList brushes = new BrushList("Pepper");
       Assert.AreEqual(1, brushes.Count);
-      brushes.ForEach(bird => Assert.IsFalse(brush.Editable));
+      brushes.ForEach(brush => Assert.IsFalse(brush.Editable));
     }
   }
 }

@@ -67,7 +67,7 @@ namespace Gimp
     {
     }
 
-    internal Layer()
+    public Layer()
     {
     }
 
