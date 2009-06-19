@@ -1,5 +1,5 @@
 // The Splitter plug-in
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // AdvancedDialog.cs
 //
@@ -36,13 +36,11 @@ namespace Gimp.Splitter
       _seed = seed;
       _randomSeed = randomSeed;
 
-      GimpTable table = new GimpTable(1, 2, false);
-      table.BorderWidth = 12;
-      table.ColumnSpacing = 6;
-      table.RowSpacing = 6;
+      var table = new GimpTable(1, 2, false) {
+	BorderWidth = 12, ColumnSpacing = 6, RowSpacing = 6};
       VBox.PackStart(table, true, true, 0);
 
-      RandomSeed random = new RandomSeed(ref _seed, ref _randomSeed);
+      var random = new RandomSeed(ref _seed, ref _randomSeed);
       
       table.AttachAligned(0, 0, _("Random _Seed:"), 0.0, 0.5, random, 2, true);
     }

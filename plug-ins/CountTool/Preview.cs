@@ -1,5 +1,5 @@
 // The Count Tool plug-in
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // Preview.cs
 //
@@ -49,11 +49,11 @@ namespace Gimp.CountTool
 
       ExposeEvent += delegate 
 	{
-	  Pango.Layout layout = new Pango.Layout(area.PangoContext);
+	  var layout = new Pango.Layout(area.PangoContext);
 	  layout.FontDescription = FontDescription.FromString("Tahoma 16");
 
 	  int i = 0;
-	  foreach (Coordinate<int> coordinate in _coordinates)
+	  foreach (var coordinate in _coordinates)
 	  {
 	    layout.SetMarkup(String.Format("{0}", i));
 	  // Fix me: transfer from real-world coordinates

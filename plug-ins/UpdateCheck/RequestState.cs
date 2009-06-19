@@ -1,5 +1,5 @@
 // The UpdateCheck plug-in
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // RequestState.cs
 //
@@ -28,14 +28,14 @@ public class RequestState
   const int BUFFER_SIZE = 1024;
   readonly StringBuilder _requestData = new StringBuilder("");
   readonly byte[] _bufferRead = new byte[BUFFER_SIZE];
-  HttpWebRequest _request;
-  HttpWebResponse _response;
-  Stream _streamResponse;
+  public HttpWebRequest Request {get; private set;}
+  public HttpWebResponse Response {get; set;}
+  public Stream StreamResponse {get; set;}
 
   public RequestState(HttpWebRequest request)
   {
-    _request = request;
-    _streamResponse = null;
+    Request = request;
+    StreamResponse = null;
   }
   
   public StringBuilder RequestData
@@ -46,22 +46,5 @@ public class RequestState
   public byte[] BufferRead
   {
     get {return _bufferRead;}
-  }
-
-  public HttpWebRequest Request
-  {
-    get {return _request;}
-  }
-
-  public HttpWebResponse Response
-  {
-    get {return _response;}
-    set {_response = value;}
-  }
-
-  public Stream StreamResponse
-  {
-    get {return _streamResponse;}
-    set {_streamResponse = value;}
   }
 }

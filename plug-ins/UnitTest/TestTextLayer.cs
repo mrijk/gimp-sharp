@@ -56,9 +56,7 @@ namespace Gimp
     [Test]
     public void GetSetText()
     {
-      var layer = new TextLayer(_image, "Hello World", "Sans", 
-				new FontSize(32, Unit.Pixel));
-      _image.AddLayer(layer, 0);
+      var layer = CreateTextLayer();
       Assert.AreEqual("Hello World", layer.Text);
       var text = "Something else";
       layer.Text = text;
@@ -68,9 +66,7 @@ namespace Gimp
     [Test]
     public void GetSetFont()
     {
-      var layer = new TextLayer(_image, "Hello World", "Sans", 
-				new FontSize(32, Unit.Pixel));
-      _image.AddLayer(layer, 0);
+      var layer = CreateTextLayer();
       Assert.AreEqual("Sans", layer.Font);
       var font = "Serif";
       layer.Font = font;
@@ -92,9 +88,7 @@ namespace Gimp
     [Test]
     public void GetSetAntialias()
     {
-      var fontSize = new FontSize(32, Unit.Pixel);
-      var layer = new TextLayer(_image, "Hello World", "Sans", fontSize);
-      _image.AddLayer(layer, 0);
+      var layer = CreateTextLayer();
       layer.Antialias = true;
       Assert.IsTrue(layer.Antialias);
       layer.Antialias = false;
@@ -104,13 +98,73 @@ namespace Gimp
     [Test]
     public void GetSetKerning()
     {
-      var fontSize = new FontSize(32, Unit.Pixel);
-      var layer = new TextLayer(_image, "Hello World", "Sans", fontSize);
-      _image.AddLayer(layer, 0);
+      var layer = CreateTextLayer();
       layer.Kerning = true;
       Assert.IsTrue(layer.Kerning);
       layer.Kerning = false;
       Assert.IsFalse(layer.Kerning);
+    }
+
+    [Test]
+    public void GetSetBaseDirection()
+    {
+      var layer = CreateTextLayer();
+      Assert.AreEqual(TextDirection.Ltr, layer.BaseDirection);
+      layer.BaseDirection = TextDirection.Rtl;
+      Assert.AreEqual(TextDirection.Rtl, layer.BaseDirection);
+    }
+
+    [Test]
+    public void GetSetJustification()
+    {
+      var layer = CreateTextLayer();
+      Assert.AreEqual(TextJustification.Left, layer.Justification);
+      layer.Justification = TextJustification.Right;
+      Assert.AreEqual(TextJustification.Right, layer.Justification);
+    }
+
+    [Test]
+    public void GetSetColor()
+    {
+      var layer = CreateTextLayer();
+      var color = new RGB(11, 22, 33);
+      layer.Color = color;
+      Assert.AreEqual(color, layer.Color);
+    }
+
+    [Test]
+    public void GetSetIndent()
+    {
+      var layer = CreateTextLayer();
+      double indent = 13;
+      layer.Indent = indent;
+      Assert.AreEqual(indent, layer.Indent);
+    }
+
+    [Test]
+    public void GetLineSpacing()
+    {
+      var layer = CreateTextLayer();
+      double lineSpacing = 13;
+      layer.LineSpacing = lineSpacing;
+      Assert.AreEqual(lineSpacing, layer.LineSpacing);
+    }
+
+    [Test]
+    public void GetLetterSpacing()
+    {
+      var layer = CreateTextLayer();
+      double letterSpacing = 13;
+      layer.LetterSpacing = letterSpacing;
+      Assert.AreEqual(letterSpacing, layer.LetterSpacing);
+    }
+
+    TextLayer CreateTextLayer()
+    {
+      var fontSize = new FontSize(32, Unit.Pixel);
+      var layer = new TextLayer(_image, "Hello World", "Sans", fontSize);
+      _image.AddLayer(layer, 0);
+      return layer;
     }
   }
 }

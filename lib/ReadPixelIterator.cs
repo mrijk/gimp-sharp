@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // ReadPixelIterator.cs
 //
@@ -43,8 +43,7 @@ namespace Gimp
 
     public IEnumerator<Pixel> GetEnumerator()
     {
-      PixelRgn srcPR = new PixelRgn(_drawable, _drawable.MaskBounds,
-				    false, false);
+      var srcPR = new PixelRgn(_drawable, _drawable.MaskBounds, false, false);
 
       for (IntPtr pr = PixelRgn.Register(srcPR); pr != IntPtr.Zero; 
 	   pr = PixelRgn.Process(pr))

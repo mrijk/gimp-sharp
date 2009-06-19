@@ -68,7 +68,7 @@ namespace Gimp
       int total_area = _rectangle.Area;
       int area_so_far = 0;
 
-      PixelRgn destPR = new PixelRgn(_drawable, _rectangle, true, true);
+      var destPR = new PixelRgn(_drawable, _rectangle, true, true);
       for (IntPtr pr = PixelRgn.Register(destPR); pr != IntPtr.Zero; 
 	   pr = PixelRgn.Process(pr))
 	{
@@ -82,7 +82,7 @@ namespace Gimp
 	  if (_runmode != RunMode.Noninteractive)
 	    {
 	      area_so_far += destPR.W * destPR.H;
-	      Progress.Update ((double) area_so_far / (double) total_area);
+	      Progress.Update((double) area_so_far / (double) total_area);
 	    }
 	}
       _drawable.Flush();
@@ -95,7 +95,7 @@ namespace Gimp
       int total_area = _rectangle.Area;
       int area_so_far = 0;
 
-      PixelRgn destPR = new PixelRgn(_drawable, _rectangle, true, true);
+      var destPR = new PixelRgn(_drawable, _rectangle, true, true);
       for (IntPtr pr = PixelRgn.Register(destPR); pr != IntPtr.Zero; 
 	   pr = PixelRgn.Process(pr))
 	{
@@ -109,7 +109,7 @@ namespace Gimp
 	  if (_runmode != RunMode.Noninteractive)
 	    {
 	      area_so_far += destPR.W * destPR.H;
-	      Progress.Update ((double) area_so_far / (double) total_area);
+	      Progress.Update((double) area_so_far / (double) total_area);
 	    }
 	}
       _drawable.Flush();
@@ -129,8 +129,8 @@ namespace Gimp
 
     public void IterateSrcDest(IterFuncSrcDest func)
     {
-      PixelRgn srcPR = new PixelRgn(_drawable, _rectangle, false, false);
-      PixelRgn destPR = new PixelRgn(_drawable, _rectangle, true, true);
+      var srcPR = new PixelRgn(_drawable, _rectangle, false, false);
+      var destPR = new PixelRgn(_drawable, _rectangle, true, true);
 
       for (IntPtr pr = PixelRgn.Register(srcPR, destPR); pr != IntPtr.Zero; 
 	   pr = PixelRgn.Process(pr))

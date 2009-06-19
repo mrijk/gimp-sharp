@@ -128,6 +128,75 @@ namespace Gimp
       }
     }
 
+    public TextJustification Justification
+    {
+      get {return gimp_text_layer_get_justification(ID);}
+      set
+      {
+	if (!gimp_text_layer_set_justification(ID, value))
+	{
+	  throw new GimpSharpException();
+	}
+      }
+    }
+
+    public RGB Color
+    {
+      get 
+	{
+          var rgb = new GimpRGB();
+          if (!gimp_text_layer_get_color(_ID, ref rgb))
+	    {
+	      throw new GimpSharpException();
+	    }
+	  return new RGB(rgb);
+	}
+      set 
+	{
+          var rgb = value.GimpRGB;
+          if (!gimp_text_layer_set_color(_ID, ref rgb))
+	    {
+	      throw new GimpSharpException();
+	    }
+	}
+    }
+
+    public double Indent
+    {
+      get {return gimp_text_layer_get_indent(ID);}
+      set
+      {
+	if (!gimp_text_layer_set_indent(ID, value))
+	{
+	  throw new GimpSharpException();
+	}
+      }
+    }
+
+    public double LineSpacing
+    {
+      get {return gimp_text_layer_get_line_spacing(ID);}
+      set
+      {
+	if (!gimp_text_layer_set_line_spacing(ID, value))
+	{
+	  throw new GimpSharpException();
+	}
+      }
+    }
+
+    public double LetterSpacing
+    {
+      get {return gimp_text_layer_get_letter_spacing(ID);}
+      set
+      {
+	if (!gimp_text_layer_set_letter_spacing(ID, value))
+	{
+	  throw new GimpSharpException();
+	}
+      }
+    }
+
     [DllImport("libgimp-2.0-0.dll")]
     static extern Int32 gimp_text_fontname(Int32 image_ID,
 					   Int32 drawable_ID,
@@ -181,5 +250,32 @@ namespace Gimp
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_text_layer_set_base_direction(Int32 layer_ID, 
 					     TextDirection direction);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern TextJustification gimp_text_layer_get_justification(
+       Int32 layer_ID);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_text_layer_set_justification(Int32 layer_ID, 
+					     TextJustification justify);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_text_layer_get_color(Int32 channel_ID,
+						 ref GimpRGB color);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_text_layer_set_color(Int32 channel_ID,
+						 ref GimpRGB color);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern double gimp_text_layer_get_indent(Int32 layer_ID);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_text_layer_set_indent(Int32 layer_ID, 
+						  double indent);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern double gimp_text_layer_get_line_spacing(Int32 layer_ID);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_text_layer_set_line_spacing(Int32 layer_ID, 
+							double line_spacing);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern double gimp_text_layer_get_letter_spacing(Int32 layer_ID);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_text_layer_set_letter_spacing(Int32 layer_ID, 
+							  double letter_spacing);
   }
 }

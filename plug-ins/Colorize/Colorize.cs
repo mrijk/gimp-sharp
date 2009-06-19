@@ -1,5 +1,5 @@
 // The Colorize plug-in
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // Ported from http://registry.gimp.org/plugin?id=5479
 // copyright 2005 Christopher Lais
@@ -63,7 +63,7 @@ namespace Gimp.Colorize
 
     override protected IEnumerable<Procedure> ListProcedures()
     {
-      ParamDefList inParams = new ParamDefList()
+      var inParams = new ParamDefList()
 	{
 	  new ParamDef("points", 12, typeof(int), _("Number of points"))
 	};
@@ -99,13 +99,13 @@ namespace Gimp.Colorize
     {
       gimp_ui_init("Colorize", true);
 
-      GimpDialog dialog = DialogNew("Colorize", "Colorize", IntPtr.Zero, 0,
-				    Gimp.StandardHelpFunc, "Colorize");
+      var dialog = DialogNew("Colorize", "Colorize", IntPtr.Zero, 0,
+			     Gimp.StandardHelpFunc, "Colorize");
 
-      VBox vbox = new VBox(false, 12) {BorderWidth = 12};
+      var vbox = new VBox(false, 12) {BorderWidth = 12};
       dialog.VBox.PackStart(vbox, true, true, 0);
 
-      GimpTable table = new GimpTable(6, 1, false)
+      var table = new GimpTable(6, 1, false)
 	{ColumnSpacing = 6, RowSpacing = 6};
       vbox.PackStart(table, true, true, 0);
 
@@ -115,7 +115,7 @@ namespace Gimp.Colorize
       // _marked = combo.Active;
       table.Attach(_combo, 0, 1, 0, 1);
 
-      CheckButton includeOriginal = 
+      var includeOriginal = 
 	new CheckButton(_("Marked images includes original image"));
       includeOriginal.Active = _includeOriginal;
       includeOriginal.Toggled += delegate 
@@ -124,7 +124,7 @@ namespace Gimp.Colorize
 	};
       table.Attach(includeOriginal, 0, 1, 1, 2);
 
-      CheckButton unselectedAreas = 
+      var unselectedAreas = 
 	new CheckButton(_("Unselected areas are mask"));
       unselectedAreas.Active = _unselectedAreas;
       unselectedAreas.Toggled += delegate
@@ -133,7 +133,7 @@ namespace Gimp.Colorize
 	};
       table.Attach(unselectedAreas, 0, 1, 2, 3);
 
-      CheckButton pureWhite = 
+      var pureWhite = 
 	new CheckButton(_("Pure white is mask"));
       pureWhite.Active = _pureWhite;
       pureWhite.Toggled += delegate
@@ -142,7 +142,7 @@ namespace Gimp.Colorize
 	};
       table.Attach(pureWhite, 0, 1, 3, 4);
 
-      CheckButton useChroma = 
+      var useChroma = 
 	new CheckButton(_("Use chroma in addition to luminance (for color images)"));
       useChroma.Active = _useChroma;
       useChroma.Toggled += delegate
@@ -151,8 +151,7 @@ namespace Gimp.Colorize
 	};
       table.Attach(useChroma, 0, 1, 4, 5);
 
-      CheckButton useEntireImage =
-	new CheckButton(_("Unselected areas are mask"));
+      var useEntireImage = new CheckButton(_("Unselected areas are mask"));
       useEntireImage.Active = _useEntireImage;
       useEntireImage.Toggled += delegate
 	{
@@ -165,7 +164,7 @@ namespace Gimp.Colorize
 
     bool DialogMarkedConstrain(Int32 imageId, Int32 drawableId, IntPtr data)
     {
-      Drawable drawable = new Drawable(drawableId);
+      var drawable = new Drawable(drawableId);
       return drawable.IsRGB && drawable.HasAlpha;
     }
 
@@ -210,9 +209,9 @@ namespace Gimp.Colorize
 
     override protected void Render(Image image, Drawable drawable)
     {
-      Progress progress = new Progress(_("Colorizing..."));
+      var progress = new Progress(_("Colorizing..."));
 
-      Rectangle rectangle = drawable.MaskIntersect;
+      var rectangle = drawable.MaskIntersect;
       // Fix me: replace with x1, y1, x2, y2
       int i = rectangle.X1;
       int j = rectangle.Y1;

@@ -32,12 +32,12 @@ namespace Gimp.SliceTool
     Slice _slice;
     Rectangle _rectangle;
 
-    public SelectFunc(SliceTool parent, SliceData sliceData, Preview preview) :
-      base(preview, false, false)
+    public SelectFunc(SliceTool parent, SliceData sliceData) :
+      base(parent.Preview, false, false)
     {
       _parent = parent;
       _sliceData = sliceData;
-      _renderer = preview.Renderer;
+      _renderer = parent.Preview.Renderer;
     }
 
     override protected void OnPress(Coordinate<int> c)

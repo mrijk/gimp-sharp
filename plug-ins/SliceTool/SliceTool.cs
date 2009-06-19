@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // SliceTool.cs
 //
@@ -30,12 +30,11 @@ namespace Gimp.SliceTool
 {
   public class SliceTool : Plugin
   {
-    MouseFunc _func;
+    public MouseFunc Func {private get; set;}
+    public Preview Preview {private set; get;}
     
     SliceData _sliceData = new SliceData();
     
-    ToggleToolButton _toggle;
-    Preview _preview;
     Entry _xy;
     
     Entry _url;
@@ -67,7 +66,7 @@ namespace Gimp.SliceTool
 				 _("The Image Slice Tool is used to apply image slicing and rollovers."),
 				 "Maurits Rijk",
 				 "(C) Maurits Rijk",
-				 "2005-2007",
+				 "2005-2009",
 				 _("Slice Tool..."),
 				 "RGB*, GRAY*")
 	{
@@ -82,11 +81,11 @@ namespace Gimp.SliceTool
       
       CreateStockIcons();
       
-      GimpDialog dialog = DialogNew(_("Slice Tool"), _("SliceTool"), 
-				    IntPtr.Zero, 0, null, _("SliceTool"),
-				    Stock.SaveAs, (Gtk.ResponseType) 0,
-				    Stock.Save, (Gtk.ResponseType) 1,
-				    Stock.Close, ResponseType.Close);
+      var dialog = DialogNew(_("Slice Tool"), _("SliceTool"), 
+			     IntPtr.Zero, 0, null, _("SliceTool"),
+			     Stock.SaveAs, (Gtk.ResponseType) 0,
+			     Stock.Save, (Gtk.ResponseType) 1,
+			     Stock.Close, ResponseType.Close);
       
       SetTitle(null);
       
@@ -142,7 +141,7 @@ namespace Gimp.SliceTool
       _sliceData.Init(_drawable);
       GetRectangleData(_sliceData.Selected);
       
-      _func = new SelectFunc(this, _sliceData, _preview);
+      Func = new SelectFunc(this, _sliceData);
       
       return dialog;
     }
@@ -153,7 +152,7 @@ namespace Gimp.SliceTool
       _filename = filename;
       string p = (filename == null) 
 	? "<Untitled>" : System.IO.Path.GetFileName(filename);
-      string title = string.Format(_("Slice Tool 0.3 - {0}"), p);
+      string title = string.Format(_("Slice Tool 0.4 - {0}"), p);
       Dialog.Title = title;
     }
     
@@ -210,11 +209,15 @@ namespace Gimp.SliceTool
     {
       if ((int) type == 0 || ((int) type == 1 && _filename == null))
 	{
-	  FileSelection fs = new FileSelection(_("HTML Save As"));
-	  ResponseType response = (ResponseType) fs.Run();
-	  if (response == ResponseType.Ok)
+	  FileChooserDialog fc = 
+	    new FileChooserDialog(_("HTML Save As"), Dialog,
+				  FileChooserAction.Save,
+				  "Cancel", ResponseType.Cancel,
+				  "Save", ResponseType.Accept);
+      
+	  if (fc.Run() == (int) ResponseType.Accept)
 	    {
-	      string filename = fs.Filename;
+	      string filename = fc.Filename;
 	      if (System.IO.File.Exists(filename))
 		{
 		  FileExistsDialog message = new FileExistsDialog(filename);
@@ -226,7 +229,7 @@ namespace Gimp.SliceTool
 	      SetTitle(filename);
 	      Save();
 	    }
-	  fs.Destroy();
+	  fc.Destroy();
 	}
       else // type == 1
 	{
@@ -241,18 +244,18 @@ namespace Gimp.SliceTool
 
       Alignment alignment = new Alignment(0.5f, 0.5f, 0, 0);
 
-      _preview = new Preview(_drawable, this);
-      _preview.WidthRequest = _drawable.Width;
-      _preview.HeightRequest = _drawable.Height;
+      Preview = new Preview(_drawable, this);
+      Preview.WidthRequest = _drawable.Width;
+      Preview.HeightRequest = _drawable.Height;
 
-      _preview.ButtonPressEvent += OnButtonPress;      
-      _preview.MotionNotifyEvent += OnShowCoordinates;
-      _preview.LeaveNotifyEvent += delegate
+      Preview.ButtonPressEvent += OnButtonPress;      
+      Preview.MotionNotifyEvent += OnShowCoordinates;
+      Preview.LeaveNotifyEvent += delegate
 	{
 	  _xy.Text = "";
 	};
       
-      alignment.Add(_preview);
+      alignment.Add(Preview);
       window.AddWithViewport(alignment);
 
       return window;
@@ -260,59 +263,13 @@ namespace Gimp.SliceTool
 
     void OnButtonPress(object o, ButtonPressEventArgs args)
     {
-      Coordinate<int> c = new Coordinate<int>((int) args.Event.X,
-					      (int) args.Event.Y);
-      _func.GetActualFunc(this, c).OnButtonPress(o, args);
+      var c = new Coordinate<int>((int) args.Event.X, (int) args.Event.Y);
+      Func.GetActualFunc(this, c).OnButtonPress(o, args);
     }
 
     Widget CreateToolbar()
     {
-      HandleBox handle = new HandleBox();
-      
-      Toolbar tools = new Toolbar();
-      tools.Orientation = Gtk.Orientation.Vertical;
-      tools.ToolbarStyle = Gtk.ToolbarStyle.Icons;
-      handle.Add(tools);
-
-      Tooltips tooltips = new Tooltips();
-      // TODO: tootips don't work anymore :(
-
-      ToggleToolButton toggle = new ToggleToolButton("slice-tool-arrow");
-      _toggle = toggle;
-      toggle.Active = true;
-      toggle.SetTooltip(tooltips, _("Select Rectangle"), "arrow");
-      tools.Insert(toggle, -1);
-      toggle.Clicked += delegate
-	{
-	  OnFunc(toggle, new SelectFunc(this, _sliceData, _preview));
-	};
-      
-      toggle = new ToggleToolButton(GimpStock.TOOL_CROP);
-      tooltips.SetTip(toggle, _("Create a new Slice"), "create");
-      // toggle.SetTooltip(tooltips, "Create a new Slice", "create");
-      tools.Insert(toggle, -1);
-      toggle.Clicked += delegate
-	{
-	  OnFunc(toggle, new CreateFunc(_sliceData, _preview));
-	};
-      
-      toggle = new ToggleToolButton(GimpStock.TOOL_ERASER);
-      toggle.SetTooltip(tooltips, _("Remove Slice"), "delete");
-      tools.Insert(toggle, -1);
-      toggle.Clicked += delegate
-	{
-	  OnFunc(toggle, new RemoveFunc(_sliceData, _preview));
-	};
-
-      toggle = new ToggleToolButton(GimpStock.GRID);
-      toggle.SetTooltip(tooltips, _("Insert Table"), "grid");
-      tools.Insert(toggle, -1);
-      toggle.Clicked += delegate
-	{
-	  OnFunc(toggle, new CreateTableFunc(_sliceData, _preview));
-	};
-
-      return handle;
+      return new Toolbox(this, _sliceData);
     }
 
     Widget CreateCellProperties()
@@ -395,25 +352,33 @@ namespace Gimp.SliceTool
 
     void OnSaveSettings(object o, EventArgs args)
     {
-      FileSelection fs = new FileSelection(_("Save Settings"));
-      ResponseType type = (ResponseType) fs.Run();
-      if (type == ResponseType.Ok)
+      FileChooserDialog fc = 
+	new FileChooserDialog(_("Save Settings"), Dialog,
+			      FileChooserAction.Save,
+			      "Cancel", ResponseType.Cancel,
+			      "Save", ResponseType.Accept);
+      
+      if (fc.Run() == (int) ResponseType.Accept)
 	{
-	  _sliceData.SaveSettings(fs.Filename);
+	  _sliceData.SaveSettings(fc.Filename);
 	}
-      fs.Destroy();
+      fc.Destroy();
     }
 
     void OnLoadSettings(object o, EventArgs args)
     {
-      FileSelection fs = new FileSelection(_("Load Settings"));
-      ResponseType type = (ResponseType) fs.Run();
-      if (type == ResponseType.Ok)
+      FileChooserDialog fc = 
+	new FileChooserDialog(_("Load Settings"), Dialog,
+			      FileChooserAction.Open,
+			      "Cancel", ResponseType.Cancel,
+			      "Open", ResponseType.Accept);
+      
+      if (fc.Run() == (int) ResponseType.Accept)
 	{
-	  _sliceData.LoadSettings(fs.Filename);
+	  _sliceData.LoadSettings(fc.Filename);
 	  Redraw();
 	}
-      fs.Destroy();
+      fc.Destroy();
     }
 
     void OnPreferences(object o, EventArgs args)
@@ -423,8 +388,8 @@ namespace Gimp.SliceTool
       ResponseType type = dialog.Run();
       if (type == ResponseType.Ok)
 	{
-	  _preview.Renderer.ActiveColor = dialog.ActiveColor;
-	  _preview.Renderer.InactiveColor = dialog.InactiveColor;
+	  Preview.Renderer.ActiveColor = dialog.ActiveColor;
+	  Preview.Renderer.InactiveColor = dialog.InactiveColor;
 	  Redraw();
 	}
       dialog.Destroy();
@@ -454,7 +419,7 @@ namespace Gimp.SliceTool
 
     void Redraw()
     {
-      _preview.QueueDraw();
+      Preview.QueueDraw();
     }
 
     public void Redraw(PreviewRenderer renderer)
@@ -494,27 +459,6 @@ namespace Gimp.SliceTool
       _bottom.Text = rectangle.Y2.ToString();
     }
 
-    bool _lock;
-    void OnFunc(object o, MouseFunc func)
-    {
-      if (!_lock)
-	{
-	  _lock = true;
-	  ToggleToolButton toggle = (o as ToggleToolButton);
-	  if (toggle != _toggle)
-	    {
-	      _toggle.Active = false;
-	      _toggle = toggle;
-	      _func = func;
-	    } 
-	  else
-	    {
-	      _toggle.Active = true;
-	    }
-	  _lock = false;
-	}
-    }
-
     void OnShowCoordinates(object o, MotionNotifyEventArgs args)
     {
       int x, y;
@@ -539,7 +483,7 @@ namespace Gimp.SliceTool
 
     void SetCursor(Coordinate<int> c)
     {
-      _preview.SetCursor(_func.GetCursor(c));
+      Preview.SetCursor(Func.GetCursor(c));
     }
 
     override protected void Render(Image image, Drawable drawable)

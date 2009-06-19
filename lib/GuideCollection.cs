@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // GuideCollection.cs
 //
@@ -35,7 +35,7 @@ namespace Gimp
 
     public IEnumerator<Guide> GetEnumerator()
     {
-      for (Guide guide = new Guide(_image, 0).FindNext(); guide != null;
+      for (var guide = new Guide(_image, 0).FindNext(); guide != null;
 	   guide = guide.FindNext())
 	{
 	  yield return guide;

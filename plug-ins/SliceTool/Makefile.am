@@ -30,6 +30,7 @@ MYSOURCES =			\
 	SliceSet.cs		\
 	SliceTool.cs		\
 	TableDialog.cs		\
+	Toolbox.cs		\
 	VerticalSlize.cs
 
 EXTRA_DIST = $(MYSOURCES) 	\

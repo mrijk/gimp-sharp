@@ -1,5 +1,5 @@
 // The Splitter plug-in
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // MyClassBase.cs
 //
@@ -34,7 +34,7 @@ namespace Gimp.Splitter
     {
     }
 
-    public virtual double eval(double x,double y)
+    public virtual double eval(double x, double y)
     {
       return 0.0;
     }

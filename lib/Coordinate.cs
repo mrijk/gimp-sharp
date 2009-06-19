@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // Coordinate.cs
 //
@@ -48,7 +48,7 @@ namespace Gimp
     {
       if (o is Coordinate<T>)
 	{
-	  Coordinate<T> coordinate = o as Coordinate<T>;
+	  var coordinate = o as Coordinate<T>;
 	  return coordinate.X.Equals(X) && coordinate.Y.Equals(Y);
 	}
       return false;

@@ -1,3 +1,30 @@
+2009-06-19  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/SliceTool/SliceTool.cs: replaced obsolete widgets
+
+	* plug-ins/SliceTool/Toolbox.cs: new file
+
+	* plug-ins/Splitter/MyClassBase.cs
+	* plug-ins/Splitter/AdvancedDialog.cs: 
+
+	* lib/SaveAttributeSet.cs
+	* lib/ReadPixelIterator.cs
+	* lib/RgnIterator.cs
+	* lib/GuideCollection.cs: 
+
+	* plug-ins/UnitTest/TestTextLayer.cs: more tests
+
+	* plug-ins/UpdateCheck/RequestState.cs: 
+	* plug-ins/UpdateCheck/UpdateCheck.cs: 
+	* plug-ins/Colorize/Colorize.cs: 
+	* plug-ins/CountTool/Preview.cs
+	* plug-ins/CountTool/CountTool.cs
+	* lib/CoordinateList.cs: 
+	* lib/Plugin.cs
+	* lib/FilePlugin.cs: minor clean-up
+
+	* lib/TextLayer.cs: GIMP 2.6 functionality
+
 2009-06-18  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* plug-ins/UnitTest/TestTextLayer.cs: new file

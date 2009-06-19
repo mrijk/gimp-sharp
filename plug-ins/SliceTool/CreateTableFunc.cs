@@ -1,5 +1,5 @@
 // The SliceTool plug-in
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // CreateTableFunc.cs
 //
@@ -69,7 +69,7 @@ namespace Gimp.SliceTool
 	}
       else
 	{
-	  return new SelectFunc(parent, _sliceData, _preview);
+	  return new SelectFunc(parent, _sliceData);
 	}
     }
   }

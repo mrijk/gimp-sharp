@@ -143,7 +143,7 @@ namespace Gimp.SliceTool
 	}
       else
 	{
-	  return new SelectFunc(parent, _sliceData, _preview);
+	  return new SelectFunc(parent, _sliceData);
 	}
     }
   }

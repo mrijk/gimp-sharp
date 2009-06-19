@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // SaveAttributeSet.cs
 //
@@ -36,15 +36,15 @@ namespace Gimp
 
     public IEnumerator<SaveAttribute> GetEnumerator()
     {
-      foreach (FieldInfo field in _type.GetFields(BindingFlags.Instance |  
-						  BindingFlags.NonPublic | 
-						  BindingFlags.Public))
+      foreach (var field in _type.GetFields(BindingFlags.Instance |  
+					    BindingFlags.NonPublic | 
+					    BindingFlags.Public))
 	{
-	  foreach (object attribute in field.GetCustomAttributes(true))
+	  foreach (var attribute in field.GetCustomAttributes(true))
 	    {
 	      if (attribute is SaveAttribute)
 		{
-		  SaveAttribute saveAttribute = attribute as SaveAttribute;
+		  var saveAttribute = attribute as SaveAttribute;
 		  saveAttribute.Field = field;
 		  yield return saveAttribute;
 		}

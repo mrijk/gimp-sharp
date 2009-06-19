@@ -1,5 +1,5 @@
 // The UpdateCheck plug-in
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // UpdateCheck.cs
 //
@@ -74,18 +74,18 @@ namespace Gimp.UpdateCheck
     {
       gimp_ui_init("UpdateCheck", true);
 
-      GimpDialog dialog = DialogNew(_("UpdateCheck"), _("UpdateCheck"), 
-				    IntPtr.Zero, 0, Gimp.StandardHelpFunc, 
-				    _("UpdateCheck"));
+      var dialog = DialogNew(_("UpdateCheck"), _("UpdateCheck"), 
+			     IntPtr.Zero, 0, Gimp.StandardHelpFunc, 
+			     _("UpdateCheck"));
 
-      VBox vbox = new VBox(false, 12) {BorderWidth = 12};
+      var vbox = new VBox(false, 12) {BorderWidth = 12};
       dialog.VBox.PackStart(vbox, true, true, 0);
 
-      GimpTable table = new GimpTable(4, 3, false)
+      var table = new GimpTable(4, 3, false)
 	{ColumnSpacing = 6, RowSpacing = 6};
       vbox.PackStart(table, true, true, 0);
 
-      CheckButton checkGimp = new CheckButton(_("Check _GIMP"));
+      var checkGimp = new CheckButton(_("Check _GIMP"));
       checkGimp.Active = _checkGimp;
       checkGimp.Toggled += delegate
 	{
@@ -93,7 +93,7 @@ namespace Gimp.UpdateCheck
 	};
       table.Attach(checkGimp, 0, 1, 0, 1);
 
-      CheckButton checkGimpSharp = new CheckButton(_("Check G_IMP#"));
+      var checkGimpSharp = new CheckButton(_("Check G_IMP#"));
       checkGimpSharp.Active = _checkGimpSharp;
       checkGimpSharp.Toggled += delegate
 	{
@@ -101,7 +101,7 @@ namespace Gimp.UpdateCheck
 	};
       table.Attach(checkGimpSharp, 0, 1, 1, 2);
 
-      CheckButton checkUnstable = 
+      var checkUnstable = 
 	new CheckButton(_("Check _Unstable Releases"));
       checkUnstable.Active = _checkUnstable;
       checkUnstable.Toggled += delegate
@@ -117,11 +117,10 @@ namespace Gimp.UpdateCheck
       tmp = Gimp.RcQuery("update-port");
       _port = (tmp == null) ? "" : tmp;
 
-      Expander expander = new Expander(_("Proxy settings"));
+      var expander = new Expander(_("Proxy settings"));
       VBox proxyBox = new VBox(false, 12);
 
-      CheckButton enableProxy = 
-	new CheckButton(_("Manual proxy configuration"));
+      var enableProxy = new CheckButton(_("Manual proxy configuration"));
       enableProxy.Active = _enableProxy;
       enableProxy.Toggled += delegate
 	{
@@ -129,11 +128,11 @@ namespace Gimp.UpdateCheck
 	};
       proxyBox.Add(enableProxy);
 
-      HBox hbox = new HBox(false, 12);
+      var hbox = new HBox(false, 12);
       hbox.Sensitive = _enableProxy;
       hbox.Add(new Label(_("HTTP Proxy:")));
 
-      Entry httpProxy = new Entry() {Text = _httpProxy};
+      var httpProxy = new Entry() {Text = _httpProxy};
       hbox.Add(httpProxy);
       proxyBox.Add(hbox);
       httpProxy.Changed += delegate
@@ -142,7 +141,7 @@ namespace Gimp.UpdateCheck
 	};
       
       hbox.Add(new Label(_("Port:")));
-      Entry port = new Entry() {Text = _port, WidthChars = 4};
+      var port = new Entry() {Text = _port, WidthChars = 4};
       hbox.Add(port);
       port.Changed += delegate
 	{
@@ -169,25 +168,25 @@ namespace Gimp.UpdateCheck
 	  Gimp.RcSet("update-port", _port);
 	}
 
-      Assembly assembly = Assembly.GetAssembly(typeof(Plugin));
+      var assembly = Assembly.GetAssembly(typeof(Plugin));
       Console.WriteLine(assembly.GetName().Version);
 
-      XmlDocument doc = new XmlDocument();
+      var doc = new XmlDocument();
 
       try 
 	{
-	  HttpWebRequest myRequest = (HttpWebRequest) 
+	  var myRequest = (HttpWebRequest) 
 	    WebRequest.Create("http://gimp-sharp.sourceforge.net/version.xml");
 	  
 	  // Create a proxy object, needed for mono behind a firewall?!
 	  if (_enableProxy)
 	    {
-	      WebProxy myProxy = new WebProxy();
+	      var myProxy = new WebProxy();
 	      myProxy.Address = new Uri(_httpProxy + ":" + _port);
-	      myRequest.Proxy=myProxy;
+	      myRequest.Proxy = myProxy;
 	    }
       
-	  RequestState requestState = new RequestState(myRequest);
+	  var requestState = new RequestState(myRequest);
 	  
 	  // Start the asynchronous request.
 	  IAsyncResult result= (IAsyncResult) myRequest.BeginGetResponse
@@ -219,7 +218,7 @@ namespace Gimp.UpdateCheck
     { 
       if (timedOut) 
 	{
-	  HttpWebRequest request = state as HttpWebRequest;
+	  var request = state as HttpWebRequest;
 	  if (request != null) 
 	    {
 	      request.Abort();
@@ -232,17 +231,16 @@ namespace Gimp.UpdateCheck
       try
 	{
 	  // State of request is asynchronous.
-	  RequestState requestState = 
-	    (RequestState) asynchronousResult.AsyncState;
-	  HttpWebRequest myHttpWebRequest = requestState.Request;
+	  var requestState = (RequestState) asynchronousResult.AsyncState;
+	  var myHttpWebRequest = requestState.Request;
 	  requestState.Response = (HttpWebResponse) 
 	    myHttpWebRequest.EndGetResponse(asynchronousResult);
 	  
 	  // Read the response into a Stream object.
-	  Stream responseStream = requestState.Response.GetResponseStream();
+	  var responseStream = requestState.Response.GetResponseStream();
 	  requestState.StreamResponse = responseStream;
 	  
-	  IAsyncResult asynchronousInputRead = 
+	  var asynchronousInputRead = 
 	    responseStream.BeginRead(requestState.BufferRead, 0, 
 				     BUFFER_SIZE, 
 				     new AsyncCallback(ReadCallBack), 

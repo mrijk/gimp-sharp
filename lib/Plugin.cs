@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2008 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // Plugin.cs
 //
@@ -246,15 +246,15 @@ namespace Gimp
 
       GetRequiredParameters();
 
-      ProcedureSet procedures = new ProcedureSet();
+      var procedures = new ProcedureSet();
 
       foreach (Procedure p in ListProcedures())
 	{
 	  procedures.Add(p);
 	}
 
-      Procedure procedure = procedures[name];
-      ParamDefList inParam = procedure.InParams;
+      var procedure = procedures[name];
+      var inParam = procedure.InParams;
       inParam.Marshall(paramPtr, n_params);
 
       ParamDefList outParam;
@@ -264,13 +264,13 @@ namespace Gimp
 
     protected void SetData()
     {
-      PersistentStorage storage = new PersistentStorage(this);
+      var storage = new PersistentStorage(this);
       storage.SetData();
     }
 
     protected void GetData()
     {
-      PersistentStorage storage = new PersistentStorage(this);
+      var storage = new PersistentStorage(this);
       storage.GetData();
     }
 
@@ -412,7 +412,7 @@ namespace Gimp
     protected void RunProcedure(string name, Image image, Drawable drawable,
 				params object[] list)
     {
-      Procedure procedure = new Procedure(name);
+      var procedure = new Procedure(name);
       procedure.Run(image, drawable, list);
     }
 

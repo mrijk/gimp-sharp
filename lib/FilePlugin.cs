@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // FilePlugin.cs
 //
@@ -43,7 +43,7 @@ namespace Gimp
 	{
 	  string filename = (string) inParam[1].Value;
 
-	  Image image = Load(filename);
+	  var image = Load(filename);
 	  if (image == null)
 	    {
 	      outParam[0].Value = PDBStatusType.ExecutionError;
@@ -55,8 +55,8 @@ namespace Gimp
 	}
       else if (_saveProcedure != null && _saveProcedure.Name == name)
 	{
-	  Image image = (Image) inParam[1].Value;
-	  Drawable drawable = (Drawable) inParam[2].Value;
+	  var image = (Image) inParam[1].Value;
+	  var drawable = (Drawable) inParam[2].Value;
 	  string filename = (string) inParam[3].Value;
 
 	  if (!Save(image, drawable, filename))
@@ -71,7 +71,7 @@ namespace Gimp
 					  string copyright, string date, 
 					  string menu_path)
     {
-      ParamDefList inParams = new ParamDefList(true) {
+      var inParams = new ParamDefList(true) {
 	new ParamDef("run_mode", typeof(Int32),
 		     "Interactive, non-interactive"),
 	new ParamDef("filename", typeof(FileName), 
@@ -79,7 +79,7 @@ namespace Gimp
 	new ParamDef("raw_filename", typeof(FileName), 
 		     "The name entered")};
 
-      ParamDefList outParams = new ParamDefList(true) {
+      var outParams = new ParamDefList(true) {
 	new ParamDef("image", typeof(Image), "Output image")};
 
       _loadProcedure = new Procedure(name, blurb, help, author, copyright, 
@@ -95,7 +95,7 @@ namespace Gimp
 					  string menu_path,
 					  string image_types)
     {
-      ParamDefList inParams = new ParamDefList(true) {
+      var inParams = new ParamDefList(true) {
 	new ParamDef("run_mode", typeof(Int32), 
 		     "Interactive, non-interactive"),
 	new ParamDef("image", typeof(Image), 
@@ -127,11 +127,10 @@ namespace Gimp
     protected Image NewImage(int width, int height, ImageBaseType baseType,
 			     ImageType type, string filename)
     {
-      Image image = new Image(width, height, baseType);
-      Layer layer = new Layer(image, "Background", type);
+      var image = new Image(width, height, baseType) {Filename = filename};
+      var layer = new Layer(image, "Background", type);
       image.AddLayer(layer, 0);
-      image.Filename = filename;
-
+      
       return image;
     }
 
