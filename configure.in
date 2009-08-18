@@ -232,6 +232,21 @@ if test "x$with_oxygene" == xyes; then
 fi
 
 #
+# Check if we want to support Scala
+#
+
+scala=no
+AC_ARG_WITH(scala,[  --with-scala            support for Scala (default-no)])
+if test "x$with_scala" == xyes; then
+   scala=yes
+   AC_PATH_PROG(SCALA, scalac-net, no)
+   if test "$Scala" = "no"; then
+        AC_MSG_ERROR(['scalac-net' (Scala) is not in your PATH.])
+   fi
+   AC_SUBST(SCALA)
+fi
+
+#
 # Check if we want to support Visual Basic
 #
 
@@ -258,6 +273,7 @@ AM_CONDITIONAL(BUILD_IRONPYTHON, test x$iron_python = xyes)
 AM_CONDITIONAL(BUILD_IRONRUBY, test x$iron_ruby = xyes)
 AM_CONDITIONAL(BUILD_NEMERLE, test x$nemerle = xyes)
 AM_CONDITIONAL(BUILD_OXYGENE, test x$oxygene = xyes)
+AM_CONDITIONAL(BUILD_SCALA, test x$scala = xyes)
 AM_CONDITIONAL(BUILD_VISUALBASIC, test x$visual_basic = xyes)
 
 dnl read Makefile.in and write Makefile
@@ -303,6 +319,7 @@ plug-ins/Pointillize/po/Makefile
 plug-ins/PythonSample/Makefile
 plug-ins/Raindrops/Makefile 
 plug-ins/Raindrops/po/Makefile 
+plug-ins/ScalaSample/Makefile
 plug-ins/Shatter/Makefile
 plug-ins/Sky/Makefile
 plug-ins/SliceTool/Makefile 
@@ -336,5 +353,6 @@ GIMP-SHARP Features:
   Java support        : $java
   Nemerle support     : $nemerle
   Oxygene support     : $oxygene 
+  Scala support	      : $scala
   Visual Basic support: $visual_basic
 ]);

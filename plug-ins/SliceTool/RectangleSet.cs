@@ -1,5 +1,5 @@
 // The SliceTool plug-in
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // RectangleSet.cs
 //
@@ -61,6 +61,11 @@ namespace Gimp.SliceTool
       get {return _set[index];}
     }
     
+    public void ForEach(Action<Rectangle> action)
+    {
+      _set.ForEach(action);
+    }
+
     public void Clear()
     {
       Changed = true;
@@ -70,16 +75,16 @@ namespace Gimp.SliceTool
     public void Slice(Slice slice)
     {
       RectangleSet created = new RectangleSet();
-      
-      foreach (Rectangle rectangle in _set)
+
+      ForEach(rectangle => 
 	{
 	  if (rectangle.IntersectsWith(slice))
-	    {
-	      created.Add(rectangle.Slice(slice));
-	    }
-	}
+	  {
+	    created.Add(rectangle.Slice(slice));
+	  }
+	});
 
-      created._set.ForEach(rectangle => Add(rectangle));
+      created.ForEach(rectangle => Add(rectangle));
     }
     
     public Rectangle Find(Coordinate<int> c)
@@ -117,20 +122,19 @@ namespace Gimp.SliceTool
     public void WriteSlices(Image image, string path, string name, 
 			    bool useGlobalExtension)
     {
-      _set.ForEach(rectangle =>
-		   rectangle.WriteSlice(image, path, name, 
-					useGlobalExtension));
+      ForEach(rectangle => rectangle.WriteSlice(image, path, name, 
+						useGlobalExtension));
     }
     
     public void Save(StreamWriter w)
     {
-      _set.ForEach(rectangle => rectangle.Save(w));
+      ForEach(rectangle => rectangle.Save(w));
       Changed = false;
     }
     
     public void Resolve(SliceSet hslices, SliceSet vslices)
     {
-      _set.ForEach(rectangle => rectangle.Resolve(hslices, vslices));
+      ForEach(rectangle => rectangle.Resolve(hslices, vslices));
     }
   }
 }

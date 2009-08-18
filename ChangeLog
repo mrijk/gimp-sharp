@@ -1,3 +1,32 @@
+2009-08-18  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* lib/Drawable.cs: minor clean-up
+
+	* lib/Layer.cs: added convenience routine
+
+	* lib/FilePlugin.cs: moved functionality from several file loader
+	plug-ins to this class
+
+	* plug-ins/wbmp/wbmp.cs
+	* plug-ins/neo/neo.cs
+	* plug-ins/KoalaPaint/KoalaPaint.cs
+	* plug-ins/GemImg/GemImg.cs: changed accordingly
+
+	* plug-ins/DifferenceClouds/DifferenceClouds.cs
+	* plug-ins/CountTool/CountTool.cs: minor clean-up
+
+2009-06-20  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/ScalaSample/*
+	* plug-ins/Makefile.am
+	* configure.in: add initial support for Scala
+
+	* plug-ins/SliceTool/RectangleSet.cs: added ForEach method
+
+	* plug-ins/SliceTool/CellPropertiesFrame.cs: new file
+
+	* plug-ins/SliceTool/Makefile.am: changed accordingly
+
 2009-06-19  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* plug-ins/SliceTool/SliceTool.cs: replaced obsolete widgets

@@ -58,86 +58,79 @@ namespace Gimp.GemImg
       RegisterLoadHandler("IMG", "");
     }
 
-    override protected Image Load(string filename)
+    override protected Image Load()
     {
-      if (File.Exists(filename))
+      if (ReadHeader())
 	{
-	  var reader = new BinaryReader(File.Open(filename, FileMode.Open));
-
-	  if (ReadHeader(reader))
+	  RGB[] colormap = new RGB[] {
+	    new RGB(255,255,255),    
+	    new RGB(255,0,0),        
+	    new RGB(0,255,0),        
+	    new RGB(255,255,0),
+	    new RGB(0,0,255),
+	    new RGB(255,0,255),      
+	    new RGB(0,255,255),
+	    new RGB(181,181,181),
+	    new RGB(84,84,84),
+	    new RGB(127,0,0),
+	    new RGB(0,127,0),
+	    new RGB(127,127,0),
+	    new RGB(0,0,127),
+	    new RGB(127,0,127),
+	    new RGB(0,127,127),
+	    new RGB(0,0,0)
+	  };
+	  
+	  var image = NewImage(_imageWidth, _imageHeight,
+			       ImageBaseType.Indexed,
+			       ImageType.Indexed, Filename);
+	  image.Colormap = colormap;
+	  var rgn = new PixelRgn(image.Layers[0], true, false);
+	  
+	  int bparrow = (_imageWidth + 7) / 8;
+	  
+	  for (int y = 0; y < _imageHeight; )
 	    {
-	      RGB[] colormap = new RGB[] {
-		new RGB(255,255,255),    
-		new RGB(255,0,0),        
-		new RGB(0,255,0),        
-		new RGB(255,255,0),
-		new RGB(0,0,255),
-		new RGB(255,0,255),      
-		new RGB(0,255,255),
-		new RGB(181,181,181),
-		new RGB(84,84,84),
-		new RGB(127,0,0),
-		new RGB(0,127,0),
-		new RGB(127,127,0),
-		new RGB(0,0,127),
-		new RGB(127,0,127),
-		new RGB(0,127,127),
-		new RGB(0,0,0)
-	      };
-
-	      var image = NewImage(_imageWidth, _imageHeight,
-				   ImageBaseType.Indexed,
-				   ImageType.Indexed, filename);
-	      image.Colormap = colormap;
-	      var rgn = new PixelRgn(image.Layers[0], true, false);
-
-	      int bparrow = (_imageWidth + 7) / 8;
-
-	      for (int y = 0; y < _imageHeight; )
+	      // byte[] line = new byte[bparrow * 8];
+	      byte[] line = new byte[_imageWidth];
+	      int count = ReadLine(line);
+	      do
 		{
-		  // byte[] line = new byte[bparrow * 8];
-		  byte[] line = new byte[_imageWidth];
-		  int count = ReadLine(reader, line);
-		  do
-		    {
-		      rgn.SetRow(line, 0, y++);
-		    }
-		  while (--count > 0);
+		  rgn.SetRow(line, 0, y++);
 		}
-
-	      return image;
+	      while (--count > 0);
 	    }
-	  reader.Close();
-	  return null;
+	  
+	  return image;
 	}
       return null;
     }
 
-    bool ReadHeader(BinaryReader reader)
+    bool ReadHeader()
     {
-      int version = ReadShort(reader);
+      int version = ReadShort();
       if (version != 1)
 	{
 	  return false;
 	}
 
-      int headSize = ReadShort(reader);
+      int headSize = ReadShort();
       if (headSize != 8)
 	{
 	  return false;
 	}
 
-      _planes = ReadShort(reader);
+      _planes = ReadShort();
       if (_planes != 1 && _planes != 4)
 	{
 	  return false;
 	}
 
-      _patternSize = ReadShort(reader);
-      int pixelWidth = ReadShort(reader);
-      int pixelHeight = ReadShort(reader);
-      _imageWidth = ReadShort(reader);
-      _imageHeight = ReadShort(reader);
+      _patternSize = ReadShort();
+      int pixelWidth = ReadShort();
+      int pixelHeight = ReadShort();
+      _imageWidth = ReadShort();
+      _imageHeight = ReadShort();
 
       Console.WriteLine("Version     : " + version);
       Console.WriteLine("Header size : " + headSize);
@@ -149,7 +142,7 @@ namespace Gimp.GemImg
       return true;
     }
 
-    int ReadLine(BinaryReader reader, byte[] line)
+    int ReadLine(byte[] line)
     {
       int vrc = 0;
       for (int plane = 0; plane < _planes; plane++)
@@ -159,22 +152,22 @@ namespace Gimp.GemImg
 
 	  while (x < _imageWidth)
 	    {
-	      byte ch = reader.ReadByte();
+	      byte ch = ReadByte();
 	      if (ch == 0)
 		{
-		  ch = reader.ReadByte();
+		  ch = ReadByte();
 		  if (ch == 0)
 		    {
-		      vrc = ReadRepeatedRows(reader);
+		      vrc = ReadRepeatedRows();
 		    }
 		  else
 		    {
-		      x = ReadPattern(reader, ch, x, line, shift);
+		      x = ReadPattern(ch, x, line, shift);
 		    }
 		}
 	      else if (ch == 0x80)
 		{
-		  x = ReadLiteralString(reader, x, line, shift);
+		  x = ReadLiteralString(x, line, shift);
 		}
 	      else
 		{
@@ -185,22 +178,21 @@ namespace Gimp.GemImg
       return vrc;
     }
 
-    int ReadRepeatedRows(BinaryReader reader)
+    int ReadRepeatedRows()
     {
-      byte ch = reader.ReadByte();
+      byte ch = ReadByte();
       if (ch != 0xff)
 	{
 	  Console.WriteLine("img: Invalid character!");
 	  Console.WriteLine("img: File may be corrupted or not in the expexted format!");
 	  throw new GimpSharpException();
 	}
-      return reader.ReadByte();
+      return ReadByte();
     }
 
-    int ReadPattern(BinaryReader reader, int repetitions, int x, byte[] line,
-		    int shift)
+    int ReadPattern(int repetitions, int x, byte[] line, int shift)
     {
-      byte[] pattern = reader.ReadBytes(_patternSize);
+      var pattern = ReadBytes(_patternSize);
 
       for (int i = 0; i < repetitions; i++)
 	{
@@ -218,10 +210,10 @@ namespace Gimp.GemImg
       return x;
     }
 
-    int ReadLiteralString(BinaryReader reader, int x, byte[] line, byte shift)
+    int ReadLiteralString(int x, byte[] line, byte shift)
     {
-      int count = reader.ReadByte();
-      byte[] tmp = reader.ReadBytes(count);
+      int count = ReadByte();
+      var tmp = ReadBytes(count);
 
       for (int i = 0; i < count; i++)
 	{
@@ -255,9 +247,9 @@ namespace Gimp.GemImg
       return x;
     }
 
-    int ReadShort(BinaryReader reader)
+    int ReadShort()
     {
-      byte[] tmp = reader.ReadBytes(2);
+      var tmp = ReadBytes(2);
       return tmp[0] * 256 + tmp[1];
     }
   }

@@ -40,6 +40,10 @@ if BUILD_PDN
 Pdn = Pdn
 endif
 
+if BUILD_SCALA
+ScalaSample = ScalaSample
+endif
+
 if BUILD_UNITTEST
 UnitTest = UnitTest
 endif
@@ -74,6 +78,7 @@ SUBDIRS = 			\
 	Pointillize		\
 	$(PythonSample)		\
 	Raindrops		\
+	$(ScalaSample)		\
 	$(Shatter)		\
 	Sky			\
 	SliceTool 		\

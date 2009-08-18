@@ -1,6 +1,6 @@
 // The neo plug-in
 // Copyright (C) 2006-2009 Maurits Rijk
-// Original code for GIMP 1.0 by Alain Gaymard
+// Original code (in C) for GIMP 1.0 by Alain Gaymard
 //
 // neo.cs
 //
@@ -21,12 +21,14 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 
 namespace Gimp.neo
 {	
   class neo : FilePlugin
   {
+    const int NEO_WIDTH = 320;
+    const int NEO_HEIGHT = 200;
+
     static void Main(string[] args)
     {
       new neo(args);
@@ -54,80 +56,80 @@ namespace Gimp.neo
       // Fix me: set magic load handler
     }
 
-    override protected Image Load(string filename)
+    override protected Image Load()
     {
-      if (File.Exists(filename))
+      // Read the header
+      var head = ReadBytes(4);
+      var pal = ReadBytes(32);
+      var fill = ReadBytes(92);
+
+      int width = fill[22] * 256 + fill[23];
+      int height = fill[24] * 256 + fill[25];
+
+      var image = NewImage(NEO_WIDTH, NEO_HEIGHT, ImageBaseType.Indexed,
+			   ImageType.Indexed, Filename);
+      image.Colormap = CreateColormap(pal);
+      
+      var buf = new byte[NEO_WIDTH * NEO_HEIGHT];
+      int bufp = 0;
+      
+      for (int y = 0; y < NEO_HEIGHT; y++, bufp += NEO_WIDTH)
 	{
-	  var reader = new BinaryReader(File.Open(filename, FileMode.Open));
-	
-	  // Read the header
-	  byte[] head = reader.ReadBytes(4);
-	  byte[] pal = reader.ReadBytes(32);
-	  byte[] fill = reader.ReadBytes(92);
-
-	  int width = fill[22] * 256 + fill[23];
-	  int height = fill[24] * 256 + fill[25];
-
-	  // convert pal: 0..7 -> 0..255
-	  byte[] tab = new byte[]{0, 36, 73, 109, 146, 182, 219, 255};
-	  RGB[] cmap = new RGB[16];
-
-	  for (int i = 0; i < 16; i++)
-	    {
-	      uint col = (uint) ((pal[2 * i] << 8) | pal[2 * i + 1]);
-	      cmap[i].R = tab[(col >> 8) & 7];
-	      cmap[i].G = tab[(col >> 4) & 7];
-	      cmap[i].B = tab[(col >> 0) & 7];
-	    }
-
-	  const int NEO_WIDTH = 320;
-	  const int NEO_HEIGHT = 200;
-
-	  var image = NewImage(NEO_WIDTH, NEO_HEIGHT, ImageBaseType.Indexed,
-			       ImageType.Indexed, filename);
-	  image.Colormap = cmap;
-
-	  var rgn = new PixelRgn(image.Layers[0], true, false);
-
-	  byte[] buf = new byte[NEO_WIDTH * NEO_HEIGHT];
-	  int bufp = 0;
-	
-	  for (int y = 0; y < NEO_HEIGHT; y++, bufp += NEO_WIDTH)
-	    {
-	      byte[] line = reader.ReadBytes(160);
-	      int l = 0;
-	      for (int x = 0; x < NEO_WIDTH; l += 8)
-		{
-		  uint p0 = (uint) ((line[l + 0] << 8) | line[l + 1]);
-		  uint p1 = (uint) ((line[l + 2] << 8) | line[l + 3]);
-		  uint p2 = (uint) ((line[l + 4] << 8) | line[l + 5]);
-		  uint p3 = (uint) ((line[l + 6] << 8) | line[l + 7]);
-
-		  // decode planes
-		  for (int c = 0; c < 16; c++)
-		    {
-		      int tmp = (int) (
-			((p0 >> 15) & 1) |
-			((p1 >> 14) & 2) |
-			((p2 >> 13) & 4) |
-			((p3 >> 12) & 8));
-		      buf[bufp + x] = (byte) tmp;
-		      x++;
-		      p0 <<= 1;
-		      p1 <<= 1;
-		      p2 <<= 1;
-		      p3 <<= 1;
-		    }
-		}
-	    }
-
-	  rgn.SetRect(buf, 0, 0, NEO_WIDTH, NEO_HEIGHT);
-
-	  reader.Close();
-
-	  return image;
+	  DecodeLine(buf, bufp);
 	}
-      return null;
+      
+      image.Layers[0].SetBuffer(buf);
+
+      return image;
+    }
+
+    void DecodeLine(byte[] buf, int bufp)
+    {
+      var line = ReadBytes(160);
+      int l = 0;
+      for (int x = 0; x < NEO_WIDTH; l += 8)
+	{
+	  uint p0 = GetInteger(line, l + 0);
+	  uint p1 = GetInteger(line, l + 2);
+	  uint p2 = GetInteger(line, l + 4);
+	  uint p3 = GetInteger(line, l + 6);
+	  
+	  // decode planes
+	  for (int c = 0; c < 16; c++)
+	    {
+	      int tmp = (int) (((p0 >> 15) & 1) |
+			       ((p1 >> 14) & 2) |
+			       ((p2 >> 13) & 4) |
+			       ((p3 >> 12) & 8));
+	      buf[bufp + x] = (byte) tmp;
+	      x++;
+	      p0 <<= 1;
+	      p1 <<= 1;
+	      p2 <<= 1;
+	      p3 <<= 1;
+	    }
+	}
+    }
+    
+    uint GetInteger(byte[] line, int index)
+    {
+      return (uint) ((line[index] << 8) | line[index + 1]);
+    }
+
+    RGB[] CreateColormap(byte[] pal)
+    {
+      // convert pal: 0..7 -> 0..255
+      var tab = new byte[]{0, 36, 73, 109, 146, 182, 219, 255};
+      var cmap = new RGB[16];
+
+      for (int i = 0; i < 16; i++)
+	{
+	  uint col = GetInteger(pal, 2 * i);
+	  cmap[i].R = tab[(col >> 8) & 7];
+	  cmap[i].G = tab[(col >> 4) & 7];
+	  cmap[i].B = tab[(col >> 0) & 7];
+	}
+      return cmap;
     }
   }
 }

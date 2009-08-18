@@ -347,11 +347,8 @@ namespace Gimp.PicturePackage
 
     override protected void Render()
     {
-      PageSize size = _layout.GetPageSizeInPixels(_resolution);
-
-      int width = (int) size.Width;
-      int height = (int) size.Height;
-      var composed = new Image(width, height, ImageBaseType.Rgb);
+      var size = _layout.GetPageSizeInPixels(_resolution);
+      var composed = new Image(size.ToDimensions(), ImageBaseType.Rgb);
 
       if(_layout.Render(_loader, new ImageRenderer(_layout, composed, 
 						   _resolution)))

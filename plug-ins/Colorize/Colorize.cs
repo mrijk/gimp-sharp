@@ -78,8 +78,7 @@ namespace Gimp.Colorize
           "RGB*, GRAY*",
           inParams)
 	{
-	  MenuPath = (Gimp.Version.Major >= 2 && Gimp.Version.Minor >= 3)
-	  ? "<Image>/Colors" : "<Image>/Filters/Generic",
+	  MenuPath = "<Image>/Colors",
 	  IconFile = "Colorize.png"
 	};
     }

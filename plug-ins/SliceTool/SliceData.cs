@@ -192,10 +192,7 @@ namespace Gimp.SliceTool
 	    }
         }
 
-      foreach (Rectangle rectangle in set)
-        {
-	  _rectangles.Remove(rectangle);
-        }
+      set.ForEach(rectangle => _rectangles.Remove(rectangle));
     }
 
     void WriteBlankLine(StreamWriter w)

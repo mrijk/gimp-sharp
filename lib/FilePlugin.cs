@@ -20,6 +20,7 @@
 //
 
 using System;
+using System.IO;
 
 namespace Gimp
 {
@@ -27,6 +28,9 @@ namespace Gimp
   {
     Procedure _loadProcedure;
     Procedure _saveProcedure;
+
+    protected string Filename {get; set;}
+    BinaryReader _reader;
 
     public FilePlugin(string[] args, string package) : base(args, package)
     {
@@ -41,9 +45,22 @@ namespace Gimp
 
       if (_loadProcedure != null && _loadProcedure.Name == name)
 	{
-	  string filename = (string) inParam[1].Value;
+	  LoadFile(inParam, outParam);
+	}
+      else if (_saveProcedure != null && _saveProcedure.Name == name)
+	{
+	  SaveFile(inParam, outParam);
+	}
+    }
 
-	  var image = Load(filename);
+    void LoadFile(ParamDefList inParam, ParamDefList outParam)
+    {
+      Filename = (string) inParam[1].Value;
+
+      if (File.Exists(Filename))
+	{
+	  _reader = new BinaryReader(File.Open(Filename, FileMode.Open));
+	  var image = Load();
 	  if (image == null)
 	    {
 	      outParam[0].Value = PDBStatusType.ExecutionError;
@@ -52,17 +69,38 @@ namespace Gimp
 	    {
 	      outParam.Add(new ParamDef(image, typeof(Image)));
 	    }
+	  _reader.Close();
 	}
-      else if (_saveProcedure != null && _saveProcedure.Name == name)
+      else
 	{
-	  var image = (Image) inParam[1].Value;
-	  var drawable = (Drawable) inParam[2].Value;
-	  string filename = (string) inParam[3].Value;
+	  outParam[0].Value = PDBStatusType.ExecutionError;
+	}
+    }
 
-	  if (!Save(image, drawable, filename))
-	    {
-	      outParam[0].Value = PDBStatusType.ExecutionError;
-	    }
+    virtual protected Image Load()
+    {
+      return null;
+    }
+
+    protected byte[] ReadBytes(int count)
+    {
+      return _reader.ReadBytes(count);
+    }
+
+    protected byte ReadByte()
+    {
+      return _reader.ReadByte();
+    }
+
+    void SaveFile(ParamDefList inParam, ParamDefList outParam)
+    {
+      var image = (Image) inParam[1].Value;
+      var drawable = (Drawable) inParam[2].Value;
+      string filename = (string) inParam[3].Value;
+      
+      if (!Save(image, drawable, filename))
+	{
+	  outParam[0].Value = PDBStatusType.ExecutionError;
 	}
     }
 
@@ -111,11 +149,6 @@ namespace Gimp
 				     date, menu_path, image_types, inParams);
 
       return _saveProcedure;
-    }
-
-    virtual protected Image Load(string filename)
-    {
-      return null;
     }
 
     virtual protected bool Save(Image image, Drawable drawable, 

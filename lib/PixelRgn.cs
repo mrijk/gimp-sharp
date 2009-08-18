@@ -119,6 +119,12 @@ namespace Gimp
       gimp_pixel_rgn_set_rect(ref *pr, buf, x, y, width, height);
     }
 
+    public void SetRect(byte[] buf, Rectangle rectangle)
+    {
+      SetRect(buf, rectangle.X1, rectangle.Y1, rectangle.Width, 
+	      rectangle.Height);
+    }
+   
     public Pixel[] GetRow(int x, int y, int width)
     {
       byte[] buf = new byte[width * _bpp];

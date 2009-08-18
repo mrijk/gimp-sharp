@@ -1,5 +1,5 @@
 // The ecw plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2009 Maurits Rijk
 //
 // ecw.cs
 //
@@ -52,7 +52,7 @@ namespace Gimp.ecw
 				     "This plug-in saves ECW images.",
 				     "Maurits Rijk",
 				     "(C) Maurits Rijk",
-				"2006",
+				     "2006",
 				     "ecw Image",
 				     "RGB*");
     }

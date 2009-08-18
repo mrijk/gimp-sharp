@@ -90,15 +90,18 @@ namespace Gimp.CountTool
     void RenderX(TreeViewColumn column, CellRenderer cell, 
 		 TreeModel model, TreeIter iter)
     {
-      var c = model.GetValue(iter, 0) as Coordinate<int>;
-      RenderCoordinate(cell, c.X);
+      RenderCoordinate(cell, getCoordinate(model, iter).X);
     }
 
     void RenderY(TreeViewColumn column, CellRenderer cell, 
 		 TreeModel model, TreeIter iter)
     {
-      var c = model.GetValue(iter, 0) as Coordinate<int>;
-      RenderCoordinate(cell, c.Y);
+      RenderCoordinate(cell, getCoordinate(model, iter).Y);
+    }
+
+    Coordinate<int> getCoordinate(TreeModel model, TreeIter iter)
+    {
+      return model.GetValue(iter, 0) as Coordinate<int>;
     }
 
     void RenderCoordinate(CellRenderer cell, int value)

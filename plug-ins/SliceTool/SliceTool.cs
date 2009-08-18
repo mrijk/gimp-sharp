@@ -37,16 +37,9 @@ namespace Gimp.SliceTool
     
     Entry _xy;
     
-    Entry _url;
-    Entry _altText;
-    Entry _target;
-    CheckButton _include;
+    CellPropertiesFrame _properties;
+
     Format _format;
-    
-    Label _left;
-    Label _right;
-    Label _top;
-    Label _bottom;
     
     string _filename = null;
     
@@ -78,9 +71,7 @@ namespace Gimp.SliceTool
     override protected GimpDialog CreateDialog()
     {
       gimp_ui_init("SliceTool", true);
-      
-      CreateStockIcons();
-      
+            
       var dialog = DialogNew(_("Slice Tool"), _("SliceTool"), 
 			     IntPtr.Zero, 0, null, _("SliceTool"),
 			     Stock.SaveAs, (Gtk.ResponseType) 0,
@@ -110,8 +101,8 @@ namespace Gimp.SliceTool
       hbox = new HBox(false, 24);
       vbox.PackStart(hbox, true, true, 0);
       
-      Widget properties = CreateCellProperties();
-      hbox.PackStart(properties, false, true, 0);
+      _properties = CreateCellProperties();
+      hbox.PackStart(_properties, false, true, 0);
       
       vbox = new VBox(false, 12);
       hbox.PackStart(vbox, false, true, 0);
@@ -244,9 +235,8 @@ namespace Gimp.SliceTool
 
       Alignment alignment = new Alignment(0.5f, 0.5f, 0, 0);
 
-      Preview = new Preview(_drawable, this);
-      Preview.WidthRequest = _drawable.Width;
-      Preview.HeightRequest = _drawable.Height;
+      Preview = new Preview(_drawable, this)
+	{WidthRequest = _drawable.Width, HeightRequest = _drawable.Height};
 
       Preview.ButtonPressEvent += OnButtonPress;      
       Preview.MotionNotifyEvent += OnShowCoordinates;
@@ -272,52 +262,9 @@ namespace Gimp.SliceTool
       return new Toolbox(this, _sliceData);
     }
 
-    Widget CreateCellProperties()
+    CellPropertiesFrame CreateCellProperties()
     {
-      GimpFrame frame = new GimpFrame(_("Cell Properties"));
-
-      VBox vbox = new VBox(false, 12);
-      frame.Add(vbox);
-
-      GimpTable table = new GimpTable(3, 2, false)
-	{ColumnSpacing = 6, RowSpacing = 6};
-      
-      vbox.Add(table);
-			
-      _url = new Entry();
-      table.AttachAligned(0, 0, _("_Link:"), 0.0, 0.5, _url, 3, false);
-      
-      _altText = new Entry();
-      table.AttachAligned(0, 1, _("Alt_ernative text:"), 0.0, 0.5, _altText, 3,
-			  false);
-      
-      _target = new Entry();
-      table.AttachAligned(0, 2, _("_Target:"), 0.0, 0.5, _target, 3, false);
-
-      HBox hbox = new HBox(false, 12);
-      vbox.Add(hbox);
-
-      table = new GimpTable(3, 4, false)
-	{ColumnSpacing = 6, RowSpacing = 6};
-      hbox.PackStart(table, false, false, 0);
-
-      _left = new Label("    ");
-      table.AttachAligned(0, 0, _("Left:"), 0.0, 0.5, _left, 1, false);
-      
-      _right = new Label("    ");
-      table.AttachAligned(0, 1, _("Right:"), 0.0, 0.5, _right, 1, false);
-      
-      _top = new Label("    ");
-      table.AttachAligned(2, 0, _("Top:"), 0.0, 0.5, _top, 1, false);
-
-      _bottom = new Label("    ");
-      table.AttachAligned(2, 1, _("Bottom:"), 0.0, 0.5, _bottom, 1, false);
-      
-      _include = new CheckButton(_("_Include cell in table"));
-      _include.Active = true;
-      table.Attach(_include, 0, 3, 2, 3);
-      
-      return frame;
+      return new CellPropertiesFrame();
     }
 
     Widget CreateRollover()
@@ -395,28 +342,6 @@ namespace Gimp.SliceTool
       dialog.Destroy();
     }
 
-    void AddStockIcon(IconFactory factory, string stockId, string filename)
-    {
-      Pixbuf pixbuf = LoadImage(filename);
-
-      IconSource source = new IconSource();
-      source.Pixbuf = pixbuf;
-      source.SizeWildcarded = true;
-      source.Size = IconSize.SmallToolbar;
-
-      IconSet set = new IconSet();
-      set.AddSource(source);
-
-      factory.Add(stockId, set);
-    }
-
-    void CreateStockIcons()
-    {
-      IconFactory factory = new IconFactory();
-      factory.AddDefault();
-      AddStockIcon(factory, "slice-tool-arrow", "stock-arrow.png");
-    }
-
     void Redraw()
     {
       Preview.QueueDraw();
@@ -431,10 +356,7 @@ namespace Gimp.SliceTool
     {
       if (rectangle != null)
 	{
-	  rectangle.SetProperty("href", _url.Text);
-	  rectangle.SetProperty("AltText", _altText.Text);
-	  rectangle.SetProperty("Target", _target.Text);
-	  rectangle.Include = _include.Active;
+	  _properties.SetRectangleData(rectangle);
 	  if (!_format.Apply)
 	    {
 	      rectangle.Extension = _format.Extension;
@@ -444,19 +366,12 @@ namespace Gimp.SliceTool
 
     public void GetRectangleData(Rectangle rectangle)
     {
-      _url.Text = rectangle.GetProperty("href");
-      _altText.Text = rectangle.GetProperty("AltText");
-      _target.Text = rectangle.GetProperty("Target");
-      _include.Active = rectangle.Include;		
       if (!_format.Apply)
 	{
 	  _format.Extension = rectangle.Extension;
 	}
 
-      _left.Text = rectangle.X1.ToString();
-      _right.Text = rectangle.X2.ToString();
-      _top.Text = rectangle.Y1.ToString();
-      _bottom.Text = rectangle.Y2.ToString();
+      _properties.GetRectangleData(rectangle);
     }
 
     void OnShowCoordinates(object o, MotionNotifyEventArgs args)

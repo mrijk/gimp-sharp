@@ -62,79 +62,65 @@ namespace Gimp.wbmp
       RegisterSaveHandler("wbmp", "");
     }
 
-    override protected Image Load(string filename)
+    override protected Image Load()
     {
-      if (File.Exists(filename))
+      byte type = ReadByte();
+      if (type != 0)
 	{
-	  var reader = new BinaryReader(File.Open(filename, FileMode.Open));
-
-	  byte type = reader.ReadByte();
-	  if (type != 0)
-	    {
-	      new Message("Invalid file (Type should be zero)");
-	      return null;
-	    }
-
-	  byte header = reader.ReadByte();
-	  if (header != 0)
-	    {
-	      new Message("Invalid file (Fixed header should be zero)");
-	      return null;
-	    }
-
-	  var progress = new Progress(_("Loading ") + filename);
-
-	  int width = ReadDimension(reader);
-	  int height = ReadDimension(reader);
-
-	  var image = new Image(width, height, ImageBaseType.Gray);
-
-	  var layer = new Layer(image, "Background", width, height,
-				ImageType.Gray, 100,
-				LayerModeEffects.Normal);
-	  image.AddLayer(layer, 0);
-
-	  image.Filename = filename;
-
-	  var rgn = new PixelRgn(layer, true, false);
-	  byte[] buf = new byte[width * height];
-	  int bufp = 0;
-
-	  for (int row = 0; row < height; row++) 
-	    {
-	      try
-		{
-		  byte[] src = reader.ReadBytes((width + 7) / 8);
-
-		  for (int col = 0; col < width; col++) 
-		    {
-		      if (((src[col / 8] >> (7 - (col % 8))) & 1) == 1)
-			{
-			  buf[bufp] = 255;
-			}
-		      else
-			{
-			  buf[bufp] = 0;
-			}
-		      bufp++;
-		    }
-		  progress.Update((double) row / height);
-		}
-	      catch (Exception e)
-		{
-		  Console.WriteLine("Exception: {0} {1} row={2} bufp={3}", 
-				    e.Message, e.StackTrace, row, bufp);
-		}
-	    }
-
-	  rgn.SetRect(buf, 0, 0, width, height);
-	  layer.Flush();
-
-	  reader.Close();
-
-	  return image;
+	  new Message("Invalid file (Type should be zero)");
+	  return null;
 	}
-      return null;
+      
+      byte header = ReadByte();
+      if (header != 0)
+	{
+	  new Message("Invalid file (Fixed header should be zero)");
+	  return null;
+	}
+      
+      var progress = new Progress(_("Loading ") + Filename);
+      
+      int width = ReadDimension();
+      int height = ReadDimension();
+
+      var image = NewImage(width, height, ImageBaseType.Gray,
+			   ImageType.Gray, Filename);
+      
+      byte[] buf = new byte[width * height];
+      int bufp = 0;
+      
+      for (int row = 0; row < height; row++) 
+	{
+	  try
+	    {
+	      byte[] src = ReadBytes((width + 7) / 8);
+	      
+	      for (int col = 0; col < width; col++) 
+		{
+		  if (((src[col / 8] >> (7 - (col % 8))) & 1) == 1)
+		    {
+		      buf[bufp] = 255;
+		    }
+		  else
+		    {
+		      buf[bufp] = 0;
+		    }
+		  bufp++;
+		}
+	      progress.Update((double) row / height);
+	    }
+	  catch (Exception e)
+	    {
+	      Console.WriteLine("Exception: {0} {1} row={2} bufp={3}", 
+				e.Message, e.StackTrace, row, bufp);
+	    }
+	}
+      
+      Layer layer = image.Layers[0];
+      layer.SetBuffer(buf);
+      layer.Flush();
+       
+      return image;
     }
 
     override protected bool Save(Image image, Drawable drawable, 
@@ -164,8 +150,8 @@ namespace Gimp.wbmp
       image.Flatten();
 
       var rgn = new PixelRgn(drawable, true, false);
-      byte[] wbmpImage = new byte[(width + 7) / 8 * height];
-      byte[] buf = rgn.GetRect(0, 0, width, height);
+      var wbmpImage = new byte[(width + 7) / 8 * height];
+      var buf = rgn.GetRect(0, 0, width, height);
 
       for (int row = 0; row < height; row++) 
 	{
@@ -195,12 +181,12 @@ namespace Gimp.wbmp
       return true;
     } 
 
-    int ReadDimension(BinaryReader reader)
+    int ReadDimension()
     {
       byte readByte;
       int dimension = 0;
 
-      while (((readByte = reader.ReadByte()) & 0x80) != 0)
+      while (((readByte = ReadByte()) & 0x80) != 0)
 	{
 	  dimension = (dimension << 7) + (int)(readByte & 0x7F);
 	}
@@ -225,7 +211,7 @@ namespace Gimp.wbmp
     byte[] EncodeInteger(int number)
     {
       int bytesToEncode = BytesNeededForEncoding(number);
-      byte[] seq = new byte[bytesToEncode];
+      var seq = new byte[bytesToEncode];
 
       // Start from the less significant part
       for (int index = bytesToEncode - 1; index >= 0; index--)

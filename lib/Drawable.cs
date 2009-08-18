@@ -111,7 +111,7 @@ namespace Gimp
 
       IntPtr src = gimp_drawable_get_thumbnail_data(_ID, ref width,
                                                     ref height, out bpp);
-      Pixel[,] thumbnail = 
+      var thumbnail = 
 	Pixel.ConvertToPixelArray(src, new Dimensions(width, height), bpp);
       Marshaller.Free(src);
 
@@ -131,7 +131,7 @@ namespace Gimp
 							rectangle.Height,
 							ref width, ref height, 
 							out bpp);
-      Pixel[,] thumbnail = 
+      var thumbnail = 
 	Pixel.ConvertToPixelArray(src, new Dimensions(width, height), bpp);
       Marshaller.Free(src);
 
@@ -174,10 +174,7 @@ namespace Gimp
 
     public Rectangle Bounds
     {
-      get
-	{
-	  return new Rectangle(0, 0, Width, Height);
-	}
+      get { return new Rectangle(0, 0, Width, Height);}
     }
 
     public Dimensions Dimensions
@@ -219,8 +216,8 @@ namespace Gimp
 
     public byte[] GetColorUchar(RGB color)
     {
-      byte[] colorUchar = new byte[_bpp];
-      GimpRGB rgb = color.GimpRGB;
+      var colorUchar = new byte[_bpp];
+      var rgb = color.GimpRGB;
       gimp_drawable_get_color_uchar(_ID, ref rgb, colorUchar);
       return colorUchar;
     }
@@ -411,19 +408,19 @@ namespace Gimp
 
     public Buffer EditNamedCut(string bufferName)
     {
-      string name = gimp_edit_named_cut(_ID, bufferName);
+      var name = gimp_edit_named_cut(_ID, bufferName);
       return (name == null) ? null : new Buffer(name);
     }
 
     public Buffer EditNamedCopy(string bufferName)
     {
-      string name = gimp_edit_named_copy(_ID, bufferName);
+      var name = gimp_edit_named_copy(_ID, bufferName);
       return (name == null) ? null : new Buffer(name);
     }
 
     public Buffer EditNamedCopyVisible(string bufferName)
     {
-      string name = gimp_edit_named_copy_visible(_ID, bufferName);
+      var name = gimp_edit_named_copy_visible(_ID, bufferName);
       return (name == null) ? null : new Buffer(name);
     }
 

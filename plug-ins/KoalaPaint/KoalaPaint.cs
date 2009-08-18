@@ -20,7 +20,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 
 namespace Gimp.KoalaPaint
 {	
@@ -80,51 +79,44 @@ namespace Gimp.KoalaPaint
       RegisterLoadHandler("koa", "");
     }
 
-    override protected Image Load(string filename)
+    override protected Image Load()
     {
-      if (File.Exists(filename))
+      ReadBytes(2);
+      var bitmap = ReadBytes(8000);
+      _mcolor = ReadBytes(1000);
+      _color = ReadBytes(1000);
+      _background = ReadByte();
+      
+      var image = NewImage(KOALA_WIDTH, KOALA_HEIGHT, 
+			   ImageBaseType.Indexed, ImageType.Indexed, 
+			   Filename);
+      image.Colormap = _colormap;
+      
+      var rgn = new PixelRgn(image.Layers[0], true, false);
+      
+      var buf = new byte[KOALA_WIDTH * KOALA_HEIGHT];
+      int bufp = 8;
+      
+      for (int row = 0; row < KOALA_HEIGHT; row++) 
 	{
-	  byte[] bitmap;
-	  var reader = new BinaryReader(File.Open(filename, FileMode.Open));
-	
-	  reader.ReadBytes(2);
-	  bitmap = reader.ReadBytes(8000);
-	  _mcolor = reader.ReadBytes(1000);
-	  _color = reader.ReadBytes(1000);
-	  _background = reader.ReadByte();
-
-	  var image = NewImage(KOALA_WIDTH, KOALA_HEIGHT, 
-			       ImageBaseType.Indexed, ImageType.Indexed, 
-			       filename);
-	  image.Colormap = _colormap;
-
-	  var rgn = new PixelRgn(image.Layers[0], true, false);
-
-	  byte[] buf = new byte[KOALA_WIDTH * KOALA_HEIGHT];
-	  int bufp = 8;
-
-	  for (int row = 0; row < KOALA_HEIGHT; row++) 
+	  for (int col = 0; col < KOALA_WIDTH / 8; col++) 
 	    {
-	      for (int col = 0; col < KOALA_WIDTH / 8; col++) 
+	      byte p = bitmap[(row / 8) * KOALA_WIDTH + row % 8 + col * 8];
+	      
+	      for (int i = 0; i < 4; i++) 
 		{
-		  byte p = bitmap[(row / 8) * KOALA_WIDTH + row % 8 + col * 8];
-
-		  for (int i = 0; i < 4; i++) 
-		    {
-		      byte index = GetColor(row / 8, col, p & 3);
-		      buf[--bufp] = index;
-		      buf[--bufp] = index;
-		      p >>= 2;
-		    }
-		  bufp += 16;
+		  byte index = GetColor(row / 8, col, p & 3);
+		  buf[--bufp] = index;
+		  buf[--bufp] = index;
+		  p >>= 2;
 		}
+	      bufp += 16;
 	    }
-
-	  rgn.SetRect(buf, 0, 0, KOALA_WIDTH, KOALA_HEIGHT);
-
-	  return image;
 	}
-      return null;
+      
+      rgn.SetRect(buf, 0, 0, KOALA_WIDTH, KOALA_HEIGHT);
+      
+      return image;
     }
 
     byte GetColor(int row, int col, int index)

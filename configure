@@ -788,6 +788,8 @@ ac_subst_vars='LTLIBOBJS
 LIBOBJS
 BUILD_VISUALBASIC_FALSE
 BUILD_VISUALBASIC_TRUE
+BUILD_SCALA_FALSE
+BUILD_SCALA_TRUE
 BUILD_OXYGENE_FALSE
 BUILD_OXYGENE_TRUE
 BUILD_NEMERLE_FALSE
@@ -813,6 +815,7 @@ BUILD_COLORIZE_TRUE
 BUILD_BOO_FALSE
 BUILD_BOO_TRUE
 VBNC
+SCALA
 Oxygene
 NCC
 IR
@@ -961,6 +964,7 @@ with_python
 with_ironruby
 with_nemerle
 with_oxygene
+with_scala
 with_vb
 '
       ac_precious_vars='build_alias
@@ -1630,6 +1634,7 @@ Optional Packages:
   --with-ironruby         support for IronRuby (default-no)
   --with-nemerle          support for Nemerle (default-no)
   --with-oxygene          support for Oxygene (default-no)
+  --with-scala            support for Scala (default-no)
   --with-vb               support for Visual Basic (default-no)
 
 Some influential environment variables:
@@ -4383,13 +4388,13 @@ if test "${lt_cv_nm_interface+set}" = set; then
 else
   lt_cv_nm_interface="BSD nm"
   echo "int some_variable = 0;" > conftest.$ac_ext
-  (eval echo "\"\$as_me:4386: $ac_compile\"" >&5)
+  (eval echo "\"\$as_me:4391: $ac_compile\"" >&5)
   (eval "$ac_compile" 2>conftest.err)
   cat conftest.err >&5
-  (eval echo "\"\$as_me:4389: $NM \\\"conftest.$ac_objext\\\"\"" >&5)
+  (eval echo "\"\$as_me:4394: $NM \\\"conftest.$ac_objext\\\"\"" >&5)
   (eval "$NM \"conftest.$ac_objext\"" 2>conftest.err > conftest.out)
   cat conftest.err >&5
-  (eval echo "\"\$as_me:4392: output\"" >&5)
+  (eval echo "\"\$as_me:4397: output\"" >&5)
   cat conftest.out >&5
   if $GREP 'External.*some_variable' conftest.out > /dev/null; then
     lt_cv_nm_interface="MS dumpbin"
@@ -5595,7 +5600,7 @@ ia64-*-hpux*)
   ;;
 *-*-irix6*)
   # Find out which ABI we are using.
-  echo '#line 5598 "configure"' > conftest.$ac_ext
+  echo '#line 5603 "configure"' > conftest.$ac_ext
   if { (eval echo "$as_me:$LINENO: \"$ac_compile\"") >&5
   (eval $ac_compile) 2>&5
   ac_status=$?
@@ -7448,11 +7453,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:7451: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:7456: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:7455: \$? = $ac_status" >&5
+   echo "$as_me:7460: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -7787,11 +7792,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:7790: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:7795: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:7794: \$? = $ac_status" >&5
+   echo "$as_me:7799: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -7892,11 +7897,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:7895: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:7900: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "$as_me:7899: \$? = $ac_status" >&5
+   echo "$as_me:7904: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized
@@ -7947,11 +7952,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:7950: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:7955: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "$as_me:7954: \$? = $ac_status" >&5
+   echo "$as_me:7959: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized
@@ -9804,7 +9809,7 @@ rm -f core conftest.err conftest.$ac_objext conftest_ipa8_conftest.oo \
   libsuff=
   case "$host_cpu" in
   x86_64*|s390x*|powerpc64*)
-    echo '#line 9807 "configure"' > conftest.$ac_ext
+    echo '#line 9812 "configure"' > conftest.$ac_ext
     if { (eval echo "$as_me:$LINENO: \"$ac_compile\"") >&5
   (eval $ac_compile) 2>&5
   ac_status=$?
@@ -10770,7 +10775,7 @@ else
   lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
   lt_status=$lt_dlunknown
   cat > conftest.$ac_ext <<_LT_EOF
-#line 10773 "configure"
+#line 10778 "configure"
 #include "confdefs.h"
 
 #if HAVE_DLFCN_H
@@ -10866,7 +10871,7 @@ else
   lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
   lt_status=$lt_dlunknown
   cat > conftest.$ac_ext <<_LT_EOF
-#line 10869 "configure"
+#line 10874 "configure"
 #include "confdefs.h"
 
 #if HAVE_DLFCN_H
@@ -12685,6 +12690,68 @@ $as_echo "$as_me: error: 'Oxygene.exe' (Oxygene) is not in your PATH." >&2;}
 fi
 
 #
+# Check if we want to support Scala
+#
+
+scala=no
+
+# Check whether --with-scala was given.
+if test "${with_scala+set}" = set; then
+  withval=$with_scala;
+fi
+
+if test "x$with_scala" == xyes; then
+   scala=yes
+   # Extract the first word of "scalac-net", so it can be a program name with args.
+set dummy scalac-net; ac_word=$2
+{ $as_echo "$as_me:$LINENO: checking for $ac_word" >&5
+$as_echo_n "checking for $ac_word... " >&6; }
+if test "${ac_cv_path_SCALA+set}" = set; then
+  $as_echo_n "(cached) " >&6
+else
+  case $SCALA in
+  [\\/]* | ?:[\\/]*)
+  ac_cv_path_SCALA="$SCALA" # Let the user override the test with a path.
+  ;;
+  *)
+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+for as_dir in $PATH
+do
+  IFS=$as_save_IFS
+  test -z "$as_dir" && as_dir=.
+  for ac_exec_ext in '' $ac_executable_extensions; do
+  if { test -f "$as_dir/$ac_word$ac_exec_ext" && $as_test_x "$as_dir/$ac_word$ac_exec_ext"; }; then
+    ac_cv_path_SCALA="$as_dir/$ac_word$ac_exec_ext"
+    $as_echo "$as_me:$LINENO: found $as_dir/$ac_word$ac_exec_ext" >&5
+    break 2
+  fi
+done
+done
+IFS=$as_save_IFS
+
+  test -z "$ac_cv_path_SCALA" && ac_cv_path_SCALA="no"
+  ;;
+esac
+fi
+SCALA=$ac_cv_path_SCALA
+if test -n "$SCALA"; then
+  { $as_echo "$as_me:$LINENO: result: $SCALA" >&5
+$as_echo "$SCALA" >&6; }
+else
+  { $as_echo "$as_me:$LINENO: result: no" >&5
+$as_echo "no" >&6; }
+fi
+
+
+   if test "$Scala" = "no"; then
+        { { $as_echo "$as_me:$LINENO: error: 'scalac-net' (Scala) is not in your PATH." >&5
+$as_echo "$as_me: error: 'scalac-net' (Scala) is not in your PATH." >&2;}
+   { (exit 1); exit 1; }; }
+   fi
+
+fi
+
+#
 # Check if we want to support Visual Basic
 #
 
@@ -12842,6 +12909,14 @@ else
   BUILD_OXYGENE_FALSE=
 fi
 
+ if test x$scala = xyes; then
+  BUILD_SCALA_TRUE=
+  BUILD_SCALA_FALSE='#'
+else
+  BUILD_SCALA_TRUE='#'
+  BUILD_SCALA_FALSE=
+fi
+
  if test x$visual_basic = xyes; then
   BUILD_VISUALBASIC_TRUE=
   BUILD_VISUALBASIC_FALSE='#'
@@ -12851,7 +12926,7 @@ else
 fi
 
 
-ac_config_files="$ac_config_files Makefile lib/Makefile java/Makefile java/stubs/Makefile plug-ins/Makefile plug-ins/AverageBlur/Makefile plug-ins/AverageBlur/po/Makefile plug-ins/BooSample/Makefile plug-ins/Colorize/Makefile plug-ins/Colorize/po/Makefile plug-ins/CountTool/Makefile plug-ins/DifferenceClouds/Makefile plug-ins/DifferenceClouds/po/Makefile plug-ins/ecw/Makefile plug-ins/Forge/Makefile plug-ins/Forge/po/Makefile plug-ins/Fragment/Makefile plug-ins/Fragment/po/Makefile plug-ins/FSharpSample/Makefile plug-ins/GemImg/Makefile plug-ins/KoalaPaint/Makefile plug-ins/KoalaPaint/po/Makefile plug-ins/ncp/Makefile plug-ins/ncp/po/Makefile plug-ins/Mezzotint/Makefile plug-ins/Mezzotint/po/Makefile plug-ins/Ministeck/Makefile plug-ins/Ministeck/po/Makefile plug-ins/NemerleSample/Makefile plug-ins/neo/Makefile plug-ins/neo/po/Makefile plug-ins/OxygeneSample/Makefile plug-ins/Pdn/Makefile plug-ins/PhotoshopActions/Makefile plug-ins/PictureFrame/Makefile plug-ins/PicturePackage/Makefile plug-ins/PicturePackage/po/Makefile plug-ins/Pointillize/Makefile plug-ins/Pointillize/po/Makefile plug-ins/PythonSample/Makefile plug-ins/Raindrops/Makefile plug-ins/Raindrops/po/Makefile plug-ins/Shatter/Makefile plug-ins/Sky/Makefile plug-ins/SliceTool/Makefile plug-ins/SliceTool/po/Makefile plug-ins/Splitter/Makefile plug-ins/Splitter/po/Makefile plug-ins/Swirlies/Makefile plug-ins/Swirlies/po/Makefile plug-ins/UnitTest/Makefile plug-ins/UpdateCheck/Makefile plug-ins/UpdateCheck/po/Makefile plug-ins/VisualBasicSample/Makefile plug-ins/wbmp/Makefile plug-ins/wbmp/po/Makefile"
+ac_config_files="$ac_config_files Makefile lib/Makefile java/Makefile java/stubs/Makefile plug-ins/Makefile plug-ins/AverageBlur/Makefile plug-ins/AverageBlur/po/Makefile plug-ins/BooSample/Makefile plug-ins/Colorize/Makefile plug-ins/Colorize/po/Makefile plug-ins/CountTool/Makefile plug-ins/DifferenceClouds/Makefile plug-ins/DifferenceClouds/po/Makefile plug-ins/ecw/Makefile plug-ins/Forge/Makefile plug-ins/Forge/po/Makefile plug-ins/Fragment/Makefile plug-ins/Fragment/po/Makefile plug-ins/FSharpSample/Makefile plug-ins/GemImg/Makefile plug-ins/KoalaPaint/Makefile plug-ins/KoalaPaint/po/Makefile plug-ins/ncp/Makefile plug-ins/ncp/po/Makefile plug-ins/Mezzotint/Makefile plug-ins/Mezzotint/po/Makefile plug-ins/Ministeck/Makefile plug-ins/Ministeck/po/Makefile plug-ins/NemerleSample/Makefile plug-ins/neo/Makefile plug-ins/neo/po/Makefile plug-ins/OxygeneSample/Makefile plug-ins/Pdn/Makefile plug-ins/PhotoshopActions/Makefile plug-ins/PictureFrame/Makefile plug-ins/PicturePackage/Makefile plug-ins/PicturePackage/po/Makefile plug-ins/Pointillize/Makefile plug-ins/Pointillize/po/Makefile plug-ins/PythonSample/Makefile plug-ins/Raindrops/Makefile plug-ins/Raindrops/po/Makefile plug-ins/ScalaSample/Makefile plug-ins/Shatter/Makefile plug-ins/Sky/Makefile plug-ins/SliceTool/Makefile plug-ins/SliceTool/po/Makefile plug-ins/Splitter/Makefile plug-ins/Splitter/po/Makefile plug-ins/Swirlies/Makefile plug-ins/Swirlies/po/Makefile plug-ins/UnitTest/Makefile plug-ins/UpdateCheck/Makefile plug-ins/UpdateCheck/po/Makefile plug-ins/VisualBasicSample/Makefile plug-ins/wbmp/Makefile plug-ins/wbmp/po/Makefile"
 
 
 cat >confcache <<\_ACEOF
@@ -13046,6 +13121,13 @@ if test -z "${BUILD_OXYGENE_TRUE}" && test -z "${BUILD_OXYGENE_FALSE}"; then
   { { $as_echo "$as_me:$LINENO: error: conditional \"BUILD_OXYGENE\" was never defined.
 Usually this means the macro was only invoked conditionally." >&5
 $as_echo "$as_me: error: conditional \"BUILD_OXYGENE\" was never defined.
+Usually this means the macro was only invoked conditionally." >&2;}
+   { (exit 1); exit 1; }; }
+fi
+if test -z "${BUILD_SCALA_TRUE}" && test -z "${BUILD_SCALA_FALSE}"; then
+  { { $as_echo "$as_me:$LINENO: error: conditional \"BUILD_SCALA\" was never defined.
+Usually this means the macro was only invoked conditionally." >&5
+$as_echo "$as_me: error: conditional \"BUILD_SCALA\" was never defined.
 Usually this means the macro was only invoked conditionally." >&2;}
    { (exit 1); exit 1; }; }
 fi
@@ -13864,6 +13946,7 @@ do
     "plug-ins/PythonSample/Makefile") CONFIG_FILES="$CONFIG_FILES plug-ins/PythonSample/Makefile" ;;
     "plug-ins/Raindrops/Makefile") CONFIG_FILES="$CONFIG_FILES plug-ins/Raindrops/Makefile" ;;
     "plug-ins/Raindrops/po/Makefile") CONFIG_FILES="$CONFIG_FILES plug-ins/Raindrops/po/Makefile" ;;
+    "plug-ins/ScalaSample/Makefile") CONFIG_FILES="$CONFIG_FILES plug-ins/ScalaSample/Makefile" ;;
     "plug-ins/Shatter/Makefile") CONFIG_FILES="$CONFIG_FILES plug-ins/Shatter/Makefile" ;;
     "plug-ins/Sky/Makefile") CONFIG_FILES="$CONFIG_FILES plug-ins/Sky/Makefile" ;;
     "plug-ins/SliceTool/Makefile") CONFIG_FILES="$CONFIG_FILES plug-ins/SliceTool/Makefile" ;;
@@ -15356,6 +15439,7 @@ GIMP-SHARP Features:
   Java support        : $java
   Nemerle support     : $nemerle
   Oxygene support     : $oxygene
+  Scala support	      : $scala
   Visual Basic support: $visual_basic
 " >&5
 $as_echo "
@@ -15372,5 +15456,6 @@ GIMP-SHARP Features:
   Java support        : $java
   Nemerle support     : $nemerle
   Oxygene support     : $oxygene
+  Scala support	      : $scala
   Visual Basic support: $visual_basic
 " >&6; };

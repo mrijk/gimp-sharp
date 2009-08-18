@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2008 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // Layer.cs
 //
@@ -274,6 +274,12 @@ namespace Gimp
     public void Raise()
     {
       Image.RaiseLayer(this);
+    }
+
+    public void SetBuffer(byte[] buffer)
+    {
+      var rgn = new PixelRgn(this, true, false);
+      rgn.SetRect(buffer, Bounds);
     }
 
     [DllImport("libgimp-2.0-0.dll")]

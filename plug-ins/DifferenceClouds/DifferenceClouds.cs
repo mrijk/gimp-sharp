@@ -121,8 +121,10 @@ namespace Gimp.DifferenceClouds
       var activeLayer = image.ActiveLayer;
       var newLayer = new Layer(activeLayer)
 	{
-	  Name = "_DifferenceClouds_", Visible = false,
-	  Mode = activeLayer.Mode, Opacity = activeLayer.Opacity
+	  Name = "_DifferenceClouds_", 
+	  Visible = false,
+	  Mode = activeLayer.Mode, 
+	  Opacity = activeLayer.Opacity
 	};
 
       // Initialization steps
@@ -338,8 +340,8 @@ namespace Gimp.DifferenceClouds
     void InitializeIndexedColorsMap()
     {
 
-      byte[] fgBytes = Context.Foreground.Bytes;
-      byte[] bgBytes = Context.Background.Bytes;
+      var fgBytes = Context.Foreground.Bytes;
+      var bgBytes = Context.Background.Bytes;
 
       for (int i = 0; i < 256; i++)
         {
