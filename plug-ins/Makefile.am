@@ -64,6 +64,7 @@ SUBDIRS = 			\
 	Fragment		\
 	$(FSharpSample)		\
 	GemImg			\
+	JavaFX			\
 	KoalaPaint 		\
 	$(Mezzotint)		\
 	Ministeck		\

@@ -1,6 +1,7 @@
 Overview of Changes in Gimp# 0.16
 =================================
 - Added Oxygene (http://www.remobjects.com) sample
+- Export layers to JavaFX
 - Support for GIMP 2.6 API and Mono 2.4
 - Improved test coverage (300+ unit tests)
 - Code clean-up

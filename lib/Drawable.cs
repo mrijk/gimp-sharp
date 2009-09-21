@@ -891,6 +891,14 @@ namespace Gimp
       return new Pixel(Bpp);
     }
 
+    public void Save(string filename)
+    {
+      if (!Image.Save(this, filename ))
+	{
+	  throw new GimpSharpException();
+	}
+    }
+
     // Misc routines
 
     public override bool Equals(object o)

@@ -99,6 +99,13 @@ namespace Gimp
                             raw_filename);
     }
 
+    // Used internally to save a single drawable
+    internal bool Save(Drawable drawable, string filename)
+    {
+      return gimp_file_save(RunMode.Noninteractive, _imageID, drawable.ID, 
+			    filename, filename);
+    }
+
     public void Delete()
     {
       if (!gimp_image_delete(_imageID))
