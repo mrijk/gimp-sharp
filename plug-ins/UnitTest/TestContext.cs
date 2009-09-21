@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // TestContext.cs
 //
@@ -38,6 +38,16 @@ namespace Gimp
     public void Exit()
     {
       Context.Pop();
+    }
+
+    [Test]
+    public void PushPop()
+    {
+      RGB previous = Context.Foreground;
+      Context.Push();
+      Context.Foreground = new RGB(11, 12, 13);
+      Context.Pop();
+      Assert.AreEqual(previous, Context.Foreground);
     }
 
     [Test]
@@ -94,6 +104,16 @@ namespace Gimp
     }
 
     [Test]
+    public void Brush()
+    {
+      foreach (Brush brush in new BrushList(null))
+	{
+	  Context.Brush = brush;
+	  Assert.AreEqual(brush, Context.Brush);
+	}
+    }
+
+    [Test]
     public void Pattern()
     {
       foreach (Pattern pattern in new PatternList(null))
@@ -121,6 +141,22 @@ namespace Gimp
 	  Context.Palette = palette;
 	  Assert.AreEqual(palette, Context.Palette);
 	}
+    }
+
+    [Test]
+    public void PaintMethod()
+    {
+      foreach (string method in Context.PaintMethods)
+	{
+	  Context.PaintMethod = method;
+	  Assert.AreEqual(method, Context.PaintMethod);
+	}
+    }
+
+    [Test]
+    public void PaintMethods()
+    {
+      Assert.IsTrue(Context.PaintMethods.Count > 0);
     }
   }
 }

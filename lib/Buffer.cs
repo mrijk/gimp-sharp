@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // Buffer.cs
 //
@@ -45,7 +45,7 @@ namespace Gimp
 
     static public List<Buffer> GetBuffers(string filter)
     {
-      List<Buffer> buffers = new List<Buffer>();
+      var buffers = new List<Buffer>();
 
       int numBuffers;
       IntPtr ptr = gimp_buffers_get_list(filter, out numBuffers);

@@ -1,5 +1,5 @@
 // The Sky plug-in
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // TMatrix.cs
 //
@@ -73,7 +73,7 @@ namespace Gimp.Sky
 
     static public TMatrix Multiply(TMatrix in1, TMatrix in2)
     {
-      TMatrix result = new TMatrix();
+      var result = new TMatrix();
 
       for (int i = 0; i < 4; i++)
 	{
@@ -93,7 +93,7 @@ namespace Gimp.Sky
 
     static public TMatrix Combine(TMatrix in1, TMatrix in2)
     {
-      TMatrix result = TMatrix.Multiply(in1, in2);
+      var result = Multiply(in1, in2);
 
       for (int i = 0; i < 3; i++)
 	{

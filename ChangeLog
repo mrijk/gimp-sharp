@@ -1,3 +1,41 @@
+2009-08-20  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/UnitTest/Makefile.am: changed accordingly
+
+	* lib/GimpUnit.cs: new file
+
+	* lib/Makefile.am: changed accordingly
+
+	* lib/Gimp.cs: minor clean-up, wrapped gimp_get_default_unit
+
+	* plug-ins/UnitTest/TestContext.cs: more tests
+
+2009-08-19  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/UnitTest/TestContext.cs: add some more tests
+
+	* lib/Context.cs
+	* lib/Buffer.cs: 
+
+	* plug-ins/Sky/Sky.cs
+	* plug-ins/Sky/Octave.cs
+	* plug-ins/Sky/TMatrix.cs
+	* plug-ins/Sky/TRandom.cs: minor clean-up
+
+	* plug-ins/Raindrops/CoordinateGenerator.cs: new file
+
+	* plug-ins/Raindrops/Makefile.am: changed accordingly
+
+2009-08-18  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/Raindrops/RaindropFactory.cs
+	* plug-ins/Raindrops/Raindrop.cs: new files
+
+	* plug-ins/Raindrops/Makefile.am: changed accordingly
+
+	* plug-ins/Raindrops/Raindrops.cs
+	* plug-ins/Raindrops/BoolMatrix.cs: major clean-up
+
 2009-08-18  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* lib/Drawable.cs: minor clean-up

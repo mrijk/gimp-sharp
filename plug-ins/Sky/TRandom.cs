@@ -1,5 +1,5 @@
 // The Sky plug-in
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // TRandom.cs
 //
@@ -32,7 +32,7 @@ namespace Gimp.Sky
     {
       if (seed == -1)
 	{
-	  DateTime startTime = new DateTime(1970,1,1);
+	  DateTime startTime = new DateTime(1970, 1, 1);
 	  UInt32 time_t = 
 	    Convert.ToUInt32((DateTime.Now - startTime).TotalSeconds);
 	  Init((int) time_t);
@@ -53,13 +53,6 @@ namespace Gimp.Sky
 
     void InitSequence(int ij, int kl)
     {
-      if (ij < 0 || ij > 31328 || kl < 0 || kl > 30081) 
-	{
-	  Console.WriteLine("The first random number seed must have a value between 0 and 31328.");
-	  Console.WriteLine("The second seed must have a value between 0 and 30081.");
-	  Environment.Exit(1);
-	}
-
       int i = (ij / 177) % 177 + 2;
       int j = ij % 177 + 2;
       int k = (kl / 169) % 178 + 1;

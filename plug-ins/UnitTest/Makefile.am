@@ -22,6 +22,7 @@ TESTSOURCES = 	TestBrush.cs 			\
 		TestDisplay.cs			\
 		TestDrawable.cs			\
 		TestFloatingSelection.cs	\
+		TestGimpUnit.cs			\
 		TestGimp.cs			\
 		TestGrid.cs			\
 		TestGuide.cs			\

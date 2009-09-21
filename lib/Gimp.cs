@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk, Massimo Perga
+// Copyright (C) 2004-2009 Maurits Rijk, Massimo Perga
 //
 // Gimp.cs
 //
@@ -39,10 +39,7 @@ namespace Gimp
 
     static public Version Version
     {
-      get
-      {
-        return new Version(gimp_version());
-      }
+      get {return new Version(gimp_version());}
     }
 
     static public string PdbError
@@ -173,7 +170,6 @@ namespace Gimp
       Marshaller.Free(tmp);
     }
 
-    // depends on GIMP 2.4
     // Fix me: not completely implemented yet
 
     static public IntPtr ColorConfiguration
@@ -187,6 +183,11 @@ namespace Gimp
     static public string DefaultComment
     {
       get {return gimp_get_default_comment();}
+    }
+
+    static public Unit DefaultUnit
+    {
+      get {return gimp_get_default_unit();}
     }
 
     static public string ModuleLoadInhibit
@@ -209,30 +210,22 @@ namespace Gimp
 
     static public string ThemeDirectory
     {
-      get
-	{
-	  IntPtr tmp = gimp_get_theme_dir();
-	  return Marshaller.FilenamePtrToString(tmp);
-	}
+      get {return FilenamePtrToString(gimp_get_theme_dir());}
     }
-
 
     static public string LocaleDirectory
     {
-      get
-	{
-	  IntPtr tmp = gimp_locale_directory();
-	  return Marshaller.FilenamePtrToString(tmp);
-      }
+      get {return FilenamePtrToString(gimp_locale_directory());}
     }
 
     static public string PluginDirectory
     {
-      get
-	{
-	  IntPtr tmp = gimp_plug_in_directory();
-	  return Marshaller.FilenamePtrToString(tmp);
-	}
+      get {return FilenamePtrToString(gimp_plug_in_directory());}
+    }
+
+    static string FilenamePtrToString(IntPtr filenamePtr)
+    {
+      return Marshaller.FilenamePtrToString(filenamePtr);
     }
     
     [DllImport("libgimp-2.0-0.dll")]
@@ -297,6 +290,8 @@ namespace Gimp
       static extern IntPtr gimp_get_color_configuration();
     [DllImport("libgimp-2.0-0.dll")]
       static extern string gimp_get_default_comment();
+    [DllImport("libgimp-2.0-0.dll")]
+      static extern Unit gimp_get_default_unit();
     [DllImport("libgimp-2.0-0.dll")]
       static extern string gimp_get_module_load_inhibit();
     [DllImport("libgimp-2.0-0.dll")]

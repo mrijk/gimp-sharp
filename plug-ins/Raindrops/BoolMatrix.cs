@@ -1,5 +1,5 @@
 // The Raindrops plug-in
-// Copyright (C) 2004-2007 Maurits Rijk, Massimo Perga
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // BoolMatrix.cs
 //

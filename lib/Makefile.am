@@ -44,6 +44,7 @@ MYSOURCES = 				\
 	GimpStock.cs			\
 	GimpTable.cs			\
 	GimpTypes.cs			\
+	GimpUnit.cs			\
 	Gimp.cs				\
 	Gradient.cs			\
 	GradientList.cs			\

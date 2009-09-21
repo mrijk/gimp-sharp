@@ -1,5 +1,5 @@
 // The Sky plug-in
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // Octave.cs
 //
@@ -29,7 +29,7 @@ namespace Gimp.Sky
 
     public Octave(int seed, double frequency, double amplitude)
     {
-      TRandom random = new TRandom(seed);
+      var random = new TRandom(seed);
 
       for (int i = 0; i < 32768; i++)
 	{
@@ -76,16 +76,16 @@ namespace Gimp.Sky
       double point_d = _data[((intY + 1) & 31) * 1024 + 
 			     ((intX + 1) & 31) * 32 + ((intZ + 1) & 31)];
       
-      double point_w = Interpolate (point_1, point_2, fracX);
-      double pointX = Interpolate (point_3, point_4, fracX);
+      double point_w = Interpolate(point_1, point_2, fracX);
+      double pointX = Interpolate(point_3, point_4, fracX);
       
-      double pointY = Interpolate (point_a, point_b, fracX);
-      double pointZ = Interpolate (point_c, point_d, fracX);
+      double pointY = Interpolate(point_a, point_b, fracX);
+      double pointZ = Interpolate(point_c, point_d, fracX);
       
-      double point_A = Interpolate (point_w, pointX, fracY);
-      double point_B = Interpolate (pointY, pointZ, fracY);
+      double point_A = Interpolate(point_w, pointX, fracY);
+      double point_B = Interpolate(pointY, pointZ, fracY);
       
-      return Interpolate (point_A, point_B, fracZ);
+      return Interpolate(point_A, point_B, fracZ);
     }
   }
 }

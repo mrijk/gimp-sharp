@@ -1,5 +1,5 @@
 // The Raindrops plug-in
-// Copyright (C) 2004-2007 Maurits Rijk, Massimo Perga
+// Copyright (C) 2004-2009 Maurits Rijk, Massimo Perga
 //
 // Raindrops.cs
 //
@@ -59,7 +59,7 @@ namespace Gimp.Raindrops
 				 _("Generates raindrops"),
 				 "Massimo Perga",
 				 "(C) Massimo Perga",
-				 "2006-2007",
+				 "2006-2009",
 				 _("Raindrops..."),
 				 "RGB*, GRAY*",
 				 inParams)
@@ -135,11 +135,6 @@ namespace Gimp.Raindrops
       clone.Delete();
     }
 
-    int Clamp(int x, int l, int u)
-    {
-      return (x < l) ? l : ((x > u) ? u : x);
-    }
-
     override protected void Reset()
     {
       Console.WriteLine("Reset!");
@@ -155,115 +150,25 @@ namespace Gimp.Raindrops
       Dimensions dimensions = image.Dimensions;
       Progress progress = (isPreview) ? null : new Progress(_("Raindrops..."));
 
-      Rectangle bounds = drawable.MaskBounds;
-
       Tile.CacheDefault(drawable);
       PixelFetcher pf = new PixelFetcher(drawable, false);
 
       RgnIterator iter = new RgnIterator(drawable, RunMode.Interactive);
       iter.IterateSrcDest(src => src);
 
-      double newCoeff = (double) Clamp(_fishEye, 1, 100) * 0.01;
-
-      Random random = new Random();
-
-      BoolMatrix boolMatrix = new BoolMatrix(dimensions.Width,
-					     dimensions.Height);
-
-      // TODO: find an upper bound so that
-      // speed on big drop would be improved
-      // int upper_bound = ;
-      // upper bound for iteration in  blur search process
+      RaindropFactory factory = new RaindropFactory(_dropSize, _fishEye, 
+						    dimensions);
 
       for (int numBlurs = 0; numBlurs <= _number; numBlurs++)
 	{
-	  int newSize = random.Next(_dropSize);	// Size of current raindrop
-	  int radius = newSize / 2;		// Half of current raindrop
-	  double s = radius / Math.Log(newCoeff * radius + 1);
-
-	  bool failed;
-	  Coordinate<int> c = boolMatrix.Generate(radius, out failed);
-	  if (failed)
+	  Raindrop raindrop = factory.Create();
+	  if (raindrop == null)
 	    {
+	      if (!isPreview)
+		progress.Update(1.0);
 	      break;
 	    }
-
-	  int x = c.X;
-	  int y = c.Y;
-
-	  for (int i = -radius; i < newSize - radius; i++)
-	    {
-	      for (int j = -radius; j < newSize - radius; j++)
-		{
-		  double r = Math.Sqrt(i * i + j * j);
-		  double a = Math.Atan2(i, j);
-
-		  if (r <= radius)
-		    {
-		      double oldRadius = r;
-		      r = (Math.Exp (r / s) - 1) / newCoeff;
-
-		      int k = x + (int) (r * Math.Sin(a));
-		      int l = y + (int) (r * Math.Cos(a));
-
-		      int m = x + i;
-		      int n = y + j;
-
-		      if (dimensions.IsInside(k, l) &&
-			  dimensions.IsInside(m, n))
-			{
-			  boolMatrix[n, m] = true;
-
-			  int bright = GetBright(radius, oldRadius, a);
-			  Pixel newColor = pf[l, k] + bright;
-			  newColor.Clamp0255();
-			  pf[l, k] = newColor;
-			}
-		    }
-		}
-	    }
-
-	  int blurRadius = newSize / 25 + 1;
-
-	  for (int i = -radius - blurRadius;
-	       i < newSize - radius + blurRadius; i++)
-	    {
-	      for (int j = -radius - blurRadius;
-		   j < newSize - radius + blurRadius; j++)
-		{
-		  double r = Math.Sqrt(i * i + j * j);
-		
-		  if (r <= radius * 1.1)
-		    {
-		      Pixel average = drawable.CreatePixel();
-		      int blurPixels = 0;
-		      int m, n;
-
-		      for (int k = -blurRadius; k < blurRadius + 1; k++)
-			{
-			  for (int l = -blurRadius; l < blurRadius + 1; l++)
-			    {
-			      m = x + i + k;
-			      n = y + j + l;
-			
-			      if (dimensions.IsInside(m, n))
-				{
-				  average += pf[n, m];
-				  blurPixels++;
-				}
-			    }
-			}
-
-		      m = x + i;
-		      n = y + j;
-
-		      if (dimensions.IsInside(m, n))
-			{
-			  pf[n, m] = average / blurPixels;
-			}
-		    }
-		}
-	    }
+	  raindrop.Render(factory.BoolMatrix, pf, drawable);
 
 	  if (!isPreview)
 	    progress.Update((double) numBlurs / _number);
@@ -273,70 +178,7 @@ namespace Gimp.Raindrops
 
       drawable.Flush();
       // drawable.MergeShadow(true);
-      drawable.Update(bounds);
-    }
-
-    int GetBright(double Radius, double OldRadius, double a)
-    {
-      int Bright = 0;
-
-      if (OldRadius >= 0.9 * Radius)
-	{
-	  if ((a <= 0) && (a > -2.25))
-	    Bright = -80;
-	  else if ((a <= -2.25) && (a > -2.5))
-	    Bright = -40;
-	  else if ((a <= 0.25) && (a > 0))
-	    Bright = -40;
-	}
-      else if (OldRadius >= 0.8 * Radius)
-	{
-	  if ((a <= -0.75) && (a > -1.50))
-	    Bright = -40;
-	  else if ((a <= 0.10) && (a > -0.75))
-	    Bright = -30;
-	  else if ((a <= -1.50) && (a > -2.35))
-	    Bright = -30;
-	}
-      else if (OldRadius >= 0.7 * Radius)
-	{
-	  if ((a <= -0.10) && (a > -2.0))
-	    Bright = -20;
-	  else if ((a <= 2.50) && (a > 1.90))
-	    Bright = 60;
-	}
-      else if (OldRadius >= 0.6 * Radius)
-	{
-	  if ((a <= -0.50) && (a > -1.75))
-	    Bright = -20;
-	  else if ((a <= 0) && (a > -0.25))
-	    Bright = 20;
-	  else if ((a <= -2.0) && (a > -2.25))
-	    Bright = 20;
-	}
-      else if (OldRadius >= 0.5 * Radius)
-	{
-	  if ((a <= -0.25) && (a > -0.50))
-	    Bright = 30;
-	  else if ((a <= -1.75 ) && (a > -2.0))
-	    Bright = 30;
-	}
-      else if (OldRadius >= 0.4 * Radius)
-	{
-	  if ((a <= -0.5) && (a > -1.75))
-	    Bright = 40;
-	}
-      else if (OldRadius >= 0.3 * Radius)
-	{
-	  if ((a <= 0) && (a > -2.25))
-	    Bright = 30;
-	}
-      else if (OldRadius >= 0.2 * Radius)
-	{
-	  if ((a <= -0.5) && (a > -1.75))
-	    Bright = 20;
-	}
-      return Bright;
+      drawable.Update();
     }
   }
 }

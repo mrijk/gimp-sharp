@@ -1,5 +1,5 @@
  // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // Context.cs
 //
@@ -20,7 +20,10 @@
 //
 
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
+
+using GLib;
 
 namespace Gimp
 {
@@ -46,7 +49,7 @@ namespace Gimp
     {
       get
 	{
-	  GimpRGB rgb = new GimpRGB();
+	  var rgb = new GimpRGB();
 	  if (!gimp_context_get_foreground(out rgb))
 	    {
 	      throw new GimpSharpException();
@@ -55,7 +58,7 @@ namespace Gimp
 	}
       set
 	{
-	  GimpRGB rgb = value.GimpRGB;
+	  var rgb = value.GimpRGB;
 	  if (!gimp_context_set_foreground(ref rgb))
 	    {
 	      throw new GimpSharpException();
@@ -67,7 +70,7 @@ namespace Gimp
     {
       get
 	{
-	  GimpRGB rgb = new GimpRGB();
+	  var rgb = new GimpRGB();
 	  if (!gimp_context_get_background(out rgb))
 	    {
 	      throw new GimpSharpException();
@@ -76,7 +79,7 @@ namespace Gimp
 	}
       set
 	{
-	  GimpRGB rgb = value.GimpRGB;
+	  var rgb = value.GimpRGB;
 	  if (!gimp_context_set_background(ref rgb))
 	    {
 	      throw new GimpSharpException();
@@ -196,6 +199,33 @@ namespace Gimp
 	}
     }
 
+    public static List<string> PaintMethods
+    {
+      get 
+	{
+	  int numPaintMethods;
+	  IntPtr paintMethods;
+	  if (!gimp_context_list_paint_methods(out numPaintMethods, 
+					       out paintMethods)) 
+	    {
+	      throw new GimpSharpException();
+	    }
+
+	  var methods = new List<string>();
+
+	  IntPtr ptr = paintMethods;
+	  for (int i = 0; i < numPaintMethods; i++)
+	    {
+	      IntPtr tmp = (IntPtr) Marshal.PtrToStructure(ptr, typeof(IntPtr));
+	      methods.Add(Marshal.PtrToStringAnsi(tmp));
+	      ptr = (IntPtr)((int)ptr + Marshal.SizeOf(tmp));
+	    }
+	  // TODO: find out if next line is needed
+	  Marshaller.Free(paintMethods);
+	  return methods;
+	}
+    }
+
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_context_push();
     [DllImport("libgimp-2.0-0.dll")]
@@ -244,5 +274,9 @@ namespace Gimp
     static extern string gimp_context_get_paint_method();
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_context_set_paint_method(string name);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_context_list_paint_methods(
+				      out int num_paint_methods,
+				      out IntPtr paint_methods);
   }
 }
