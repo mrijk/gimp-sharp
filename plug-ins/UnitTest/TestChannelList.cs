@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // TestChannelList.cs
 //
@@ -38,9 +38,9 @@ namespace Gimp
     {
       _image = new Image(_width, _height, ImageBaseType.Rgb);
 
-      Layer layer = new Layer(_image, "test", _width, _height,
-			      ImageType.Rgb, 100, 
-			      LayerModeEffects.Normal);
+      var layer = new Layer(_image, "test", _width, _height,
+			    ImageType.Rgb, 100, 
+			    LayerModeEffects.Normal);
       _image.AddLayer(layer, 0);
 
       _drawable = _image.ActiveDrawable;
@@ -49,14 +49,29 @@ namespace Gimp
     [TearDown]
     public void Exit()
     {
-      _image.Delete();
+      // _image.Delete();
     }
 
     [Test]
     public void Count()
     {
-      // ChannelList channels = _image.Channels;
-      // Assert.AreEqual(3, channels.Count);
+      var channels = _image.Channels;
+      int count = 0;
+      
+      channels.ForEach(channel => count++);
+      Assert.AreEqual(channels.Count, count);
+    }
+
+    [Test]
+    public void This()
+    {
+      string channelName = "test";
+      var channels = _image.Channels;
+      var channel = new Channel(_image, ChannelType.Red, channelName);
+      _image.AddChannel(channel, 0);
+      var found = channels[0];
+      Assert.IsTrue(found != null);
+      // Assert.AreEqual(channel.Name, found.Name);
     }
   }
 }

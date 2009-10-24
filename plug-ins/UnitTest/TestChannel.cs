@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // TestChannel.cs
 //
@@ -49,8 +49,8 @@ namespace Gimp
     {
       int before = _image.Channels.Count;
 
-      Channel channel = new Channel(_image, "test", _width, _height, 100,
-				    new RGB(0, 255, 0));
+      var channel = new Channel(_image, "test", _width, _height, 100,
+				new RGB(0, 255, 0));
       Assert.IsTrue(channel.IsChannel());
       _image.AddChannel(channel, 0);
 
@@ -62,21 +62,31 @@ namespace Gimp
     {
       int before = _image.Channels.Count;
 
-      Channel channel = new Channel(_image, "test", _width, _height, 100,
-				    new RGB(0, 255, 0));
+      var channel = new Channel(_image, "test", _width, _height, 100,
+				new RGB(0, 255, 0));
       _image.AddChannel(channel, 0);
 
-      Channel copy = new Channel(channel);
+      var copy = new Channel(channel);
       _image.AddChannel(copy, 0);
 
       Assert.AreEqual(before + 2, _image.Channels.Count);
     }
 
     [Test]
+    public void ChannelConstructorThree()
+    {
+      int before = _image.Channels.Count;
+      var channel = new Channel(_image, ChannelType.Red, "test");
+      _image.AddChannel(channel, 0);
+
+      Assert.AreEqual(before + 1, _image.Channels.Count);
+    }
+
+    [Test]
     public void GetSetShowMasked()
     {
-      Channel channel = new Channel(_image, "test", _width, _height, 100,
-				    new RGB(0, 255, 0));
+      var channel = new Channel(_image, "test", _width, _height, 100,
+				new RGB(0, 255, 0));
       _image.AddChannel(channel, 0);
 
       channel.ShowMasked = true;
@@ -89,8 +99,8 @@ namespace Gimp
     [Test]
     public void GetSetOpacity()
     {
-      Channel channel = new Channel(_image, "test", _width, _height, 100,
-				    new RGB(0, 255, 0));
+      var channel = new Channel(_image, "test", _width, _height, 100,
+				new RGB(0, 255, 0));
       _image.AddChannel(channel, 0);
 
       Assert.AreEqual(100, channel.Opacity);
@@ -102,8 +112,8 @@ namespace Gimp
     public void GetSetColor()
     {
       RGB color = new RGB(0, 255, 0);
-      Channel channel = new Channel(_image, "test", _width, _height, 100,
-				    color);
+      var channel = new Channel(_image, "test", _width, _height, 100,
+				color);
       _image.AddChannel(channel, 0);
 
       Assert.AreEqual(color.Bytes, channel.Color.Bytes);
@@ -116,8 +126,8 @@ namespace Gimp
     public void CombineMasks()
     {
       RGB color = new RGB(0, 255, 0);
-      Channel channelOne = new Channel(_image, "one", color);      
-      Channel channelTwo = new Channel(_image, "two", color);
+      var channelOne = new Channel(_image, "one", color);      
+      var channelTwo = new Channel(_image, "two", color);
 
       _image.AddChannel(channelOne, 0);
       _image.AddChannel(channelTwo, 0);

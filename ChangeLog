@@ -1,3 +1,12 @@
+2009-10-24  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/UnitTest/TestChannelList.cs: 
+	* plug-ins/UnitTest/TestChannel.cs
+	* plug-ins/UnitTest/TestBrush.cs: more test coverage
+
+	* plug-ins/UnitTest/TestBrushList.cs
+	* plug-ins/UnitTest/TestCoordinate.cs: minor clean-up
+
 2009-09-21  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* NEWS

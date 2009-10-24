@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // TestBrushList.cs
 //
@@ -31,28 +31,37 @@ namespace Gimp
     [Test]
     public void CountAll()
     {
-      BrushList brushs = new BrushList(null);
-      Assert.IsTrue(brushs.Count > 0);
+      var brushes = new BrushList(null);
+      Assert.IsTrue(brushes.Count > 0);
     }
 
     [Test]
     public void CountNone()
     {
-      // Test for non-existing brushs
-      BrushList brushs = new BrushList("nonsense");
-      Assert.IsTrue(brushs.Count == 0);
+      // Test for non-existing brushes
+      var brushes = new BrushList("nonsense");
+      Assert.IsTrue(brushes.Count == 0);
     }
 
     [Test]
     public void GetEnumerator()
     {
-      BrushList brushs = new BrushList(null);
+      BrushList brushes = new BrushList(null);
       int count = 0;
-      foreach (Brush brush in brushs)
+      foreach (Brush brush in brushes)
 	{
 	  count++;
 	}
-      Assert.IsTrue(brushs.Count == count);
+      Assert.IsTrue(brushes.Count == count);
+    }
+
+    [Test]
+    public void ForEach()
+    {
+      BrushList brushes = new BrushList(null);
+      int count = 0;
+      brushes.ForEach(brush => count++);
+      Assert.IsTrue(brushes.Count == count);
     }
   }
 }

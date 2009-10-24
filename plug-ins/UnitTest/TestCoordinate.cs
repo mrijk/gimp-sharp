@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // TestCoordinate.cs
 //
@@ -31,7 +31,7 @@ namespace Gimp
     [Test]
     public void ConstructorOne()
     {
-      Coordinate<int> c = new Coordinate<int>();
+      var c = new Coordinate<int>();
       Assert.AreEqual(0, c.X);
       Assert.AreEqual(0, c.Y);
     }
@@ -39,7 +39,7 @@ namespace Gimp
     [Test]
     public void ConstructorTwo()
     {
-      Coordinate<int> c = new Coordinate<int>(13, 14);
+      var c = new Coordinate<int>(13, 14);
       Assert.AreEqual(13, c.X);
       Assert.AreEqual(14, c.Y);
     }
@@ -47,8 +47,8 @@ namespace Gimp
     [Test]
     public void ConstructorThree()
     {
-      Coordinate<int> c1 = new Coordinate<int>(13, 14);
-      Coordinate<int> c2 = new Coordinate<int>(c1);
+      var c1 = new Coordinate<int>(13, 14);
+      var c2 = new Coordinate<int>(c1);
       Assert.AreEqual(13, c2.X);
       Assert.AreEqual(14, c2.Y);
     }
@@ -56,7 +56,7 @@ namespace Gimp
     [Test]
     public void getAndSetXandY()
     {
-      Coordinate<int> c = new Coordinate<int>();
+      var c = new Coordinate<int>();
       c.X = 13;
       c.Y = 14;
       Assert.AreEqual(13, c.X);
@@ -66,9 +66,9 @@ namespace Gimp
     [Test]
     public void Equals()
     {
-      Coordinate<int> c1 = new Coordinate<int>(13, 14);
-      Coordinate<int> c2 = new Coordinate<int>(c1);
-      Coordinate<int> c3 = new Coordinate<int>(23, 24);
+      var c1 = new Coordinate<int>(13, 14);
+      var c2 = new Coordinate<int>(c1);
+      var c3 = new Coordinate<int>(23, 24);
       Assert.IsTrue(c1.Equals(c2));
       Assert.IsFalse(c1.Equals(c3));
     }
@@ -76,8 +76,8 @@ namespace Gimp
     [Test]
     public void DifferentTypes()
     {
-      Coordinate<int> c1 = new Coordinate<int>(13, 14);
-      Coordinate<double> c2 = new Coordinate<double>(13, 14);
+      var c1 = new Coordinate<int>(13, 14);
+      var c2 = new Coordinate<double>(13, 14);
 
       Assert.IsFalse(c1.Equals(c2));     
     }
@@ -85,9 +85,9 @@ namespace Gimp
     [Test]
     public void Operators()
     {
-      Coordinate<int> c1 = new Coordinate<int>(13, 14);
-      Coordinate<int> c2 = new Coordinate<int>(c1);
-      Coordinate<int> c3 = new Coordinate<int>(23, 24);
+      var c1 = new Coordinate<int>(13, 14);
+      var c2 = new Coordinate<int>(c1);
+      var c3 = new Coordinate<int>(23, 24);
 
       Assert.IsTrue(c1 == c2);
       Assert.IsFalse(c1 != c2);
