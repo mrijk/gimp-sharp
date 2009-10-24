@@ -50,6 +50,7 @@ namespace Gimp
       int count = 0;
       foreach (Brush brush in brushes)
 	{
+	  Assert.IsNotNull(brush.Name);
 	  count++;
 	}
       Assert.IsTrue(brushes.Count == count);

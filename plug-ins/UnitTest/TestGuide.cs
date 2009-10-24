@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // TestGuide.cs
 //
@@ -47,7 +47,7 @@ namespace Gimp
     [Test]
     public void NewHorizontalGuide()
     {
-      HorizontalGuide guide = new HorizontalGuide(_image, _height / 2);
+      var guide = new HorizontalGuide(_image, _height / 2);
       Assert.AreEqual(OrientationType.Horizontal, guide.Orientation);
       Assert.AreEqual(1, CountGuides());
 
@@ -58,7 +58,7 @@ namespace Gimp
     [Test]
     public void NewVerticalGuide()
     {
-      VerticalGuide guide = new VerticalGuide(_image, _height / 2);
+      var guide = new VerticalGuide(_image, _height / 2);
       Assert.AreEqual(OrientationType.Vertical, guide.Orientation);
       Assert.AreEqual(1, CountGuides());
 
@@ -69,7 +69,7 @@ namespace Gimp
     [Test]
     public void Position()
     {
-      HorizontalGuide guide = new HorizontalGuide(_image, _height / 2);
+      var guide = new HorizontalGuide(_image, _height / 2);
       Assert.AreEqual(OrientationType.Horizontal, guide.Orientation);
       Assert.AreEqual(_height / 2, guide.Position);
     }

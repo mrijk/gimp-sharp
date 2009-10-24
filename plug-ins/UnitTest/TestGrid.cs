@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // TestGrid.cs
 //
@@ -31,19 +31,14 @@ namespace Gimp
     int _width = 64;
     int _height = 128;
     Image _image;
-    Drawable _drawable;
 
     [SetUp]
     public void Init()
     {
       _image = new Image(_width, _height, ImageBaseType.Rgb);
 
-      Layer layer = new Layer(_image, "test", _width, _height,
-			      ImageType.Rgb, 100, 
-			      LayerModeEffects.Normal);
+      var layer = new Layer(_image, "test", ImageType.Rgb);
       _image.AddLayer(layer, 0);
-
-      _drawable = _image.ActiveDrawable;
     }
 
     [TearDown]
@@ -55,15 +50,15 @@ namespace Gimp
     [Test]
     public void GetGrid()
     {
-      Grid grid = _image.Grid;
+      var grid = _image.Grid;
       Assert.IsNotNull(grid);
     }
 
     [Test]
     public void Offset()
     {
-      Grid grid = _image.Grid;
-      DoubleOffset offset = new DoubleOffset(12.12, 13.13);
+      var grid = _image.Grid;
+      var offset = new DoubleOffset(12.12, 13.13);
       grid.Offset = offset;
       Assert.AreEqual(offset, grid.Offset);
     }
@@ -71,8 +66,8 @@ namespace Gimp
     [Test]
     public void Spacing()
     {
-      Grid grid = _image.Grid;
-      Spacing spacing = new Spacing(12.12, 13.13);
+      var grid = _image.Grid;
+      var spacing = new Spacing(12.12, 13.13);
       grid.Spacing = spacing;
 
       Assert.AreEqual(spacing, grid.Spacing);
@@ -81,7 +76,7 @@ namespace Gimp
     [Test]
     public void ForegroundColor()
     {
-      Grid grid = _image.Grid;
+      var grid = _image.Grid;
       RGB color = new RGB(11, 22, 33);
       grid.ForegroundColor = color;
       Assert.AreEqual(color, grid.ForegroundColor);
@@ -90,7 +85,7 @@ namespace Gimp
     [Test]
     public void BackgroundColor()
     {
-      Grid grid = _image.Grid;
+      var grid = _image.Grid;
       RGB color = new RGB(11, 22, 33);
       grid.BackgroundColor = color;
       Assert.AreEqual(color, grid.BackgroundColor);
@@ -99,8 +94,8 @@ namespace Gimp
     [Test]
     public void Style()
     {
-      Grid grid = _image.Grid;
-      GridStyle style = GridStyle.OnOffDash;
+      var grid = _image.Grid;
+      var style = GridStyle.OnOffDash;
       grid.Style = style;
       Assert.AreEqual(style, grid.Style);
     }

@@ -238,6 +238,7 @@ namespace Gimp
       get {return new LayerList(this);}
     }
 
+    // Beware: this ChannelList isn't updated when channels are added!
     public ChannelList Channels
     {
       get {return new ChannelList(this);}

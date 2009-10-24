@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2008 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // DataObject.cs
 //
@@ -42,5 +42,14 @@ namespace Gimp
     }
 
     public abstract string Rename(string newName);
+
+    public override bool Equals(object o)
+    {
+      if (o is DataObject)
+	{
+	  return (o as DataObject).Name == Name;
+	}
+      return false;
+    }
   }
 }

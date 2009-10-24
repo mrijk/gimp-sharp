@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // TestOffset.cs
 //
@@ -31,7 +31,7 @@ namespace Gimp
     [Test]
     public void Constructor()
     {
-      Offset offset = new Offset(13, 14);
+      var offset = new Offset(13, 14);
       Assert.AreEqual(13, offset.X);
       Assert.AreEqual(14, offset.Y);
     }
@@ -39,7 +39,7 @@ namespace Gimp
     [Test]
     public void GetSetXandY()
     {
-      Offset offset = new Offset(0, 0);
+      var offset = new Offset(0, 0);
       offset.X = 13;
       offset.Y = 14;
       Assert.AreEqual(13, offset.X);

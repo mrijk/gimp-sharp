@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // TestPalette.cs
 //
@@ -31,9 +31,9 @@ namespace Gimp
     [Test]
     public void NewPalette()
     {
-      PaletteList palettes = new PaletteList(null);
+      var palettes = new PaletteList(null);
       int count = palettes.Count;
-      Palette palette = new Palette("UnitTestPalette");
+      var palette = new Palette("UnitTestPalette");
       palettes = new PaletteList(null);
       Assert.AreEqual(count + 1, palettes.Count);
       palette.Delete();
@@ -42,7 +42,7 @@ namespace Gimp
     [Test]
     public void Rename()
     {
-      Palette palette = new Palette("UnitTestPalette");
+      var palette = new Palette("UnitTestPalette");
       string name = palette.Rename("UnitTestPaletteTwo");
       Assert.AreEqual(name, "UnitTestPaletteTwo");
       Assert.IsTrue(palette.Name == "UnitTestPaletteTwo");
@@ -52,7 +52,7 @@ namespace Gimp
     [Test]
     public void GetInfo()
     {
-      Palette palette = new Palette("UnitTestPalette");
+      var palette = new Palette("UnitTestPalette");
       int num_colors;
       palette.GetInfo(out num_colors);
       Assert.AreEqual(num_colors, 0);
@@ -62,7 +62,7 @@ namespace Gimp
     [Test]
     public void AddEntry()
     {
-      Palette palette = new Palette("UnitTestPalette");
+      var palette = new Palette("UnitTestPalette");
       palette.AddEntry("black", new RGB(0, 0, 0));
       Assert.AreEqual(palette.NumberOfColors, 1);
       palette.Delete();
@@ -71,8 +71,8 @@ namespace Gimp
     [Test]
     public void DeleteEntry()
     {
-      Palette palette = new Palette("UnitTestPalette");
-      PaletteEntry entry = palette.AddEntry("black", new RGB(0, 0, 0));
+      var palette = new Palette("UnitTestPalette");
+      var entry = palette.AddEntry("black", new RGB(0, 0, 0));
       palette.DeleteEntry(entry);
       Assert.AreEqual(palette.NumberOfColors, 0);
       palette.Delete();
@@ -81,9 +81,9 @@ namespace Gimp
     [Test]
     public void This()
     {
-      Palette palette = new Palette("UnitTestPalette");
+      var palette = new Palette("UnitTestPalette");
       palette.AddEntry("black", new RGB(0, 0, 0));
-      PaletteEntry black = palette[0];
+      var black = palette[0];
       Assert.IsNotNull(black);
       palette.Delete();
     }
@@ -92,10 +92,10 @@ namespace Gimp
     [ExpectedException(typeof(GimpSharpException))]
     public void ThisOutOfRange()
     {
-      Palette palette = new Palette("UnitTestPalette");
+      var palette = new Palette("UnitTestPalette");
       palette.AddEntry("black", new RGB(0, 0, 0));
       // TODO: no range check yet
-      PaletteEntry white = palette[1];
+      var white = palette[1];
       try {
 	string name = white.Name;
       }
@@ -108,10 +108,10 @@ namespace Gimp
     [Test]
     public void GetEnumerator()
     {
-      Palette palette = new Palette("UnitTestPalette");
+      var palette = new Palette("UnitTestPalette");
       palette.AddEntry("black", new RGB(0, 0, 0));
       int count = 0;
-      foreach (PaletteEntry entry in palette)
+      foreach (var entry in palette)
 	{
 	  count++;
 	  Assert.AreEqual(entry.Name, "black");

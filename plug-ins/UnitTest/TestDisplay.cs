@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // TestDisplay.cs
 //
@@ -33,12 +33,13 @@ namespace Gimp
     {
       int width = 21;
       int height = 128;
-      Image image = new Image(width, height, ImageBaseType.Rgb);
+      var image = new Image(width, height, ImageBaseType.Rgb);
 
-      ImageList images = new ImageList();
+      var images = new ImageList();
       int count = images.Count;
+      Assert.AreEqual(1, count);
 
-      Display display = new Display(image);
+      var display = new Display(image);
       display.Delete();
 
       images.Refresh();
@@ -50,12 +51,12 @@ namespace Gimp
     {
       int width = 21;
       int height = 128;
-      Image oldImage = new Image(width, height, ImageBaseType.Rgb);
-      Image newImage = new Image(width, height, ImageBaseType.Rgb);
+      var oldImage = new Image(width, height, ImageBaseType.Rgb);
+      var newImage = new Image(width, height, ImageBaseType.Rgb);
 
       Assert.IsFalse(Display.Reconnect(oldImage, newImage));
 
-      Display display = new Display(oldImage);
+      var display = new Display(oldImage);
 
       Assert.IsFalse(Display.Reconnect(newImage, oldImage));
       Assert.IsTrue(Display.Reconnect(oldImage, newImage));

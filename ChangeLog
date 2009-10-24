@@ -1,6 +1,26 @@
 2009-10-24  Maurits Rijk  <maurits.rijk@gmail.com>
 
-	* plug-ins/UnitTest/TestChannelList.cs: 
+	* lib/GuideCollection.cs: added ForEach method
+
+	* plug-ins/UnitTest/TestPalette.cs
+	* plug-ins/UnitTest/TestOffset.cs
+	* plug-ins/UnitTest/TestMask.cs
+	* plug-ins/UnitTest/TestImage.cs
+	* plug-ins/UnitTest/TestGuide.cs
+	* plug-ins/UnitTest/TestGrid.cs
+	* plug-ins/UnitTest/TestFloatingSelection.cs
+	* plug-ins/UnitTest/TestDrawable.cs
+	* plug-ins/UnitTest/TestDisplay.cs
+	* plug-ins/UnitTest/TestDimensions.cs: minor clean-up
+
+	* lib/DataObject.cs: implement Equals method
+
+	* plug-ins/UnitTest/TestGimp.cs
+	* plug-ins/UnitTest/TestChannelList.cs: more test coverage
+
+2009-10-24  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/UnitTest/TestChannelList.cs
 	* plug-ins/UnitTest/TestChannel.cs
 	* plug-ins/UnitTest/TestBrush.cs: more test coverage
 

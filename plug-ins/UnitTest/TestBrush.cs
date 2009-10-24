@@ -47,6 +47,7 @@ namespace Gimp
       var brush = new Brush(brushName);
       string newName = "Gimp#Brush2";
       string name = brush.Rename(newName);
+      Assert.AreEqual(newName, name);
       Assert.AreEqual(newName, brush.Name);
       brush.Delete();
     }

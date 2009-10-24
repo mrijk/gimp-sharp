@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // TestDimensions.cs
 //
@@ -31,7 +31,7 @@ namespace Gimp
     [Test]
     public void Constructor()
     {
-      Dimensions dimensions = new Dimensions(13, 14);
+      var dimensions = new Dimensions(13, 14);
       Assert.AreEqual(13, dimensions.Width);
       Assert.AreEqual(14, dimensions.Height);
     }
@@ -39,16 +39,16 @@ namespace Gimp
     [Test]
     public void Inside()
     {
-      Dimensions dimensions = new Dimensions(13, 14);
+      var dimensions = new Dimensions(13, 14);
       Assert.IsTrue(dimensions.IsInside(5, 6));
     }
 
     [Test]
     public void Equals()
     {
-      Dimensions dimensions1 = new Dimensions(13, 14);
-      Dimensions dimensions2 = new Dimensions(23, 24);
-      Dimensions dimensions3 = new Dimensions(13, 14);
+      var dimensions1 = new Dimensions(13, 14);
+      var dimensions2 = new Dimensions(23, 24);
+      var dimensions3 = new Dimensions(13, 14);
 
       Assert.IsTrue(dimensions1.Equals(dimensions3));
       Assert.IsFalse(dimensions1.Equals(dimensions2));
@@ -57,12 +57,15 @@ namespace Gimp
     [Test]
     public void Operators()
     {
-      Dimensions dimensions1 = new Dimensions(13, 14);
-      Dimensions dimensions2 = new Dimensions(23, 24);
-      Dimensions dimensions3 = new Dimensions(13, 14);
+      var dimensions1 = new Dimensions(13, 14);
+      var dimensions2 = new Dimensions(23, 24);
+      var dimensions3 = new Dimensions(13, 14);
 
       Assert.IsTrue(dimensions1 == dimensions3);
       Assert.IsFalse(dimensions1 == dimensions2);
+
+      Assert.IsFalse(dimensions1 != dimensions3);
+      Assert.IsTrue(dimensions1 != dimensions2);
     }
   }
 }

@@ -41,5 +41,13 @@ namespace Gimp
 	  yield return guide;
 	}
     }
+
+    public void ForEach(Action<Guide> action)
+    {
+      foreach (var guide in this)
+	{
+	  action(guide);
+	}
+    }
   }
 }

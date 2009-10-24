@@ -1,7 +1,7 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
-// TestFloatingSelection.cs.cs
+// TestFloatingSelection.cs
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -37,9 +37,7 @@ namespace Gimp
     public void Init()
     {
       _image = new Image(_width, _height, ImageBaseType.Rgb);
-      Layer layer = new Layer(_image, "test", _width, _height,
-			      ImageType.Rgb, 100, 
-			      LayerModeEffects.Normal);
+      var layer = new Layer(_image, "test", ImageType.Rgb);
       _image.AddLayer(layer, 0);
     
       _drawable = _image.ActiveDrawable;

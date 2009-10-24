@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // TestDrawable.cs
 //
@@ -38,9 +38,9 @@ namespace Gimp
     {
       _image = new Image(_width, _height, ImageBaseType.Rgb);
 
-      Layer layer = new Layer(_image, "test", _width, _height,
-			      ImageType.Rgb, 100, 
-			      LayerModeEffects.Normal);
+      var layer = new Layer(_image, "test", _width, _height,
+			    ImageType.Rgb, 100, 
+			    LayerModeEffects.Normal);
       _image.AddLayer(layer, 0);
 
       _drawable = _image.ActiveDrawable;
@@ -133,7 +133,7 @@ namespace Gimp
     [Test]
     public void Offsets()
     {
-      Offset offset = _drawable.Offsets;
+      var offset = _drawable.Offsets;
       Assert.AreEqual(0, offset.X);
       Assert.AreEqual(0, offset.Y);      
     }
@@ -141,7 +141,7 @@ namespace Gimp
     [Test]
     public void Bounds()
     {
-      Rectangle bounds = _drawable.Bounds;
+      var bounds = _drawable.Bounds;
       Assert.AreEqual(_width, bounds.Width);
       Assert.AreEqual(_height, bounds.Height);
     }
@@ -149,7 +149,7 @@ namespace Gimp
     [Test]
     public void Dimensions()
     {
-      Dimensions dimensions = _drawable.Dimensions;
+      var dimensions = _drawable.Dimensions;
       Assert.AreEqual(_width, dimensions.Width);
       Assert.AreEqual(_height, dimensions.Height);
     }
@@ -157,7 +157,7 @@ namespace Gimp
     [Test]
     public void MaskBounds()
     {
-      Rectangle bounds = _drawable.MaskBounds;
+      var bounds = _drawable.MaskBounds;
       Assert.AreEqual(_width, bounds.Width);
       Assert.AreEqual(_height, bounds.Height);
     }
@@ -165,7 +165,7 @@ namespace Gimp
     [Test]
     public void MaskIntersect()
     {
-      Rectangle bounds = _drawable.MaskIntersect;
+      var bounds = _drawable.MaskIntersect;
       Assert.AreEqual(_drawable.Bounds, bounds);	// Select == All
     }
 
@@ -173,7 +173,7 @@ namespace Gimp
     public void Offset()
     {
       _drawable.Offset(false, OffsetType.Transparent, 13, 14);
-      Offset offset = _drawable.Offsets;
+      var offset = _drawable.Offsets;
       Assert.AreEqual(13, offset.X);
       Assert.AreEqual(14, offset.Y);
     }
@@ -193,7 +193,7 @@ namespace Gimp
     [Test]
     public void GetThumbnailData()
     {
-      Dimensions dimensions = new Dimensions(16, 32);
+      var dimensions = new Dimensions(16, 32);
       Pixel[,] thumbnail = _drawable.GetThumbnailData(dimensions);
       Assert.AreEqual(32, thumbnail.GetLength(0));
       Assert.AreEqual(16, thumbnail.GetLength(1));
@@ -221,7 +221,7 @@ namespace Gimp
     [Test]
     public void CreatePixel()
     {
-      Pixel pixel = _drawable.CreatePixel();
+      var pixel = _drawable.CreatePixel();
       Assert.AreEqual(_drawable.Bpp, pixel.Bpp);
     }
     
@@ -260,7 +260,7 @@ namespace Gimp
       int count = _image.Layers.Count;
       _drawable.EditCopy();
       Assert.AreEqual(count, _image.Layers.Count);
-      FloatingSelection selection = _drawable.EditPaste(true);
+      var selection = _drawable.EditPaste(true);
       Assert.AreEqual(count + 1, _image.Layers.Count);
       Assert.AreEqual(_image.FloatingSelection, selection);
     }
@@ -269,7 +269,7 @@ namespace Gimp
     public void EditNamedCopy()
     {
       int count = Buffer.GetBuffers(null).Count;
-      Buffer buffer = _drawable.EditNamedCopy("foo");
+      var buffer = _drawable.EditNamedCopy("foo");
       Assert.AreEqual(count + 1, Buffer.GetBuffers(null).Count);
       Assert.AreEqual(buffer.Name, "foo");
       Assert.AreEqual(_image.Width, buffer.Width);
@@ -285,7 +285,7 @@ namespace Gimp
     {
       int count = Buffer.GetBuffers(null).Count;
       int bpp = _drawable.Bpp;
-      Buffer buffer = _drawable.EditNamedCut("foo");
+      var buffer = _drawable.EditNamedCut("foo");
       Assert.AreEqual(count + 1, Buffer.GetBuffers(null).Count);
       Assert.AreEqual(buffer.Name, "foo");
       Assert.AreEqual(_image.Width, buffer.Width);
@@ -299,7 +299,7 @@ namespace Gimp
     public void EditNamedPaste()
     {
       int count = Buffer.GetBuffers(null).Count;
-      Buffer buffer = _drawable.EditNamedCopy("foo");
+      var buffer = _drawable.EditNamedCopy("foo");
       Assert.AreEqual(count + 1, Buffer.GetBuffers(null).Count);
       FloatingSelection selection = _drawable.EditNamedPaste("foo", false);
       Assert.AreEqual(_image.FloatingSelection, selection);

@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // TestImage.cs
 //
@@ -63,7 +63,7 @@ namespace Gimp
     [Test]
     public void Duplicate()
     {
-      Image copy = new Image(_image);
+      var copy = new Image(_image);
       Assert.AreEqual(_image.Width, copy.Width);
       Assert.AreEqual(_image.Height, copy.Height);
       Assert.AreEqual(_image.BaseType, copy.BaseType);
@@ -129,7 +129,7 @@ namespace Gimp
     [Test]
     public void CropThree()
     {
-      Rectangle rectangle = new Rectangle(10, 10, 20, 20);
+      var rectangle = new Rectangle(10, 10, 20, 20);
       _image.Crop(rectangle);
       Assert.AreEqual(rectangle.Width, _image.Width);
       Assert.AreEqual(rectangle.Height, _image.Height);
@@ -138,27 +138,23 @@ namespace Gimp
     [Test]
     public void ActiveLayer()
     {
-      Layer layer = new Layer(_image, "test", _width, _height,
-			      ImageType.Rgb, 100, 
-			      LayerModeEffects.Normal);
+      var layer = new Layer(_image, "test", ImageType.Rgb);
       _image.AddLayer(layer, 0);
 
-      Layer active = _image.ActiveLayer;
+      var active = _image.ActiveLayer;
       Assert.AreEqual(layer.Name, active.Name);
     }
 
     [Test]
     public void PickCorrelateLayer()
     {
-      Layer layer = new Layer(_image, "test", _width, _height,
-			      ImageType.Rgb, 100, 
-			      LayerModeEffects.Normal);
-      Coordinate<int> c = new Coordinate<int>(_width / 2, _height / 2);
+      var layer = new Layer(_image, "test", ImageType.Rgb);
+      var c = new Coordinate<int>(_width / 2, _height / 2);
       Assert.IsNull(_image.PickCorrelateLayer(c));
 
       _image.AddLayer(layer, 0);
 
-      Layer picked = _image.PickCorrelateLayer(c);
+      var picked = _image.PickCorrelateLayer(c);
       Assert.AreEqual(layer, picked);
     }
 

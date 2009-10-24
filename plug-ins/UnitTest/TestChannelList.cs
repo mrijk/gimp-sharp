@@ -49,7 +49,7 @@ namespace Gimp
     [TearDown]
     public void Exit()
     {
-      // _image.Delete();
+      _image.Delete();
     }
 
     [Test]
@@ -63,15 +63,41 @@ namespace Gimp
     }
 
     [Test]
-    public void This()
+    public void ThisByIndex()
     {
       string channelName = "test";
-      var channels = _image.Channels;
       var channel = new Channel(_image, ChannelType.Red, channelName);
       _image.AddChannel(channel, 0);
+
+      var channels = _image.Channels;
       var found = channels[0];
-      Assert.IsTrue(found != null);
-      // Assert.AreEqual(channel.Name, found.Name);
+      Assert.IsNotNull(found);
+      Assert.AreEqual(channel.Name, found.Name);
+    }
+
+    [Test]
+    public void ThisByName()
+    {
+      string channelName = "test";
+      var channel = new Channel(_image, ChannelType.Red, channelName);
+      _image.AddChannel(channel, 0);
+
+      var channels = _image.Channels;
+      var found = channels[channelName];
+      Assert.IsNotNull(found);
+      Assert.AreEqual(channelName, found.Name);
+    }
+
+    [Test]
+    public void GetIndex()
+    {
+      string channelName = "test";
+      var channel = new Channel(_image, ChannelType.Red, channelName);
+      _image.AddChannel(channel, 0);
+
+      var channels = _image.Channels;
+      int index = channels.GetIndex(channel);
+      Assert.IsTrue(index == 0);
     }
   }
 }

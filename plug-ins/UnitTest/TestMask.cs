@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // TestMask.cs
 //
@@ -47,11 +47,11 @@ namespace Gimp
     [Test]
     public void CreateMask()
     {
-      Layer layer = new Layer(_image, "test", ImageType.Rgba);
+      var layer = new Layer(_image, "test", ImageType.Rgba);
       layer.AddAlpha();
       _image.AddLayer(layer, 0);
 
-      Mask mask = layer.CreateMask(AddMaskType.White);
+      var mask = layer.CreateMask(AddMaskType.White);
       Assert.IsTrue(mask is Channel);
       Assert.AreEqual(true, mask.IsLayerMask());
       Assert.AreEqual(true, mask.IsChannel());

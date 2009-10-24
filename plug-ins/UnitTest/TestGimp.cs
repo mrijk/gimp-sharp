@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // TestGimp.cs
 //
@@ -26,38 +26,38 @@ namespace Gimp
   [TestFixture]
   public class TestGimp
   {
-    // [Test]
+    [Test]
     public void Version()
     {
-      Version version = Gimp.Version;
-      Assert.IsTrue(version != null);
+      var version = Gimp.Version;
+      Assert.IsNotNull(version);
     }
 
     // [Test]
     public void MajorVersion()
     {
-      Version version = Gimp.Version;
+      var version = Gimp.Version;
       Assert.IsTrue(version.Major >= 2);
     }
 
     // [Test]
     public void MinorVersion()
     {
-      Version version = Gimp.Version;
+      var version = Gimp.Version;
       Assert.IsTrue(version.Minor >= 0);
     }
 
     // [Test]
     public void MicroVersion()
     {
-      Version version = Gimp.Version;
+      var version = Gimp.Version;
       Assert.IsTrue(version.Micro >= 0);
     }
 
     [Test]
     public void MonitorResolution()
     {
-      Resolution resolution = Gimp.MonitorResolution;
+      var resolution = Gimp.MonitorResolution;
       Assert.IsTrue(resolution.X > 0);
       Assert.IsTrue(resolution.Y > 0);
     }
@@ -66,14 +66,25 @@ namespace Gimp
     public void DefaultComment()
     {
       string comment = Gimp.DefaultComment;
-      Assert.IsTrue(comment != null);
+      Assert.IsNotNull(comment);
     }
 
     [Test]
     public void ThemeDirectory()
     {
-      string directory = Gimp.ThemeDirectory;
-      Assert.IsTrue(directory != null);
+      Assert.IsNotNull(Gimp.ThemeDirectory);
+    }
+
+    [Test]
+    public void LocaleDirectory()
+    {
+      Assert.IsNotNull(Gimp.LocaleDirectory);
+    }
+
+    [Test]
+    public void PluginDirectory()
+    {
+      Assert.IsNotNull(Gimp.PluginDirectory);
     }
   }
 }
