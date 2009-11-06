@@ -1,3 +1,11 @@
+2009-11-06  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/ncp/ncp.cs: moved lots of code to Calculator.cs
+
+	* plug-ins/ncp/Calculator.cs: new file
+
+	* plug-ins/ncp/Makefile.am: changed accordingly
+
 2009-10-24  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* lib/GuideCollection.cs: added ForEach method
