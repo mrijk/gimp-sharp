@@ -27,8 +27,8 @@ namespace Gimp.Splitter
     protected double pi = Math.PI;
     protected double e = Math.E;
 
-    double _w;		// image width
-    double _h;		// image height
+    public double w {get; set;}		// image width
+    public double h {get; set;}		// image height
 
     public MyClassBase()
     {
@@ -37,18 +37,6 @@ namespace Gimp.Splitter
     public virtual double eval(double x, double y)
     {
       return 0.0;
-    }
-
-    public double w
-    {
-      set {_w = value;}
-      get {return _w;}
-    }
-
-    public double h
-    {
-      set {_h = value;}
-      get {return _h;}
     }
 
     protected double abs(double x)

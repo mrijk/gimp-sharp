@@ -47,7 +47,7 @@ namespace Gimp.Raindrops
 
     override protected IEnumerable<Procedure> ListProcedures()
     {
-      ParamDefList inParams = new ParamDefList()
+      var inParams = new ParamDefList()
 	{
 	  new ParamDef("drop_size", 80, typeof(int), _("Size of raindrops")),
 	  new ParamDef("number", 80, typeof(int), _("Number of raindrops")),
@@ -89,37 +89,50 @@ namespace Gimp.Raindrops
 	{ColumnSpacing = 6, RowSpacing = 6};
       vbox.PackStart(table, false, false, 0);
 
-      ScaleEntry _dropSizeEntry = new ScaleEntry(table, 0, 1,
-						 _("_Drop size:"),
-						 150, 3, _dropSize, 1.0,
-						 256.0, 1.0, 8.0, 0);
+      CreateDropSizeEntry(table);
+      CreateNumberEntry(table);
+      CreateFishEyeEntry(table);
+
+      return dialog;
+    }
+
+    void CreateDropSizeEntry(Table table)
+    {
+      var _dropSizeEntry = new ScaleEntry(table, 0, 1,
+					  _("_Drop size:"),
+					  150, 3, _dropSize, 1.0,
+					  256.0, 1.0, 8.0, 0);
       _dropSizeEntry.ValueChanged += delegate
 	{
 	  _dropSize = _dropSizeEntry.ValueAsInt;
 	  _preview.Invalidate();
 	};
+    }
 
-      ScaleEntry _numberEntry = new ScaleEntry(table, 0, 2,
-					       _("_Number:"),
-					       150, 3, _number, 1.0,
-					       256.0, 1.0, 8.0, 0);
+    void CreateNumberEntry(Table table)
+    {
+      var _numberEntry = new ScaleEntry(table, 0, 2,
+					_("_Number:"),
+					150, 3, _number, 1.0,
+					256.0, 1.0, 8.0, 0);
       _numberEntry.ValueChanged += delegate
 	{
 	  _number = _numberEntry.ValueAsInt;
 	  _preview.Invalidate();
 	};
+    }
 
-      ScaleEntry _fishEyeEntry = new ScaleEntry(table, 0, 3,
-						_("_Fish eye:"),
-						150, 3, _fishEye, 1.0,
-						256.0, 1.0, 8.0, 0);
+    void CreateFishEyeEntry(Table table)
+    {
+      var _fishEyeEntry = new ScaleEntry(table, 0, 3,
+					 _("_Fish eye:"),
+					 150, 3, _fishEye, 1.0,
+					 256.0, 1.0, 8.0, 0);
       _fishEyeEntry.ValueChanged += delegate
 	{
 	  _fishEye = _fishEyeEntry.ValueAsInt;
 	  _preview.Invalidate();
 	};
-
-      return dialog;
     }
 
     void UpdatePreview(object sender, EventArgs e)
@@ -147,21 +160,20 @@ namespace Gimp.Raindrops
 
     void RenderRaindrops(Image image, Drawable drawable, bool isPreview)
     {
-      Dimensions dimensions = image.Dimensions;
-      Progress progress = (isPreview) ? null : new Progress(_("Raindrops..."));
+      var dimensions = image.Dimensions;
+      var progress = (isPreview) ? null : new Progress(_("Raindrops..."));
 
       Tile.CacheDefault(drawable);
-      PixelFetcher pf = new PixelFetcher(drawable, false);
+      var pf = new PixelFetcher(drawable, false);
 
-      RgnIterator iter = new RgnIterator(drawable, RunMode.Interactive);
+      var iter = new RgnIterator(drawable, RunMode.Interactive);
       iter.IterateSrcDest(src => src);
 
-      RaindropFactory factory = new RaindropFactory(_dropSize, _fishEye, 
-						    dimensions);
+      var factory = new RaindropFactory(_dropSize, _fishEye, dimensions);
 
       for (int numBlurs = 0; numBlurs <= _number; numBlurs++)
 	{
-	  Raindrop raindrop = factory.Create();
+	  var raindrop = factory.Create();
 	  if (raindrop == null)
 	    {
 	      if (!isPreview)

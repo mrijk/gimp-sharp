@@ -34,11 +34,10 @@ namespace Gimp.Splitter
 
     public bool Init(string expr, Dimensions dimensions)
     {
-      CodeDomProvider cp = CodeDomProvider.CreateProvider("c#");
+      var cp = CodeDomProvider.CreateProvider("c#");
 
-      CompilerParameters cpar = new CompilerParameters();
-      cpar.GenerateInMemory = true;
-      cpar.GenerateExecutable = false;
+      var cpar = new CompilerParameters() {
+	GenerateInMemory = true, GenerateExecutable = false};
       cpar.ReferencedAssemblies.Add("System.dll");
       cpar.ReferencedAssemblies.Add(Assembly.GetExecutingAssembly().Location); 
       string src = 
@@ -51,7 +50,7 @@ namespace Gimp.Splitter
 	"return "+ expr +";"+
 	"}"+
 	"}";
-      CompilerResults cr = cp.CompileAssemblyFromSource(cpar, src);
+      var cr = cp.CompileAssemblyFromSource(cpar, src);
 
       foreach (CompilerError ce in cr.Errors)
 	{

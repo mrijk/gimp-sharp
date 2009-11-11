@@ -1,3 +1,9 @@
+2009-11-11  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/Raindrops/Raindrops.cs
+	* plug-ins/Splitter/MathExpressionParser.cs
+	* plug-ins/Splitter/MyClassBase.cs: minor clean-up
+
 2009-11-06  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* plug-ins/ncp/ncp.cs: moved lots of code to Calculator.cs
