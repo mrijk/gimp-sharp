@@ -1,5 +1,5 @@
 // The Forge plug-in
-// Copyright (C) 2006-2007 Massimo Perga (massimo.perga@gmail.com)
+// Copyright (C) 2006-2009 Massimo Perga (massimo.perga@gmail.com)
 //
 // Forge.cs
 //
@@ -123,7 +123,7 @@ namespace Gimp.Forge
 
     override protected IEnumerable<Procedure> ListProcedures()
     {
-      ParamDefList inParams = new ParamDefList()
+      var inParams = new ParamDefList()
 	{
 	  new ParamDef("clouds", false, typeof(bool), 
 		       _("Clouds (true), Planet or Stars (false)")),
@@ -167,17 +167,25 @@ namespace Gimp.Forge
     {
       gimp_ui_init("Forge", true);
 
-      GimpDialog dialog = DialogNew(_("Forge 0.2"), _("Forge"), IntPtr.Zero, 0,
-				    Gimp.StandardHelpFunc, _("Forge"));
+      var dialog = DialogNew(_("Forge 0.2"), _("Forge"), IntPtr.Zero, 0,
+			     Gimp.StandardHelpFunc, _("Forge"));
 
-      HBox hbox = new HBox(false, 12);
+      var hbox = new HBox(false, 12);
       Vbox.PackStart(hbox);
 
-      // Type
-      GimpFrame frame = new GimpFrame(_("Type"));
+      CreateTypeFrame(hbox);
+      CreateRandomSeedEntry(hbox);
+      CreateParametersTable();
+
+      return dialog;
+    }
+
+    void CreateTypeFrame(HBox hbox)
+    {
+      var frame = new GimpFrame(_("Type"));
       hbox.PackStart(frame, false, false, 0);
 
-      VBox typeBox = new VBox(false, 1);
+      var typeBox = new VBox(false, 1);
       frame.Add(typeBox);
 
       _PlanetRadioButton = CreateRadioButtonInVBox(typeBox, null,
@@ -188,23 +196,35 @@ namespace Gimp.Forge
 
       _NightRadioButton = CreateRadioButtonInVBox(typeBox, _PlanetRadioButton,
           NightRadioButtonEventHandler, _("_Night"));
+    }
 
-      // Random seed
-
-      VBox randomBox = new VBox(false, 1);
+    void CreateRandomSeedEntry(HBox hbox)
+    {
+      var randomBox = new VBox(false, 1);
       hbox.PackStart(randomBox, false, false, 0);
 
-      RandomSeed seed = new RandomSeed(ref _rseed, ref _randomSeed);
+      var seed = new RandomSeed(ref _rseed, ref _randomSeed);
       randomBox.PackStart(seed, false, false, 0);
+    }
 
-      GimpTable table = new GimpTable(4, 6, false)
+    void CreateParametersTable()
+    {
+      var table = new GimpTable(4, 6, false)
 	{ColumnSpacing = 10, RowSpacing = 10};
-      // table.BorderWidth = 10;
-      // Vbox.PackStart(table, false, false, 0);
       Vbox.PackEnd(table);
 
-      // Dimension
+      CreateDimensionEntry(table);
+      CreatePowerEntry(table);
+      CreateGlaciersEntry(table);
+      CreateIceEntry(table);
+      CreateHourEntry(table);
+      CreateInclinationEntry(table);
+      CreateStarPercentageEntry(table);
+      CreateSaturationEntry(table);
+    }
 
+    void CreateDimensionEntry(Table table)
+    {
       _dimensionEntry = new ScaleEntry(table, 0, 0, 
 				       _("_Dimension (0.0 - 3.0):"), 
 				       150, 3, 
@@ -218,9 +238,11 @@ namespace Gimp.Forge
 	  else
 	  dimspec = true;
 	  _fracdim = _dimensionEntry.Value;
-	};
-      
-      // Power
+	}; 
+    }
+
+    void CreatePowerEntry(Table table)
+    {
       _powerEntry = new ScaleEntry(table, 3, 0, _("_Power:"), 
 				   150, 3, 
 				   _powscale, 0.0, Double.MaxValue, 
@@ -234,9 +256,10 @@ namespace Gimp.Forge
             powerspec = true;
 	  _powscale = _powerEntry.Value;
 	};
+    }
 
-      // Glaciers
-
+    void CreateGlaciersEntry(Table table)
+    {
       _glacierEntry = new ScaleEntry(table, 0, 1, _("_Glaciers"), 
 				     150, 3, 
 				     _glaciers, 0.0, Double.MaxValue, 
@@ -248,9 +271,10 @@ namespace Gimp.Forge
 	  _glaciers = _glacierEntry.Value;
 	  InvalidatePreview();
 	};
+    }
 
-      // Ice
-
+    void CreateIceEntry(Table table)
+    {
       _iceEntry = new ScaleEntry(table, 3, 1, _("_Ice"), 
 				 150, 3, 
 				 _icelevel, 0.0, Double.MaxValue, 
@@ -262,9 +286,10 @@ namespace Gimp.Forge
 	  _icelevel = _iceEntry.Value;
 	  InvalidatePreview();
 	};
+    }
 
-      // Hour
-
+    void CreateHourEntry(Table table)
+    {
       _hourEntry = new ScaleEntry(table, 0, 2, _("Ho_ur (0 - 24):"), 
 				  150, 3, 
 				  _hourangle, 0.0, 24.0, 0.1, 1.0, 0,
@@ -275,9 +300,10 @@ namespace Gimp.Forge
 	  _hourangle = _hourEntry.Value;
 	  InvalidatePreview();
 	};
+    }
 
-      // Inclination
-
+    void CreateInclinationEntry(Table table)
+    {
       _inclinationEntry = new ScaleEntry(table, 3, 2, 
 					 _("I_nclination (-90 - 90):"), 
 					 150, 3, 
@@ -289,9 +315,10 @@ namespace Gimp.Forge
 	  _inclangle = _inclinationEntry.Value;  
 	  InvalidatePreview();
 	};
+    }
 
-      // Star percentage
-
+    void CreateStarPercentageEntry(Table table)
+    {
       _starsEntry = new ScaleEntry(table, 0, 3, _("_Stars (0 - 100):"), 
 					150, 3, 
 					_starfraction, 1.0, 100.0, 1.0, 8.0, 0,
@@ -302,9 +329,10 @@ namespace Gimp.Forge
 	  _starfraction = _starsEntry.Value;
 	  InvalidatePreview();
 	};
+    }
 
-      // Saturation
-
+    void CreateSaturationEntry(Table table)
+    {
       _saturationEntry = new ScaleEntry(table, 3, 3, _("Sa_turation:"), 
 					150, 3, 
 					_starcolour, 0.0, Int32.MaxValue, 
@@ -316,8 +344,6 @@ namespace Gimp.Forge
 	  _starcolour = _saturationEntry.Value;
 	  InvalidatePreview();
 	};
-
-      return dialog;
     }
 
     RadioButton CreateRadioButtonInVBox(VBox vbox, 
@@ -435,12 +461,12 @@ namespace Gimp.Forge
     {
       Console.WriteLine("UpdatePreview!");
 
-      Dimensions dimensions = preview.Size;
+      var dimensions = preview.Size;
 
       int width = dimensions.Width;
       int height = dimensions.Height;
 
-      byte[] pixelArray = new byte[width * height * 3];
+      var pixelArray = new byte[width * height * 3];
       RenderForge(null, pixelArray, dimensions);
 
       preview.DrawBuffer(pixelArray, width * 3);
@@ -453,7 +479,7 @@ namespace Gimp.Forge
 
     override protected void Render(Image image, Drawable drawable)
     {
-      Dimensions dimensions = drawable.Dimensions;
+      var dimensions = drawable.Dimensions;
 
       if (dimensions.Width < dimensions.Height)
       {
@@ -860,7 +886,7 @@ namespace Gimp.Forge
 
       if (!_stars) 
 	{
-	  SpectralSynthesis spectrum = new SpectralSynthesis(_random);
+	  var spectrum = new SpectralSynthesis(_random);
 	  a = spectrum.Synthesize(meshsize, 3.0 - _fracdim);
 
 	  // Apply power law scaling if non-unity scale is requested.

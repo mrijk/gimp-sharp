@@ -1,3 +1,13 @@
+2009-11-12  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/Forge/Planet.cs: new file in order to split GUI from
+	calculations in this plug-in
+
+	* plug-ins/Forge/Makefile.am: changed accordingly
+
+	* plug-ins/Forge/Forge.cs
+	* plug-ins/Forge/Complex.cs: minor clean-up
+
 2009-11-11  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* plug-ins/Raindrops/Raindrops.cs

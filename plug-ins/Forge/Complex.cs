@@ -1,5 +1,5 @@
 // The Forge plug-in
-// Copyright (C) 2006-2007 Massimo Perga (massimo.perga@gmail.com)
+// Copyright (C) 2006-2009 Massimo Perga (massimo.perga@gmail.com)
 //
 // Complex.cs
 //
@@ -24,13 +24,13 @@ namespace Gimp.Forge
 {
   struct Complex
   {
-    double _real;
-    double _imag;
+    public double Real {get; set;}
+    public double Imag {get; set;}
 
     public Complex(double real, double imag)
     {
-      _real = real;
-      _imag = imag;
+      Real = real;
+      Imag = imag;
     }
 
     static public Complex FromRadiusPhase(double radius, double phase)
@@ -38,21 +38,9 @@ namespace Gimp.Forge
       return new Complex(radius * Math.Cos(phase), radius * Math.Sin(phase));
     }
 
-    public double Real
-    {
-      get {return _real;}
-      set {_real = value;}
-    }
-
-    public double Imag
-    {
-      get {return _imag;}
-      set {_imag = value;}
-    }
-
     public Complex Conjugate
     {
-      get {return new Complex(_real, -_imag);}
+      get {return new Complex(Real, -Imag);}
     }
   }
 }
