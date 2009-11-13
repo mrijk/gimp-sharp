@@ -12,6 +12,8 @@ MYSOURCES = 			\
 	Forge.cs 		\
 	FourierTransform.cs	\
 	GaussDistribution.cs	\
+	Land.cs			\
+	Mesh.cs			\
 	Planet.cs		\
 	SpectralSynthesis.cs	\
 	StarFactory.cs

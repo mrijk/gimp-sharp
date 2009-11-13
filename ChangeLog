@@ -1,3 +1,12 @@
+2009-11-13  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/Forge/Land.cs
+	* plug-ins/Forge/Mesh.cs: new files
+
+	* plug-ins/Forge/Makefile.am: changed accordingly
+
+	* plug-ins/Forge/Forge.cs: more clean-up
+
 2009-11-12  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* plug-ins/Forge/Planet.cs: new file in order to split GUI from
