@@ -1,3 +1,9 @@
+2009-11-14  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* lib/ProcedureSet.cs
+	* plug-ins/Sky/Sky.cs
+	* plug-ins/Sky/Perlin3D.cs: minor clean-up
+
 2009-11-13  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* plug-ins/Forge/Land.cs

@@ -1,5 +1,5 @@
 // The Sky plug-in
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // Perlin3D.cs
 //
@@ -19,18 +19,17 @@
 //
 
 using System;
+using System.Collections.Generic;
 
 namespace Gimp.Sky
 {
   public class Perlin3D
   {
-    readonly Octave[] _octaves;
+    readonly List<Octave> _octaves = new List<Octave>();
 
     public Perlin3D(int count, double frequency, double persistence,
 		    int seed)
     {
-      _octaves = new Octave[count];
-
       double max = 0.0;
       double amplitude = 1.0;
 
@@ -38,13 +37,12 @@ namespace Gimp.Sky
 	{
 	  max += amplitude;
 	  amplitude *= persistence;
-	}   
-
+	}
       amplitude = 1.0 / max;
 
       for (int i = 0; i < count; i++)
 	{
-	  _octaves[i] = new Octave(seed + i, frequency, amplitude);
+	  _octaves.Add(new Octave(seed + i, frequency, amplitude));
 	  
 	  frequency *= 2.0;
 	  amplitude *= persistence;
@@ -54,17 +52,12 @@ namespace Gimp.Sky
     public Perlin3D(int count, double frequency, double[] amplitudes,
 		    int seed)
     {
-      _octaves = new Octave[count];
-
       double max = 0.0;
-      for (int i = 0; i < count; i++)
-	{
-	  max += amplitudes[i];
-	}
+      Array.ForEach(amplitudes, amplitude => max += amplitude);
 
       for (int i = 0; i < count; i++)
 	{
-	  _octaves[i] = new Octave(seed + i, frequency, amplitudes[i] / max);
+	  _octaves.Add(new Octave(seed + i, frequency, amplitudes[i] / max));
 	  
 	  frequency *= 2.0;
 	}
@@ -72,10 +65,14 @@ namespace Gimp.Sky
 
     public double Get(double x, double y, double z)
     {
+#if true
       double sum = 0.0;
-      foreach (Octave octave in _octaves)
-	sum += octave.Get(x, y, z);
+      _octaves.ForEach(octave => sum += octave.Get(x, y, z));
       return sum;
+#else
+      // next line works, but is somehow a lot slower!
+      return _octaves.Sum(octave => octave.Get(x, y, z));
+#endif
     }
   }
 }

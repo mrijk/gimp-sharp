@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // ProcedureSet.cs
 //
@@ -45,7 +45,7 @@ namespace Gimp
     
     public void Install(bool usesImage, bool usesDrawable)
     {
-      foreach (Procedure procedure in _set.Values)
+      foreach (var procedure in _set.Values)
 	{
 	  procedure.Install(usesImage, usesDrawable);
 	}

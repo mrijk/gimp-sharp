@@ -191,6 +191,8 @@ namespace Gimp.Sky
       sunShow.Toggled += delegate
 	{
 	  _sunShow = sunShow.Active;
+	  sunX.Sensitive = _sunShow;
+	  sunY.Sensitive = _sunShow;
 	  InvalidatePreview();
 	};
       table.Attach(sunShow, 0, 2, 3, 4);
