@@ -1,5 +1,5 @@
 // The Pointillize plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2009 Maurits Rijk
 //
 // ColorCoordinateSet.cs
 //
@@ -26,7 +26,7 @@ namespace Gimp.Pointillize
 {
   public class ColorCoordinateSet : CoordinateList<int>
   {
-    readonly int _cellSize;
+    readonly int _cellSize2;
     readonly int _width;
     readonly int _height;
     readonly int _matrixRows;
@@ -38,7 +38,7 @@ namespace Gimp.Pointillize
 
     public ColorCoordinateSet(Drawable drawable, int cellSize)
     {
-      _cellSize = cellSize;
+      _cellSize2 = cellSize * cellSize;
 
       _backgroundColor = new Pixel(Context.Background.Bytes);
 
@@ -47,7 +47,7 @@ namespace Gimp.Pointillize
       _width = drawable.Width;
       _height = drawable.Height;
       
-      int nrOfCells = (int) (2.5 * _width * _height / (_cellSize * _cellSize));
+      int nrOfCells = (int) (2.5 * _width * _height / _cellSize2);
 
       _matrixColumns = (int) Math.Sqrt(nrOfCells * _width / 8.0 / _height);
       _matrixRows = _matrixColumns * _height / _width;
@@ -57,9 +57,8 @@ namespace Gimp.Pointillize
       
       _matrix = new List<ColorCoordinate>[_matrixRows, _matrixColumns];
 
-      foreach (Coordinate<int> c in 
-	       new RandomCoordinateGenerator(_width - 1, _height - 1, 
-					     nrOfCells))
+      foreach (var c in new RandomCoordinateGenerator(_width - 1, _height - 1, 
+						      nrOfCells))
 	{
 	  int x = c.X;
 	  int y = c.Y;
@@ -100,7 +99,7 @@ namespace Gimp.Pointillize
 	  return;
 	}
       
-      if (coordinate.Distance(x, y) < _cellSize * _cellSize / 4)
+      if (coordinate.Distance(x, y) < _cellSize2 / 4)
 	{
 	  Add(row, col, coordinate);
 	}
@@ -140,8 +139,7 @@ namespace Gimp.Pointillize
 	    }
 	});
 
-      return distance < _cellSize * _cellSize / 4
-	? closest.Color : _backgroundColor;
+      return distance < _cellSize2 / 4 ? closest.Color : _backgroundColor;
     }
   }
 }

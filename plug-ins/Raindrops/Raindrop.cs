@@ -45,7 +45,7 @@ namespace Gimp.Raindrops
     public void Render(BoolMatrix boolMatrix, PixelFetcher pf, 
 		       Drawable drawable)
     {
-      Dimensions dimensions = drawable.Dimensions;
+      var dimensions = drawable.Dimensions;
       RenderDrop(boolMatrix, pf, dimensions);
       RenderShadow(boolMatrix, pf, drawable, dimensions);
     }
@@ -57,9 +57,9 @@ namespace Gimp.Raindrops
       int y0 = -_radius;
       int x1 = _newSize - _radius;
       int y1 = _newSize - _radius;
-      Rectangle rectangle = new Rectangle(x0, y0, x1, y1);
+      var rectangle = new Rectangle(x0, y0, x1, y1);
 
-      foreach (IntCoordinate c in new CoordinateGenerator(rectangle))
+      foreach (var c in new CoordinateGenerator(rectangle))
 	{
 	  double r = c.Radius;
 	  double a = c.Angle;
@@ -79,7 +79,7 @@ namespace Gimp.Raindrops
 		{
 		  boolMatrix[n, m] = true;
 		  
-		  Pixel newColor = pf[l, k] + GetBright(oldRadius, a);
+		  var newColor = pf[l, k] + GetBright(oldRadius, a);
 		  newColor.Clamp0255();
 		  pf[l, k] = newColor;
 		}
@@ -96,15 +96,13 @@ namespace Gimp.Raindrops
       int y0 = x0;
       int x1 = _newSize - _radius + blurRadius;
       int y1 = x1;
-      Rectangle rectangle = new Rectangle(x0, y0, x1, y1);
+      var rectangle = new Rectangle(x0, y0, x1, y1);
 
-      foreach (IntCoordinate c in new CoordinateGenerator(rectangle))
+      foreach (var c in new CoordinateGenerator(rectangle))
 	{
-	  double r = c.Radius;
-
-	  if (r <= _radius * 1.1)
+	  if (c.Radius <= _radius * 1.1)
 	    {
-	      Pixel average = drawable.CreatePixel();
+	      var average = drawable.CreatePixel();
 	      int blurPixels = 0;
 	      int m, n;
 

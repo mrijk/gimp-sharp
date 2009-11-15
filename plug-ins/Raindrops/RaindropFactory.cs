@@ -27,8 +27,8 @@ namespace Gimp.Raindrops
   {
     readonly Random _random = new Random();
     public BoolMatrix BoolMatrix {get; private set;}
-    int _dropSize;
-    double _newCoeff;
+    readonly int _dropSize;
+    readonly double _newCoeff;
 
     public RaindropFactory(int dropSize, int fishEye, Dimensions dimensions)
     {
@@ -43,7 +43,7 @@ namespace Gimp.Raindrops
       int radius = size / 2;
 
       bool failed;
-      Coordinate<int> center = BoolMatrix.Generate(radius, out failed);
+      var center = BoolMatrix.Generate(radius, out failed);
       return (failed) ? null : new Raindrop(center, size, _newCoeff);
     }
 

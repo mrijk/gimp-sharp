@@ -1,3 +1,10 @@
+2009-11-15  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/Pointillize/ColorCoordinateSet.cs
+	* plug-ins/Raindrops/RaindropFactory.cs
+	* plug-ins/Raindrops/Raindrops.cs
+	* plug-ins/Raindrops/Raindrop.cs: minor clean-up
+
 2009-11-14  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* lib/ProcedureSet.cs

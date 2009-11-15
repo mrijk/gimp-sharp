@@ -74,18 +74,18 @@ namespace Gimp.Raindrops
     {
       gimp_ui_init("Raindrops", true);
 
-      GimpDialog dialog = DialogNew(_("Raindrops 0.1"), _("Raindrops"),
-				    IntPtr.Zero, 0, Gimp.StandardHelpFunc,
-				    _("Raindrops"));
+      var dialog = DialogNew(_("Raindrops 0.1"), _("Raindrops"),
+			     IntPtr.Zero, 0, Gimp.StandardHelpFunc,
+			     _("Raindrops"));
 
-      VBox vbox = new VBox(false, 12) {BorderWidth = 12};
+      var vbox = new VBox(false, 12) {BorderWidth = 12};
       dialog.VBox.PackStart(vbox, true, true, 0);
 
       _preview = new DrawablePreview(_drawable, false);
       _preview.Invalidated += UpdatePreview;
       vbox.PackStart(_preview, true, true, 0);
 
-      GimpTable table = new GimpTable(2, 2, false)
+      var table = new GimpTable(2, 2, false)
 	{ColumnSpacing = 6, RowSpacing = 6};
       vbox.PackStart(table, false, false, 0);
 
@@ -139,10 +139,10 @@ namespace Gimp.Raindrops
     {
       // Fix me: it's probably better to just create a new Drawable iso
       // a completely new image!
-      Image clone = new Image(_image);
+      var clone = new Image(_image);
       clone.Crop(_preview.Bounds);
 
-      Drawable drawable = clone.ActiveDrawable;
+      var drawable = clone.ActiveDrawable;
       RenderRaindrops(clone, drawable, true);
       _preview.Redraw(drawable);
       clone.Delete();
