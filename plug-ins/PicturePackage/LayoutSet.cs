@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // LayoutSet.cs
 //
@@ -36,11 +36,11 @@ namespace Gimp.PicturePackage
 
     public void Load()
     {
-      XmlDocument doc = new XmlDocument();
+      var doc = new XmlDocument();
 
-      Assembly myAssembly = Assembly.GetExecutingAssembly();
-      Stream myStream = 
-      	myAssembly.GetManifestResourceStream("picture-package.xml");
+      var myAssembly = Assembly.GetExecutingAssembly();
+      var myStream = 
+	myAssembly.GetManifestResourceStream("picture-package.xml");
       doc.Load(myStream);
       LoadXmlDocument(doc);
 
@@ -60,9 +60,9 @@ namespace Gimp.PicturePackage
     
     void LoadXmlDocument(XmlDocument doc)
     {
-      XmlElement root = doc.DocumentElement;
+      var root = doc.DocumentElement;
 
-      XmlNodeList nodeList = root.SelectNodes("/picture-package/layout");
+      var nodeList = root.SelectNodes("/picture-package/layout");
 
       foreach (XmlNode layout in nodeList)
 	{
@@ -108,14 +108,14 @@ namespace Gimp.PicturePackage
 
     public PageSizeSet GetPageSizeSet(int resolution)
     {
-      PageSizeSet set = new PageSizeSet();
+      var set = new PageSizeSet();
       _set.ForEach(layout => set.Add(layout.GetPageSize(resolution)));
       return set;
     }
 
     public LayoutSet GetLayouts(PageSize pageSize, int resolution)
     {
-      LayoutSet set = new LayoutSet();
+      var set = new LayoutSet();
 
       foreach (Layout layout in _set)
 	{

@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2007 Maurits Rijk, Massimo Perga
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // Rectangle.cs
 //
@@ -35,7 +35,7 @@ namespace Gimp.PicturePackage
 
     public Rectangle(XmlNode node)
     {
-      XmlAttributeCollection attributes = node.Attributes;
+      var attributes = node.Attributes;
       _x = GetAttribute(attributes, "x");
       _y = GetAttribute(attributes, "y");
       _w = GetAttribute(attributes, "width");
@@ -44,7 +44,7 @@ namespace Gimp.PicturePackage
 
     double GetAttribute(XmlAttributeCollection attributes, string name)
     {
-      XmlAttribute val = (XmlAttribute) attributes.GetNamedItem(name);
+      var val = (XmlAttribute) attributes.GetNamedItem(name);
       return (val == null) ? 0 : Convert.ToDouble(val.Value, _cultureInfo);
     }
 

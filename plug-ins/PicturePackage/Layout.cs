@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // Layout.cs
 //
@@ -35,20 +35,20 @@ namespace Gimp.PicturePackage
 
     public Layout(XmlNode node)
     {
-      CultureInfo cultureInfo = new CultureInfo("en-US");
-      XmlAttributeCollection attributes = node.Attributes;
-      XmlAttribute name = (XmlAttribute) attributes.GetNamedItem("name");
+      var cultureInfo = new CultureInfo("en-US");
+      var attributes = node.Attributes;
+      var name = (XmlAttribute) attributes.GetNamedItem("name");
       Name = name.Value;
 
-      XmlAttribute width = (XmlAttribute) attributes.GetNamedItem("width");
+      var width = (XmlAttribute) attributes.GetNamedItem("width");
       _width = (width == null) ? 0 : Convert.ToDouble(width.Value,
 						      cultureInfo);
 
-      XmlAttribute height = (XmlAttribute) attributes.GetNamedItem("height");
+      var height = (XmlAttribute) attributes.GetNamedItem("height");
       _height = (height == null) ? 0 : Convert.ToDouble(height.Value,
 							cultureInfo);
 
-      XmlAttribute units = (XmlAttribute) attributes.GetNamedItem("units");
+      var units = (XmlAttribute) attributes.GetNamedItem("units");
       if (units == null)
 	{
 	  Unit = Unit.Inch;
@@ -65,7 +65,7 @@ namespace Gimp.PicturePackage
 	    }
 	}
 	  
-      XmlNodeList nodeList = node.SelectNodes("picture");
+      var nodeList = node.SelectNodes("picture");
       foreach (XmlNode rectangle in nodeList)
 	{
 	  Add(new Rectangle(rectangle));

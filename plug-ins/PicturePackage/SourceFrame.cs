@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // SourceFrame.cs
 //
@@ -40,37 +40,26 @@ namespace Gimp.PicturePackage
     {
       _parent = parent;
 
-      _table.ColumnSpacing = 12;
+      Table.ColumnSpacing = 12;
 
-      RadioButton button = new RadioButton(_("_Image"));
-      button.Clicked += OnImageClicked;
-      Attach(button, 0, 1, 0, 1);
+      var imageButton = CreateImageButton();
+      Attach(imageButton, 0, 1, 0, 1);
 
-      HBox hbox = new HBox();
+      var hbox = new HBox();
       Attach(hbox, 1, 2, 0, 1);
 
-      _imageBox = new ImageComboBox();
-      _imageBox.Changed += OnImageChanged;
+      _imageBox = CreateImageComboBox();
       hbox.Add(_imageBox);
-
-      _refresh = new Button();
-      Gtk.Image image = new Gtk.Image(Stock.Refresh, IconSize.Button);
-      _refresh.Add(image);
-      _refresh.Clicked += OnRefreshClicked;
+      _refresh = CreateRefreshButton();
       hbox.PackEnd(_refresh, false, false, 0);
 
-      button = new RadioButton(button, _("_File"));
-      button.Clicked += OnFileClicked;
-      Attach(button, 0, 1, 1, 2);
+      var fileButton = CreateFileButton(imageButton);
+      Attach(fileButton, 0, 1, 1, 2);
 
-      button = new RadioButton(button, _("Fol_der"));
-      button.Clicked += OnFolderClicked;
-      Attach(button, 0, 1, 2, 3);
+      var folderButton = CreateFolderButton(fileButton);
+      Attach(folderButton, 0, 1, 2, 3);
 
-      _include = new CheckButton(_("_Include All Subfolders"));
-      _include.Active = _recursive;
-      _include.Sensitive = false;
-      _include.Toggled += OnIncludeToggled;
+      _include = CreateIncludeToggleButton();
       Attach(_include, 1, 2, 2, 3);
 
       SetFileEntry(false);
@@ -100,59 +89,88 @@ namespace Gimp.PicturePackage
 	}
 
       _choose.Show();
-      _table.Attach(_choose, 1, 2, 1, 2, AttachOptions.Shrink,
-		    AttachOptions.Fill, 0, 0);	
+      Table.Attach(_choose, 1, 2, 1, 2, AttachOptions.Shrink,
+		   AttachOptions.Fill, 0, 0);	
     }
 
-    void OnImageChanged (object o, EventArgs args) 
+    ImageComboBox CreateImageComboBox()
     {
-      _parent.Loader = new FrontImageProviderFactory(_imageBox.Active);
+      var imageBox = new ImageComboBox();
+      imageBox.Changed += delegate
+	{
+	  _parent.Loader = new FrontImageProviderFactory(imageBox.Active);
+	};
+      return imageBox;
     }
 
-    void OnImageClicked (object o, EventArgs args) 
+    RadioButton CreateImageButton()
     {
-      _parent.Loader = new FrontImageProviderFactory(_imageBox.Active);
-      _imageBox.Sensitive = true;
-      _refresh.Sensitive = true;
-      _include.Sensitive = false;
-      _choose.Sensitive = false;
+      var button = new RadioButton(_("_Image"));
+      button.Clicked += delegate
+	{
+	  _parent.Loader = new FrontImageProviderFactory(_imageBox.Active);
+	  _imageBox.Sensitive = true;
+	  _refresh.Sensitive = true;
+	  _include.Sensitive = false;
+	  _choose.Sensitive = false;
+	};
+      return button;
     }
 
-    void OnRefreshClicked (object o, EventArgs args) 
+    Button CreateRefreshButton()
     {
-      HBox hbox = _imageBox.Parent as HBox;
-      _imageBox.Destroy();
-      _imageBox = new ImageComboBox();
-      _imageBox.Changed += new EventHandler(OnImageChanged);
-      hbox.Add(_imageBox);
-      _imageBox.Show();
-      _parent.Loader = new FrontImageProviderFactory(_imageBox.Active);
+      var refresh = new Button();
+      var image = new Gtk.Image(Stock.Refresh, IconSize.Button);
+      refresh.Add(image);
+      refresh.Clicked += delegate
+	{
+	  var hbox = _imageBox.Parent as HBox;
+	  _imageBox.Destroy();
+	  _imageBox = CreateImageComboBox();
+	  hbox.Add(_imageBox);
+	  _imageBox.Show();
+	  _parent.Loader = new FrontImageProviderFactory(_imageBox.Active);
+	};
+      return refresh;
     }
 
-    void OnFileClicked (object o, EventArgs args) 
+    RadioButton CreateFileButton(RadioButton previous)
     {
-      SetFileEntry(false);
-      _imageBox.Sensitive = false;
-      _refresh.Sensitive = false;
-      _include.Sensitive = false;
-      _choose.Sensitive = true;
+      var button = new RadioButton(previous, _("_File"));
+      button.Clicked += delegate
+	{
+	  SetFileEntry(false);
+	  _imageBox.Sensitive = false;
+	  _refresh.Sensitive = false;
+	  _include.Sensitive = false;
+	  _choose.Sensitive = true;
+	};
+      return button;
     }
 
-    void OnFolderClicked (object o, EventArgs args) 
+    RadioButton CreateFolderButton(RadioButton previous)
     {
-      SetFileEntry(true);
-      _imageBox.Sensitive = false;
-      _refresh.Sensitive = false;
-      _include.Sensitive = true;
-      _choose.Sensitive = true;
+      var button = new RadioButton(previous, _("Fol_der"));
+      button.Clicked += delegate 
+	{
+	  SetFileEntry(true);
+	  _imageBox.Sensitive = false;
+	  _refresh.Sensitive = false;
+	  _include.Sensitive = true;
+	  _choose.Sensitive = true;
+	};
+      return button;
     }
 
-    void OnIncludeToggled (object o, EventArgs args) 
+    CheckButton CreateIncludeToggleButton()
     {
-      _recursive = (o as CheckButton).Active;
+      var include = new CheckButton(_("_Include All Subfolders"))
+	{Active = _recursive, Sensitive = false};
+      include.Toggled += delegate {_recursive = include.Active;};
+      return include;
     }
 
-    void OnFileNameChanged (object o, EventArgs args) 
+    void OnFileNameChanged(object o, EventArgs args) 
     {
       _fileName = _choose.Filename;
       if (_fileName.Length > 0)
@@ -161,7 +179,7 @@ namespace Gimp.PicturePackage
 	}
     }
 
-    void OnDirNameChanged (object o, EventArgs args) 
+    void OnDirNameChanged(object o, EventArgs args) 
     {
       _directory = _choose.Filename;
       if (_directory.Length > 0)

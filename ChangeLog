@@ -1,3 +1,14 @@
+2009-11-19  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/PicturePackage/LayoutSet.cs
+	* plug-ins/PicturePackage/Layout.cs
+	* plug-ins/PicturePackage/PreviewRenderer.cs
+	* plug-ins/PicturePackage/Rectangle.cs
+	* plug-ins/PicturePackage/PicturePackageFrame.cs
+	* plug-ins/PicturePackage/SourceFrame.cs: minor clean-up
+
+	* INSTALL: updated
+
 2009-11-15  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* plug-ins/Pointillize/ColorCoordinateSet.cs

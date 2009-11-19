@@ -26,14 +26,14 @@ namespace Gimp.PicturePackage
 {
   public class PicturePackageFrame : GimpFrame
   {
-    protected GimpTable _table;
+    protected GimpTable Table {get; set;}
 
     protected PicturePackageFrame(uint rows, uint columns, string label) : 
       base(label)
     {
-      _table = new GimpTable(rows, columns, false) {
+      Table = new GimpTable(rows, columns, false) {
 	ColumnSpacing = 6, RowSpacing = 6};
-      Add(_table);
+      Add(Table);
     }
 
     protected ComboBox CreateComboBox(params string[] items)
@@ -48,15 +48,15 @@ namespace Gimp.PicturePackage
     protected void Attach(Widget widget, uint leftAttach, uint rightAttach, 
 			  uint topAttach, uint bottomAttach)
     {
-      _table.Attach(widget, leftAttach, rightAttach, topAttach, bottomAttach);
+      Table.Attach(widget, leftAttach, rightAttach, topAttach, bottomAttach);
     }
 
     protected void AttachAligned(int column, int row, string labelText,
 				 double xalign, double yalign, Widget widget,
 				 int colspan, bool leftAlign)
     {
-      _table.AttachAligned(column, row, labelText, xalign, yalign, widget,
-			   colspan, leftAlign);
+      Table.AttachAligned(column, row, labelText, xalign, yalign, widget,
+			  colspan, leftAlign);
     }
   }
 }

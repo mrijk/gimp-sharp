@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // PreviewRenderer.cs
 //
@@ -67,14 +67,14 @@ namespace Gimp.PicturePackage
       _pixmap.DrawRectangle (_gc, false, ix, iy, iw, ih);
       _pixmap.DrawRectangle (_gc, true, ix, iy, iw, ih);
 
-      Image clone = RotateAndScale(image, w, h);
+      var clone = RotateAndScale(image, w, h);
       int tw = clone.Width;
       int th = clone.Height;
 
       ix += (iw - tw) / 2;
       iy += (ih - th) / 2;
 
-      Pixbuf pixbuf = clone.GetThumbnail(tw, th, Transparency.KeepAlpha);
+      var pixbuf = clone.GetThumbnail(tw, th, Transparency.KeepAlpha);
 
       pixbuf.RenderToDrawable(_pixmap, _gc, 0, 0, ix, iy, -1, -1, 
 			      RgbDither.Normal, 0, 0);
