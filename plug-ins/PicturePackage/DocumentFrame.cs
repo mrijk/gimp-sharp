@@ -55,7 +55,6 @@ namespace Gimp.PicturePackage
       _size.Changed += delegate
 	{
 	  _layoutSet = layoutSet.GetLayouts(_sizes[_size.Active], _resolution);
-	  Console.WriteLine("----> " + _size.Active);
 	  FillLayoutMenu(_layoutSet);
 	};
       AttachAligned(0, 0, _("_Page Size:"), 0.0, 0.5, _size, 2, false);
@@ -66,7 +65,12 @@ namespace Gimp.PicturePackage
       _layout = ComboBox.NewText();
       FillLayoutMenu(_layoutSet);
       _layout.Changed += delegate
-	{layoutSet.Selected = _layoutSet[_layout.Active];};
+	{
+	  if (_layout.Active >= 0)
+	  {
+	    layoutSet.Selected = _layoutSet[_layout.Active];
+	  }
+	};
       AttachAligned(0, 1, _("_Layout:"), 0.0, 0.5, _layout, 2, false);
     }
 
@@ -107,17 +111,19 @@ namespace Gimp.PicturePackage
       (_size.Model as ListStore).Clear();
 
       _sizes = layoutSet.GetPageSizeSet(_resolution);
-      _sizes.ForEach(size => 
-		  _size.AppendText(String.Format("{0,1:f1} x {1,1:f1} inches", 
-						 size.Width, size.Height)));
+      _sizes.ForEach(size => AppendPageSizeEntry(size));
       _size.Active = 0;
+    }
+
+    void AppendPageSizeEntry(PageSize size)
+    {
+      _size.AppendText(String.Format("{0,1:f1} x {1,1:f1} inches", 
+				     size.Width, size.Height));
     }
 
     void FillLayoutMenu(LayoutSet layoutSet)
     {
-      Console.WriteLine("one");
       (_layout.Model as ListStore).Clear();
-      Console.WriteLine("two");
       layoutSet.ForEach(layout => _layout.AppendText(layout.Name));
       _layout.Active = 0;
     }

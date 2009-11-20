@@ -40,7 +40,7 @@ namespace Gimp.PicturePackage
 
     public int CompareTo(object obj)
     {
-      PageSize size = obj as PageSize;
+      var size = obj as PageSize;
       int result = Width.CompareTo(size.Width);
       return (result == 0) ? Height.CompareTo(size.Height) : result;
     }

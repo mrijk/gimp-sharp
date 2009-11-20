@@ -62,12 +62,8 @@ namespace Gimp.PicturePackage
     {
       var root = doc.DocumentElement;
 
-      var nodeList = root.SelectNodes("/picture-package/layout");
-
-      foreach (XmlNode layout in nodeList)
-	{
-	  Add(new Layout(layout));
-	}
+      var layouts = root.SelectNodes("/picture-package/layout");
+      layouts.ForEach(layout => Add(new Layout(layout)));
     }
 
     public void Add(Layout layout)
@@ -75,11 +71,6 @@ namespace Gimp.PicturePackage
       _set.Add(layout);
     }
 
-    public IEnumerator<Layout> GetEnumerator()
-    {
-      return _set.GetEnumerator();
-    }
-    
     public void ForEach(Action<Layout> action)
     {
       _set.ForEach(action);
@@ -109,7 +100,7 @@ namespace Gimp.PicturePackage
     public PageSizeSet GetPageSizeSet(int resolution)
     {
       var set = new PageSizeSet();
-      _set.ForEach(layout => set.Add(layout.GetPageSize(resolution)));
+      ForEach(layout => set.Add(layout.GetPageSize(resolution)));
       return set;
     }
 

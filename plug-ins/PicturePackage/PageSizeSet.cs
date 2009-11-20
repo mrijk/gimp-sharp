@@ -19,7 +19,6 @@
 //
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace Gimp.PicturePackage
@@ -35,11 +34,6 @@ namespace Gimp.PicturePackage
 	{
 	  _set.Insert(-index - 1, size);
 	}
-    }
-
-    public IEnumerator GetEnumerator()
-    {
-      return _set.GetEnumerator();
     }
 
     public PageSize this[int index]

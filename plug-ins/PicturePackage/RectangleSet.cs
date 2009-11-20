@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2009 Maurits Rijk, Massimo Perga
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // RectangleSet.cs
 //
@@ -19,7 +19,6 @@
 //
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace Gimp.PicturePackage
@@ -30,11 +29,6 @@ namespace Gimp.PicturePackage
 
     public RectangleSet()
     {
-    }
-
-    public IEnumerator<Rectangle> GetEnumerator()
-    {
-      return _set.GetEnumerator();
     }
 
     public void Add(Rectangle rectangle)
@@ -56,39 +50,46 @@ namespace Gimp.PicturePackage
     {
       bool retVal = false;
       factory.Reset();
-      foreach (Rectangle rectangle in _set)
-	{
-	  var provider = rectangle.Provider;
-
-	  if (provider == null)
-	    {
-	      provider = factory.Provide();
-	      if (provider == null)
-		{
-		  break;
-		}
-	      var image = provider.GetImage();
-	      if (image == null)
-		{
-//		  Console.WriteLine("Couldn't load image!");
-		}
-	      else
-		{
-		  rectangle.Render(image, renderer);
-		  retVal = true;
-		}
-	      factory.Cleanup(provider);
-	    }
-	  else
-	    {
-	      rectangle.Render(provider.GetImage(), renderer);
-	      provider.Release();
-	      retVal = true;
-	    }
-	}
+      _set.ForEach(rectangle => 
+		   retVal |= RenderRectangle(factory, renderer, rectangle));
       factory.Cleanup();
       renderer.Cleanup();
       return retVal;
+    }
+
+    bool RenderRectangle(ProviderFactory factory, Renderer renderer, 
+			 Rectangle rectangle)
+    {
+      bool renderedSomething = false;
+
+      var provider = rectangle.Provider;
+
+      if (provider == null)
+	{
+	  provider = factory.Provide();
+	  if (provider == null)
+	    {
+	      return false;
+	    }
+	  var image = provider.GetImage();
+	  if (image == null)
+	    {
+	      // Console.WriteLine("Couldn't load image!");
+	    }
+	  else
+	    {
+	      rectangle.Render(image, renderer);
+	      renderedSomething = true;
+	    }
+	  factory.Cleanup(provider);
+	}
+      else
+	{
+	  rectangle.Render(provider.GetImage(), renderer);
+	  provider.Release();
+	  renderedSomething = true;
+	}
+      return renderedSomething;
     }
 
     public int Count

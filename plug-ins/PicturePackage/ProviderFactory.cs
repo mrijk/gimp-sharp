@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // ProviderFactory.cs
 //
@@ -22,10 +22,6 @@ namespace Gimp.PicturePackage
 {
   abstract public class ProviderFactory
   {
-    public ProviderFactory()
-    {
-    }
-
     public virtual void Reset() {}
     public abstract ImageProvider Provide();
     public virtual void Cleanup(ImageProvider provider){}

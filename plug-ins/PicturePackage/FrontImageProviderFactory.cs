@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // FrontImageProviderFactory.cs
 //
@@ -18,13 +18,11 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-
 namespace Gimp.PicturePackage
 {
   public class FrontImageProviderFactory : ProviderFactory
   {
-    ImageProvider _provider;
+    readonly ImageProvider _provider;
     
     public FrontImageProviderFactory(Image image)
     {

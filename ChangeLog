@@ -1,3 +1,20 @@
+2009-11-20  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/PicturePackage/DocumentFrame.cs: fixed crash
+
+	* plug-ins/PicturePackage/FrontImageProvider.cs
+	* plug-ins/PicturePackage/ProviderFactory.cs
+	* plug-ins/PicturePackage/FrontImageProviderFactory.cs
+	* plug-ins/PicturePackage/PageSizeSet.cs
+	* plug-ins/PicturePackage/RectangleSet.cs: minor clean-up
+	
+	* plug-ins/PicturePackage/LayoutSet.cs
+	* plug-ins/PicturePackage/Layout.cs: use XmlNodeListExtensions
+
+	* plug-ins/PicturePackage/XmlNodeListExtensions.cs: new file
+
+	* plug-ins/PicturePackage/Makefile.am: changed accordingly
+	
 2009-11-19  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* plug-ins/PicturePackage/LayoutSet.cs

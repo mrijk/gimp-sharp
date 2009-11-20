@@ -30,6 +30,7 @@ namespace Gimp.PicturePackage
 
     public DirImageProviderFactory(string parent, bool recursive)
     {
+      // TODO: recursive not used yet!
       _files = Directory.GetFiles(parent);
     }
 

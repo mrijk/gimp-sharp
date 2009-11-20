@@ -66,10 +66,7 @@ namespace Gimp.PicturePackage
 	}
 	  
       var nodeList = node.SelectNodes("picture");
-      foreach (XmlNode rectangle in nodeList)
-	{
-	  Add(new Rectangle(rectangle));
-	}
+      nodeList.ForEach(rectangle => Add(new Rectangle(rectangle)));
     }
 
     public void Add(Rectangle rectangle)
