@@ -20,10 +20,7 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using Gtk;
-
-using ICSharpCode.SharpZipLib.Zip;
 
 namespace Gimp.JavaFX
 {
@@ -72,7 +69,7 @@ namespace Gimp.JavaFX
 
     override protected void Render(Image image, Drawable drawable)
     {
-      ZipWriter writer = new ZipWriter(image);
+      var writer = new ZipWriter(image);
       writer.CreateFxz();
     }
   }

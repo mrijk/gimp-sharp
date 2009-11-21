@@ -1,3 +1,25 @@
+2009-11-22  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/JavaFX/ZipWriter.cs
+	* plug-ins/JavaFX/JavaFX.cs: minor clean-up
+
+	* plug-ins/Fragment/Fragment.cs: minor clean-up
+
+	* plug-ins/Splitter/Splitter.cs: minor clean-up
+
+2009-11-21  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/Splitter/Splitter.cs: minor clean-up
+
+	* plug-ins/Mezzotint/Mezzotint.cs: minor clean-up
+
+	* plug-ins/Shatter/Shatter.cs
+	* plug-ins/Shatter/ShardSet.cs
+	* plug-ins/Shatter/Shard.cs: minor clean-up
+
+	* plug-ins/Raindrops/Raindrop.cs
+	* plug-ins/Raindrops/BoolMatrix.cs: minor clean-up
+
 2009-11-20  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* plug-ins/PicturePackage/DocumentFrame.cs: fixed crash

@@ -19,9 +19,7 @@
 //
 
 using System;
-using System.Collections.Generic;
 using System.IO;
-using Gtk;
 
 using ICSharpCode.SharpZipLib.Zip;
 
@@ -43,7 +41,7 @@ namespace Gimp.JavaFX
 
     public void CreateFxz()
     {
-      using (ZipOutputStream zipStream = 
+      using (var zipStream = 
 	     new ZipOutputStream(File.Create(GetTemporaryDirectory() + 
 					     "foo.fxz"))) {
 	_zipStream = zipStream;
@@ -53,7 +51,7 @@ namespace Gimp.JavaFX
 	string filename = "content.fxd";
 	string fullpath = GetFullPath(filename);
 
-	FileStream ms = File.Create(fullpath);
+	var ms = File.Create(fullpath);
 	_streamWriter = new StreamWriter(ms);
 
 	WriteContent();
@@ -84,8 +82,7 @@ namespace Gimp.JavaFX
 
     void CreateZipEntry(string filename)
     {
-      ZipEntry entry = new ZipEntry(filename);
-      entry.DateTime = DateTime.Now;
+      var entry = new ZipEntry(filename) {DateTime = DateTime.Now};
       _zipStream.PutNextEntry(entry);
     }
 
@@ -157,7 +154,7 @@ namespace Gimp.JavaFX
     void AddFileToZip(string fullpath)
     {
       Console.WriteLine("Path: " + fullpath);
-      using (FileStream fs = File.OpenRead(fullpath)) {
+      using (var fs = File.OpenRead(fullpath)) {
 	CopyToZipStream(fs);
 	fs.Close();
       }
@@ -165,7 +162,7 @@ namespace Gimp.JavaFX
 
     void CopyToZipStream(Stream stream)
     {
-	byte[] buffer = new byte[4096];
+	var buffer = new byte[4096];
 	int sourceBytes;
 	do {
 	  sourceBytes = stream.Read(buffer, 0, buffer.Length);

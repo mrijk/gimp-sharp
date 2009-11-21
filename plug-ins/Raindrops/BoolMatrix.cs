@@ -21,8 +21,6 @@
 using System;
 using System.Collections.Generic;
 
-using Gtk;
-
 namespace Gimp.Raindrops
 {
   public class BoolMatrix
@@ -46,7 +44,7 @@ namespace Gimp.Raindrops
       get {return _matrix[row, col];}
     }
 
-    public Coordinate<int> Generate(int radius, out bool failed)
+    public IntCoordinate Generate(int radius, out bool failed)
     {
       int tries = 0;
       
@@ -81,7 +79,7 @@ namespace Gimp.Raindrops
 	  if (!findAnother)
 	    {
 	      failed = false;
-	      return new Coordinate<int>(x, y);
+	      return new IntCoordinate(x, y);
 	    }
 	  else if (++tries >= 10000)
 	    {

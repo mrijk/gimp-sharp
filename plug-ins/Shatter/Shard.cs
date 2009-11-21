@@ -1,5 +1,5 @@
 // The Shatter plug-in
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // Shard.cs
 //
@@ -25,7 +25,7 @@ namespace Gimp.Shatter
   public class Shard
   {
     static Random _random = new Random();
-    Coord _ul, _ur, _ll, _lr;
+    readonly Coord _ul, _ur, _ll, _lr;
 
     public Shard(Coord ul, Coord ur, Coord ll, Coord lr)
     {
@@ -43,15 +43,15 @@ namespace Gimp.Shatter
 
       if (horizontal)
 	{
-	  Coord c1 = Coord.PointInBetween(_ul, _ll, _random.NextDouble());
-	  Coord c2 = Coord.PointInBetween(_ur, _lr, _random.NextDouble());
+	  var c1 = Coord.PointInBetween(_ul, _ll, _random.NextDouble());
+	  var c2 = Coord.PointInBetween(_ur, _lr, _random.NextDouble());
 	  s1 = new Shard(_ul, _ur, c1, c2);
 	  s2 = new Shard(c1, c2, _ll, _lr);
 	}
       else
 	{
-	  Coord c1 = Coord.PointInBetween(_ul, _ur, _random.NextDouble());
-	  Coord c2 = Coord.PointInBetween(_ll, _lr, _random.NextDouble());
+	  var c1 = Coord.PointInBetween(_ul, _ur, _random.NextDouble());
+	  var c2 = Coord.PointInBetween(_ll, _lr, _random.NextDouble());
 	  s1 = new Shard(_ul, c1, _ll, c2);
 	  s2 = new Shard(c1, _ur, c2, _lr);
 	}		
@@ -59,7 +59,7 @@ namespace Gimp.Shatter
 
     public CoordinateList<double> GetValues()
     {
-      CoordinateList<double> list = new CoordinateList<double>();
+      var list = new CoordinateList<double>();
 
       list.Add(_ul);
       list.Add(_ur);

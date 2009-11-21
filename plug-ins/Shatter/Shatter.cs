@@ -1,5 +1,5 @@
 // The Shatter plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2009 Maurits Rijk
 //
 // Shatter.cs
 //
@@ -41,38 +41,37 @@ namespace Gimp.Shatter
 
     override protected IEnumerable<Procedure> ListProcedures()
     {
-      ParamDefList inParams = new ParamDefList();
-      inParams.Add(new ParamDef("pieces", 4, typeof(int), "Number of shards"));
+      var inParams = new ParamDefList() {
+	new ParamDef("pieces", 4, typeof(int), "Number of shards")};
 
-      Procedure procedure = new Procedure("plug_in_shatter",
-					  _("Shatter an image"),
-					  _("Shatter an image"),
-					  "Maurits Rijk",
-					  "(C) Maurits Rijk",
-					  "2006-2007",
-					  _("Shatter..."),
-					  "RGB*, GRAY*",
-					  inParams);
-      procedure.MenuPath = "<Image>/Filters/Distorts";
-      procedure.IconFile = "Shatter.png";
-
-      yield return procedure;
+      yield return new Procedure("plug_in_shatter",
+				 _("Shatter an image"),
+				 _("Shatter an image"),
+				 "Maurits Rijk",
+				 "(C) Maurits Rijk",
+				 "2006-2009",
+				 _("Shatter..."),
+				 "RGB*, GRAY*",
+				 inParams)
+	{
+	  MenuPath = "<Image>/Filters/Distorts",
+	  IconFile = "Shatter.png"
+	};
     }
 
     override protected GimpDialog CreateDialog()
     {
-      GimpDialog dialog = DialogNew("Shatter", "Shatter", IntPtr.Zero, 0,
-				    Gimp.StandardHelpFunc, "Shatter");
+      var dialog = DialogNew("Shatter", "Shatter", IntPtr.Zero, 0,
+			     Gimp.StandardHelpFunc, "Shatter");
 
-      GimpTable table = new GimpTable(4, 3, false);
-      table.ColumnSpacing = 6;
-      table.RowSpacing = 6;
+      var table = new GimpTable(4, 3, false) {
+	ColumnSpacing = 6, RowSpacing = 6};
       Vbox.PackStart(table, false, false, 0);
       
-      ScaleEntry entry = new ScaleEntry(table, 0, 1, "Pieces:", 150, 3,
-					_pieces, 1.0, 256.0, 1.0, 8.0, 0,
-					true, 0, 0, null, null);
-      entry.ValueChanged += delegate(object sender, EventArgs e)
+      var entry = new ScaleEntry(table, 0, 1, "Pieces:", 150, 3,
+				 _pieces, 1.0, 256.0, 1.0, 8.0, 0,
+				 true, 0, 0, null, null);
+      entry.ValueChanged += delegate
 	{
 	  _pieces = entry.ValueAsInt;
 	  // InvalidatePreview();
@@ -84,13 +83,13 @@ namespace Gimp.Shatter
     override protected void Render(Image image, Drawable drawable)
     {
       // Break up image in pieces
-      Coord ul = new Coord(0, 0);
-      Coord lr = new Coord(drawable.Width, drawable.Height);
-      ShardSet shards = new ShardSet(ul, lr, _pieces);
+      var ul = new Coord(0, 0);
+      var lr = new Coord(drawable.Width, drawable.Height);
+      var shards = new ShardSet(ul, lr, _pieces);
 
       // 
       
-      FreeSelectTool tool = new FreeSelectTool(image);
+      var tool = new FreeSelectTool(image);
 
       foreach (Shard shard in shards)
 	{

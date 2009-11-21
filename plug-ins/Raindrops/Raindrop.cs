@@ -32,7 +32,7 @@ namespace Gimp.Raindrops
     int X {get; set;}
     int Y {get; set;}
 
-    public Raindrop(Coordinate<int> coordinate, int newSize, double newCoeff)
+    public Raindrop(IntCoordinate coordinate, int newSize, double newCoeff)
     {
       _newSize = newSize;
       _radius = newSize / 2;		// Half of current raindrop
@@ -108,9 +108,9 @@ namespace Gimp.Raindrops
 
 	      for (int k = -blurRadius; k < blurRadius + 1; k++)
 		{
+		  m = X + c.X + k;
 		  for (int l = -blurRadius; l < blurRadius + 1; l++)
 		    {
-		      m = X + c.X + k;
 		      n = Y + c.Y + l;
 		      
 		      if (dimensions.IsInside(m, n))

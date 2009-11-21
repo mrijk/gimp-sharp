@@ -1,5 +1,5 @@
 // The Shatter plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2009 Maurits Rijk
 //
 // ShardSet.cs
 //
@@ -25,12 +25,12 @@ namespace Gimp.Shatter
 {
   public class ShardSet
   {
-    List<Shard> _set = new List<Shard>();
+    readonly List<Shard> _set = new List<Shard>();
 
     public ShardSet(Coord ul, Coord lr, int n)
     {
-      Coord ur = new Coord(ul.X, lr.Y);
-      Coord ll = new Coord(lr.X, ul.Y);
+      var ur = new Coord(ul.X, lr.Y);
+      var ll = new Coord(lr.X, ul.Y);
       _set = Split(new Shard(ul, ur, ll, lr), n);
       Console.WriteLine("n: " + n);
       Console.WriteLine("#shards: " + _set.Count);
@@ -49,7 +49,7 @@ namespace Gimp.Shatter
 	}
       else if (n == 1)
 	{
-	  List<Shard> set = new List<Shard>();
+	  var set = new List<Shard>();
 	  set.Add(shard);
 	  return set;
 	}
@@ -60,8 +60,8 @@ namespace Gimp.Shatter
 
 	  int m = n / 2;
 
-	  List<Shard> set1 = Split(shard1, m);
-	  List<Shard> set2 = Split(shard2, n - m);
+	  var set1 = Split(shard1, m);
+	  var set2 = Split(shard2, n - m);
 	  set1.AddRange(set2);
 	  return set1;
 	}

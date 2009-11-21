@@ -142,8 +142,7 @@ namespace Gimp.Splitter
       var advanced = new Button(_("Advanced Options..."));
       advanced.Clicked += delegate
 	{
-	  AdvancedDialog advancedDialog = new AdvancedDialog(_seed, 
-							     _randomSeed);
+	  var advancedDialog = new AdvancedDialog(_seed, _randomSeed);
 	  advancedDialog.ShowAll();
 	  if (advancedDialog.Run() == ResponseType.Ok)
 	  {
@@ -154,7 +153,7 @@ namespace Gimp.Splitter
 	};
       table.Attach(advanced, 1, 2, 3, 4);
 
-      ComboBox keep = ComboBox.NewText();
+      var keep = ComboBox.NewText();
 
       keep.AppendText(_("Both Layers"));
       keep.AppendText(_("Layer 1"));
@@ -301,17 +300,8 @@ namespace Gimp.Splitter
 				    ? Copy(src) : transparent));
 	}
 
-      if (_rotate_1 != 0 && layer1 != null) 
-	{
-	  layer1.TransformRotateDefault(_rotate_1 * Math.PI / 180.0,
-					true, 0, 0, true, false);
-	}
-
-      if (_rotate_2 != 0 && layer2 != null)
-	{
-	  layer2.TransformRotateDefault(_rotate_2 * Math.PI / 180.0,
-					true, 0, 0, true, false);
-	}
+      Rotate(layer1, _rotate_1);
+      Rotate(layer2, _rotate_2);
 
       if (_merge) 
 	{
@@ -324,6 +314,15 @@ namespace Gimp.Splitter
       new Display(newImage);
       
       Display.DisplaysFlush();
+    }
+
+    void Rotate(Layer layer, int angle)
+    {
+      if (angle != 0 && layer != null)
+	{
+	  layer.TransformRotateDefault(angle * Math.PI / 180.0,
+				       true, 0, 0, true, false);
+	}
     }
 
     Pixel Copy(Pixel src)

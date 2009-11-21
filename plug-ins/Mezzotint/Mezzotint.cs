@@ -1,5 +1,5 @@
 // The Mezzotint plug-in
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // Mezzotint.cs
 //
@@ -58,17 +58,17 @@ namespace Gimp.Mezzotint
     {
       gimp_ui_init("Mezzotint", true);
 
-      GimpDialog dialog = DialogNew("Mezzotint", "Mezzotint", IntPtr.Zero, 0,
-				    Gimp.StandardHelpFunc, "Mezzotint");
+      var dialog = DialogNew("Mezzotint", "Mezzotint", IntPtr.Zero, 0,
+			     Gimp.StandardHelpFunc, "Mezzotint");
 
-      VBox vbox = new VBox(false, 12) {BorderWidth = 12};
+      var vbox = new VBox(false, 12) {BorderWidth = 12};
       dialog.VBox.PackStart(vbox, true, true, 0);
 
       _preview = new DrawablePreview(_drawable, false);
       _preview.Invalidated += UpdatePreview;
       vbox.PackStart(_preview, true, true, 0);
 
-      ComboBox type = ComboBox.NewText();
+      var type = ComboBox.NewText();
       type.AppendText("Fine dots");
       type.AppendText("Medium dots");
       type.AppendText("Grainy dots");
@@ -88,19 +88,19 @@ namespace Gimp.Mezzotint
 
     void UpdatePreview(object sender, EventArgs e)
     {
-      Rectangle rectangle = _preview.Bounds;
+      var rectangle = _preview.Bounds;
 
       int rowStride = rectangle.Width * 3;
       byte[] buffer = new byte[rectangle.Area * 3];	// Fix me!
 
-      PixelRgn srcPR = new PixelRgn(_drawable, rectangle, false, false);
+      var srcPR = new PixelRgn(_drawable, rectangle, false, false);
 
-      RegionIterator iterator = new RegionIterator(srcPR);
+      var iterator = new RegionIterator(srcPR);
       iterator.ForEach(src =>
 	{
 	  int x = src.X;
 	  int y = src.Y;
-	  Pixel pixel = DoMezzotint(src);
+	  var pixel = DoMezzotint(src);
 	  
 	  int index = (y - rectangle.Y1) * rowStride + (x - rectangle.X1) * 3;
 	  pixel.CopyTo(buffer, index);
@@ -110,7 +110,7 @@ namespace Gimp.Mezzotint
 
     override protected void Render(Drawable drawable)
     {
-      RgnIterator iter = new RgnIterator(drawable, RunMode.Interactive);
+      var iter = new RgnIterator(drawable, RunMode.Interactive);
       iter.Progress = new Progress(_("Mezzotint"));
       iter.IterateSrcDest(pixel => DoMezzotint(pixel));
     }

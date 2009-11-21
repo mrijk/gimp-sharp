@@ -1,5 +1,5 @@
 // The Fragment plug-in
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // Fragment.cs
 //
@@ -18,7 +18,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
 using System.Collections.Generic;
 
 namespace Gimp.Fragment
@@ -41,7 +40,7 @@ namespace Gimp.Fragment
 				 _("Creates four copies of the pixels in the selection, averages them, and offsets them from each other."),
 				 "Maurits Rijk",
 				 "(C) Maurits Rijk",
-				 "2006-2007",
+				 "2006-2009",
 				 _("Fragment"),
 				 "RGB*, GRAY*")
 	{
@@ -53,11 +52,10 @@ namespace Gimp.Fragment
     {
       Tile.CacheDefault(drawable);
 
-      RgnIterator iter = new RgnIterator(drawable, RunMode.Interactive);
+      var iter = new RgnIterator(drawable, RunMode.Interactive);
       iter.Progress = new Progress(_("Fragment"));
 
-      using (PixelFetcher pf = new PixelFetcher(drawable) 
-	{EdgeMode = EdgeMode.Black})
+      using (var pf = new PixelFetcher(drawable) {EdgeMode = EdgeMode.Black})
 	{
 	  iter.IterateDest((x, y) => 
 	    {
