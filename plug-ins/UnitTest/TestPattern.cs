@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // TestPattern.cs
 //
@@ -31,8 +31,8 @@ namespace Gimp
     [Test]
     public void GetInfo()
     {
-      PatternList patterns = new PatternList(null);
-      foreach (Pattern pattern in patterns)
+      var patterns = new PatternList();
+      foreach (var pattern in patterns)
 	{
 	  int width, height, bpp;
 	  pattern.GetInfo(out width, out height, out bpp);
@@ -45,8 +45,8 @@ namespace Gimp
     [Test]
     public void GetPixels()
     {
-      PatternList patterns = new PatternList(null);
-      foreach (Pattern pattern in patterns)
+      var patterns = new PatternList();
+      foreach (var pattern in patterns)
 	{
 	  int width, height, bpp, numBytes;
 	  pattern.GetPixels(out width, out height, out bpp, out numBytes);

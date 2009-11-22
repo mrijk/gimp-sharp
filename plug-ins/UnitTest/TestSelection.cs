@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // TestSelection.cs
 //
@@ -19,8 +19,6 @@
 // Boston, MA 02111-1307, USA.
 //
 
-using System;
-
 using NUnit.Framework;
 
 namespace Gimp
@@ -39,9 +37,9 @@ namespace Gimp
     {
       _image = new Image(_width, _height, ImageBaseType.Rgb);
 
-      Layer layer = new Layer(_image, "test", _width, _height,
-			      ImageType.Rgb, 100, 
-			      LayerModeEffects.Normal);
+      var layer = new Layer(_image, "test", _width, _height,
+			    ImageType.Rgb, 100, 
+			    LayerModeEffects.Normal);
       _image.AddLayer(layer, 0);
 
       _drawable = _image.ActiveDrawable;
@@ -58,7 +56,7 @@ namespace Gimp
     public void Bounds()
     {
       bool nonEmpty;
-      Rectangle bounds = _selection.Bounds(out nonEmpty);
+      var bounds = _selection.Bounds(out nonEmpty);
       Assert.IsFalse(nonEmpty);
       Assert.AreEqual(_drawable.Bounds, bounds);
     }
@@ -135,7 +133,7 @@ namespace Gimp
     [Test]
     public void Save()
     {
-      ChannelList channels = _image.Channels;
+      var channels = _image.Channels;
       int count = channels.Count;
       _selection.Save();
       channels = _image.Channels;

@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // TestVectors.cs
 //
@@ -19,8 +19,6 @@
 // Boston, MA 02111-1307, USA.
 //
 
-using System;
-
 using NUnit.Framework;
 
 namespace Gimp
@@ -37,9 +35,9 @@ namespace Gimp
     {
       _image = new Image(_width, _height, ImageBaseType.Rgb);
 
-      Layer layer = new Layer(_image, "test", _width, _height,
-			      ImageType.Rgb, 100, 
-			      LayerModeEffects.Normal);
+      var layer = new Layer(_image, "test", _width, _height,
+			    ImageType.Rgb, 100, 
+			    LayerModeEffects.Normal);
       _image.AddLayer(layer, 0);
     }
 
@@ -52,21 +50,21 @@ namespace Gimp
     [Test]
     public void Constructor()
     {
-      Vectors vectors = new Vectors(_image, "firstVector");
+      var vectors = new Vectors(_image, "firstVector");
       Assert.AreEqual("firstVector", vectors.Name);
     }
 
     [Test]
     public void IsValid()
     {
-      Vectors vectors = new Vectors(_image, "firstVector");
+      var vectors = new Vectors(_image, "firstVector");
       Assert.IsTrue(vectors.IsValid);
     }
 
     [Test]
     public void GetImage()
     {
-      Vectors vectors = new Vectors(_image, "firstVector");
+      var vectors = new Vectors(_image, "firstVector");
       _image.AddVectors(vectors, -1);
       Assert.AreEqual(_image, vectors.Image);
     }    
@@ -74,7 +72,7 @@ namespace Gimp
     [Test]
     public void GetSetLinked()
     {
-      Vectors vectors = new Vectors(_image, "firstVector");
+      var vectors = new Vectors(_image, "firstVector");
       Assert.IsFalse(vectors.Linked);
       vectors.Linked = true;
       Assert.IsTrue(vectors.Linked);
@@ -83,8 +81,8 @@ namespace Gimp
     [Test]
     public void GetSetTattoo()
     {
-      Vectors vectors = new Vectors(_image, "firstVector");
-      Tattoo tattoo = new Tattoo(13);
+      var vectors = new Vectors(_image, "firstVector");
+      var tattoo = new Tattoo(13);
       vectors.Tattoo = tattoo;
       Assert.AreEqual(tattoo, vectors.Tattoo);
     }
@@ -92,7 +90,7 @@ namespace Gimp
     [Test]
     public void GetSetVisible()
     {
-      Vectors vectors = new Vectors(_image, "firstVector");
+      var vectors = new Vectors(_image, "firstVector");
       Assert.IsFalse(vectors.Visible);
       vectors.Visible = true;
       Assert.IsTrue(vectors.Visible);
@@ -101,7 +99,7 @@ namespace Gimp
     [Test]
     public void GetSetName()
     {
-      Vectors vectors = new Vectors(_image, "firstVector");
+      var vectors = new Vectors(_image, "firstVector");
       vectors.Name = "renamedVector";
       Assert.AreEqual("renamedVector", vectors.Name);
     }
@@ -109,8 +107,8 @@ namespace Gimp
     [Test]
     public void ParasiteAttach()
     {
-      Vectors vectors = new Vectors(_image, "firstVector");
-      Parasite parasite = new Parasite("foo", 0, 13);
+      var vectors = new Vectors(_image, "firstVector");
+      var parasite = new Parasite("foo", 0, 13);
       vectors.ParasiteAttach(parasite);
       Assert.AreEqual(1, vectors.ParasiteList.Count);
     }
@@ -118,8 +116,8 @@ namespace Gimp
     [Test]
     public void ParasiteDetach()
     {
-      Vectors vectors = new Vectors(_image, "firstVector");
-      Parasite parasite = new Parasite("foo", 0, 13);
+      var vectors = new Vectors(_image, "firstVector");
+      var parasite = new Parasite("foo", 0, 13);
       vectors.ParasiteAttach(parasite);
       vectors.ParasiteDetach(parasite);
       Assert.AreEqual(0, vectors.ParasiteList.Count);
@@ -128,10 +126,10 @@ namespace Gimp
     [Test]
     public void ParasiteFind()
     {
-      Vectors vectors = new Vectors(_image, "firstVector");
-      Parasite parasite = new Parasite("foo", 0, 13);
+      var vectors = new Vectors(_image, "firstVector");
+      var parasite = new Parasite("foo", 0, 13);
       vectors.ParasiteAttach(parasite);
-      Parasite found = vectors.ParasiteFind("foo");
+      var found = vectors.ParasiteFind("foo");
       Assert.AreEqual(parasite, found);
       Assert.IsNull(vectors.ParasiteFind("bar"));
     }
@@ -139,7 +137,7 @@ namespace Gimp
     [Test]
     public void Add()
     {
-      Vectors vectors = new Vectors(_image, "firstVector");
+      var vectors = new Vectors(_image, "firstVector");
       Assert.AreEqual(0, _image.Vectors.Count);
       _image.AddVectors(vectors, -1);
       Assert.AreEqual(1, _image.Vectors.Count);
@@ -149,7 +147,7 @@ namespace Gimp
     [Test]
     public void Remove()
     {
-      Vectors first = new Vectors(_image, "firstVector");
+      var first = new Vectors(_image, "firstVector");
       _image.AddVectors(first, -1);
       _image.RemoveVectors(first);
     }
@@ -157,8 +155,8 @@ namespace Gimp
     [Test]
     public void PositionOne()
     {
-      Vectors first = new Vectors(_image, "firstVector");
-      Vectors second = new Vectors(_image, "secondVector");
+      var first = new Vectors(_image, "firstVector");
+      var second = new Vectors(_image, "secondVector");
       _image.AddVectors(first, -1);
       _image.AddVectors(second, -1);
       Assert.AreEqual(1, _image.GetVectorsPosition(first));
@@ -168,8 +166,8 @@ namespace Gimp
     [Test]
     public void PositionTwo()
     {
-      Vectors first = new Vectors(_image, "firstVector");
-      Vectors second = new Vectors(_image, "secondVector");
+      var first = new Vectors(_image, "firstVector");
+      var second = new Vectors(_image, "secondVector");
       _image.AddVectors(first, -1);
       _image.AddVectors(second, -1);
       Assert.AreEqual(1, first.Position);
@@ -179,8 +177,8 @@ namespace Gimp
     [Test]
     public void LowerVectors()
     {
-      Vectors first = new Vectors(_image, "firstVector");
-      Vectors second = new Vectors(_image, "secondVector");
+      var first = new Vectors(_image, "firstVector");
+      var second = new Vectors(_image, "secondVector");
       _image.AddVectors(first, -1);
       _image.AddVectors(second, -1);
 
@@ -192,8 +190,8 @@ namespace Gimp
     [Test]
     public void RaiseVectors()
     {
-      Vectors first = new Vectors(_image, "firstVector");
-      Vectors second = new Vectors(_image, "secondVector");
+      var first = new Vectors(_image, "firstVector");
+      var second = new Vectors(_image, "secondVector");
       _image.AddVectors(first, -1);
       _image.AddVectors(second, -1);
 
@@ -205,8 +203,8 @@ namespace Gimp
     [Test]
     public void LowerVectorsToBottom()
     {
-      Vectors first = new Vectors(_image, "firstVector");
-      Vectors second = new Vectors(_image, "secondVector");
+      var first = new Vectors(_image, "firstVector");
+      var second = new Vectors(_image, "secondVector");
       _image.AddVectors(first, -1);
       _image.AddVectors(second, -1);
 
@@ -218,8 +216,8 @@ namespace Gimp
     [Test]
     public void RaiseVectorsToTop()
     {
-      Vectors first = new Vectors(_image, "firstVector");
-      Vectors second = new Vectors(_image, "secondVector");
+      var first = new Vectors(_image, "firstVector");
+      var second = new Vectors(_image, "secondVector");
       _image.AddVectors(first, -1);
       _image.AddVectors(second, -1);
 

@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // TestPatternList.cs
 //
@@ -19,8 +19,6 @@
 // Boston, MA 02111-1307, USA.
 //
 
-using System;
-
 using NUnit.Framework;
 
 namespace Gimp
@@ -31,7 +29,14 @@ namespace Gimp
     [Test]
     public void CountAll()
     {
-      PatternList patterns = new PatternList(null);
+      var patterns = new PatternList(null);
+      Assert.IsTrue(patterns.Count > 0);
+    }
+
+    [Test]
+    public void CountAllTwo()
+    {
+      var patterns = new PatternList();
       Assert.IsTrue(patterns.Count > 0);
     }
 
@@ -39,19 +44,28 @@ namespace Gimp
     public void CountNone()
     {
       // Test for non-existing patterns
-      PatternList patterns = new PatternList("nonsense");
+      var patterns = new PatternList("nonsense");
       Assert.AreEqual(0, patterns.Count);
     }
 
     [Test]
     public void GetEnumerator()
     {
-      PatternList patterns = new PatternList(null);
+      var patterns = new PatternList();
       int count = 0;
-      foreach (Pattern pattern in patterns)
+      foreach (var pattern in patterns)
 	{
 	  count++;
 	}
+      Assert.AreEqual(count, patterns.Count);
+    }
+
+    [Test]
+    public void ForEach()
+    {
+      var patterns = new PatternList();
+      int count = 0;
+      patterns.ForEach(pattern => count++);
       Assert.AreEqual(count, patterns.Count);
     }
   }

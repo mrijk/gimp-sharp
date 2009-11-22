@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // TestVersion.cs
 //
@@ -29,48 +29,48 @@ namespace Gimp
     [Test]
     public void EqualsTrue()
     {
-      Version v1 = new Version("1.2.3");
-      Version v2 = new Version("1.2.3");
+      var v1 = new Version("1.2.3");
+      var v2 = new Version("1.2.3");
       Assert.IsTrue(v1.Equals(v2));
     }
 
     [Test]
     public void EqualsFalse()
     {
-      Version v1 = new Version("1.2.3");
-      Version v2 = new Version("1.2.4");
+      var v1 = new Version("1.2.3");
+      var v2 = new Version("1.2.4");
       Assert.IsFalse(v1.Equals(v2));
     }
 
     [Test]
     public void EqualsOperator()
     {
-      Version v1 = new Version("1.2.3");
-      Version v2 = new Version("1.2.3");
+      var v1 = new Version("1.2.3");
+      var v2 = new Version("1.2.3");
       Assert.IsTrue(v1 == v2);
     }
 
     [Test]
     public void NotEqualsOperator()
     {
-      Version v1 = new Version("1.2.3");
-      Version v2 = new Version("1.2.4");
+      var v1 = new Version("1.2.3");
+      var v2 = new Version("1.2.4");
       Assert.IsTrue(v1 != v2);
     }
 
     [Test]
     public void GreaterThan()
     {
-      Version v1 = new Version("1.2.3");
-      Version v2 = new Version("1.2.4");
+      var v1 = new Version("1.2.3");
+      var v2 = new Version("1.2.4");
       Assert.IsTrue(v2 > v1);
     }
 
     [Test]
     public void LessThan()
     {
-      Version v1 = new Version("1.2.3");
-      Version v2 = new Version("1.2.4");
+      var v1 = new Version("1.2.3");
+      var v2 = new Version("1.2.4");
       Assert.IsTrue(v1 < v2);
     }
   }

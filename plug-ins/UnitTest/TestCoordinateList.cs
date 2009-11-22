@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // TestCoordinateList.cs
 //
@@ -19,8 +19,6 @@
 // Boston, MA 02111-1307, USA.
 //
 
-using System;
-
 using NUnit.Framework;
 
 namespace Gimp
@@ -31,21 +29,21 @@ namespace Gimp
     [Test]
     public void Constructor()
     {
-      CoordinateList<int> list = new CoordinateList<int>();
+      var list = new CoordinateList<int>();
       Assert.AreEqual(0, list.Count);      
     }
 
     [Test]
     public void Enumerator()
     {
-      CoordinateList<int> list = new CoordinateList<int>();
+      var list = new CoordinateList<int>();
       for (int i = 0; i < 10; i++)
 	{
 	  list.Add(new Coordinate<int>(i, 2 * i));
 	}
 
       int count = 0;
-      foreach (Coordinate<int> c in list)
+      foreach (var c in list)
 	{
 	  Assert.IsTrue(c == new Coordinate<int>(count, 2 * count));
 	  count++;
@@ -54,10 +52,28 @@ namespace Gimp
     }
 
     [Test]
+    public void ForEach()
+    {
+      var list = new CoordinateList<int>();
+      for (int i = 0; i < 10; i++)
+	{
+	  list.Add(new Coordinate<int>(i, 2 * i));
+	}
+
+      int count = 0;
+      list.ForEach(c =>
+	{
+	  Assert.IsTrue(c == new Coordinate<int>(count, 2 * count));
+	  count++;
+	});
+      Assert.AreEqual(list.Count, count);
+    }
+
+    [Test]
     public void Add()
     {
-      CoordinateList<int> list = new CoordinateList<int>();
-      Coordinate<int> c = new Coordinate<int>(13, 14);
+      var list = new CoordinateList<int>();
+      var c = new Coordinate<int>(13, 14);
       list.Add(c);
       Assert.AreEqual(1, list.Count);      
 
@@ -68,9 +84,9 @@ namespace Gimp
     [Test]
     public void Equals()
     {
-      CoordinateList<int> list1 = new CoordinateList<int>();
-      CoordinateList<int> list2 = new CoordinateList<int>();
-      Coordinate<int> c = new Coordinate<int>(13, 14);
+      var list1 = new CoordinateList<int>();
+      var list2 = new CoordinateList<int>();
+      var c = new Coordinate<int>(13, 14);
 
       list1.Add(c);
       Assert.IsFalse(list1.Equals(list2));
@@ -82,8 +98,8 @@ namespace Gimp
     [Test]
     public void ToArray()
     {
-      CoordinateList<int> list = new CoordinateList<int>();
-      Coordinate<int> c = new Coordinate<int>(13, 14);
+      var list = new CoordinateList<int>();
+      var c = new Coordinate<int>(13, 14);
 
       int[] array = list.ToArray();
       Assert.IsNull(array);

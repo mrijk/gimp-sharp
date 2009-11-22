@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // TestRectangle.cs
 //
@@ -19,8 +19,6 @@
 // Boston, MA 02111-1307, USA.
 //
 
-using System;
-
 using NUnit.Framework;
 
 namespace Gimp
@@ -31,7 +29,7 @@ namespace Gimp
     [Test]
     public void ConstructorOne()
     {
-      Rectangle rectangle = new Rectangle(13, 14, 129, 132);
+      var rectangle = new Rectangle(13, 14, 129, 132);
       Assert.AreEqual(13, rectangle.X1);
       Assert.AreEqual(14, rectangle.Y1);
       Assert.AreEqual(129, rectangle.X2);
@@ -41,9 +39,9 @@ namespace Gimp
     [Test]
     public void ConstructorTwo()
     {
-      Coordinate<int> upperLeft = new Coordinate<int>(13, 14);
-      Coordinate<int> lowerRight = new Coordinate<int>(129, 132);
-      Rectangle rectangle = new Rectangle(upperLeft, lowerRight);
+      var upperLeft = new Coordinate<int>(13, 14);
+      var lowerRight = new Coordinate<int>(129, 132);
+      var rectangle = new Rectangle(upperLeft, lowerRight);
       Assert.AreEqual(13, rectangle.X1);
       Assert.AreEqual(14, rectangle.Y1);
       Assert.AreEqual(129, rectangle.X2);
@@ -51,32 +49,42 @@ namespace Gimp
     }
 
     [Test]
+    public void UpperLeftLowerRight()
+    {
+      var upperLeft = new Coordinate<int>(13, 14);
+      var lowerRight = new Coordinate<int>(129, 132);
+      var rectangle = new Rectangle(upperLeft, lowerRight);
+      Assert.IsTrue(rectangle.UpperLeft == upperLeft);
+      Assert.IsTrue(rectangle.LowerRight == lowerRight);
+    }
+
+    [Test]
     public void Width()
     {
-      Rectangle rectangle = new Rectangle(13, 14, 129, 132);
+      var rectangle = new Rectangle(13, 14, 129, 132);
       Assert.AreEqual(129 - 13, rectangle.Width);
     }
 
     [Test]
     public void Height()
     {
-      Rectangle rectangle = new Rectangle(13, 14, 129, 132);
+      var rectangle = new Rectangle(13, 14, 129, 132);
       Assert.AreEqual(132 - 14, rectangle.Height);
     }
 
     [Test]
     public void Area()
     {
-      Rectangle rectangle = new Rectangle(13, 14, 129, 132);
+      var rectangle = new Rectangle(13, 14, 129, 132);
       Assert.AreEqual((129 - 13) * (132 - 14), rectangle.Area);
     }
 
     [Test]
     public void Equals()
     {
-      Rectangle rectangle1 = new Rectangle(13, 14, 129, 132);
-      Rectangle rectangle2 = new Rectangle(23, 24, 129, 132);
-      Rectangle rectangle3 = new Rectangle(13, 14, 129, 132);
+      var rectangle1 = new Rectangle(13, 14, 129, 132);
+      var rectangle2 = new Rectangle(23, 24, 129, 132);
+      var rectangle3 = new Rectangle(13, 14, 129, 132);
 
       Assert.IsFalse(rectangle1.Equals(rectangle2));
       Assert.IsTrue(rectangle1.Equals(rectangle3));
@@ -85,9 +93,9 @@ namespace Gimp
     [Test]
     public void Operators()
     {
-      Rectangle rectangle1 = new Rectangle(13, 14, 129, 132);
-      Rectangle rectangle2 = new Rectangle(23, 24, 129, 132);
-      Rectangle rectangle3 = new Rectangle(13, 14, 129, 132);
+      var rectangle1 = new Rectangle(13, 14, 129, 132);
+      var rectangle2 = new Rectangle(23, 24, 129, 132);
+      var rectangle3 = new Rectangle(13, 14, 129, 132);
 
       Assert.IsFalse(rectangle1 == rectangle2);
       Assert.IsTrue(rectangle1 != rectangle2);

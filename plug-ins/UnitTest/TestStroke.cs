@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2008 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // TestStroke.cs
 //
@@ -37,8 +37,8 @@ namespace Gimp
     {
       _image = new Image(_width, _height, ImageBaseType.Rgb);
 
-      Layer layer = new Layer(_image, "test", _width, _height,
-			      ImageType.Rgb, 100, LayerModeEffects.Normal);
+      var layer = new Layer(_image, "test", _width, _height,
+			    ImageType.Rgb, 100, LayerModeEffects.Normal);
       _image.AddLayer(layer, 0);
     }
 
@@ -51,8 +51,8 @@ namespace Gimp
     [Test]
     public void NewFromPoints()
     {
-      Vectors vectors = new Vectors(_image, "firstVector");
-      CoordinateList<double> controlpoints = new CoordinateList<double>();
+      var vectors = new Vectors(_image, "firstVector");
+      var controlpoints = new CoordinateList<double>();
       controlpoints.Add(new Coordinate<double>(50, 50));
       controlpoints.Add(new Coordinate<double>(100, 100));
       controlpoints.Add(new Coordinate<double>(150, 150));
@@ -64,8 +64,8 @@ namespace Gimp
     [Test]
     public void GetPoints()
     {
-      Vectors vectors = new Vectors(_image, "firstVector");
-      CoordinateList<double> controlpoints = new CoordinateList<double>();
+      var vectors = new Vectors(_image, "firstVector");
+      var controlpoints = new CoordinateList<double>();
       controlpoints.Add(new Coordinate<double>(50, 50));
       controlpoints.Add(new Coordinate<double>(100, 100));
       controlpoints.Add(new Coordinate<double>(150, 150));
@@ -73,7 +73,7 @@ namespace Gimp
 					    controlpoints, false);
       
       bool closed;
-      CoordinateList<double> points = stroke.GetPoints(out closed);
+      var points = stroke.GetPoints(out closed);
       Assert.AreEqual(controlpoints.Count, points.Count);
       Assert.AreEqual(controlpoints, points);
       Assert.IsFalse(closed);
@@ -82,8 +82,8 @@ namespace Gimp
     [Test]
     public void Close()
     {
-      Vectors vectors = new Vectors(_image, "firstVector");
-      CoordinateList<double> controlpoints = new CoordinateList<double>();
+      var vectors = new Vectors(_image, "firstVector");
+      var controlpoints = new CoordinateList<double>();
       controlpoints.Add(new Coordinate<double>(50, 50));
       controlpoints.Add(new Coordinate<double>(100, 100));
       controlpoints.Add(new Coordinate<double>(150, 150));
@@ -91,15 +91,15 @@ namespace Gimp
 					    controlpoints, false);
       stroke.Close();
       bool closed;
-      CoordinateList<double> points = stroke.GetPoints(out closed);
+      var points = stroke.GetPoints(out closed);
       Assert.IsTrue(closed);
     }
 
     [Test]
     public void Scale()
     {
-      Vectors vectors = new Vectors(_image, "firstVector");
-      CoordinateList<double> controlpoints = new CoordinateList<double>();
+      var vectors = new Vectors(_image, "firstVector");
+      var controlpoints = new CoordinateList<double>();
       controlpoints.Add(new Coordinate<double>(50, 50));
       controlpoints.Add(new Coordinate<double>(100, 100));
       controlpoints.Add(new Coordinate<double>(150, 150));

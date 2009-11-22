@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // TestPixelFetcher.cs
 //
@@ -19,8 +19,6 @@
 // Boston, MA 02111-1307, USA.
 //
 
-using System;
-
 using NUnit.Framework;
 
 namespace Gimp
@@ -38,7 +36,7 @@ namespace Gimp
     {
       _image = new Image(_width, _height, ImageBaseType.Rgb);
 
-      Layer layer = new Layer(_image, "test", _width, _height,
+      var layer = new Layer(_image, "test", _width, _height,
 			      ImageType.Rgb, 100, 
 			      LayerModeEffects.Normal);
       _image.AddLayer(layer, 0);
@@ -55,9 +53,9 @@ namespace Gimp
     [Test]
     public void This()
     {
-      using (PixelFetcher pf = new PixelFetcher(_drawable, false))
+      using (var pf = new PixelFetcher(_drawable, false))
 	{
-	  Pixel expected = new Pixel(33, 66, 99);
+	  var expected = new Pixel(33, 66, 99);
 	  
 	  for (int y = 0; y < _height; y++)
 	    {
@@ -74,16 +72,16 @@ namespace Gimp
     public void PutGetPixel()
     {
       // Fill with some color
-      RGB foreground = new RGB(22, 55, 77);
+      var foreground = new RGB(22, 55, 77);
       Context.Push();
       Context.Foreground = foreground;
       _drawable.Fill(FillType.Foreground);
       Context.Pop();
 
-      Pixel expected = new Pixel(33, 66, 99);
+      var expected = new Pixel(33, 66, 99);
 
       // Fill with different color, using shadow
-      using (PixelFetcher pf = new PixelFetcher(_drawable, true))
+      using (var pf = new PixelFetcher(_drawable, true))
 	{
 	  for (int y = 0; y < _height; y++)
 	    {
@@ -95,7 +93,7 @@ namespace Gimp
 	}
 
       // check that original hasn't changed
-      using (PixelFetcher pf = new PixelFetcher(_drawable, false))
+      using (var pf = new PixelFetcher(_drawable, false))
 	{
 	  for (int y = 0; y < _height; y++)
 	    {
@@ -109,7 +107,7 @@ namespace Gimp
       _drawable.MergeShadow(true);
 
       // and now the orginal should be changed
-      using (PixelFetcher pf = new PixelFetcher(_drawable, false))
+      using (var pf = new PixelFetcher(_drawable, false))
 	{
 	  for (int y = 0; y < _height; y++)
 	    {

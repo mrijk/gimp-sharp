@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // TestPixelRgn.cs
 //
@@ -38,9 +38,9 @@ namespace Gimp
     {
       _image = new Image(_width, _height, ImageBaseType.Rgb);
     
-      Layer layer = new Layer(_image, "test", _width, _height,
-			      ImageType.Rgb, 100, 
-			      LayerModeEffects.Normal);
+      var layer = new Layer(_image, "test", _width, _height,
+			    ImageType.Rgb, 100, 
+			    LayerModeEffects.Normal);
       _image.AddLayer(layer, 0);
     
       _drawable = _image.ActiveDrawable;
@@ -55,12 +55,12 @@ namespace Gimp
     [Test]
     public void GetSetPixel()
     {
-      PixelRgn rgn = new PixelRgn(_drawable, false, false);
-      byte[] pixel = new byte[]{13, 24, 35};
+      var rgn = new PixelRgn(_drawable, false, false);
+      var pixel = new byte[]{13, 24, 35};
 
       rgn.SetPixel(pixel, 13, 14);
 
-      byte[] result = new byte[_drawable.Bpp];
+      var result = new byte[_drawable.Bpp];
       rgn.GetPixel(result, 13, 14);
 
       Assert.AreEqual(pixel, result);
@@ -69,15 +69,15 @@ namespace Gimp
     [Test]
     public void Rowstride()
     {
-      PixelRgn rgn = new PixelRgn(_drawable, false, false);
+      var rgn = new PixelRgn(_drawable, false, false);
       Assert.AreEqual(_drawable.Bpp * Gimp.TileWidth, rgn.Rowstride);
     }
 
     [Test]
     public void GetSetRow()
     {
-      PixelRgn rgn = new PixelRgn(_drawable, false, false);
-      Pixel[] row = new Pixel[_width];
+      var rgn = new PixelRgn(_drawable, false, false);
+      var row = new Pixel[_width];
 
       for (int i = 0; i < _width; i++)
 	{
@@ -86,7 +86,7 @@ namespace Gimp
 
       rgn.SetRow(row, 0, 13);
 
-      Pixel[] result = rgn.GetRow(0, 13, _width);
+      var result = rgn.GetRow(0, 13, _width);
 
       for (int i = 0; i < _width; i++)
 	{
@@ -97,8 +97,8 @@ namespace Gimp
     [Test]
     public void GetSetRect()
     {
-      PixelRgn rgn = new PixelRgn(_drawable, true, false);
-      byte[] rect = new byte[_drawable.Bpp * _width * _height];
+      var rgn = new PixelRgn(_drawable, true, false);
+      var rect = new byte[_drawable.Bpp * _width * _height];
       for (int i = 0; i < _drawable.Bpp * _width * _height; i++)
 	{
 	  rect[i] = 13;
@@ -106,7 +106,7 @@ namespace Gimp
 
       rgn.SetRect(rect, 0, 0, _width, _height);
 
-      byte[] result = rgn.GetRect(0, 0, _width, _height);
+      var result = rgn.GetRect(0, 0, _width, _height);
 
       Assert.AreEqual(rect, result);
     }
@@ -114,7 +114,7 @@ namespace Gimp
     [Test]
     public void CountTiles()
     {
-      PixelRgn rgn = new PixelRgn(_drawable, false, false);
+      var rgn = new PixelRgn(_drawable, false, false);
 
       int tw = (int) Gimp.TileWidth;
       int th = (int) Gimp.TileHeight;
@@ -133,7 +133,7 @@ namespace Gimp
     [Test]
     public void CountPixels()
     {
-      PixelRgn rgn = new PixelRgn(_drawable, false, false);
+      var rgn = new PixelRgn(_drawable, false, false);
 
       int count = 0;
       for (IntPtr pr = PixelRgn.Register(rgn); pr != IntPtr.Zero; 
@@ -153,8 +153,8 @@ namespace Gimp
     [Test]
     public void DirectAccessRgb()
     {
-      PixelRgn rgn = new PixelRgn(_drawable, true, false);
-      Pixel pixel = new Pixel(13, 24, 35);
+      var rgn = new PixelRgn(_drawable, true, false);
+      var pixel = new Pixel(13, 24, 35);
 
       FillDrawable(_drawable, pixel);
 
@@ -175,18 +175,18 @@ namespace Gimp
     [Test]
     public void DirectAccessRgba()
     {
-      Image image = new Image(_width, _height, ImageBaseType.Rgb);
+      var image = new Image(_width, _height, ImageBaseType.Rgb);
     
-      Layer layer = new Layer(image, "test", _width, _height,
-			      ImageType.Rgba, 100, 
-			      LayerModeEffects.Normal);
+      var layer = new Layer(image, "test", _width, _height,
+			    ImageType.Rgba, 100, 
+			    LayerModeEffects.Normal);
       image.AddLayer(layer, 0);
     
-      Drawable drawable = image.ActiveDrawable;
-      Pixel pixel = new Pixel(13, 24, 35, 128);
+      var drawable = image.ActiveDrawable;
+      var pixel = new Pixel(13, 24, 35, 128);
       FillDrawable(drawable, pixel);
 
-      PixelRgn rgn = new PixelRgn(drawable, false, false);
+      var rgn = new PixelRgn(drawable, false, false);
       for (IntPtr pr = PixelRgn.Register(rgn); pr != IntPtr.Zero; 
 	   pr = PixelRgn.Process(pr))
 	{
@@ -206,20 +206,20 @@ namespace Gimp
     {
       // Fill src region
 
-      Pixel pixel = new Pixel(13, 24, 35);
+      var pixel = new Pixel(13, 24, 35);
       FillDrawable(_drawable, pixel);
 
       // Copy to dest region
-      Image image = new Image(_width, _height, ImageBaseType.Rgb);
+      var image = new Image(_width, _height, ImageBaseType.Rgb);
     
-      Layer layer = new Layer(image, "test", _width, _height,
-			      ImageType.Rgb, 100, 
-			      LayerModeEffects.Normal);
+      var layer = new Layer(image, "test", _width, _height,
+			    ImageType.Rgb, 100, 
+			    LayerModeEffects.Normal);
       image.AddLayer(layer, 0);
-      Drawable drawable = image.ActiveDrawable;
+      var drawable = image.ActiveDrawable;
 
-      PixelRgn srcRgn = new PixelRgn(_drawable, false, false);
-      PixelRgn destRgn = new PixelRgn(drawable, true, false);
+      var srcRgn = new PixelRgn(_drawable, false, false);
+      var destRgn = new PixelRgn(drawable, true, false);
 
       for (IntPtr pr = PixelRgn.Register(srcRgn, destRgn); pr != IntPtr.Zero; 
 	   pr = PixelRgn.Process(pr))
@@ -259,20 +259,20 @@ namespace Gimp
     {
       // Fill src region
 
-      Pixel pixel = new Pixel(13, 24, 35);
+      var pixel = new Pixel(13, 24, 35);
       FillDrawable(_drawable, pixel);
 
       // Copy to dest region
-      Image image = new Image(_width, _height, ImageBaseType.Rgb);
+      var image = new Image(_width, _height, ImageBaseType.Rgb);
     
-      Layer layer = new Layer(image, "test", _width, _height,
-			      ImageType.Rgba, 100, 
-			      LayerModeEffects.Normal);
+      var layer = new Layer(image, "test", _width, _height,
+			    ImageType.Rgba, 100, 
+			    LayerModeEffects.Normal);
       image.AddLayer(layer, 0);
-      Drawable drawable = image.ActiveDrawable;
+      var drawable = image.ActiveDrawable;
 
-      PixelRgn srcRgn = new PixelRgn(_drawable, false, false);
-      PixelRgn destRgn = new PixelRgn(drawable, true, false);
+      var srcRgn = new PixelRgn(_drawable, false, false);
+      var destRgn = new PixelRgn(drawable, true, false);
 
       for (IntPtr pr = PixelRgn.Register(srcRgn, destRgn); pr != IntPtr.Zero; 
 	   pr = PixelRgn.Process(pr))
@@ -281,7 +281,7 @@ namespace Gimp
 	    {
 	      for (int x = srcRgn.X; x < srcRgn.X + srcRgn.W; x++)
 		{
-		  Pixel tmp = srcRgn[y, x];
+		  var tmp = srcRgn[y, x];
 		  destRgn[y, x] = new Pixel(tmp.Red, tmp.Green, tmp.Blue, 255);
 		}
 	    }
@@ -289,7 +289,7 @@ namespace Gimp
 
       // Check results
 
-      Pixel pixel2 = new Pixel(13, 24, 35, 255);
+      var pixel2 = new Pixel(13, 24, 35, 255);
 
       srcRgn = new PixelRgn(_drawable, false, false);
       destRgn = new PixelRgn(drawable, false, false);
@@ -310,7 +310,7 @@ namespace Gimp
 
     void FillDrawable(Drawable drawable, Pixel pixel)
     {
-      PixelRgn rgn = new PixelRgn(drawable, true, false);
+      var rgn = new PixelRgn(drawable, true, false);
 
       for (IntPtr pr = PixelRgn.Register(rgn); pr != IntPtr.Zero; 
 	   pr = PixelRgn.Process(pr))

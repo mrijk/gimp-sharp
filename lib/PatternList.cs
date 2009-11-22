@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // PatternList.cs
 //
@@ -20,7 +20,6 @@
 //
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
@@ -42,9 +41,18 @@ namespace Gimp
         }
     }
 
+    public PatternList() : this(null)
+    {
+    }
+
     public IEnumerator<Pattern> GetEnumerator()
     {
       return _list.GetEnumerator();
+    }
+
+    public void ForEach(Action<Pattern> action)
+    {
+      _list.ForEach(action);
     }
 
     public int Count

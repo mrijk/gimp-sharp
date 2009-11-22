@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // TestHSV.cs
 //
@@ -19,8 +19,6 @@
 // Boston, MA 02111-1307, USA.
 //
 
-using System;
-
 using NUnit.Framework;
 
 namespace Gimp
@@ -35,7 +33,7 @@ namespace Gimp
       double saturation = 0.24;
       double value = 0.35;
 
-      HSV hsv = new HSV(hue, saturation, value);
+      var hsv = new HSV(hue, saturation, value);
       Assert.AreEqual(hue, hsv.Hue);
       Assert.AreEqual(saturation, hsv.Saturation);
       Assert.AreEqual(value, hsv.Value);
@@ -48,8 +46,8 @@ namespace Gimp
       double hue = 0.13;
       double saturation = 0.24;
       double value = 0.35;
-      HSV hsv1 = new HSV(hue, saturation, value);
-      HSV hsv2 = new HSV(hue, saturation, value);
+      var hsv1 = new HSV(hue, saturation, value);
+      var hsv2 = new HSV(hue, saturation, value);
       Assert.IsTrue(hsv1.Equals(hsv2));
     }
 
@@ -59,8 +57,8 @@ namespace Gimp
       double hue = 0.13;
       double saturation = 0.24;
       double value = 0.35;
-      HSV hsv1 = new HSV(hue, saturation, value);
-      HSV hsv2 = new HSV(hue + 0.1, saturation, value);
+      var hsv1 = new HSV(hue, saturation, value);
+      var hsv2 = new HSV(hue + 0.1, saturation, value);
       Assert.IsFalse(hsv1.Equals(hsv2));
     }
 
@@ -70,8 +68,8 @@ namespace Gimp
       double hue = 0.13;
       double saturation = 0.24;
       double value = 0.35;
-      HSV hsv1 = new HSV(hue, saturation, value);
-      HSV hsv2 = new HSV(hue, saturation, value);
+      var hsv1 = new HSV(hue, saturation, value);
+      var hsv2 = new HSV(hue, saturation, value);
       Assert.IsTrue(hsv1 == hsv2);
     }
 
@@ -81,8 +79,8 @@ namespace Gimp
       double hue = 0.13;
       double saturation = 0.24;
       double value = 0.35;
-      HSV hsv1 = new HSV(hue, saturation, value);
-      HSV hsv2 = new HSV(hue + 0.1, saturation, value);
+      var hsv1 = new HSV(hue, saturation, value);
+      var hsv2 = new HSV(hue + 0.1, saturation, value);
       Assert.IsTrue(hsv1 != hsv2);
     }
 
@@ -93,7 +91,7 @@ namespace Gimp
       double saturation = 0.24;
       double value = 0.35;
 
-      HSV hsv = new HSV(hue, saturation, value);
+      var hsv = new HSV(hue, saturation, value);
       hsv.Clamp();
       Assert.AreEqual(new HSV(hue, saturation, value), hsv);
     }
@@ -105,7 +103,7 @@ namespace Gimp
       double saturation = 1.24;
       double value = 0.35;
 
-      HSV hsv = new HSV(hue, saturation, value);
+      var hsv = new HSV(hue, saturation, value);
       hsv.Clamp();
       Assert.AreEqual(new HSV(hue, 1.0, value), hsv);
     }
@@ -117,7 +115,7 @@ namespace Gimp
       double saturation = -0.24;
       double value = 0.35;
 
-      HSV hsv = new HSV(hue, saturation, value);
+      var hsv = new HSV(hue, saturation, value);
       hsv.Clamp();
       Assert.AreEqual(new HSV(hue, 0.0, value), hsv);
     }
