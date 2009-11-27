@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // FloatingSelection.cs
 //
@@ -32,7 +32,7 @@ namespace Gimp
 
     public void Remove()
     {
-      if (!gimp_floating_sel_remove (_ID))
+      if (!gimp_floating_sel_remove(_ID))
         {
 	  throw new GimpSharpException();
         }
@@ -40,7 +40,7 @@ namespace Gimp
 
     public void Anchor()
     {
-      if (!gimp_floating_sel_anchor (_ID))
+      if (!gimp_floating_sel_anchor(_ID))
         {
 	  throw new GimpSharpException();
         }
@@ -59,7 +59,7 @@ namespace Gimp
 
     public void Attach(Drawable drawable)
     {
-      if (!gimp_floating_sel_attach (_ID, drawable.ID))
+      if (!gimp_floating_sel_attach(_ID, drawable.ID))
 	{
 	  throw new GimpSharpException();
 	}
@@ -67,7 +67,7 @@ namespace Gimp
 
     public void Rigor(bool undo)
     {
-      if (!gimp_floating_sel_rigor (_ID, undo))
+      if (!gimp_floating_sel_rigor(_ID, undo))
         {
 	  throw new GimpSharpException();
         }
@@ -75,26 +75,26 @@ namespace Gimp
 
     public void Relax(bool undo)
     {
-      if (!gimp_floating_sel_relax (_ID, undo))
+      if (!gimp_floating_sel_relax(_ID, undo))
         {
 	  throw new GimpSharpException();
         }
     }
 
     [DllImport("libgimp-2.0-0.dll")]
-    extern static bool gimp_floating_sel_remove (Int32 floating_sel_ID);
+    extern static bool gimp_floating_sel_remove(Int32 floating_sel_ID);
     [DllImport("libgimp-2.0-0.dll")]
-    extern static bool gimp_floating_sel_anchor (Int32 floating_sel_ID);
+    extern static bool gimp_floating_sel_anchor(Int32 floating_sel_ID);
     [DllImport("libgimp-2.0-0.dll")]
-    extern static bool gimp_floating_sel_to_layer (Int32 floating_sel_ID);
+    extern static bool gimp_floating_sel_to_layer(Int32 floating_sel_ID);
     [DllImport("libgimp-2.0-0.dll")]
-    extern static bool gimp_floating_sel_attach (Int32 floating_sel_ID,
-                                                 Int32 drawable_ID);
+    extern static bool gimp_floating_sel_attach(Int32 floating_sel_ID,
+						Int32 drawable_ID);
     [DllImport("libgimp-2.0-0.dll")]
-    extern static bool gimp_floating_sel_rigor (Int32 floating_sel_ID,
-                                                bool undo);
+    extern static bool gimp_floating_sel_rigor(Int32 floating_sel_ID,
+					       bool undo);
     [DllImport("libgimp-2.0-0.dll")]
-    extern static bool gimp_floating_sel_relax (Int32 floating_sel_ID,
-                                                bool undo);
+    extern static bool gimp_floating_sel_relax(Int32 floating_sel_ID,
+					       bool undo);
   }
 }

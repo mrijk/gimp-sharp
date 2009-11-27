@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // VerticalGuide.cs
 //
@@ -31,8 +31,9 @@ namespace Gimp
       base(image, gimp_image_add_vguide(image.ID, xposition))
     {
     }
+
     [DllImport("libgimp-2.0-0.dll")]
-    static extern Int32 gimp_image_add_vguide (Int32 image_ID,
-                                               int xposition);
+    static extern Int32 gimp_image_add_vguide(Int32 image_ID,
+					      int xposition);
   }
 }

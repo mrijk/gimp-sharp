@@ -1,3 +1,23 @@
+2009-11-27  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* lib/FloatingSelection.cs
+	* lib/PaletteEntry.cs
+	* lib/Grid.cs
+	* lib/RegionIterator.cs: minor clean-up
+
+2009-11-26  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* lib/PluginWithPreview.cs
+	* lib/DrawablePreview.cs
+	* lib/ZoomPreview.cs
+	* lib/Version.cs
+	* lib/PersistentStorage.cs
+	* lib/AspectPreview.cs
+	* lib/HorizontalGuide.cs
+	* lib/VerticalGuide.cs
+	* lib/Progress.cs
+	* lib/GimpFontSelectWidget.cs: minor clean-up
+
 2009-11-22  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* lib/PatternList.cs: convenience constructor and ForEach method

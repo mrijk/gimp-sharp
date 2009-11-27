@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // GimpFontSelectWidget.cs
 //
@@ -25,28 +25,27 @@ using System.Runtime.InteropServices;
 using Gtk;
 
 namespace Gimp
+{
+  public class GimpFontSelectWidget : Widget
   {
-    public class GimpFontSelectWidget : Widget
+    public GimpFontSelectWidget(string title, string font_name) : 
+      base(gimp_font_select_widget_new(title, font_name, 
+				       IntPtr.Zero, IntPtr.Zero))
     {
-      [DllImport("libgimpui-2.0-0.dll")]
-      extern static IntPtr gimp_font_select_widget_new(
-	string title,
-	string font_name,
-	IntPtr callback,
-	IntPtr data);
-
-      public GimpFontSelectWidget(string title, string font_name) : 
-	base(gimp_font_select_widget_new(title, font_name, 
-					 IntPtr.Zero, IntPtr.Zero))
-      {
-      }
-
-      public void Close()
-      {
-      }
-
-      public void Set(string font_name)
-      {
-      }
     }
+    
+    public void Close()
+    {
+    }
+    
+    public void Set(string font_name)
+    {
+    }
+    
+    [DllImport("libgimpui-2.0-0.dll")]
+    extern static IntPtr gimp_font_select_widget_new(string title,
+						     string font_name,
+						     IntPtr callback,
+						     IntPtr data);
   }
+}

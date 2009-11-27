@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // Grid.cs
 //
@@ -77,7 +77,7 @@ namespace Gimp
     {
       get
 	{
-	  GimpRGB rgb = new GimpRGB();
+	  var rgb = new GimpRGB();
 	  if (!gimp_image_grid_get_foreground_color(_imageID, out rgb))
 	    {
 	      throw new GimpSharpException();
@@ -86,7 +86,7 @@ namespace Gimp
 	}
       set
 	{
-	  GimpRGB rgb = value.GimpRGB;
+	  var rgb = value.GimpRGB;
 	  if (!gimp_image_grid_set_foreground_color(_imageID, ref rgb))
 	    {
 	      throw new GimpSharpException();
@@ -98,7 +98,7 @@ namespace Gimp
     {
       get
 	{
-	  GimpRGB rgb = new GimpRGB();
+	  var rgb = new GimpRGB();
 	  if (!gimp_image_grid_get_background_color(_imageID, out rgb))
 	    {
 	      throw new GimpSharpException();
@@ -107,7 +107,7 @@ namespace Gimp
 	}
       set
 	{
-	  GimpRGB rgb = value.GimpRGB;
+	  var rgb = value.GimpRGB;
 	  if (!gimp_image_grid_set_background_color(_imageID, ref rgb))
 	    {
 	      throw new GimpSharpException();

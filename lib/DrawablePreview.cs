@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // DrawablePreview.cs
 //
@@ -26,33 +26,28 @@ namespace Gimp
 {
   public class DrawablePreview : ScrolledPreview
   {
-    readonly Drawable _drawable;
+    public Drawable Drawable {get; private set;}
 
     public DrawablePreview(Drawable drawable, bool toggle) :
       base(gimp_drawable_preview_new(drawable.Ptr, toggle))
     {
-      _drawable = drawable;
-    }
-
-    public Drawable Drawable
-    {
-      get {return _drawable;}
+      Drawable = drawable;
     }
 
     public void DrawRegion(PixelRgn region)
     {
-      GimpPixelRgn pr = region.PR;
+      var pr = region.PR;
       gimp_drawable_preview_draw_region(Handle, ref pr);
     }
 
     public void Redraw(Drawable drawable)
     {
-      Rectangle rectangle = Bounds;
+      var rectangle = Bounds;
       int bpp = drawable.Bpp;
       int rowStride = rectangle.Width * bpp;
-      byte[] buffer = new byte[rectangle.Area * bpp];
+      var buffer = new byte[rectangle.Area * bpp];
 
-      foreach (Pixel pixel in new ReadPixelIterator(drawable))
+      foreach (var pixel in new ReadPixelIterator(drawable))
 	{
 	  int index = pixel.Y * rowStride + pixel.X * bpp;
 	  pixel.CopyTo(buffer, index);

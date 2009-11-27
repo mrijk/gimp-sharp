@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // PaletteEntry.cs
 //
@@ -27,12 +27,12 @@ namespace Gimp
   public sealed class PaletteEntry
   {
     readonly string _paletteName;
-    readonly int _index;
+    internal int Index {get; set;}
 
     internal PaletteEntry(Palette palette, int index)
     {
       _paletteName = palette.Name;
-      _index = index;
+      Index = index;
     }
 
     public string Name
@@ -40,7 +40,7 @@ namespace Gimp
       get
 	{
 	  string entry_name;
-	  if (!gimp_palette_entry_get_name(_paletteName, _index, 
+	  if (!gimp_palette_entry_get_name(_paletteName, Index, 
 					   out entry_name))
 	    {
 	      throw new GimpSharpException();
@@ -49,7 +49,7 @@ namespace Gimp
 	}
       set
 	{
-	  if (!gimp_palette_entry_set_name(_paletteName, _index, value))
+	  if (!gimp_palette_entry_set_name(_paletteName, Index, value))
 	    {
 	      throw new GimpSharpException();
 	    }
@@ -60,8 +60,8 @@ namespace Gimp
     {
       get
 	{
-	  GimpRGB rgb = new GimpRGB();
-	  if (!gimp_palette_entry_get_color(_paletteName, _index, out rgb))
+	  var rgb = new GimpRGB();
+	  if (!gimp_palette_entry_get_color(_paletteName, Index, out rgb))
 	    {
 	      throw new GimpSharpException();
 	    }
@@ -69,17 +69,12 @@ namespace Gimp
 	}
       set
 	{
-	  if (!gimp_palette_entry_set_color(_paletteName, _index,
+	  if (!gimp_palette_entry_set_color(_paletteName, Index,
 					    value.GimpRGB))
 	    {
 	      throw new GimpSharpException();
 	    }
 	}
-    }
-
-    internal int Index
-    {
-      get {return _index;}
     }
 
     [DllImport("libgimp-2.0-0.dll")]

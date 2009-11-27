@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // ZoomPreview.cs
 //
@@ -26,17 +26,12 @@ namespace Gimp
 {
   public class ZoomPreview : ScrolledPreview
   {
-    readonly Drawable _drawable;
+    public Drawable Drawable {get; private set;}
 
     public ZoomPreview(Drawable drawable) : 
       base(gimp_zoom_preview_new(drawable.Ptr))
     {
-      _drawable = drawable;
-    }
-
-    public Drawable Drawable
-    {
-      get {return _drawable;}
+      Drawable = drawable;
     }
 
     public double Factor

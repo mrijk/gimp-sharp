@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // PersistentStorage.cs
 //
@@ -31,6 +31,7 @@ namespace Gimp
   {
     readonly Plugin _plugin;
     readonly string _name;
+    BinaryFormatter _formatter = new BinaryFormatter();
 
     public PersistentStorage(Plugin plugin)
     {
@@ -38,17 +39,15 @@ namespace Gimp
       _name = plugin.Name;
     }
 
-    BinaryFormatter _formatter = new BinaryFormatter();
-
     public void SetData()
     {
-      MemoryStream memoryStream = new MemoryStream();
+      var memoryStream = new MemoryStream();
 
-      Type type = _plugin.GetType();
+      var type = _plugin.GetType();
 
-      foreach (SaveAttribute attribute in new SaveAttributeSet(type))
+      foreach (var attribute in new SaveAttributeSet(type))
 	{
-	  FieldInfo field = attribute.Field;
+	  var field = attribute.Field;
 	  _formatter.Serialize(memoryStream, field.GetValue(_plugin));
 	}
 
@@ -64,15 +63,15 @@ namespace Gimp
       int size = gimp_procedural_db_get_data_size(_name);
       if (size > 0)
 	{
-	  byte[] data = new byte[size];
+	  var data = new byte[size];
 	  gimp_procedural_db_get_data(_name, data);
 
-	  MemoryStream memoryStream = new MemoryStream(data);
-	  Type type = _plugin.GetType();
+	  var memoryStream = new MemoryStream(data);
+	  var type = _plugin.GetType();
 
-	  foreach (SaveAttribute attribute in new SaveAttributeSet(type))
+	  foreach (var attribute in new SaveAttributeSet(type))
 	    {
-	      FieldInfo field = attribute.Field;
+	      var field = attribute.Field;
 	      field.SetValue(_plugin, _formatter.Deserialize(memoryStream));
 	    }
 	}

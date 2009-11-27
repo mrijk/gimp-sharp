@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // Version.cs
 //
@@ -31,7 +31,7 @@ namespace Gimp
 
     public Version(string version)
     {
-      string[] numbers = version.Split('.');
+      var numbers = version.Split('.');
       if (numbers.Length > 0)
 	_major = Convert.ToInt32(numbers[0]);
       if (numbers.Length > 1)
@@ -44,7 +44,7 @@ namespace Gimp
     {
       if (o is Version)
 	{
-	  Version v = o as Version;
+	  var v = o as Version;
 	  return v._major == _major &&
 	    v._minor == _minor &&
 	    v._micro == _micro;

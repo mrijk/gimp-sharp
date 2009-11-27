@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // PluginWithPreview.cs
 //
@@ -43,8 +43,8 @@ namespace Gimp
     {
       gimp_ui_init(title, true);
 
-      GimpDialog dialog = base.DialogNew(title, role, parent, flags, 
-					 help_func, help_id);
+      var dialog = base.DialogNew(title, role, parent, flags, 
+				  help_func, help_id);
 
       _vbox = new VBox(false, 0);
       _vbox.BorderWidth = 12;

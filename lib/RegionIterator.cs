@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // RegionIterator.cs
 //
@@ -43,7 +43,7 @@ namespace Gimp
 
     public void ForEach(IterFuncOne func)
     {
-      PixelRgn rgn = _regions[0];
+      var rgn = _regions[0];
       for (IntPtr pr = PixelRgn.Register(rgn); pr != IntPtr.Zero; 
 	   pr = PixelRgn.Process(pr))
 	{
@@ -59,8 +59,8 @@ namespace Gimp
 
     public void ForEach(IterFuncTwo func)
     {
-      PixelRgn rgn1 = _regions[0];
-      PixelRgn rgn2 = _regions[1];
+      var rgn1 = _regions[0];
+      var rgn2 = _regions[1];
       for (IntPtr pr = PixelRgn.Register(rgn1, rgn2); pr != IntPtr.Zero; 
 	   pr = PixelRgn.Process(pr))
 	{
@@ -77,9 +77,9 @@ namespace Gimp
 
     public void ForEach(IterFuncThree func)
     {
-      PixelRgn rgn1 = _regions[0];
-      PixelRgn rgn2 = _regions[1];
-      PixelRgn rgn3 = _regions[2];
+      var rgn1 = _regions[0];
+      var rgn2 = _regions[1];
+      var rgn3 = _regions[2];
 
       for (IntPtr pr = PixelRgn.Register(rgn1, rgn2, rgn3); pr != IntPtr.Zero; 
 	   pr = PixelRgn.Process(pr))

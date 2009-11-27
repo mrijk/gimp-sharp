@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // AspectPreview.cs
 //
@@ -41,7 +41,7 @@ namespace Gimp
       int width, height;
       GetSize(out width, out height);
 
-      byte[] buffer = new byte[width * height * 3];
+      var buffer = new byte[width * height * 3];
 
       for (int y = 0; y < height; y++)
 	{
