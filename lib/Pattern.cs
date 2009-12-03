@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // Pattern.cs
 //
@@ -26,40 +26,35 @@ namespace Gimp
 {
   public sealed class Pattern
   {
-    readonly string _name;
+    public string Name {get; private set;}
 
     public Pattern(string name)
     {
-      _name = name;
+      Name = name;
     }
 
     internal Pattern(string name, bool unused)
     {
-      _name = name;
-    }
-
-    public string Name
-    {
-      get {return _name;}
+      Name = name;
     }
 
     public override bool Equals(object o)
     {
       if (o is Pattern)
 	{
-	  return (o as Pattern)._name == _name;
+	  return (o as Pattern).Name == Name;
 	}
       return false;
     }
 
     public override int GetHashCode()
     {
-      return _name.GetHashCode();
+      return Name.GetHashCode();
     }
 
     public void GetInfo(out int width, out int height, out int bpp)
     {
-      if (!gimp_pattern_get_info(_name, out width, out height, out bpp))
+      if (!gimp_pattern_get_info(Name, out width, out height, out bpp))
         {
 	  throw new GimpSharpException();
         }
@@ -69,7 +64,7 @@ namespace Gimp
 			  out int numColorBytes)
     {
       IntPtr colorBytes;
-      if (!gimp_pattern_get_pixels(_name, out width, out height,
+      if (!gimp_pattern_get_pixels(Name, out width, out height,
 				   out bpp, out numColorBytes,
 				   out colorBytes))
         {

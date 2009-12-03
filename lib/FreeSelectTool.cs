@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // FreeSelectTool.cs
 //
@@ -36,7 +36,7 @@ namespace Gimp
     public void Select(CoordinateList<double> segs, ChannelOps operation, 
 		       bool antialias, bool feather, double featherRadius)
     {
-      double[] array = segs.ToArray();
+      var array = segs.ToArray();
       if (!gimp_free_select(_imageID, array.Length, array, operation,
 			    antialias, feather, featherRadius))
 	{

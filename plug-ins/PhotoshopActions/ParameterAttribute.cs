@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // ParameterAttribute.cs
 //
@@ -20,22 +20,16 @@
 //
 
 using System;
-using System.Reflection;
 
 namespace Gimp
 {
   public class ParameterAttribute : Attribute
   {
-    readonly string _name;
+    public string Name {get; set;}
 
     public ParameterAttribute(string name)
     {
-      _name = name;
-    }
-
-    public string Name
-    {
-      get {return _name;}
+      Name = name;
     }
   }
 }

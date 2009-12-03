@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2009 Maurits Rijk
 //
 // GrowEvent.cs
 //
@@ -24,10 +24,7 @@ namespace Gimp.PhotoshopActions
   {
     public override bool IsExecutable
     {
-      get 
-	{
-	  return false;
-	}
+      get {return false;}
     }
 
     override public bool Execute()

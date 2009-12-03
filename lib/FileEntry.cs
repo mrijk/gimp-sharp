@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // FileEntry.cs
 //
@@ -44,11 +44,11 @@ namespace Gimp
     [GLib.Signal("filename_changed")]
     public event EventHandler FilenameChanged {
       add {
-	GLib.Signal sig = GLib.Signal.Lookup(this, "filename_changed");
+	var sig = GLib.Signal.Lookup(this, "filename_changed");
 	sig.AddDelegate (value);
       }
       remove {
-	GLib.Signal sig = GLib.Signal.Lookup(this, "filename_changed");
+	var sig = GLib.Signal.Lookup(this, "filename_changed");
 	sig.RemoveDelegate (value);     
       }
     }

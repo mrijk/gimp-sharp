@@ -1,5 +1,32 @@
+2009-12-02  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/PictureFrame/PictureFrame.cs: minor clean-up
+
+2009-12-01  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/PhotoshopActions/ActionParser.cs
+	* plug-ins/PhotoshopActions/GrowEvent.cs
+	* plug-ins/PhotoshopActions/SharpenEvent.cs
+	* plug-ins/PhotoshopActions/SharpenMoreEvent.cs
+	* plug-ins/PhotoshopActions/UnimplementedEvent.cs
+	* plug-ins/PhotoshopActions/FacetEvent.cs
+	* plug-ins/PhotoshopActions/ParameterAttribute.cs
+	* plug-ins/PhotoshopActions/Objc.cs
+	* plug-ins/PhotoshopActions/ParameterSet.cs
+	* plug-ins/PhotoshopActions/PhotoshopActions.cs: minor clean-up
+
+	* lib/FilePlugin.cs: make reader available to dirived classes
+
 2009-11-27  Maurits Rijk  <maurits.rijk@gmail.com>
 
+	* plug-ins/Pdn/Pdn.cs: start cleaning up this mess
+
+	* lib/FileEntry.cs
+	* lib/GimpColorButton.cs
+	* lib/FreeSelectTool.cs 
+	* lib/DoubleOffset.cs
+	* lib/Pattern.cs
+	* lib/ByColorSelectTool.cs
 	* lib/FloatingSelection.cs
 	* lib/PaletteEntry.cs
 	* lib/Grid.cs

@@ -1,5 +1,5 @@
 // The PictureFrame plug-in
-// Copyright (C) 2006-2007 Oded Coster
+// Copyright (C) 2006-2009 Oded Coster
 //
 // PictureFrame.cs
 //
@@ -46,7 +46,7 @@ namespace Gimp.PictureFrame
 				 _("Picture frame"),
 				 "Oded Coster",
 				 "(C) Oded Coster",
-				 "2006-2007",
+				 "2006-2009",
 				 _("Picture frame..."),
 				 "RGB*, GRAY*")
 	{
@@ -59,21 +59,21 @@ namespace Gimp.PictureFrame
     {
       gimp_ui_init("Picture Frame", true);
     	
-      GimpDialog dialog = DialogNew("Picture Frame", "Picture Frame", 
-				    IntPtr.Zero, 0, 
-				    Gimp.StandardHelpFunc, "Picture Frame");
+      var dialog = DialogNew("Picture Frame", "Picture Frame", 
+			     IntPtr.Zero, 0, 
+			     Gimp.StandardHelpFunc, "Picture Frame");
       dialog.Modal = false;
 
-      VBox vbox = new VBox(false, 12) {BorderWidth = 12};
+      var vbox = new VBox(false, 12) {BorderWidth = 12};
       dialog.VBox.PackStart(vbox, true, true, 0);
       
 #if false
-      FileEntry entry = new FileEntry("Load Frame...", "PictureFrame.svg",
+      var entry = new FileEntry("Load Frame...", "PictureFrame.svg",
 				      false, true);
       entry.FilenameChanged += GetNewFileName;
 #else
-      FileChooserButton entry = 
-	new FileChooserButton(_("Load Frame..."), FileChooserAction.Open);
+      var entry = new FileChooserButton(_("Load Frame..."), 
+					FileChooserAction.Open);
       entry.SelectionChanged += delegate
 	{
 	  _pictureFrameImagePath = entry.Filename;
@@ -88,10 +88,10 @@ namespace Gimp.PictureFrame
     {
       try
 	{
-	  Image frame = Image.Load(RunMode.Interactive, 
-				   _pictureFrameImagePath, 
-				   _pictureFrameImagePath);
-	  Layer newLayer = new Layer(frame.ActiveLayer, image) 
+	  var frame = Image.Load(RunMode.Interactive, 
+				 _pictureFrameImagePath, 
+				 _pictureFrameImagePath);
+	  var newLayer = new Layer(frame.ActiveLayer, image) 
 	    {Visible = true};
           
 	  image.UndoGroupStart();

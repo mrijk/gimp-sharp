@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2009 Maurits Rijk
 //
 // UnimplementedEvent.cs
 //
@@ -18,8 +18,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-
 namespace Gimp.PhotoshopActions
 {
   public class UnimplementedEvent : ActionEvent
@@ -30,15 +28,12 @@ namespace Gimp.PhotoshopActions
 
     public override bool IsExecutable
     {
-      get 
-	{
-	  return false;
-	}
+      get {return false;}
     }
     
     override public ActionEvent Parse(ActionParser parser)
     {
-      ParameterSet set = new ParameterSet();
+      var set = new ParameterSet();
       set.Parse(parser, this, NumberOfItems);
       return this;
     }

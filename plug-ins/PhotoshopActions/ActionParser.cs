@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2009 Maurits Rijk
 //
 // ActionParser.cs
 //
@@ -60,14 +60,14 @@ namespace Gimp.PhotoshopActions
 
 	  PreSix = (version < 16);
 
-	  ActionSet actions = new ActionSet(ReadUnicodeString());
+	  var actions = new ActionSet(ReadUnicodeString());
 
 	  actions.Expanded = ReadByte();
 	  actions.SetChildren = ReadInt32();
 
 	  for (int i = 0; i < actions.SetChildren; i++)
 	    {
-	      Action action = ReadAction();
+	      var action = ReadAction();
 	      if (action == null)
 		{
 		  return null;
@@ -90,7 +90,7 @@ namespace Gimp.PhotoshopActions
 
     Action ReadAction()
     {
-      Action action = new Action();
+      var action = new Action();
 
       int index = ReadInt16();
       DebugOutput.Dump("Index: " + index);
@@ -107,7 +107,7 @@ namespace Gimp.PhotoshopActions
       for (int i = 0; i < action.NrOfChildren; i++)
 	{
 	  DebugOutput.Level++;
-	  ActionEvent actionEvent = ReadActionEvent();
+	  var actionEvent = ReadActionEvent();
 	  if (actionEvent != null)
 	    {
 	      action.Add(actionEvent);
@@ -148,7 +148,7 @@ namespace Gimp.PhotoshopActions
 	      return null;
 	    }
 	  
-	  ActionEvent actionEvent = _map.Lookup(eventName);
+	  var actionEvent = _map.Lookup(eventName);
 	  // actionEvent.EventForDisplay = ReadString();
 	  string tmp = ReadString();
 	  actionEvent.EventForDisplay = Abbreviations.GetUppercased(eventName);
@@ -199,14 +199,14 @@ namespace Gimp.PhotoshopActions
 
     int ReadInt16()
     {
-      byte[] val = _binReader.ReadBytes(2);
+      var val = _binReader.ReadBytes(2);
       
       return val[1] + 256 * val[0];
     }
 
     public int ReadInt32()
     {
-      byte[] val = _binReader.ReadBytes(4);
+      var val = _binReader.ReadBytes(4);
       
       return val[3] + 256 * (val[2] + 256 * (val[1] + 256 * val[0]));
     }
@@ -225,13 +225,13 @@ namespace Gimp.PhotoshopActions
 
     public double ReadDouble()
     {
-      byte[] buffer = new byte[8];
+      var buffer = new byte[8];
       for (int i = 0; i < 8; i++)
 	{
 	  buffer[7 - i] = ReadByte();
 	}
-      MemoryStream memoryStream = new MemoryStream(buffer);
-      BinaryReader reader = new BinaryReader(memoryStream);
+      var memoryStream = new MemoryStream(buffer);
+      var reader = new BinaryReader(memoryStream);
       return reader.ReadDouble();
     }
 
@@ -406,15 +406,15 @@ namespace Gimp.PhotoshopActions
 
     public string ReadFourByteString()
     {
-      byte[] buffer = _binReader.ReadBytes(4);
-      Encoding encoding = Encoding.ASCII;
+      var buffer = _binReader.ReadBytes(4);
+      var encoding = Encoding.ASCII;
       return encoding.GetString(buffer).Trim();
     }
 
     string ReadString(int length)
     {
-      byte[] buffer = _binReader.ReadBytes(length);
-      Encoding encoding = Encoding.ASCII;
+      var buffer = _binReader.ReadBytes(length);
+      var encoding = Encoding.ASCII;
       return encoding.GetString(buffer);
     }
 
@@ -445,7 +445,7 @@ namespace Gimp.PhotoshopActions
     public string ReadUnicodeString(int length)
     {
       length--;	// Strip last 2 zero's
-      byte[] buffer = _binReader.ReadBytes(2 * length);
+      var buffer = _binReader.ReadBytes(2 * length);
       _binReader.ReadBytes(2);	// Read and ignore 2 zero's
 
       for (int i = 0; i < 2 * length; i += 2)
@@ -455,7 +455,7 @@ namespace Gimp.PhotoshopActions
 	  buffer[i + 1] = tmp;
 	}
 
-      Encoding encoding = Encoding.Unicode;
+      var encoding = Encoding.Unicode;
       return encoding.GetString(buffer);
     }
 

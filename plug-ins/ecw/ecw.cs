@@ -44,7 +44,7 @@ namespace Gimp.ecw
 				     "This plug-in loads ECW images.",
 				     "Maurits Rijk",
 				     "(C) Maurits Rijk",
-				     "2006",
+				     "2006-2009",
 				     "ecw Image");
       
       yield return FileSaveProcedure("file_ecw_save",
@@ -52,7 +52,7 @@ namespace Gimp.ecw
 				     "This plug-in saves ECW images.",
 				     "Maurits Rijk",
 				     "(C) Maurits Rijk",
-				     "2006",
+				     "2006-2009",
 				     "ecw Image",
 				     "RGB*");
     }

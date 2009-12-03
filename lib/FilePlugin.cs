@@ -30,7 +30,7 @@ namespace Gimp
     Procedure _saveProcedure;
 
     protected string Filename {get; set;}
-    BinaryReader _reader;
+    protected BinaryReader Reader {get; set;}
 
     public FilePlugin(string[] args, string package) : base(args, package)
     {
@@ -59,7 +59,7 @@ namespace Gimp
 
       if (File.Exists(Filename))
 	{
-	  _reader = new BinaryReader(File.Open(Filename, FileMode.Open));
+	  Reader = new BinaryReader(File.Open(Filename, FileMode.Open));
 	  var image = Load();
 	  if (image == null)
 	    {
@@ -69,7 +69,7 @@ namespace Gimp
 	    {
 	      outParam.Add(new ParamDef(image, typeof(Image)));
 	    }
-	  _reader.Close();
+	  Reader.Close();
 	}
       else
 	{
@@ -84,12 +84,12 @@ namespace Gimp
 
     protected byte[] ReadBytes(int count)
     {
-      return _reader.ReadBytes(count);
+      return Reader.ReadBytes(count);
     }
 
     protected byte ReadByte()
     {
-      return _reader.ReadByte();
+      return Reader.ReadByte();
     }
 
     void SaveFile(ParamDefList inParam, ParamDefList outParam)

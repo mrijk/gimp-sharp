@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // GimpColorButton.cs
 //
@@ -53,54 +53,42 @@ namespace Gimp
     {
       get
 	{
-	  GimpRGB rgb = new GimpRGB();
+	  var rgb = new GimpRGB();
 	  gimp_color_button_get_color(Handle, ref rgb);
 	  return new RGB(rgb);
 	}
       set
 	{
-	  GimpRGB rgb = value.GimpRGB;
+	  var rgb = value.GimpRGB;
 	  gimp_color_button_set_color(Handle, ref rgb);
 	}
     }
 
     public bool Alpha
     {
-      get
-	{
-	  return gimp_color_button_has_alpha(Handle);
-	}
+      get {return gimp_color_button_has_alpha(Handle);}
     }
 
     public ColorAreaType Type
     {
-      set
-	{
-	  gimp_color_button_set_type(Handle, value);
-	}
+      set {gimp_color_button_set_type(Handle, value);}
     }
 
     public bool Update
     {
-      get
-	{
-	  return gimp_color_button_get_update(Handle);
-	}
-      set
-	{
-	  gimp_color_button_set_update(Handle, value);
-	}
+      get {return gimp_color_button_get_update(Handle);}
+      set {gimp_color_button_set_update(Handle, value);}
     }
 
     [GLib.Signal("color_changed")]
     public event EventHandler ColorChanged {
       add {
-	GLib.Signal sig = GLib.Signal.Lookup (this, "color_changed");
-	sig.AddDelegate (value);
+	var sig = GLib.Signal.Lookup(this, "color_changed");
+	sig.AddDelegate(value);
       }
       remove {
-	GLib.Signal sig = GLib.Signal.Lookup (this, "color_changed");
-	sig.RemoveDelegate (value);     
+	var sig = GLib.Signal.Lookup(this, "color_changed");
+	sig.RemoveDelegate(value);     
       }
     }
 

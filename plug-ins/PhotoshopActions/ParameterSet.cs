@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2009 Maurits Rijk
 //
 // ParameterSet.cs
 //
@@ -76,7 +76,7 @@ namespace Gimp.PhotoshopActions
     {
       for (int i = 0; i < numberOfItems; i++)
 	{
-	  Parameter parameter = parser.ReadItem();
+	  var parameter = parser.ReadItem();
 	  if (parameter != null)
 	    {
 	      _set[parameter.Name] = parameter;
@@ -93,11 +93,11 @@ namespace Gimp.PhotoshopActions
 
     public IEnumerable<string> ListParameters()
     {
-      foreach (Parameter child in _list)
+      foreach (var child in _list)
 	{
 	  if (child.Name != "null")
 	    {
-	      foreach (string s in child.Format())
+	      foreach (var s in child.Format())
 		{
 		  yield return s;
 		}
@@ -107,27 +107,26 @@ namespace Gimp.PhotoshopActions
 
     public void Fill(Object obj)
     {
-      Type type = obj.GetType();
+      var type = obj.GetType();
 
       // Console.WriteLine("Type: " + type);
 
-      foreach (FieldInfo field in type.GetFields(BindingFlags.Instance |
-						 BindingFlags.NonPublic | 
-						 BindingFlags.Public))
+      foreach (var field in type.GetFields(BindingFlags.Instance |
+					   BindingFlags.NonPublic | 
+					   BindingFlags.Public))
 	{
 	  // Console.WriteLine("Fill: " + field);
 
-	  foreach (object attribute in field.GetCustomAttributes(true))
+	  foreach (var attribute in field.GetCustomAttributes(true))
 	    {
 	      if (attribute is ParameterAttribute)
 		{
-		  ParameterAttribute parameterAttribute = 
-		    attribute as ParameterAttribute;
+		  var parameterAttribute = attribute as ParameterAttribute;
 
 		  string name = parameterAttribute.Name;
 		  if (_set.ContainsKey(name))
 		    {
-		      Parameter parameter = _set[name];
+		      var parameter = _set[name];
 		      parameter.Fill(obj, field);
 		    }
 		  else

@@ -1,5 +1,5 @@
 // The Paint .NET file format import/export plug-in
-// Copyright (C) 2006 Massimo Perga
+// Copyright (C) 2006-2009 Massimo Perga, Maurits Rijk
 //
 // pdn.cs
 //
@@ -28,11 +28,6 @@ namespace Gimp.Pdn
 {
   class Pdn : FilePlugin
   {
-    //	private XmlDocument headerXml;
-
-    //		private const string headerXmlSkeleton =
-    //			"<pdnImage><custom></custom></pdnImage>";
-
     static void Main(string[] args)
     {
       new Pdn(args);
@@ -49,8 +44,8 @@ namespace Gimp.Pdn
 				"This plug-in loads images of the Paint.NET file format.",
 				"Massimo Perga",
 				"(C) Massimo Perga",
-				"2006",
-				"Paint.NET Image"));
+				"2006-2009",
+				"Paint.NET Image");
     }
 
     override protected void Query()
@@ -59,119 +54,105 @@ namespace Gimp.Pdn
       RegisterLoadHandler("pdn", "");
     }
 
-    //	public static void Main(string[] args)
-    override protected Image Load(string filename)
+    override protected Image Load()
     {
-      Image image = null;
-      Console.WriteLine("Filename = " +filename);
-      Console.ReadLine();
       int layerPosition = 0;
       int colorOffset = 0;
 
-      //		StreamReader stream = new Stream
-      if (File.Exists(filename))
-	{
-	  Console.WriteLine("File exists");
-	  Console.ReadLine();
-	  /*				Stream openedFile = File.Open(filename,
-					FileMode.Open);*/
-	  StreamReader stream = new StreamReader(filename);
-	  Document document = Document.FromStream(stream.BaseStream);
-
-	  Console.WriteLine("Width  : " + document.Width);
-	  Console.WriteLine("height : " + document.Height);
-
-	  image = new Image(document.Width, document.Height,
+      Document document = Document.FromStream(Reader.BaseStream);
+      
+      Console.WriteLine("Width  : " + document.Width);
+      Console.WriteLine("height : " + document.Height);
+      
+      var image = new Image(document.Width, document.Height,
 			    ImageBaseType.Rgb); // Is it the best type ?
-	  image.Filename = filename;
-
-	  PaintDotNet.LayerList layers = document.Layers;
-	  Console.WriteLine("#layers: " + layers.Count);
-
-	  foreach (PaintDotNet.Layer readLayer in layers)
+      image.Filename = Filename;
+      
+      PaintDotNet.LayerList layers = document.Layers;
+      Console.WriteLine("#layers: " + layers.Count);
+      
+      foreach (PaintDotNet.Layer readLayer in layers)
+	{
+	  try
 	    {
-	      try
+	      Console.WriteLine(readLayer.Name);
+
+	      var layer = new Layer(image, readLayer.Name,
+				    document.Width, document.Height,
+				    ImageType.Rgba,  
+				    (readLayer.Opacity / 255) * 100, // 100 what means ?
+				    LayerModeEffects.Normal);
+	      Console.WriteLine("11");
+	      image.AddLayer(layer, layerPosition++);
+	      
+	      Console.WriteLine("1");
+	      
+	      var rgn = new PixelRgn(layer, 0, 0, 
+				     document.Width, document.Height,
+				     true, false);
+	      
+	      var buf = new byte[document.Width * document.Height * 4];
+	      var color_conv_ary = new byte[4];
+	      int lastPixelConverted = 0;
+	      colorOffset = 0;
+	      var surf = (readLayer as BitmapLayer).Surface;
+
+	      for (int row = 0; row < document.Height; row++)
 		{
-		  Console.WriteLine(readLayer.Name);
-		  Console.ReadLine();
-		  Layer layer = new Layer(image, readLayer.Name,
-					  document.Width, document.Height,
-					  ImageType.Rgba,  
-					  (readLayer.Opacity / 255) * 100, // 100 what means ?
-					  LayerModeEffects.Normal);
-		  Console.WriteLine("11");
-		  image.AddLayer(layer, layerPosition++);
-
-		  Console.WriteLine("1");
-
-		  PixelRgn rgn = new PixelRgn(layer, 0, 0, 
-					      document.Width, document.Height,
-					      true, false);
-
-		  byte[] buf = new byte[document.Width * document.Height * 4];
-		  byte[] color_conv_ary = new byte[4];
-		  int lastPixelConverted = 0;
+		  MemoryBlock memory = surf.GetRow(row);
+		  byte[] bitmapBytes = memory.ToByteArray();
+		  lastPixelConverted = 0;
 		  colorOffset = 0;
-		  Surface surf = (readLayer as BitmapLayer).Surface;
-
-					
-		  for (int row = 0; row < document.Height; row++)
+		  for (int col = 0; col < document.Width * 4; col++)
 		    {
-		      MemoryBlock memory = surf.GetRow(row);
-		      byte[] bitmapBytes = memory.ToByteArray();
-		      lastPixelConverted = 0;
-		      colorOffset = 0;
-		      for (int col = 0; col < document.Width * 4; col++)
+		      color_conv_ary[colorOffset++] = bitmapBytes[col];
+		      //							Console.WriteLine("ColorOffset = " + colorOffset);
+		      
+		      if (colorOffset >= 4)
 			{
-			  color_conv_ary[colorOffset++] = bitmapBytes[col];
-			  //							Console.WriteLine("ColorOffset = " + colorOffset);
-
-			  if (colorOffset >= 4)
+			  byte[] tmpArray = FromBGRAToRGBA(color_conv_ary);
+			  
+			  for (int j = 0; j < colorOffset; j++)
 			    {
-			      byte[] tmpArray = FromBGRAToRGBA(color_conv_ary);
-									
-			      for (int j = 0; j < colorOffset; j++)
-				{
-				  //									buf[row * document.Height + (lastPixelConverted++)] = tmpArray[j];
-				  buf[(row * document.Width * 4) + (lastPixelConverted++)] = tmpArray[j];
-
-				  /*										Console.WriteLine("Scritto il byte[" + ((row *
+			      //									buf[row * document.Height + (lastPixelConverted++)] = tmpArray[j];
+			      buf[(row * document.Width * 4) + (lastPixelConverted++)] = tmpArray[j];
+			      
+			      /*										Console.WriteLine("Scritto il byte[" + ((row *
 														document.Width * 4) + (lastPixelConverted-1)) + "] : " +
 														tmpArray[j]);*/
-				}
-			      colorOffset = 0;
 			    }
-
-			  //							buf[row * document.Height + col] =  bitmapBytes[col]; //0x7F;
+			  colorOffset = 0;
 			}
-		      //						Console.WriteLine(memory.Length);
+		      
+		      //							buf[row * document.Height + col] =  bitmapBytes[col]; //0x7F;
 		    }
-		  //					Console.ReadLine();
-
-		  rgn.SetRect(buf, 0, 0, 
-			      document.Width, document.Height);
-		  layer.Flush();
+		  //						Console.WriteLine(memory.Length);
 		}
-	      catch (Exception e)
-		{
-		  Console.WriteLine("Exception : " + e.Message + " - " +
-				    e.StackTrace);
-		}
+	      //					Console.ReadLine();
+	      
+	      rgn.SetRect(buf, 0, 0, 
+			  document.Width, document.Height);
+	      layer.Flush();
 	    }
-	  // missing colormap, mcolor and background
+	  catch (Exception e)
+	    {
+	      Console.WriteLine("Exception : " + e.Message + " - " +
+				e.StackTrace);
+	    }
+	}
+      // missing colormap, mcolor and background
+      
+      Console.WriteLine("2");
+      
+      /* Surface surface =
+	 (layers[0] as
+	 BitmapLayer).Surface;
+	 MemoryBlock memory1 =
+	 surface.GetRow(13);
+	 byte[] bytes =
+	 memory1.ToByteArray();
+	 Console.WriteLine("length: " + bytes.Length);*/
 
-	  Console.WriteLine("2");
-
-	  /*				Surface surface =
-					(layers[0] as
-					BitmapLayer).Surface;
-					MemoryBlock memory1 =
-					surface.GetRow(13);
-					byte[] bytes =
-					memory1.ToByteArray();
-					Console.WriteLine("length: " + bytes.Length);*/
-	}	
-      Console.ReadLine();
       return image;
     }
 
@@ -179,16 +160,10 @@ namespace Gimp.Pdn
     {
       byte r, g, b, a;
 
-      //			Console.Write("From BGRAToRGBA called");
       a = bgra[3];
       r = bgra[2];
       g = bgra[1];
       b = bgra[0];
-
-      /*			if(a == 0xFF)
-				{
-				Console.WriteLine(": Alpha opaque r=" + r + " g=" + g + " b=" + b );
-				}*/
 
       return new byte[]{r, g, b, a};
     }

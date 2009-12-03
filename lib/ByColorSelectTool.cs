@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // ByColorSelectTool.cs
 //
@@ -37,7 +37,7 @@ namespace Gimp
 		       bool antialias, bool feather, double featherRadius,
 		       bool sampleMerged)
     {
-      GimpRGB rgb = color.GimpRGB;
+      var rgb = color.GimpRGB;
       if (!gimp_by_color_select(_drawableID, ref rgb, threshold, operation, 
 				antialias, feather, featherRadius, 
 				sampleMerged))

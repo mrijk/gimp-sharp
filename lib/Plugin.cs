@@ -82,7 +82,7 @@ namespace Gimp
       _info.Query = new QueryProc(Query);
       _info.Run = new RunProc(Run);
 
-      string[] progargs = new string[Args.Length + 1];
+      var progargs = new string[Args.Length + 1];
       progargs[0] = "gimp-sharp";
       Args.CopyTo(progargs, 1);
 
@@ -100,7 +100,7 @@ namespace Gimp
       _info.Query = new QueryProc(Query);
       _info.Run = new RunProc(Run);
 
-      string[] progargs = new string[args.Length + 1];
+      var progargs = new string[args.Length + 1];
       progargs[0] = "gimp-sharp";
       args.CopyTo(progargs, 1);
 
@@ -132,7 +132,7 @@ namespace Gimp
 	{
 	  if (method.Name == "Render")
 	    {
-	      foreach (ParameterInfo parameter in method.GetParameters())
+	      foreach (var parameter in method.GetParameters())
 		{
 		  if (parameter.ParameterType == typeof(Drawable))
 		    {
@@ -156,7 +156,7 @@ namespace Gimp
     {
       GetRequiredParameters();
 
-      foreach (Procedure procedure in ListProcedures())
+      foreach (var procedure in ListProcedures())
 	{
 	  _procedures.Add(procedure);
 	}

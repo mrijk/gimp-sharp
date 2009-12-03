@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2009 Maurits Rijk
 //
 // Objc.cs
 //
@@ -24,31 +24,16 @@ namespace Gimp.PhotoshopActions
 {
   public class Objc
   {
-    string _classId;
-    string _classId2;
-    int _numberOfItems;
-
-    public string ClassId
-    {
-      get {return _classId;}
-    }
-    
-    public string ClassId2
-    {
-      get {return _classId2;}
-    }
-    
-    public int NumberOfItems
-    {
-      get {return _numberOfItems;}
-    }
+    public string ClassId {get; set;}
+    public string ClassId2 {get; set;}
+    public int NumberOfItems {get; set;}
     
     public void Parse(ActionParser parser)
     {
       parser.ParseFourByteString("Objc");
-      _classId = parser.ReadUnicodeString();
-      _classId2 = parser.ReadTokenOrString();
-      _numberOfItems = parser.ReadInt32();
+      ClassId = parser.ReadUnicodeString();
+      ClassId2 = parser.ReadTokenOrString();
+      NumberOfItems = parser.ReadInt32();
     }
   }
 }

@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2009 Maurits Rijk
 //
 // PhotoshopActions.cs
 //
@@ -42,14 +42,14 @@ namespace Gimp.PhotoshopActions
 
     override protected IEnumerable<Procedure> ListProcedures()
     {
-      ParamDefList inParams = new ParamDefList();
+      var inParams = new ParamDefList();
 
       yield return new Procedure("plug_in_photoshop_actions",
 				 "Play Photoshop action files",
 				 "Play Photoshop action files",
 				 "Maurits Rijk",
 				 "(C) Maurits Rijk",
-				 "2006-2007",
+				 "2006-2009",
 				 "Photoshop Actions...",
 				 "",
 				 inParams)
@@ -63,36 +63,35 @@ namespace Gimp.PhotoshopActions
     {
       gimp_ui_init("PhotoshopActions", true);
 
-      GimpDialog dialog = DialogNew("Photoshop Actions 0.6", 
-				    "PhotoshopActions",
-				    IntPtr.Zero, 0, Gimp.StandardHelpFunc, 
-				    "PhotoshopActions");
+      var dialog = DialogNew("Photoshop Actions 0.6", 
+			     "PhotoshopActions",
+			     IntPtr.Zero, 0, Gimp.StandardHelpFunc, 
+			     "PhotoshopActions");
 
-      VBox vbox = new VBox(false, 12);
+      var vbox = new VBox(false, 12);
       vbox.BorderWidth = 12;
       dialog.VBox.PackStart(vbox, true, true, 0);
 
-      TreeStore store = CreateActionTree();
+      var store = CreateActionTree();
 
-      ScrolledWindow sw = new ScrolledWindow();
+      var sw = new ScrolledWindow();
       sw.HeightRequest = 400;
       vbox.PackStart(sw, true, true, 0);
       
-      TreeView view = new TreeView(store);
+      var view = new TreeView(store);
       sw.Add(view);        
 
-      CellRendererToggle activeRenderer = new CellRendererToggle();
+      var activeRenderer = new CellRendererToggle();
       activeRenderer.Activatable = true;
-      TreeViewColumn columnOne = 
-	view.AppendColumn("Enabled", activeRenderer, 
-			  new TreeCellDataFunc(RenderActive));
+      var columnOne = view.AppendColumn("Enabled", activeRenderer, 
+					new TreeCellDataFunc(RenderActive));
       activeRenderer.Toggled += delegate(object o, ToggledArgs args)
 	{
 	  TreeIter iter;
-	  TreePath path = new TreePath(args.Path);
+	  var path = new TreePath(args.Path);
 	  if (store.GetIter(out iter, path))
 	  {
-	    IExecutable executable = store.GetValue(iter, 1) as IExecutable;
+	    var executable = store.GetValue(iter, 1) as IExecutable;
 	    executable.IsEnabled = !executable.IsEnabled;
 
 	    path.Down();
@@ -104,23 +103,22 @@ namespace Gimp.PhotoshopActions
 	  }
 	};
 
-      CellRendererText textRenderer = new CellRendererText();
-      TreeViewColumn column = 
-	view.AppendColumn("Set Name", textRenderer, 
-			  new TreeCellDataFunc(RenderText));
+      var textRenderer = new CellRendererText();
+      var column = view.AppendColumn("Set Name", textRenderer, 
+				     new TreeCellDataFunc(RenderText));
 
-      HBox hbox = new HBox();
+      var hbox = new HBox();
       vbox.PackStart(hbox, false, true, 0);
 
-      Button play = new Button(Stock.Execute);
+      var play = new Button(Stock.Execute);
       play.Clicked += delegate
 	{
-	  TreePath[] paths = view.Selection.GetSelectedRows();
-	  TreePath path = paths[0];	// Assume only 1 is selected
+	  var paths = view.Selection.GetSelectedRows();
+	  var path = paths[0];	// Assume only 1 is selected
 
-	  int[] indices = path.Indices;
+	  var indices = path.Indices;
 
-	  ActionSet actions = _set[indices[0]];
+	  var actions = _set[indices[0]];
 
 	  if (indices.Length > 2)
 	    {
@@ -139,8 +137,8 @@ namespace Gimp.PhotoshopActions
 
       view.Selection.Changed += delegate
 	{
-	  TreePath[] paths = view.Selection.GetSelectedRows();
-	  int[] indices = paths[0].Indices;
+	  var paths = view.Selection.GetSelectedRows();
+	  var indices = paths[0].Indices;
 
 	  play.Sensitive = (indices.Length > 1);
 	};
@@ -162,8 +160,8 @@ namespace Gimp.PhotoshopActions
     void RenderActive(TreeViewColumn column, CellRenderer cell, 
 		    TreeModel model, TreeIter iter)
     {
-      IExecutable executable = model.GetValue(iter, 1) as IExecutable;
-      CellRendererToggle toggle = cell as CellRendererToggle;
+      var executable = model.GetValue(iter, 1) as IExecutable;
+      var toggle = cell as CellRendererToggle;
 
       if (executable != null)
 	{
@@ -180,8 +178,8 @@ namespace Gimp.PhotoshopActions
 		    TreeModel model, TreeIter iter)
     {
       string name = model.GetValue(iter, 0) as string;
-      IExecutable executable = model.GetValue(iter, 1) as IExecutable;
-      CellRendererText text = cell as CellRendererText;
+      var executable = model.GetValue(iter, 1) as IExecutable;
+      var text = cell as CellRendererText;
 
       text.Text = name;
 
@@ -197,12 +195,12 @@ namespace Gimp.PhotoshopActions
 
     TreeStore CreateActionTree()
     {
-      TreeStore store = new TreeStore(typeof(string), typeof(IExecutable));
+      var store = new TreeStore(typeof(string), typeof(IExecutable));
 
       string scriptDir = Gimp.Directory + 
 	System.IO.Path.DirectorySeparatorChar + "scripts";
 
-      ActionParser parser = new ActionParser(_image, _drawable);
+      var parser = new ActionParser(_image, _drawable);
 
       int nrScripts = 0;
 
@@ -215,19 +213,18 @@ namespace Gimp.PhotoshopActions
 	      Console.WriteLine(fileName);
 	      nrScripts++;
 
-	      ActionSet actions = parser.Parse(fileName);
+	      var actions = parser.Parse(fileName);
 
 	      if (actions != null)
 		{
 		  _set.Add(actions);
 
-		  TreeIter iter = store.AppendValues(actions.ExtendedName, 
-						     actions);
-		  foreach (Action action in actions)
+		  var iter = store.AppendValues(actions.ExtendedName, actions);
+		  foreach (var action in actions)
 		    {
-		      TreeIter iter1 = store.AppendValues(iter, action.Name,
+		      var iter1 = store.AppendValues(iter, action.Name,
 							  action);
-		      foreach (ActionEvent actionEvent in action)
+		      foreach (var actionEvent in action)
 			{
 			  Console.WriteLine(actionEvent.EventForDisplay);
 			  actionEvent.FillStore(store, iter1);
@@ -237,15 +234,20 @@ namespace Gimp.PhotoshopActions
 	    }
 	}
 
-      // Dump some statistics
+      DumpStatistics(parser, nrScripts);
 
+      return store;
+    }
+
+    void DumpStatistics(ActionParser parser, int nrScripts)
+    {
       int nrExecutable = 0;
       int nrActions = 0;
       int nrEvents = 0;
       int nrExecutableActions = 0;
       int nrExecutableEvents = 0;
 
-      foreach (ActionSet actions in _set)
+      foreach (var actions in _set)
 	{
 	  if (actions.IsExecutable)
 	    {
@@ -280,8 +282,6 @@ namespace Gimp.PhotoshopActions
 
       Console.WriteLine();
       parser.DumpStatistics();
-
-      return store;
     }
 
     override protected void Render(Image image, Drawable drawable)

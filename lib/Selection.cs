@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // Selection.cs
 //
@@ -98,7 +98,7 @@ namespace Gimp
 
     public int this[int x, int y]
     {
-      get {return gimp_selection_value(_imageID, x, y);}
+      get {return Value(x, y);}
     }
 
     public void Grow(int steps)

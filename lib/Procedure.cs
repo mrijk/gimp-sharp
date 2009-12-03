@@ -96,7 +96,7 @@ namespace Gimp
 
     public void Install(bool usesImage, bool usesDrawable)
     {
-      GimpParamDef[] args = _inParams.GetGimpParamDef(usesImage, usesDrawable);
+      var args = _inParams.GetGimpParamDef(usesImage, usesDrawable);
       GimpParamDef[] returnVals;
       int returnLen;
       if (_outParams == null)
