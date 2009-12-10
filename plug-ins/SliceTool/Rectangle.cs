@@ -65,14 +65,14 @@ namespace Gimp.SliceTool
 
     int GetValueOfNode(XmlNode node, string item)
     {
-      XmlAttributeCollection attributes = node.Attributes;
-      XmlAttribute position = (XmlAttribute) attributes.GetNamedItem(item);
+      var attributes = node.Attributes;
+      var position = (XmlAttribute) attributes.GetNamedItem(item);
       return (int) Convert.ToDouble(position.Value);
     }
 
     public int CompareTo(object obj)
     {
-      Rectangle rectangle = obj as Rectangle;
+      var rectangle = obj as Rectangle;
       int y1 = Top.Y;
       int y2 = rectangle.Top.Y;
       if (y1 == y2)

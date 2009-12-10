@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // SelectFunc.cs
 //
@@ -42,10 +42,10 @@ namespace Gimp.SliceTool
 
     override protected void OnPress(Coordinate<int> c)
     {
-      Slice slice = _sliceData.FindSlice(c);
+      var slice = _sliceData.FindSlice(c);
       if (slice == null)
 	{
-	  Rectangle rectangle = _sliceData.SelectRectangle(c);
+	  var rectangle = _sliceData.SelectRectangle(c);
 	  if (rectangle != _rectangle)
 	    {
 	      _parent.SetRectangleData(_rectangle);

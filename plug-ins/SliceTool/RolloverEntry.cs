@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2007 Maurits Rijk  m.rijk@chello.nl
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // RolloverEntry.cs
 //
@@ -30,7 +30,7 @@ namespace Gimp.SliceTool
     public RolloverEntry(GimpTable table, string label, uint row) : 
       base(Catalog.GetString("Select Image"), "", false, true)
     {
-      CheckButton button = new CheckButton(label);
+      var button = new CheckButton(label);
 
       button.Clicked += delegate
 	{

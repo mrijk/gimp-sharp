@@ -1,3 +1,27 @@
+2009-12-10  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* lib/PixelRgn.cs
+	* lib/PreviewArea.cs: added convenience Draw routine...
+
+	* plug-ins/SliceTool/Preview.cs: ... and use it
+	
+	* plug-ins/SliceTool/CreateTableFunc.cs
+	* plug-ins/SliceTool/SelectFunc.cs
+	* plug-ins/SliceTool/PropertySet.cs
+	* plug-ins/SliceTool/FileExistsDialog.cs
+	* plug-ins/SliceTool/Format.cs
+	* plug-ins/SliceTool/JavaScriptProperty.cs
+	* plug-ins/SliceTool/MouseFunc.cs
+	* plug-ins/SliceTool/RemoveFunc.cs
+	* plug-ins/SliceTool/Slice.cs
+	* plug-ins/SliceTool/SliceSet.cs
+	* plug-ins/SliceTool/TableDialog.cs
+	* plug-ins/SliceTool/PreferencesDialog.cs
+	* plug-ins/SliceTool/RolloverEntry.cs
+	* plug-ins/SliceTool/RolloverDialog.cs
+	* plug-ins/SliceTool/PreviewRenderer.cs
+	* plug-ins/SliceTool/Rectangle.cs: major clean-up
+
 2009-12-02  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* plug-ins/PictureFrame/PictureFrame.cs: minor clean-up

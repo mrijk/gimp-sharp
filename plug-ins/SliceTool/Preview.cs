@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // Preview.cs
 //
@@ -18,8 +18,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-
 using Gdk;
 using Gtk;
 
@@ -27,47 +25,31 @@ namespace Gimp.SliceTool
 {
   public class Preview : PreviewArea
   {
-    Gdk.GC _gc;
-    Drawable _drawable;
-    PreviewRenderer _renderer;
+    public PreviewRenderer Renderer {get; set;}
 
     Cursor _cursor;
 
     public Preview(Drawable drawable, SliceTool parent)
     {
-      SetMaxSize(drawable.Width, drawable.Height);
+      MaxSize = drawable.Dimensions;
 
-      _drawable = drawable;
-
-      ExposeEvent += delegate {parent.Redraw(_renderer);};
+      ExposeEvent += delegate {parent.Redraw(Renderer);};
       Realized += delegate
 	{
-	  _gc = new Gdk.GC(GdkWindow);
-	  _renderer = new PreviewRenderer(this, _gc, _drawable.Width,
-					  _drawable.Height);
-	  FillWithImage();
+	  var gc = new Gdk.GC(GdkWindow);
+	  Renderer = new PreviewRenderer(this, gc, drawable.Dimensions);
+	  FillWithImage(drawable);
 	};
-      SizeAllocated += delegate {FillWithImage();};
+      SizeAllocated += delegate {FillWithImage(drawable);};
 
       Events = EventMask.ButtonPressMask | EventMask.ButtonReleaseMask | 
 	EventMask.PointerMotionHintMask | EventMask.PointerMotionMask |
 	EventMask.LeaveNotifyMask;
     }
 
-    void FillWithImage()
+    void FillWithImage(Drawable drawable)
     {
-      int width = _drawable.Width;
-      int height = _drawable.Height;
-
-      PixelRgn rgn = new PixelRgn(_drawable, false, false);
-
-      byte[] buf = rgn.GetRect(0, 0, width, height);
-      Draw(0, 0, width, height, ImageType.Rgb, buf, width * _drawable.Bpp);
-    }
-
-    public PreviewRenderer Renderer
-    {
-      get {return _renderer;}
+      Draw(drawable, ImageType.Rgb);
     }
 
     public void SetCursor(Cursor cursor)

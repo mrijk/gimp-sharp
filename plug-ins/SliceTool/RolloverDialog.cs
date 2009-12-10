@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2007 Maurits Rijk  m.rijk@chello.nl
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // RolloverDialog.cs
 //
@@ -36,10 +36,8 @@ namespace Gimp.SliceTool
     public RolloverDialog() : base(_("Rollover Creator"), 
         _("SliceTool"), IntPtr.Zero, 0, null, _("SliceTool"))
     {
-      GimpTable table = new GimpTable(7, 3, false);
-      table.BorderWidth = 12;
-      table.ColumnSpacing = 6;
-      table.RowSpacing = 6;
+      var table = new GimpTable(7, 3, false)
+	{BorderWidth = 12, ColumnSpacing = 6, RowSpacing = 6};
       VBox.PackStart(table, true, true, 0);
 
       _mouseOver = new RolloverEntry(table, _("_Mouse over"), 0);
@@ -49,7 +47,7 @@ namespace Gimp.SliceTool
       _mouseUp = new RolloverEntry(table, _("Mouse _up"), 4);
       _mouseDown = new RolloverEntry(table, _("Mouse _down"), 5);
 
-      Label label = new Label(_("If a file is not given for the rollover, the original file will be used."));
+      var label = new Label(_("If a file is not given for the rollover, the original file will be used."));
       table.Attach(label, 0, 2, 6, 7);
     }
 

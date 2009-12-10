@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2008 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // PixelRgn.cs
 //
@@ -109,9 +109,15 @@ namespace Gimp
 
     public byte[] GetRect(int x, int y, int width, int height)
     {
-      byte[] buf = new byte[width * _bpp * height];
+      var buf = new byte[width * _bpp * height];
       gimp_pixel_rgn_get_rect(ref *pr, buf, x, y, width, height);
       return buf;
+    }
+
+    public byte[] GetRect(Rectangle rectangle)
+    {
+      return GetRect(rectangle.X1, rectangle.Y1, rectangle.Width,
+		     rectangle.Height);
     }
 
     public void SetRect(byte[] buf, int x, int y, int width, int height)
@@ -127,10 +133,10 @@ namespace Gimp
    
     public Pixel[] GetRow(int x, int y, int width)
     {
-      byte[] buf = new byte[width * _bpp];
+      var buf = new byte[width * _bpp];
       gimp_pixel_rgn_get_row(ref *pr, buf, x, y, width);
 
-      Pixel[] row = new Pixel[width];
+      var row = new Pixel[width];
 
       int index = 0;
       for (int i = 0; i < width; i++)
@@ -146,7 +152,7 @@ namespace Gimp
     public void SetRow(Pixel[] row, int x, int y)
     {
       int width = row.Length;
-      byte[] buf = new byte[width * _bpp];
+      var buf = new byte[width * _bpp];
 
       int index = 0;
       for (int i = 0; i < width; i++)

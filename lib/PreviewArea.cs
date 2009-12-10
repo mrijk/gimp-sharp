@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // PreviewArea.cs
 //
@@ -50,6 +50,15 @@ namespace Gimp
 	   type, buf, rowstride);
     }
 
+    public void Draw(Drawable drawable, ImageType type)
+    {
+      var rgn = new PixelRgn(drawable, false, false);
+
+      var rectangle = drawable.Bounds;
+      var buf = rgn.GetRect(rectangle);
+      Draw(rectangle, ImageType.Rgb, buf, rectangle.Width * drawable.Bpp);
+    }
+
     public void SetMaxSize(int width, int height)
     {
       gimp_preview_area_set_max_size(Handle, width, height);
@@ -57,10 +66,7 @@ namespace Gimp
 
     public Dimensions MaxSize
     {
-      set
-	{
-	  SetMaxSize(value.Width, value.Height);
-	}
+      set {SetMaxSize(value.Width, value.Height);}
     }
 
     [DllImport("libgimpwidgets-2.0-0.dll")]

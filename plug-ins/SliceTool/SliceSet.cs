@@ -1,5 +1,5 @@
 // The SliceTool plug-in
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // SliceSet.cs
 //
@@ -37,7 +37,7 @@ namespace Gimp.SliceTool
 
     public void Add(Slice slice)
     {
-      _changed = true;
+      Changed = true;
       _set.Add(slice);
     }
 
@@ -48,7 +48,7 @@ namespace Gimp.SliceTool
 
     public void Clear()
     {
-      _changed = true;
+      Changed = true;
       _set.Clear();
     }
 
@@ -109,7 +109,7 @@ namespace Gimp.SliceTool
     public void Save(StreamWriter w)
     {
       _set.ForEach(slice => slice.Save(w));
-      _changed = false;
+      Changed = false;
     }
 
     public void Resolve(SliceSet slices)

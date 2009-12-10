@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // Format.cs
 //
@@ -30,7 +30,7 @@ namespace Gimp.SliceTool
 
     public Format() : base(_("File Type"))
     {
-      Table table = new Table(2, 2, true) {RowSpacing = 6};
+      var table = new Table(2, 2, true) {RowSpacing = 6};
       Add(table);
 
       _format = ComboBox.NewText();
@@ -71,7 +71,7 @@ namespace Gimp.SliceTool
 	      break;
 	    }
 
-	  if (_apply.Active)
+	  if (Apply)
 	    {
 	      Rectangle.GlobalExtension = value;
 	    }

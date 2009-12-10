@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // Slice.cs
 //
@@ -53,8 +53,8 @@ namespace Gimp.SliceTool
 
     public int CompareTo(object obj)
     {
-      Slice slice = obj as Slice;
-      return _position - slice._position;
+      var slice = obj as Slice;
+      return Position - slice.Position;
     }
 
     abstract public void Draw(PreviewRenderer renderer);
@@ -89,7 +89,7 @@ namespace Gimp.SliceTool
 
     public void Load(XmlNode slice)
     {
-      _position = GetValueOfNode(slice, "position");
+      Position = GetValueOfNode(slice, "position");
       Index = GetValueOfNode(slice, "index");
       Begin = new HorizontalSlice(GetValueOfNode(slice, "begin"));
       End = new HorizontalSlice(GetValueOfNode(slice, "end"));
@@ -98,8 +98,8 @@ namespace Gimp.SliceTool
 
     int GetValueOfNode(XmlNode slice, string item)
     {
-      XmlAttributeCollection attributes = slice.Attributes;
-      XmlAttribute position = (XmlAttribute) attributes.GetNamedItem(item);
+      var attributes = slice.Attributes;
+      var position = (XmlAttribute) attributes.GetNamedItem(item);
       return (int) Convert.ToDouble(position.Value);
     }
 

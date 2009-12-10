@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2006 Maurits Rijk  m.rijk@chello.nl
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // PreviewRenderer.cs
 //
@@ -31,18 +31,18 @@ namespace Gimp.SliceTool
     int _width, _height;
     Gdk.Color _red, _green;
 
-    public PreviewRenderer(Preview preview, Gdk.GC gc, int width, int height)
+    public PreviewRenderer(Preview preview, Gdk.GC gc, Dimensions dimensions)
     {
       _window = preview.GdkWindow;
       _gc = gc;
-      _width = width - 1;
-      _height = height - 1;
+      _width = dimensions.Width - 1;
+      _height = dimensions.Height - 1;
 
-      Colormap colormap = Colormap.System;
-      _red = new Gdk.Color (0xff, 0, 0);
-      _green = new Gdk.Color (0, 0xff, 0);
-      colormap.AllocColor (ref _red, true, true);
-      colormap.AllocColor (ref _green, true, true);
+      var colormap = Colormap.System;
+      _red = new Gdk.Color(0xff, 0, 0);
+      _green = new Gdk.Color(0, 0xff, 0);
+      colormap.AllocColor(ref _red, true, true);
+      colormap.AllocColor(ref _green, true, true);
     }
 
     public void DrawLine(int x1, int y1, int x2, int y2)
@@ -73,8 +73,8 @@ namespace Gimp.SliceTool
 
     void ReplaceColor(ref Gdk.Color color, RGB rgb)
     {
-      Gdk.Color[] colors = new Gdk.Color[]{color};
-      Colormap colormap = Colormap.System;
+      var colors = new Gdk.Color[]{color};
+      var colormap = Colormap.System;
       colormap.FreeColors(colors, 1);
       byte red, green, blue;
       rgb.GetUchar(out red, out green, out blue);

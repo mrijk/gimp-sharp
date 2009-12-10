@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2007 Maurits Rijk  m.rijk@chello.nl
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // PreferencesDialog.cs
 //
@@ -30,10 +30,8 @@ namespace Gimp.SliceTool
     public PreferencesDialog() : base(_("Slice Preferences"), _("SliceTool"), 
 				      IntPtr.Zero, 0, null, _("SliceTool"))
     {
-      GimpTable table = new GimpTable(2, 2, false);
-      table.BorderWidth = 12;
-      table.ColumnSpacing = 6;
-      table.RowSpacing = 6;
+      var table = new GimpTable(2, 2, false)
+	{BorderWidth = 12, ColumnSpacing = 6, RowSpacing = 6};
       VBox.PackStart(table, true, true, 0);
 
       _active = new GimpColorButton("", 16, 16, new RGB(255, 0, 0),

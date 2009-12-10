@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // FileExistsDialog.cs
 //
@@ -18,7 +18,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
 using Mono.Unix;
 
 using Gtk;
@@ -37,7 +36,7 @@ namespace Gimp.SliceTool
 
     public bool IsYes()
     {
-      ResponseType response = (ResponseType) Run();
+      var response = (ResponseType) Run();
       Destroy();
       return (response == ResponseType.Yes);
     }

@@ -44,8 +44,7 @@ namespace Gimp
     public void NewGimpUnit()
     {
       int numberOfUnits = GimpUnit.NumberOfUnits;
-      GimpUnit unit = new GimpUnit("foo", 3.1415927, 3, "%", "abbr", 
-				   "foo", "foos");
+      var unit = new GimpUnit("foo", 3.1415927, 3, "%", "abbr", "foo", "foos");
       Assert.AreEqual(numberOfUnits + 1, GimpUnit.NumberOfUnits);
       Assert.AreEqual((int) Unit.End, GimpUnit.NumberOfBuiltInUnits);
     }
@@ -53,8 +52,7 @@ namespace Gimp
     [Test]
     public void DeletionFlag()
     {
-      GimpUnit unit = new GimpUnit("foo", 3.1415927, 3, "%", "abbr", 
-				   "foo", "foos");
+      var unit = new GimpUnit("foo", 3.1415927, 3, "%", "abbr", "foo", "foos");
       Assert.IsTrue(unit.DeletionFlag);
       unit.DeletionFlag = false;
       Assert.IsFalse(unit.DeletionFlag);
@@ -66,8 +64,7 @@ namespace Gimp
     public void Factor()
     {
       double factor = 3.1415927;
-      GimpUnit unit = new GimpUnit("foo", factor, 3, "%", "abbr", 
-				   "foo", "foos");
+      var unit = new GimpUnit("foo", factor, 3, "%", "abbr", "foo", "foos");
       Assert.AreEqual(factor, unit.Factor);
     }
 
@@ -75,8 +72,8 @@ namespace Gimp
     public void Digits()
     {
       int digits = 3;
-      GimpUnit unit = new GimpUnit("foo", 3.1415927, digits, "%", "abbr", 
-				   "foo", "foos");
+      var unit = new GimpUnit("foo", 3.1415927, digits, "%", "abbr", "foo", 
+			      "foos");
       Assert.AreEqual(digits, unit.Digits);
     }
 
@@ -84,8 +81,8 @@ namespace Gimp
     public void Identifier()
     {
       string identifier = "foo";
-      GimpUnit unit = new GimpUnit(identifier, 3.1415927, 3, "%", "abbr", 
-				   "foo", "foos");
+      var unit = new GimpUnit(identifier, 3.1415927, 3, "%", "abbr", "foo", 
+			      "foos");
       Assert.AreEqual(identifier, unit.Identifier);
     }
 
@@ -93,8 +90,8 @@ namespace Gimp
     public void Symbol()
     {
       string symbol = "%";
-      GimpUnit unit = new GimpUnit("foo", 3.1415927, 3, symbol, "abbr", 
-				   "foo", "foos");
+      var unit = new GimpUnit("foo", 3.1415927, 3, symbol, "abbr", "foo", 
+			      "foos");
       Assert.AreEqual(symbol, unit.Symbol);
     }
 
@@ -102,8 +99,8 @@ namespace Gimp
     public void Abbreviation()
     {
       string abbreviation = "abbr";
-      GimpUnit unit = new GimpUnit("foo", 3.1415927, 3, "%", abbreviation,
-				   "foo", "foos");
+      var unit = new GimpUnit("foo", 3.1415927, 3, "%", abbreviation, "foo", 
+			      "foos");
       Assert.AreEqual(abbreviation, unit.Abbreviation);
     }
 
@@ -111,8 +108,8 @@ namespace Gimp
     public void Singular()
     {
       string singular = "foo";
-      GimpUnit unit = new GimpUnit("foo", 3.1415927, 3, "%", "abbr",
-				   singular, "foos");
+      var unit = new GimpUnit("foo", 3.1415927, 3, "%", "abbr", singular, 
+			      "foos");
       Assert.AreEqual(singular, unit.Singular);
     }
 
@@ -120,8 +117,7 @@ namespace Gimp
     public void Plural()
     {
       string plural = "foos";
-      GimpUnit unit = new GimpUnit("foo", 3.1415927, 3, "%", "abbr",
-				   "foo", plural);
+      var unit = new GimpUnit("foo", 3.1415927, 3, "%", "abbr", "foo", plural);
       Assert.AreEqual(plural, unit.Plural);
     }
   }

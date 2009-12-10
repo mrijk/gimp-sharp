@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // JavaScriptProperty.cs
 //
@@ -71,7 +71,7 @@ namespace Gimp.SliceTool
     {
       get 
 	{
-          string[] array = new string[_preload.Count];
+          var array = new string[_preload.Count];
           _preload.Keys.CopyTo(array, 0);
           return array;
 	}

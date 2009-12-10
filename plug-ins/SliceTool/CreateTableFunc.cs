@@ -18,8 +18,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-
 using Gdk;
 using Gtk;
 
@@ -43,7 +41,7 @@ namespace Gimp.SliceTool
 
     override protected void OnPress(Coordinate<int> c) 
     {
-      TableDialog dialog = new TableDialog();
+      var dialog = new TableDialog();
       dialog.ShowAll();
       if (dialog.Run() == ResponseType.Ok)
 	{
@@ -55,14 +53,14 @@ namespace Gimp.SliceTool
 
     override public Cursor GetCursor(Coordinate<int> c)
     {
-      Slice slice = _sliceData.FindSlice(c);
+      var slice = _sliceData.FindSlice(c);
       return (slice != null && !slice.Locked) ? slice.Cursor : _cursor;
     }
 
     override public MouseFunc GetActualFunc(SliceTool parent,
 					    Coordinate<int> c)
     {
-      Slice slice = _sliceData.FindSlice(c);
+      var slice = _sliceData.FindSlice(c);
       if (slice == null || slice.Locked)
 	{
 	  return this;

@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // RemoveFunc.cs
 //
@@ -17,8 +17,6 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
-
-using System;
 
 using Gdk;
 
@@ -42,7 +40,7 @@ namespace Gimp.SliceTool
 
     override protected void OnPress(Coordinate<int> c)
     {
-      Slice slice = _sliceData.MayRemove(c);
+      var slice = _sliceData.MayRemove(c);
       if (slice != null)
 	{
 	  _sliceData.Remove(slice);

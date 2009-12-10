@@ -54,7 +54,7 @@ namespace Gimp.SliceTool
 
     Property GetProperty(string name)
     {
-      Property property = _set[name];
+      var property = _set[name];
       Debug.Assert(property != null, "Property not in hashset!");
       return property;
     }

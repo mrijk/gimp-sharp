@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // TableDialog.cs
 //
@@ -30,7 +30,7 @@ namespace Gimp.SliceTool
     public TableDialog() : base(_("Insert Table"), _("SliceTool"), 
 				IntPtr.Zero, 0, null, _("SliceTool"))
     {
-      GimpTable table = new GimpTable(2, 3, false)
+      var table = new GimpTable(2, 3, false)
 	{BorderWidth = 12, ColumnSpacing = 6, RowSpacing = 6};
       VBox.PackStart(table, true, true, 0);
 

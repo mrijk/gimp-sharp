@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // MouseFunc.cs
 //
@@ -47,8 +47,7 @@ namespace Gimp.SliceTool
 
     protected static Cursor LoadCursor(string cursorFile)
     {
-      Pixbuf pixbuf = new Pixbuf(Assembly.GetExecutingAssembly(),
-				 cursorFile);
+      var pixbuf = new Pixbuf(Assembly.GetExecutingAssembly(), cursorFile);
       return new Cursor(Gdk.Display.Default, pixbuf, 0, 0);
     }
 
@@ -107,7 +106,7 @@ namespace Gimp.SliceTool
     void OnMotionNotify(object o, MotionNotifyEventArgs args)
     {
       int x, y;
-      EventMotion ev = args.Event;
+      var ev = args.Event;
       
       if (ev.IsHint) 
 	{
