@@ -101,7 +101,7 @@ namespace Gimp.SliceTool
       if (!_lock)
 	{
 	  _lock = true;
-	  ToggleToolButton toggle = (o as ToggleToolButton);
+	  var toggle = (o as ToggleToolButton);
 	  if (toggle != _toggle)
 	    {
 	      _toggle.Active = false;
@@ -125,12 +125,12 @@ namespace Gimp.SliceTool
     {
       var pixbuf = new Pixbuf(Assembly.GetCallingAssembly(), filename);
 
-      IconSource source = new IconSource() {
+      var source = new IconSource() {
 	Pixbuf = pixbuf, 
 	SizeWildcarded = true,
 	Size = IconSize.SmallToolbar};
 
-      IconSet set = new IconSet();
+      var set = new IconSet();
       set.AddSource(source);
 
       factory.Add(stockId, set);

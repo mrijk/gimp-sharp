@@ -1,3 +1,14 @@
+2009-12-12  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/JavaFX/Makefile.am: added JavaFX.png to EXTRA_DIST
+
+	* plug-ins/Swirlies/Swirlies.cs
+
+	* plug-ins/SliceTool/SliceData.cs
+	* plug-ins/SliceTool/SliceTool.cs
+	* plug-ins/SliceTool/RectangleSet.cs
+	* plug-ins/SliceTool/Toolbox.cs: minor clean-up
+
 2009-12-10  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* lib/PixelRgn.cs

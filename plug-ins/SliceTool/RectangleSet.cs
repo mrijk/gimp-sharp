@@ -39,7 +39,7 @@ namespace Gimp.SliceTool
     {
       return _set.GetEnumerator();
     }
-    
+
     public void Add(Rectangle rectangle)
     {
       Changed = true;
@@ -74,7 +74,7 @@ namespace Gimp.SliceTool
     
     public void Slice(Slice slice)
     {
-      RectangleSet created = new RectangleSet();
+      var created = new RectangleSet();
 
       ForEach(rectangle => 
 	{

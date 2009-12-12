@@ -80,16 +80,16 @@ namespace Gimp.SliceTool
       
       SetTitle(null);
       
-      VBox vbox = new VBox(false, 12) {BorderWidth = 12};
+      var vbox = new VBox(false, 12) {BorderWidth = 12};
       dialog.VBox.PackStart(vbox, true, true, 0);
       
-      HBox hbox = new HBox();
+      var hbox = new HBox();
       vbox.PackStart(hbox, true, true, 0);
       
-      Widget toolbar = CreateToolbar();
+      var toolbar = CreateToolbar();
       hbox.PackStart(toolbar, false, true, 0);
       
-      Widget preview = CreatePreview();
+      var preview = CreatePreview();
       hbox.PackStart(preview, true, true, 0);
       
       // Create coordinates
@@ -107,7 +107,7 @@ namespace Gimp.SliceTool
       vbox = new VBox(false, 12);
       hbox.PackStart(vbox, false, true, 0);
       
-      Widget rollover = CreateRollover();
+      var rollover = CreateRollover();
       vbox.PackStart(rollover, false, true, 0);
       
       _format = new Format();
@@ -117,15 +117,15 @@ namespace Gimp.SliceTool
       vbox = new VBox(false, 12);
       hbox.PackStart(vbox, false, true, 0);
       
-      Button save = new Button(_("Save Settings..."));
+      var save = new Button(_("Save Settings..."));
       save.Clicked += OnSaveSettings;
       vbox.PackStart(save, false, true, 0);
       
-      Button load = new Button(_("Load Settings..."));
+      var load = new Button(_("Load Settings..."));
       load.Clicked += OnLoadSettings;
       vbox.PackStart(load, false, true, 0);
 
-      Button preferences = new Button(_("Preferences"));
+      var preferences = new Button(_("Preferences"));
       preferences.Clicked += OnPreferences;
       vbox.PackStart(preferences, false, true, 0);
 
@@ -149,15 +149,14 @@ namespace Gimp.SliceTool
     
     void SaveBlank(string path)
     {
-      Assembly assembly = Assembly.GetExecutingAssembly();
-      Stream input = assembly.GetManifestResourceStream("blank.png");
-      BinaryReader reader = new BinaryReader(input);
-      byte[] buffer = reader.ReadBytes((int) input.Length);
+      var assembly = Assembly.GetExecutingAssembly();
+      var input = assembly.GetManifestResourceStream("blank.png");
+      var reader = new BinaryReader(input);
+      var buffer = reader.ReadBytes((int) input.Length);
       string fileName = path + System.IO.Path.DirectorySeparatorChar + 
 	"blank.png";
-      FileStream fs = new FileStream(fileName, FileMode.Create,
-				     FileAccess.Write);
-      BinaryWriter writer = new BinaryWriter(fs);
+      var fs = new FileStream(fileName, FileMode.Create, FileAccess.Write);
+      var writer = new BinaryWriter(fs);
       writer.Write(buffer);
       writer.Close();
     }
@@ -172,10 +171,9 @@ namespace Gimp.SliceTool
 	}
       catch (Exception)
 	{
-	  MessageDialog message = 
-	    new MessageDialog(null, DialogFlags.DestroyWithParent,
-			      MessageType.Error, ButtonsType.Close,
-			      _("Can't save to ") + _filename);
+	  var message = new MessageDialog(null, DialogFlags.DestroyWithParent,
+					  MessageType.Error, ButtonsType.Close,
+					  _("Can't save to ") + _filename);
 	  message.Run();
 	  message.Destroy();
 	}
@@ -185,12 +183,12 @@ namespace Gimp.SliceTool
     {
       if (_sliceData.Changed)
 	{
-	  MessageDialog message = 
-	    new MessageDialog(null, DialogFlags.DestroyWithParent,
-			      MessageType.Warning, ButtonsType.YesNo, 
-			      _("Some data has been changed!\n") + 
+	  var message = new MessageDialog(null, DialogFlags.DestroyWithParent,
+					  MessageType.Warning, 
+					  ButtonsType.YesNo, 
+					  _("Some data has been changed!\n") + 
 			      _("Do you really want to discard your changes?"));
-	  ResponseType response = (ResponseType) message.Run();
+	  var response = (ResponseType) message.Run();
 	  return response == ResponseType.Yes;
 	}
       return true;
@@ -200,18 +198,17 @@ namespace Gimp.SliceTool
     {
       if ((int) type == 0 || ((int) type == 1 && _filename == null))
 	{
-	  FileChooserDialog fc = 
-	    new FileChooserDialog(_("HTML Save As"), Dialog,
-				  FileChooserAction.Save,
-				  "Cancel", ResponseType.Cancel,
-				  "Save", ResponseType.Accept);
+	  var fc = new FileChooserDialog(_("HTML Save As"), Dialog,
+					 FileChooserAction.Save,
+					 "Cancel", ResponseType.Cancel,
+					 "Save", ResponseType.Accept);
       
 	  if (fc.Run() == (int) ResponseType.Accept)
 	    {
 	      string filename = fc.Filename;
 	      if (System.IO.File.Exists(filename))
 		{
-		  FileExistsDialog message = new FileExistsDialog(filename);
+		  var message = new FileExistsDialog(filename);
 		  if (!message.IsYes())
 		    {
 		      return;
@@ -230,10 +227,10 @@ namespace Gimp.SliceTool
 
     Widget CreatePreview()
     {
-      ScrolledWindow window = new ScrolledWindow();
+      var window = new ScrolledWindow();
       window.SetSizeRequest(600, 400);
 
-      Alignment alignment = new Alignment(0.5f, 0.5f, 0, 0);
+      var alignment = new Alignment(0.5f, 0.5f, 0, 0);
 
       Preview = new Preview(_drawable, this)
 	{WidthRequest = _drawable.Width, HeightRequest = _drawable.Height};
@@ -269,16 +266,16 @@ namespace Gimp.SliceTool
 
     Widget CreateRollover()
     {
-      GimpFrame frame = new GimpFrame(_("Rollovers"));
+      var frame = new GimpFrame(_("Rollovers"));
 
-      VBox vbox = new VBox(false, 12);
+      var vbox = new VBox(false, 12);
       frame.Add(vbox);
 
-      Button button = new Button(_("Rollover Creator..."));
+      var button = new Button(_("Rollover Creator..."));
       button.Clicked += OnRolloverCreate;
       vbox.Add(button);
 
-      Label label = new Label(_("Rollover enabled: no"));
+      var label = new Label(_("Rollover enabled: no"));
       vbox.Add(label);
 
       return frame;
@@ -286,10 +283,10 @@ namespace Gimp.SliceTool
 
     void OnRolloverCreate(object o, EventArgs args)
     {
-      RolloverDialog dialog = new RolloverDialog();
+      var dialog = new RolloverDialog();
       dialog.SetRectangleData(_sliceData.Selected);
       dialog.ShowAll();
-      ResponseType type = dialog.Run();
+      var type = dialog.Run();
       if (type == ResponseType.Ok)
 	{
 	  dialog.GetRectangleData(_sliceData.Selected);
@@ -299,12 +296,11 @@ namespace Gimp.SliceTool
 
     void OnSaveSettings(object o, EventArgs args)
     {
-      FileChooserDialog fc = 
-	new FileChooserDialog(_("Save Settings"), Dialog,
-			      FileChooserAction.Save,
-			      "Cancel", ResponseType.Cancel,
-			      "Save", ResponseType.Accept);
-      
+      var fc = new FileChooserDialog(_("Save Settings"), Dialog,
+				     FileChooserAction.Save,
+				     "Cancel", ResponseType.Cancel,
+				     "Save", ResponseType.Accept);
+
       if (fc.Run() == (int) ResponseType.Accept)
 	{
 	  _sliceData.SaveSettings(fc.Filename);
@@ -314,12 +310,11 @@ namespace Gimp.SliceTool
 
     void OnLoadSettings(object o, EventArgs args)
     {
-      FileChooserDialog fc = 
-	new FileChooserDialog(_("Load Settings"), Dialog,
-			      FileChooserAction.Open,
-			      "Cancel", ResponseType.Cancel,
-			      "Open", ResponseType.Accept);
-      
+      var fc = new FileChooserDialog(_("Load Settings"), Dialog,
+				     FileChooserAction.Open,
+				     "Cancel", ResponseType.Cancel,
+				     "Open", ResponseType.Accept);
+
       if (fc.Run() == (int) ResponseType.Accept)
 	{
 	  _sliceData.LoadSettings(fc.Filename);
@@ -330,9 +325,9 @@ namespace Gimp.SliceTool
 
     void OnPreferences(object o, EventArgs args)
     {
-      PreferencesDialog dialog = new PreferencesDialog();
+      var dialog = new PreferencesDialog();
       dialog.ShowAll();
-      ResponseType type = dialog.Run();
+      var type = dialog.Run();
       if (type == ResponseType.Ok)
 	{
 	  Preview.Renderer.ActiveColor = dialog.ActiveColor;
@@ -377,7 +372,7 @@ namespace Gimp.SliceTool
     void OnShowCoordinates(object o, MotionNotifyEventArgs args)
     {
       int x, y;
-      EventMotion ev = args.Event;
+      var ev = args.Event;
       
       if (ev.IsHint) 
 	{

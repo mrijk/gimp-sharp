@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // SliceData.cs
 //
@@ -41,19 +41,19 @@ namespace Gimp.SliceTool
       int width = drawable.Width;
       int height = drawable.Height;
 
-      VerticalSlice left = new VerticalSlice(null, null, 0) 
+      var left = new VerticalSlice(null, null, 0) 
 	{Locked = true};
       _verticalSlices.Add(left);
 
-      VerticalSlice right = new VerticalSlice(null, null, width) 
+      var right = new VerticalSlice(null, null, width) 
 	{Locked = true};
       _verticalSlices.Add(right);
 
-      HorizontalSlice top = new HorizontalSlice(left, right, 0) 
+      var top = new HorizontalSlice(left, right, 0) 
 	{Locked = true};
       _horizontalSlices.Add(top);
 
-      HorizontalSlice bottom = new HorizontalSlice(left, right, height)
+      var bottom = new HorizontalSlice(left, right, height)
 	{Locked = true};
       _horizontalSlices.Add(bottom);
 
@@ -86,7 +86,7 @@ namespace Gimp.SliceTool
 
     public Slice FindSlice(Coordinate<int> c)
     {
-      Slice slice = _horizontalSlices.Find(c);
+      var slice = _horizontalSlices.Find(c);
       if (slice == null)
         {
 	  slice = _verticalSlices.Find(c);
@@ -96,7 +96,7 @@ namespace Gimp.SliceTool
 
     public Slice MayRemove(Coordinate<int> c)
     {
-      Slice slice = _horizontalSlices.Find(c);
+      var slice = _horizontalSlices.Find(c);
       if (slice == null)
         {
 	  slice = _verticalSlices.Find(c);
@@ -114,10 +114,10 @@ namespace Gimp.SliceTool
 
     public void Remove(Slice slice)
     {
-      RectangleSet set1 = new RectangleSet();
-      RectangleSet set2 = new RectangleSet();
+      var set1 = new RectangleSet();
+      var set2 = new RectangleSet();
 
-      foreach (Rectangle rectangle in _rectangles)
+      foreach (var rectangle in _rectangles)
         {
 	  if (slice == rectangle.Bottom || slice == rectangle.Right)
 	    {
@@ -129,9 +129,9 @@ namespace Gimp.SliceTool
 	    }
         }
 
-      foreach (Rectangle r1 in set1)
+      foreach (var r1 in set1)
         {
-	  foreach (Rectangle r2 in set2)
+	  foreach (var r2 in set2)
 	    {
 	      if (r1.Left == r2.Left && r1.Right == r2.Right)
 		{
@@ -154,7 +154,7 @@ namespace Gimp.SliceTool
 
     public void CreateTable(Coordinate<int> c, int rows, int columns)
     {
-      Rectangle rectangle = new Rectangle(_rectangles.Find(c));
+      var rectangle = new Rectangle(_rectangles.Find(c));
       int width = rectangle.Width;
       int height = rectangle.Height;
       int x1 = rectangle.X1;
@@ -182,9 +182,9 @@ namespace Gimp.SliceTool
 
     public void Cleanup(Slice slice)
     {
-      RectangleSet set = new RectangleSet();
+      var set = new RectangleSet();
 
-      foreach (Rectangle rectangle in _rectangles)
+      foreach (var rectangle in _rectangles)
         {
 	  if (rectangle.Normalize(slice))
 	    {
@@ -199,7 +199,7 @@ namespace Gimp.SliceTool
     {
       w.WriteLine("<tr>");
       Slice prev = null;
-      foreach (Slice slice in _verticalSlices)
+      foreach (var slice in _verticalSlices)
         {
 	  if (prev != null)
 	    {
@@ -220,10 +220,9 @@ namespace Gimp.SliceTool
       _verticalSlices.Sort();
 
       string name = System.IO.Path.GetFileNameWithoutExtension(image.Name);
-      FileStream fs = new FileStream(filename, FileMode.Create,
-                                     FileAccess.Write);
+      var fs = new FileStream(filename, FileMode.Create, FileAccess.Write);
 
-      StreamWriter w = new StreamWriter(fs);
+      var w = new StreamWriter(fs);
 
       w.WriteLine("<html>");
       w.WriteLine("<head>");
@@ -238,7 +237,7 @@ namespace Gimp.SliceTool
 
       w.Write("<body");
 
-      string[] preload = JavaScriptProperty.Preload;
+      var preload = JavaScriptProperty.Preload;
       int count = preload.Length;
       if (count > 0)
         {
@@ -273,11 +272,10 @@ namespace Gimp.SliceTool
 
     void WriteJavaScript(StreamWriter writer)
     {
-      Assembly assembly = Assembly.GetExecutingAssembly();
-      Stream stream = 
-        assembly.GetManifestResourceStream("javascript.html");
+      var assembly = Assembly.GetExecutingAssembly();
+      var stream = assembly.GetManifestResourceStream("javascript.html");
 
-      StreamReader reader = new StreamReader(stream);
+      var reader = new StreamReader(stream);
       string line;
 
       while ((line = reader.ReadLine()) != null)
@@ -311,30 +309,30 @@ namespace Gimp.SliceTool
 
     public void LoadSettings(string filename)
     {
-      XmlDocument doc = new XmlDocument();
+      var doc = new XmlDocument();
       doc.Load(filename);
 
       _horizontalSlices.Clear();
       _verticalSlices.Clear();
       _rectangles.Clear();
 
-      XmlElement root = doc.DocumentElement;
-      XmlNodeList nodeList = root.SelectNodes("/settings/slices/slice");
+      var root = doc.DocumentElement;
+      var nodeList = root.SelectNodes("/settings/slices/slice");
 
       foreach (XmlNode node in nodeList)
         {
-	  XmlAttributeCollection attributes = node.Attributes;
-	  XmlAttribute type = (XmlAttribute) attributes.GetNamedItem("type");
+	  var attributes = node.Attributes;
+	  var type = (XmlAttribute) attributes.GetNamedItem("type");
 
 	  if (type.Value == "horizontal")
 	    {
-	      HorizontalSlice slice = new HorizontalSlice();
+	      var slice = new HorizontalSlice();
 	      slice.Load(node);
 	      _horizontalSlices.Add(slice);
 	    }
 	  else
 	    {
-	      VerticalSlice slice = new VerticalSlice();
+	      var slice = new VerticalSlice();
 	      slice.Load(node);
 	      _verticalSlices.Add(slice);
 	    }
@@ -357,9 +355,8 @@ namespace Gimp.SliceTool
       _horizontalSlices.SetIndex();
       _verticalSlices.SetIndex();
 
-      FileStream fs = new FileStream(filename, FileMode.Create,
-                                     FileAccess.Write);
-      StreamWriter w = new StreamWriter(fs);
+      var fs = new FileStream(filename, FileMode.Create, FileAccess.Write);
+      var w = new StreamWriter(fs);
 
       w.WriteLine("<settings>");
       w.WriteLine("<slices>");

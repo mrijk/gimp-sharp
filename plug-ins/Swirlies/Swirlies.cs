@@ -1,5 +1,5 @@
 // The Swirlies plug-in
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // Swirlies.cs
 //
@@ -55,7 +55,7 @@ namespace Gimp.Swirlies
 
     override protected IEnumerable<Procedure> ListProcedures()
     {
-      ParamDefList in_params = new ParamDefList();
+      var in_params = new ParamDefList();
 
       yield return new Procedure("plug_in_swirlies",
 				 _("Generates 2D textures"),
@@ -74,24 +74,23 @@ namespace Gimp.Swirlies
 
     override protected GimpDialog CreateDialog()
     {
-      GimpDialog dialog = DialogNew(_("Swirlies"), _("swirlies"), IntPtr.Zero, 
-				    0, null, _("swirlies"));
+      var dialog = DialogNew(_("Swirlies"), _("swirlies"), IntPtr.Zero, 
+			     0, null, _("swirlies"));
       // _preview.SetBounds(0, 0, 50, 50);
 
       _progress = new ProgressBar();
       Vbox.PackStart(_progress, false, false, 0);
       
-      GimpTable table = new GimpTable(4, 3, false)
+      var table = new GimpTable(4, 3, false)
 	{ColumnSpacing = 6, RowSpacing = 6};
       Vbox.PackStart(table, false, false, 0);
 
-      RandomSeed seed = new RandomSeed(ref _seed, ref _random_seed);
+      var seed = new RandomSeed(ref _seed, ref _random_seed);
 
       table.AttachAligned(0, 0, _("Random _Seed:"), 0.0, 0.5, seed, 2, true);
 
-      ScaleEntry entry = new ScaleEntry(table, 0, 1, _("Po_ints:"), 
-					150, 3, _points, 1.0, 16.0, 1.0, 8.0,
-					0);
+      var entry = new ScaleEntry(table, 0, 1, _("Po_ints:"), 
+				 150, 3, _points, 1.0, 16.0, 1.0, 8.0, 0);
       entry.ValueChanged += delegate
 	{
 	  _points = entry.ValueAsInt;
@@ -124,7 +123,7 @@ namespace Gimp.Swirlies
       int width, height;
       Preview.GetSize(out width, out height);
 
-      byte[] buffer = new byte[width * height * 3];
+      var buffer = new byte[width * height * 3];
 
       for (int y = 0; y < height; y++)
 	{
@@ -165,14 +164,14 @@ namespace Gimp.Swirlies
     override protected void Render(Drawable drawable)
     {
       Initialize(drawable);
-      RgnIterator iter = new RgnIterator(drawable, RunMode.Interactive);
+      var iter = new RgnIterator(drawable, RunMode.Interactive);
       iter.Progress = new Progress(_("Swirlies"));
       iter.IterateDest(new RgnIterator.IterFuncDestFull(DoSwirlies));
     }
 
     Pixel DoSwirlies(int x, int y)
     {
-      RGB rgb = new RGB(0.0, 0.0, 0.0);
+      var rgb = new RGB(0.0, 0.0, 0.0);
 
       const double zoom = 0.5;
       const int terms = 5;
