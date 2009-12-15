@@ -50,13 +50,13 @@ namespace Gimp
 	   type, buf, rowstride);
     }
 
-    public void Draw(Drawable drawable, ImageType type)
+    public void Draw(Drawable drawable)
     {
       var rgn = new PixelRgn(drawable, false, false);
 
       var rectangle = drawable.Bounds;
       var buf = rgn.GetRect(rectangle);
-      Draw(rectangle, ImageType.Rgb, buf, rectangle.Width * drawable.Bpp);
+      Draw(rectangle, drawable.Type, buf, rectangle.Width * drawable.Bpp);
     }
 
     public void SetMaxSize(int width, int height)

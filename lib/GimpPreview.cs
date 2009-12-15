@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2009 Maurits Rijk
 //
 // GimpPreview.cs
 //
@@ -51,6 +51,31 @@ namespace Gimp
       gimp_preview_get_position(Handle, out x, out y);
     }
 
+    public void Transform(int src_x, int src_y, out int dest_x, out int dest_y)
+    {
+      gimp_preview_transform(Handle, src_x, src_y, out dest_x, out dest_y);
+    }
+
+    public Coordinate<int> Transform(Coordinate<int> src)
+    {
+      int dest_x, dest_y;
+      Transform(src.X, src.Y, out dest_x, out dest_y);
+      return new Coordinate<int>(dest_x, dest_y);
+    }
+
+    public void Untransform(int src_x, int src_y, out int dest_x, 
+			    out int dest_y)
+    {
+      gimp_preview_untransform(Handle, src_x, src_y, out dest_x, out dest_y);
+    }
+
+    public Coordinate<int> Untransform(Coordinate<int> src)
+    {
+      int dest_x, dest_y;
+      Untransform(src.X, src.Y, out dest_x, out dest_y);
+      return new Coordinate<int>(dest_x, dest_y);
+    }
+
     public void GetSize(out int width, out int height)
     {
       gimp_preview_get_size(Handle, out width, out height);
@@ -93,10 +118,7 @@ namespace Gimp
 
     public PreviewArea Area
     {
-      get
-	{
-	  return new PreviewArea(gimp_preview_get_area(Handle));
-	}
+      get {return new PreviewArea(gimp_preview_get_area(Handle));}
     }
 
     public void Draw()
@@ -119,14 +141,19 @@ namespace Gimp
       set {gimp_preview_set_default_cursor(Handle, value);}
     }
 
+    public HBox Controls
+    {
+      get {return new HBox(gimp_preview_get_controls(Handle));}
+    }
+
     [GLib.Signal("invalidated")]
     public event EventHandler Invalidated {
       add {
-	GLib.Signal sig = GLib.Signal.Lookup (this, "invalidated");
+	GLib.Signal sig = GLib.Signal.Lookup(this, "invalidated");
 	sig.AddDelegate (value);
       }
       remove {
-	GLib.Signal sig = GLib.Signal.Lookup (this, "invalidated");
+	GLib.Signal sig = GLib.Signal.Lookup(this, "invalidated");
 	sig.RemoveDelegate (value);                        }
     }
 
@@ -143,6 +170,14 @@ namespace Gimp
     extern static void gimp_preview_get_position(IntPtr preview,
 						 out int x, out int y);
     [DllImport("libgimpwidgets-2.0-0.dll")]
+    extern static void gimp_preview_transform(IntPtr preview,
+					      int src_x, int src_y,
+					      out int dest_x, out int dest_y);
+    [DllImport("libgimpwidgets-2.0-0.dll")]
+    extern static void gimp_preview_untransform(IntPtr preview,
+						int src_x, int src_y,
+						out int dest_x, out int dest_y);
+    [DllImport("libgimpwidgets-2.0-0.dll")]
     extern static void gimp_preview_get_size(IntPtr preview,
 					     out int width, out int height);
     [DllImport("libgimpwidgets-2.0-0.dll")]
@@ -158,5 +193,7 @@ namespace Gimp
     [DllImport("libgimpwidgets-2.0-0.dll")]
     extern static void gimp_preview_set_default_cursor(IntPtr preview,
 						       Cursor cursor);
+    [DllImport("libgimpwidgets-2.0-0.dll")]
+    extern static IntPtr gimp_preview_get_controls(IntPtr preview);  
   }
 }

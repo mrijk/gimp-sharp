@@ -38,18 +38,13 @@ namespace Gimp.SliceTool
 	{
 	  var gc = new Gdk.GC(GdkWindow);
 	  Renderer = new PreviewRenderer(this, gc, drawable.Dimensions);
-	  FillWithImage(drawable);
+	  Draw(drawable);
 	};
-      SizeAllocated += delegate {FillWithImage(drawable);};
+      SizeAllocated += delegate {Draw(drawable);};
 
       Events = EventMask.ButtonPressMask | EventMask.ButtonReleaseMask | 
 	EventMask.PointerMotionHintMask | EventMask.PointerMotionMask |
 	EventMask.LeaveNotifyMask;
-    }
-
-    void FillWithImage(Drawable drawable)
-    {
-      Draw(drawable, ImageType.Rgb);
     }
 
     public void SetCursor(Cursor cursor)

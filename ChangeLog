@@ -1,4 +1,14 @@
+2009-12-15  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* lib/AspectPreview.cs: fixed #1935657
+
+	* lib/GimpPreview.cs: implemented a few missing GIMP 2.4 methods
+
 2009-12-12  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/SliceTool/Preview.cs: use fixed Draw function
+
+	* lib/PreviewArea.cs: fix Draw function
 
 	* plug-ins/JavaFX/Makefile.am: added JavaFX.png to EXTRA_DIST
 

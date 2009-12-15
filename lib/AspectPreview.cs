@@ -26,14 +26,16 @@ namespace Gimp
 {
   public class AspectPreview : GimpPreview
   {
-    int _drawableWidth;
-    int _drawableHeight;
+    readonly int _drawableWidth;
+    readonly int _drawableHeight;
+    readonly int _bpp;
 
     public AspectPreview(Drawable drawable, bool toggle) : 
       base(gimp_aspect_preview_new(drawable.Ptr, toggle))
     {
       _drawableWidth = drawable.Width;
       _drawableHeight = drawable.Height;
+      _bpp = drawable.Bpp;
     }
 
     public new void Update(RgnIterator.IterFuncDestFull func)
@@ -41,24 +43,23 @@ namespace Gimp
       int width, height;
       GetSize(out width, out height);
 
-      var buffer = new byte[width * height * 3];
+      var buffer = new byte[width * height * _bpp];
 
       for (int y = 0; y < height; y++)
 	{
 	  int y_orig = _drawableHeight * y / height;
 	  for (int x = 0; x < width; x++)
 	    {
-	      long index = 3 * (y * width + x);
+	      long index = _bpp * (y * width + x);
 	      int x_orig = _drawableWidth * x / width;
 
 	      func(x_orig, y_orig).CopyTo(buffer, index);
 	    }
 	}
-      DrawBuffer(buffer, width * 3);
+      DrawBuffer(buffer, width * _bpp);
     }
 
     [DllImport("libgimpui-2.0-0.dll")]
-    extern static IntPtr gimp_aspect_preview_new (IntPtr drawable,
-						  bool toggle);
+    extern static IntPtr gimp_aspect_preview_new(IntPtr drawable, bool toggle);
   }
 }
