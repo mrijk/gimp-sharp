@@ -1,5 +1,5 @@
 // The ncp plug-in
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // Calculator.cs
 //
@@ -23,14 +23,16 @@ using System.Collections.Generic;
 
 namespace Gimp.ncp
 {
+  using IntCoordinate = Coordinate<int>;
+
   class Calculator 
   {
     readonly int _points;
     readonly int _closest;
 
-    Coordinate<int>[,] _vp;
+    readonly IntCoordinate[,] _vp;
 
-    int[] _distances;
+    readonly int[] _distances;
     int[] _data, _under, _over;
 
     int _area;
@@ -53,7 +55,7 @@ namespace Gimp.ncp
       _under = new int[4 * _points];
       _over = new int[4 * _points];
 
-      _vp = new Coordinate<int>[bpp, 4 * _points];
+      _vp = new IntCoordinate[bpp, 4 * _points];
 
       var generator = new RandomCoordinateGenerator(seed, width - 1, 
 						    height - 1, _points);
@@ -61,7 +63,7 @@ namespace Gimp.ncp
       for (int b = 0; b < bpp; b++) 
 	{
 	  int i = 0;
-	  foreach (Coordinate<int> c in generator)
+	  foreach (var c in generator)
 	    {
 	      int px = c.X;
 	      int py = c.Y;
@@ -69,11 +71,11 @@ namespace Gimp.ncp
 	      int offx = (px < xmid) ? width : -width;
 	      int offy = (py < ymid) ? height : -height;
 
-	      _vp[b, i] = new Coordinate<int>(px, py);
-	      _vp[b, i + _points] = new Coordinate<int>(px + offx, py);
-	      _vp[b, i + 2 * _points] = new Coordinate<int>(px, py + offy);
-	      _vp[b, i + 3 * _points] = new Coordinate<int>(px + offx,
-							    py + offy);
+	      _vp[b, i] = new IntCoordinate(px, py);
+	      _vp[b, i + _points] = new IntCoordinate(px + offx, py);
+	      _vp[b, i + 2 * _points] = new IntCoordinate(px, py + offy);
+	      _vp[b, i + 3 * _points] = new IntCoordinate(px + offx,
+							  py + offy);
 	      i++;
 	    }
 	}

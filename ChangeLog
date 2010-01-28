@@ -1,3 +1,28 @@
+2010-01-27  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/UnitTest/UnitTester.cs
+	* plug-ins/UnitTest/UnitTest.cs
+	* plug-ins/Pointillize/ColorCoordinateSet.cs
+	* plug-ins/Colorize/Colorize.cs
+	* plug-ins/ncp/Calculator.cs
+	* plug-ins/Forge/ComplexMatrix.cs
+	* plug-ins/Ministeck/ShapeDescriptionSet.cs
+	* plug-ins/Ministeck/ShapeSet.cs: minor clean-up
+
+	* plug-ins/PicturePackage/FileImageProvider.cs
+	* plug-ins/SliceTool/RectangleSet.cs
+	* plug-ins/SliceTool/SliceData.cs: using null-coalescing operator
+	(??) to clean up code
+
+	* TODO
+	* configure.in
+	* INSTALL: Bumped version nummer to 0.17
+
+2009-12-18  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* lib/Image.cs
+	* lib/Vectors.cs: implemented a few missing GIMP 2.6 methods
+
 2009-12-15  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* lib/AspectPreview.cs: fixed #1935657

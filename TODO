@@ -1,4 +1,4 @@
-Release 0.16
+Release 0.17
 ------------
 - 20 verified Photoshop action files
 
@@ -13,19 +13,19 @@ Release 0.16
 9) Convert mode to IndC
 10)
 
-Release 0.17
+Release 0.18
 ------------
 - 30 verified Photoshop action files
 - Support for Ruby.NET or IronRuby
 
-Release 0.18
+Release 0.19
 ------------
 - 40 verified Photoshop action files
 - Documentation (Max, Maurits)
 - Working version of Update Check plug-in (Maurits)
 - Fully functional version of picture package
 
-Release 0.19
+Release 0.20
 ------------
 - Generic Lense plug-in
 - First version of PhotoFrame plug-in

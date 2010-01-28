@@ -59,7 +59,7 @@ namespace Gimp.SliceTool
 				 _("The Image Slice Tool is used to apply image slicing and rollovers."),
 				 "Maurits Rijk",
 				 "(C) Maurits Rijk",
-				 "2005-2009",
+				 "2005-2010",
 				 _("Slice Tool..."),
 				 "RGB*, GRAY*")
 	{

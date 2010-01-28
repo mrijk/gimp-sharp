@@ -1,5 +1,5 @@
 // The Colorize plug-in
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // Ported from http://registry.gimp.org/plugin?id=5479
 // copyright 2005 Christopher Lais
@@ -235,9 +235,9 @@ namespace Gimp.Colorize
 	  selRgn = new PixelRgn(sel, rectangle, false, false);
 	}
 
-      PixelRgn srcRgn = new PixelRgn(drawable, rectangle, false, false);
-      PixelRgn dstRgn = new PixelRgn(drawable, rectangle, true, true);
-      PixelRgn markRgn = new PixelRgn(_marked, rectangle, false, false);
+      var srcRgn = new PixelRgn(drawable, rectangle, false, false);
+      var dstRgn = new PixelRgn(drawable, rectangle, true, true);
+      var markRgn = new PixelRgn(_marked, rectangle, false, false);
 
       int h = srcRgn.H;
       int w = srcRgn.W;
@@ -440,9 +440,9 @@ namespace Gimp.Colorize
       umf.Defaults();
       
       double[,] Ax = new double[WindowPixels, h * w];
-      int[] Ap = new int[h * w + 1];
-      int[] Ai = new int[WindowPixels * h * w];
-      int[] Map = new int[WindowPixels * h * w];
+      var Ap = new int[h * w + 1];
+      var Ai = new int[WindowPixels * h * w];
+      var Map = new int[WindowPixels * h * w];
 
       umf.TripletToCol(h * w, h * w, n, AI, AJ, A, Ap, Ai, Ax, Map);
 
@@ -467,7 +467,7 @@ namespace Gimp.Colorize
       for (i = 0; i < h; i++) 
 	{
 	  // FIXME: This is only for the alpha channel..
-	  Pixel[] imgRow = srcRgn.GetRow(srcRgn.X, srcRgn.Y + i, w);
+	  var imgRow = srcRgn.GetRow(srcRgn.X, srcRgn.Y + i, w);
 
 	  for (j = 0; j < w; j++) 
 	    {

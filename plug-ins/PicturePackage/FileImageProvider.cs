@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // FileImageProvider.cs
 //
@@ -40,10 +40,8 @@ namespace Gimp.PicturePackage
 
     override public Image GetImage()
     {
-      if (_image == null)
-	{
-	  _image = Image.Load(RunMode.Noninteractive, _filename, _rawFilename);
-	}
+      _image = _image ?? Image.Load(RunMode.Noninteractive, _filename, 
+				    _rawFilename);
       return _image;
     }
 

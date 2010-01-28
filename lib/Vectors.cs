@@ -35,6 +35,11 @@ namespace Gimp
       _ID = gimp_vectors_new(image.ID, name);
     }
 
+    public Vectors(Image image, TextLayer layer)
+    {
+      _ID = gimp_vectors_new_from_text_layer(image.ID, layer.ID);
+    }
+
     public Vectors(Vectors vectors)
     {
       _ID = gimp_vectors_copy(vectors.ID);
@@ -149,6 +154,19 @@ namespace Gimp
         }
     }
 
+    public void ExportToFile(string filename)
+    {
+      if (!gimp_vectors_export_to_file(Image.ID, filename, _ID))
+        {
+	  throw new GimpSharpException();
+        }
+    }
+
+    public string ExportToString()
+    {
+      return gimp_vectors_export_to_string(Image.ID, _ID);
+    }
+
     public void ParasiteAttach(Parasite parasite)
     {
       if (!gimp_vectors_parasite_attach(_ID, parasite.Ptr))
@@ -229,6 +247,9 @@ namespace Gimp
     [DllImport("libgimp-2.0-0.dll")]
     extern static Int32 gimp_vectors_new(Int32 image_ID, string name);
     [DllImport("libgimp-2.0-0.dll")]
+    extern static Int32 gimp_vectors_new_from_text_layer(Int32 image_ID,
+							 Int32 layer_ID);
+    [DllImport("libgimp-2.0-0.dll")]
     extern static Int32 gimp_vectors_copy(Int32 vectors_ID);
     [DllImport("libgimp-2.0-0.dll")]
     extern static bool gimp_vectors_is_valid(Int32 image_ID);
@@ -264,6 +285,13 @@ namespace Gimp
 						 bool feather,
 						 double feather_radius_x,
 						 double feather_radius_y);
+    [DllImport("libgimp-2.0-0.dll")]
+    extern static bool gimp_vectors_export_to_file(Int32 image_ID,
+						   string filename,
+						   Int32 vectors_ID);
+    [DllImport("libgimp-2.0-0.dll")]
+    extern static string gimp_vectors_export_to_string(Int32 image_ID,
+						       Int32 vectors_ID);
     [DllImport("libgimp-2.0-0.dll")]
     extern static bool gimp_vectors_parasite_attach(Int32 vectors_ID,
 						    IntPtr parasite);

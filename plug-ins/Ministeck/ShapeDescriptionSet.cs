@@ -1,5 +1,5 @@
 // The Ministeck plug-in
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // ShapeDescriptionSet.cs
 //
@@ -24,7 +24,7 @@ namespace Gimp.Ministeck
 {
   public class ShapeDescriptionSet
   {
-    List<ShapeDescription> _set;
+    readonly List<ShapeDescription> _set;
 
     public ShapeDescriptionSet(params ShapeDescription[] shapes)
     {

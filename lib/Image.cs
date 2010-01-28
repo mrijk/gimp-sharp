@@ -830,6 +830,38 @@ namespace Gimp
         }
     }
 
+    public List<Vectors>
+    ImportVectorsFromFile(string filename, bool merge, bool scale)
+    {
+      var vectors = new List<Vectors>();
+      int numVectors;
+      IntPtr vectorsIds;
+
+      if (!gimp_vectors_import_from_file(_imageID, filename, merge, scale,
+					 out numVectors,
+					 out vectorsIds))
+	{
+	  throw new GimpSharpException();
+	}
+      return vectors;
+    }
+
+    public List<Vectors>
+    ImportVectorsFromString(string source, bool merge, bool scale)
+    {
+      var vectors = new List<Vectors>();
+      int numVectors;
+      IntPtr vectorsIds;
+
+      if (!gimp_vectors_import_from_string(_imageID, source, merge, scale,
+					   out numVectors,
+					   out vectorsIds))
+	{
+	  throw new GimpSharpException();
+	}
+      return vectors;
+    }
+
     // Misc functions
 
     internal Int32 ID
@@ -1128,5 +1160,17 @@ namespace Gimp
 
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_edit_copy_visible(Int32 image_ID);
+    [DllImport("libgimp-2.0-0.dll")]
+    extern static bool gimp_vectors_import_from_file(Int32 image_ID,
+						     string filename,
+						     bool merge, bool scale,
+						     out int num_vectors,
+						     out IntPtr vectors_ids);
+    [DllImport("libgimp-2.0-0.dll")]
+    extern static bool gimp_vectors_import_from_string(Int32 image_ID,
+						       string source,
+						       bool merge, bool scale,
+						       out int num_vectors,
+						       out IntPtr vectors_ids);
   }
 }

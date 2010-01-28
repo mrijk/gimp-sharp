@@ -1,5 +1,5 @@
 // The Forge plug-in
-// Copyright (C) 2006-2007 Massimo Perga (massimo.perga@gmail.com)
+// Copyright (C) 2006-2010 Massimo Perga (massimo.perga@gmail.com)
 //
 // ComplexMatrix.cs
 //
@@ -41,19 +41,18 @@ namespace Gimp.Forge
     
     public double[] ToFlatArray()
     {
-      double[] array = new double[(1 + _size * _size) * 2];
+      var array = new double[(1 + _size * _size) * 2];
 
       int i = 2;	// Skip first 2!
       for (int row = 0; row < _size; row++)
 	{
 	  for (int col = 0; col < _size; col++)
 	    {
-	      Complex c = _matrix[row, col];
+	      var c = _matrix[row, col];
 	      array[i++] = c.Real;
 	      array[i++] = c.Imag;
 	    }
 	}
-
       return array;
     }
   }

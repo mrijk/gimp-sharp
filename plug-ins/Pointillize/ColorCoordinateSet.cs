@@ -1,5 +1,5 @@
 // The Pointillize plug-in
-// Copyright (C) 2006-2009 Maurits Rijk
+// Copyright (C) 2006-2010 Maurits Rijk
 //
 // ColorCoordinateSet.cs
 //
@@ -107,10 +107,7 @@ namespace Gimp.Pointillize
 
     void Add(int row, int col, ColorCoordinate coordinate)
     {
-      if (_matrix[row, col] == null)
-	{
-	  _matrix[row, col] = new List<ColorCoordinate>();
-	}
+      _matrix[row, col] = _matrix[row, col] ?? new List<ColorCoordinate>();
       _matrix[row, col].Add(coordinate);
     }
 

@@ -1,5 +1,5 @@
 // The UnitTest plug-in
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // UnitTester.cs
 //
@@ -29,14 +29,14 @@ namespace Gimp.UnitTest
 {
   public class UnitTester
   {
-    TestDomain testDomain;
-    TestRunner testRunner;
-    UnitTest   _unitTestPlugin;
+    readonly TestDomain _testDomain;
+    readonly TestRunner _testRunner;
+    readonly UnitTest   _unitTestPlugin;
 
     public UnitTester(UnitTest unitTestPlugin)
     {
-      testDomain = new TestDomain();
-      testRunner = testDomain;
+      _testDomain = new TestDomain();
+      _testRunner = _testDomain;
       _unitTestPlugin = unitTestPlugin;
     }
 
@@ -44,21 +44,19 @@ namespace Gimp.UnitTest
 						string testDll)
     {
       ServiceManager.Services.AddService(new DomainManager());
-      TestPackage package = new TestPackage(testDll);
+      var package = new TestPackage(testDll);
       return testDomain.Load(package);
     }
     
     public void Test(string testDll)
     {
-      TextWriter outWriter = Console.Out;
-      TextWriter errorWriter = Console.Error;
       bool success = false;
 
       try
 	{        
-	  success = MakeTestFromCommandLine(testDomain, testDll);
+	  success = MakeTestFromCommandLine(_testDomain, testDll);
 	}
-      catch(System.IO.FileNotFoundException fnfe)
+      catch(System.IO.FileNotFoundException)
 	{
 	  new Message("Failed opening " + testDll);
 	  return;
@@ -69,11 +67,11 @@ namespace Gimp.UnitTest
 	  Console.Error.WriteLine("Unable to locate fixture");
 	  return;
 	}
-      _unitTestPlugin.TestCasesTotalNumber = testRunner.CountTestCases(TestFilter.Empty);
+      _unitTestPlugin.TestCasesTotalNumber = _testRunner.CountTestCases(TestFilter.Empty);
       
-      EventListener collector = new EventCollector(outWriter, errorWriter, 
-						   _unitTestPlugin );      
-      TestResult result = testRunner.Run(collector);
+      var collector = new EventCollector(Console.Out, Console.Error, 
+					 _unitTestPlugin );      
+      var result = _testRunner.Run(collector);
     }
   }
 }

@@ -1,5 +1,5 @@
 // The SliceTool plug-in
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // RectangleSet.cs
 //
@@ -44,10 +44,7 @@ namespace Gimp.SliceTool
     {
       Changed = true;
       _set.Add(rectangle);
-      if (Selected == null)
-	{
-	  Selected = rectangle;
-	}
+      Selected = Selected ?? rectangle;
     }
     
     public void Remove(Rectangle rectangle)

@@ -1,5 +1,5 @@
 // The UnitTest plug-in
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // UnitTest.cs
 //
@@ -64,14 +64,13 @@ namespace Gimp.UnitTest
     {
       gimp_ui_init("UnitTest", true);
 
-      GimpDialog dialog = DialogNew("UnitTest", "UnitTest", IntPtr.Zero, 0,
-				    Gimp.StandardHelpFunc, "UnitTest");
+      var dialog = DialogNew("UnitTest", "UnitTest", IntPtr.Zero, 0,
+			     Gimp.StandardHelpFunc, "UnitTest");
 
-      VBox vbox = new VBox(false, 12) {BorderWidth = 12};
+      var vbox = new VBox(false, 12) {BorderWidth = 12};
       dialog.VBox.PackStart(vbox, true, true, 0);
 
-      FileChooserButton entry = new FileChooserButton(_("Open..."), 
-						      FileChooserAction.Open);
+      var entry = new FileChooserButton(_("Open..."), FileChooserAction.Open);
       entry.SelectionChanged += delegate
 	{
 	  _testDll = entry.Filename;
@@ -86,7 +85,7 @@ namespace Gimp.UnitTest
 
     override protected void Render()
     {
-      UnitTester tester = new UnitTester(this);
+      var tester = new UnitTester(this);
       tester.Test(_testDll);
     }
 

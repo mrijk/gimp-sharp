@@ -225,5 +225,13 @@ namespace Gimp
       Assert.AreEqual(0, _image.GetVectorsPosition(first));
       Assert.AreEqual(1, _image.GetVectorsPosition(second));
     }
+
+    [Test]
+    public void ExportToString()
+    {
+      var vector = new Vectors(_image, "firstVector");
+      string s = vector.ExportToString();
+      Assert.IsNotNull(s);
+    }
   }
 }

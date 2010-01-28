@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // SliceData.cs
 //
@@ -86,12 +86,7 @@ namespace Gimp.SliceTool
 
     public Slice FindSlice(Coordinate<int> c)
     {
-      var slice = _horizontalSlices.Find(c);
-      if (slice == null)
-        {
-	  slice = _verticalSlices.Find(c);
-        }
-      return slice;
+      return _horizontalSlices.Find(c) ?? _verticalSlices.Find(c); 
     }
 
     public Slice MayRemove(Coordinate<int> c)

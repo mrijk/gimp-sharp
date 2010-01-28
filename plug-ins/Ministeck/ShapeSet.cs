@@ -1,5 +1,5 @@
 // The Ministeck plug-in
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // ShapeSet.cs
 //
@@ -52,7 +52,7 @@ namespace Gimp.Ministeck
 
     public void Fits(bool[,] A, Coordinate<int> c)
     {
-      foreach (Shape shape in this)
+      foreach (var shape in this)
 	{
 	  if (shape.Fits(A, c))
 	    {
@@ -63,10 +63,10 @@ namespace Gimp.Ministeck
 
     List<Shape> GeneratePermutation(long index)
     {
-      List<Shape> permutation = _set;
+      var permutation = _set;
       int len = _set.Count;
-      long[] fac = new long[len];
-      int[] idn = new int[len];
+      var fac = new long[len];
+      var idn = new int[len];
 
       fac[len - 1] = 1;
       idn[len - 1] = len - 1;
@@ -84,7 +84,7 @@ namespace Gimp.Ministeck
 	  idn[j] = idn[j + idx];
 	  idn[j + idx] = tmp;
 
-	  Shape tmp1 = permutation[j];
+	  var tmp1 = permutation[j];
 	  permutation[j] = permutation[j + idx];
 	  permutation[j + idx] = tmp1;
 	  
