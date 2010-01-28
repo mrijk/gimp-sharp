@@ -1,3 +1,12 @@
+2010-01-28  Maurits  <maurits.rijk@gmail.com>
+
+	* lib/AssemblyInfo.cs: bumped version number to 0.17
+
+	* lib/Drawable.cs
+	* lib/Plugin.cs
+	* lib/DataObject.cs
+	* lib/Coordinate.cs: minor clean-up
+
 2010-01-27  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* plug-ins/UnitTest/UnitTester.cs
@@ -17,6 +26,10 @@
 	* TODO
 	* configure.in
 	* INSTALL: Bumped version nummer to 0.17
+
+2010-01-26  Maurits  <maurits.rijk@gmail.com>
+
+	* NEWS: updated
 
 2009-12-18  Maurits Rijk  <maurits.rijk@gmail.com>
 

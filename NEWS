@@ -4,7 +4,7 @@ Overview of Changes in Gimp# 0.16
 - Export layers to JavaFX
 - Support for GIMP 2.6 API and Mono 2.4
 - Improved test coverage (300+ unit tests)
-- Code clean-up
+- Major code clean-up
 
 Overview of Changes in Gimp# 0.15
 =================================

@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // DataObject.cs
 //
@@ -30,9 +30,8 @@ namespace Gimp
       _name = name;
     }
 
-    protected DataObject(string name, bool unused)
+    protected DataObject(string name, bool unused) : this(name)
     {
-      _name = name;
     }
 
     public string Name

@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // Plugin.cs
 //
@@ -85,8 +85,6 @@ namespace Gimp
       var progargs = new string[Args.Length + 1];
       progargs[0] = "gimp-sharp";
       Args.CopyTo(progargs, 1);
-
-      Console.WriteLine("Go: " + progargs[1]);
 
       gimp_main(ref _info, progargs.Length, progargs);
     }
@@ -218,7 +216,7 @@ namespace Gimp
 
     virtual protected bool ValidateParameters(ParamDefList inParam)
     {
-      foreach (SaveAttribute attribute in new SaveAttributeSet(GetType()))
+      foreach (var attribute in new SaveAttributeSet(GetType()))
 	{
 	  string name = attribute.Name;
 	  if (name != null)
@@ -248,7 +246,7 @@ namespace Gimp
 
       var procedures = new ProcedureSet();
 
-      foreach (Procedure p in ListProcedures())
+      foreach (var p in ListProcedures())
 	{
 	  procedures.Add(p);
 	}
@@ -317,7 +315,7 @@ namespace Gimp
 
     void CallRender()
     {
-      Stopwatch stopWatch = new Stopwatch();
+      var stopWatch = new Stopwatch();
       stopWatch.Start();
 
       GetRequiredParameters();
@@ -344,7 +342,7 @@ namespace Gimp
       Display.DisplaysFlush();
 
       stopWatch.Stop();
-      TimeSpan ts = stopWatch.Elapsed;
+      var ts = stopWatch.Elapsed;
       Console.WriteLine(String.Format("Processing time: {0:00}:{1:00}:{2:00}.{3:00}",
 				      ts.Hours, ts.Minutes, ts.Seconds, 
 				      ts.Milliseconds / 10));
@@ -369,7 +367,7 @@ namespace Gimp
     {
       while (true)
 	{
-	  ResponseType type = _dialog.Run();
+	  var type = _dialog.Run();
 	  if (type == ResponseType.Ok)
 	    {
 	      GetParameters();

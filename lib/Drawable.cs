@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // Drawable.cs
 //
@@ -174,7 +174,7 @@ namespace Gimp
 
     public Rectangle Bounds
     {
-      get { return new Rectangle(0, 0, Width, Height);}
+      get {return new Rectangle(0, 0, Width, Height);}
     }
 
     public Dimensions Dimensions
@@ -408,19 +408,21 @@ namespace Gimp
 
     public Buffer EditNamedCut(string bufferName)
     {
-      var name = gimp_edit_named_cut(_ID, bufferName);
-      return (name == null) ? null : new Buffer(name);
+      return CreateNewBuffer(gimp_edit_named_cut(_ID, bufferName));
     }
 
     public Buffer EditNamedCopy(string bufferName)
     {
-      var name = gimp_edit_named_copy(_ID, bufferName);
-      return (name == null) ? null : new Buffer(name);
+      return CreateNewBuffer(gimp_edit_named_copy(_ID, bufferName));
     }
 
     public Buffer EditNamedCopyVisible(string bufferName)
     {
-      var name = gimp_edit_named_copy_visible(_ID, bufferName);
+      return CreateNewBuffer(gimp_edit_named_copy_visible(_ID, bufferName));
+    }
+
+    Buffer CreateNewBuffer(string name)
+    {
       return (name == null) ? null : new Buffer(name);
     }
 
