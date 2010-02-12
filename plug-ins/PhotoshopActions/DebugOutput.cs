@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2010 Maurits Rijk
 //
 // DebugOutput.cs
 //
@@ -24,30 +24,16 @@ namespace Gimp.PhotoshopActions
 {
   public class DebugOutput
   {
-    static int _level;
-    static bool _quiet;
+    public static int Level {get; set;}
+    public static bool Quiet {private get; set;}
 
     public static void Dump(string format, params object[] list)
     {
-      if (!_quiet)
+      if (!Quiet)
 	{
-	  for (int i = 0; i < _level; i++)
-	    {
-	      Console.Write("\t");
-	    }
+	  Console.Write("".PadLeft(Level, '\t'));
 	  Console.WriteLine(format, list);
 	}
-    }
-
-    public static bool Quiet
-    {
-      set {_quiet = value;}
-    }
-
-    public static int Level
-    {
-      get {return _level;}
-      set {_level = value;}
     }
   }
 }

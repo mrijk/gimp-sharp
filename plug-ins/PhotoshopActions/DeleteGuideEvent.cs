@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2010 Maurits Rijk
 //
 // DeleteGuideEvent.cs
 //
@@ -36,10 +36,7 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
-      foreach (Guide guide in ActiveImage.Guides)
-	{
-	  guide.Delete();
-	}
+      ActiveImage.Guides.ForEach(guide => guide.Delete());
       return true;
     }
   }

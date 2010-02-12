@@ -27,10 +27,10 @@ namespace Gimp.PhotoshopActions
   {
     override public bool Execute()
     {
-      CoordinateList<byte> controlPoints = new CoordinateList<byte>();
-      controlPoints.Add(new Coordinate<byte>(0, 0));
-      controlPoints.Add(new Coordinate<byte>(127, 127));
-      controlPoints.Add(new Coordinate<byte>(255, 0));
+      CoordinateList<byte> controlPoints = new CoordinateList<byte>() {
+	new Coordinate<byte>(0, 0),
+	new Coordinate<byte>(127, 127),
+	new Coordinate<byte>(255, 0)};
 
       ActiveDrawable.CurvesSpline(HistogramChannel.Value, controlPoints);
       return true;

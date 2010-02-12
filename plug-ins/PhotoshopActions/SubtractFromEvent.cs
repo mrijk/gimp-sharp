@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2010 Maurits Rijk
 //
 // SubtractFromEvent.cs
 //
@@ -18,8 +18,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-
 namespace Gimp.PhotoshopActions
 {
   public class SubtractFromEvent : ActionEvent
@@ -29,21 +27,20 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
-      DoubleParameter top = _rectangle.Parameters["Top"] as DoubleParameter;
-      DoubleParameter left = _rectangle.Parameters["Left"] as DoubleParameter;
-      DoubleParameter bottom = _rectangle.Parameters["Btom"] 
-	as DoubleParameter;
-      DoubleParameter right = _rectangle.Parameters["Rght"] as DoubleParameter;
+      double x = GetByName("Left");
+      double y = GetByName("Top");
+      double width = GetByName("Rght") - x + 1;
+      double height = GetByName("Btom") - y + 1;
 
-      double x = left.Value;
-      double y = top.Value;
-      double width = right.Value - x + 1;
-      double height = bottom.Value - y + 1;
-
-      RectangleSelectTool tool = new RectangleSelectTool(ActiveImage);
+      var tool = new RectangleSelectTool(ActiveImage);
       tool.Select(x, y, width, height, ChannelOps.Subtract, false, 0);
 
       return true;
+    }
+
+    double GetByName(string name)
+    {
+      return (_rectangle.Parameters[name] as DoubleParameter).Value;
     }
   }
 }

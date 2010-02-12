@@ -108,10 +108,7 @@ namespace Gimp.PhotoshopActions
 
     public static Layer SelectedLayer
     {
-      get 
-	{
-	  return _selectedLayer;
-	}
+      get {return _selectedLayer;}
       set 
 	{
 	  _selectedLayer = value;

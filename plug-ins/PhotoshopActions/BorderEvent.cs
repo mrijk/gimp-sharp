@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Borderright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2010 Maurits Rijk
 //
 // BorderEvent.cs
 //

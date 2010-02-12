@@ -1,3 +1,18 @@
+2010-02-12  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/PhotoshopActions/ActionEvent.cs
+	* plug-ins/PhotoshopActions/DeleteGuideEvent.cs
+	* plug-ins/PhotoshopActions/SubtractFromEvent.cs: minor clean-up
+
+	* plug-ins/PhotoshopActions/BorderEvent.cs: fixed typo
+
+	* plug-ins/PhotoshopActions/DebugOutput.cs: minor clean-up
+
+2010-02-05  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/JavaFX/Makefile.am: replaced /r by -r to make this
+	compile on Windows
+
 2010-01-28  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/AssemblyInfo.cs: bumped version number to 0.17

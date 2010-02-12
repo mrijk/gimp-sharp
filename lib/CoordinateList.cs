@@ -26,7 +26,7 @@ using System.Runtime.InteropServices;
 
 namespace Gimp
 {
-  public class CoordinateList<T>
+  public class CoordinateList<T> : IEnumerable<Coordinate<T>>
   {
     readonly List<Coordinate<T>> _list = new List<Coordinate<T>>();
 
@@ -49,6 +49,11 @@ namespace Gimp
     public IEnumerator<Coordinate<T>> GetEnumerator()
     {
       return _list.GetEnumerator();
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+      return GetEnumerator();
     }
 
     public void ForEach(Action<Coordinate<T>> action)
