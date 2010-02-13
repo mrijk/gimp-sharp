@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2010 Maurits Rijk
 //
 // ActionEvent.cs
 //
@@ -29,7 +29,7 @@ namespace Gimp.PhotoshopActions
 {
   abstract public class ActionEvent : IExecutable
   {
-    static List<ActionSet> _actionSetCollection;
+    public static List<ActionSet> ActionSetCollection;
 
     public bool IsEnabled {get; set;}
     public bool HasDescriptor {get; set;}
@@ -55,8 +55,8 @@ namespace Gimp.PhotoshopActions
     static Layer _selectedLayer;
 
     // TODO: this is a hack
-    static Channel _selectedChannel;
-    static string _selectedChannelName;
+    public static Channel SelectedChannel {get; set;}
+    public static string SelectedChannelName {get; set;}
 
     static Channel _previousSelection;
 
@@ -69,12 +69,6 @@ namespace Gimp.PhotoshopActions
       EventForDisplay = srcEvent.EventForDisplay;
       NumberOfItems = srcEvent.NumberOfItems;
       _parameters = srcEvent._parameters;
-    }
-
-    public static List<ActionSet> ActionSetCollection
-    {
-      get {return _actionSetCollection;}
-      set {_actionSetCollection = value;}
     }
 
     public ParameterSet Parameters
@@ -125,24 +119,6 @@ namespace Gimp.PhotoshopActions
     public static LinkedLayersSet LinkedLayersSet
     {
       get {return _linkedLayersSet;}
-    }
-
-    public static Channel SelectedChannel
-    {
-      get {return _selectedChannel;}
-      set 
-	{
-	  _selectedChannel = value;
-	}
-    }
-
-    public static string SelectedChannelName
-    {
-      get {return _selectedChannelName;}
-      set 
-	{
-	  _selectedChannelName = value;
-	}
     }
 
     protected string Format(bool value, string s)
@@ -217,13 +193,13 @@ namespace Gimp.PhotoshopActions
     protected void RunProcedure(string name, Image image, Drawable drawable,
 				params object[] list)
     {
-      Procedure procedure = new Procedure(name);
+      var procedure = new Procedure(name);
       procedure.Run(image, drawable, list);
     }
 
     protected void RememberCurrentSelection()
     {
-      Layer tmp = SelectedLayer;
+      var tmp = SelectedLayer;
       _previousSelection = _activeImage.Selection.Save();
       SelectedLayer = tmp;
     }
@@ -236,7 +212,7 @@ namespace Gimp.PhotoshopActions
     protected void GetBounds(ObjcParameter objc, out double x, out double y,
 			     out double width, out double height)
     {
-      ParameterSet parameters = objc.Parameters;
+      var parameters = objc.Parameters;
       double top = (parameters["Top"] as DoubleParameter).
 	GetPixels(ActiveImage.Height);
       double left = (parameters["Left"] as DoubleParameter).

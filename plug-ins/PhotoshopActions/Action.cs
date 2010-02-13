@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2010 Maurits Rijk
 //
 // Action.cs
 //
@@ -38,16 +38,12 @@ namespace Gimp.PhotoshopActions
     public int NrOfChildren {get; set;}
     public string Name {get; set;}
 
-    public Action()
-    {
-    }
-
     public bool IsExecutable
     {
       get
 	{
 	  return ActionEvents == NrOfChildren &&
-	    _set.TrueForAll(actionEvent => actionEvent.IsExecutable);
+	    _set.TrueForAll(e => e.IsExecutable);
 	}
     }
 
@@ -57,7 +53,7 @@ namespace Gimp.PhotoshopActions
       set 
 	{
 	  _enabled = value;
-	  _set.ForEach(actionEvent => {actionEvent.IsEnabled = value;});
+	  _set.ForEach(e => {e.IsEnabled = value;});
 	}
     }
 
@@ -70,7 +66,7 @@ namespace Gimp.PhotoshopActions
     {
       get
 	{
-	  return _set.Where(actionEvent => actionEvent.IsExecutable).Count();
+	  return _set.Where(e => e.IsExecutable).Count();
 	}
     }
 
@@ -83,14 +79,14 @@ namespace Gimp.PhotoshopActions
     {
       for (int i = 0; i < ActionEvents; i++)
 	{
-	  ActionEvent actionEvent = _set[i];
+	  var actionEvent = _set[i];
 
 	  // Check if we need to save the layer because of a following
 	  // Fade event.
 
 	  if (i < ActionEvents - 1)
 	    {
-	      ActionEvent next = _set[i + 1];
+	      var next = _set[i + 1];
 	      if (next is FadeEvent)
 		{
 		  if (ActionEvent.SelectedLayer != null)
@@ -98,7 +94,7 @@ namespace Gimp.PhotoshopActions
 		      Console.WriteLine("bpp: " + 
 					ActionEvent.SelectedLayer.Bpp);
 		    }
-		  Layer layer = new Layer(ActionEvent.SelectedLayer);
+		  var layer = new Layer(ActionEvent.SelectedLayer);
 		  ActionEvent.ActiveImage.AddLayer(layer, 0);
 		  ActionEvent.SelectedLayer = layer;
 		}

@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2010 Maurits Rijk
 //
 // Abbreviations.cs
 //
@@ -26,432 +26,436 @@ namespace Gimp.PhotoshopActions
   static class Abbreviations
   {
     static readonly Dictionary<string, string> _map = 
-      new Dictionary<string, string>();
-
-    static Abbreviations()
-    {
-      _map["ActP"] = "Actual Pixels";
-      _map["AdBt"] = "bottom edges";
-      _map["AdCH"] = "horizontal centers";
-      _map["AdCV"] = "vertical centers";
-      _map["Adjs"] = "Adjustment";
-      _map["AdLf"] = "left edges";
-      _map["AdNs"] = _map["addNoise"] = "Add Noise";
-      _map["AdRg"] = "right edges";
-      _map["AdTp"] = "top edges";
-      _map["Al"]   = "all";
-      _map["AmbB"] = "Ambience";
-      _map["AmbC"] = "Ambient Color";
-      _map["AmMn"] = "Amplitude min";
-      _map["AmMx"] = "Amplitude max";
-      _map["Ang1"] = "Channel 1";
-      _map["Ang2"] = "Channel 2";
-      _map["Ang3"] = "Channel 3";
-      _map["Ang4"] = "Channel 4";
-      _map["annotText"] = "text";
-      _map["annotType"] = "Type";
-      _map["AntA"] = "Anti-alias";
-      _map["antialiasGloss"] = "Anti-alias Gloss";
-      _map["Amnt"] = "Amount";
-      _map["Angl"] = "angle";
-      _map["Anno"] = "none";
-      _map["Aply"] = "Apply";
-      _map["autoBlackWhite"] = "Auto Black & White";
-      _map["autoNeutrals"] = "Auto Neutrals";
-      _map["Bcbc"] = "bicubic";
-      _map["BckC"] = "background color";
-      _map["Bckg"] = "background";
-      _map["BlcB"] = "black body";
-      _map["Blck"] = "black";
-      _map["BlcL"] = "Foreground Level";
-      _map["Bl"]   = "blue";
-      _map["Blks"] = "Blocks";
-      _map["BlrM"] = "Method";
-      _map["BlrQ"] = "Quality";
-      _map["Blst"] = "Blast";
-      _map["BmpA"] = "Height";
-      _map["bottomRightPixelColor"] = "bottom right pixel color";
-      _map["BrbW"] = "brush wide blurry";
-      _map["Brgh"] = "Brightness";
-      _map["BrsD"] = "Brush Detail";
-      _map["BrSm"] = "brush simple";
-      _map["BrsS"] = "Brush Size";
-      _map["BtmM"] = "bitmap mode";
-      _map["Btom"] = "Bottom";
-      _map["bvlS"] = "Style";
-      _map["bvlT"] = "Technique";
-      _map["CBrn"] = "color burn";
-      _map["CDdg"] = "color dodge";
-      _map["ChAm"] = "Charcoal Thickness";
-      _map["ChlA"] = "Chalk Area";
-      _map["Chnl"] = "Channel";
-      _map["ChrA"] = "Charcoal Area";
-      _map["Ckmt"] = "Spread";
-      _map["Clcl"] = "calculation";
-      _map["Clds"] = "Clouds";
-      _map["Cler"] = "Clear";
-      _map["Clr"]  = "color";
-      _map["ClrB"] = "Color Balance";
-      _map["Clrs"] = "Colors";
-      _map["Clrz"] = "Colorize";
-      _map["ClSz"] = "Cell Size";
-      _map["Cmps"] = "composite channel";
-      _map["CMYM"] = "CMYK color mode";
-      _map["CnsP"] = "Constrain Proportions";
-      _map["Cntc"] = "Contract";
-      _map["Cntg"] = "Contiguous";
-      _map["Cntn"] = "Continue";
-      _map["Cntr"] = "Contrast";
-      _map["Cnvr"] = "Convert";
-      _map["CnvM"] = _map["convertMode"] = "Convert Mode";
-      _map["copy"] = "Copy";
-      _map["copyToLayer"] = "Layer via Copy";
-      _map["CrnH"] = "Current History State";
-      _map["CrcB"] = "Crack brightness";
-      _map["CrcD"] = "Crack depth";
-      _map["CrcS"] = "Crack spacing";
-      _map["CrnL"] = "Current Light";
-      _map["CrrL"] = "current layer";
-      _map["CrsD"] = "Coarse Dots";
-      _map["Crtl"] = "Interpolation";
-      _map["Crvs"] = "Curves";
-      _map["CstS"] = "custom stops";
-      _map["Cyn" ] = "cyan";
-      _map["Dcmn"] = "document";
-      _map["DfnP"] = "Define Pattern";
-      _map["Dfnt"] = "Definition";
-      _map["Dfrn"] = "difference";
-      _map["Dlt"]  = "Delete";
-      _map["Dmtr"] = "diameter";
-      _map["Dnst"] = "Density";
-      _map["Dplc"] = "Duplicate";
-      _map["DrcB"] = "Direction Balance";
-      _map["Drct"] = "Direction";
-      _map["Drft"] = "draft";
-      _map["DrkI"] = "Dark Intensity";
-      _map["Drkn"] = "darken";
-      _map["DrSh"] = "Drop Shadow";
-      _map["DspF"] = "Displace File";
-      _map["DspM"] = "Displacement Map";
-      _map["Dstn"] = "Distance";
-      _map["Dstr"] = "Distribution";
-      _map["Dstt"] = "Desaturate";
-      _map["Dthr"] = "Dither";
-      _map["Dtl"]  = "Detail";
-      _map["Edg"]  = "Edge";
-      _map["EdgB"] = "Edge Brightness";
-      _map["EdgI"] = "Edge Intensity";
-      _map["EdgT"] = "Edge Thickness";
-      _map["EdgW"] = "Edge Width";
-      _map["ElmO"] = "Odd Fields";
-      _map["Elps"] = "Ellipse";
-      _map["enab"] = "Enabled";
-      _map["Expn"] = "Expand";
-      _map["Exps"] = "Exposure";
-      _map["ExtD"] = "Depth";
-      _map["ExtF"] = "Solid Front Faces";
-      _map["ExtM"] = "Mask Incomplete Blocks";
-      _map["ExtR"] = "Random";
-      _map["ExtS"] = "Size";
-      _map["ExtT"] = "Type";
-      _map["fill"] = "Fill";
-      _map["Fl"]   = "fill";
-      _map["FllD"] = "full document";
-      _map["FltI"] = _map["flattenImage"] = "Flatten Image";
-      _map["Fltt"] = "Flatten";
-      _map["FncK"] = "Function Key";
-      _map["FndE"] = "Find Edges";
-      _map["FnDt"] = "Fine Dots";
-      _map["FrgC"] = "foreground color";
-      _map["FrmW"] = "Frame Width";
-      _map["Frnt"] = "front";
-      _map["Frst"] = "first";
-      _map["FtOn"] = "Fit On Screen";
-      _map["Fzns"] = "Fuzziness";
-      _map["GblR"] = "Gaussian Blur";
-      _map["Gd"]   = "good";
-      _map["Glos"] = "Gloss";
-      _map["GlwE"] = "glowing edges";
-      _map["Gmm"]  = "Gamma";
-      _map["GsnB"] = _map["gaussianBlur"] = "Gaussian Blur";
-      _map["GrdF"] = "Form";
-      _map["Grdn"] = _map["gradientClassEvent"] = "Gradient";
-      _map["Grn"]  = "green";
-      _map["GrnE"] = "Enlarged";
-      _map["GrnH"] = "Horizontal";
-      _map["GrnR"] = "Regular";
-      _map["Grns"] = "Graininess";
-      _map["Grnt"] = "Grain Type";
-      _map["GrnV"] = "Vertical";
-      _map["groupEvent"] = "Group";
-      _map["GrpL"] = "Create Clipping Mask";
-      _map["GrSf"] = "Soft";
-      _map["GrtW"] = "Grout Width";
-      _map["Gry"]  = "gray";
-      _map["Grys"] = "grayscale mode";
-      _map["Gsn"]  = "gaussian";
-      _map["GudG"] = "Guides & Grid & Slices Preferences";
-      _map["H"]    = "Hue";
-      _map["Hd"]   = "Hide";
-      _map["HghS"] = "Highlight strength";
-      _map["Hght"] = "Height";
-      _map["hglO"] = "Highlight Opacity";
-      _map["HlSz"] = "Size";
-      _map["HrdL"] = "hard light";
-      _map["Hrdn"] = "hardness";
-      _map["Hrzn"] = "Horizontal";
-      _map["HrzO"] = "Horizontal Only";
-      _map["HrzS"] = "Horizontal Scale";
-      _map["HSBC"] = "HSB color";
-      _map["HStr"] = _map["hueSaturation"] = "Hue/Saturation";
-      _map["ImgB"] = "Image Balance";
-      _map["IndC"] = "indexed color mode";
-      _map["InrB"] = "inner bevel";
-      _map["Insd"] = "inside";
-      _map["IntC"] = "Create";
-      _map["IntE"] = "Eliminate";
-      _map["Intn"] = "Intensity";
-      _map["Intr"] = "Interpolation";
-      _map["Invr"] = "Invert Source";
-      _map["Invs"] = "Inverse";
-      _map["InvT"] = "Invert Texture";
-      _map["IrGl"] = "Inner Glow";
-      _map["IrSh"] = "Inner Shadow";
-      _map["lagl"] = "Local Angle";
-      _map["Lald"] = "Local Altitude";
-      _map["layerConceals"] = "layer knocks out";
-      _map["LbCM"] = "Lab color mode";
-      _map["Lctn"] = "Location";
-      _map["LDBL"] = "Bottom Left";
-      _map["LDBt"] = "Bottom";
-      _map["LDTp"] = "Top";
-      _map["LDTL"] = "Top Left";
-      _map["LDTR"] = "Top Right";
-      _map["Left"] = "Left";
-      _map["Lefx"] = "layer styles";
-      _map["Lft"]  = "Left";
-      _map["LgDr"] = "Light/Dark Balance";
-      _map["LghD"] = "Light Direction";
-      _map["LghE"] = _map["lightingEffects"] = "Lighting Effects";
-      _map["LghG"] = "Lighten Grout";
-      _map["LghI"] = "Light Intensity";
-      _map["Lghn"] = "lighten";
-      _map["LghS"] = "Light Source";
-      _map["Lght"] = "lightness";
-      _map["LghT"] = "Light Type";
-      _map["linearLight"] = "linear light";
-      _map["Lmns"] = "luminosity";
-      _map["Ln"]   = "line"; 
-      _map["LngL"] = "long lines";
-      _map["Lnr"]  = "linear";
-      _map["Lns"]  = "Lens";
-      _map["LngS"] = "long strokes";
-      _map["LPBt"] = "light position bottom";
-      _map["LPLf"] = "light position left";
-      _map["LPRg"] = "light position right";
-      _map["LPTL"] = "Top Left";
-      _map["LPTp"] = "light position top";
-      _map["Lrg"]  = "Large";
-      _map["Lst"]  = "last";
-      _map["Lvl"]  = "Level";
-      _map["Lvls"] = "Levels";
-      _map["LvlB"] = "Level-based";
-      _map["Lwr"]  = "lower";
-      _map["Lyr"]  = "layer";
-      _map["Md"]   = "Mode";
-      _map["Mdm"]  = "medium";
-      _map["MdmS"] = "Medium Strokes";
-      _map["Mdpn"] = "Midpoint";
-      _map["Mgnt"] = "magenta";
-      _map["Mk"]   = "Make";
-      _map["Mltp"] = "multiply";
-      _map["Mnch"] = "Monochromatic";
-      _map["mosaicPlug"] = "Mosaic Tiles";
-      _map["MtnB"] = _map["motionBlur"] = "Motion Blur";
-      _map["MrgL"] = _map["mergeLayers"] = "Merge Layers";
-      _map["MrgV"] = "Merge Visible";
-      _map["Msc"]  = "Mosaic";
-      _map["Msge"] = "Message";
-      _map["Msk"]  = "mask";
-      _map["Mthd"] = "Method";
-      _map["Mtrl"] = "Material";
-      _map["MztT"] = "Type";
-      _map["N"]    = "no";
-      _map["Nkn"]  = "35mm Prime";
-      _map["Nkn1"] = "105mm Prime";
-      _map["Nm"]   = "Name";
-      _map["NmbG"] = "Number of Generators";
-      _map["NmbR"] = "Ridges";
-      _map["Nose"] = "Noise";
-      _map["Nrml"] = "normal";
-      _map["Nw"]   = "New";
-      _map["Nxt"]  = "next";
-      _map["Opn"]  = "Open";
-      _map["Ofst"] = "Offset";
-      _map["Opct"] = "Opacity";
-      _map["Orng"] = "orange";
-      _map["Ornt"] = "Orientation";
-      _map["Otsd"] = "outside";
-      _map["Ovrl"] = "overlay";
-      _map["past"] = "Paste";
-      _map["Pht3"] = "Photoshop";
-      _map["Phtc"] = "Photocopy";
-      _map["PhtP"] = "Photoshop PDF";
-      _map["Plgn"] = "polygon";
-      _map["Plr"]  = "Polar Coordinates";
-      _map["PlrR"] = "Polar to Rectangular";
-      _map["Pncl"] = "Pencil Width";
-      _map["PndR"] = "Pond Ripples";
-      _map["PntD"] = "paint daubs";
-      _map["PprB"] = "Paper Brightness";
-      _map["PrnS"] = "Print Size";
-      _map["PrsL"] = "Preserve Luminosity";
-      _map["Prvs"] = "previous";
-      _map["PrsT"] = "Preserve Transparency";
-      _map["PstI"] = "Paste Into";
-      _map["Pstn"] = "Position";
-      _map["Pstr"] = "Posterization";
-      _map["Ptrn"] = "pattern";
-      _map["Pyrm"] = "pyramids";
-      _map["Rctn"] = "rectangle";
-      _map["RctP"] = "Rectangular to Polar";
-      _map["Rd"]   = "red";
-      _map["Rdl"]  = "radial";
-      _map["Rds"]  = "Radius";
-      _map["Rght"] = "Right";
-      _map["Rlf"]  = "Relief";
-      _map["Rlg"]  = "Relief";
-      _map["Rndm"] = "random";
-      _map["Rndn"] = "roundness";
-      _map["RGBC"] = "RGB color";
-      _map["RGBM"] = "RGB color mode";
-      _map["Rltv"] = "relative";
-      _map["RndS"] = "Random Seed";
-      _map["RplM"] = "Ripple Magnitude";
-      _map["RplS"] = "Ripple Size";
-      _map["Rpt"]  = "repeat";
-      _map["RptE"] = "repeat edge pixels";
-      _map["Rset"] = "Reset";
-      _map["Rslt"] = "Resolution";
-      _map["Rtcl"] = "reticulation";
-      _map["Rtte"] = "Rotate";
-      _map["RvlS"] = "reveal selection";
-      _map["Rvrs"] = "Reverse";
-      _map["SBME"] = "Edge Only";
-      _map["SBMN"] = "smart blur mode normal";
-      _map["SBQH"] = "smart blur quality high";
-      _map["SBQL"] = "smart blur quality low";
-      _map["SBQM"] = "smart blur quality medium";
-      _map["Sbtr"] = "Subtract Selection";
-      _map["Scl"]  = "Scale";
-      _map["SclH"] = "Scale horizontal";
-      _map["Scln"] = "Scaling";
-      _map["SclV"] = "Scale vertical";
-      _map["ScrL"] = "Line";
-      _map["Scrn"] = "screen";
-      _map["ScrT"] = "Pattern Type";
-      _map["SDir"] = "Stroke Direction";
-      _map["SDLD"] = "Left Diagonal";
-      _map["SDRD"] = "Right Diagonal";
-      _map["SdwC"] = "Shadow Color";
-      _map["SwdM"] = "Shadow Mode";
-      _map["sdwO"] = "Shadow Opacity";
-      _map["setd"] = "Set";
-      _map["SfBL"] = "smooth";
-      _map["SftL"] = "soft light";
-      _map["Sftn"] = "Softness";
-      _map["ShdI"] = "Shadow Intensity";
-      _map["Shdw"] = "shadow";
-      _map["showNone"] = "Show None";
-      _map["Shrp"] = "Sharpness";
-      _map["Shw"]  = "Show";
-      _map["slct"] = "Select";
-      _map["Slrz"] = "Solarize";
-      _map["Sml"]  = "small";
-      _map["Smth"] = "Smoothness";
-      _map["SnpS"] = "snapshot";
-      _map["Spcn"] = "spacing";
-      _map["SphM"] = "Mode";
-      _map["Spng"] = "Sponge";
-      _map["SprR"] = "Spray Radius";
-      _map["SqrS"] = "Square Size";
-      _map["StDt"] = "Stroke Detail";
-      _map["Stgr"] = "Stagger";
-      _map["StrD"] = "Stroke Detail";
-      _map["Strg"] = "Strength";
-      _map["Strk"] = "Stroke";
-      _map["StrL"] = "Stroke Length";
-      _map["StrP"] = "Stroke Pressure";
-      _map["StrS"] = "Stroke Size";
-      _map["Strt"] = "saturation";
-      _map["StrW"] = "Stroke Width";
-      _map["Svng"] = "Saving";
-      _map["Sz"]   = "Size";
-      _map["trimBasedOn"] = "Based on";
-      _map["T"]    = "To";
-      _map["TgGr"] = "Toggle Grid";
-      _map["TglO"] = "Toggle Others";
-      _map["TglR"] = "Toggle Rulers";
-      _map["TgSn"] = "Toggle Snap To Grid";
-      _map["Thrs"] = "Threshold";
-      _map["Tlrn"] = "Tolerance";
-      _map["TlSz"] = "Tile Size";
-      _map["Top"]  = "Top";
-      _map["topLeftPixelColor"] = "top left pixel color";
-      _map["Trgt"] = "current";
-      _map["Trnf"] = "Transform";
-      _map["Trns"] = "transparent";
-      _map["Trsp"] = "transparency";
-      _map["TxBl"] = "Blocks";
-      _map["TxBr"] = "Brick";
-      _map["TxCa"] = "Canvas";
-      _map["TxFr"] = "Frosted";
-      _map["TxSt"] = "Sandstone";
-      _map["TxtC"] = "Texture Coverage";
-      _map["Txtr"] = "Texture";
-      _map["TxtT"] = "Texture Type";
-      _map["TxTL"] = "Tiny Lens";
-      _map["uglg"] = "Use Global Light";
-      _map["UndA"] = "Undefined Area";
-      _map["Unfr"] = "uniform";
-      _map["useShape"] = "Apply Shape";
-      _map["useTexture"] = "Apply Texture";
-      _map["Usng"] = "Using";
-      _map["Vct0"] = "Vector 0";
-      _map["Vct1"] = "Vector 1";
-      _map["Vrtc"] = "Vertical";
-      _map["VrtS"] = "Vertical Scale";
-      _map["Wdth"] = "Width";
-      _map["WhHi"] = "White is High";
-      _map["Wht"]  = "white";
-      _map["WhtL"] = "Background Level";
-      _map["WLMn"] = "Wave length min";
-      _map["WLMx"] = "Wave length max";
-      _map["Wnd"]  = "Wind";
-      _map["WndM"] = "Method";
-      _map["Wrp"]  = "wrap";
-      _map["WrpA"] = "wrap around";
-      _map["WvSn"] = "wave sine";
-      _map["WvSq"] = "wave square";
-      _map["Wvtp"] = "Wave Type";
-      _map["Xclu"] = "exclusion";
-      _map["Yllw"] = "yellow";
-      _map["Zm"]   = "zoom";
-      _map["ZZTy"] = "Style";
-    }
+      new Dictionary<string, string>() {
+	{"ActP", "Actual Pixels"},
+	{"AdBt", "bottom edges"},
+	{"AdCH", "horizontal centers"},
+	{"AdCV", "vertical centers"},
+	{"Adjs", "Adjustment"},
+	{"AdLf", "left edges"},
+	{"AdNs", "Add Noise"},
+	{"addNoise", "Add Noise"},
+	{"AdRg", "right edges"},
+	{"AdTp", "top edges"},
+	{"Al", "all"},
+	{"AmbB", "Ambience"},
+	{"AmbC", "Ambient Color"},
+	{"AmMn", "Amplitude min"},
+	{"AmMx", "Amplitude max"},
+	{"Ang1", "Channel 1"},
+	{"Ang2", "Channel 2"},
+	{"Ang3", "Channel 3"},
+	{"Ang4", "Channel 4"},
+	{"annotText", "text"},
+	{"annotType", "Type"},
+	{"AntA", "Anti-alias"},
+	{"antialiasGloss", "Anti-alias Gloss"},
+	{"Amnt", "Amount"},
+	{"Angl", "angle"},
+	{"Anno", "none"},
+	{"Aply", "Apply"},
+	{"autoBlackWhite", "Auto Black & White"},
+	{"autoNeutrals", "Auto Neutrals"},
+	{"Bcbc", "bicubic"},
+	{"BckC", "background color"},
+	{"Bckg", "background"},
+	{"BlcB", "black body"},
+	{"Blck", "black"},
+	{"BlcL", "Foreground Level"},
+	{"Bl", "blue"},
+	{"Blks", "Blocks"},
+	{"BlrM", "Method"},
+	{"BlrQ", "Quality"},
+	{"Blst", "Blast"},
+	{"BmpA", "Height"},
+	{"bottomRightPixelColor", "bottom right pixel color"},
+	{"BrbW", "brush wide blurry"},
+	{"Brgh", "Brightness"},
+	{"BrsD", "Brush Detail"},
+	{"BrSm", "brush simple"},
+	{"BrsS", "Brush Size"},
+	{"BtmM", "bitmap mode"},
+	{"Btom", "Bottom"},
+	{"bvlS", "Style"},
+	{"bvlT", "Technique"},
+	{"CBrn", "color burn"},
+	{"CDdg", "color dodge"},
+	{"ChAm", "Charcoal Thickness"},
+	{"ChlA", "Chalk Area"},
+	{"Chnl", "Channel"},
+	{"ChrA", "Charcoal Area"},
+	{"Ckmt", "Spread"},
+	{"Clcl", "calculation"},
+	{"Clds", "Clouds"},
+	{"Cler", "Clear"},
+	{"Clr", "color"},
+	{"ClrB", "Color Balance"},
+	{"Clrs", "Colors"},
+	{"Clrz", "Colorize"},
+	{"ClSz", "Cell Size"},
+	{"Cmps", "composite channel"},
+	{"CMYM", "CMYK color mode"},
+	{"CnsP", "Constrain Proportions"},
+	{"Cntc", "Contract"},
+	{"Cntg", "Contiguous"},
+	{"Cntn", "Continue"},
+	{"Cntr", "Contrast"},
+	{"Cnvr", "Convert"},
+	{"CnvM", "Convert Mode"},
+	{"convertMode", "Convert Mode"},
+	{"copy", "Copy"},
+	{"copyToLayer", "Layer via Copy"},
+	{"CrnH", "Current History State"},
+	{"CrcB", "Crack brightness"},
+	{"CrcD", "Crack depth"},
+	{"CrcS", "Crack spacing"},
+	{"CrnL", "Current Light"},
+	{"CrrL", "current layer"},
+	{"CrsD", "Coarse Dots"},
+	{"Crtl", "Interpolation"},
+	{"Crvs", "Curves"},
+	{"CstS", "custom stops"},
+	{"Cyn", "cyan"},
+	{"Dcmn", "document"},
+	{"DfnP", "Define Pattern"},
+	{"Dfnt", "Definition"},
+	{"Dfrn", "difference"},
+	{"Dlt", "Delete"},
+	{"Dmtr", "diameter"},
+	{"Dnst", "Density"},
+	{"Dplc", "Duplicate"},
+	{"DrcB", "Direction Balance"},
+	{"Drct", "Direction"},
+	{"Drft", "draft"},
+	{"DrkI", "Dark Intensity"},
+	{"Drkn", "darken"},
+	{"DrSh", "Drop Shadow"},
+	{"DspF", "Displace File"},
+	{"DspM", "Displacement Map"},
+	{"Dstn", "Distance"},
+	{"Dstr", "Distribution"},
+	{"Dstt", "Desaturate"},
+	{"Dthr", "Dither"},
+	{"Dtl", "Detail"},
+	{"Edg", "Edge"},
+	{"EdgB", "Edge Brightness"},
+	{"EdgI", "Edge Intensity"},
+	{"EdgT", "Edge Thickness"},
+	{"EdgW", "Edge Width"},
+	{"ElmO", "Odd Fields"},
+	{"Elps", "Ellipse"},
+	{"enab", "Enabled"},
+	{"Expn", "Expand"},
+	{"Exps", "Exposure"},
+	{"ExtD", "Depth"},
+	{"ExtF", "Solid Front Faces"},
+	{"ExtM", "Mask Incomplete Blocks"},
+	{"ExtR", "Random"},
+	{"ExtS", "Size"},
+	{"ExtT", "Type"},
+	{"fill", "Fill"},
+	{"Fl", "fill"},
+	{"FllD", "full document"},
+	{"FltI", "Flatten Image"},
+	{"flattenImage", "Flatten Image"},
+	{"Fltt", "Flatten"},
+	{"FncK", "Function Key"},
+	{"FndE", "Find Edges"},
+	{"FnDt", "Fine Dots"},
+	{"FrgC", "foreground color"},
+	{"FrmW", "Frame Width"},
+	{"Frnt", "front"},
+	{"Frst", "first"},
+	{"FtOn", "Fit On Screen"},
+	{"Fzns", "Fuzziness"},
+	{"GblR", "Gaussian Blur"},
+	{"Gd", "good"},
+	{"Glos", "Gloss"},
+	{"GlwE", "glowing edges"},
+	{"Gmm", "Gamma"},
+	{"GsnB", "Gaussian Blur"},
+	{"gaussianBlur", "Gaussian Blur"},
+	{"GrdF", "Form"},
+	{"Grdn", "Gradient"},
+	{"gradientClassEvent", "Gradient"},
+	{"Grn", "green"},
+	{"GrnE", "Enlarged"},
+	{"GrnH", "Horizontal"},
+	{"GrnR", "Regular"},
+	{"Grns", "Graininess"},
+	{"Grnt", "Grain Type"},
+	{"GrnV", "Vertical"},
+	{"groupEvent", "Group"},
+	{"GrpL", "Create Clipping Mask"},
+	{"GrSf", "Soft"},
+	{"GrtW", "Grout Width"},
+	{"Gry", "gray"},
+	{"Grys", "grayscale mode"},
+	{"Gsn", "gaussian"},
+	{"GudG", "Guides & Grid & Slices Preferences"},
+	{"H", "Hue"},
+	{"Hd", "Hide"},
+	{"HghS", "Highlight strength"},
+	{"Hght", "Height"},
+	{"hglO", "Highlight Opacity"},
+	{"HlSz", "Size"},
+	{"HrdL", "hard light"},
+	{"Hrdn", "hardness"},
+	{"Hrzn", "Horizontal"},
+	{"HrzO", "Horizontal Only"},
+	{"HrzS", "Horizontal Scale"},
+	{"HSBC", "HSB color"},
+	{"HStr", "Hue/Saturation"},
+	{"hueSaturation", "Hue/Saturation"},
+	{"ImgB", "Image Balance"},
+	{"IndC", "indexed color mode"},
+	{"InrB", "inner bevel"},
+	{"Insd", "inside"},
+	{"IntC", "Create"},
+	{"IntE", "Eliminate"},
+	{"Intn", "Intensity"},
+	{"Intr", "Interpolation"},
+	{"Invr", "Invert Source"},
+	{"Invs", "Inverse"},
+	{"InvT", "Invert Texture"},
+	{"IrGl", "Inner Glow"},
+	{"IrSh", "Inner Shadow"},
+	{"lagl", "Local Angle"},
+	{"Lald", "Local Altitude"},
+	{"layerConceals", "layer knocks out"},
+	{"LbCM", "Lab color mode"},
+	{"Lctn", "Location"},
+	{"LDBL", "Bottom Left"},
+	{"LDBt", "Bottom"},
+	{"LDTp", "Top"},
+	{"LDTL", "Top Left"},
+	{"LDTR", "Top Right"},
+	{"Left", "Left"},
+	{"Lefx", "layer styles"},
+	{"Lft", "Left"},
+	{"LgDr", "Light/Dark Balance"},
+	{"LghD", "Light Direction"},
+	{"LghE", "Lighting Effects"},
+	{"lightingEffects", "Lighting Effects"},
+	{"LghG", "Lighten Grout"},
+	{"LghI", "Light Intensity"},
+	{"Lghn", "lighten"},
+	{"LghS", "Light Source"},
+	{"Lght", "lightness"},
+	{"LghT", "Light Type"},
+	{"linearLight", "linear light"},
+	{"Lmns", "luminosity"},
+	{"Ln", "line"}, 
+	{"LngL", "long lines"},
+	{"Lnr", "linear"},
+	{"Lns", "Lens"},
+	{"LngS", "long strokes"},
+	{"LPBt", "light position bottom"},
+	{"LPLf", "light position left"},
+	{"LPRg", "light position right"},
+	{"LPTL", "Top Left"},
+	{"LPTp", "light position top"},
+	{"Lrg", "Large"},
+	{"Lst", "last"},
+	{"Lvl", "Level"},
+	{"Lvls", "Levels"},
+	{"LvlB", "Level-based"},
+	{"Lwr", "lower"},
+	{"Lyr", "layer"},
+	{"Md", "Mode"},
+	{"Mdm", "medium"},
+	{"MdmS", "Medium Strokes"},
+	{"Mdpn", "Midpoint"},
+	{"Mgnt", "magenta"},
+	{"Mk", "Make"},
+	{"Mltp", "multiply"},
+	{"Mnch", "Monochromatic"},
+	{"mosaicPlug", "Mosaic Tiles"},
+	{"MtnB", "Motion Blur"},
+	{"motionBlur", "Motion Blur"},
+	{"MrgL", "Merge Layers"},
+	{"mergeLayers", "Merge Layers"},
+	{"MrgV", "Merge Visible"},
+	{"Msc", "Mosaic"},
+	{"Msge", "Message"},
+	{"Msk", "mask"},
+	{"Mthd", "Method"},
+	{"Mtrl", "Material"},
+	{"MztT", "Type"},
+	{"N", "no"},
+	{"Nkn", "35mm Prime"},
+	{"Nkn1", "105mm Prime"},
+	{"Nm", "Name"},
+	{"NmbG", "Number of Generators"},
+	{"NmbR", "Ridges"},
+	{"Nose", "Noise"},
+	{"Nrml", "normal"},
+	{"Nw", "New"},
+	{"Nxt", "next"},
+	{"Opn", "Open"},
+	{"Ofst", "Offset"},
+	{"Opct", "Opacity"},
+	{"Orng", "orange"},
+	{"Ornt", "Orientation"},
+	{"Otsd", "outside"},
+	{"Ovrl", "overlay"},
+	{"past", "Paste"},
+	{"Pht3", "Photoshop"},
+	{"Phtc", "Photocopy"},
+	{"PhtP", "Photoshop PDF"},
+	{"Plgn", "polygon"},
+	{"Plr", "Polar Coordinates"},
+	{"PlrR", "Polar to Rectangular"},
+	{"Pncl", "Pencil Width"},
+	{"PndR", "Pond Ripples"},
+	{"PntD", "paint daubs"},
+	{"PprB", "Paper Brightness"},
+	{"PrnS", "Print Size"},
+	{"PrsL", "Preserve Luminosity"},
+	{"Prvs", "previous"},
+	{"PrsT", "Preserve Transparency"},
+	{"PstI", "Paste Into"},
+	{"Pstn", "Position"},
+	{"Pstr", "Posterization"},
+	{"Ptrn", "pattern"},
+	{"Pyrm", "pyramids"},
+	{"Rctn", "rectangle"},
+	{"RctP", "Rectangular to Polar"},
+	{"Rd", "red"},
+	{"Rdl", "radial"},
+	{"Rds", "Radius"},
+	{"Rght", "Right"},
+	{"Rlf", "Relief"},
+	{"Rlg", "Relief"},
+	{"Rndm", "random"},
+	{"Rndn", "roundness"},
+	{"RGBC", "RGB color"},
+	{"RGBM", "RGB color mode"},
+	{"Rltv", "relative"},
+	{"RndS", "Random Seed"},
+	{"RplM", "Ripple Magnitude"},
+	{"RplS", "Ripple Size"},
+	{"Rpt", "repeat"},
+	{"RptE", "repeat edge pixels"},
+	{"Rset", "Reset"},
+	{"Rslt", "Resolution"},
+	{"Rtcl", "reticulation"},
+	{"Rtte", "Rotate"},
+	{"RvlS", "reveal selection"},
+	{"Rvrs", "Reverse"},
+	{"SBME", "Edge Only"},
+	{"SBMN", "smart blur mode normal"},
+	{"SBQH", "smart blur quality high"},
+	{"SBQL", "smart blur quality low"},
+	{"SBQM", "smart blur quality medium"},
+	{"Sbtr", "Subtract Selection"},
+	{"Scl", "Scale"},
+	{"SclH", "Scale horizontal"},
+	{"Scln", "Scaling"},
+	{"SclV", "Scale vertical"},
+	{"ScrL", "Line"},
+	{"Scrn", "screen"},
+	{"ScrT", "Pattern Type"},
+	{"SDir", "Stroke Direction"},
+	{"SDLD", "Left Diagonal"},
+	{"SDRD", "Right Diagonal"},
+	{"SdwC", "Shadow Color"},
+	{"SwdM", "Shadow Mode"},
+	{"sdwO", "Shadow Opacity"},
+	{"setd", "Set"},
+	{"SfBL", "smooth"},
+	{"SftL", "soft light"},
+	{"Sftn", "Softness"},
+	{"ShdI", "Shadow Intensity"},
+	{"Shdw", "shadow"},
+	{"showNone", "Show None"},
+	{"Shrp", "Sharpness"},
+	{"Shw", "Show"},
+	{"slct", "Select"},
+	{"Slrz", "Solarize"},
+	{"Sml", "small"},
+	{"Smth", "Smoothness"},
+	{"SnpS", "snapshot"},
+	{"Spcn", "spacing"},
+	{"SphM", "Mode"},
+	{"Spng", "Sponge"},
+	{"SprR", "Spray Radius"},
+	{"SqrS", "Square Size"},
+	{"StDt", "Stroke Detail"},
+	{"Stgr", "Stagger"},
+	{"StrD", "Stroke Detail"},
+	{"Strg", "Strength"},
+	{"Strk", "Stroke"},
+	{"StrL", "Stroke Length"},
+	{"StrP", "Stroke Pressure"},
+	{"StrS", "Stroke Size"},
+	{"Strt", "saturation"},
+	{"StrW", "Stroke Width"},
+	{"Svng", "Saving"},
+	{"Sz", "Size"},
+	{"trimBasedOn", "Based on"},
+	{"T", "To"},
+	{"TgGr", "Toggle Grid"},
+	{"TglO", "Toggle Others"},
+	{"TglR", "Toggle Rulers"},
+	{"TgSn", "Toggle Snap To Grid"},
+	{"Thrs", "Threshold"},
+	{"Tlrn", "Tolerance"},
+	{"TlSz", "Tile Size"},
+	{"Top", "Top"},
+	{"topLeftPixelColor", "top left pixel color"},
+	{"Trgt", "current"},
+	{"Trnf", "Transform"},
+	{"Trns", "transparent"},
+	{"Trsp", "transparency"},
+	{"TxBl", "Blocks"},
+	{"TxBr", "Brick"},
+	{"TxCa", "Canvas"},
+	{"TxFr", "Frosted"},
+	{"TxSt", "Sandstone"},
+	{"TxtC", "Texture Coverage"},
+	{"Txtr", "Texture"},
+	{"TxtT", "Texture Type"},
+	{"TxTL", "Tiny Lens"},
+	{"uglg", "Use Global Light"},
+	{"UndA", "Undefined Area"},
+	{"Unfr", "uniform"},
+	{"useShape", "Apply Shape"},
+	{"useTexture", "Apply Texture"},
+	{"Usng", "Using"},
+	{"Vct0", "Vector 0"},
+	{"Vct1", "Vector 1"},
+	{"Vrtc", "Vertical"},
+	{"VrtS", "Vertical Scale"},
+	{"Wdth", "Width"},
+	{"WhHi", "White is High"},
+	{"Wht", "white"},
+	{"WhtL", "Background Level"},
+	{"WLMn", "Wave length min"},
+	{"WLMx", "Wave length max"},
+	{"Wnd", "Wind"},
+	{"WndM", "Method"},
+	{"Wrp", "wrap"},
+	{"WrpA", "wrap around"},
+	{"WvSn", "wave sine"},
+	{"WvSq", "wave square"},
+	{"Wvtp", "Wave Type"},
+	{"Xclu", "exclusion"},
+	{"Yllw", "yellow"},
+	{"Zm", "zoom"},
+	{"ZZTy", "Style"},
+      };
 
     public static string Get(string key)
     {
-      string fullString;
+      return GetFullString(key) ?? key;
+    }
 
-      if (_map.TryGetValue(key, out fullString))
-	{
-	  return fullString;
-	}
-      else
-	{
-	  return key;
-	}
+    static string GetFullString(string key)
+    {
+      string fullString;
+      _map.TryGetValue(key, out fullString);
+      return fullString;
     }
 
     public static string GetUppercased(string key)

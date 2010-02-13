@@ -1,3 +1,10 @@
+2010-02-13  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/PhotoshopActions/AliasParameter.cs
+	* plug-ins/PhotoshopActions/ActionEvent.cs
+	* plug-ins/PhotoshopActions/Action.cs
+	* plug-ins/PhotoshopActions/Abbreviations.cs: minor clean-up
+
 2010-02-12  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/ActionEvent.cs

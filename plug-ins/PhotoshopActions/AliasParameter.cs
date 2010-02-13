@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2010 Maurits Rijk
 //
 // AliasParameter.cs
 //
@@ -26,17 +26,12 @@ namespace Gimp.PhotoshopActions
 {
   public class AliasParameter : Parameter
   {
-    byte[] _data;
-
-    public byte[] Data
-    {
-      get {return _data;}
-    }
+    public byte[] Data {get; private set;}
 
     public override void Parse(ActionParser parser)
     {
       int length = parser.ReadInt32();
-      _data = parser.ReadBytes(length);
+      Data = parser.ReadBytes(length);
     }
 
     public override IEnumerable<string> Format()
@@ -47,7 +42,7 @@ namespace Gimp.PhotoshopActions
     public override void Fill(Object obj, FieldInfo field)
     {
       if (field.FieldType is AliasParameter) {
-	field.SetValue(obj, _data);
+	field.SetValue(obj, Data);
       } else {
 	Console.WriteLine("AliasParameter.Fill: " + field.FieldType);
       }
