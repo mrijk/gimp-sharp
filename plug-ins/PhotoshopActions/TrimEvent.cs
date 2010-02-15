@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2010 Maurits Rijk
 //
 // TrimEvent.cs
 //
@@ -18,6 +18,8 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
+using System.Collections;
+
 namespace Gimp.PhotoshopActions
 {
   public class TrimEvent : ActionEvent
@@ -35,11 +37,23 @@ namespace Gimp.PhotoshopActions
 
     public override bool IsExecutable
     {
-      get {return false;}
+      get {return _top && _bottom && _left && _right;}
+    }
+
+    protected override IEnumerable ListParameters()
+    {
+      yield return Format(_trimBasedOn, "trimBasedOn");
+      yield return Format(_top, "Trim Top");
+      yield return Format(_bottom, "Trim Bottom");
+      yield return Format(_left, "Trim Left");
+      yield return Format(_right, "Trim Right");
     }
 
     override public bool Execute()
     {
+      // Fix me: only works if we want to trim all edges based on upper left
+      // color!
+      RunProcedure("plug_in_autocrop");
       return true;
     }
   }

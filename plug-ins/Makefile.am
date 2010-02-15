@@ -85,6 +85,7 @@ SUBDIRS = 			\
 	SliceTool 		\
 	Splitter 		\
 	Swirlies 		\
+	Trim			\
 	$(UnitTest) 		\
 	UpdateCheck		\
 	$(VisualBasicSample)	\

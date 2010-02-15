@@ -1,3 +1,18 @@
+2010-02-15  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* INSTALL
+	* NEWS: updated
+
+	* configure.in
+	* plug-ins/Makefile.am 
+	* plug-ins/Trim/*: new plug-in
+
+	* plug-ins/PhotoshopActions/TrimEvent.cs: implement Trim
+
+	* plug-ins/PhotoshopActions/IntersectWithTransparencyEvent.cs: new file
+
+	* plug-ins/PhotoshopActions/EventMap.cs: added new event
+
 2010-02-13  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/AliasParameter.cs

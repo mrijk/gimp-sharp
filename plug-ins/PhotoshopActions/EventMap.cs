@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2010 Maurits Rijk
 //
 // EventMap.cs
 //
@@ -144,6 +144,7 @@ namespace Gimp.PhotoshopActions
       _map["hueSaturation"] = _map["HStr"] = "HueSaturationEvent";
       _map["imageSize"] = _map["ImgS"] = "ImageSizeEvent";
       _map["inkOutlines"] = _map["InkO"] = "InkOutlinesEvent";
+      _map["interfaceIconFrameDimmed"] = "IntersectWithTransparencyEvent";
       _map["interfaceWhite"] = "IntersectWithEvent";
       _map["inverse"] = _map["Invs"] = "InverseEvent";
       _map["invert"] = _map["Invr"] = "InvertEvent";
@@ -298,7 +299,7 @@ namespace Gimp.PhotoshopActions
 
     public void DumpStatistics()
     {
-      foreach (KeyValuePair<string, int> kvp in _statistics)
+      foreach (var kvp in _statistics)
 	{
 	  Console.WriteLine("{0} : {1}", kvp.Key, kvp.Value);
 	}

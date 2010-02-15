@@ -136,6 +136,7 @@ MYSOURCES = 				\
 	IndexType.cs			\
 	InkOutlinesEvent.cs		\
 	IntersectWithEvent.cs		\
+	IntersectWithTransparencyEvent.cs	\
 	InverseEvent.cs			\
 	InvertEvent.cs			\
 	LensFlareEvent.cs		\

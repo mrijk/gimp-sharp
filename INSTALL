@@ -19,8 +19,8 @@ example in /usr/local/lib/gimp/2.0/plug-ins/
 
 At the moment Gimp# will install 13 plug-ins for you:
 
-/Xtns/Picture Package
-/Xtns/Photoshop Actions
+/Filters/Picture Package
+/Filters/Photoshop Actions
 /Filters/Artistic/Ministeck
 /Filters/Artistic/Pointillize
 /Filters/Blur/Average

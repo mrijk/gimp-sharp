@@ -329,6 +329,7 @@ plug-ins/Splitter/Makefile
 plug-ins/Splitter/po/Makefile 
 plug-ins/Swirlies/Makefile 
 plug-ins/Swirlies/po/Makefile 
+plug-ins/Trim/Makefile
 plug-ins/UnitTest/Makefile 
 plug-ins/UpdateCheck/Makefile 
 plug-ins/UpdateCheck/po/Makefile 
