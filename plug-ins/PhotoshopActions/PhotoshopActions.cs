@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2009 Maurits Rijk
+// Copyright (C) 2006-2010 Maurits Rijk
 //
 // PhotoshopActions.cs
 //
@@ -63,7 +63,7 @@ namespace Gimp.PhotoshopActions
     {
       gimp_ui_init("PhotoshopActions", true);
 
-      var dialog = DialogNew("Photoshop Actions 0.6", 
+      var dialog = DialogNew("Photoshop Actions 0.7", 
 			     "PhotoshopActions",
 			     IntPtr.Zero, 0, Gimp.StandardHelpFunc, 
 			     "PhotoshopActions");

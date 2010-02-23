@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // Coordinate.cs
 //
@@ -22,6 +22,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices;
 
 namespace Gimp
@@ -86,22 +87,7 @@ namespace Gimp
     {
       if (o is CoordinateList<T>)
 	{
-	  var list = o as CoordinateList<T>;
-	  if (list.Count != Count)
-	    {
-	      return false;
-	    }
-	  else
-	    {
-	      for (int i = 0; i < Count; i++)
-		{
-		  if (_list[i] != list._list[i])
-		    {
-		      return false;
-		    }
-		}
-	    }
-	  return true;
+	  return _list.SequenceEqual((o as CoordinateList<T>)._list);
 	}
       return false;
     }
@@ -130,7 +116,7 @@ namespace Gimp
 	  return null;
 	}
 
-      T[] array = new T[Count * 2];
+      var array = new T[Count * 2];
       
       int i = 0;
       _list.ForEach(coordinate =>

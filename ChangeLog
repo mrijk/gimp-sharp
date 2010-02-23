@@ -1,10 +1,27 @@
+2010-02-23  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/PhotoshopActions/OpenEvent.cs: implemented interactive
+	dialog
+
+	* plug-ins/PhotoshopActions/CopyEvent.cs: changed name to display
+
+	* plug-ins/PhotoshopActions/PhotoshopActions.cs: bumped version
+	number to 0.7
+
+	* plug-ins/PhotoshopActions/Abbreviations.cs: added abbreviations
+
+	* plug-ins/wbmp/wbmp.cs:
+
+	* lib/ParamDefList.cs
+	* lib/CoordinateList.cs: minor clean-up
+
 2010-02-15  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* INSTALL
 	* NEWS: updated
 
 	* configure.in
-	* plug-ins/Makefile.am 
+	* plug-ins/Makefile.am
 	* plug-ins/Trim/*: new plug-in
 
 	* plug-ins/PhotoshopActions/TrimEvent.cs: implement Trim

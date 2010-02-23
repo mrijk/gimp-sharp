@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2010 Maurits Rijk
 //
 // CopyEvent.cs
 //
@@ -22,6 +22,11 @@ namespace Gimp.PhotoshopActions
 {
   public class CopyEvent : ActionEvent
   {
+    public override string EventForDisplay
+    {
+      get {return "Copy";}
+    }
+
     override public bool Execute()
     {
       ActiveDrawable.EditCopy();

@@ -1,7 +1,7 @@
 // The PhotoshopActions plug-in
 // Copyright (C) 2006-2010 Maurits Rijk
 //
-// OpenEvent.cs
+// IntersectWithTransparencyEvent.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,42 +18,17 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System.Collections;
-
-using Gtk;
-
 namespace Gimp.PhotoshopActions
 {
-  public class OpenEvent : ActionEvent
+  public class IntersectWithTransparencyEvent : ActionEvent
   {
-    [Parameter("null")]
-    string _path;
-
-    protected override IEnumerable ListParameters()
+    public override bool IsExecutable
     {
-      yield return _path;
+      get {return false;}
     }
 
     override public bool Execute()
     {
-      var image = Image.Load(RunMode.Noninteractive, _path, _path);
-      if (image == null)
-	{
-	  var choose = new FileChooserDialog("Open...",
-					     null,
-					     FileChooserAction.Open,
-					     "Cancel", ResponseType.Cancel,
-					     "Open", ResponseType.Accept);
-	  if (choose.Run() == (int) ResponseType.Accept)
-	    {
-	      string fileName = choose.Filename;
-	      image = Image.Load(RunMode.Interactive, fileName, fileName);
-	    };
-	  choose.Destroy();
-	}
-      new Display(image);
-      ActiveImage = image;
-
       return true;
     }
   }

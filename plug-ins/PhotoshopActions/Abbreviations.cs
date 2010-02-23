@@ -125,6 +125,7 @@ namespace Gimp.PhotoshopActions
 	{"Dmtr", "diameter"},
 	{"Dnst", "Density"},
 	{"Dplc", "Duplicate"},
+	{"Dpth", "Depth"},
 	{"DrcB", "Direction Balance"},
 	{"Drct", "Direction"},
 	{"Drft", "draft"},

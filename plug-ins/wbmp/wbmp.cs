@@ -1,5 +1,5 @@
 // The wbmp plug-in
-// Copyright (C) 2004-2009 Maurits Rijk, Massimo Perga
+// Copyright (C) 2004-2010 Maurits Rijk, Massimo Perga
 //
 // wbmp.cs
 //
@@ -86,25 +86,18 @@ namespace Gimp.wbmp
       var image = NewImage(width, height, ImageBaseType.Gray,
 			   ImageType.Gray, Filename);
       
-      byte[] buf = new byte[width * height];
+      var buf = new byte[width * height];
       int bufp = 0;
       
       for (int row = 0; row < height; row++) 
 	{
 	  try
 	    {
-	      byte[] src = ReadBytes((width + 7) / 8);
+	      var src = ReadBytes((width + 7) / 8);
 	      
 	      for (int col = 0; col < width; col++) 
 		{
-		  if (((src[col / 8] >> (7 - (col % 8))) & 1) == 1)
-		    {
-		      buf[bufp] = 255;
-		    }
-		  else
-		    {
-		      buf[bufp] = 0;
-		    }
+		  buf[bufp] = (byte) ((BitIsSet(src, col)) ? 255 : 0);
 		  bufp++;
 		}
 	      progress.Update((double) row / height);
@@ -116,11 +109,16 @@ namespace Gimp.wbmp
 	    }
 	}
       
-      Layer layer = image.Layers[0];
+      var layer = image.Layers[0];
       layer.SetBuffer(buf);
       layer.Flush();
        
       return image;
+    }
+
+    bool BitIsSet(byte[] row, int col)
+    {
+      return ((row[col / 8] >> (7 - (col % 8))) & 1) == 1;
     }
 
     override protected bool Save(Image image, Drawable drawable, 
@@ -131,7 +129,6 @@ namespace Gimp.wbmp
 			
       var progress = new Progress(_("Saving ") + filename);
 
-      // If the image is not already indexed
       if (!drawable.IsIndexed)
 	{
 	  // Convert image to B&W picture if not already B&W
