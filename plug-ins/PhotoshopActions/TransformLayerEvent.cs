@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2010 Maurits Rijk
 //
 // TransformLayerEvent.cs
 //
@@ -35,12 +35,12 @@ namespace Gimp.PhotoshopActions
     {
       get 
 	{
-	  DoubleParameter width = Parameters["Wdth"] as DoubleParameter;
-	  DoubleParameter height = Parameters["Hght"] as DoubleParameter;
+	  var width = Parameters["Wdth"] as DoubleParameter;
+	  var height = Parameters["Hght"] as DoubleParameter;
 	  
 	  _needScaling = width != null || height != null;
 	  
-	  ObjcParameter position = Parameters["Pstn"] as ObjcParameter;
+	  var position = Parameters["Pstn"] as ObjcParameter;
 
 	  _needPosition = position != null;
 
@@ -98,13 +98,13 @@ namespace Gimp.PhotoshopActions
 
       Offset oldOffset = SelectedLayer.Offsets;
 
-      DoubleParameter width = Parameters["Wdth"] as DoubleParameter;
+      var width = Parameters["Wdth"] as DoubleParameter;
       if (width != null)
 	{
 	  newWidth = width.GetPixels(SelectedLayer.Width);
 	}
 
-      DoubleParameter height = Parameters["Hght"] as DoubleParameter;
+      var height = Parameters["Hght"] as DoubleParameter;
       if (height != null)
 	{
 	  newHeight = width.GetPixels(SelectedLayer.Height);
@@ -126,18 +126,91 @@ namespace Gimp.PhotoshopActions
 		new Offset(oldOffset.X + (int) (oldWidth - newWidth), 
 			   oldOffset.Y + (int) (oldHeight - newHeight));
 	      break;
+	    case "Qcsa":
+	      Console.WriteLine("TransformLayerEvent: Qcsa not supported yet");
+	      break;
 	    default:
 	      Console.WriteLine("FTcs: " + side.Value);
 	      break;
 	    }
 	}
 
-      if (_needPosition)
-	{
-	  SelectedLayer.Translate((int) _horizontal, (int) _vertical);
-	}
+      Offset();
+      Translate();
+      Skew();
+      Rotate();
 
       return true;
+    }
+
+    void Offset()
+    {
+      var offset = Parameters["Ofst"] as ObjcParameter;
+      if (offset != null)
+	{
+	  double horizontal = offset.GetValueAsDouble("Hrzn");
+	  double vertical = offset.GetValueAsDouble("Vrtc");
+
+	  int h = (int) (horizontal * ActiveDrawable.Width / 100);
+	  int v = (int) (vertical * ActiveDrawable.Height / 100);
+
+	  Console.WriteLine("Offset: {0}, {1}", h, v);
+
+	  SelectedLayer.Translate(h, v);
+	}
+    }
+
+    void Translate()
+    {
+      if (_needPosition)
+	{
+	  int horizontal = (int) _horizontal * ActiveDrawable.Width / 100;
+	  int vertical = (int) _vertical * ActiveDrawable.Height / 100;
+	  SelectedLayer.Translate(horizontal, vertical);
+	}
+    }
+
+    void Skew()
+    {
+      var skew = Parameters["Skew"] as ObjcParameter;
+      if (skew != null)
+	{
+	  double horizontal = skew.GetValueAsDouble("Hrzn");
+	  double vertical = skew.GetValueAsDouble("Vrtc");
+
+	  Console.WriteLine("Skew: {0} {1}", horizontal, vertical);
+
+	  if (horizontal != 0.0)
+	    {
+	      double offset = ActiveDrawable.Height * 
+		Math.Tan(GetRad(horizontal));
+	      SelectedLayer.TransformShear(OrientationType.Horizontal, offset, 
+					   true, TransformResize.Adjust);
+	    }
+
+	  if (vertical != 0.0)
+	    {
+	      double offset = ActiveDrawable.Width * Math.Tan(GetRad(vertical));
+	      SelectedLayer.TransformShear(OrientationType.Vertical, offset,
+					   true, TransformResize.Adjust);
+	    }
+	}
+    }
+
+    void Rotate()
+    {
+      var angle = Parameters["Angl"] as DoubleParameter;
+      if (angle != null)
+	{
+	  Console.WriteLine("Rotate: " + angle.Value);
+	  SelectedLayer.TransformRotate(GetRad(angle.Value), true, 
+					0, 0, true, false);
+	}
+    }
+
+    double GetRad(double d)
+    {
+      return d * Math.PI /180;
     }
   }
 }

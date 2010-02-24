@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2008 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // Gradient.cs
 //
@@ -35,7 +35,7 @@ namespace Gimp
     }
 
     public Gradient(Gradient gradient) : 
-      base(gimp_gradient_duplicate(gradient._name))
+      base(gimp_gradient_duplicate(gradient.Name))
     {
     }
 
@@ -43,14 +43,14 @@ namespace Gimp
     {
       if (o is Gradient)
 	{
-	  return (o as Gradient)._name == _name;
+	  return (o as Gradient).Name == Name;
 	}
       return false;
     }
 
     public override int GetHashCode()
     {
-      return _name.GetHashCode();
+      return Name.GetHashCode();
     }
 
     public override string Rename(string new_name)
@@ -69,13 +69,13 @@ namespace Gimp
 
     public bool Editable
     {
-      get {return gimp_gradient_is_editable(_name);}
+      get {return gimp_gradient_is_editable(Name);}
     }
 
     public void SegmentSetLeftColor(int segment, RGB color, double opacity)
     {
-      GimpRGB rgb = color.GimpRGB;
-      if (!gimp_gradient_segment_set_left_color(_name, segment, ref rgb,
+      var rgb = color.GimpRGB;
+      if (!gimp_gradient_segment_set_left_color(Name, segment, ref rgb,
 						opacity))
 	{
 	  throw new GimpSharpException();
@@ -84,8 +84,8 @@ namespace Gimp
 
     public void SegmentSetRightColor(int segment, RGB color, double opacity)
     {
-      GimpRGB rgb = color.GimpRGB;
-      if (!gimp_gradient_segment_set_right_color(_name, segment, ref rgb,
+      var rgb = color.GimpRGB;
+      if (!gimp_gradient_segment_set_right_color(Name, segment, ref rgb,
 						 opacity))
 	{
 	  throw new GimpSharpException();
@@ -95,7 +95,7 @@ namespace Gimp
     public void SegmentSetLeftPosition(int segment, double pos)
     {
       double final_pos;
-      if (!gimp_gradient_segment_set_left_pos(_name, segment, pos,
+      if (!gimp_gradient_segment_set_left_pos(Name, segment, pos,
 					      out final_pos))
 	{
 	  throw new GimpSharpException();
@@ -104,7 +104,7 @@ namespace Gimp
 
     public void SegmentRangeSplitMidpoint(int start_segment, int end_segment)
     {
-      if (!gimp_gradient_segment_range_split_midpoint(_name, start_segment, 
+      if (!gimp_gradient_segment_range_split_midpoint(Name, start_segment, 
 						      end_segment))
 	{
 	  throw new GimpSharpException();
@@ -114,7 +114,7 @@ namespace Gimp
     public void SegmentRangeSplitUniform(int start_segment, int end_segment, 
 				    int split_parts)
     {
-      if (!gimp_gradient_segment_range_split_uniform(_name, start_segment, 
+      if (!gimp_gradient_segment_range_split_uniform(Name, start_segment, 
 						     end_segment, split_parts))
 	{
 	  throw new GimpSharpException();
@@ -133,10 +133,10 @@ namespace Gimp
     extern static bool gimp_gradient_is_editable(string name);
     [DllImport("libgimp-2.0-0.dll")]
     extern static bool 
-    gimp_gradient_segment_get_left_color (string name,
-					  int segment,
-					  out GimpRGB color,
-					  out double opacity);
+    gimp_gradient_segment_get_left_color(string name,
+					 int segment,
+					 out GimpRGB color,
+					 out double opacity);
     [DllImport("libgimp-2.0-0.dll")]
     extern static bool gimp_gradient_segment_set_left_color(string name,
 							    int segment,

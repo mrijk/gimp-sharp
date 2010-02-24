@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2010 Maurits Rijk
 //
 // PasteEvent.cs
 //
@@ -27,7 +27,8 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
-      ActiveDrawable.EditPaste(false);
+      var selection = ActiveDrawable.EditPaste(false);
+      selection.Anchor();
       return true;
     }
   }

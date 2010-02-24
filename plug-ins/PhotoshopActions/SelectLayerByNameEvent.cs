@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2010 Maurits Rijk
 //
 // SelectLayerByNameEvent.cs
 //
@@ -40,7 +40,7 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
-      BoolParameter makeVisible = Parameters["MkVs"] as BoolParameter;
+      var makeVisible = Parameters["MkVs"] as BoolParameter;
 
       if (makeVisible != null)
 	{

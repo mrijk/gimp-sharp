@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2010 Maurits Rijk
 //
 // RotateEvent.cs
 //
@@ -37,7 +37,7 @@ namespace Gimp.PhotoshopActions
     {
       double angle = _angle * 2 * Math.PI / 360;
 
-      ActiveDrawable.TransformRotateDefault(angle, true, 0, 0, true, false);
+      ActiveDrawable.TransformRotate(angle, true, 0, 0, true, false);
       return true;
     }
   }

@@ -467,7 +467,7 @@ namespace Gimp
 	  throw new GimpSharpException();
 	}
     }
-
+ 
     public void EditBucketFill(BucketFillMode fillMode,
 			       LayerModeEffects paintMode,
 			       double opacity,
@@ -699,12 +699,12 @@ namespace Gimp
 			   clip_result));
     }
 
-    public Drawable TransformFlipDefault(double x0,
-					 double y0,
-					 double x1,
-					 double y1,
-					 bool interpolate,
-					 bool clip_result)
+    public Drawable TransformFlip(double x0,
+				  double y0,
+				  double x1,
+				  double y1,
+				  bool interpolate,
+				  bool clip_result)
     {
       return new Drawable(gimp_drawable_transform_flip_default
 			  (_ID, x0, y0, x1, y1, interpolate, clip_result));
@@ -730,16 +730,16 @@ namespace Gimp
 			   recursion_level, clip_result));
     }
 
-    public Drawable TransformPerspectiveDefault(double x0,
-						double y0,
-						double x1,
-						double y1,
-						double x2,
-						double y2,
-						double x3,
-						double y3,
-						bool interpolate,
-						bool clip_result)
+    public Drawable TransformPerspective(double x0,
+					 double y0,
+					 double x1,
+					 double y1,
+					 double x2,
+					 double y2,
+					 double x3,
+					 double y3,
+					 bool interpolate,
+					 bool clip_result)
     {
       return new Drawable(gimp_drawable_transform_perspective_default
 			  (_ID, x0, y0, x1, y1, x2, y2, x3, y3,
@@ -771,11 +771,11 @@ namespace Gimp
 			   recursion_level, clip_result));
     }
 
-    public Drawable TransformRotateDefault(double angle,
-					   bool auto_center,
-					   int center_x, int center_y,
-					   bool interpolate,
-					   bool clip_result)
+    public Drawable TransformRotate(double angle,
+				    bool auto_center,
+				    int center_x, int center_y,
+				    bool interpolate,
+				    bool clip_result)
     {
       return new Drawable(gimp_drawable_transform_rotate_default
 			  (_ID, angle, auto_center, center_x, center_y,
@@ -796,10 +796,10 @@ namespace Gimp
 			   clip_result));
     }
 
-    public Drawable TransformScaleDefault(double x0, double y0,
-					  double x1, double y1,
-					  bool interpolate,
-					  bool clip_result)
+    public Drawable TransformScale(double x0, double y0,
+				   double x1, double y1,
+				   bool interpolate,
+				   bool clip_result)
     {
       return new Drawable(gimp_drawable_transform_scale_default
 			  (_ID, x0, y0, x1, y1, interpolate, clip_result));
@@ -819,10 +819,10 @@ namespace Gimp
 			   clip_result));
     }
 
-    public Drawable TransformShearDefault(OrientationType shear_type,
-					  double magnitude,
-					  bool interpolate,
-					  bool clip_result)
+    public Drawable TransformShear(OrientationType shear_type,
+				   double magnitude,
+				   bool interpolate,
+				   TransformResize clip_result)
     {
       return new Drawable(gimp_drawable_transform_shear_default
 			  (_ID, shear_type, magnitude, interpolate,
@@ -1294,7 +1294,7 @@ namespace Gimp
 					   OrientationType shear_type,
 					   double magnitude,
 					   bool interpolate,
-					   bool clip_result);
+					   TransformResize clip_result);
 
     [DllImport("libgimp-2.0-0.dll")]
     static extern Int32

@@ -45,6 +45,7 @@ namespace Gimp.PhotoshopActions
 
     readonly ParameterSet _parameters = new ParameterSet();
 
+    static protected Display ActiveDisplay {get; set;}
     static Drawable _activeDrawable;
     static Image _activeImage;
 
@@ -106,6 +107,7 @@ namespace Gimp.PhotoshopActions
       set 
 	{
 	  _selectedLayer = value;
+	  Console.WriteLine("SelectedLayer: " + value.Name);
 	  _activeImage.ActiveLayer = value;
 	  ActiveDrawable = value;
 	}

@@ -1,3 +1,16 @@
+2010-02-24  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* lib/Brush.cs
+	* lib/Gradient.cs: add GIMP 2.6 method(s)
+
+	* plug-ins/PhotoshopActions/SelectLayerByNameEvent.cs: minor clean-up
+
+	* lib/Drawable.cs: changed xxxDefault by xxx, using function overloading
+
+	* plug-ins/PhotoshopActions/RotateEvent.cs: changed accordingly
+
+	* lib/Image.cs: minor clean-up
+
 2010-02-23  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/OpenEvent.cs: implemented interactive

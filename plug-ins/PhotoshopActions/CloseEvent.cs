@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2010 Maurits Rijk
 //
 // CloseEvent.cs
 //
@@ -27,7 +27,9 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
-      ActiveImage.Delete();
+      ActiveDisplay.Delete();
+      var images = new ImageList();
+      ActiveImage = images[images.Count - 1];
       return true;
     }
   }

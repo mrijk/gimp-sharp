@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2008 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // Brush.cs
 //
@@ -34,7 +34,7 @@ namespace Gimp
     {
     }
 
-    public Brush(Brush brush) : base(gimp_brush_duplicate(brush._name))
+    public Brush(Brush brush) : base(gimp_brush_duplicate(brush.Name))
     {
     }
 
@@ -46,7 +46,7 @@ namespace Gimp
 
     public void Delete()
     {
-      if (!gimp_brush_delete(_name))
+      if (!gimp_brush_delete(Name))
         {
 	  throw new GimpSharpException();
         }

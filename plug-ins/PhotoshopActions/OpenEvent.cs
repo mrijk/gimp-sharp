@@ -19,6 +19,7 @@
 //
 
 using System.Collections;
+using System.IO;
 
 using Gtk;
 
@@ -36,8 +37,12 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
-      var image = Image.Load(RunMode.Noninteractive, _path, _path);
-      if (image == null)
+      Image image = null;
+      if (File.Exists(_path)) 
+	{
+	  image = Image.Load(RunMode.Noninteractive, _path, _path);
+	}
+      else
 	{
 	  var choose = new FileChooserDialog("Open...",
 					     null,
@@ -47,14 +52,20 @@ namespace Gimp.PhotoshopActions
 	  if (choose.Run() == (int) ResponseType.Accept)
 	    {
 	      string fileName = choose.Filename;
-	      image = Image.Load(RunMode.Interactive, fileName, fileName);
+	      image = Image.Load(RunMode.Noninteractive, fileName, fileName);
 	    };
 	  choose.Destroy();
 	}
-      new Display(image);
-      ActiveImage = image;
 
-      return true;
+      if (image != null)
+	{
+	  image.CleanAll();
+	  ActiveDisplay = new Display(image);
+	  ActiveImage = image;
+	  return true;
+	}
+
+      return false;
     }
   }
 }

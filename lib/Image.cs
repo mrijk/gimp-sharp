@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // Image.cs
 //
@@ -35,12 +35,12 @@ namespace Gimp
      
     internal Image(Int32 imageID)
     {
-      _imageID = imageID;
+      ID = imageID;
     }
        
     public Image(int width, int height, ImageBaseType type)
     {
-      _imageID = gimp_image_new (width, height, type);
+      ID = gimp_image_new(width, height, type);
     }
 
     public Image(Dimensions dimensions, ImageBaseType type) :
@@ -50,7 +50,7 @@ namespace Gimp
 
     public Image(Image image)
     {
-      _imageID = gimp_image_duplicate(image._imageID);
+      ID = gimp_image_duplicate(image._imageID);
     }
 
     public Image Duplicate()
@@ -62,14 +62,14 @@ namespace Gimp
     {
       if (o is Image)
 	{
-	  return _imageID == (o as Image)._imageID;
+	  return ID == (o as Image).ID;
 	}
       return false;
     }
 
     public override int GetHashCode()
     {
-      return _imageID.GetHashCode();
+      return ID.GetHashCode();
     }
 
     public static Image Load(RunMode runMode, string filename, 
@@ -81,13 +81,13 @@ namespace Gimp
 
     public Layer LoadLayer(RunMode runMode, string filename)
     {
-      return new Layer(gimp_file_load_layer(runMode, _imageID, filename));
+      return new Layer(gimp_file_load_layer(runMode, ID, filename));
     }
 
     public LayerList LoadLayers(RunMode runMode, string filename)
     {
       int numLayers;
-      IntPtr ptr = gimp_file_load_layers(runMode, _imageID, filename, 
+      IntPtr ptr = gimp_file_load_layers(runMode, ID, filename, 
 					 out numLayers);
       return new LayerList(ptr, numLayers);
     }
@@ -95,20 +95,20 @@ namespace Gimp
     public bool Save(RunMode run_mode, string filename, string raw_filename)
     {
       Int32 drawableID = ActiveDrawable.ID;	// Check this!
-      return gimp_file_save(run_mode, _imageID, drawableID, filename,
+      return gimp_file_save(run_mode, ID, drawableID, filename,
                             raw_filename);
     }
 
     // Used internally to save a single drawable
     internal bool Save(Drawable drawable, string filename)
     {
-      return gimp_file_save(RunMode.Noninteractive, _imageID, drawable.ID, 
+      return gimp_file_save(RunMode.Noninteractive, ID, drawable.ID, 
 			    filename, filename);
     }
 
     public void Delete()
     {
-      if (!gimp_image_delete(_imageID))
+      if (!gimp_image_delete(ID))
         {
 	  throw new GimpSharpException();
         }
@@ -116,22 +116,22 @@ namespace Gimp
     
     public bool IsValid
     {
-      get {return gimp_image_is_valid(_imageID);}
+      get {return gimp_image_is_valid(ID);}
     }
 
     public ImageBaseType BaseType
     {
-      get {return gimp_image_base_type(_imageID);}
+      get {return gimp_image_base_type(ID);}
     }
 
     public int Width
     {
-      get {return gimp_image_width(_imageID);}
+      get {return gimp_image_width(ID);}
     }
 
     public int Height
     {
-      get {return gimp_image_height(_imageID);}
+      get {return gimp_image_height(ID);}
     }
 
     public Rectangle Bounds
@@ -146,7 +146,7 @@ namespace Gimp
 
     public void FreeShadow()
     {
-      if (!gimp_image_free_shadow(_imageID))
+      if (!gimp_image_free_shadow(ID))
         {
 	  throw new GimpSharpException();
         }
@@ -154,7 +154,7 @@ namespace Gimp
 
     public void Flip(OrientationType flip_type)
     {
-      if (!gimp_image_flip(_imageID, flip_type))
+      if (!gimp_image_flip(ID, flip_type))
         {
 	  throw new GimpSharpException();
         }
@@ -162,7 +162,7 @@ namespace Gimp
 
     public void Rotate(RotationType rotate_type)
     {
-      if (!gimp_image_rotate(_imageID, rotate_type))
+      if (!gimp_image_rotate(ID, rotate_type))
         {
 	  throw new GimpSharpException();
         }
@@ -170,7 +170,7 @@ namespace Gimp
 
     public void Resize(int newWidth, int newHeight, int offX, int offY)
     {
-      if (!gimp_image_resize(_imageID, newWidth, newHeight, offX, offY))
+      if (!gimp_image_resize(ID, newWidth, newHeight, offX, offY))
         {
 	  throw new GimpSharpException();
         }
@@ -183,7 +183,7 @@ namespace Gimp
 
     public void ResizeToLayers()
     {
-      if (!gimp_image_resize_to_layers (_imageID))
+      if (!gimp_image_resize_to_layers(ID))
         {
 	  throw new GimpSharpException();
         }
@@ -191,7 +191,7 @@ namespace Gimp
        
     public void Scale(int newWidth, int newHeight)
     {
-      if (!gimp_image_scale(_imageID, newWidth, newHeight))
+      if (!gimp_image_scale(ID, newWidth, newHeight))
         {
 	  throw new GimpSharpException();
         }
@@ -204,7 +204,7 @@ namespace Gimp
 
     public void Scale(int newWidth, int newHeight, InterpolationType interpolation)
     {
-      if (!gimp_image_scale_full(_imageID, newWidth, newHeight, interpolation))
+      if (!gimp_image_scale_full(ID, newWidth, newHeight, interpolation))
         {
 	  throw new GimpSharpException();
         }
@@ -217,7 +217,7 @@ namespace Gimp
 
     public void Crop(int newWidth, int newHeight, int offx, int offy)
     {
-      if (!gimp_image_crop(_imageID, newWidth, newHeight, offx, offy))
+      if (!gimp_image_crop(ID, newWidth, newHeight, offx, offy))
         {
 	  throw new GimpSharpException();
         }
@@ -246,14 +246,14 @@ namespace Gimp
 
     public Drawable ActiveDrawable
     {
-      get {return new Drawable(gimp_image_get_active_drawable(_imageID));}
+      get {return new Drawable(gimp_image_get_active_drawable(ID));}
     }
 
     public FloatingSelection FloatingSelection
     {
       get
 	{
-          Int32 layerID = gimp_image_get_floating_sel(_imageID);
+          Int32 layerID = gimp_image_get_floating_sel(ID);
           return (layerID == -1) ? null : new FloatingSelection(layerID);
 	}
     }
@@ -262,7 +262,7 @@ namespace Gimp
     {
       get
 	{
-          Int32 drawableID = gimp_image_floating_sel_attached_to(_imageID);
+          Int32 drawableID = gimp_image_floating_sel_attached_to(ID);
           return (drawableID == -1) ? null : new Drawable(drawableID);
 	}
     }
@@ -272,7 +272,7 @@ namespace Gimp
 			 double averageRadius)
     {
       GimpRGB color;
-      if (!gimp_image_pick_color(_imageID, drawable.ID, c.X, c.Y, 
+      if (!gimp_image_pick_color(ID, drawable.ID, c.X, c.Y, 
 				 sampleMerged, sampleAverage, averageRadius, 
 				 out color))
         {
@@ -283,13 +283,13 @@ namespace Gimp
 
     public Layer PickCorrelateLayer(Coordinate<int> c)
     {
-      Int32 layerID = gimp_image_pick_correlate_layer(_imageID, c.X, c.Y);
+      Int32 layerID = gimp_image_pick_correlate_layer(ID, c.X, c.Y);
       return (layerID == -1) ? null : new Layer(layerID);
     }
 
     public void AddLayer(Layer layer, int position)
     {
-      if (!gimp_image_add_layer(_imageID, layer.ID, position))
+      if (!gimp_image_add_layer(ID, layer.ID, position))
         {
 	  throw new GimpSharpException();
         }
@@ -297,7 +297,7 @@ namespace Gimp
 
     public void RemoveLayer(Layer layer)
     {
-      if (!gimp_image_remove_layer(_imageID, layer.ID))
+      if (!gimp_image_remove_layer(ID, layer.ID))
         {
 	  throw new GimpSharpException();
         }
@@ -305,7 +305,7 @@ namespace Gimp
 
     public void RaiseLayer(Layer layer)
     {
-      if (!gimp_image_raise_layer(_imageID, layer.ID))
+      if (!gimp_image_raise_layer(ID, layer.ID))
         {
 	  throw new GimpSharpException();
         }
@@ -313,7 +313,7 @@ namespace Gimp
        
     public void LowerLayer(Layer layer)
     {
-      if (!gimp_image_lower_layer(_imageID, layer.ID))
+      if (!gimp_image_lower_layer(ID, layer.ID))
         {
 	  throw new GimpSharpException();
         }
@@ -321,7 +321,7 @@ namespace Gimp
 
     public void RaiseLayerToTop(Layer layer)
     {
-      if (!gimp_image_raise_layer_to_top(_imageID, layer.ID))
+      if (!gimp_image_raise_layer_to_top(ID, layer.ID))
         {
 	  throw new GimpSharpException();
         }
@@ -329,7 +329,7 @@ namespace Gimp
        
     public void LowerLayerToBottom(Layer layer)
     {
-      if (!gimp_image_lower_layer_to_bottom(_imageID, layer.ID))
+      if (!gimp_image_lower_layer_to_bottom(ID, layer.ID))
         {
 	  throw new GimpSharpException();
         }
@@ -337,12 +337,12 @@ namespace Gimp
 
     public int GetLayerPosition(Layer layer)
     {
-      return gimp_image_get_layer_position(_imageID, layer.ID);
+      return gimp_image_get_layer_position(ID, layer.ID);
     }
 
     public void AddChannel(Channel channel, int position)
     {
-      if (!gimp_image_add_channel(_imageID, channel.ID, position))
+      if (!gimp_image_add_channel(ID, channel.ID, position))
         {
 	  throw new GimpSharpException();			  
         }
@@ -350,7 +350,7 @@ namespace Gimp
 
     public void RemoveChannel(Channel channel)
     {
-      if (!gimp_image_remove_channel(_imageID, channel.ID))
+      if (!gimp_image_remove_channel(ID, channel.ID))
         {
 	  throw new GimpSharpException();			  
         }
@@ -358,7 +358,7 @@ namespace Gimp
 
     public void RaiseChannel(Channel channel)
     {
-      if (!gimp_image_raise_channel(_imageID, channel.ID))
+      if (!gimp_image_raise_channel(ID, channel.ID))
         {
 	  throw new GimpSharpException();			  
         }
@@ -366,7 +366,7 @@ namespace Gimp
        
     public void LowerChannel(Channel channel)
     {
-      if (!gimp_image_lower_channel(_imageID, channel.ID))
+      if (!gimp_image_lower_channel(ID, channel.ID))
         {
 	  throw new GimpSharpException();			  
         }
@@ -374,30 +374,30 @@ namespace Gimp
 
     public int GetChannelPosition(Channel channel)
     {
-      return gimp_image_get_channel_position(_imageID, channel.ID);
+      return gimp_image_get_channel_position(ID, channel.ID);
     }
 
     public Layer Flatten()
     {
-      return new Layer(gimp_image_flatten(_imageID));
+      return new Layer(gimp_image_flatten(ID));
     }
 
     public Layer MergeVisibleLayers(MergeType merge_type)
     {
-      return new Layer(gimp_image_merge_visible_layers(_imageID,
+      return new Layer(gimp_image_merge_visible_layers(ID,
 						       merge_type));
     }
 
     public Layer MergeDown(Layer layer, MergeType merge_type)
     {
-      return new Layer(gimp_image_merge_down(_imageID,
+      return new Layer(gimp_image_merge_down(ID,
 					     layer.ID,
 					     merge_type));
     }
 
     public void CleanAll()
     {
-      if (!gimp_image_clean_all(_imageID))
+      if (!gimp_image_clean_all(ID))
         {
 	  throw new GimpSharpException();
         }
@@ -405,15 +405,15 @@ namespace Gimp
 
     public bool IsDirty
     {
-      get {return gimp_image_is_dirty(_imageID);}
+      get {return gimp_image_is_dirty(ID);}
     }
 
     public Layer ActiveLayer
     {
-      get {return new Layer(gimp_image_get_active_layer(_imageID));}
+      get {return new Layer(gimp_image_get_active_layer(ID));}
       set 
 	{
-          if (!gimp_image_set_active_layer(_imageID, value.ID))
+          if (!gimp_image_set_active_layer(ID, value.ID))
             {
 	      throw new GimpSharpException();
             }
@@ -422,10 +422,10 @@ namespace Gimp
 
     public Channel ActiveChannel
     {
-      get {return new Channel(gimp_image_get_active_channel(_imageID));}
+      get {return new Channel(gimp_image_get_active_channel(ID));}
       set 
 	{
-          if (!gimp_image_set_active_channel(_imageID, value.ID))
+          if (!gimp_image_set_active_channel(ID, value.ID))
             {
 	      throw new GimpSharpException();
             }
@@ -434,7 +434,7 @@ namespace Gimp
 
     public void UnsetActiveChannel()
     {
-      if (!gimp_image_unset_active_channel(_imageID))
+      if (!gimp_image_unset_active_channel(ID))
 	{
 	  throw new GimpSharpException();
 	}
@@ -442,17 +442,17 @@ namespace Gimp
 
     public Selection Selection
     {
-      get {return new Selection(_imageID, gimp_image_get_selection(_imageID));}
+      get {return new Selection(ID, gimp_image_get_selection(ID));}
     }
 
     public bool GetComponentActive(ChannelType component)
     {
-      return gimp_image_get_component_active(_imageID, component);
+      return gimp_image_get_component_active(ID, component);
     }
 
     public void SetComponentActive(ChannelType component, bool active)
     {
-      if (!gimp_image_set_component_active(_imageID, component, active))
+      if (!gimp_image_set_component_active(ID, component, active))
         {
 	  throw new GimpSharpException();
         }
@@ -460,12 +460,12 @@ namespace Gimp
 
     public bool GetComponentVisible(ChannelType component)
     {
-      return gimp_image_get_component_visible(_imageID, component);
+      return gimp_image_get_component_visible(ID, component);
     }
 
     public void SetComponentVisible(ChannelType component, bool visible)
     {
-      if (!gimp_image_set_component_visible(_imageID, component, visible))
+      if (!gimp_image_set_component_visible(ID, component, visible))
         {
 	  throw new GimpSharpException();
         }
@@ -473,10 +473,10 @@ namespace Gimp
 
     public string Filename
     {
-      get {return gimp_image_get_filename(_imageID);}
+      get {return gimp_image_get_filename(ID);}
       set
 	{
-          if (!gimp_image_set_filename(_imageID, value))
+          if (!gimp_image_set_filename(ID, value))
             {
 	      throw new GimpSharpException();
             }
@@ -485,7 +485,7 @@ namespace Gimp
 
     public string Name
     {
-      get {return gimp_image_get_name (_imageID);}
+      get {return gimp_image_get_name(ID);}
     }
 
     public Resolution Resolution
@@ -493,7 +493,7 @@ namespace Gimp
       get
 	{
 	  double xresolution, yresolution;
-	  if (!gimp_image_get_resolution(_imageID, out xresolution, 
+	  if (!gimp_image_get_resolution(ID, out xresolution, 
 					 out yresolution))
 	    {
 	      throw new GimpSharpException();
@@ -502,7 +502,7 @@ namespace Gimp
 	}
       set
 	{
-	  if (!gimp_image_set_resolution(_imageID, value.X, value.Y))
+	  if (!gimp_image_set_resolution(ID, value.X, value.Y))
 	    {
 	      throw new GimpSharpException();
 	    }
@@ -511,10 +511,10 @@ namespace Gimp
 
     public Unit Unit
     {
-      get {return gimp_image_get_unit (_imageID);}
+      get {return gimp_image_get_unit(ID);}
       set 
 	{
-          if (!gimp_image_set_unit (_imageID, value))
+          if (!gimp_image_set_unit(ID, value))
             {
 	      throw new GimpSharpException();
             }
@@ -523,10 +523,10 @@ namespace Gimp
 
     public int TattooState
     {
-      get {return gimp_image_get_tattoo_state(_imageID);}
+      get {return gimp_image_get_tattoo_state(ID);}
       set 
 	{
-          if (!gimp_image_set_tattoo_state(_imageID, value))
+          if (!gimp_image_set_tattoo_state(ID, value))
             {
 	      throw new GimpSharpException();
             }
@@ -535,12 +535,12 @@ namespace Gimp
 
     public Layer GetLayerByTattoo(Tattoo tattoo)
     {
-      return new Layer(gimp_image_get_layer_by_tattoo(_imageID, tattoo.ID));
+      return new Layer(gimp_image_get_layer_by_tattoo(ID, tattoo.ID));
     }
 
     public Channel GetChannelByTattoo(Tattoo tattoo)
     {
-      return new Channel(gimp_image_get_channel_by_tattoo(_imageID, 
+      return new Channel(gimp_image_get_channel_by_tattoo(ID, 
                                                           tattoo.ID));
     }
 
@@ -549,7 +549,7 @@ namespace Gimp
       get
 	{
           int num_colors;
-          IntPtr cmap = gimp_image_get_colormap(_imageID, out num_colors);
+          IntPtr cmap = gimp_image_get_colormap(ID, out num_colors);
 	  RGB[] rgb = new RGB[num_colors];
 	  byte[] tmp = new byte[3];
 
@@ -578,7 +578,7 @@ namespace Gimp
 	      index += 3;
 	    }
 
-          if (!gimp_image_set_colormap(_imageID, colormap, num_colors))
+          if (!gimp_image_set_colormap(ID, colormap, num_colors))
             {
 	      throw new GimpSharpException();
             }
@@ -587,7 +587,7 @@ namespace Gimp
 
     public Pixel[,] GetThumbnail(Dimensions dimensions, Transparency alpha)
     {
-      IntPtr src = gimp_image_get_thumbnail(_imageID, dimensions.Width,
+      IntPtr src = gimp_image_get_thumbnail(ID, dimensions.Width,
 					    dimensions.Height, alpha);
       int bpp = ActiveDrawable.Bpp;
       Pixel[,] thumbnail = Pixel.ConvertToPixelArray(src, dimensions, bpp);
@@ -601,7 +601,7 @@ namespace Gimp
 	{
 	  var list = new List<Vectors>();
 	  int numVectors;
-	  IntPtr ptr = gimp_image_get_vectors(_imageID, out numVectors);
+	  IntPtr ptr = gimp_image_get_vectors(ID, out numVectors);
 	  if (numVectors > 0)
 	    {
 	      var dest = new int[numVectors];
@@ -615,17 +615,17 @@ namespace Gimp
 
     public Vectors GetVectorsByTattoo(Tattoo tattoo)
     {
-      return new Vectors(gimp_image_get_vectors_by_tattoo(_imageID, tattoo.ID));
+      return new Vectors(gimp_image_get_vectors_by_tattoo(ID, tattoo.ID));
     }
 
     public Parasite ParasiteFind(string name)
     {
-      return new Parasite(gimp_image_parasite_find(_imageID, name));
+      return new Parasite(gimp_image_parasite_find(ID, name));
     }
 
     public void ParasiteAttach(Parasite parasite)
     {
-      if (!gimp_image_parasite_attach(_imageID, parasite.Ptr))
+      if (!gimp_image_parasite_attach(ID, parasite.Ptr))
         {
 	  throw new GimpSharpException();
         }
@@ -633,7 +633,7 @@ namespace Gimp
 
     public void ParasiteDetach(string name)
     {
-      if (!gimp_image_parasite_detach(_imageID, name))
+      if (!gimp_image_parasite_detach(ID, name))
         {
 	  throw new GimpSharpException();
         }
@@ -641,7 +641,7 @@ namespace Gimp
 
     public void AttachNewParasite(string name, int flags, int size, object data)
     {
-      if (!gimp_image_attach_new_parasite(_imageID, name, flags, size, data))
+      if (!gimp_image_attach_new_parasite(ID, name, flags, size, data))
         {
 	  throw new GimpSharpException();
         }
@@ -649,7 +649,7 @@ namespace Gimp
 
     public void AddVectors(Vectors vectors, int position)
     {
-      if (!gimp_image_add_vectors(_imageID, vectors.ID, position))
+      if (!gimp_image_add_vectors(ID, vectors.ID, position))
         {
 	  throw new GimpSharpException();
         }
@@ -657,7 +657,7 @@ namespace Gimp
 
     public void RemoveVectors(Vectors vectors)
     {
-      if (!gimp_image_remove_vectors(_imageID, vectors.ID))
+      if (!gimp_image_remove_vectors(ID, vectors.ID))
         {
 	  throw new GimpSharpException();
         }
@@ -667,12 +667,12 @@ namespace Gimp
     {
       get
 	{
-	  int vectorsID = gimp_image_get_active_vectors(_imageID);
+	  int vectorsID = gimp_image_get_active_vectors(ID);
 	  return (vectorsID == -1) ? null : new Vectors(vectorsID);
 	}
       set
 	{
-	  if (!gimp_image_set_active_vectors(_imageID, value.ID))
+	  if (!gimp_image_set_active_vectors(ID, value.ID))
 	    {
 	      throw new GimpSharpException();
 	    }
@@ -681,7 +681,7 @@ namespace Gimp
 
     public void LowerVectors(Vectors vectors)
     {
-      if (!gimp_image_lower_vectors(_imageID, vectors.ID))
+      if (!gimp_image_lower_vectors(ID, vectors.ID))
         {
 	  throw new GimpSharpException();
         }
@@ -689,7 +689,7 @@ namespace Gimp
 
     public void RaiseVectors(Vectors vectors)
     {
-      if (!gimp_image_raise_vectors(_imageID, vectors.ID))
+      if (!gimp_image_raise_vectors(ID, vectors.ID))
         {
 	  throw new GimpSharpException();
         }
@@ -697,7 +697,7 @@ namespace Gimp
 
     public void LowerVectorsToBottom(Vectors vectors)
     {
-      if (!gimp_image_lower_vectors_to_bottom(_imageID, vectors.ID))
+      if (!gimp_image_lower_vectors_to_bottom(ID, vectors.ID))
         {
 	  throw new GimpSharpException();
         }
@@ -705,7 +705,7 @@ namespace Gimp
 
     public void RaiseVectorsToTop(Vectors vectors)
     {
-      if (!gimp_image_raise_vectors_to_top(_imageID, vectors.ID))
+      if (!gimp_image_raise_vectors_to_top(ID, vectors.ID))
         {
 	  throw new GimpSharpException();
         }
@@ -713,12 +713,12 @@ namespace Gimp
 
     public int GetVectorsPosition(Vectors vectors)
     {
-      return gimp_image_get_vectors_position(_imageID, vectors.ID);
+      return gimp_image_get_vectors_position(ID, vectors.ID);
     }
 
     public void ConvertRgb()
     {
-      if (!gimp_image_convert_rgb(_imageID))
+      if (!gimp_image_convert_rgb(ID))
 	{
 	  // throw new GimpSharpException();
 	}
@@ -726,7 +726,7 @@ namespace Gimp
        
     public void ConvertGrayscale()
     {
-      if (!gimp_image_convert_grayscale(_imageID))
+      if (!gimp_image_convert_grayscale(ID))
 	{
 	  // throw new GimpSharpException();
 	}
@@ -740,7 +740,7 @@ namespace Gimp
                                bool remove_unused,
                                string palette)
     {
-      if (!gimp_image_convert_indexed(_imageID,
+      if (!gimp_image_convert_indexed(ID,
 				      dither_type,
 				      palette_type,
 				      num_cols,
@@ -755,15 +755,14 @@ namespace Gimp
     // Implementation of ...
 
     [DllImport("libgimpui-2.0-0.dll")]
-    static extern IntPtr gimp_image_get_thumbnail (Int32 image_ID,
-                                                   int width,
-                                                   int height,
-                                                   Transparency alpha);
-
+    static extern IntPtr gimp_image_get_thumbnail(Int32 image_ID,
+						  int width,
+						  int height,
+						  Transparency alpha);
+    
     public Pixbuf GetThumbnail (int width, int height, Transparency alpha)
     {
-      return new Pixbuf (gimp_image_get_thumbnail (_imageID, width, height,
-                                                   alpha));
+      return new Pixbuf(gimp_image_get_thumbnail(ID, width, height, alpha));
     }
 
     // Implementation of gimpundo_pdb.h
@@ -771,7 +770,7 @@ namespace Gimp
 
     public void UndoGroupStart()
     {
-      if (!gimp_image_undo_group_start (_imageID))
+      if (!gimp_image_undo_group_start(ID))
         {
 	  throw new GimpSharpException();
         }
@@ -779,12 +778,12 @@ namespace Gimp
 
     public bool UndoEnabled
     {
-      get {return gimp_image_undo_is_enabled(_imageID);}
+      get {return gimp_image_undo_is_enabled(ID);}
     }
 
     public void UndoGroupEnd()
     {
-      if (!gimp_image_undo_group_end (_imageID))
+      if (!gimp_image_undo_group_end(ID))
         {
 	  throw new GimpSharpException();
         }
@@ -792,7 +791,7 @@ namespace Gimp
 
     public void UndoDisable()
     {
-      if (!gimp_image_undo_disable (_imageID))
+      if (!gimp_image_undo_disable(ID))
         {
 	  throw new GimpSharpException();
         }
@@ -800,7 +799,7 @@ namespace Gimp
 
     public void UndoEnable()
     {
-      if (!gimp_image_undo_enable (_imageID))
+      if (!gimp_image_undo_enable(ID))
         {
 	  throw new GimpSharpException();
         }
@@ -808,7 +807,7 @@ namespace Gimp
 
     public void UndoFreeze()
     {
-      if (!gimp_image_undo_freeze (_imageID))
+      if (!gimp_image_undo_freeze(ID))
         {
 	  throw new GimpSharpException();
         }
@@ -816,7 +815,7 @@ namespace Gimp
 
     public void UndoThaw()
     {
-      if (!gimp_image_undo_thaw (_imageID))
+      if (!gimp_image_undo_thaw(ID))
         {
 	  throw new GimpSharpException();
         }
@@ -824,7 +823,7 @@ namespace Gimp
 
     public void EditCopyVisible()
     {
-      if (!gimp_edit_copy_visible(_imageID))
+      if (!gimp_edit_copy_visible(ID))
         {
 	  throw new GimpSharpException();
         }
@@ -837,7 +836,7 @@ namespace Gimp
       int numVectors;
       IntPtr vectorsIds;
 
-      if (!gimp_vectors_import_from_file(_imageID, filename, merge, scale,
+      if (!gimp_vectors_import_from_file(ID, filename, merge, scale,
 					 out numVectors,
 					 out vectorsIds))
 	{
@@ -853,7 +852,7 @@ namespace Gimp
       int numVectors;
       IntPtr vectorsIds;
 
-      if (!gimp_vectors_import_from_string(_imageID, source, merge, scale,
+      if (!gimp_vectors_import_from_string(ID, source, merge, scale,
 					   out numVectors,
 					   out vectorsIds))
 	{
@@ -867,6 +866,7 @@ namespace Gimp
     internal Int32 ID
     {
       get {return _imageID;}
+      set {_imageID = value;}
     }
        
     public GuideCollection Guides
@@ -876,7 +876,7 @@ namespace Gimp
 
     public Grid Grid
     {
-      get {return new Grid(_imageID);}
+      get {return new Grid(ID);}
     }
 
     public override string ToString()
@@ -916,53 +916,53 @@ namespace Gimp
 					 int offx,
 					 int offy);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_resize_to_layers (Int32 image_ID);
+    static extern bool gimp_image_resize_to_layers(Int32 image_ID);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_scale (Int32 image_ID,
-                                         int new_width,
-                                         int new_height);
+    static extern bool gimp_image_scale(Int32 image_ID,
+					int new_width,
+					int new_height);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_scale_full (Int32 image_ID,
-                                              int new_width,
-                                              int new_height,
-                                              InterpolationType interpolation);
+    static extern bool gimp_image_scale_full(Int32 image_ID,
+					     int new_width,
+					     int new_height,
+					     InterpolationType interpolation);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_crop (Int32 image_ID,
-                                        int new_width, int new_height,
-                                        int offx, int offy);
+    static extern bool gimp_image_crop(Int32 image_ID,
+				       int new_width, int new_height,
+				       int offx, int offy);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern Int32 gimp_image_get_active_drawable (Int32 image_ID);
+    static extern Int32 gimp_image_get_active_drawable(Int32 image_ID);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern Int32 gimp_image_get_floating_sel (Int32 image_ID);
+    static extern Int32 gimp_image_get_floating_sel(Int32 image_ID);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern Int32 gimp_image_floating_sel_attached_to (Int32 image_ID);
+    static extern Int32 gimp_image_floating_sel_attached_to(Int32 image_ID);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool  gimp_image_pick_color (Int32 image_ID,
-                                               Int32 drawable_ID,
-                                               double x, double y,
-                                               bool sample_merged, 
-					       bool sample_average,
-                                               double average_radius,
-                                               out GimpRGB color);
+    static extern bool  gimp_image_pick_color(Int32 image_ID,
+					      Int32 drawable_ID,
+					      double x, double y,
+					      bool sample_merged, 
+					      bool sample_average,
+					      double average_radius,
+					      out GimpRGB color);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern Int32 gimp_image_pick_correlate_layer (Int32 image_ID,
-                                                         int x, int y);
+    static extern Int32 gimp_image_pick_correlate_layer(Int32 image_ID,
+							int x, int y);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_add_layer (Int32 image_ID,
-                                             Int32 layer_ID,
-                                             int position);
+    static extern bool gimp_image_add_layer(Int32 image_ID,
+					    Int32 layer_ID,
+					    int position);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_remove_layer (Int32 image_ID,
-                                                Int32 layer_ID);
+    static extern bool gimp_image_remove_layer(Int32 image_ID,
+					       Int32 layer_ID);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_raise_layer (Int32 image_ID,
-                                               Int32 layer_ID);
+    static extern bool gimp_image_raise_layer(Int32 image_ID,
+					      Int32 layer_ID);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_lower_layer (Int32 image_ID,
-                                               Int32 layer_ID);
+    static extern bool gimp_image_lower_layer(Int32 image_ID,
+					      Int32 layer_ID);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_raise_layer_to_top (Int32 image_ID,
-                                                      Int32 layer_ID);
+    static extern bool gimp_image_raise_layer_to_top(Int32 image_ID,
+						     Int32 layer_ID);
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_image_lower_layer_to_bottom(Int32 image_ID,
 							Int32 layer_ID);
@@ -970,23 +970,23 @@ namespace Gimp
     static extern int gimp_image_get_layer_position(Int32 image_ID,
 						    Int32 layer_ID);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_add_channel (Int32 image_ID,
-                                               Int32 channel_ID,
-                                               int position);
+    static extern bool gimp_image_add_channel(Int32 image_ID,
+					      Int32 channel_ID,
+					      int position);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_remove_channel (Int32 image_ID,
-                                                  Int32 channel_ID);
+    static extern bool gimp_image_remove_channel(Int32 image_ID,
+						 Int32 channel_ID);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_raise_channel (Int32 image_ID,
-                                                 Int32 channel_ID);
+    static extern bool gimp_image_raise_channel(Int32 image_ID,
+						Int32 channel_ID);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_lower_channel (Int32 image_ID,
-                                                 Int32 channel_ID);
+    static extern bool gimp_image_lower_channel(Int32 image_ID,
+						Int32 channel_ID);
     [DllImport("libgimp-2.0-0.dll")]
     static extern int gimp_image_get_channel_position(Int32 image_ID,
 						      Int32 channel_ID);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern Int32 gimp_image_flatten (Int32 image_ID);
+    static extern Int32 gimp_image_flatten(Int32 image_ID);
     [DllImport("libgimp-2.0-0.dll")]
     static extern Int32 gimp_image_merge_visible_layers(Int32 image_ID,
                                                         MergeType merge_type);
@@ -995,67 +995,67 @@ namespace Gimp
                                               Int32 merge_layer_ID,
                                               MergeType merge_type);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_clean_all (Int32 image_ID);
+    static extern bool gimp_image_clean_all(Int32 image_ID);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_is_dirty (Int32 image_ID);
+    static extern bool gimp_image_is_dirty(Int32 image_ID);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern Int32 gimp_image_get_active_layer (Int32 image_ID);
+    static extern Int32 gimp_image_get_active_layer(Int32 image_ID);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_set_active_layer (Int32 image_ID,
-                                                    Int32 active_layer_ID);
+    static extern bool gimp_image_set_active_layer(Int32 image_ID,
+						   Int32 active_layer_ID);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern Int32 gimp_image_get_active_channel (Int32 image_ID);
+    static extern Int32 gimp_image_get_active_channel(Int32 image_ID);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_set_active_channel (Int32 image_ID,
-                                                      Int32 active_channel_ID);
+    static extern bool gimp_image_set_active_channel(Int32 image_ID,
+						     Int32 active_channel_ID);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_unset_active_channel (Int32 image_ID);
+    static extern bool gimp_image_unset_active_channel(Int32 image_ID);
     [DllImport("libgimp-2.0-0.dll")]
     static extern Int32 gimp_image_get_selection(Int32 image_ID);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_get_component_active (Int32 image_ID,
-                                                        ChannelType component);
+    static extern bool gimp_image_get_component_active(Int32 image_ID,
+						       ChannelType component);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_set_component_active (Int32 image_ID,
-                                                        ChannelType component,
-							bool active);
+    static extern bool gimp_image_set_component_active(Int32 image_ID,
+						       ChannelType component,
+						       bool active);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_get_component_visible (Int32 image_ID,
-                                                         ChannelType component);
+    static extern bool gimp_image_get_component_visible(Int32 image_ID,
+							ChannelType component);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_set_component_visible (Int32 image_ID,
-                                                         ChannelType component,
-							 bool visible);
+    static extern bool gimp_image_set_component_visible(Int32 image_ID,
+							ChannelType component,
+							bool visible);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern string gimp_image_get_filename (Int32 image_ID);
+    static extern string gimp_image_get_filename(Int32 image_ID);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_set_filename (Int32 image_ID, 
-                                                string filename);
+    static extern bool gimp_image_set_filename(Int32 image_ID, 
+					       string filename);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern string gimp_image_get_name (Int32 image_ID);
+    static extern string gimp_image_get_name(Int32 image_ID);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_get_resolution (Int32 image_ID,
-                                                  out double xresolution, 
-						  out double yresolution);
+    static extern bool gimp_image_get_resolution(Int32 image_ID,
+						 out double xresolution, 
+						 out double yresolution);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_set_resolution (Int32 image_ID, 
-                                                  double xresolution, 
-						  double yresolution);
+    static extern bool gimp_image_set_resolution(Int32 image_ID, 
+						 double xresolution, 
+						 double yresolution);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern Unit gimp_image_get_unit (Int32 image_ID);
+    static extern Unit gimp_image_get_unit(Int32 image_ID);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_set_unit (Int32 image_ID, Unit unit);
+    static extern bool gimp_image_set_unit(Int32 image_ID, Unit unit);
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_image_set_tattoo_state(Int32 image_ID, 
 						   int tattoo_state);
     [DllImport("libgimp-2.0-0.dll")]
     static extern int gimp_image_get_tattoo_state(Int32 image_ID);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern Int32 gimp_image_get_layer_by_tattoo (Int32 image_ID, 
-                                                        int tattoo);
+    static extern Int32 gimp_image_get_layer_by_tattoo(Int32 image_ID, 
+						       int tattoo);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern Int32 gimp_image_get_channel_by_tattoo (Int32 image_ID, 
-                                                          int tattoo);
+    static extern Int32 gimp_image_get_channel_by_tattoo(Int32 image_ID, 
+							 int tattoo);
     [DllImport("libgimp-2.0-0.dll")]
     static extern IntPtr gimp_image_get_colormap(Int32 image_ID, 
                                                  out int num_colors);
@@ -1118,14 +1118,13 @@ namespace Gimp
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_image_convert_grayscale(Int32 image_ID);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_convert_indexed 
-    (Int32 image_ID,
-     ConvertDitherType dither_type,
-     ConvertPaletteType palette_type,
-     int num_cols,
-     bool alpha_dither,
-     bool remove_unused,
-     string palette);
+    static extern bool gimp_image_convert_indexed(Int32 image_ID,
+						ConvertDitherType dither_type,
+						ConvertPaletteType palette_type,
+						  int num_cols,
+						  bool alpha_dither,
+						  bool remove_unused,
+						  string palette);
     [DllImport("libgimp-2.0-0.dll")]
     static extern Int32 gimp_file_load(RunMode run_mode, string filename,
                                        string raw_filename);
@@ -1144,19 +1143,19 @@ namespace Gimp
                                       string raw_filename);
 
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_undo_group_start (Int32 image_ID);
+    static extern bool gimp_image_undo_group_start(Int32 image_ID);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_undo_group_end (Int32 image_ID);
+    static extern bool gimp_image_undo_group_end(Int32 image_ID);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_undo_is_enabled (Int32 image_ID);
+    static extern bool gimp_image_undo_is_enabled(Int32 image_ID);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_undo_disable (Int32 image_ID);
+    static extern bool gimp_image_undo_disable(Int32 image_ID);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_undo_enable (Int32 image_ID);
+    static extern bool gimp_image_undo_enable(Int32 image_ID);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_undo_freeze (Int32 image_ID);
+    static extern bool gimp_image_undo_freeze(Int32 image_ID);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_undo_thaw (Int32 image_ID);
+    static extern bool gimp_image_undo_thaw(Int32 image_ID);
 
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_edit_copy_visible(Int32 image_ID);
