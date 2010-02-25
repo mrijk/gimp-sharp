@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2010 Maurits Rijk
 //
 // SimilarEvent.cs
 //
@@ -18,6 +18,9 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
+using System;
+using System.Collections.Generic;
+
 namespace Gimp.PhotoshopActions
 {
   public class SimilarEvent : ActionEvent
@@ -27,11 +30,6 @@ namespace Gimp.PhotoshopActions
     [Parameter("AntA")]
     readonly bool _antiAlias;
 
-    public override bool IsExecutable
-    {
-      get {return false;}
-    }
-
     public override string EventForDisplay
     {
       get {return base.EventForDisplay + " Selection";}
@@ -39,7 +37,24 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
-      // Select similar layers
+      var iter = new RgnIterator(ActiveDrawable, "Select Similar");
+
+      var tool = new ByColorSelectTool(ActiveDrawable);
+
+      var uniqueColors = new HashSet<RGB>();
+      iter.IterateSrc(pixel => uniqueColors.Add(pixel.Color));
+
+      Console.WriteLine("Colors: " + uniqueColors.Count);
+
+      // More or less arbitrary hack
+      if (uniqueColors.Count > 10)
+	return true;
+
+      foreach (var color in uniqueColors) 
+	{
+	  tool.Select(color, 0, ChannelOps.Add, true, false, 0, false);
+	}
+
       return true;
     }
   }

@@ -18,6 +18,8 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
+using System;
+
 namespace Gimp.PhotoshopActions
 {
   public class PasteEvent : ActionEvent
@@ -28,7 +30,11 @@ namespace Gimp.PhotoshopActions
     override public bool Execute()
     {
       var selection = ActiveDrawable.EditPaste(false);
-      selection.Anchor();
+      selection.ToLayer();
+
+      selection.Name = "Layer 1";
+
+      SelectedLayer = selection;
       return true;
     }
   }

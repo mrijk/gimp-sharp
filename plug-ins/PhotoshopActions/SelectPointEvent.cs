@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2010 Maurits Rijk
 //
 // SelectPointEvent.cs
 //
@@ -52,7 +52,7 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
-      FuzzySelectTool tool = new FuzzySelectTool(ActiveImage);
+      var tool = new FuzzySelectTool(ActiveDrawable);
       tool.Select(_coordinate, _tolerance, ChannelOps.Replace, _antiAlias,
 		  false, 0, false);
 

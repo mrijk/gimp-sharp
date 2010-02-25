@@ -106,6 +106,7 @@ namespace Gimp.PhotoshopActions
 	{"convertMode", "Convert Mode"},
 	{"copy", "Copy"},
 	{"copyToLayer", "Layer via Copy"},
+	{"copyMerged", "Copy Merged"},
 	{"CrnH", "Current History State"},
 	{"CrcB", "Crack brightness"},
 	{"CrcD", "Crack depth"},

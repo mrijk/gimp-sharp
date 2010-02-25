@@ -137,7 +137,7 @@ namespace Gimp
     {
       get 
 	{
-	  return new RGB(Red, Green, Blue);
+	  return new RGB((byte) Red, (byte) Green, (byte) Blue);
 	}
 
       set

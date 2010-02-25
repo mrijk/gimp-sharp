@@ -1,3 +1,11 @@
+2010-02-25  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* lib/FuzzySelectTool.cs: bug fix
+
+	* plug-ins/PhotoshopActions/SelectPointEvent.cs: minor clean-up
+
+	* plug-ins/PhotoshopActions/Abbreviations.cs: added abbreviation
+
 2010-02-24  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* lib/Brush.cs

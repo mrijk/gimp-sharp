@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // FuzzySelectTool.cs
 //
@@ -26,18 +26,18 @@ namespace Gimp
 {
   public sealed class FuzzySelectTool
   {
-    Int32 _imageID;
+    Int32 _drawableID;
 
-    public FuzzySelectTool(Image image)
+    public FuzzySelectTool(Drawable drawable)
     {
-      _imageID = image.ID; 
+      _drawableID = drawable.ID; 
     }
 
     public void Select(Coordinate<double> coordinate, int threshold, 
 		       ChannelOps operation, bool antialias, bool feather, 
 		       double featherRadius, bool sampleMerged)
     {
-      if (!gimp_fuzzy_select(_imageID, coordinate.X, coordinate.Y, threshold,
+      if (!gimp_fuzzy_select(_drawableID, coordinate.X, coordinate.Y, threshold,
 			     operation, antialias, feather, featherRadius, 
 			     sampleMerged))
 	{
@@ -45,8 +45,25 @@ namespace Gimp
 	}
     }
 
+    public void Select(Coordinate<double> coordinate, int threshold, 
+		       ChannelOps operation, bool antialias, bool feather, 
+		       double featherRadiusX, double featherRadiusY,
+		       bool sampleMerged, bool selectTransparent,
+		       SelectCriterion selectCriterion)
+    {
+      if (!gimp_fuzzy_select_full(_drawableID, coordinate.X, coordinate.Y, 
+				  threshold,
+				  operation, antialias, feather, 
+				  featherRadiusX, featherRadiusY, 
+				  sampleMerged, selectTransparent,
+				  selectCriterion))
+	{
+	  throw new GimpSharpException();
+	}
+    }
+
     [DllImport("libgimp-2.0-0.dll")]
-    extern static bool gimp_fuzzy_select(Int32 image_ID,
+    extern static bool gimp_fuzzy_select(Int32 drawable_ID,
 					 double x,
 					 double y,
 					 int threshold,
@@ -55,5 +72,18 @@ namespace Gimp
 					 bool feather,
 					 double feather_radius,
 					 bool sample_merged);
+    [DllImport("libgimp-2.0-0.dll")]
+    extern static bool gimp_fuzzy_select_full(Int32 drawable_ID,
+					      double x,
+					      double y,
+					      int threshold,
+					      ChannelOps operation,
+					      bool antialias,
+					      bool feather,
+					      double feather_radius_x,
+					      double feather_radius_y,
+					      bool sample_merged,
+					      bool select_transparent,
+					      SelectCriterion select_criterion);
   }
 }
