@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2010 Maurits Rijk
 //
 // SetLayerPropertyEvent.cs
 //
@@ -53,10 +53,9 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
-      Layer layer = (_name == null) ? SelectedLayer 
-	: ActiveImage.Layers["_name"];
+      var layer = (_name == null) ? SelectedLayer : ActiveImage.Layers["_name"];
 
-      foreach (Parameter parameter in _objc.Parameters)
+      foreach (var parameter in _objc.Parameters)
 	{
 	  switch (parameter.Name)
 	    {
@@ -69,6 +68,7 @@ namespace Gimp.PhotoshopActions
 		  break;
 		case "CDdg":
 		  layer.Mode = LayerModeEffects.Dodge;
+		  // ColorDodgeLayer(layer);
 		  break;
 		case "Dfrn":
 		  layer.Mode = LayerModeEffects.Difference;
@@ -120,6 +120,41 @@ namespace Gimp.PhotoshopActions
 	    }
 	}
       return true;
+    }
+
+    void ColorDodgeLayer(Layer layer)
+    {
+      var layers = ActiveImage.Layers;
+      int index = layers.GetIndex(layer);
+      var previous = layers[index + 1];
+
+      Console.WriteLine("layer: " + layer.Name);
+      Console.WriteLine("previous: " + previous.Name);
+
+      var srcPR = new PixelRgn(previous, false, false);
+      var destPR = new PixelRgn(layer, false, false);
+
+#if false
+
+      var iterator = new RegionIterator(srcPR, destPR);
+
+      iterator.ForEach((src, dest) =>
+	{
+	  dest.Red = ColorDodge(src.Red, dest.Red);
+	  dest.Green = ColorDodge(src.Green, dest.Green);
+	  dest.Blue = ColorDodge(src.Blue, dest.Blue);
+	});
+#else
+      var iterator = new RegionIterator(destPR);
+
+      iterator.ForEach((dest) =>
+	{});
+#endif
+    }
+
+    int ColorDodge(int src, int dest)
+    {
+      return 255;
     }
   }
 }

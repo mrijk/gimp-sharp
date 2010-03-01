@@ -1,3 +1,10 @@
+2010-02-26  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/PhotoshopActions/StopEvent.cs: escape message to avoid
+	problems with markup
+
+	* plug-ins/PhotoshopActions/SetLayerPropertyEvent.cs: minor clean-up
+
 2010-02-25  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* lib/FuzzySelectTool.cs: bug fix

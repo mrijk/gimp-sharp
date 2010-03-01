@@ -288,6 +288,7 @@ namespace Gimp.PhotoshopActions
 	{"Msk", "mask"},
 	{"Mthd", "Method"},
 	{"Mtrl", "Material"},
+	{"Mztn", "Mezzotint"},
 	{"MztT", "Type"},
 	{"N", "no"},
 	{"Nkn", "35mm Prime"},

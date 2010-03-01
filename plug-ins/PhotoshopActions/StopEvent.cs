@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2010 Maurits Rijk
 //
 // StopEvent.cs
 //
@@ -19,6 +19,7 @@
 //
 
 using Gtk;
+using GLib;
 
 namespace Gimp.PhotoshopActions
 {
@@ -31,16 +32,17 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
-      MessageDialog message = 
+      var message = 
 	new MessageDialog(null, DialogFlags.DestroyWithParent,
-			  MessageType.Info, ButtonsType.None, _message);
+			  MessageType.Info, ButtonsType.None, 
+			  Markup.EscapeText(_message));
       if (_continue)
 	{
 	  message.AddButton("Continue", ResponseType.Ok);
 	}
       message.AddButton("Stop", ResponseType.Cancel);
 
-      ResponseType response = (ResponseType) message.Run();
+      var response = (ResponseType) message.Run();
       message.Destroy();
 
       return response == ResponseType.Ok;
