@@ -187,7 +187,7 @@ namespace Gimp.ncp
     Pixel DoNCP(int x, int y)
     {
       int b = 0;
-      Pixel.FillDestFunc func = () => _calculator.Calc(b++, x, y);
+      Func<int> func = () => _calculator.Calc(b++, x, y);
 
       if (_color)
 	{

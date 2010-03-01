@@ -1,3 +1,14 @@
+2010-03-01  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/ncp/ncp.cs: replaced delegate by Func<> classes
+
+	* plug-ins/UnitTest/TestPixel.cs: added more unit tests
+
+	* plug-ins/Splitter/Splitter.cs: TransformRotateDefault is now
+	TransformRotate.
+
+	* lib/Pixel.cs: minor clean-up
+
 2010-02-26  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/StopEvent.cs: escape message to avoid

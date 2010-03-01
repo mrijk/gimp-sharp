@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // TestPixel.cs
 //
@@ -75,6 +75,26 @@ namespace Gimp
     }
 
     [Test]
+    public void FillOne()
+    {
+      var pixel = new Pixel(3);
+      pixel.Fill(() => {return 11;});
+      Assert.AreEqual(11, pixel.Red);
+      Assert.AreEqual(11, pixel.Green);
+      Assert.AreEqual(11, pixel.Blue);
+    }
+
+    [Test]
+    public void FillTwo()
+    {
+      var pixel = new Pixel(11, 12, 13);
+      pixel.Fill(x => {return x + 1;});
+      Assert.AreEqual(12, pixel.Red);
+      Assert.AreEqual(13, pixel.Green);
+      Assert.AreEqual(14, pixel.Blue);      
+    }
+
+    [Test]
     public void GetBytes()
     {
       var rgb = new byte[]{11, 12, 13};
@@ -88,6 +108,25 @@ namespace Gimp
       var rgb = new byte[]{11, 12, 13};
       var pixel = new Pixel(3) {Bytes = rgb};
       Assert.AreEqual(rgb, pixel.Bytes);
+    }
+
+    [Test]
+    public void CopyTo()
+    {
+      var rgb = new byte[]{11, 12, 13};
+      var pixel = new Pixel(3) {Bytes = rgb};
+      var dest = new byte[3];
+      pixel.CopyTo(dest, 0);
+      Assert.AreEqual(dest, pixel.Bytes);
+    }
+
+    [Test]
+    public void CopyFrom()
+    {
+      var pixel = new Pixel(3);
+      var src = new byte[]{11, 12, 13};
+      pixel.CopyFrom(src, 0);
+      Assert.AreEqual(src, pixel.Bytes);
     }
 
     [Test]

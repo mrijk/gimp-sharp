@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // Pixel.cs
 //
@@ -48,11 +48,7 @@ namespace Gimp
       _bpp = rgb.Length;
       _bppWithoutAlpha = (HasAlpha) ? _bpp - 1 : _bpp;
       _rgb = new int[_bpp];
-
-      for (int i = 0; i < _bpp; i++)
-	{
-	  _rgb[i] = rgb[i];
-	}
+      Array.Copy(rgb, _rgb, _bpp);
     }
 
     public Pixel(int r, int g, int b) : this(3)
@@ -72,10 +68,7 @@ namespace Gimp
 
     internal Pixel(Pixel p) : this(p._bpp)
     {
-      for (int i = 0; i < _bpp; i++)
-	{
-	  _rgb[i] = p[i];
-	}
+      Array.Copy(p._rgb, _rgb, _bpp);
     }
 
     internal Pixel(PixelRgn rgn, byte[] rgb) : this(rgb)
@@ -88,10 +81,7 @@ namespace Gimp
       get {return _bpp;}
     }
 
-    public delegate int FillDestFunc();
-    public delegate int FillSrcDestFunc(int src);
-
-    public void Fill(FillDestFunc func)
+    public void Fill(Func<int> func)
     {
       for (int i = 0; i < _bppWithoutAlpha; i++)
 	{
@@ -99,7 +89,7 @@ namespace Gimp
 	}
     }
 
-    public void Fill(FillSrcDestFunc func)
+    public void Fill(Func<int, int> func)
     {
       for (int i = 0; i < _bppWithoutAlpha; i++)
 	{
@@ -107,7 +97,7 @@ namespace Gimp
 	}
     }
 
-    public void FillSame(FillDestFunc func)
+    public void FillSame(Func<int> func)
     {
       int val = func();
       for (int i = 0; i < _bppWithoutAlpha; i++)
@@ -154,23 +144,19 @@ namespace Gimp
     {
       set
 	{
-	  for (int i = 0; i < _bpp; i++)
-	    {
-	      _rgb[i] = value[i];
-	    }
+	  Array.Copy(value, _rgb, _bpp);
 	}
 
       get
 	{
-	  byte[] rgb = new byte[_bpp];
-
-	  for (int i = 0; i < _bpp; i++)
-	    {
-	      rgb[i] = (byte) _rgb[i];
-	    }
-	  
-	  return rgb;
+	  return Array.ConvertAll(_rgb, 
+				  new Converter<int, byte>(ConvertToByte));
 	}
+    }
+
+    static byte ConvertToByte(int value)
+    {
+      return (byte) value;
     }
 
     public void CopyTo(byte[] dest, long index)
@@ -178,15 +164,12 @@ namespace Gimp
       for (int i = 0; i < _bpp; i++)
 	{
 	  dest[index + i] = (byte) _rgb[i];
-	}
+	}      
     }
 
     public void CopyFrom(byte[] src, long index)
     {
-      for (int i = 0; i < _bpp; i++)
-	{
-	  _rgb[i] = src[index + i];
-	}
+      Array.Copy(src, index, _rgb, 0, _bpp);
     }
 
     public int X {get; set;}
@@ -232,31 +215,20 @@ namespace Gimp
     {
       for (int i = 0; i < _bpp; i++)
 	{
-	  if (_rgb[i] < 0)
-	    {
-	      _rgb[i] = 0;
-	    }
-	  else if (_rgb[i] > 255)
-	    {
-	      _rgb[i] = 255;
-	    }
+	  _rgb[i] = Clamp(_rgb[i]);
 	}
+    }
+
+    int Clamp(int rgb)
+    {
+      return (rgb < 0) ? 0 : ((rgb > 255) ? 255 : rgb);
     }
 
     public void AddNoise(int noise)
     {
-      int bpp = HasAlpha ? _bpp - 1 : _bpp;
-      for (int i = 0; i < bpp; i++)
+      for (int i = 0; i < _bppWithoutAlpha; i++)
 	{
-	  _rgb[i] += _random.Next(-noise, noise);
-	  if (_rgb[i] < 0)
-	    {
-	      _rgb[i] = 0;
-	    }
-	  else if (_rgb[i] > 255)
-	    {
-	      _rgb[i] = 255;
-	    }
+	  _rgb[i] = Clamp(_rgb[i] + _random.Next(-noise, noise));
 	}
     }
 
@@ -327,17 +299,17 @@ namespace Gimp
     {
       int width = dimensions.Width;
       int height = dimensions.Height;
-      byte[] dest = new byte[width * height * bpp];
+      var dest = new byte[width * height * bpp];
       Marshal.Copy(src, dest, 0, width * height * bpp);
 
-      Pixel[,] thumbnail = new Pixel[height, width];
+      var thumbnail = new Pixel[height, width];
       
       int index = 0;
       for (int y = 0; y < height; y++)
 	{
 	  for (int x = 0; x < width; x++)
 	    {
-	      Pixel pixel = new Pixel(bpp);
+	      var pixel = new Pixel(bpp);
 	      pixel.CopyFrom(dest, index);
 	      index += bpp;
 	      thumbnail[y, x] = pixel;
