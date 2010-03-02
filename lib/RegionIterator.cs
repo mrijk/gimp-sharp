@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // RegionIterator.cs
 //
@@ -26,10 +26,6 @@ namespace Gimp
 {
   public sealed class RegionIterator
   {
-    public delegate void IterFuncOne(Pixel p);
-    public delegate void IterFuncTwo(Pixel p1, Pixel p2);
-    public delegate void IterFuncThree(Pixel p1, Pixel p2, Pixel p3);
-
     readonly PixelRgn[] _regions;
 
     public RegionIterator(params PixelRgn[] regions)
@@ -41,7 +37,7 @@ namespace Gimp
     // are write-only! This could be solved by introducing Read/Write/ReadWrite
     // regions
 
-    public void ForEach(IterFuncOne func)
+    public void ForEach(Action<Pixel> func)
     {
       var rgn = _regions[0];
       for (IntPtr pr = PixelRgn.Register(rgn); pr != IntPtr.Zero; 
@@ -57,7 +53,7 @@ namespace Gimp
 	}
     }
 
-    public void ForEach(IterFuncTwo func)
+    public void ForEach(Action<Pixel, Pixel> func)
     {
       var rgn1 = _regions[0];
       var rgn2 = _regions[1];
@@ -75,7 +71,7 @@ namespace Gimp
 	}
     }
 
-    public void ForEach(IterFuncThree func)
+    public void ForEach(Action<Pixel, Pixel, Pixel> func)
     {
       var rgn1 = _regions[0];
       var rgn2 = _regions[1];
@@ -88,13 +84,12 @@ namespace Gimp
 	       y1 < rgn1.Y + rgn1.H; y1++, y2++, y3++)
 	    {
 	      for (int x1 = rgn1.X, x2 = rgn2.X, x3 = rgn3.X; 
-		   x1 < rgn1.X + rgn1.W; x1++, x2++)
+		   x1 < rgn1.X + rgn1.W; x1++, x2++, x3++)
 		{
 		  func(rgn1[y1, x1], rgn2[y2, x2], rgn3[y3, x3]);
 		}
 	    }
 	}
     }
-
   }
 }

@@ -1,3 +1,9 @@
+2010-03-02  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/Swirlies/Swirlies.cs
+	* lib/RgnIterator.cs
+	* lib/RegionIterator.cs: replaced delegates by Action<> classes
+
 2010-03-01  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* plug-ins/ncp/ncp.cs: replaced delegate by Func<> classes

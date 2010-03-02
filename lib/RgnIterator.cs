@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // RgnIterator.cs
 //
@@ -25,10 +25,7 @@ namespace Gimp
 {
   public sealed class RgnIterator
   {
-    public delegate void IterFuncSrc(Pixel src);
-    public delegate Pixel IterFuncDest();
     public delegate Pixel IterFuncDestFull(int x, int y);
-    public delegate Pixel IterFuncSrcDest(Pixel src);
 
     readonly Drawable _drawable;
     readonly RunMode _runmode;
@@ -55,15 +52,15 @@ namespace Gimp
       get {return _rectangle.Area;}
     }
 
-    public void IterateSrc(IterFuncSrc func)
+    public void IterateSrc(Action<Pixel> func)
     {
-      foreach (Pixel pixel in new ReadPixelIterator(_drawable, _runmode))
+      foreach (var pixel in new ReadPixelIterator(_drawable, _runmode))
 	{
 	  func(pixel);
 	}
     }
 
-    public void IterateDest(IterFuncDest func)
+    public void IterateDest(Func<Pixel> func)
     {
       int total_area = _rectangle.Area;
       int area_so_far = 0;
@@ -90,7 +87,7 @@ namespace Gimp
       _drawable.Update(_rectangle);
     }
 
-    public void IterateDest(IterFuncDestFull func)
+    public void IterateDest(Func<int, int, Pixel> func)
     {
       int total_area = _rectangle.Area;
       int area_so_far = 0;
@@ -117,17 +114,17 @@ namespace Gimp
       _drawable.Update(_rectangle);
     }
 
-    public void IterateDestFull(IterFuncDestFull func)
+    public void IterateDestFull(Func<int, int, Pixel> func)
     {
       IterateDest(func);
     }
 
-    public void IterateDestSimple(IterFuncDest func)
+    public void IterateDestSimple(Func<Pixel> func)
     {
       IterateDest(func);
     }
 
-    public void IterateSrcDest(IterFuncSrcDest func)
+    public void IterateSrcDest(Func<Pixel, Pixel> func)
     {
       var srcPR = new PixelRgn(_drawable, _rectangle, false, false);
       var destPR = new PixelRgn(_drawable, _rectangle, true, true);

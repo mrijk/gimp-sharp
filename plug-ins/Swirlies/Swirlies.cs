@@ -1,5 +1,5 @@
 // The Swirlies plug-in
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // Swirlies.cs
 //
@@ -166,7 +166,7 @@ namespace Gimp.Swirlies
       Initialize(drawable);
       var iter = new RgnIterator(drawable, RunMode.Interactive);
       iter.Progress = new Progress(_("Swirlies"));
-      iter.IterateDest(new RgnIterator.IterFuncDestFull(DoSwirlies));
+      iter.IterateDest(DoSwirlies);
     }
 
     Pixel DoSwirlies(int x, int y)
