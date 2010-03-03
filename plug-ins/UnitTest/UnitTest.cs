@@ -29,10 +29,10 @@ namespace Gimp.UnitTest
 {
   public class UnitTest : Plugin
   {
-    [SaveAttribute]
-    static string _testDll;
+    [SaveAttribute("testDll")]
+    string _testDll;
     ProgressBar _progressBar;
-    int    _testsPerformed = 0;
+    int _testsPerformed = 0;
     public int TestCasesTotalNumber {get; set;}
 
     static void Main(string[] args)
@@ -46,14 +46,19 @@ namespace Gimp.UnitTest
 
     override protected IEnumerable<Procedure> ListProcedures()
     {
+      var inParams = new ParamDefList() {
+	new ParamDef("testDll", "gimptest.dll", typeof(string), 
+		     _("Test dll to load"))
+      };
       yield return new Procedure("plug_in_unit_test",
 				 "Unit Test",
 				 "Unit Test",
-				 "Maurits Rijk, Massimo Perga",
-				 "(C) Maurits Rijk, Massimo Perga",
-				 "2004-2007",
+				 "Maurits Rijk",
+				 "(C) Maurits Rijk",
+				 "2004-2010",
 				 "Unit Test...",
-				 "")
+				 "",
+				 inParams)
 	{
 	  MenuPath = "<Toolbox>/Xtns/Extensions",
 	  IconFile = "UnitTest.png"
@@ -71,6 +76,10 @@ namespace Gimp.UnitTest
       dialog.VBox.PackStart(vbox, true, true, 0);
 
       var entry = new FileChooserButton(_("Open..."), FileChooserAction.Open);
+      if (_testDll != null)
+	{
+	  entry.SetFilename(_testDll);
+	}
       entry.SelectionChanged += delegate
 	{
 	  _testDll = entry.Filename;

@@ -33,7 +33,6 @@ namespace Gimp
 
     public Progress Progress {get; set;}
 
-
     public RgnIterator(Drawable drawable, String progressText) : 
       this(drawable, RunMode.Interactive)
     {

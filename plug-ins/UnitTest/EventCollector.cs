@@ -1,5 +1,5 @@
 // The UnitTest plug-in
-// Copyright (C) 2004-2009 Maurits Rijk, Massimo Perga
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // EventCollector.cs
 //
@@ -67,8 +67,7 @@ namespace Gimp.UnitTest
 
     public void RunFinished(TestResult testResult)
     {
-      TestReportDialog dialog = new TestReportDialog(_nrOk, _nrFailed, 
-						     _resultsAL);
+      var dialog = new TestReportDialog(_nrOk, _nrFailed, _resultsAL);
       TestReportDialog.ShowHelpButton(false);
       dialog.ShowAll();
       dialog.Run();

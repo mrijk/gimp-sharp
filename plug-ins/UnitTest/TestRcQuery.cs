@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // TestRcQuery.cs
 //
@@ -31,15 +31,13 @@ namespace Gimp
     [Test]
     public void QueryNonsense()
     {
-      string value = Gimp.RcQuery("nonsense");
-      Assert.IsTrue(value == null);
+      Assert.IsNull(Gimp.RcQuery("nonsense"));
     }
 
     [Test]
     public void QueryShowTips()
     {
-      string value = Gimp.RcQuery("show-tips");
-      Assert.IsTrue(value != null);
+      Assert.IsNotNull(Gimp.RcQuery("show-tips"));
     }
 
     [Test]

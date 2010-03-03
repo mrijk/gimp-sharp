@@ -1,3 +1,21 @@
+2010-03-03  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/UnitTest/TestBrushList.cs
+	* plug-ins/UnitTest/TestRcQuery.cs 
+	* plug-ins/UnitTest/TestReportDialog.cs: major clean-up
+
+	* plug-ins/UnitTest/UnitTest.cs: make sure filename is set in
+	FileChooserButton
+	
+	* plug-ins/UnitTest/EventCollector.cs: minor clean-up
+
+	* lib/Image.cs: fixed ImportVectorsFromString method
+
+	* lib/Vectors.cs
+	* plug-ins/UnitTest/TestRgnIterator.cs
+	* plug-ins/UnitTest/TestStroke.cs
+	* plug-ins/UnitTest/TestRegionIterator.cs: minor clean-up
+
 2010-03-02  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* plug-ins/Swirlies/Swirlies.cs

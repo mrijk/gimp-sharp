@@ -202,7 +202,8 @@ namespace Gimp
       Scale(dimensions.Width, dimensions.Height);
     }
 
-    public void Scale(int newWidth, int newHeight, InterpolationType interpolation)
+    public void Scale(int newWidth, int newHeight, 
+		      InterpolationType interpolation)
     {
       if (!gimp_image_scale_full(ID, newWidth, newHeight, interpolation))
         {
@@ -550,8 +551,8 @@ namespace Gimp
 	{
           int num_colors;
           IntPtr cmap = gimp_image_get_colormap(ID, out num_colors);
-	  RGB[] rgb = new RGB[num_colors];
-	  byte[] tmp = new byte[3];
+	  var rgb = new RGB[num_colors];
+	  var tmp = new byte[3];
 
 	  int index = 0;
 	  for (int i = 0; i < num_colors; i++) 
@@ -568,7 +569,7 @@ namespace Gimp
       set
 	{
 	  int num_colors = value.Length;
-	  byte[] colormap = new byte[num_colors * 3];
+	  var colormap = new byte[num_colors * 3];
 	  int index = 0;
 	  foreach (RGB rgb in value)
 	    {
@@ -590,7 +591,7 @@ namespace Gimp
       IntPtr src = gimp_image_get_thumbnail(ID, dimensions.Width,
 					    dimensions.Height, alpha);
       int bpp = ActiveDrawable.Bpp;
-      Pixel[,] thumbnail = Pixel.ConvertToPixelArray(src, dimensions, bpp);
+      var thumbnail = Pixel.ConvertToPixelArray(src, dimensions, bpp);
       Marshaller.Free(src);
       return thumbnail;
     }
@@ -599,17 +600,9 @@ namespace Gimp
     {
       get
 	{
-	  var list = new List<Vectors>();
 	  int numVectors;
 	  IntPtr ptr = gimp_image_get_vectors(ID, out numVectors);
-	  if (numVectors > 0)
-	    {
-	      var dest = new int[numVectors];
-	      Marshal.Copy(ptr, dest, 0, numVectors);
-	      Array.ForEach(dest, vectorsID => 
-			    list.Add(new Vectors(vectorsID)));
-	    }
-	  return list;
+	  return GetVectorsFromIntPtr(ptr, numVectors);
 	}
     }
 
@@ -752,8 +745,6 @@ namespace Gimp
 	}
     }
 
-    // Implementation of ...
-
     [DllImport("libgimpui-2.0-0.dll")]
     static extern IntPtr gimp_image_get_thumbnail(Int32 image_ID,
 						  int width,
@@ -763,10 +754,7 @@ namespace Gimp
     public Pixbuf GetThumbnail (int width, int height, Transparency alpha)
     {
       return new Pixbuf(gimp_image_get_thumbnail(ID, width, height, alpha));
-    }
-
-    // Implementation of gimpundo_pdb.h
-       
+    }       
 
     public void UndoGroupStart()
     {
@@ -848,15 +836,27 @@ namespace Gimp
     public List<Vectors>
     ImportVectorsFromString(string source, bool merge, bool scale)
     {
-      var vectors = new List<Vectors>();
       int numVectors;
       IntPtr vectorsIds;
 
-      if (!gimp_vectors_import_from_string(ID, source, merge, scale,
+      if (!gimp_vectors_import_from_string(ID, source, -1, merge, scale,
 					   out numVectors,
 					   out vectorsIds))
 	{
 	  throw new GimpSharpException();
+	}
+      return GetVectorsFromIntPtr(vectorsIds, numVectors);
+    }
+
+    List<Vectors> GetVectorsFromIntPtr(IntPtr vectorsIds, int numVectors)
+    {
+      var vectors = new List<Vectors>();
+      if (numVectors > 0)
+	{
+	  var dest = new int[numVectors];
+	  Marshal.Copy(vectorsIds, dest, 0, numVectors);
+	  Array.ForEach(dest, 
+			vectorsID => vectors.Add(new Vectors(vectorsID)));
 	}
       return vectors;
     }
@@ -883,8 +883,6 @@ namespace Gimp
     {
       return "Image: " + ID;
     }
-
-    // All the dll imports
 
     [DllImport("libgimp-2.0-0.dll")]
     static extern Int32 gimp_image_new(int width, int height, 
@@ -1168,6 +1166,7 @@ namespace Gimp
     [DllImport("libgimp-2.0-0.dll")]
     extern static bool gimp_vectors_import_from_string(Int32 image_ID,
 						       string source,
+						       int length,
 						       bool merge, bool scale,
 						       out int num_vectors,
 						       out IntPtr vectors_ids);

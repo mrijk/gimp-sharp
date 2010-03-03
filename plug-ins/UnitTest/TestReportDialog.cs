@@ -1,5 +1,5 @@
 // TestReportDialog for UnitTest plug-in
-// Copyright (C) 2006-2007 Massimo Perga  massimo.perga@gmail.com
+// Copyright (C) 2006-2010 Maurits Rijk
 //
 // TestReportDialog.cs
 //
@@ -27,10 +27,7 @@ namespace Gimp.UnitTest
 {
   public class TestReportDialog : GimpDialog
   {
-    GimpColorButton _active;
-    GimpColorButton _inactive;
-    List<string>    _resultsAL;
-    Entry filterEntry;
+    Entry _filterEntry;
 
     TreeModelFilter filter;
 
@@ -41,79 +38,42 @@ namespace Gimp.UnitTest
     {
       string testReport;
 
-      _resultsAL = resultsAL;
+      SetSizeRequest(700,400);
 
-      SetSizeRequest (700,400);
+      var passedLabel = new Label("Passed : " + passedNumber);
+      var failedLabel = new Label("Failed : " + failedNumber);
+      var table = new GimpTable(2, 10, false) {
+	BorderWidth = 12, ColumnSpacing = 6, RowSpacing = 6};
 
-      // ---------- Start Frame ---------- // 
-      // Create a nice label describing the number of passed tests
-      Label passedLabel = new Label ("Passed : " + passedNumber);
-      // Create a nice label describing the number of failed tests
-      Label failedLabel = new Label ("Failed : " + failedNumber);
-      // Create the table in order to have the previous labels left aligned
-      GimpTable table = new GimpTable(2, 10, false);
-      table.BorderWidth = 12;
-      table.ColumnSpacing = 6;
-      table.RowSpacing = 6;
-      // Create a frame containing the previous labels
-      Frame frame = new Frame("Tests results:");
-      // ---------- End Frame ---------- // 
+      var frame = new Frame("Tests results:");
 
-      // ---------- Start TreeView Filter ---------- // 
-      // Create an Entry used to filter the tree
-      filterEntry = new Entry ();
-      // Fire off an event when the text in the Entry changes
-      filterEntry.Changed += delegate
+      _filterEntry = new Entry();
+      _filterEntry.Changed += delegate
 	{
-	  filter.Refilter ();
+	  filter.Refilter();
 	};
 
-      // Create a nice label describing the Entry
-      Label filterLabel = new Label ("Assembly Search:");
-      // Put them both into a little box so they show up side by side
-      HBox filterBox = new HBox ();
-      filterBox.PackStart (filterLabel, false, false, 20);
-      filterBox.PackEnd (filterEntry, true, true, 20);
-      // ---------- End TreeView Filter ---------- // 
+      var filterLabel = new Label("Assembly Search:");
+      var filterBox = new HBox();
+      filterBox.PackStart(filterLabel, false, false, 20);
+      filterBox.PackEnd(_filterEntry, true, true, 20);
 
-      // ---------- Start TreeView ---------- // 
-      // Create our TreeView
-      TreeView tree = new TreeView ();
-      // Create a column for the assembly name
-      TreeViewColumn assemblyColumn = new TreeViewColumn ();
-      assemblyColumn.Title = "Assembly";
-      // Create the text cell that will display the assenbly name
-      CellRendererText assemblyNameCell = new CellRendererText ();
-      // Add the cell to the column
-      assemblyColumn.PackStart (assemblyNameCell, true);
-      // Create a column for the result 
-      TreeViewColumn resultColumn = new TreeViewColumn ();
-      resultColumn.Title = "Result";
-      // Create the text cell that will display the result 
-      CellRendererText resultReportCell = new CellRendererText ();
-      // Avoid to edit the cell
-      resultReportCell.Editable = false;
-      // Add the cell to the column
-      resultColumn.PackStart (resultReportCell, true);
-      // Add the columns to the TreeView
-      tree.AppendColumn (assemblyColumn);
-      tree.AppendColumn (resultColumn);
+      var tree = new TreeView();
+      var assemblyColumn = new TreeViewColumn() {Title = "Assembly"};
 
-      // Tell the Cell Renderers which items in the model to display
-      /*
-      assemblyColumn.AddAttribute (assemblyNameCell, "text", 0);
-      resultColumn.AddAttribute (resultReportCell, "text", 1);
-      */
+      var assemblyNameCell = new CellRendererText();
+      assemblyColumn.PackStart(assemblyNameCell, true);
+      var resultColumn = new TreeViewColumn() {Title = "Result"};
 
-      // Create a model that will hold two strings - Assembly Name 
-      // and Unit Test Error 
-      ListStore resultListStore = new ListStore(typeof (string), 
-						typeof (string));
-      // Add some data to the store
-      for (int i = 0; i < _resultsAL.Count; i++)
+      var resultReportCell = new CellRendererText() {Editable = false};
+
+      resultColumn.PackStart(resultReportCell, true);
+      tree.AppendColumn(assemblyColumn);
+      tree.AppendColumn(resultColumn);
+
+      var resultListStore = new ListStore(typeof(string), typeof(string));
+      foreach (string tmp in resultsAL)
 	{
-	  string tmp = _resultsAL[i];
-
 	  int pos = tmp.IndexOf(":");
 	  string assembly = tmp.Substring(0, pos);
 	  // +2 because of the ': '
@@ -121,33 +81,27 @@ namespace Gimp.UnitTest
 	  resultListStore.AppendValues(assembly, testReport);
 	}
 
-      // Set the renderer for the assembly cell
       assemblyColumn.SetCellDataFunc(assemblyNameCell, 
 				     new TreeCellDataFunc(RenderAssembly));
-      // Set the renderer for the result cell
       resultColumn.SetCellDataFunc(resultReportCell, 
 				   new TreeCellDataFunc(RenderResult));
 
       filter = new TreeModelFilter(resultListStore, null);
       filter.VisibleFunc = new TreeModelFilterVisibleFunc(FilterTree);
       tree.Model = filter;
-      // Insert the TreeView inside a ScrolledWindow to add scrolling 
-      ScrolledWindow sw = new ScrolledWindow();
-      sw.ShadowType = ShadowType.EtchedIn;
+
+      var sw = new ScrolledWindow() {ShadowType = ShadowType.EtchedIn};
       sw.SetPolicy(PolicyType.Automatic, PolicyType.Automatic);
       sw.Add(tree);
 
-      HBox swBox = new HBox();
+      var swBox = new HBox();
 
       swBox.PackStart(sw, true, true, 20);
 
-      // Attach the labels to the table
       table.AttachAligned(0, 0, "", 0.0, 0.5, passedLabel, 1, true);
       table.AttachAligned(0, 1, "", 0.0, 0.5, failedLabel, 1, true);
-      // Include the table inside the frame 
       frame.Add(table);
-      HBox dummyFrameBox = new HBox();
-      // Pack the frame
+      var dummyFrameBox = new HBox();
       dummyFrameBox.PackStart(frame, true, true, 20);
       VBox.PackStart(dummyFrameBox, false, false, 0);
 
@@ -155,26 +109,14 @@ namespace Gimp.UnitTest
       VBox.PackStart(filterBox, false, false , 0);
     }
 
-    public RGB ActiveColor
-    {
-      get {return _active.Color;}
-      set {_active.Color = value;}
-    }
-
-    public RGB InactiveColor
-    {
-      get {return _inactive.Color;}
-      set {_inactive.Color = value;}
-    }
-
     bool FilterTree(TreeModel model, TreeIter iter)
     {
-      string testName = model.GetValue (iter, 0).ToString ();
+      string testName = model.GetValue(iter, 0).ToString();
 
-      if (filterEntry.Text == "")
+      if (_filterEntry.Text == "")
         return true;
 
-      return (testName.IndexOf(filterEntry.Text) > -1);
+      return testName.IndexOf(_filterEntry.Text) > -1;
     }
 
     void RenderAssembly(TreeViewColumn column, CellRenderer cell, 
@@ -182,7 +124,7 @@ namespace Gimp.UnitTest
     {
       string assembly = (string) model.GetValue(iter, 0);
       string result = (string) model.GetValue(iter, 1);
-      CellRendererText text = cell as CellRendererText;
+      var text = cell as CellRendererText;
 
       text.Foreground = (result == "OK") ? "darkgreen" : "red";
       text.Text = assembly;
@@ -191,17 +133,10 @@ namespace Gimp.UnitTest
     void RenderResult(TreeViewColumn column, CellRenderer cell, 
 		      TreeModel model, TreeIter iter)
     {
-      string result = (string) model.GetValue (iter, 1);
-
-      if (result.CompareTo("OK") == 0) 
-	{
-	  (cell as CellRendererText).Foreground = "darkgreen";
-	} 
-      else 
-	{
-	  (cell as CellRendererText).Foreground = "red";
-	}
-      (cell as CellRendererText).Text = result;
+      string result = (string) model.GetValue(iter, 1);
+      var text = cell as CellRendererText;
+      text.Foreground = (result == "OK") ? "darkgreen" : "red";
+      text.Text = result;
     }
   }
 }

@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // TestStroke.cs
 //
@@ -52,12 +52,13 @@ namespace Gimp
     public void NewFromPoints()
     {
       var vectors = new Vectors(_image, "firstVector");
-      var controlpoints = new CoordinateList<double>();
-      controlpoints.Add(new Coordinate<double>(50, 50));
-      controlpoints.Add(new Coordinate<double>(100, 100));
-      controlpoints.Add(new Coordinate<double>(150, 150));
-      Stroke stroke = vectors.NewFromPoints(VectorsStrokeType.Bezier,
-					    controlpoints, false);
+      var controlpoints = new CoordinateList<double>() {
+	new Coordinate<double>(50, 50),
+	new Coordinate<double>(100, 100),
+	new Coordinate<double>(150, 150)
+      };
+      var stroke = vectors.NewFromPoints(VectorsStrokeType.Bezier,
+					 controlpoints, false);
       Assert.AreEqual(1, vectors.Strokes.Count);
     }
 
@@ -65,13 +66,13 @@ namespace Gimp
     public void GetPoints()
     {
       var vectors = new Vectors(_image, "firstVector");
-      var controlpoints = new CoordinateList<double>();
-      controlpoints.Add(new Coordinate<double>(50, 50));
-      controlpoints.Add(new Coordinate<double>(100, 100));
-      controlpoints.Add(new Coordinate<double>(150, 150));
-      Stroke stroke = vectors.NewFromPoints(VectorsStrokeType.Bezier,
-					    controlpoints, false);
-      
+      var controlpoints = new CoordinateList<double>() {
+	new Coordinate<double>(50, 50),
+	new Coordinate<double>(100, 100),
+	new Coordinate<double>(150, 150)
+      };
+      var stroke = vectors.NewFromPoints(VectorsStrokeType.Bezier,
+					 controlpoints, false);      
       bool closed;
       var points = stroke.GetPoints(out closed);
       Assert.AreEqual(controlpoints.Count, points.Count);
@@ -83,12 +84,13 @@ namespace Gimp
     public void Close()
     {
       var vectors = new Vectors(_image, "firstVector");
-      var controlpoints = new CoordinateList<double>();
-      controlpoints.Add(new Coordinate<double>(50, 50));
-      controlpoints.Add(new Coordinate<double>(100, 100));
-      controlpoints.Add(new Coordinate<double>(150, 150));
-      Stroke stroke = vectors.NewFromPoints(VectorsStrokeType.Bezier,
-					    controlpoints, false);
+      var controlpoints = new CoordinateList<double>() {
+	new Coordinate<double>(50, 50),
+	new Coordinate<double>(100, 100),
+	new Coordinate<double>(150, 150)
+      };
+      var stroke = vectors.NewFromPoints(VectorsStrokeType.Bezier,
+					 controlpoints, false);      
       stroke.Close();
       bool closed;
       var points = stroke.GetPoints(out closed);
@@ -99,12 +101,13 @@ namespace Gimp
     public void Scale()
     {
       var vectors = new Vectors(_image, "firstVector");
-      var controlpoints = new CoordinateList<double>();
-      controlpoints.Add(new Coordinate<double>(50, 50));
-      controlpoints.Add(new Coordinate<double>(100, 100));
-      controlpoints.Add(new Coordinate<double>(150, 150));
-      Stroke stroke = vectors.NewFromPoints(VectorsStrokeType.Bezier,
-					    controlpoints, false);
+      var controlpoints = new CoordinateList<double>() {
+	new Coordinate<double>(50, 50),
+	new Coordinate<double>(100, 100),
+	new Coordinate<double>(150, 150)
+      };
+      var stroke = vectors.NewFromPoints(VectorsStrokeType.Bezier,
+					 controlpoints, false);      
       double precision = 0.001;
       stroke.Close();
       double oldLength = stroke.GetLength(precision);

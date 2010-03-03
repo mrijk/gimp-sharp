@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // TestRgnIterator.cs
 //
@@ -38,9 +38,9 @@ namespace Gimp
     {
       _image = new Image(_width, _height, ImageBaseType.Rgb);
 
-      Layer layer = new Layer(_image, "test", _width, _height,
-			      ImageType.Rgb, 100, 
-			      LayerModeEffects.Normal);
+      var layer = new Layer(_image, "test", _width, _height,
+			    ImageType.Rgb, 100, 
+			    LayerModeEffects.Normal);
       _image.AddLayer(layer, 0);
 
       _drawable = _image.ActiveDrawable;
@@ -55,55 +55,21 @@ namespace Gimp
     [Test]
     public void TestCount()
     {
-      RgnIterator iterator = new RgnIterator(_drawable, 
-					     RunMode.Noninteractive);
+      var iterator = new RgnIterator(_drawable, RunMode.Noninteractive);
       int count = 0;
-      iterator.IterateSrc(delegate(Pixel src) 
-      {
-	count++;
-      });
+      iterator.IterateSrc(src => count++);
       Assert.AreEqual(_width * _height, count);
     }
-#if false
+
     [Test]
     public void TestFill()
     {
-      byte[] color = new byte[]{12, 13, 14};
+      var color = new Pixel(12, 13, 14);
 
-      RgnIterator iterator = new RgnIterator(_drawable, 
-					     RunMode.Noninteractive);
-      iterator.IterateDest(delegate(int x, int y)
-      {
-	return color;
-      });
+      var iterator = new RgnIterator(_drawable, RunMode.Noninteractive);
+      iterator.IterateDest((x, y) => {return color;});
 
-      iterator.IterateSrc(delegate(byte[] src)
-      {
-	Assert.AreEqual(color[0], src[0]);
-	Assert.AreEqual(color[1], src[1]);
-	Assert.AreEqual(color[2], src[2]);
-      });
+      iterator.IterateSrc(pixel => pixel.IsSameColor(color));
     }
-    // #else
-    [Test]
-    public void TestFill()
-    {
-      Pixel color = new Pixel(12, 13, 14);
-
-      RgnIterator iterator = new RgnIterator(_drawable, 
-					     RunMode.Noninteractive);
-      iterator.IterateDest(delegate(int x, int y)
-      {
-	return color;
-      });
-
-      iterator.IterateSrc(delegate(Pixel src)
-      {
-	Assert.AreEqual(color[0], src[0]);
-	Assert.AreEqual(color[1], src[1]);
-	Assert.AreEqual(color[2], src[2]);
-      });
-    }
-#endif
   }
 }

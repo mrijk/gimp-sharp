@@ -105,6 +105,45 @@ namespace Gimp
     }
 
     [Test]
+    public void RemoveStroke()
+    {
+      var vectors = new Vectors(_image, "firstVector");
+      var stroke = AddStroke(vectors);
+      vectors.RemoveStroke(stroke);
+      Assert.AreEqual(0, vectors.Strokes.Count);
+    }
+
+    [Test]
+    public void ToSelection()
+    {
+      var vectors = new Vectors(_image, "firstVector");
+      _image.AddVectors(vectors, -1);
+      var stroke = AddStroke(vectors);
+      Assert.IsTrue(_image.Selection.Empty);
+      vectors.ToSelection(ChannelOps.Replace, true);
+      Assert.IsFalse(_image.Selection.Empty);
+    }
+
+    [Test]
+    public void NewFromPoints()
+    {
+      var vectors = new Vectors(_image, "firstVector");
+      AddStroke(vectors);
+      Assert.AreEqual(1, vectors.Strokes.Count);
+    }
+
+    Stroke AddStroke(Vectors vectors)
+    {
+      var controlpoints = new CoordinateList<double> {
+	new Coordinate<double>(10, 10),
+	new Coordinate<double>(50, 50),
+	new Coordinate<double>(100, 100)
+      };
+      return vectors.NewFromPoints(VectorsStrokeType.Bezier, controlpoints, 
+				   true);
+    }
+
+    [Test]
     public void ParasiteAttach()
     {
       var vectors = new Vectors(_image, "firstVector");
@@ -232,6 +271,16 @@ namespace Gimp
       var vector = new Vectors(_image, "firstVector");
       string s = vector.ExportToString();
       Assert.IsNotNull(s);
+    }
+
+    [Test]
+    public void ImportFromString()
+    {
+      var vector = new Vectors(_image, "firstVector");
+      string s = vector.ExportToString();
+
+      var vectors = _image.ImportVectorsFromString(s, false, false);
+      Assert.AreEqual(1, vectors.Count);
     }
   }
 }

@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // Vectors.cs
 //
@@ -154,6 +154,11 @@ namespace Gimp
         }
     }
 
+    public void ToSelection(ChannelOps operation, bool antialias)
+    {
+      ToSelection(operation, antialias, false, 0, 0);
+    }    
+
     public void ExportToFile(string filename)
     {
       if (!gimp_vectors_export_to_file(Image.ID, filename, _ID))
@@ -193,7 +198,7 @@ namespace Gimp
     {
       get
 	{
-	  ParasiteList list = new ParasiteList();
+	  var list = new ParasiteList();
 	  int numParasites;
 	  IntPtr parasites;
 	  if (gimp_vectors_parasite_list(_ID, out numParasites,
@@ -204,7 +209,7 @@ namespace Gimp
 		  IntPtr tmp = (IntPtr) Marshal.PtrToStructure(parasites, 
 							       typeof(IntPtr));
 		  string name = Marshal.PtrToStringAnsi(tmp);
-		  Parasite parasite = ParasiteFind(name);
+		  var parasite = ParasiteFind(name);
 		  list.Add(parasite);
 		  parasites = (IntPtr)((int) parasites + Marshal.SizeOf(tmp));
 		}
@@ -221,7 +226,7 @@ namespace Gimp
 				CoordinateList<double> controlpoints,
 				bool closed)
     {
-      double[] tmp = controlpoints.ToArray();
+      var tmp = controlpoints.ToArray();
       int strokeID = gimp_vectors_stroke_new_from_points(_ID, type, tmp.Length,
 							 tmp, closed);
       return new Stroke(_ID, strokeID);
