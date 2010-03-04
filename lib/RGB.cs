@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // RGB.cs
 //
@@ -50,7 +50,7 @@ namespace Gimp
 
     public RGB(HSV hsv)
     {
-      GimpHSV tmp = hsv.GimpHSV;
+      var tmp = hsv.GimpHSV;
       gimp_hsv_to_rgb(ref tmp, ref _rgb);
     }
 
@@ -110,10 +110,7 @@ namespace Gimp
     public double Alpha
     {
       get {return _rgb.a;}
-      set
-	{
-	  gimp_rgb_set_alpha(ref _rgb, value);
-	}
+      set {gimp_rgb_set_alpha(ref _rgb, value);}
     }
 
     public void SetUchar(byte red, byte green, byte blue)
@@ -175,7 +172,7 @@ namespace Gimp
       ptr = colorsPtr;
       for (int i = 0; i < len; i++)
         {
-	  GimpRGB tmp = (GimpRGB) Marshal.PtrToStructure(ptr, typeof(GimpRGB));
+	  var tmp = (GimpRGB) Marshal.PtrToStructure(ptr, typeof(GimpRGB));
 	  colors.Add(new RGB(tmp));
 	  ptr = (IntPtr)((int)ptr + Marshal.SizeOf(tmp));
         }
@@ -262,28 +259,14 @@ namespace Gimp
       gimp_rgb_gamma(ref _rgb, gamma);
     }
 
-    // depends on GIMP 2.4
     public double Luminance
     {
       get {return gimp_rgb_luminance(ref _rgb);}
     }
 
-    // depends on GIMP 2.4
     public double LuminanceUchar
     {
       get {return gimp_rgb_luminance_uchar(ref _rgb);}
-    }
-
-    // Obsolete, replaced by Luminance
-    public double Intensity
-    {
-      get {return gimp_rgb_intensity(ref _rgb);}
-    }
-
-    // Obsolete, replaced by LuminanceUchar
-    public double IntensityUchar
-    {
-      get {return gimp_rgb_intensity_uchar(ref _rgb);}
     }
 
     public static RGB Interpolate(double value, RGB rgb1, RGB rgb2)
@@ -377,9 +360,5 @@ namespace Gimp
     static extern double gimp_rgb_luminance(ref GimpRGB rgb);
     [DllImport("libgimpcolor-2.0-0.dll")]
     static extern byte gimp_rgb_luminance_uchar(ref GimpRGB rgb);
-    [DllImport("libgimpcolor-2.0-0.dll")]
-    static extern double gimp_rgb_intensity(ref GimpRGB rgb);
-    [DllImport("libgimpcolor-2.0-0.dll")]
-    static extern byte gimp_rgb_intensity_uchar(ref GimpRGB rgb);
   }
 }

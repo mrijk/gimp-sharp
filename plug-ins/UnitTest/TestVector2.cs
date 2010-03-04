@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // TestVector2.cs
 //
@@ -19,6 +19,7 @@
 // Boston, MA 02111-1307, USA.
 //
 
+using System;
 using NUnit.Framework;
 
 namespace Gimp
@@ -142,6 +143,15 @@ namespace Gimp
     {
       var v1 = new Vector2(1, 2);
       Assert.AreEqual(1 * 1 + 2 * 2, v1.InnerProduct(v1));
+    }
+
+    [Test]
+    public void Rotate()
+    {
+      var v1 = new Vector2(10, 0);
+      v1.Rotate(Math.PI);
+      Assert.AreEqual(-10, v1.X, 1e-6);
+      Assert.AreEqual(0, v1.Y, 1e-6);
     }
   }
 }

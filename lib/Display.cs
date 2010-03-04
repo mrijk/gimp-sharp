@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // Display.cs
 //
@@ -43,8 +43,6 @@ namespace Gimp
 	  throw new GimpSharpException();
         }
     }
-
-    // Since GIMP 2.4
 
     public bool Valid
     {

@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // Vector2.cs
 //
@@ -66,7 +66,7 @@ namespace Gimp
     {
       if (o is Vector2)
 	{
-	  Vector2 vector = o as Vector2;
+	  var vector = o as Vector2;
 	  return vector.X == X && vector.Y == Y;
 	}
       return false;
@@ -116,14 +116,14 @@ namespace Gimp
 
     public static Vector2 operator - (Vector2 vector)
     {
-      Vector2 v = new Vector2(vector);
+      var v = new Vector2(vector);
       v.Neg();
       return v;
     }
 
     public static Vector2 operator * (Vector2 vector, double factor)
     {
-      Vector2 v = new Vector2(vector);
+      var v = new Vector2(vector);
       v.Mul(factor);
       return v;
     }
@@ -138,9 +138,9 @@ namespace Gimp
       return gimp_vector2_cross_product(ref _vector, ref vector._vector);
     }
 
-    public void Rotate(double alpha, double beta, double gamma)
+    public void Rotate(double alpha)
     {
-      gimp_vector2_rotate(ref _vector, alpha, beta, gamma);
+      gimp_vector2_rotate(ref _vector, alpha);
     }
 
     public override string ToString()
@@ -149,8 +149,7 @@ namespace Gimp
     }
 
     [DllImport("libgimpmath-2.0-0.dll")]
-    static extern GimpVector2 gimp_vector2_new(double x,
-					       double y);
+    static extern GimpVector2 gimp_vector2_new(double x, double y);
     [DllImport("libgimpmath-2.0-0.dll")]
     static extern void gimp_vector2_set(ref GimpVector2 vector,
 					double x,
@@ -180,9 +179,7 @@ namespace Gimp
 						    ref GimpVector2 vector2);
     [DllImport("libgimpmath-2.0-0.dll")]
     static extern void gimp_vector2_rotate(ref GimpVector2 vector,
-					   double alpha,
-					   double beta,
-					   double gamma);
+					   double alpha);
   }
 
   [StructLayout(LayoutKind.Sequential)]

@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // Dimensions.cs
 //
@@ -43,9 +43,8 @@ namespace Gimp
     {
       if (o is Dimensions)
 	{
-	  Dimensions dimensions = (Dimensions) o;
-	  return dimensions.Width == Width &&
-	    dimensions.Height == Height;
+	  var dimensions = (Dimensions) o;
+	  return dimensions.Width == Width && dimensions.Height == Height;
 	}
       return false;
     }

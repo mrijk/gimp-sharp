@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // Rectangle.cs
 //
@@ -98,7 +98,7 @@ namespace Gimp
     {
       if (o is Rectangle)
 	{
-	  Rectangle rectangle = o as Rectangle;
+	  var rectangle = o as Rectangle;
 	  return rectangle.UpperLeft == UpperLeft &&
 	    rectangle.LowerRight == LowerRight;
 	}

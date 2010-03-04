@@ -1,12 +1,27 @@
+2010-03-04  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* lib/AspectPreview.cs
+	* lib/PluginWithPreview.cs
+	* lib/Rectangle.cs
+	* lib/ParasiteList.cs
+	* lib/ParamDef.cs
+	* lib/Display.cs
+	* lib/Dimensions.cs
+	* lib/RGB.cs:
+	* lib/Vector3.cs
+	* lib/Vector2.cs: minor clean-up
+
+	* plug-ins/UnitTest/TestVector2.cs: added test for Rotate
+
 2010-03-03  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* plug-ins/UnitTest/TestBrushList.cs
-	* plug-ins/UnitTest/TestRcQuery.cs 
+	* plug-ins/UnitTest/TestRcQuery.cs
 	* plug-ins/UnitTest/TestReportDialog.cs: major clean-up
 
 	* plug-ins/UnitTest/UnitTest.cs: make sure filename is set in
 	FileChooserButton
-	
+
 	* plug-ins/UnitTest/EventCollector.cs: minor clean-up
 
 	* lib/Image.cs: fixed ImportVectorsFromString method

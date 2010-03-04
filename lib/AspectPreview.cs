@@ -38,7 +38,7 @@ namespace Gimp
       _bpp = drawable.Bpp;
     }
 
-    public new void Update(RgnIterator.IterFuncDestFull func)
+    public new void Update(Func<int, int, Pixel> func)
     {
       int width, height;
       GetSize(out width, out height);

@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // PluginWithPreview.cs
 //
@@ -27,8 +27,8 @@ namespace Gimp
 {
   abstract public class PluginWithPreview : Plugin
   {
-    protected AspectPreview _preview;
-    VBox _vbox;
+    protected AspectPreview Preview {get; private set;}
+    protected VBox Vbox {get; private set;}
 
     public PluginWithPreview(string[] args, string package) :
       base(args, package)
@@ -46,34 +46,22 @@ namespace Gimp
       var dialog = base.DialogNew(title, role, parent, flags, 
 				  help_func, help_id);
 
-      _vbox = new VBox(false, 0);
-      _vbox.BorderWidth = 12;
-      dialog.VBox.PackStart(_vbox, true, true, 0);
+      Vbox = new VBox(false, 0) {BorderWidth = 12};
+      dialog.VBox.PackStart(Vbox, true, true, 0);
 
-      _preview = new AspectPreview(_drawable, false);
-      _preview.Invalidated += delegate
+      Preview = new AspectPreview(_drawable, false);
+      Preview.Invalidated += delegate
 	{
-	  UpdatePreview(_preview);
+	  UpdatePreview(Preview);
 	};
-
-      _vbox.PackStart(_preview, true, true, 0);
+      Vbox.PackStart(Preview, true, true, 0);
 
       return dialog;
     }
 
     protected void InvalidatePreview()
     {
-      _preview.Invalidate();
-    }
-
-    protected AspectPreview Preview
-    {
-      get {return _preview;}
-    }
-
-    protected VBox Vbox
-    {
-      get {return _vbox;}
+      Preview.Invalidate();
     }
 
     virtual protected void UpdatePreview(AspectPreview preview) {}

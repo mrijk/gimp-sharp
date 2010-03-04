@@ -25,8 +25,6 @@ namespace Gimp
 {
   public sealed class RgnIterator
   {
-    public delegate Pixel IterFuncDestFull(int x, int y);
-
     readonly Drawable _drawable;
     readonly RunMode _runmode;
     readonly Rectangle _rectangle;

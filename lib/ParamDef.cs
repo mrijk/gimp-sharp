@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // ParamDef.cs
 //
@@ -27,19 +27,19 @@ namespace Gimp
 {
   public class ParamDef
   {
-    readonly string _name;
-    readonly string _description;
-    readonly Type   _type;
+    public string Name {get; private set;}
+    public string Description {get; private set;}
+    public Type Type {get; private set;}
     public object Value {get; set;}
 
     readonly GimpParamDef _paramDef = new GimpParamDef();
 
     public ParamDef(string name, object value, Type type, string description)
     {
-      _name = name;
+      Name = name;
       Value = value;
-      _type = type;
-      _description = description;
+      Type = type;
+      Description = description;
     }
 
     public ParamDef(string name, Type type, string description) : 
@@ -54,25 +54,25 @@ namespace Gimp
 
     public PDBArgType GetGimpType()
     {
-      if (_type == typeof(int))
+      if (Type == typeof(int))
 	return PDBArgType.Int32;
-      else if (_type == typeof(uint))
+      else if (Type == typeof(uint))
 	return PDBArgType.Int32;
-      else if (_type == typeof(double))
+      else if (Type == typeof(double))
 	return PDBArgType.Float;
-      else if (_type == typeof(bool))
+      else if (Type == typeof(bool))
 	return PDBArgType.Int32;
-      else if (_type == typeof(string))
+      else if (Type == typeof(string))
 	return PDBArgType.String;
-      else if (_type == typeof(RGB))
+      else if (Type == typeof(RGB))
 	return PDBArgType.Color;
-      else if (_type == typeof(Drawable))
+      else if (Type == typeof(Drawable))
 	return PDBArgType.Drawable;
-      else if (_type == typeof(Image))
+      else if (Type == typeof(Image))
 	return PDBArgType.Image;
-      else if (_type == typeof(PDBStatusType))
+      else if (Type == typeof(PDBStatusType))
 	return PDBArgType.Status;
-      else if (_type == typeof(FileName))
+      else if (Type == typeof(FileName))
 	return PDBArgType.String;
       else
 	return PDBArgType.End;
@@ -81,7 +81,7 @@ namespace Gimp
     // Can this be done by a casting overload?
     internal GimpParam GetGimpParam()
     {
-      GimpParam param = new GimpParam();
+      var param = new GimpParam();
 
       param.type = GetGimpType();
 
@@ -108,21 +108,6 @@ namespace Gimp
 	}
 
       return param;
-    }
-
-    public string Name
-    {
-      get {return _name;}
-    }
-
-    public string Description
-    {
-      get {return _description;}
-    }
-
-    public Type Type
-    {
-      get {return _type;}
     }
 
     public GimpParamDef GimpParamDef

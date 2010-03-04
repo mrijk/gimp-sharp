@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // Vector3.cs
 //
@@ -78,7 +78,7 @@ namespace Gimp
     {
       if (o is Vector3)
 	{
-	  Vector3 vector = o as Vector3;
+	  var vector = o as Vector3;
 	  return vector.X == X && vector.Y == Y && vector.Z == Z;
 	}
       return false;
@@ -129,14 +129,14 @@ namespace Gimp
 
     public static Vector3 operator - (Vector3 vector)
     {
-      Vector3 v = new Vector3(vector);
+      var v = new Vector3(vector);
       v.Neg();
       return v;
     }
 
     public static Vector3 operator * (Vector3 vector, double factor)
     {
-      Vector3 v = new Vector3(vector);
+      var v = new Vector3(vector);
       v.Mul(factor);
       return v;
     }
