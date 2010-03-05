@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // CellPropertiesFrame.cs
 //
@@ -39,10 +39,10 @@ namespace Gimp.SliceTool
 
     public CellPropertiesFrame() : base(_("Cell Properties"))
     {
-      VBox vbox = new VBox(false, 12);
+      var vbox = new VBox(false, 12);
       Add(vbox);
 
-      GimpTable table = new GimpTable(3, 2, false)
+      var table = new GimpTable(3, 2, false) 
 	{ColumnSpacing = 6, RowSpacing = 6};
       
       vbox.Add(table);
@@ -57,7 +57,7 @@ namespace Gimp.SliceTool
       _target = new Entry();
       table.AttachAligned(0, 2, _("_Target:"), 0.0, 0.5, _target, 3, false);
 
-      HBox hbox = new HBox(false, 12);
+      var hbox = new HBox(false, 12);
       vbox.Add(hbox);
 
       table = new GimpTable(3, 4, false)

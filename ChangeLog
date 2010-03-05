@@ -1,3 +1,20 @@
+2010-03-05  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/Sky/Sky.cs: removed use of _preview
+
+	* plug-ins/SliceTool/Toolbox.cs
+	* plug-ins/SliceTool/PreferencesDialog.cs
+	* plug-ins/SliceTool/VerticalSlize.cs
+	* plug-ins/SliceTool/HorizontalSlice.cs
+	* plug-ins/SliceTool/SelectFunc.cs
+	* plug-ins/SliceTool/CreateFunc.cs
+	* plug-ins/SliceTool/MouseFunc.cs
+	* plug-ins/SliceTool/CellPropertiesFrame.cs
+	* plug-ins/SliceTool/CreateTableFunc.cs
+	* plug-ins/SliceTool/PropertySet.cs
+	* plug-ins/Pointillize/ColorCoordinate.cs
+	* plug-ins/KoalaPaint/KoalaPaint.cs: minor clean-up
+
 2010-03-04  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* lib/AspectPreview.cs

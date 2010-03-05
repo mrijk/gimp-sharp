@@ -41,20 +41,16 @@ namespace Gimp.SliceTool
       int width = drawable.Width;
       int height = drawable.Height;
 
-      var left = new VerticalSlice(null, null, 0) 
-	{Locked = true};
+      var left = new VerticalSlice(null, null, 0) {Locked = true};
       _verticalSlices.Add(left);
 
-      var right = new VerticalSlice(null, null, width) 
-	{Locked = true};
+      var right = new VerticalSlice(null, null, width) {Locked = true};
       _verticalSlices.Add(right);
 
-      var top = new HorizontalSlice(left, right, 0) 
-	{Locked = true};
+      var top = new HorizontalSlice(left, right, 0) {Locked = true};
       _horizontalSlices.Add(top);
 
-      var bottom = new HorizontalSlice(left, right, height)
-	{Locked = true};
+      var bottom = new HorizontalSlice(left, right, height) {Locked = true};
       _horizontalSlices.Add(bottom);
 
       left.Begin = right.Begin = top;

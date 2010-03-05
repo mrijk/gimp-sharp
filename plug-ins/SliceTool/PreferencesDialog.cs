@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // PreferencesDialog.cs
 //
@@ -35,14 +35,12 @@ namespace Gimp.SliceTool
       VBox.PackStart(table, true, true, 0);
 
       _active = new GimpColorButton("", 16, 16, new RGB(255, 0, 0),
-				    ColorAreaType.Flat);
-      _active.Update = true;
+				    ColorAreaType.Flat) {Update = true};
       table.AttachAligned(0, 0, _("Active tile border color:"),
 			  0.0, 0.5, _active, 1, true);
 
       _inactive = new GimpColorButton("", 16, 16, new RGB(0, 255, 0),
-				      ColorAreaType.Flat);
-      _inactive.Update = true;
+				      ColorAreaType.Flat) {Update = true};
       table.AttachAligned(0, 1, _("Inactive tile border color:"), 
 			  0.0, 0.5, _inactive, 1, true);
     }

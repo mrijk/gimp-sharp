@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // HorizontalSlice.cs
 //
@@ -60,10 +60,7 @@ namespace Gimp.SliceTool
 
     override public Rectangle SliceRectangle(Rectangle rectangle)
     {
-      Rectangle copy = new Rectangle(rectangle);
-      rectangle.Bottom = this;
-      copy.Top = this;
-      return copy;
+      return new Rectangle(rectangle) {Bottom = this, Top = this};
     }
 
     override public void SetPosition(Coordinate<int> c)

@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // Toolbox.cs
 //
@@ -77,7 +77,6 @@ namespace Gimp.SliceTool
 	{
 	  OnFunc(toggle, new RemoveFunc(sliceData, _parent.Preview));
 	};
-
     }
 
     void CreateTableToggle(SliceData sliceData)

@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // SelectFunc.cs
 //
@@ -18,17 +18,15 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-
 using Gdk;
 
 namespace Gimp.SliceTool
 {
   public class SelectFunc : MouseFunc
   {
-    SliceTool _parent;
-    PreviewRenderer _renderer;
-    SliceData _sliceData;
+    readonly SliceTool _parent;
+    readonly PreviewRenderer _renderer;
+    readonly SliceData _sliceData;
     Slice _slice;
     Rectangle _rectangle;
 
@@ -79,9 +77,8 @@ namespace Gimp.SliceTool
 
     override public Cursor GetCursor(Coordinate<int> c)
     {
-      Slice slice = _sliceData.FindSlice(c);
-      return (slice != null && !slice.Locked)
-	? slice.Cursor : base.GetCursor(c);
+      var slice = _sliceData.FindSlice(c);
+      return (SliceIsSelectable(slice)) ? slice.Cursor : base.GetCursor(c);
     }
   }
 }

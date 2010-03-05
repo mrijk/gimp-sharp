@@ -1,5 +1,5 @@
 // The Sky plug-in
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // Code ported from Physically Modeled Media Plug-In for The GIMP
 //                  Copyright (c) 2000-2001 David A. Bartold
@@ -239,7 +239,7 @@ namespace Gimp.Sky
       horizon.ColorChanged += delegate
 	{
 	  _horizonColor = horizon.Color;
-	  _preview.Invalidate();
+	  InvalidatePreview();
 	};
       table.AttachAligned(0, 0, _("_Horizon:"), 0.0, 0.5, horizon, 1, true);
 
@@ -249,7 +249,7 @@ namespace Gimp.Sky
       sky.ColorChanged += delegate
 	{
 	  _skyColor = sky.Color;
-	  _preview.Invalidate();
+	  InvalidatePreview();
 	};
 
       var sun = new GimpColorButton("", 16, 16, _sunColor, ColorAreaType.Flat);
@@ -257,7 +257,7 @@ namespace Gimp.Sky
       sun.ColorChanged += delegate
 	{
 	  _sunColor = sun.Color;
-	  _preview.Invalidate();
+	  InvalidatePreview();
 	};
       table.AttachAligned(0, 2, _("S_un:"), 0.0, 0.5, sun, 1, true);
 
@@ -267,7 +267,7 @@ namespace Gimp.Sky
       cloud.ColorChanged += delegate
 	{
 	  _cloudColor = cloud.Color;
-	  _preview.Invalidate();
+	  InvalidatePreview();
 	};
       table.AttachAligned(0, 3, _("C_loud:"), 0.0, 0.5, cloud, 1, 
 			  true);
@@ -278,7 +278,7 @@ namespace Gimp.Sky
       shadow.ColorChanged += delegate
 	{
 	  _shadowColor = shadow.Color;
-	  _preview.Invalidate();
+	  InvalidatePreview();
 	};
       table.AttachAligned(0, 4, _("Sh_adow:"), 0.0, 0.5, shadow, 1, true);
     }

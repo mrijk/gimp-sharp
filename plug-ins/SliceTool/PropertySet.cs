@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // PropertySet.cs
 //
@@ -21,6 +21,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 
 namespace Gimp.SliceTool
 {
@@ -81,25 +82,9 @@ namespace Gimp.SliceTool
 
     public bool Changed
     {
-      get
-	{
-          foreach (Property property in _set.Values)
-            {
-	      if (property.Changed)
-		{
-		  return true;
-		}
-            }
-          return false;
-	}
+      get {return _set.Any(kvp => kvp.Value.Changed);}
 
-      set
-	{
-          foreach (Property property in _set.Values)
-            {
-	      property.Changed = value;
-            }
-	}
+      set {_set.Values.ToList().ForEach(property => property.Changed = value);}
     }
   }
 }

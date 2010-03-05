@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // MouseFunc.cs
 //
@@ -120,6 +120,11 @@ namespace Gimp.SliceTool
 	}
 
       OnMove(new Coordinate<int>(x, y));
+    }
+
+    protected bool SliceIsSelectable(Slice slice)
+    {
+      return !(slice == null || slice.Locked);
     }
   }
 }

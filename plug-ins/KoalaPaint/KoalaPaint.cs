@@ -1,5 +1,5 @@
 // The KoalaPaint plug-in
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // KoalaPaint.cs
 //
@@ -32,26 +32,6 @@ namespace Gimp.KoalaPaint
     byte[] _color;
     byte _background;
 
-    RGB[] _colormap = new RGB[]
-    {
-      new RGB(0x00, 0x00, 0x00),
-      new RGB(0xff, 0xff, 0xff),
-      new RGB(0x88, 0x00, 0x00),
-      new RGB(0xaa, 0xff, 0xee),
-      new RGB(0xcc, 0x44, 0xcc),
-      new RGB(0x00, 0xcc, 0x55),
-      new RGB(0x00, 0x00, 0xaa),
-      new RGB(0xee, 0xee, 0x77),
-      new RGB(0xdd, 0x88, 0x55),
-      new RGB(0x66, 0x44, 0x00),
-      new RGB(0xff, 0x77, 0x77),
-      new RGB(0x33, 0x33, 0x33),
-      new RGB(0x77, 0x77, 0x77),
-      new RGB(0xaa, 0xff, 0x66),
-      new RGB(0x00, 0x88, 0xff),
-      new RGB(0xbb, 0xbb, 0xbb)
-    };
-
     static void Main(string[] args)
     {
       new KoalaPaint(args);
@@ -69,7 +49,7 @@ namespace Gimp.KoalaPaint
 			  _("This plug-in loads images of the Koala Paint file format."),
 			  "Maurits Rijk",
 			  "(C) Maurits Rijk",
-			  "1999 - 2009",
+			  "1999 - 2010",
 			  _("KoalaPaint Image"));
     }
 
@@ -90,8 +70,8 @@ namespace Gimp.KoalaPaint
       var image = NewImage(KOALA_WIDTH, KOALA_HEIGHT, 
 			   ImageBaseType.Indexed, ImageType.Indexed, 
 			   Filename);
-      image.Colormap = _colormap;
-      
+      image.Colormap = GetColormap();
+ 
       var rgn = new PixelRgn(image.Layers[0], true, false);
       
       var buf = new byte[KOALA_WIDTH * KOALA_HEIGHT];
@@ -119,16 +99,40 @@ namespace Gimp.KoalaPaint
       return image;
     }
 
+    RGB[] GetColormap()
+    {
+      return new RGB[]
+	{
+	  new RGB(0x00, 0x00, 0x00),
+	  new RGB(0xff, 0xff, 0xff),
+	  new RGB(0x88, 0x00, 0x00),
+	  new RGB(0xaa, 0xff, 0xee),
+	  new RGB(0xcc, 0x44, 0xcc),
+	  new RGB(0x00, 0xcc, 0x55),
+	  new RGB(0x00, 0x00, 0xaa),
+	  new RGB(0xee, 0xee, 0x77),
+	  new RGB(0xdd, 0x88, 0x55),
+	  new RGB(0x66, 0x44, 0x00),
+	  new RGB(0xff, 0x77, 0x77),
+	  new RGB(0x33, 0x33, 0x33),
+	  new RGB(0x77, 0x77, 0x77),
+	  new RGB(0xaa, 0xff, 0x66),
+	  new RGB(0x00, 0x88, 0xff),
+	  new RGB(0xbb, 0xbb, 0xbb)
+	};
+    }
+
     byte GetColor(int row, int col, int index)
     {
+      int offset = row * KOALA_WIDTH / 8 + col;
       if (index == 0)
 	return LowNibble(_background);
       else if (index == 1)
-	return HighNibble(_mcolor[row * KOALA_WIDTH / 8 + col]);
+	return HighNibble(_mcolor[offset]);
       else if (index == 2)
-	return LowNibble(_mcolor[row * KOALA_WIDTH / 8 + col]);
+	return LowNibble(_mcolor[offset]);
       else
-	return LowNibble(_color[row * KOALA_WIDTH / 8 + col]);
+	return LowNibble(_color[offset]);
     }
 
     byte LowNibble(byte val)
