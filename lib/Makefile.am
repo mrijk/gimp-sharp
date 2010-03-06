@@ -82,6 +82,7 @@ MYSOURCES = 				\
 	PreviewArea.cs			\
 	Procedure.cs			\
 	ProcedureSet.cs			\
+	ProceduralDb.cs			\
 	Progress.cs			\
 	PythonPlugin.cs			\
 	RGB.cs				\

@@ -1,5 +1,5 @@
 // The Ministeck plug-in
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // CornerShape.cs
 //
@@ -18,37 +18,23 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-
 namespace Gimp.Ministeck
 {
   public class CornerShape : Shape
   {
-    ShapeDescription _shape1 = new ShapeDescription();
-    ShapeDescription _shape2 = new ShapeDescription();
-    ShapeDescription _shape3 = new ShapeDescription();
-    ShapeDescription _shape4 = new ShapeDescription();
+    ShapeDescription _shape1 = new ShapeDescription() {{0, 1}, {1, 0}};
+    ShapeDescription _shape2 = new ShapeDescription() {{1, 0}, {1, 1}};
+    ShapeDescription _shape3 = new ShapeDescription() {{0, 1}, {1, 1}};
+    ShapeDescription _shape4 = new ShapeDescription() {{0, 1}, {-1, 1}};
 
     public CornerShape()
     {
-      _shape1.Add(0, 1);
-      _shape1.Add(1, 0);
-
-      _shape2.Add(1, 0);
-      _shape2.Add(1, 1);
-
-      _shape3.Add(0, 1);
-      _shape3.Add(1, 1);
-
-      _shape4.Add(0, 1);
-      _shape4.Add(-1, 1);
-
       Combine(_shape1, _shape2, _shape3, _shape4);
     }
 
     protected override void Fill(Coordinate<int> c, ShapeDescription shape)
     {
-      int _size = Shape._painter.Size;
+      int _size = Painter.Size;
 
       LineStart(c);
       if (shape == _shape1)

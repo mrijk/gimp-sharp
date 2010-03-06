@@ -1,5 +1,5 @@
 // The Ministeck plug-in
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // TwoByTwoShape.cs
 //
@@ -18,20 +18,13 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-
 namespace Gimp.Ministeck
 {
   public class TwoByTwoShape : Shape
   {
     public TwoByTwoShape()
     {
-      ShapeDescription shape = new ShapeDescription();
-      shape.Add(0, 1);
-      shape.Add(1, 0);
-      shape.Add(1, 1);
-
-      Combine(shape);
+      Combine(new ShapeDescription() {{0, 1}, {1, 0}, {1, 1}});
     }
 
     protected override void Fill(Coordinate<int> c, ShapeDescription shape)

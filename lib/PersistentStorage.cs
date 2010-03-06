@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // PersistentStorage.cs
 //
@@ -22,7 +22,6 @@
 using System;
 using System.IO;
 using System.Reflection;
-using System.Runtime.InteropServices;
 using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Gimp
@@ -51,24 +50,20 @@ namespace Gimp
 	  _formatter.Serialize(memoryStream, field.GetValue(_plugin));
 	}
 
-      int length = (int) memoryStream.Length;
-      if (length != 0)
+      if (memoryStream.Length != 0)
 	{
-	  gimp_procedural_db_set_data(_name, memoryStream.GetBuffer(), length);
+	  ProceduralDb.SetData(_name, memoryStream.GetBuffer());
 	}
     }
 
     public void GetData()
     {
-      int size = gimp_procedural_db_get_data_size(_name);
-      if (size > 0)
+      var data = ProceduralDb.GetData(_name);
+      if (data != null)
 	{
-	  var data = new byte[size];
-	  gimp_procedural_db_get_data(_name, data);
-
 	  var memoryStream = new MemoryStream(data);
 	  var type = _plugin.GetType();
-
+	  
 	  foreach (var attribute in new SaveAttributeSet(type))
 	    {
 	      var field = attribute.Field;
@@ -76,15 +71,5 @@ namespace Gimp
 	    }
 	}
     }
-
-    [DllImport("libgimp-2.0-0.dll")]
-    public static extern bool gimp_procedural_db_set_data(string identifier, 
-							  byte[] data,
-							  int bytes);
-    [DllImport("libgimp-2.0-0.dll")]
-    public static extern bool gimp_procedural_db_get_data(string identifier, 
-							  byte[] data);
-    [DllImport("libgimp-2.0-0.dll")]
-    public static extern int gimp_procedural_db_get_data_size(string identifier);
   }
 }

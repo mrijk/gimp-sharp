@@ -1,3 +1,24 @@
+2010-03-07  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/Ministeck/Shape.cs
+	* plug-ins/Ministeck/Painter.cs
+	* plug-ins/Ministeck/TwoByOneShape.cs:
+	* plug-ins/Ministeck/TwoByTwoShape.cs: minor clean-up
+
+2010-03-06  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/Ministeck/ThreeByOneShape.cs
+	* plug-ins/Ministeck/CornerShape.cs: minor clean-up
+
+	* lib/Procedure.cs
+	* lib/PersistentStorage.cs: moved some functions to TestProceduralDb.cs
+
+	* plug-ins/UnitTest/TestProceduralDb.cs: new file
+	* plug-ins/UnitTest/Makefile.am: changed accordingly
+
+	* lib/ProceduralDb.cs: new file
+	* lib/Makefile.am: changed accordingly
+
 2010-03-05  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* plug-ins/Sky/Sky.cs: removed use of _preview

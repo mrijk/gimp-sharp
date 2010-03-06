@@ -1,5 +1,5 @@
 // The Ministeck plug-in
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // Painter.cs
 //
@@ -26,14 +26,14 @@ namespace Gimp.Ministeck
   {
     readonly PixelFetcher _pf;
     readonly Pixel _color;
-    readonly int _size;
+    public int Size {get; private set;}
     int _x, _y;
 
     public Painter(Drawable drawable, int size, RGB color)
     {
       _color = new Pixel(color.Bytes);
       _pf = new PixelFetcher(drawable);
-      _size = size;
+      Size = size;
     }
 
     public void Dispose()
@@ -42,26 +42,21 @@ namespace Gimp.Ministeck
       GC.SuppressFinalize(this);
     }
 
-    public int Size
-    {
-      get {return _size;}
-    }
-
     public Pixel GetPixel(int x, int y)
     {
-      return _pf[y * _size, x * _size];
+      return _pf[y * Size, x * Size];
     }
 
     public void LineStart(Coordinate<int> c)
     {
-      _x = c.X * _size;
-      _y = c.Y * _size;
+      _x = c.X * Size;
+      _y = c.Y * Size;
     }
  
     public void Rectangle(Coordinate<int> c, int w, int h)
     {
-      w *= _size;
-      h *= _size;
+      w *= Size;
+      h *= Size;
 	
       LineStart(c);
       HLine(w);

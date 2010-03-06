@@ -27,17 +27,12 @@ namespace Gimp.Ministeck
   abstract public class Shape
   {
     List<ShapeDescriptionSet> _set = new List<ShapeDescriptionSet>(); 
-    static protected Painter _painter;
+    static public Painter Painter {protected get; set;}
 
     Random _random = new Random();
 
     public Shape()
     {
-    }
-
-    static public Painter Painter
-    {
-      set {_painter = value;}
     }
 
     protected void Combine(params ShapeDescription[] list)
@@ -78,7 +73,7 @@ namespace Gimp.Ministeck
 
     bool Fits(bool[,] A, int x, int y, ShapeDescription shape)
     {
-      var color = _painter.GetPixel(x, y);
+      var color = Painter.GetPixel(x, y);
 
       int width = A.GetLength(0);
       int height = A.GetLength(1);
@@ -92,7 +87,7 @@ namespace Gimp.Ministeck
 	      return false;
 	    }
 
-	  var pixel = _painter.GetPixel(cx, cy);
+	  var pixel = Painter.GetPixel(cx, cy);
 	  if (!pixel.IsSameColor(color))
 	    {
 	      return false;
@@ -112,22 +107,22 @@ namespace Gimp.Ministeck
 
     protected void LineStart(Coordinate<int> c)
     {
-      _painter.LineStart(c);
+      Painter.LineStart(c);
     }
 
     protected void Rectangle(Coordinate<int> c, int w, int h)
     {
-      _painter.Rectangle(c, w, h);
+      Painter.Rectangle(c, w, h);
     }
 
     protected void HLine(int len)
     {
-      _painter.HLine(len);
+      Painter.HLine(len);
     }
 
     protected void VLine(int len)
     {
-      _painter.VLine(len);
+      Painter.VLine(len);
     }
   }
 }

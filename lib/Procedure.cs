@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // Procedure.cs
 //
@@ -88,10 +88,9 @@ namespace Gimp
       Name = name;
     }
 
-
     static public bool Exists(string name)
     {
-      return gimp_procedural_db_proc_exists(name);
+      return ProceduralDb.ProcExists(name);
     }
 
     public void Install(bool usesImage, bool usesDrawable)
@@ -271,9 +270,6 @@ namespace Gimp
     public static extern bool gimp_plugin_icon_register(string procedure_name,
 							IconType icon_type, 
 							byte[] icon_data);
-    [DllImport("libgimp-2.0-0.dll")]
-    public static extern bool gimp_procedural_db_proc_exists (
-      string procedure_name);
     [DllImport("libgimp-2.0-0.dll")]
     public static extern bool gimp_procedural_db_proc_info (
       string procedure,

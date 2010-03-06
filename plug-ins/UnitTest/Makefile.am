@@ -41,6 +41,7 @@ TESTSOURCES = 	TestBrush.cs 			\
 		TestPixel.cs			\
 		TestPixelFetcher.cs		\
 		TestPixelRgn.cs			\
+		TestProceduralDb.cs		\
 		TestProcedure.cs		\
 		TestRcQuery.cs			\
 		TestRectangle.cs		\

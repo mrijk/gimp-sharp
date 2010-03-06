@@ -1,5 +1,5 @@
 // The Ministeck plug-in
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // TwoByOneShape.cs
 //
@@ -22,14 +22,11 @@ namespace Gimp.Ministeck
 {
   public class TwoByOneShape : Shape
   {
-    ShapeDescription _shape1 = new ShapeDescription();
-    ShapeDescription _shape2 = new ShapeDescription();
+    ShapeDescription _shape1 = new ShapeDescription() {{0, 1}};
+    ShapeDescription _shape2 = new ShapeDescription() {{1, 0}};
 
     public TwoByOneShape()
     {
-      _shape1.Add(0, 1);
-      _shape2.Add(1, 0);
-
       Combine(_shape1, _shape2);
     }
 
