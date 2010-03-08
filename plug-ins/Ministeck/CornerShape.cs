@@ -22,57 +22,47 @@ namespace Gimp.Ministeck
 {
   public class CornerShape : Shape
   {
-    ShapeDescription _shape1 = new ShapeDescription() {{0, 1}, {1, 0}};
-    ShapeDescription _shape2 = new ShapeDescription() {{1, 0}, {1, 1}};
-    ShapeDescription _shape3 = new ShapeDescription() {{0, 1}, {1, 1}};
-    ShapeDescription _shape4 = new ShapeDescription() {{0, 1}, {-1, 1}};
+    int Size {get; set;}
 
     public CornerShape()
     {
-      Combine(_shape1, _shape2, _shape3, _shape4);
+      Size = Painter.Size;
+      Combine(new ShapeDescription(ShapeOne) {{0, 1}, {1, 0}},
+	      new ShapeDescription(ShapeTwo) {{1, 0}, {1, 1}},
+	      new ShapeDescription(ShapeThree) {{0, 1}, {1, 1}},
+	      new ShapeDescription(ShapeFor) {{0, 1}, {-1, 1}});
     }
 
-    protected override void Fill(Coordinate<int> c, ShapeDescription shape)
+    void ShapeOne(IntCoordinate c)
     {
-      int _size = Painter.Size;
+      Draw(c, 2 * Size, Size, -Size - 1, Size + 1, -Size, -2 * Size);
+    }
 
+    void ShapeTwo(IntCoordinate c)
+    {
+      Draw(c, 2 * Size, 2 * Size, -Size, -Size - 1, -Size - 1, -Size);
+    }
+
+    void ShapeThree(IntCoordinate c)
+    {
+      Draw(c, Size, Size + 1, Size + 1, Size, -2 * Size, -2 * Size);
+    }
+
+    void ShapeFor(IntCoordinate c)
+    {
+      Draw(c, Size, 2 * Size, -2 * Size, -Size, Size + 1, -Size - 1);
+    }
+
+    void Draw(IntCoordinate c, int hline1, int vline1, int hline2, int vline2, 
+	      int hline3, int vline3)
+    {
       LineStart(c);
-      if (shape == _shape1)
-	{
-	  HLine(2 * _size);
-	  VLine(1 * _size);
-	  HLine(-_size - 1);
-	  VLine(_size + 1);
-	  HLine(-_size);
-	  VLine(-2 * _size);
-	}
-      else if (shape == _shape2)
-	{
-	  HLine(2 * _size);
-	  VLine(2 * _size);
-	  HLine(-_size);
-	  VLine(-_size - 1);
-	  HLine(-_size - 1);
-	  VLine(-_size);
-	}
-      else if (shape == _shape3)
-	{
-	  HLine(_size);
-	  VLine(_size + 1);
-	  HLine(_size + 1);
-	  VLine(_size);
-	  HLine(-2 * _size);
-	  VLine(-2 * _size);
-	}
-      else
-	{
-	  HLine(_size);
-	  VLine(2 * _size);
-	  HLine(-2 * _size);
-	  VLine(-_size);
-	  HLine(_size + 1);
-	  VLine(-_size - 1);
-	}
+      HLine(hline1);
+      VLine(vline1);
+      HLine(hline2);
+      VLine(vline2);
+      HLine(hline3);
+      VLine(vline3);
     }
   }
 }

@@ -1,5 +1,5 @@
 // The Ministeck plug-in
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // ShapeDescription.cs
 //
@@ -18,9 +18,35 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
+using System;
+using System.Linq;
+
 namespace Gimp.Ministeck
 {
   public class ShapeDescription : CoordinateList<int>
   {
+    readonly Action<IntCoordinate> _fillFunc;
+
+    public ShapeDescription(Action<IntCoordinate> fillFunc)
+    {
+      _fillFunc = fillFunc;
+    }
+
+    public bool Fits(Painter painter, BoolMatrix A, IntCoordinate p)
+    {
+      var color = painter.GetPixel(p);
+      return TrueForAll(offset => 
+	{
+	  var c = new IntCoordinate(p.X + offset.X, p.Y + offset.Y);
+	  return A.IsInside(c) && !A.Get(c) && painter.IsSameColor(c, color);
+	});
+    }
+
+    public void Fill(BoolMatrix A, IntCoordinate c)
+    {
+      _fillFunc(c);
+      A.Set(c, true);
+      ForEach(sc => {A[c.Y + sc.Y, c.X + sc.X] = true;});
+    }
   }
 }

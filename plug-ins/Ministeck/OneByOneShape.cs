@@ -1,5 +1,5 @@
 // The Ministeck plug-in
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // OneByOneShape.cs
 //
@@ -24,12 +24,7 @@ namespace Gimp.Ministeck
   {
     public OneByOneShape()
     {
-      Combine(new ShapeDescription());
-    }
-
-    protected override void Fill(Coordinate<int> c, ShapeDescription shape)
-    {
-      Rectangle(c, 1, 1);
+      Combine(new ShapeDescription(c => Rectangle(c, 1, 1)));
     }
   }	
 }

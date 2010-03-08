@@ -1,5 +1,5 @@
 // The Ministeck plug-in
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // Ministeck.cs
 //
@@ -61,7 +61,7 @@ namespace Gimp.Ministeck
 				 _("Generates Ministeck"),
 				 "Maurits Rijk",
 				 "(C) Maurits Rijk",
-				 "2004-2009",
+				 "2004-2010",
 				 _("Ministeck..."),
 				 "RGB*, GRAY*",
 				 inParams)
@@ -115,25 +115,7 @@ namespace Gimp.Ministeck
 	  _preview.Invalidate();
 	};
       table.AttachAligned(0, 1, _("C_olor:"), 0.0, 0.5, colorButton, 1, true);
-#if false      
-      Expander expander = new Expander(_("Colors Needed"));
-      vbox.PackStart(expander, false, false, 0);
-      GimpTable colorTable = new GimpTable(4, 6, false)
-	{ColumnSpacing = 6, RowSpacing = 6};
-      for (uint i = 0; i < 6; i++)
-	{
-	  for (uint j = 0; j < 6; j++)
-	    {
-	      RGB rgb = new RGB(i * 40 / 256.0, 
-				j * 40 / 256.0, 
-				(i + j) * 20 / 256.0);
-	      GimpColorButton color = new GimpColorButton("", 16, 16, rgb,
-							  ColorAreaType.Flat);
-	      colorTable.Attach(color, i, i + 1, j, j + 1);
-	    }
-	}
-      expander.Add(colorTable);
-#endif
+
       return dialog;
     }
 
@@ -173,40 +155,26 @@ namespace Gimp.Ministeck
 	{
 	  Shape.Painter = painter;
 
-	  bool[,] A = new bool[width, height];
+	  var A = new BoolMatrix(width, height);
 
 	  // Fill in shapes
-      
 	  var shapes = new ShapeSet();
+	  shapes.Add((_limit) ? 2 : 1, new TwoByTwoShape());
+	  shapes.Add((_limit) ? 8 : 1, new ThreeByOneShape());
+	  shapes.Add((_limit) ? 3 : 1, new TwoByOneShape());
+	  shapes.Add((_limit) ? 2 : 1, new CornerShape());
+	  shapes.Add((_limit) ? 1 : 1, new OneByOneShape());
 
-	  if (_limit)
-	    {
-	      shapes.Add(2, new TwoByTwoShape());
-	      shapes.Add(8, new ThreeByOneShape());
-	      shapes.Add(3, new TwoByOneShape());
-	      shapes.Add(2, new CornerShape());
-	      shapes.Add(1, new OneByOneShape());
-	    }
-	  else
-	    {
-	      shapes.Add(new TwoByTwoShape());
-	      shapes.Add(new ThreeByOneShape());
-	      shapes.Add(new TwoByOneShape());
-	      shapes.Add(new CornerShape());
-	      shapes.Add(new OneByOneShape());
-	    }
-
-	  Progress progress = null;
-	  if (!preview)
-	    progress = new Progress(_("Ministeck..."));
+	  var progress = (preview) ? null : new Progress(_("Ministeck..."));
 
 	  for (int y = 0; y < height; y++)
 	    {
 	      for (int x = 0; x < width; x++)
 		{
-		  if (!A[x, y])
+		  var c = new IntCoordinate(x, y);
+		  if (!A.Get(c))
 		    {
-		      shapes.Fits(A, new Coordinate<int>(x, y));
+		      shapes.Fits(A, c);
 		    }
 		}
 	      if (!preview)

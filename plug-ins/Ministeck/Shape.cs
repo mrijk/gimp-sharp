@@ -1,5 +1,5 @@
 // The Ministeck plug-in
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // Shape.cs
 //
@@ -29,11 +29,7 @@ namespace Gimp.Ministeck
     List<ShapeDescriptionSet> _set = new List<ShapeDescriptionSet>(); 
     static public Painter Painter {protected get; set;}
 
-    Random _random = new Random();
-
-    public Shape()
-    {
-    }
+    readonly Random _random = new Random();
 
     protected void Combine(params ShapeDescription[] list)
     {
@@ -43,7 +39,7 @@ namespace Gimp.Ministeck
       foreach (var val in list)
 	{
 	  var copy = new List<ShapeDescriptionSet>();
-	  foreach (ShapeDescriptionSet ele in _set)
+	  foreach (var ele in _set)
 	    {
 	      for (int i = 0; i <= ele.Count; i++)
 		{
@@ -56,61 +52,25 @@ namespace Gimp.Ministeck
 	}
     }
 
-    public bool Fits(bool[,] A, Coordinate<int> c)
+    public bool Fits(BoolMatrix A, IntCoordinate c)
     {
-      int index = _random.Next(0, _set.Count);
-
-      foreach (var shape in _set[index])
+      foreach (var shape in _set[_random.Next(0, _set.Count)])
 	{
-	  if (Fits(A, c.X, c.Y, shape))
+	  if (shape.Fits(Painter, A, c))
 	    {
-	      Fill(A, c, shape);
+	      shape.Fill(A, c);
 	      return true;
 	    }
 	}
       return false;
     }
 
-    bool Fits(bool[,] A, int x, int y, ShapeDescription shape)
-    {
-      var color = Painter.GetPixel(x, y);
-
-      int width = A.GetLength(0);
-      int height = A.GetLength(1);
-
-      foreach (var c in shape)
-	{
-	  int cx = x + c.X;
-	  int cy = y + c.Y;
-	  if (cx < 0 || cx >= width || cy < 0 || cy >= height || A[cx, cy])
-	    {
-	      return false;
-	    }
-
-	  var pixel = Painter.GetPixel(cx, cy);
-	  if (!pixel.IsSameColor(color))
-	    {
-	      return false;
-	    }
-	}
-      return true;
-    }
-
-    abstract protected void Fill(Coordinate<int> c, ShapeDescription shape) ;
-
-    void Fill(bool[,] A, Coordinate<int> c, ShapeDescription shape)
-    {
-      Fill(c, shape);
-      A[c.X, c.Y] = true;
-      shape.ForEach(sc => {A[c.X + sc.X, c.Y + sc.Y] = true;});
-    }
-
-    protected void LineStart(Coordinate<int> c)
+    protected void LineStart(IntCoordinate c)
     {
       Painter.LineStart(c);
     }
 
-    protected void Rectangle(Coordinate<int> c, int w, int h)
+    protected void Rectangle(IntCoordinate c, int w, int h)
     {
       Painter.Rectangle(c, w, h);
     }

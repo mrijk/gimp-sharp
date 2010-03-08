@@ -24,12 +24,8 @@ namespace Gimp.Ministeck
   {
     public TwoByTwoShape()
     {
-      Combine(new ShapeDescription() {{0, 1}, {1, 0}, {1, 1}});
-    }
-
-    protected override void Fill(Coordinate<int> c, ShapeDescription shape)
-    {
-      Rectangle(c, 2, 2);
+      Combine(new ShapeDescription(c => Rectangle(c, 2, 2)) {{0, 1}, {1, 0}, 
+	{1, 1}});
     }
   }
 }

@@ -1,5 +1,5 @@
-// The Raindrops plug-in
-// Copyright (C) 2004-2009 Maurits Rijk
+// GIMP# - A C# wrapper around the GIMP Library
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // BoolMatrix.cs
 //
@@ -21,20 +21,20 @@
 using System;
 using System.Collections.Generic;
 
-namespace Gimp.Raindrops
+namespace Gimp
 {
   public class BoolMatrix
   {
-    readonly int _width;
-    readonly int _height;
+    public int Width {get; set;}
+    public int Height {get; set;}
     readonly bool [,] _matrix;
 
     Random _random = new Random();
 
     public BoolMatrix(int width, int height)
     {
-      _width = width;
-      _height = height;
+      Width = width;
+      Height = height;
       _matrix = new bool[height, width];
     }
 
@@ -42,6 +42,21 @@ namespace Gimp.Raindrops
     {
       set {_matrix[row, col] = value;}
       get {return _matrix[row, col];}
+    }
+
+    public bool Get(IntCoordinate c)
+    {
+      return _matrix[c.Y, c.X];
+    }
+
+    public void Set(IntCoordinate c, bool value)
+    {
+      _matrix[c.Y, c.X] = value;
+    }
+
+    public bool IsInside(IntCoordinate c)
+    {
+      return c.X >= 0 && c.X < Width && c.Y >= 0 && c.Y < Height;
     }
 
     public IntCoordinate Generate(int radius, out bool failed)
@@ -52,8 +67,8 @@ namespace Gimp.Raindrops
 	{
 	  bool findAnother = false;
 
-	  int x = _random.Next(_width);
-	  int y = _random.Next(_height);
+	  int x = _random.Next(Width);
+	  int y = _random.Next(Height);
 	  
 	  if (_matrix[y, x])
 	    {
@@ -65,7 +80,7 @@ namespace Gimp.Raindrops
 		{
 		  for (int j = y - radius ; j <= y + radius ; j++)
 		    {
-		      if (i >= 0 && i < _width && j >= 0 && j < _height)
+		      if (i >= 0 && i < Width && j >= 0 && j < Height)
 			{
 			  if (_matrix[j, i])
 			    {

@@ -22,24 +22,10 @@ namespace Gimp.Ministeck
 {
   public class ThreeByOneShape : Shape
   {
-    ShapeDescription _shape1 = new ShapeDescription() {{0, 1}, {0, 2}};
-    ShapeDescription _shape2 = new ShapeDescription() {{1, 0}, {2, 0}};
-
     public ThreeByOneShape()
     {
-      Combine(_shape1, _shape2);
-    }
-
-    protected override void Fill(Coordinate<int> c, ShapeDescription shape)
-    {
-      if (shape == _shape1)	// Vertical
-	{
-	  Rectangle(c, 1, 3);
-	}
-      else			// Horizontal
-	{
-	  Rectangle(c, 3, 1);
-	}
+      Combine(new ShapeDescription(c => Rectangle(c, 1, 3)) {{0, 1}, {0, 2}},
+	      new ShapeDescription(c => Rectangle(c, 3, 1)) {{1, 0}, {2, 0}});
     }
   }
 }

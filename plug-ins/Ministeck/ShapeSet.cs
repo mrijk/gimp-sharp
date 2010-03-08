@@ -50,7 +50,7 @@ namespace Gimp.Ministeck
       return GeneratePermutation(index).GetEnumerator();
     }
 
-    public void Fits(bool[,] A, Coordinate<int> c)
+    public void Fits(BoolMatrix A, IntCoordinate c)
     {
       foreach (var shape in this)
 	{

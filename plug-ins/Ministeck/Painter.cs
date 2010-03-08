@@ -42,18 +42,23 @@ namespace Gimp.Ministeck
       GC.SuppressFinalize(this);
     }
 
-    public Pixel GetPixel(int x, int y)
+    public Pixel GetPixel(IntCoordinate c)
     {
-      return _pf[y * Size, x * Size];
+      return _pf[c.Y * Size, c.X * Size];
     }
 
-    public void LineStart(Coordinate<int> c)
+    public bool IsSameColor(IntCoordinate c, Pixel color)
+    {
+      return GetPixel(c).IsSameColor(color);
+    }
+
+    public void LineStart(IntCoordinate c)
     {
       _x = c.X * Size;
       _y = c.Y * Size;
     }
  
-    public void Rectangle(Coordinate<int> c, int w, int h)
+    public void Rectangle(IntCoordinate c, int w, int h)
     {
       w *= Size;
       h *= Size;

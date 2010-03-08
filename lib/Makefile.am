@@ -8,6 +8,7 @@ ASSEMBLIES=	-r:Mono.Posix /pkg:gtk-sharp-2.0
 MYSOURCES = 				\
 	AspectPreview.cs 		\
 	AssemblyInfo.cs			\
+	BoolMatrix.cs			\
 	Brush.cs			\
 	BrushList.cs			\
 	Buffer.cs			\
@@ -55,6 +56,7 @@ MYSOURCES = 				\
 	HSV.cs				\
 	ImageComboBox.cs		\
 	IntComboBox.cs			\
+	IntCoordinate.cs		\
 	IntStore.cs			\
 	Layer.cs			\
 	LayerList.cs			\
@@ -104,6 +106,7 @@ MYSOURCES = 				\
 	Tattoo.cs			\
 	TextLayer.cs			\
 	Tile.cs				\
+	Util.cs				\
 	Vectors.cs			\
 	Vector2.cs			\
 	Vector3.cs			\

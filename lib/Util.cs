@@ -1,7 +1,7 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
-// IntCoordinate.cs
+// Util.cs
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -19,25 +19,9 @@
 // Boston, MA 02111-1307, USA.
 //
 
-using System;
-using System.Collections.Generic;
-
-namespace Gimp.Raindrops
+namespace Gimp
 {
-  public class IntCoordinate : Coordinate<int>
+  public sealed class Util
   {
-    public IntCoordinate(int x, int y) : base(x, y)
-    {
-    }
-
-    public double Radius
-    {
-      get {return Math.Sqrt(X * X + Y * Y);}
-    }
-
-    public double Angle
-    {
-      get {return Math.Atan2(X, Y);}
-    }
   }
 }

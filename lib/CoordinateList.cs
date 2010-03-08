@@ -83,6 +83,11 @@ namespace Gimp
       set {_list[index] = value;}
     }
 
+    public bool TrueForAll(Predicate<Coordinate<T>> predicate)
+    {
+      return _list.TrueForAll(predicate);
+    }
+
     public override bool Equals(object o)
     {
       if (o is CoordinateList<T>)

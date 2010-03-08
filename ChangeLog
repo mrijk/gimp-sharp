@@ -1,3 +1,24 @@
+2010-03-08  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* lib/Util.cs: new file
+
+	* plug-ins/Raindrops/Makefile.am: removed IntCoordinate.cs and
+	BoolMatrix.cs.
+
+	* lib/IntCoordinate.cs
+	* lib/BoolMatrix.cs: moved from Raindrops plug-in
+
+	* lib/Makefile.am: changed accordingly
+
+	* plug-ins/Ministeck/Painter.cs
+	* plug-ins/Ministeck/Ministeck.cs
+	* plug-ins/Ministeck/ThreeByOneShape.cs
+	* plug-ins/Ministeck/TwoByTwoShape.cs
+	* plug-ins/Ministeck/Shape.cs
+	* plug-ins/Ministeck/CornerShape.cs
+	* plug-ins/Ministeck/OneByOneShape.cs
+	* plug-ins/Ministeck/TwoByOneShape.cs: major refactoring
+
 2010-03-07  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* plug-ins/Ministeck/Shape.cs
