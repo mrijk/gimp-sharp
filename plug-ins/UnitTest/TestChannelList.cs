@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // TestChannelList.cs
 //
@@ -19,8 +19,6 @@
 // Boston, MA 02111-1307, USA.
 //
 
-using System;
-
 using NUnit.Framework;
 
 namespace Gimp
@@ -36,13 +34,8 @@ namespace Gimp
     [SetUp]
     public void Init()
     {
-      _image = new Image(_width, _height, ImageBaseType.Rgb);
-
-      var layer = new Layer(_image, "test", _width, _height,
-			    ImageType.Rgb, 100, 
-			    LayerModeEffects.Normal);
-      _image.AddLayer(layer, 0);
-
+      _image = new Image(_width, _height, ImageBaseType.Rgb) {
+	{new Layer("test", ImageType.Rgb), 0}};
       _drawable = _image.ActiveDrawable;
     }
 

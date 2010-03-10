@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // TestPixelRgn.cs
 //
@@ -36,13 +36,8 @@ namespace Gimp
     [SetUp]
     public void Init()
     {
-      _image = new Image(_width, _height, ImageBaseType.Rgb);
-    
-      var layer = new Layer(_image, "test", _width, _height,
-			    ImageType.Rgb, 100, 
-			    LayerModeEffects.Normal);
-      _image.AddLayer(layer, 0);
-    
+      _image = new Image(_width, _height, ImageBaseType.Rgb) {
+	{new Layer("test", ImageType.Rgb), 0}};    
       _drawable = _image.ActiveDrawable;
     }
   
@@ -175,12 +170,8 @@ namespace Gimp
     [Test]
     public void DirectAccessRgba()
     {
-      var image = new Image(_width, _height, ImageBaseType.Rgb);
-    
-      var layer = new Layer(image, "test", _width, _height,
-			    ImageType.Rgba, 100, 
-			    LayerModeEffects.Normal);
-      image.AddLayer(layer, 0);
+      var image = new Image(_width, _height, ImageBaseType.Rgb) {
+	{new Layer("test", ImageType.Rgba), 0}};
     
       var drawable = image.ActiveDrawable;
       var pixel = new Pixel(13, 24, 35, 128);
@@ -210,12 +201,8 @@ namespace Gimp
       FillDrawable(_drawable, pixel);
 
       // Copy to dest region
-      var image = new Image(_width, _height, ImageBaseType.Rgb);
-    
-      var layer = new Layer(image, "test", _width, _height,
-			    ImageType.Rgb, 100, 
-			    LayerModeEffects.Normal);
-      image.AddLayer(layer, 0);
+      var image = new Image(_width, _height, ImageBaseType.Rgb) {
+	{new Layer("test", ImageType.Rgb), 0}};
       var drawable = image.ActiveDrawable;
 
       var srcRgn = new PixelRgn(_drawable, false, false);
@@ -263,12 +250,8 @@ namespace Gimp
       FillDrawable(_drawable, pixel);
 
       // Copy to dest region
-      var image = new Image(_width, _height, ImageBaseType.Rgb);
-    
-      var layer = new Layer(image, "test", _width, _height,
-			    ImageType.Rgba, 100, 
-			    LayerModeEffects.Normal);
-      image.AddLayer(layer, 0);
+      var image = new Image(_width, _height, ImageBaseType.Rgb) {
+	{new Layer("test", ImageType.Rgba), 0}};
       var drawable = image.ActiveDrawable;
 
       var srcRgn = new PixelRgn(_drawable, false, false);

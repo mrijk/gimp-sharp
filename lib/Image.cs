@@ -29,7 +29,7 @@ using GLib;
 
 namespace Gimp
 {
-  public sealed class Image
+  public sealed class Image : IEnumerable
   {
     internal Int32 _imageID;
      
@@ -70,6 +70,11 @@ namespace Gimp
     public override int GetHashCode()
     {
       return ID.GetHashCode();
+    }
+
+    public IEnumerator GetEnumerator()
+    {
+      throw new NotImplementedException();
     }
 
     public static Image Load(RunMode runMode, string filename, 
@@ -294,6 +299,11 @@ namespace Gimp
         {
 	  throw new GimpSharpException();
         }
+    }
+
+    public void Add(Layer layer, int position)
+    {
+      AddLayer(layer.DelayedConstruct(this), position);
     }
 
     public void RemoveLayer(Layer layer)

@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // TestLayer.cs
 //
@@ -94,6 +94,14 @@ namespace Gimp
       Assert.AreEqual(LayerModeEffects.Normal, layer.Mode);
 
       image.Delete();
+    }
+
+    [Test]
+    public void AddConstructor()
+    {
+      var image = new Image(_width, _height, ImageBaseType.Rgb) {
+	{new Layer("test", ImageType.Rgb), 0}};
+      Assert.AreEqual(1, image.Layers.Count);
     }
 
     [Test]

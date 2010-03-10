@@ -26,6 +26,8 @@ namespace Gimp
 {
   public class Layer : Drawable
   {    
+    readonly Func<Image, Layer> _delay;
+
     public Layer(Image image, string name, int width, int height, 
 		 ImageType type, double opacity, LayerModeEffects mode) : 
       base(gimp_layer_new(image.ID, name, width, height, type, 
@@ -42,6 +44,17 @@ namespace Gimp
     public Layer(Image image, string name, ImageType type) :
       this(image, name, type, 100, LayerModeEffects.Normal)
     {
+    }
+
+    public Layer(string name, ImageType type)
+    {
+      _delay = (image) => {return new Layer(image, name, type);};
+    }
+
+    internal Layer DelayedConstruct(Image image)
+    {
+      Console.WriteLine("DelayedConstruct");
+      return _delay(image);
     }
   
     public Layer(Layer layer) : base(gimp_layer_copy(layer.ID))

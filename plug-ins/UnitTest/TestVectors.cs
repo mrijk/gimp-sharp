@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // TestVectors.cs
 //
@@ -33,12 +33,8 @@ namespace Gimp
     [SetUp]
     public void Init()
     {
-      _image = new Image(_width, _height, ImageBaseType.Rgb);
-
-      var layer = new Layer(_image, "test", _width, _height,
-			    ImageType.Rgb, 100, 
-			    LayerModeEffects.Normal);
-      _image.AddLayer(layer, 0);
+      _image = new Image(_width, _height, ImageBaseType.Rgb) {
+	{new Layer("test", ImageType.Rgb), 0}};
     }
 
     [TearDown]

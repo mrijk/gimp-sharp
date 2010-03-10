@@ -1,5 +1,21 @@
 2010-03-10  Maurits Rijk  <maurits.rijk@gmail.com>
 
+	* plug-ins/UnitTest/TestPath.cs
+	* plug-ins/UnitTest/TestPixelRgn.cs
+	* plug-ins/UnitTest/TestRegionIterator.cs
+	* plug-ins/UnitTest/TestRgnIterator.cs
+	* plug-ins/UnitTest/TestStroke.cs
+	* plug-ins/UnitTest/TestVectors.cs
+	* plug-ins/UnitTest/TestChannelList.cs: use new Image collections
+	initializer
+
+	* plug-ins/UnitTest/TestLayer.cs: added test
+
+	* lib/Image.cs: implemented IEnumerable so that an Image can use
+	collection initializers
+
+	* README: updated
+
 	* plug-ins/UnitTest/TestBoolMatrix.cs: more tests
 
 2010-03-09  Maurits Rijk  <maurits.rijk@gmail.com>

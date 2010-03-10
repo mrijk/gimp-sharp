@@ -37,8 +37,9 @@ namespace Gimp
       var images = new ImageList();
       int count = images.Count;
 
-      var image = new Image(width, height, ImageBaseType.Rgb);
-      image.AddLayer(new Layer(image, "test", ImageType.Rgb), 0);
+      var image = new Image(width, height, ImageBaseType.Rgb) {
+	{new Layer("test", ImageType.Rgb), 0}};
+
       Assert.AreEqual(count, images.Count);
 
       var display = new Display(image);
@@ -56,8 +57,8 @@ namespace Gimp
       int width = 21;
       int height = 128;
 
-      var image = new Image(width, height, ImageBaseType.Rgb);
-      image.AddLayer(new Layer(image, "test", ImageType.Rgb), 0);
+      var image = new Image(width, height, ImageBaseType.Rgb) {
+	{new Layer("test", ImageType.Rgb), 0}};
 
       var display = new Display(image);
       Assert.IsTrue(display.Valid);
@@ -72,10 +73,10 @@ namespace Gimp
     {
       int width = 21;
       int height = 128;
-      var oldImage = new Image(width, height, ImageBaseType.Rgb);
-      oldImage.AddLayer(new Layer(oldImage, "test", ImageType.Rgb), 0);
-      var newImage = new Image(width, height, ImageBaseType.Rgb);
-      newImage.AddLayer(new Layer(newImage, "test", ImageType.Rgb), 0);
+      var oldImage = new Image(width, height, ImageBaseType.Rgb) {
+	{new Layer("test", ImageType.Rgb), 0}};
+      var newImage = new Image(width, height, ImageBaseType.Rgb) {
+	{new Layer("test", ImageType.Rgb), 0}};
 
       Assert.IsFalse(Display.Reconnect(oldImage, newImage));
 
