@@ -20,6 +20,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Gtk;
 
 namespace Gimp.Trim
@@ -28,6 +29,12 @@ namespace Gimp.Trim
   {
     [SaveAttribute("top")]
     bool _top = true;
+    [SaveAttribute("left")]
+    bool _left = true;
+    [SaveAttribute("bottom")]
+    bool _bottom = true;
+    [SaveAttribute("right")]
+    bool _right = true;
 
     static void Main(string[] args)
     {
@@ -41,7 +48,10 @@ namespace Gimp.Trim
     override protected IEnumerable<Procedure> ListProcedures()
     {
       var inParams = new ParamDefList() {
-	new ParamDef("top", 1, typeof(bool), _("Color (true), B&W (false)"))
+	new ParamDef("top", 1, typeof(bool), _("Trim Top")),
+	new ParamDef("left", 1, typeof(bool), _("Trim Left")),
+	new ParamDef("bottom", 1, typeof(bool), _("Trim Bottom")),
+	new ParamDef("right", 1, typeof(bool), _("Trim Right"))
       };
 
       yield return new Procedure("plug_in_trim",
@@ -69,27 +79,103 @@ namespace Gimp.Trim
       var vbox = new VBox(false, 12) {BorderWidth = 12};
       dialog.VBox.PackStart(vbox, true, true, 0);
 
-      var table = new GimpTable(4, 3, false)
-	{ColumnSpacing = 6, RowSpacing = 6};
-      vbox.PackStart(table, true, true, 0);
-
-      CreateTopWidget(table);
+      CreateBasedOnWidget(vbox);
+      CreateTrimAwayWidget(vbox);
 			
       return dialog;
     }
 
+    void CreateBasedOnWidget(VBox parent)
+    {
+      var frame = new GimpFrame(_("Based On"));
+      parent.PackStart(frame, true, true, 0);
+
+      var vbox = new VBox(false, 12);
+      frame.Add(vbox);
+      
+      var button = new RadioButton(_("Transparent Pixels"));
+      vbox.PackStart(button, true, true, 0);
+      button.Sensitive = _drawable.HasAlpha;
+
+      button = new RadioButton(button, _("Top Left Pixel Color"));
+      vbox.PackStart(button, false, false, 0);
+      button.Active = true;
+
+      button = new RadioButton(button, _("Bottom Right Pixel Color"));
+      vbox.PackStart(button, false, false, 0);
+    }
+
+    void CreateTrimAwayWidget(VBox parent)
+    {
+      var frame = new GimpFrame(_("Trim Away"));
+      parent.PackStart(frame, true, true, 0);
+
+      var table = new GimpTable(2, 2, false)
+	{ColumnSpacing = 6, RowSpacing = 6};      
+      frame.Add(table);
+
+      CreateTopWidget(table);
+      CreateLeftWidget(table);
+      CreateBottomWidget(table);
+      CreateRightWidget(table);
+    }
+
     void CreateTopWidget(GimpTable table)
     {
-      var top = new CheckButton(_("_Use top")) {Active = _top};
-      top.Toggled += delegate
-	{
-	  _top = top.Active;
-	};
-      table.Attach(top, 0, 1, 3, 4);
+      var top = new CheckButton(_("_Top")) {Active = _top};
+      table.Attach(top, 0, 1, 0, 1);
+    }
+
+    void CreateLeftWidget(GimpTable table)
+    {
+      var left = new CheckButton(_("_Left")) {Active = _left};
+      table.Attach(left, 1, 2, 0, 1);
+    }
+
+    void CreateBottomWidget(GimpTable table)
+    {
+      var bottom = new CheckButton(_("_Bottom")) {Active = _bottom};
+      table.Attach(bottom, 0, 1, 1, 2);
+    }
+
+    void CreateRightWidget(GimpTable table)
+    {
+      var right = new CheckButton(_("_Right")) {Active = _right};
+      table.Attach(right, 1, 2, 1, 2);
     }
 
     override protected void Render(Drawable drawable)
     {
+      int width = drawable.Width;
+      int height = drawable.Height;
+
+      var src = new PixelRgn(drawable, false, false);
+      PixelRgn.Register(src);
+
+      var upperLeft = src[0, 0];
+      Console.WriteLine("Pixel: " + upperLeft);
+
+      var rows = new bool[height];
+      for (int y = 0; y < height; y++) 
+	{
+	  var row = src.GetRow(0, y, width);
+	  rows[y] = AllEqual(row, upperLeft);
+	}
+
+      int y1 = 0;
+      while (y1 < height && rows[y1])
+	y1++;
+
+      int y2 = height - 1;
+      while (y2 > y1 && rows[y2])
+	y2--;
+
+      Console.WriteLine("y1: {0}, y2: {1}", y1, y2);
+    }
+
+    bool AllEqual(Pixel[] array, Pixel p)
+    {
+      return array.All(pixel => pixel == p);
     }
   }
 }

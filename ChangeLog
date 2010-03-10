@@ -152,6 +152,12 @@
 	* lib/ParamDefList.cs
 	* lib/CoordinateList.cs: minor clean-up
 
+2010-02-16  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/PhotoshopActions/PhotoshopActions.cs: bumped version number
+
+	* plug-ins/Trim/Trim.cs: completed GUI
+
 2010-02-15  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* INSTALL
