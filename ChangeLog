@@ -1,3 +1,14 @@
+2010-03-10  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/UnitTest/TestBoolMatrix.cs: more tests
+
+2010-03-09  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/UnitTest/TestBoolMatrix.cs
+	* plug-ins/UnitTest/TestCoordinate.cs: new files
+
+	* plug-ins/UnitTest/Makefile.am: changed accordingly
+
 2010-03-08  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* lib/Util.cs: new file

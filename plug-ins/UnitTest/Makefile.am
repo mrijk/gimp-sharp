@@ -11,7 +11,8 @@ MYSOURCES = 	EventCollector.cs		\
 		UnitTest.cs			\
 		UnitTester.cs
 
-TESTSOURCES = 	TestBrush.cs 			\
+TESTSOURCES = 	TestBoolMatrix.cs		\
+		TestBrush.cs 			\
 		TestBrushList.cs		\
 		TestChannel.cs			\
 		TestChannelList.cs		\
@@ -28,6 +29,7 @@ TESTSOURCES = 	TestBrush.cs 			\
 		TestGuide.cs			\
 		TestHSV.cs			\
 		TestImage.cs			\
+		TestIntCoordinate.cs		\
 		TestLayer.cs			\
 		TestMask.cs			\
 		TestOffset.cs			\

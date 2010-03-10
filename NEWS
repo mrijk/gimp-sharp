@@ -1,6 +1,7 @@
 Overview of Changes in Gimp# 0.17
 =================================
 - Added Trim plug-in
+- Improved test coverage (400+ unit tests)
 
 Overview of Changes in Gimp# 0.16
 =================================

@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // TestDisplay.cs
 //
@@ -33,17 +33,38 @@ namespace Gimp
     {
       int width = 21;
       int height = 128;
-      var image = new Image(width, height, ImageBaseType.Rgb);
 
       var images = new ImageList();
       int count = images.Count;
-      Assert.AreEqual(1, count);
+
+      var image = new Image(width, height, ImageBaseType.Rgb);
+      image.AddLayer(new Layer(image, "test", ImageType.Rgb), 0);
+      Assert.AreEqual(count, images.Count);
 
       var display = new Display(image);
-      display.Delete();
-
       images.Refresh();
-      Assert.AreEqual(count - 1, images.Count);
+      Assert.AreEqual(count + 1, images.Count);
+
+      display.Delete();
+      images.Refresh();
+      Assert.AreEqual(count, images.Count);
+    }
+
+    // [Test]
+    public void IsValid()
+    {
+      int width = 21;
+      int height = 128;
+
+      var image = new Image(width, height, ImageBaseType.Rgb);
+      image.AddLayer(new Layer(image, "test", ImageType.Rgb), 0);
+
+      var display = new Display(image);
+      Assert.IsTrue(display.Valid);
+
+      display.Delete();
+      Display.DisplaysFlush();
+      Assert.IsFalse(display.Valid);
     }
 
     [Test]
@@ -52,7 +73,9 @@ namespace Gimp
       int width = 21;
       int height = 128;
       var oldImage = new Image(width, height, ImageBaseType.Rgb);
+      oldImage.AddLayer(new Layer(oldImage, "test", ImageType.Rgb), 0);
       var newImage = new Image(width, height, ImageBaseType.Rgb);
+      newImage.AddLayer(new Layer(newImage, "test", ImageType.Rgb), 0);
 
       Assert.IsFalse(Display.Reconnect(oldImage, newImage));
 
