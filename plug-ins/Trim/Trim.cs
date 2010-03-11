@@ -144,38 +144,36 @@ namespace Gimp.Trim
       table.Attach(right, 1, 2, 1, 2);
     }
 
-    override protected void Render(Drawable drawable)
+    override protected void Render(Image image, Drawable drawable)
     {
-      int width = drawable.Width;
-      int height = drawable.Height;
-
       var src = new PixelRgn(drawable, false, false);
       PixelRgn.Register(src);
 
       var upperLeft = src[0, 0];
       Console.WriteLine("Pixel: " + upperLeft);
 
-      var rows = new bool[height];
-      for (int y = 0; y < height; y++) 
-	{
-	  var row = src.GetRow(0, y, width);
-	  rows[y] = AllEqual(row, upperLeft);
-	}
+      Predicate<bool> notTrue = (b) => {return !b;};
 
-      int y1 = 0;
-      while (y1 < height && rows[y1])
-	y1++;
+      var rows = new bool[drawable.Height];
+      int y = 0;
+      src.ForEachRow(row => rows[y++] = AllEqual(row, upperLeft));
 
-      int y2 = height - 1;
-      while (y2 > y1 && rows[y2])
-	y2--;
+      int y1 = Array.FindIndex(rows, notTrue);
+      int y2 = Array.FindLastIndex(rows, notTrue);
 
-      Console.WriteLine("y1: {0}, y2: {1}", y1, y2);
+      var cols = new bool[drawable.Width];
+      int x = 0;
+      src.ForEachColumn(col => cols[x++] = AllEqual(col, upperLeft));
+
+      int x1 = Array.FindIndex(cols, notTrue);
+      int x2 = Array.FindLastIndex(cols, notTrue);
+
+      image.Crop(x2 - x1, y2 - y1, x1, y1);
     }
 
     bool AllEqual(Pixel[] array, Pixel p)
     {
-      return array.All(pixel => pixel == p);
+      return array.All(pixel => pixel.IsSameColor(p));
     }
   }
 }

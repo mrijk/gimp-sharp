@@ -1,3 +1,14 @@
+2010-03-11  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/Trim/Trim.cs: using new PixelRgn functions
+
+	* lib/PixelRgn.cs: implemented ForEachRow, ForEachColumn,
+	GetColumn and SetColumn
+
+	* plug-ins/UnitTest/TestFloatingSelection.cs
+	* plug-ins/UnitTest/TestDrawable.cs: use new Image collections 
+	initializer
+
 2010-03-10  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* plug-ins/UnitTest/TestPath.cs

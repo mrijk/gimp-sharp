@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // PixelRgn.cs
 //
@@ -45,6 +45,7 @@ namespace Gimp
     readonly byte[] _dummy;
     readonly int _bpp;
     readonly bool _dirty;
+    readonly Drawable _drawable;
 
     public PixelRgn(Drawable drawable, int x, int y, int width, int height,
 		    bool dirty, bool shadow)
@@ -55,6 +56,7 @@ namespace Gimp
       _bpp = (int) pr->bpp;
       _dummy = new byte[pr->bpp];
       _dirty = dirty;
+      _drawable = drawable;
     }
     
     ~PixelRgn()
@@ -149,6 +151,15 @@ namespace Gimp
       return row;
     }
 
+    public void ForEachRow(Action<Pixel[]> action)
+    {
+      int width = _drawable.Width;
+      for (int y = 0; y < _drawable.Height; y++) 
+	{
+	  action(GetRow(0, y, width));
+	}
+    }
+
     public void SetRow(Pixel[] row, int x, int y)
     {
       int width = row.Length;
@@ -167,6 +178,53 @@ namespace Gimp
     public void SetRow(byte[] row, int x, int y)
     {
       gimp_pixel_rgn_set_row(ref *pr, row, x, y, row.Length);
+    }
+
+    public Pixel[] GetColumn(int x, int y, int height)
+    {
+      var buf = new byte[height * _bpp];
+      gimp_pixel_rgn_get_col(ref *pr, buf, x, y, height);
+
+      var col = new Pixel[height];
+
+      int index = 0;
+      for (int i = 0; i < height; i++)
+	{
+	  col[i] = new Pixel(_bpp);
+	  col[i].CopyFrom(buf, index);
+	  index += _bpp;
+	}
+
+      return col;
+    }
+
+    public void ForEachColumn(Action<Pixel[]> action)
+    {
+      int height = _drawable.Height;
+      for (int x = 0; x < _drawable.Width; x++) 
+	{
+	  action(GetColumn(x, 0, height));
+	}
+    }
+
+    public void SetColumn(Pixel[] col, int x, int y)
+    {
+      int height = col.Length;
+      var buf = new byte[height * _bpp];
+
+      int index = 0;
+      for (int i = 0; i < height; i++)
+	{
+	  col[i].CopyTo(buf, index);
+	  index += _bpp;
+	}
+
+      gimp_pixel_rgn_set_col(ref *pr, buf, x, y, height);
+    }
+
+    public void SetColumn(byte[] col, int x, int y)
+    {
+      gimp_pixel_rgn_set_col(ref *pr, col, x, y, col.Length);
     }
 
     public int X
@@ -251,40 +309,52 @@ namespace Gimp
     [DllImport("libgimp-2.0-0.dll")]
     static extern IntPtr gimp_pixel_rgns_process (IntPtr pri_ptr);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern void gimp_pixel_rgn_get_pixel (ref GimpPixelRgn  pr,
-						 byte[] buf,
-						 int    x,
-						 int    y);
-    [DllImport("libgimp-2.0-0.dll")]
-    static extern void gimp_pixel_rgn_set_pixel (ref GimpPixelRgn  pr,
-						 byte[] buf,
-						 int    x,
-						 int    y);
-    [DllImport("libgimp-2.0-0.dll")]
-    static extern void gimp_pixel_rgn_get_rect (ref GimpPixelRgn pr,
+    static extern void gimp_pixel_rgn_get_pixel(ref GimpPixelRgn  pr,
 						byte[] buf,
-						int x,
-						int y,
-						int width,
-						int height);
+						int    x,
+						int    y);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern void gimp_pixel_rgn_set_rect (ref GimpPixelRgn pr,
+    static extern void gimp_pixel_rgn_set_pixel(ref GimpPixelRgn  pr,
 						byte[] buf,
-						int x,
-						int y,
-						int width,
-						int height);
+						int    x,
+						int    y);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern void  gimp_pixel_rgn_get_row (ref GimpPixelRgn pr,
-						byte[] buf,
-						int x,
-						int y,
-						int width);
+    static extern void gimp_pixel_rgn_get_rect(ref GimpPixelRgn pr,
+					       byte[] buf,
+					       int x,
+					       int y,
+					       int width,
+					       int height);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern void  gimp_pixel_rgn_set_row (ref GimpPixelRgn pr,
-						byte[] buf,
-						int x,
-						int y,
-						int width);
+    static extern void gimp_pixel_rgn_set_rect(ref GimpPixelRgn pr,
+					       byte[] buf,
+					       int x,
+					       int y,
+					       int width,
+					       int height);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern void  gimp_pixel_rgn_get_row(ref GimpPixelRgn pr,
+					       byte[] buf,
+					       int x,
+					       int y,
+					       int width);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern void  gimp_pixel_rgn_set_row(ref GimpPixelRgn pr,
+					       byte[] buf,
+					       int x,
+					       int y,
+					       int width);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern void  gimp_pixel_rgn_get_col(ref GimpPixelRgn pr,
+					       byte[] buf,
+					       int x,
+					       int y,
+					       int height);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern void  gimp_pixel_rgn_set_col(ref GimpPixelRgn pr,
+					       byte[] buf,
+					       int x,
+					       int y,
+					       int height);
   }
 }
