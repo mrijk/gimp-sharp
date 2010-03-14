@@ -8,12 +8,12 @@ ASSEMBLIES = -r:$(GIMPSHARPLIB) /pkg:gtk-sharp-2.0 /target:winexe
 
 MYSOURCES = Trim.cs
 
-EXTRA_DIST = $(MYSOURCES) Trim Trim.png
+EXTRA_DIST = $(MYSOURCES) Trim
 
 CLEANFILES = Trim.exe
 
 Trim.exe : $(MYSOURCES) Trim.png $(GIMPSHARPLIB)
-	$(CSC) $(CSC_FLAGS) $(MYSOURCES) /resource:Trim.png -out:$@ $(ASSEMBLIES)
+	$(CSC) $(CSC_FLAGS) $(MYSOURCES) -out:$@ $(ASSEMBLIES)
 
 install:
 	$(INSTALL_DATA) Trim.exe $(DESTDIR)$(GIMPPLUGINDIR)

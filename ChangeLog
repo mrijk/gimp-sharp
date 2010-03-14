@@ -1,3 +1,9 @@
+2010-03-12  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/Trim/Trim.png: removed
+
+	* plug-ins/Trim/Makefile.am: changed accordingly
+
 2010-03-11  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* plug-ins/Trim/Trim.cs: using new PixelRgn functions

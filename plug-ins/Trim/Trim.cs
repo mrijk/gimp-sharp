@@ -65,7 +65,6 @@ namespace Gimp.Trim
 				 inParams)
 	{
 	  MenuPath = "<Image>/Image",
-	  IconFile = "Trim.png"
 	};
     }
 
@@ -123,24 +122,28 @@ namespace Gimp.Trim
     void CreateTopWidget(GimpTable table)
     {
       var top = new CheckButton(_("_Top")) {Active = _top};
+      top.Toggled += delegate {_top = top.Active;};
       table.Attach(top, 0, 1, 0, 1);
     }
 
     void CreateLeftWidget(GimpTable table)
     {
       var left = new CheckButton(_("_Left")) {Active = _left};
+      left.Toggled += delegate {_left = left.Active;};
       table.Attach(left, 1, 2, 0, 1);
     }
 
     void CreateBottomWidget(GimpTable table)
     {
       var bottom = new CheckButton(_("_Bottom")) {Active = _bottom};
+      bottom.Toggled += delegate {_bottom = bottom.Active;};
       table.Attach(bottom, 0, 1, 1, 2);
     }
 
     void CreateRightWidget(GimpTable table)
     {
       var right = new CheckButton(_("_Right")) {Active = _right};
+      right.Toggled += delegate {_right = right.Active;};
       table.Attach(right, 1, 2, 1, 2);
     }
 
@@ -154,20 +157,27 @@ namespace Gimp.Trim
 
       Predicate<bool> notTrue = (b) => {return !b;};
 
-      var rows = new bool[drawable.Height];
+      int height = drawable.Height;
+      var rows = new bool[height];
       int y = 0;
       src.ForEachRow(row => rows[y++] = AllEqual(row, upperLeft));
 
-      int y1 = Array.FindIndex(rows, notTrue);
-      int y2 = Array.FindLastIndex(rows, notTrue);
+      int y1 = (_top) ? Array.FindIndex(rows, notTrue) : 0;
+      int y2 = (_bottom) ? Array.FindLastIndex(rows, notTrue) : height;
 
-      var cols = new bool[drawable.Width];
+      int width = drawable.Width;
+      var cols = new bool[width];
       int x = 0;
       src.ForEachColumn(col => cols[x++] = AllEqual(col, upperLeft));
 
-      int x1 = Array.FindIndex(cols, notTrue);
-      int x2 = Array.FindLastIndex(cols, notTrue);
+      int x1 = (_left) ? Array.FindIndex(cols, notTrue) : 0;
+      int x2 = (_right) ? Array.FindLastIndex(cols, notTrue) : width;
 
+      Crop(image, x1, y1, x2, y2);
+    }
+
+    void Crop(Image image, int x1, int y1, int x2, int y2)
+    {
       image.Crop(x2 - x1, y2 - y1, x1, y1);
     }
 
