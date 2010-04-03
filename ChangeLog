@@ -1,3 +1,10 @@
+2010-04-03  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* lib/Channel.cs
+	* lib/Image.cs: added some convenience routines
+
+	* plug-ins/UnitTest/TestImage.cs: adding a few more tests
+
 2010-03-12  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* plug-ins/Trim/Trim.png: removed

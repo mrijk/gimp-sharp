@@ -359,6 +359,11 @@ namespace Gimp
         }
     }
 
+    public void AddChannel(Channel channel)
+    {
+      AddChannel(channel, 0);
+    }
+
     public void RemoveChannel(Channel channel)
     {
       if (!gimp_image_remove_channel(ID, channel.ID))
@@ -395,15 +400,12 @@ namespace Gimp
 
     public Layer MergeVisibleLayers(MergeType merge_type)
     {
-      return new Layer(gimp_image_merge_visible_layers(ID,
-						       merge_type));
+      return new Layer(gimp_image_merge_visible_layers(ID, merge_type));
     }
 
     public Layer MergeDown(Layer layer, MergeType merge_type)
     {
-      return new Layer(gimp_image_merge_down(ID,
-					     layer.ID,
-					     merge_type));
+      return new Layer(gimp_image_merge_down(ID, layer.ID, merge_type));
     }
 
     public void CleanAll()
@@ -600,9 +602,11 @@ namespace Gimp
     {
       IntPtr src = gimp_image_get_thumbnail(ID, dimensions.Width,
 					    dimensions.Height, alpha);
+      var pixbuf = new Pixbuf(src);
+
       int bpp = ActiveDrawable.Bpp;
-      var thumbnail = Pixel.ConvertToPixelArray(src, dimensions, bpp);
-      Marshaller.Free(src);
+      var thumbnail = Pixel.ConvertToPixelArray(pixbuf.Pixels, dimensions, bpp);
+      // Marshaller.Free(src);
       return thumbnail;
     }
 

@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // TestImage.cs
 //
@@ -53,11 +53,39 @@ namespace Gimp
     }
 
     [Test]
+    public void NewGrayImage()
+    {
+      var image = new Image(_width, _height, ImageBaseType.Rgb);
+      Assert.AreEqual(ImageBaseType.Rgb, image.BaseType);
+      image.Delete();
+    }
+
+    [Test]
+    public void NewIndexedImage()
+    {
+      var image = new Image(_width, _height, ImageBaseType.Indexed);
+      Assert.AreEqual(ImageBaseType.Indexed, image.BaseType);
+      image.Delete();
+    }
+
+    [Test]
     public void WidthHeightImage()
     {
       Assert.AreEqual(_width, _image.Width);
       Assert.AreEqual(_height, _image.Height);
       Assert.AreEqual(_type, _image.BaseType);
+    }
+
+    [Test]
+    public void Bounds()
+    {
+      Assert.AreEqual(new Rectangle(0, 0, _width, _height), _image.Bounds);
+    }
+
+    [Test]
+    public void Dimensionss()
+    {
+      Assert.AreEqual(new Dimensions(_width, _height), _image.Dimensions);
     }
 
     [Test]
@@ -162,6 +190,238 @@ namespace Gimp
     public void Channels()
     {
       ChannelList channels = _image.Channels;
+    }
+
+    [Test]
+    public void ActiveDrawable()
+    {
+      var layer = new Layer(_image, "test", ImageType.Rgb);
+      _image.AddLayer(layer, 0);
+      Assert.AreEqual(layer, _image.ActiveDrawable);
+    }
+
+    [Test]
+    public void RemoveLayer()
+    {
+      var layer = new Layer(_image, "test", ImageType.Rgb);
+      _image.AddLayer(layer, 0);
+      Assert.AreEqual(1, _image.Layers.Count);
+      _image.RemoveLayer(layer);
+      Assert.AreEqual(0, _image.Layers.Count);
+    }
+
+    [Test]
+    public void RaiseLayer()
+    {
+      var layer1 = new Layer(_image, "test1", ImageType.Rgb);
+      _image.AddLayer(layer1, 0);
+      var layer2 = new Layer(_image, "test2", ImageType.Rgb);
+      _image.AddLayer(layer2, 0);
+
+      Assert.AreEqual(1, layer1.Position);
+      Assert.AreEqual(0, layer2.Position);
+      _image.RaiseLayer(layer1);
+      Assert.AreEqual(0, layer1.Position);
+      Assert.AreEqual(1, layer2.Position);
+    }
+
+    [Test]
+    public void LowerLayer()
+    {
+      var layer1 = new Layer(_image, "test1", ImageType.Rgb);
+      _image.AddLayer(layer1, 0);
+      var layer2 = new Layer(_image, "test2", ImageType.Rgb);
+      _image.AddLayer(layer2, 0);
+
+      Assert.AreEqual(1, layer1.Position);
+      Assert.AreEqual(0, layer2.Position);
+      _image.LowerLayer(layer2);
+      Assert.AreEqual(0, layer1.Position);
+      Assert.AreEqual(1, layer2.Position);
+    }
+
+    [Test]
+    public void RaiseLayerToTop()
+    {
+      var layer1 = new Layer(_image, "test1", ImageType.Rgb);
+      _image.AddLayer(layer1, 0);
+      var layer2 = new Layer(_image, "test2", ImageType.Rgb);
+      _image.AddLayer(layer2, 0);
+
+      Assert.AreEqual(1, layer1.Position);
+      Assert.AreEqual(0, layer2.Position);
+      _image.RaiseLayerToTop(layer1);
+      Assert.AreEqual(0, layer1.Position);
+      Assert.AreEqual(1, layer2.Position);
+    }
+
+    [Test]
+    public void LowerLayerToBottom()
+    {
+      var layer1 = new Layer(_image, "test1", ImageType.Rgb);
+      _image.AddLayer(layer1, 0);
+      var layer2 = new Layer(_image, "test2", ImageType.Rgb);
+      _image.AddLayer(layer2, 0);
+
+      Assert.AreEqual(1, layer1.Position);
+      Assert.AreEqual(0, layer2.Position);
+      _image.LowerLayerToBottom(layer2);
+      Assert.AreEqual(0, layer1.Position);
+      Assert.AreEqual(1, layer2.Position);
+    }
+
+    [Test]
+    public void GetLayerPosition()
+    {
+      var layer1 = new Layer(_image, "test1", ImageType.Rgb);
+      _image.AddLayer(layer1, 0);
+      var layer2 = new Layer(_image, "test2", ImageType.Rgb);
+      _image.AddLayer(layer2, 0);
+
+      Assert.AreEqual(1, _image.GetLayerPosition(layer1));
+      Assert.AreEqual(0, _image.GetLayerPosition(layer2));
+    }
+
+    [Test]
+    public void AddChannel()
+    {
+      int before = _image.Channels.Count;
+      var channel = new Channel(_image, "test", new RGB(0, 255, 0));
+      _image.AddChannel(channel);
+      Assert.AreEqual(before + 1, _image.Channels.Count);
+    }
+
+    [Test]
+    public void RemoveChannel()
+    {
+      int before = _image.Channels.Count;
+      var channel = new Channel(_image, "test", new RGB(0, 255, 0));
+      _image.AddChannel(channel);
+      _image.RemoveChannel(channel);
+      Assert.AreEqual(before, _image.Channels.Count);
+    }
+
+    [Test]
+    public void RaiseChannel()
+    {
+      var channel1 = new Channel(_image, "test1", new RGB(0, 255, 0));
+      _image.AddChannel(channel1);
+      var channel2 = new Channel(_image, "test2", new RGB(0, 255, 0));
+      _image.AddChannel(channel2);
+
+      int position = channel1.Position;
+      _image.RaiseChannel(channel1);
+      Assert.AreEqual(position - 1, channel1.Position);
+      Assert.AreEqual(position, channel2.Position);
+    }
+
+    [Test]
+    public void LowerChannel()
+    {
+      var channel1 = new Channel(_image, "test1", new RGB(0, 255, 0));
+      _image.AddChannel(channel1);
+      var channel2 = new Channel(_image, "test2", new RGB(0, 255, 0));
+      _image.AddChannel(channel2);
+
+      int position = channel1.Position;
+      _image.LowerChannel(channel2);
+      Assert.AreEqual(position - 1, channel1.Position);
+      Assert.AreEqual(position, channel2.Position);
+    }
+
+    [Test]
+    public void GetChannelPosition()
+    {
+      var channel1 = new Channel(_image, "test1", new RGB(0, 255, 0));
+      _image.AddChannel(channel1);
+      var channel2 = new Channel(_image, "test2", new RGB(0, 255, 0));
+      _image.AddChannel(channel2);
+      Assert.AreEqual(1, _image.GetChannelPosition(channel1));
+      Assert.AreEqual(0, _image.GetChannelPosition(channel2));
+    }
+
+    [Test]
+    public void Flatten()
+    {
+      var layer1 = new Layer(_image, "test1", ImageType.Rgb);
+      _image.AddLayer(layer1, 0);
+      var layer2 = new Layer(_image, "test2", ImageType.Rgb);
+      _image.AddLayer(layer2, 0);
+
+      Assert.AreEqual(2, _image.Layers.Count);
+      _image.Flatten();
+      Assert.AreEqual(1, _image.Layers.Count);
+    }
+
+    [Test]
+    public void MergeVisibleLayers()
+    {
+      var layer1 = new Layer(_image, "test1", ImageType.Rgb);
+      _image.AddLayer(layer1, 0);
+      var layer2 = new Layer(_image, "test2", ImageType.Rgb);
+      _image.AddLayer(layer2, 0);
+
+      Assert.AreEqual(2, _image.Layers.Count);
+      _image.MergeVisibleLayers(MergeType.ClipToImage);
+      Assert.AreEqual(1, _image.Layers.Count);
+    }
+
+    [Test]
+    public void MergeDown()
+    {
+      var layer1 = new Layer(_image, "test1", ImageType.Rgb);
+      _image.AddLayer(layer1, 0);
+      var layer2 = new Layer(_image, "test2", ImageType.Rgb);
+      _image.AddLayer(layer2, 0);
+
+      Assert.AreEqual(2, _image.Layers.Count);
+      _image.MergeDown(layer1, MergeType.ClipToImage);
+      Assert.AreEqual(2, _image.Layers.Count);
+      _image.MergeDown(layer2, MergeType.ClipToImage);
+      Assert.AreEqual(1, _image.Layers.Count);
+    }
+
+    [Test]
+    public void Filename()
+    {
+      string filename = "foobar.jpg";
+      _image.Filename = filename;
+      Assert.AreEqual(filename, _image.Filename);
+    }
+
+    [Test]
+    public void GetThumbnail()
+    {
+      var layer = new Layer(_image, "test", ImageType.Rgb);
+      _image.AddLayer(layer, 0);
+      var dimensions = new Dimensions(19, 23);
+      var thumbnail = _image.GetThumbnail(dimensions, Transparency.KeepAlpha);
+      int width = thumbnail.GetLength(1);
+      int height = thumbnail.GetLength(0);
+      Assert.AreEqual(dimensions, new Dimensions(width, height));
+    }
+
+    [Test]
+    public void ConvertGrayscale()
+    {
+      var layer = new Layer(_image, "test", ImageType.Rgb);
+      _image.AddLayer(layer, 0);
+
+      _image.ConvertGrayscale();
+      // Fix me: next assert fails!
+      Assert.Equals(ImageBaseType.Gray, _image.BaseType);
+    }
+
+    [Test]
+    public void ConvertIndexed()
+    {
+      var layer = new Layer(_image, "test", ImageType.Rgb);
+      _image.AddLayer(layer, 0);
+
+      _image.ConvertIndexed(ConvertDitherType.No, ConvertPaletteType.Web,
+			    0, false, false, "");
+      // Fixe me: next assert fails!
+      Assert.Equals(ImageBaseType.Indexed, _image.BaseType);
     }
   }
 }
