@@ -186,10 +186,53 @@ namespace Gimp
     }
 
     [Test]
+    public void ParasiteList()
+    {
+      var list = _drawable.ParasiteList;
+      Assert.AreEqual(0, list.Count);
+
+      string name = "parasite";
+      int data = 13;
+      var parasite = new Parasite(name, 0, data);
+
+      _drawable.ParasiteAttach(parasite);
+
+      list = _drawable.ParasiteList;
+      Assert.AreEqual(1, list.Count);
+      Assert.AreEqual(parasite, list[0]);
+    }
+
+    [Test]
+    public void ParasiteAttach()
+    {
+      string name = "parasite";
+      int data = 13;
+      var parasite = new Parasite(name, 0, data);
+
+      _drawable.ParasiteAttach(parasite);
+      var found = _drawable.ParasiteFind(name);
+      Assert.IsNotNull(found);
+      Assert.AreEqual(name, found.Name);
+    }
+
+    [Test]
+    public void ParasiteDetach()
+    {
+      string name = "parasite";
+      int data = 13;
+      var parasite = new Parasite(name, 0, data);
+
+      _drawable.ParasiteAttach(parasite);
+      _drawable.ParasiteDetach(name);
+      var found = _drawable.ParasiteFind(name);
+      Assert.IsNull(found);
+    }
+
+    [Test]
     public void GetThumbnailData()
     {
       var dimensions = new Dimensions(16, 32);
-      Pixel[,] thumbnail = _drawable.GetThumbnailData(dimensions);
+      var thumbnail = _drawable.GetThumbnailData(dimensions);
       Assert.AreEqual(32, thumbnail.GetLength(0));
       Assert.AreEqual(16, thumbnail.GetLength(1));
       Assert.AreEqual(_drawable.Bpp, thumbnail[0, 0].Bpp);

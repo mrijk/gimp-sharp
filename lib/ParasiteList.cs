@@ -19,6 +19,7 @@
 // Boston, MA 02111-1307, USA.
 //
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -42,9 +43,19 @@ namespace Gimp
       _list.Add(parasite);
     }
 
+    public void ForEach(Action<Parasite> action)
+    {
+      _list.ForEach(action);
+    }
+
     public int Count
     {
       get {return _list.Count;}
+    }
+
+    public Parasite this[int index]
+    {
+      get {return _list[index];}
     }
   }
 }

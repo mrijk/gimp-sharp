@@ -1,3 +1,15 @@
+2010-04-04  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/UnitTest/TestPixelRgn.cs: fixed Rowstride test
+
+	* lib/ParasiteList.cs: added some convenience routines
+
+	* lib/Layer.cs: implemented Flatten missing method
+
+	* plug-ins/UnitTest/TestStroke.cs
+	* plug-ins/UnitTest/TestVectors.cs
+	* plug-ins/UnitTest/TestLayer.cs: more tests
+
 2010-04-03  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* lib/Channel.cs

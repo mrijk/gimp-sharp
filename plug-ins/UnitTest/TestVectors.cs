@@ -51,6 +51,17 @@ namespace Gimp
     }
 
     [Test]
+    public void ConstructorFromTextLayer()
+    {
+      var layer = new TextLayer(_image, "Hello World", "Sans", 
+				new FontSize(32, Unit.Pixel));
+      _image.AddLayer(layer, 0);
+      var vectors = new Vectors(_image, layer);
+      Assert.IsTrue(vectors.IsValid);
+      Assert.IsTrue(vectors.Strokes.Count > 0);
+    }
+
+    [Test]
     public void IsValid()
     {
       var vectors = new Vectors(_image, "firstVector");
@@ -114,7 +125,7 @@ namespace Gimp
     {
       var vectors = new Vectors(_image, "firstVector");
       _image.AddVectors(vectors, -1);
-      var stroke = AddStroke(vectors);
+      AddStroke(vectors);
       Assert.IsTrue(_image.Selection.Empty);
       vectors.ToSelection(ChannelOps.Replace, true);
       Assert.IsFalse(_image.Selection.Empty);
@@ -272,11 +283,13 @@ namespace Gimp
     [Test]
     public void ImportFromString()
     {
-      var vector = new Vectors(_image, "firstVector");
+      string name = "firstVector";
+      var vector = new Vectors(_image, name);
       string s = vector.ExportToString();
 
       var vectors = _image.ImportVectorsFromString(s, false, false);
       Assert.AreEqual(1, vectors.Count);
+      Assert.AreEqual(name, vectors[0].Name);
     }
   }
 }

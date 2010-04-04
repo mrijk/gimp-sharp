@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // Layer.cs
 //
@@ -53,7 +53,6 @@ namespace Gimp
 
     internal Layer DelayedConstruct(Image image)
     {
-      Console.WriteLine("DelayedConstruct");
       return _delay(image);
     }
   
@@ -100,7 +99,8 @@ namespace Gimp
     public void Scale(int newWidth, int newHeight, bool localOrigin, 
                       InterpolationType interpolation)
     {
-      if (!gimp_layer_scale_full(_ID, newWidth, newHeight, localOrigin, interpolation))
+      if (!gimp_layer_scale_full(_ID, newWidth, newHeight, localOrigin, 
+				 interpolation))
 	{
 	  throw new GimpSharpException();
 	}
@@ -148,7 +148,15 @@ namespace Gimp
 
     public void AddAlpha()
     {
-      if (!gimp_layer_add_alpha (_ID))
+      if (!gimp_layer_add_alpha(_ID))
+	{
+	  throw new GimpSharpException();
+	}
+    }
+
+    public void Flatten()
+    {
+      if (!gimp_layer_flatten(_ID))
 	{
 	  throw new GimpSharpException();
 	}
@@ -176,10 +184,7 @@ namespace Gimp
       get
 	{
 	  Int32 maskID = gimp_layer_get_mask(_ID);
-	  if (maskID == -1)
-	    return null;
-	  else
-	    return new Mask(maskID);
+	  return (maskID == -1) ? null : new Mask(maskID);
 	}
       set
 	{
@@ -323,24 +328,24 @@ namespace Gimp
 					  int offx,
 					  int offy);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_layer_resize_to_image_size (Int32 layer_ID);
+    static extern bool gimp_layer_resize_to_image_size(Int32 layer_ID);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_layer_translate (Int32 layer_ID, 
-					     int offx, int offy);
+    static extern bool gimp_layer_translate(Int32 layer_ID, 
+					    int offx, int offy);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_layer_add_alpha (Int32 layer_ID);
+    static extern bool gimp_layer_add_alpha(Int32 layer_ID);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_layer_set_offsets (Int32 layer_ID,
-					       int offx,
-					       int offy);
+    static extern bool gimp_layer_flatten(Int32 layer_ID);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern Int32 gimp_layer_create_mask (Int32 layer_ID,
-						AddMaskType mask_type);
+    static extern bool gimp_layer_set_offsets(Int32 layer_ID,
+					      int offx, int offy);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern Int32 gimp_layer_get_mask (Int32 layer_ID);
+    static extern Int32 gimp_layer_create_mask(Int32 layer_ID,
+					       AddMaskType mask_type);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_layer_add_mask (Int32 layer_ID,
-					    Int32 mask_ID);
+    static extern Int32 gimp_layer_get_mask(Int32 layer_ID);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_layer_add_mask(Int32 layer_ID, Int32 mask_ID);
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_layer_remove_mask (Int32 layer_ID,
 					       MaskApplyMode mode);

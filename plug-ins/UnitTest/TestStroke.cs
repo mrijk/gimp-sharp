@@ -54,8 +54,7 @@ namespace Gimp
 	new Coordinate<double>(100, 100),
 	new Coordinate<double>(150, 150)
       };
-      var stroke = vectors.NewFromPoints(VectorsStrokeType.Bezier,
-					 controlpoints, false);
+      vectors.NewFromPoints(VectorsStrokeType.Bezier, controlpoints, false);
       Assert.AreEqual(1, vectors.Strokes.Count);
     }
 
@@ -90,7 +89,7 @@ namespace Gimp
 					 controlpoints, false);      
       stroke.Close();
       bool closed;
-      var points = stroke.GetPoints(out closed);
+      stroke.GetPoints(out closed);
       Assert.IsTrue(closed);
     }
 

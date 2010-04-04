@@ -333,11 +333,27 @@ namespace Gimp
       return new Parasite(gimp_drawable_parasite_find(_ID, name));
     }
 
-    // TODO: make ParasiteList iso List<Parasite>
-    // TOOD: implement this!
-    public List<Parasite> ParasiteList
+    public ParasiteList ParasiteList
     {
-      get {return null;}
+      get 
+	{
+	  var list = new ParasiteList();
+
+	  int numParasites;
+	  IntPtr ptr;
+	  if (!gimp_drawable_parasite_list(_ID, out numParasites, out ptr))
+	    {
+	      throw new GimpSharpException();
+	    }
+	  for (int i = 0; i < numParasites; i++) 
+	    {
+	      IntPtr tmp = (IntPtr) Marshal.PtrToStructure(ptr, typeof(IntPtr));
+	      string name = Marshal.PtrToStringAnsi(tmp);
+	      list.Add(ParasiteFind(name));
+	      ptr = (IntPtr)((int)ptr + Marshal.SizeOf(tmp));
+	    }
+	  return list;
+	}
     }
 
     public void ParasiteAttach(Parasite parasite)

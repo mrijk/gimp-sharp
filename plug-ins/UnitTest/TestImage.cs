@@ -83,7 +83,7 @@ namespace Gimp
     }
 
     [Test]
-    public void Dimensionss()
+    public void Dimensions()
     {
       Assert.AreEqual(new Dimensions(_width, _height), _image.Dimensions);
     }
@@ -96,6 +96,17 @@ namespace Gimp
       Assert.AreEqual(_image.Height, copy.Height);
       Assert.AreEqual(_image.BaseType, copy.BaseType);
       copy.Delete();
+    }
+
+    [Test]
+    public void Flip()
+    {
+      _image.Flip(OrientationType.Horizontal);
+      Assert.AreEqual(_width, _image.Width);
+      Assert.AreEqual(_height, _image.Height);
+      _image.Flip(OrientationType.Vertical);
+      Assert.AreEqual(_width, _image.Width);
+      Assert.AreEqual(_height, _image.Height);
     }
 
     [Test]

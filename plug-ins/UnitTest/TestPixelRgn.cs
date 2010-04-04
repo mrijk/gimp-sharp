@@ -65,6 +65,7 @@ namespace Gimp
     public void Rowstride()
     {
       var rgn = new PixelRgn(_drawable, false, false);
+      PixelRgn.Register(rgn);
       Assert.AreEqual(_drawable.Bpp * Gimp.TileWidth, rgn.Rowstride);
     }
 

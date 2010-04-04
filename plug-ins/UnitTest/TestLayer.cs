@@ -147,8 +147,8 @@ namespace Gimp
     public void ResizeToImageSize()
     {
       var layer = new Layer(_image, "test", _width / 2, _height / 2,
-			      ImageType.Rgb, 100, 
-			      LayerModeEffects.Normal);
+			    ImageType.Rgb, 100, 
+			    LayerModeEffects.Normal);
       _image.AddLayer(layer, 0);
       layer.ResizeToImageSize();
       Assert.AreEqual(_image.Width, layer.Width);
@@ -162,7 +162,7 @@ namespace Gimp
       _image.AddLayer(layer, 0);
       layer.Translate(-10, 10);
 
-      Offset offset = layer.Offsets;
+      var offset = layer.Offsets;
       Assert.AreEqual(-10, offset.X);
       Assert.AreEqual(10, offset.Y);
     }
@@ -180,12 +180,22 @@ namespace Gimp
     }
 
     [Test]
+    public void Flatten()
+    {
+      var layer = new Layer(_image, "test", ImageType.Rgba);
+      _image.AddLayer(layer, 0);
+      Assert.AreEqual(ImageType.Rgba, layer.Type);
+      layer.Flatten();
+      Assert.AreEqual(ImageType.Rgb, layer.Type);
+    }
+
+    [Test]
     public void SetOffsets()
     {
       var layer = new Layer(_image, "test", ImageType.Rgb);
       _image.AddLayer(layer, 0);
 
-      Offset offset = new Offset(13, 14);
+      var offset = new Offset(13, 14);
 
       layer.Offsets = offset;
       Assert.AreEqual(offset, layer.Offsets);
@@ -200,7 +210,7 @@ namespace Gimp
 
       Assert.AreEqual(null, layer.Mask);
 
-      Mask mask = layer.CreateMask(AddMaskType.White);
+      var mask = layer.CreateMask(AddMaskType.White);
       layer.Mask = mask;
       Assert.AreEqual(mask, layer.Mask);
     }
@@ -212,7 +222,7 @@ namespace Gimp
       layer.AddAlpha();
       _image.AddLayer(layer, 0);
 
-      Mask mask = layer.CreateMask(AddMaskType.White);
+      var mask = layer.CreateMask(AddMaskType.White);
       layer.Mask = mask;
       Assert.AreEqual(mask, layer.Mask);
 
@@ -226,7 +236,7 @@ namespace Gimp
       var layer = new Layer(_image, "test", ImageType.Rgb);
       _image.AddLayer(layer, 0);
 
-      Layer copy = new Layer(layer, _image);
+      var copy = new Layer(layer, _image);
       Assert.AreEqual(layer.Dimensions, copy.Dimensions);
     }
 
