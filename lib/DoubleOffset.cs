@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // DoubleOffset.cs
 //
@@ -26,7 +26,7 @@ namespace Gimp
     public double X {get; set;}
     public double Y {get; set;}
 
-    public DoubleOffset(double x, double y)
+    public DoubleOffset(double x, double y) : this()
     {
       X = x;
       Y = y;

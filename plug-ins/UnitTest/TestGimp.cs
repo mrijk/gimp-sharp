@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // TestGimp.cs
 //
@@ -33,7 +33,7 @@ namespace Gimp
       Assert.IsNotNull(version);
     }
 
-    // [Test]
+    [Test]
     public void MajorVersion()
     {
       var version = Gimp.Version;

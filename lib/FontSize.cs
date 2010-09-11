@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // FontSize.cs
 //
@@ -23,7 +23,7 @@ using System;
 
 namespace Gimp
 {
-  public struct FontSize
+  public class FontSize
   {
     public double Size {get; set;}
     public Unit Unit {get; set;}

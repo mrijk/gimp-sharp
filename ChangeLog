@@ -1,3 +1,26 @@
+2010-09-11  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/Forge/Complex.cs: added call to default constructor
+
+	* lib/FontSize.cs: changed from struct to class
+	
+	* lib/Dimensions.cs
+	* lib/DoubleOffset.cs
+	* lib/Offset.cs
+	* lib/Resolution.cs
+	* lib/Spacing.cs: added call to default constructor
+
+2010-08-16  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/GeneticDrawing/*: new plug-in
+
+	* plug-ins/Makefile.am:
+	* configure.in: changed accordingly
+
+2010-07-25  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/Trim/Makefile.am: removed dependency on Trim.png
+
 2010-04-04  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* plug-ins/UnitTest/TestPixelRgn.cs: fixed Rowstride test

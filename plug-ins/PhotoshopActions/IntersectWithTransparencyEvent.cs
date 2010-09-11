@@ -18,18 +18,31 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
+using System;
+using System.Collections;
+
 namespace Gimp.PhotoshopActions
 {
   public class IntersectWithTransparencyEvent : ActionEvent
   {
+    [Parameter("null")]
+    ReferenceParameter _obj;
+    [Parameter("With")]
+    ObjcParameter _with;
+
     public override bool IsExecutable
     {
       get {return false;}
     }
 
+    public override string EventForDisplay
+    {
+      get {return base.EventForDisplay + " transparency channel";}
+    }
+
     override public bool Execute()
     {
-      return true;
+      return false;
     }
   }
 }

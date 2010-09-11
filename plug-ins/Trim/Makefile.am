@@ -12,7 +12,7 @@ EXTRA_DIST = $(MYSOURCES) Trim
 
 CLEANFILES = Trim.exe
 
-Trim.exe : $(MYSOURCES) Trim.png $(GIMPSHARPLIB)
+Trim.exe : $(MYSOURCES) $(GIMPSHARPLIB)
 	$(CSC) $(CSC_FLAGS) $(MYSOURCES) -out:$@ $(ASSEMBLIES)
 
 install:

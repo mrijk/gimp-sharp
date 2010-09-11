@@ -1,5 +1,5 @@
 // The Forge plug-in
-// Copyright (C) 2006-2009 Massimo Perga (massimo.perga@gmail.com)
+// Copyright (C) 2006-2010 Maurits Rijk (maurits.rijk@gmail.com)
 //
 // Complex.cs
 //
@@ -27,7 +27,7 @@ namespace Gimp.Forge
     public double Real {get; set;}
     public double Imag {get; set;}
 
-    public Complex(double real, double imag)
+    public Complex(double real, double imag) : this()
     {
       Real = real;
       Imag = imag;

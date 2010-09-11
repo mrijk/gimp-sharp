@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // Offset.cs
 //
@@ -28,7 +28,7 @@ namespace Gimp
     public int X {get; set;}
     public int Y {get; set;}
 
-    public Offset(int x, int y)
+    public Offset(int x, int y) : this()
     {
       X = x;
       Y = y;

@@ -28,7 +28,7 @@ namespace Gimp
     public int Width {get; set;}
     public int Height {get; set;}
 
-    public Dimensions(int width, int height)
+    public Dimensions(int width, int height) : this()
     {
       Width = width;
       Height = height;

@@ -64,6 +64,7 @@ SUBDIRS = 			\
 	Fragment		\
 	$(FSharpSample)		\
 	GemImg			\
+	$(GeneticDrawing)	\
 	JavaFX			\
 	KoalaPaint 		\
 	$(Mezzotint)		\
