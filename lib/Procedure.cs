@@ -50,7 +50,7 @@ namespace Gimp
 		     string date, string menu_path, 
 		     string image_types,
 		     ParamDefList inParams,
-		     ParamDefList outParams)
+		     ParamDefList outParams = null)
     {
       Name = name;
       _blurb = blurb;
@@ -67,19 +67,9 @@ namespace Gimp
     public Procedure(string name, string blurb, string help, 
 		     string author, string copyright, 
 		     string date, string menu_path, 
-		     string image_types,
-		     ParamDefList inParams) : 
-      this(name, blurb, help, author, copyright, date, menu_path,
-	   image_types, inParams, null)
-    {
-    }
-
-    public Procedure(string name, string blurb, string help, 
-		     string author, string copyright, 
-		     string date, string menu_path, 
 		     string image_types) :
       this(name, blurb, help, author, copyright, date, menu_path,
-	   image_types, new ParamDefList(), null)
+	   image_types, new ParamDefList())
     {
     }
 
@@ -137,7 +127,6 @@ namespace Gimp
 				       out return_vals))
 	{	
 	  // Get parameter types
-	  var paramDef = new GimpParamDef[num_args];
 	  var _params = new GimpParam[num_args];
 	  
 	  // First 3 parameters are default
@@ -149,16 +138,9 @@ namespace Gimp
 	  _params[2].type = PDBArgType.Drawable;
 	  _params[2].data.d_drawable = drawable.ID;
 
-	  int i;
+	  var paramDef = GetParamDef(num_args, argsPtr);
 
-	  for (i = 0; i < num_args; i++)
-	    {
-	      paramDef[i] = (GimpParamDef) 
-		Marshal.PtrToStructure(argsPtr, typeof(GimpParamDef));
-	      argsPtr = (IntPtr)((int)argsPtr + Marshal.SizeOf(paramDef[i]));
-	    }
-
-	  i = 3;
+	  int i = 3;
 	  foreach (object obj in list)
 	    {
 	      switch (paramDef[i].type)
@@ -206,6 +188,18 @@ namespace Gimp
 	{
 	  Console.WriteLine(Name + " not found!");
 	}
+    }
+
+    GimpParamDef[] GetParamDef(int num_args, IntPtr argsPtr)
+    {
+      var paramDef = new GimpParamDef[num_args];
+      for (int i = 0; i < num_args; i++)
+	{
+	  paramDef[i] = (GimpParamDef) 
+	    Marshal.PtrToStructure(argsPtr, typeof(GimpParamDef));
+	  argsPtr = (IntPtr)((int)argsPtr + Marshal.SizeOf(paramDef[i]));
+	}
+      return paramDef;
     }
 
     public void MenuRegister()

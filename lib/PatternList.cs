@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // PatternList.cs
 //
@@ -29,7 +29,7 @@ namespace Gimp
   {
     readonly List<Pattern> _list = new List<Pattern>();
 
-    public PatternList(string filter)
+    public PatternList(string filter = null)
     {
       int num_patterns;
       IntPtr ptr = gimp_patterns_get_list(filter, out num_patterns);
@@ -39,10 +39,6 @@ namespace Gimp
 	  _list.Add(new Pattern(Marshal.PtrToStringAnsi(tmp), false));
 	  ptr = (IntPtr)((int)ptr + Marshal.SizeOf(tmp));
         }
-    }
-
-    public PatternList() : this(null)
-    {
     }
 
     public IEnumerator<Pattern> GetEnumerator()

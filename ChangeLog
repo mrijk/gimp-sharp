@@ -1,4 +1,20 @@
+2010-10-28  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* lib/Procedure.cs: clean-up code
+
+	* plug-ins/QR/*
+	* plug-ins/Makefile.am: new QR plug-in
+
+2010-09-12  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* configure.in: bumped requirement to Mono 2.8
+
 2010-09-11  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* lib/PatternList.cs
+	* lib/Procedure.cs
+	* lib/Vector3.cs
+	* lib/Vector2.cs: using default arguments to clean-up code
 
 	* plug-ins/Forge/Complex.cs: added call to default constructor
 

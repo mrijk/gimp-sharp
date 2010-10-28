@@ -43,12 +43,9 @@ namespace Gimp
       _rgb = new int[_bpp];
     }
 
-    public Pixel(byte[] rgb)
+    public Pixel(byte[] rgb) : this(rgb.Length)
     {
-      _bpp = rgb.Length;
-      _bppWithoutAlpha = (HasAlpha) ? _bpp - 1 : _bpp;
-      _rgb = new int[_bpp];
-      Array.Copy(rgb, _rgb, _bpp);
+      Bytes = rgb;
     }
 
     public Pixel(int r, int g, int b) : this(3)
@@ -68,7 +65,7 @@ namespace Gimp
 
     internal Pixel(Pixel p) : this(p._bpp)
     {
-      Array.Copy(p._rgb, _rgb, _bpp);
+      Array.Copy(p._rgb, _rgb, Bpp);
     }
 
     internal Pixel(PixelRgn rgn, byte[] rgb) : this(rgb)

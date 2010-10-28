@@ -34,7 +34,8 @@ namespace Gimp
 
     readonly GimpParamDef _paramDef = new GimpParamDef();
 
-    public ParamDef(string name, object value, Type type, string description)
+    public ParamDef(string name, object value, Type type, 
+		    string description)
     {
       Name = name;
       Value = value;

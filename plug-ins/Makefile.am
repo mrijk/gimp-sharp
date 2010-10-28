@@ -64,7 +64,6 @@ SUBDIRS = 			\
 	Fragment		\
 	$(FSharpSample)		\
 	GemImg			\
-	$(GeneticDrawing)	\
 	JavaFX			\
 	KoalaPaint 		\
 	$(Mezzotint)		\
@@ -79,6 +78,7 @@ SUBDIRS = 			\
 	PicturePackage 		\
 	Pointillize		\
 	$(PythonSample)		\
+	QR			\
 	Raindrops		\
 	$(ScalaSample)		\
 	$(Shatter)		\

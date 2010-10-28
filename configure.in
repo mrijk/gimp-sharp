@@ -23,7 +23,7 @@ if test "$MONO" = "no"; then
 fi
 AC_SUBST(MONO)
 
-PKG_CHECK_MODULES(MONO, mono >= 2.0)
+PKG_CHECK_MODULES(MONO, mono >= 2.8)
 AC_SUBST(MONO_CFLAGS)
 AC_SUBST(MONO_LIBS)
 
@@ -297,7 +297,6 @@ plug-ins/Fragment/Makefile
 plug-ins/Fragment/po/Makefile
 plug-ins/FSharpSample/Makefile
 plug-ins/GemImg/Makefile
-plug-ins/GeneticDrawing/Makefile
 plug-ins/JavaFX/Makefile
 plug-ins/KoalaPaint/Makefile
 plug-ins/KoalaPaint/po/Makefile
@@ -319,6 +318,7 @@ plug-ins/PicturePackage/po/Makefile
 plug-ins/Pointillize/Makefile
 plug-ins/Pointillize/po/Makefile
 plug-ins/PythonSample/Makefile
+plug-ins/QR/Makefile
 plug-ins/Raindrops/Makefile 
 plug-ins/Raindrops/po/Makefile 
 plug-ins/ScalaSample/Makefile
