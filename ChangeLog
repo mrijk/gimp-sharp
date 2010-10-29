@@ -1,3 +1,9 @@
+2010-10-29  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* NEWS: updated
+
+	* lib/Procedure.cs: clean-up
+
 2010-10-28  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* lib/Procedure.cs: clean-up code

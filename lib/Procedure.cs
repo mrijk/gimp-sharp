@@ -106,6 +106,46 @@ namespace Gimp
       IconRegister();
     }
 
+    public void Run(params object[] list)
+    {
+      PDBProcType proc_type;
+      int num_args;
+      int num_values;
+      IntPtr argsPtr;
+      IntPtr return_vals;
+    
+      Console.WriteLine("****: " + list.Length);
+      if (gimp_procedural_db_proc_info(Name, 
+				       out _blurb, 
+				       out _help,
+				       out _author,
+				       out _copyright,
+				       out _date,
+				       out proc_type,
+				       out num_args,
+				       out num_values,
+				       out argsPtr,
+				       out return_vals))
+	{	
+	  var parameters = new GimpParam[num_args];
+
+	  parameters[0].type = PDBArgType.Int32;
+	  parameters[0].data.d_int32 = (Int32) RunMode.Noninteractive;	
+	  
+	  int i = ParseParameters(1, parameters, num_args, argsPtr, list);
+	  
+	  for (int j = 0; j < num_args; j++)
+	    Console.WriteLine(parameters[j].type);
+
+	  int n_return_vals;
+	  gimp_run_procedure2(Name, out n_return_vals, i, parameters);
+	}
+      else
+	{
+	  Console.WriteLine(Name + " not found!");
+	}
+    }
+
     public void Run(Image image, Drawable drawable, params object[] list)
     {
       PDBProcType proc_type;
@@ -127,67 +167,93 @@ namespace Gimp
 				       out return_vals))
 	{	
 	  // Get parameter types
-	  var _params = new GimpParam[num_args];
+	  var parameters = new GimpParam[num_args];
 	  
 	  // First 3 parameters are default
 
-	  _params[0].type = PDBArgType.Int32;
-	  _params[0].data.d_int32 = (Int32) RunMode.Noninteractive;	
-	  _params[1].type = PDBArgType.Image;
-	  _params[1].data.d_image = image.ID;
-	  _params[2].type = PDBArgType.Drawable;
-	  _params[2].data.d_drawable = drawable.ID;
+	  parameters[0].type = PDBArgType.Int32;
+	  parameters[0].data.d_int32 = (Int32) RunMode.Noninteractive;	
+	  parameters[1].type = PDBArgType.Image;
+	  parameters[1].data.d_image = image.ID;
+	  parameters[2].type = PDBArgType.Drawable;
+	  parameters[2].data.d_drawable = drawable.ID;
 
-	  var paramDef = GetParamDef(num_args, argsPtr);
-
-	  int i = 3;
-	  foreach (object obj in list)
-	    {
-	      switch (paramDef[i].type)
-		{
-		case PDBArgType.Int32:
-		  _params[i].type = PDBArgType.Int32;
-		  if (obj is bool)
-		    {
-		      Int32 val = ((bool) obj) ? 1 : 0;
-		      _params[i].data.d_int32 = val;
-		    }
-		  else
-		    {
-		      _params[i].data.d_int32 = (Int32) obj;
-		    }
-		  break;
-		case PDBArgType.Float:
-		  _params[i].type = PDBArgType.Float;
-		  if (obj is int)
-		    {
-		      _params[i].data.d_float = (double) (int) obj;
-		    }
-		  else
-		    {
-		      _params[i].data.d_float = (double) obj;
-		    }
-		  break;
-		case PDBArgType.String:
-		  _params[i].type = PDBArgType.String;
-		  _params[i].data.d_string = 
-		    Marshal.StringToHGlobalAuto(obj as string);
-		  break;
-		default:
-		  Console.WriteLine("Procedure: Implement this: " +
-				    paramDef[i].type);
-		  break;
-		}
-	      i++;
-	    }
+	  int i = ParseParameters(3, parameters, num_args, argsPtr, list);
 
 	  int n_return_vals;
-	  gimp_run_procedure2(Name, out n_return_vals, i, _params);
+	  gimp_run_procedure2(Name, out n_return_vals, i, parameters);
 	}
       else
 	{
 	  Console.WriteLine(Name + " not found!");
 	}
+    }
+
+    int ParseParameters(int i, GimpParam[] _params, int num_args, IntPtr argsPtr, 
+			params object[] list)
+    {
+      var paramDef = GetParamDef(num_args, argsPtr);
+      foreach (GimpParamDef p in paramDef)
+	Console.WriteLine("p: " + p.type);
+
+      foreach (object obj in list)
+	{
+	  Console.WriteLine("i: " + i);
+	  switch (paramDef[i].type)
+	    {
+	    case PDBArgType.Int32:
+	      _params[i] = GetIntParam(obj);
+	      break;
+	    case PDBArgType.Float:
+	      _params[i] = GetFloatParam(obj);
+	      break;
+	    case PDBArgType.String:
+	      _params[i] = GetStringParam(obj);
+	      break;
+	    default:
+	      Console.WriteLine("Procedure: Implement this: " +
+				paramDef[i].type);
+	      break;
+	    }
+	  i++;
+	}
+      return i;
+    }
+
+    GimpParam GetIntParam(Object obj)
+    {
+      var param = new GimpParam() {type = PDBArgType.Int32};
+      if (obj is bool)
+	{
+	  Int32 val = ((bool) obj) ? 1 : 0;
+	  param.data.d_int32 = val;
+	}
+      else
+	{
+	  param.data.d_int32 = (Int32) obj;
+	}
+      return param;
+    }
+
+    GimpParam GetFloatParam(Object obj)
+    {
+      var param = new GimpParam() {type = PDBArgType.Float};
+      if (obj is int)
+	{
+	  param.data.d_float = (double) (int) obj;
+	}
+      else
+	{
+	  param.data.d_float = (double) obj;
+	}
+      return param;
+    }
+
+    GimpParam GetStringParam(Object obj)
+    {
+      var param = new GimpParam() {type = PDBArgType.String};
+      param.data.d_string = Marshal.StringToHGlobalAuto(obj as string);
+      return param;
     }
 
     GimpParamDef[] GetParamDef(int num_args, IntPtr argsPtr)
