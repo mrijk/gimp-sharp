@@ -1,3 +1,13 @@
+2010-10-30  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* lib/DrawablePreview.cs: moved redraw to base class
+
+	* lib/GimpPreview.cs: moved Redraw function
+
+	* plug-ins/QR/QR.cs: Initial version of GUI
+
+	* plug-ins/QR/QR.png: created icon
+
 2010-10-29  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* NEWS: updated

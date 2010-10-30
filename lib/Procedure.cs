@@ -20,6 +20,7 @@
 //
 
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.InteropServices;
 
@@ -106,7 +107,7 @@ namespace Gimp
       IconRegister();
     }
 
-    public void Run(params object[] list)
+    public List<object> Run(params object[] list)
     {
       PDBProcType proc_type;
       int num_args;
@@ -114,7 +115,6 @@ namespace Gimp
       IntPtr argsPtr;
       IntPtr return_vals;
     
-      Console.WriteLine("****: " + list.Length);
       if (gimp_procedural_db_proc_info(Name, 
 				       out _blurb, 
 				       out _help,
@@ -133,17 +133,47 @@ namespace Gimp
 	  parameters[0].data.d_int32 = (Int32) RunMode.Noninteractive;	
 	  
 	  int i = ParseParameters(1, parameters, num_args, argsPtr, list);
+	  // Todo: destroy argsPtr!
 	  
-	  for (int j = 0; j < num_args; j++)
-	    Console.WriteLine(parameters[j].type);
-
 	  int n_return_vals;
-	  gimp_run_procedure2(Name, out n_return_vals, i, parameters);
+	  IntPtr returnArgsPtr = gimp_run_procedure2(Name, out n_return_vals, i, parameters);
+
+	  Console.WriteLine("num_values: " + num_values);
+	  Console.WriteLine("n_return_vals: " + n_return_vals);
+
+	  return ParseReturnArgs(returnArgsPtr, n_return_vals);
 	}
       else
 	{
 	  Console.WriteLine(Name + " not found!");
 	}
+      return null;
+    }
+
+    List<object> ParseReturnArgs(IntPtr argsPtr, int num_args)
+    {
+      var list = new List<object>();
+
+      // first parameter contains Status!
+      for (int i = 0; i < num_args; i++)
+	{
+	  var param = (GimpParam) Marshal.PtrToStructure(argsPtr, typeof(GimpParam));
+	  argsPtr = (IntPtr)((int)argsPtr + Marshal.SizeOf(param));
+	  switch (param.type) 
+	    {
+	    case PDBArgType.Status:
+	      // TODO: check status value!
+	      break;
+	    case PDBArgType.Image:
+	      list.Add(new Image(param.data.d_image));
+	      break;
+	    default:
+	      Console.WriteLine("ParseReturnArgs: Implement this: " + param.type);
+	      break;
+	  }
+	}
+      // Fix me! gimp_destroy_params(argsPtr, num_args);
+      return list;
     }
 
     public void Run(Image image, Drawable drawable, params object[] list)
@@ -179,6 +209,7 @@ namespace Gimp
 	  parameters[2].data.d_drawable = drawable.ID;
 
 	  int i = ParseParameters(3, parameters, num_args, argsPtr, list);
+	  // Todo: destroy argsPtr!
 
 	  int n_return_vals;
 	  gimp_run_procedure2(Name, out n_return_vals, i, parameters);
@@ -193,12 +224,9 @@ namespace Gimp
 			params object[] list)
     {
       var paramDef = GetParamDef(num_args, argsPtr);
-      foreach (GimpParamDef p in paramDef)
-	Console.WriteLine("p: " + p.type);
 
       foreach (object obj in list)
 	{
-	  Console.WriteLine("i: " + i);
 	  switch (paramDef[i].type)
 	    {
 	    case PDBArgType.Int32:
@@ -348,5 +376,7 @@ namespace Gimp
 						    out int n_return_vals,
 						    int n_params,
 						    GimpParam[] _params);
+    [DllImport("libgimp-2.0-0.dll")]
+    public static extern void gimp_destroy_params(IntPtr _params, int n_params);
   }
 }

@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // DrawablePreview.cs
 //
@@ -38,21 +38,6 @@ namespace Gimp
     {
       var pr = region.PR;
       gimp_drawable_preview_draw_region(Handle, ref pr);
-    }
-
-    public void Redraw(Drawable drawable)
-    {
-      var rectangle = Bounds;
-      int bpp = drawable.Bpp;
-      int rowStride = rectangle.Width * bpp;
-      var buffer = new byte[rectangle.Area * bpp];
-
-      foreach (var pixel in new ReadPixelIterator(drawable))
-	{
-	  int index = pixel.Y * rowStride + pixel.X * bpp;
-	  pixel.CopyTo(buffer, index);
-	}
-      DrawBuffer(buffer, rowStride);
     }
 
     [DllImport("libgimpui-2.0-0.dll")]

@@ -26,6 +26,11 @@ namespace Gimp.QR
 {
   class QR : PluginWithPreview
   {
+    [SaveAttribute("text")]
+    string _text = "";
+    [SaveAttribute("margin")]
+    int _margin = 4;
+
     static void Main(string[] args)
     {
       new QR(args);
@@ -37,16 +42,21 @@ namespace Gimp.QR
 
     override protected IEnumerable<Procedure> ListProcedures()
     {
-      var inParams = new ParamDefList() {};
+      var inParams = new ParamDefList() {
+	new ParamDef("text", "", typeof(string),
+		     _("Text for QR code")),
+	new ParamDef("margin", "", typeof(int),
+		     _("Margin")),
+      };
 
       yield return new Procedure("plug_in_QR",
-				 _("Generates QR code"),
-				 _("Generates QR code"),
+				 _("Generates QR codes"),
+				 _("Generates QR codes"),
 				 "Maurits Rijk",
 				 "(C) Maurits Rijk",
 				 "2010",
 				 "QR...",
-				 "RGB*, GRAY*",
+				 "*",
 				 inParams)
 	{
 	  MenuPath = "<Image>/Filters/Render",
@@ -66,17 +76,117 @@ namespace Gimp.QR
 	  ColumnSpacing = 6, 
 	  RowSpacing = 6
 	};
+
+      var text = CreateText();
+      table.Attach(text, 0, 2, 0, 1);
+
+      var encoding = CreateOutputEncoding();
+      table.Attach(encoding, 0, 1, 1, 2);
+
+      var errorCorrection = CreateErrorCorrection();
+      table.Attach(errorCorrection, 1, 2, 1, 2);
+
+      CreateMargin(table);
+
       Vbox.PackStart(table, false, false, 0);
 			
       return dialog;
     }
 
-    override protected void Render(Drawable drawable)
+    Widget CreateText()
     {
-      var url = "http://chart.apis.google.com/chart?cht=qr&chl=Hello+World&chs=100x100";
+      var frame = new GimpFrame(_("Text"));
+
+      var text = new Entry();
+      text.Text = _text;
+      text.Changed += delegate {
+	_text = text.Text;
+	InvalidatePreview();
+      };
+      frame.Add(text);
+
+      return frame;
+    }
+
+    Widget CreateOutputEncoding()
+    {
+      var frame = new GimpFrame(_("Encoding"));
+
+      var vbox = new VBox(false, 1);
+      frame.Add(vbox);
+
+      var button = new RadioButton(_("_UTF-8"));
+      vbox.Add(button);
+
+      button = new RadioButton(button, _("_Shift-JIS"));
+      vbox.Add(button);
+
+      button = new RadioButton(button, _("_ISO-8859-1"));
+      vbox.Add(button);
+
+      return frame;
+    }
+
+    Widget CreateErrorCorrection()
+    {
+      var frame = new GimpFrame(_("Error Correction Level"));
+
+      var vbox = new VBox(false, 1);
+      frame.Add(vbox);
+
+      var button = new RadioButton(_("L (7 % data loss)"));
+      vbox.Add(button);
+
+      button = new RadioButton(button, _("M (15 % data loss)"));
+      vbox.Add(button);
+
+      button = new RadioButton(button, _("Q (25 % data loss)"));
+      vbox.Add(button);
+
+      button = new RadioButton(button, _("H (30 % data loss)"));
+      vbox.Add(button);
+
+      return frame;
+    }
+
+    void CreateMargin(Table table)
+    {
+      var margin = new ScaleEntry(table, 0, 2, _("Margin:"), 150, 3, 
+				  _margin, 0.0, 64.0, 1.0, 8.0, 0);
+      margin.ValueChanged += delegate
+	{
+	  _margin = margin.ValueAsInt;
+	  InvalidatePreview();
+	};
+    }
+
+    Image GetImageFromGoogleCharts(Dimensions dimensions)
+    {
+      var chl = "&chl=" + Uri.EscapeDataString(_text);
+      var chs = string.Format("&chs={0}x{1}", dimensions.Width, dimensions.Height);
+      var chld = string.Format("&chld=L|{0}", _margin);
+      var url = "http://chart.apis.google.com/chart?cht=qr" + chl + chs + chld;
+
+      Console.WriteLine("url: " + url);
 
       var procedure = new Procedure("file-uri-load");
-      procedure.Run(url, url);
+      var returnArgs = procedure.Run(url, url);
+
+      return returnArgs[0] as Image;
+    }
+
+    override protected void UpdatePreview(AspectPreview preview)
+    {
+      var image = GetImageFromGoogleCharts(preview.Size);
+      
+      preview.Redraw(image.ActiveDrawable);
+      image.Delete();
+    }
+
+    override protected void Render(Drawable drawable)
+    {
+      var image = GetImageFromGoogleCharts(drawable.Dimensions);
+      new Display(image);
     }
   }
 }
