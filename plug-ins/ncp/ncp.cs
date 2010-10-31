@@ -1,5 +1,5 @@
 // The ncp plug-in
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // ncp.cs
 //
@@ -79,9 +79,9 @@ namespace Gimp.ncp
       gimp_ui_init("ncp", true);
 
       var dialog = DialogNew("ncp", "ncp", IntPtr.Zero, 0,
-				    Gimp.StandardHelpFunc, "ncp");
+			     Gimp.StandardHelpFunc, "ncp");
 
-      var table = new GimpTable(4, 3, false)
+      var table = new GimpTable(4, 3)
 	{
 	  ColumnSpacing = 6, 
 	  RowSpacing = 6

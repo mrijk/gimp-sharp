@@ -28,6 +28,8 @@ namespace Gimp.QR
   {
     [SaveAttribute("text")]
     string _text = "";
+    [SaveAttribute("error_correction")]
+    string _errorCorrection = "L";
     [SaveAttribute("margin")]
     int _margin = 4;
 
@@ -45,7 +47,9 @@ namespace Gimp.QR
       var inParams = new ParamDefList() {
 	new ParamDef("text", "", typeof(string),
 		     _("Text for QR code")),
-	new ParamDef("margin", "", typeof(int),
+	new ParamDef("error_correction", "L", typeof(string),
+		     _("Error Correction Level (L, M, Q or H)")),
+	new ParamDef("margin", 4, typeof(int),
 		     _("Margin")),
       };
 
@@ -55,7 +59,7 @@ namespace Gimp.QR
 				 "Maurits Rijk",
 				 "(C) Maurits Rijk",
 				 "2010",
-				 "QR...",
+				 "QR codes...",
 				 "*",
 				 inParams)
 	{
@@ -71,24 +75,23 @@ namespace Gimp.QR
       var dialog = DialogNew("QR", "QR", IntPtr.Zero, 0,
 				    Gimp.StandardHelpFunc, "QR");
 
-      var table = new GimpTable(4, 3, false)
-	{
-	  ColumnSpacing = 6, 
-	  RowSpacing = 6
-	};
+      var table = new GimpTable(4, 2) {
+	ColumnSpacing = 6, RowSpacing = 6};
 
       var text = CreateText();
-      table.Attach(text, 0, 2, 0, 1);
+      table.Attach(text, 0, 2, 0, 2);
 
       var encoding = CreateOutputEncoding();
-      table.Attach(encoding, 0, 1, 1, 2);
+      table.Attach(encoding, 0, 1, 2, 3);
 
       var errorCorrection = CreateErrorCorrection();
-      table.Attach(errorCorrection, 1, 2, 1, 2);
+      table.Attach(errorCorrection, 1, 2, 2, 3);
 
       CreateMargin(table);
 
       Vbox.PackStart(table, false, false, 0);
+
+      InvalidatePreview();
 			
       return dialog;
     }
@@ -97,10 +100,13 @@ namespace Gimp.QR
     {
       var frame = new GimpFrame(_("Text"));
 
-      var text = new Entry();
-      text.Text = _text;
-      text.Changed += delegate {
-	_text = text.Text;
+      var text = new TextView();
+      text.SetSizeRequest(-1, 100);
+
+      var buffer = text.Buffer;
+      buffer.Text = _text;
+      buffer.Changed += delegate {
+	_text = buffer.Text;
 	InvalidatePreview();
       };
       frame.Add(text);
@@ -134,24 +140,33 @@ namespace Gimp.QR
       var vbox = new VBox(false, 1);
       frame.Add(vbox);
 
-      var button = new RadioButton(_("L (7 % data loss)"));
-      vbox.Add(button);
-
-      button = new RadioButton(button, _("M (15 % data loss)"));
-      vbox.Add(button);
-
-      button = new RadioButton(button, _("Q (25 % data loss)"));
-      vbox.Add(button);
-
-      button = new RadioButton(button, _("H (30 % data loss)"));
-      vbox.Add(button);
+      var button = AddErrorCorrectionButton(vbox, null, "L", "(7 % data loss)");
+      button = AddErrorCorrectionButton(vbox, button, "M", "(15 % data loss)");
+      button = AddErrorCorrectionButton(vbox, button, "Q", "(25 % data loss)");
+      AddErrorCorrectionButton(vbox, button, "H", "(30 % data loss)");
 
       return frame;
     }
 
+    RadioButton AddErrorCorrectionButton(VBox vbox, RadioButton previous, string type, string description)
+    {
+      var button = new RadioButton(previous, type + " " + _(description));
+      if (_errorCorrection == type) {
+	button.Active = true;
+      }
+      button.Clicked += delegate {
+	if (button.Active) {
+	  _errorCorrection = type;
+	  InvalidatePreview();
+	}
+      };
+      vbox.Add(button);
+      return button;
+    }
+
     void CreateMargin(Table table)
     {
-      var margin = new ScaleEntry(table, 0, 2, _("Margin:"), 150, 3, 
+      var margin = new ScaleEntry(table, 0, 3, _("Margin:"), 150, 3, 
 				  _margin, 0.0, 64.0, 1.0, 8.0, 0);
       margin.ValueChanged += delegate
 	{
@@ -164,7 +179,7 @@ namespace Gimp.QR
     {
       var chl = "&chl=" + Uri.EscapeDataString(_text);
       var chs = string.Format("&chs={0}x{1}", dimensions.Width, dimensions.Height);
-      var chld = string.Format("&chld=L|{0}", _margin);
+      var chld = string.Format("&chld={0}|{1}", _errorCorrection, _margin);
       var url = "http://chart.apis.google.com/chart?cht=qr" + chl + chs + chld;
 
       Console.WriteLine("url: " + url);
@@ -183,10 +198,10 @@ namespace Gimp.QR
       image.Delete();
     }
 
-    override protected void Render(Drawable drawable)
+    override protected void Render(Image image, Drawable drawable)
     {
-      var image = GetImageFromGoogleCharts(drawable.Dimensions);
-      new Display(image);
+      var newImage = GetImageFromGoogleCharts(drawable.Dimensions);
+      Display.Reconnect(image, newImage);
     }
   }
 }

@@ -1,5 +1,5 @@
 // The JavaFX plug-in
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // JavaFX.cs
 //
@@ -42,7 +42,7 @@ namespace Gimp.JavaFX
 				 _("JavaFX"),
 				 "Maurits Rijk",
 				 "(C) Maurits Rijk",
-				 "2006-2009",
+				 "2006-2010",
 				 _("Save As JavaFX"),
 				 "RGB*, GRAY*")
 	{MenuPath = "<Toolbox>/Xtns/Extensions",
@@ -57,11 +57,8 @@ namespace Gimp.JavaFX
       var dialog = DialogNew("JavaFX", "JavaFX", IntPtr.Zero, 0,
 			     Gimp.StandardHelpFunc, "JavaFX");
 
-      var table = new GimpTable(4, 3, false)
-	{
-	  ColumnSpacing = 6, 
-	  RowSpacing = 6
-	};
+      var table = new GimpTable(4, 3) {
+	ColumnSpacing = 6, RowSpacing = 6};
       dialog.VBox.PackStart(table, false, false, 0);
 
       return dialog;

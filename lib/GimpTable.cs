@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2008 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // GimpTable.cs
 //
@@ -28,7 +28,7 @@ namespace Gimp
 {
   public class GimpTable : Table
   {
-    public GimpTable(uint rows, uint columns, bool homogeneous) :
+    public GimpTable(uint rows, uint columns, bool homogeneous = false) :
       base(rows, columns, homogeneous)
     {
     }

@@ -1,3 +1,20 @@
+2010-10-31  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* lib/Image.cs: corrected typo, removed deprecated method
+
+	* plug-ins/QR/QR.cs: use TextView instead of Entry
+
+	* plug-ins/PicturePackage/PicturePackageFrame.cs: 
+	* plug-ins/Pointillize/Pointillize.cs: 
+	* plug-ins/Ministeck/Ministeck.cs: 
+	* plug-ins/Trim/Trim.cs
+	* plug-ins/JavaFX/JavaFX.cs
+	* plug-ins/Forge/Forge.cs
+	* plug-ins/ncp/ncp.cs: use GimpTable constructor with default
+	value for homogeneous
+
+	* lib/GimpTable.cs: set default value for homogeneous to false
+
 2010-10-30  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* lib/DrawablePreview.cs: moved redraw to base class

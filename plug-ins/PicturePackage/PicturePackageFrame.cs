@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // PicturePackageFrame.cs
 //
@@ -31,7 +31,7 @@ namespace Gimp.PicturePackage
     protected PicturePackageFrame(uint rows, uint columns, string label) : 
       base(label)
     {
-      Table = new GimpTable(rows, columns, false) {
+      Table = new GimpTable(rows, columns) {
 	ColumnSpacing = 6, RowSpacing = 6};
       Add(Table);
     }

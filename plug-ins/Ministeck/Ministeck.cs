@@ -85,7 +85,7 @@ namespace Gimp.Ministeck
       _preview.Invalidated += UpdatePreview;
       vbox.PackStart(_preview, true, true, 0);
 
-      var table = new GimpTable(2, 2, false) 
+      var table = new GimpTable(2, 2) 
 	{ColumnSpacing = 6, RowSpacing = 6};
       vbox.PackStart(table, false, false, 0);
 

@@ -1,5 +1,5 @@
 // The Forge plug-in
-// Copyright (C) 2006-2009 Massimo Perga (massimo.perga@gmail.com)
+// Copyright (C) 2006-2010 Massimo Perga (massimo.perga@gmail.com)
 //
 // Forge.cs
 //
@@ -117,7 +117,7 @@ namespace Gimp.Forge
 				 _("Creates an artificial world."),
 				 "Massimo Perga, Maurits Rijk",
 				 "(C) Massimo Perga, Maurits Rijk",
-				 "2006-2007",
+				 "2006-2010",
 				 _("Forge..."),
 				 "RGB*",
 				 inParams)
@@ -173,7 +173,7 @@ namespace Gimp.Forge
 
     void CreateParametersTable()
     {
-      var table = new GimpTable(4, 6, false)
+      var table = new GimpTable(4, 6)
 	{ColumnSpacing = 10, RowSpacing = 10};
       Vbox.PackEnd(table);
 

@@ -149,14 +149,6 @@ namespace Gimp
       get {return new Dimensions(Width, Height);}
     }
 
-    public void FreeShadow()
-    {
-      if (!gimp_image_free_shadow(ID))
-        {
-	  throw new GimpSharpException();
-        }
-    }
-
     public void Flip(OrientationType flip_type)
     {
       if (!gimp_image_flip(ID, flip_type))
@@ -913,8 +905,6 @@ namespace Gimp
     static extern int gimp_image_width(Int32 image_ID);
     [DllImport("libgimp-2.0-0.dll")]
     static extern int gimp_image_height(Int32 image_ID);
-    [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_free_shadow(Int32 image_ID);
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_image_flip(Int32 image_ID,
 				       OrientationType flip_type);

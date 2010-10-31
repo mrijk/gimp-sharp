@@ -1,5 +1,5 @@
 // The Pointillize plug-in
-// Copyright (C) 2006-2009 Maurits Rijk
+// Copyright (C) 2006-2010 Maurits Rijk
 //
 // Pointillize.cs
 //
@@ -53,7 +53,7 @@ namespace Gimp.Pointillize
 				 _("Create pointillist paintings"),
 				 "Maurits Rijk",
 				 "(C) Maurits Rijk",
-				 "2006-2009",
+				 "2006-2010",
 				 _("Pointillize..."),
 				 "RGB*, GRAY*",
 				 inParams)
@@ -69,7 +69,7 @@ namespace Gimp.Pointillize
 			     IntPtr.Zero, 0, Gimp.StandardHelpFunc, 
 			     _("Pointillize"));
 
-      var table = new GimpTable(1, 3, false);
+      var table = new GimpTable(1, 3);
 
       var entry = new ScaleEntry(table, 0, 1, _("Cell _Size:"), 150, 3,
 				 _cellSize, 3.0, 300.0, 1.0, 8.0, 0);
