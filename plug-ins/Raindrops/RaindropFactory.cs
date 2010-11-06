@@ -1,5 +1,5 @@
 // The Raindrops plug-in
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // RaindropFactory.cs
 //
@@ -33,7 +33,7 @@ namespace Gimp.Raindrops
     public RaindropFactory(int dropSize, int fishEye, Dimensions dimensions)
     {
       _dropSize = dropSize;
-      _newCoeff = (double) Clamp(fishEye, 1, 100) * 0.01;
+      _newCoeff = Clamp(fishEye, 1, 100) * 0.01;
       BoolMatrix = new BoolMatrix(dimensions.Width, dimensions.Height);
     }
 
@@ -42,9 +42,8 @@ namespace Gimp.Raindrops
       int size = _random.Next(_dropSize);
       int radius = size / 2;
 
-      bool failed;
-      var center = BoolMatrix.Generate(radius, out failed);
-      return (failed) ? null : new Raindrop(center, size, _newCoeff);
+      var center = BoolMatrix.Generate(radius);
+      return (center == null) ? null : new Raindrop(center, size, _newCoeff);
     }
 
     int Clamp(int x, int l, int u)

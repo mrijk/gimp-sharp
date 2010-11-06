@@ -63,14 +63,14 @@ namespace Gimp
 
     public bool ShowMasked
     {
-      get {return gimp_channel_get_show_masked(_ID);}
-      set {gimp_channel_set_show_masked(_ID, value);}
+      get {return gimp_channel_get_show_masked(ID);}
+      set {gimp_channel_set_show_masked(ID, value);}
     }
 
     public double Opacity
     {
-      get {return gimp_channel_get_opacity(_ID);}
-      set {gimp_channel_set_opacity(_ID, value);}
+      get {return gimp_channel_get_opacity(ID);}
+      set {gimp_channel_set_opacity(ID, value);}
     }
 
     public RGB Color
@@ -78,7 +78,7 @@ namespace Gimp
       get 
 	{
           GimpRGB rgb = new GimpRGB();
-          if (!gimp_channel_get_color(_ID, ref rgb))
+          if (!gimp_channel_get_color(ID, ref rgb))
 	    {
 	      throw new GimpSharpException();
 	    }
@@ -87,7 +87,7 @@ namespace Gimp
       set 
 	{
           GimpRGB rgb = value.GimpRGB;
-          if (!gimp_channel_set_color(_ID, ref rgb))
+          if (!gimp_channel_set_color(ID, ref rgb))
 	    {
 	      throw new GimpSharpException();
 	    }
@@ -112,7 +112,7 @@ namespace Gimp
     public void CombineMasks(Channel channel, ChannelOps operation,
 			     int offx, int offy)
     {
-      if (!gimp_channel_combine_masks(_ID, channel.ID, operation,
+      if (!gimp_channel_combine_masks(ID, channel.ID, operation,
 				      offx, offy))
 	{
 	  throw new GimpSharpException();

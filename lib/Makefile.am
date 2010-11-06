@@ -10,6 +10,7 @@ MYSOURCES = 				\
 	AssemblyInfo.cs			\
 	BoolMatrix.cs			\
 	Brush.cs			\
+	BrushInfo.cs			\
 	BrushList.cs			\
 	Buffer.cs			\
 	ByColorSelectTool.cs		\

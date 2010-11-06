@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // ProcedureSet.cs
 //
@@ -19,19 +19,14 @@
 // Boston, MA 02111-1307, USA.
 //
 
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Gimp
 {
-  public class ProcedureSet : IEnumerable
+  public class ProcedureSet
   {
     Dictionary<string, Procedure> _set = new Dictionary<string, Procedure>();
-
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-      return _set.GetEnumerator();
-    }
 
     public Procedure this[string name]
     {
@@ -42,13 +37,10 @@ namespace Gimp
     {
       _set[procedure.Name] = procedure;
     }
-    
+
     public void Install(bool usesImage, bool usesDrawable)
     {
-      foreach (var procedure in _set.Values)
-	{
-	  procedure.Install(usesImage, usesDrawable);
-	}
+      _set.Values.ToList().ForEach(p => p.Install(usesImage, usesDrawable));
     }
   }
 }

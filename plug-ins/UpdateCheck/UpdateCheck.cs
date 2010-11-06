@@ -1,5 +1,5 @@
 // The UpdateCheck plug-in
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // UpdateCheck.cs
 //
@@ -61,7 +61,7 @@ namespace Gimp.UpdateCheck
 				 _("Check for updates"),
 				 "Maurits Rijk",
 				 "(C) Maurits Rijk",
-				 "2006-2007",
+				 "2006-2010",
 				 _("Check for Updates..."),
 				 "")
 	{
@@ -81,7 +81,7 @@ namespace Gimp.UpdateCheck
       var vbox = new VBox(false, 12) {BorderWidth = 12};
       dialog.VBox.PackStart(vbox, true, true, 0);
 
-      var table = new GimpTable(4, 3, false)
+      var table = new GimpTable(4, 3)
 	{ColumnSpacing = 6, RowSpacing = 6};
       vbox.PackStart(table, true, true, 0);
 

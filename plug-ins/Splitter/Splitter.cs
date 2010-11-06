@@ -94,7 +94,7 @@ namespace Gimp.Splitter
 				 _("Splits an image in separate parts using a formula of the form f(x, y) = 0"),
 				 "Maurits Rijk",
 				 "(C) Maurits Rijk",
-				 "1999 - 2009",
+				 "1999 - 2010",
 				 _("Splitter..."),
 				 "RGB*",
 				 inParams)
@@ -114,7 +114,7 @@ namespace Gimp.Splitter
       var vbox = new VBox(false, 12) {BorderWidth = 12};
       dialog.VBox.PackStart(vbox, true, true, 0);
 
-      var table = new GimpTable(4, 2, false)
+      var table = new GimpTable(4, 2)
 	{ColumnSpacing = 6, RowSpacing = 6};
       vbox.PackStart(table, false, false, 0);
 
@@ -169,7 +169,7 @@ namespace Gimp.Splitter
     {
       var frame = new GimpFrame(_("Layer 1"));
 
-      var table = new GimpTable(3, 3, false)
+      var table = new GimpTable(3, 3)
 	{BorderWidth = 12, RowSpacing = 12, ColumnSpacing = 12};
       frame.Add(table);
 
@@ -197,7 +197,7 @@ namespace Gimp.Splitter
     {
       var frame = new GimpFrame(_("Layer 2"));
 
-      var table = new GimpTable(3, 3, false)
+      var table = new GimpTable(3, 3)
 	{BorderWidth = 12, RowSpacing = 12, ColumnSpacing = 12};
       frame.Add(table);
 

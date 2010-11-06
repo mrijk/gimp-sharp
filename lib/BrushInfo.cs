@@ -1,7 +1,7 @@
 // GIMP# - A C# wrapper around the GIMP Library
 // Copyright (C) 2004-2010 Maurits Rijk
 //
-// DataObject.cs
+// BrushInfo.cs
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -21,35 +21,19 @@
 
 namespace Gimp
 {
-  public abstract class DataObject
+  public sealed class BrushInfo
   {
-    string _name;
+    public int Width {get; private set;}
+    public int Height {get; private set;}
+    public int MaskBpp {get; private set;}
+    public int ColorBpp {get; private set;}
 
-    protected DataObject(string name)
+    public BrushInfo(int width, int height, int maskBpp, int colorBpp)
     {
-      _name = name;
-    }
-
-    public string Name
-    {
-      get {return _name;}
-      set {Rename(value);}
-    }
-
-    public string Rename(string newName)
-    {
-      return _name = TryRename(newName);
-    }
-
-    protected abstract string TryRename(string newName);
-
-    public override bool Equals(object o)
-    {
-      if (o is DataObject)
-	{
-	  return (o as DataObject).Name == Name;
-	}
-      return false;
+      Width = width;
+      Height = height;
+      MaskBpp = maskBpp;
+      ColorBpp = colorBpp;
     }
   }
 }

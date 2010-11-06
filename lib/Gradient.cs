@@ -30,7 +30,7 @@ namespace Gimp
     {
     }
 
-    internal Gradient(string name, bool unused) : base(name, unused)
+    internal Gradient(string name, bool unused) : base(name)
     {
     }
 
@@ -53,15 +53,14 @@ namespace Gimp
       return Name.GetHashCode();
     }
 
-    public override string Rename(string new_name)
+    protected override string TryRename(string newName)
     {
-      _name = gimp_gradient_rename(_name, new_name);
-      return _name;
+      return gimp_gradient_rename(Name, newName);
     }
 
     public void Delete()
     {
-      if (!gimp_gradient_delete(_name))
+      if (!gimp_gradient_delete(Name))
         {
 	  throw new GimpSharpException();
         }

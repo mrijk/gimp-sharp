@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2008 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // Palette.cs
 //
@@ -19,7 +19,6 @@
 // Boston, MA 02111-1307, USA.
 //
 
-using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
@@ -31,12 +30,12 @@ namespace Gimp
     {
     }
 
-    internal Palette(string name, bool unused) : base(name, unused)
+    internal Palette(string name, bool unused) : base(name)
     {
     }
 
     public Palette(Palette palette) : 
-      base(gimp_palette_duplicate(palette._name))
+      base(gimp_palette_duplicate(palette.Name))
     {
     }
 
@@ -53,33 +52,32 @@ namespace Gimp
     {
       if (o is Palette)
 	{
-	  return (o as Palette)._name == _name;
+	  return (o as Palette).Name == Name;
 	}
       return false;
     }
 
     public override int GetHashCode()
     {
-      return _name.GetHashCode();
+      return Name.GetHashCode();
     }
 
-    public override string Rename(string newName)
+    protected override string TryRename(string newName)
     {
-      _name = gimp_palette_rename(_name, newName);
-      return _name;
+      return gimp_palette_rename(Name, newName);
     }
 
     public void Delete()
     {
-      if (!gimp_palette_delete(_name))
+      if (!gimp_palette_delete(Name))
         {
 	  throw new GimpSharpException();
         }
     }
 
-    public void GetInfo(out int num_colors)
+    public void GetInfo(out int numColors)
     {
-      if (!gimp_palette_get_info(_name, out num_colors))
+      if (!gimp_palette_get_info(Name, out numColors))
         {
 	  throw new GimpSharpException();
         }
@@ -89,11 +87,11 @@ namespace Gimp
     {
       get 
 	{
-	  return gimp_palette_get_columns(_name);
+	  return gimp_palette_get_columns(Name);
 	}
       set
 	{
-	  if (!gimp_palette_set_columns(_name, value))
+	  if (!gimp_palette_set_columns(Name, value))
 	    {
 	      throw new GimpSharpException();
 	    }
@@ -114,7 +112,7 @@ namespace Gimp
     {
       GimpRGB rgb = color.GimpRGB;
       int entryNum;
-      if (!gimp_palette_add_entry(_name, entryName, ref rgb,
+      if (!gimp_palette_add_entry(Name, entryName, ref rgb,
                                   out entryNum))
         {
 	  throw new GimpSharpException();
@@ -124,7 +122,7 @@ namespace Gimp
 
     public void DeleteEntry(PaletteEntry entry)
     {
-      if (!gimp_palette_delete_entry(_name, entry.Index))
+      if (!gimp_palette_delete_entry(Name, entry.Index))
         {
 	  throw new GimpSharpException();
         }
@@ -132,7 +130,7 @@ namespace Gimp
 
     public bool IsEditable
     {
-      get {return gimp_palette_is_editable(_name);}
+      get {return gimp_palette_is_editable(Name);}
     }
 
     public PaletteEntry this[int index]

@@ -30,10 +30,6 @@ namespace Gimp
   {
     readonly List<T> _list = new List<T>();
 
-    public DataObjectList()
-    {
-    }
-
     public DataObjectList(string filter)
     {
       int numDataObjects;

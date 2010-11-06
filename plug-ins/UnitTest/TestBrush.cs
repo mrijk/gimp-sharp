@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // TestBrush.cs
 //
@@ -57,8 +57,7 @@ namespace Gimp
     {
       string brushName = "Gimp#Brush";
       var brush = new Brush(brushName);
-      int width, height, mask_bpp, color_bpp;
-      brush.GetInfo(out width, out height, out mask_bpp, out color_bpp);
+      var info = brush.Info;
       Assert.AreEqual(brushName, brush.Name);
       // Assert.AreEqual(0, width);
       // Fix me: insert more Asserts here!

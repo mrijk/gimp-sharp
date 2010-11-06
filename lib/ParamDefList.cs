@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2010 Maurits Rijk, Massimo Perga
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // ParamDefList.cs
 //
@@ -23,6 +23,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Linq;
 
 using GLib;
 
@@ -196,20 +197,9 @@ Console.WriteLine("Parameters: " + n_params);
 	}
     }
 
-    public GimpParamDef[] GetGimpParamDef(bool usesImage, bool usesDrawable)
+    public GimpParamDef[] GetGimpParamDef()
     {
-      var args = new GimpParamDef[_set.Count];
-      int i = 0;
-
-      foreach (var def in _set)
-	{
-	  args[i].type = def.GetGimpType();
-	  args[i].name = def.Name;
-	  args[i].description = def.Description;
-	  i++;
-	}
-      
-      return args;
+      return _set.Select(def => def.GimpParamDef).ToArray();
     }
   }
 }

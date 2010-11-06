@@ -1,3 +1,43 @@
+2010-11-06  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* lib/ParamDefList.cs
+	* lib/ParamDef.cs
+	* lib/Tattoo.cs
+	* lib/CoordinateList.cs: minor clean-up
+
+	* lib/Channel.cs: replaced _ID by ID
+
+	* lib/Buffer.cs: minor clean-up
+
+	* lib/Gradient.cs
+	* lib/Palette.cs: changed _name to Name
+
+	* lib/DataObject.cs: made _name private instead of protected
+
+	* plug-ins/UnitTest/TestBrush.cs: use BrushInfo class
+
+	* lib/Brush.cs: use BrushInfo class instead of bunch of out
+	variables in GetInfo
+
+	* lib/BrushInfo.cs: new file
+	
+	* lib/Makefile.am: changed accordingly
+
+	* lib/Brush.cs
+	* lib/BoolMatrix.cs
+	* plug-ins/Raindrops/RaindropFactory.cs
+	* lib/ProcedureSet.cs: clean-up
+
+2010-11-01  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* README
+	* INSTALL: updated
+
+	* plug-ins/Splitter/Splitter.cs
+	* plug-ins/Sky/Sky.cs
+	* plug-ins/UpdateCheck/UpdateCheck.cs: use GimpTable constructor with default
+	value for homogeneous
+
 2010-10-31  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* lib/Image.cs: corrected typo, removed deprecated method

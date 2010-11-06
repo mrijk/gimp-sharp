@@ -1,5 +1,5 @@
-To install Gimp# you will need Mono 2.2.x or higher. Gimp# will
-work with GIMP 2.4 and 2.6. GIMP 2.2 is not tested anymore.
+To install Gimp# you will need Mono 2.8.x or higher. Gimp# will
+work with GIMP 2.6. GIMP 2.4 (and lower) is not tested anymore.
 
 Building Gimp# is easy:
 
@@ -17,7 +17,7 @@ additional incomplete (yet) plug-ins.
 The files will be installed in your GIMP plug-in directory, for
 example in /usr/local/lib/gimp/2.0/plug-ins/
 
-At the moment Gimp# will install 13 plug-ins for you:
+At the moment Gimp# will install 14 plug-ins for you:
 
 /Filters/Picture Package
 /Filters/Photoshop Actions
@@ -28,6 +28,7 @@ At the moment Gimp# will install 13 plug-ins for you:
 /Filters/Light and Shadow/Raindrops
 /Filters/Render/Forge
 /Filters/Render/NCP
+/Filters/Render/QR
 /Filters/Render/Sky
 /Filters/Render/Splitter
 /Filters/Render/Swirlies

@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // Tattoo.cs
 //
@@ -19,8 +19,6 @@
 // Boston, MA 02111-1307, USA.
 //
 
-using System;
-
 namespace Gimp
 {
   public sealed class Tattoo
@@ -36,7 +34,7 @@ namespace Gimp
     {
       if (o is Tattoo)
 	{
-	  return (o as Tattoo)._tattooID == _tattooID;
+	  return (o as Tattoo).ID == ID;
 	}
       return false;
     }

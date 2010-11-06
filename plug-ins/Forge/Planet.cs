@@ -361,7 +361,7 @@ namespace Gimp.Forge
     RGB RenderWater(double val)
     {
       byte r = (byte)((val > 64) ? (val - 64) * 4 : 0);
-      return new RGB(r, r, 255);
+      return new RGB(r, r, (byte) 255);
     }
 
     void RenderPolarIceCaps(double val, double icet, RGB rgb)

@@ -124,10 +124,10 @@ namespace Gimp
       var array = new T[Count * 2];
       
       int i = 0;
-      _list.ForEach(coordinate =>
+      ForEach(c =>
 	{
-	  array[i++] = coordinate.X;
-	  array[i++] = coordinate.Y;
+	  array[i++] = c.X;
+	  array[i++] = c.Y;
 	});
       return array;
     }

@@ -1,7 +1,7 @@
 Gimp#
 
-- I have only tested my code with GIMP 2.6 and GIMP 2.4 Gimp#
-  will NOT work with Gimp 2.0.x!
+- I have only tested my code with GIMP 2.6. Gimp#
+  will NOT work with GIMP 2.0.x! It might still work with GIMP 2.4
 
 - Gimp# is an API wrapper around GIMP, written in C#. However, it's
 not just a wrapper. It also adds a thin layer which adds C# specific

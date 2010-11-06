@@ -59,7 +59,7 @@ namespace Gimp
       return c.X >= 0 && c.X < Width && c.Y >= 0 && c.Y < Height;
     }
 
-    public IntCoordinate Generate(int radius, out bool failed)
+    public IntCoordinate Generate(int radius, int maxTries = 10000)
     {
       int tries = 0;
       
@@ -93,12 +93,10 @@ namespace Gimp
 	  
 	  if (!findAnother)
 	    {
-	      failed = false;
 	      return new IntCoordinate(x, y);
 	    }
-	  else if (++tries >= 10000)
+	  else if (++tries >= maxTries)
 	    {
-	      failed = true;
 	      return null;
 	    }
 	}

@@ -30,7 +30,7 @@ namespace Gimp
     {
     }
 
-    internal Brush(string name, bool unused) : base(name, unused)
+    internal Brush(string name, bool unused) : base(name)
     {
     }
 
@@ -38,10 +38,9 @@ namespace Gimp
     {
     }
 
-    public override string Rename(string newName)
+    protected override string TryRename(string newName)
     {
-      _name = gimp_brush_rename(_name, newName);
-      return _name;
+      return gimp_brush_rename(Name, newName);
     }
 
     public void Delete()
@@ -52,14 +51,18 @@ namespace Gimp
         }
     }
 
-    public void GetInfo(out int width, out int height, out int mask_bpp,
-			out int color_bpp)
+    public BrushInfo Info
     {
-      if (!gimp_brush_get_info(_name, out width, out height, out mask_bpp,
-                               out color_bpp))
-        {
-	  throw new GimpSharpException();
-        }
+      get
+	{
+	  int width, height, maskBpp, colorBpp;
+	  if (!gimp_brush_get_info(Name, out width, out height, out maskBpp,
+				   out colorBpp))
+	    {
+	      throw new GimpSharpException();
+	    }
+	  return new BrushInfo(width, height, maskBpp, colorBpp);
+	}
     }
 
     public int Spacing
@@ -67,7 +70,7 @@ namespace Gimp
       get
 	{
           int spacing;
-          if (!gimp_brush_get_spacing(_name, out spacing))
+          if (!gimp_brush_get_spacing(Name, out spacing))
             {
 	      throw new GimpSharpException();
             }
@@ -75,7 +78,7 @@ namespace Gimp
 	}
       set
 	{
-          if (!gimp_brush_set_spacing(_name, value))
+          if (!gimp_brush_set_spacing(Name, value))
             {
 	      throw new GimpSharpException();
             }
@@ -84,48 +87,48 @@ namespace Gimp
 	
     public BrushGeneratedShape Shape
     {
-      get {return gimp_brush_get_shape(_name);}
-      set {gimp_brush_set_shape(_name, value);}
+      get {return gimp_brush_get_shape(Name);}
+      set {gimp_brush_set_shape(Name, value);}
     }
 
     public int Spikes
     {
-      get {return gimp_brush_get_spikes(_name);}
-      set {gimp_brush_set_spikes(_name, value);}
+      get {return gimp_brush_get_spikes(Name);}
+      set {gimp_brush_set_spikes(Name, value);}
     }
 
     public double Angle
     {
-      get {return gimp_brush_get_angle(_name);}
-      set {gimp_brush_set_angle(_name, value);}
+      get {return gimp_brush_get_angle(Name);}
+      set {gimp_brush_set_angle(Name, value);}
     }
 
     public double Radius
     {
-      get {return gimp_brush_get_radius(_name);}
-      set {gimp_brush_set_radius(_name, value);}
+      get {return gimp_brush_get_radius(Name);}
+      set {gimp_brush_set_radius(Name, value);}
     }
 
     public double AspectRatio
     {
-      get {return gimp_brush_get_aspect_ratio(_name);}
-      set {gimp_brush_set_aspect_ratio(_name, value);}
+      get {return gimp_brush_get_aspect_ratio(Name);}
+      set {gimp_brush_set_aspect_ratio(Name, value);}
     }
 
     public double Hardness
     {
-      get {return gimp_brush_get_hardness(_name);}
-      set {gimp_brush_set_hardness(_name, value);}
+      get {return gimp_brush_get_hardness(Name);}
+      set {gimp_brush_set_hardness(Name, value);}
     }
 
     public bool Generated
     {
-      get {return gimp_brush_is_generated(_name);}
+      get {return gimp_brush_is_generated(Name);}
     }
 
     public bool Editable
     {
-      get {return gimp_brush_is_editable(_name);}
+      get {return gimp_brush_is_editable(Name);}
     }
 
     [DllImport("libgimp-2.0-0.dll")]

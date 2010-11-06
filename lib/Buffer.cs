@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // Buffer.cs
 //
@@ -67,22 +67,22 @@ namespace Gimp
 
     public int Width
     {
-      get {return gimp_buffer_get_width(_name);}
+      get {return gimp_buffer_get_width(Name);}
     }
 
     public int Height
     {
-      get {return gimp_buffer_get_height(_name);}
+      get {return gimp_buffer_get_height(Name);}
     }
 
     public int Bytes
     {
-      get {return gimp_buffer_get_bytes(_name);}
+      get {return gimp_buffer_get_bytes(Name);}
     }
 
     public ImageBaseType ImageType
     {
-      get {return gimp_buffer_get_image_type(_name);}
+      get {return gimp_buffer_get_image_type(Name);}
     }
 
     [DllImport("libgimp-2.0-0.dll")]

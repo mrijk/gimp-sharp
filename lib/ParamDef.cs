@@ -32,8 +32,6 @@ namespace Gimp
     public Type Type {get; private set;}
     public object Value {get; set;}
 
-    readonly GimpParamDef _paramDef = new GimpParamDef();
-
     public ParamDef(string name, object value, Type type, 
 		    string description)
     {
@@ -113,7 +111,13 @@ namespace Gimp
 
     public GimpParamDef GimpParamDef
     {
-      get {return _paramDef;}
+      get 
+	{
+	  return new GimpParamDef() {
+	    type = GetGimpType(),
+	      name = Name,
+	      description = Description};
+	}
     }
   }
 

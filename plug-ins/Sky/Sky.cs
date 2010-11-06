@@ -112,7 +112,7 @@ namespace Gimp.Sky
 				 _("Sky"),
 				 "Maurits Rijk",
 				 "(C) Maurits Rijk",
-				 "2007-2009",
+				 "2007-2010",
 				 _("Sky..."),
 				 "RGB*",
 				 inParams)
@@ -142,19 +142,13 @@ namespace Gimp.Sky
 
     void CreateRandomEntry(VBox vbox)
     {
-      var table = new GimpTable(1, 3, false)
+      var table = new GimpTable(1, 3)
 	{ColumnSpacing = 6, RowSpacing = 6};
       vbox.Add(table);
 
       var seed = new RandomSeed(ref _seed, ref _random_seed);
-      seed.Toggle.Toggled += delegate
-	{
-	  InvalidatePreview();
-	};
-      seed.SpinButton.ValueChanged += delegate
-	{
-	  InvalidatePreview();
-	};
+      seed.Toggle.Toggled += delegate {InvalidatePreview();};
+      seed.SpinButton.ValueChanged += delegate {InvalidatePreview();};
 
       table.AttachAligned(0, 0, _("Random _Seed:"), 0.0, 0.5, seed, 2, true);
     }
@@ -164,7 +158,7 @@ namespace Gimp.Sky
       var frame = new GimpFrame(_("Sun"));
       vbox.Add(frame);
 
-      var table = new GimpTable(3, 2, false)
+      var table = new GimpTable(3, 2)
 	{ColumnSpacing = 6, RowSpacing = 6};
       frame.Add(table);
 
@@ -202,7 +196,7 @@ namespace Gimp.Sky
     {
       var frame = new GimpFrame(_("Camera"));
       vbox.Add(frame);
-      var table = new GimpTable(2, 1, false)
+      var table = new GimpTable(2, 1)
 	{ColumnSpacing = 6, RowSpacing = 6};
       frame.Add(table);
       var rotation = new ScaleEntry(table, 0, 1, _("_Rotation angle:"), 
@@ -229,7 +223,7 @@ namespace Gimp.Sky
     {
       var frame = new GimpFrame(_("Colors"));
       vbox.Add(frame);
-      var table = new GimpTable(5, 2, false)
+      var table = new GimpTable(5, 2)
 	{ColumnSpacing = 6, RowSpacing = 6};
       frame.Add(table);
 
