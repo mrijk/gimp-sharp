@@ -20,25 +20,13 @@
 
 namespace Gimp.Pointillize
 {
-  public class ColorCoordinate : Coordinate<int>
+  public class ColorCoordinate : IntCoordinate
   {
     public Pixel Color {get; private set;}
 
-    public ColorCoordinate(Coordinate<int> c, Pixel color) : base(c)
+    public ColorCoordinate(IntCoordinate c, Pixel color) : base(c)
     {
       Color = color;
-    }
-
-    public int Distance(int x, int y)
-    {
-      x -= X;
-      y -= Y;
-      return x * x + y * y;
-    }
-
-    public int Distance(Coordinate<int> c)
-    {
-      return Distance(c.X, c.Y);
     }
   }
 }

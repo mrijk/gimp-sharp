@@ -1,5 +1,5 @@
 // The Sky plug-in
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // TMatrix.cs
 //
@@ -24,7 +24,7 @@ namespace Gimp.Sky
 {
   class TMatrix
   {
-    double[,] _data = new double[4, 4];
+    readonly double[,] _data = new double[4, 4];
 
     public TMatrix()
     {
@@ -50,25 +50,25 @@ namespace Gimp.Sky
 
     public Vector3 Transform(Vector3 vector)
     {
-      double x = 
-	_data[0, 0] * vector.X +
-	_data[0, 1] * vector.Y +
-	_data[0, 2] * vector.Z +
-	_data[0, 3];
-
-      double y = 
-	_data[1, 0] * vector.X +
-	_data[1, 1] * vector.Y +
-	_data[1, 2] * vector.Z +
-	_data[1, 3];
-
-      double z = 
-	_data[2, 0] * vector.X +
-	_data[2, 1] * vector.Y +
-	_data[2, 2] * vector.Z +
-	_data[2, 3];
-
+      double x = Multiply(vector, 0);
+      double y = Multiply(vector, 1);
+      double z = Multiply(vector, 2);
       return new Vector3(x, y, z);
+    }
+
+    double Multiply(Vector3 vector, int row)
+    {
+      return 
+	_data[row, 0] * vector.X +
+	_data[row, 1] * vector.Y +
+	_data[row, 2] * vector.Z +
+	_data[row, 3];
+    }
+
+    public double this[int row, int col]
+    {
+      set {_data[row, col] = value;}
+      get {return _data[row, col];}
     }
 
     static public TMatrix Multiply(TMatrix in1, TMatrix in2)
@@ -77,15 +77,15 @@ namespace Gimp.Sky
 
       for (int i = 0; i < 4; i++)
 	{
-	  for(int j = 0; j < 4; j++)
+	  for (int j = 0; j < 4; j++)
 	    {
 	      double sum = 0.0;
 
 	      for (int k = 0; k < 4; k++)
 		{
-		  sum += in1._data[i, k] * in2._data[k, j];
+		  sum += in1[i, k] * in2[k, j];
 		}
-	      result._data[i, j] = sum;
+	      result[i, j] = sum;
 	    }
 	}
       return result;
@@ -97,7 +97,7 @@ namespace Gimp.Sky
 
       for (int i = 0; i < 3; i++)
 	{
-	  result._data[i, 3] = in1._data[i, 3] + in2._data[i, 3];
+	  result[i, 3] = in1[i, 3] + in2[i, 3];
 	}
       return result;
     }

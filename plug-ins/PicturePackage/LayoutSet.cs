@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // LayoutSet.cs
 //
@@ -19,9 +19,9 @@
 //
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Xml;
 
@@ -66,7 +66,7 @@ namespace Gimp.PicturePackage
       layouts.ForEach(layout => Add(new Layout(layout)));
     }
 
-    public void Add(Layout layout)
+    void Add(Layout layout)
     {
       _set.Add(layout);
     }
@@ -106,16 +106,8 @@ namespace Gimp.PicturePackage
 
     public LayoutSet GetLayouts(PageSize pageSize, int resolution)
     {
-      var set = new LayoutSet();
-
-      foreach (Layout layout in _set)
-	{
-	  if (layout.GetPageSize(resolution).CompareTo(pageSize) == 0)
-	    {
-	      set.Add(layout);
-	    }
-	}
-      return set;
+      var q = _set.Where(layout => layout.PageSizeEquals(pageSize, resolution));
+      return new LayoutSet() {_set = new List<Layout>(q)};
     }
   }
 }

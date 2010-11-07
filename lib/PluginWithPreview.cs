@@ -50,10 +50,8 @@ namespace Gimp
       dialog.VBox.PackStart(Vbox, true, true, 0);
 
       Preview = new AspectPreview(_drawable, false);
-      Preview.Invalidated += delegate
-	{
-	  UpdatePreview(Preview);
-	};
+      Preview.Invalidated += delegate {UpdatePreview(Preview);};
+
       Vbox.PackStart(Preview, true, true, 0);
 
       return dialog;

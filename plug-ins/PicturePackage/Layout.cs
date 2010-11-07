@@ -96,6 +96,11 @@ namespace Gimp.PicturePackage
 	}
     }
 
+    public bool PageSizeEquals(PageSize pageSize, int resolution)
+    {
+      return GetPageSize(resolution).CompareTo(pageSize) == 0;
+    }
+
     public PageSize GetPageSizeInPixels(int resolution)
     {
       if (Unit == Unit.Inch)

@@ -59,6 +59,11 @@ namespace Gimp
       DrawBuffer(buffer, width * _bpp);
     }
 
+    public new void Update(Func<IntCoordinate, Pixel> func)
+    {
+      Update(delegate(int x, int y) {return func(new IntCoordinate(x, y));});
+    }
+
     [DllImport("libgimpui-2.0-0.dll")]
     extern static IntPtr gimp_aspect_preview_new(IntPtr drawable, bool toggle);
   }

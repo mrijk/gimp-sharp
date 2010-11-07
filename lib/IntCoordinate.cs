@@ -30,9 +30,25 @@ namespace Gimp
     {
     }
 
+    public IntCoordinate(IntCoordinate c) : this(c.X, c.Y)
+    {
+    }
+
     public static IntCoordinate operator + (IntCoordinate c1, IntCoordinate c2)
     {
       return new IntCoordinate(c1.X + c2.X, c1.Y + c2.Y);
+    }
+
+    public int Distance(int x, int y)
+    {
+      x -= X;
+      y -= Y;
+      return x * x + y * y;
+    }
+
+    public int Distance(IntCoordinate c)
+    {
+      return Distance(c.X, c.Y);
     }
 
     public double Radius

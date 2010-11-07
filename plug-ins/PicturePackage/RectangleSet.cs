@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // RectangleSet.cs
 //
@@ -18,7 +18,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
 using System.Collections.Generic;
 
 namespace Gimp.PicturePackage
@@ -90,11 +89,6 @@ namespace Gimp.PicturePackage
 	  renderedSomething = true;
 	}
       return renderedSomething;
-    }
-
-    public int Count
-    {
-      get {return _set.Count;}
     }
   }
 }

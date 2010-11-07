@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // RandomCoordinateGenerator.cs
 //
@@ -49,13 +49,13 @@ namespace Gimp
       _count = count;
     }
 
-    public IEnumerator<Coordinate<int>> GetEnumerator()
+    public IEnumerator<IntCoordinate> GetEnumerator()
     {
       for (int i = 0; i < _count; i++)
 	{
 	  int x = _random.Next(0, _width - 1);
 	  int y = _random.Next(0, _height - 1);
-	  yield return new Coordinate<int>(x, y);
+	  yield return new IntCoordinate(x, y);
 	}
     }
   }

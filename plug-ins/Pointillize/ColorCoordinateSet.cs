@@ -111,7 +111,7 @@ namespace Gimp.Pointillize
       _matrix[row, col].Add(coordinate);
     }
 
-    public Pixel GetColor(Coordinate<int> c)
+    public Pixel GetColor(IntCoordinate c)
     {
       int row = c.Y * _matrixRows / _height;
       int col = c.X * _matrixColumns / _width;
@@ -121,7 +121,7 @@ namespace Gimp.Pointillize
       return (list == null) ? _backgroundColor : GetNearestColor(list, c);
     }
 
-    Pixel GetNearestColor(List<ColorCoordinate> list, Coordinate<int> c)
+    Pixel GetNearestColor(List<ColorCoordinate> list, IntCoordinate c)
     {
       int distance = int.MaxValue;
       ColorCoordinate closest = null;

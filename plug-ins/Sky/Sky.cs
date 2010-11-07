@@ -190,6 +190,16 @@ namespace Gimp.Sky
 	  InvalidatePreview();
 	};
       table.Attach(sunShow, 0, 2, 3, 4);
+
+      Preview.ButtonPressEvent += delegate(object o, ButtonPressEventArgs args)
+	{
+	  if (_sunShow) 
+	  {
+	    var size = Preview.Size;
+	    sunX.Value = args.Event.X / size.Width;
+	    sunY.Value = args.Event.Y / size.Height;
+	  }
+	};
     }
 
     void CreateCameraParameters(VBox vbox)
@@ -223,8 +233,7 @@ namespace Gimp.Sky
     {
       var frame = new GimpFrame(_("Colors"));
       vbox.Add(frame);
-      var table = new GimpTable(5, 2)
-	{ColumnSpacing = 6, RowSpacing = 6};
+      var table = new GimpTable(3, 4) {ColumnSpacing = 6, RowSpacing = 6};
       frame.Add(table);
 
       var horizon = new GimpColorButton("", 16, 16, _horizonColor, 
@@ -239,12 +248,12 @@ namespace Gimp.Sky
 
       var sky = new GimpColorButton("", 16, 16, _skyColor, ColorAreaType.Flat);
       sky.Update = true;
-      table.AttachAligned(0, 1, _("S_ky:"), 0.0, 0.5, sky, 1, true);
       sky.ColorChanged += delegate
 	{
 	  _skyColor = sky.Color;
 	  InvalidatePreview();
 	};
+      table.AttachAligned(0, 1, _("S_ky:"), 0.0, 0.5, sky, 1, true);
 
       var sun = new GimpColorButton("", 16, 16, _sunColor, ColorAreaType.Flat);
       sun.Update = true;
@@ -263,7 +272,7 @@ namespace Gimp.Sky
 	  _cloudColor = cloud.Color;
 	  InvalidatePreview();
 	};
-      table.AttachAligned(0, 3, _("C_loud:"), 0.0, 0.5, cloud, 1, 
+      table.AttachAligned(2, 0, _("C_loud:"), 0.0, 0.5, cloud, 1, 
 			  true);
 
       var shadow = new GimpColorButton("", 16, 16, _shadowColor,
@@ -274,7 +283,7 @@ namespace Gimp.Sky
 	  _shadowColor = shadow.Color;
 	  InvalidatePreview();
 	};
-      table.AttachAligned(0, 4, _("Sh_adow:"), 0.0, 0.5, shadow, 1, true);
+      table.AttachAligned(2, 1, _("Sh_adow:"), 0.0, 0.5, shadow, 1, true);
     }
 
     override protected void UpdatePreview(AspectPreview preview)
@@ -287,9 +296,8 @@ namespace Gimp.Sky
     {
       const double lensAngle = 70.0;
       const double earthRadius = 6375.0;
-      double[] amplitudes = new double[]{1.0, 0.5, 0.25, 0.125, 0.0625,
-					 0.03125, 0.05, 0.05, 0.04, 
-					 0.0300};
+      var amplitudes = new double[]{1.0, 0.5, 0.25, 0.125, 0.0625,
+				    0.03125, 0.05, 0.05, 0.04, 0.0300};
       _width = drawable.Width;
       _height = drawable.Height;
       _clouds = new Perlin3D(10, 16.0, amplitudes, (int) _seed);

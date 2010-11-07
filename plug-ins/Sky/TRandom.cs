@@ -1,5 +1,5 @@
 // The Sky plug-in
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // TRandom.cs
 //
@@ -32,15 +32,12 @@ namespace Gimp.Sky
     {
       if (seed == -1)
 	{
-	  DateTime startTime = new DateTime(1970, 1, 1);
+	  var startTime = new DateTime(1970, 1, 1);
 	  UInt32 time_t = 
 	    Convert.ToUInt32((DateTime.Now - startTime).TotalSeconds);
-	  Init((int) time_t);
+	  seed = (int) time_t;
 	}
-      else
-	{
-	  Init(seed);
-	}
+      Init(seed);
     }
 
     void Init(int seed)

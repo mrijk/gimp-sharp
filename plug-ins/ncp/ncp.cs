@@ -64,7 +64,7 @@ namespace Gimp.ncp
 				 _("Generates 2D textures"),
 				 "Maurits Rijk",
 				 "(C) Maurits Rijk",
-				 "2004-2009",
+				 "2004-2010",
 				 "NCP...",
 				 "RGB*, GRAY*",
 				 inParams)
@@ -184,10 +184,10 @@ namespace Gimp.ncp
       iter.IterateDest(DoNCP);
     }
 
-    Pixel DoNCP(int x, int y)
+    Pixel DoNCP(IntCoordinate c)
     {
       int b = 0;
-      Func<int> func = () => _calculator.Calc(b++, x, y);
+      Func<int> func = () => _calculator.Calc(b++, c);
 
       if (_color)
 	{

@@ -23,8 +23,6 @@ using System.Collections.Generic;
 
 namespace Gimp.ncp
 {
-  using IntCoordinate = Coordinate<int>;
-
   class Calculator 
   {
     readonly int _points;
@@ -81,15 +79,11 @@ namespace Gimp.ncp
 	}
     }
 
-    public int Calc(int b, int x, int y)
+    public int Calc(int b, IntCoordinate c)
     {
-      // compute distance to each point
       for (int k = 0; k < _points * 4; k++) 
 	{
-	  var p = _vp[b, k];
-	  int x2 = x - p.X;
-	  int y2 = y - p.Y;
-	  _distances[k] = x2 * x2 + y2 * y2;
+	  _distances[k] = c.Distance(_vp[b, k]);
 	}
       
       int val = (int) (255.0 * Math.Sqrt((double) Select(_closest) / _area));

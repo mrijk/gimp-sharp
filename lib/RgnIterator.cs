@@ -111,6 +111,14 @@ namespace Gimp
       _drawable.Update(_rectangle);
     }
 
+    public new void IterateDest(Func<IntCoordinate, Pixel> func)
+    {
+      IterateDest(delegate(int x, int y) 
+      {
+	return func(new IntCoordinate(x, y));
+      });
+    }
+
     public void IterateDestFull(Func<int, int, Pixel> func)
     {
       IterateDest(func);

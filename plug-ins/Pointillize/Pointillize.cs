@@ -103,9 +103,9 @@ namespace Gimp.Pointillize
       _coordinates = new ColorCoordinateSet(drawable, _cellSize);
     }
 
-    Pixel DoPointillize(int x, int y)
+    Pixel DoPointillize(IntCoordinate c)
     {
-      return _coordinates.GetColor(new Coordinate<int>(x, y));
+      return _coordinates.GetColor(c);
     }
   }
 }

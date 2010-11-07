@@ -1,3 +1,26 @@
+2010-11-07  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/PicturePackage/DirImageProviderFactory.cs
+	* plug-ins/PicturePackage/ImageProvider.cs: removed unused imports
+
+	* plug-ins/PicturePackage/PreviewRenderer.cs: removed warning
+
+	* plug-ins/PicturePackage/LayoutSet.cs: clean-up
+
+	* plug-ins/PicturePackage/RectangleSet.cs: removed unused Count
+	property
+	
+	* plug-ins/Sky/TRandom.cs
+	* plug-ins/Sky/TMatrix.cs: minor clean-up
+
+	* plug-ins/Sky/Sky.cs: position sun with mouseclick in preview
+
+	* lib/PluginWithPreview.cs: minor clean-up
+
+	* plug-ins/ncp/Calculator.cs
+	* plug-ins/Pointillize/Pointillize.cs
+	* lib/RandomCoordinateGenerator.cs: use IntCoordinate
+
 2010-11-06  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* lib/ParamDefList.cs
