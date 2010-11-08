@@ -1,5 +1,5 @@
 // The Paint .NET file format import/export plug-in
-// Copyright (C) 2006-2009 Massimo Perga, Maurits Rijk
+// Copyright (C) 2006-2010 Massimo Perga, Maurits Rijk
 //
 // pdn.cs
 //
@@ -44,7 +44,7 @@ namespace Gimp.Pdn
 				"This plug-in loads images of the Paint.NET file format.",
 				"Massimo Perga",
 				"(C) Massimo Perga",
-				"2006-2009",
+				"2006-2010",
 				"Paint.NET Image");
     }
 
@@ -59,7 +59,7 @@ namespace Gimp.Pdn
       int layerPosition = 0;
       int colorOffset = 0;
 
-      Document document = Document.FromStream(Reader.BaseStream);
+      var document = Document.FromStream(Reader.BaseStream);
       
       Console.WriteLine("Width  : " + document.Width);
       Console.WriteLine("height : " + document.Height);
@@ -99,8 +99,8 @@ namespace Gimp.Pdn
 
 	      for (int row = 0; row < document.Height; row++)
 		{
-		  MemoryBlock memory = surf.GetRow(row);
-		  byte[] bitmapBytes = memory.ToByteArray();
+		  var memory = surf.GetRow(row);
+		  var bitmapBytes = memory.ToByteArray();
 		  lastPixelConverted = 0;
 		  colorOffset = 0;
 		  for (int col = 0; col < document.Width * 4; col++)
@@ -110,7 +110,7 @@ namespace Gimp.Pdn
 		      
 		      if (colorOffset >= 4)
 			{
-			  byte[] tmpArray = FromBGRAToRGBA(color_conv_ary);
+			  var tmpArray = FromBGRAToRGBA(color_conv_ary);
 			  
 			  for (int j = 0; j < colorOffset; j++)
 			    {
@@ -144,13 +144,9 @@ namespace Gimp.Pdn
       
       Console.WriteLine("2");
       
-      /* Surface surface =
-	 (layers[0] as
-	 BitmapLayer).Surface;
-	 MemoryBlock memory1 =
-	 surface.GetRow(13);
-	 byte[] bytes =
-	 memory1.ToByteArray();
+      /* var surface = (layers[0] as BitmapLayer).Surface;
+	 var memory1 = surface.GetRow(13);
+	 var bytes = memory1.ToByteArray();
 	 Console.WriteLine("length: " + bytes.Length);*/
 
       return image;

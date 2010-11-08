@@ -65,7 +65,7 @@ namespace Gimp.DifferenceClouds
 				 _("Creates difference clouds."),
 				 "Massimo Perga",
 				 "(C) Massimo Perga",
-				 "2006-2009",
+				 "2006-2010",
 				 _("Difference Clouds..."),
 				 "RGB*",
 				 inParams)
@@ -87,19 +87,19 @@ namespace Gimp.DifferenceClouds
       VBox vbox = new VBox(false, 12) {BorderWidth = 12};
       dialog.VBox.PackStart(vbox, true, true, 0);
 
-      var table = new GimpTable(3, 4, false)
+      var table = new GimpTable(3, 4)
 	{ColumnSpacing = 6, RowSpacing = 6};
 
       var seed = new RandomSeed(ref _rseed, ref _random_seed);
       table.AttachAligned(0, 0, _("Random _Seed:"), 0.0, 0.5, seed, 2, true);
 
-      var _turbulenceEntry = new ScaleEntry(table, 0, 1, 
+      var turbulenceEntry = new ScaleEntry(table, 0, 1, 
 					    _("_Turbulence"), 150, 3,
 					    _turbulence, 0.0, 7.0, 0.1, 
 					    1.0, 1);
-      _turbulenceEntry.ValueChanged += delegate
+      turbulenceEntry.ValueChanged += delegate
 	{
-	  _turbulence = _turbulenceEntry.Value;
+	  _turbulence = turbulenceEntry.Value;
 	};
 
       vbox.PackStart(table, false, false, 0);

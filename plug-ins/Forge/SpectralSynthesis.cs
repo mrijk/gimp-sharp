@@ -1,5 +1,5 @@
 // The Forge plug-in
-// Copyright (C) 2006-2007 Massimo Perga (massimo.perga@gmail.com)
+// Copyright (C) 2006-2010 Maurits Rijk (maurits.rijk@gmail.com)
 //
 // SpectralSynthesis.cs
 //
@@ -39,13 +39,13 @@ namespace Gimp.Forge
 
     public double[] Synthesize(int n, double h)
     {
-      ComplexMatrix cm = new ComplexMatrix((int) n);
+      var cm = new ComplexMatrix((int) n);
 
       for (int i = 0; i <= n / 2; i++) 
       {
         for (int j = 0; j <= n / 2; j++) 
         {
-	  Complex c = GetRadiusAndPhase(i, j, h);
+	  var c = GetRadiusAndPhase(i, j, h);
 	  cm[i, j] = c;
 
           int i0 = (i == 0) ? 0 : n - i;
@@ -63,18 +63,18 @@ namespace Gimp.Forge
       {
         for (int j = 1; j <= n / 2 - 1; j++) 
         {
-	  Complex c = GetRadiusAndPhase(i, j, h);
+	  var c = GetRadiusAndPhase(i, j, h);
 	  cm[i, n - j] = c;
 	  cm[n - 1, j] = c.Conjugate;
         }
       }
 
       // Dimension of frequency domain array
-      uint[] nsize = new uint[]{0, (uint) n, (uint) n};
+      var nsize = new uint[]{0, (uint) n, (uint) n};
 
-      FourierTransform fourier = new FourierTransform();
+      var fourier = new FourierTransform();
 
-      double[] a = cm.ToFlatArray();
+      var a = cm.ToFlatArray();
       fourier.Transform(a, nsize, -1); // Take inverse 2D Fourier transform
 
       return a;

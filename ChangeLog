@@ -1,3 +1,14 @@
+2010-11-08  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/Pdn/Pdn.cs
+	* plug-ins/GemImg/GemImg.cs
+	* plug-ins/Forge/SpectralSynthesis.cs
+	* plug-ins/Forge/Mesh.cs
+	* plug-ins/Forge/Planet.cs
+	* plug-ins/ecw/ecw.cs
+	* plug-ins/DifferenceClouds/DifferenceClouds.cs
+	* plug-ins/Colorize/Colorize.cs: Minor clean-up
+
 2010-11-07  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* plug-ins/PicturePackage/DirImageProviderFactory.cs

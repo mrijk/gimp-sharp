@@ -1,5 +1,5 @@
 // The ecw plug-in
-// Copyright (C) 2006-2009 Maurits Rijk
+// Copyright (C) 2006-2010 Maurits Rijk
 //
 // ecw.cs
 //
@@ -70,19 +70,19 @@ namespace Gimp.ecw
 	{
 	  ecw_wrapper_init();
 
-	  FileView view = FileView.Open(filename);
+	  var view = FileView.Open(filename);
 	  view.Set();
 
-	  FileViewInfo info = view.Info;
+	  var info = view.Info;
 	  int width = (int) (info.SizeX - 1);
 	  int height = (int) (info.SizeY - 1);
 
-	  Image image = NewImage(width, height, ImageBaseType.Rgb,
-				 ImageType.Rgb, filename);
+	  var image = NewImage(width, height, ImageBaseType.Rgb,
+			       ImageType.Rgb, filename);
 
-	  PixelRgn rgn = new PixelRgn(image.Layers[0], true, false);
+	  var rgn = new PixelRgn(image.Layers[0], true, false);
 
-	  byte[] line = new byte[width * 3];
+	  var line = new byte[width * 3];
 
 	  for (int y = 0; y < height; y++)
 	    {
@@ -100,10 +100,9 @@ namespace Gimp.ecw
     override protected bool Save(Image image, Drawable drawable, 
 				 string filename)
     {
-      BinaryWriter writer = new BinaryWriter(File.Open(filename, 
-						       FileMode.Create));
+      var writer = new BinaryWriter(File.Open(filename, FileMode.Create));
 
-      PixelRgn rgn = new PixelRgn(drawable, false, false);
+      var rgn = new PixelRgn(drawable, false, false);
       for (IntPtr pr = PixelRgn.Register(rgn); pr != IntPtr.Zero; 
 	   pr = PixelRgn.Process(pr))
 	{

@@ -1,5 +1,5 @@
 // The GemImg plug-in
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // GemImg.cs
 //
@@ -36,7 +36,7 @@ namespace Gimp.GemImg
       new GemImg(args);
     }
 
-    public GemImg(string[] args) : base(args, "GemImg")
+    GemImg(string[] args) : base(args, "GemImg")
     {
     }
 
@@ -48,7 +48,7 @@ namespace Gimp.GemImg
 			  _("This plug-in loads images of the GEM-Image file format."),
 			  "Maurits Rijk",
 			  "(C) Maurits Rijk",
-			  "2008-2009",
+			  "2008-2010",
 			  _("GEM Image"));
     }
 
@@ -62,7 +62,7 @@ namespace Gimp.GemImg
     {
       if (ReadHeader())
 	{
-	  RGB[] colormap = new RGB[] {
+	  var colormap = new RGB[] {
 	    new RGB(255,255,255),    
 	    new RGB(255,0,0),        
 	    new RGB(0,255,0),        
@@ -92,7 +92,7 @@ namespace Gimp.GemImg
 	  for (int y = 0; y < _imageHeight; )
 	    {
 	      // byte[] line = new byte[bparrow * 8];
-	      byte[] line = new byte[_imageWidth];
+	      var line = new byte[_imageWidth];
 	      int count = ReadLine(line);
 	      do
 		{

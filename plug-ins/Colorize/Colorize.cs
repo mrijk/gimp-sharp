@@ -73,7 +73,7 @@ namespace Gimp.Colorize
           _("Fix me!"),
           "Maurits Rijk",
           "(C) Maurits Rijk",
-          "2006-2007",
+          "2006-2010",
           "Colorize...",
           "RGB*, GRAY*",
           inParams)
@@ -242,13 +242,13 @@ namespace Gimp.Colorize
       int h = srcRgn.H;
       int w = srcRgn.W;
 
-      double[,] A = new double[WindowPixels, h * w];
-      int[] AI = new int[WindowPixels * h * w];
-      int[] AJ = new int[WindowPixels * h * w];
+      var A = new double[WindowPixels, h * w];
+      var AI = new int[WindowPixels * h * w];
+      var AJ = new int[WindowPixels * h * w];
 
-      double[,] Y = new double[h, w];
-      double[,] I = new double[h, w];
-      double[,] Q = new double[h, w];
+      var Y = new double[h, w];
+      var I = new double[h, w];
+      var Q = new double[h, w];
 
       double[,] inI = null;
       double[,] inQ = null;
@@ -270,7 +270,7 @@ namespace Gimp.Colorize
 	      ii == drawable.Height) 
 	    {
 	      bool goodSelection = false;
-	      foreach (Pixel pixel in 
+	      foreach (var pixel in 
 		       new ReadPixelIterator(sel, RunMode.Noninteractive))
 		{
 		  if (pixel[0] != 0)
@@ -288,12 +288,12 @@ namespace Gimp.Colorize
 	}
 
       Pixel[] selRow = null;
-      Pixel whitePixel = new Pixel(255, 255, 255);
+      var whitePixel = new Pixel(255, 255, 255);
 
       for (i = 0; i < h; i++) 
 	{
-	  Pixel[] imgRow = srcRgn.GetRow(srcRgn.X, srcRgn.Y + i, w);
-	  Pixel[] markRow = markRgn.GetRow(markRgn.X, markRgn.Y + i, w);
+	  var imgRow = srcRgn.GetRow(srcRgn.X, srcRgn.Y + i, w);
+	  var markRow = markRgn.GetRow(markRgn.X, markRgn.Y + i, w);
 
 	  if (sel != null) 
 	  {
@@ -302,8 +302,8 @@ namespace Gimp.Colorize
 
 	  for (j = 0; j < w; j++) 
 	    {
-	      Pixel imgPixel = imgRow[j];
-	      Pixel markPixel = markRow[j];
+	      var imgPixel = imgRow[j];
+	      var markPixel = markRow[j];
 	      int selIdx = (sel != null) ? j : 0;
 	      
 	      double iY, iI, iQ;
@@ -319,7 +319,7 @@ namespace Gimp.Colorize
 
 	      if (_includeOriginal) 
 		{
-		  Pixel diff = imgPixel - markPixel;;
+		  var diff = imgPixel - markPixel;;
 		  int delta = Math.Abs(diff.Red) + Math.Abs(diff.Green) +
 		    Math.Abs(diff.Blue);
 		}
@@ -368,9 +368,9 @@ namespace Gimp.Colorize
 		  int max_ii = Math.Min(h - 1, i + WindowRadius);
 		  int min_jj = Math.Max(0, j - WindowRadius);
 		  int max_jj = Math.Min(w - 1, j + WindowRadius);
-		  int[] vary = new int[WindowPixels];
-		  int[] varx = new int[WindowPixels];
-		  double[] var = new double[WindowPixels];
+		  var vary = new int[WindowPixels];
+		  var varx = new int[WindowPixels];
+		  var var = new double[WindowPixels];
 		  
 		  int count = 0;
 		  double sum_sq = 0;
@@ -439,7 +439,7 @@ namespace Gimp.Colorize
       UmfPack umf = new UmfPack();
       umf.Defaults();
       
-      double[,] Ax = new double[WindowPixels, h * w];
+      var Ax = new double[WindowPixels, h * w];
       var Ap = new int[h * w + 1];
       var Ai = new int[WindowPixels * h * w];
       var Map = new int[WindowPixels * h * w];
@@ -452,8 +452,8 @@ namespace Gimp.Colorize
 
       progress.Update(0.3);
 
-      double[,] outI = new double[h, w];
-      double[,] outQ = new double[h, w];
+      var outI = new double[h, w];
+      var outQ = new double[h, w];
 
       umf.Solve(Ap, Ai, Ax, outI, I);
 

@@ -146,8 +146,7 @@ namespace Gimp.Forge
 	    {
 	      for (int j = 0; j < n; j++) 
 		{
-		  ap[ap_index++] = (byte)
-		    (255.0 * (mesh.GetReal(i, j) + 1.0) / 2.0);
+		  ap[ap_index++] = (byte) (255.0 * (mesh[i, j] + 1.0) / 2.0);
 		}
 	    }
 

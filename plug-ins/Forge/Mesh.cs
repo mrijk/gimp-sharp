@@ -1,5 +1,5 @@
 // The Forge plug-in
-// Copyright (C) 2006-2009 Maurits Rijk
+// Copyright (C) 2006-2010 Maurits Rijk
 //
 // Mesh.cs
 //
@@ -41,11 +41,11 @@ namespace Gimp.Forge
 	{
 	  for (int j = 0; j < _meshsize; j++) 
 	    {
-	      double r = GetReal(i, j);
+	      double r = this[i, j];
 	      
 	      if (r > 0) 
 		{
-		  SetReal(i, j, Math.Pow(r, powscale));
+		  this[i, j] = Math.Pow(r, powscale);
 		}
 	    }
 	}
@@ -66,7 +66,7 @@ namespace Gimp.Forge
 	{
 	  for (int j = 0; j < _meshsize; j++) 
 	    {
-	      double r = GetReal(i, j);
+	      double r = this[i, j];
 	      
 	      _rmin = Math.Min(_rmin, r);
 	      _rmax = Math.Max(_rmax, r);
@@ -83,19 +83,15 @@ namespace Gimp.Forge
 	{
 	  for (int j = 0; j < _meshsize; j++) 
 	    {
-	      SetReal(i, j, (GetReal(i, j) - rmean) / rrange);
+	      this[i, j] = (this[i, j] - rmean) / rrange;
 	    }
 	}
     }
 
-    public double GetReal(int i, int j)
+    public double this[int i, int j]
     {
-      return _data[1 + (i * _meshsize + j) * 2];
-    }
-
-    void SetReal(int i, int j, double r)
-    {
-      _data[1 + (i * _meshsize + j) * 2] = r;
+      private set {_data[1 + (i * _meshsize + j) * 2] = value;}
+      get {return _data[1 + (i * _meshsize + j) * 2];}
     }
   }
 }
