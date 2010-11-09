@@ -49,7 +49,7 @@ namespace Gimp.PhotoshopActions
 				 "Play Photoshop action files",
 				 "Maurits Rijk",
 				 "(C) Maurits Rijk",
-				 "2006-2009",
+				 "2006-2010",
 				 "Photoshop Actions...",
 				 "",
 				 inParams)
@@ -68,21 +68,18 @@ namespace Gimp.PhotoshopActions
 			     IntPtr.Zero, 0, Gimp.StandardHelpFunc, 
 			     "PhotoshopActions");
 
-      var vbox = new VBox(false, 12);
-      vbox.BorderWidth = 12;
+      var vbox = new VBox(false, 12) {BorderWidth = 12};
       dialog.VBox.PackStart(vbox, true, true, 0);
 
       var store = CreateActionTree();
 
-      var sw = new ScrolledWindow();
-      sw.HeightRequest = 400;
+      var sw = new ScrolledWindow() {HeightRequest = 400};
       vbox.PackStart(sw, true, true, 0);
       
       var view = new TreeView(store);
       sw.Add(view);        
 
-      var activeRenderer = new CellRendererToggle();
-      activeRenderer.Activatable = true;
+      var activeRenderer = new CellRendererToggle() {Activatable = true};
       var columnOne = view.AppendColumn("Enabled", activeRenderer, 
 					new TreeCellDataFunc(RenderActive));
       activeRenderer.Toggled += delegate(object o, ToggledArgs args)

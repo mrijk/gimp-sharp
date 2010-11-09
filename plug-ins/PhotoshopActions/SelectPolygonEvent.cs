@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2010 Maurits Rijk
 //
 // SelectPolygonEvent.cs
 //
@@ -36,10 +36,10 @@ namespace Gimp.PhotoshopActions
     protected override IEnumerable ListParameters()
     {
       yield return "To: polygon";
-      ObArParameter array = _objc.Parameters["Pts"] as ObArParameter;
+      var array = _objc.Parameters["Pts"] as ObArParameter;
 
       yield return "Points: point list";
-      foreach (Coordinate<double> c in array.Value)
+      foreach (var c in array.Value)
 	{
 	  yield return String.Format("Point: {0} pixels, {1} pixels", 
 				     c.X, c.Y);
@@ -48,9 +48,9 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
-      FreeSelectTool tool = new FreeSelectTool(ActiveImage);
+      var tool = new FreeSelectTool(ActiveImage);
 
-      ObArParameter array = _objc.Parameters["Pts"] as ObArParameter;
+      var array = _objc.Parameters["Pts"] as ObArParameter;
       tool.Select(array.Value, ChannelOps.Replace);
       RememberCurrentSelection();
 

@@ -29,20 +29,17 @@ namespace Gimp
     readonly Func<Image, Layer> _delay;
 
     public Layer(Image image, string name, int width, int height, 
-		 ImageType type, double opacity, LayerModeEffects mode) : 
+		 ImageType type, double opacity = 100,
+		 LayerModeEffects mode = LayerModeEffects.Normal) : 
       base(gimp_layer_new(image.ID, name, width, height, type, 
 			  opacity, mode))
     {
     }
 
-    public Layer(Image image, string name, ImageType type, double opacity, 
-		 LayerModeEffects mode) : 
+    public Layer(Image image, string name, ImageType type, 
+		 double opacity = 100, 
+		 LayerModeEffects mode = LayerModeEffects.Normal) : 
       this(image, name, image.Width, image.Height, type, opacity, mode)
-    {
-    }
-
-    public Layer(Image image, string name, ImageType type) :
-      this(image, name, type, 100, LayerModeEffects.Normal)
     {
     }
 

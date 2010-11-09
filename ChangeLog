@@ -1,3 +1,21 @@
+2010-11-09  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* lib/RgnIterator.cs: removed warning
+
+	* lib/BrushList.cs: use default argument
+
+	* lib/Message.cs: minor clean-up
+
+	* plug-ins/PhotoshopActions/IntersectWithEvent.cs
+	* plug-ins/PhotoshopActions/Objc.cs
+	* plug-ins/PhotoshopActions/PhotoshopActions.cs
+	* plug-ins/PhotoshopActions/UnlinkEvent.cs
+	* plug-ins/PhotoshopActions/SelectPolygonEvent.cs: minor clean-up
+
+	* plug-ins/PhotoshopActions/NewDocumentEvent.cs: use default arguments
+
+	* lib/Layer.cs: use default arguments to simplify constructors
+
 2010-11-08  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* plug-ins/Pdn/Pdn.cs

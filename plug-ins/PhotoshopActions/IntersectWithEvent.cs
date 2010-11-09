@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2010 Maurits Rijk
 //
 // IntersectWithEvent.cs
 //
@@ -54,20 +54,20 @@ namespace Gimp.PhotoshopActions
       switch (_objc.ClassID2)
 	{
 	case "Plgn":
-	  FreeSelectTool tool = new FreeSelectTool(ActiveImage);
+	  var tool = new FreeSelectTool(ActiveImage);
 
-	  ObArParameter array = _objc.Parameters["Pts"] as ObArParameter;
-	  CoordinateList<double> points = array.Value;
+	  var array = _objc.Parameters["Pts"] as ObArParameter;
+	  var points = array.Value;
 
 	  if (array.Units == "#Prc")
 	    {
 	      int width = ActiveImage.Width;
 	      int height = ActiveImage.Height;
-	      foreach (Coordinate<double> c in points)
+	      points.ForEach(c => 
 		{
 		  c.X *= width / 100.0;
 		  c.Y *= height / 100.0;
-		}
+		});
 	    }
 
 	  tool.Select(points, ChannelOps.Intersect);

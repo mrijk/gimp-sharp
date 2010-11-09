@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2010 Maurits Rijk
 //
 // UnlinkEvent.cs
 //
@@ -37,7 +37,7 @@ namespace Gimp.PhotoshopActions
     {
       foreach (ReferenceParameter parameter in _list)
 	{
-	  NameType name = parameter.Set[0] as NameType;
+	  var name = parameter.Set[0] as NameType;
 	  if (name != null)
 	    {
 	      yield return "layer \"" + name.Key + "\"";
@@ -47,14 +47,14 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
-      LayerList layers = ActiveImage.Layers;
+      var layers = ActiveImage.Layers;
 
       foreach (ReferenceParameter parameter in _list)
 	{
-	  NameType name = parameter.Set[0] as NameType;
+	  var name = parameter.Set[0] as NameType;
 	  if (name != null)
 	    {
-	      Layer layer = layers[name.Key];
+	      var layer = layers[name.Key];
 	      LinkedLayersSet.Unlink(SelectedLayer, layer);
 	    }
 	}

@@ -90,8 +90,7 @@ namespace Gimp.PhotoshopActions
 	}
 
       var image = new Image(width, height, type);
-      var layer = new Layer(image, "Layer 1", width, height,
-			    imageType, 100, LayerModeEffects.Normal);
+      var layer = new Layer(image, "Layer 1", width, height, imageType);
       image.AddLayer(layer, 0);
 
       layer.Fill(fillType);

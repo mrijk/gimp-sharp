@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2008 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // Message.cs
 //
@@ -19,7 +19,6 @@
 // Boston, MA 02111-1307, USA.
 //
 
-using System;
 using System.Runtime.InteropServices;
 
 namespace Gimp
