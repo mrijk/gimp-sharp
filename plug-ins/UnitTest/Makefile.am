@@ -25,6 +25,7 @@ TESTSOURCES = 	TestBoolMatrix.cs		\
 		TestFloatingSelection.cs	\
 		TestGimpUnit.cs			\
 		TestGimp.cs			\
+		TestGradientList.cs		\
 		TestGrid.cs			\
 		TestGuide.cs			\
 		TestHSV.cs			\

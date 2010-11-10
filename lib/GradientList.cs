@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2008 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // GradientList.cs
 //
@@ -26,7 +26,7 @@ namespace Gimp
 {
   public sealed class GradientList : DataObjectList<Gradient>
   {
-    public GradientList(string filter) : base(filter)
+    public GradientList(string filter = null) : base(filter)
     {
     }
 

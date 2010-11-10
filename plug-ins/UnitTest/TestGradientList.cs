@@ -1,7 +1,7 @@
 // GIMP# - A C# wrapper around the GIMP Library
 // Copyright (C) 2004-2010 Maurits Rijk
 //
-// TestPattern.cs
+// TestGradientList.cs
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -24,31 +24,49 @@ using NUnit.Framework;
 namespace Gimp
 {
   [TestFixture]
-  public class TestPattern
+  public class TestGradientList
   {
     [Test]
-    public void GetInfo()
+    public void CountAll()
     {
-      var patterns = new PatternList();
-      foreach (var pattern in patterns)
-	{
-	  var info = pattern.Info;
-	  Assert.IsTrue(info.Width > 0);
-	  Assert.IsTrue(info.Height > 0);
-	  Assert.IsTrue(info.Bpp > 0);
-	}
+      var gradients = new GradientList(null);
+      Assert.IsTrue(gradients.Count > 0);
     }
 
     [Test]
-    public void GetPixels()
+    public void CountAllTwo()
     {
-      var patterns = new PatternList();
-      foreach (var pattern in patterns)
+      var gradients = new GradientList();
+      Assert.IsTrue(gradients.Count > 0);
+    }
+
+    [Test]
+    public void CountNone()
+    {
+      // Test for non-existing gradients
+      var gradients = new GradientList("nonsense");
+      Assert.AreEqual(0, gradients.Count);
+    }
+
+    [Test]
+    public void GetEnumerator()
+    {
+      var gradients = new GradientList();
+      int count = 0;
+      foreach (var gradient in gradients)
 	{
-	  int width, height, bpp, numBytes;
-	  pattern.GetPixels(out width, out height, out bpp, out numBytes);
-	  Assert.AreEqual(width * height * bpp, numBytes);
+	  count++;
 	}
+      Assert.AreEqual(count, gradients.Count);
+    }
+
+    [Test]
+    public void ForEach()
+    {
+      var gradients = new GradientList();
+      int count = 0;
+      gradients.ForEach(gradient => count++);
+      Assert.AreEqual(count, gradients.Count);
     }
   }
 }

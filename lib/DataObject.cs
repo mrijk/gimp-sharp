@@ -42,7 +42,8 @@ namespace Gimp
     }
 
     protected abstract string TryRename(string newName);
-
+    
+    // Fix me: this fails when comparing Brush and Pattern with same name!
     public override bool Equals(object o)
     {
       if (o is DataObject)

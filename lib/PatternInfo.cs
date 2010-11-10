@@ -1,7 +1,7 @@
 // GIMP# - A C# wrapper around the GIMP Library
 // Copyright (C) 2004-2010 Maurits Rijk
 //
-// TestPattern.cs
+// PatternInfo.cs
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -19,36 +19,19 @@
 // Boston, MA 02111-1307, USA.
 //
 
-using NUnit.Framework;
-
 namespace Gimp
 {
-  [TestFixture]
-  public class TestPattern
+  public sealed class PatternInfo
   {
-    [Test]
-    public void GetInfo()
-    {
-      var patterns = new PatternList();
-      foreach (var pattern in patterns)
-	{
-	  var info = pattern.Info;
-	  Assert.IsTrue(info.Width > 0);
-	  Assert.IsTrue(info.Height > 0);
-	  Assert.IsTrue(info.Bpp > 0);
-	}
-    }
+    public int Width {get; private set;}
+    public int Height {get; private set;}
+    public int Bpp {get; private set;}
 
-    [Test]
-    public void GetPixels()
+    public PatternInfo(int width, int height, int bpp)
     {
-      var patterns = new PatternList();
-      foreach (var pattern in patterns)
-	{
-	  int width, height, bpp, numBytes;
-	  pattern.GetPixels(out width, out height, out bpp, out numBytes);
-	  Assert.AreEqual(width * height * bpp, numBytes);
-	}
+      Width = width;
+      Height = height;
+      Bpp = bpp;
     }
   }
 }

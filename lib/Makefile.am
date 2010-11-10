@@ -75,6 +75,7 @@ MYSOURCES = 				\
 	ParasiteList.cs			\
 	Path.cs				\
 	Pattern.cs			\
+	PatternInfo.cs			\
 	PatternList.cs			\
 	PersistentStorage.cs		\
 	Pixel.cs			\

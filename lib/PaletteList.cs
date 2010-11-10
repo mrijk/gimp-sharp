@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2008 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // PaletteList.cs
 //
@@ -26,7 +26,7 @@ namespace Gimp
 {
   public sealed class PaletteList : DataObjectList<Palette>
   {
-    public PaletteList(string filter) : base(filter)
+    public PaletteList(string filter = null) : base(filter)
     {
     }
 

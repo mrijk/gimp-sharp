@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // TestPaletteList.cs
 //
@@ -19,8 +19,6 @@
 // Boston, MA 02111-1307, USA.
 //
 
-using System;
-
 using NUnit.Framework;
 
 namespace Gimp
@@ -29,8 +27,46 @@ namespace Gimp
   public class TestPaletteList
   {
     [Test]
-    public void FirstTest()
+    public void CountAll()
     {
+      var palettes = new PaletteList(null);
+      Assert.IsTrue(palettes.Count > 0);
+    }
+
+    [Test]
+    public void CountAllTwo()
+    {
+      var palettes = new PaletteList();
+      Assert.IsTrue(palettes.Count > 0);
+    }
+
+    [Test]
+    public void CountNone()
+    {
+      // Test for non-existing palettes
+      var palettes = new PaletteList("nonsense");
+      Assert.AreEqual(0, palettes.Count);
+    }
+
+    [Test]
+    public void GetEnumerator()
+    {
+      var palettes = new PaletteList();
+      int count = 0;
+      foreach (var palette in palettes)
+	{
+	  count++;
+	}
+      Assert.AreEqual(count, palettes.Count);
+    }
+
+    [Test]
+    public void ForEach()
+    {
+      var palettes = new PaletteList();
+      int count = 0;
+      palettes.ForEach(palette => count++);
+      Assert.AreEqual(count, palettes.Count);
     }
   }
 }

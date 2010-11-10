@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // Pattern.cs
 //
@@ -24,44 +24,36 @@ using System.Runtime.InteropServices;
 
 namespace Gimp
 {
-  public sealed class Pattern
+  public sealed class Pattern : DataObject
   {
-    public string Name {get; private set;}
-
-    public Pattern(string name)
+    public Pattern(string name) : base(name)
     {
-      Name = name;
     }
 
-    internal Pattern(string name, bool unused)
+    internal Pattern(string name, bool unused) : base(name)
     {
-      Name = name;
     }
 
-    public override bool Equals(object o)
+    protected override string TryRename(string newName)
     {
-      if (o is Pattern)
+      throw new GimpSharpException("Rename for patterns not supported by GIMP");
+    }
+
+    public PatternInfo Info
+    {
+      get
 	{
-	  return (o as Pattern).Name == Name;
+	  int width, height, bpp;
+	  if (!gimp_pattern_get_info(Name, out width, out height, out bpp))
+	    {
+	      throw new GimpSharpException();
+	    }
+	  return new PatternInfo(width, height, bpp);
 	}
-      return false;
     }
 
-    public override int GetHashCode()
-    {
-      return Name.GetHashCode();
-    }
-
-    public void GetInfo(out int width, out int height, out int bpp)
-    {
-      if (!gimp_pattern_get_info(Name, out width, out height, out bpp))
-        {
-	  throw new GimpSharpException();
-        }
-    }
-
-    public void GetPixels(out int width, out int height, out int bpp,
-			  out int numColorBytes)
+    public Pixel[] GetPixels(out int width, out int height, out int bpp,
+			     out int numColorBytes)
     {
       IntPtr colorBytes;
       if (!gimp_pattern_get_pixels(Name, out width, out height,
@@ -70,7 +62,7 @@ namespace Gimp
         {
 	  throw new GimpSharpException();
         }
-      // Fix me: fill array with colors
+      return null; // Fix me: fill array with colors
     }
 
     [DllImport("libgimp-2.0-0.dll")]
