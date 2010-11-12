@@ -619,7 +619,8 @@ namespace Gimp
 
     public Parasite ParasiteFind(string name)
     {
-      return new Parasite(gimp_image_parasite_find(ID, name));
+      IntPtr found = gimp_image_parasite_find(ID, name);
+      return (found == IntPtr.Zero) ? null : new Parasite(found);
     }
 
     public void ParasiteAttach(Parasite parasite)

@@ -48,6 +48,8 @@ namespace Gimp
 
       display.Delete();
       images.Refresh();
+
+      /// Todo: the next assert fails!
       Assert.AreEqual(count, images.Count);
     }
 

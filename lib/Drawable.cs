@@ -285,24 +285,24 @@ namespace Gimp
 	}
     }
 
-    public bool IsLayer()
+    public bool IsLayer
     {
-      return gimp_drawable_is_layer(_ID);
+      get {return gimp_drawable_is_layer(_ID);}
     }
 
-    public bool IsLayerMask()
+    public bool IsLayerMask
     {
-      return gimp_drawable_is_layer_mask(_ID);
+      get {return gimp_drawable_is_layer_mask(_ID);}
     }
 
-    public bool IsChannel()
+    public bool IsChannel
     {
-      return gimp_drawable_is_channel(_ID);
+      get {return gimp_drawable_is_channel(_ID);}
     }
 
-    public bool IsTextLayer()
+    public bool IsTextLayer
     {
-      return gimp_drawable_is_text_layer(_ID);
+      get {return gimp_drawable_is_text_layer(_ID);}
     }
 
     public void Offset(bool wrapAround, OffsetType fillType,
@@ -330,7 +330,8 @@ namespace Gimp
 
     public Parasite ParasiteFind(string name)
     {
-      return new Parasite(gimp_drawable_parasite_find(_ID, name));
+      IntPtr found = gimp_drawable_parasite_find(_ID, name);
+      return (found == IntPtr.Zero) ? null : new Parasite(found);
     }
 
     public ParasiteList ParasiteList

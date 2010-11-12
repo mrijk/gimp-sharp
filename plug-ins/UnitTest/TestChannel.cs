@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // TestChannel.cs
 //
@@ -51,7 +51,7 @@ namespace Gimp
 
       var channel = new Channel(_image, "test", _width, _height, 100,
 				new RGB(0, 255, 0));
-      Assert.IsTrue(channel.IsChannel());
+      Assert.IsTrue(channel.IsChannel);
       _image.AddChannel(channel, 0);
 
       Assert.AreEqual(before + 1, _image.Channels.Count);

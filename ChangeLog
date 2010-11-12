@@ -1,3 +1,15 @@
+2010-11-12  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* lib/Image.cs: fixed bug in ParasiteFind method.
+
+	* lib/Parasite.cs
+	* lib/Drawable.cs: replacing IsXYZ() methods by IsXYZ
+	property. Fixed bug in ParasiteFind method.
+
+	* plug-ins/UnitTest/TestChannel.cs
+	* plug-ins/UnitTest/TestMask.cs
+	* plug-ins/UnitTest/TestDrawable.cs: changed accordingly
+
 2010-11-10  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* plug-ins/UnitTest/TestPattern.cs: use PatternInfo

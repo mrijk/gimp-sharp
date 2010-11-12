@@ -176,13 +176,13 @@ namespace Gimp
     [Test]
     public void IsLayer()
     {
-      Assert.IsTrue(_drawable.IsLayer());
+      Assert.IsTrue(_drawable.IsLayer);
     }
 
     [Test]
     public void IsChannel()
     {
-      Assert.IsFalse(_drawable.IsChannel());
+      Assert.IsFalse(_drawable.IsChannel);
     }
 
     [Test]
@@ -226,6 +226,7 @@ namespace Gimp
       _drawable.ParasiteDetach(name);
       var found = _drawable.ParasiteFind(name);
       Assert.IsNull(found);
+      Assert.AreEqual(0, _drawable.ParasiteList.Count);
     }
 
     [Test]

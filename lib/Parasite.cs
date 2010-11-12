@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // Parasite.cs
 //
@@ -91,14 +91,14 @@ namespace Gimp
       return gimp_parasite_is_type(_parasite, name);
     }
 
-    public bool IsPersistent()
+    public bool IsPersistent
     {
-      return gimp_parasite_is_persistent(_parasite);
+      get {return gimp_parasite_is_persistent(_parasite);}
     }
 
-    public bool IsUndoable()
+    public bool IsUndoable
     {
-      return gimp_parasite_is_undoable(_parasite);
+      get {return gimp_parasite_is_undoable(_parasite);}
     }
 
     public bool HasFlag(ulong flag)
