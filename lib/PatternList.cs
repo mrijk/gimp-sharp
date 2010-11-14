@@ -20,40 +20,24 @@
 //
 
 using System;
-using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace Gimp
 {
-  public sealed class PatternList
+  public sealed class PatternList : DataObjectList<Pattern>
   {
-    readonly List<Pattern> _list = new List<Pattern>();
-
-    public PatternList(string filter = null)
+    public PatternList(string filter = null) : base(filter)
     {
-      int num_patterns;
-      IntPtr ptr = gimp_patterns_get_list(filter, out num_patterns);
-      for (int i = 0; i < num_patterns; i++)
-        {
-	  IntPtr tmp = (IntPtr) Marshal.PtrToStructure(ptr, typeof(IntPtr));
-	  _list.Add(new Pattern(Marshal.PtrToStringAnsi(tmp), false));
-	  ptr = (IntPtr)((int)ptr + Marshal.SizeOf(tmp));
-        }
     }
 
-    public IEnumerator<Pattern> GetEnumerator()
+    protected override IntPtr GetList(string filter, out int numDataObjects)
     {
-      return _list.GetEnumerator();
+      return gimp_patterns_get_list(filter, out numDataObjects);
     }
 
-    public void ForEach(Action<Pattern> action)
+    protected override void Add(string name)
     {
-      _list.ForEach(action);
-    }
-
-    public int Count
-    {
-      get {return _list.Count;}
+      Add(new Pattern(name, false));
     }
 
     static public void Refresh()

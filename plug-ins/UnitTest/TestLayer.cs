@@ -50,6 +50,7 @@ namespace Gimp
       var layer = new Layer(_image, "test", _width, _height,
 			      ImageType.Rgb, 100, 
 			      LayerModeEffects.Normal);
+      Assert.AreEqual(ImageType.Rgb, layer.Type);
       _image.AddLayer(layer, 0);
       Assert.AreEqual(1, _image.Layers.Count);
     }
@@ -174,8 +175,10 @@ namespace Gimp
       _image.AddLayer(layer, 0);
 
       int bpp = layer.Bpp;
-      layer.AddAlpha();
+      Assert.AreEqual(3, bpp);
 
+      layer.AddAlpha();
+      Assert.AreEqual(ImageType.Rgba, layer.Type);
       Assert.AreEqual(bpp + 1, layer.Bpp);
     }
 

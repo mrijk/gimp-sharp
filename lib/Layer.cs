@@ -149,6 +149,7 @@ namespace Gimp
 	{
 	  throw new GimpSharpException();
 	}
+      RecalculateBpp();
     }
 
     public void Flatten()

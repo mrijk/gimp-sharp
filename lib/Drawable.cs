@@ -37,6 +37,11 @@ namespace Gimp
     {
       _ID = drawableID;
       _drawable = gimp_drawable_get(drawableID);
+      RecalculateBpp();
+    }
+
+    protected void RecalculateBpp()
+    {
       _bpp = gimp_drawable_bpp(_ID);	// Cache for performance
     }
 
@@ -941,7 +946,7 @@ namespace Gimp
 	{
 	  _ID = value;
 	  _drawable = gimp_drawable_get(_ID);
-	  _bpp = gimp_drawable_bpp(_ID);	// Cache for performance
+	  RecalculateBpp();
 	}
     }
 

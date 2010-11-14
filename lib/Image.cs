@@ -728,7 +728,7 @@ namespace Gimp
     {
       if (!gimp_image_convert_grayscale(ID))
 	{
-	  // throw new GimpSharpException();
+	  throw new GimpSharpException();
 	}
     }
        
