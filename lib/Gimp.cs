@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2009 Maurits Rijk, Massimo Perga
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // Gimp.cs
 //
@@ -26,6 +26,39 @@ using GLib;
 
 namespace Gimp
 {
+  [StructLayout(LayoutKind.Sequential)]
+  internal struct GimpColorConfig 
+  {
+    public ColorManagementMode  mode;
+    public string             	rgb_profile;
+    public string              	cmyk_profile;
+    public string              	display_profile;
+    public bool               	display_profile_from_gdk;
+    public string             	printer_profile;
+    public ColorRenderingIntent	display_intent;
+    public ColorRenderingIntent simulation_intent;
+    
+    public string               display_module;
+    
+    public bool               	simulation_gamut_check;
+    public GimpRGB             	out_of_gamut_color;
+  };
+
+  public enum ColorManagementMode
+  {
+    Off,
+    Display,
+    Softproof
+  };
+
+  public enum ColorRenderingIntent
+  {
+    Perceptual,
+    RelativeColorimetric,
+    Saturation,
+    AbsoluteColorimetric
+  };
+
   public static class Gimp
   {
     static public string Directory

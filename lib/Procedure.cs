@@ -136,10 +136,8 @@ namespace Gimp
 	  // Todo: destroy argsPtr!
 	  
 	  int n_return_vals;
-	  IntPtr returnArgsPtr = gimp_run_procedure2(Name, out n_return_vals, i, parameters);
-
-	  Console.WriteLine("num_values: " + num_values);
-	  Console.WriteLine("n_return_vals: " + n_return_vals);
+	  IntPtr returnArgsPtr = gimp_run_procedure2(Name, out n_return_vals, 
+						     i, parameters);
 
 	  return ParseReturnArgs(returnArgsPtr, n_return_vals);
 	}
@@ -153,6 +151,8 @@ namespace Gimp
     List<object> ParseReturnArgs(IntPtr argsPtr, int num_args)
     {
       var list = new List<object>();
+      var status = PDBStatusType.Success;
+      var statusString = "";
 
       // first parameter contains Status!
       for (int i = 0; i < num_args; i++)
@@ -161,8 +161,11 @@ namespace Gimp
 	  argsPtr = (IntPtr)((int)argsPtr + Marshal.SizeOf(param));
 	  switch (param.type) 
 	    {
+	    case PDBArgType.String:
+	      statusString = Marshal.PtrToStringAnsi(param.data.d_string); 
+	      break;
 	    case PDBArgType.Status:
-	      // TODO: check status value!
+	      status = param.data.d_status;
 	      break;
 	    case PDBArgType.Image:
 	      list.Add(new Image(param.data.d_image));
@@ -172,6 +175,11 @@ namespace Gimp
 	      break;
 	  }
 	}
+      if (status != PDBStatusType.Success)
+	{
+	  throw new GimpSharpException(statusString);
+	}
+
       // Fix me! gimp_destroy_params(argsPtr, num_args);
       return list;
     }

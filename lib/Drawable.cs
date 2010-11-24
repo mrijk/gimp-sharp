@@ -45,6 +45,7 @@ namespace Gimp
       _bpp = gimp_drawable_bpp(_ID);	// Cache for performance
     }
 
+
     internal Drawable()
     {
     }

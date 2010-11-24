@@ -178,16 +178,26 @@ namespace Gimp.QR
     Image GetImageFromGoogleCharts(Dimensions dimensions)
     {
       var chl = "&chl=" + Uri.EscapeDataString(_text);
-      var chs = string.Format("&chs={0}x{1}", dimensions.Width, dimensions.Height);
+      var chs = string.Format("&chs={0}x{1}", dimensions.Width, 
+			      dimensions.Height);
       var chld = string.Format("&chld={0}|{1}", _errorCorrection, _margin);
       var url = "http://chart.apis.google.com/chart?cht=qr" + chl + chs + chld;
 
       Console.WriteLine("url: " + url);
 
       var procedure = new Procedure("file-uri-load");
-      var returnArgs = procedure.Run(url, url);
 
-      return returnArgs[0] as Image;
+      try 
+	{
+	  var returnArgs = procedure.Run(url, url);
+
+	  return returnArgs[0] as Image;
+	}
+      catch (GimpSharpException e)
+	{
+	  new Message(e.Message);
+	  return null;
+	}
     }
 
     override protected void UpdatePreview(AspectPreview preview)
@@ -201,7 +211,10 @@ namespace Gimp.QR
     override protected void Render(Image image, Drawable drawable)
     {
       var newImage = GetImageFromGoogleCharts(drawable.Dimensions);
-      Display.Reconnect(image, newImage);
+      if (newImage != null)
+	{
+	  Display.Reconnect(image, newImage);
+	}
     }
   }
 }
