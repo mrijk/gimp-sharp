@@ -1,3 +1,7 @@
+2010-11-25  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/QR/QR.cs: fixed output encoding
+
 2010-11-24  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* lib/Procedure.cs

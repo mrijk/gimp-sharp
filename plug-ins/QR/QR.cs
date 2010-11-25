@@ -28,6 +28,8 @@ namespace Gimp.QR
   {
     [SaveAttribute("text")]
     string _text = "";
+    [SaveAttribute("encoding")]
+    int _encoding = 0;
     [SaveAttribute("error_correction")]
     string _errorCorrection = "L";
     [SaveAttribute("margin")]
@@ -47,6 +49,8 @@ namespace Gimp.QR
       var inParams = new ParamDefList() {
 	new ParamDef("text", "", typeof(string),
 		     _("Text for QR code")),
+	new ParamDef("encoding", 0, typeof(int), 
+		     _("Encoding (0 = UTF-8, 1 = Shift-JIS, 2 = ISO-8859-1)")),
 	new ParamDef("error_correction", "L", typeof(string),
 		     _("Error Correction Level (L, M, Q or H)")),
 	new ParamDef("margin", 4, typeof(int),
@@ -121,16 +125,28 @@ namespace Gimp.QR
       var vbox = new VBox(false, 1);
       frame.Add(vbox);
 
-      var button = new RadioButton(_("_UTF-8"));
-      vbox.Add(button);
-
-      button = new RadioButton(button, _("_Shift-JIS"));
-      vbox.Add(button);
-
-      button = new RadioButton(button, _("_ISO-8859-1"));
-      vbox.Add(button);
+      var button = AddEncodingButton(vbox, null, 0, _("_UTF-8"));
+      button = AddEncodingButton(vbox, button, 1, _("_Shift-JIS"));
+      AddEncodingButton(vbox, button, 2, _("_ISO-8859-1"));
 
       return frame;
+    }
+
+    RadioButton AddEncodingButton(VBox vbox, RadioButton previous,
+				  int type, string description)
+    {
+      var button = new RadioButton(previous, description);
+      vbox.Add(button);
+      if (_encoding == type) {
+	button.Active = true;
+      }
+      button.Clicked += delegate {
+	if (button.Active) {
+	  _encoding = type;
+	  InvalidatePreview();
+	}
+      };
+      return button;
     }
 
     Widget CreateErrorCorrection()
@@ -148,7 +164,8 @@ namespace Gimp.QR
       return frame;
     }
 
-    RadioButton AddErrorCorrectionButton(VBox vbox, RadioButton previous, string type, string description)
+    RadioButton AddErrorCorrectionButton(VBox vbox, RadioButton previous, 
+					 string type, string description)
     {
       var button = new RadioButton(previous, type + " " + _(description));
       if (_errorCorrection == type) {
@@ -180,8 +197,10 @@ namespace Gimp.QR
       var chl = "&chl=" + Uri.EscapeDataString(_text);
       var chs = string.Format("&chs={0}x{1}", dimensions.Width, 
 			      dimensions.Height);
+      var choe = "&choe=" + GetEncodingString();
       var chld = string.Format("&chld={0}|{1}", _errorCorrection, _margin);
-      var url = "http://chart.apis.google.com/chart?cht=qr" + chl + chs + chld;
+      var url = "http://chart.apis.google.com/chart?cht=qr" 
+	+ chl + chs + choe + chld;
 
       Console.WriteLine("url: " + url);
 
@@ -197,6 +216,22 @@ namespace Gimp.QR
 	{
 	  new Message(e.Message);
 	  return null;
+	}
+    }
+
+    string GetEncodingString()
+    {
+      if (_encoding == 1) 
+	{
+	  return "Shift_JIS";
+	}
+      else if (_encoding == 2)
+	{
+	  return "ISO-8859-1";
+	}
+      else
+	{
+	  return "UTF-8";
 	}
     }
 
