@@ -1,5 +1,5 @@
  // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // Context.cs
 //
@@ -211,15 +211,7 @@ namespace Gimp
 	      throw new GimpSharpException();
 	    }
 
-	  var methods = new List<string>();
-
-	  IntPtr ptr = paintMethods;
-	  for (int i = 0; i < numPaintMethods; i++)
-	    {
-	      IntPtr tmp = (IntPtr) Marshal.PtrToStructure(ptr, typeof(IntPtr));
-	      methods.Add(Marshal.PtrToStringAnsi(tmp));
-	      ptr = (IntPtr)((int)ptr + Marshal.SizeOf(tmp));
-	    }
+	  var methods = Util.ToStringList(paintMethods, numPaintMethods);
 	  // TODO: find out if next line is needed
 	  Marshaller.Free(paintMethods);
 	  return methods;

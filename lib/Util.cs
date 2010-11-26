@@ -19,9 +19,24 @@
 // Boston, MA 02111-1307, USA.
 //
 
+using System;
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
+
 namespace Gimp
 {
   public sealed class Util
   {
+    static public List<string> ToStringList(IntPtr ptr, int n)
+    {
+      var set = new List<string>();
+      for (int i = 0; i < n; i++)
+	{
+	  IntPtr tmp = (IntPtr) Marshal.PtrToStructure(ptr, typeof(IntPtr));
+	  set.Add(Marshal.PtrToStringAnsi(tmp));
+	  ptr = (IntPtr)((int)ptr + Marshal.SizeOf(tmp));
+        }
+      return set;
+    }
   }
 }

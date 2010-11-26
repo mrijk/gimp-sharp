@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // TextLayer.cs
 //
@@ -74,6 +74,23 @@ namespace Gimp
       set
       {
 	if (!gimp_text_layer_set_font_size(ID, value.Size, value.Unit))
+	{
+	  throw new GimpSharpException();
+	}
+      }
+    }
+
+    public FontHinting Hinting
+    {
+      get
+      {
+	bool autohint;
+	bool hinting = gimp_text_layer_get_hinting(ID, out autohint);
+	return new FontHinting(hinting, autohint);
+      }
+      set
+      {
+	if (!gimp_text_layer_set_hinting(ID, value.Hinting, value.Autohint))
 	{
 	  throw new GimpSharpException();
 	}
@@ -229,6 +246,13 @@ namespace Gimp
     static extern bool gimp_text_layer_set_font_size(Int32 layer_ID, 
 						     double font_size,
 						     Unit unit);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_text_layer_get_hinting(Int32 layer_ID,
+						   out bool autohint);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_text_layer_set_hinting(Int32 layer_ID,
+						   bool hinting,
+						   bool autohint);
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_text_layer_get_antialias(Int32 layer_ID);
     [DllImport("libgimp-2.0-0.dll")]

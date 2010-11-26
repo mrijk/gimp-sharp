@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // TestTextLayer.cs
 //
@@ -83,6 +83,18 @@ namespace Gimp
       var newFontSize = new FontSize(1, Unit.Inch);
       layer.FontSize = newFontSize;
       Assert.AreEqual(newFontSize, layer.FontSize);
+    }
+
+    [Test]
+    public void GetSetHinting()
+    {
+      var layer = CreateTextLayer();
+      layer.Hinting = new FontHinting(true, true);
+      Assert.IsTrue(layer.Hinting.Hinting);
+      Assert.IsTrue(layer.Hinting.Autohint);
+      layer.Hinting = new FontHinting(false, false);
+      Assert.IsFalse(layer.Hinting.Hinting);
+      Assert.IsFalse(layer.Hinting.Autohint);
     }
 
     [Test]

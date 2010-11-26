@@ -158,18 +158,11 @@ namespace Gimp
 
       int len = gimp_rgb_list_names(out namesPtr, out colorsPtr);
 
-      names = new List<string>();
-      IntPtr ptr = namesPtr;
-      for (int i = 0; i < len; i++)
-        {
-	  IntPtr tmp = (IntPtr) Marshal.PtrToStructure(ptr, typeof(IntPtr));
-	  names.Add(Marshal.PtrToStringAnsi(tmp));
-	  ptr = (IntPtr)((int)ptr + Marshal.SizeOf(tmp));
-        }
+      names = Util.ToStringList(namesPtr, len);
       Marshaller.Free(namesPtr);
 
       colors = new List<RGB>();
-      ptr = colorsPtr;
+      IntPtr ptr = colorsPtr;
       for (int i = 0; i < len; i++)
         {
 	  var tmp = (GimpRGB) Marshal.PtrToStructure(ptr, typeof(GimpRGB));

@@ -1,3 +1,21 @@
+2010-11-26  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* lib/Util.cs: new ToStringList util func
+
+	* lib/RGB.cs
+	* lib/Context.cs
+	* lib/ProceduralDb.cs: use ToStringList
+
+	* lib/FontHinting.cs: new file
+	* lib/Makefile.am: changed accordingly
+
+	* lib/TextLayer.cs: support for gimp_text_layer_get/set_hinting
+
+	* lib/BoolMatrix.cs: make _random readonly
+
+	* plug-ins/UnitTest/TestTextLayer.cs
+	* plug-ins/UnitTest/TestBoolMatrix.cs: few more tests
+
 2010-11-25  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* plug-ins/QR/QR.cs: fixed output encoding

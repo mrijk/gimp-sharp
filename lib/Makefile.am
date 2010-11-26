@@ -32,6 +32,7 @@ MYSOURCES = 				\
 	FileEntry.cs			\
 	FilePlugin.cs			\
 	FloatingSelection.cs		\
+	FontHinting.cs			\
 	FontSize.cs			\
 	FreeSelectTool.cs		\
 	FuzzySelectTool.cs		\

@@ -13,8 +13,8 @@ EXTRA_DIST = $(MYSOURCES) VisualBasicSample VisualBasicSample.png
 CLEANFILES = VisualBasicSample.exe
 
 VisualBasicSample.exe : $(MYSOURCES) VisualBasicSample.png $(GIMPSHARPLIB)
-	$(VBNC) $(MYSOURCES) /resource:VisualBasicSample.png $(ASSEMBLIES) \
-	-out:$@
+	$(VBNC) /res:VisualBasicSample.png $(MYSOURCES) $(ASSEMBLIES) \
+	-out:$@ 
 
 install:
 	$(INSTALL_DATA) VisualBasicSample.exe $(DESTDIR)$(GIMPPLUGINDIR)

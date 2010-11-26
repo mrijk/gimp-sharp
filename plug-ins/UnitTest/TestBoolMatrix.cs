@@ -97,5 +97,32 @@ namespace Gimp
       Assert.IsFalse(b.IsInside(new IntCoordinate(width, height)));
       Assert.IsFalse(b.IsInside(new IntCoordinate(-1, -1)));
     }
+
+    [Test]
+    public void GenerateOk()
+    {
+      const int width = 43;
+      const int height = 29;
+      var b = new BoolMatrix(width, height);
+      var c = b.Generate(1);
+      Assert.IsNotNull(c);
+    }
+
+    [Test]
+    public void GenerateFail()
+    {
+      const int width = 43;
+      const int height = 29;
+      var b = new BoolMatrix(width, height);
+      for (int y = 0; y < height; y++)
+	{
+	  for (int x = 0; x < width; x++)
+	    {
+	      b[y, x] = true;
+	    }
+	}
+      var c = b.Generate(1);
+      Assert.IsNull(c);
+    }
   }
 }

@@ -29,7 +29,7 @@ namespace Gimp
     public int Height {get; set;}
     readonly bool [,] _matrix;
 
-    Random _random = new Random();
+    readonly Random _random = new Random();
 
     public BoolMatrix(int width, int height)
     {

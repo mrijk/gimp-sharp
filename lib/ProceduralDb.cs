@@ -69,7 +69,6 @@ namespace Gimp
     {
       int numMatches;
       IntPtr ptr;
-      var procedureNames = new List<string>();
 
       if (!gimp_procedural_db_query(name, blurb, help, author, copyright, 
 				    date, procedureType, out numMatches,
@@ -77,15 +76,8 @@ namespace Gimp
 	{
 	  throw new GimpSharpException();
 	}
-      
-      // TODO: put next lines in a Util class
-      for (int i = 0; i < numMatches; i++)
-	{
-	  IntPtr tmp = (IntPtr) Marshal.PtrToStructure(ptr, typeof(IntPtr));
-	  procedureNames.Add(Marshal.PtrToStringAnsi(tmp));
-	  ptr = (IntPtr)((int)ptr + Marshal.SizeOf(tmp));
-        }
-      return procedureNames;
+
+      return Util.ToStringList(ptr, numMatches);
     }
     
     public static bool ProcExists(string name)
