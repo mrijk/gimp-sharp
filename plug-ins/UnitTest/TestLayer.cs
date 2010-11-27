@@ -103,6 +103,7 @@ namespace Gimp
       var image = new Image(_width, _height, ImageBaseType.Rgb) {
 	{new Layer("test", ImageType.Rgb), 0}};
       Assert.AreEqual(1, image.Layers.Count);
+      image.Delete();
     }
 
     [Test]

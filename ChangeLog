@@ -1,3 +1,23 @@
+2010-11-27  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/UnitTest/TestLayer.cs: don't forget to delete images!
+
+	* plug-ins/UnitTest/TestImageList.cs: new file
+
+	* plug-ins/UnitTest/Makefile.am: changed accordingly
+
+	* plug-ins/UnitTest/TestPlugins.cs
+	* plug-ins/UnitTest/TestGuide.cs: minor clean-up
+
+	* lib/ProcedureSet.cs: new constructor
+
+	* lib/Plugin.cs: don't call Init and/or Quit if not needed
+
+	* lib/ParasiteList.cs: new internal ParasiteList constructor
+
+	* lib/Drawable.cs
+	* lib/Vectors.cs: use new ParasiteList constructor
+
 2010-11-26  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* lib/Util.cs: new ToStringList util func

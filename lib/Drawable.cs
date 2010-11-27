@@ -344,22 +344,8 @@ namespace Gimp
     {
       get 
 	{
-	  var list = new ParasiteList();
-
-	  int numParasites;
-	  IntPtr ptr;
-	  if (!gimp_drawable_parasite_list(_ID, out numParasites, out ptr))
-	    {
-	      throw new GimpSharpException();
-	    }
-	  for (int i = 0; i < numParasites; i++) 
-	    {
-	      IntPtr tmp = (IntPtr) Marshal.PtrToStructure(ptr, typeof(IntPtr));
-	      string name = Marshal.PtrToStringAnsi(tmp);
-	      list.Add(ParasiteFind(name));
-	      ptr = (IntPtr)((int)ptr + Marshal.SizeOf(tmp));
-	    }
-	  return list;
+	  return new ParasiteList(_ID, gimp_drawable_parasite_list,
+				  gimp_drawable_parasite_find);
 	}
     }
 

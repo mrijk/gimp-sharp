@@ -36,9 +36,6 @@ namespace Gimp
 {
   abstract public class Plugin
   {
-    // Set of registered procedures
-    protected ProcedureSet _procedures = new ProcedureSet();
-
     public string Name {get; set;}
 
     bool _usesDrawable = false;
@@ -73,28 +70,12 @@ namespace Gimp
     public string[] Args {get; set;}
     public Plugin() {}
 
-    public void Go()
-    {
-      Catalog.Init(Name, Gimp.LocaleDirectory);
-
-      _info.Init = new InitProc(Init);
-      _info.Quit = new QuitProc(Quit);
-      _info.Query = new QueryProc(Query);
-      _info.Run = new RunProc(Run);
-
-      var progargs = new string[Args.Length + 1];
-      progargs[0] = "gimp-sharp";
-      Args.CopyTo(progargs, 1);
-
-      gimp_main(ref _info, progargs.Length, progargs);
-    }
-
     public Plugin(string[] args, string package)
     {
       Catalog.Init(package, Gimp.LocaleDirectory);
 
-      _info.Init = new InitProc(Init);
-      _info.Quit = new QuitProc(Quit);
+      _info.Init = HasMethod("Init") ? new InitProc(Init) : null;
+      _info.Quit = HasMethod("Quit") ? new QuitProc(Quit) : null;
       _info.Query = new QueryProc(Query);
       _info.Run = new RunProc(Run);
 
@@ -120,13 +101,22 @@ namespace Gimp
 
     protected abstract IEnumerable<Procedure> ListProcedures() ;
 
+    bool HasMethod(string methodName)
+    {
+      return Array.Exists(GetMethods(), m => m.Name == methodName);
+    }
+
+    MethodInfo[] GetMethods()
+    {
+      return GetType().GetMethods(BindingFlags.DeclaredOnly |
+				  BindingFlags.Public | 
+				  BindingFlags.NonPublic | 
+				  BindingFlags.Instance);
+    }
+
     void GetRequiredParameters()
     {
-      foreach (MethodInfo method in 
-	       GetType().GetMethods(BindingFlags.DeclaredOnly |
-				    BindingFlags.Public | 
-				    BindingFlags.NonPublic | 
-				    BindingFlags.Instance))
+      foreach (MethodInfo method in GetMethods())
 	{
 	  if (method.Name == "Render")
 	    {
@@ -154,12 +144,8 @@ namespace Gimp
     {
       GetRequiredParameters();
 
-      foreach (var procedure in ListProcedures())
-	{
-	  _procedures.Add(procedure);
-	}
-
-      _procedures.Install(_usesImage, _usesDrawable);
+      var procedures = new ProcedureSet(ListProcedures());
+      procedures.Install(_usesImage, _usesDrawable);     
     }
 
     virtual protected void Run(string name, ParamDefList inParam,
@@ -244,12 +230,7 @@ namespace Gimp
 
       GetRequiredParameters();
 
-      var procedures = new ProcedureSet();
-
-      foreach (var p in ListProcedures())
-	{
-	  procedures.Add(p);
-	}
+      var procedures = new ProcedureSet(ListProcedures());
 
       var procedure = procedures[name];
       var inParam = procedure.InParams;

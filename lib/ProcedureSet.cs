@@ -28,6 +28,14 @@ namespace Gimp
   {
     Dictionary<string, Procedure> _set = new Dictionary<string, Procedure>();
 
+    public ProcedureSet(IEnumerable<Procedure> procedures)
+    {
+      foreach (var procedure in procedures)
+	{
+	  Add(procedure);
+	}
+    }
+
     public Procedure this[string name]
     {
       get {return _set[name];}

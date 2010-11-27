@@ -198,27 +198,8 @@ namespace Gimp
     {
       get
 	{
-	  var list = new ParasiteList();
-	  int numParasites;
-	  IntPtr parasites;
-	  if (gimp_vectors_parasite_list(_ID, out numParasites,
-					  out parasites))
-	    {
-	      for (int i = 0; i < numParasites; i++)
-		{
-		  IntPtr tmp = (IntPtr) Marshal.PtrToStructure(parasites, 
-							       typeof(IntPtr));
-		  string name = Marshal.PtrToStringAnsi(tmp);
-		  var parasite = ParasiteFind(name);
-		  list.Add(parasite);
-		  parasites = (IntPtr)((int) parasites + Marshal.SizeOf(tmp));
-		}
-	    }
-	  else
-	    {
-	      throw new GimpSharpException();
-	    }
-	  return list;
+	  return new ParasiteList(_ID, gimp_vectors_parasite_list,
+				  gimp_vectors_parasite_find);
 	}
     }
 

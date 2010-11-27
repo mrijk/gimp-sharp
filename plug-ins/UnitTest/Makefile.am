@@ -30,6 +30,7 @@ TESTSOURCES = 	TestBoolMatrix.cs		\
 		TestGuide.cs			\
 		TestHSV.cs			\
 		TestImage.cs			\
+		TestImageList.cs		\
 		TestIntCoordinate.cs		\
 		TestLayer.cs			\
 		TestMask.cs			\

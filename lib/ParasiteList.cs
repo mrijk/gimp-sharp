@@ -22,6 +22,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 namespace Gimp
 {
@@ -31,6 +32,41 @@ namespace Gimp
 
     public ParasiteList()
     {
+    }
+
+
+    internal delegate bool GetParasitesFunc(Int32 ID, 
+					    out int num_parasites,
+					    out IntPtr parasties);
+    internal delegate IntPtr ParasiteFindFunc(Int32 ID, string name);
+
+    internal ParasiteList(Int32 ID, GetParasitesFunc getParasites,
+			  ParasiteFindFunc parasiteFind)
+    {
+      int numParasites;
+      IntPtr parasites;
+      if (getParasites(ID, out numParasites, out parasites))
+	{
+	  for (int i = 0; i < numParasites; i++)
+	    {
+	      IntPtr tmp = (IntPtr) Marshal.PtrToStructure(parasites, 
+							   typeof(IntPtr));
+	      string name = Marshal.PtrToStringAnsi(tmp);
+	      var parasite = ParasiteFind(ID, parasiteFind, name);
+	      Add(parasite);
+	      parasites = (IntPtr)((int) parasites + Marshal.SizeOf(tmp));
+	    }
+	}
+      else
+	{
+	  throw new GimpSharpException();
+	}
+    }
+
+    Parasite ParasiteFind(Int32 ID, ParasiteFindFunc parasiteFind, string name)
+    {
+      IntPtr found = parasiteFind(ID, name);
+      return (found == IntPtr.Zero) ? null : new Parasite(found);
     }
 
     public IEnumerator<Parasite> GetEnumerator()

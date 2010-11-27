@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2010 Maurits Rijk
 //
 // TestGuide.cs
 //
@@ -77,7 +77,7 @@ namespace Gimp
     int CountGuides()
     {
       int count = 0;
-      foreach (Guide g in new GuideCollection(_image))
+      foreach (var g in new GuideCollection(_image))
 	count++;
       return count;
     }
