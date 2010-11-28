@@ -1,3 +1,9 @@
+2010-11-28  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* lib/PixelRgn.cs: overload GetPixel method
+
+	* plug-ins/Trim/Trim.cs: finish functionality
+
 2010-11-27  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* plug-ins/UnitTest/TestLayer.cs: don't forget to delete images!

@@ -27,6 +27,8 @@ namespace Gimp.Trim
 {
   class Trim : Plugin
   {
+    [SaveAttribute("based_on")]
+    int _basedOn = 1;
     [SaveAttribute("top")]
     bool _top = true;
     [SaveAttribute("left")]
@@ -48,6 +50,7 @@ namespace Gimp.Trim
     override protected IEnumerable<Procedure> ListProcedures()
     {
       var inParams = new ParamDefList() {
+	new ParamDef("based-on", 1, typeof(int), _("Based On")),
 	new ParamDef("top", 1, typeof(bool), _("Trim Top")),
 	new ParamDef("left", 1, typeof(bool), _("Trim Left")),
 	new ParamDef("bottom", 1, typeof(bool), _("Trim Bottom")),
@@ -92,16 +95,26 @@ namespace Gimp.Trim
       var vbox = new VBox(false, 12);
       frame.Add(vbox);
       
-      var button = new RadioButton(_("Transparent Pixels"));
-      vbox.PackStart(button, true, true, 0);
+      var button = AddBasedOnButton(vbox, null, 0, _("Transparent Pixels"));
       button.Sensitive = _drawable.HasAlpha;
+      button = AddBasedOnButton(vbox, button, 1, _("Top Left Pixel Color"));
+      AddBasedOnButton(vbox, button, 2, _("Bottom Right Pixel Color"));
+    }
 
-      button = new RadioButton(button, _("Top Left Pixel Color"));
-      vbox.PackStart(button, false, false, 0);
-      button.Active = true;
-
-      button = new RadioButton(button, _("Bottom Right Pixel Color"));
-      vbox.PackStart(button, false, false, 0);
+    RadioButton AddBasedOnButton(VBox vbox, RadioButton previous, int type, 
+				 string description)
+    {
+      var button = new RadioButton(previous, description);
+      vbox.Add(button);
+      if (_basedOn == type) {
+	button.Active = true;
+      }
+      button.Clicked += delegate {
+	if (button.Active) {
+	  _basedOn = type;
+	}
+      };
+      return button;
     }
 
     void CreateTrimAwayWidget(VBox parent)
@@ -152,28 +165,46 @@ namespace Gimp.Trim
       var src = new PixelRgn(drawable, false, false);
       PixelRgn.Register(src);
 
-      var upperLeft = src[0, 0];
-      Console.WriteLine("Pixel: " + upperLeft);
+      var trimColor = GetTrimColor(src, drawable);
 
       Predicate<bool> notTrue = (b) => {return !b;};
 
       int height = drawable.Height;
       var rows = new bool[height];
       int y = 0;
-      src.ForEachRow(row => rows[y++] = AllEqual(row, upperLeft));
+      src.ForEachRow(row => rows[y++] = AllEqual(row, trimColor));
 
       int y1 = (_top) ? Array.FindIndex(rows, notTrue) : 0;
-      int y2 = (_bottom) ? Array.FindLastIndex(rows, notTrue) : height;
+      int y2 = (_bottom) ? Array.FindLastIndex(rows, notTrue) + 1 : height;
 
       int width = drawable.Width;
       var cols = new bool[width];
       int x = 0;
-      src.ForEachColumn(col => cols[x++] = AllEqual(col, upperLeft));
+      src.ForEachColumn(col => cols[x++] = AllEqual(col, trimColor));
 
       int x1 = (_left) ? Array.FindIndex(cols, notTrue) : 0;
-      int x2 = (_right) ? Array.FindLastIndex(cols, notTrue) : width;
+      int x2 = (_right) ? Array.FindLastIndex(cols, notTrue) + 1 : width;
 
-      Crop(image, x1, y1, x2, y2);
+      if (x1 != 0 || y1 != 0 || x2 != width || y2 != height)
+	{
+	  Crop(image, x1, y1, x2, y2);
+	}
+    }
+
+    Pixel GetTrimColor(PixelRgn src, Drawable drawable)
+    {
+      if (_basedOn == 0)
+	{
+	  return new Pixel(0, 0, 0, 0);
+	}
+      else if (_basedOn == 1)
+	{
+	  return src[0, 0];
+	}
+      else
+	{
+	  return src.GetPixel(drawable.Width - 1, drawable.Height - 1);
+	}
     }
 
     void Crop(Image image, int x1, int y1, int x2, int y2)

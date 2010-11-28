@@ -104,6 +104,12 @@ namespace Gimp
       gimp_pixel_rgn_get_pixel(ref *pr, buf, x, y);
     }
 
+    public Pixel GetPixel(int x, int y)
+    {
+      GetPixel(_dummy, x, y);
+      return new Pixel(_dummy);
+    }
+
     public void SetPixel(byte[] buf, int x, int y)
     {
       gimp_pixel_rgn_set_pixel(ref *pr, buf, x, y);
