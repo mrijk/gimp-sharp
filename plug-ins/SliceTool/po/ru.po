@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gimp-sharp 0.10\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-01-23 01:05+0300\n"
-"PO-Revision-Date: 2006-07-20 17:05+0400\n"
+"POT-Creation-Date: 2009-12-18 00:43+0300\n"
+"PO-Revision-Date: 2009-12-18 00:44+0300\n"
 "Last-Translator: Alexandre Prokoudine <alexandre.prokoudine@gmail.com>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -27,22 +27,25 @@ msgstr "Вы хотите перезаписать этот файл?"
 
 #: ../Format.cs:31
 msgid "File Type"
-msgstr ""
+msgstr "Тип файла"
 
 #: ../Format.cs:43
-#, fuzzy
 msgid "Apply to _whole image"
-msgstr "Применить ко всему изображению"
+msgstr "Применить ко _всему изображению"
 
 #: ../PreferencesDialog.cs:30
 msgid "Slice Preferences"
 msgstr "Параметры нарезки"
 
-#: ../PreferencesDialog.cs:30 ../PreferencesDialog.cs:31
-#: ../RolloverDialog.cs:37 ../SliceTool.cs:85 ../SliceTool.cs:86
-#: ../TableDialog.cs:30 ../TableDialog.cs:31
+#: ../PreferencesDialog.cs:30
+#: ../PreferencesDialog.cs:31
+#: ../RolloverDialog.cs:37
+#: ../SliceTool.cs:75
+#: ../SliceTool.cs:76
+#: ../TableDialog.cs:30
+#: ../TableDialog.cs:31
 msgid "SliceTool"
-msgstr ""
+msgstr "Нарезка сайтов"
 
 #: ../PreferencesDialog.cs:42
 msgid "Active tile border color:"
@@ -58,155 +61,105 @@ msgstr "Создание rollover"
 
 #: ../RolloverDialog.cs:45
 msgid "_Mouse over"
-msgstr ""
+msgstr "_Mouse over"
 
 #: ../RolloverDialog.cs:46
 msgid "Mo_use out"
-msgstr ""
+msgstr "Mo_use out"
 
 #: ../RolloverDialog.cs:47
 msgid "Mous_e click"
-msgstr ""
+msgstr "Mous_e click"
 
 #: ../RolloverDialog.cs:48
 msgid "Mouse dou_ble click"
-msgstr ""
+msgstr "Mouse dou_ble click"
 
 #: ../RolloverDialog.cs:49
 msgid "Mouse _up"
-msgstr ""
+msgstr "Mouse _up"
 
 #: ../RolloverDialog.cs:50
 msgid "Mouse _down"
-msgstr ""
+msgstr "Mouse _down"
 
 #: ../RolloverDialog.cs:52
-msgid ""
-"If a file is not given for the rollover, the original file will be used."
+msgid "If a file is not given for the rollover, the original file will be used."
 msgstr "Если для rollover не указан файл, будет исопльзован исходный файл."
 
 #: ../RolloverEntry.cs:31
 msgid "Select Image"
 msgstr "Выберите изображение"
 
-#: ../SliceTool.cs:66 ../SliceTool.cs:85
+#: ../SliceTool.cs:58
+#: ../SliceTool.cs:75
 msgid "Slice Tool"
 msgstr "Инструмент для нарезки"
 
-#: ../SliceTool.cs:67
+#: ../SliceTool.cs:59
 msgid "The Image Slice Tool is used to apply image slicing and rollovers."
 msgstr ""
 
-#: ../SliceTool.cs:71
+#: ../SliceTool.cs:63
 msgid "Slice Tool..."
 msgstr "Нарезка..."
 
-#: ../SliceTool.cs:130
+#: ../SliceTool.cs:120
 msgid "Save Settings..."
 msgstr "Сохранить параметры..."
 
-#: ../SliceTool.cs:134
+#: ../SliceTool.cs:124
 msgid "Load Settings..."
 msgstr "Загрузить параметры..."
 
-#: ../SliceTool.cs:138
+#: ../SliceTool.cs:128
 msgid "Preferences"
 msgstr "Параметры"
 
-#: ../SliceTool.cs:156
+#: ../SliceTool.cs:146
 #, csharp-format
-msgid "Slice Tool 0.3 - {0}"
-msgstr "Инструмент для нарезки 0.3 - {0}"
+msgid "Slice Tool 0.4 - {0}"
+msgstr "Нарезка сайтов 0.4 - {0}"
 
-#: ../SliceTool.cs:188
+#: ../SliceTool.cs:178
 msgid "Can't save to "
 msgstr "Невозможно сохранить в "
 
-#: ../SliceTool.cs:201
+#: ../SliceTool.cs:191
 msgid "Some data has been changed!\n"
 msgstr "Некоторые данные изменились!\n"
 
-#: ../SliceTool.cs:202
+#: ../SliceTool.cs:192
 msgid "Do you really want to discard your changes?"
 msgstr "Вы действительно хотите отказаться от всех изменений?"
 
-#: ../SliceTool.cs:213
+#: ../SliceTool.cs:204
 msgid "HTML Save As"
-msgstr ""
+msgstr "Сохранить HTML как"
 
-#: ../SliceTool.cs:283
-msgid "Select Rectangle"
-msgstr "Выбрать прямоугольник"
-
-#: ../SliceTool.cs:291
-msgid "Create a new Slice"
-msgstr "Создать новую ячейку"
-
-#: ../SliceTool.cs:300
-msgid "Remove Slice"
-msgstr "Удалить ячейку"
-
-#: ../SliceTool.cs:308 ../TableDialog.cs:30
-msgid "Insert Table"
-msgstr "Вставить таблицу"
-
-#: ../SliceTool.cs:320
-msgid "Cell Properties"
-msgstr "Свойства ячейки"
-
-#: ../SliceTool.cs:331
-msgid "_Link:"
-msgstr ""
-
-#: ../SliceTool.cs:334
-#, fuzzy
-msgid "Alt_ernative text:"
-msgstr "Текст alt:"
-
-#: ../SliceTool.cs:338
-#, fuzzy
-msgid "_Target:"
-msgstr "Цель:"
-
-#: ../SliceTool.cs:348
-msgid "Left:"
-msgstr "Слева:"
-
-#: ../SliceTool.cs:351
-msgid "Right:"
-msgstr "Справа:"
-
-#: ../SliceTool.cs:354
-msgid "Top:"
-msgstr "Сверху:"
-
-#: ../SliceTool.cs:357
-msgid "Bottom:"
-msgstr "Снизу:"
-
-#: ../SliceTool.cs:359
-msgid "_Include cell in table"
-msgstr "_Включить ячейку в таблицу"
-
-#: ../SliceTool.cs:368
+#: ../SliceTool.cs:272
 msgid "Rollovers"
 msgstr ""
 
-#: ../SliceTool.cs:373
+#: ../SliceTool.cs:277
 msgid "Rollover Creator..."
 msgstr "Создатель rollover..."
 
-#: ../SliceTool.cs:377
+#: ../SliceTool.cs:281
 msgid "Rollover enabled: no"
 msgstr ""
 
-#: ../SliceTool.cs:398
+#: ../SliceTool.cs:303
 msgid "Save Settings"
 msgstr "Сохранить параметры"
 
-#: ../SliceTool.cs:409
+#: ../SliceTool.cs:318
 msgid "Load Settings"
 msgstr "Загрузить параметры"
+
+#: ../TableDialog.cs:30
+msgid "Insert Table"
+msgstr "Вставить таблицу"
 
 #: ../TableDialog.cs:37
 msgid "Co_lumns"
@@ -216,8 +169,34 @@ msgstr "_Столбцов"
 msgid "_Rows"
 msgstr "Ст_рок"
 
+#~ msgid "Select Rectangle"
+#~ msgstr "Выбрать прямоугольник"
+#~ msgid "Create a new Slice"
+#~ msgstr "Создать новую ячейку"
+#~ msgid "Remove Slice"
+#~ msgstr "Удалить ячейку"
+#~ msgid "Cell Properties"
+#~ msgstr "Свойства ячейки"
+
+#, fuzzy
+#~ msgid "Alt_ernative text:"
+#~ msgstr "Текст alt:"
+
+#, fuzzy
+#~ msgid "_Target:"
+#~ msgstr "Цель:"
+#~ msgid "Left:"
+#~ msgstr "Слева:"
+#~ msgid "Right:"
+#~ msgstr "Справа:"
+#~ msgid "Top:"
+#~ msgstr "Сверху:"
+#~ msgid "Bottom:"
+#~ msgstr "Снизу:"
+#~ msgid "_Include cell in table"
+#~ msgstr "_Включить ячейку в таблицу"
 #~ msgid "Format"
 #~ msgstr "Формат"
-
 #~ msgid "URL:"
 #~ msgstr "URL:"
+

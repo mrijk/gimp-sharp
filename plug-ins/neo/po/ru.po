@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gimp-sharp 0.10\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-05-09 11:12+0200\n"
+"POT-Creation-Date: 2009-12-18 00:41+0300\n"
 "PO-Revision-Date: 2006-07-20 17:02+0400\n"
 "Last-Translator: Alexandre Prokoudine <alexandre.prokoudine@gmail.com>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -17,14 +17,14 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../neo.cs:42
+#: ../neo.cs:44
 msgid "Loads neo images"
 msgstr "Загружает изображения neo"
 
-#: ../neo.cs:43
+#: ../neo.cs:45
 msgid "This plug-in loads Neochrome images."
 msgstr "Загружает изображения Neochrome"
 
-#: ../neo.cs:47
+#: ../neo.cs:49
 msgid "Neochrome Image"
 msgstr "Изображение Neochrome"

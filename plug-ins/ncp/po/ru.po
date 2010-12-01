@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gimp-sharp 0.10\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-05-09 11:12+0200\n"
+"POT-Creation-Date: 2009-12-18 00:40+0300\n"
 "PO-Revision-Date: 2006-07-20 03:05+0400\n"
 "Last-Translator: Alexandre Prokoudine <alexandre.prokoudine@gmail.com>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -17,34 +17,34 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../ncp.cs:54
+#: ../ncp.cs:57
 msgid "Number of points"
 msgstr "Количество точек"
 
-#: ../ncp.cs:55
+#: ../ncp.cs:58
 msgid "Closest point"
 msgstr "Ближайшая точка"
 
-#: ../ncp.cs:56
+#: ../ncp.cs:59
 msgid "Color (true), B&W (false)"
 msgstr "Цвет (true), ч/б (false)"
 
-#: ../ncp.cs:60 ../ncp.cs:61
+#: ../ncp.cs:63 ../ncp.cs:64
 msgid "Generates 2D textures"
 msgstr "Создаёт двухмерные текстуры"
 
-#: ../ncp.cs:98
+#: ../ncp.cs:104
 msgid "Random _Seed:"
 msgstr "Случайное _начальное число:"
 
-#: ../ncp.cs:100
+#: ../ncp.cs:109
 msgid "Po_ints:"
 msgstr "То_чек:"
 
-#: ../ncp.cs:122
+#: ../ncp.cs:134
 msgid "C_lose to:"
 msgstr "_Близость к:"
 
-#: ../ncp.cs:130
+#: ../ncp.cs:145
 msgid "_Use color"
 msgstr "_В цвете"

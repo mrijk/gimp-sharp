@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gimp-sharp 0.10\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-01-23 01:07+0300\n"
+"POT-Creation-Date: 2009-12-18 00:44+0300\n"
 "PO-Revision-Date: 2006-07-20 03:05+0400\n"
 "Last-Translator: Alexandre Prokoudine <alexandre.prokoudine@gmail.com>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -25,7 +25,7 @@ msgstr "Расширенные параметры"
 msgid "Splitter"
 msgstr "Разделитель"
 
-#: ../AdvancedDialog.cs:47
+#: ../AdvancedDialog.cs:45
 msgid "Random _Seed:"
 msgstr "Случайное начальное число:"
 
@@ -98,38 +98,38 @@ msgstr "Свести видимые слои"
 msgid "Advanced Options..."
 msgstr "Расширенные параметры..."
 
-#: ../Splitter.cs:159
+#: ../Splitter.cs:158
 msgid "Both Layers"
 msgstr "Оба слоя"
 
-#: ../Splitter.cs:160 ../Splitter.cs:171
+#: ../Splitter.cs:159 ../Splitter.cs:170
 msgid "Layer 1"
 msgstr ""
 
-#: ../Splitter.cs:161 ../Splitter.cs:199
+#: ../Splitter.cs:160 ../Splitter.cs:198
 msgid "Layer 2"
 msgstr ""
 
-#: ../Splitter.cs:164
+#: ../Splitter.cs:163
 msgid "Keep:"
 msgstr ""
 
-#: ../Splitter.cs:180 ../Splitter.cs:208
+#: ../Splitter.cs:179 ../Splitter.cs:207
 msgid "Translate X:"
 msgstr ""
 
-#: ../Splitter.cs:185 ../Splitter.cs:213
+#: ../Splitter.cs:184 ../Splitter.cs:212
 msgid "Translate Y:"
 msgstr ""
 
-#: ../Splitter.cs:190 ../Splitter.cs:218
+#: ../Splitter.cs:189 ../Splitter.cs:217
 msgid "Rotate:"
 msgstr ""
 
-#: ../Splitter.cs:237
+#: ../Splitter.cs:236
 msgid "layer_one"
 msgstr ""
 
-#: ../Splitter.cs:254
+#: ../Splitter.cs:253
 msgid "layer_two"
 msgstr ""

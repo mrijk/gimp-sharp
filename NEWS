@@ -3,6 +3,7 @@ Overview of Changes in Gimp# 0.17
 - Added Trim plug-in
 - Added plug-in to create QR-code
 - Improved test coverage (400+ unit tests)
+- Major code clean-up using C# 4.0 features
 
 Overview of Changes in Gimp# 0.16
 =================================

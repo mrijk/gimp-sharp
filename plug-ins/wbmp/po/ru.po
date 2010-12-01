@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gimp-sharp 0.10\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-01-23 01:11+0300\n"
+"POT-Creation-Date: 2009-12-18 00:45+0300\n"
 "PO-Revision-Date: 2006-07-20 03:05+0400\n"
 "Last-Translator: Alexandre Prokoudine <alexandre.prokoudine@gmail.com>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -37,10 +37,10 @@ msgstr "Сохраняет изображения в формате wbmp"
 msgid "This plug-in saves wbmp images."
 msgstr "Это расширение сохраняет изображения в формате wbmp"
 
-#: ../wbmp.cs:86
+#: ../wbmp.cs:81
 msgid "Loading "
 msgstr "Загрузка"
 
-#: ../wbmp.cs:147
+#: ../wbmp.cs:132
 msgid "Saving "
 msgstr "Сохранение"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gimp-sharp 0.15\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-05-09 11:32+0200\n"
+"POT-Creation-Date: 2009-12-18 00:42+0300\n"
 "PO-Revision-Date: 2008-05-09 11:33+0100\n"
 "Last-Translator: Alexandre Prokoudine <alexandre.prokoudine@gmail.com>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -29,13 +29,11 @@ msgstr "Количество капель"
 msgid "Fisheye effect"
 msgstr "Эффект «рыбьего глаза»"
 
-#: ../Raindrops.cs:58
-#: ../Raindrops.cs:59
+#: ../Raindrops.cs:58 ../Raindrops.cs:59
 msgid "Generates raindrops"
 msgstr "Создать дождевые капли"
 
-#: ../Raindrops.cs:63
-#: ../Raindrops.cs:156
+#: ../Raindrops.cs:63 ../Raindrops.cs:164
 msgid "Raindrops..."
 msgstr "Дождевые капли..."
 
@@ -51,20 +49,18 @@ msgstr "Стекло"
 msgid "Raindrops 0.1"
 msgstr "Дождевые капли 0.1"
 
-#: ../Raindrops.cs:77
-#: ../Raindrops.cs:79
+#: ../Raindrops.cs:77 ../Raindrops.cs:79
 msgid "Raindrops"
 msgstr "Дождевые капли"
 
-#: ../Raindrops.cs:93
+#: ../Raindrops.cs:102
 msgid "_Drop size:"
 msgstr "_Размер капли:"
 
-#: ../Raindrops.cs:103
+#: ../Raindrops.cs:115
 msgid "_Number:"
 msgstr "_Количество"
 
-#: ../Raindrops.cs:113
+#: ../Raindrops.cs:128
 msgid "_Fish eye:"
 msgstr "«Рыбий глаз»"
-

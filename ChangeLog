@@ -1,3 +1,11 @@
+2010-12-01  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* Made 0.17 release
+
+	* NEWS: updated
+
+	* plug-ins/*/po/ru.po: updated Russian translations
+
 2010-11-28  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* lib/PixelRgn.cs: overload GetPixel method

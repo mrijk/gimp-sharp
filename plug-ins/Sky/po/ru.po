@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gimp-sharp 0.15\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-05-09 15:09+0200\n"
-"PO-Revision-Date: 2008-05-09 15:38+0100\n"
+"POT-Creation-Date: 2009-12-18 00:42+0300\n"
+"PO-Revision-Date: 2009-12-18 00:43+0300\n"
 "Last-Translator: Alexandre Prokoudine <alexandre.prokoudine@gmail.com>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -27,7 +27,7 @@ msgstr "Угол вращения камеры (0.0 - 90.0)"
 
 #: ../Sky.cs:89
 msgid "Random seed, -1 to use current time"
-msgstr ""
+msgstr "Случайное зерно, =1 даёт текущее время"
 
 #: ../Sky.cs:91
 msgid "Show sun? (bool)"
@@ -94,23 +94,23 @@ msgstr "_Y:"
 msgid "_Show sun"
 msgstr "_Показать Солнце"
 
-#: ../Sky.cs:201
+#: ../Sky.cs:203
 msgid "Camera"
 msgstr "Камера"
 
-#: ../Sky.cs:206
+#: ../Sky.cs:208
 msgid "_Rotation angle:"
 msgstr "_Угол вращения:"
 
-#: ../Sky.cs:216
+#: ../Sky.cs:218
 msgid "_Tilt angle:"
 msgstr "Угол _наклона:"
 
-#: ../Sky.cs:228
+#: ../Sky.cs:230
 msgid "Colors"
 msgstr "Цвета"
 
-#: ../Sky.cs:243
+#: ../Sky.cs:244
 msgid "_Horizon:"
 msgstr "_Горизонт:"
 
@@ -118,15 +118,15 @@ msgstr "_Горизонт:"
 msgid "S_ky:"
 msgstr "Н_ебо:"
 
-#: ../Sky.cs:263
+#: ../Sky.cs:262
 msgid "S_un:"
 msgstr "Со_лнце:"
 
-#: ../Sky.cs:273
+#: ../Sky.cs:272
 msgid "C_loud:"
 msgstr "О_блако:"
 
-#: ../Sky.cs:284
+#: ../Sky.cs:283
 msgid "Sh_adow:"
 msgstr "Т_ень:"
 
