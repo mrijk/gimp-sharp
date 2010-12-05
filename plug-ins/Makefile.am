@@ -22,6 +22,7 @@ Mezzotint = Mezzotint
 Shatter = Shatter
 DifferenceClouds = DifferenceClouds
 PictureFrame = PictureFrame
+ShapeCollage = ShapeCollage
 endif
 
 if BUILD_IRONPYTHON
@@ -81,6 +82,7 @@ SUBDIRS = 			\
 	QR			\
 	Raindrops		\
 	$(ScalaSample)		\
+	ShapeCollage		\
 	$(Shatter)		\
 	Sky			\
 	SliceTool 		\

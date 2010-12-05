@@ -1,3 +1,17 @@
+2010-12-05  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/ShapeCollage/*: new plug-in
+
+	* plug-ins/Makefile.am: changed accordingly
+
+2010-12-02  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* NEW
+	* INSTALL: updated
+
+	* lib/AssemblyInfo.cs
+	* configure.in: bumped version to 0.18
+
 2010-12-01  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* Made 0.17 release

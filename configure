@@ -2377,6 +2377,7 @@ ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $
 ac_compiler_gnu=$ac_cv_c_compiler_gnu
 
 
+
 am__api_version='1.11'
 
 ac_aux_dir=
@@ -2838,7 +2839,7 @@ fi
 
 # Define the identity of the package.
  PACKAGE=gimp-sharp
- VERSION=0.17
+ VERSION=0.18
 
 
 cat >>confdefs.h <<_ACEOF
@@ -4514,13 +4515,13 @@ if test "${lt_cv_nm_interface+set}" = set; then :
 else
   lt_cv_nm_interface="BSD nm"
   echo "int some_variable = 0;" > conftest.$ac_ext
-  (eval echo "\"\$as_me:4517: $ac_compile\"" >&5)
+  (eval echo "\"\$as_me:4518: $ac_compile\"" >&5)
   (eval "$ac_compile" 2>conftest.err)
   cat conftest.err >&5
-  (eval echo "\"\$as_me:4520: $NM \\\"conftest.$ac_objext\\\"\"" >&5)
+  (eval echo "\"\$as_me:4521: $NM \\\"conftest.$ac_objext\\\"\"" >&5)
   (eval "$NM \"conftest.$ac_objext\"" 2>conftest.err > conftest.out)
   cat conftest.err >&5
-  (eval echo "\"\$as_me:4523: output\"" >&5)
+  (eval echo "\"\$as_me:4524: output\"" >&5)
   cat conftest.out >&5
   if $GREP 'External.*some_variable' conftest.out > /dev/null; then
     lt_cv_nm_interface="MS dumpbin"
@@ -5726,7 +5727,7 @@ ia64-*-hpux*)
   ;;
 *-*-irix6*)
   # Find out which ABI we are using.
-  echo '#line 5729 "configure"' > conftest.$ac_ext
+  echo '#line 5730 "configure"' > conftest.$ac_ext
   if { { eval echo "\"\$as_me\":${as_lineno-$LINENO}: \"$ac_compile\""; } >&5
   (eval $ac_compile) 2>&5
   ac_status=$?
@@ -7252,11 +7253,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:7255: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:7256: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:7259: \$? = $ac_status" >&5
+   echo "$as_me:7260: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -7591,11 +7592,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:7594: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:7595: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:7598: \$? = $ac_status" >&5
+   echo "$as_me:7599: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -7696,11 +7697,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:7699: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:7700: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "$as_me:7703: \$? = $ac_status" >&5
+   echo "$as_me:7704: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized
@@ -7751,11 +7752,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:7754: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:7755: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "$as_me:7758: \$? = $ac_status" >&5
+   echo "$as_me:7759: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized
@@ -9488,7 +9489,7 @@ rm -f core conftest.err conftest.$ac_objext \
   libsuff=
   case "$host_cpu" in
   x86_64*|s390x*|powerpc64*)
-    echo '#line 9491 "configure"' > conftest.$ac_ext
+    echo '#line 9492 "configure"' > conftest.$ac_ext
     if { { eval echo "\"\$as_me\":${as_lineno-$LINENO}: \"$ac_compile\""; } >&5
   (eval $ac_compile) 2>&5
   ac_status=$?
@@ -10141,7 +10142,7 @@ else
   lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
   lt_status=$lt_dlunknown
   cat > conftest.$ac_ext <<_LT_EOF
-#line 10144 "configure"
+#line 10145 "configure"
 #include "confdefs.h"
 
 #if HAVE_DLFCN_H
@@ -10237,7 +10238,7 @@ else
   lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
   lt_status=$lt_dlunknown
   cat > conftest.$ac_ext <<_LT_EOF
-#line 10240 "configure"
+#line 10241 "configure"
 #include "confdefs.h"
 
 #if HAVE_DLFCN_H
@@ -10500,7 +10501,7 @@ $as_echo "no" >&6; }
 fi
 
 
-VERSION="0.16"
+VERSION="0.18"
 
 
 # Extract the first word of "pkg-config", so it can be a program name with args.
@@ -11843,7 +11844,7 @@ else
 fi
 
 
-ac_config_files="$ac_config_files Makefile lib/Makefile java/Makefile java/stubs/Makefile plug-ins/Makefile plug-ins/AverageBlur/Makefile plug-ins/AverageBlur/po/Makefile plug-ins/BooSample/Makefile plug-ins/Colorize/Makefile plug-ins/Colorize/po/Makefile plug-ins/CountTool/Makefile plug-ins/DifferenceClouds/Makefile plug-ins/DifferenceClouds/po/Makefile plug-ins/ecw/Makefile plug-ins/Forge/Makefile plug-ins/Forge/po/Makefile plug-ins/Fragment/Makefile plug-ins/Fragment/po/Makefile plug-ins/FSharpSample/Makefile plug-ins/GemImg/Makefile plug-ins/JavaFX/Makefile plug-ins/KoalaPaint/Makefile plug-ins/KoalaPaint/po/Makefile plug-ins/ncp/Makefile plug-ins/ncp/po/Makefile plug-ins/Mezzotint/Makefile plug-ins/Mezzotint/po/Makefile plug-ins/Ministeck/Makefile plug-ins/Ministeck/po/Makefile plug-ins/NemerleSample/Makefile plug-ins/neo/Makefile plug-ins/neo/po/Makefile plug-ins/OxygeneSample/Makefile plug-ins/Pdn/Makefile plug-ins/PhotoshopActions/Makefile plug-ins/PictureFrame/Makefile plug-ins/PicturePackage/Makefile plug-ins/PicturePackage/po/Makefile plug-ins/Pointillize/Makefile plug-ins/Pointillize/po/Makefile plug-ins/PythonSample/Makefile plug-ins/QR/Makefile plug-ins/Raindrops/Makefile plug-ins/Raindrops/po/Makefile plug-ins/ScalaSample/Makefile plug-ins/Shatter/Makefile plug-ins/Sky/Makefile plug-ins/SliceTool/Makefile plug-ins/SliceTool/po/Makefile plug-ins/Splitter/Makefile plug-ins/Splitter/po/Makefile plug-ins/Swirlies/Makefile plug-ins/Swirlies/po/Makefile plug-ins/Trim/Makefile plug-ins/UnitTest/Makefile plug-ins/UpdateCheck/Makefile plug-ins/UpdateCheck/po/Makefile plug-ins/VisualBasicSample/Makefile plug-ins/wbmp/Makefile plug-ins/wbmp/po/Makefile"
+ac_config_files="$ac_config_files Makefile lib/Makefile java/Makefile java/stubs/Makefile plug-ins/Makefile plug-ins/AverageBlur/Makefile plug-ins/AverageBlur/po/Makefile plug-ins/BooSample/Makefile plug-ins/Colorize/Makefile plug-ins/Colorize/po/Makefile plug-ins/CountTool/Makefile plug-ins/DifferenceClouds/Makefile plug-ins/DifferenceClouds/po/Makefile plug-ins/ecw/Makefile plug-ins/Forge/Makefile plug-ins/Forge/po/Makefile plug-ins/Fragment/Makefile plug-ins/Fragment/po/Makefile plug-ins/FSharpSample/Makefile plug-ins/GemImg/Makefile plug-ins/JavaFX/Makefile plug-ins/KoalaPaint/Makefile plug-ins/KoalaPaint/po/Makefile plug-ins/ncp/Makefile plug-ins/ncp/po/Makefile plug-ins/Mezzotint/Makefile plug-ins/Mezzotint/po/Makefile plug-ins/Ministeck/Makefile plug-ins/Ministeck/po/Makefile plug-ins/NemerleSample/Makefile plug-ins/neo/Makefile plug-ins/neo/po/Makefile plug-ins/OxygeneSample/Makefile plug-ins/Pdn/Makefile plug-ins/PhotoshopActions/Makefile plug-ins/PictureFrame/Makefile plug-ins/PicturePackage/Makefile plug-ins/PicturePackage/po/Makefile plug-ins/Pointillize/Makefile plug-ins/Pointillize/po/Makefile plug-ins/PythonSample/Makefile plug-ins/QR/Makefile plug-ins/Raindrops/Makefile plug-ins/Raindrops/po/Makefile plug-ins/ScalaSample/Makefile plug-ins/ShapeCollage/Makefile plug-ins/Shatter/Makefile plug-ins/Sky/Makefile plug-ins/SliceTool/Makefile plug-ins/SliceTool/po/Makefile plug-ins/Splitter/Makefile plug-ins/Splitter/po/Makefile plug-ins/Swirlies/Makefile plug-ins/Swirlies/po/Makefile plug-ins/Trim/Makefile plug-ins/UnitTest/Makefile plug-ins/UpdateCheck/Makefile plug-ins/UpdateCheck/po/Makefile plug-ins/VisualBasicSample/Makefile plug-ins/wbmp/Makefile plug-ins/wbmp/po/Makefile"
 
 
 cat >confcache <<\_ACEOF
@@ -12911,6 +12912,7 @@ do
     "plug-ins/Raindrops/Makefile") CONFIG_FILES="$CONFIG_FILES plug-ins/Raindrops/Makefile" ;;
     "plug-ins/Raindrops/po/Makefile") CONFIG_FILES="$CONFIG_FILES plug-ins/Raindrops/po/Makefile" ;;
     "plug-ins/ScalaSample/Makefile") CONFIG_FILES="$CONFIG_FILES plug-ins/ScalaSample/Makefile" ;;
+    "plug-ins/ShapeCollage/Makefile") CONFIG_FILES="$CONFIG_FILES plug-ins/ShapeCollage/Makefile" ;;
     "plug-ins/Shatter/Makefile") CONFIG_FILES="$CONFIG_FILES plug-ins/Shatter/Makefile" ;;
     "plug-ins/Sky/Makefile") CONFIG_FILES="$CONFIG_FILES plug-ins/Sky/Makefile" ;;
     "plug-ins/SliceTool/Makefile") CONFIG_FILES="$CONFIG_FILES plug-ins/SliceTool/Makefile" ;;

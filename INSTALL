@@ -4,7 +4,7 @@ work with GIMP 2.6. GIMP 2.4 (and lower) is not tested anymore.
 Building Gimp# is easy:
 
 1) unpack the archive
-2) $ cd gimp-sharp-0.17
+2) $ cd gimp-sharp-0.18
 3) $ ./configure
 4) $ make
 5) become root
@@ -17,7 +17,7 @@ additional incomplete (yet) plug-ins.
 The files will be installed in your GIMP plug-in directory, for
 example in /usr/local/lib/gimp/2.0/plug-ins/
 
-At the moment Gimp# will install 14 plug-ins for you:
+At the moment Gimp# will install 15 plug-ins for you:
 
 /Filters/Picture Package
 /Filters/Photoshop Actions
@@ -33,6 +33,7 @@ At the moment Gimp# will install 14 plug-ins for you:
 /Filters/Render/Splitter
 /Filters/Render/Swirlies
 /Filters/Web/Slice Tool
+/Image/Trim
 
 You will also get plug-ins to read wbmp (wireless bitmap), GEM and
 KoaloaPaint (old CBM64 format) files.

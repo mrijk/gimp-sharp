@@ -27,8 +27,8 @@ using System.Reflection;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Maurits Rijk")]
 [assembly: AssemblyProduct("GIMP#")]
-[assembly: AssemblyCopyright("©2004-2010 All Rights Reserved")]
+[assembly: AssemblyCopyright("©2004-2011 All Rights Reserved")]
 [assembly: AssemblyTrademark("")]
 #endregion
 
-[assembly: AssemblyVersion("0.17.0")]
+[assembly: AssemblyVersion("0.18.0")]

@@ -1,15 +1,16 @@
 dnl Process this file with autoconf to produce a configure script.
 
-AC_INIT(README)
-AM_INIT_AUTOMAKE(gimp-sharp, 0.17)
-AC_PROG_LIBTOOL
-AM_CONFIG_HEADER(config.h)
+AC_INIT
+AC_CONFIG_SRCDIR([README])
+AM_INIT_AUTOMAKE(gimp-sharp, 0.18)
+LT_INIT
+AC_CONFIG_HEADERS([config.h])
 
 dnl find and test the C compiler
 AC_PROG_INSTALL
 AC_PROG_MAKE_SET
-      
-VERSION="0.16"
+
+VERSION="0.18"
 AC_SUBST(VERSION)
 
 AC_PATH_PROG(PKG_CONFIG, pkg-config, no)
@@ -322,6 +323,7 @@ plug-ins/QR/Makefile
 plug-ins/Raindrops/Makefile 
 plug-ins/Raindrops/po/Makefile 
 plug-ins/ScalaSample/Makefile
+plug-ins/ShapeCollage/Makefile
 plug-ins/Shatter/Makefile
 plug-ins/Sky/Makefile
 plug-ins/SliceTool/Makefile 
