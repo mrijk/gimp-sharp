@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2008 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // DataObjectList.cs
 //
@@ -22,34 +22,23 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 
 namespace Gimp
 {
   public abstract class DataObjectList<T> where T : DataObject
   {
-    readonly List<T> _list = new List<T>();
+    readonly List<T> _list; // = new List<T>();
 
     public DataObjectList(string filter)
     {
       int numDataObjects;
       IntPtr ptr = GetList(filter, out numDataObjects);
-      for (int i = 0; i < numDataObjects; i++)
-        {
-	  IntPtr tmp = (IntPtr) Marshal.PtrToStructure(ptr, typeof(IntPtr));
-	  Add(Marshal.PtrToStringAnsi(tmp));
-	  ptr = (IntPtr)((int)ptr + Marshal.SizeOf(tmp));
-        }
+      _list = Util.ToList<T>(ptr, numDataObjects, CreateT);
     }
 
     protected abstract IntPtr GetList(string filter, out int numDataObjects);
 
-    protected abstract void Add(string name);
-
-    protected void Add(T dataObject)
-    {
-      _list.Add(dataObject);
-    }
+    protected abstract T CreateT(string name);
 
     public IEnumerator<T> GetEnumerator()
     {

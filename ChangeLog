@@ -1,3 +1,17 @@
+2011-03-02  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* lib/ParasiteList.cs
+	* lib/Buffer.cs: use generic ToList
+
+	* lib/PaletteList.cs
+	* lib/GradientList.cs
+	* lib/PatternList.cs
+	* lib/BrushList.cs: changed accordingly
+
+	* lib/DataObjectList.cs: use generic ToList
+
+	* lib/Util.cs: added generic ToList method
+
 2010-12-05  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* plug-ins/ShapeCollage/*: new plug-in

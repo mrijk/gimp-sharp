@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // Util.cs
 //
@@ -29,11 +29,17 @@ namespace Gimp
   {
     static public List<string> ToStringList(IntPtr ptr, int n)
     {
-      var set = new List<string>();
+      return ToList<string>(ptr, n, (s) => s);
+    }
+
+    static public List<T> ToList<T>(IntPtr ptr, int n, 
+				    Func<string, T> transform)
+    {
+      var set = new List<T>();
       for (int i = 0; i < n; i++)
 	{
 	  IntPtr tmp = (IntPtr) Marshal.PtrToStructure(ptr, typeof(IntPtr));
-	  set.Add(Marshal.PtrToStringAnsi(tmp));
+	  set.Add(transform(Marshal.PtrToStringAnsi(tmp)));
 	  ptr = (IntPtr)((int)ptr + Marshal.SizeOf(tmp));
         }
       return set;

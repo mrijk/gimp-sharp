@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // ParasiteList.cs
 //
@@ -28,12 +28,11 @@ namespace Gimp
 {
   public sealed class ParasiteList
   {
-    readonly List<Parasite> _list = new List<Parasite>();
+    readonly List<Parasite> _list;
 
     public ParasiteList()
     {
     }
-
 
     internal delegate bool GetParasitesFunc(Int32 ID, 
 					    out int num_parasites,
@@ -47,15 +46,9 @@ namespace Gimp
       IntPtr parasites;
       if (getParasites(ID, out numParasites, out parasites))
 	{
-	  for (int i = 0; i < numParasites; i++)
-	    {
-	      IntPtr tmp = (IntPtr) Marshal.PtrToStructure(parasites, 
-							   typeof(IntPtr));
-	      string name = Marshal.PtrToStringAnsi(tmp);
-	      var parasite = ParasiteFind(ID, parasiteFind, name);
-	      Add(parasite);
-	      parasites = (IntPtr)((int) parasites + Marshal.SizeOf(tmp));
-	    }
+	  _list = Util.ToList<Parasite>(parasites, numParasites,
+					(s) => ParasiteFind(ID, parasiteFind,
+							    s));
 	}
       else
 	{

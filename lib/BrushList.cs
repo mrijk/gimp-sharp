@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // BrushList.cs
 //
@@ -35,9 +35,9 @@ namespace Gimp
       return gimp_brushes_get_list(filter, out numDataObjects);
     }
 
-    protected override void Add(string name)
+    protected override Brush CreateT(string name)
     {
-      Add(new Brush(name, false));
+      return new Brush(name, false);
     }
 
     static public void Refresh()
