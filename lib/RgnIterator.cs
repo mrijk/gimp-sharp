@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // RgnIterator.cs
 //
@@ -113,10 +113,7 @@ namespace Gimp
 
     public void IterateDest(Func<IntCoordinate, Pixel> func)
     {
-      IterateDest(delegate(int x, int y) 
-      {
-	return func(new IntCoordinate(x, y));
-      });
+      IterateDest((x, y) => func(new IntCoordinate(x, y)));
     }
 
     public void IterateDestFull(Func<int, int, Pixel> func)

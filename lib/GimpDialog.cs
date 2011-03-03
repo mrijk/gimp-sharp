@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2008 Maurits Rijk, Massimo Perga
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // GimpDialog.cs
 //
@@ -33,9 +33,9 @@ namespace Gimp
   public class GimpDialog : Dialog
   {
     public GimpDialog(string title, string role, IntPtr parent,
-		      Gtk.DialogFlags flags,
+		      DialogFlags flags,
 		      GimpHelpFunc help_func, string help_id,
-		      string button1, Gtk.ResponseType action1) :
+		      string button1, ResponseType action1) :
 
       base(gimp_dialog_new(title, role, parent, flags, 
 			   help_func, help_id, 
@@ -46,10 +46,10 @@ namespace Gimp
     }
 
     public GimpDialog(string title, string role, IntPtr parent,
-		      Gtk.DialogFlags flags,
+		      DialogFlags flags,
 		      GimpHelpFunc help_func, string help_id,
-		      string button1, Gtk.ResponseType action1,
-		      string button2, Gtk.ResponseType action2) :
+		      string button1, ResponseType action1,
+		      string button2, ResponseType action2) :
 
       base(gimp_dialog_new(title, role, parent, flags, 
 			   help_func, help_id, 
@@ -59,11 +59,11 @@ namespace Gimp
     }
 
     public GimpDialog(string title, string role, IntPtr parent,
-		      Gtk.DialogFlags flags,
+		      DialogFlags flags,
 		      GimpHelpFunc help_func, string help_id,
-		      string button1, Gtk.ResponseType action1,
-		      string button2, Gtk.ResponseType action2,
-		      string button3, Gtk.ResponseType action3) :
+		      string button1, ResponseType action1,
+		      string button2, ResponseType action2,
+		      string button3, ResponseType action3) :
 
       base(gimp_dialog_new(title, role, parent, flags, 
 			   help_func, help_id, 
@@ -74,7 +74,7 @@ namespace Gimp
     }
 
     public GimpDialog(string title, string role, IntPtr parent,
-		      Gtk.DialogFlags flags,
+		      DialogFlags flags,
 		      GimpHelpFunc help_func, string help_id) : 
 
       base(gimp_dialog_new(title, role, parent, flags, 
@@ -119,10 +119,10 @@ namespace Gimp
     IntPtr gimp_dialog_new(string title,
 			   string role,
 			   IntPtr parent,
-			   Gtk.DialogFlags  flags,
-			   GimpHelpFunc    help_func,
+			   DialogFlags flags,
+			   GimpHelpFunc help_func,
 			   string help_id,
-			   string button1, Gtk.ResponseType action1,
+			   string button1, ResponseType action1,
 			   string end);
 
     [DllImport("libgimpwidgets-2.0-0.dll")]
@@ -130,11 +130,11 @@ namespace Gimp
     IntPtr gimp_dialog_new(string title,
 			   string role,
 			   IntPtr parent,
-			   Gtk.DialogFlags  flags,
-			   GimpHelpFunc    help_func,
+			   DialogFlags  flags,
+			   GimpHelpFunc help_func,
 			   string help_id,
-			   string button1, Gtk.ResponseType action1,
-			   string button2, Gtk.ResponseType action2,
+			   string button1, ResponseType action1,
+			   string button2, ResponseType action2,
 			   string end);
 
     [DllImport("libgimpwidgets-2.0-0.dll")]
@@ -142,12 +142,12 @@ namespace Gimp
     IntPtr gimp_dialog_new(string title,
 			   string role,
 			   IntPtr parent,
-			   Gtk.DialogFlags  flags,
-			   GimpHelpFunc    help_func,
+			   DialogFlags flags,
+			   GimpHelpFunc help_func,
 			   string help_id,
-			   string button1, Gtk.ResponseType action1,
-			   string button2, Gtk.ResponseType action2,
-			   string button3, Gtk.ResponseType action3,
+			   string button1, ResponseType action1,
+			   string button2, ResponseType action2,
+			   string button3, ResponseType action3,
 			   string end);
     
     [DllImport("libgimpwidgets-2.0-0.dll")]

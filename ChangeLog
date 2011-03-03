@@ -1,3 +1,14 @@
+2011-03-03  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* lib/SaveAttributeSet.cs
+	* lib/ReadPixelIterator.cs
+	* lib/GimpDialog.cs: minor clean-up
+
+	* lib/HSV.cs: removed unused import
+
+	* lib/RgnIterator.cs
+	* lib/AspectPreview.cs: replaced delegate by lambda expression
+
 2011-03-02  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* lib/ParasiteList.cs

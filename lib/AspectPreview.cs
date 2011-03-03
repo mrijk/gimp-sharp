@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // AspectPreview.cs
 //
@@ -61,7 +61,7 @@ namespace Gimp
 
     public new void Update(Func<IntCoordinate, Pixel> func)
     {
-      Update(delegate(int x, int y) {return func(new IntCoordinate(x, y));});
+      Update((x, y) => func(new IntCoordinate(x, y)));
     }
 
     [DllImport("libgimpui-2.0-0.dll")]
