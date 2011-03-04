@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // RemoveFunc.cs
 //
@@ -38,7 +38,7 @@ namespace Gimp.SliceTool
       _cursor = LoadCursor("cursor-eraser.png");
     }
 
-    override protected void OnPress(Coordinate<int> c)
+    override protected void OnPress(IntCoordinate c)
     {
       var slice = _sliceData.MayRemove(c);
       if (slice != null)
@@ -48,7 +48,7 @@ namespace Gimp.SliceTool
 	}
     }
 
-    override public Cursor GetCursor(Coordinate<int> c)
+    override public Cursor GetCursor(IntCoordinate c)
     {
       return (_sliceData.MayRemove(c) == null) ? base.GetCursor(c) : _cursor;
     }

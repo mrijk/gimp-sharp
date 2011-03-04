@@ -22,6 +22,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace Gimp.SliceTool
 {
@@ -71,17 +72,8 @@ namespace Gimp.SliceTool
     
     public void Slice(Slice slice)
     {
-      var created = new RectangleSet();
-
-      ForEach(rectangle => 
-	{
-	  if (rectangle.IntersectsWith(slice))
-	  {
-	    created.Add(rectangle.Slice(slice));
-	  }
-	});
-
-      created.ForEach(rectangle => Add(rectangle));
+      var query = _set.Where(rectangle => rectangle.IntersectsWith(slice));
+      query.ToList().ForEach(rectangle => Add(rectangle.Slice(slice)));
     }
     
     public Rectangle Find(Coordinate<int> c)

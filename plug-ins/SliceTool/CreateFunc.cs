@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // CreateFunc.cs
 //
@@ -47,7 +47,7 @@ namespace Gimp.SliceTool
       _cursor = LoadCursor("cursor-slice.png");
     }
 
-    override protected void OnPress(Coordinate<int> c) 
+    override protected void OnPress(IntCoordinate c) 
     {
       _x = c.X;
       _y = c.Y;
@@ -66,7 +66,7 @@ namespace Gimp.SliceTool
       Redraw();
     }
 		
-    override protected void OnMove(Coordinate<int> c) 
+    override protected void OnMove(IntCoordinate c) 
     {
       Rectangle rectangle;
       int x = c.X;
@@ -74,11 +74,11 @@ namespace Gimp.SliceTool
 
       if (_horizontal)
 	{
-	  rectangle = _sliceData.FindRectangle(new Coordinate<int>(x, _y));
+	  rectangle = _sliceData.FindRectangle(new IntCoordinate(x, _y));
 	}
       else
 	{
-	  rectangle = _sliceData.FindRectangle(new Coordinate<int>(_x, y));
+	  rectangle = _sliceData.FindRectangle(new IntCoordinate(_x, y));
 	}
 
       bool rectangleChanged = rectangle != _endRectangle;
@@ -127,14 +127,14 @@ namespace Gimp.SliceTool
 	}
     }
 
-    override public Cursor GetCursor(Coordinate<int> c)
+    override public Cursor GetCursor(IntCoordinate c)
     {
       var slice = _sliceData.FindSlice(c);
       return (SliceIsSelectable(slice)) ? slice.Cursor : _cursor;
     }
 
     override public MouseFunc GetActualFunc(SliceTool parent, 
-					    Coordinate<int> c)
+					    IntCoordinate c)
     {
       var slice = _sliceData.FindSlice(c);
       return (SliceIsSelectable(slice)) 

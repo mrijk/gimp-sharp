@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // MouseFunc.cs
 //
@@ -56,17 +56,17 @@ namespace Gimp.SliceTool
       _preview.QueueDraw();
     }
 
-    virtual protected void OnPress(Coordinate<int> c) {}
+    virtual protected void OnPress(IntCoordinate c) {}
     virtual protected void OnRelease() {}
-    virtual protected void OnMove(Coordinate<int> c) {}
+    virtual protected void OnMove(IntCoordinate c) {}
     
-    virtual public Cursor GetCursor(Coordinate<int> c)
+    virtual public Cursor GetCursor(IntCoordinate c)
     {
       return _defaultCursor;
     }
 
     virtual public MouseFunc GetActualFunc(SliceTool parent, 
-					   Coordinate<int> c) 
+					   IntCoordinate c) 
     {
       return this;
     }
@@ -83,7 +83,7 @@ namespace Gimp.SliceTool
 	  AddMotionNotifyEvent();
 	}
 
-      OnPress(new Coordinate<int>((int) args.Event.X, (int) args.Event.Y));
+      OnPress(new IntCoordinate((int) args.Event.X, (int) args.Event.Y));
     }
 
     protected void AddReleaseEvent()
@@ -119,7 +119,7 @@ namespace Gimp.SliceTool
 	  y = (int) ev.Y;
 	}
 
-      OnMove(new Coordinate<int>(x, y));
+      OnMove(new IntCoordinate(x, y));
     }
 
     protected bool SliceIsSelectable(Slice slice)

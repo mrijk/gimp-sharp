@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // SliceTool.cs
 //
@@ -59,7 +59,7 @@ namespace Gimp.SliceTool
 				 _("The Image Slice Tool is used to apply image slicing and rollovers."),
 				 "Maurits Rijk",
 				 "(C) Maurits Rijk",
-				 "2005-2010",
+				 "2005-2011",
 				 _("Slice Tool..."),
 				 "RGB*, GRAY*")
 	{
@@ -143,7 +143,7 @@ namespace Gimp.SliceTool
       _filename = filename;
       string p = (filename == null) 
 	? "<Untitled>" : System.IO.Path.GetFileName(filename);
-      string title = string.Format(_("Slice Tool 0.4 - {0}"), p);
+      string title = string.Format(_("Slice Tool 0.5 - {0}"), p);
       Dialog.Title = title;
     }
     
@@ -250,7 +250,7 @@ namespace Gimp.SliceTool
 
     void OnButtonPress(object o, ButtonPressEventArgs args)
     {
-      var c = new Coordinate<int>((int) args.Event.X, (int) args.Event.Y);
+      var c = new IntCoordinate((int) args.Event.X, (int) args.Event.Y);
       Func.GetActualFunc(this, c).OnButtonPress(o, args);
     }
 
@@ -388,10 +388,10 @@ namespace Gimp.SliceTool
       _xy.Text = "x: " + x + ", y: " + y;
       args.RetVal = true;
 
-      SetCursor(new Coordinate<int>(x, y));
+      SetCursor(new IntCoordinate(x, y));
     }
 
-    void SetCursor(Coordinate<int> c)
+    void SetCursor(IntCoordinate c)
     {
       Preview.SetCursor(Func.GetCursor(c));
     }
