@@ -1,3 +1,21 @@
+2011-05-20  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/Splitter/Splitter.cs
+	* plug-ins/Splitter/MathExpressionParser.cs: minor clean-up
+
+2011-03-04  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/SliceTool/RemoveFunc.cs
+	* plug-ins/SliceTool/MouseFunc.cs
+	* plug-ins/SliceTool/CreateTableFunc.cs
+	* plug-ins/SliceTool/CreateFunc.cs
+	* plug-ins/SliceTool/SelectFunc.cs
+	* plug-ins/SliceTool/SliceTool.cs: replaced Coordinate<int> by
+	IntCoordinate
+
+	* plug-ins/Pointillize/Pointillize.cs
+	* plug-ins/KoalaPaint/KoalaPaint.cs: minor clean-up
+
 2011-03-03  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* lib/SaveAttributeSet.cs

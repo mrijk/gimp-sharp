@@ -1,5 +1,5 @@
 // The KoalaPaint plug-in
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // KoalaPaint.cs
 //
@@ -37,7 +37,7 @@ namespace Gimp.KoalaPaint
       new KoalaPaint(args);
     }
 
-    public KoalaPaint(string[] args) : base(args, "KoalaPaint")
+    KoalaPaint(string[] args) : base(args, "KoalaPaint")
     {
     }
 
@@ -49,7 +49,7 @@ namespace Gimp.KoalaPaint
 			  _("This plug-in loads images of the Koala Paint file format."),
 			  "Maurits Rijk",
 			  "(C) Maurits Rijk",
-			  "1999 - 2010",
+			  "1999 - 2011",
 			  _("KoalaPaint Image"));
     }
 

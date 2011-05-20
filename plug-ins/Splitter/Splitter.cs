@@ -1,5 +1,5 @@
 // The Splitter plug-in
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // Splitter.cs
 //
@@ -273,7 +273,7 @@ namespace Gimp.Splitter
 	  iterator.ForEach((src, dest1, dest2) =>
 	    {
 	      var tmp = Copy(src);
-	      if (parser.Eval(src.X, src.Y) < 0)
+	      if (parser.Eval(src) < 0)
 	      {
 		dest1.Set(tmp);
 		dest2.Set(transparent);
@@ -289,14 +289,14 @@ namespace Gimp.Splitter
 	{
 	  var iterator = new RegionIterator(srcPR, destPR1);
 	  iterator.ForEach((src, dest) =>
-			   dest.Set((parser.Eval(src.X, src.Y) < 0) 
+			   dest.Set((parser.Eval(src) < 0) 
 				    ? Copy(src) : transparent));
 	}
       else	// destPR2 != null
 	{
 	  var iterator = new RegionIterator(srcPR, destPR2);
 	  iterator.ForEach((src, dest) =>
-			   dest.Set((parser.Eval(src.X, src.Y) >= 0) 
+			   dest.Set((parser.Eval(src) >= 0) 
 				    ? Copy(src) : transparent));
 	}
 

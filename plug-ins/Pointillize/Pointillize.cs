@@ -1,5 +1,5 @@
 // The Pointillize plug-in
-// Copyright (C) 2006-2010 Maurits Rijk
+// Copyright (C) 2006-2011 Maurits Rijk
 //
 // Pointillize.cs
 //
@@ -30,14 +30,12 @@ namespace Gimp.Pointillize
     [SaveAttribute("cell_size")]
     int _cellSize = 30;
 
-    ColorCoordinateSet _coordinates;
-
     static void Main(string[] args)
     {
       new Pointillize(args);
     }
 
-    public Pointillize(string[] args) : base(args, "Pointillize")
+    Pointillize(string[] args) : base(args, "Pointillize")
     {
     }
 
@@ -53,7 +51,7 @@ namespace Gimp.Pointillize
 				 _("Create pointillist paintings"),
 				 "Maurits Rijk",
 				 "(C) Maurits Rijk",
-				 "2006-2010",
+				 "2006-2011",
 				 _("Pointillize..."),
 				 "RGB*, GRAY*",
 				 inParams)
@@ -86,26 +84,19 @@ namespace Gimp.Pointillize
 
     override protected void UpdatePreview(AspectPreview preview)
     {
-      Initialize(_drawable);
-      preview.Update(DoPointillize);
+      preview.Update(GetPointillizeFunc(_drawable));
     }
 
     override protected void Render(Drawable drawable)
     {
-      Initialize(drawable);
-
       var iter = new RgnIterator(drawable, _("Pointillize"));
-      iter.IterateDest(DoPointillize);
+      iter.IterateDest(GetPointillizeFunc(drawable));
     }
 
-    void Initialize(Drawable drawable)
+    Func<IntCoordinate, Pixel> GetPointillizeFunc(Drawable drawable)
     {
-      _coordinates = new ColorCoordinateSet(drawable, _cellSize);
-    }
-
-    Pixel DoPointillize(IntCoordinate c)
-    {
-      return _coordinates.GetColor(c);
+      var coordinates = new ColorCoordinateSet(drawable, _cellSize);
+      return (c) => coordinates.GetColor(c);
     }
   }
 }
