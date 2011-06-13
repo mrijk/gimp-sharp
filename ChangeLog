@@ -1,3 +1,12 @@
+2011-06-13  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/Ministeck/Ministeck.cs: use the CoordinateGenerator class
+
+	* lib/CoordinateGenerator.cs: moved from RainDrops plug-in
+
+	* plug-ins/Raindrops/Makefile.am
+	* lib/Makefile.am: changed accordingly
+
 2011-05-20  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* plug-ins/Splitter/Splitter.cs

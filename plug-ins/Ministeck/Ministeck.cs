@@ -1,5 +1,5 @@
 // The Ministeck plug-in
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // Ministeck.cs
 //
@@ -61,7 +61,7 @@ namespace Gimp.Ministeck
 				 _("Generates Ministeck"),
 				 "Maurits Rijk",
 				 "(C) Maurits Rijk",
-				 "2004-2010",
+				 "2004-2011",
 				 _("Ministeck..."),
 				 "RGB*, GRAY*",
 				 inParams)
@@ -148,12 +148,12 @@ namespace Gimp.Ministeck
 
       // And finally calculate the Ministeck pieces
 	
-      int width = drawable.Width / _size;
-      int height = drawable.Height / _size;
-
       using (var painter = new Painter(drawable, _size, _color))
 	{
 	  Shape.Painter = painter;
+
+	  int width = drawable.Width / _size;
+	  int height = drawable.Height / _size;
 
 	  var A = new BoolMatrix(width, height);
 
@@ -165,21 +165,16 @@ namespace Gimp.Ministeck
 	  shapes.Add((_limit) ? 2 : 1, new CornerShape());
 	  shapes.Add((_limit) ? 1 : 1, new OneByOneShape());
 
-	  var progress = (preview) ? null : new Progress(_("Ministeck..."));
-
-	  for (int y = 0; y < height; y++)
+	  Action<int> update = null;
+	  if (!preview)
 	    {
-	      for (int x = 0; x < width; x++)
-		{
-		  var c = new IntCoordinate(x, y);
-		  if (!A.Get(c))
-		    {
-		      shapes.Fits(A, c);
-		    }
-		}
-	      if (!preview)
-		progress.Update((double) y / height);
+	      var progress = new Progress(_("Ministeck..."));
+	      update = y => progress.Update((double) y / height);
 	    }
+
+	  var generator = 
+	    new CoordinateGenerator(new Rectangle(0, 0, width, height), update);
+	  generator.ForEach(c => {if (!A.Get(c)) shapes.Fits(A, c);});
 	}
 
       drawable.Flush();

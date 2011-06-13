@@ -18,6 +18,7 @@ MYSOURCES = 				\
 	ChannelList.cs 			\
 	Context.cs			\
 	Coordinate.cs			\
+	CoordinateGenerator.cs		\
 	CoordinateList.cs		\
 	DataObject.cs			\
 	DataObjectList.cs		\

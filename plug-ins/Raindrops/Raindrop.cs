@@ -1,5 +1,5 @@
 // The Raindrops plug-in
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // Raindrop.cs
 //
@@ -19,7 +19,6 @@
 //
 
 using System;
-using System.Collections.Generic;
 
 namespace Gimp.Raindrops
 {
@@ -47,7 +46,7 @@ namespace Gimp.Raindrops
     {
       var dimensions = drawable.Dimensions;
       RenderDrop(boolMatrix, pf, dimensions);
-      RenderShadow(boolMatrix, pf, drawable, dimensions);
+      RenderShadow(pf, drawable, dimensions);
     }
 
     void RenderDrop(BoolMatrix boolMatrix, PixelFetcher pf, 
@@ -87,8 +86,7 @@ namespace Gimp.Raindrops
 	}
     }
 
-    void RenderShadow(BoolMatrix boolMatrix, PixelFetcher pf, 
-		      Drawable drawable, Dimensions dimensions)
+    void RenderShadow(PixelFetcher pf, Drawable drawable, Dimensions dimensions)
     {      
       int blurRadius = _newSize / 25 + 1;
 
