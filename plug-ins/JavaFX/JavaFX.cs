@@ -1,5 +1,5 @@
 // The JavaFX plug-in
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // JavaFX.cs
 //
@@ -28,11 +28,7 @@ namespace Gimp.JavaFX
   {
     static void Main(string[] args)
     {
-      new JavaFX(args);
-    }
-
-    JavaFX(string[] args) : base(args, "JavaFX")
-    {
+      GimpMain<JavaFX>(args);
     }
 
     override protected IEnumerable<Procedure> ListProcedures()
@@ -42,7 +38,7 @@ namespace Gimp.JavaFX
 				 _("JavaFX"),
 				 "Maurits Rijk",
 				 "(C) Maurits Rijk",
-				 "2006-2010",
+				 "2006-2011",
 				 _("Save As JavaFX"),
 				 "RGB*, GRAY*")
 	{MenuPath = "<Toolbox>/Xtns/Extensions",

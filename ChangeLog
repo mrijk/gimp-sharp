@@ -1,3 +1,37 @@
+2011-06-21  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* lib/FilePlugin.cs
+	* lib/PluginWithPreview.cs
+	* lib/Plugin.cs: new GimpMain method
+
+	* plug-ins/wbmp/wbmp.cs
+	* plug-ins/UpdateCheck/UpdateCheck.cs
+	* plug-ins/UnitTest/UnitTest.cs
+	* plug-ins/Trim/Trim.cs
+	* plug-ins/Swirlies/Swirlies.cs
+	* plug-ins/Splitter/Splitter.cs
+	* plug-ins/SliceTool/SliceTool.cs
+	* plug-ins/Sky/Sky.cs
+	* plug-ins/Shatter/Shatter.cs
+	* plug-ins/ShapeCollage/ShapeCollage.cs
+	* plug-ins/Raindrops/Raindrops.cs
+	* plug-ins/QR/QR.cs
+	* plug-ins/Pointillize/Pointillize.cs
+	* plug-ins/PhotoshopActions/PhotoshopActions.cs
+	* plug-ins/Pdn/Pdn.cs
+	* plug-ins/neo/neo.cs
+	* plug-ins/ncp/ncp.cs
+	* plug-ins/Ministeck/Ministeck.cs
+	* plug-ins/Mezzotint/Mezzotint.cs
+	* plug-ins/KoalaPaint/KoalaPaint.cs
+	* plug-ins/JavaFX/JavaFX.cs
+	* plug-ins/Forge/Forge.cs
+	* plug-ins/ecw/ecw.cs
+	* plug-ins/DifferenceClouds/DifferenceClouds.cs
+	* plug-ins/CountTool/CountTool.cs
+	* plug-ins/Colorize/Colorize.cs
+	* plug-ins/AverageBlur/AverageBlur.cs: use GimpMain
+
 2011-06-13  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* plug-ins/Ministeck/Ministeck.cs: use the CoordinateGenerator class

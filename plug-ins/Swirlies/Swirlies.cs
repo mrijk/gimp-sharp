@@ -1,5 +1,5 @@
 // The Swirlies plug-in
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // Swirlies.cs
 //
@@ -46,11 +46,7 @@ namespace Gimp.Swirlies
 
     static void Main(string[] args)
     {
-      new Swirlies(args);
-    }
-
-    Swirlies(string[] args) : base(args, "Swirlies")
-    {
+      GimpMain<Swirlies>(args);
     }
 
     override protected IEnumerable<Procedure> ListProcedures()

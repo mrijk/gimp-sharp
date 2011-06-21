@@ -1,5 +1,5 @@
 // The PictureFrame plug-in
-// Copyright (C) 2006-2009 Oded Coster
+// Copyright (C) 2006-2011 Oded Coster
 //
 // PictureFrame.cs
 //
@@ -32,11 +32,7 @@ namespace Gimp.PictureFrame
   
     static void Main(string[] args)
     {
-      new PictureFrame(args);
-    }
-
-    public PictureFrame(string[] args) : base(args, "PictureFrame")
-    {
+      GimpMain<PictureFrame>(args);
     }
 
     override protected IEnumerable<Procedure> ListProcedures()
@@ -46,7 +42,7 @@ namespace Gimp.PictureFrame
 				 _("Picture frame"),
 				 "Oded Coster",
 				 "(C) Oded Coster",
-				 "2006-2009",
+				 "2006-2011",
 				 _("Picture frame..."),
 				 "RGB*, GRAY*")
 	{

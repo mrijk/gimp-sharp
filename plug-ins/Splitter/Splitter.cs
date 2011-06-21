@@ -55,11 +55,7 @@ namespace Gimp.Splitter
 
     static void Main(string[] args)
     {
-      new Splitter(args);
-    }
-
-    public Splitter(string[] args) : base(args, "Splitter")
-    {
+      GimpMain<Splitter>(args);
     }
 
     override protected IEnumerable<Procedure> ListProcedures()
@@ -94,7 +90,7 @@ namespace Gimp.Splitter
 				 _("Splits an image in separate parts using a formula of the form f(x, y) = 0"),
 				 "Maurits Rijk",
 				 "(C) Maurits Rijk",
-				 "1999 - 2010",
+				 "1999 - 2011",
 				 _("Splitter..."),
 				 "RGB*",
 				 inParams)

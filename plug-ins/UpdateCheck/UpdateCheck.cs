@@ -1,5 +1,5 @@
 // The UpdateCheck plug-in
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // UpdateCheck.cs
 //
@@ -47,11 +47,7 @@ namespace Gimp.UpdateCheck
 
     static void Main(string[] args)
     {
-      new UpdateCheck(args);
-    }
-
-    UpdateCheck(string[] args) : base(args, "UpdateCheck")
-    {
+      GimpMain<UpdateCheck>(args);
     }
 
     override protected IEnumerable<Procedure> ListProcedures()
@@ -61,7 +57,7 @@ namespace Gimp.UpdateCheck
 				 _("Check for updates"),
 				 "Maurits Rijk",
 				 "(C) Maurits Rijk",
-				 "2006-2010",
+				 "2006-2011",
 				 _("Check for Updates..."),
 				 "")
 	{

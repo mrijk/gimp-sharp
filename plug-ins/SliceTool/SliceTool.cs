@@ -45,11 +45,7 @@ namespace Gimp.SliceTool
     
     static void Main(string[] args)
     {
-      new SliceTool(args);
-    }
-    
-    SliceTool(string[] args) : base(args, "SliceTool")
-    {
+      GimpMain<SliceTool>(args);
     }
 
     override protected IEnumerable<Procedure> ListProcedures()

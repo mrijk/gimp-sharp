@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // Plugin.cs
 //
@@ -68,16 +68,16 @@ namespace Gimp
     static GimpPlugInInfo _info = new GimpPlugInInfo();
 
     public string[] Args {get; set;}
-    public Plugin() {}
 
-    public Plugin(string[] args, string package)
+    protected static void GimpMain<T>(string[] args) where T : Plugin, new()
     {
-      Catalog.Init(package, Gimp.LocaleDirectory);
+      var plugin = new T();
+      Catalog.Init(typeof(T).Name, Gimp.LocaleDirectory);
 
-      _info.Init = HasMethod("Init") ? new InitProc(Init) : null;
-      _info.Quit = HasMethod("Quit") ? new QuitProc(Quit) : null;
-      _info.Query = new QueryProc(Query);
-      _info.Run = new RunProc(Run);
+      _info.Init = plugin.HasMethod("Init") ? new InitProc(plugin.Init) : null;
+      _info.Quit = plugin.HasMethod("Quit") ? new QuitProc(plugin.Quit) : null;
+      _info.Query = new QueryProc(plugin.Query);
+      _info.Run = new RunProc(plugin.Run);
 
       var progargs = new string[args.Length + 1];
       progargs[0] = "gimp-sharp";

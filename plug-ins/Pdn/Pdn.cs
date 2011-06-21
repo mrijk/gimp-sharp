@@ -1,5 +1,5 @@
 // The Paint .NET file format import/export plug-in
-// Copyright (C) 2006-2010 Massimo Perga, Maurits Rijk
+// Copyright (C) 2006-2011 Massimo Perga, Maurits Rijk
 //
 // pdn.cs
 //
@@ -30,11 +30,7 @@ namespace Gimp.Pdn
   {
     static void Main(string[] args)
     {
-      new Pdn(args);
-    }
-
-    public Pdn(string[] args) : base(args, "Pdn")
-    {
+      GimpMain<Pdn>(args);
     }
 
     override protected IEnumerable<Procedure> ListProcedures()
@@ -44,7 +40,7 @@ namespace Gimp.Pdn
 				"This plug-in loads images of the Paint.NET file format.",
 				"Massimo Perga",
 				"(C) Massimo Perga",
-				"2006-2010",
+				"2006-2011",
 				"Paint.NET Image");
     }
 

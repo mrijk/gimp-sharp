@@ -1,5 +1,5 @@
 // The Mezzotint plug-in
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // Mezzotint.cs
 //
@@ -31,11 +31,7 @@ namespace Gimp.Mezzotint
 
     static void Main(string[] args)
     {
-      new Mezzotint(args);
-    }
-
-    Mezzotint(string[] args) : base(args, "Mezzotint")
-    {
+      GimpMain<Mezzotint>(args);
     }
 
     override protected IEnumerable<Procedure> ListProcedures()
@@ -45,7 +41,7 @@ namespace Gimp.Mezzotint
 				 _("Mezzotint"),
 				 "Maurits Rijk",
 				 "(C) Maurits Rijk",
-				 "2007",
+				 "2007-2011",
 				 _("Mezzotint..."),
 				 "RGB*")
 	{

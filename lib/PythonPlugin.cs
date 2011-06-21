@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // PythonPlugin.cs
 //
@@ -27,13 +27,14 @@ namespace Gimp
 {
   public class PythonPlugin : Plugin
   {
-  public PythonPlugin() {}
+    public PythonPlugin() {}
 
+#if false
     public PythonPlugin(string[] args, string package) : 
       base(PythonPlugin.StripName(args), package)
     {
     }
-
+#endif
     override protected IEnumerable<Procedure> ListProcedures()
     {
       // yield break;

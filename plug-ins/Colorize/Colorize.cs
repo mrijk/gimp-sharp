@@ -1,5 +1,5 @@
 // The Colorize plug-in
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // Ported from http://registry.gimp.org/plugin?id=5479
 // copyright 2005 Christopher Lais
@@ -54,11 +54,7 @@ namespace Gimp.Colorize
 
     static void Main(string[] args)
     {
-      new Colorize(args);
-    }
-
-    Colorize(string[] args) : base(args, "Colorize")
-    {
+      GimpMain<Colorize>(args);
     }
 
     override protected IEnumerable<Procedure> ListProcedures()
@@ -73,7 +69,7 @@ namespace Gimp.Colorize
           _("Fix me!"),
           "Maurits Rijk",
           "(C) Maurits Rijk",
-          "2006-2010",
+          "2006-2011",
           "Colorize...",
           "RGB*, GRAY*",
           inParams)

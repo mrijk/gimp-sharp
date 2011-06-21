@@ -1,5 +1,5 @@
 // The Fragment plug-in
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // Fragment.cs
 //
@@ -26,11 +26,7 @@ namespace Gimp.Fragment
   {
     static void Main(string[] args)
     {
-      new Fragment(args);
-    }
-
-    Fragment(string[] args) : base(args, "Fragment")
-    {
+      GimpMain<Fragment>(args);
     }
 
     override protected IEnumerable<Procedure> ListProcedures()
@@ -40,7 +36,7 @@ namespace Gimp.Fragment
 				 _("Creates four copies of the pixels in the selection, averages them, and offsets them from each other."),
 				 "Maurits Rijk",
 				 "(C) Maurits Rijk",
-				 "2006-2009",
+				 "2006-2011",
 				 _("Fragment"),
 				 "RGB*, GRAY*")
 	{

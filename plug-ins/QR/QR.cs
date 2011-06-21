@@ -1,5 +1,5 @@
 // The QR plug-in
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // QR.cs
 //
@@ -37,11 +37,7 @@ namespace Gimp.QR
 
     static void Main(string[] args)
     {
-      new QR(args);
-    }
-
-    QR(string[] args) : base(args, "QR")
-    {
+      GimpMain<QR>(args);
     }
 
     override protected IEnumerable<Procedure> ListProcedures()
@@ -62,7 +58,7 @@ namespace Gimp.QR
 				 _("Generates QR codes"),
 				 "Maurits Rijk",
 				 "(C) Maurits Rijk",
-				 "2010",
+				 "2010-2011",
 				 "QR codes...",
 				 "*",
 				 inParams)

@@ -32,11 +32,7 @@ namespace Gimp.Pointillize
 
     static void Main(string[] args)
     {
-      new Pointillize(args);
-    }
-
-    Pointillize(string[] args) : base(args, "Pointillize")
-    {
+      GimpMain<Pointillize>(args);
     }
 
     override protected IEnumerable<Procedure> ListProcedures()

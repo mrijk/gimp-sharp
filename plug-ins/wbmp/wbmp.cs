@@ -1,5 +1,5 @@
 // The wbmp plug-in
-// Copyright (C) 2004-2010 Maurits Rijk, Massimo Perga
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // wbmp.cs
 //
@@ -28,11 +28,7 @@ namespace Gimp.wbmp
   {
     static void Main(string[] args)
     {
-      new wbmp(args);
-    }
-
-    public wbmp(string[] args) : base(args, "wbmp")
-    {
+      GimpMain<wbmp>(args);
     }
 
     override protected IEnumerable<Procedure> ListProcedures()
@@ -40,17 +36,17 @@ namespace Gimp.wbmp
       yield return FileLoadProcedure("file_wbmp_load",
 				     _("Loads wbmp images"),
 				     _("This plug-in loads wbmp images."),
-				     "Maurits Rijk, Massimo Perga",
-				     "(C) Maurits Rijk, Massimo Perga",
-				     "2005-2009",
+				     "Maurits Rijk",
+				     "(C) Maurits Rijk",
+				     "2005-2011",
 				     _("wbmp Image"));
       
       yield return FileSaveProcedure("file_wbmp_save",
 				     _("Saves wbmp images"),
 				     _("This plug-in saves wbmp images."),
-				     "Maurits Rijk, Massimo Perga",
-				     "(C) Maurits Rijk, Massimo Perga",
-				     "2006-2009",
+				     "Maurits Rijk",
+				     "(C) Maurits Rijk",
+				     "2006-2011",
 				     _("wbmp Image"),
 				     "RGB*");
     }

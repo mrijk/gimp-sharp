@@ -1,5 +1,5 @@
 // The Shatter plug-in
-// Copyright (C) 2006-2009 Maurits Rijk
+// Copyright (C) 2006-2011 Maurits Rijk
 //
 // Shatter.cs
 //
@@ -32,11 +32,7 @@ namespace Gimp.Shatter
 
     static void Main(string[] args)
     {
-      new Shatter(args);
-    }
-
-    public Shatter(string[] args) : base(args, "Shatter")
-    {
+      GimpMain<Shatter>(args);
     }
 
     override protected IEnumerable<Procedure> ListProcedures()
@@ -49,7 +45,7 @@ namespace Gimp.Shatter
 				 _("Shatter an image"),
 				 "Maurits Rijk",
 				 "(C) Maurits Rijk",
-				 "2006-2009",
+				 "2006-2011",
 				 _("Shatter..."),
 				 "RGB*, GRAY*",
 				 inParams)

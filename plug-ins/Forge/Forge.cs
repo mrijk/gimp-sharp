@@ -1,5 +1,5 @@
 // The Forge plug-in
-// Copyright (C) 2006-2010 Massimo Perga (massimo.perga@gmail.com)
+// Copyright (C) 2006-2011 Massimo Perga (massimo.perga@gmail.com)
 //
 // Forge.cs
 //
@@ -78,11 +78,7 @@ namespace Gimp.Forge
 
     static void Main(string[] args)
     {
-      new Forge(args);
-    }
-
-    Forge(string[] args) : base(args, "Forge")
-    {
+      GimpMain<Forge>(args);
     }
 
     override protected IEnumerable<Procedure> ListProcedures()
@@ -200,7 +196,7 @@ namespace Gimp.Forge
 	  if (forced > 0)
 	    forced--;
 	  else
-	  dimspec = true;
+	    dimspec = true;
 	  _fracdim = _dimensionEntry.Value;
 	}; 
     }

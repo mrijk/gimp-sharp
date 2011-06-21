@@ -34,11 +34,7 @@ namespace Gimp.KoalaPaint
 
     static void Main(string[] args)
     {
-      new KoalaPaint(args);
-    }
-
-    KoalaPaint(string[] args) : base(args, "KoalaPaint")
-    {
+      GimpMain<KoalaPaint>(args);
     }
 
     override protected IEnumerable<Procedure> ListProcedures()

@@ -1,5 +1,5 @@
 // The ncp plug-in
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // ncp.cs
 //
@@ -44,11 +44,7 @@ namespace Gimp.ncp
 
     static void Main(string[] args)
     {
-      new ncp(args);
-    }
-
-    ncp(string[] args) : base(args, "ncp")
-    {
+      GimpMain<ncp>(args);
     }
 
     override protected IEnumerable<Procedure> ListProcedures()
@@ -64,7 +60,7 @@ namespace Gimp.ncp
 				 _("Generates 2D textures"),
 				 "Maurits Rijk",
 				 "(C) Maurits Rijk",
-				 "2004-2010",
+				 "2004-2011",
 				 "NCP...",
 				 "RGB*, GRAY*",
 				 inParams)

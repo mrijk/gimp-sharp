@@ -38,11 +38,7 @@ namespace Gimp.Ministeck
 
     static void Main(string[] args)
     {
-      new Ministeck(args);
-    }
-
-    Ministeck(string[] args) : base(args, "Ministeck")
-    {
+      GimpMain<Ministeck>(args);
     }
 
     override protected IEnumerable<Procedure> ListProcedures()

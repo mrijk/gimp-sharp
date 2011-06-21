@@ -1,5 +1,5 @@
 // The neo plug-in
-// Copyright (C) 2006-2009 Maurits Rijk
+// Copyright (C) 2006-2011 Maurits Rijk
 // Original code (in C) for GIMP 1.0 by Alain Gaymard
 //
 // neo.cs
@@ -31,11 +31,7 @@ namespace Gimp.neo
 
     static void Main(string[] args)
     {
-      new neo(args);
-    }
-
-    public neo(string[] args) : base(args, "neo")
-    {
+      GimpMain<neo>(args);
     }
 
     override protected IEnumerable<Procedure> ListProcedures()
@@ -45,7 +41,7 @@ namespace Gimp.neo
 				     _("This plug-in loads Neochrome images."),
 				     "Maurits Rijk",
 				     "(C) Maurits Rijk",
-				     "2006-2009",
+				     "2006-2011",
 				     _("Neochrome Image"));
     }
 

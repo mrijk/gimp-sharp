@@ -1,5 +1,5 @@
 // The GemImg plug-in
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // GemImg.cs
 //
@@ -33,11 +33,7 @@ namespace Gimp.GemImg
 
     static void Main(string[] args)
     {
-      new GemImg(args);
-    }
-
-    GemImg(string[] args) : base(args, "GemImg")
-    {
+      GimpMain<GemImg>(args);
     }
 
     override protected IEnumerable<Procedure> ListProcedures()

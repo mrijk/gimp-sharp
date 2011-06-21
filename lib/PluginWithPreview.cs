@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // PluginWithPreview.cs
 //
@@ -29,11 +29,6 @@ namespace Gimp
   {
     protected AspectPreview Preview {get; private set;}
     protected VBox Vbox {get; private set;}
-
-    public PluginWithPreview(string[] args, string package) :
-      base(args, package)
-    {
-    }
 
     override protected GimpDialog DialogNew(string title, string role, 
 					    IntPtr parent, 

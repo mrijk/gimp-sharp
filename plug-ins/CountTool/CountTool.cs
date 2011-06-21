@@ -1,5 +1,5 @@
 // The CountTool plug-in
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // CountTool.cs
 //
@@ -31,11 +31,7 @@ namespace Gimp.CountTool
 
     static void Main(string[] args)
     {
-      new CountTool(args);
-    }
-
-    CountTool(string[] args) : base(args, "CountTool")
-    {
+      GimpMain<CountTool>(args);
     }
 
     override protected IEnumerable<Procedure> ListProcedures()

@@ -1,5 +1,5 @@
 // The Trim plug-in
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // Trim.cs
 //
@@ -40,11 +40,7 @@ namespace Gimp.Trim
 
     static void Main(string[] args)
     {
-      new Trim(args);
-    }
-
-    Trim(string[] args) : base(args, "Trim")
-    {
+      GimpMain<Trim>(args);
     }
 
     override protected IEnumerable<Procedure> ListProcedures()
@@ -62,7 +58,7 @@ namespace Gimp.Trim
 				 _("Trim"),
 				 "Maurits Rijk",
 				 "(C) Maurits Rijk",
-				 "2004-2010",
+				 "2004-2011",
 				 "Trim...",
 				 "RGB*, GRAY*",
 				 inParams)

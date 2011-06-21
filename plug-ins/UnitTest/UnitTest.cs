@@ -1,5 +1,5 @@
 // The UnitTest plug-in
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // UnitTest.cs
 //
@@ -37,11 +37,7 @@ namespace Gimp.UnitTest
 
     static void Main(string[] args)
     {
-      new UnitTest(args);
-    }
-
-    UnitTest(string[] args) : base(args, "UnitTest")
-    {
+      GimpMain<UnitTest>(args);
     }
 
     override protected IEnumerable<Procedure> ListProcedures()

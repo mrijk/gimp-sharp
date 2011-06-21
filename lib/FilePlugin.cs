@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // FilePlugin.cs
 //
@@ -31,10 +31,6 @@ namespace Gimp
 
     protected string Filename {get; set;}
     protected BinaryReader Reader {get; set;}
-
-    public FilePlugin(string[] args, string package) : base(args, package)
-    {
-    }
 
     override protected void Run(string name, ParamDefList inParam,
 				out ParamDefList outParam)

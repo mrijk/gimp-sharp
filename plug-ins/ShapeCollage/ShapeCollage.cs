@@ -1,5 +1,5 @@
 // The ShapeCollage plug-in
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // ShapeCollage.cs
 //
@@ -28,11 +28,7 @@ namespace Gimp.ncp
   {
     static void Main(string[] args)
     {
-      new ShapeCollage(args);
-    }
-
-    ShapeCollage(string[] args) : base(args, "ShapeCollage")
-    {
+      GimpMain<ShapeCollage>(args);
     }
 
     override protected IEnumerable<Procedure> ListProcedures()
@@ -45,7 +41,7 @@ namespace Gimp.ncp
 				 _("Generates collage"),
 				 "Maurits Rijk",
 				 "(C) Maurits Rijk",
-				 "2004-2010",
+				 "2004-2011",
 				 "ShapeCollage...",
 				 "RGB*, GRAY*",
 				 inParams)

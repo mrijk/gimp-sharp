@@ -1,5 +1,5 @@
 // The ecw plug-in
-// Copyright (C) 2006-2010 Maurits Rijk
+// Copyright (C) 2006-2011 Maurits Rijk
 //
 // ecw.cs
 //
@@ -27,14 +27,9 @@ namespace Gimp.ecw
 {	
   class ecw : FilePlugin
   {
-    [STAThread]
     static void Main(string[] args)
     {
-      new ecw(args);
-    }
-
-    public ecw(string[] args) : base(args, "ecw")
-    {
+      GimpMain<ecw>(args);
     }
 
     override protected IEnumerable<Procedure> ListProcedures()
@@ -44,7 +39,7 @@ namespace Gimp.ecw
 				     "This plug-in loads ECW images.",
 				     "Maurits Rijk",
 				     "(C) Maurits Rijk",
-				     "2006-2009",
+				     "2006-2011",
 				     "ecw Image");
       
       yield return FileSaveProcedure("file_ecw_save",
@@ -52,7 +47,7 @@ namespace Gimp.ecw
 				     "This plug-in saves ECW images.",
 				     "Maurits Rijk",
 				     "(C) Maurits Rijk",
-				     "2006-2009",
+				     "2006-2011",
 				     "ecw Image",
 				     "RGB*");
     }

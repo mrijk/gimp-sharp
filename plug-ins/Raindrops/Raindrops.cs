@@ -1,5 +1,5 @@
 // The Raindrops plug-in
-// Copyright (C) 2004-2009 Maurits Rijk, Massimo Perga
+// Copyright (C) 2004-2011 Maurits Rijk, Massimo Perga
 //
 // Raindrops.cs
 //
@@ -38,11 +38,7 @@ namespace Gimp.Raindrops
 
     static void Main(string[] args)
     {
-      new Raindrops(args);
-    }
-
-    Raindrops(string[] args) : base(args, "Raindrops")
-    {
+      GimpMain<Raindrops>(args);
     }
 
     override protected IEnumerable<Procedure> ListProcedures()
@@ -59,7 +55,7 @@ namespace Gimp.Raindrops
 				 _("Generates raindrops"),
 				 "Massimo Perga",
 				 "(C) Massimo Perga",
-				 "2006-2009",
+				 "2006-2011",
 				 _("Raindrops..."),
 				 "RGB*, GRAY*",
 				 inParams)

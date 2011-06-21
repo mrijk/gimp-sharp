@@ -1,5 +1,5 @@
 // The Sky plug-in
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // Code ported from Physically Modeled Media Plug-In for The GIMP
 //                  Copyright (c) 2000-2001 David A. Bartold
@@ -71,11 +71,7 @@ namespace Gimp.Sky
 
     static void Main(string[] args)
     {
-      new Sky(args);
-    }
-
-    Sky(string[] args) : base(args, "Sky")
-    {
+      GimpMain<Sky>(args);
     }
 
     override protected IEnumerable<Procedure> ListProcedures()
@@ -112,7 +108,7 @@ namespace Gimp.Sky
 				 _("Sky"),
 				 "Maurits Rijk",
 				 "(C) Maurits Rijk",
-				 "2007-2010",
+				 "2007-2011",
 				 _("Sky..."),
 				 "RGB*",
 				 inParams)
