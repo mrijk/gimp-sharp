@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // ScaleEntry.cs
 //
@@ -37,11 +37,11 @@ namespace Gimp
 			double stepIncrement,
 			double pageIncrement,
 			uint   digits,
-			bool   constrain,
-			double unconstrainedLower,
-			double unconstrainedUpper,
-			string tooltip,
-			string helpId) :
+			bool   constrain = true,
+			double unconstrainedLower = 0.0,
+			double unconstrainedUpper = 0.0,
+			string tooltip = null,
+			string helpId = null) :
 	base(gimp_scale_entry_new(table.Handle, column, row, text, scaleWidth,
 				  spinbuttonWidth, value, lower, upper, 
 				  stepIncrement, pageIncrement, digits,
@@ -53,18 +53,17 @@ namespace Gimp
       public ScaleEntry(Table table, int column, int row, string text,
 			int    scaleWidth,
 			int    spinbuttonWidth,
-			double value,
+			Variable<int> variable,
 			double lower,
 			double upper,
 			double stepIncrement,
 			double pageIncrement,
 			uint   digits) :
-	this(table, column, row, text, scaleWidth,
-	     spinbuttonWidth, value, lower, upper, 
-	     stepIncrement, pageIncrement, digits,
-	     true, 0.0, 0.0, null, null)
+	this(table, column, row, text, scaleWidth, spinbuttonWidth,
+	     variable.Value, lower, upper, stepIncrement, pageIncrement, digits)
       {
-      }
+	ValueChanged += delegate {variable.Value = ValueAsInt;};
+      } 
 
       public int ValueAsInt
       {

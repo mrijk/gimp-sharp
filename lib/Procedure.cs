@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // Procedure.cs
 //
@@ -50,7 +50,7 @@ namespace Gimp
 		     string author, string copyright, 
 		     string date, string menu_path, 
 		     string image_types,
-		     ParamDefList inParams,
+		     ParamDefList inParams = null,
 		     ParamDefList outParams = null)
     {
       Name = name;
@@ -61,17 +61,8 @@ namespace Gimp
       _date = date;
       _menu_path = menu_path;
       _image_types = image_types;
-      _inParams = inParams;
-      _outParams = outParams;
-    }
-
-    public Procedure(string name, string blurb, string help, 
-		     string author, string copyright, 
-		     string date, string menu_path, 
-		     string image_types) :
-      this(name, blurb, help, author, copyright, date, menu_path,
-	   image_types, new ParamDefList())
-    {
+      _inParams = inParams ?? new ParamDefList();
+      _outParams = outParams ?? new ParamDefList(false);
     }
 
     public Procedure(string name)
@@ -86,23 +77,11 @@ namespace Gimp
 
     public void Install(bool usesImage, bool usesDrawable)
     {
-      var args = _inParams.GetGimpParamDef();
-      GimpParamDef[] returnVals;
-      int returnLen;
-      if (_outParams == null)
-	{
-	  returnVals = null;
-	  returnLen = 0;
-	}
-      else
-	{
-	  returnVals = _outParams.GetGimpParamDef();
-	  returnLen = returnVals.Length;
-	}
-      
       gimp_install_procedure(Name, _blurb, _help, _author, _copyright, _date, 
 			     _menu_path, _image_types, PDBProcType.Plugin, 
-			     args.Length, returnLen, args, returnVals);
+			     _inParams.Count, _outParams.Count,
+			     _inParams.GetGimpParamDef(), 
+			     _outParams.GetGimpParamDef());
       MenuRegister();
       IconRegister();
     }

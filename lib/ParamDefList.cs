@@ -197,9 +197,16 @@ Console.WriteLine("Parameters: " + n_params);
 	}
     }
 
+    public int Count 
+    {
+      get {return _set.Count;}
+    }
+
     public GimpParamDef[] GetGimpParamDef()
     {
-      return _set.Select(def => def.GimpParamDef).ToArray();
+      return (Count == 0) 
+	? null 
+	: _set.Select(def => def.GimpParamDef).ToArray();
     }
   }
 }

@@ -111,6 +111,7 @@ MYSOURCES = 				\
 	TextLayer.cs			\
 	Tile.cs				\
 	Util.cs				\
+	Variable.cs			\
 	Vectors.cs			\
 	Vector2.cs			\
 	Vector3.cs			\

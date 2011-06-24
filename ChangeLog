@@ -1,3 +1,11 @@
+2011-06-24  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* lib/Procedure.cs: some clean-up
+
+	* lib/Variable.cs: new file
+
+	* lib/Makefile.am: updated accordingly
+
 2011-06-21  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* lib/FilePlugin.cs
