@@ -48,8 +48,7 @@ namespace Gimp.Fragment
     {
       Tile.CacheDefault(drawable);
 
-      var iter = new RgnIterator(drawable, RunMode.Interactive);
-      iter.Progress = new Progress(_("Fragment"));
+      var iter = new RgnIterator(drawable, _("Fragment"));
 
       using (var pf = new PixelFetcher(drawable) {EdgeMode = EdgeMode.Black})
 	{
