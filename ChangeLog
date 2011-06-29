@@ -1,3 +1,12 @@
+2011-06-29  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/Pointillize/Pointillize.cs: start using new Variable class
+
+	* lib/VariableSet.cs
+	* lib/IVariable.cs: new files
+
+	* lib/Makefile.am: changed accordingly
+
 2011-06-28  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* plug-ins/Fragment/Fragment.cs: minor clean-up

@@ -1,7 +1,7 @@
 // GIMP# - A C# wrapper around the GIMP Library
 // Copyright (C) 2004-2011 Maurits Rijk
 //
-// Variable.cs
+// IVariable.cs
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -23,48 +23,8 @@ using System;
 
 namespace Gimp
 {
-  public class Variable<T> : IVariable
+  public interface IVariable
   {
-    public event EventHandler ValueChanged;
-
-    T _value;
-
-    public string Identifier {get; private set;}
-    public string Description {get; private set;}
-    public T DefaultValue {get; set;}
-
-    public Variable(string identifier, string description, T defaultValue)
-    {
-      Identifier = identifier;
-      Description = description;
-      DefaultValue = defaultValue;
-    }
-
-    public T Value
-    {
-      get {return _value;}
-      set 
-	{
-	  if (!value.Equals(_value))
-	    {
-	      _value = value;
-	      if (ValueChanged != null)
-		{
-		  // Fix me: maybe pass new and old value?
-		  ValueChanged(this, new EventArgs());
-		}
-	    }
-	}
-    }
-
-    public Type Type
-    {
-      get {return typeof(T);}
-    }
-
-    public void Reset()
-    {
-      Value = DefaultValue;
-    }
+    Type Type {get;}
   }
 }

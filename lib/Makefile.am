@@ -65,6 +65,7 @@ MYSOURCES = 				\
 	LayerList.cs			\
 	Image.cs			\
 	ImageList.cs			\
+	IVariable.cs			\
 	Mask.cs				\
 	Message.cs			\
 	Offset.cs			\
@@ -112,6 +113,7 @@ MYSOURCES = 				\
 	Tile.cs				\
 	Util.cs				\
 	Variable.cs			\
+	VariableSet.cs			\
 	Vectors.cs			\
 	Vector2.cs			\
 	Vector3.cs			\

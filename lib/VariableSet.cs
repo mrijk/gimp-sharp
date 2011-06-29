@@ -20,51 +20,29 @@
 //
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Gimp
 {
-  public class Variable<T> : IVariable
+
+  public class VariableSet : IEnumerable<IVariable>
   {
-    public event EventHandler ValueChanged;
-
-    T _value;
-
-    public string Identifier {get; private set;}
-    public string Description {get; private set;}
-    public T DefaultValue {get; set;}
-
-    public Variable(string identifier, string description, T defaultValue)
+    List<IVariable> _set = new List<IVariable>();
+    
+    public void Add(IVariable v)
     {
-      Identifier = identifier;
-      Description = description;
-      DefaultValue = defaultValue;
+      _set.Add(v);
     }
-
-    public T Value
+    
+    public IEnumerator<IVariable> GetEnumerator()
     {
-      get {return _value;}
-      set 
-	{
-	  if (!value.Equals(_value))
-	    {
-	      _value = value;
-	      if (ValueChanged != null)
-		{
-		  // Fix me: maybe pass new and old value?
-		  ValueChanged(this, new EventArgs());
-		}
-	    }
-	}
+      return _set.GetEnumerator();
     }
-
-    public Type Type
+    
+    IEnumerator IEnumerable.GetEnumerator()
     {
-      get {return typeof(T);}
-    }
-
-    public void Reset()
-    {
-      Value = DefaultValue;
+      return GetEnumerator();
     }
   }
 }

@@ -27,8 +27,12 @@ namespace Gimp.Pointillize
 {
   class Pointillize : PluginWithPreview
   {
+#if _old_
     [SaveAttribute("cell_size")]
     int _cellSize = 30;
+#else
+    Variable<int> _cellSize = new Variable<int>("cell_size", "Cell size", 30);
+#endif
 
     static void Main(string[] args)
     {
@@ -65,13 +69,9 @@ namespace Gimp.Pointillize
 
       var table = new GimpTable(1, 3);
 
-      var entry = new ScaleEntry(table, 0, 1, _("Cell _Size:"), 150, 3,
-				 _cellSize, 3.0, 300.0, 1.0, 8.0, 0);
-      entry.ValueChanged += delegate
-	{
-	  _cellSize = entry.ValueAsInt;
-	  InvalidatePreview();
-	};
+      new ScaleEntry(table, 0, 1, _("Cell _Size:"), 150, 3,
+		     _cellSize, 3.0, 300.0, 1.0, 8.0, 0);
+      _cellSize.ValueChanged += delegate {InvalidatePreview();}; 
 
       Vbox.PackStart(table, false, false, 0);
       
@@ -91,7 +91,7 @@ namespace Gimp.Pointillize
 
     Func<IntCoordinate, Pixel> GetPointillizeFunc(Drawable drawable)
     {
-      var coordinates = new ColorCoordinateSet(drawable, _cellSize);
+      var coordinates = new ColorCoordinateSet(drawable, _cellSize.Value);
       return (c) => coordinates.GetColor(c);
     }
   }
