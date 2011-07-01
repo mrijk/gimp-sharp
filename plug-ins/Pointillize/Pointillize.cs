@@ -19,7 +19,6 @@
 //
 
 using System;
-using System.Collections.Generic;
 
 using Gtk;
 
@@ -27,29 +26,24 @@ namespace Gimp.Pointillize
 {
   class Pointillize : PluginWithPreview
   {
-#if _old_
-    [SaveAttribute("cell_size")]
-    int _cellSize = 30;
-#else
     Variable<int> _cellSize = new Variable<int>("cell_size", "Cell size", 30);
-#endif
 
     static void Main(string[] args)
     {
       GimpMain<Pointillize>(args);
     }
 
-    override protected IEnumerable<Procedure> ListProcedures()
+    override protected Procedure GetProcedure()
     {
-      yield return new Procedure("plug_in_pointillize",
-				 _("Create pointillist paintings"),
-				 _("Create pointillist paintings"),
-				 "Maurits Rijk",
-				 "(C) Maurits Rijk",
-				 "2006-2011",
-				 _("Pointillize..."),
-				 "RGB*, GRAY*",
-				 new ParamDefList(_cellSize))
+      return new Procedure("plug_in_pointillize",
+			   _("Create pointillist paintings"),
+			   _("Create pointillist paintings"),
+			   "Maurits Rijk",
+			   "(C) Maurits Rijk",
+			   "2006-2011",
+			   _("Pointillize..."),
+			   "RGB*, GRAY*",
+			   new ParamDefList(_cellSize))
 	{
 	  MenuPath = "<Image>/Filters/Artistic",
 	  IconFile = "Pointillize.png"

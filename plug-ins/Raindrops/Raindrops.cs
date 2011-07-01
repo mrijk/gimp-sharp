@@ -19,7 +19,6 @@
 //
 
 using System;
-using System.Collections.Generic;
 
 using Gtk;
 
@@ -41,17 +40,17 @@ namespace Gimp.Raindrops
       GimpMain<Raindrops>(args);
     }
 
-    override protected IEnumerable<Procedure> ListProcedures()
+    override protected Procedure GetProcedure()
     {
-      yield return new Procedure("plug_in_raindrops",
-				 _("Generates raindrops"),
-				 _("Generates raindrops"),
-				 "Massimo Perga",
-				 "(C) Massimo Perga",
-				 "2006-2011",
-				 _("Raindrops..."),
-				 "RGB*, GRAY*",
-				 new ParamDefList(_dropSize, _number, _fishEye))
+      return new Procedure("plug_in_raindrops",
+			   _("Generates raindrops"),
+			   _("Generates raindrops"),
+			   "Massimo Perga",
+			   "(C) Massimo Perga",
+			   "2006-2011",
+			   _("Raindrops..."),
+			   "RGB*, GRAY*",
+			   new ParamDefList(_dropSize, _number, _fishEye))
 	{
 	  MenuPath = "<Image>/Filters/" + _("Light and Shadow") + "/" + 
 	    _("Glass"),

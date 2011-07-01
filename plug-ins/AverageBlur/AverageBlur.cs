@@ -18,9 +18,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-using System.Collections.Generic;
-
 namespace Gimp.AverageBlur
 {
   class AverageBlur : Plugin
@@ -30,16 +27,16 @@ namespace Gimp.AverageBlur
       GimpMain<AverageBlur>(args);
     }
 
-    override protected IEnumerable<Procedure> ListProcedures()
+    override protected Procedure GetProcedure()
     {
-      yield return new Procedure("plug_in_average_blur",
-				 _("Average blur"),
-				 _("Average blur"),
-				 "Maurits Rijk",
-				 "(C) Maurits Rijk",
-				 "2006-2011",
-				 _("Average"),
-				 "RGB*, GRAY*")
+      return new Procedure("plug_in_average_blur",
+			   _("Average blur"),
+			   _("Average blur"),
+			   "Maurits Rijk",
+			   "(C) Maurits Rijk",
+			   "2006-2011",
+			   _("Average"),
+			   "RGB*, GRAY*")
 	{MenuPath = "<Image>/Filters/Blur"};
     }
 

@@ -18,9 +18,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-using System.Collections.Generic;
-
 namespace Gimp.KoalaPaint
 {	
   class KoalaPaint : FilePlugin
@@ -37,15 +34,15 @@ namespace Gimp.KoalaPaint
       GimpMain<KoalaPaint>(args);
     }
 
-    override protected IEnumerable<Procedure> ListProcedures()
+    override protected Procedure GetProcedure()
     {
-      yield return 
+      return 
 	FileLoadProcedure("file_koala_paint_load",
 			  _("loads images of the Koala Paint file format"),
 			  _("This plug-in loads images of the Koala Paint file format."),
 			  "Maurits Rijk",
 			  "(C) Maurits Rijk",
-			  "1999 - 2011",
+			  "1999-2011",
 			  _("KoalaPaint Image"));
     }
 

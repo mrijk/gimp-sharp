@@ -44,6 +44,8 @@ namespace Gimp
     protected Image _image;
     protected Drawable _drawable;
 
+    VariableSet _variables;
+
     [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
     public delegate void InitProc();
     [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
@@ -99,7 +101,9 @@ namespace Gimp
     {
     }
 
-    protected abstract IEnumerable<Procedure> ListProcedures() ;
+    protected virtual IEnumerable<Procedure> ListProcedures() {yield break;}
+
+    protected virtual Procedure GetProcedure() {return null;}
 
     bool HasMethod(string methodName)
     {
@@ -144,8 +148,22 @@ namespace Gimp
     {
       GetRequiredParameters();
 
-      var procedures = new ProcedureSet(ListProcedures());
+      var procedures = GetSupportedProcedures();
       procedures.Install(_usesImage, _usesDrawable);     
+    }
+
+    ProcedureSet GetSupportedProcedures()
+    {
+      var procedures = new ProcedureSet(ListProcedures());
+      if (procedures.Count == 0)
+	{
+	  var procedure = GetProcedure();
+	  if (procedure != null)
+	    {
+	      procedures.Add(procedure);
+	    }
+	}
+      return procedures;
     }
 
     virtual protected void Run(string name, ParamDefList inParam,
@@ -230,7 +248,7 @@ namespace Gimp
 
       GetRequiredParameters();
 
-      var procedures = new ProcedureSet(ListProcedures());
+      var procedures = GetSupportedProcedures();
 
       var procedure = procedures[name];
       var inParam = procedure.InParams;
@@ -329,7 +347,11 @@ namespace Gimp
 				      ts.Milliseconds / 10));
     }
     
-    virtual protected void Reset() {}
+    virtual protected void Reset() 
+    {
+      // _variables.Reset();
+    }
+
     virtual protected void Render() {}
     virtual protected void Render(Drawable drawable) {}
     virtual protected void Render(Image image) {}

@@ -19,7 +19,6 @@
 //
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Gtk;
 
@@ -27,41 +26,34 @@ namespace Gimp.Trim
 {
   class Trim : Plugin
   {
-    [SaveAttribute("based_on")]
-    int _basedOn = 1;
-    [SaveAttribute("top")]
-    bool _top = true;
-    [SaveAttribute("left")]
-    bool _left = true;
-    [SaveAttribute("bottom")]
-    bool _bottom = true;
-    [SaveAttribute("right")]
-    bool _right = true;
+    Variable<int> _basedOn = new Variable<int>
+    ("based-on", _("Based On"), 1);
+    Variable<bool> _top = new Variable<bool>
+    ("top", _("Trim Top"), true);
+    Variable<bool> _left = new Variable<bool>
+    ("left", _("Trim Left"), true);
+    Variable<bool> _bottom = new Variable<bool>
+    ("bottom", _("Trim Bottom"), true);
+    Variable<bool> _right = new Variable<bool>
+    ("right", _("Trim Right"), true);
 
     static void Main(string[] args)
     {
       GimpMain<Trim>(args);
     }
 
-    override protected IEnumerable<Procedure> ListProcedures()
+    override protected Procedure GetProcedure()
     {
-      var inParams = new ParamDefList() {
-	new ParamDef("based-on", 1, typeof(int), _("Based On")),
-	new ParamDef("top", 1, typeof(bool), _("Trim Top")),
-	new ParamDef("left", 1, typeof(bool), _("Trim Left")),
-	new ParamDef("bottom", 1, typeof(bool), _("Trim Bottom")),
-	new ParamDef("right", 1, typeof(bool), _("Trim Right"))
-      };
-
-      yield return new Procedure("plug_in_trim",
-				 _("Trim"),
-				 _("Trim"),
-				 "Maurits Rijk",
-				 "(C) Maurits Rijk",
-				 "2004-2011",
-				 "Trim...",
-				 "RGB*, GRAY*",
-				 inParams)
+      return new Procedure("plug_in_trim",
+			   _("Trim"),
+			   _("Trim"),
+			   "Maurits Rijk",
+			   "(C) Maurits Rijk",
+			   "2004-2011",
+			   "Trim...",
+			   "RGB*, GRAY*",
+			   new ParamDefList(_basedOn, _top, _left, _bottom,
+					    _right))
 	{
 	  MenuPath = "<Image>/Image",
 	};
@@ -102,12 +94,12 @@ namespace Gimp.Trim
     {
       var button = new RadioButton(previous, description);
       vbox.Add(button);
-      if (_basedOn == type) {
+      if (_basedOn.Value == type) {
 	button.Active = true;
       }
       button.Clicked += delegate {
 	if (button.Active) {
-	  _basedOn = type;
+	  _basedOn.Value = type;
 	}
       };
       return button;
@@ -130,29 +122,25 @@ namespace Gimp.Trim
 
     void CreateTopWidget(GimpTable table)
     {
-      var top = new CheckButton(_("_Top")) {Active = _top};
-      top.Toggled += delegate {_top = top.Active;};
+      var top = new GimpCheckButton(_("_Top"), _top);
       table.Attach(top, 0, 1, 0, 1);
     }
 
     void CreateLeftWidget(GimpTable table)
     {
-      var left = new CheckButton(_("_Left")) {Active = _left};
-      left.Toggled += delegate {_left = left.Active;};
+      var left = new GimpCheckButton(_("_Left"), _left);
       table.Attach(left, 1, 2, 0, 1);
     }
 
     void CreateBottomWidget(GimpTable table)
     {
-      var bottom = new CheckButton(_("_Bottom")) {Active = _bottom};
-      bottom.Toggled += delegate {_bottom = bottom.Active;};
+      var bottom = new GimpCheckButton(_("_Bottom"), _bottom);
       table.Attach(bottom, 0, 1, 1, 2);
     }
 
     void CreateRightWidget(GimpTable table)
     {
-      var right = new CheckButton(_("_Right")) {Active = _right};
-      right.Toggled += delegate {_right = right.Active;};
+      var right = new GimpCheckButton(_("_Right"), _right);
       table.Attach(right, 1, 2, 1, 2);
     }
 
@@ -170,16 +158,17 @@ namespace Gimp.Trim
       int y = 0;
       src.ForEachRow(row => rows[y++] = AllEqual(row, trimColor));
 
-      int y1 = (_top) ? Array.FindIndex(rows, notTrue) : 0;
-      int y2 = (_bottom) ? Array.FindLastIndex(rows, notTrue) + 1 : height;
+      int y1 = (_top.Value) ? Array.FindIndex(rows, notTrue) : 0;
+      int y2 = (_bottom.Value) ? 
+	Array.FindLastIndex(rows, notTrue) + 1 : height;
 
       int width = drawable.Width;
       var cols = new bool[width];
       int x = 0;
       src.ForEachColumn(col => cols[x++] = AllEqual(col, trimColor));
 
-      int x1 = (_left) ? Array.FindIndex(cols, notTrue) : 0;
-      int x2 = (_right) ? Array.FindLastIndex(cols, notTrue) + 1 : width;
+      int x1 = (_left.Value) ? Array.FindIndex(cols, notTrue) : 0;
+      int x2 = (_right.Value) ? Array.FindLastIndex(cols, notTrue) + 1 : width;
 
       if (x1 != 0 || y1 != 0 || x2 != width || y2 != height)
 	{
@@ -189,11 +178,11 @@ namespace Gimp.Trim
 
     Pixel GetTrimColor(PixelRgn src, Drawable drawable)
     {
-      if (_basedOn == 0)
+      if (_basedOn.Value == 0)
 	{
 	  return new Pixel(0, 0, 0, 0);
 	}
-      else if (_basedOn == 1)
+      else if (_basedOn.Value == 1)
 	{
 	  return src[0, 0];
 	}

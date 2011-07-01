@@ -16,8 +16,8 @@ Release 0.18
 - generic preview plug-in
 - implement Reset
 - get/set persistent data
-- simpler version of ListProcedures if only 1 procedure
 - Automatic preview update if any variable changes
+- Fix Mezzotint preview
 
 Release 0.19
 ------------

@@ -19,9 +19,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-using System.Collections.Generic;
-
 namespace Gimp.neo
 {	
   class neo : FilePlugin
@@ -34,15 +31,15 @@ namespace Gimp.neo
       GimpMain<neo>(args);
     }
 
-    override protected IEnumerable<Procedure> ListProcedures()
+    override protected Procedure GetProcedure()
     {
-      yield return FileLoadProcedure("file_neo_load",
-				     _("Loads neo images"),
-				     _("This plug-in loads Neochrome images."),
-				     "Maurits Rijk",
-				     "(C) Maurits Rijk",
-				     "2006-2011",
-				     _("Neochrome Image"));
+      return FileLoadProcedure("file_neo_load",
+			       _("Loads neo images"),
+			       _("This plug-in loads Neochrome images."),
+			       "Maurits Rijk",
+			       "(C) Maurits Rijk",
+			       "2006-2011",
+			       _("Neochrome Image"));
     }
 
     override protected void Query()

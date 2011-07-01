@@ -19,9 +19,6 @@
 //
 
 using System;
-using System.Collections.Generic;
-
-using Gtk;
 
 namespace Gimp.Shatter
 {
@@ -35,17 +32,17 @@ namespace Gimp.Shatter
       GimpMain<Shatter>(args);
     }
 
-    override protected IEnumerable<Procedure> ListProcedures()
+    override protected Procedure GetProcedure()
     {
-      yield return new Procedure("plug_in_shatter",
-				 _("Shatter an image"),
-				 _("Shatter an image"),
-				 "Maurits Rijk",
-				 "(C) Maurits Rijk",
-				 "2006-2011",
-				 _("Shatter..."),
-				 "RGB*, GRAY*",
-				 new ParamDefList(_pieces))
+      return new Procedure("plug_in_shatter",
+			   _("Shatter an image"),
+			   _("Shatter an image"),
+			   "Maurits Rijk",
+			   "(C) Maurits Rijk",
+			   "2006-2011",
+			   _("Shatter..."),
+			   "RGB*, GRAY*",
+			   new ParamDefList(_pieces))
 	{
 	  MenuPath = "<Image>/Filters/Distorts",
 	  IconFile = "Shatter.png"

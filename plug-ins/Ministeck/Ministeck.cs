@@ -19,7 +19,7 @@
 //
 
 using System;
-using System.Collections.Generic;
+// using System.Collections.Generic;
 
 using Gtk;
 
@@ -43,17 +43,17 @@ namespace Gimp.Ministeck
       GimpMain<Ministeck>(args);
     }
 
-    override protected IEnumerable<Procedure> ListProcedures()
+    override protected Procedure GetProcedure()
     {
-      yield return new Procedure("plug_in_ministeck",
-				 _("Generates Ministeck"),
-				 _("Generates Ministeck"),
-				 "Maurits Rijk",
-				 "(C) Maurits Rijk",
-				 "2004-2011",
-				 _("Ministeck..."),
-				 "RGB*, GRAY*",
-				 new ParamDefList(_limit, _size, _color))
+      return new Procedure("plug_in_ministeck",
+			   _("Generates Ministeck"),
+			   _("Generates Ministeck"),
+			   "Maurits Rijk",
+			   "(C) Maurits Rijk",
+			   "2004-2011",
+			   _("Ministeck..."),
+			   "RGB*, GRAY*",
+			   new ParamDefList(_limit, _size, _color))
 	{
 	  MenuPath = "<Image>/Filters/Artistic",
 	  IconFile = "Ministeck.png"
@@ -85,7 +85,7 @@ namespace Gimp.Ministeck
       table.Attach(limit, 2, 3, 0, 1);
 
       var colorButton = new GimpColorButton("", 16, 16, _color, 
-					      ColorAreaType.Flat) 
+					    ColorAreaType.Flat) 
 	{Update = true};
 
       table.AttachAligned(0, 1, _("C_olor:"), 0.0, 0.5, colorButton, 1, true);

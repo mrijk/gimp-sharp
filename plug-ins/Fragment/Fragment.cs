@@ -18,8 +18,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System.Collections.Generic;
-
 namespace Gimp.Fragment
 {
   class Fragment : Plugin
@@ -29,16 +27,16 @@ namespace Gimp.Fragment
       GimpMain<Fragment>(args);
     }
 
-    override protected IEnumerable<Procedure> ListProcedures()
+    override protected Procedure GetProcedure()
     {
-      yield return new Procedure("plug_in_fragment",
-				 _("Fragments the picture"),
-				 _("Creates four copies of the pixels in the selection, averages them, and offsets them from each other."),
-				 "Maurits Rijk",
-				 "(C) Maurits Rijk",
-				 "2006-2011",
-				 _("Fragment"),
-				 "RGB*, GRAY*")
+      return new Procedure("plug_in_fragment",
+			   _("Fragments the picture"),
+			   _("Creates four copies of the pixels in the selection, averages them, and offsets them from each other."),
+			   "Maurits Rijk",
+			   "(C) Maurits Rijk",
+			   "2006-2011",
+			   _("Fragment"),
+			   "RGB*, GRAY*")
 	{
 	  MenuPath = "<Image>/Filters/Distorts"
 	};

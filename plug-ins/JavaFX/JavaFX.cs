@@ -19,7 +19,6 @@
 //
 
 using System;
-using System.Collections.Generic;
 using Gtk;
 
 namespace Gimp.JavaFX
@@ -31,18 +30,19 @@ namespace Gimp.JavaFX
       GimpMain<JavaFX>(args);
     }
 
-    override protected IEnumerable<Procedure> ListProcedures()
+    override protected Procedure GetProcedure()
     {
-      yield return new Procedure("plug_in_javafx",
-				 _("JavaFX"),
-				 _("JavaFX"),
-				 "Maurits Rijk",
-				 "(C) Maurits Rijk",
-				 "2006-2011",
-				 _("Save As JavaFX"),
-				 "RGB*, GRAY*")
-	{MenuPath = "<Toolbox>/Xtns/Extensions",
-	 IconFile = "JavaFX.png"
+      return new Procedure("plug_in_javafx",
+			   _("JavaFX"),
+			   _("JavaFX"),
+			   "Maurits Rijk",
+			   "(C) Maurits Rijk",
+			   "2006-2011",
+			   _("Save As JavaFX"),
+			   "RGB*, GRAY*")
+	{
+	  MenuPath = "<Toolbox>/Xtns/Extensions",
+	  IconFile = "JavaFX.png"
 	};
     }
 

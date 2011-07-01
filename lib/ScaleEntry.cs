@@ -64,6 +64,21 @@ namespace Gimp
     {
       ValueChanged += delegate {variable.Value = ValueAsInt;};
     } 
+
+    public ScaleEntry(Table table, int column, int row, string text,
+		      int    scaleWidth,
+		      int    spinbuttonWidth,
+		      Variable<double> variable,
+		      double lower,
+		      double upper,
+		      double stepIncrement,
+		      double pageIncrement,
+		      uint   digits) :
+      this(table, column, row, text, scaleWidth, spinbuttonWidth,
+	   variable.Value, lower, upper, stepIncrement, pageIncrement, digits)
+    {
+      ValueChanged += delegate {variable.Value = Value;};
+    } 
     
     public int ValueAsInt
     {

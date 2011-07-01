@@ -19,10 +19,9 @@
 //
 
 using System;
-using System.Collections.Generic;
 using Gtk;
 
-namespace Gimp.ncp
+namespace Gimp.ShapeCollage
 {
   class ShapeCollage : Plugin
   {
@@ -31,20 +30,20 @@ namespace Gimp.ncp
       GimpMain<ShapeCollage>(args);
     }
 
-    override protected IEnumerable<Procedure> ListProcedures()
+    override protected Procedure GetProcedure()
     {
       var inParams = new ParamDefList() {
       };
 
-      yield return new Procedure("plug_in_shape_collage",
-				 _("Generates collage"),
-				 _("Generates collage"),
-				 "Maurits Rijk",
-				 "(C) Maurits Rijk",
-				 "2004-2011",
-				 "ShapeCollage...",
-				 "RGB*, GRAY*",
-				 inParams)
+      return new Procedure("plug_in_shape_collage",
+			   _("Generates collage"),
+			   _("Generates collage"),
+			   "Maurits Rijk",
+			   "(C) Maurits Rijk",
+			   "2004-2011",
+			   "ShapeCollage...",
+			   "RGB*, GRAY*",
+			   inParams)
 	{
 	  MenuPath = "<Toolbox>/Xtns/Extensions",
 	  IconFile = "ShapeCollage.png"

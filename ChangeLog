@@ -1,5 +1,26 @@
 2011-07-01  Maurits Rijk  <maurits.rijk@gmail.com>
 
+	* plug-ins/Sky/Sky.cs: use Variable class
+
+	* lib/Plugin.cs: simplified registration of procedures
+
+	* plug-ins/Shatter/Shatter.cs
+	* plug-ins/ShapeCollage/ShapeCollage.cs
+	* plug-ins/Raindrops/Raindrops.cs
+	* plug-ins/QR/QR.cs
+	* plug-ins/PictureFrame/PictureFrame.cs
+	* plug-ins/PhotoshopActions/PhotoshopActions.cs
+	* plug-ins/neo/neo.cs
+	* plug-ins/ncp/ncp.cs
+	* plug-ins/Ministeck/Ministeck.cs
+	* plug-ins/Mezzotint/Mezzotint.cs
+	* plug-ins/KoalaPaint/KoalaPaint.cs
+	* plug-ins/JavaFX/JavaFX.cs
+	* plug-ins/Fragment/Fragment.cs
+	* plug-ins/AverageBlur/AverageBlur.cs: use simplified registration
+
+2011-07-01  Maurits Rijk  <maurits.rijk@gmail.com>
+
 	* lib/RandomSeed.cs: use Variable class
 
 	* lib/Variable.cs: initialize value with default value

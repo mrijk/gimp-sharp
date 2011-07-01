@@ -19,7 +19,6 @@
 //
 
 using System;
-using System.Collections.Generic;
 using Gtk;
 
 namespace Gimp.QR
@@ -40,7 +39,7 @@ namespace Gimp.QR
       GimpMain<QR>(args);
     }
 
-    override protected IEnumerable<Procedure> ListProcedures()
+    override protected Procedure GetProcedure()
     {
       var inParams = new ParamDefList() {
 	new ParamDef("text", "", typeof(string),
@@ -53,15 +52,15 @@ namespace Gimp.QR
 		     _("Margin")),
       };
 
-      yield return new Procedure("plug_in_QR",
-				 _("Generates QR codes"),
-				 _("Generates QR codes"),
-				 "Maurits Rijk",
-				 "(C) Maurits Rijk",
-				 "2010-2011",
-				 "QR codes...",
-				 "*",
-				 inParams)
+      return new Procedure("plug_in_QR",
+			   _("Generates QR codes"),
+			   _("Generates QR codes"),
+			   "Maurits Rijk",
+			   "(C) Maurits Rijk",
+			   "2010-2011",
+			   "QR codes...",
+			   "*",
+			   inParams)
 	{
 	  MenuPath = "<Image>/Filters/Render",
 	  IconFile = "QR.png"

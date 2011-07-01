@@ -19,7 +19,6 @@
 //
 
 using System;
-using System.Collections.Generic;
 
 using Gtk;
 
@@ -34,16 +33,16 @@ namespace Gimp.Mezzotint
       GimpMain<Mezzotint>(args);
     }
 
-    override protected IEnumerable<Procedure> ListProcedures()
+    override protected Procedure GetProcedure()
     {
-      yield return new Procedure("plug_in_mezzotint",
-				 _("Mezzotint"),
-				 _("Mezzotint"),
-				 "Maurits Rijk",
-				 "(C) Maurits Rijk",
-				 "2007-2011",
-				 _("Mezzotint..."),
-				 "RGB*")
+      return new Procedure("plug_in_mezzotint",
+			   _("Mezzotint"),
+			   _("Mezzotint"),
+			   "Maurits Rijk",
+			   "(C) Maurits Rijk",
+			   "2007-2011",
+			   _("Mezzotint..."),
+			   "RGB*")
 	{
 	  MenuPath = "<Image>/Filters/Noise",
 	  IconFile = "Mezzotint.png"

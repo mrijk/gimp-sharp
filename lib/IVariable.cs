@@ -28,5 +28,7 @@ namespace Gimp
     string Identifier {get;}
     Type Type {get;}
     string Description {get;}
+
+    void Reset();
   }
 }

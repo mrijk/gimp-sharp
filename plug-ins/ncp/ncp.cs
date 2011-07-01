@@ -19,7 +19,6 @@
 //
 
 using System;
-using System.Collections.Generic;
 using Gtk;
 
 namespace Gimp.ncp
@@ -48,17 +47,17 @@ namespace Gimp.ncp
       GimpMain<ncp>(args);
     }
 
-    override protected IEnumerable<Procedure> ListProcedures()
+    override protected Procedure GetProcedure()
     {
-      yield return new Procedure("plug_in_ncp",
-				 _("Generates 2D textures"),
-				 _("Generates 2D textures"),
-				 "Maurits Rijk",
-				 "(C) Maurits Rijk",
-				 "2004-2011",
-				 "NCP...",
-				 "RGB*, GRAY*",
-				 new ParamDefList(_points, _closest, _color))
+      return new Procedure("plug_in_ncp",
+			   _("Generates 2D textures"),
+			   _("Generates 2D textures"),
+			   "Maurits Rijk",
+			   "(C) Maurits Rijk",
+			   "2004-2011",
+			   "NCP...",
+			   "RGB*, GRAY*",
+			   new ParamDefList(_points, _closest, _color))
 	{
 	  MenuPath = "<Image>/Filters/Render",
 	  IconFile = "ncp.png"

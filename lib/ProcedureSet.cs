@@ -46,6 +46,12 @@ namespace Gimp
       _set[procedure.Name] = procedure;
     }
 
+
+    public int Count
+    {
+      get {return _set.Count;}
+    }
+
     public void Install(bool usesImage, bool usesDrawable)
     {
       _set.Values.ToList().ForEach(p => p.Install(usesImage, usesDrawable));

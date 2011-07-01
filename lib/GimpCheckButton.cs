@@ -29,6 +29,8 @@ namespace Gimp
     {
       Active = variable.Value;
       Toggled += delegate {variable.Value = Active;};
+
+      // variable.ValueChanged += delegate {Active = variable.Value;};
     }
   }
 }

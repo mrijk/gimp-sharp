@@ -49,5 +49,10 @@ namespace Gimp
     {
       _set.ForEach(action);
     }
+
+    public void Reset()
+    {
+      ForEach(v => v.Reset());
+    }
   }
 }

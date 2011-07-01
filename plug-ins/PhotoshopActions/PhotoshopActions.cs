@@ -36,19 +36,19 @@ namespace Gimp.PhotoshopActions
       GimpMain<PhotoshopActions>(args);
     }
 
-    override protected IEnumerable<Procedure> ListProcedures()
+    override protected Procedure GetProcedure()
     {
       var inParams = new ParamDefList();
 
-      yield return new Procedure("plug_in_photoshop_actions",
-				 "Play Photoshop action files",
-				 "Play Photoshop action files",
-				 "Maurits Rijk",
-				 "(C) Maurits Rijk",
-				 "2006-2011",
-				 "Photoshop Actions...",
-				 "",
-				 inParams)
+      return new Procedure("plug_in_photoshop_actions",
+			   "Play Photoshop action files",
+			   "Play Photoshop action files",
+			   "Maurits Rijk",
+			   "(C) Maurits Rijk",
+			   "2006-2011",
+			   "Photoshop Actions...",
+			   "",
+			   inParams)
 	{
 	  MenuPath = "<Toolbox>/Xtns/Extensions",
 	  IconFile = "PhotoshopActions.png"

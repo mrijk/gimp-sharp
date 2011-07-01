@@ -19,15 +19,13 @@
 //
 
 using System;
-using System.Collections.Generic;
 
 using Gtk;
 
 namespace Gimp.PictureFrame
 {
   public class PictureFrame : Plugin
-  {
-  
+  {  
     private string _pictureFrameImagePath;
   
     static void Main(string[] args)
@@ -35,16 +33,16 @@ namespace Gimp.PictureFrame
       GimpMain<PictureFrame>(args);
     }
 
-    override protected IEnumerable<Procedure> ListProcedures()
+    override protected Procedure GetProcedure()
     {
-      yield return new Procedure("plug_in_picture_frame",
-				 _("Picture frame"),
-				 _("Picture frame"),
-				 "Oded Coster",
-				 "(C) Oded Coster",
-				 "2006-2011",
-				 _("Picture frame..."),
-				 "RGB*, GRAY*")
+      return new Procedure("plug_in_picture_frame",
+			   _("Picture frame"),
+			   _("Picture frame"),
+			   "Oded Coster",
+			   "(C) Oded Coster",
+			   "2006-2011",
+			   _("Picture frame..."),
+			   "RGB*, GRAY*")
 	{
 	  MenuPath = "<Image>/Filters/Render",
 	  IconFile = "PictureFrame.png"
