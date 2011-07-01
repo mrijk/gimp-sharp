@@ -27,8 +27,8 @@ namespace Gimp.Shatter
 {
   public class Shatter : PluginWithPreview
   {
-    [SaveAttribute("pieces")]
-    int _pieces = 4;
+    Variable<int> _pieces = new Variable<int>("pieces", _("Number of shards"),
+					      4);
 
     static void Main(string[] args)
     {
@@ -37,9 +37,6 @@ namespace Gimp.Shatter
 
     override protected IEnumerable<Procedure> ListProcedures()
     {
-      var inParams = new ParamDefList() {
-	new ParamDef("pieces", 4, typeof(int), "Number of shards")};
-
       yield return new Procedure("plug_in_shatter",
 				 _("Shatter an image"),
 				 _("Shatter an image"),
@@ -48,7 +45,7 @@ namespace Gimp.Shatter
 				 "2006-2011",
 				 _("Shatter..."),
 				 "RGB*, GRAY*",
-				 inParams)
+				 new ParamDefList(_pieces))
 	{
 	  MenuPath = "<Image>/Filters/Distorts",
 	  IconFile = "Shatter.png"
@@ -64,14 +61,8 @@ namespace Gimp.Shatter
 	ColumnSpacing = 6, RowSpacing = 6};
       Vbox.PackStart(table, false, false, 0);
       
-      var entry = new ScaleEntry(table, 0, 1, "Pieces:", 150, 3,
-				 _pieces, 1.0, 256.0, 1.0, 8.0, 0,
-				 true, 0, 0, null, null);
-      entry.ValueChanged += delegate
-	{
-	  _pieces = entry.ValueAsInt;
-	  // InvalidatePreview();
-	};
+      new ScaleEntry(table, 0, 1, "Pieces:", 150, 3,
+		     _pieces, 1.0, 256.0, 1.0, 8.0, 0);
 
       return dialog;
     }
@@ -81,7 +72,7 @@ namespace Gimp.Shatter
       // Break up image in pieces
       var ul = new Coord(0, 0);
       var lr = new Coord(drawable.Width, drawable.Height);
-      var shards = new ShardSet(ul, lr, _pieces);
+      var shards = new ShardSet(ul, lr, _pieces.Value);
 
       // 
       

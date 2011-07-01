@@ -1,4 +1,4 @@
-Release 0.17
+Release 0.18
 ------------
 - 20 verified Photoshop action files
 
@@ -13,19 +13,25 @@ Release 0.17
 9) Convert mode to IndC
 10)
 
-Release 0.18
+- generic preview plug-in
+- implement Reset
+- get/set persistent data
+- simpler version of ListProcedures if only 1 procedure
+- Automatic preview update if any variable changes
+
+Release 0.19
 ------------
 - 30 verified Photoshop action files
 - Support for Ruby.NET or IronRuby
 
-Release 0.19
+Release 0.20
 ------------
 - 40 verified Photoshop action files
 - Documentation (Max, Maurits)
 - Working version of Update Check plug-in (Maurits)
 - Fully functional version of picture package
 
-Release 0.20
+Release 0.21
 ------------
 - Generic Lense plug-in
 - First version of PhotoFrame plug-in

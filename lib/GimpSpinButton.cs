@@ -1,7 +1,7 @@
 // GIMP# - A C# wrapper around the GIMP Library
 // Copyright (C) 2004-2011 Maurits Rijk
 //
-// IVariable.cs
+// GimpSpinButton.cs
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -19,14 +19,18 @@
 // Boston, MA 02111-1307, USA.
 //
 
-using System;
+using Gtk;
 
 namespace Gimp
 {
-  public interface IVariable
+  public class GimpSpinButton : SpinButton
   {
-    string Identifier {get;}
-    Type Type {get;}
-    string Description {get;}
+    public GimpSpinButton(double min, double max, double step, 
+			  Variable<int> variable) : 
+      base(min, max, step)
+    {
+      Value = variable.Value;
+      ValueChanged += delegate {variable.Value = ValueAsInt;};
+    }
   }
 }

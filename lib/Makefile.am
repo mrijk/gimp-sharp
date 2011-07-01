@@ -38,13 +38,16 @@ MYSOURCES = 				\
 	FreeSelectTool.cs		\
 	FuzzySelectTool.cs		\
 	GimpBaseEnums.cs		\
+	GimpCheckButton.cs		\
 	GimpColorButton.cs		\
 	GimpDialog.cs			\
+	GimpEntry.cs			\
 	GimpEnums.cs			\
 	GimpFontSelectWidget.cs		\
 	GimpFrame.cs			\
 	GimpPreview.cs			\
 	GimpSharpException.cs		\
+	GimpSpinButton.cs		\
 	GimpStock.cs			\
 	GimpTable.cs			\
 	GimpTypes.cs			\

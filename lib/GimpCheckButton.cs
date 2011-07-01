@@ -1,7 +1,7 @@
 // GIMP# - A C# wrapper around the GIMP Library
 // Copyright (C) 2004-2011 Maurits Rijk
 //
-// IVariable.cs
+// GimpCheckButton.cs
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -19,14 +19,16 @@
 // Boston, MA 02111-1307, USA.
 //
 
-using System;
+using Gtk;
 
 namespace Gimp
 {
-  public interface IVariable
+  public class GimpCheckButton : CheckButton
   {
-    string Identifier {get;}
-    Type Type {get;}
-    string Description {get;}
+    public GimpCheckButton(string label, Variable<bool> variable) : base(label)
+    {
+      Active = variable.Value;
+      Toggled += delegate {variable.Value = Active;};
+    }
   }
 }

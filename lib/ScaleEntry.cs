@@ -25,87 +25,87 @@ using System.Runtime.InteropServices;
 using Gtk;
 
 namespace Gimp
+{
+  public class ScaleEntry : Adjustment
   {
-    public class ScaleEntry : Adjustment
+    public ScaleEntry(Table table, int column, int row, string text,
+		      int    scaleWidth,
+		      int    spinbuttonWidth,
+		      double value,
+		      double lower,
+		      double upper,
+		      double stepIncrement,
+		      double pageIncrement,
+		      uint   digits,
+		      bool   constrain = true,
+		      double unconstrainedLower = 0.0,
+		      double unconstrainedUpper = 0.0,
+		      string tooltip = null,
+		      string helpId = null) :
+      base(gimp_scale_entry_new(table.Handle, column, row, text, scaleWidth,
+				spinbuttonWidth, value, lower, upper, 
+				stepIncrement, pageIncrement, digits,
+				constrain, unconstrainedLower,
+				unconstrainedUpper, tooltip, helpId))
     {
-      public ScaleEntry(Table table, int column, int row, string text,
-			int    scaleWidth,
-			int    spinbuttonWidth,
-			double value,
-			double lower,
-			double upper,
-			double stepIncrement,
-			double pageIncrement,
-			uint   digits,
-			bool   constrain = true,
-			double unconstrainedLower = 0.0,
-			double unconstrainedUpper = 0.0,
-			string tooltip = null,
-			string helpId = null) :
-	base(gimp_scale_entry_new(table.Handle, column, row, text, scaleWidth,
-				  spinbuttonWidth, value, lower, upper, 
-				  stepIncrement, pageIncrement, digits,
-				  constrain, unconstrainedLower,
-				  unconstrainedUpper, tooltip, helpId))
-      {
-      }
-
-      public ScaleEntry(Table table, int column, int row, string text,
-			int    scaleWidth,
-			int    spinbuttonWidth,
-			Variable<int> variable,
-			double lower,
-			double upper,
-			double stepIncrement,
-			double pageIncrement,
-			uint   digits) :
-	this(table, column, row, text, scaleWidth, spinbuttonWidth,
-	     variable.Value, lower, upper, stepIncrement, pageIncrement, digits)
-      {
-	ValueChanged += delegate {variable.Value = ValueAsInt;};
-      } 
-
-      public int ValueAsInt
-      {
-	get {return (int) Value;}
-      }
-
-      public bool Sensitive
-      {
-	set {gimp_scale_entry_set_sensitive(Handle, value);}
-      }
-
-      public bool Logarithmic
-      {
-	get {return gimp_scale_entry_get_logarithmic(Handle);}
-	set {gimp_scale_entry_set_logarithmic(Handle, value);}
-      }
-
-      [DllImport("libgimpwidgets-2.0-0.dll")]
-      extern static IntPtr gimp_scale_entry_new(IntPtr table,
-						int    column,
-						int    row,
-						string	text,
-						int    scale_width,
-						int    spinbutton_width,
-						double value,
-						double lower,
-						double upper,
-						double step_increment,
-						double page_increment,
-						uint   digits,
-						bool   constrain,
-						double	unconstrained_lower,
-						double unconstrained_upper,
-						string tooltip,
-						string help_id);
-      [DllImport("libgimpwidgets-2.0-0.dll")]
-      extern static void gimp_scale_entry_set_sensitive(IntPtr adjustment,
-							bool sensitive);
-      [DllImport("libgimpwidgets-2.0-0.dll")]
-      extern static bool gimp_scale_entry_get_logarithmic(IntPtr adjustment);
-      [DllImport("libgimpwidgets-2.0-0.dll")]
-      extern static void gimp_scale_entry_set_logarithmic(IntPtr adjustment,
-							  bool logarithmic);
     }
+    
+    public ScaleEntry(Table table, int column, int row, string text,
+		      int    scaleWidth,
+		      int    spinbuttonWidth,
+		      Variable<int> variable,
+		      double lower,
+		      double upper,
+		      double stepIncrement,
+		      double pageIncrement,
+		      uint   digits) :
+      this(table, column, row, text, scaleWidth, spinbuttonWidth,
+	   variable.Value, lower, upper, stepIncrement, pageIncrement, digits)
+    {
+      ValueChanged += delegate {variable.Value = ValueAsInt;};
+    } 
+    
+    public int ValueAsInt
+    {
+      get {return (int) Value;}
+    }
+    
+    public bool Sensitive
+    {
+      set {gimp_scale_entry_set_sensitive(Handle, value);}
+    }
+    
+    public bool Logarithmic
+    {
+      get {return gimp_scale_entry_get_logarithmic(Handle);}
+      set {gimp_scale_entry_set_logarithmic(Handle, value);}
+    }
+    
+    [DllImport("libgimpwidgets-2.0-0.dll")]
+    extern static IntPtr gimp_scale_entry_new(IntPtr table,
+					      int    column,
+					      int    row,
+					      string	text,
+					      int    scale_width,
+					      int    spinbutton_width,
+					      double value,
+					      double lower,
+					      double upper,
+					      double step_increment,
+					      double page_increment,
+					      uint   digits,
+					      bool   constrain,
+					      double	unconstrained_lower,
+					      double unconstrained_upper,
+					      string tooltip,
+					      string help_id);
+    [DllImport("libgimpwidgets-2.0-0.dll")]
+    extern static void gimp_scale_entry_set_sensitive(IntPtr adjustment,
+						      bool sensitive);
+    [DllImport("libgimpwidgets-2.0-0.dll")]
+    extern static bool gimp_scale_entry_get_logarithmic(IntPtr adjustment);
+    [DllImport("libgimpwidgets-2.0-0.dll")]
+    extern static void gimp_scale_entry_set_logarithmic(IntPtr adjustment,
+							bool logarithmic);
+  }
 }

@@ -29,12 +29,14 @@ namespace Gimp.Ministeck
   {
     DrawablePreview _preview;
 
-    [SaveAttribute("limit")]
-    bool _limit = true;
-    [SaveAttribute("size")]
-    int _size = 16;
-    [SaveAttribute("color")]
-    RGB _color = new RGB(0, 0, 0);
+    Variable<bool> _limit = 
+    new Variable<bool>("limit", 
+		       _("Use real life ratio for number of pieces if true"), 
+		       true);
+    Variable<int> _size = new Variable<int>("size", _("Default size"), 16);
+    Variable<RGB> _color = new Variable<RGB>("color", 
+					     _("Color for the outline"), 
+					     new RGB(0, 0, 0));
 
     static void Main(string[] args)
     {
@@ -43,15 +45,6 @@ namespace Gimp.Ministeck
 
     override protected IEnumerable<Procedure> ListProcedures()
     {
-      var inParams = new ParamDefList()
-	{
-	  new ParamDef("limit", true, typeof(bool), 
-		       _("Use real life ratio for number of pieces if true")),
-	  new ParamDef("size", 16, typeof(int), 
-		       _("Default size")),
-	  new ParamDef("color", new RGB(0, 0, 0), typeof(RGB), 
-		       _("Color for the outline"))
-	};
       yield return new Procedure("plug_in_ministeck",
 				 _("Generates Ministeck"),
 				 _("Generates Ministeck"),
@@ -60,7 +53,7 @@ namespace Gimp.Ministeck
 				 "2004-2011",
 				 _("Ministeck..."),
 				 "RGB*, GRAY*",
-				 inParams)
+				 new ParamDefList(_limit, _size, _color))
 	{
 	  MenuPath = "<Image>/Filters/Artistic",
 	  IconFile = "Ministeck.png"
@@ -85,32 +78,21 @@ namespace Gimp.Ministeck
 	{ColumnSpacing = 6, RowSpacing = 6};
       vbox.PackStart(table, false, false, 0);
 
-      var size = new SpinButton(3, 100, 1) {Value = _size};
+      var size = new GimpSpinButton(3, 100, 1, _size);
       table.AttachAligned(0, 0, _("_Size:"), 0.0, 0.5, size, 2, true);
-      size.ValueChanged += delegate
-	{
-	  _size = size.ValueAsInt;
-	  _preview.Invalidate();
-	};
 
-      var limit = new CheckButton(_("_Limit Shapes"));
+      var limit = new GimpCheckButton(_("_Limit Shapes"), _limit);
       table.Attach(limit, 2, 3, 0, 1);
-      limit.Active = _limit;
-      limit.Toggled += delegate 
-	{
-	  _limit = limit.Active;
-	  _preview.Invalidate();
-	};
 
       var colorButton = new GimpColorButton("", 16, 16, _color, 
-					    ColorAreaType.Flat);
-      colorButton.Update = true;
-      colorButton.ColorChanged += delegate
-	{
-	  _color = colorButton.Color;
-	  _preview.Invalidate();
-	};
+					      ColorAreaType.Flat) 
+	{Update = true};
+
       table.AttachAligned(0, 1, _("C_olor:"), 0.0, 0.5, colorButton, 1, true);
+
+      _size.ValueChanged += UpdatePreview;
+      _limit.ValueChanged += UpdatePreview;
+      _color.ValueChanged += UpdatePreview;
 
       return dialog;
     }
@@ -131,8 +113,10 @@ namespace Gimp.Ministeck
 
     void RenderMinisteck(Image image, Drawable drawable, bool preview)
     {
+      int size = _size.Value;
+
       image.UndoGroupStart();
-      RunProcedure("plug_in_pixelize", image, drawable, _size);
+      RunProcedure("plug_in_pixelize", image, drawable, size);
 
       var palette = new MinisteckPalette();
       image.ConvertIndexed(ConvertDitherType.No, ConvertPaletteType.Custom,
@@ -144,22 +128,23 @@ namespace Gimp.Ministeck
 
       // And finally calculate the Ministeck pieces
 	
-      using (var painter = new Painter(drawable, _size, _color))
+      using (var painter = new Painter(drawable, size, _color.Value))
 	{
 	  Shape.Painter = painter;
 
-	  int width = drawable.Width / _size;
-	  int height = drawable.Height / _size;
+	  int width = drawable.Width / size;
+	  int height = drawable.Height / size;
 
 	  var A = new BoolMatrix(width, height);
 
 	  // Fill in shapes
+	  bool limit = _limit.Value;
 	  var shapes = new ShapeSet();
-	  shapes.Add((_limit) ? 2 : 1, new TwoByTwoShape());
-	  shapes.Add((_limit) ? 8 : 1, new ThreeByOneShape());
-	  shapes.Add((_limit) ? 3 : 1, new TwoByOneShape());
-	  shapes.Add((_limit) ? 2 : 1, new CornerShape());
-	  shapes.Add((_limit) ? 1 : 1, new OneByOneShape());
+	  shapes.Add((limit) ? 2 : 1, new TwoByTwoShape());
+	  shapes.Add((limit) ? 8 : 1, new ThreeByOneShape());
+	  shapes.Add((limit) ? 3 : 1, new TwoByOneShape());
+	  shapes.Add((limit) ? 2 : 1, new CornerShape());
+	  shapes.Add((limit) ? 1 : 1, new OneByOneShape());
 
 	  Action<int> update = null;
 	  if (!preview)

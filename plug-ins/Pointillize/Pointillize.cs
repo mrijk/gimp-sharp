@@ -41,11 +41,6 @@ namespace Gimp.Pointillize
 
     override protected IEnumerable<Procedure> ListProcedures()
     {
-      var inParams = new ParamDefList()
-	{
-	  new ParamDef("cell_size", 30, typeof(int), "Cell size")
-	};
-
       yield return new Procedure("plug_in_pointillize",
 				 _("Create pointillist paintings"),
 				 _("Create pointillist paintings"),
@@ -54,7 +49,7 @@ namespace Gimp.Pointillize
 				 "2006-2011",
 				 _("Pointillize..."),
 				 "RGB*, GRAY*",
-				 inParams)
+				 new ParamDefList(_cellSize))
 	{
 	  MenuPath = "<Image>/Filters/Artistic",
 	  IconFile = "Pointillize.png"

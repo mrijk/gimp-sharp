@@ -1,3 +1,26 @@
+2011-07-01  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* lib/RandomSeed.cs: use Variable class
+
+	* lib/Variable.cs: initialize value with default value
+
+	* lib/GimpColorButton.cs: use Variable class
+
+	* lib/ScaleEntry.cs: fixed indention
+
+	* lib/GimpEntry.cs
+	* lib/GimpSpinButton.cs
+	* lib/GimpCheckButton.cs: new files
+
+	* lib/Makefile.am: changed accordingly
+
+	* plug-ins/Swirlies/Swirlies.cs
+	* plug-ins/Splitter/Splitter.cs
+	* plug-ins/Shatter/Shatter.cs
+	* plug-ins/Raindrops/Raindrops.cs
+	* plug-ins/ncp/ncp.cs
+	* plug-ins/Ministeck/Ministeck.cs: start using new Variable class
+
 2011-06-29  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* plug-ins/Pointillize/Pointillize.cs: start using new Variable class

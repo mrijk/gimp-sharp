@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // GimpColorButton.cs
 //
@@ -47,6 +47,14 @@ namespace Gimp
 			   RGB color, ColorAreaType type) : 
       this(title, width, height, color.GimpRGB, type)
     {
+    }
+
+    public GimpColorButton(string title, int width, int height,
+			   Variable<RGB> variable, ColorAreaType type) :
+      this(title, width, height, variable.Value, type)
+    {
+      
+      ColorChanged += delegate {variable.Value = Color;};
     }
 
     public RGB Color

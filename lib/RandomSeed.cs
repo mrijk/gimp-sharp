@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // RandomSeed.cs
 //
@@ -28,8 +28,35 @@ namespace Gimp
   {
     public class RandomSeed : HBox
     {
-      public RandomSeed(ref UInt32 seed, ref bool random_seed) : 
-	base(gimp_random_seed_new (ref seed, ref random_seed))
+      // Inner helper class
+      class RandomSeedInfo
+      {
+	public IntPtr Handle {get; set;}
+	
+	public RandomSeedInfo(Variable<UInt32> seed, Variable<bool> randomSeed)
+	{
+	  UInt32 seedRef = seed.Value;
+	  bool randomSeedRef = randomSeed.Value;
+	  Handle = gimp_random_seed_new(ref seedRef, ref randomSeedRef);
+	}
+      }
+      
+      public RandomSeed(ref UInt32 seed, ref bool randomSeed) : 
+	base(gimp_random_seed_new(ref seed, ref randomSeed))
+      {
+      }
+ 
+      RandomSeed(Variable<UInt32> seed, Variable<bool> randomSeed,
+			RandomSeedInfo info) : base(info.Handle)
+      {
+	SpinButton.ValueChanged += delegate 
+	  {seed.Value = (UInt32) SpinButton.ValueAsInt;};
+
+	Toggle.Toggled += delegate {randomSeed.Value = Toggle.Active;};
+      }
+      
+      public RandomSeed(Variable<UInt32> seed, Variable<bool> randomSeed) :
+	this(seed, randomSeed, new RandomSeedInfo(seed, randomSeed))
       {
       }
 

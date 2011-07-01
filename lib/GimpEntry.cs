@@ -1,7 +1,7 @@
 // GIMP# - A C# wrapper around the GIMP Library
 // Copyright (C) 2004-2011 Maurits Rijk
 //
-// IVariable.cs
+// GimpEntry.cs
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -19,14 +19,16 @@
 // Boston, MA 02111-1307, USA.
 //
 
-using System;
+using Gtk;
 
 namespace Gimp
 {
-  public interface IVariable
+  public class GimpEntry : Entry
   {
-    string Identifier {get;}
-    Type Type {get;}
-    string Description {get;}
+    public GimpEntry(Variable<string> variable)
+    {
+      Text = variable.Value;
+      Changed += delegate {variable.Value = Text;};
+    }
   }
 }

@@ -32,12 +32,13 @@ namespace Gimp.ncp
     UInt32 _seed;
     [SaveAttribute("random_seed")]
     bool _random_seed;
-    [SaveAttribute("points")]
-    int _points = 12;
-    [SaveAttribute("closest")]
-    int _closest = 1;
-    [SaveAttribute("color")]
-    bool _color = true;
+
+    Variable<int> _points = new Variable<int>("points", _("Number of points"), 
+					      12);
+    Variable<int> _closest = new Variable<int>("closest", _("Closest point"), 
+					       1);
+    Variable<bool> _color = 
+    new Variable<bool>("color", _("Color (true), B&W (false)"), true);
 
     Pixel _pixel;
     Calculator _calculator;
@@ -49,12 +50,6 @@ namespace Gimp.ncp
 
     override protected IEnumerable<Procedure> ListProcedures()
     {
-      var inParams = new ParamDefList() {
-	new ParamDef("points", 12, typeof(int), _("Number of points")),
-	new ParamDef("closest", 1, typeof(int), _("Closest point")),
-	new ParamDef("color", 1, typeof(bool), _("Color (true), B&W (false)"))
-      };
-
       yield return new Procedure("plug_in_ncp",
 				 _("Generates 2D textures"),
 				 _("Generates 2D textures"),
@@ -63,7 +58,7 @@ namespace Gimp.ncp
 				 "2004-2011",
 				 "NCP...",
 				 "RGB*, GRAY*",
-				 inParams)
+				 new ParamDefList(_points, _closest, _color))
 	{
 	  MenuPath = "<Image>/Filters/Render",
 	  IconFile = "ncp.png"
@@ -77,18 +72,35 @@ namespace Gimp.ncp
       var dialog = DialogNew("ncp", "ncp", IntPtr.Zero, 0,
 			     Gimp.StandardHelpFunc, "ncp");
 
-      var table = new GimpTable(4, 3)
-	{
-	  ColumnSpacing = 6, 
-	  RowSpacing = 6
-	};
+      var table = new GimpTable(4, 3) {ColumnSpacing = 6, RowSpacing = 6};
       Vbox.PackStart(table, false, false, 0);
 
       CreateRandomSeedWidget(table);
       CreatePointsWidget(table);
       CreateClosestEntryWidget(table);
       CreateUseColorWidget(table);
-			
+
+      _points.ValueChanged += delegate {
+	int points = _points.Value;
+	if (points > _closestEntry.Upper)
+	{
+	  _closestEntry.Upper = points;
+	}
+	
+	if (points < _closest.Value)
+	  {
+	    _closest.Value = points;
+	    _closestEntry.Upper = _closest.Value;
+	    _closestEntry.Value = _closest.Value;
+	  }
+	else
+	{
+	  InvalidatePreview();
+	}
+      };
+      _closest.ValueChanged += delegate {InvalidatePreview();};
+      _color.ValueChanged += delegate {InvalidatePreview();};
+
       return dialog;
     }
 
@@ -104,46 +116,17 @@ namespace Gimp.ncp
     {
       var entry = new ScaleEntry(table, 0, 1, _("Po_ints:"), 150, 3, 
 				 _points, 1.0, 256.0, 1.0, 8.0, 0);
-      entry.ValueChanged += delegate
-	{
-	  _points = entry.ValueAsInt;
-	  if (_points > _closestEntry.Upper)
-	  {
-	    _closestEntry.Upper = _points;
-	  }
-	  
-	  if (_points < _closest)
-	  {
-	    _closest = _points;
-	    _closestEntry.Upper = _closest;
-	    _closestEntry.Value = _closest;
-	  }
-	  else
-	  {
-	    InvalidatePreview();
-	  }
-	};
     }
 
     void CreateClosestEntryWidget(GimpTable table)
     {
       _closestEntry = new ScaleEntry(table, 0, 2, _("C_lose to:"), 150, 3, 
-				     _closest, 1.0, _points, 1.0, 8.0, 0);
-      _closestEntry.ValueChanged += delegate
-	{
-	  _closest = _closestEntry.ValueAsInt;
-	  InvalidatePreview();
-	};
+				     _closest, 1.0, _points.Value, 1.0, 8.0, 0);
     }
 
     void CreateUseColorWidget(GimpTable table)
     {
-      var color = new CheckButton(_("_Use color")) {Active = _color};
-      color.Toggled += delegate
-	{
-	  _color = color.Active;
-	  InvalidatePreview();
-	};
+      var color = new GimpCheckButton(_("_Use color"), _color);
       table.Attach(color, 0, 1, 3, 4);
     }
 
@@ -164,8 +147,8 @@ namespace Gimp.ncp
 	  _pixel.Alpha = 255;
 	}
 
-      _calculator = new Calculator(_points, _closest, bpp, drawable.MaskBounds,
-				   (int) _seed);
+      _calculator = new Calculator(_points.Value, _closest.Value, bpp, 
+				   drawable.MaskBounds, (int) _seed);
     }
 
     override protected void Reset()
@@ -185,7 +168,7 @@ namespace Gimp.ncp
       int b = 0;
       Func<int> func = () => _calculator.Calc(b++, c);
 
-      if (_color)
+      if (_color.Value)
 	{
 	  _pixel.Fill(func);
 	}

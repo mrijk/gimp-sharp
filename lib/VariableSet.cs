@@ -44,5 +44,10 @@ namespace Gimp
     {
       return GetEnumerator();
     }
+
+    public void ForEach(Action<IVariable> action)
+    {
+      _set.ForEach(action);
+    }
   }
 }

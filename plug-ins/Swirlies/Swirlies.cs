@@ -37,12 +37,11 @@ namespace Gimp.Swirlies
 
     Thread _renderThread;
 
-    [SaveAttribute("seed")]
-    UInt32 _seed;
-    [SaveAttribute("random_seed")]
-    bool _random_seed;
-    [SaveAttribute("points")]
-    int _points = 3;
+    Variable<UInt32> _seed = new Variable<UInt32>
+    ("seed", _("Value for random seed"), 0);
+    Variable<bool> _randomSeed = new Variable<bool>
+    ("random_seed", _("Use specified random seed"), false);
+    Variable<int> _points = new Variable<int>("points", _("Fix me"), 3);
 
     static void Main(string[] args)
     {
@@ -51,8 +50,6 @@ namespace Gimp.Swirlies
 
     override protected IEnumerable<Procedure> ListProcedures()
     {
-      var in_params = new ParamDefList();
-
       yield return new Procedure("plug_in_swirlies",
 				 _("Generates 2D textures"),
 				 _("Generates 2D textures"),
@@ -61,7 +58,7 @@ namespace Gimp.Swirlies
 				 "2006-2007",
 				 _("Swirlies..."),
 				 "RGB",
-				 in_params)
+				 new ParamDefList(_points))
 	{
 	  MenuPath = "<Image>/Filters/Render",
 	  IconFile = "Swirlies.png"
@@ -81,17 +78,14 @@ namespace Gimp.Swirlies
 	{ColumnSpacing = 6, RowSpacing = 6};
       Vbox.PackStart(table, false, false, 0);
 
-      var seed = new RandomSeed(ref _seed, ref _random_seed);
+      var seed = new RandomSeed(_seed, _randomSeed);
 
       table.AttachAligned(0, 0, _("Random _Seed:"), 0.0, 0.5, seed, 2, true);
 
-      var entry = new ScaleEntry(table, 0, 1, _("Po_ints:"), 
-				 150, 3, _points, 1.0, 16.0, 1.0, 8.0, 0);
-      entry.ValueChanged += delegate
-	{
-	  _points = entry.ValueAsInt;
-	  InvalidatePreview();
-	};
+      new ScaleEntry(table, 0, 1, _("Po_ints:"), 
+		     150, 3, _points, 1.0, 16.0, 1.0, 8.0, 0);
+
+      _points.ValueChanged += delegate {InvalidatePreview();};
 
       return dialog;
     }
@@ -145,7 +139,7 @@ namespace Gimp.Swirlies
 
     void Initialize(Drawable drawable)
     {
-      _random = new Random((int) _seed);
+      _random = new Random((int) _seed.Value);
       Swirly.Random = _random;
 
       _width = drawable.Width;
@@ -153,15 +147,14 @@ namespace Gimp.Swirlies
 
       _swirlies.Clear();
 
-      for (int i = 0; i < _points; i++)
+      for (int i = 0; i < _points.Value; i++)
 	_swirlies.Add(Swirly.CreateRandom());
     }
 
     override protected void Render(Drawable drawable)
     {
       Initialize(drawable);
-      var iter = new RgnIterator(drawable, RunMode.Interactive);
-      iter.Progress = new Progress(_("Swirlies"));
+      var iter = new RgnIterator(drawable, _("Swirlies"));
       iter.IterateDest(DoSwirlies);
     }
 

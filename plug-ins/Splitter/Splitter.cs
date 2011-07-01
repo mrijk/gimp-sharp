@@ -26,32 +26,33 @@ namespace Gimp.Splitter
 {
   public class Splitter : Plugin
   {
-    [SaveAttribute("formula")]
-    string _formula = "";
+    Variable<string> _formula = new Variable<string>
+    ("formula", _("Formula for splitting image"), "");
 
-    [SaveAttribute("translate_1_x")]
-    int _translate_1_x;
-    [SaveAttribute("translate_1_y")]
-    int _translate_1_y;
-    [SaveAttribute("rotate_1")]
-    int _rotate_1;
+    Variable<int> _translate_1_x = new Variable<int>
+    ("translate_1_x", _("Translation in x first layer"), 0);
+    Variable<int> _translate_1_y = new Variable<int>
+    ("translate_1_y", _("Translation in y first layer"), 0);
+    Variable<int> _rotate_1 = new Variable<int>
+    ("rotate_1", _("Rotation first layer"), 0);
 
-    [SaveAttribute("translate_2_x")]
-    int _translate_2_x;
-    [SaveAttribute("translate_2_y")]
-    int _translate_2_y;
-    [SaveAttribute("rotate_2")]
-    int _rotate_2;
-    [SaveAttribute("keep_layer")]
-    int _keepLayer = 0;
+    Variable<int> _translate_2_x = new Variable<int>
+    ("translate_2_x", _("Translation in x second layer"), 0);
+    Variable<int> _translate_2_y = new Variable<int>
+    ("translate_2_y", _("Translation in y second layer"), 0);
+    Variable<int> _rotate_2 = new Variable<int>
+    ("rotate_2", _("Rotation second layer"), 0);
 
-    [SaveAttribute("merge")]
-    bool _merge = true;
+    Variable<int> _keepLayer = new Variable<int>
+    ("keep_layer", _("Keep first (0), second (1) or both (2) layer(s)"), 0);
 
-    [SaveAttribute("seed")]
-    UInt32 _seed;
-    [SaveAttribute("random_seed")]
-    bool _randomSeed;
+    Variable<bool> _merge = new Variable<bool>
+    ("merge", _("Merge layers after splitting"), true);
+
+    Variable<UInt32> _seed = new Variable<UInt32>
+    ("seed", _("Value for random seed"), 0);
+    Variable<bool> _randomSeed = new Variable<bool>
+    ("random_seed", _("Use specified random seed"), false);
 
     static void Main(string[] args)
     {
@@ -60,31 +61,11 @@ namespace Gimp.Splitter
 
     override protected IEnumerable<Procedure> ListProcedures()
     {
-      var inParams = new ParamDefList()
-	{
-	  new ParamDef("formula", "", typeof(string),
-		       _("Formula for splitting image")),
-	  new ParamDef("translate_1_x", 0, typeof(int),
-		       _("Translation in x first layer")),
-	  new ParamDef("translate_1_y", 0, typeof(int),
-		       _("Translation in y first layer")),
-	  new ParamDef("rotate_1", 0, typeof(int),
-		       _("Rotation first layer")),
-	  new ParamDef("translate_2_x", 0, typeof(int),
-		       _("Translation in x second layer")),
-	  new ParamDef("translate_2_y", 0, typeof(int),
-		       _("Translation in y second layer")),
-	  new ParamDef("rotate_2", 0, typeof(int),
-		       _("Rotation second layer")),
-	  new ParamDef("keep_layer", 0, typeof(int),
-		       _("Keep first (0), second (1) or both (2) layer(s)")),
-	  new ParamDef("merge", true, typeof(bool),
-		       _("Merge layers after splitting")),
-	  new ParamDef("seed", 0, typeof(int),
-		       _("Value for random seed")),
-	  new ParamDef("random_seed", false, typeof(bool),
-		       _("Use specified random seed"))
-	};
+      var inParams = 
+	new ParamDefList(_formula, _translate_1_x, _translate_1_y, _rotate_1,
+			 _translate_2_x, _translate_2_y, _rotate_2,
+			 _keepLayer, _merge, _seed, _randomSeed);
+
       yield return new Procedure("plug_in_splitter",
 				 _("Splits an image."),
 				 _("Splits an image in separate parts using a formula of the form f(x, y) = 0"),
@@ -118,32 +99,30 @@ namespace Gimp.Splitter
       table.Attach(hbox, 0, 2, 0, 1);
 
       hbox.Add(new Label("f(x, y):"));
-      var formula = new Entry();
-      formula.Text = _formula;
-      formula.Changed += delegate {_formula = formula.Text;};
-      hbox.Add(formula);
+      hbox.Add(new GimpEntry(_formula));
       hbox.Add(new Label("= 0"));
 
-      var frame1 = CreateLayerFrame1();
+      var frame1 = CreateLayerFrame("Layer 1", _translate_1_x, _translate_1_y, 
+				    _rotate_1);
       table.Attach(frame1, 0, 1, 1, 2);
 
-      var frame2 = CreateLayerFrame2();
+      var frame2 = CreateLayerFrame("Layer 2", _translate_2_x, _translate_2_y, 
+				    _rotate_2);
       table.Attach(frame2, 1, 2, 1, 2);
 
-      var merge = new CheckButton(_("Merge visible layers"));
-      merge.Active = _merge;
-      merge.Toggled += delegate {_merge = merge.Active;};
+      var merge = new GimpCheckButton(_("Merge visible layers"), _merge);
       table.Attach(merge, 0, 1, 3, 4);
 
       var advanced = new Button(_("Advanced Options..."));
       advanced.Clicked += delegate
 	{
-	  var advancedDialog = new AdvancedDialog(_seed, _randomSeed);
+	  var advancedDialog = new AdvancedDialog(_seed.Value, 
+						  _randomSeed.Value);
 	  advancedDialog.ShowAll();
 	  if (advancedDialog.Run() == ResponseType.Ok)
 	  {
-	    _seed = advancedDialog.Seed;
-	    _randomSeed = advancedDialog.RandomSeed;
+	    _seed.Value = advancedDialog.Seed;
+	    _randomSeed.Value = advancedDialog.RandomSeed;
 	  }
 	  advancedDialog.Destroy();
 	};
@@ -154,65 +133,36 @@ namespace Gimp.Splitter
       keep.AppendText(_("Both Layers"));
       keep.AppendText(_("Layer 1"));
       keep.AppendText(_("Layer 2"));
-      keep.Active = _keepLayer;
-      keep.Changed += delegate {_keepLayer = keep.Active;};
+      keep.Active = _keepLayer.Value;
+      keep.Changed += delegate {_keepLayer.Value = keep.Active;};
       table.AttachAligned(0, 5, _("Keep:"), 0.0, 0.5, keep, 1, true);
 
       return dialog;
     }
 
-    GimpFrame CreateLayerFrame1()
+    GimpFrame CreateLayerFrame(string frameLabel, Variable<int> translateX,
+			       Variable<int> translateY, Variable<int> rotate)
     {
-      var frame = new GimpFrame(_("Layer 1"));
+      var frame = new GimpFrame(_(frameLabel));
 
       var table = new GimpTable(3, 3)
 	{BorderWidth = 12, RowSpacing = 12, ColumnSpacing = 12};
       frame.Add(table);
 
-      var spinner = new SpinButton(int.MinValue, int.MaxValue, 1)
-	{Value = _translate_1_x, WidthChars = 4};
-      spinner.ValueChanged += delegate {_translate_1_x = spinner.ValueAsInt;};
-      table.AttachAligned(0, 0, _("Translate X:"), 0.0, 0.5, spinner, 1, true);
-
-      spinner = new SpinButton(int.MinValue, int.MaxValue, 1)
-	{Value = _translate_1_y, WidthChars = 4};
-      spinner.ValueChanged += delegate {_translate_1_y = spinner.ValueAsInt;};
-      table.AttachAligned(0, 1, _("Translate Y:"), 0.0, 0.5, spinner, 1, true);
-
-      spinner = new SpinButton(0, 360, 1)
-	{Value = _rotate_1, WidthChars = 4};
-      spinner.ValueChanged += delegate {_rotate_1 = spinner.ValueAsInt;};
-      table.AttachAligned(0, 2, _("Rotate:"), 0.0, 0.5, spinner, 1, true);
+      AddSpinButton(table, 0, int.MinValue, int.MaxValue, "Translate X:",
+		    translateX);
+      AddSpinButton(table, 1, int.MinValue, int.MaxValue, "Translate Y:",
+		    translateY);
+      AddSpinButton(table, 2, 0, 360, "Rotate:", rotate);
 
       return frame;
     }
 
-    // TODO: find a way to avoid this code duplication. Anymous methods
-    // however can't address ref or out parameters :(
-    GimpFrame CreateLayerFrame2()
+    void AddSpinButton(GimpTable table, int row, int min, int max, string label,
+		       Variable<int> variable)
     {
-      var frame = new GimpFrame(_("Layer 2"));
-
-      var table = new GimpTable(3, 3)
-	{BorderWidth = 12, RowSpacing = 12, ColumnSpacing = 12};
-      frame.Add(table);
-
-      var spinner = new SpinButton(int.MinValue, int.MaxValue, 1)
-	{Value = _translate_2_x, WidthChars = 4};
-      spinner.ValueChanged += delegate {_translate_2_x = spinner.ValueAsInt;};
-      table.AttachAligned(0, 0, _("Translate X:"), 0.0, 0.5, spinner, 1, true);
-
-      spinner = new SpinButton(int.MinValue, int.MaxValue, 1)
-	{Value = _translate_2_y, WidthChars = 4};
-      spinner.ValueChanged += delegate {_translate_2_y = spinner.ValueAsInt;};
-      table.AttachAligned(0, 1, _("Translate Y:"), 0.0, 0.5, spinner, 1, true);
-
-      spinner = new SpinButton(0, 360, 1)
-	{Value = _rotate_2, WidthChars = 4};
-      spinner.ValueChanged += delegate {_rotate_2 = spinner.ValueAsInt;};
-      table.AttachAligned(0, 2, _("Rotate:"), 0.0, 0.5, spinner, 1, true);
-
-      return frame;
+      var spinner = new GimpSpinButton(min, max, 1, variable) {WidthChars = 4};
+      table.AttachAligned(0, row, _(label), 0.0, 0.5, spinner, 1, true);      
     }
 
     override protected void Render(Image image, Drawable drawable)
@@ -221,16 +171,16 @@ namespace Gimp.Splitter
 
       var rectangle = image.Bounds;
 
-      parser.Init(_formula, image.Dimensions);
+      parser.Init(_formula.Value, image.Dimensions);
 
       var newImage = new Image(image.Dimensions, image.BaseType);
 
       Layer layer1;
       PixelRgn destPR1;
-      if (_keepLayer == 0 || _keepLayer == 1)
+      if (_keepLayer.Value == 0 || _keepLayer.Value == 1)
 	{
 	  layer1 = new Layer(newImage, _("layer_one"), ImageType.Rgba);
-	  layer1.Translate(_translate_1_x, _translate_1_y);
+	  layer1.Translate(_translate_1_x.Value, _translate_1_y.Value);
 	  layer1.AddAlpha();
 	  newImage.AddLayer(layer1, 0);
 
@@ -244,10 +194,10 @@ namespace Gimp.Splitter
 
       Layer layer2;
       PixelRgn destPR2;
-      if (_keepLayer == 0 || _keepLayer == 2)
+      if (_keepLayer.Value == 0 || _keepLayer.Value == 2)
 	{
 	  layer2 = new Layer(newImage, _("layer_two"), ImageType.Rgba);
-	  layer2.Translate(_translate_2_x, _translate_2_y);
+	  layer2.Translate(_translate_2_x.Value, _translate_2_y.Value);
 	  layer2.AddAlpha();
 	  newImage.AddLayer(layer2, 0);
 
@@ -296,10 +246,10 @@ namespace Gimp.Splitter
 				    ? Copy(src) : transparent));
 	}
 
-      Rotate(layer1, _rotate_1);
-      Rotate(layer2, _rotate_2);
+      Rotate(layer1, _rotate_1.Value);
+      Rotate(layer2, _rotate_2.Value);
 
-      if (_merge) 
+      if (_merge.Value) 
 	{
 	  var merged = 
 	    newImage.MergeVisibleLayers(MergeType.ExpandAsNecessary);
