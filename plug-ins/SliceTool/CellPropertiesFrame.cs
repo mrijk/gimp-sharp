@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // CellPropertiesFrame.cs
 //
@@ -19,7 +19,6 @@
 //
 
 using System;
-using System.Collections.Generic;
 
 using Gtk;
 
@@ -76,8 +75,7 @@ namespace Gimp.SliceTool
       _bottom = new Label("    ");
       table.AttachAligned(2, 1, _("Bottom:"), 0.0, 0.5, _bottom, 1, false);
       
-      _include = new CheckButton(_("_Include cell in table"));
-      _include.Active = true;
+      _include = new CheckButton(_("_Include cell in table")) {Active = true};
       table.Attach(_include, 0, 3, 2, 3);
     }
 

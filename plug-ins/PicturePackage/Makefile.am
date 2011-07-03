@@ -29,8 +29,7 @@ MYSOURCES =				\
 	Rectangle.cs			\
 	RectangleSet.cs			\
 	Renderer.cs			\
-	SourceFrame.cs			\
-	XmlNodeListExtensions.cs
+	SourceFrame.cs
 
 EXTRA_DIST = $(MYSOURCES) PicturePackage picture-package.xml PicturePackage.png
 SUBDIRS = po

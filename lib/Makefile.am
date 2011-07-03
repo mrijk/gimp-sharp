@@ -122,6 +122,7 @@ MYSOURCES = 				\
 	Vector3.cs			\
 	Version.cs			\
 	VerticalGuide.cs		\
+	XmlNodeListExtensions.cs	\
 	ZoomPreview.cs
 
 EXTRA_DIST = $(MYSOURCES) $(LIBRARY).config

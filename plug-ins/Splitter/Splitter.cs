@@ -168,50 +168,21 @@ namespace Gimp.Splitter
     override protected void Render(Image image, Drawable drawable)
     {
       var parser = new MathExpressionParser();
-
-      var rectangle = image.Bounds;
-
       parser.Init(_formula.Value, image.Dimensions);
 
       var newImage = new Image(image.Dimensions, image.BaseType);
+      var srcPR = new PixelRgn(drawable, image.Bounds, false, false);
 
-      Layer layer1;
-      PixelRgn destPR1;
-      if (_keepLayer.Value == 0 || _keepLayer.Value == 1)
-	{
-	  layer1 = new Layer(newImage, _("layer_one"), ImageType.Rgba);
-	  layer1.Translate(_translate_1_x.Value, _translate_1_y.Value);
-	  layer1.AddAlpha();
-	  newImage.AddLayer(layer1, 0);
+      PixelRgn destPR1 = null;
+      var layer1 = AddLayer(newImage, 1, _("layer_one"), _translate_1_x,
+			    _translate_1_y, out destPR1);
 
-	  destPR1 = new PixelRgn(layer1, rectangle, true, false);
-	}
-      else
-	{
-	  layer1 = null;
-	  destPR1 = null;
-	}
 
-      Layer layer2;
-      PixelRgn destPR2;
-      if (_keepLayer.Value == 0 || _keepLayer.Value == 2)
-	{
-	  layer2 = new Layer(newImage, _("layer_two"), ImageType.Rgba);
-	  layer2.Translate(_translate_2_x.Value, _translate_2_y.Value);
-	  layer2.AddAlpha();
-	  newImage.AddLayer(layer2, 0);
-
-	  destPR2 = new PixelRgn(layer2, rectangle, true, false);
-	}
-      else
-	{
-	  layer2 = null;
-	  destPR2 = null;
-	}
+      PixelRgn destPR2 = null;
+      var layer2 = AddLayer(newImage, 2, _("layer_two"), _translate_2_x,
+			    _translate_2_y, out destPR2);
 
       var transparent = new Pixel(4);
-
-      var srcPR = new PixelRgn(drawable, rectangle, false, false);
 
       if (destPR1 != null && destPR2 != null)
 	{
@@ -260,6 +231,24 @@ namespace Gimp.Splitter
       new Display(newImage);
       
       Display.DisplaysFlush();
+    }
+
+    Layer AddLayer(Image image, int layerNr, string name, 
+		   Variable<int> translate_x, Variable<int> translate_y, 
+		   out PixelRgn destPR)
+    {
+      destPR = null;
+      if (_keepLayer.Value == 0 || _keepLayer.Value == layerNr)
+	{
+	  var layer = new Layer(image, name, ImageType.Rgba);
+	  layer.Translate(translate_x.Value, translate_y.Value);
+	  layer.AddAlpha();
+	  image.AddLayer(layer, 0);
+
+	  destPR = new PixelRgn(layer, image.Bounds, true, false);
+	  return layer;
+	}
+      return null;
     }
 
     void Rotate(Layer layer, int angle)

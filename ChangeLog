@@ -1,3 +1,39 @@
+2011-07-03  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/PicturePackage/XmlNodeListExtensions.cs: moved to lib
+
+	* lib/Makefile.am
+	* plug-ins/PicturePackage/Makefile.am: promoted
+	XmlNodeListExtensions to GIMP# lib
+
+	* plug-ins/SliceTool/CellPropertiesFrame.cs
+	* plug-ins/SliceTool/Property.cs: removed unused imports
+
+	* plug-ins/SliceTool/XmlNodeExtensions.cs: new file
+
+	* plug-ins/SliceTool/Makefile.am: changed accordingly
+
+	* plug-ins/SliceTool/VerticalSlize.cs
+	* plug-ins/SliceTool/SliceSet.cs
+	* plug-ins/SliceTool/Slice.cs
+	* plug-ins/SliceTool/RectangleSet.cs
+	* plug-ins/SliceTool/Rectangle.cs
+	* plug-ins/SliceTool/HorizontalSlice.cs
+	* plug-ins/SliceTool/SliceData.cs: use IntCoordinate class
+
+	* plug-ins/Splitter/Splitter.cs: minor clean-up
+
+2011-07-02  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/Splitter/AdvancedDialog.cs: removed unused import
+
+	* plug-ins/Swirlies/Swirlies.cs: use simplified registration
+
+	* plug-ins/wbmp/wbmp.cs: removing progress indicator. Doesn't make
+	since for small wbmp images.
+
+	* plug-ins/UpdateCheck/UpdateCheck.cs: use Variable class
+
 2011-07-01  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* plug-ins/Sky/Sky.cs: use Variable class

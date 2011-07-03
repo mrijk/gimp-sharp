@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // Slice.cs
 //
@@ -61,8 +61,8 @@ namespace Gimp.SliceTool
     abstract public bool IntersectsWith(Rectangle rectangle);
     abstract public bool IsPartOf(Rectangle rectangle);
     abstract public Rectangle SliceRectangle(Rectangle rectangle);
-    abstract public void SetPosition(Coordinate<int> c);
-    abstract public bool PointOn(Coordinate<int> c);
+    abstract public void SetPosition(IntCoordinate c);
+    abstract public bool PointOn(IntCoordinate c);
     abstract public void Save(StreamWriter w);
     
     public int Position
@@ -87,20 +87,13 @@ namespace Gimp.SliceTool
       Changed = false;
     }
 
-    public void Load(XmlNode slice)
+    public void Load(XmlNode node)
     {
-      Position = GetValueOfNode(slice, "position");
-      Index = GetValueOfNode(slice, "index");
-      Begin = new HorizontalSlice(GetValueOfNode(slice, "begin"));
-      End = new HorizontalSlice(GetValueOfNode(slice, "end"));
+      Position = node.GetValue("position");
+      Index = node.GetValue("index");
+      Begin = new HorizontalSlice(node.GetValue("begin"));
+      End = new HorizontalSlice(node.GetValue("end"));
       Changed = false;
-    }
-
-    int GetValueOfNode(XmlNode slice, string item)
-    {
-      var attributes = slice.Attributes;
-      var position = (XmlAttribute) attributes.GetNamedItem(item);
-      return (int) Convert.ToDouble(position.Value);
     }
 
     public void Resolve(SliceSet slices)

@@ -1,5 +1,5 @@
 // The Splitter plug-in
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // AdvancedDialog.cs
 //
@@ -19,8 +19,6 @@
 //
 
 using System;
-
-using Gtk;
 
 namespace Gimp.Splitter
 {

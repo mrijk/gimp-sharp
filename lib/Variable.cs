@@ -40,6 +40,11 @@ namespace Gimp
       Value = DefaultValue = defaultValue;
     }
 
+    public Variable(T value)
+    {
+      Value = DefaultValue = value;
+    }
+
     public T Value
     {
       get {return _value;}

@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // SliceData.cs
 //
@@ -19,7 +19,6 @@
 //
 
 using System;
-using System.Collections;
 using System.IO;
 using System.Reflection;
 using System.Xml;
@@ -31,10 +30,6 @@ namespace Gimp.SliceTool
     RectangleSet _rectangles = new RectangleSet();
     SliceSet _horizontalSlices = new SliceSet();
     SliceSet _verticalSlices = new SliceSet();
-
-    public SliceData()
-    {
-    }
 
     public void Init(Drawable drawable)
     {
@@ -70,22 +65,22 @@ namespace Gimp.SliceTool
       _rectangles.Slice(slice);
     }
 
-    public Rectangle FindRectangle(Coordinate<int> c)
+    public Rectangle FindRectangle(IntCoordinate c)
     {
       return _rectangles.Find(c);
     }
 
-    public Rectangle SelectRectangle(Coordinate<int> c)
+    public Rectangle SelectRectangle(IntCoordinate c)
     {
       return _rectangles.Select(c);
     }
 
-    public Slice FindSlice(Coordinate<int> c)
+    public Slice FindSlice(IntCoordinate c)
     {
       return _horizontalSlices.Find(c) ?? _verticalSlices.Find(c); 
     }
 
-    public Slice MayRemove(Coordinate<int> c)
+    public Slice MayRemove(IntCoordinate c)
     {
       var slice = _horizontalSlices.Find(c);
       if (slice == null)
@@ -143,7 +138,7 @@ namespace Gimp.SliceTool
       _verticalSlices.Remove(slice);
     }
 
-    public void CreateTable(Coordinate<int> c, int rows, int columns)
+    public void CreateTable(IntCoordinate c, int rows, int columns)
     {
       var rectangle = new Rectangle(_rectangles.Find(c));
       int width = rectangle.Width;
@@ -308,37 +303,35 @@ namespace Gimp.SliceTool
       _rectangles.Clear();
 
       var root = doc.DocumentElement;
+
       var nodeList = root.SelectNodes("/settings/slices/slice");
-
-      foreach (XmlNode node in nodeList)
-        {
-	  var attributes = node.Attributes;
-	  var type = (XmlAttribute) attributes.GetNamedItem("type");
-
-	  if (type.Value == "horizontal")
-	    {
-	      var slice = new HorizontalSlice();
-	      slice.Load(node);
-	      _horizontalSlices.Add(slice);
-	    }
-	  else
-	    {
-	      var slice = new VerticalSlice();
-	      slice.Load(node);
-	      _verticalSlices.Add(slice);
-	    }
-        }
+      nodeList.ForEach(node => CreateSliceFromXmlNode(node));
 
       nodeList = root.SelectNodes("/settings/rectangles/rectangle");
-
-      foreach (XmlNode node in nodeList)
-        {
-	  _rectangles.Add(new Rectangle(node));
-        }
+      nodeList.ForEach(node => _rectangles.Add(new Rectangle(node)));
 
       _verticalSlices.Resolve(_horizontalSlices);
       _horizontalSlices.Resolve(_verticalSlices);
       _rectangles.Resolve(_horizontalSlices, _verticalSlices);
+    }
+
+    void CreateSliceFromXmlNode(XmlNode node)
+    {
+      var attributes = node.Attributes;
+      var type = (XmlAttribute) attributes.GetNamedItem("type");
+      
+      if (type.Value == "horizontal")
+	{
+	  var slice = new HorizontalSlice();
+	  slice.Load(node);
+	  _horizontalSlices.Add(slice);
+	}
+      else
+	{
+	  var slice = new VerticalSlice();
+	  slice.Load(node);
+	  _verticalSlices.Add(slice);
+	}
     }
 
     public void SaveSettings(string filename)

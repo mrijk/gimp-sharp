@@ -1,5 +1,5 @@
-// The PicturePackage plug-in
-// Copyright (C) 2004-2009 Maurits Rijk
+// GIMP# - A C# wrapper around the GIMP Library
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // XmlNodeListExtensions.cs
 //
@@ -21,13 +21,16 @@
 using System;
 using System.Xml;
 
-public static class XmlNodeListExtensions
+namespace Gimp
 {
-  public static void ForEach(this XmlNodeList list, Action<XmlNode> action)
-    {
-      foreach (XmlNode node in list)
-	{
-	  action(node);
-	}
-    }
+  public static class XmlNodeListExtensions
+  {
+    public static void ForEach(this XmlNodeList list, Action<XmlNode> action)
+      {
+	foreach (XmlNode node in list)
+	  {
+	    action(node);
+	  }
+      }
+  }
 }

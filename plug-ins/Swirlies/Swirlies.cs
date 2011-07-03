@@ -48,17 +48,17 @@ namespace Gimp.Swirlies
       GimpMain<Swirlies>(args);
     }
 
-    override protected IEnumerable<Procedure> ListProcedures()
+    override protected Procedure GetProcedure()
     {
-      yield return new Procedure("plug_in_swirlies",
-				 _("Generates 2D textures"),
-				 _("Generates 2D textures"),
-				 "Maurits Rijk",
-				 "(C) Maurits Rijk",
-				 "2006-2007",
-				 _("Swirlies..."),
-				 "RGB",
-				 new ParamDefList(_points))
+      return new Procedure("plug_in_swirlies",
+			   _("Generates 2D textures"),
+			   _("Generates 2D textures"),
+			   "Maurits Rijk",
+			   "(C) Maurits Rijk",
+			   "2006-2011",
+			   _("Swirlies..."),
+			   "RGB",
+			   new ParamDefList(_points))
 	{
 	  MenuPath = "<Image>/Filters/Render",
 	  IconFile = "Swirlies.png"
@@ -130,11 +130,6 @@ namespace Gimp.Swirlies
 	  });
 	}
       Preview.DrawBuffer(buffer, width * 3);
-    }
-    
-    override protected void Reset()
-    {
-      Console.WriteLine("Reset!");
     }
 
     void Initialize(Drawable drawable)

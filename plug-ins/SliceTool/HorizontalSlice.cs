@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // HorizontalSlice.cs
 //
@@ -63,12 +63,12 @@ namespace Gimp.SliceTool
       return new Rectangle(rectangle) {Bottom = this, Top = this};
     }
 
-    override public void SetPosition(Coordinate<int> c)
+    override public void SetPosition(IntCoordinate c)
     {
       Y = c.Y;
     }
 
-    override public bool PointOn(Coordinate<int> c)
+    override public bool PointOn(IntCoordinate c)
     {
       return c.X >= X1 && c.X <= X2 && Math.Abs(c.Y - Y) < 5;
     }

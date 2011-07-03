@@ -19,7 +19,6 @@
 //
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Reflection;
@@ -37,29 +36,30 @@ namespace Gimp.UpdateCheck
     const int BUFFER_SIZE = 1024;
     const int DefaultTimeout = 2 * 60 * 1000; // 2 minutes timeout
 
-    bool _checkGimp = true;
-    bool _checkGimpSharp = true;
-    bool _checkUnstable = false;
-
-    bool _enableProxy = false;
-    string _httpProxy;
-    string _port;
+    Variable<bool> _checkGimp = new Variable<bool>("check-gimp", "", true);
+    Variable<bool> _checkGimpSharp = new Variable<bool>("check-gimp-sharp", 
+							"", true);
+    Variable<bool> _checkUnstable = new Variable<bool>("check-unstable",
+						       "", true);
+    Variable<bool> _enableProxy = new Variable<bool>("enable-proxy", "", false);
+    Variable<string> _httpProxy = new Variable<string>("http-proxy", "", "");
+    Variable<string> _port = new Variable<string>("port", "", "");
 
     static void Main(string[] args)
     {
       GimpMain<UpdateCheck>(args);
     }
 
-    override protected IEnumerable<Procedure> ListProcedures()
+    override protected Procedure GetProcedure()
     {
-      yield return new Procedure("plug_in_update_check",
-				 _("Check for updates"),
-				 _("Check for updates"),
-				 "Maurits Rijk",
-				 "(C) Maurits Rijk",
-				 "2006-2011",
-				 _("Check for Updates..."),
-				 "")
+      return new Procedure("plug_in_update_check",
+			   _("Check for updates"),
+			   _("Check for updates"),
+			   "Maurits Rijk",
+			   "(C) Maurits Rijk",
+			   "2006-2011",
+			   _("Check for Updates..."),
+			   "")
 	{
 	  MenuPath = "<Toolbox>/Xtns/Extensions",
 	  IconFile = "UpdateCheck.png"
@@ -81,68 +81,38 @@ namespace Gimp.UpdateCheck
 	{ColumnSpacing = 6, RowSpacing = 6};
       vbox.PackStart(table, true, true, 0);
 
-      var checkGimp = new CheckButton(_("Check _GIMP"));
-      checkGimp.Active = _checkGimp;
-      checkGimp.Toggled += delegate
-	{
-	  _checkGimp = checkGimp.Active;
-	};
+      var checkGimp = new GimpCheckButton(_("Check _GIMP"), _checkGimp);
       table.Attach(checkGimp, 0, 1, 0, 1);
 
-      var checkGimpSharp = new CheckButton(_("Check G_IMP#"));
-      checkGimpSharp.Active = _checkGimpSharp;
-      checkGimpSharp.Toggled += delegate
-	{
-	  _checkGimpSharp = checkGimpSharp.Active;
-	};
+      var checkGimpSharp = new GimpCheckButton(_("Check G_IMP#"), 
+					       _checkGimpSharp);
       table.Attach(checkGimpSharp, 0, 1, 1, 2);
 
-      var checkUnstable = 
-	new CheckButton(_("Check _Unstable Releases"));
-      checkUnstable.Active = _checkUnstable;
-      checkUnstable.Toggled += delegate
-	{
-	  _checkUnstable = checkUnstable.Active;
-	};
+      var checkUnstable = new GimpCheckButton(_("Check _Unstable Releases"),
+					      _checkUnstable);
       table.Attach(checkUnstable, 0, 1, 2, 3);
 
       string tmp = Gimp.RcQuery("update-enable-proxy");
-      _enableProxy = (tmp != null || tmp == "true");
-      tmp = Gimp.RcQuery("update-http-proxy");
-      _httpProxy = (tmp == null) ? "" : tmp;
-      tmp = Gimp.RcQuery("update-port");
-      _port = (tmp == null) ? "" : tmp;
+      _enableProxy.Value = (tmp != null || tmp == "true");
+      _httpProxy.Value =  Gimp.RcQuery("update-http-proxy") ?? "";
+      _port.Value = Gimp.RcQuery("update-port") ?? "";
 
       var expander = new Expander(_("Proxy settings"));
-      VBox proxyBox = new VBox(false, 12);
+      var proxyBox = new VBox(false, 12);
 
-      var enableProxy = new CheckButton(_("Manual proxy configuration"));
-      enableProxy.Active = _enableProxy;
-      enableProxy.Toggled += delegate
-	{
-	  _enableProxy = enableProxy.Active;
-	};
+      var enableProxy = new GimpCheckButton(_("Manual proxy configuration"),
+					    _enableProxy);
       proxyBox.Add(enableProxy);
 
-      var hbox = new HBox(false, 12);
-      hbox.Sensitive = _enableProxy;
-      hbox.Add(new Label(_("HTTP Proxy:")));
-
-      var httpProxy = new Entry() {Text = _httpProxy};
-      hbox.Add(httpProxy);
+      var hbox = new HBox(false, 12) {Sensitive = _enableProxy.Value};
       proxyBox.Add(hbox);
-      httpProxy.Changed += delegate
-	{
-	  _httpProxy = httpProxy.Text;
-	};
-      
+
+      hbox.Add(new Label(_("HTTP Proxy:")));
+      hbox.Add(new GimpEntry(_httpProxy));
+
       hbox.Add(new Label(_("Port:")));
-      var port = new Entry() {Text = _port, WidthChars = 4};
+      var port = new GimpEntry(_port) {WidthChars = 4};
       hbox.Add(port);
-      port.Changed += delegate
-	{
-	  _port = port.Text;
-	};
       
       enableProxy.Toggled += delegate
 	{
@@ -157,11 +127,12 @@ namespace Gimp.UpdateCheck
 
     override protected void Render()
     {
-      if (_enableProxy)
+      if (_enableProxy.Value)
 	{
-	  Gimp.RcSet("update-enable-proxy", (_enableProxy) ? "true" : "false");
-	  Gimp.RcSet("update-http-proxy", _httpProxy);
-	  Gimp.RcSet("update-port", _port);
+	  Gimp.RcSet("update-enable-proxy", 
+		     (_enableProxy.Value) ? "true" : "false");
+	  Gimp.RcSet("update-http-proxy", _httpProxy.Value);
+	  Gimp.RcSet("update-port", _port.Value);
 	}
 
       var assembly = Assembly.GetAssembly(typeof(Plugin));
@@ -175,10 +146,10 @@ namespace Gimp.UpdateCheck
 	    WebRequest.Create("http://gimp-sharp.sourceforge.net/version.xml");
 	  
 	  // Create a proxy object, needed for mono behind a firewall?!
-	  if (_enableProxy)
+	  if (_enableProxy.Value)
 	    {
 	      var myProxy = new WebProxy();
-	      myProxy.Address = new Uri(_httpProxy + ":" + _port);
+	      myProxy.Address = new Uri(_httpProxy.Value + ":" + _port.Value);
 	      myRequest.Proxy = myProxy;
 	    }
       

@@ -1,5 +1,5 @@
 // The SliceTool plug-in
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // RectangleSet.cs
 //
@@ -31,10 +31,6 @@ namespace Gimp.SliceTool
     readonly List<Rectangle> _set = new List<Rectangle>();
     public Rectangle Selected {get; private set;}
     public bool Changed {get; set;}
-    
-    public RectangleSet()
-    {
-    }
 
     public IEnumerator<Rectangle> GetEnumerator()
     {
@@ -76,12 +72,12 @@ namespace Gimp.SliceTool
       query.ToList().ForEach(rectangle => Add(rectangle.Slice(slice)));
     }
     
-    public Rectangle Find(Coordinate<int> c)
+    public Rectangle Find(IntCoordinate c)
     {
       return _set.Find(rectangle => rectangle.IsInside(c));
     }
     
-    public Rectangle Select(Coordinate<int> c)
+    public Rectangle Select(IntCoordinate c)
     {
       Selected = Find(c);
       return Selected;

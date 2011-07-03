@@ -73,9 +73,7 @@ namespace Gimp.wbmp
 	  new Message("Invalid file (Fixed header should be zero)");
 	  return null;
 	}
-      
-      var progress = new Progress(_("Loading ") + Filename);
-      
+
       int width = ReadDimension();
       int height = ReadDimension();
 
@@ -96,7 +94,6 @@ namespace Gimp.wbmp
 		  buf[bufp] = (byte) ((BitIsSet(src, col)) ? 255 : 0);
 		  bufp++;
 		}
-	      progress.Update((double) row / height);
 	    }
 	  catch (Exception e)
 	    {
@@ -122,12 +119,9 @@ namespace Gimp.wbmp
     {
       int width = drawable.Width;
       int height = drawable.Height;
-			
-      var progress = new Progress(_("Saving ") + filename);
 
       if (!drawable.IsIndexed)
 	{
-	  // Convert image to B&W picture if not already B&W
 	  image.ConvertIndexed(ConvertDitherType.No, ConvertPaletteType.Mono,
 			       0, false, false, "");
 	}
@@ -150,23 +144,22 @@ namespace Gimp.wbmp
 	{
 	  for (int col = 0; col < width; col++) 
 	    {
-	      int indexInWbmpImage = col / 8 + row * ((width + 7) / 8);
+	      int offset = col / 8 + row * ((width + 7) / 8);
 	      if (buf[row * width + col] != 0)
 		{
-		  wbmpImage[indexInWbmpImage] |= (byte)(1 << (7 - col % 8));
+		  wbmpImage[offset] |= (byte)(1 << (7 - col % 8));
 		}
 	      else
 		{
-		  wbmpImage[indexInWbmpImage] &= (byte)(~(1 << (7 - col % 8)));
+		  wbmpImage[offset] &= (byte)(~(1 << (7 - col % 8)));
 		}
 
 	      // Check if it's at the end of the byte...
 	      if (((col + 1) % 8 == 0) || ((col + 1) == width))
 		{
-		  writer.Write(wbmpImage[indexInWbmpImage]);
+		  writer.Write(wbmpImage[offset]);
 		}
 	    }
-	  progress.Update((double) row / height);
 	}
 
       writer.Close();

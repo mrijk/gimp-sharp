@@ -1,5 +1,5 @@
 // The SliceTool plug-in
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // SliceSet.cs
 //
@@ -85,7 +85,7 @@ namespace Gimp.SliceTool
       _set.ForEach(slice => slice.Draw(renderer));
     }
 
-    public Slice Find(Coordinate<int> c)
+    public Slice Find(IntCoordinate c)
     {
       return _set.Find(slice => slice.PointOn(c));
     }

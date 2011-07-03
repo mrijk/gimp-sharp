@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // Rectangle.cs
 //
@@ -32,8 +32,8 @@ namespace Gimp.SliceTool
     public HorizontalSlice Bottom {get; set;}
     
     PropertySet _properties = new PropertySet();
-
-    bool _include = true;
+    
+    public bool Include {get; set;}
 
     static string _globalExtension = "png";
     public string Extension {get; set;}
@@ -47,27 +47,17 @@ namespace Gimp.SliceTool
       Bottom = bottom;
     }
 
-    public Rectangle(Rectangle rectangle)
+    public Rectangle(Rectangle rectangle) : 
+      this(rectangle.Left, rectangle.Right, rectangle.Top, rectangle.Bottom)
     {
-      Left = rectangle.Left;
-      Right = rectangle.Right;
-      Top = rectangle.Top;
-      Bottom = rectangle.Bottom;
     }
 
     public Rectangle(XmlNode node)
     {
-      Left = new VerticalSlice(GetValueOfNode(node, "left"));
-      Right = new VerticalSlice(GetValueOfNode(node, "right"));
-      Top = new HorizontalSlice(GetValueOfNode(node, "top"));
-      Bottom = new HorizontalSlice(GetValueOfNode(node, "bottom"));
-    }
-
-    int GetValueOfNode(XmlNode node, string item)
-    {
-      var attributes = node.Attributes;
-      var position = (XmlAttribute) attributes.GetNamedItem(item);
-      return (int) Convert.ToDouble(position.Value);
+      Left = new VerticalSlice(node.GetValue("left"));
+      Right = new VerticalSlice(node.GetValue("right"));
+      Top = new HorizontalSlice(node.GetValue("top"));
+      Bottom = new HorizontalSlice(node.GetValue("bottom"));
     }
 
     public int CompareTo(object obj)
@@ -177,7 +167,7 @@ namespace Gimp.SliceTool
         }
     }
 
-    public bool IsInside(Coordinate<int> c)
+    public bool IsInside(IntCoordinate c)
     {
       return c.X >= X1 && c.X <= X2 && c.Y >= Y1 && c.Y <= Y2;
     }
@@ -211,7 +201,7 @@ namespace Gimp.SliceTool
       w.WriteLine("<td rowspan=\"{0}\" colspan=\"{1}\" width=\"{2}\" height=\"{3}\">",
                   Bottom.Index - Top.Index, Right.Index - Left.Index, 
                   Width, Height);
-      if (_include)
+      if (Include)
         {
 	  w.Write("\t");
 	  if (_properties.Exists("href"))
@@ -252,7 +242,7 @@ namespace Gimp.SliceTool
     public void WriteSlice(Image image, string path, string name, 
                            bool useGlobalExtension)
     {
-      Image clone = new Image(image);
+      var clone = new Image(image);
       clone.Crop(Width, Height, X1, Y1);
       string filename = path + System.IO.Path.DirectorySeparatorChar + 
         GetFilename(name, useGlobalExtension);
@@ -312,12 +302,6 @@ namespace Gimp.SliceTool
     public string GetProperty(string name)
     {
       return _properties.Get(name);
-    }
-
-    public bool Include
-    {
-      get {return _include;}
-      set {_include = value;}
     }
 
     public static string GlobalExtension

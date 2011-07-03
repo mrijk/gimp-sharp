@@ -41,11 +41,13 @@ namespace Gimp.SliceTool
 
     override protected void OnPress(IntCoordinate c) 
     {
-      var dialog = new TableDialog();
+      var rows = new Variable<int>(3);
+      var columns = new Variable<int>(3);
+      var dialog = new TableDialog(rows, columns);
       dialog.ShowAll();
       if (dialog.Run() == ResponseType.Ok)
 	{
-	  _sliceData.CreateTable(c, dialog.Rows, dialog.Columns);
+	  _sliceData.CreateTable(c, rows.Value, columns.Value);
 	  Redraw();
 	}
       dialog.Destroy();
