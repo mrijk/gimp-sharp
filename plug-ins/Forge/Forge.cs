@@ -42,7 +42,7 @@ namespace Gimp.Forge
     ScaleEntry _inclinationEntry;
     ScaleEntry _starsEntry;
     ScaleEntry _saturationEntry;
-    Progress _progress = null;
+
     // Flag for spin buttons values specified by the user
     private bool dimspec, powerspec;
     // Flag for radio buttons values specified by the user
@@ -113,7 +113,7 @@ namespace Gimp.Forge
 				 _("Creates an artificial world."),
 				 "Massimo Perga, Maurits Rijk",
 				 "(C) Massimo Perga, Maurits Rijk",
-				 "2006-2010",
+				 "2006-2011",
 				 _("Forge..."),
 				 "RGB*",
 				 inParams)
@@ -189,8 +189,7 @@ namespace Gimp.Forge
 				       _("_Dimension (0.0 - 3.0):"), 
 				       150, 3, 
 				       _fracdim, 0.0, 3.0, 
-				       0.1, 1.0, 1,
-				       true, 0, 0, null, null);
+				       0.1, 1.0, 1);
       _dimensionEntry.ValueChanged += delegate
 	{
 	  if (forced > 0)
@@ -206,8 +205,7 @@ namespace Gimp.Forge
       _powerEntry = new ScaleEntry(table, 3, 0, _("_Power:"), 
 				   150, 3, 
 				   _powscale, 0.0, Double.MaxValue, 
-				   0.1, 1.0, 1,
-				   true, 0, 0, null, null);
+				   0.1, 1.0, 1);
       _powerEntry.ValueChanged += delegate
 	{
 	  if (forced > 0)
@@ -223,8 +221,7 @@ namespace Gimp.Forge
       _glacierEntry = new ScaleEntry(table, 0, 1, _("_Glaciers"), 
 				     150, 3, 
 				     _glaciers, 0.0, Double.MaxValue, 
-				     0.1, 1.0, 0,
-				     true, 0, 0, null, null);
+				     0.1, 1.0, 0);
       _glacierEntry.ValueChanged += delegate
 	{
 	  glacspec = true;
@@ -238,8 +235,7 @@ namespace Gimp.Forge
       _iceEntry = new ScaleEntry(table, 3, 1, _("_Ice"), 
 				 150, 3, 
 				 _icelevel, 0.0, Double.MaxValue, 
-				 0.1, 1.0, 1,
-				 true, 0, 0, null, null);
+				 0.1, 1.0, 1);
       _iceEntry.ValueChanged += delegate
 	{
 	  icespec = true;
@@ -252,8 +248,7 @@ namespace Gimp.Forge
     {
       _hourEntry = new ScaleEntry(table, 0, 2, _("Ho_ur (0 - 24):"), 
 				  150, 3, 
-				  _hourangle, 0.0, 24.0, 0.1, 1.0, 0,
-				  true, 0, 0, null, null);
+				  _hourangle, 0.0, 24.0, 0.1, 1.0, 0);
       _hourEntry.ValueChanged += delegate
 	{
 	  hourspec = true;
@@ -267,8 +262,7 @@ namespace Gimp.Forge
       _inclinationEntry = new ScaleEntry(table, 3, 2, 
 					 _("I_nclination (-90 - 90):"), 
 					 150, 3, 
-					 _inclangle, -90.0, 90.0, 1, 10.0, 0,
-					 true, 0, 0, null, null);
+					 _inclangle, -90.0, 90.0, 1, 10.0, 0);
       _inclinationEntry.ValueChanged += delegate
 	{
 	  inclspec = true;
@@ -280,9 +274,8 @@ namespace Gimp.Forge
     void CreateStarPercentageEntry(Table table)
     {
       _starsEntry = new ScaleEntry(table, 0, 3, _("_Stars (0 - 100):"), 
-					150, 3, 
-					_starfraction, 1.0, 100.0, 1.0, 8.0, 0,
-					true, 0, 0, null, null);
+				   150, 3, 
+				   _starfraction, 1.0, 100.0, 1.0, 8.0, 0);
       _starsEntry.ValueChanged += delegate
 	{
 	  starspec = true;
@@ -296,8 +289,7 @@ namespace Gimp.Forge
       _saturationEntry = new ScaleEntry(table, 3, 3, _("Sa_turation:"), 
 					150, 3, 
 					_starcolour, 0.0, Int32.MaxValue, 
-					1.0, 8.0, 0,
-					true, 0, 0, null, null);
+					1.0, 8.0, 0);
       _saturationEntry.ValueChanged += delegate
 	{
 	  starcspec = true;
@@ -453,7 +445,6 @@ namespace Gimp.Forge
 
       Tile.CacheDefault(drawable);
 
-      _progress = new Progress(_("Forge..."));
       RenderForge(drawable, null, dimensions);
     }
 
@@ -480,43 +471,37 @@ namespace Gimp.Forge
       if (!dimspec)
       {
         _fracdim = _clouds ? Cast(1.9, 2.3) : Cast(2.0, 2.7);
-        if (_dimensionEntry != null)
-          _dimensionEntry.Value = _fracdim;
+	_dimensionEntry.Value = _fracdim;
       }
 
       if (!powerspec)
       {
         _powscale = _clouds ? Cast(0.6, 0.8) : Cast(1.0, 1.5);
-        if(_powerEntry != null)
-          _powerEntry.Value = _powscale;
+	_powerEntry.Value = _powscale;
       }
 
       if (!icespec)
 	{
 	  _icelevel = Cast(0.2, 0.6);
-	  if(_iceEntry != null)
-	    _iceEntry.Value = _icelevel;
+	  _iceEntry.Value = _icelevel;
 	}
 
       if (!glacspec)
 	{
 	  _glaciers = Cast(0.6, 0.85);
-	  if(_glacierEntry != null)
-	    _glacierEntry.Value = _glaciers;
+	  _glacierEntry.Value = _glaciers;
 	}
 
       if (!starspec)
 	{
 	  _starfraction = Cast(75, 125);
-	  if(_starsEntry != null)
-	    _starsEntry.Value = _starfraction;
+	  _starsEntry.Value = _starfraction;
 	}
 
       if (!starcspec) 
 	{
 	  _starcolour = Cast(100, 150);
-	  if(_saturationEntry != null)
-	    _saturationEntry.Value = _starcolour;
+	  _saturationEntry.Value = _starcolour;
 	}
       _previewAllowed = true;
     }
@@ -530,12 +515,9 @@ namespace Gimp.Forge
     {
       new Planet(drawable, pixelArray, dimensions, 
 		 _stars, _starfraction, _starcolour,
-		 _clouds, _random,
-		 _icelevel, _glaciers,
-		 _fracdim,
-		 hourspec, _hourangle,
-		 inclspec, _inclangle,
-		 _powscale, _progress);
+		 _clouds, _random, _icelevel, _glaciers,
+		 _fracdim, hourspec, _hourangle, inclspec, _inclangle,
+		 _powscale);
     }
   }
 }

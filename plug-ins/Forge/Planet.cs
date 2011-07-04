@@ -1,5 +1,5 @@
 // The Forge plug-in
-// Copyright (C) 2006-2009 Maurits Rijk
+// Copyright (C) 2006-2011 Maurits Rijk
 //
 // Planet.cs
 //
@@ -35,8 +35,6 @@ namespace Gimp.Forge
     readonly double _glaciers;
     readonly double _hourangle, _inclangle;
 
-    readonly Progress _progress;
-
     const double atSatFac = 1.0;
     const double atthick = 1.03;   /* Atmosphere thickness as a 
 				      percentage of planet's diameter */
@@ -50,7 +48,7 @@ namespace Gimp.Forge
 		  double fracdim, 
 		  bool hourspec, double hourangle,
 		  bool inclspec, double inclangle,
-		  double powscale, Progress progress)
+		  double powscale)
     {
       _stars = stars;
       _starfraction = starfraction;
@@ -63,7 +61,6 @@ namespace Gimp.Forge
       _inclspec = inclspec;
       _hourangle = hourangle;
       _inclangle = inclangle;
-      _progress = progress;
 
       Mesh mesh = null;
 
@@ -90,28 +87,19 @@ namespace Gimp.Forge
 		   Dimensions dimensions, Mesh mesh, uint n)
     {
       byte[] cp = null;
-      byte[] ap = null;
       double[] u = null;
       double[] u1 = null;
       uint[] bxf = null;
       uint[] bxc = null;
-      uint ap_index = 0;
 
       Vector3 sunvec = new Vector3();
-
-      double t = 0;
-      double t1 = 0;
-      double by, dy;
-      double dysq = 0;
-      double sqomdysq;
 
       int width = dimensions.Width;
       int height = dimensions.Height;
 
-      PixelFetcher pf = null; 
+      var progress = new Progress("Forge...");
 
-      if (drawable != null)
-        pf = new PixelFetcher(drawable, false);
+      var pf = (drawable == null) ? null : new PixelFetcher(drawable, false);
 
       if (!_stars) 
 	{
@@ -140,13 +128,13 @@ namespace Gimp.Forge
 	  // Prescale the grid points into intensities.
 
 	  cp = new byte[n * n];
+	  uint index = 0;
 
-	  ap = cp;
 	  for (int i = 0; i < n; i++) 
 	    {
 	      for (int j = 0; j < n; j++) 
 		{
-		  ap[ap_index++] = (byte) (255.0 * (mesh[i, j] + 1.0) / 2.0);
+		  cp[index++] = (byte) (255.0 * (mesh[i, j] + 1.0) / 2.0);
 		}
 	    }
 
@@ -161,12 +149,9 @@ namespace Gimp.Forge
 	     parameters and store them in an array so we don't  have  to  do
 	     this every time around the inner loop. */
 
-	  //#define UPRJ(a,size) ((a)/((size)-1.0))
-
 	  for (int j = 0; j < width; j++) 
 	    {
-	      //          double bx = (n - 1) * UPRJ(j, screenxsize);
-	      double bx = (n - 1) * (j/(width-1.0));
+	      double bx = (n - 1) * (j / (width - 1.0));
 
 	      bxf[j] = (uint) Math.Floor(bx);
 	      bxc[j] = bxf[j] + 1;
@@ -175,55 +160,44 @@ namespace Gimp.Forge
 	    }
 	}
 
-      StarFactory starFactory = new StarFactory(_random, _starfraction,
-						_starcolour);
-      Pixel[] pixels = new Pixel[width];
+      var starFactory = new StarFactory(_random, _starfraction, _starcolour);
+      var pixels = new Pixel[width];
 
       for (int i = 0; i < height; i++) 
       {
-        t = 0;
-        t1 = 0;
-        dysq = 0;
-        double svx = 0;
-        double svy = 0; 
-        double svz = 0; 
-        int byf = 0;
-        int byc = 0;
-
-        if (!_stars) 
-	  {	 // Skip all this setup if just stars
-	    //#define UPRJ(a,size) ((a)/((size)-1.0))
-	    //          by = (n - 1) * UPRJ(i, screenysize);
-	    by = (n - 1) * ((double)i / ((double)height-1.0));
-	    dy = 2 * (((height / 2) - i) / ((double) height));
-	    dysq = dy * dy;
-	    sqomdysq = Math.Sqrt(1.0 - dysq);
-	    svx = sunvec.X;
-	    svy = sunvec.Y * dy;
-	    svz = sunvec.Z * sqomdysq;
-	    byf = (int)(Math.Floor(by) * n);
-	    byc = byf + (int)n;
-	    t = by - Math.Floor(by);
-	    t1 = 1 - t;
+	if (_stars)
+	  {
+	    RenderStars(starFactory, pixels);
 	  }
+	else
+	  {
+	    double by = (n - 1) * ((double) i / ((double) height - 1.0));
+	    double dy = 2 * (((height / 2) - i) / ((double) height));
+	    double dysq = dy * dy;
+	    double sqomdysq = Math.Sqrt(1.0 - dysq);
+	    int byf = (int) (Math.Floor(by) * n);
+	    int byc = byf + (int) n;
+	    double t = by - Math.Floor(by);
+	    double t1 = 1 - t;
 
-        if (_clouds) 
-        {
-	  RenderClouds(width, t, t1, byf, byc, bxf, bxc, cp, 
-		       u1, u, pixels);
-        } 
-        else if (_stars) 
-        {
-	  RenderStars(starFactory, pixels);
-        } 
-        else 
-        {
-	  RenderPlanet(width, t, t1, byf, byc, bxf, bxc, cp, 
-		       u1, u, pixels, 
-		       starFactory,
-		       svx, svy, svz,
-		       height, i, dysq);
-	}
+	    if (_clouds) 
+	      {
+		RenderClouds(width, t, t1, byf, byc, bxf, bxc, cp, 
+			     u1, u, pixels);
+	      } 
+	    else 
+	      {
+		double svx = sunvec.X;
+		double svy = sunvec.Y * dy;
+		double svz = sunvec.Z * sqomdysq;
+
+		RenderPlanet(width, t, t1, byf, byc, bxf, bxc, cp, 
+			     u1, u, pixels, 
+			     starFactory,
+			     svx, svy, svz,
+			     height, i, dysq);
+	      }
+	  }
 	
         if (drawable != null)
 	  {
@@ -232,7 +206,7 @@ namespace Gimp.Forge
 		pf.PutPixel(x, i, pixels[x]);
 	      }
 	    
-	    _progress.Update((double)i/height);
+	    progress.Update((double) i / height);
 	  }
         else
 	  {
@@ -337,13 +311,13 @@ namespace Gimp.Forge
     {
       const double starClose = 2;
 
-      /* Left stars */
+      // Left stars
       for (int j = 0; j < width / 2 - (lcos + starClose); j++) 
 	{
 	  pixels[j] = starFactory.Generate();
 	}
 
-      /* Right stars */
+      // Right stars
       for (int j = (int) (width / 2 + (lcos + starClose)); j < width; j++) 
 	{
 	  pixels[j] = starFactory.Generate();

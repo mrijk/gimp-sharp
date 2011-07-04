@@ -1,3 +1,15 @@
+2011-07-04  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/DifferenceClouds/DifferenceClouds.cs: extracted indexed
+	color map into a new class
+
+	* plug-ins/DifferenceClouds/IndexedColorsMap.cs: new file
+
+	* plug-ins/DifferenceClouds/Makefile.am: changed accordingly
+
+	* plug-ins/Forge/Planet.cs
+	* plug-ins/Forge/Forge.cs: minor clean-up
+
 2011-07-03  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* plug-ins/PicturePackage/XmlNodeListExtensions.cs: moved to lib

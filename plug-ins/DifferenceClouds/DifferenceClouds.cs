@@ -42,7 +42,8 @@ namespace Gimp.DifferenceClouds
     int _maxProgress;
     int _alpha, _bpp;
     bool _hasAlpha;
-    byte [,] _indexedColorsMap = new byte[256, 3];
+
+    IndexedColorsMap _indexedColorsMap;
 
     static void Main(string[] args)
     {
@@ -129,7 +130,8 @@ namespace Gimp.DifferenceClouds
       _progress = 0;
       _hasAlpha = newLayer.HasAlpha;
       _alpha = (_hasAlpha) ? _bpp - 1 : _bpp;
-      InitializeIndexedColorsMap();
+
+      _indexedColorsMap = new IndexedColorsMap();
 
       var rectangle = drawable.MaskBounds;
       _maxProgress = rectangle.Area;
@@ -331,23 +333,6 @@ namespace Gimp.DifferenceClouds
     {
       pixel.AddNoise(amount / 2);
       return pixel;
-    }
-
-    void InitializeIndexedColorsMap()
-    {
-
-      var fgBytes = Context.Foreground.Bytes;
-      var bgBytes = Context.Background.Bytes;
-
-      for (int i = 0; i < 256; i++)
-        {
-          double ratio = i / 256.0; 
-          for (int j = 0; j < 3; j++)
-	    {
-	      _indexedColorsMap[i, j] = (byte)
-		(fgBytes[j] + (byte)((fgBytes[j] - bgBytes[j]) * ratio));
-	    }
-        }
     }
   }
 }
