@@ -19,7 +19,6 @@
 //
 
 using System;
-using System.Collections.Generic;
 
 using Gtk;
 
@@ -40,32 +39,32 @@ namespace Gimp.DifferenceClouds
 
     int _progress;
     int _maxProgress;
-    int _alpha, _bpp;
+    int _bpp;
     bool _hasAlpha;
 
-    IndexedColorsMap _indexedColorsMap;
+    readonly IndexedColorsMap _indexedColorsMap = new IndexedColorsMap();
 
     static void Main(string[] args)
     {
       GimpMain<DifferenceClouds>(args);
     }
 
-    override protected IEnumerable<Procedure> ListProcedures()
+    override protected Procedure GetProcedure()
     {
       var inParams = new ParamDefList()
 	{
 	  new ParamDef("turbulence", 0, typeof(double),
 		       _("Turbulence of the cloud"))
 	};
-      yield return new Procedure("plug_in_difference_clouds",
-				 _("Creates difference clouds."),
-				 _("Creates difference clouds."),
-				 "Massimo Perga",
-				 "(C) Massimo Perga",
-				 "2006-2011",
-				 _("Difference Clouds..."),
-				 "RGB*",
-				 inParams)
+      return new Procedure("plug_in_difference_clouds",
+			   _("Creates difference clouds."),
+			   _("Creates difference clouds."),
+			   "Massimo Perga",
+			   "(C) Massimo Perga",
+			   "2006-2011",
+			   _("Difference Clouds..."),
+			   "RGB*",
+			   inParams)
 	{
 	  MenuPath = "<Image>/Filters/Render/Clouds",
 	    IconFile = "DifferenceClouds.png"
@@ -104,10 +103,6 @@ namespace Gimp.DifferenceClouds
       return dialog;
     }
 
-    override protected void Reset()
-    {
-    }
-
     override protected void Render(Image image, Drawable drawable)
     {
       Tile.CacheDefault(drawable);
@@ -129,9 +124,6 @@ namespace Gimp.DifferenceClouds
       var pf = new PixelFetcher(drawable, true);
       _progress = 0;
       _hasAlpha = newLayer.HasAlpha;
-      _alpha = (_hasAlpha) ? _bpp - 1 : _bpp;
-
-      _indexedColorsMap = new IndexedColorsMap();
 
       var rectangle = drawable.MaskBounds;
       _maxProgress = rectangle.Area;
@@ -183,8 +175,6 @@ namespace Gimp.DifferenceClouds
 
     Pixel MakeAbsDiff(Pixel dest, Pixel src)
     {
-      var pixel = new Pixel(_bpp);
-
       int tmpVal = 0;
       for (int i = 0; i < _bpp; i++)
 	{
@@ -192,14 +182,12 @@ namespace Gimp.DifferenceClouds
 	}
       tmpVal /= _bpp;
 
-      for (int i = 0; i < _bpp; i++)
-	{
-	  pixel[i] = (byte)Math.Abs(dest[i] - _indexedColorsMap[tmpVal, i]);
-	}
+      var pixel = new Pixel(_bpp)
+	{Color = dest.Color - _indexedColorsMap[tmpVal]};
         
       if (_hasAlpha)
 	{
-	  pixel[_bpp - 1] = 255;
+	  pixel.Alpha = 255;
 	}
       return pixel;
     }   
@@ -324,7 +312,7 @@ namespace Gimp.DifferenceClouds
       
       if (_hasAlpha)
 	{
-	  pixel[_alpha] = 255;
+	  pixel.Alpha = 255;
 	}
       return pixel;
     }

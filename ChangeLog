@@ -1,3 +1,8 @@
+2011-07-08  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/DifferenceClouds/IndexedColorsMap.cs
+	* plug-ins/DifferenceClouds/DifferenceClouds.cs: clean-up
+
 2011-07-04  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* plug-ins/DifferenceClouds/DifferenceClouds.cs: extracted indexed

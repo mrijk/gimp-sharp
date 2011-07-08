@@ -18,33 +18,31 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-
 namespace Gimp.DifferenceClouds
 {
   class IndexedColorsMap
   {
-    readonly byte [,] _indexedColorsMap = new byte[256, 3];
+    readonly RGB[] _indexedColorsMap = new RGB[256];
 
     public IndexedColorsMap()
     {
-      var fgBytes = Context.Foreground.Bytes;
-      var bgBytes = Context.Background.Bytes;
+      var fgBytes = Context.Foreground;
+      var bgBytes = Context.Background;
       
       for (int i = 0; i < 256; i++)
 	{
-	  double ratio = i / 256.0;
-	  for (int j = 0; j < 3; j++)
-	    {
-	      _indexedColorsMap[i, j] = (byte)
-	    (fgBytes[j] + (byte)((fgBytes[j] - bgBytes[j]) * ratio));
-	    }
+	  _indexedColorsMap[i] = RGB.Interpolate(i / 256.0, fgBytes, bgBytes);
 	}
+    }
+
+    public RGB this[int index]
+    {
+      get {return _indexedColorsMap[index];}
     }
 
     public byte this[int index, int b]
     {
-      get {return _indexedColorsMap[index, b];}
+      get {return this[index].Bytes[b];}
     }
   }
 }
