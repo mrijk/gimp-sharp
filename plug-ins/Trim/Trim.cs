@@ -172,7 +172,7 @@ namespace Gimp.Trim
 
       if (x1 != 0 || y1 != 0 || x2 != width || y2 != height)
 	{
-	  Crop(image, x1, y1, x2, y2);
+	  image.Crop(new Rectangle(x1, y1, x2, y2));
 	}
     }
 
@@ -190,11 +190,6 @@ namespace Gimp.Trim
 	{
 	  return src.GetPixel(drawable.Width - 1, drawable.Height - 1);
 	}
-    }
-
-    void Crop(Image image, int x1, int y1, int x2, int y2)
-    {
-      image.Crop(x2 - x1, y2 - y1, x1, y1);
     }
 
     bool AllEqual(Pixel[] array, Pixel p)
