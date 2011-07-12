@@ -42,7 +42,7 @@ namespace Gimp.DifferenceClouds
     int _bpp;
     bool _hasAlpha;
 
-    readonly IndexedColorsMap _indexedColorsMap = new IndexedColorsMap();
+    IndexedColorsMap _indexedColorsMap;
 
     static void Main(string[] args)
     {
@@ -161,6 +161,8 @@ namespace Gimp.DifferenceClouds
 
     void DoDifference(Drawable sourceDrawable, Drawable toDiffDrawable)
     {
+      _indexedColorsMap = new IndexedColorsMap();
+
       var rectangle = sourceDrawable.MaskBounds;
       var srcPR = new PixelRgn(sourceDrawable, rectangle, true, true);
       var destPR = new PixelRgn(toDiffDrawable, rectangle, false, false);

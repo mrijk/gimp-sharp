@@ -1,3 +1,21 @@
+2011-07-12  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/QR/QR.cs
+	* plug-ins/Trim/Trim.cs: use GimpRadioButton
+
+	* lib/GimpTextView.cs
+	* lib/GimpRadioButton.cs: new files
+
+	* lib/Makefile.am: changed accordingly
+
+2011-07-11  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/Trim/Trim.cs: minor readability improvement
+
+2011-07-10  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/Trim/Trim.cs: minor clean-up
+
 2011-07-08  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* plug-ins/DifferenceClouds/IndexedColorsMap.cs

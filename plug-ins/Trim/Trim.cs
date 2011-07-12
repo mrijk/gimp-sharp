@@ -92,16 +92,9 @@ namespace Gimp.Trim
     RadioButton AddBasedOnButton(VBox vbox, RadioButton previous, int type, 
 				 string description)
     {
-      var button = new RadioButton(previous, description);
+      var button = new GimpRadioButton<int>(previous, description, type, 
+					    _basedOn);
       vbox.Add(button);
-      if (_basedOn.Value == type) {
-	button.Active = true;
-      }
-      button.Clicked += delegate {
-	if (button.Active) {
-	  _basedOn.Value = type;
-	}
-      };
       return button;
     }
 
@@ -170,9 +163,10 @@ namespace Gimp.Trim
       int x1 = (_left.Value) ? Array.FindIndex(cols, notTrue) : 0;
       int x2 = (_right.Value) ? Array.FindLastIndex(cols, notTrue) + 1 : width;
 
-      if (x1 != 0 || y1 != 0 || x2 != width || y2 != height)
+      var croppingArea = new Rectangle(x1, y1, x2, y2);
+      if (croppingArea != image.Bounds)
 	{
-	  image.Crop(new Rectangle(x1, y1, x2, y2));
+	  image.Crop(croppingArea);
 	}
     }
 

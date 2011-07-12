@@ -46,10 +46,12 @@ MYSOURCES = 				\
 	GimpFontSelectWidget.cs		\
 	GimpFrame.cs			\
 	GimpPreview.cs			\
+	GimpRadioButton.cs		\
 	GimpSharpException.cs		\
 	GimpSpinButton.cs		\
 	GimpStock.cs			\
 	GimpTable.cs			\
+	GimpTextView.cs			\
 	GimpTypes.cs			\
 	GimpUnit.cs			\
 	Gimp.cs				\

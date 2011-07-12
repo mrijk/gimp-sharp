@@ -1,7 +1,7 @@
 // GIMP# - A C# wrapper around the GIMP Library
 // Copyright (C) 2004-2011 Maurits Rijk
 //
-// GimpCheckButton.cs
+// GimpRadioButton.cs
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -23,15 +23,20 @@ using Gtk;
 
 namespace Gimp
 {
-  public class GimpCheckButton : CheckButton
+  public class GimpRadioButton<T> : RadioButton
   {
-    public GimpCheckButton(string label, Variable<bool> variable) : base(label)
+    public GimpRadioButton(RadioButton previous, string label, T type,
+			   Variable<T> variable) : base(previous, label)
     {
       UseUnderline = true;
-      Active = variable.Value;
-      Toggled += delegate {variable.Value = Active;};
-
-      // variable.ValueChanged += delegate {Active = variable.Value;};
+      if (variable.Value.Equals(type)) {
+	Active = true;
+      }
+      Clicked += delegate {
+	if (Active) {
+	  variable.Value = type;
+	}
+      };
     }
   }
 }

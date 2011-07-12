@@ -25,14 +25,13 @@ namespace Gimp.QR
 {
   class QR : PluginWithPreview
   {
-    [SaveAttribute("text")]
-    string _text = "";
-    [SaveAttribute("encoding")]
-    int _encoding = 0;
-    [SaveAttribute("error_correction")]
-    string _errorCorrection = "L";
-    [SaveAttribute("margin")]
-    int _margin = 4;
+    Variable<string> _text = new Variable<string>
+    ("text", _("Text for QR code"), "");
+    Variable<int> _encoding = new Variable<int>
+    ("encoding", _("Encoding (0 = UTF-8, 1 = Shift-JIS, 2 = ISO-8859-1)"), 0);
+    Variable<string> _errorCorrection = new Variable<string>
+    ("error_correction", _("Error Correction Level (L, M, Q or H)"), "L");
+    Variable<int> _margin = new Variable<int>("margin", _("Margin"), 4);
 
     static void Main(string[] args)
     {
@@ -41,17 +40,6 @@ namespace Gimp.QR
 
     override protected Procedure GetProcedure()
     {
-      var inParams = new ParamDefList() {
-	new ParamDef("text", "", typeof(string),
-		     _("Text for QR code")),
-	new ParamDef("encoding", 0, typeof(int), 
-		     _("Encoding (0 = UTF-8, 1 = Shift-JIS, 2 = ISO-8859-1)")),
-	new ParamDef("error_correction", "L", typeof(string),
-		     _("Error Correction Level (L, M, Q or H)")),
-	new ParamDef("margin", 4, typeof(int),
-		     _("Margin")),
-      };
-
       return new Procedure("plug_in_QR",
 			   _("Generates QR codes"),
 			   _("Generates QR codes"),
@@ -60,7 +48,8 @@ namespace Gimp.QR
 			   "2010-2011",
 			   "QR codes...",
 			   "*",
-			   inParams)
+			   new ParamDefList(_text, _encoding, _errorCorrection,
+					    _margin))
 	{
 	  MenuPath = "<Image>/Filters/Render",
 	  IconFile = "QR.png"
@@ -90,8 +79,13 @@ namespace Gimp.QR
 
       Vbox.PackStart(table, false, false, 0);
 
+      _text.ValueChanged += delegate {InvalidatePreview();};
+      _margin.ValueChanged += delegate {InvalidatePreview();};
+      _encoding.ValueChanged += delegate {InvalidatePreview();};
+      _errorCorrection.ValueChanged += delegate {InvalidatePreview();};
+
       InvalidatePreview();
-			
+      
       return dialog;
     }
 
@@ -99,15 +93,8 @@ namespace Gimp.QR
     {
       var frame = new GimpFrame(_("Text"));
 
-      var text = new TextView();
+      var text = new GimpTextView(_text);
       text.SetSizeRequest(-1, 100);
-
-      var buffer = text.Buffer;
-      buffer.Text = _text;
-      buffer.Changed += delegate {
-	_text = buffer.Text;
-	InvalidatePreview();
-      };
       frame.Add(text);
 
       return frame;
@@ -130,17 +117,9 @@ namespace Gimp.QR
     RadioButton AddEncodingButton(VBox vbox, RadioButton previous,
 				  int type, string description)
     {
-      var button = new RadioButton(previous, description);
+      var button = new GimpRadioButton<int>(previous, description, type, 
+					    _encoding);
       vbox.Add(button);
-      if (_encoding == type) {
-	button.Active = true;
-      }
-      button.Clicked += delegate {
-	if (button.Active) {
-	  _encoding = type;
-	  InvalidatePreview();
-	}
-      };
       return button;
     }
 
@@ -162,42 +141,29 @@ namespace Gimp.QR
     RadioButton AddErrorCorrectionButton(VBox vbox, RadioButton previous, 
 					 string type, string description)
     {
-      var button = new RadioButton(previous, type + " " + _(description));
-      if (_errorCorrection == type) {
-	button.Active = true;
-      }
-      button.Clicked += delegate {
-	if (button.Active) {
-	  _errorCorrection = type;
-	  InvalidatePreview();
-	}
-      };
+      var button = new GimpRadioButton<string>(previous, 
+					       type + " " + _(description),
+					       type, _errorCorrection);
       vbox.Add(button);
       return button;
     }
 
     void CreateMargin(Table table)
     {
-      var margin = new ScaleEntry(table, 0, 3, _("Margin:"), 150, 3, 
-				  _margin, 0.0, 64.0, 1.0, 8.0, 0);
-      margin.ValueChanged += delegate
-	{
-	  _margin = margin.ValueAsInt;
-	  InvalidatePreview();
-	};
+      new ScaleEntry(table, 0, 3, _("Margin:"), 150, 3, 
+		     _margin, 0.0, 64.0, 1.0, 8.0, 0);
     }
 
     Image GetImageFromGoogleCharts(Dimensions dimensions)
     {
-      var chl = "&chl=" + Uri.EscapeDataString(_text);
+      var chl = "&chl=" + Uri.EscapeDataString(_text.Value);
       var chs = string.Format("&chs={0}x{1}", dimensions.Width, 
 			      dimensions.Height);
       var choe = "&choe=" + GetEncodingString();
-      var chld = string.Format("&chld={0}|{1}", _errorCorrection, _margin);
+      var chld = string.Format("&chld={0}|{1}", _errorCorrection.Value, 
+			       _margin.Value);
       var url = "http://chart.apis.google.com/chart?cht=qr" 
 	+ chl + chs + choe + chld;
-
-      Console.WriteLine("url: " + url);
 
       var procedure = new Procedure("file-uri-load");
 
@@ -216,11 +182,12 @@ namespace Gimp.QR
 
     string GetEncodingString()
     {
-      if (_encoding == 1) 
+      int encoding = _encoding.Value;
+      if (encoding == 1) 
 	{
 	  return "Shift_JIS";
 	}
-      else if (_encoding == 2)
+      else if (encoding == 2)
 	{
 	  return "ISO-8859-1";
 	}

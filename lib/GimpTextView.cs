@@ -1,7 +1,7 @@
 // GIMP# - A C# wrapper around the GIMP Library
 // Copyright (C) 2004-2011 Maurits Rijk
 //
-// GimpCheckButton.cs
+// GimpTextView.cs
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -23,15 +23,15 @@ using Gtk;
 
 namespace Gimp
 {
-  public class GimpCheckButton : CheckButton
+  public class GimpTextView : TextView
   {
-    public GimpCheckButton(string label, Variable<bool> variable) : base(label)
+    public GimpTextView(Variable<string> variable)
     {
-      UseUnderline = true;
-      Active = variable.Value;
-      Toggled += delegate {variable.Value = Active;};
-
-      // variable.ValueChanged += delegate {Active = variable.Value;};
+      var buffer = Buffer;
+      buffer.Text = variable.Value;
+      buffer.Changed += delegate {
+	variable.Value = buffer.Text;
+      };
     }
   }
 }
