@@ -26,7 +26,7 @@ using Gtk;
 
 namespace Gimp.Swirlies
 {
-  class Swirlies : PluginWithPreview
+  class Swirlies : PluginWithPreview<AspectPreview>
   {
     Random _random;
     int _width;
@@ -90,7 +90,7 @@ namespace Gimp.Swirlies
       return dialog;
     }
 
-    override protected void UpdatePreview(AspectPreview preview)
+    override protected void UpdatePreview(GimpPreview preview)
     {
       return;
       if (_renderThread != null)

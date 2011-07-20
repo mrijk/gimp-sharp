@@ -30,12 +30,19 @@ namespace Gimp
     readonly int _drawableHeight;
     readonly int _bpp;
 
+    public AspectPreview() {}
+
     public AspectPreview(Drawable drawable, bool toggle) : 
       base(gimp_aspect_preview_new(drawable.Ptr, toggle))
     {
       _drawableWidth = drawable.Width;
       _drawableHeight = drawable.Height;
       _bpp = drawable.Bpp;
+    }
+
+    internal override GimpPreview Instantiate(Drawable drawable)
+    {
+      return new AspectPreview(drawable, false);
     }
 
     public new void Update(Func<int, int, Pixel> func)

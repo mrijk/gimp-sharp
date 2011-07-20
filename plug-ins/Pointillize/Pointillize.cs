@@ -24,7 +24,7 @@ using Gtk;
 
 namespace Gimp.Pointillize
 {
-  class Pointillize : PluginWithPreview
+  class Pointillize : PluginWithPreview<AspectPreview>
   {
     Variable<int> _cellSize = new Variable<int>("cell_size", "Cell size", 30);
 
@@ -67,9 +67,9 @@ namespace Gimp.Pointillize
       return dialog;
     }
 
-    override protected void UpdatePreview(AspectPreview preview)
+    override protected void UpdatePreview(GimpPreview preview)
     {
-      preview.Update(GetPointillizeFunc(_drawable));
+      (preview as AspectPreview).Update(GetPointillizeFunc(_drawable));
     }
 
     override protected void Render(Drawable drawable)

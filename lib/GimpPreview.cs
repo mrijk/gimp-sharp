@@ -31,9 +31,13 @@ namespace Gimp
 {
   public class GimpPreview : VBox
   {
+    public GimpPreview() {}
+
     public GimpPreview(IntPtr ptr) : base(ptr)
     {
     }
+
+    virtual internal GimpPreview Instantiate(Drawable drawable) {return null;}
 
     public bool Update
     {

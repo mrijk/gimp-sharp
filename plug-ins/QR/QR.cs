@@ -23,7 +23,7 @@ using Gtk;
 
 namespace Gimp.QR
 {
-  class QR : PluginWithPreview
+  class QR : PluginWithPreview<AspectPreview>
   {
     Variable<string> _text = new Variable<string>
     ("text", _("Text for QR code"), "");
@@ -197,7 +197,7 @@ namespace Gimp.QR
 	}
     }
 
-    override protected void UpdatePreview(AspectPreview preview)
+    override protected void UpdatePreview(GimpPreview preview)
     {
       var image = GetImageFromGoogleCharts(preview.Size);
       

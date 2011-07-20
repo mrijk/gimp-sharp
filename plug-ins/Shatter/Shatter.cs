@@ -22,7 +22,7 @@ using System;
 
 namespace Gimp.Shatter
 {
-  public class Shatter : PluginWithPreview
+  public class Shatter : PluginWithPreview<AspectPreview>
   {
     Variable<int> _pieces = new Variable<int>("pieces", _("Number of shards"),
 					      4);

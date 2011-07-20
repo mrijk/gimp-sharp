@@ -27,17 +27,50 @@ namespace Gimp
   public class DrawablePreview : ScrolledPreview
   {
     public Drawable Drawable {get; private set;}
+    readonly int _bpp;
 
     public DrawablePreview(Drawable drawable, bool toggle) :
       base(gimp_drawable_preview_new(drawable.Ptr, toggle))
     {
       Drawable = drawable;
+      _bpp = drawable.Bpp;
+    }
+
+    // Only used internally!
+    public DrawablePreview() {}
+
+    internal override GimpPreview Instantiate(Drawable drawable)
+    {
+      return new DrawablePreview(drawable, false);
     }
 
     public void DrawRegion(PixelRgn region)
     {
       var pr = region.PR;
       gimp_drawable_preview_draw_region(Handle, ref pr);
+    }
+
+    public new void Update(Func<Pixel, Pixel> func)
+    {
+      var rectangle = Bounds;
+
+      int rowStride = rectangle.Width * _bpp;
+      byte[] buffer = new byte[rectangle.Area * _bpp];
+
+      var srcPR = new PixelRgn(Drawable, rectangle, false, false);
+
+      var iterator = new RegionIterator(srcPR);
+      iterator.ForEach(src =>
+	{
+	  int x = src.X;
+	  int y = src.Y;
+	  var pixel = func(src);
+	  
+	  int index = 
+	  (y - rectangle.Y1) * rowStride + (x - rectangle.X1) * _bpp;
+	  pixel.CopyTo(buffer, index);
+	});
+      DrawBuffer(buffer, rowStride);
     }
 
     [DllImport("libgimpui-2.0-0.dll")]

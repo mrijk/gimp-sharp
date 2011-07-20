@@ -32,6 +32,9 @@ namespace Gimp
     {
     }
 
+    // Only used internally!
+    public ScrolledPreview() {}
+
     public void SetPosition(int x, int y)
     {
       gimp_scrolled_preview_set_position(Handle, x, y);

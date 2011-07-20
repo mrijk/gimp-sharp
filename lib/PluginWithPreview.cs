@@ -25,9 +25,10 @@ using Gtk;
 
 namespace Gimp
 {
-  abstract public class PluginWithPreview : Plugin
+  public abstract class PluginWithPreview<T> : Plugin where T : GimpPreview, 
+    new()
   {
-    protected AspectPreview Preview {get; private set;}
+    protected GimpPreview Preview {get; private set;}
     protected VBox Vbox {get; private set;}
 
     override protected GimpDialog DialogNew(string title, string role, 
@@ -44,7 +45,9 @@ namespace Gimp
       Vbox = new VBox(false, 0) {BorderWidth = 12};
       dialog.VBox.PackStart(Vbox, true, true, 0);
 
-      Preview = new AspectPreview(_drawable, false);
+      var factory = new T();
+      Preview = factory.Instantiate(_drawable);
+
       Preview.Invalidated += delegate {UpdatePreview(Preview);};
 
       Vbox.PackStart(Preview, true, true, 0);
@@ -57,6 +60,6 @@ namespace Gimp
       Preview.Invalidate();
     }
 
-    virtual protected void UpdatePreview(AspectPreview preview) {}
+    virtual protected void UpdatePreview(GimpPreview preview) {}
   }
 }

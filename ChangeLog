@@ -1,3 +1,20 @@
+2011-07-20  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/Raindrops/Raindrops.cs: derive from PlugWithPreview
+
+	* plug-ins/Swirlies/Swirlies.cs
+	* plug-ins/Sky/Sky.cs
+	* plug-ins/Shatter/Shatter.cs
+	* plug-ins/QR/QR.cs
+	* plug-ins/Pointillize/Pointillize.cs
+	* plug-ins/Mezzotint/Mezzotint.cs
+	* plug-ins/Forge/Forge.cs: use generic PluginWithPreview class
+
+	* lib/DrawablePreview.cs: added Update method
+
+	* plug-ins/ncp/ncp.cs: removed Reset method. Is going to be a
+	generic method pretty soon.
+
 2011-07-12  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* plug-ins/QR/QR.cs

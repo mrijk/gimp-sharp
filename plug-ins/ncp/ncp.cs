@@ -23,7 +23,7 @@ using Gtk;
 
 namespace Gimp.ncp
 {
-  class ncp : PluginWithPreview
+  class ncp : PluginWithPreview<AspectPreview>
   {
     ScaleEntry _closestEntry;
 
@@ -66,8 +66,6 @@ namespace Gimp.ncp
 
     override protected GimpDialog CreateDialog()
     {
-      gimp_ui_init("ncp", true);
-
       var dialog = DialogNew("ncp", "ncp", IntPtr.Zero, 0,
 			     Gimp.StandardHelpFunc, "ncp");
 
@@ -113,8 +111,8 @@ namespace Gimp.ncp
 
     void CreatePointsWidget(GimpTable table)
     {
-      var entry = new ScaleEntry(table, 0, 1, _("Po_ints:"), 150, 3, 
-				 _points, 1.0, 256.0, 1.0, 8.0, 0);
+      new ScaleEntry(table, 0, 1, _("Po_ints:"), 150, 3, 
+		     _points, 1.0, 256.0, 1.0, 8.0, 0);
     }
 
     void CreateClosestEntryWidget(GimpTable table)
@@ -129,10 +127,10 @@ namespace Gimp.ncp
       table.Attach(color, 0, 1, 3, 4);
     }
 
-    override protected void UpdatePreview(AspectPreview preview)
+    override protected void UpdatePreview(GimpPreview preview)
     {
       Initialize(_drawable);
-      preview.Update(DoNCP);
+      (preview as AspectPreview).Update(DoNCP);
     }
 
     void Initialize(Drawable drawable)
@@ -148,11 +146,6 @@ namespace Gimp.ncp
 
       _calculator = new Calculator(_points.Value, _closest.Value, bpp, 
 				   drawable.MaskBounds, (int) _seed);
-    }
-
-    override protected void Reset()
-    {
-      Console.WriteLine("Reset!");
     }
 
     override protected void Render(Drawable drawable)

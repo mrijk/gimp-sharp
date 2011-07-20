@@ -25,7 +25,7 @@ using Gtk;
 
 namespace Gimp.Forge
 {
-  class Forge : PluginWithPreview
+  class Forge : PluginWithPreview<AspectPreview>
   {
     const double planetAmbient = 0.05;
     bool _randomSeed = true;
@@ -81,7 +81,7 @@ namespace Gimp.Forge
       GimpMain<Forge>(args);
     }
 
-    override protected IEnumerable<Procedure> ListProcedures()
+    override protected Procedure GetProcedure()
     {
       var inParams = new ParamDefList()
 	{
@@ -108,15 +108,15 @@ namespace Gimp.Forge
 	  new ParamDef("seed", 0, typeof(uint), 
 		       _("Random generated seed"))
 	};
-      yield return new Procedure("plug_in_forge",
-				 _("Creates an artificial world."),
-				 _("Creates an artificial world."),
-				 "Massimo Perga, Maurits Rijk",
-				 "(C) Massimo Perga, Maurits Rijk",
-				 "2006-2011",
-				 _("Forge..."),
-				 "RGB*",
-				 inParams)
+      return new Procedure("plug_in_forge",
+			   _("Creates an artificial world."),
+			   _("Creates an artificial world."),
+			   "Massimo Perga, Maurits Rijk",
+			   "(C) Massimo Perga, Maurits Rijk",
+			   "2006-2011",
+			   _("Forge..."),
+			   "RGB*",
+			   inParams)
 	{
 	  MenuPath = "<Image>/Filters/Render",
 	  IconFile = "Forge.png"
@@ -413,7 +413,7 @@ namespace Gimp.Forge
       _saturationEntry.Sensitive = planet;
     }
 
-    override protected void UpdatePreview(AspectPreview preview)
+    override protected void UpdatePreview(GimpPreview preview)
     {
       Console.WriteLine("UpdatePreview!");
 

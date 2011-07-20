@@ -13,11 +13,10 @@ Release 0.18
 9) Convert mode to IndC
 10)
 
-- generic preview plug-in
 - implement Reset
 - get/set persistent data
 - Automatic preview update if any variable changes
-- Fix Mezzotint preview
+- Fix Raindrops plug-in
 
 Release 0.19
 ------------

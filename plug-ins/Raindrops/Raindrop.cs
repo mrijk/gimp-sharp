@@ -46,7 +46,7 @@ namespace Gimp.Raindrops
     {
       var dimensions = drawable.Dimensions;
       RenderDrop(boolMatrix, pf, dimensions);
-      RenderShadow(pf, drawable, dimensions);
+      // RenderShadow(pf, drawable, dimensions);
     }
 
     void RenderDrop(BoolMatrix boolMatrix, PixelFetcher pf, 
@@ -76,11 +76,13 @@ namespace Gimp.Raindrops
 
 	      if (dimensions.IsInside(k, l) && dimensions.IsInside(m, n))
 		{
+#if false		  
 		  boolMatrix[n, m] = true;
-		  
+
 		  var newColor = pf[l, k] + GetBright(oldRadius, a);
 		  newColor.Clamp0255();
 		  pf[l, k] = newColor;
+#endif
 		}
 	    }
 	}

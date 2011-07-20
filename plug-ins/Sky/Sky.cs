@@ -28,7 +28,7 @@ using Gtk;
 
 namespace Gimp.Sky
 {
-  class Sky : PluginWithPreview
+  class Sky : PluginWithPreview<AspectPreview>
   {
     Variable<double> _tilt = new Variable<double>
     ("tilt", _("Camera tilt angle (0.0 - 90.0)"), 0.0);
@@ -202,10 +202,10 @@ namespace Gimp.Sky
       table.AttachAligned(column, row, _(label), 0.0, 0.5, button, 1, true);
     }
 
-    override protected void UpdatePreview(AspectPreview preview)
+    override protected void UpdatePreview(GimpPreview preview)
     {
       Initialize(_drawable);
-      preview.Update(DoSky);
+      (preview as AspectPreview).Update(DoSky);
     }
 
     void Initialize(Drawable drawable)

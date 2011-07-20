@@ -24,10 +24,8 @@ using Gtk;
 
 namespace Gimp.Mezzotint
 {
-  class Mezzotint : Plugin
+  class Mezzotint : PluginWithPreview<DrawablePreview>
   {
-    DrawablePreview _preview;
-
     static void Main(string[] args)
     {
       GimpMain<Mezzotint>(args);
@@ -51,17 +49,8 @@ namespace Gimp.Mezzotint
 
     override protected GimpDialog CreateDialog()
     {
-      gimp_ui_init("Mezzotint", true);
-
       var dialog = DialogNew("Mezzotint", "Mezzotint", IntPtr.Zero, 0,
 			     Gimp.StandardHelpFunc, "Mezzotint");
-
-      var vbox = new VBox(false, 12) {BorderWidth = 12};
-      dialog.VBox.PackStart(vbox, true, true, 0);
-
-      _preview = new DrawablePreview(_drawable, false);
-      _preview.Invalidated += UpdatePreview;
-      vbox.PackStart(_preview, true, true, 0);
 
       var type = ComboBox.NewText();
       type.AppendText("Fine dots");
@@ -76,37 +65,19 @@ namespace Gimp.Mezzotint
       type.AppendText("Long strokes");
       type.Active = 0;
 
-      vbox.PackStart(type, false, false, 0);
+      Vbox.PackStart(type, false, false, 0);
 
       return dialog;
     }
 
-    void UpdatePreview(object sender, EventArgs e)
+    override protected void UpdatePreview(GimpPreview preview)
     {
-      var rectangle = _preview.Bounds;
-
-      int rowStride = rectangle.Width * 3;
-      byte[] buffer = new byte[rectangle.Area * 3];	// Fix me!
-
-      var srcPR = new PixelRgn(_drawable, rectangle, false, false);
-
-      var iterator = new RegionIterator(srcPR);
-      iterator.ForEach(src =>
-	{
-	  int x = src.X;
-	  int y = src.Y;
-	  var pixel = DoMezzotint(src);
-	  
-	  int index = (y - rectangle.Y1) * rowStride + (x - rectangle.X1) * 3;
-	  pixel.CopyTo(buffer, index);
-	});
-      _preview.DrawBuffer(buffer, rowStride);
+      (preview as DrawablePreview).Update(DoMezzotint);
     }
 
     override protected void Render(Drawable drawable)
     {
-      var iter = new RgnIterator(drawable, RunMode.Interactive);
-      iter.Progress = new Progress(_("Mezzotint"));
+      var iter = new RgnIterator(drawable, _("Mezzotint"));
       iter.IterateSrcDest(pixel => DoMezzotint(pixel));
     }
 

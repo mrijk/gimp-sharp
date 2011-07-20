@@ -24,10 +24,8 @@ using Gtk;
 
 namespace Gimp.Raindrops
 {
-  class Raindrops : Plugin
+  class Raindrops : PluginWithPreview<DrawablePreview>
   {
-    DrawablePreview _preview;
-
     Variable<int> _dropSize = 
     new Variable<int>("drop_size", _("Size of raindrops"), 80);
     Variable<int> _number = 
@@ -60,30 +58,21 @@ namespace Gimp.Raindrops
 
     override protected GimpDialog CreateDialog()
     {
-      gimp_ui_init("Raindrops", true);
-
-      var dialog = DialogNew(_("Raindrops 0.1"), _("Raindrops"),
+      var dialog = DialogNew(_("Raindrops 0.2"), _("Raindrops"),
 			     IntPtr.Zero, 0, Gimp.StandardHelpFunc,
 			     _("Raindrops"));
 
-      var vbox = new VBox(false, 12) {BorderWidth = 12};
-      dialog.VBox.PackStart(vbox, true, true, 0);
-
-      _preview = new DrawablePreview(_drawable, false);
-      _preview.Invalidated += UpdatePreview;
-      vbox.PackStart(_preview, true, true, 0);
-
       var table = new GimpTable(2, 2, false)
 	{ColumnSpacing = 6, RowSpacing = 6};
-      vbox.PackStart(table, false, false, 0);
+      Vbox.PackStart(table, false, false, 0);
 
       CreateDropSizeEntry(table);
       CreateNumberEntry(table);
       CreateFishEyeEntry(table);
 
-      _dropSize.ValueChanged += UpdatePreview;
-      _number.ValueChanged += UpdatePreview;
-      _fishEye.ValueChanged += UpdatePreview;
+      _dropSize.ValueChanged += delegate {InvalidatePreview();};
+      _number.ValueChanged += delegate {InvalidatePreview();};
+      _fishEye.ValueChanged += delegate {InvalidatePreview();};
 
       return dialog;
     }
@@ -106,22 +95,17 @@ namespace Gimp.Raindrops
 		     256.0, 1.0, 8.0, 0);
     }
 
-    void UpdatePreview(object sender, EventArgs e)
+    override protected void UpdatePreview(GimpPreview preview)
     {
       // Fix me: it's probably better to just create a new Drawable iso
       // a completely new image!
       var clone = new Image(_image);
-      clone.Crop(_preview.Bounds);
+      clone.Crop(preview.Bounds);
 
       var drawable = clone.ActiveDrawable;
       RenderRaindrops(clone, drawable, true);
-      _preview.Redraw(drawable);
+      preview.Redraw(drawable);
       clone.Delete();
-    }
-
-    override protected void Reset()
-    {
-      Console.WriteLine("Reset!");
     }
 
     override protected void Render(Image image, Drawable drawable)
@@ -142,7 +126,6 @@ namespace Gimp.Raindrops
 
       var factory = new RaindropFactory(_dropSize.Value, _fishEye.Value, 
 					dimensions);
-
       for (int numBlurs = 0; numBlurs <= _number.Value; numBlurs++)
 	{
 	  var raindrop = factory.Create();
@@ -152,6 +135,7 @@ namespace Gimp.Raindrops
 		progress.Update(1.0);
 	      break;
 	    }
+
 	  raindrop.Render(factory.BoolMatrix, pf, drawable);
 
 	  if (!isPreview)
