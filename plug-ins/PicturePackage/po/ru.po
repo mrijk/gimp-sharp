@@ -3,147 +3,157 @@
 # This file is distributed under the same license as the gimp-sharp package.
 # Alexandre Prokoudine <alexandre.prokoudine@gmail.com>, 2006.
 # , fuzzy
-#
+# Александр Прокудин <alexandre.prokoudine@gmail.com>, 2011.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gimp-sharp 0.15\n"
+"Project-Id-Version: Picture Package 0.16\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-05-09 11:17+0200\n"
-"PO-Revision-Date: 2008-05-09 11:31+0100\n"
-"Last-Translator: Alexandre Prokoudine <alexandre.prokoudine@gmail.com>\n"
-"Language-Team: Russian <ru@li.org>\n"
+"POT-Creation-Date: 2011-07-06 22:55+0400\n"
+"PO-Revision-Date: 2011-07-06 22:57+0400\n"
+"Last-Translator: Александр Прокудин <alexandre.prokoudine@gmail.com>\n"
+"Language-Team: Russian <gnome-cyr@lists.gnome.org>\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: UTF-8\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2); 10<=4 && (n%100<10 || n"
+"%100>=20) ? 1 : 2);\n"
 
-#: ../DocumentFrame.cs:50
+#: ../DocumentFrame.cs:38
+msgid "Document"
+msgstr "Документ"
+
+#: ../DocumentFrame.cs:60
 msgid "_Page Size:"
 msgstr "_Формат страницы:"
 
-#: ../DocumentFrame.cs:56
+#: ../DocumentFrame.cs:74
 msgid "_Layout:"
 msgstr "_Макет:"
 
-#: ../DocumentFrame.cs:59
+#: ../DocumentFrame.cs:80
 msgid "_Resolution:"
 msgstr "_Разрешение:"
 
-#: ../DocumentFrame.cs:69
+#: ../DocumentFrame.cs:95
 msgid "Grayscale"
 msgstr "В оттенках серого"
 
-#: ../DocumentFrame.cs:69
+#: ../DocumentFrame.cs:95
 msgid "RGB Color"
 msgstr "Цветной, RGB"
 
-#: ../DocumentFrame.cs:72
+#: ../DocumentFrame.cs:98
 msgid "_Mode:"
 msgstr "Р_ежим:"
 
-#: ../DocumentFrame.cs:74
+#: ../DocumentFrame.cs:103
 msgid "Flatten All Layers"
 msgstr "Свести все слои"
 
-#: ../LabelFrame.cs:37
-#: ../LabelFrame.cs:77
-msgid "None"
-msgstr "Никакой"
+#: ../LabelFrame.cs:35
+msgid "Label"
+msgstr "Метка"
 
-#: ../LabelFrame.cs:37
+#: ../LabelFrame.cs:49 ../LabelFrame.cs:104
+msgid "None"
+msgstr "Нет"
+
+#: ../LabelFrame.cs:49
 msgid "Custom Text"
 msgstr "Другой текст"
 
-#: ../LabelFrame.cs:38
+#: ../LabelFrame.cs:50
 msgid "Filename"
 msgstr "Имя файла"
 
-#: ../LabelFrame.cs:38
+#: ../LabelFrame.cs:50
 msgid "Copyright"
 msgstr "Авторские права"
 
-#: ../LabelFrame.cs:39
+#: ../LabelFrame.cs:51
 msgid "Caption"
 msgstr "Подпись"
 
-#: ../LabelFrame.cs:39
+#: ../LabelFrame.cs:51
 msgid "Credits"
 msgstr "Благодарности"
 
-#: ../LabelFrame.cs:40
+#: ../LabelFrame.cs:52
 msgid "Title"
 msgstr "Название"
 
-#: ../LabelFrame.cs:43
+#: ../LabelFrame.cs:55
 msgid "Content:"
 msgstr "Содержимое:"
 
-#: ../LabelFrame.cs:47
+#: ../LabelFrame.cs:62
 msgid "Custom Text:"
 msgstr "Другой текст:"
 
-#: ../LabelFrame.cs:52
+#: ../LabelFrame.cs:70
 msgid "Select Font"
 msgstr "Выберите шрифт"
 
-#: ../LabelFrame.cs:56
+#: ../LabelFrame.cs:74
 msgid "Font:"
 msgstr "Шрифт:"
 
-#: ../LabelFrame.cs:66
+#: ../LabelFrame.cs:87
 msgid "Opacity:"
 msgstr "Непрозрачность:"
 
-#: ../LabelFrame.cs:69
+#: ../LabelFrame.cs:90
 msgid "Color:"
 msgstr "Цвет:"
 
-#: ../LabelFrame.cs:71
+#: ../LabelFrame.cs:95
 msgid "Centered"
 msgstr "По центру"
 
-#: ../LabelFrame.cs:71
+#: ../LabelFrame.cs:95
 msgid "Top Left"
 msgstr "Вверху слева"
 
-#: ../LabelFrame.cs:72
+#: ../LabelFrame.cs:96
 msgid "Bottom Left"
 msgstr "Внизу слева"
 
-#: ../LabelFrame.cs:72
+#: ../LabelFrame.cs:96
 msgid "Top Right"
 msgstr "Вверху справа"
 
-#: ../LabelFrame.cs:73
+#: ../LabelFrame.cs:97
 msgid "Bottom Right"
 msgstr "Внизу справа"
 
-#: ../LabelFrame.cs:75
+#: ../LabelFrame.cs:99
 msgid "Position:"
 msgstr "Положение:"
 
-#: ../LabelFrame.cs:78
+#: ../LabelFrame.cs:105
 msgid "45 Degrees Right"
 msgstr "На 45° вправо"
 
-#: ../LabelFrame.cs:79
+#: ../LabelFrame.cs:106
 msgid "90 Degrees Right"
 msgstr "На 90° вправо"
 
-#: ../LabelFrame.cs:80
+#: ../LabelFrame.cs:107
 msgid "45 Degrees Left"
 msgstr "На 45° влево"
 
-#: ../LabelFrame.cs:81
+#: ../LabelFrame.cs:108
 msgid "90 Degrees Left"
 msgstr "На 90° влево"
 
-#: ../LabelFrame.cs:82
+#: ../LabelFrame.cs:109
 msgid "Rotate:"
 msgstr "Вращать:"
 
-#: ../PicturePackage.cs:102
-#: ../PicturePackage.cs:103
+#: ../PicturePackage.cs:102 ../PicturePackage.cs:103
 msgid "Picture package"
 msgstr "Раскладка изображений"
 
@@ -155,8 +165,7 @@ msgstr "Раскладка изображений..."
 msgid "Picture Package 0.6.2"
 msgstr "Раскладка изображений 0.6.2"
 
-#: ../PicturePackage.cs:123
-#: ../PicturePackage.cs:124
+#: ../PicturePackage.cs:123 ../PicturePackage.cs:124
 msgid "PicturePackage"
 msgstr "Раскладка изображений"
 
@@ -164,31 +173,26 @@ msgstr "Раскладка изображений"
 msgid "Right click to select picture"
 msgstr "Щелкните правой клавишей мыши для выбора изображения"
 
-#: ../SourceFrame.cs:45
-msgid "_Image"
-msgstr "_Изображение"
+#: ../SourceFrame.cs:39
+msgid "Source"
+msgstr "Источник"
 
-#: ../SourceFrame.cs:62
-msgid "_File"
-msgstr "_Файл"
-
-#: ../SourceFrame.cs:66
-msgid "Fol_der"
-msgstr "_Папка"
-
-#: ../SourceFrame.cs:70
-msgid "_Include All Subfolders"
-msgstr "_Включить все подпапки"
-
-#: ../SourceFrame.cs:89
-#: ../SourceFrame.cs:96
+#: ../SourceFrame.cs:78 ../SourceFrame.cs:85
 msgid "Open..."
 msgstr "Открыть..."
 
-#~ msgid "Document"
-#~ msgstr "Документ"
-#~ msgid "Label"
-#~ msgstr "Метка"
-#~ msgid "Source"
-#~ msgstr "Источник"
+#: ../SourceFrame.cs:108
+msgid "_Image"
+msgstr "_Изображение"
 
+#: ../SourceFrame.cs:139
+msgid "_File"
+msgstr "_Файл"
+
+#: ../SourceFrame.cs:153
+msgid "Fol_der"
+msgstr "_Папка"
+
+#: ../SourceFrame.cs:167
+msgid "_Include All Subfolders"
+msgstr "_Включить все подпапки"
