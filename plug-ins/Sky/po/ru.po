@@ -1,49 +1,51 @@
-# Russian translation of gimp-sharp.
-# Copyright (C) 2006 THE gimp-sharp'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the gimp-sharp package.
-# Alexandre Prokoudine <alexandre.prokoudine@gmail.com>, 2006.
-# , fuzzy
-#
+# Russian translation of Sky plug-in for GIMP#
+# Copyright (C) 2011 Maurits Rijk
+# This file is distributed under the same license as the GIMP# package.
+# Александр Прокудин <alexandre.prokoudine@gmail.com>, 2011.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gimp-sharp 0.15\n"
+"Project-Id-Version: Sky 0.16\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-18 00:42+0300\n"
-"PO-Revision-Date: 2009-12-18 00:43+0300\n"
-"Last-Translator: Alexandre Prokoudine <alexandre.prokoudine@gmail.com>\n"
-"Language-Team: Russian <ru@li.org>\n"
+"POT-Creation-Date: 2011-07-25 21:52+0400\n"
+"PO-Revision-Date: 2011-07-25 22:00+0400\n"
+"Last-Translator: Александр Прокудин <alexandre.prokoudine@gmail.com>\n"
+"Language-Team: Russian <gnome-cyr@lists.gnome.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: UTF-8\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2); 10<=4 && (n%100<10 || n"
+"%100>=20) ? 1 : 2);\n"
 
 #: ../Sky.cs:85
 msgid "Camera tilt angle (0.0 - 90.0)"
-msgstr "Угол наклона камеры (0.0 - 90.0)"
+msgstr "Угол наклона камеры (0,0 - 90,0)"
 
 #: ../Sky.cs:87
 msgid "Camera rotation angle (0.0 - 90.0)"
-msgstr "Угол вращения камеры (0.0 - 90.0)"
+msgstr "Угол вращения камеры (0,0 - 90,0)"
 
 #: ../Sky.cs:89
 msgid "Random seed, -1 to use current time"
-msgstr "Случайное зерно, =1 даёт текущее время"
+msgstr "Random seed, -1 to use current time"
 
 #: ../Sky.cs:91
 msgid "Show sun? (bool)"
-msgstr "Показать Солнце? (да/нет)"
+msgstr "Нарисовать ли Солнце"
 
 #: ../Sky.cs:93
 msgid "Sun's x coordinate (0.0 - 1.0)"
-msgstr "Координата X Солнца (0.0 - 1.0)"
+msgstr "Координата центра Солнца по X (0,0 - 1,0)"
 
 #: ../Sky.cs:95
 msgid "Sun's y coordinate (0.0 - 1.0)"
-msgstr "Координата Y Солнца (0.0 - 1.0)"
+msgstr "Координата центра Солнца по Y (0,0 - 1,0)"
 
 #: ../Sky.cs:97
 msgid "Time in hours (0.0 - 24.0)"
-msgstr "Время в часах (0.0 - 24.0)"
+msgstr "Время в часах (0,0 - 240)"
 
 #: ../Sky.cs:99
 msgid "Horizon color"
@@ -63,20 +65,19 @@ msgstr "Цвет облаков"
 
 #: ../Sky.cs:107
 msgid "Cloud shadow color"
-msgstr "Цвет тени от облаков"
+msgstr "Цвет тени облаков"
 
-#: ../Sky.cs:111
-#: ../Sky.cs:112
+#: ../Sky.cs:111 ../Sky.cs:112
 msgid "Sky"
-msgstr "Небо"
+msgstr "Генератор неба"
 
 #: ../Sky.cs:116
 msgid "Sky..."
-msgstr "Небо..."
+msgstr "Генератор неба…"
 
 #: ../Sky.cs:159
 msgid "Random _Seed:"
-msgstr "Случайно _зерно:"
+msgstr "Зерно:"
 
 #: ../Sky.cs:164
 msgid "Sun"
@@ -124,14 +125,8 @@ msgstr "Со_лнце:"
 
 #: ../Sky.cs:272
 msgid "C_loud:"
-msgstr "О_блако:"
+msgstr "О_блака:"
 
 #: ../Sky.cs:283
 msgid "Sh_adow:"
-msgstr "Т_ень:"
-
-#~ msgid "Average blur"
-#~ msgstr "Усреднённое размывание"
-#~ msgid "Average"
-#~ msgstr "Усреднённое"
-
+msgstr "Тен_ь:"
