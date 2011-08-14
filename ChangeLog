@@ -1,3 +1,17 @@
+2011-08-12  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* lib/Gimp.cs: added Quit method
+
+	* plug-ins/WebServer/WebServer.cs: created GUI
+
+2011-08-09  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* NEWS: updated
+
+	* plug-ins/WebServer/*: new plugin
+
+	* configure.in: changed accordingly
+
 2011-07-20  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* plug-ins/Raindrops/Raindrops.cs: derive from PlugWithPreview

@@ -17,6 +17,7 @@ Release 0.18
 - get/set persistent data
 - Automatic preview update if any variable changes
 - Fix Raindrops plug-in
+- Interface for Web Service plug-in
 
 Release 0.19
 ------------

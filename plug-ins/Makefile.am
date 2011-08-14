@@ -53,6 +53,10 @@ if BUILD_VISUALBASIC
 VisualBasicSample = VisualBasicSample
 endif
 
+if BUILD_WEBSERVER
+WebServer = WebServer
+endif
+
 AUTOMAKE_OPTIONS = gnu
 SUBDIRS = 			\
 	AverageBlur		\
@@ -92,6 +96,7 @@ SUBDIRS = 			\
 	$(UnitTest) 		\
 	UpdateCheck		\
 	$(VisualBasicSample)	\
-	wbmp
+	wbmp			\
+	$(WebServer)
 
 

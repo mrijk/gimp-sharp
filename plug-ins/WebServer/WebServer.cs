@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 
 using Manos;
 
@@ -33,8 +34,11 @@ namespace Gimp.WebServer
 {
   class WebServer : Plugin
   {
+    Variable<int> _port = new Variable<int>("port", _("Port number"), 8080);
+
+    Label _statusLabel;
+
     ManosApp app;
-    int Port = 8080;
     string application_assembly;
 
     public IList<string> Arguments {
@@ -88,33 +92,102 @@ namespace Gimp.WebServer
 
       var vbox = new VBox(false, 12) {BorderWidth = 12};
       dialog.VBox.PackStart(vbox, true, true, 0);
+
+      var table = new GimpTable(4, 4) {ColumnSpacing = 6, RowSpacing = 6};
+      vbox.PackStart(table, false, false, 0);
       
+      CreatePort(table);
+      CreateStatusLabel(table);
+      CreateStartAndStopButtons(table);
+
       return dialog;
+    }
+
+    void CreatePort(GimpTable table)
+    {
+      var port = new GimpSpinButton(0, 9999, 1, _port);
+
+      table.AttachAligned(0, 0, _("_Port:"), 0.0, 0.5, port, 2, true);
+    }
+
+    void CreateStatusLabel(GimpTable table)
+    {
+      _statusLabel = new Label(_("Server stopped"));
+
+      table.AttachAligned(0, 1, _("Status:"), 0.0, 0.5, _statusLabel, 2, 
+			  true);
+    }
+
+    void CreateStartAndStopButtons(GimpTable table)
+    {
+      var start = new Button(Stock.Execute);
+      start.Clicked += delegate {StartServer();};
+      table.Attach(start, 3, 4, 0, 1);
+
+      var stop = new Button(Stock.Stop);
+      stop.Clicked += delegate {StopServer();};
+      table.Attach(stop, 3, 4, 1, 2);
+    }
+
+    Thread _thread;
+
+    void StartServer()
+    {
+      if (app == null) 
+	app = LoadLibrary(ApplicationAssembly);
+      
+      _statusLabel.Text = "Started on port " + _port.Value;
+
+      var listenAddress = System.Net.IPAddress.Any;
+      AppHost.ListenAt(new System.Net.IPEndPoint(listenAddress, 
+						 _port.Value));
+
+      _thread = new Thread(new ThreadStart(delegate {
+	Console.WriteLine("Before Start!");
+	AppHost.Start(app);
+	Console.WriteLine("Duh");
+      }));
+      _thread.IsBackground = true;
+      _thread.Start();
+    }
+
+    void StopServer()
+    {
+      AppHost.Stop();
+      Gimp.Quit();
+
+      Console.WriteLine("Before stop 1");
+
+      _thread.Abort();
+      Console.WriteLine("Before stop 2");
+      _thread.Join();
+
+      Console.WriteLine("Stopped!");
+
+      _statusLabel.Text = "Server stopped";
     }
 
     ManosApp LoadLibrary(string library)
     {
-      Assembly a = Assembly.LoadFrom(library);
-      
-      foreach (Type t in a.GetTypes ()) {
-	if (t.BaseType == typeof (ManosApp)) {
-	  if (app != null)
-	    throw new Exception ("Library contains multiple apps.");
-	  app = CreateAppInstance (t);
-	}
-      }
-      
+      var types = Assembly.LoadFrom(library).GetTypes();
+      var found = Array.FindAll(types,
+				type => type.BaseType == typeof(ManosApp));
+      if (found.Length > 1)
+	throw new Exception("Library contains multiple apps.");
+      else if (found.Length == 1)
+	return CreateAppInstance(found[0]);
+
       return app;
     }
 
-    ManosApp CreateAppInstance (Type t)
+    ManosApp CreateAppInstance(Type t)
     {
       int arg_count = 0; // Arguments.Count;
-      ConstructorInfo [] constructors = t.GetConstructors ();
+      var constructors = t.GetConstructors();
       
-      foreach (ConstructorInfo ci in constructors.Where (c => c.GetParameters ().Count () == arg_count)) {
+      foreach (var ci in constructors.Where(c => c.GetParameters().Count () == arg_count)) {
 
-	object [] args = ArgsForParams (ci.GetParameters ());
+	var args = ArgsForParams(ci.GetParameters());
 
 	if (args == null)
 	  continue;
@@ -129,16 +202,17 @@ namespace Gimp.WebServer
       return null;
     }
 
-    object [] ArgsForParams (ParameterInfo [] prms)
+    object[] ArgsForParams(ParameterInfo[] prms)
     {
-      object [] res = new object [prms.Length];
+      var res = new object[prms.Length];
       
-      for (int i = 0; i < prms.Count (); i++) {
+      for (int i = 0; i < prms.Count(); i++) {
 	try {
-	  res [i] = Convert.ChangeType (Arguments [i], prms [i].ParameterType);
+	  res[i] = Convert.ChangeType(Arguments[i], prms[i].ParameterType);
 	} catch (Exception e) {
-	  Console.Error.WriteLine ("Exception converting type: '{0}'.", prms [i].ParameterType);
-	  Console.Error.WriteLine (e);
+	  Console.Error.WriteLine("Exception converting type: '{0}'.", 
+				  prms[i].ParameterType);
+	  Console.Error.WriteLine(e);
 	  
 	  return null;
 	}
@@ -149,12 +223,6 @@ namespace Gimp.WebServer
 
     override protected void Render()
     {
-      app = LoadLibrary (ApplicationAssembly);
-
-      Console.WriteLine ("Running {0} on port {1}.", app, Port);
-      
-      AppHost.Port = Port;
-      AppHost.Start(app);
     }
   }
 }

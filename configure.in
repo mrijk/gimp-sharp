@@ -77,6 +77,16 @@ if test "x$with_unittest" == xyes; then
 fi
 
 #
+# Check if we want to build the webserver plug-in.
+#
+
+webserver=no
+AC_ARG_WITH(webserver,[  --with-webserver        build embedded webserver plug-in (default-no)])
+if test "x$with_webserver" == xyes; then
+   webserver=yes
+fi
+
+#
 # Check if we want to build the Paint.NET plug-in.
 #
 
@@ -266,6 +276,7 @@ AM_CONDITIONAL(BUILD_BOO, test x$boo = xyes)
 AM_CONDITIONAL(BUILD_COLORIZE, test x$have_umfpack = xyes)
 AM_CONDITIONAL(BUILD_FSHARP, test x$fsharp = xyes)
 AM_CONDITIONAL(BUILD_UNITTEST, test x$unittest = xyes)
+AM_CONDITIONAL(BUILD_WEBSERVER, test x$webserver = xyes)
 AM_CONDITIONAL(BUILD_PDN, test x$pdn = xyes)
 AM_CONDITIONAL(BUILD_INCOMPLETE, test x$incomplete = xyes)
 AM_CONDITIONAL(BUILD_ECW, test x"$have_libecw" = xyes)
@@ -339,6 +350,7 @@ plug-ins/UpdateCheck/po/Makefile
 plug-ins/VisualBasicSample/Makefile
 plug-ins/wbmp/Makefile
 plug-ins/wbmp/po/Makefile
+plug-ins/WebServer/Makefile
 ])
 
 AC_OUTPUT
@@ -348,6 +360,7 @@ AC_MSG_RESULT([
 Building GIMP-SHARP with prefix=$prefix
 GIMP-SHARP Features:
   Unit Tests	      : $unittest
+  Embedded Webserver  : $webserver
   Paint.NET	      : $pdn
   Incomplete	      : $incomplete
   ECW		      : $have_libecw

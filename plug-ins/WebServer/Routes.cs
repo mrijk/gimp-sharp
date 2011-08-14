@@ -35,23 +35,33 @@ namespace Gimp.WebServer
     [Route("/", "/Home", "/Index")]
     public void Index(IManosContext ctx)
     {
-      ctx.Response.End("GIMP# WebServer running!");
+      ctx.Response.SendFile("images.html");
+      ctx.Response.End();
     }
 
-    [Route("/images")]
+    [Route("/gimp/images")]
     public void Images(IManosContext ctx)
     {
+      Console.WriteLine("Got /images request");
       var images = new ImageList();
-      ctx.Response.End("Image count: " + images.Count);
+      ctx.Response.End(string.Format("{{\"count\" : {0} }}", images.Count));
     }
 
-    [Get("/images/{index}")]
+    [Get("/gimp/images/{index}")]
     public void Images(IManosContext ctx, int index)
     {
       var images = new ImageList();
       var image = images[index];
-      ctx.Response.End("Image: {0}, size {0} x {1}", image.Name, image.Width, 
+      ctx.Response.End("Image: {0}, size {1} x {2}", image.Name, image.Width, 
 		       image.Height);
+    }
+
+    [Route("/gimp/new-image")]
+    public void Images(IManosContext ctx, Routes app, int width, int height)
+    {
+      var image = new Image(width, height, ImageBaseType.Rgb);
+
+      ctx.Response.End("Added image"); 
     }
   }
 }

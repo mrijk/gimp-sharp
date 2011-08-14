@@ -140,6 +140,11 @@ namespace Gimp
       get {return gimp_default_display();}
     }
 
+    static public void Quit()
+    {
+      gimp_quit();
+    }
+
     static public void RegisterLoadHandler(string procedural_name,
 					   string extensions, 
 					   string prefixes)
@@ -261,6 +266,8 @@ namespace Gimp
       return Marshaller.FilenamePtrToString(filenamePtr);
     }
     
+    [DllImport("libgimp-2.0-0.dll")]
+      static extern void gimp_quit();
     [DllImport("libgimp-2.0-0.dll")]
       static extern string gimp_version();
     [DllImport("libgimp-2.0-0.dll")]
