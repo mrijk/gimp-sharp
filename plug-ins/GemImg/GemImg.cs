@@ -19,7 +19,6 @@
 //
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 
 namespace Gimp.GemImg
@@ -36,15 +35,15 @@ namespace Gimp.GemImg
       GimpMain<GemImg>(args);
     }
 
-    override protected IEnumerable<Procedure> ListProcedures()
+    override protected Procedure GetProcedure()
     {
-      yield return 
+      return 
 	FileLoadProcedure("file_img_load",
 			  _("loads images of the GEM-Image file format"),
 			  _("This plug-in loads images of the GEM-Image file format."),
 			  "Maurits Rijk",
 			  "(C) Maurits Rijk",
-			  "2008-2010",
+			  "2008-2011",
 			  _("GEM Image"));
     }
 
@@ -127,13 +126,6 @@ namespace Gimp.GemImg
       int pixelHeight = ReadShort();
       _imageWidth = ReadShort();
       _imageHeight = ReadShort();
-
-      Console.WriteLine("Version     : " + version);
-      Console.WriteLine("Header size : " + headSize);
-      Console.WriteLine("Planes      : " + _planes);
-      Console.WriteLine("Pattern size: " + _patternSize);
-      Console.WriteLine("Image width : " + _imageWidth);
-      Console.WriteLine("Image height: " + _imageHeight);
 
       return true;
     }

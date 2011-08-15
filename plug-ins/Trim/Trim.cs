@@ -20,7 +20,6 @@
 
 using System;
 using System.Linq;
-using Gtk;
 
 namespace Gimp.Trim
 {
@@ -62,79 +61,8 @@ namespace Gimp.Trim
     override protected GimpDialog CreateDialog()
     {
       gimp_ui_init("Trim", true);
-
-      var dialog = DialogNew("Trim", "Trim", IntPtr.Zero, 0,
-			     Gimp.StandardHelpFunc, "Trim");
- 
-      var vbox = new VBox(false, 12) {BorderWidth = 12};
-      dialog.VBox.PackStart(vbox, true, true, 0);
-
-      CreateBasedOnWidget(vbox);
-      CreateTrimAwayWidget(vbox);
-			
-      return dialog;
-    }
-
-    void CreateBasedOnWidget(VBox parent)
-    {
-      var frame = new GimpFrame(_("Based On"));
-      parent.PackStart(frame, true, true, 0);
-
-      var vbox = new VBox(false, 12);
-      frame.Add(vbox);
-      
-      var button = AddBasedOnButton(vbox, null, 0, _("Transparent Pixels"));
-      button.Sensitive = _drawable.HasAlpha;
-      button = AddBasedOnButton(vbox, button, 1, _("Top Left Pixel Color"));
-      AddBasedOnButton(vbox, button, 2, _("Bottom Right Pixel Color"));
-    }
-
-    RadioButton AddBasedOnButton(VBox vbox, RadioButton previous, int type, 
-				 string description)
-    {
-      var button = new GimpRadioButton<int>(previous, description, type, 
-					    _basedOn);
-      vbox.Add(button);
-      return button;
-    }
-
-    void CreateTrimAwayWidget(VBox parent)
-    {
-      var frame = new GimpFrame(_("Trim Away"));
-      parent.PackStart(frame, true, true, 0);
-
-      var table = new GimpTable(2, 2)
-	{ColumnSpacing = 6, RowSpacing = 6};      
-      frame.Add(table);
-
-      CreateTopWidget(table);
-      CreateLeftWidget(table);
-      CreateBottomWidget(table);
-      CreateRightWidget(table);
-    }
-
-    void CreateTopWidget(GimpTable table)
-    {
-      var top = new GimpCheckButton(_("_Top"), _top);
-      table.Attach(top, 0, 1, 0, 1);
-    }
-
-    void CreateLeftWidget(GimpTable table)
-    {
-      var left = new GimpCheckButton(_("_Left"), _left);
-      table.Attach(left, 1, 2, 0, 1);
-    }
-
-    void CreateBottomWidget(GimpTable table)
-    {
-      var bottom = new GimpCheckButton(_("_Bottom"), _bottom);
-      table.Attach(bottom, 0, 1, 1, 2);
-    }
-
-    void CreateRightWidget(GimpTable table)
-    {
-      var right = new GimpCheckButton(_("_Right"), _right);
-      table.Attach(right, 1, 2, 1, 2);
+      return new TrimDialog(_drawable, new VariableSet() 
+      	{_basedOn, _top, _left, _bottom, _right});
     }
 
     override protected void Render(Image image, Drawable drawable)

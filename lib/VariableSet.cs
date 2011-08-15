@@ -25,7 +25,6 @@ using System.Collections.Generic;
 
 namespace Gimp
 {
-
   public class VariableSet : IEnumerable<IVariable>
   {
     List<IVariable> _set = new List<IVariable>();
@@ -48,6 +47,16 @@ namespace Gimp
     public void ForEach(Action<IVariable> action)
     {
       _set.ForEach(action);
+    }
+
+    public IVariable this[string identifier]
+    {
+      get {return _set.Find(v => v.Identifier == identifier);}
+    }
+
+    public Variable<T> Get<T>(string identifier)
+    {
+      return this[identifier] as Variable<T>;
     }
 
     public void Reset()

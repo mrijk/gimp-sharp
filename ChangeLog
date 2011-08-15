@@ -1,3 +1,21 @@
+2011-08-15  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* lib/VariableSet.cs: new accessor method
+
+	* lib/GimpDialog.cs: simplified default constructor
+
+	* plug-ins/Trim/Trim.cs
+	* plug-ins/Trim/TrimDialog.cs: put dialog in separate new class
+
+	* plug-ins/Trim/Makefile.am: changed accordingly
+
+2011-08-14  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/GemImg/GemImg.cs: minor clean-up
+
+	* plug-ins/DifferenceClouds/IndexedColorsMap.cs: killed another
+	for loop
+
 2011-08-12  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* lib/Gimp.cs: added Quit method

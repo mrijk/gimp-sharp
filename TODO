@@ -14,6 +14,7 @@ Release 0.18
 10)
 
 - implement Reset
+- use Render and Dialog class for plug-ins
 - get/set persistent data
 - Automatic preview update if any variable changes
 - Fix Raindrops plug-in

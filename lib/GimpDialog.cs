@@ -32,6 +32,8 @@ namespace Gimp
 
   public class GimpDialog : Dialog
   {
+    public VariableSet Variables {get; private set;}
+
     public GimpDialog(string title, string role, IntPtr parent,
 		      DialogFlags flags,
 		      GimpHelpFunc help_func, string help_id,
@@ -85,9 +87,20 @@ namespace Gimp
     {
     }
 
+    public GimpDialog(string title, VariableSet variables) :
+      this(title, title, IntPtr.Zero, 0, Gimp.StandardHelpFunc, title)
+    {
+      Variables = variables;
+    }
+
     static protected string _(string s)
     {
       return Catalog.GetString(s);
+    }
+
+    public Variable<T> GetVariable<T>(string identifier)
+    {
+      return Variables.Get<T>(identifier);
     }
 
     public new ResponseType Run()
@@ -155,6 +168,9 @@ namespace Gimp
 
     [DllImport("libgimpwidgets-2.0-0.dll")]
     static extern void gimp_dialogs_show_help_button(bool show);
+    [DllImport("libgimpui-2.0-0.dll")]
+    public static extern void gimp_ui_init(string prog_name, bool preview);
+
 //    [DllImport("libgimpui-2.0-0.dll")]
 //    public static extern void gimp_window_set_transient(IntPtr window);
   }

@@ -34,8 +34,9 @@ namespace Gimp.DifferenceClouds
     UInt32 _rseed;
     [SaveAttribute("random_seed")]
     bool _random_seed;
-    [SaveAttribute("turbulence")]
-    double _turbulence;
+
+    Variable<double> _turbulence = 
+      new Variable<double>("turbulence", _("Turbulence of the cloud"), 0);
 
     int _progress;
     int _maxProgress;
@@ -51,11 +52,6 @@ namespace Gimp.DifferenceClouds
 
     override protected Procedure GetProcedure()
     {
-      var inParams = new ParamDefList()
-	{
-	  new ParamDef("turbulence", 0, typeof(double),
-		       _("Turbulence of the cloud"))
-	};
       return new Procedure("plug_in_difference_clouds",
 			   _("Creates difference clouds."),
 			   _("Creates difference clouds."),
@@ -64,10 +60,10 @@ namespace Gimp.DifferenceClouds
 			   "2006-2011",
 			   _("Difference Clouds..."),
 			   "RGB*",
-			   inParams)
+			   new ParamDefList(_turbulence))
 	{
 	  MenuPath = "<Image>/Filters/Render/Clouds",
-	    IconFile = "DifferenceClouds.png"
+	  IconFile = "DifferenceClouds.png"
 	};
     }
 
@@ -89,14 +85,8 @@ namespace Gimp.DifferenceClouds
       var seed = new RandomSeed(ref _rseed, ref _random_seed);
       table.AttachAligned(0, 0, _("Random _Seed:"), 0.0, 0.5, seed, 2, true);
 
-      var turbulenceEntry = new ScaleEntry(table, 0, 1, 
-					    _("_Turbulence"), 150, 3,
-					    _turbulence, 0.0, 7.0, 0.1, 
-					    1.0, 1);
-      turbulenceEntry.ValueChanged += delegate
-	{
-	  _turbulence = turbulenceEntry.Value;
-	};
+      new ScaleEntry(table, 0, 1, _("_Turbulence"), 150, 3,
+		     _turbulence, 0.0, 7.0, 0.1, 1.0, 1);
 
       vbox.PackStart(table, false, false, 0);
 
@@ -234,7 +224,7 @@ namespace Gimp.DifferenceClouds
 	  var bl = pf[y2, x1];
 	  var br = pf[y2, x2];
 
-	  int ran = (int)((256.0 / (2.0 * scaleDepth)) * _turbulence);
+	  int ran = (int)((256.0 / (2.0 * scaleDepth)) * _turbulence.Value);
 
 	  if (xm != x1 || xm != x2)
 	    {
