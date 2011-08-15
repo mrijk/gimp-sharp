@@ -29,9 +29,12 @@ namespace Gimp
   {
     List<IVariable> _set = new List<IVariable>();
     
+    public event EventHandler ValueChanged;
+
     public void Add(IVariable v)
     {
       _set.Add(v);
+      v.Register(this);
     }
     
     public IEnumerator<IVariable> GetEnumerator()
@@ -51,12 +54,29 @@ namespace Gimp
 
     public IVariable this[string identifier]
     {
-      get {return _set.Find(v => v.Identifier == identifier);}
+      get 
+      {
+	var found = _set.Find(v => v.Identifier == identifier);
+	if (found == null) 
+	  {
+	    throw new GimpSharpException(String.Format("VariableSet: variable {0} not found",
+					 identifier));
+	  }
+	return found;
+      }
     }
 
     public Variable<T> Get<T>(string identifier)
     {
       return this[identifier] as Variable<T>;
+    }
+
+    public void Changed()
+    {
+      if (ValueChanged != null)
+	{
+	  ValueChanged(this, new EventArgs());
+	}
     }
 
     public void Reset()

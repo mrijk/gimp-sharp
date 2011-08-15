@@ -59,6 +59,11 @@ namespace Gimp
 						     v.Description)));
     }
 
+    public ParamDefList(VariableSet variables) : this()
+    {
+      variables.ForEach(v => Add(new ParamDef(v.Identifier, v.Type, v.Description)));
+    }
+
     public IEnumerator<ParamDef> GetEnumerator()
     {
       return _set.GetEnumerator();

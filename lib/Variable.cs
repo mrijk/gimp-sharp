@@ -67,6 +67,11 @@ namespace Gimp
       get {return typeof(T);}
     }
 
+    public void Register(VariableSet variables)
+    {
+      ValueChanged += delegate {variables.Changed();};
+    }
+
     public void Reset()
     {
       Value = DefaultValue;

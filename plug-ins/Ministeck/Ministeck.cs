@@ -19,16 +19,11 @@
 //
 
 using System;
-// using System.Collections.Generic;
-
-using Gtk;
 
 namespace Gimp.Ministeck
 {
-  class Ministeck : Plugin
+  public class Ministeck : Plugin
   {
-    DrawablePreview _preview;
-
     Variable<bool> _limit = 
     new Variable<bool>("limit", 
 		       _("Use real life ratio for number of pieces if true"), 
@@ -64,54 +59,11 @@ namespace Gimp.Ministeck
     {
       gimp_ui_init("ministeck", true);
 
-      var dialog = DialogNew(_("Ministeck"), _("ministeck"), 
-			     IntPtr.Zero, 0, null, _("ministeck"));
-	
-      var vbox = new VBox(false, 12) {BorderWidth = 12};
-      dialog.VBox.PackStart(vbox, true, true, 0);
-
-      _preview = new DrawablePreview(_drawable, false);
-      _preview.Invalidated += UpdatePreview;
-      vbox.PackStart(_preview, true, true, 0);
-
-      var table = new GimpTable(2, 2) 
-	{ColumnSpacing = 6, RowSpacing = 6};
-      vbox.PackStart(table, false, false, 0);
-
-      var size = new GimpSpinButton(3, 100, 1, _size);
-      table.AttachAligned(0, 0, _("_Size:"), 0.0, 0.5, size, 2, true);
-
-      var limit = new GimpCheckButton(_("_Limit Shapes"), _limit);
-      table.Attach(limit, 2, 3, 0, 1);
-
-      var colorButton = new GimpColorButton("", 16, 16, _color, 
-					    ColorAreaType.Flat) 
-	{Update = true};
-
-      table.AttachAligned(0, 1, _("C_olor:"), 0.0, 0.5, colorButton, 1, true);
-
-      _size.ValueChanged += UpdatePreview;
-      _limit.ValueChanged += UpdatePreview;
-      _color.ValueChanged += UpdatePreview;
-
-      return dialog;
+      return new MinisteckDialog(this, _image, _drawable, new VariableSet(){
+	      _size, _limit, _color});
     }
 
-    void UpdatePreview(object sender, EventArgs e)
-    {
-      // Fix me: it's probably better to just create a new Drawable iso
-      // a completely new image!
-
-      var clone = new Image(_image);
-      clone.Crop(_preview.Bounds);
-
-      var drawable = clone.ActiveDrawable;
-      RenderMinisteck(clone, drawable, true);
-      _preview.Redraw(drawable);
-      clone.Delete();
-    }
-
-    void RenderMinisteck(Image image, Drawable drawable, bool preview)
+    public void RenderMinisteck(Image image, Drawable drawable, bool preview)
     {
       int size = _size.Value;
 

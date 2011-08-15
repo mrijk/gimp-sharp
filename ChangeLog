@@ -1,4 +1,23 @@
+2011-08-16  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* lib/Plugin.cs: add variables to Main method
+
 2011-08-15  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/QR/QR.cs
+	* plug-ins/QR/QRDialog.cs: new file, move dialog in new class
+
+	* plug-ins/QR/Makefile.am: changed accordingly
+
+	* lib/GimpDialogWithPreview.cs: new file
+
+	* lib/Makefile.am: changed accordingly
+
+	* plug-ins/Ministeck/Ministeck.cs
+	* plug-ins/Ministeck/MinisteckDialog.cs: new file, move dialog in
+	new class
+
+	* plug-ins/Ministeck/Makefile.am: changed accordingly
 
 	* lib/VariableSet.cs: new accessor method
 

@@ -44,7 +44,7 @@ namespace Gimp
     protected Image _image;
     protected Drawable _drawable;
 
-    VariableSet _variables;
+    protected VariableSet Variables {get; private set;}
 
     [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
     public delegate void InitProc();
@@ -71,9 +71,11 @@ namespace Gimp
 
     public string[] Args {get; set;}
 
-    protected static void GimpMain<T>(string[] args) where T : Plugin, new()
+    protected static void GimpMain<T>(string[] args, 
+				      VariableSet variables = null) 
+      where T : Plugin, new()
     {
-      var plugin = new T();
+      var plugin = new T() {Variables = variables};
       Catalog.Init(typeof(T).Name, Gimp.LocaleDirectory);
 
       _info.Init = plugin.HasMethod("Init") ? new InitProc(plugin.Init) : null;
@@ -86,6 +88,16 @@ namespace Gimp
       args.CopyTo(progargs, 1);
 
       gimp_main(ref _info, progargs.Length, progargs);
+    }
+
+    public Variable<T> GetVariable<T>(string identifier)
+    {
+      return Variables.Get<T>(identifier);
+    }
+
+    public T GetValue<T>(string identifier)
+    {
+      return GetVariable<T>(identifier).Value;
     }
 
     static protected string _(string s)
@@ -349,7 +361,7 @@ namespace Gimp
     
     virtual protected void Reset() 
     {
-      // _variables.Reset();
+      Variables.Reset();
     }
 
     virtual protected void Render() {}

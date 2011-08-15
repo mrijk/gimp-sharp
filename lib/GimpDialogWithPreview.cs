@@ -1,7 +1,7 @@
 // GIMP# - A C# wrapper around the GIMP Library
 // Copyright (C) 2004-2011 Maurits Rijk
 //
-// IVariable.cs
+// GimpDialog.cs
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -19,17 +19,38 @@
 // Boston, MA 02111-1307, USA.
 //
 
-using System;
+using Gtk;
 
 namespace Gimp
 {
-  public interface IVariable
+  public abstract class GimpDialogWithPreview<T> : GimpDialog 
+  where T : GimpPreview, new()
   {
-    string Identifier {get;}
-    Type Type {get;}
-    string Description {get;}
+    protected GimpPreview Preview {get; private set;}
+    protected VBox Vbox {get; private set;}
 
-    void Register(VariableSet variables);
-    void Reset();
+    public GimpDialogWithPreview(string title, Drawable drawable, 
+				 VariableSet variables) : 
+      base(title, variables)
+    {
+      Vbox = new VBox(false, 0) {BorderWidth = 12};
+      VBox.PackStart(Vbox, true, true, 0);
+
+      var factory = new T();
+      Preview = factory.Instantiate(drawable);
+
+      Preview.Invalidated += delegate {UpdatePreview(Preview);};
+
+      Vbox.PackStart(Preview, true, true, 0);
+
+      variables.ValueChanged += delegate {InvalidatePreview();};
+    }
+
+    protected void InvalidatePreview()
+    {
+      Preview.Invalidate();
+    }
+
+    virtual protected void UpdatePreview(GimpPreview preview) {}
   }
 }
