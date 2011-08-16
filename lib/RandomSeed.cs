@@ -47,12 +47,15 @@ namespace Gimp
       }
  
       RandomSeed(Variable<UInt32> seed, Variable<bool> randomSeed,
-			RandomSeedInfo info) : base(info.Handle)
+		 RandomSeedInfo info) : base(info.Handle)
       {
 	SpinButton.ValueChanged += delegate 
 	  {seed.Value = (UInt32) SpinButton.ValueAsInt;};
 
 	Toggle.Toggled += delegate {randomSeed.Value = Toggle.Active;};
+
+	seed.ValueChanged += delegate {SpinButton.Value = seed.Value;};
+	randomSeed.ValueChanged += delegate {Toggle.Active = randomSeed.Value;};
       }
       
       public RandomSeed(Variable<UInt32> seed, Variable<bool> randomSeed) :

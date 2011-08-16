@@ -1,5 +1,15 @@
 2011-08-16  Maurits Rijk  <maurits.rijk@gmail.com>
 
+	* lib/GimpCheckButton.cs
+	* lib/ScaleEntry.cs: update Widget when variable changes
+
+	* lib/VariableSet.cs: added GetValue method
+
+	* plug-ins/ncp/Renderer.cs
+	* plug-ins/ncp/Dialog.cs: new files
+
+	* plug-ins/ncp/Makefile.am: changed accordingly
+
 	* lib/Plugin.cs: add variables to Main method
 
 2011-08-15  Maurits Rijk  <maurits.rijk@gmail.com>

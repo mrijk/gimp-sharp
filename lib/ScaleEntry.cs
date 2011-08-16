@@ -49,7 +49,7 @@ namespace Gimp
 				unconstrainedUpper, tooltip, helpId))
     {
     }
-    
+ 
     public ScaleEntry(Table table, int column, int row, string text,
 		      int    scaleWidth,
 		      int    spinbuttonWidth,
@@ -63,6 +63,7 @@ namespace Gimp
 	   variable.Value, lower, upper, stepIncrement, pageIncrement, digits)
     {
       ValueChanged += delegate {variable.Value = ValueAsInt;};
+      variable.ValueChanged += delegate {Value = variable.Value;};
     } 
 
     public ScaleEntry(Table table, int column, int row, string text,
@@ -78,24 +79,25 @@ namespace Gimp
 	   variable.Value, lower, upper, stepIncrement, pageIncrement, digits)
     {
       ValueChanged += delegate {variable.Value = Value;};
-    } 
-    
+      variable.ValueChanged += delegate {Value = variable.Value;};
+    }
+
     public int ValueAsInt
     {
       get {return (int) Value;}
     }
-    
+
     public bool Sensitive
     {
       set {gimp_scale_entry_set_sensitive(Handle, value);}
     }
-    
+
     public bool Logarithmic
     {
       get {return gimp_scale_entry_get_logarithmic(Handle);}
       set {gimp_scale_entry_set_logarithmic(Handle, value);}
     }
-    
+
     [DllImport("libgimpwidgets-2.0-0.dll")]
     extern static IntPtr gimp_scale_entry_new(IntPtr table,
 					      int    column,

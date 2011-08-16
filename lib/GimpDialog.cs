@@ -88,7 +88,10 @@ namespace Gimp
     }
 
     public GimpDialog(string title, VariableSet variables) :
-      this(title, title, IntPtr.Zero, 0, Gimp.StandardHelpFunc, title)
+      this(title, title, IntPtr.Zero, 0, Gimp.StandardHelpFunc, title,
+	   GimpStock.Reset, (ResponseType) 1,
+	   Stock.Cancel, ResponseType.Cancel,
+	   Stock.Ok, ResponseType.Ok)
     {
       Variables = variables;
     }

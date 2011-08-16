@@ -71,6 +71,11 @@ namespace Gimp
       return this[identifier] as Variable<T>;
     }
 
+    public T GetValue<T>(string identifier)
+    {
+      return Get<T>(identifier).Value;
+    }
+
     public void Changed()
     {
       if (ValueChanged != null)

@@ -29,9 +29,9 @@ namespace Gimp
     {
       UseUnderline = true;
       Active = variable.Value;
-      Toggled += delegate {variable.Value = Active;};
 
-      // variable.ValueChanged += delegate {Active = variable.Value;};
+      Toggled += delegate {variable.Value = Active;};
+      variable.ValueChanged += delegate {Active = variable.Value;};
     }
   }
 }

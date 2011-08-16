@@ -19,32 +19,21 @@
 //
 
 using System;
-using Gtk;
 
 namespace Gimp.ncp
 {
-  class ncp : PluginWithPreview<AspectPreview>
+  class ncp : Plugin
   {
-    ScaleEntry _closestEntry;
-
-    [SaveAttribute("seed")]
-    UInt32 _seed;
-    [SaveAttribute("random_seed")]
-    bool _random_seed;
-
-    Variable<int> _points = new Variable<int>("points", _("Number of points"), 
-					      12);
-    Variable<int> _closest = new Variable<int>("closest", _("Closest point"), 
-					       1);
-    Variable<bool> _color = 
-    new Variable<bool>("color", _("Color (true), B&W (false)"), true);
-
-    Pixel _pixel;
-    Calculator _calculator;
-
     static void Main(string[] args)
     {
-      GimpMain<ncp>(args);
+      var variables = new VariableSet() {
+	new Variable<UInt32>("seed", _("Random seed"), 0),
+	new Variable<bool>("random_seed", _("Random seed enabled"), false),
+	new Variable<int>("points", _("Number of points"), 12),
+	new Variable<int>("closest", _("Closest point"), 1),
+	new Variable<bool>("color", _("Color (true), B&W (false)"), true)
+      };
+      GimpMain<ncp>(args, variables);
     }
 
     override protected Procedure GetProcedure()
@@ -57,7 +46,7 @@ namespace Gimp.ncp
 			   "2004-2011",
 			   "NCP...",
 			   "RGB*, GRAY*",
-			   new ParamDefList(_points, _closest, _color))
+			   new ParamDefList(Variables))
 	{
 	  MenuPath = "<Image>/Filters/Render",
 	  IconFile = "ncp.png"
@@ -66,109 +55,14 @@ namespace Gimp.ncp
 
     override protected GimpDialog CreateDialog()
     {
-      var dialog = DialogNew("ncp", "ncp", IntPtr.Zero, 0,
-			     Gimp.StandardHelpFunc, "ncp");
-
-      var table = new GimpTable(4, 3) {ColumnSpacing = 6, RowSpacing = 6};
-      Vbox.PackStart(table, false, false, 0);
-
-      CreateRandomSeedWidget(table);
-      CreatePointsWidget(table);
-      CreateClosestEntryWidget(table);
-      CreateUseColorWidget(table);
-
-      _points.ValueChanged += delegate {
-	int points = _points.Value;
-	if (points > _closestEntry.Upper)
-	{
-	  _closestEntry.Upper = points;
-	}
-	
-	if (points < _closest.Value)
-	  {
-	    _closest.Value = points;
-	    _closestEntry.Upper = _closest.Value;
-	    _closestEntry.Value = _closest.Value;
-	  }
-	else
-	{
-	  InvalidatePreview();
-	}
-      };
-      _closest.ValueChanged += delegate {InvalidatePreview();};
-      _color.ValueChanged += delegate {InvalidatePreview();};
-
-      return dialog;
-    }
-
-    void CreateRandomSeedWidget(GimpTable table)
-    {
-      var seed = new RandomSeed(ref _seed, ref _random_seed);
-      seed.Toggle.Toggled += delegate {InvalidatePreview();};
-      seed.SpinButton.ValueChanged += delegate {InvalidatePreview();};
-      table.AttachAligned(0, 0, _("Random _Seed:"), 0.0, 0.5, seed, 2, true);
-    }
-
-    void CreatePointsWidget(GimpTable table)
-    {
-      new ScaleEntry(table, 0, 1, _("Po_ints:"), 150, 3, 
-		     _points, 1.0, 256.0, 1.0, 8.0, 0);
-    }
-
-    void CreateClosestEntryWidget(GimpTable table)
-    {
-      _closestEntry = new ScaleEntry(table, 0, 2, _("C_lose to:"), 150, 3, 
-				     _closest, 1.0, _points.Value, 1.0, 8.0, 0);
-    }
-
-    void CreateUseColorWidget(GimpTable table)
-    {
-      var color = new GimpCheckButton(_("_Use color"), _color);
-      table.Attach(color, 0, 1, 3, 4);
-    }
-
-    override protected void UpdatePreview(GimpPreview preview)
-    {
-      Initialize(_drawable);
-      (preview as AspectPreview).Update(DoNCP);
-    }
-
-    void Initialize(Drawable drawable)
-    {
-      int bpp = drawable.Bpp;
-      _pixel = drawable.CreatePixel();
-
-      if (drawable.HasAlpha)
-	{
-	  bpp--;
-	  _pixel.Alpha = 255;
-	}
-
-      _calculator = new Calculator(_points.Value, _closest.Value, bpp, 
-				   drawable.MaskBounds, (int) _seed);
+      gimp_ui_init("ncp", true);
+      return new Dialog(_drawable, Variables);
     }
 
     override protected void Render(Drawable drawable)
     {
-      Initialize(drawable);
-      var iter = new RgnIterator(drawable, "NCP");
-      iter.IterateDest(DoNCP);
-    }
-
-    Pixel DoNCP(IntCoordinate c)
-    {
-      int b = 0;
-      Func<int> func = () => _calculator.Calc(b++, c);
-
-      if (_color.Value)
-	{
-	  _pixel.Fill(func);
-	}
-      else
-	{
-	  _pixel.FillSame(func);
-	}
-      return _pixel;
+      var renderer = new Renderer(Variables, drawable);
+      renderer.Render();
     }
   }
 }
