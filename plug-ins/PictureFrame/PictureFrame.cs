@@ -18,19 +18,16 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-
-using Gtk;
-
 namespace Gimp.PictureFrame
 {
   public class PictureFrame : Plugin
   {  
-    private string _pictureFrameImagePath;
-  
     static void Main(string[] args)
     {
-      GimpMain<PictureFrame>(args);
+      var variables = new VariableSet() {
+	new Variable<string>("image_path", _("Path to load frame image from"), "")
+      };
+      GimpMain<PictureFrame>(args, variables);
     }
 
     override protected Procedure GetProcedure()
@@ -52,55 +49,13 @@ namespace Gimp.PictureFrame
     override protected GimpDialog CreateDialog()
     {
       gimp_ui_init("Picture Frame", true);
-    	
-      var dialog = DialogNew("Picture Frame", "Picture Frame", 
-			     IntPtr.Zero, 0, 
-			     Gimp.StandardHelpFunc, "Picture Frame");
-      dialog.Modal = false;
-
-      var vbox = new VBox(false, 12) {BorderWidth = 12};
-      dialog.VBox.PackStart(vbox, true, true, 0);
-      
-#if false
-      var entry = new FileEntry("Load Frame...", "PictureFrame.svg",
-				      false, true);
-      entry.FilenameChanged += GetNewFileName;
-#else
-      var entry = new FileChooserButton(_("Load Frame..."), 
-					FileChooserAction.Open);
-      entry.SelectionChanged += delegate
-	{
-	  _pictureFrameImagePath = entry.Filename;
-	};
-#endif
-      vbox.PackStart(entry, false, false, 0);
-
-      return dialog;
+      return new Dialog(Variables);
     }
     
-    override protected void Render(Image image, Drawable drawable)
+    override protected void Render(Image image)
     {
-      try
-	{
-	  var frame = Image.Load(RunMode.Interactive, 
-				 _pictureFrameImagePath, 
-				 _pictureFrameImagePath);
-	  var newLayer = new Layer(frame.ActiveLayer, image) 
-	    {Visible = true};
-          
-	  image.UndoGroupStart();
-	  
-	  image.AddLayer(newLayer, -1); 
-	  image.ActiveLayer = newLayer;
-	  
-	  image.UndoGroupEnd();
-	  
-	  frame.Delete();
-	}
-      catch (Exception ex) 
-	{	
-	  throw new GimpSharpException(); 
-	}
-    }  
+      var renderer = new Renderer(Variables);
+      renderer.Render(image);
+    }
   }
 }

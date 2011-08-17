@@ -1,7 +1,7 @@
 // The Ministeck plug-in
 // Copyright (C) 2004-2011 Maurits Rijk
 //
-// MinisteckDialog.cs
+// Dialog.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -23,18 +23,15 @@ using Gtk;
 
 namespace Gimp.Ministeck
 {
-  public class MinisteckDialog : GimpDialog
+  public class Dialog : GimpDialog
   {
-    readonly Ministeck _parent;	// Fix me!
     readonly Image _image;
 
     readonly DrawablePreview _preview;
 
-    public MinisteckDialog(Ministeck parent, Image image, Drawable drawable, 
-			   VariableSet variables) : 
+    public Dialog(Image image, Drawable drawable, VariableSet variables) : 
       base("Ministeck", variables)
     {
-      _parent = parent;
       _image = image;
 
       var vbox = new VBox(false, 12) {BorderWidth = 12};
@@ -73,7 +70,10 @@ namespace Gimp.Ministeck
       clone.Crop(_preview.Bounds);
 
       var drawable = clone.ActiveDrawable;
-      _parent.RenderMinisteck(clone, drawable, true);
+
+      var renderer = new Renderer(Variables);
+      renderer.Render(clone, drawable, true);
+
       _preview.Redraw(drawable);
       clone.Delete();
     }

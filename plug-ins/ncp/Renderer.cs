@@ -22,19 +22,19 @@ using System;
 
 namespace Gimp.ncp
 {
-  public class Renderer
+  public class Renderer : BaseRenderer
   {
     readonly Drawable _drawable;
     readonly Pixel _pixel;
     readonly Calculator _calculator;
     readonly bool _color;
 
-    public Renderer(VariableSet variables, Drawable drawable)
+    public Renderer(VariableSet variables, Drawable drawable) : base(variables)
     {
       _drawable = drawable;
       int bpp = drawable.Bpp;
       _pixel = drawable.CreatePixel();
-      _color = variables.GetValue<bool>("color");
+      _color = GetValue<bool>("color");
 
       if (drawable.HasAlpha)
 	{
@@ -42,10 +42,9 @@ namespace Gimp.ncp
 	  _pixel.Alpha = 255;
 	}
 
-      _calculator = new Calculator(variables.GetValue<int>("points"),
-				   variables.GetValue<int>("closest"),
+      _calculator = new Calculator(GetValue<int>("points"), GetValue<int>("closest"),
 				   bpp, drawable.MaskBounds, 
-				   (int) variables.GetValue<UInt32>("seed"));
+				   (int) GetValue<UInt32>("seed"));
     }
 
     public void Render()

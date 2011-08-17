@@ -1,7 +1,7 @@
 // The QR plug-in
 // Copyright (C) 2004-2011 Maurits Rijk
 //
-// QRDialog.cs
+// Dialog.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,16 +22,11 @@ using Gtk;
 
 namespace Gimp.QR
 {
-  public class QRDialog : GimpDialogWithPreview<AspectPreview>
+  public class Dialog : GimpDialogWithPreview<AspectPreview>
   {
-    readonly QR _parent;
-
-    public QRDialog(QR parent, Drawable drawable, VariableSet variables) : 
+    public Dialog(Drawable drawable, VariableSet variables) : 
       base("QR", drawable, variables)
     {
-      // fix me: replace by a Renderer class
-      _parent = parent;
-
       var table = new GimpTable(4, 2) {
 	ColumnSpacing = 6, RowSpacing = 6};
 
@@ -119,10 +114,8 @@ namespace Gimp.QR
 
     override protected void UpdatePreview(GimpPreview preview)
     {
-      var image = _parent.GetImageFromGoogleCharts(preview.Size);
-      
-      preview.Redraw(image.ActiveDrawable);
-      image.Delete();
+      var renderer = new Renderer(Variables);
+      renderer.Render(preview);
     }
   }
 }

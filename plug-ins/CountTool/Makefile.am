@@ -8,6 +8,7 @@ ASSEMBLIES = -r:$(GIMPSHARPLIB) -r:Mono.Posix /pkg:gtk-sharp-2.0 /target:winexe
 
 MYSOURCES =			\
 	CountTool.cs		\
+	Dialog.cs		\
 	Preview.cs
 
 EXTRA_DIST = $(MYSOURCES) 	\

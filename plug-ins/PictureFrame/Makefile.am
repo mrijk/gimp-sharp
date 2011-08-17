@@ -6,7 +6,7 @@ GIMPSHARPLIB = $(top_builddir)/lib/gimp-sharp.dll
 
 ASSEMBLIES = -r:$(GIMPSHARPLIB) -r:Mono.Posix /pkg:gtk-sharp-2.0 /target:winexe
 
-MYSOURCES = PictureFrame.cs
+MYSOURCES = Dialog.cs PictureFrame.cs Renderer.cs
 
 EXTRA_DIST = $(MYSOURCES) PictureFrame PictureFrame.png
 

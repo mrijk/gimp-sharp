@@ -8,6 +8,7 @@ ASSEMBLIES=	-r:Mono.Posix /pkg:gtk-sharp-2.0
 MYSOURCES = 				\
 	AspectPreview.cs 		\
 	AssemblyInfo.cs			\
+	BaseRenderer.cs			\
 	BoolMatrix.cs			\
 	Brush.cs			\
 	BrushInfo.cs			\

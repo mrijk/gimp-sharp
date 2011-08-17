@@ -18,11 +18,9 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-
 namespace Gimp.QR
 {
-  public class QR : Plugin
+  class QR : Plugin
   {
     static void Main(string[] args)
     {
@@ -58,59 +56,13 @@ namespace Gimp.QR
     override protected GimpDialog CreateDialog()
     {
       gimp_ui_init("QR", true);
-      return new QRDialog(this, _drawable, Variables);
-    }
-
-    public Image GetImageFromGoogleCharts(Dimensions dimensions)
-    {
-      var chl = "&chl=" + Uri.EscapeDataString(GetValue<string>("text"));
-      var chs = string.Format("&chs={0}x{1}", dimensions.Width, 
-			      dimensions.Height);
-      var choe = "&choe=" + GetEncodingString();
-      var chld = string.Format("&chld={0}|{1}", GetValue<string>("error_correction"), 
-			       GetValue<int>("margin"));
-      var url = "http://chart.apis.google.com/chart?cht=qr" 
-	+ chl + chs + choe + chld;
-
-      var procedure = new Procedure("file-uri-load");
-
-      try 
-	{
-	  var returnArgs = procedure.Run(url, url);
-
-	  return returnArgs[0] as Image;
-	}
-      catch (GimpSharpException e)
-	{
-	  new Message(e.Message);
-	  return null;
-	}
-    }
-
-    string GetEncodingString()
-    {
-      int encoding = GetValue<int>("encoding");
-      if (encoding == 1) 
-	{
-	  return "Shift_JIS";
-	}
-      else if (encoding == 2)
-	{
-	  return "ISO-8859-1";
-	}
-      else
-	{
-	  return "UTF-8";
-	}
+      return new Dialog(_drawable, Variables);
     }
 
     override protected void Render(Image image, Drawable drawable)
     {
-      var newImage = GetImageFromGoogleCharts(drawable.Dimensions);
-      if (newImage != null)
-	{
-	  Display.Reconnect(image, newImage);
-	}
+      var renderer = new Renderer(Variables);
+      renderer.Render(image, drawable);
     }
   }
 }

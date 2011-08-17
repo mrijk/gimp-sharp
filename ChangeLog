@@ -1,3 +1,38 @@
+2011-08-17  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/PictureFrame/PictureFrame.cs: move functionality to
+	Renderer and Dialog classes
+
+	* plug-ins/PictureFrame/Renderer.cs
+	* plug-ins/PictureFrame/Dialog.cs: new files
+
+	* plug-ins/PictureFrame/Makefile.am: changed accordingly
+
+	* plug-ins/CountTool/CountTool.cs: moved GUI to Dialog class
+
+	* plug-ins/CountTool/Dialog.cs: new file
+
+	* plug-ins/CountTool/Makefile.am: changed accordingly
+
+	* plug-ins/QR/Renderer.cs
+	* plug-ins/QR/Dialog.cs: new files
+
+	* plug-ins/QR/QRDialog.cs: renamed to Dialog.cs
+
+	* plug-ins/QR/Makefile.am: changed accordingly
+
+	* plug-ins/ncp/Renderer.cs: inherit from BaseRenderer
+
+	* lib/BaseRender.cs: new file
+
+	* lib/Makefile.am: changed accordingly
+
+	* plug-ins/Ministeck/Renderer.cs: new file
+	* plug-ins/Ministeck/Dialog.cs: new file
+	* plug-ins/Ministeck/MinisteckDialog.cs: renamed to Dialog.cs
+
+	* plug-ins/Ministeck/Makefile.am: changed accordingly
+
 2011-08-16  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* plug-ins/Raindrops/Renderer.cs

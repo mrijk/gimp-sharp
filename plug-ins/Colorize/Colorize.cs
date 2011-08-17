@@ -57,22 +57,22 @@ namespace Gimp.Colorize
       GimpMain<Colorize>(args);
     }
 
-    override protected IEnumerable<Procedure> ListProcedures()
+    override protected Procedure GetProcedure()
     {
       var inParams = new ParamDefList()
 	{
 	  new ParamDef("points", 12, typeof(int), _("Number of points"))
 	};
 
-      yield return new Procedure("plug_in_colorize",
-          _("Re-color images using optimization techniques."),
-          _("Fix me!"),
-          "Maurits Rijk",
-          "(C) Maurits Rijk",
-          "2006-2011",
-          "Colorize...",
-          "RGB*, GRAY*",
-          inParams)
+      return new Procedure("plug_in_colorize",
+			   _("Re-color images using optimization techniques."),
+			   _("Fix me!"),
+			   "Maurits Rijk",
+			   "(C) Maurits Rijk",
+			   "2006-2011",
+			   "Colorize...",
+			   "RGB*, GRAY*",
+			   inParams)
 	{
 	  MenuPath = "<Image>/Colors",
 	  IconFile = "Colorize.png"
