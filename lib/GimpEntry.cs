@@ -29,6 +29,7 @@ namespace Gimp
     {
       Text = variable.Value;
       Changed += delegate {variable.Value = Text;};
+      variable.ValueChanged += delegate {Text = variable.Value;};
     }
   }
 }

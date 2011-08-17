@@ -31,6 +31,7 @@ namespace Gimp
     {
       Value = variable.Value;
       ValueChanged += delegate {variable.Value = ValueAsInt;};
+      variable.ValueChanged += delegate {Value = variable.Value;};
     }
   }
 }

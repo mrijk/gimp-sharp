@@ -1,5 +1,19 @@
 2011-08-16  Maurits Rijk  <maurits.rijk@gmail.com>
 
+	* plug-ins/Raindrops/Renderer.cs
+	* plug-ins/Raindrops/Dialog.cs: new files
+
+	* plug-ins/Raindrops/Raindrops.cs
+	* plug-ins/Raindrops/Makefile.am: changed accordingly
+
+	* lib/GimpSpinButton.cs
+	* lib/GimpEntry.cs: update Widget when variable changes
+
+	* plug-ins/Splitter/Dialog.cs: new file, moving dialog in new class
+
+	* plug-ins/Splitter/Splitter.cs
+	* plug-ins/Splitter/Makefile.am: changed accordingly
+
 	* lib/GimpCheckButton.cs
 	* lib/ScaleEntry.cs: update Widget when variable changes
 
