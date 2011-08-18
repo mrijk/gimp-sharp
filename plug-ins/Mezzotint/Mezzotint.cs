@@ -18,17 +18,16 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-
-using Gtk;
-
 namespace Gimp.Mezzotint
 {
   class Mezzotint : PluginWithPreview<DrawablePreview>
   {
     static void Main(string[] args)
     {
-      GimpMain<Mezzotint>(args);
+      var variables = new VariableSet() {
+	new Variable<int>("type", _("Stroke or dots type"), 0)
+      };
+      GimpMain<Mezzotint>(args, variables);
     }
 
     override protected Procedure GetProcedure()
@@ -49,42 +48,14 @@ namespace Gimp.Mezzotint
 
     override protected GimpDialog CreateDialog()
     {
-      var dialog = DialogNew("Mezzotint", "Mezzotint", IntPtr.Zero, 0,
-			     Gimp.StandardHelpFunc, "Mezzotint");
-
-      var type = ComboBox.NewText();
-      type.AppendText("Fine dots");
-      type.AppendText("Medium dots");
-      type.AppendText("Grainy dots");
-      type.AppendText("Coarse dots");
-      type.AppendText("Short lines");
-      type.AppendText("Medium lines");
-      type.AppendText("Long lines");
-      type.AppendText("Short strokes");
-      type.AppendText("Medium strokes");
-      type.AppendText("Long strokes");
-      type.Active = 0;
-
-      Vbox.PackStart(type, false, false, 0);
-
-      return dialog;
-    }
-
-    override protected void UpdatePreview(GimpPreview preview)
-    {
-      (preview as DrawablePreview).Update(DoMezzotint);
+      gimp_ui_init("Mezzotint", true);
+      return new Dialog(_drawable, Variables);
     }
 
     override protected void Render(Drawable drawable)
     {
-      var iter = new RgnIterator(drawable, _("Mezzotint"));
-      iter.IterateSrcDest(pixel => DoMezzotint(pixel));
-    }
-
-    Pixel DoMezzotint(Pixel pixel)
-    {
-      pixel.Fill(val => (val > 127) ? 255 : 0);
-      return pixel;
+      var renderer = new Renderer(Variables);
+      renderer.Render(drawable);
     }
   }
 }

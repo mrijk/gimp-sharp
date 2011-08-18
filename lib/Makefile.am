@@ -41,6 +41,7 @@ MYSOURCES = 				\
 	GimpBaseEnums.cs		\
 	GimpCheckButton.cs		\
 	GimpColorButton.cs		\
+	GimpComboBox.cs			\
 	GimpDialog.cs			\
 	GimpDialogWithPreview.cs	\
 	GimpEntry.cs			\

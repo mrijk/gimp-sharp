@@ -1,7 +1,7 @@
 // The Trim plug-in
 // Copyright (C) 2004-2011 Maurits Rijk
 //
-// TrimDialog.cs
+// Dialog.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,11 +22,11 @@ using Gtk;
 
 namespace Gimp.Trim
 {
-  public class TrimDialog : GimpDialog
+  public class Dialog : GimpDialog
   {
     readonly Drawable _drawable;
 
-    public TrimDialog(Drawable drawable, VariableSet variables) : 
+    public Dialog(Drawable drawable, VariableSet variables) : 
       base("Trim", variables)
     {
       _drawable = drawable;
@@ -58,7 +58,7 @@ namespace Gimp.Trim
 				 string description)
     {
       var button = new GimpRadioButton<int>(previous, description, type, 
-					    GetVariable<int>("based-on"));
+					    GetVariable<int>("based_on"));
       vbox.Add(button);
       return button;
     }

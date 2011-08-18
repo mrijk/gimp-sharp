@@ -90,19 +90,19 @@ namespace Gimp.PicturePackage
       GimpMain<PicturePackage>(args);
     }
 
-    override protected IEnumerable<Procedure> ListProcedures()
+    override protected Procedure GetProcedure()
     {
       var inParams = new ParamDefList();
 
-      yield return new Procedure("plug_in_picture_package",
-				 _("Picture package"),
-				 _("Picture package"),
-				 "Maurits Rijk, Massimo Perga",
-				 "Maurits Rijk, Massimo Perga",
-				 "2004-2011",
-				 _("Picture Package..."),
-				 "",
-				 inParams)
+      return new Procedure("plug_in_picture_package",
+			   _("Picture package"),
+			   _("Picture package"),
+			   "Maurits Rijk, Massimo Perga",
+			   "Maurits Rijk, Massimo Perga",
+			   "2004-2011",
+			   _("Picture Package..."),
+			   "",
+			   inParams)
 	{
 	  MenuPath = "<Toolbox>/Xtns/Extensions",
 	  IconFile = "PicturePackage.png"

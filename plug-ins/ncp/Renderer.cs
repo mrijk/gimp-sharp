@@ -42,7 +42,8 @@ namespace Gimp.ncp
 	  _pixel.Alpha = 255;
 	}
 
-      _calculator = new Calculator(GetValue<int>("points"), GetValue<int>("closest"),
+      _calculator = new Calculator(GetValue<int>("points"), 
+				   GetValue<int>("closest"),
 				   bpp, drawable.MaskBounds, 
 				   (int) GetValue<UInt32>("seed"));
     }

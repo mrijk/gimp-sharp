@@ -13,7 +13,7 @@ Release 0.18
 9) Convert mode to IndC
 10)
 
-- use Render and Dialog class for plug-ins
+- Clean-up PicturePackage plug-in
 - get/set persistent data
 - Fix Raindrops plug-in
 - Interface for Web Service plug-in

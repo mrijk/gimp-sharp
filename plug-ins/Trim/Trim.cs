@@ -18,27 +18,20 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-using System.Linq;
-
 namespace Gimp.Trim
 {
   class Trim : Plugin
   {
-    Variable<int> _basedOn = new Variable<int>
-    ("based-on", _("Based On"), 1);
-    Variable<bool> _top = new Variable<bool>
-    ("top", _("Trim Top"), true);
-    Variable<bool> _left = new Variable<bool>
-    ("left", _("Trim Left"), true);
-    Variable<bool> _bottom = new Variable<bool>
-    ("bottom", _("Trim Bottom"), true);
-    Variable<bool> _right = new Variable<bool>
-    ("right", _("Trim Right"), true);
-
     static void Main(string[] args)
     {
-      GimpMain<Trim>(args);
+      var variables = new VariableSet() {
+	new Variable<int>("based_on", _("Based On"), 1),
+	new Variable<bool>("top", _("Trim Top"), true),
+	new Variable<bool>("left", _("Trim Left"), true),
+	new Variable<bool>("bottom", _("Trim Bottom"), true),
+	new Variable<bool>("right", _("Trim Right"), true)
+      };
+      GimpMain<Trim>(args, variables);
     }
 
     override protected Procedure GetProcedure()
@@ -51,8 +44,7 @@ namespace Gimp.Trim
 			   "2004-2011",
 			   "Trim...",
 			   "RGB*, GRAY*",
-			   new ParamDefList(_basedOn, _top, _left, _bottom,
-					    _right))
+			   new ParamDefList(Variables))
 	{
 	  MenuPath = "<Image>/Image",
 	};
@@ -61,62 +53,13 @@ namespace Gimp.Trim
     override protected GimpDialog CreateDialog()
     {
       gimp_ui_init("Trim", true);
-      return new TrimDialog(_drawable, new VariableSet() 
-      	{_basedOn, _top, _left, _bottom, _right});
+      return new Dialog(_drawable, Variables);
     }
 
     override protected void Render(Image image, Drawable drawable)
     {
-      var src = new PixelRgn(drawable, false, false);
-      PixelRgn.Register(src);
-
-      var trimColor = GetTrimColor(src, drawable);
-
-      Predicate<bool> notTrue = (b) => {return !b;};
-
-      int height = drawable.Height;
-      var rows = new bool[height];
-      int y = 0;
-      src.ForEachRow(row => rows[y++] = AllEqual(row, trimColor));
-
-      int y1 = (_top.Value) ? Array.FindIndex(rows, notTrue) : 0;
-      int y2 = (_bottom.Value) ? 
-	Array.FindLastIndex(rows, notTrue) + 1 : height;
-
-      int width = drawable.Width;
-      var cols = new bool[width];
-      int x = 0;
-      src.ForEachColumn(col => cols[x++] = AllEqual(col, trimColor));
-
-      int x1 = (_left.Value) ? Array.FindIndex(cols, notTrue) : 0;
-      int x2 = (_right.Value) ? Array.FindLastIndex(cols, notTrue) + 1 : width;
-
-      var croppingArea = new Rectangle(x1, y1, x2, y2);
-      if (croppingArea != image.Bounds)
-	{
-	  image.Crop(croppingArea);
-	}
-    }
-
-    Pixel GetTrimColor(PixelRgn src, Drawable drawable)
-    {
-      if (_basedOn.Value == 0)
-	{
-	  return new Pixel(0, 0, 0, 0);
-	}
-      else if (_basedOn.Value == 1)
-	{
-	  return src[0, 0];
-	}
-      else
-	{
-	  return src.GetPixel(drawable.Width - 1, drawable.Height - 1);
-	}
-    }
-
-    bool AllEqual(Pixel[] array, Pixel p)
-    {
-      return array.All(pixel => pixel.IsSameColor(p));
+      var renderer = new Renderer(Variables);
+      renderer.Render(image, drawable);
     }
   }
 }

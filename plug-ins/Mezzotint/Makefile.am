@@ -6,7 +6,7 @@ GIMPSHARPLIB = $(top_builddir)/lib/gimp-sharp.dll
 
 ASSEMBLIES = -r:$(GIMPSHARPLIB) /pkg:gtk-sharp-2.0 /target:winexe
 
-MYSOURCES = Mezzotint.cs
+MYSOURCES = Dialog.cs Mezzotint.cs Renderer.cs
 
 EXTRA_DIST = $(MYSOURCES) Mezzotint Mezzotint.png
 SUBDIRS = po
