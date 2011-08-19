@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // Format.cs
 //
@@ -28,7 +28,7 @@ namespace Gimp.SliceTool
     ComboBox _format;
     CheckButton _apply;
 
-    public Format() : base(_("File Type"))
+    public Format(RectangleSet rectangles) : base(_("File Type"))
     {
       var table = new Table(2, 2, true) {RowSpacing = 6};
       Add(table);
@@ -46,6 +46,17 @@ namespace Gimp.SliceTool
 	  Rectangle.GlobalExtension = Extension;
 	};
       table.Attach(_apply, 0, 2, 1, 2);
+
+      rectangles.SelectedRectangleChanged += SelectedRectangleChanged;
+    }
+
+    void SelectedRectangleChanged(object sender, SelectedChangedEventArgs args)
+    {
+      if (!Apply)
+	{
+	  args.OldSelected.Extension = Extension;
+	  Extension = args.NewSelected.Extension;
+	}
     }
 
     public string Extension

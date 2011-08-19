@@ -18,8 +18,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-
 using Gtk;
 
 namespace Gimp.SliceTool
@@ -36,7 +34,8 @@ namespace Gimp.SliceTool
     readonly Label _top;
     readonly Label _bottom;
 
-    public CellPropertiesFrame() : base(_("Cell Properties"))
+    public CellPropertiesFrame(RectangleSet rectangles) : 
+      base(_("Cell Properties"))
     {
       var vbox = new VBox(false, 12);
       Add(vbox);
@@ -77,6 +76,14 @@ namespace Gimp.SliceTool
       
       _include = new CheckButton(_("_Include cell in table")) {Active = true};
       table.Attach(_include, 0, 3, 2, 3);
+
+      rectangles.SelectedRectangleChanged += SelectedRectangleChanged;
+    }
+
+    void SelectedRectangleChanged(object sender, SelectedChangedEventArgs args)
+    {
+      SetRectangleData(args.OldSelected);
+      GetRectangleData(args.NewSelected);
     }
 
     public void GetRectangleData(Rectangle rectangle)

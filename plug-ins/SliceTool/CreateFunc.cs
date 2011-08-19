@@ -133,12 +133,11 @@ namespace Gimp.SliceTool
       return (SliceIsSelectable(slice)) ? slice.Cursor : _cursor;
     }
 
-    override public MouseFunc GetActualFunc(SliceTool parent, 
-					    IntCoordinate c)
+    override public MouseFunc GetActualFunc(IntCoordinate c)
     {
       var slice = _sliceData.FindSlice(c);
       return (SliceIsSelectable(slice)) 
-	? new SelectFunc(parent, _sliceData) : (MouseFunc) this;
+	? new SelectFunc(_sliceData, _preview) : (MouseFunc) this;
     }
   }
 }

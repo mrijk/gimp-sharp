@@ -8,6 +8,7 @@ ASSEMBLIES = -r:$(GIMPSHARPLIB) -r:Mono.Posix /pkg:gtk-sharp-2.0 /target:winexe
 
 MYSOURCES =			\
 	CellPropertiesFrame.cs	\
+	CoordinatesDisplay.cs	\
 	CreateFunc.cs		\
 	CreateTableFunc.cs	\
 	FileExistsDialog.cs	\
@@ -15,6 +16,7 @@ MYSOURCES =			\
 	HorizontalSlice.cs	\
 	JavaScriptProperty.cs	\
 	MouseFunc.cs		\
+	PreferencesButton.cs	\
 	PreferencesDialog.cs	\
 	Preview.cs		\
 	PreviewRenderer.cs	\
@@ -25,6 +27,7 @@ MYSOURCES =			\
 	RemoveFunc.cs		\
 	RolloverDialog.cs	\
 	RolloverEntry.cs	\
+	RolloversFrame.cs	\
 	SelectFunc.cs		\
 	Slice.cs		\
 	SliceData.cs		\

@@ -65,8 +65,7 @@ namespace Gimp.SliceTool
       return _defaultCursor;
     }
 
-    virtual public MouseFunc GetActualFunc(SliceTool parent, 
-					   IntCoordinate c) 
+    virtual public MouseFunc GetActualFunc(IntCoordinate c) 
     {
       return this;
     }

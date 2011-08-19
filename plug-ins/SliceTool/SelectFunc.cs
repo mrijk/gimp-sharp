@@ -25,18 +25,15 @@ namespace Gimp.SliceTool
 {
   public class SelectFunc : MouseFunc
   {
-    readonly SliceTool _parent;
     readonly PreviewRenderer _renderer;
     readonly SliceData _sliceData;
     Slice _slice;
-    Rectangle _rectangle;
 
-    public SelectFunc(SliceTool parent, SliceData sliceData) :
-      base(parent.Preview, false, false)
+    public SelectFunc(SliceData sliceData, Preview preview) :
+      base(preview, false, false)
     {
-      _parent = parent;
       _sliceData = sliceData;
-      _renderer = parent.Preview.Renderer;
+      _renderer = preview.Renderer;
     }
 
     override protected void OnPress(IntCoordinate c)
@@ -44,14 +41,7 @@ namespace Gimp.SliceTool
       var slice = _sliceData.FindSlice(c);
       if (slice == null)
 	{
-	  var rectangle = _sliceData.SelectRectangle(c);
-	  if (rectangle != _rectangle)
-	    {
-	      _parent.SetRectangleData(_rectangle);
-	      _rectangle = rectangle;
-	      Redraw();
-	      _parent.GetRectangleData(rectangle);
-	    }
+	  _sliceData.SelectRectangle(c);
 	}
       else if (!slice.Locked)
 	{

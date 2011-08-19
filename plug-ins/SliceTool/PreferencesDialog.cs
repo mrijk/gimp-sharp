@@ -24,37 +24,24 @@ namespace Gimp.SliceTool
 {
   public class PreferencesDialog : GimpDialog
   {
-    GimpColorButton _active;
-    GimpColorButton _inactive;
-
-    public PreferencesDialog() : base(_("Slice Preferences"), _("SliceTool"), 
-				      IntPtr.Zero, 0, null, _("SliceTool"))
+    public PreferencesDialog(Variable<RGB> active, Variable<RGB> inactive) : 
+      base(_("Slice Preferences"), _("SliceTool"), IntPtr.Zero, 0, null, 
+	   _("SliceTool"))
     {
       var table = new GimpTable(2, 2, false)
 	{BorderWidth = 12, ColumnSpacing = 6, RowSpacing = 6};
       VBox.PackStart(table, true, true, 0);
 
-      _active = new GimpColorButton("", 16, 16, new RGB(255, 0, 0),
-				    ColorAreaType.Flat) {Update = true};
-      table.AttachAligned(0, 0, _("Active tile border color:"),
-			  0.0, 0.5, _active, 1, true);
-
-      _inactive = new GimpColorButton("", 16, 16, new RGB(0, 255, 0),
-				      ColorAreaType.Flat) {Update = true};
-      table.AttachAligned(0, 1, _("Inactive tile border color:"), 
-			  0.0, 0.5, _inactive, 1, true);
+      CreateColorButton(table, 0, _("Active tile border color:"), active);
+      CreateColorButton(table, 1, _("Inactive tile border color:"), inactive);
     }
 
-    public RGB ActiveColor
+    void CreateColorButton(GimpTable table, int row, string label, 
+			   Variable<RGB> color)
     {
-      get {return _active.Color;}
-      set {_active.Color = value;}
-    }
-
-    public RGB InactiveColor
-    {
-      get {return _inactive.Color;}
-      set {_inactive.Color = value;}
+      var button = new GimpColorButton("", 16, 16, color, ColorAreaType.Flat)
+	{Update = true};
+      table.AttachAligned(0, row, label, 0.0, 0.5, button, 1, true);
     }
   }
 }

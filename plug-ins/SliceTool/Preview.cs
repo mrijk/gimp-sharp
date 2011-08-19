@@ -55,5 +55,31 @@ namespace Gimp.SliceTool
 	  GdkWindow.Cursor = cursor;
 	}
     }
+
+    public IntCoordinate GetXY(MotionNotifyEventArgs args)
+    {
+      int x, y;
+      var ev = args.Event;
+      
+      if (ev.IsHint) 
+	{
+	  ModifierType s;
+	  ev.Window.GetPointer(out x, out y, out s);
+	} 
+      else 
+	{
+	  x = (int) ev.X;
+	  y = (int) ev.Y;
+	}
+
+      return new IntCoordinate(x, y);
+    }
+
+    public void SetColors(RGB activeColor, RGB inactiveColor)
+    {
+      Renderer.ActiveColor = activeColor;
+      Renderer.InactiveColor = inactiveColor;
+      QueueDraw();
+    }
   }
 }

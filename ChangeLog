@@ -1,3 +1,13 @@
+2011-08-19  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/SliceTool/SliceTool.cs: moved functionality to new files
+
+	* plug-ins/SliceTool/CoordinatesDisplay.cs
+	* plug-ins/SliceTool/PreferencesButton.cs
+	* plug-ins/SliceTool/RolloversFrame.cs: new files
+
+	* plug-ins/SliceTool/Makefile.am: changed accordingly
+
 2011-08-18  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* plug-ins/PicturePackage/Dialog.cs: new file

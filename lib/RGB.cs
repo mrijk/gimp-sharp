@@ -54,6 +54,13 @@ namespace Gimp
       gimp_hsv_to_rgb(ref tmp, ref _rgb);
     }
 
+    public RGB(Gdk.Color color) : 
+      this((double) color.Red / 0xFFFF, 
+	   (double) color.Green / 0xFFFF, 
+	   (double) color.Blue / 0xFFFF)
+    {
+    }
+
     internal RGB(GimpRGB rgb)
     {
       _rgb = rgb;

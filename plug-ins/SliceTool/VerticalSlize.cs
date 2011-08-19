@@ -59,7 +59,9 @@ namespace Gimp.SliceTool
 
     override public Rectangle SliceRectangle(Rectangle rectangle)
     {
-      return new Rectangle(rectangle) {Right = this, Left = this};
+      var copy = new Rectangle(rectangle) {Left = this};
+      rectangle.Right = this;
+      return copy;
     }
 
     override public void SetPosition(IntCoordinate c)

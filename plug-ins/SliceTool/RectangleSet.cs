@@ -26,15 +26,61 @@ using System.Linq;
 
 namespace Gimp.SliceTool
 {
+  public class SelectedChangedEventArgs : EventArgs
+  {
+    public Rectangle OldSelected {get; internal set;}
+    public Rectangle NewSelected {get; internal set;}
+
+    public SelectedChangedEventArgs(Rectangle oldSelected, 
+				    Rectangle newSelected)
+    {
+      OldSelected = oldSelected ?? new Rectangle(null, null, null, null);
+      NewSelected = newSelected;
+    }
+  }
+
   public class RectangleSet
   {
+    public delegate void SelectedRectangleChangedHandler(object sender,
+							 SelectedChangedEventArgs args);
+
+    public event SelectedRectangleChangedHandler SelectedRectangleChanged;
+
     readonly List<Rectangle> _set = new List<Rectangle>();
-    public Rectangle Selected {get; private set;}
+    Rectangle _selected;
     public bool Changed {get; set;}
 
     public IEnumerator<Rectangle> GetEnumerator()
     {
       return _set.GetEnumerator();
+    }
+
+    public Rectangle Selected 
+    {
+      get {return _selected;}
+
+      private set 
+      {
+	if (value != _selected)
+	  {
+	    OnSelectedRectangleChanged(value);
+	  }
+	_selected = value;
+      }
+    }
+
+    void OnSelectedRectangleChanged(Rectangle newSelected)
+    {
+      if (SelectedRectangleChanged != null)
+	{
+	  var args = new SelectedChangedEventArgs(_selected, newSelected);
+	  SelectedRectangleChanged(this, args);
+	}
+    }
+
+    void Flush()
+    {
+      OnSelectedRectangleChanged(Selected);
     }
 
     public void Add(Rectangle rectangle)
@@ -77,14 +123,14 @@ namespace Gimp.SliceTool
       return _set.Find(rectangle => rectangle.IsInside(c));
     }
     
-    public Rectangle Select(IntCoordinate c)
+    public void Select(IntCoordinate c)
     {
       Selected = Find(c);
-      return Selected;
     }
     
     public void WriteHTML(StreamWriter w, string name, bool useGlobalExtension)
     {
+      Flush();
       _set.Sort();
       
       w.WriteLine("<tr>");

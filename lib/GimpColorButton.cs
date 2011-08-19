@@ -52,8 +52,7 @@ namespace Gimp
     public GimpColorButton(string title, int width, int height,
 			   Variable<RGB> variable, ColorAreaType type) :
       this(title, width, height, variable.Value, type)
-    {
-      
+    {      
       ColorChanged += delegate {variable.Value = Color;};
     }
 

@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // Toolbox.cs
 //
@@ -32,9 +32,6 @@ namespace Gimp.SliceTool
   {
     readonly SliceTool _parent;
 
-    ToggleToolButton _toggle;
-    bool _lock;
-
     public Toolbox(SliceTool parent, SliceData sliceData)
     {
       _parent = parent;
@@ -44,75 +41,75 @@ namespace Gimp.SliceTool
       Orientation = Gtk.Orientation.Vertical;
       ToolbarStyle = Gtk.ToolbarStyle.Icons;
 
-      CreateSelectToggle(sliceData);
-      CreateSliceToggle(sliceData);
-      CreateEraserToggle(sliceData);
-      CreateTableToggle(sliceData);
+      var toggle = CreateSelectToggle(sliceData);
+      toggle = CreateSliceToggle(toggle, sliceData);
+      toggle = CreateEraserToggle(toggle, sliceData);
+      CreateTableToggle(toggle, sliceData);
     }
 
-    void CreateSelectToggle(SliceData sliceData)
+    RadioToolButton CreateSelectToggle(SliceData sliceData)
     {
-      var toggle = AddToggle("slice-tool-arrow", _("Select Rectangle"));
-      _toggle = toggle;
+      var toggle = AddToggle(null, "slice-tool-arrow", 
+			     _("Select Rectangle or Slice"));
+
       toggle.Active = true;
       toggle.Clicked += delegate
 	{
-	  OnFunc(toggle, new SelectFunc(_parent, sliceData));
+	  OnFunc(toggle, new SelectFunc(sliceData, _parent.Preview));
 	};
+      return toggle;
     }
 
-    void CreateSliceToggle(SliceData sliceData)
+    RadioToolButton CreateSliceToggle(RadioToolButton group,
+				      SliceData sliceData)
     {
-      var toggle = AddToggle(GimpStock.TOOL_CROP, _("Create a new Slice"));
+      var toggle = AddToggle(group, GimpStock.TOOL_CROP, 
+			     _("Create a new Slice"));
       toggle.Clicked += delegate
 	{
 	  OnFunc(toggle, new CreateFunc(sliceData, _parent.Preview));
 	};
+      return toggle;
     }
 
-    void CreateEraserToggle(SliceData sliceData)
+    RadioToolButton CreateEraserToggle(RadioToolButton group, 
+				       SliceData sliceData)
     {
-      var toggle = AddToggle(GimpStock.TOOL_ERASER, _("Remove Slice"));
+      var toggle = AddToggle(group, GimpStock.TOOL_ERASER, _("Remove Slice"));
       toggle.Clicked += delegate
 	{
 	  OnFunc(toggle, new RemoveFunc(sliceData, _parent.Preview));
 	};
+      return toggle;
     }
 
-    void CreateTableToggle(SliceData sliceData)
+    RadioToolButton CreateTableToggle(RadioToolButton group, 
+				      SliceData sliceData)
     {
-      var toggle = AddToggle(GimpStock.GRID, _("Insert Table"));
+      var toggle = AddToggle(group, GimpStock.GRID, _("Insert Table"));
       toggle.Clicked += delegate
 	{
 	  OnFunc(toggle, new CreateTableFunc(sliceData, _parent.Preview));
 	};
+      return toggle;
     }
 
-    ToggleToolButton AddToggle(string icon, string tooltipText)
+    RadioToolButton AddToggle(RadioToolButton group, string icon, 
+			      string tooltipText)
     {
-      var toggle = new ToggleToolButton(icon) {TooltipText = tooltipText};
+      var list = (group == null) ? null : group.Group;
+
+      var toggle = new RadioToolButton(list, icon) {TooltipText = tooltipText};
       Insert(toggle, -1);
       return toggle;
     }
 
-    void OnFunc(object o, MouseFunc func)
+    void OnFunc(ToggleToolButton toggle, MouseFunc func)
     {
-      if (!_lock)
-	{
-	  _lock = true;
-	  var toggle = (o as ToggleToolButton);
-	  if (toggle != _toggle)
-	    {
-	      _toggle.Active = false;
-	      _toggle = toggle;
-	      _parent.Func = func;
-	    } 
-	  else
-	    {
-	      _toggle.Active = true;
-	    }
-	  _lock = false;
-	}
+      if (toggle.Active)
+      {
+	_parent.Func = func;
+      }
     }
 
     string _(string s)

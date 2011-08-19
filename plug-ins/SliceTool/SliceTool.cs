@@ -19,11 +19,9 @@
 //
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 
-using Gdk;
 using Gtk;
 
 namespace Gimp.SliceTool
@@ -34,8 +32,6 @@ namespace Gimp.SliceTool
     public Preview Preview {private set; get;}
     
     SliceData _sliceData = new SliceData();
-    
-    Entry _xy;
     
     CellPropertiesFrame _properties;
 
@@ -48,16 +44,16 @@ namespace Gimp.SliceTool
       GimpMain<SliceTool>(args);
     }
 
-    override protected IEnumerable<Procedure> ListProcedures()
+    override protected Procedure GetProcedure()
     {
-      yield return new Procedure("plug_in_slice_tool",
-				 _("Slice Tool"),
-				 _("The Image Slice Tool is used to apply image slicing and rollovers."),
-				 "Maurits Rijk",
-				 "(C) Maurits Rijk",
-				 "2005-2011",
-				 _("Slice Tool..."),
-				 "RGB*, GRAY*")
+      return new Procedure("plug_in_slice_tool",
+			   _("Slice Tool"),
+			   _("The Image Slice Tool is used to apply image slicing and rollovers."),
+			   "Maurits Rijk",
+			   "(C) Maurits Rijk",
+			   "2005-2011",
+			   _("Slice Tool..."),
+			   "RGB*, GRAY*")
 	{
 	  MenuPath = "<Image>/Filters/Web",
 	  IconFile = "SliceTool.png"
@@ -82,31 +78,29 @@ namespace Gimp.SliceTool
       var hbox = new HBox();
       vbox.PackStart(hbox, true, true, 0);
       
-      var toolbar = CreateToolbar();
-      hbox.PackStart(toolbar, false, true, 0);
+      var toolbox = new Toolbox(this, _sliceData);
+      hbox.PackStart(toolbox, false, true, 0);
       
       var preview = CreatePreview();
       hbox.PackStart(preview, true, true, 0);
       
-      // Create coordinates
       hbox = new HBox();
       vbox.PackStart(hbox, true, true, 0);
-      _xy = new Entry() {WidthChars = 16, IsEditable = false};
-      hbox.PackStart(_xy, false, false, 0);
+      hbox.PackStart(new CoordinatesDisplay(Preview), false, false, 0);
       
       hbox = new HBox(false, 24);
       vbox.PackStart(hbox, true, true, 0);
       
-      _properties = CreateCellProperties();
+      _properties = new CellPropertiesFrame(_sliceData.Rectangles);
       hbox.PackStart(_properties, false, true, 0);
       
       vbox = new VBox(false, 12);
       hbox.PackStart(vbox, false, true, 0);
       
-      var rollover = CreateRollover();
+      var rollover = new RolloversFrame(_sliceData);
       vbox.PackStart(rollover, false, true, 0);
       
-      _format = new Format();
+      _format = new Format(_sliceData.Rectangles);
       _format.Extension = System.IO.Path.GetExtension(_image.Name).ToLower();
       vbox.PackStart(_format, false, true, 0);
       
@@ -121,26 +115,24 @@ namespace Gimp.SliceTool
       load.Clicked += OnLoadSettings;
       vbox.PackStart(load, false, true, 0);
 
-      var preferences = new Button(_("Preferences"));
-      preferences.Clicked += OnPreferences;
+      var preferences = new PreferencesButton(_("Preferences"), Preview);
       vbox.PackStart(preferences, false, true, 0);
 
+      _sliceData.Rectangles.SelectedRectangleChanged += delegate {Redraw();};
       _sliceData.Init(_drawable);
-      GetRectangleData(_sliceData.Selected);
       
-      Func = new SelectFunc(this, _sliceData);
+      Func = new SelectFunc(_sliceData, Preview);
       
       return dialog;
     }
-    
+ 
     // Fix me: move this to Plugin class?!
     void SetTitle(string filename)
     {
       _filename = filename;
       string p = (filename == null) 
-	? "<Untitled>" : System.IO.Path.GetFileName(filename);
-      string title = string.Format(_("Slice Tool 0.5 - {0}"), p);
-      Dialog.Title = title;
+	? _("<Untitled>") : System.IO.Path.GetFileName(filename);
+      Dialog.Title = string.Format(_("Slice Tool 0.6 - {0}"), p);
     }
     
     void SaveBlank(string path)
@@ -159,7 +151,6 @@ namespace Gimp.SliceTool
     
     void Save()
     {
-      SetRectangleData(_sliceData.Selected);
       try
 	{
 	  _sliceData.Save(_filename, _format.Apply, _image, _drawable);
@@ -233,10 +224,6 @@ namespace Gimp.SliceTool
 
       Preview.ButtonPressEvent += OnButtonPress;      
       Preview.MotionNotifyEvent += OnShowCoordinates;
-      Preview.LeaveNotifyEvent += delegate
-	{
-	  _xy.Text = "";
-	};
       
       alignment.Add(Preview);
       window.AddWithViewport(alignment);
@@ -247,47 +234,13 @@ namespace Gimp.SliceTool
     void OnButtonPress(object o, ButtonPressEventArgs args)
     {
       var c = new IntCoordinate((int) args.Event.X, (int) args.Event.Y);
-      Func.GetActualFunc(this, c).OnButtonPress(o, args);
+      Func.GetActualFunc(c).OnButtonPress(o, args);
     }
 
-    Widget CreateToolbar()
+    void OnShowCoordinates(object o, MotionNotifyEventArgs args)
     {
-      return new Toolbox(this, _sliceData);
-    }
-
-    CellPropertiesFrame CreateCellProperties()
-    {
-      return new CellPropertiesFrame();
-    }
-
-    Widget CreateRollover()
-    {
-      var frame = new GimpFrame(_("Rollovers"));
-
-      var vbox = new VBox(false, 12);
-      frame.Add(vbox);
-
-      var button = new Button(_("Rollover Creator..."));
-      button.Clicked += OnRolloverCreate;
-      vbox.Add(button);
-
-      var label = new Label(_("Rollover enabled: no"));
-      vbox.Add(label);
-
-      return frame;
-    }
-
-    void OnRolloverCreate(object o, EventArgs args)
-    {
-      var dialog = new RolloverDialog();
-      dialog.SetRectangleData(_sliceData.Selected);
-      dialog.ShowAll();
-      var type = dialog.Run();
-      if (type == ResponseType.Ok)
-	{
-	  dialog.GetRectangleData(_sliceData.Selected);
-	}
-      dialog.Destroy();
+      args.RetVal = true;
+      SetCursor(Preview.GetXY(args));
     }
 
     void OnSaveSettings(object o, EventArgs args)
@@ -319,20 +272,6 @@ namespace Gimp.SliceTool
       fc.Destroy();
     }
 
-    void OnPreferences(object o, EventArgs args)
-    {
-      var dialog = new PreferencesDialog();
-      dialog.ShowAll();
-      var type = dialog.Run();
-      if (type == ResponseType.Ok)
-	{
-	  Preview.Renderer.ActiveColor = dialog.ActiveColor;
-	  Preview.Renderer.InactiveColor = dialog.InactiveColor;
-	  Redraw();
-	}
-      dialog.Destroy();
-    }
-
     void Redraw()
     {
       Preview.QueueDraw();
@@ -341,50 +280,6 @@ namespace Gimp.SliceTool
     public void Redraw(PreviewRenderer renderer)
     {
       _sliceData.Draw(renderer);
-    }
-
-    public void SetRectangleData(Rectangle rectangle)
-    {
-      if (rectangle != null)
-	{
-	  _properties.SetRectangleData(rectangle);
-	  if (!_format.Apply)
-	    {
-	      rectangle.Extension = _format.Extension;
-	    }
-	}
-    }
-
-    public void GetRectangleData(Rectangle rectangle)
-    {
-      if (!_format.Apply)
-	{
-	  _format.Extension = rectangle.Extension;
-	}
-
-      _properties.GetRectangleData(rectangle);
-    }
-
-    void OnShowCoordinates(object o, MotionNotifyEventArgs args)
-    {
-      int x, y;
-      var ev = args.Event;
-      
-      if (ev.IsHint) 
-	{
-	  ModifierType s;
-	  ev.Window.GetPointer(out x, out y, out s);
-	} 
-      else 
-	{
-	  x = (int) ev.X;
-	  y = (int) ev.Y;
-	}
-      
-      _xy.Text = "x: " + x + ", y: " + y;
-      args.RetVal = true;
-
-      SetCursor(new IntCoordinate(x, y));
     }
 
     void SetCursor(IntCoordinate c)

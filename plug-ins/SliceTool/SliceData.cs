@@ -31,6 +31,11 @@ namespace Gimp.SliceTool
     SliceSet _horizontalSlices = new SliceSet();
     SliceSet _verticalSlices = new SliceSet();
 
+    public RectangleSet Rectangles
+    {
+      get {return _rectangles;}
+    }
+
     public void Init(Drawable drawable)
     {
       int width = drawable.Width;
@@ -70,9 +75,9 @@ namespace Gimp.SliceTool
       return _rectangles.Find(c);
     }
 
-    public Rectangle SelectRectangle(IntCoordinate c)
+    public void SelectRectangle(IntCoordinate c)
     {
-      return _rectangles.Select(c);
+      _rectangles.Select(c);
     }
 
     public Slice FindSlice(IntCoordinate c)
