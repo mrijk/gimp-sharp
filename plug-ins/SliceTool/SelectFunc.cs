@@ -25,15 +25,11 @@ namespace Gimp.SliceTool
 {
   public class SelectFunc : MouseFunc
   {
-    readonly PreviewRenderer _renderer;
-    readonly SliceData _sliceData;
     Slice _slice;
 
     public SelectFunc(SliceData sliceData, Preview preview) :
-      base(preview, false, false)
+      base(sliceData, preview, false, false)
     {
-      _sliceData = sliceData;
-      _renderer = preview.Renderer;
     }
 
     override protected void OnPress(IntCoordinate c)
@@ -46,7 +42,7 @@ namespace Gimp.SliceTool
       else if (!slice.Locked)
 	{
 	  _slice = slice;
-	  _renderer.Function = Gdk.Function.Equiv;
+	  _preview.Renderer.Function = Gdk.Function.Equiv;
 	  AddReleaseEvent();
 	  AddMotionNotifyEvent();
 	}
@@ -54,16 +50,16 @@ namespace Gimp.SliceTool
 
     override protected void OnRelease() 
     {
-      _renderer.Function = Gdk.Function.Copy;
+      _preview.Renderer.Function = Gdk.Function.Copy;
       _sliceData.Cleanup(_slice);
       Redraw();
     }
 		
     override protected void OnMove(IntCoordinate c)
     {
-      _slice.Draw(_renderer);
+      _slice.Draw(_preview.Renderer);
       _slice.SetPosition(c);
-      _slice.Draw(_renderer);		
+      _slice.Draw(_preview.Renderer);		
     }
 
     override public Cursor GetCursor(IntCoordinate c)

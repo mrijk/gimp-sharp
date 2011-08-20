@@ -1,3 +1,22 @@
+2011-08-20  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/SliceTool/PreferencesDialog.cs
+	* plug-ins/SliceTool/RolloverDialog.cs
+	* plug-ins/SliceTool/TableDialog.cs: use new GimpDialog constructor
+
+	* lib/GimpDialog.cs: new helper constructor
+
+	* plug-ins/SliceTool/SelectFunc.cs
+	* plug-ins/SliceTool/RemoveFunc.cs
+	* plug-ins/SliceTool/CreateTableFunc.cs
+	* plug-ins/SliceTool/CreateFunc.cs
+	* plug-ins/SliceTool/MouseFunc.cs: move sliceData field to base class
+
+	* plug-ins/SliceTool/Toolbox.cs
+	* plug-ins/SliceTool/Preview.cs
+	* plug-ins/SliceTool/SliceTool.cs: moving Toolbox creating and
+	handling to Preview class
+
 2011-08-19  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* plug-ins/SliceTool/SliceTool.cs: moved functionality to new files

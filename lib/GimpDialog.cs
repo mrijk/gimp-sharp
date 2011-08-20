@@ -87,6 +87,11 @@ namespace Gimp
     {
     }
 
+    public GimpDialog(string title, string role) : 
+      this(title, role, IntPtr.Zero, 0, null, role)
+    {
+    }
+
     public GimpDialog(string title, VariableSet variables) :
       this(title, title, IntPtr.Zero, 0, Gimp.StandardHelpFunc, title,
 	   GimpStock.Reset, (ResponseType) 1,

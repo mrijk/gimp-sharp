@@ -18,25 +18,22 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-
 namespace Gimp.SliceTool
 {
   public class TableDialog : GimpDialog
   {
     public TableDialog(Variable<int> rows, Variable<int> columns) : 
-      base(_("Insert Table"), _("SliceTool"), IntPtr.Zero, 0, null, 
-	   _("SliceTool"))
+      base(_("Insert Table"), _("SliceTool"))
     {
       var table = new GimpTable(2, 3, false)
 	{BorderWidth = 12, ColumnSpacing = 6, RowSpacing = 6};
       VBox.PackStart(table, true, true, 0);
 
       new ScaleEntry(table, 0, 1, _("Co_lumns"), 150, 3,
-			 columns, 1.0, 16.0, 1.0, 1.0, 0);
+		     columns, 1.0, 16.0, 1.0, 1.0, 0);
 
       new ScaleEntry(table, 0, 2, _("_Rows"), 150, 3,
-			 rows, 1.0, 16.0, 1.0, 1.0, 0);
+		     rows, 1.0, 16.0, 1.0, 1.0, 0);
     }
   }
 }

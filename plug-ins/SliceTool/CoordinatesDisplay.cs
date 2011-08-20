@@ -18,16 +18,13 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-
-using Gdk;
 using Gtk;
 
 namespace Gimp.SliceTool
 {
   public class CoordinatesDisplay : Entry
   {
-    public CoordinatesDisplay(Preview preview) : base()
+    public CoordinatesDisplay(Preview preview)
     {
       WidthChars = 16;
       IsEditable = false;

@@ -25,15 +25,20 @@ namespace Gimp.SliceTool
 {
   public class Preview : PreviewArea
   {
+    readonly SliceData _sliceData;
+
     public PreviewRenderer Renderer {get; set;}
+
+    public MouseFunc Func {private get; set;}
 
     Cursor _cursor;
 
-    public Preview(Drawable drawable, SliceTool parent)
+    public Preview(Drawable drawable, SliceData sliceData)
     {
+      _sliceData = sliceData;
       MaxSize = drawable.Dimensions;
 
-      ExposeEvent += delegate {parent.Redraw(Renderer);};
+      ExposeEvent += delegate {sliceData.Draw(Renderer);};
       Realized += delegate
 	{
 	  var gc = new Gdk.GC(GdkWindow);
@@ -45,10 +50,33 @@ namespace Gimp.SliceTool
       Events = EventMask.ButtonPressMask | EventMask.ButtonReleaseMask | 
 	EventMask.PointerMotionHintMask | EventMask.PointerMotionMask |
 	EventMask.LeaveNotifyMask;
+
+      ButtonPressEvent += OnButtonPress;
+      MotionNotifyEvent += OnShowCoordinates;
+
+      Func = new SelectFunc(_sliceData, this);
     }
 
-    public void SetCursor(Cursor cursor)
+    void OnButtonPress(object o, ButtonPressEventArgs args)
     {
+      var c = new IntCoordinate((int) args.Event.X, (int) args.Event.Y);
+      Func.GetActualFunc(c).OnButtonPress(o, args);
+    }
+
+    void OnShowCoordinates(object o, MotionNotifyEventArgs args)
+    {
+      args.RetVal = true;
+      SetCursor(GetXY(args));
+    }
+
+    public Toolbox CreateToolbox()
+    {
+      return new Toolbox(this, _sliceData);
+    }
+
+    void SetCursor(IntCoordinate c)
+    {
+      var cursor = Func.GetCursor(c);
       if (cursor != _cursor)
 	{
 	  _cursor = cursor;

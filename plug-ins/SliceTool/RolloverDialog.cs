@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // RolloverDialog.cs
 //
@@ -18,8 +18,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-
 using Gtk;
 
 namespace Gimp.SliceTool
@@ -33,8 +31,7 @@ namespace Gimp.SliceTool
     RolloverEntry _mouseUp;
     RolloverEntry _mouseDown;
 
-    public RolloverDialog() : base(_("Rollover Creator"), 
-        _("SliceTool"), IntPtr.Zero, 0, null, _("SliceTool"))
+    public RolloverDialog() : base(_("Rollover Creator"), _("SliceTool"))
     {
       var table = new GimpTable(7, 3, false)
 	{BorderWidth = 12, ColumnSpacing = 6, RowSpacing = 6};

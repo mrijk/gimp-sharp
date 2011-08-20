@@ -30,11 +30,14 @@ namespace Gimp.SliceTool
   {
     static readonly Cursor _defaultCursor;
 
+    protected SliceData _sliceData;
     protected Preview _preview;
     bool _useRelease, _useMove;
 
-    public MouseFunc(Preview preview, bool useRelease, bool useMove)
+    public MouseFunc(SliceData sliceData, Preview preview, bool useRelease, 
+		     bool useMove)
     {
+      _sliceData = sliceData;
       _preview = preview;
       _useRelease = useRelease;
       _useMove = useMove;
@@ -90,11 +93,6 @@ namespace Gimp.SliceTool
       _preview.ButtonReleaseEvent += OnButtonRelease;
     }
 
-    protected void AddMotionNotifyEvent()
-    {
-      _preview.MotionNotifyEvent += OnMotionNotify;
-    }
-
     void OnButtonRelease(object o, ButtonReleaseEventArgs args)
     {
       _preview.MotionNotifyEvent -= OnMotionNotify;
@@ -102,23 +100,14 @@ namespace Gimp.SliceTool
       OnRelease();
     }
 
+    protected void AddMotionNotifyEvent()
+    {
+      _preview.MotionNotifyEvent += OnMotionNotify;
+    }
+
     void OnMotionNotify(object o, MotionNotifyEventArgs args)
     {
-      int x, y;
-      var ev = args.Event;
-      
-      if (ev.IsHint) 
-	{
-	  ModifierType s;
-	  ev.Window.GetPointer(out x, out y, out s);
-	} 
-      else 
-	{
-	  x = (int) ev.X;
-	  y = (int) ev.Y;
-	}
-
-      OnMove(new IntCoordinate(x, y));
+      OnMove((o as Preview).GetXY(args));
     }
 
     protected bool SliceIsSelectable(Slice slice)

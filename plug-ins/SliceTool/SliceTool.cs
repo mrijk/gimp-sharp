@@ -28,12 +28,9 @@ namespace Gimp.SliceTool
 {
   public class SliceTool : Plugin
   {
-    public MouseFunc Func {private get; set;}
     public Preview Preview {private set; get;}
     
     SliceData _sliceData = new SliceData();
-    
-    CellPropertiesFrame _properties;
 
     Format _format;
     
@@ -71,28 +68,28 @@ namespace Gimp.SliceTool
 			     Stock.Close, ResponseType.Close);
       
       SetTitle(null);
-      
+
       var vbox = new VBox(false, 12) {BorderWidth = 12};
       dialog.VBox.PackStart(vbox, true, true, 0);
-      
+
       var hbox = new HBox();
       vbox.PackStart(hbox, true, true, 0);
       
-      var toolbox = new Toolbox(this, _sliceData);
-      hbox.PackStart(toolbox, false, true, 0);
-      
       var preview = CreatePreview();
+      var toolbox = Preview.CreateToolbox();
+
+      hbox.PackStart(toolbox, false, true, 0);
       hbox.PackStart(preview, true, true, 0);
       
       hbox = new HBox();
       vbox.PackStart(hbox, true, true, 0);
       hbox.PackStart(new CoordinatesDisplay(Preview), false, false, 0);
-      
+
       hbox = new HBox(false, 24);
       vbox.PackStart(hbox, true, true, 0);
       
-      _properties = new CellPropertiesFrame(_sliceData.Rectangles);
-      hbox.PackStart(_properties, false, true, 0);
+      var properties = new CellPropertiesFrame(_sliceData.Rectangles);
+      hbox.PackStart(properties, false, true, 0);
       
       vbox = new VBox(false, 12);
       hbox.PackStart(vbox, false, true, 0);
@@ -120,9 +117,7 @@ namespace Gimp.SliceTool
 
       _sliceData.Rectangles.SelectedRectangleChanged += delegate {Redraw();};
       _sliceData.Init(_drawable);
-      
-      Func = new SelectFunc(_sliceData, Preview);
-      
+       
       return dialog;
     }
  
@@ -219,28 +214,13 @@ namespace Gimp.SliceTool
 
       var alignment = new Alignment(0.5f, 0.5f, 0, 0);
 
-      Preview = new Preview(_drawable, this)
+      Preview = new Preview(_drawable, _sliceData)
 	{WidthRequest = _drawable.Width, HeightRequest = _drawable.Height};
-
-      Preview.ButtonPressEvent += OnButtonPress;      
-      Preview.MotionNotifyEvent += OnShowCoordinates;
       
       alignment.Add(Preview);
       window.AddWithViewport(alignment);
 
       return window;
-    }
-
-    void OnButtonPress(object o, ButtonPressEventArgs args)
-    {
-      var c = new IntCoordinate((int) args.Event.X, (int) args.Event.Y);
-      Func.GetActualFunc(c).OnButtonPress(o, args);
-    }
-
-    void OnShowCoordinates(object o, MotionNotifyEventArgs args)
-    {
-      args.RetVal = true;
-      SetCursor(Preview.GetXY(args));
     }
 
     void OnSaveSettings(object o, EventArgs args)
@@ -275,16 +255,6 @@ namespace Gimp.SliceTool
     void Redraw()
     {
       Preview.QueueDraw();
-    }
-
-    public void Redraw(PreviewRenderer renderer)
-    {
-      _sliceData.Draw(renderer);
-    }
-
-    void SetCursor(IntCoordinate c)
-    {
-      Preview.SetCursor(Func.GetCursor(c));
     }
 
     override protected void Render(Image image, Drawable drawable)

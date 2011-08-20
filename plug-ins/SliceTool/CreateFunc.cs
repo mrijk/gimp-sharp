@@ -28,19 +28,15 @@ namespace Gimp.SliceTool
   {
     static readonly Cursor _cursor;
 
-    PreviewRenderer _renderer;
-    SliceData _sliceData;
-    Rectangle _rectangle, _endRectangle;
+     Rectangle _rectangle, _endRectangle;
     Slice _slice;
     int _x, _y;
     bool _horizontal;
 
     public CreateFunc(SliceData sliceData, Preview preview) : 
-      base(preview, true, true)
+      base(sliceData, preview, true, true)
     {
-      _sliceData = sliceData;
-      _renderer = preview.Renderer;
-    }
+     }
 
     static CreateFunc()
     {
@@ -54,15 +50,15 @@ namespace Gimp.SliceTool
       _rectangle = _sliceData.FindRectangle(c);
       _slice = _rectangle.CreateHorizontalSlice(_y);
       _horizontal = true;
-      _renderer.Function = Gdk.Function.Equiv;
-      _slice.Draw(_renderer);
+      _preview.Renderer.Function = Gdk.Function.Equiv;
+      _slice.Draw(_preview.Renderer);
     }
 
     override protected void OnRelease() 
     {
-      _slice.Draw(_renderer);
+      _slice.Draw(_preview.Renderer);
       _sliceData.AddSlice(_slice);
-      _renderer.Function = Gdk.Function.Copy;
+      _preview.Renderer.Function = Gdk.Function.Copy;
       Redraw();
     }
 		
@@ -96,7 +92,7 @@ namespace Gimp.SliceTool
 
       if (orientationChanged || rectangleChanged)
 	{
-	  _slice.Draw(_renderer);
+	  _slice.Draw(_preview.Renderer);
 	  if (_horizontal)
 	    {
 	      if (rectangle.Left.X <= _rectangle.Left.X)
@@ -123,7 +119,7 @@ namespace Gimp.SliceTool
 					     rectangle.Bottom, _x);
 		}
 	    }
-	  _slice.Draw(_renderer);
+	  _slice.Draw(_preview.Renderer);
 	}
     }
 

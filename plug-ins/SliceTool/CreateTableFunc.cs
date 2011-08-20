@@ -26,12 +26,10 @@ namespace Gimp.SliceTool
   public class CreateTableFunc : MouseFunc
   {
     static readonly Cursor _cursor;
-    readonly SliceData _sliceData;
 
     public CreateTableFunc(SliceData sliceData, Preview preview) : 
-      base(preview, false, false)
+      base(sliceData, preview, false, false)
     {
-      _sliceData = sliceData;
     }
 
     static CreateTableFunc()

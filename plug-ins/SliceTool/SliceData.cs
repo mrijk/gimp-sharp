@@ -266,15 +266,15 @@ namespace Gimp.SliceTool
       var assembly = Assembly.GetExecutingAssembly();
       var stream = assembly.GetManifestResourceStream("javascript.html");
 
-      var reader = new StreamReader(stream);
-      string line;
-
-      while ((line = reader.ReadLine()) != null)
-        {
-	  writer.WriteLine(line);
-        }
-
-      reader.Close();
+      using (var reader = new StreamReader(stream))
+	{
+	  string line;
+	  
+	  while ((line = reader.ReadLine()) != null)
+	    {
+	      writer.WriteLine(line);
+	    }
+	}
     }
 
     public Rectangle Selected
@@ -322,8 +322,7 @@ namespace Gimp.SliceTool
 
     void CreateSliceFromXmlNode(XmlNode node)
     {
-      var attributes = node.Attributes;
-      var type = (XmlAttribute) attributes.GetNamedItem("type");
+      var type = (XmlAttribute) node.Attributes.GetNamedItem("type");
       
       if (type.Value == "horizontal")
 	{
@@ -345,20 +344,19 @@ namespace Gimp.SliceTool
       _verticalSlices.SetIndex();
 
       var fs = new FileStream(filename, FileMode.Create, FileAccess.Write);
-      var w = new StreamWriter(fs);
-
-      w.WriteLine("<settings>");
-      w.WriteLine("<slices>");
-      _horizontalSlices.Save(w);
-      _verticalSlices.Save(w);
-      w.WriteLine("</slices>");
-      w.WriteLine("");
-      w.WriteLine("<rectangles>");
-      _rectangles.Save(w);
-      w.WriteLine("</rectangles>");
-      w.WriteLine("</settings>");
-
-      w.Close();
+      using (var w = new StreamWriter(fs))
+	{
+	  w.WriteLine("<settings>");
+	  w.WriteLine("<slices>");
+	  _horizontalSlices.Save(w);
+	  _verticalSlices.Save(w);
+	  w.WriteLine("</slices>");
+	  w.WriteLine("");
+	  w.WriteLine("<rectangles>");
+	  _rectangles.Save(w);
+	  w.WriteLine("</rectangles>");
+	  w.WriteLine("</settings>");
+	}
     }
   }
 }

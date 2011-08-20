@@ -25,12 +25,10 @@ namespace Gimp.SliceTool
   public class RemoveFunc : MouseFunc
   {
     static readonly Cursor _cursor;
-    readonly SliceData _sliceData;
 
     public RemoveFunc(SliceData sliceData, Preview preview) : 
-      base(preview, false, false)
+      base(sliceData, preview, false, false)
     {
-      _sliceData = sliceData;
     }
 
     static RemoveFunc()
