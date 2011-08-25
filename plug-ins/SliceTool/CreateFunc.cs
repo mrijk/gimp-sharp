@@ -28,15 +28,15 @@ namespace Gimp.SliceTool
   {
     static readonly Cursor _cursor;
 
-     Rectangle _rectangle, _endRectangle;
+    Rectangle _rectangle, _endRectangle;
     Slice _slice;
     int _x, _y;
     bool _horizontal;
 
-    public CreateFunc(SliceData sliceData, Preview preview) : 
-      base(sliceData, preview, true, true)
+    public CreateFunc(SliceData sliceData, Preview preview) :
+      base(sliceData, preview)
     {
-     }
+    }
 
     static CreateFunc()
     {
@@ -47,18 +47,18 @@ namespace Gimp.SliceTool
     {
       _x = c.X;
       _y = c.Y;
-      _rectangle = _sliceData.FindRectangle(c);
+      _rectangle = SliceData.FindRectangle(c);
       _slice = _rectangle.CreateHorizontalSlice(_y);
       _horizontal = true;
-      _preview.Renderer.Function = Gdk.Function.Equiv;
-      _slice.Draw(_preview.Renderer);
+      Preview.Renderer.Function = Gdk.Function.Equiv;
+      _slice.Draw(Preview.Renderer);
     }
 
     override protected void OnRelease() 
     {
-      _slice.Draw(_preview.Renderer);
-      _sliceData.AddSlice(_slice);
-      _preview.Renderer.Function = Gdk.Function.Copy;
+      _slice.Draw(Preview.Renderer);
+      SliceData.AddSlice(_slice);
+      Preview.Renderer.Function = Gdk.Function.Copy;
       Redraw();
     }
 		
@@ -70,11 +70,11 @@ namespace Gimp.SliceTool
 
       if (_horizontal)
 	{
-	  rectangle = _sliceData.FindRectangle(new IntCoordinate(x, _y));
+	  rectangle = SliceData.FindRectangle(new IntCoordinate(x, _y));
 	}
       else
 	{
-	  rectangle = _sliceData.FindRectangle(new IntCoordinate(_x, y));
+	  rectangle = SliceData.FindRectangle(new IntCoordinate(_x, y));
 	}
 
       bool rectangleChanged = rectangle != _endRectangle;
@@ -92,7 +92,7 @@ namespace Gimp.SliceTool
 
       if (orientationChanged || rectangleChanged)
 	{
-	  _slice.Draw(_preview.Renderer);
+	  _slice.Draw(Preview.Renderer);
 	  if (_horizontal)
 	    {
 	      if (rectangle.Left.X <= _rectangle.Left.X)
@@ -119,21 +119,19 @@ namespace Gimp.SliceTool
 					     rectangle.Bottom, _x);
 		}
 	    }
-	  _slice.Draw(_preview.Renderer);
+	  _slice.Draw(Preview.Renderer);
 	}
     }
 
     override public Cursor GetCursor(IntCoordinate c)
     {
-      var slice = _sliceData.FindSlice(c);
+      var slice = SliceData.FindSlice(c);
       return (SliceIsSelectable(slice)) ? slice.Cursor : _cursor;
     }
 
     override public MouseFunc GetActualFunc(IntCoordinate c)
     {
-      var slice = _sliceData.FindSlice(c);
-      return (SliceIsSelectable(slice)) 
-	? new SelectFunc(_sliceData, _preview) : (MouseFunc) this;
+      return MoveSliceFunc.GetActualFunc(c, this);
     }
   }
 }

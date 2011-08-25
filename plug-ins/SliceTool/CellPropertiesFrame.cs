@@ -86,7 +86,7 @@ namespace Gimp.SliceTool
       GetRectangleData(args.NewSelected);
     }
 
-    public void GetRectangleData(Rectangle rectangle)
+    void GetRectangleData(Rectangle rectangle)
     {
       _url.Text = rectangle.GetProperty("href");
       _altText.Text = rectangle.GetProperty("AltText");
@@ -99,7 +99,7 @@ namespace Gimp.SliceTool
       _bottom.Text = rectangle.Y2.ToString();
     }
 
-    public void SetRectangleData(Rectangle rectangle)
+    void SetRectangleData(Rectangle rectangle)
     {
       rectangle.SetProperty("href", _url.Text);
       rectangle.SetProperty("AltText", _altText.Text);

@@ -16,6 +16,7 @@ MYSOURCES =			\
 	HorizontalSlice.cs	\
 	JavaScriptProperty.cs	\
 	MouseFunc.cs		\
+	MoveSliceFunc.cs	\
 	PreferencesButton.cs	\
 	PreferencesDialog.cs	\
 	Preview.cs		\

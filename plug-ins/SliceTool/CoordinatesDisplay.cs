@@ -28,15 +28,16 @@ namespace Gimp.SliceTool
     {
       WidthChars = 16;
       IsEditable = false;
-      preview.LeaveNotifyEvent += delegate {Text = "";};
-      preview.MotionNotifyEvent += OnShowCoordinates;
-    }
 
-    void OnShowCoordinates(object o, MotionNotifyEventArgs args)
-    {
-      var c = (o as Preview).GetXY(args);
-      Text = "x: " + c.X + ", y: " + c.Y;
-      args.RetVal = true;
+      preview.LeaveNotifyEvent += delegate {Text = "";};
+
+      preview.MotionNotifyEvent += delegate(object o, 
+					    MotionNotifyEventArgs args)
+	{
+	  var c = preview.GetXY(args);
+	  Text = "x: " + c.X + ", y: " + c.Y;
+	  args.RetVal = true;
+	};
     }
   }
 }

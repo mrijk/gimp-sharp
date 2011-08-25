@@ -28,7 +28,7 @@ namespace Gimp.SliceTool
     static readonly Cursor _cursor;
 
     public CreateTableFunc(SliceData sliceData, Preview preview) : 
-      base(sliceData, preview, false, false)
+      base(sliceData, preview)
     {
     }
 
@@ -45,7 +45,7 @@ namespace Gimp.SliceTool
       dialog.ShowAll();
       if (dialog.Run() == ResponseType.Ok)
 	{
-	  _sliceData.CreateTable(c, rows.Value, columns.Value);
+	  SliceData.CreateTable(c, rows.Value, columns.Value);
 	  Redraw();
 	}
       dialog.Destroy();
@@ -53,15 +53,13 @@ namespace Gimp.SliceTool
 
     override public Cursor GetCursor(IntCoordinate c)
     {
-      var slice = _sliceData.FindSlice(c);
+      var slice = SliceData.FindSlice(c);
       return (SliceIsSelectable(slice)) ? slice.Cursor : _cursor;
     }
 
     override public MouseFunc GetActualFunc(IntCoordinate c)
     {
-      var slice = _sliceData.FindSlice(c);
-      return (SliceIsSelectable(slice)) 
-	? new SelectFunc(_sliceData, _preview) : (MouseFunc) this;
+      return MoveSliceFunc.GetActualFunc(c, this);
     }
   }
 }

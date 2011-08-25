@@ -27,7 +27,7 @@ namespace Gimp.SliceTool
     static readonly Cursor _cursor;
 
     public RemoveFunc(SliceData sliceData, Preview preview) : 
-      base(sliceData, preview, false, false)
+      base(sliceData, preview)
     {
     }
 
@@ -38,17 +38,17 @@ namespace Gimp.SliceTool
 
     override protected void OnPress(IntCoordinate c)
     {
-      var slice = _sliceData.MayRemove(c);
+      var slice = SliceData.MayRemove(c);
       if (slice != null)
 	{
-	  _sliceData.Remove(slice);
+	  SliceData.Remove(slice);
 	  Redraw();
 	}
     }
 
     override public Cursor GetCursor(IntCoordinate c)
     {
-      return (_sliceData.MayRemove(c) == null) ? base.GetCursor(c) : _cursor;
+      return (SliceData.MayRemove(c) == null) ? base.GetCursor(c) : _cursor;
     }
   }
 }

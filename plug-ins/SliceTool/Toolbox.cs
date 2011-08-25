@@ -18,7 +18,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
 using System.Reflection;
 
 using Mono.Unix;
@@ -28,7 +27,7 @@ using Gtk;
 
 namespace Gimp.SliceTool
 {
-  public class Toolbox : Toolbar // HandleBox
+  public class Toolbox : Toolbar
   {
     readonly Preview _preview;
 

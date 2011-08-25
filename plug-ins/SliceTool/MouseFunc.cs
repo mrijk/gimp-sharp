@@ -18,7 +18,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
 using System.Reflection;
 
 using Gdk;
@@ -30,17 +29,13 @@ namespace Gimp.SliceTool
   {
     static readonly Cursor _defaultCursor;
 
-    protected SliceData _sliceData;
-    protected Preview _preview;
-    bool _useRelease, _useMove;
+    public SliceData SliceData {get; private set;}
+    public Preview Preview {get; private set;}
 
-    public MouseFunc(SliceData sliceData, Preview preview, bool useRelease, 
-		     bool useMove)
+    public MouseFunc(SliceData sliceData, Preview preview)
     {
-      _sliceData = sliceData;
-      _preview = preview;
-      _useRelease = useRelease;
-      _useMove = useMove;
+      SliceData = sliceData;
+      Preview = preview;
     }
 
     static MouseFunc()
@@ -56,7 +51,7 @@ namespace Gimp.SliceTool
 
     protected void Redraw()
     {
-      _preview.QueueDraw();
+      Preview.QueueDraw();
     }
 
     virtual protected void OnPress(IntCoordinate c) {}
@@ -75,34 +70,18 @@ namespace Gimp.SliceTool
 
     public void OnButtonPress(object o, ButtonPressEventArgs args)
     {
-      if (_useRelease)
-	{
-	  AddReleaseEvent();
-	}
-
-      if (_useMove)
-	{
-	  AddMotionNotifyEvent();
-	}
+      Preview.ButtonReleaseEvent += OnButtonRelease;
+      Preview.MotionNotifyEvent += OnMotionNotify;
 
       OnPress(new IntCoordinate((int) args.Event.X, (int) args.Event.Y));
     }
 
-    protected void AddReleaseEvent()
-    {
-      _preview.ButtonReleaseEvent += OnButtonRelease;
-    }
-
     void OnButtonRelease(object o, ButtonReleaseEventArgs args)
     {
-      _preview.MotionNotifyEvent -= OnMotionNotify;
-      _preview.ButtonReleaseEvent -= OnButtonRelease;
-      OnRelease();
-    }
+      Preview.ButtonReleaseEvent -= OnButtonRelease;
+      Preview.MotionNotifyEvent -= OnMotionNotify;
 
-    protected void AddMotionNotifyEvent()
-    {
-      _preview.MotionNotifyEvent += OnMotionNotify;
+      OnRelease();
     }
 
     void OnMotionNotify(object o, MotionNotifyEventArgs args)
@@ -110,7 +89,7 @@ namespace Gimp.SliceTool
       OnMove((o as Preview).GetXY(args));
     }
 
-    protected bool SliceIsSelectable(Slice slice)
+    public bool SliceIsSelectable(Slice slice)
     {
       return !(slice == null || slice.Locked);
     }

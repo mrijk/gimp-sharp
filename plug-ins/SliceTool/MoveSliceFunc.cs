@@ -1,7 +1,7 @@
 // The Slice Tool plug-in
 // Copyright (C) 2004-2011 Maurits Rijk
 //
-// SelectFunc.cs
+// MoveSliceFunc.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -22,27 +22,36 @@ using Gdk;
 
 namespace Gimp.SliceTool
 {
-  public class SelectFunc : MouseFunc
+  public class MoveSliceFunc : MouseFunc
   {
-    public SelectFunc(SliceData sliceData, Preview preview) :
+    readonly Slice _slice;
+
+    MoveSliceFunc(SliceData sliceData, Preview preview, Slice slice) :
       base(sliceData, preview)
     {
+      _slice = slice;
+      Preview.Renderer.Function = Gdk.Function.Equiv;
     }
 
-    override protected void OnPress(IntCoordinate c)
+    override protected void OnRelease() 
     {
-      SliceData.SelectRectangle(c);
+      Preview.Renderer.Function = Gdk.Function.Copy;
+      SliceData.Cleanup(_slice);
+      Redraw();
     }
-    
-    override public Cursor GetCursor(IntCoordinate c)
+		
+    override protected void OnMove(IntCoordinate c)
     {
-      var slice = SliceData.FindSlice(c);
-      return (SliceIsSelectable(slice)) ? slice.Cursor : base.GetCursor(c);
+      _slice.Draw(Preview.Renderer);
+      _slice.SetPosition(c);
+      _slice.Draw(Preview.Renderer);
     }
 
-    override public MouseFunc GetActualFunc(IntCoordinate c)
+    public static MouseFunc GetActualFunc(IntCoordinate c, MouseFunc func)
     {
-      return MoveSliceFunc.GetActualFunc(c, this);
+      var slice = func.SliceData.FindSlice(c);
+      return (func.SliceIsSelectable(slice)) 
+	? new MoveSliceFunc(func.SliceData, func.Preview, slice) : func;
     }
   }
 }

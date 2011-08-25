@@ -18,27 +18,22 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
 using Gtk;
 
 namespace Gimp.SliceTool
 {
   public class Format : GimpFrame
   {
-    ComboBox _format;
-    CheckButton _apply;
+    readonly ComboBox _format;
+    readonly CheckButton _apply;
 
     public Format(RectangleSet rectangles) : base(_("File Type"))
     {
       var table = new Table(2, 2, true) {RowSpacing = 6};
       Add(table);
 
-      _format = ComboBox.NewText();
+      _format = new ComboBox(new string[]{"gif", "jpg", "png"});
       table.Attach(_format, 0, 1, 0, 1);
-
-      _format.AppendText("gif");
-      _format.AppendText("jpg");
-      _format.AppendText("png");
 
       _apply = new CheckButton(_("Apply to _whole image"));
       _apply.Activated += delegate
