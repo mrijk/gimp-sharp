@@ -1,3 +1,18 @@
+2011-08-26  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/SliceTool/RectangleSet.cs: clean-up
+
+	* plug-ins/SliceTool/SliceTool.cs: move GUI stuff to Dialog class
+
+	* plug-ins/SliceTool/LoadSettingsButton.cs
+	* plug-ins/SliceTool/SaveSettingsButton.cs
+	* plug-ins/SliceTool/Dialog.cs: new files
+
+	* plug-ins/SliceTool/Makefile.am: changed accordingly
+
+	* plug-ins/SliceTool/Rectangle.cs
+	* plug-ins/SliceTool/PropertySet.cs: replaced Get/Set by indexer
+
 2011-08-25  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* plug-ins/SliceTool/MoveSliceFunc.cs: new file

@@ -31,7 +31,7 @@ namespace Gimp.SliceTool
     public HorizontalSlice Top {get; set;}
     public HorizontalSlice Bottom {get; set;}
     
-    PropertySet _properties = new PropertySet();
+    readonly PropertySet _properties = new PropertySet();
     
     public bool Include {get; set;}
 
@@ -214,7 +214,7 @@ namespace Gimp.SliceTool
 		  w.Write(" onMouseOut=\"swapImgRestore()\"");
 		  w.Write(" onMouseOver=\"swapImage('{0}','','{1}',1)\"",
 			  name + index, 
-			  System.IO.Path.GetFileName(_properties.Get("MouseOver")));
+			  System.IO.Path.GetFileName(_properties["MouseOver"]));
 		}
 
 	      w.Write(">");
@@ -296,12 +296,12 @@ namespace Gimp.SliceTool
 
     public void SetProperty(string name, string value)
     {
-      _properties.Set(name, value);
+      _properties[name] = value;
     }
 
     public string GetProperty(string name)
     {
-      return _properties.Get(name);
+      return _properties[name];
     }
 
     public static string GlobalExtension

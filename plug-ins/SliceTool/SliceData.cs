@@ -105,40 +105,7 @@ namespace Gimp.SliceTool
 
     public void Remove(Slice slice)
     {
-      var set1 = new RectangleSet();
-      var set2 = new RectangleSet();
-
-      foreach (var rectangle in _rectangles)
-        {
-	  if (slice == rectangle.Bottom || slice == rectangle.Right)
-	    {
-	      set1.Add(rectangle);
-	    }
-	  else if (slice == rectangle.Top || slice == rectangle.Left)
-	    {
-	      set2.Add(rectangle);
-	    }
-        }
-
-      foreach (var r1 in set1)
-        {
-	  foreach (var r2 in set2)
-	    {
-	      if (r1.Left == r2.Left && r1.Right == r2.Right)
-		{
-		  r1.Bottom = r2.Bottom;
-		  _rectangles.Remove(r2);
-		  break;
-		}
-	      else if (r1.Top == r2.Top && r1.Bottom == r2.Bottom)
-		{
-		  r1.Right = r2.Right;
-		  _rectangles.Remove(r2);
-		  break;
-		}
-	    }
-        }
-
+      _rectangles.Remove(slice);
       _horizontalSlices.Remove(slice);
       _verticalSlices.Remove(slice);
     }
@@ -173,17 +140,7 @@ namespace Gimp.SliceTool
 
     public void Cleanup(Slice slice)
     {
-      var set = new RectangleSet();
-
-      foreach (var rectangle in _rectangles)
-        {
-	  if (rectangle.Normalize(slice))
-	    {
-	      set.Add(rectangle);
-	    }
-        }
-
-      set.ForEach(rectangle => _rectangles.Remove(rectangle));
+      _rectangles.Cleanup(slice);
     }
 
     void WriteBlankLine(StreamWriter w)
@@ -290,7 +247,7 @@ namespace Gimp.SliceTool
             || _horizontalSlices.Changed
             || _verticalSlices.Changed;
 	}
-      set
+      private set
 	{
 	  _verticalSlices.Changed = value;
 	  _horizontalSlices.Changed = value;
@@ -323,18 +280,14 @@ namespace Gimp.SliceTool
     void CreateSliceFromXmlNode(XmlNode node)
     {
       var type = (XmlAttribute) node.Attributes.GetNamedItem("type");
-      
+ 
       if (type.Value == "horizontal")
 	{
-	  var slice = new HorizontalSlice();
-	  slice.Load(node);
-	  _horizontalSlices.Add(slice);
+	  _horizontalSlices.Add(HorizontalSlice.Load(node));
 	}
       else
 	{
-	  var slice = new VerticalSlice();
-	  slice.Load(node);
-	  _verticalSlices.Add(slice);
+	  _verticalSlices.Add(VerticalSlice.Load(node));
 	}
     }
 

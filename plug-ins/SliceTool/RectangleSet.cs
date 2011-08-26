@@ -50,11 +50,6 @@ namespace Gimp.SliceTool
     Rectangle _selected;
     public bool Changed {get; set;}
 
-    public IEnumerator<Rectangle> GetEnumerator()
-    {
-      return _set.GetEnumerator();
-    }
-
     public Rectangle Selected 
     {
       get {return _selected;}
@@ -89,21 +84,10 @@ namespace Gimp.SliceTool
       _set.Add(rectangle);
       Selected = Selected ?? rectangle;
     }
-    
-    public void Remove(Rectangle rectangle)
-    {
-      Changed = true;
-      _set.Remove(rectangle);
-    }
-    
+
     public Rectangle this[int index]
     {
       get {return _set[index];}
-    }
-    
-    public void ForEach(Action<Rectangle> action)
-    {
-      _set.ForEach(action);
     }
 
     public void Clear()
@@ -111,30 +95,30 @@ namespace Gimp.SliceTool
       Changed = true;
       _set.Clear();
     }
-    
+
     public void Slice(Slice slice)
     {
       var query = _set.Where(rectangle => rectangle.IntersectsWith(slice));
       query.ToList().ForEach(rectangle => Add(rectangle.Slice(slice)));
     }
-    
+
     public Rectangle Find(IntCoordinate c)
     {
       return _set.Find(rectangle => rectangle.IsInside(c));
     }
-    
+
     public void Select(IntCoordinate c)
     {
       Selected = Find(c);
     }
-    
+
     public void WriteHTML(StreamWriter w, string name, bool useGlobalExtension)
     {
       Flush();
       _set.Sort();
       
       w.WriteLine("<tr>");
-      Rectangle prev = this[0];
+      var prev = this[0];
       prev.WriteHTML(w, name, useGlobalExtension, 0);
       for (int i = 1; i < _set.Count; i++)
 	{
@@ -166,6 +150,56 @@ namespace Gimp.SliceTool
     public void Resolve(SliceSet hslices, SliceSet vslices)
     {
       ForEach(rectangle => rectangle.Resolve(hslices, vslices));
+    }
+
+    public void Cleanup(Slice slice)
+    {
+      var query = _set.Where(rectangle => rectangle.Normalize(slice));
+      _set.RemoveAll(rectangle => query.Contains(rectangle));
+      Changed = query.Count() > 0;
+    }
+
+    public void Remove(Slice slice)
+    {
+      var set1 = _set.Where(rectangle => slice == rectangle.Bottom || 
+			    slice == rectangle.Right).ToList();
+      var set2 = _set.Where(rectangle => slice == rectangle.Top || 
+			    slice == rectangle.Left).ToList();
+
+      foreach (var r1 in set1)
+        {
+	  foreach (var r2 in set2)
+	    {
+	      if (r1.Left == r2.Left && r1.Right == r2.Right)
+		{
+		  r1.Bottom = r2.Bottom;
+		  Remove(r2);
+		  break;
+		}
+	      else if (r1.Top == r2.Top && r1.Bottom == r2.Bottom)
+		{
+		  r1.Right = r2.Right;
+		  Remove(r2);
+		  break;
+		}
+	    }
+        }
+    }
+
+    IEnumerator<Rectangle> GetEnumerator()
+    {
+      return _set.GetEnumerator();
+    }
+
+    void Remove(Rectangle rectangle)
+    {
+      Changed = true;
+      _set.Remove(rectangle);
+    }
+
+    void ForEach(Action<Rectangle> action)
+    {
+      _set.ForEach(action);
     }
   }
 }

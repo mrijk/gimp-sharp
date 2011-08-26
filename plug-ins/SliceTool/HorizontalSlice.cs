@@ -20,6 +20,7 @@
 
 using System;
 using System.IO;
+using System.Xml;
 
 using Gdk;
 
@@ -34,12 +35,13 @@ namespace Gimp.SliceTool
     {
     }
 
-    public HorizontalSlice()
+    public HorizontalSlice(int index = -1) : base(index)
     {
     }
 
-    public HorizontalSlice(int index) : base(index)
+    public static Slice Load(XmlNode node)
     {
+      return LoadFromNode(node, new HorizontalSlice());
     }
 
     override public void Draw(PreviewRenderer renderer)

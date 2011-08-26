@@ -11,10 +11,12 @@ MYSOURCES =			\
 	CoordinatesDisplay.cs	\
 	CreateFunc.cs		\
 	CreateTableFunc.cs	\
+	Dialog.cs		\
 	FileExistsDialog.cs	\
 	Format.cs		\
 	HorizontalSlice.cs	\
 	JavaScriptProperty.cs	\
+	LoadSettingsButton.cs	\
 	MouseFunc.cs		\
 	MoveSliceFunc.cs	\
 	PreferencesButton.cs	\
@@ -29,6 +31,7 @@ MYSOURCES =			\
 	RolloverDialog.cs	\
 	RolloverEntry.cs	\
 	RolloversFrame.cs	\
+	SaveSettingsButton.cs	\
 	SelectFunc.cs		\
 	Slice.cs		\
 	SliceData.cs		\

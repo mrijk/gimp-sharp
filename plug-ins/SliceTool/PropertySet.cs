@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // PropertySet.cs
 //
@@ -18,8 +18,8 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
+using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 
@@ -53,26 +53,21 @@ namespace Gimp.SliceTool
       _set[name] = new JavaScriptProperty(name);
     }
 
+    public string this[string name]
+    {
+      get {return GetProperty(name).Value;} 
+      set {GetProperty(name).Value = value;}
+    }
+
     Property GetProperty(string name)
     {
       var property = _set[name];
-      Debug.Assert(property != null, "Property not in hashset!");
       return property;
-    }
-
-    public void Set(string name, string value)
-    {
-      GetProperty(name).Value = value;
-    }
-
-    public string Get(string name)
-    {
-      return GetProperty(name).Value;
     }
 
     public bool Exists(string name)
     {
-      return Get(name).Length > 0;
+      return !String.IsNullOrEmpty(this[name]);
     }
 
     public void WriteHTML(StreamWriter w, string name)

@@ -87,13 +87,15 @@ namespace Gimp.SliceTool
       Changed = false;
     }
 
-    public void Load(XmlNode node)
+    protected static Slice LoadFromNode(XmlNode node, Slice slice)
     {
-      Position = node.GetValue("position");
-      Index = node.GetValue("index");
-      Begin = new HorizontalSlice(node.GetValue("begin"));
-      End = new HorizontalSlice(node.GetValue("end"));
-      Changed = false;
+      slice.Position = node.GetValue("position");
+      slice.Index = node.GetValue("index");
+      slice.Begin = new HorizontalSlice(node.GetValue("begin"));
+      slice.End = new HorizontalSlice(node.GetValue("end"));
+      slice.Changed = false;
+
+      return slice;
     }
 
     public void Resolve(SliceSet slices)
