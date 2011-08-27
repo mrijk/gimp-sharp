@@ -64,31 +64,16 @@ namespace Gimp.SliceTool
 		
     override protected void OnMove(IntCoordinate c) 
     {
-      Rectangle rectangle;
-      int x = c.X;
-      int y = c.Y;
-
-      if (_horizontal)
-	{
-	  rectangle = SliceData.FindRectangle(new IntCoordinate(x, _y));
-	}
-      else
-	{
-	  rectangle = SliceData.FindRectangle(new IntCoordinate(_x, y));
-	}
+      var coordinate = (_horizontal) ? new IntCoordinate(c.X, _y) 
+	: new IntCoordinate(_x, c.Y);
+      var rectangle = SliceData.FindRectangle(coordinate);
 
       bool rectangleChanged = rectangle != _endRectangle;
-      if (rectangleChanged)
-	{
-	  _endRectangle = rectangle;
-	}
+      _endRectangle = rectangle;
 
-      bool orientationChanged = _horizontal ^ ((Math.Abs(x - _x) > 
-						Math.Abs(y - _y)));
-      if (orientationChanged)
-	{
-	  _horizontal = !_horizontal;
-	}
+      bool horizontal = Math.Abs(c.X - _x) > Math.Abs(c.Y - _y);
+      bool orientationChanged = horizontal != _horizontal;
+      _horizontal = horizontal;
 
       if (orientationChanged || rectangleChanged)
 	{

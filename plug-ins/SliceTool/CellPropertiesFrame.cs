@@ -77,13 +77,11 @@ namespace Gimp.SliceTool
       _include = new CheckButton(_("_Include cell in table")) {Active = true};
       table.Attach(_include, 0, 3, 2, 3);
 
-      rectangles.SelectedRectangleChanged += SelectedRectangleChanged;
-    }
-
-    void SelectedRectangleChanged(object sender, SelectedChangedEventArgs args)
-    {
-      SetRectangleData(args.OldSelected);
-      GetRectangleData(args.NewSelected);
+      rectangles.SelectedRectangleChanged += (sender, args) =>
+	{
+	  SetRectangleData(args.OldSelected);
+	  GetRectangleData(args.NewSelected);
+	};
     }
 
     void GetRectangleData(Rectangle rectangle)

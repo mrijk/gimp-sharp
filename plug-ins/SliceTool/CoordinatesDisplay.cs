@@ -31,12 +31,10 @@ namespace Gimp.SliceTool
 
       preview.LeaveNotifyEvent += delegate {Text = "";};
 
-      preview.MotionNotifyEvent += delegate(object o, 
-					    MotionNotifyEventArgs args)
+      preview.MotionNotifyEvent += (o, args) =>
 	{
 	  var c = preview.GetXY(args);
 	  Text = "x: " + c.X + ", y: " + c.Y;
-	  args.RetVal = true;
 	};
     }
   }

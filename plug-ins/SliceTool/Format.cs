@@ -36,22 +36,17 @@ namespace Gimp.SliceTool
       table.Attach(_format, 0, 1, 0, 1);
 
       _apply = new CheckButton(_("Apply to _whole image"));
-      _apply.Activated += delegate
-	{
-	  Rectangle.GlobalExtension = Extension;
-	};
+      _apply.Activated += delegate {Rectangle.GlobalExtension = Extension;};
       table.Attach(_apply, 0, 2, 1, 2);
 
-      rectangles.SelectedRectangleChanged += SelectedRectangleChanged;
-    }
-
-    void SelectedRectangleChanged(object sender, SelectedChangedEventArgs args)
-    {
-      if (!Apply)
+      rectangles.SelectedRectangleChanged += (sender, args) =>
 	{
-	  args.OldSelected.Extension = Extension;
-	  Extension = args.NewSelected.Extension;
-	}
+	  if (!Apply)
+	  {
+	    args.OldSelected.Extension = Extension;
+	    Extension = args.NewSelected.Extension;
+	  }
+	};
     }
 
     public string Extension

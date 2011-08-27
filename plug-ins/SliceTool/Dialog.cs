@@ -58,7 +58,7 @@ namespace Gimp.SliceTool
       vbox.PackStart(hbox, true, true, 0);
       
       var preview = CreatePreview(drawable, sliceData);
-      var toolbox = Preview.CreateToolbox();
+      var toolbox = Preview.CreateToolbox(sliceData);
 
       hbox.PackStart(toolbox, false, true, 0);
       hbox.PackStart(preview, true, true, 0);

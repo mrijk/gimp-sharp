@@ -1,3 +1,12 @@
+2011-08-27  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/SliceTool/Toolbox.cs: select Create Slice as default
+
+	* plug-ins/SliceTool/CellPropertiesFrame.cs
+	* plug-ins/SliceTool/Dialog.cs
+	* plug-ins/SliceTool/CoordinatesDisplay.cs
+	* plug-ins/SliceTool/Preview.cs: clean-up
+
 2011-08-26  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* plug-ins/SliceTool/RectangleSet.cs: clean-up

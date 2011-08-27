@@ -41,8 +41,8 @@ namespace Gimp.SliceTool
       ToolbarStyle = Gtk.ToolbarStyle.Icons;
 
       var toggle = CreateSelectToggle(sliceData);
-      toggle.Active = true;
       toggle = CreateSliceToggle(toggle, sliceData);
+      toggle.Active = true;
       toggle = CreateEraserToggle(toggle, sliceData);
       CreateTableToggle(toggle, sliceData);
     }
