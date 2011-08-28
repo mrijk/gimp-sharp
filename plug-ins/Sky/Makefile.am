@@ -7,9 +7,11 @@ GIMPSHARPLIB = $(top_builddir)/lib/gimp-sharp.dll
 ASSEMBLIES = -r:$(GIMPSHARPLIB) /pkg:gtk-sharp-2.0 /target:winexe
 
 MYSOURCES = 				\
+	Dialog.cs			\
 	Octave.cs			\
 	Sky.cs				\
 	Perlin3D.cs			\
+	Renderer.cs			\
 	TMatrix.cs			\
 	TRandom.cs
 

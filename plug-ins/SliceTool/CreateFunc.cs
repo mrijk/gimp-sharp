@@ -80,7 +80,7 @@ namespace Gimp.SliceTool
 	  _slice.Draw(Preview.Renderer);
 	  if (_horizontal)
 	    {
-	      if (rectangle.Left.X <= _rectangle.Left.X)
+	      if (rectangle.X1 <= _rectangle.X1)
 		{
 		  _slice = new HorizontalSlice(rectangle.Left, 
 					       _rectangle.Right, _y);
@@ -93,7 +93,7 @@ namespace Gimp.SliceTool
 	    }
 	  else
 	    {
-	      if (rectangle.Top.Y <= _rectangle.Top.Y)
+	      if (rectangle.Y1 <= _rectangle.Y1)
 		{
 		  _slice = new VerticalSlice(rectangle.Top, 
 					     _rectangle.Bottom, _x);

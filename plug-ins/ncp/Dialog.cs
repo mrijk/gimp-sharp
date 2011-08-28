@@ -25,15 +25,11 @@ namespace Gimp.ncp
 {
   public class Dialog : GimpDialogWithPreview<AspectPreview>
   {
-    readonly Drawable _drawable;
-
     ScaleEntry _closestEntry;
 
     public Dialog(Drawable drawable, VariableSet variables) : 
       base("ncp", drawable, variables)
     {
-      _drawable = drawable;
-
       var table = new GimpTable(4, 3) {ColumnSpacing = 6, RowSpacing = 6};
       Vbox.PackStart(table, false, false, 0);
 
@@ -96,7 +92,7 @@ namespace Gimp.ncp
 
     override protected void UpdatePreview(GimpPreview preview)
     {
-      var renderer = new Renderer(Variables, _drawable);
+      var renderer = new Renderer(Variables, Drawable);
       renderer.Render(preview as AspectPreview);
     }
   }

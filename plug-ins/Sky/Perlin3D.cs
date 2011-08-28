@@ -1,5 +1,5 @@
 // The Sky plug-in
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // Perlin3D.cs
 //

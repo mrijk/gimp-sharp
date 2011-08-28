@@ -32,7 +32,7 @@ namespace Gimp
       Variables = variables;
     }
 
-        static protected string _(string s)
+    static protected string _(string s)
     {
       return Catalog.GetString(s);
     }

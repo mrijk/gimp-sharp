@@ -19,7 +19,6 @@
 //
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -85,7 +84,7 @@ namespace Gimp.SliceTool
       Selected = Selected ?? rectangle;
     }
 
-    public Rectangle this[int index]
+    Rectangle this[int index]
     {
       get {return _set[index];}
     }

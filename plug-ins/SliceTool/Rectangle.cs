@@ -63,18 +63,8 @@ namespace Gimp.SliceTool
     public int CompareTo(object obj)
     {
       var rectangle = obj as Rectangle;
-      int y1 = Top.Y;
-      int y2 = rectangle.Top.Y;
-      if (y1 == y2)
-        {
-	  int x1 = Left.X;
-	  int x2 = rectangle.Left.X;
-	  return x1 - x2;
-        }
-      else
-        {
-	  return y1 - y2;
-        }
+
+      return (Y1 == rectangle.Y1) ? X1 - rectangle.X1 : Y1 - rectangle.Y1;
     }
 
     public bool IntersectsWith(Slice slice)
@@ -125,19 +115,19 @@ namespace Gimp.SliceTool
     {
       if (slice == Left && y >= Y1 && y <= Y2)
         {
-	  return CreateVerticalSlice(Left.X);
+	  return CreateVerticalSlice(X1);
         }
       else if (slice == Right && y >= Y1 && y <= Y2)
         {
-	  return CreateVerticalSlice(Right.X);
+	  return CreateVerticalSlice(X2);
         }
       else if (slice == Top && x >= X1 && x <= X2)
         {
-	  return CreateHorizontalSlice(Top.Y);
+	  return CreateHorizontalSlice(Y1);
         }
       else if (slice == Bottom && x >= X1 && x <= X2)
         {
-	  return CreateHorizontalSlice(Bottom.Y);
+	  return CreateHorizontalSlice(Y2);
         }
       return null;
     }
@@ -145,26 +135,6 @@ namespace Gimp.SliceTool
     public Rectangle Slice(Slice slice)
     {
       return slice.SliceRectangle(this);
-    }
-
-    public void Merge(Rectangle rectangle)
-    {
-      if (Left == rectangle.Right)
-        {
-	  Left = rectangle.Left;
-        }
-      else if (Right == rectangle.Left)
-        {
-	  Right = rectangle.Right;
-        }
-      else if (Top == rectangle.Bottom)
-        {
-	  Top = rectangle.Top;
-        }
-      else if (Bottom == rectangle.Top)
-        {
-	  Bottom = rectangle.Bottom;
-        }
     }
 
     public bool IsInside(IntCoordinate c)

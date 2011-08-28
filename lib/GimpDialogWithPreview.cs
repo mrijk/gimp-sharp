@@ -26,6 +26,7 @@ namespace Gimp
   public abstract class GimpDialogWithPreview<T> : GimpDialog 
   where T : GimpPreview, new()
   {
+    protected Drawable Drawable {get; private set;}
     protected GimpPreview Preview {get; private set;}
     protected VBox Vbox {get; private set;}
 
@@ -33,6 +34,8 @@ namespace Gimp
 				 VariableSet variables) : 
       base(title, variables)
     {
+      Drawable = drawable;
+
       Vbox = new VBox(false, 0) {BorderWidth = 12};
       VBox.PackStart(Vbox, true, true, 0);
 

@@ -41,8 +41,8 @@ namespace Gimp.SliceTool
     public Dialog(Image image, Drawable drawable, SliceData sliceData) :
       base(_("Slice Tool"), _("SliceTool"), 
 	   IntPtr.Zero, 0, null, _("SliceTool"),
-	   Stock.SaveAs, (Gtk.ResponseType) 0,
-	   Stock.Save, (Gtk.ResponseType) 1,
+	   Stock.SaveAs, (Gtk.ResponseType) 2,
+	   Stock.Save, (Gtk.ResponseType) 3,
 	   Stock.Close, ResponseType.Close)
     {
       _image = image;
@@ -130,7 +130,7 @@ namespace Gimp.SliceTool
 
     public void DialogRun(ResponseType type)
     {
-      if ((int) type == 0 || ((int) type == 1 && _filename == null))
+      if ((int) type == 2 || ((int) type == 3 && _filename == null))
 	{
 	  var fc = new FileChooserDialog(_("HTML Save As"), this,
 					 FileChooserAction.Save,
@@ -153,7 +153,7 @@ namespace Gimp.SliceTool
 	    }
 	  fc.Destroy();
 	}
-      else // type == 1
+      else // type == 3
 	{
 	  Save(_filename);
 	}

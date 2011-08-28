@@ -1,3 +1,22 @@
+2011-08-28  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/ncp/Dialog.cs: use Drawable property from base class
+
+	* lib/GimpDialogWithPreview.cs: add Drawable property
+
+	* plug-ins/Sky/Sky.cs: moved functionality to new files
+
+	* plug-ins/Sky/Renderer.cs
+	* plug-ins/Sky/Dialog.cs: new files
+
+	* plug-ins/Sky/Makefile.am: changed accordingly
+
+	* configure.in: switching to dmcs as default compiler
+
+	* plug-ins/SliceTool/RectangleSet.cs: minor clean-up
+
+	* plug-ins/SliceTool/Rectangle.cs: removed unused Merge method
+
 2011-08-27  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* plug-ins/SliceTool/Toolbox.cs: select Create Slice as default
