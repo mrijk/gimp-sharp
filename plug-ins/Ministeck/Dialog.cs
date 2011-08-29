@@ -18,32 +18,22 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
 using Gtk;
 
 namespace Gimp.Ministeck
 {
-  public class Dialog : GimpDialog
+  public class Dialog : GimpDialogWithPreview<DrawablePreview>
   {
     readonly Image _image;
 
-    readonly DrawablePreview _preview;
-
     public Dialog(Image image, Drawable drawable, VariableSet variables) : 
-      base("Ministeck", variables)
+      base("Ministeck", drawable, variables)
     {
       _image = image;
 
-      var vbox = new VBox(false, 12) {BorderWidth = 12};
-      VBox.PackStart(vbox, true, true, 0);
-
-      _preview = new DrawablePreview(drawable, false);
-      _preview.Invalidated += UpdatePreview;
-      vbox.PackStart(_preview, true, true, 0);
-
       var table = new GimpTable(2, 2) 
 	{ColumnSpacing = 6, RowSpacing = 6};
-      vbox.PackStart(table, false, false, 0);
+      Vbox.PackStart(table, false, false, 0);
 
       var size = new GimpSpinButton(3, 100, 1, GetVariable<int>("size"));
       table.AttachAligned(0, 0, _("_Size:"), 0.0, 0.5, size, 2, true);
@@ -57,24 +47,22 @@ namespace Gimp.Ministeck
 	{Update = true};
 
       table.AttachAligned(0, 1, _("C_olor:"), 0.0, 0.5, colorButton, 1, true);
-
-      variables.ValueChanged += UpdatePreview;
     }
 
-    void UpdatePreview(object sender, EventArgs e)
+    override protected void UpdatePreview(GimpPreview preview)
     {
       // Fix me: it's probably better to just create a new Drawable iso
       // a completely new image!
 
       var clone = new Image(_image);
-      clone.Crop(_preview.Bounds);
+      clone.Crop(preview.Bounds);
 
       var drawable = clone.ActiveDrawable;
 
       var renderer = new Renderer(Variables);
       renderer.Render(clone, drawable, true);
 
-      _preview.Redraw(drawable);
+      preview.Redraw(drawable);
       clone.Delete();
     }
   }

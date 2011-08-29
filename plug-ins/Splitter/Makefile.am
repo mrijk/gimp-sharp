@@ -11,6 +11,7 @@ MYSOURCES = 			\
 	Dialog.cs		\
 	MathExpressionParser.cs \
 	MyClassBase.cs		\
+	Renderer.cs		\
 	Splitter.cs
 
 EXTRA_DIST = $(MYSOURCES) Splitter Splitter.png

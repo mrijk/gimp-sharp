@@ -1,7 +1,7 @@
-// The Splitter plug-in
-// Copyright (C) 2004-2011 Maurits Rijk
+// The Pointillize plug-in
+// Copyright (C) 2006-2011 Maurits Rijk
 //
-// AdvancedDialog.cs
+// Renderer.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -20,20 +20,30 @@
 
 using System;
 
-namespace Gimp.Splitter
+namespace Gimp.Pointillize
 {
-  public class AdvancedDialog : GimpDialog
+  public class Renderer : BaseRenderer
   {
-    public AdvancedDialog(Variable<UInt32> seed, Variable<bool> randomSeed) : 
-      base(_("Advanced Settings"), _("Splitter"))
+    public Renderer(VariableSet variables) : base(variables)
     {
-      var table = new GimpTable(1, 2, false) {
-	BorderWidth = 12, ColumnSpacing = 6, RowSpacing = 6};
-      VBox.PackStart(table, true, true, 0);
+    }
 
-      var random = new RandomSeed(seed, randomSeed);
-      
-      table.AttachAligned(0, 0, _("Random _Seed:"), 0.0, 0.5, random, 2, true);
+    public void Render(Drawable drawable)
+    {
+      var iter = new RgnIterator(drawable, _("Pointillize"));
+      iter.IterateDest(GetPointillizeFunc(drawable));
+    }
+
+    public void Render(AspectPreview preview, Drawable drawable)
+    {
+      preview.Update(GetPointillizeFunc(drawable));
+    }
+
+    Func<IntCoordinate, Pixel> GetPointillizeFunc(Drawable drawable)
+    {
+      var coordinates = new ColorCoordinateSet(drawable,
+					       GetValue<int>("cell_size"));
+      return (c) => coordinates.GetColor(c);
     }
   }
 }

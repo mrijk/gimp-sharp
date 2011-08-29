@@ -1,5 +1,5 @@
 // The Count Tool plug-in
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // Preview.cs
 //
@@ -40,7 +40,7 @@ namespace Gimp.CountTool
 	EventMask.PointerMotionHintMask | EventMask.PointerMotionMask |
 	EventMask.LeaveNotifyMask;
 
-      ButtonPressEvent += delegate(object o, ButtonPressEventArgs args)
+      ButtonPressEvent += (sender, args) =>
 	{
 	  // Fix me: calculate real-world coordinates
 	  _coordinates.Add(new Coordinate<int>((int) args.Event.X,

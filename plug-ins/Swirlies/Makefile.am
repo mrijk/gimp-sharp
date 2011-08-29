@@ -6,7 +6,7 @@ GIMPSHARPLIB = $(top_builddir)/lib/gimp-sharp.dll
 
 ASSEMBLIES = -r:$(GIMPSHARPLIB) /pkg:gtk-sharp-2.0 /target:winexe
 
-MYSOURCES = Swirlies.cs Swirly.cs
+MYSOURCES = Dialog.cs Renderer.cs Swirlies.cs Swirly.cs
 
 EXTRA_DIST = $(MYSOURCES) Swirlies Swirlies.png
 SUBDIRS = po

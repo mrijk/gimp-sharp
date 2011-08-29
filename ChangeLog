@@ -1,3 +1,41 @@
+2011-08-29  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/Swirlies/Swirlies.cs: moved functionality to
+	Renderer and Dialog class
+
+	* plug-ins/Swirlies/Makefile.am: changed accordingly
+
+	* plug-ins/Swirlies/Dialog.cs
+	* plug-ins/Swirlies/Renderer.cs: new files
+
+	* plug-ins/Ministeck/Dialog.cs: inherit from GimpdialogWithPreview
+
+	* plug-ins/Pointillize/Pointillize.cs: moved functionality to
+	Renderer and Dialog class
+
+	* plug-ins/Pointillize/Makefile.am: changed accordingly
+
+	* plug-ins/Pointillize/Renderer.cs
+	* plug-ins/Pointillize/Dialog.cs: new files
+
+	* plug-ins/Mezzotint/Dialog.cs: use new GimpComboBox constructor
+
+	* plug-ins/CountTool/Preview.cs: minor readability improvement
+
+	* lib/GimpComboBox.cs: added convenience constructor
+
+	* plug-ins/Splitter/Dialog.cs
+	* plug-ins/Splitter/AdvancedDialog.cs: clean-up
+
+	* plug-ins/Splitter/Splitter.cs: move functionality to new
+	Renderer class
+
+	* plug-ins/Splitter/Renderer.cs: new file
+
+	* plug-ins/Splitter/Makefile.am: changed accordingly
+
+	* plug-ins/WebServer/Makefile.am: replaces dmcs by $(CSC)
+
 2011-08-28  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* plug-ins/ncp/Dialog.cs: use Drawable property from base class

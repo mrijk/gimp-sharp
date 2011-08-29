@@ -1,5 +1,13 @@
 Release 0.18
 ------------
+- Clean-up Forge plug-in
+- Clean-up PicturePackage plug-in
+- get/set persistent data
+- Fix Raindrops plug-in
+- Interface for Web Service plug-in
+
+Release 0.19
+------------
 - 20 verified Photoshop action files
 
 1) Set selection to polygon
@@ -13,19 +21,11 @@ Release 0.18
 9) Convert mode to IndC
 10)
 
-- Clean-up PicturePackage plug-in
-- get/set persistent data
-- Fix Raindrops plug-in
-- Interface for Web Service plug-in
-
-Release 0.19
-------------
-- 30 verified Photoshop action files
 - Support for Ruby.NET or IronRuby
 
 Release 0.20
 ------------
-- 40 verified Photoshop action files
+- 30 verified Photoshop action files
 - Documentation (Max, Maurits)
 - Working version of Update Check plug-in (Maurits)
 - Fully functional version of picture package

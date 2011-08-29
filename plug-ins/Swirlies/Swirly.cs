@@ -1,5 +1,5 @@
 // The Swirlies plug-in
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // Swirly.cs
 //
@@ -136,7 +136,6 @@ namespace Gimp.Swirlies
       swirly.Ssk = rand_secondary_coefficient(1, 1);
       swirly.Ksk = rand_mixed_coefficient(1, 1);
       swirly.Zsk = rand_mixed_coefficient(1, 1);
-      // Crash on the next line??????????
       swirly.Psz = rand_phase_shift();
       swirly.Asz = rand_angle_multiplier(1, 1);
       swirly.Dsz = rand_linear_phase_shift(1, 1);
@@ -262,7 +261,6 @@ namespace Gimp.Swirlies
 	      double d2 = dx * dx + dy * dy;
 	      double angle = Math.Atan2(dy, dx);
 	      double d = Math.Sqrt(d2);
-
 
 	      double Eccc = Pccc + Accc * angle + Dccc * d;
 	      double Eccs = Pccs + Accs * angle + Dccs * d;

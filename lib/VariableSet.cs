@@ -25,6 +25,21 @@ using System.Collections.Generic;
 
 namespace Gimp
 {
+  public class ClonedVariable<T> : Variable<T>
+  {
+    readonly Variable<T> _original;
+
+    public ClonedVariable(Variable<T> original) : base(original.Value)
+    {
+      _original = original;
+    }
+
+    public void Commit()
+    {
+      _original.Value = Value;
+    }
+  }
+
   public class VariableSet : IEnumerable<IVariable>
   {
     List<IVariable> _set = new List<IVariable>();
@@ -74,6 +89,11 @@ namespace Gimp
     public T GetValue<T>(string identifier)
     {
       return Get<T>(identifier).Value;
+    }
+
+    public ClonedVariable<T> GetClone<T>(string identifier)
+    {
+      return new ClonedVariable<T>(Get<T>(identifier));
     }
 
     public void Changed()

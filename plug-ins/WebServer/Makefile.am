@@ -13,11 +13,11 @@ TESTSOURCES = Routes.cs
 EXTRA_DIST = $(MYSOURCES) $(TESTSOURCES) WebServer WebServer.png
 
 WebServer.exe : $(MYSOURCES) $(GIMPSHARPLIB)
-	dmcs $(CSC_FLAGS) /target:winexe $(MYSOURCES) \
+	$(CSC) $(CSC_FLAGS) /target:winexe $(MYSOURCES) \
 	/resource:WebServer.png -out:$@ $(ASSEMBLIES)
 
 routes.dll : $(TESTSOURCES) $(GIMPSHARPLIB)
-	dmcs $(CSC_FLAGS) -target:library $(ASSEMBLIES) $(TESTSOURCES) \
+	$(CSC) $(CSC_FLAGS) -target:library $(ASSEMBLIES) $(TESTSOURCES) \
 	-out:routes.dll
 
 clean:

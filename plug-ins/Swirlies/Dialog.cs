@@ -1,4 +1,4 @@
-// The Mezzotint plug-in
+// The Swirlies plug-in
 // Copyright (C) 2004-2011 Maurits Rijk
 //
 // Dialog.cs
@@ -18,28 +18,38 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
+using System;
 using Gtk;
 
-namespace Gimp.Mezzotint
+namespace Gimp.Swirlies
 {
-  public class Dialog : GimpDialogWithPreview<DrawablePreview>
+  public class Dialog : GimpDialogWithPreview<AspectPreview>
   {
-    public Dialog(Drawable drawable, VariableSet variables) : 
-      base("Mezzotint", drawable, variables)
-    {
-      var type = new GimpComboBox(GetVariable<int>("type"),
-	new string[] {_("Fine dots"), _("Medium dots"), _("Grainy dots"),
-		      _("Coarse dots"), _("Short lines"), _("Medium lines"),
-		      _("Long lines"), _("Short strokes"), _("Medium strokes"),
-		      _("Long strokes")});
+    readonly ProgressBar _progress;
 
-      Vbox.PackStart(type, false, false, 0);
+    public Dialog(Drawable drawable, VariableSet variables) : 
+      base(_("Swirlies"), drawable, variables)
+    {
+      _progress = new ProgressBar();
+      Vbox.PackStart(_progress, false, false, 0);
+      
+      var table = new GimpTable(4, 3, false)
+	{ColumnSpacing = 6, RowSpacing = 6};
+      Vbox.PackStart(table, false, false, 0);
+
+      var seed = new RandomSeed(GetVariable<UInt32>("seed"), 
+				GetVariable<bool>("random_seed"));
+
+      table.AttachAligned(0, 0, _("Random _Seed:"), 0.0, 0.5, seed, 2, true);
+
+      new ScaleEntry(table, 0, 1, _("Po_ints:"), 150, 3, 
+		     GetVariable<int>("points"), 1.0, 16.0, 1.0, 8.0, 0);
     }
 
     override protected void UpdatePreview(GimpPreview preview)
     {
-      var renderer = new Renderer(Variables);
-      renderer.Render(preview as DrawablePreview);
+      var renderer = new Renderer(Variables, Drawable);
+      renderer.Render(preview as AspectPreview);
     }
   }
 }

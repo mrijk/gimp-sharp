@@ -43,22 +43,20 @@ namespace Gimp.Splitter
       hbox.Add(new GimpEntry(GetVariable<string>("formula")));
       hbox.Add(new Label("= 0"));
 
-      var frame1 = CreateLayerFrame("Layer 1", "translate_1_x", "translate_1_y",
-				    "rotate_1");
-      table.Attach(frame1, 0, 1, 1, 2);
+      table.Attach(CreateLayerFrame("Layer 1", "translate_1_x", "translate_1_y",
+				    "rotate_1"), 0, 1, 1, 2);
 
-      var frame2 = CreateLayerFrame("Layer 2", "translate_2_x", "translate_2_y", 
-				    "rotate_2");
-      table.Attach(frame2, 1, 2, 1, 2);
+      table.Attach(CreateLayerFrame("Layer 2", "translate_2_x", "translate_2_y", 
+				    "rotate_2"), 1, 2, 1, 2);
 
-      var merge = new GimpCheckButton(_("_Merge visible layers"), 
-				      GetVariable<bool>("merge"));
-      table.Attach(merge, 0, 1, 3, 4);
+      table.Attach(new GimpCheckButton(_("_Merge visible layers"), 
+				       GetVariable<bool>("merge")), 0, 1, 3, 4);
 
-      var advanced = CreateAdvancedOptions();
-      table.Attach(advanced, 1, 2, 3, 4);
+      table.Attach(CreateAdvancedOptions(), 1, 2, 3, 4);
 
-      var keep = CreateKeepLayer();
+      var keep = new GimpComboBox(GetVariable<int>("keep_layer"),
+				  new string[]{_("Both Layers"), 
+					       _("Layer 1"), _("Layer 2")});
       table.AttachAligned(0, 5, _("Keep:"), 0.0, 0.5, keep, 1, true);
     }
 
@@ -92,33 +90,19 @@ namespace Gimp.Splitter
       var advanced = new Button(_("Advanced Options..."));
       advanced.Clicked += delegate
 	{
-	  var seed = GetVariable<UInt32>("seed");
-	  var randomSeed = GetVariable<bool>("random_seed");
+	  var seed = Variables.GetClone<UInt32>("seed");
+	  var randomSeed = Variables.GetClone<bool>("random_seed");
 
-	  var advancedDialog = new AdvancedDialog(seed.Value, randomSeed.Value);
+	  var advancedDialog = new AdvancedDialog(seed, randomSeed);
 	  advancedDialog.ShowAll();
 	  if (advancedDialog.Run() == ResponseType.Ok)
 	  {
-	    seed.Value = advancedDialog.Seed;
-	    randomSeed.Value = advancedDialog.RandomSeed;
+	    seed.Commit();
+	    randomSeed.Commit();
 	  }
 	  advancedDialog.Destroy();
 	};
       return advanced;
-    }
-
-    ComboBox CreateKeepLayer()
-    {
-      var keepLayer = GetVariable<int>("keep_layer");
-
-      var keep = ComboBox.NewText();
-      keep.AppendText(_("Both Layers"));
-      keep.AppendText(_("Layer 1"));
-      keep.AppendText(_("Layer 2"));
-      keep.Active = keepLayer.Value;
-      keep.Changed += delegate {keepLayer.Value = keep.Active;};
-
-      return keep;
     }
   }
 }

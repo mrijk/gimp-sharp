@@ -18,19 +18,16 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-
-using Gtk;
-
 namespace Gimp.Pointillize
 {
-  class Pointillize : PluginWithPreview<AspectPreview>
+  class Pointillize : Plugin
   {
-    Variable<int> _cellSize = new Variable<int>("cell_size", "Cell size", 30);
-
     static void Main(string[] args)
     {
-      GimpMain<Pointillize>(args);
+      var variables = new VariableSet() {
+	new Variable<int>("cell_size", "Cell size", 30)
+      };
+      GimpMain<Pointillize>(args, variables);
     }
 
     override protected Procedure GetProcedure()
@@ -43,7 +40,7 @@ namespace Gimp.Pointillize
 			   "2006-2011",
 			   _("Pointillize..."),
 			   "RGB*, GRAY*",
-			   new ParamDefList(_cellSize))
+			   new ParamDefList(Variables))
 	{
 	  MenuPath = "<Image>/Filters/Artistic",
 	  IconFile = "Pointillize.png"
@@ -52,36 +49,14 @@ namespace Gimp.Pointillize
 
     override protected GimpDialog CreateDialog()
     {
-      var dialog = DialogNew(_("Pointillize"), _("Pointillize"), 
-			     IntPtr.Zero, 0, Gimp.StandardHelpFunc, 
-			     _("Pointillize"));
-
-      var table = new GimpTable(1, 3);
-
-      new ScaleEntry(table, 0, 1, _("Cell _Size:"), 150, 3,
-		     _cellSize, 3.0, 300.0, 1.0, 8.0, 0);
-      _cellSize.ValueChanged += delegate {InvalidatePreview();}; 
-
-      Vbox.PackStart(table, false, false, 0);
-      
-      return dialog;
-    }
-
-    override protected void UpdatePreview(GimpPreview preview)
-    {
-      (preview as AspectPreview).Update(GetPointillizeFunc(_drawable));
+      gimp_ui_init("Pointillize", true);
+      return new Dialog(_drawable, Variables);
     }
 
     override protected void Render(Drawable drawable)
     {
-      var iter = new RgnIterator(drawable, _("Pointillize"));
-      iter.IterateDest(GetPointillizeFunc(drawable));
-    }
-
-    Func<IntCoordinate, Pixel> GetPointillizeFunc(Drawable drawable)
-    {
-      var coordinates = new ColorCoordinateSet(drawable, _cellSize.Value);
-      return (c) => coordinates.GetColor(c);
+      var renderer = new Renderer(Variables);
+      renderer.Render(drawable);
     }
   }
 }

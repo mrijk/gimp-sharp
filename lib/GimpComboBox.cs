@@ -27,6 +27,11 @@ namespace Gimp
 {
   public class GimpComboBox : ComboBox
   {
+    public GimpComboBox(Variable<int> variable, string[] entries) : 
+      this((new ComboBox(entries)).Handle, variable)
+    {
+    }
+
     GimpComboBox(IntPtr handle, Variable<int> variable) : base(handle)
     {
       Active = variable.Value;
