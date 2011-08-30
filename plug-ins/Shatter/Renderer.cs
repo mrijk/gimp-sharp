@@ -1,7 +1,7 @@
-// The Forge plug-in
+// The Shatter plug-in
 // Copyright (C) 2006-2011 Maurits Rijk
 //
-// ComplexMatrix.cs
+// Renderer.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,40 +18,29 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-namespace Gimp.Forge
+namespace Gimp.Shatter
 {
-  class ComplexMatrix
+  public class Renderer : BaseRenderer
   {
-    readonly int _size;
-    readonly Complex[,] _matrix;
-
-    public ComplexMatrix(int size)
+    public Renderer(VariableSet variables) : base(variables)
     {
-      _size = size;
-      _matrix = new Complex[size, size];
     }
 
-    public Complex this[int row, int col]
+    public void Render(Image image, Drawable drawable)
     {
-      get {return _matrix[row, col];}
-      set {_matrix[row, col] = value;}
-    }
+      // Break up image in pieces
+      var ul = new Coord(0, 0);
+      var lr = new Coord(drawable.Width, drawable.Height);
+      var shards = new ShardSet(ul, lr, GetValue<int>("pieces"));
 
-    public double[] ToFlatArray()
-    {
-      var array = new double[(1 + _size * _size) * 2];
+      // 
+      
+      var tool = new FreeSelectTool(image);
 
-      int i = 2;	// Skip first 2!
-      for (int row = 0; row < _size; row++)
+      foreach (Shard shard in shards)
 	{
-	  for (int col = 0; col < _size; col++)
-	    {
-	      var c = _matrix[row, col];
-	      array[i++] = c.Real;
-	      array[i++] = c.Imag;
-	    }
+	  tool.Select(shard.GetValues(), ChannelOps.Replace);
 	}
-      return array;
     }
   }
 }

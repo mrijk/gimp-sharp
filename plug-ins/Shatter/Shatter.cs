@@ -18,18 +18,16 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-
 namespace Gimp.Shatter
 {
-  public class Shatter : PluginWithPreview<AspectPreview>
+  public class Shatter : Plugin
   {
-    Variable<int> _pieces = new Variable<int>("pieces", _("Number of shards"),
-					      4);
-
     static void Main(string[] args)
     {
-      GimpMain<Shatter>(args);
+      var variables = new VariableSet {
+	new Variable<int>("pieces", _("Number of shards"), 4)
+      };
+      GimpMain<Shatter>(args, variables);
     }
 
     override protected Procedure GetProcedure()
@@ -42,7 +40,7 @@ namespace Gimp.Shatter
 			   "2006-2011",
 			   _("Shatter..."),
 			   "RGB*, GRAY*",
-			   new ParamDefList(_pieces))
+			   new ParamDefList(Variables))
 	{
 	  MenuPath = "<Image>/Filters/Distorts",
 	  IconFile = "Shatter.png"
@@ -51,34 +49,14 @@ namespace Gimp.Shatter
 
     override protected GimpDialog CreateDialog()
     {
-      var dialog = DialogNew("Shatter", "Shatter", IntPtr.Zero, 0,
-			     Gimp.StandardHelpFunc, "Shatter");
-
-      var table = new GimpTable(4, 3, false) {
-	ColumnSpacing = 6, RowSpacing = 6};
-      Vbox.PackStart(table, false, false, 0);
-      
-      new ScaleEntry(table, 0, 1, "Pieces:", 150, 3,
-		     _pieces, 1.0, 256.0, 1.0, 8.0, 0);
-
-      return dialog;
+      gimp_ui_init("Shatter", true);
+      return new Dialog(_drawable, Variables);
     }
 
     override protected void Render(Image image, Drawable drawable)
     {
-      // Break up image in pieces
-      var ul = new Coord(0, 0);
-      var lr = new Coord(drawable.Width, drawable.Height);
-      var shards = new ShardSet(ul, lr, _pieces.Value);
-
-      // 
-      
-      var tool = new FreeSelectTool(image);
-
-      foreach (Shard shard in shards)
-	{
-	  tool.Select(shard.GetValues(), ChannelOps.Replace);
-	}
+      var renderer = new Renderer(Variables);
+      renderer.Render(image, drawable);
     }
   }
 }

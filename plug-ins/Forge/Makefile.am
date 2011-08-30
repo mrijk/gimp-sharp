@@ -9,12 +9,14 @@ ASSEMBLIES = -r:$(GIMPSHARPLIB) /pkg:gtk-sharp-2.0 /target:winexe
 MYSOURCES = 			\
 	Complex.cs		\
 	ComplexMatrix.cs	\
+	Dialog.cs		\
 	Forge.cs 		\
 	FourierTransform.cs	\
 	GaussDistribution.cs	\
 	Land.cs			\
 	Mesh.cs			\
 	Planet.cs		\
+	Renderer.cs		\
 	SpectralSynthesis.cs	\
 	StarFactory.cs
 

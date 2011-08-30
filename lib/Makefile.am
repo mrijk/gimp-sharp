@@ -93,7 +93,6 @@ MYSOURCES = 				\
 	PixelFetcher.cs			\
 	PixelRgn.cs			\
 	Plugin.cs			\
-	PluginWithPreview.cs		\
 	PreviewArea.cs			\
 	Procedure.cs			\
 	ProcedureSet.cs			\

@@ -8,6 +8,8 @@ ASSEMBLIES = -r:$(GIMPSHARPLIB) /pkg:gtk-sharp-2.0 /target:winexe
 
 MYSOURCES =		\
 	Coord.cs	\
+	Dialog.cs	\
+	Renderer.cs	\
 	Shard.cs	\
 	ShardSet.cs	\
 	Shatter.cs

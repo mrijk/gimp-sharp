@@ -1,7 +1,7 @@
-// The Forge plug-in
+// The Shatter plug-in
 // Copyright (C) 2006-2011 Maurits Rijk
 //
-// ComplexMatrix.cs
+// Dialog.cs
 //
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -18,40 +18,21 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-namespace Gimp.Forge
+using Gtk;
+
+namespace Gimp.Shatter
 {
-  class ComplexMatrix
+  public class Dialog : GimpDialogWithPreview<AspectPreview>
   {
-    readonly int _size;
-    readonly Complex[,] _matrix;
-
-    public ComplexMatrix(int size)
+    public Dialog(Drawable drawable, VariableSet variables) : 
+      base("Shatter", drawable, variables)
     {
-      _size = size;
-      _matrix = new Complex[size, size];
-    }
-
-    public Complex this[int row, int col]
-    {
-      get {return _matrix[row, col];}
-      set {_matrix[row, col] = value;}
-    }
-
-    public double[] ToFlatArray()
-    {
-      var array = new double[(1 + _size * _size) * 2];
-
-      int i = 2;	// Skip first 2!
-      for (int row = 0; row < _size; row++)
-	{
-	  for (int col = 0; col < _size; col++)
-	    {
-	      var c = _matrix[row, col];
-	      array[i++] = c.Real;
-	      array[i++] = c.Imag;
-	    }
-	}
-      return array;
+      var table = new GimpTable(4, 3, false) {
+	ColumnSpacing = 6, RowSpacing = 6};
+      Vbox.PackStart(table, false, false, 0);
+      
+      new ScaleEntry(table, 0, 1, "Pieces:", 150, 3,
+		     GetVariable<int>("pieces"), 1.0, 256.0, 1.0, 8.0, 0);
     }
   }
 }

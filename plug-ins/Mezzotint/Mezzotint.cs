@@ -20,7 +20,7 @@
 
 namespace Gimp.Mezzotint
 {
-  class Mezzotint : PluginWithPreview<DrawablePreview>
+  class Mezzotint : Plugin
   {
     static void Main(string[] args)
     {

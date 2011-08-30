@@ -22,7 +22,7 @@ using System;
 
 namespace Gimp.Swirlies
 {
-  class Swirlies : PluginWithPreview<AspectPreview>
+  class Swirlies : Plugin
   {
     static void Main(string[] args)
     {

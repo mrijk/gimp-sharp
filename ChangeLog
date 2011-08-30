@@ -1,4 +1,34 @@
+2011-08-30  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/Forge/ComplexMatrix.cs: removed unused import
+
+	* lib/Makefile.am: changed accordingly
+
+	* lib/PluginWithPreview.cs: removed
+
+	* plug-ins/Mezzotint/Mezzotint.cs: derive from Plugin
+
+	* plug-ins/Forge/Makefile.am: changed accordingly
+
+	* plug-ins/Forge/Renderer.cs
+	* plug-ins/Forge/Dialog.cs: new files
+
+	* plug-ins/Shatter/Shatter.cs: moved functionality to
+	Renderer and Dialog class
+
+	* plug-ins/Shatter/Makefile.am: changed accordingly
+
+	* plug-ins/Shatter/Dialog.cs
+	* plug-ins/Shatter/Renderer.cs: new files
+
 2011-08-29  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/UpdateCheck/UpdateCheck.cs: moved functionality to
+	Renderer and Dialog class
+
+	* plug-ins/UpdateCheck/Makefile.am: changed accordingly
+
+	* plug-ins/UpdateCheck/Dialog.cs: new file
 
 	* plug-ins/Swirlies/Swirlies.cs: moved functionality to
 	Renderer and Dialog class
