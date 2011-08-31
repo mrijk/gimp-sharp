@@ -51,10 +51,11 @@ namespace Gimp.Forge
       RenderForge(drawable, null, dimensions);
     }
 
-    void RenderForge(Drawable drawable, byte[] pixelArray, Dimensions dimensions)
+    void RenderForge(Drawable drawable, byte[] pixelArray, Dimensions dimensions,
+		     AspectPreview preview = null)
     {
       InitParameters();
-      Planet(drawable, pixelArray, dimensions);
+      Planet(drawable, pixelArray, dimensions, preview);
     }
 
     void InitParameters()
@@ -66,13 +67,13 @@ namespace Gimp.Forge
       //      if (!dimspec)
       {
 	GetVariable<double>("dimension").Value = 
-	  GetValue<bool>("clouds") ? Cast(1.9, 2.3) : Cast(2.0, 2.7);
+	  (GetValue<int>("type") == 1) ? Cast(1.9, 2.3) : Cast(2.0, 2.7);
       }
 
       //      if (!powerspec)
       {
 	GetVariable<double>("power").Value = 
-	  GetValue<bool>("clouds") ? Cast(0.6, 0.8) : Cast(1.0, 1.5);
+	  (GetValue<int>("type") == 1) ? Cast(0.6, 0.8) : Cast(1.0, 1.5);
       }
 
       //      if (!icespec)
@@ -96,24 +97,25 @@ namespace Gimp.Forge
 	}
     }
 
-    void Planet(Drawable drawable, byte[] pixelArray, Dimensions dimensions)
+    void Planet(Drawable drawable, byte[] pixelArray, Dimensions dimensions,
+		AspectPreview preview = null)
     {
       // Fix me!
       bool hourspec = true;
       bool inclspec = true;
 
       new Planet(drawable, pixelArray, dimensions, 
-		 GetValue<bool>("stars"),
+		 GetValue<int>("type") == 2,
 		 GetValue<double>("stars_fraction"),
 		 GetValue<double>("saturation"),
-		 GetValue<bool>("clouds"), 
+		 GetValue<int>("type") == 1, 
 		 _random, 
 		 GetValue<double>("ice_level"),
 		 GetValue<double>("glaciers"),
 		 GetValue<double>("dimension"),
 		 hourspec, GetValue<double>("hour"), 
 		 inclspec, GetValue<double>("inclination"),
-		 GetValue<double>("power"));
+		 GetValue<double>("power"), preview);
     }
 
     public void Render(AspectPreview preview)
@@ -126,7 +128,7 @@ namespace Gimp.Forge
       int height = dimensions.Height;
 
       var pixelArray = new byte[width * height * 3];
-      RenderForge(null, pixelArray, dimensions);
+      RenderForge(null, pixelArray, dimensions, preview);
 
       preview.DrawBuffer(pixelArray, width * 3);
     }

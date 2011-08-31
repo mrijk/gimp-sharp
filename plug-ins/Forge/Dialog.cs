@@ -23,29 +23,30 @@ using Gtk;
 
 namespace Gimp.Forge
 {
+  public enum ForgeType
+  {
+    Planet,
+    Clouds,
+    Stars
+  }
+
   public class Dialog : GimpDialogWithPreview<AspectPreview>
   {
-    delegate void GenericEventHandler(object o, EventArgs e);
-
     // Flag for spin buttons values specified by the user
     bool dimspec, powerspec;
     // Flag for radio buttons values specified by the user
     bool glacspec, icespec, starspec, hourspec, inclspec, starcspec;
 
-    bool _clouds, _stars;
-
     ScaleEntry _dimensionEntry;
-    ScaleEntry _glacierEntry;
-    ScaleEntry _iceEntry;
     ScaleEntry _powerEntry;
-    ScaleEntry _hourEntry;
-    ScaleEntry _inclinationEntry;
-    ScaleEntry _starsEntry;
-    ScaleEntry _saturationEntry;
+
+    readonly Variable<int> _type;
 
     public Dialog(Drawable drawable, VariableSet variables) : 
       base(_("Forge"), drawable, variables)
     {
+      _type = GetVariable<int>("type");
+
       var hbox = new HBox(false, 12);
       Vbox.PackStart(hbox);
 
@@ -59,28 +60,25 @@ namespace Gimp.Forge
       var frame = new GimpFrame(_("Type"));
       hbox.PackStart(frame, false, false, 0);
 
-      var typeBox = new VBox(false, 1);
-      frame.Add(typeBox);
+      var vbox = new VBox(false, 1);
+      frame.Add(vbox);
 
-      var button = CreateRadioButtonInVBox(typeBox, null,
-					   PlanetRadioButtonEventHandler, 
-					   _("Pl_anet"));
+      var button = AddTypeButton(vbox, null, ForgeType.Planet, _("Pl_anet"));
+      button = AddTypeButton(vbox, button, ForgeType.Clouds, _("C_louds"));
+      AddTypeButton(vbox, button, ForgeType.Stars, _("_Night"));
+    }
 
-      button = CreateRadioButtonInVBox(typeBox, button,
-				       CloudsRadioButtonEventHandler, 
-				       _("C_louds"));
-
-      button = CreateRadioButtonInVBox(typeBox, button,
-				       NightRadioButtonEventHandler, _("_Night"));
+    RadioButton AddTypeButton(VBox vbox, RadioButton previous, ForgeType type, 
+			      string description)
+    {
+      var button = new GimpRadioButton<int>(previous, description, (int) type, 
+					    _type);
+      vbox.Add(button);
+      return button;
     }
 
     void PlanetRadioButtonEventHandler(object source, EventArgs e)
     {
-      if (!(source as RadioButton).Active)
-	return;
-
-      _clouds = _stars = false;
-
       if (!dimspec)
         {
           _dimensionEntry.Value = 2.4;
@@ -90,18 +88,10 @@ namespace Gimp.Forge
         {
           _powerEntry.Value = 1.2;
         }
-
-      SetSlidersSensitivity();
     }
 
     void CloudsRadioButtonEventHandler(object source, EventArgs e)
     {
-      _clouds = (source as RadioButton).Active;
-      if (!_clouds)
-	return;
-
-      _stars = false;
-
       if (!dimspec)
         {
           _dimensionEntry.Value = 2.15;
@@ -111,18 +101,10 @@ namespace Gimp.Forge
         {
           _powerEntry.Value = 0.75;
         }
-
-      SetSlidersSensitivity();
     }
 
     void NightRadioButtonEventHandler(object source, EventArgs e)
     {
-      _stars = (source as RadioButton).Active;
-      if (!_stars)
-	return;
-
-      _clouds = false;
-
       if (!dimspec)
         {
           _dimensionEntry.Value = 2.4;
@@ -132,8 +114,6 @@ namespace Gimp.Forge
         {
           _powerEntry.Value = 1.2;
         }
-
-      SetSlidersSensitivity();
     }
 
     void CreateRandomSeedEntry(HBox hbox)
@@ -164,80 +144,109 @@ namespace Gimp.Forge
 
     void CreateDimensionEntry(Table table)
     {
-      new ScaleEntry(table, 0, 0, _("_Dimension (0.0 - 3.0):"), 150, 3, 
-		     GetVariable<double>("dimension"), 0.0, 3.0, 0.1, 1.0, 1);
+      var entry = new ScaleEntry(table, 0, 0, _("_Dimension (0.0 - 3.0):"), 
+				 150, 3, GetVariable<double>("dimension"), 
+				 0.0, 3.0, 0.1, 1.0, 1);
+      _type.ValueChanged += delegate
+	{
+	  entry.Sensitive = IsPlanet || IsClouds;
+	};
     }
-
     void CreatePowerEntry(Table table)
     {
-      new ScaleEntry(table, 3, 0, _("_Power:"), 150, 3,
-		     GetVariable<double>("power"), 0.0, Double.MaxValue, 
-		     0.1, 1.0, 1);
+      var entry = new ScaleEntry(table, 3, 0, _("_Power:"), 150, 3,
+				 GetVariable<double>("power"), 0.0, 
+				 Double.MaxValue, 0.1, 1.0, 1);
+      _type.ValueChanged += delegate
+	{
+	  entry.Sensitive = IsPlanet || IsClouds;
+	};
     }
 
     void CreateGlaciersEntry(Table table)
     {
-      new ScaleEntry(table, 0, 1, _("_Glaciers"), 150, 3, 
-		     GetVariable<double>("glaciers"), 0.0, Double.MaxValue, 
-		     0.1, 1.0, 0);
+      var entry = new ScaleEntry(table, 0, 1, _("_Glaciers"), 150, 3, 
+				 GetVariable<double>("glaciers"), 0.0, 
+				 Double.MaxValue, 0.1, 1.0, 0);
+      _type.ValueChanged += delegate
+	{
+	  entry.Sensitive = IsPlanet;
+	};
     }
 
     void CreateIceEntry(Table table)
     {
-      new ScaleEntry(table, 3, 1, _("_Ice"), 150, 3,
-		     GetVariable<double>("ice_level"), 0.0, Double.MaxValue, 
-		     0.1, 1.0, 1);
+      var entry = new ScaleEntry(table, 3, 1, _("_Ice"), 150, 3,
+				 GetVariable<double>("ice_level"), 0.0, 
+				 Double.MaxValue, 0.1, 1.0, 1);
+      _type.ValueChanged += delegate
+	{
+	  entry.Sensitive = IsPlanet;
+	};
     }
 
     void CreateHourEntry(Table table)
     {
-      new ScaleEntry(table, 0, 2, _("Ho_ur (0 - 24):"), 150, 3, 
-		     GetVariable<double>("hour"), 0.0, 24.0, 0.1, 1.0, 0);
+      var entry = new ScaleEntry(table, 0, 2, _("Ho_ur (0 - 24):"), 150, 3, 
+				 GetVariable<double>("hour"), 0.0, 24.0, 0.1, 
+				 1.0, 0);
+      _type.ValueChanged += delegate
+	{
+	  entry.Sensitive = IsPlanet;
+	};
     }
 
     void CreateInclinationEntry(Table table)
     {
-      new ScaleEntry(table, 3, 2, _("I_nclination (-90 - 90):"), 150, 3, 
-		     GetVariable<double>("inclination"), -90.0, 90.0, 1, 10.0, 0);
+      var entry = new ScaleEntry(table, 3, 2, _("I_nclination (-90 - 90):"), 150, 
+				 3, GetVariable<double>("inclination"), 
+				 -90.0, 90.0, 1, 10.0, 0);
+      _type.ValueChanged += delegate
+	{
+	  entry.Sensitive = IsPlanet;
+	};
     }
 
     void CreateStarPercentageEntry(Table table)
     {
-      new ScaleEntry(table, 0, 3, _("_Stars (0 - 100):"), 150, 3, 
-		     GetVariable<double>("stars_fraction"), 1.0, 100.0, 
-		     1.0, 8.0, 0);
+      var entry = new ScaleEntry(table, 0, 3, _("_Stars (0 - 100):"), 150, 3, 
+				 GetVariable<double>("stars_fraction"), 1.0, 
+				 100.0, 1.0, 8.0, 0);
+      _type.ValueChanged += delegate
+	{
+	  entry.Sensitive = IsPlanet || IsStars;
+	};
     }
 
     void CreateSaturationEntry(Table table)
     {
-      new ScaleEntry(table, 3, 3, _("Sa_turation:"), 150, 3, 
-		     GetVariable<double>("saturation"), 0.0, Int32.MaxValue, 
-		     1.0, 8.0, 0);
+      var entry = new ScaleEntry(table, 3, 3, _("Sa_turation:"), 150, 3, 
+				 GetVariable<double>("saturation"), 0.0, 
+				 Int32.MaxValue, 1.0, 8.0, 0);
+      _type.ValueChanged += delegate
+	{
+	  entry.Sensitive = IsPlanet;
+	};
     }
 
-    RadioButton CreateRadioButtonInVBox(VBox vbox, RadioButton group,
-					GenericEventHandler radioButtonEventHandler, 
-					string label)
-    { 
-      var button = new RadioButton(group, label);
-      button.Clicked += new EventHandler(radioButtonEventHandler);
-      vbox.PackStart(button, true, true, 10);
-
-      return button;
-    }
-
-    void SetSlidersSensitivity()
+    bool IsPlanet
     {
-      bool planet = !_stars && !_clouds;
+      get {return IsType(ForgeType.Planet);}
+    }
 
-      _dimensionEntry.Sensitive = planet || _clouds; 
-      _powerEntry.Sensitive = planet || _clouds;
-      _glacierEntry.Sensitive = planet; 
-      _iceEntry.Sensitive = planet;
-      _hourEntry.Sensitive = planet; 
-      _inclinationEntry.Sensitive = planet;
-      _starsEntry.Sensitive = planet || _stars;
-      _saturationEntry.Sensitive = planet;
+    bool IsClouds
+    {
+      get {return IsType(ForgeType.Clouds);}
+    }
+
+    bool IsStars
+    {
+      get {return IsType(ForgeType.Stars);}
+    }
+
+    bool IsType(ForgeType type)
+    {
+      return _type.Value == (int) type;
     }
 
     override protected void UpdatePreview(GimpPreview preview)

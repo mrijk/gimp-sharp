@@ -24,7 +24,6 @@ namespace Gimp.Forge
 {
   class Planet
   {
-    readonly bool _stars;
     readonly bool _clouds;
     readonly Random _random;
     readonly bool _hourspec, _inclspec;
@@ -41,6 +40,8 @@ namespace Gimp.Forge
     const double planetAmbient = 0.05;
     const int meshsize = 256;	      	// FFT mesh size
 
+    readonly StarFactory _starFactory;
+
     public Planet(Drawable drawable, byte[] pixelArray, Dimensions dimensions,
 		  bool stars, double starfraction, double starcolour,
 		  bool clouds, Random random, 
@@ -48,9 +49,8 @@ namespace Gimp.Forge
 		  double fracdim, 
 		  bool hourspec, double hourangle,
 		  bool inclspec, double inclangle,
-		  double powscale)
+		  double powscale, AspectPreview preview = null)
     {
-      _stars = stars;
       _starfraction = starfraction;
       _starcolour = starcolour;
       _clouds = clouds;
@@ -62,14 +62,21 @@ namespace Gimp.Forge
       _hourangle = hourangle;
       _inclangle = inclangle;
 
-      Mesh mesh = null;
+      _starFactory = new StarFactory(_random, _starfraction, _starcolour);
 
-      if (!stars)
+      if (stars)
+	{
+	  if (preview != null)
+	    preview.Update((c) => _starFactory.Generate());
+	  else
+	    GenerateNightlySky(drawable);
+	}
+      else
 	{
 	  var spectrum = new SpectralSynthesis(random);
 	  var a = spectrum.Synthesize(meshsize, 3.0 - fracdim);
 
-	  mesh = new Mesh(a, meshsize);
+	  var mesh = new Mesh(a, meshsize);
 
 	  // Apply power law scaling if non-unity scale is requested.
 	  if (powscale != 1.0) 
@@ -78,22 +85,20 @@ namespace Gimp.Forge
 	    }
 
 	  mesh.AutoScale();
-	}
 
-      GenPlanet(drawable, pixelArray, dimensions, mesh, meshsize);
+	  GenPlanet(drawable, pixelArray, dimensions, mesh, meshsize);
+	}
+    }
+
+    void GenerateNightlySky(Drawable drawable)
+    {
+      var iter = new RgnIterator(drawable, "Forge...");
+      iter.IterateDest((c) => _starFactory.Generate());
     }
 
     void GenPlanet(Drawable drawable, byte[] pixelArray, 
-		   Dimensions dimensions, Mesh mesh, uint n)
+		   Dimensions dimensions, Mesh mesh, int n)
     {
-      byte[] cp = null;
-      double[] u = null;
-      double[] u1 = null;
-      uint[] bxf = null;
-      uint[] bxc = null;
-
-      Vector3 sunvec = new Vector3();
-
       int width = dimensions.Width;
       int height = dimensions.Height;
 
@@ -101,105 +106,62 @@ namespace Gimp.Forge
 
       var pf = (drawable == null) ? null : new PixelFetcher(drawable, false);
 
-      if (!_stars) 
+      var u = new double[width];
+      var u1 = new double[width];
+      var bxf = new uint[width];
+      var bxc = new uint[width];
+
+      var sunvec = IncidentLightDirectionVector();
+      var cp = CalculateIntensities(mesh, n);
+
+      /* Fill the screen from the computed  intensity  grid  by  mapping
+	 screen  points onto the grid, then calculating each pixel value
+	 by bilinear interpolation from  the surrounding  grid  points.
+	 (N.b. the pictures would undoubtedly look better when generated
+	 with small grids if a more well-behaved  interpolation  were
+	 used.)
+	 
+	 Before  we get started, precompute the line-level interpolation
+	 parameters and store them in an array so we don't  have  to  do
+	 this every time around the inner loop. */
+
+      for (int j = 0; j < width; j++) 
 	{
-	  u = new double[width];
-	  u1 = new double[width];
-	  bxf = new uint[width];
-	  bxc = new uint[width];
-
-	  // Compute incident light direction vector.
-
-	  double shang = _hourspec ? _hourangle : Cast(0, 2 * Math.PI);
-	  double siang = _inclspec ? _inclangle 
-	    : Cast(-Math.PI * 0.12, Math.PI * 0.12);
-
-	  sunvec.X = Math.Sin(shang) * Math.Cos(siang);
-	  sunvec.Y = Math.Sin(siang);
-	  sunvec.Z = Math.Cos(shang) * Math.Cos(siang);
-
-	  // Allow only 25% of random pictures to be crescents
-
-	  if (!_hourspec && ((_random.Next() % 100) < 75)) 
-	    {
-	      sunvec.Z = Math.Abs(sunvec.Z);
-	    }
-
-	  // Prescale the grid points into intensities.
-
-	  cp = new byte[n * n];
-	  uint index = 0;
-
-	  for (int i = 0; i < n; i++) 
-	    {
-	      for (int j = 0; j < n; j++) 
-		{
-		  cp[index++] = (byte) (255.0 * (mesh[i, j] + 1.0) / 2.0);
-		}
-	    }
-
-	  /* Fill the screen from the computed  intensity  grid  by  mapping
-	     screen  points onto the grid, then calculating each pixel value
-	     by bilinear interpolation from  the surrounding  grid  points.
-	     (N.b. the pictures would undoubtedly look better when generated
-	     with small grids if a more well-behaved  interpolation  were
-	     used.)
-
-	     Before  we get started, precompute the line-level interpolation
-	     parameters and store them in an array so we don't  have  to  do
-	     this every time around the inner loop. */
-
-	  for (int j = 0; j < width; j++) 
-	    {
-	      double bx = (n - 1) * (j / (width - 1.0));
-
-	      bxf[j] = (uint) Math.Floor(bx);
-	      bxc[j] = bxf[j] + 1;
-	      u[j] = bx - bxf[j];
-	      u1[j] = 1 - u[j];
-	    }
+	  double bx = (n - 1) * (j / (width - 1.0));
+	  
+	  bxf[j] = (uint) Math.Floor(bx);
+	  bxc[j] = bxf[j] + 1;
+	  u[j] = bx - bxf[j];
+	  u1[j] = 1 - u[j];
 	}
 
-      var starFactory = new StarFactory(_random, _starfraction, _starcolour);
       var pixels = new Pixel[width];
 
       for (int i = 0; i < height; i++) 
       {
-	if (_stars)
-	  {
-	    RenderStars(starFactory, pixels);
-	  }
-	else
-	  {
-	    double by = (n - 1) * ((double) i / ((double) height - 1.0));
-	    double dy = 2 * (((height / 2) - i) / ((double) height));
-	    double dysq = dy * dy;
-	    double sqomdysq = Math.Sqrt(1.0 - dysq);
-	    int byf = (int) (Math.Floor(by) * n);
-	    int byc = byf + (int) n;
-	    double t = by - Math.Floor(by);
-	    double t1 = 1 - t;
-
-	    if (_clouds) 
-	      {
-		RenderClouds(width, t, t1, byf, byc, bxf, bxc, cp, 
-			     u1, u, pixels);
-	      } 
-	    else 
-	      {
-		double svx = sunvec.X;
-		double svy = sunvec.Y * dy;
-		double svz = sunvec.Z * sqomdysq;
-
-		RenderPlanet(width, t, t1, byf, byc, bxf, bxc, cp, 
-			     u1, u, pixels, 
-			     starFactory,
-			     svx, svy, svz,
-			     height, i, dysq);
-	      }
-	  }
+	double by = (n - 1) * ((double) i / ((double) height - 1.0));
+	double dy = 2 * (((height / 2) - i) / ((double) height));
+	double dysq = dy * dy;
+	double sqomdysq = Math.Sqrt(1.0 - dysq);
+	int byf = (int) (Math.Floor(by) * n);
+	int byc = byf + (int) n;
+	double t = by - Math.Floor(by);
+	double t1 = 1 - t;
 	
-        if (drawable != null)
+	if (_clouds) 
+	  {
+	    RenderClouds(width, t, t1, byf, byc, bxf, bxc, cp, 
+			 u1, u, pixels);
+	  } 
+	else  // Planet
+	  {
+	    var sv = new Vector3(sunvec.X, sunvec.Y * dy, sunvec.Z * sqomdysq);
+
+	    RenderPlanet(width, t, t1, byf, byc, bxf, bxc, cp, 
+			 u1, u, pixels, sv, height, i, dysq);
+	  }
+      
+	if (drawable != null)
 	  {
 	    for (int x = 0; x < pixels.Length; x++) 
 	      {
@@ -208,7 +170,7 @@ namespace Gimp.Forge
 	    
 	    progress.Update((double) i / height);
 	  }
-        else
+	else
 	  {
 	    for (int x = 0; x < pixels.Length; x++) 
 	      {
@@ -224,6 +186,39 @@ namespace Gimp.Forge
         drawable.Flush();
         drawable.Update();
       }
+    }
+
+    Vector3 IncidentLightDirectionVector()
+    {
+      double shang = _hourspec ? _hourangle : Cast(0, 2 * Math.PI);
+      double siang = _inclspec ? _inclangle : Cast(-Math.PI * 0.12, Math.PI * 0.12);
+ 
+      var sunvec = new Vector3(Math.Sin(shang) * Math.Cos(siang), Math.Sin(siang),
+			       Math.Cos(shang) * Math.Cos(siang));
+      
+      // Allow only 25% of random pictures to be crescents
+      
+      if (!_hourspec && ((_random.Next() % 100) < 75)) 
+	{
+	  sunvec.Z = Math.Abs(sunvec.Z);
+	}
+
+      return sunvec;
+    }
+
+    byte[] CalculateIntensities(Mesh mesh, int n)
+    {
+      var cp = new byte[n * n];
+      int index = 0;
+      
+      for (int i = 0; i < n; i++) 
+	{
+	  for (int j = 0; j < n; j++) 
+	    {
+	      cp[index++] = (byte) (255.0 * (mesh[i, j] + 1.0) / 2.0);
+	    }
+	}
+      return cp;
     }
 
     void RenderClouds(int width, double t, double t1, int byf, int byc, 
@@ -251,23 +246,9 @@ namespace Gimp.Forge
 	}
     }
 
-    /* Generate a starry sky.  Note  that no FFT is performed;
-       the output is  generated  directly  from  a  power  law
-       mapping  of  a  pseudorandom sequence into intensities. */
-    
-    void RenderStars(StarFactory starFactory, Pixel[] pixels)
-    {
-      for (int j = 0; j < pixels.Length; j++) 
-	{
-	  pixels[j] = starFactory.Generate();
-	}
-    }
-
     void RenderPlanet(int width, double t, double t1, int byf, int byc, 
 		      uint[] bxf, uint[] bxc, byte[] cp, double[] u1,
-		      double[] u, Pixel[] pixels, 
-		      StarFactory starFactory, 
-		      double svx, double svy, double svz,
+		      double[] u, Pixel[] pixels, Vector3 sv,
 		      int height, int i, double dysq)
     {
       double athfac = Math.Sqrt(atthick * atthick - 1.0);
@@ -295,32 +276,31 @@ namespace Gimp.Forge
 	  if ((byf + bxc[j]) < cp.Length)
 	    r += t1 * u[j] * cp[byf + bxc[j]]; 
 	  	  
-	  RGB rgb = (r >= 128) ? RenderLand(r) : RenderWater(r);
+	  var rgb = (r >= 128) ? RenderLand(r) : RenderWater(r);
 	  
 	  RenderPolarIceCaps(r, icet, rgb);
  
-	  byte[] bytes = ApplyDarkening(width, height, j, svx, svy, svz,
-					dysq, athfac, rgb);
+	  var bytes = ApplyDarkening(width, height, j, sv, dysq, athfac, rgb);
 	  pixels[rpix_offset++].Bytes = bytes;
 	}
       
-      AddStars(width, pixels, starFactory, lcos);
+      AddStars(width, pixels, lcos);
     }
 
-    void AddStars(int width, Pixel[] pixels, StarFactory starFactory, int lcos)
+    void AddStars(int width, Pixel[] pixels, int lcos)
     {
       const double starClose = 2;
 
       // Left stars
       for (int j = 0; j < width / 2 - (lcos + starClose); j++) 
 	{
-	  pixels[j] = starFactory.Generate();
+	  pixels[j] = _starFactory.Generate();
 	}
 
       // Right stars
       for (int j = (int) (width / 2 + (lcos + starClose)); j < width; j++) 
 	{
-	  pixels[j] = starFactory.Generate();
+	  pixels[j] = _starFactory.Generate();
 	}
     }
 
@@ -348,13 +328,12 @@ namespace Gimp.Forge
     }
 
     /* Apply limb darkening by cosine rule. */
-    byte[] ApplyDarkening(int width, int height, int j,
-			  double svx, double svy, double svz, double dysq,
+    byte[] ApplyDarkening(int width, int height, int j, Vector3 sv, double dysq,
 			  double athfac, RGB rgb)
     {
       double dx = 2 * (((width / 2) - j) / ((double) height));
       double dxsq = dx * dx;
-      double di = svx * dx + svy + svz * Math.Sqrt(1.0 - dxsq);
+      double di = sv.X * dx + sv.Y + sv.Z * Math.Sqrt(1.0 - dxsq);
 
       byte ir, ig, ib;
 
@@ -389,6 +368,13 @@ namespace Gimp.Forge
     double Cast(double low, double high)
     {
       return low + (high - low) * _random.NextDouble();
+    }
+  }
+
+  class RenderInfo
+  {
+    public RenderInfo()
+    {
     }
   }
 }

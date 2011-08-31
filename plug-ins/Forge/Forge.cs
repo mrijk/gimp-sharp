@@ -27,10 +27,7 @@ namespace Gimp.Forge
     static void Main(string[] args)
     {
       var variables = new VariableSet {
-	new Variable<bool>("clouds", _("Clouds (true), Planet or Stars (false)"), 
-			   false),
-	new Variable<bool>("stars", _("Stars (true), Planet or Clouds (false)"), 
-			   false),
+	new Variable<int>("type", _("Planet (0), Clouds (1) or Stars (2)"), 0),
 	new Variable<double>("dimension", _("Fractal dimension factor"), 2.4),
 	new Variable<double>("power", _("Power factor"), 1.0),
 	new Variable<double>("glaciers", _("Glaciers factor"), 0.75),

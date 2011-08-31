@@ -1,3 +1,12 @@
+2011-08-31  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/Forge/Planet.cs: started to untangle this mess
+
+	* plug-ins/Forge/Renderer.cs
+	* plug-ins/Forge/Dialog.cs
+	* plug-ins/Forge/Forge.cs: use 'type' variable to distinquish
+	between Planet, Clouds or Stars generation
+
 2011-08-30  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* plug-ins/Forge/ComplexMatrix.cs: removed unused import
