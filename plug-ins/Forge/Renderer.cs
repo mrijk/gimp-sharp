@@ -38,9 +38,7 @@ namespace Gimp.Forge
 
     public void Render(Image image, Drawable drawable)
     {
-      var dimensions = drawable.Dimensions;
-
-      if (dimensions.Width < dimensions.Height)
+      if (drawable.Width < drawable.Height)
       {
         new Message(_("This filter can be applied just if height <= width"));
         return;
@@ -48,14 +46,13 @@ namespace Gimp.Forge
 
       Tile.CacheDefault(drawable);
 
-      RenderForge(drawable, null, dimensions);
+      RenderForge(drawable);
     }
 
-    void RenderForge(Drawable drawable, byte[] pixelArray, Dimensions dimensions,
-		     AspectPreview preview = null)
+    void RenderForge(Drawable drawable, AspectPreview preview = null)
     {
       InitParameters();
-      Planet(drawable, pixelArray, dimensions, preview);
+      Planet(drawable, preview);
     }
 
     void InitParameters()
@@ -97,14 +94,13 @@ namespace Gimp.Forge
 	}
     }
 
-    void Planet(Drawable drawable, byte[] pixelArray, Dimensions dimensions,
-		AspectPreview preview = null)
+    void Planet(Drawable drawable, AspectPreview preview = null)
     {
       // Fix me!
       bool hourspec = true;
       bool inclspec = true;
 
-      new Planet(drawable, pixelArray, dimensions, 
+      new Planet(drawable,
 		 GetValue<int>("type") == 2,
 		 GetValue<double>("stars_fraction"),
 		 GetValue<double>("saturation"),
@@ -118,19 +114,10 @@ namespace Gimp.Forge
 		 GetValue<double>("power"), preview);
     }
 
-    public void Render(AspectPreview preview)
+    public void Render(AspectPreview preview, Drawable drawable)
     {
       Console.WriteLine("UpdatePreview!");
-
-      var dimensions = preview.Size;
-
-      int width = dimensions.Width;
-      int height = dimensions.Height;
-
-      var pixelArray = new byte[width * height * 3];
-      RenderForge(null, pixelArray, dimensions, preview);
-
-      preview.DrawBuffer(pixelArray, width * 3);
+      RenderForge(drawable, preview);
     }
 
     double Cast(double low, double high)

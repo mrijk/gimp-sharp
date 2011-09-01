@@ -252,7 +252,7 @@ namespace Gimp.Forge
     override protected void UpdatePreview(GimpPreview preview)
     {
       var renderer = new Renderer(Variables);
-      renderer.Render(preview as AspectPreview);
+      renderer.Render(preview as AspectPreview, Drawable);
     }
   }
 }
