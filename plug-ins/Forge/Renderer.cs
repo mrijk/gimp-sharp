@@ -46,13 +46,8 @@ namespace Gimp.Forge
 
       Tile.CacheDefault(drawable);
 
-      RenderForge(drawable);
-    }
-
-    void RenderForge(Drawable drawable, AspectPreview preview = null)
-    {
       InitParameters();
-      Planet(drawable, preview);
+      Planet(drawable, new DrawableUpdater(drawable));
     }
 
     void InitParameters()
@@ -94,7 +89,7 @@ namespace Gimp.Forge
 	}
     }
 
-    void Planet(Drawable drawable, AspectPreview preview = null)
+    void Planet(Drawable drawable, IUpdater updater)
     {
       // Fix me!
       bool hourspec = true;
@@ -111,13 +106,14 @@ namespace Gimp.Forge
 		 GetValue<double>("dimension"),
 		 hourspec, GetValue<double>("hour"), 
 		 inclspec, GetValue<double>("inclination"),
-		 GetValue<double>("power"), preview);
+		 GetValue<double>("power"), updater);
     }
 
     public void Render(AspectPreview preview, Drawable drawable)
     {
       Console.WriteLine("UpdatePreview!");
-      RenderForge(drawable, preview);
+      InitParameters();
+      Planet(drawable, new AspectPreviewUpdater(preview));
     }
 
     double Cast(double low, double high)

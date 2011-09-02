@@ -7,12 +7,15 @@ GIMPSHARPLIB = $(top_builddir)/lib/gimp-sharp.dll
 ASSEMBLIES = -r:$(GIMPSHARPLIB) /pkg:gtk-sharp-2.0 /target:winexe
 
 MYSOURCES = 			\
+	AspectPreviewUpdater.cs	\
 	Complex.cs		\
 	ComplexMatrix.cs	\
 	Dialog.cs		\
+	DrawableUpdater.cs	\
 	Forge.cs 		\
 	FourierTransform.cs	\
 	GaussDistribution.cs	\
+	IUpdater.cs		\
 	Land.cs			\
 	Mesh.cs			\
 	Planet.cs		\

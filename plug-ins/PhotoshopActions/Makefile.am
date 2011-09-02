@@ -80,6 +80,7 @@ MYSOURCES = 				\
 	DeselectEvent.cs		\
 	DeselectPathEvent.cs		\
 	DespeckleEvent.cs		\
+	Dialog.cs			\
 	DiffuseEvent.cs			\
 	DiffuseGlowEvent.cs		\
 	DisplaceEvent.cs		\

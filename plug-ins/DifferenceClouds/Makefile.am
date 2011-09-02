@@ -6,7 +6,11 @@ GIMPSHARPLIB = $(top_builddir)/lib/gimp-sharp.dll
 
 ASSEMBLIES = -r:$(GIMPSHARPLIB) /pkg:gtk-sharp-2.0 /target:winexe
 
-MYSOURCES = DifferenceClouds.cs IndexedColorsMap.cs
+MYSOURCES = 			\
+	Dialog.cs		\
+	DifferenceClouds.cs 	\
+	IndexedColorsMap.cs	\
+	Renderer.cs
 
 EXTRA_DIST = $(MYSOURCES) DifferenceClouds DifferenceClouds.png
 SUBDIRS = po

@@ -1,5 +1,6 @@
 Release 0.18
 ------------
+- Remove NewWindow methods from Plugin class
 - Clean-up Forge plug-in
 - Clean-up PicturePackage plug-in
 - get/set persistent data

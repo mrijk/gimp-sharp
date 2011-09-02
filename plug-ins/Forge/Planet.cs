@@ -48,7 +48,7 @@ namespace Gimp.Forge
 		  double fracdim, 
 		  bool hourspec, double hourangle,
 		  bool inclspec, double inclangle,
-		  double powscale, AspectPreview preview = null)
+		  double powscale, IUpdater updater)
     {
       _starfraction = starfraction;
       _starcolour = starcolour;
@@ -64,10 +64,7 @@ namespace Gimp.Forge
 
       if (stars)
 	{
-	  if (preview != null)
-	    preview.Update((c) => _starFactory.Generate());
-	  else
-	    GenerateNightlySky(drawable);
+	  updater.Update((c) => _starFactory.Generate());
 	}
       else
 	{
@@ -91,39 +88,16 @@ namespace Gimp.Forge
 				    cp);
 	  if (clouds)
 	    {
-	      if (preview != null)
-		preview.Update((c) => DoRenderClouds(c, info));
-	      else
-		{
-		  var iter = new RgnIterator(drawable, "Forge...");
-		  iter.IterateDest((c) => DoRenderClouds(c, info));
-		}
+	      updater.Update((c) => DoRenderClouds(c, info));
 	    }
 	  else
 	    {
 	      int width = dimensions.Width;
 	      int height = dimensions.Height;
 	      var sunvec = IncidentLightDirectionVector();
-
-	      if (preview != null)
-		{
-		  preview.Update((c) => DoRenderPlanet(c, width, height, info, 
-						       sunvec));
-		}
-	      else
-		{
-		  var iter = new RgnIterator(drawable, "Forge...");
-		  iter.IterateDest((c) => DoRenderPlanet(c, width, height, info, 
-							 sunvec));
-		}
+	      updater.Update((c) => DoRenderPlanet(c, width, height, info, sunvec));
 	    }
 	}
-    }
-
-    void GenerateNightlySky(Drawable drawable)
-    {
-      var iter = new RgnIterator(drawable, "Forge...");
-      iter.IterateDest((c) => _starFactory.Generate());
     }
 
     Vector3 IncidentLightDirectionVector()

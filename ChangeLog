@@ -1,3 +1,24 @@
+2011-09-02  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/PhotoshopActions/PhotoshopActions.cs: moved
+	functionality to Dialog class
+
+	* plug-ins/PhotoshopActions/Makefile.am: changed accordingly
+
+	* plug-ins/PhotoshopActions/Dialog.cs: new file
+
+	* plug-ins/JavaFX/Makefile.am: changed accordingly
+
+	* plug-ins/JavaFX/Dialog.cs: new file
+
+	* plug-ins/DifferenceClouds/DifferenceClouds.cs: moved functionality to
+	Renderer and Dialog class
+
+	* plug-ins/DifferenceClouds/Makefile.am: changed accordingly
+
+	* plug-ins/DifferenceClouds/Renderer.cs
+	* plug-ins/DifferenceClouds/Dialog.cs: new files
+
 2011-09-01  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* plug-ins/Forge/Planet.cs
