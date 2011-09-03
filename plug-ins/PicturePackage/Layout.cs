@@ -79,7 +79,7 @@ namespace Gimp.PicturePackage
       return _rectangles.Find(c);
     }
 
-    public bool Render(ProviderFactory factory, Renderer renderer)
+    public bool Render(ProviderFactory factory, ParentRenderer renderer)
     {
       return _rectangles.Render(factory, renderer);
     }

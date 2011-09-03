@@ -22,7 +22,7 @@ you can use Java with IKVM.
 
 Q: what languages are supported?
 
-A: C#, Java (using IKVM), Pyton (using IronPython), Visual Basic,
+A: C#, F#, Java (using IKVM), Pyton (using IronPython), Visual Basic,
 Nemerle and Boo.
 
 
@@ -57,6 +57,10 @@ Q: I want to write a plug-in. Where do I find the documentation?
 A: there is no documentation yet. However, the API closely resembles
 the original GIMP API with some syntactical C# sugar. Look at
 http://developer.gimp.org for the GIMP API.
+
+Q: what version of Mono do I need?
+
+A: GIMP# 0.18 heavily relies on advanced C# features and needs Mono 2.10.x
 
 
 Q: why doesn't GIMP# work with Mono 1.1.13?

@@ -18,9 +18,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-using Gtk;
-
 namespace Gimp.ShapeCollage
 {
   class ShapeCollage : Plugin
@@ -53,18 +50,7 @@ namespace Gimp.ShapeCollage
     override protected GimpDialog CreateDialog()
     {
       gimp_ui_init("ShapeCollage", true);
-
-      var dialog = DialogNew("ShapeCollage", "ShapeCollage", IntPtr.Zero, 0,
-			     Gimp.StandardHelpFunc, "ShapeCollage");
-
-      var table = new GimpTable(4, 3)
-	{
-	  ColumnSpacing = 6, 
-	  RowSpacing = 6
-	};
-      // Vbox.PackStart(table, false, false, 0);
-
-      return dialog;
+      return new Dialog(Variables);
     }
 
     override protected void Render(Drawable drawable)

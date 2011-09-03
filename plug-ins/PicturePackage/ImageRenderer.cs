@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // ImageRendererer.cs
 //
@@ -22,7 +22,7 @@ using System;
 
 namespace Gimp.PicturePackage
 {
-  public class ImageRenderer : Renderer
+  public class ImageRenderer : ParentRenderer
   {
     readonly Image _composed;
     readonly double _resolution;

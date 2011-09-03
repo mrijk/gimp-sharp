@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // DocumentFrame.cs
 //
@@ -32,32 +32,40 @@ namespace Gimp.PicturePackage
     LayoutSet _layoutSet;
     PageSizeSet _sizes;
 
-    int _resolution;
-
-    public DocumentFrame(PicturePackage parent, LayoutSet layoutSet) : 
+    public DocumentFrame(VariableSet variables, LayoutSet layoutSet) : 
       base(5, 3, "Document")
     {
       _layoutSet = layoutSet;
-      _resolution = parent.Resolution;
 
-      CreatePageSizeWidget(layoutSet);
+      CreatePageSizeWidget(variables, layoutSet);
       CreateLayoutWidget(layoutSet);
-      CreateResolutionWidget(parent);
-      CreateUnitsWidget(parent);
-      CreateColorModeWidget(parent);
-      CreateFlattenWidget(parent);
+      CreateResolutionWidget(variables);
+      CreateUnitsWidget(variables);
+      CreateColorModeWidget(variables);
+      CreateFlattenWidget(variables);
     }
 
-    void CreatePageSizeWidget(LayoutSet layoutSet)
+    void CreatePageSizeWidget(VariableSet variables, LayoutSet layoutSet)
     {
+      int resolution = variables.GetValue<int>("resolution");
+
       _size = ComboBox.NewText();
-      FillPageSizeMenu(layoutSet);
+      FillPageSizeMenu(layoutSet, resolution);
       _size.Changed += delegate
 	{
-	  _layoutSet = layoutSet.GetLayouts(_sizes[_size.Active], _resolution);
+	  _layoutSet = layoutSet.GetLayouts(_sizes[_size.Active], resolution);
 	  FillLayoutMenu(_layoutSet);
 	};
       AttachAligned(0, 0, _("_Page Size:"), 0.0, 0.5, _size, 2, false);
+    }
+
+    void FillPageSizeMenu(LayoutSet layoutSet, int resolution)
+    {
+      (_size.Model as ListStore).Clear();
+
+      _sizes = layoutSet.GetPageSizeSet(resolution);
+      _sizes.ForEach(size => AppendPageSizeEntry(size));
+      _size.Active = 0;
     }
 
     void CreateLayoutWidget(LayoutSet layoutSet)
@@ -74,45 +82,31 @@ namespace Gimp.PicturePackage
       AttachAligned(0, 1, _("_Layout:"), 0.0, 0.5, _layout, 2, false);
     }
 
-    void CreateResolutionWidget(PicturePackage parent)
+    void CreateResolutionWidget(VariableSet variables)
     {
-      var resolution = new SpinButton (_resolution, 1200, 1);
-      AttachAligned(0, 2, _("_Resolution:"), 0.0, 0.5, resolution, 1, true);
-      resolution.ValueChanged += delegate 
-	{parent.Resolution = resolution.ValueAsInt;};
+      var resolution = variables.Get<int>("resolution");
+      var button = new GimpSpinButton (0, 1200, 1, resolution);
+      AttachAligned(0, 2, _("_Resolution:"), 0.0, 0.5, button, 1, true);
     }
 
-    void CreateUnitsWidget(PicturePackage parent)
+    void CreateUnitsWidget(VariableSet variables)
     {
-      var units = CreateComboBox("pixels/inch", "pixels/cm", "pixels/mm");
-      units.Active = parent.Units;
-      units.Changed += delegate {parent.Resolution = units.Active;};
-      Attach(units, 2, 3, 2, 3);	
+      Attach(new GimpComboBox(variables.Get<int>("resolution"),
+			      new string[]{"pixels/inch", "pixels/cm", 
+					   "pixels/mm"}), 2, 3, 2, 3);	
     }
 
-    void CreateColorModeWidget(PicturePackage parent)
+    void CreateColorModeWidget(VariableSet variables)
     {
-      var mode = CreateComboBox(_("Grayscale"), _("RGB Color"));
-      mode.Active = parent.ColorMode;
-      mode.Changed += delegate {parent.ColorMode = mode.Active;};
+      var mode = new GimpComboBox(variables.Get<int>("color_mode"),
+				  new string[]{_("Grayscale"), _("RGB Color")});
       AttachAligned(0, 3, _("_Mode:"), 0.0, 0.5, mode, 2, false);
     }
 
-    void CreateFlattenWidget(PicturePackage parent)
+    void CreateFlattenWidget(VariableSet variables)
     {
-      var flatten = new CheckButton(_("Flatten All Layers"));
-      flatten.Active = parent.Flatten;
-      flatten.Toggled += delegate {parent.Flatten = flatten.Active;};
-      Attach(flatten, 0, 2, 4, 5);
-    }
-
-    void FillPageSizeMenu(LayoutSet layoutSet)
-    {
-      (_size.Model as ListStore).Clear();
-
-      _sizes = layoutSet.GetPageSizeSet(_resolution);
-      _sizes.ForEach(size => AppendPageSizeEntry(size));
-      _size.Active = 0;
+      var flatten = variables.Get<bool>("flatten");
+      Attach(new GimpCheckButton(_("Flatten All Layers"), flatten), 0, 2, 4, 5);
     }
 
     void AppendPageSizeEntry(PageSize size)

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
+</head>
+<body>
+
+<script>
+
+$.getJSON("http://localhost:8080/gimp/images",
+function(data) {
+
+    var items = [];
+
+    $.each(data, function(key, val){
+        items.push('<li id="' + key + '">' + val + '</li>');
+    });
+
+  $('<ul/>', {
+    'class': 'my-new-list',
+    html: items.join('')
+  }).appendTo('body');
+
+  });
+
+</script>
+
+</body>
+</html>

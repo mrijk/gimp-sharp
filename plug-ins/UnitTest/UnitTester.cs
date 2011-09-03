@@ -1,5 +1,5 @@
 // The UnitTest plug-in
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // UnitTester.cs
 //
@@ -31,13 +31,11 @@ namespace Gimp.UnitTest
   {
     readonly TestDomain _testDomain;
     readonly TestRunner _testRunner;
-    readonly UnitTest   _unitTestPlugin;
 
-    public UnitTester(UnitTest unitTestPlugin)
+    public UnitTester()
     {
       _testDomain = new TestDomain();
       _testRunner = _testDomain;
-      _unitTestPlugin = unitTestPlugin;
     }
 
     private static bool MakeTestFromCommandLine(TestDomain testDomain,
@@ -48,7 +46,8 @@ namespace Gimp.UnitTest
       return testDomain.Load(package);
     }
     
-    public void Test(string testDll)
+    public void Test(string testDll, Variable<int> performed, 
+		     Variable<int> total)
     {
       bool success = false;
 
@@ -67,10 +66,10 @@ namespace Gimp.UnitTest
 	  Console.Error.WriteLine("Unable to locate fixture");
 	  return;
 	}
-      _unitTestPlugin.TestCasesTotalNumber = _testRunner.CountTestCases(TestFilter.Empty);
+
+      total.Value = _testRunner.CountTestCases(TestFilter.Empty);
       
-      var collector = new EventCollector(Console.Out, Console.Error, 
-					 _unitTestPlugin );      
+      var collector = new EventCollector(Console.Out, Console.Error, performed);
       var result = _testRunner.Run(collector);
     }
   }

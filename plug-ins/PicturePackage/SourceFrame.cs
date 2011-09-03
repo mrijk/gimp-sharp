@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // SourceFrame.cs
 //
@@ -26,7 +26,8 @@ namespace Gimp.PicturePackage
 {
   public class SourceFrame : PicturePackageFrame
   {
-    PicturePackage _parent;
+    readonly Variable<ProviderFactory> _loader;
+
     ImageComboBox _imageBox;
     Button _refresh;
     CheckButton _include;
@@ -36,9 +37,9 @@ namespace Gimp.PicturePackage
     string _directory = "";
     bool _recursive = false;
 
-    public SourceFrame(PicturePackage parent) : base(3, 2, "Source")
+    public SourceFrame(Variable<ProviderFactory> loader) : base(3, 2, "Source")
     {
-      _parent = parent;
+      _loader = loader;
 
       Table.ColumnSpacing = 12;
 
@@ -98,7 +99,7 @@ namespace Gimp.PicturePackage
       var imageBox = new ImageComboBox();
       imageBox.Changed += delegate
 	{
-	  _parent.Loader = new FrontImageProviderFactory(imageBox.Active);
+	  _loader.Value = new FrontImageProviderFactory(imageBox.Active);
 	};
       return imageBox;
     }
@@ -108,7 +109,7 @@ namespace Gimp.PicturePackage
       var button = new RadioButton(_("_Image"));
       button.Clicked += delegate
 	{
-	  _parent.Loader = new FrontImageProviderFactory(_imageBox.Active);
+	  _loader.Value = new FrontImageProviderFactory(_imageBox.Active);
 	  _imageBox.Sensitive = true;
 	  _refresh.Sensitive = true;
 	  _include.Sensitive = false;
@@ -129,7 +130,7 @@ namespace Gimp.PicturePackage
 	  _imageBox = CreateImageComboBox();
 	  hbox.Add(_imageBox);
 	  _imageBox.Show();
-	  _parent.Loader = new FrontImageProviderFactory(_imageBox.Active);
+	  _loader.Value = new FrontImageProviderFactory(_imageBox.Active);
 	};
       return refresh;
     }
@@ -175,7 +176,7 @@ namespace Gimp.PicturePackage
       _fileName = _choose.Filename;
       if (_fileName.Length > 0)
 	{
-	  _parent.Loader = new FileImageProviderFactory(_fileName);
+	  _loader.Value = new FileImageProviderFactory(_fileName);
 	}
     }
 
@@ -184,7 +185,7 @@ namespace Gimp.PicturePackage
       _directory = _choose.Filename;
       if (_directory.Length > 0)
 	{
-	  _parent.Loader = new DirImageProviderFactory(_directory, _recursive);
+	  _loader.Value = new DirImageProviderFactory(_directory, _recursive);
 	}
     }
 

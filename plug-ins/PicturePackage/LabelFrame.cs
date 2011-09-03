@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // LabelFrame.cs
 //
@@ -32,13 +32,13 @@ namespace Gimp.PicturePackage
     GimpColorButton _color;
     SpinButton _opacity;
 
-    public LabelFrame(PicturePackage parent) : base(3, 3, "Label")
+    public LabelFrame(VariableSet variables) : base(3, 3, "Label")
     {
       CreateContentTypeWidget();
-      CreateTextWidget(parent);
+      CreateTextWidget(variables);
       CreateFontWidget();
       CreateColorAndOpacityWidget();
-      CreatePositionWidget(parent);
+      CreatePositionWidget(variables);
       CreateRotateWidget();
 
       SetLabelFrameSensitivity(0);
@@ -55,10 +55,9 @@ namespace Gimp.PicturePackage
       AttachAligned(0, 0, _("Content:"), 0.0, 0.5, content, 1, false);
     }
 
-    void CreateTextWidget(PicturePackage parent)
+    void CreateTextWidget(VariableSet variables)
     {
-      _entry = new Entry();
-      _entry.Changed += delegate {parent.Label = _entry.Text;};
+      _entry = new GimpEntry(variables.Get<string>("label"));
       AttachAligned(0, 1, _("Custom Text:"), 0.0, 0.5, _entry, 1, true);
     }
 
@@ -90,12 +89,13 @@ namespace Gimp.PicturePackage
       AttachAligned(0, 3, _("Color:"), 0.0, 0.5, hbox, 1, true);
     }
 
-    void CreatePositionWidget(PicturePackage parent)
+    void CreatePositionWidget(VariableSet variables)
     {
-      _position = CreateComboBox(_("Centered"), _("Top Left"),
-				 _("Bottom Left"), _("Top Right"),
-				 _("Bottom Right"));
-      _position.Changed += delegate {parent.Position = _position.Active;};
+      _position = new GimpComboBox(variables.Get<int>("position"),
+				   new string[]{_("Centered"), _("Top Left"),
+						_("Bottom Left"), 
+						_("Top Right"),
+						_("Bottom Right")});
       AttachAligned(0, 4, _("Position:"), 0.0, 0.5, _position, 1, false);
     }
 

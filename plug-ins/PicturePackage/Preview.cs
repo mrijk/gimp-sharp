@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // Preview.cs
 //
@@ -28,7 +28,8 @@ namespace Gimp.PicturePackage
 {
   public class Preview : DrawingArea
   {
-    PicturePackage _parent;
+    readonly Dialog _dialog;
+
     Pixmap _pixmap;
     Pixmap _labelPixmap;
     Gdk.GC _gc;
@@ -37,9 +38,9 @@ namespace Gimp.PicturePackage
 
     bool _firstTime = true;
 
-    public Preview(PicturePackage parent)
+    public Preview(Dialog dialog, VariableSet variables)
     {
-      _parent = parent;
+      _dialog = dialog;
 
       Realized += OnRealized;
       ExposeEvent += OnExposed;
@@ -62,7 +63,7 @@ namespace Gimp.PicturePackage
 	{
 	  _firstTime = false;
 	  _pixmap.DrawRectangle(_gc, true, 0, 0, _width, _height);
-	  _parent.RenderLayout();
+	  _dialog.RenderLayout();
 	  GdkWindow.Cursor = new Cursor(CursorType.Hand2);
 	}
 
@@ -74,7 +75,7 @@ namespace Gimp.PicturePackage
 	}
     }
 
-    void OnRealized (object o, EventArgs args)
+    void OnRealized(object o, EventArgs args)
     {
       _width = WidthRequest;
       _height = HeightRequest;
@@ -88,7 +89,7 @@ namespace Gimp.PicturePackage
       QueueDraw();
     }
 
-    public Renderer GetRenderer(Layout layout)
+    public ParentRenderer GetRenderer(Layout layout)
     {
       return new PreviewRenderer(this, layout, _pixmap, _gc);
     }

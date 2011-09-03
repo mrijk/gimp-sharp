@@ -22,7 +22,7 @@ using Gdk;
 
 namespace Gimp.PicturePackage
 {
-  public class PreviewRenderer : Renderer
+  public class PreviewRenderer : ParentRenderer
   {
     Pixmap _pixmap;
     GC _gc;

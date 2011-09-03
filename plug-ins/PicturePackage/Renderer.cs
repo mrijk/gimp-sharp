@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // Renderer.cs
 //
@@ -18,60 +18,43 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-
-using Gdk;
-
 namespace Gimp.PicturePackage
 {
-  abstract public class Renderer
+  public class Renderer : BaseRenderer
   {
-    Image _cache;
-    double _w = double.NaN;
-    double _h = double.NaN;
-
-    public Renderer()
+    public Renderer(VariableSet variables) : base(variables)
     {
     }
 
-    abstract public void Render(Image image, double x, double y, 
-				double w, double h);
-
-    protected Image RotateAndScale(Image image, double w, double h)
+    public void Render(Layout layout, ProviderFactory loader)
     {
-      if (_cache != image || _w != w || _h != h)
+      int resolution = GetValue<int>("resolution");
+
+      var size = layout.GetPageSizeInPixels(resolution);
+      var composed = new Image(size.ToDimensions(), ImageBaseType.Rgb);
+
+      if (layout.Render(loader, 
+			new ImageRenderer(layout, composed, resolution)))
+	;
+
+      // Fix me: check next couple of lines!
+#if false
+        DialogState = DialogStateType.SrcImgValid;
+      else
+        DialogState = DialogStateType.SrcImgInvalid;
+#endif
+      if (GetValue<bool>("flatten"))
 	{
-	  ClearCache();
-
-	  _cache = new Image(image);
-	  _w = w;
-	  _h = h;
-
-	  if (w < h ^ _cache.Width < _cache.Height)
-	    {
-	      _cache.Rotate(RotationType.Rotate90);
-	    }
-
-	  double zoom = Math.Min(w / _cache.Width, h / _cache.Height);
-	  w = _cache.Width * zoom;
-	  h = _cache.Height * zoom;
-
-	  _cache.Scale((int) w, (int) h);
+	  composed.Flatten();
 	}
-      return _cache;
-    }
 
-    void ClearCache()
-    {
-      if (_cache != null)
+      if (GetValue<int>("color_mode") == 0) // ColorMode.GRAY)
 	{
-	  _cache.Delete();
+	  composed.ConvertGrayscale();
 	}
-    }
 
-    public void Cleanup()
-    {
-      ClearCache();
+      new Display(composed);
+      Display.DisplaysFlush();
     }
   }
 }

@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // RectangleSet.cs
 //
@@ -45,7 +45,7 @@ namespace Gimp.PicturePackage
       return _set.Find(rectangle => rectangle.Inside(c));
     }
 
-    public bool Render(ProviderFactory factory, Renderer renderer)
+    public bool Render(ProviderFactory factory, ParentRenderer renderer)
     {
       bool retVal = false;
       factory.Reset();
@@ -56,7 +56,7 @@ namespace Gimp.PicturePackage
       return retVal;
     }
 
-    bool RenderRectangle(ProviderFactory factory, Renderer renderer, 
+    bool RenderRectangle(ProviderFactory factory, ParentRenderer renderer, 
 			 Rectangle rectangle)
     {
       bool renderedSomething = false;

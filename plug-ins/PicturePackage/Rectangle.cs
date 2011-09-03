@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // Rectangle.cs
 //
@@ -48,7 +48,7 @@ namespace Gimp.PicturePackage
       return (val == null) ? 0 : Convert.ToDouble(val.Value, _cultureInfo);
     }
 
-    public void Render(Image image, Renderer renderer)
+    public void Render(Image image, ParentRenderer renderer)
     {
       renderer.Render(image, _x, _y, _w, _h);
     }

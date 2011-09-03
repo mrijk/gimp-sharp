@@ -22,6 +22,7 @@ MYSOURCES =				\
 	LayoutSet.cs			\
 	PageSize.cs			\
 	PageSizeSet.cs			\
+	ParentRenderer.cs		\
 	PicturePackage.cs		\
 	PicturePackageFrame.cs		\
 	Preview.cs			\

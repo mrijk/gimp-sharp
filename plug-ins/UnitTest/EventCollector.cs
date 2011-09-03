@@ -1,5 +1,5 @@
 // The UnitTest plug-in
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // EventCollector.cs
 //
@@ -33,14 +33,14 @@ namespace Gimp.UnitTest
   {
     int _nrOk = 0;
     int _nrFailed = 0;
-    UnitTest  _unitTestPlugin;
     readonly List<string> _resultsAL;
+    Variable<int> _testsPerformed;
 
     public EventCollector(TextWriter outWriter, TextWriter errorWriter, 
-			  UnitTest unitTestPlugin ) :
+			  Variable<int> testsPerformed) :
       this(outWriter, errorWriter)
     {
-      _unitTestPlugin = unitTestPlugin;
+      _testsPerformed = testsPerformed;
     }
 
     public EventCollector(TextWriter outWriter, TextWriter errorWriter )
@@ -92,7 +92,7 @@ namespace Gimp.UnitTest
 	      _resultsAL.Add(testResult.Name + ": OK");
 	      _nrOk++;
 	    }
-	  _unitTestPlugin.UpdateProgressStatus();
+	  _testsPerformed.Value = _testsPerformed.Value + 1;
 	}
     }
     

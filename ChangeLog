@@ -1,4 +1,35 @@
+2011-09-03  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* lib/Plugin.cs: removed obsolete DialogNew methods.
+
+	* plug-ins/WebServer/WebServer.cs: moved GUI code to Dialog class
+
+	* plug-ins/WebServer/Makefile.am: changed accordingly
+
+	* plug-ins/WebServer/Dialog.cs: new file
+
+	* plug-ins/PicturePackage/LabelFrame.cs
+	* plug-ins/PicturePackage/SourceFrame.cs
+	* plug-ins/PicturePackage/Preview.cs
+	* plug-ins/PicturePackage/Rectangle.cs
+	* plug-ins/PicturePackage/RectangleSet.cs
+	* plug-ins/PicturePackage/DocumentFrame.cs: major refactoring
+
+	* plug-ins/ShapeCollage/ShapeCollage.cs: moved GUI code to Dialog class
+
+	* plug-ins/ShapeCollage/Makefile.am: changed accordingly
+
+	* plug-ins/ShapeCollage/Dialog.cs: new file
+
 2011-09-02  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* docs/FAQ: updated
+
+	* plug-ins/UnitTest/UnitTest.cs: moved GUI code to Dialog class
+
+	* plug-ins/UnitTest/Makefile.am: changed accordingly
+
+	* plug-ins/UnitTest/Dialog.cs: new file
 
 	* plug-ins/PhotoshopActions/PhotoshopActions.cs: moved
 	functionality to Dialog class
