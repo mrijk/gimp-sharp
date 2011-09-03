@@ -1,5 +1,9 @@
 2011-09-03  Maurits Rijk  <maurits.rijk@gmail.com>
 
+	* plug-ins/PicturePackage/Rectangle.cs
+	* plug-ins/PicturePackage/Dialog.cs: removed lots of non-working
+	Drag&Drop code. To be correctly implemented later.
+
 	* lib/Plugin.cs: removed obsolete DialogNew methods.
 
 	* plug-ins/WebServer/WebServer.cs: moved GUI code to Dialog class

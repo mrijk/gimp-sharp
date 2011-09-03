@@ -49,46 +49,10 @@ namespace Gimp.PicturePackage
     {
       bool retVal = false;
       factory.Reset();
-      _set.ForEach(rectangle => 
-		   retVal |= RenderRectangle(factory, renderer, rectangle));
+      _set.ForEach(rectangle => retVal |= rectangle.Render(factory, renderer));
       factory.Cleanup();
       renderer.Cleanup();
       return retVal;
-    }
-
-    bool RenderRectangle(ProviderFactory factory, ParentRenderer renderer, 
-			 Rectangle rectangle)
-    {
-      bool renderedSomething = false;
-
-      var provider = rectangle.Provider;
-
-      if (provider == null)
-	{
-	  provider = factory.Provide();
-	  if (provider == null)
-	    {
-	      return false;
-	    }
-	  var image = provider.GetImage();
-	  if (image == null)
-	    {
-	      // Console.WriteLine("Couldn't load image!");
-	    }
-	  else
-	    {
-	      rectangle.Render(image, renderer);
-	      renderedSomething = true;
-	    }
-	  factory.Cleanup(provider);
-	}
-      else
-	{
-	  rectangle.Render(provider.GetImage(), renderer);
-	  provider.Release();
-	  renderedSomething = true;
-	}
-      return renderedSomething;
     }
   }
 }

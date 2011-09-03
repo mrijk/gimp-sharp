@@ -18,8 +18,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-
 using Gtk;
 
 namespace Gimp.PicturePackage
@@ -33,9 +31,7 @@ namespace Gimp.PicturePackage
     CheckButton _include;
     FileChooserButton _choose;
 
-    string _fileName = "";
-    string _directory = "";
-    bool _recursive = false;
+    Variable<bool> _recursive = new Variable<bool>(false);
 
     public SourceFrame(Variable<ProviderFactory> loader) : base(3, 2, "Source")
     {
@@ -78,15 +74,28 @@ namespace Gimp.PicturePackage
 	{
 	  _choose = new FileChooserButton(_("Open..."), 
 					  FileChooserAction.SelectFolder);
-	  _choose.SelectionChanged += OnDirNameChanged;
-	  // _choose.FileName = _directory;
+	  _choose.SelectionChanged += delegate
+	    {
+	      string directory = _choose.Filename;
+	      if (directory.Length > 0)
+	      {
+		_loader.Value = new DirImageProviderFactory(directory, 
+							    _recursive.Value);
+	      }
+	    };
 	}
       else
 	{
 	  _choose = new FileChooserButton(_("Open..."),
 					  FileChooserAction.Open);
-	  _choose.SelectionChanged += OnFileNameChanged;
-	  // _choose.FileName = _fileName;
+	  _choose.SelectionChanged += delegate
+	    {
+	      string fileName = _choose.Filename;
+	      if (fileName.Length > 0)
+	      {
+		_loader.Value = new FileImageProviderFactory(fileName);
+	      }
+	    };
 	}
 
       _choose.Show();
@@ -165,28 +174,7 @@ namespace Gimp.PicturePackage
 
     CheckButton CreateIncludeToggleButton()
     {
-      var include = new CheckButton(_("_Include All Subfolders"))
-	{Active = _recursive, Sensitive = false};
-      include.Toggled += delegate {_recursive = include.Active;};
-      return include;
-    }
-
-    void OnFileNameChanged(object o, EventArgs args) 
-    {
-      _fileName = _choose.Filename;
-      if (_fileName.Length > 0)
-	{
-	  _loader.Value = new FileImageProviderFactory(_fileName);
-	}
-    }
-
-    void OnDirNameChanged(object o, EventArgs args) 
-    {
-      _directory = _choose.Filename;
-      if (_directory.Length > 0)
-	{
-	  _loader.Value = new DirImageProviderFactory(_directory, _recursive);
-	}
+      return new GimpCheckButton(_("_Include All Subfolders"), _recursive);
     }
 
     public Image Image

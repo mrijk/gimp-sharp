@@ -37,12 +37,12 @@ namespace Gimp
     {
       Identifier = identifier;
       Description = description;
-      Value = DefaultValue = defaultValue;
+      _value = DefaultValue = defaultValue;
     }
 
     public Variable(T value)
     {
-      Value = DefaultValue = value;
+      _value = DefaultValue = value;
     }
 
     public T Value

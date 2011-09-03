@@ -53,27 +53,45 @@ namespace Gimp.PicturePackage
       renderer.Render(image, _x, _y, _w, _h);
     }
 
+    public bool Render(ProviderFactory factory, ParentRenderer renderer)
+    {
+      bool renderedSomething = false;
+
+      var provider = Provider;
+
+      if (provider == null)
+	{
+	  provider = factory.Provide();
+	  if (provider == null)
+	    {
+	      return false;
+	    }
+	  var image = provider.GetImage();
+	  if (image == null)
+	    {
+	      // Console.WriteLine("Couldn't load image!");
+	    }
+	  else
+	    {
+	      Render(image, renderer);
+	      renderedSomething = true;
+	    }
+	  factory.Cleanup(provider);
+	}
+      else
+	{
+	  Render(provider.GetImage(), renderer);
+	  provider.Release();
+	  renderedSomething = true;
+	}
+      return renderedSomething;
+    }
+
     public bool Inside(Coordinate<double> c)
     {
       double x = c.X;
       double y = c.Y;
       return x >= _x && x <= _x + _w && y >= _y && y <= _y + _h;
-    }
-
-    public static void SwapCoordinates(ref Rectangle rectA, 
-				       ref Rectangle rectB)
-    {
-      SwapCoordinate(ref rectA._x, ref rectB._x); 
-      SwapCoordinate(ref rectA._y, ref rectB._y); 
-      SwapCoordinate(ref rectA._w, ref rectB._w); 
-      SwapCoordinate(ref rectA._h, ref rectB._h); 
-    }
-
-    private static void SwapCoordinate(ref double a, ref double b)
-    {
-      double tmp = a;
-      a = b;
-      b = tmp;
     }
   }
 }

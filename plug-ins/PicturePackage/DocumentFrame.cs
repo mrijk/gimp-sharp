@@ -85,13 +85,13 @@ namespace Gimp.PicturePackage
     void CreateResolutionWidget(VariableSet variables)
     {
       var resolution = variables.Get<int>("resolution");
-      var button = new GimpSpinButton (0, 1200, 1, resolution);
+      var button = new GimpSpinButton(0, 1200, 1, resolution);
       AttachAligned(0, 2, _("_Resolution:"), 0.0, 0.5, button, 1, true);
     }
 
     void CreateUnitsWidget(VariableSet variables)
     {
-      Attach(new GimpComboBox(variables.Get<int>("resolution"),
+      Attach(new GimpComboBox(variables.Get<int>("units"),
 			      new string[]{"pixels/inch", "pixels/cm", 
 					   "pixels/mm"}), 2, 3, 2, 3);	
     }
