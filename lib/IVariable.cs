@@ -20,6 +20,8 @@
 //
 
 using System;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Gimp
 {
@@ -31,5 +33,7 @@ namespace Gimp
 
     void Register(VariableSet variables);
     void Reset();
+    void Serialize(BinaryFormatter formatter, MemoryStream stream);
+    void Deserialize(BinaryFormatter formatter, MemoryStream stream);
   }
 }

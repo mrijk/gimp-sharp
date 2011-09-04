@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2011 Maurits Rijk
 //
 // PersistentStorage.cs
 //
@@ -38,6 +38,16 @@ namespace Gimp
       _name = plugin.Name;
     }
 
+    public void SetData(VariableSet variables)
+    {
+      var stream = new MemoryStream();
+      variables.ForEach(v => v.Serialize(_formatter, stream));
+      if (stream.Length != 0)
+	{
+	  ProceduralDb.SetData(_name, stream.GetBuffer());
+	}
+    }
+
     public void SetData()
     {
       var memoryStream = new MemoryStream();
@@ -53,6 +63,16 @@ namespace Gimp
       if (memoryStream.Length != 0)
 	{
 	  ProceduralDb.SetData(_name, memoryStream.GetBuffer());
+	}
+    }
+
+    public void GetData(VariableSet variables)
+    {
+      var data = ProceduralDb.GetData(_name);
+      if (data != null)
+	{
+	  var stream = new MemoryStream(data);
+	  variables.ForEach(v => v.Deserialize(_formatter, stream));
 	}
     }
 

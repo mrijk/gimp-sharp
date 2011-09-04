@@ -275,12 +275,14 @@ namespace Gimp
     {
       var storage = new PersistentStorage(this);
       storage.SetData();
+      storage.SetData(Variables);
     }
 
     protected void GetData()
     {
       var storage = new PersistentStorage(this);
       storage.GetData();
+      storage.GetData(Variables);
     }
 
     GimpDialog _dialog;

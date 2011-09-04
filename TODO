@@ -1,14 +1,12 @@
 Release 0.18
 ------------
-- Remove NewWindow methods from Plugin class
 - Clean-up Forge plug-in
-- Clean-up PicturePackage plug-in
-- get/set persistent data
 - Fix Raindrops plug-in
 - Interface for Web Service plug-in
 
 Release 0.19
 ------------
+- Drag and Drop in PicturePackage plug-in
 - 20 verified Photoshop action files
 
 1) Set selection to polygon
@@ -27,8 +25,8 @@ Release 0.19
 Release 0.20
 ------------
 - 30 verified Photoshop action files
-- Documentation (Max, Maurits)
-- Working version of Update Check plug-in (Maurits)
+- Documentation
+- Working version of Update Check plug-in
 - Fully functional version of picture package
 
 Release 0.21
