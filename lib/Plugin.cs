@@ -397,10 +397,10 @@ namespace Gimp
       procedure.Run(image, drawable, list);
     }
 
-    [DllImport("libgimpui-2.0-0.dll")]
-    public static extern void gimp_ui_init(string prog_name, bool preview);
     [DllImport("libgimp-2.0-0.dll")]
     public static extern int gimp_main(ref GimpPlugInInfo info, 
 				       int argc, string[] args);
+    [DllImport("libgimpui-2.0-0.dll")]
+    public static extern void gimp_ui_init(string prog_name, bool preview);
   }
 }

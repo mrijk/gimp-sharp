@@ -1,3 +1,18 @@
+2011-09-06  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/UnitTest/TestGradientSegment.cs
+	* plug-ins/UnitTest/TestGradient.cs: new files
+
+	* lib/Makefile.am: changed accordingly
+
+	* lib/GradientSegment.cs: new file
+
+	* lib/Gradient.cs: more API coverage
+
+2011-09-05  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* lib/Plugin.cs: minor clean-up
+
 2011-09-04  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* lib/Plugin.cs

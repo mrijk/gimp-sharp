@@ -1,7 +1,8 @@
 Release 0.18
 ------------
-- Clean-up Forge plug-in
 - Fix Raindrops plug-in
+- Implement iterator over Gradient segments
+- Clean-up Forge plug-in
 - Interface for Web Service plug-in
 
 Release 0.19

@@ -3,6 +3,7 @@ Overview of Changes in Gimp# 0.18
 - Major code clean-up
 - Plug-ins can be reset to default values
 - New web server plug-in (experimental)
+- More GIMP 2.6 API coverage
 
 Overview of Changes in Gimp# 0.17
 =================================

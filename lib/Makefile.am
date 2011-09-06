@@ -60,6 +60,7 @@ MYSOURCES = 				\
 	Gimp.cs				\
 	Gradient.cs			\
 	GradientList.cs			\
+	GradientSegment.cs		\
 	Grid.cs				\
 	GuideCollection.cs		\
 	Guide.cs			\
