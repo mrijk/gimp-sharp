@@ -41,8 +41,11 @@ namespace Gimp.Raindrops
     {
       int size = _random.Next(_dropSize);
       int radius = size / 2;
-
+      Console.WriteLine("Create 1");
       var center = BoolMatrix.Generate(radius);
+      Console.WriteLine("Create 2: " + radius);
+      if (center == null)
+	Console.WriteLine("Create 3: " + center);
       return (center == null) ? null : new Raindrop(center, size, _newCoeff);
     }
 

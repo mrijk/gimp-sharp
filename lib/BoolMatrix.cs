@@ -61,9 +61,7 @@ namespace Gimp
 
     public IntCoordinate Generate(int radius, int maxTries = 10000)
     {
-      int tries = 0;
-      
-      while (true)
+      for (int tries = 0; tries < maxTries; tries++)
 	{
 	  bool findAnother = false;
 
@@ -95,11 +93,8 @@ namespace Gimp
 	    {
 	      return new IntCoordinate(x, y);
 	    }
-	  else if (++tries >= maxTries)
-	    {
-	      return null;
-	    }
 	}
+      return null;
     }
   }
 }

@@ -24,7 +24,7 @@ using Gtk;
 
 namespace Gimp.Raindrops
 {
-  public class Dialog : GimpDialogWithPreview<AspectPreview>
+  public class Dialog : GimpDialogWithPreview<DrawablePreview>
   {
     readonly Image _image;
 

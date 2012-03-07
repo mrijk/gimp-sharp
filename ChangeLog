@@ -1,3 +1,7 @@
+2011-09-07  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* lib/GradientSegment.cs: more API coverage
+
 2011-09-06  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* plug-ins/UnitTest/TestGradientSegment.cs

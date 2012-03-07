@@ -47,9 +47,49 @@ namespace Gimp
       _gradient.SegmentSetRightColor(_segment, color, opacity);
     }
 
-    public double SegmentSetLeftPosition
+    public RGB GetRightColor(RGB color, out double opacity)
     {
-      set {_gradient.SegmentSetLeftPosition(_segment, value);}
+      return _gradient.SegmentGetRightColor(_segment, out opacity);
+    }
+
+    public double GetLeftPosition()
+    {
+      return _gradient.SegmentGetLeftPosition(_segment);
+    }
+
+    public double SetLeftPosition(double position)
+    {
+      return _gradient.SegmentSetLeftPosition(_segment, position);
+    }
+
+    public double GetMiddlePosition()
+    {
+      return _gradient.SegmentGetMiddlePosition(_segment);
+    }
+
+    public double SetMiddlePosition(double position)
+    {
+      return _gradient.SegmentSetMiddlePosition(_segment, position);
+    }
+
+    public double GetRightPosition()
+    {
+      return _gradient.SegmentGetRightPosition(_segment);
+    }
+
+    public double SetRightPosition(double position)
+    {
+      return _gradient.SegmentSetRightPosition(_segment, position);
+    }
+
+    public GradientSegmentType BlendingFunction
+    {
+      get {return _gradient.SegmentGetBlendingFunction(_segment);}
+    }
+
+    public GradientSegmentColor BlendingColoringType
+    {
+      get {return _gradient.SegmentGetBlendingColoringType(_segment);}
     }
   }
 }

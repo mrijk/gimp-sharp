@@ -145,14 +145,15 @@ namespace Gimp
       return position;
     }
 
-    public void SegmentSetLeftPosition(int segment, double pos)
+    public double SegmentSetLeftPosition(int segment, double pos)
     {
-      double final_pos;
+      double finalPos;
       if (!gimp_gradient_segment_set_left_pos(Name, segment, pos,
-					      out final_pos))
+					      out finalPos))
 	{
 	  throw new GimpSharpException();
 	}
+      return finalPos;
     }
 
     public double SegmentGetMiddlePosition(int segment)
@@ -165,14 +166,15 @@ namespace Gimp
       return position;
     }
 
-    public void SegmentSetMiddlePosition(int segment, double pos)
+    public double SegmentSetMiddlePosition(int segment, double pos)
     {
-      double final_pos;
+      double finalPos;
       if (!gimp_gradient_segment_set_middle_pos(Name, segment, pos,
-						out final_pos))
+						out finalPos))
 	{
 	  throw new GimpSharpException();
 	}
+      return finalPos;
     }
 
     public double SegmentGetRightPosition(int segment)
@@ -185,14 +187,15 @@ namespace Gimp
       return position;
     }
 
-    public void SegmentSetRightPosition(int segment, double pos)
+    public double SegmentSetRightPosition(int segment, double pos)
     {
-      double final_pos;
+      double finalPos;
       if (!gimp_gradient_segment_set_right_pos(Name, segment, pos,
-					       out final_pos))
+					       out finalPos))
 	{
 	  throw new GimpSharpException();
 	}
+      return finalPos;
     }
 
     public GradientSegmentType SegmentGetBlendingFunction(int segment)

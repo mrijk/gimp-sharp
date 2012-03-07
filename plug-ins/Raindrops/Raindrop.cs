@@ -58,6 +58,11 @@ namespace Gimp.Raindrops
       int y1 = _newSize - _radius;
       var rectangle = new Rectangle(x0, y0, x1, y1);
 
+      Console.WriteLine("Dimensions: " + dimensions);
+
+      Console.WriteLine("Matrix: {0} x {1}", boolMatrix.Width, 
+			boolMatrix.Height);
+      
       foreach (var c in new CoordinateGenerator(rectangle))
 	{
 	  double r = c.Radius;
@@ -76,13 +81,11 @@ namespace Gimp.Raindrops
 
 	      if (dimensions.IsInside(k, l) && dimensions.IsInside(m, n))
 		{
-#if false		  
 		  boolMatrix[n, m] = true;
 
-		  var newColor = pf[l, k] + GetBright(oldRadius, a);
-		  newColor.Clamp0255();
-		  pf[l, k] = newColor;
-#endif
+		  // var newColor = pf[l, k] + GetBright(oldRadius, a);
+		  // newColor.Clamp0255();
+		  // pf[l, k] = newColor;
 		}
 	    }
 	}
