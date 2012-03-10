@@ -42,9 +42,13 @@ namespace Gimp.AverageBlur
 
     override protected void Render(Drawable drawable)
     {
+      System.Console.WriteLine("0: " + drawable.Name);
       var iter = new RgnIterator(drawable, _("Average"));
 
+      System.Console.WriteLine("1");
+
       var average = drawable.CreatePixel();
+      System.Console.WriteLine("2");
       iter.IterateSrc(pixel => average.Add(pixel));
       average /= iter.Count;
 

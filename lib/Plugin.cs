@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2012 Maurits Rijk
 //
 // Plugin.cs
 //
@@ -66,6 +66,8 @@ namespace Gimp
       public QueryProc Query;
       public RunProc Run;
     }
+
+    protected GimpDialog Dialog {get; private set;}
     
     static GimpPlugInInfo _info = new GimpPlugInInfo();
 
@@ -182,6 +184,10 @@ namespace Gimp
 			       out ParamDefList outParam)
     {
       RunMode run_mode = (RunMode) inParam[0].Value;
+
+      Console.WriteLine("Run: " + _usesDrawable);
+      Console.WriteLine("Drawable: " + inParam[2].Value);
+
       if (_usesImage)
 	{
 	  _image = (Image) inParam[1].Value;
@@ -194,14 +200,14 @@ namespace Gimp
       if (run_mode == RunMode.Interactive)
 	{
 	  GetData();
-	  _dialog = CreateDialog();
-	  if (_dialog == null)
+	  Dialog = CreateDialog();
+	  if (Dialog == null)
 	    {
 	      SetData();
 	    }
 	  else
 	    {
-	      _dialog.ShowAll();
+	      Dialog.ShowAll();
 	      if (DialogRun())
 		{
 		  SetData();
@@ -264,6 +270,7 @@ namespace Gimp
 
       var procedure = procedures[name];
       var inParam = procedure.InParams;
+
       inParam.Marshall(paramPtr, n_params);
 
       ParamDefList outParam;
@@ -283,13 +290,6 @@ namespace Gimp
       var storage = new PersistentStorage(this);
       storage.GetData();
       storage.GetData(Variables);
-    }
-
-    GimpDialog _dialog;
-
-    protected GimpDialog Dialog
-    {
-      get {return _dialog;}
     }
 
     void CallRender()
@@ -350,7 +350,7 @@ namespace Gimp
     {
       while (true)
 	{
-	  var type = _dialog.Run();
+	  var type = Dialog.Run();
 	  if (type == ResponseType.Ok)
 	    {
 	      GetParameters();

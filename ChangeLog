@@ -1,3 +1,9 @@
+2012-03-10  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* lib/Plugin.cs: minor clean-up
+
+	* lib/GimpTypes.cs: fixed crash
+
 2011-09-07  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* lib/GradientSegment.cs: more API coverage
