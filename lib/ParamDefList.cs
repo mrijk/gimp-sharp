@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2012 Maurits Rijk
 //
 // ParamDefList.cs
 //
@@ -81,49 +81,46 @@ namespace Gimp
 
     public void Marshall(IntPtr paramPtr, int n_params)
     {
-      for (int i = 0; i < n_params; i++)
+      Util.Iterate<GimpParam>(paramPtr, n_params, FillValue);
+    }
+
+    void FillValue(int i, GimpParam param)
+    {
+      Type type = this[i].Type;
+
+      switch (param.type)
 	{
-	  GimpParam param = (GimpParam) 
-	    Marshal.PtrToStructure(paramPtr, typeof(GimpParam));
-
-	  Type type = this[i].Type;
-
-	  switch (param.type)
-	    {
-	    case PDBArgType.Int32:
-	      if (type == typeof(int) || type == typeof(uint))
-		this[i].Value = (Int32) param.data.d_int32;
-	      else if (type == typeof(bool))
-		this[i].Value = ((Int32) param.data.d_int32 == 0) 
-		  ? false 
-		  : true;
-	      break;
-	    case PDBArgType.Float:
-	      this[i].Value = param.data.d_float;
-	      break;
-	    case PDBArgType.Color:
-	      this[i].Value = new RGB(param.data.d_color);
-	      break;
-	    case PDBArgType.Image:
-	      this[i].Value = new Image((Int32) param.data.d_image);
-	      break;
-	    case PDBArgType.String:
-	      if (type == typeof(string))
-		this[i].Value = Marshal.PtrToStringAuto(param.data.d_string);
-	      else
-		this[i].Value = Marshaller.FilenamePtrToString
-		  (param.data.d_string);
-	      break;
-	    case PDBArgType.Drawable:
-	      this[i].Value = new Drawable((Int32) param.data.d_drawable);
-	      break;
-	    default:
-	      Console.WriteLine("Fill: parameter " + param.type + 
-				" not supported yet!");
-	      break;
-	    }
-
-	  paramPtr = (IntPtr)((int)paramPtr + Marshal.SizeOf(param));
+	case PDBArgType.Int32:
+	  if (type == typeof(int) || type == typeof(uint))
+	    this[i].Value = (Int32) param.data.d_int32;
+	  else if (type == typeof(bool))
+	    this[i].Value = ((Int32) param.data.d_int32 == 0) 
+	      ? false 
+	      : true;
+	  break;
+	case PDBArgType.Float:
+	  this[i].Value = param.data.d_float;
+	  break;
+	case PDBArgType.Color:
+	  this[i].Value = new RGB(param.data.d_color);
+	  break;
+	case PDBArgType.Image:
+	  this[i].Value = new Image((Int32) param.data.d_image);
+	  break;
+	case PDBArgType.String:
+	  if (type == typeof(string))
+	    this[i].Value = Marshal.PtrToStringAuto(param.data.d_string);
+	  else
+	    this[i].Value = Marshaller.FilenamePtrToString
+	      (param.data.d_string);
+	  break;
+	case PDBArgType.Drawable:
+	  this[i].Value = new Drawable((Int32) param.data.d_drawable);
+	  break;
+	default:
+	  Console.WriteLine("Fill: parameter " + param.type + 
+			    " not supported yet!");
+	  break;
 	}
     }
 

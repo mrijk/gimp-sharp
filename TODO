@@ -1,11 +1,8 @@
-Release 0.18
+Release 0.19
 ------------
 - Fix Raindrops plug-in
 - Clean-up Forge plug-in
 - Interface for Web Service plug-in
-
-Release 0.19
-------------
 - Drag and Drop in PicturePackage plug-in
 - 20 verified Photoshop action files
 

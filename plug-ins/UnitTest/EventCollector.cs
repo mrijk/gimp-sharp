@@ -1,5 +1,5 @@
 // The UnitTest plug-in
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2012 Maurits Rijk
 //
 // EventCollector.cs
 //
@@ -78,7 +78,7 @@ namespace Gimp.UnitTest
     {
     }
 
-    public void TestFinished(TestCaseResult testResult)
+    public void TestFinished(TestResult testResult)
     {
       if (testResult.Executed)
 	{
@@ -96,10 +96,6 @@ namespace Gimp.UnitTest
 	}
     }
     
-    public void TestStarted(TestCase testCase)
-    {
-    }
-
     public void TestStarted(TestName testName)
     {
     }
@@ -108,7 +104,7 @@ namespace Gimp.UnitTest
     {
     }
 
-    public void SuiteFinished(TestSuiteResult suiteResult) 
+    public void SuiteFinished(TestResult suiteResult) 
     {
     }
     

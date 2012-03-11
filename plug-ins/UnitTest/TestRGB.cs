@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2012 Maurits Rijk
 //
 // TestRGB.cs
 //
@@ -169,9 +169,8 @@ namespace Gimp
     public void ListNames()
     {
       List<string> names;
-      List<RGB> colors;
 
-      RGB.ListNames(out names, out colors);
+      var colors = RGB.ListNames(out names);
 
       Assert.IsTrue(names.Count == colors.Count);
       Assert.IsTrue(names.Count > 0);

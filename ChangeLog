@@ -1,4 +1,20 @@
+2012-03-11  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* NEWS
+	* INSTALL: updated
+
+	* lib/AssemblyInfo.cs
+	* configure.in: bumped version to 0.19
+
 2012-03-10  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/UnitTest/EventCollector.cs: updated to recent versions of NUnit.
+
+	* lib/Util.cs: new helper method Iterate
+
+	* lib/RGB.cs
+	* plug-ins/UnitTest/TestRGB.cs
+	* lib/ParamDefList.cs: and use it
 
 	* lib/Plugin.cs: minor clean-up
 

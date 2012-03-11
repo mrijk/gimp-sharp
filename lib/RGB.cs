@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2012 Maurits Rijk
 //
 // RGB.cs
 //
@@ -157,8 +157,7 @@ namespace Gimp
 	}
     }
 
-    public static void ListNames(out List<string> names, 
-				 out List<RGB> colors)
+    public static List<RGB> ListNames(out List<string> names)
     {
       IntPtr namesPtr;
       IntPtr colorsPtr;
@@ -168,15 +167,11 @@ namespace Gimp
       names = Util.ToStringList(namesPtr, len);
       Marshaller.Free(namesPtr);
 
-      colors = new List<RGB>();
-      IntPtr ptr = colorsPtr;
-      for (int i = 0; i < len; i++)
-        {
-	  var tmp = (GimpRGB) Marshal.PtrToStructure(ptr, typeof(GimpRGB));
-	  colors.Add(new RGB(tmp));
-	  ptr = (IntPtr)((int)ptr + Marshal.SizeOf(tmp));
-        }
+      var colors = new List<RGB>();
+      Util.Iterate<GimpRGB>(colorsPtr, len, (_, rgb) => colors.Add(new RGB(rgb)));
       Marshaller.Free(colorsPtr);
+
+      return colors;
     }
 
     public void Add(RGB rgb)

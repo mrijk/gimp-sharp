@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2012 Maurits Rijk
 //
 // Util.cs
 //
@@ -43,6 +43,17 @@ namespace Gimp
 	  ptr = (IntPtr)((int)ptr + Marshal.SizeOf(tmp));
         }
       return set;
+    }
+
+    static public void Iterate<T>(IntPtr ptr, int n,
+				  Action<int, T> func)
+    {
+      for (int i = 0; i < n; i++)
+	{
+	  T tmp = (T) Marshal.PtrToStructure(ptr, typeof(T));
+	  func(i, tmp);
+	  ptr = (IntPtr)((int)ptr + Marshal.SizeOf(tmp));
+	}
     }
   }
 }
