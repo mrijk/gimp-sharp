@@ -80,33 +80,7 @@ namespace Gimp
     // Can this be done by a casting overload?
     internal GimpParam GetGimpParam()
     {
-      var param = new GimpParam();
-
-      param.type = GetGimpType();
-
-      switch (param.type)
-	{
-	case PDBArgType.Int32:
-	  param.data.d_int32 = (Int32) Value;
-	  break;
-	case PDBArgType.Float:
-	  param.data.d_float = (double) Value;
-	  break;
-	case PDBArgType.String:
-	  param.data.d_string = Marshal.StringToHGlobalAuto((string) Value);
-	  break;
-	case PDBArgType.Image:
-	  param.data.d_image = (Value as Image).ID;
-	  break;
-	case PDBArgType.Status:
-	  param.data.d_status = (PDBStatusType) Value;
-	  break;
-	default:
-	  Console.WriteLine("GetGimpParam: couldn't create");
-	  break;
-	}
-
-      return param;
+      return new GimpParam(GetGimpType(), Value);
     }
 
     public GimpParamDef GimpParamDef

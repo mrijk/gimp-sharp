@@ -59,8 +59,17 @@ namespace Gimp
     public string description;
   };
 
-  [StructLayout(LayoutKind.Sequential)]
-  public struct GimpParam
+  // Next structs seem to differ in size on 32 and 64 bits Linux. Not sure about Windows.
+
+  [StructLayout(LayoutKind.Sequential, Pack=8)]
+  public struct GimpParam64
+  {
+    public PDBArgType type;
+    public ParamData data;
+  }
+
+  [StructLayout(LayoutKind.Sequential, Pack=2)]
+  public struct GimpParam32
   {
     public PDBArgType type;
     public ParamData data;

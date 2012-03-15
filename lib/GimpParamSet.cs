@@ -1,7 +1,7 @@
 // GIMP# - A C# wrapper around the GIMP Library
 // Copyright (C) 2004-2012 Maurits Rijk
 //
-// Util.cs
+// GimpParamSet.cs
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -20,35 +20,65 @@
 //
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace Gimp
 {
-  public sealed class Util
+  public class GimpParamSet : IEnumerable<GimpParam>
   {
-    static public List<string> ToStringList(IntPtr ptr, int n)
+    List<GimpParam> _set = new List<GimpParam>();
+
+    public GimpParamSet()
     {
-      return ToList<string>(ptr, n, (s) => s);
     }
 
-    static public List<T> ToList<T>(IntPtr ptr, int n, 
-				    Func<string, T> transform)
+    public GimpParamSet(IntPtr ptr, int n)
     {
-      var set = new List<T>();
-      Iterate<IntPtr>(ptr, n, (_, x) => set.Add(transform(Marshal.PtrToStringAnsi(x))));
-      return set;
-    }
+      int size = GimpParam.Size;
 
-    static public void Iterate<T>(IntPtr ptr, int n,
-				  Action<int, T> func)
-    {
       for (int i = 0; i < n; i++)
 	{
-	  T tmp = (T) Marshal.PtrToStructure(ptr, typeof(T));
-	  func(i, tmp);
-	  ptr = (IntPtr)((int)ptr + Marshal.SizeOf(tmp));
+	  Add(new GimpParam(ptr));
+	  ptr = (IntPtr)((int)ptr + size);
 	}
+    }
+
+    public void Add(GimpParam param)
+    {
+      _set.Add(param);
+    }
+
+    public IEnumerator<GimpParam> GetEnumerator()
+    {
+      return _set.GetEnumerator();
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+      return GetEnumerator();
+    }
+
+    public int Count
+    {
+      get {return _set.Count;}
+    }
+
+    public IntPtr ToStructArray()
+    {
+      int size = GimpParam.Size;
+ 
+      IntPtr returnVals = Marshal.AllocCoTaskMem(Count * size);
+      IntPtr paramPtr = returnVals;
+
+      foreach (GimpParam param in _set)
+	{
+	  param.Fill(paramPtr);
+	  paramPtr = (IntPtr)((int) paramPtr + size);
+	}
+
+      return returnVals;
     }
   }
 }

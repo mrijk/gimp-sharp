@@ -81,7 +81,12 @@ namespace Gimp
 
     public void Marshall(IntPtr paramPtr, int n_params)
     {
-      Util.Iterate<GimpParam>(paramPtr, n_params, FillValue);
+      var parameters = new GimpParamSet(paramPtr, n_params);
+      int i = 0;
+      foreach (var param in parameters) 
+	{
+	  FillValue(i++, param);
+	}
     }
 
     void FillValue(int i, GimpParam param)
@@ -126,19 +131,17 @@ namespace Gimp
 
     public void Marshall(out IntPtr return_vals, out int n_return_vals)
     {
-      GimpParam foo = new GimpParam();
       n_return_vals = _set.Count;
+      int size = GimpParam.Size;
 
-      return_vals = Marshal.AllocCoTaskMem(n_return_vals * 
-					   Marshal.SizeOf(foo));
-
+      return_vals = Marshal.AllocCoTaskMem(n_return_vals * size);
       IntPtr paramPtr = return_vals;
 
       for (int i = 0; i < n_return_vals; i++)
 	{
-	  foo = this[i].GetGimpParam();
-	  Marshal.StructureToPtr(foo, paramPtr, false);
-	  paramPtr = (IntPtr)((int)paramPtr + Marshal.SizeOf(foo));
+	  var param = this[i].GetGimpParam();
+	  param.Fill(paramPtr);
+	  paramPtr = (IntPtr)((int)paramPtr + size);
 	}
     }
 
