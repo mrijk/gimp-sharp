@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2012 Maurits Rijk
 //
 // Drawable.cs
 //
@@ -44,7 +44,6 @@ namespace Gimp
     {
       _bpp = gimp_drawable_bpp(_ID);	// Cache for performance
     }
-
 
     internal Drawable()
     {

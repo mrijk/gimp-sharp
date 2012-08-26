@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2012 Maurits Rijk
 //
 // Vectors.cs
 //
@@ -26,38 +26,24 @@ using System.Runtime.InteropServices;
 
 namespace Gimp
 {
-  public class Vectors
+  public class Vectors : Item
   {
-    readonly protected Int32 _ID;
-
-    public Vectors(Image image, string name)
+    public Vectors(Image image, string name) : 
+    	base(gimp_vectors_new(image.ID, name))
     {
-      _ID = gimp_vectors_new(image.ID, name);
+    }
+	
+    public Vectors(Image image, TextLayer layer) :
+	base(gimp_vectors_new_from_text_layer(image.ID, layer.ID))
+    {
     }
 
-    public Vectors(Image image, TextLayer layer)
+    public Vectors(Vectors vectors) : base(gimp_vectors_copy(vectors.ID))
     {
-      _ID = gimp_vectors_new_from_text_layer(image.ID, layer.ID);
     }
 
-    public Vectors(Vectors vectors)
+    internal Vectors(Int32 ID) : base(ID)
     {
-      _ID = gimp_vectors_copy(vectors.ID);
-    }
-
-    internal Vectors(Int32 ID)
-    {
-      _ID = ID;
-    }
-
-    internal Int32 ID
-    {
-      get {return _ID;}
-    }
-
-    public bool IsValid
-    {
-      get {return gimp_vectors_is_valid(_ID);}
     }
 
     public List<Stroke> Strokes
@@ -66,74 +52,21 @@ namespace Gimp
 	{
 	  var list = new List<Stroke>();
 	  int numStrokes;
-	  IntPtr ptr = gimp_vectors_get_strokes(_ID, out numStrokes);
+	  IntPtr ptr = gimp_vectors_get_strokes(ID, out numStrokes);
 	  if (numStrokes > 0)
 	    {
 	      var dest = new int[numStrokes];
 	      Marshal.Copy(ptr, dest, 0, numStrokes);
 	      Array.ForEach(dest, 
-			    strokeID => list.Add(new Stroke(_ID, strokeID)));
+			    strokeID => list.Add(new Stroke(ID, strokeID)));
 	    }
 	  return list;
 	}
     }
 
-    public Image Image
-    {
-      get {return new Image(gimp_vectors_get_image(_ID));}
-    }
-
     public int Position
     {
       get {return Image.GetVectorsPosition(this);}
-    }
-
-    public bool Linked
-    {
-      get {return gimp_vectors_get_linked(_ID);}
-      set 
-	{
-	  if (!gimp_vectors_set_linked(_ID, value))
-	    {
-	      throw new GimpSharpException();
-	    }
-	}
-    }
-
-    public string Name
-    {
-      get {return gimp_vectors_get_name(_ID);}
-      set
-	{
-	  if (!gimp_vectors_set_name(_ID, value))
-	    {
-	      throw new GimpSharpException();
-	    }
-	}
-    }
-
-    public Tattoo Tattoo
-    {
-      get {return new Tattoo(gimp_vectors_get_tattoo(_ID));}
-      set
-	{
-	  if (!gimp_vectors_set_tattoo(_ID, value.ID))
-	    {
-	      throw new GimpSharpException();
-	    }
-	}
-    }
-
-    public bool Visible
-    {
-      get {return gimp_vectors_get_visible(_ID);}
-      set
-	{
-	  if (!gimp_vectors_set_visible(_ID, value))
-	    {
-	      throw new GimpSharpException();
-	    }
-	}
     }
 
     public void RemoveStroke(Stroke stroke)
@@ -172,37 +105,6 @@ namespace Gimp
       return gimp_vectors_export_to_string(Image.ID, _ID);
     }
 
-    public void ParasiteAttach(Parasite parasite)
-    {
-      if (!gimp_vectors_parasite_attach(_ID, parasite.Ptr))
-        {
-	  throw new GimpSharpException();
-        }
-    }
-
-    public void ParasiteDetach(Parasite parasite)
-    {
-      if (!gimp_vectors_parasite_detach(_ID, parasite.Name))
-        {
-	  throw new GimpSharpException();
-        }
-    }
-
-    public Parasite ParasiteFind(string name)
-    {
-      IntPtr found = gimp_vectors_parasite_find(_ID, name);
-      return (found == IntPtr.Zero) ? null : new Parasite(found);
-    }
-
-    public ParasiteList ParasiteList
-    {
-      get
-	{
-	  return new ParasiteList(_ID, gimp_vectors_parasite_list,
-				  gimp_vectors_parasite_find);
-	}
-    }
-
     public Stroke NewFromPoints(VectorsStrokeType type, 
 				CoordinateList<double> controlpoints,
 				bool closed)
@@ -238,29 +140,8 @@ namespace Gimp
     [DllImport("libgimp-2.0-0.dll")]
     extern static Int32 gimp_vectors_copy(Int32 vectors_ID);
     [DllImport("libgimp-2.0-0.dll")]
-    extern static bool gimp_vectors_is_valid(Int32 image_ID);
-    [DllImport("libgimp-2.0-0.dll")]
     extern static IntPtr gimp_vectors_get_strokes(Int32 vectors_ID,
 						  out int num_strokes);
-    [DllImport("libgimp-2.0-0.dll")]
-    extern static Int32 gimp_vectors_get_image(Int32 vectors_ID);
-    [DllImport("libgimp-2.0-0.dll")]
-    extern static bool gimp_vectors_get_linked(Int32 vectors_ID);
-    [DllImport("libgimp-2.0-0.dll")]
-    extern static string gimp_vectors_get_name(Int32 vectors_ID);
-    [DllImport("libgimp-2.0-0.dll")]
-    extern static int gimp_vectors_get_tattoo(Int32 vectors_ID);
-    [DllImport("libgimp-2.0-0.dll")]
-    extern static bool gimp_vectors_get_visible(Int32 vectors_ID);
-    [DllImport("libgimp-2.0-0.dll")]
-    extern static bool gimp_vectors_set_linked(Int32 vectors_ID, bool linked);
-    [DllImport("libgimp-2.0-0.dll")]
-    extern static bool gimp_vectors_set_name(Int32 vectors_ID, string name);
-    [DllImport("libgimp-2.0-0.dll")]
-    extern static bool gimp_vectors_set_tattoo(Int32 vectors_ID, int tattoo);
-    [DllImport("libgimp-2.0-0.dll")]
-    extern static bool gimp_vectors_set_visible(Int32 vectors_ID, 
-						bool visible);
     [DllImport("libgimp-2.0-0.dll")]
     extern static bool gimp_vectors_remove_stroke(Int32 vectors_ID,
 						  int stroke_id);
@@ -278,19 +159,6 @@ namespace Gimp
     [DllImport("libgimp-2.0-0.dll")]
     extern static string gimp_vectors_export_to_string(Int32 image_ID,
 						       Int32 vectors_ID);
-    [DllImport("libgimp-2.0-0.dll")]
-    extern static bool gimp_vectors_parasite_attach(Int32 vectors_ID,
-						    IntPtr parasite);
-    [DllImport("libgimp-2.0-0.dll")]
-    extern static bool gimp_vectors_parasite_detach(Int32 vectors_ID,
-						    string name);
-    [DllImport("libgimp-2.0-0.dll")]
-    static extern IntPtr gimp_vectors_parasite_find(Int32 drawable_ID,
-						    string name);
-    [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_vectors_parasite_list(Int32 drawable_ID,
-						  out int num_parasites,
-						  out IntPtr parasites);
     [DllImport("libgimp-2.0-0.dll")]
     static extern int gimp_vectors_stroke_new_from_points(Int32 drawable_ID,
 						     VectorsStrokeType type,

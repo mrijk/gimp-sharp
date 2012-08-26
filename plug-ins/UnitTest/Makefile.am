@@ -13,15 +13,21 @@ MYSOURCES = 	Dialog.cs			\
 		UnitTester.cs
 
 TESTSOURCES = 	TestBoolMatrix.cs		\
-		TestBrush.cs
+		TestCoordinate.cs		\
+		TestCoordinateList.cs		\
+		TestImage.cs			\
+		TestItem.cs			\
+		TestVectors.cs			\
+		TestVector2.cs			\
+		TestVector3.cs			\
+		TestVersion.cs
 
 FAILING = \
+		TestBrush.cs			\
+		TestContext.cs			\
 		TestBrushList.cs		\
 		TestChannel.cs			\
 		TestChannelList.cs		\
-		TestContext.cs			\
-		TestCoordinate.cs		\
-		TestCoordinateList.cs		\
 		TestDimensions.cs		\
 		TestDisplay.cs			\
 		TestDrawable.cs			\
@@ -34,7 +40,6 @@ FAILING = \
 		TestGrid.cs			\
 		TestGuide.cs			\
 		TestHSV.cs			\
-		TestImage.cs			\
 		TestImageList.cs		\
 		TestIntCoordinate.cs		\
 		TestLayer.cs			\
@@ -50,6 +55,7 @@ FAILING = \
 		TestPixel.cs			\
 		TestPixelFetcher.cs		\
 		TestPixelRgn.cs			\
+		TestPlugins.cs			\
 		TestProceduralDb.cs		\
 		TestProcedure.cs		\
 		TestRcQuery.cs			\
@@ -60,13 +66,7 @@ FAILING = \
 		TestSelection.cs		\
 		TestStroke.cs			\
 		TestTextLayer.cs		\
-		TestUndo.cs			\
-		TestVectors.cs			\
-		TestVector2.cs			\
-		TestVector3.cs			\
-		TestVersion.cs
-
-#		TestPlugins.cs
+		TestUndo.cs
 
 EXTRA_DIST = $(MYSOURCES) $(TESTSOURCES) UnitTest UnitTest.png
 

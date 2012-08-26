@@ -1,5 +1,17 @@
 2012-08-26  Maurits  <maurits.rijk@gmail.com>
 
+	* plug-ins/UnitTest/TestVectors.cs: move bunch of tests to TestItem since
+	Item is now the base class for Vectors.
+
+	* plug-ins/UnitTest/TestItem.cs: new file
+
+	* lib/Vectors.cs: inherit from Item
+
+	* lib/Item.cs: new file. In GIMP 2.8.2 most objects are derived from
+	gimp_item
+
+	* lib/Makefile.am: changed accordingly
+
 	* README: updated
 
 	* plug-ins/UnitTest/UnitTester.cs: Fix unittest with GIMP 2.8.2

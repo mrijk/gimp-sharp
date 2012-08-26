@@ -32,8 +32,9 @@ namespace Gimp
     public void New()
     {
       string brushName = "Gimp#Brush";
-#if false
+
       int count = new BrushList(null).Count;
+#if false
       var brush = new Brush(brushName);
       Assert.AreEqual(brushName, brush.Name);
       Assert.AreEqual(count + 1, new BrushList(null).Count);

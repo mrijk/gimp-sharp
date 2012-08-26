@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2012 Maurits Rijk
 //
 // TestVectors.cs
 //
@@ -62,56 +62,6 @@ namespace Gimp
     }
 
     [Test]
-    public void IsValid()
-    {
-      var vectors = new Vectors(_image, "firstVector");
-      Assert.IsTrue(vectors.IsValid);
-    }
-
-    [Test]
-    public void GetImage()
-    {
-      var vectors = new Vectors(_image, "firstVector");
-      _image.AddVectors(vectors, -1);
-      Assert.AreEqual(_image, vectors.Image);
-    }    
-
-    [Test]
-    public void GetSetLinked()
-    {
-      var vectors = new Vectors(_image, "firstVector");
-      Assert.IsFalse(vectors.Linked);
-      vectors.Linked = true;
-      Assert.IsTrue(vectors.Linked);
-    }
-
-    [Test]
-    public void GetSetTattoo()
-    {
-      var vectors = new Vectors(_image, "firstVector");
-      var tattoo = new Tattoo(13);
-      vectors.Tattoo = tattoo;
-      Assert.AreEqual(tattoo, vectors.Tattoo);
-    }
-
-    [Test]
-    public void GetSetVisible()
-    {
-      var vectors = new Vectors(_image, "firstVector");
-      Assert.IsFalse(vectors.Visible);
-      vectors.Visible = true;
-      Assert.IsTrue(vectors.Visible);
-    }
-
-    [Test]
-    public void GetSetName()
-    {
-      var vectors = new Vectors(_image, "firstVector");
-      vectors.Name = "renamedVector";
-      Assert.AreEqual("renamedVector", vectors.Name);
-    }
-
-    [Test]
     public void RemoveStroke()
     {
       var vectors = new Vectors(_image, "firstVector");
@@ -148,36 +98,6 @@ namespace Gimp
       };
       return vectors.NewFromPoints(VectorsStrokeType.Bezier, controlpoints, 
 				   true);
-    }
-
-    [Test]
-    public void ParasiteAttach()
-    {
-      var vectors = new Vectors(_image, "firstVector");
-      var parasite = new Parasite("foo", 0, 13);
-      vectors.ParasiteAttach(parasite);
-      Assert.AreEqual(1, vectors.ParasiteList.Count);
-    }
-
-    [Test]
-    public void ParasiteDetach()
-    {
-      var vectors = new Vectors(_image, "firstVector");
-      var parasite = new Parasite("foo", 0, 13);
-      vectors.ParasiteAttach(parasite);
-      vectors.ParasiteDetach(parasite);
-      Assert.AreEqual(0, vectors.ParasiteList.Count);
-    }
-
-    [Test]
-    public void ParasiteFind()
-    {
-      var vectors = new Vectors(_image, "firstVector");
-      var parasite = new Parasite("foo", 0, 13);
-      vectors.ParasiteAttach(parasite);
-      var found = vectors.ParasiteFind("foo");
-      Assert.AreEqual(parasite, found);
-      Assert.IsNull(vectors.ParasiteFind("bar"));
     }
 
     [Test]

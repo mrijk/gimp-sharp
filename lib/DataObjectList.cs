@@ -27,12 +27,14 @@ namespace Gimp
 {
   public abstract class DataObjectList<T> where T : DataObject
   {
-    readonly List<T> _list; // = new List<T>();
+    readonly List<T> _list;
+    readonly int _foo;
 
     public DataObjectList(string filter)
     {
       int numDataObjects;
       IntPtr ptr = GetList(filter, out numDataObjects);
+      _foo = numDataObjects;
       _list = Util.ToList<T>(ptr, numDataObjects, CreateT);
     }
 
@@ -52,7 +54,8 @@ namespace Gimp
 
     public int Count
     {
-      get {return _list.Count;}
+      // get {return _list.Count;}
+      get {return _foo;}
     }
   }
 }
