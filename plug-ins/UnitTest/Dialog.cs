@@ -43,7 +43,7 @@ namespace Gimp.UnitTest
 
       entry.SelectionChanged += delegate
 	{
-	  // testDll.Value = entry.Filename;
+	  testDll.Value = entry.Filename ?? testDll.Value;
 	};
       return entry;
     }

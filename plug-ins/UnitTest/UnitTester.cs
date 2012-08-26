@@ -1,5 +1,5 @@
 // The UnitTest plug-in
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2012 Maurits Rijk
 //
 // UnitTester.cs
 //
@@ -52,7 +52,7 @@ namespace Gimp.UnitTest
       bool success = false;
 
       try
-	{        
+	{
 	  success = MakeTestFromCommandLine(_testDomain, testDll);
 	}
       catch(System.IO.FileNotFoundException)

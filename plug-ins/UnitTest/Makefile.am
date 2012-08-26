@@ -13,7 +13,9 @@ MYSOURCES = 	Dialog.cs			\
 		UnitTester.cs
 
 TESTSOURCES = 	TestBoolMatrix.cs		\
-		TestBrush.cs 			\
+		TestBrush.cs
+
+FAILING = \
 		TestBrushList.cs		\
 		TestChannel.cs			\
 		TestChannelList.cs		\

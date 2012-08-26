@@ -1,5 +1,5 @@
 // The UnitTest plug-in
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2012 Maurits Rijk
 //
 // UnitTest.cs
 //
@@ -40,7 +40,7 @@ namespace Gimp.UnitTest
 			   "Unit Test",
 			   "Maurits Rijk",
 			   "(C) Maurits Rijk",
-			   "2004-2011",
+			   "2004-2012",
 			   "Unit Test...",
 			   "",
 			   new ParamDefList(Variables))
