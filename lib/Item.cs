@@ -20,17 +20,23 @@
 //
 
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace Gimp
 {
-  public abstract class Item
+  public /* abstract */ class Item
   {
     protected Int32 _ID;
 
     public Item(int ID)
     {
       _ID = ID;
+    }
+
+    // Fix me: figure out how to get rid of this
+    internal Item()
+    {
     }
 
     public bool IsValid
@@ -66,6 +72,21 @@ namespace Gimp
       get {return gimp_item_is_text_layer(ID);}
     }
 
+    public bool IsChannel
+    {
+      get {return gimp_item_is_channel(ID);}
+    }
+
+    public bool IsLayerMask
+    {
+      get {return gimp_item_is_layer_mask(ID);}
+    }
+
+    public bool IsSelection
+    {
+      get {return gimp_item_is_selection(ID);}
+    }
+
     public bool IsVectors
     {
       get {return gimp_item_is_vectors(ID);}
@@ -76,9 +97,31 @@ namespace Gimp
       get {return gimp_item_is_group(ID);}
     }
 
-    public bool IsParent
+    public Item Parent
     {
-      get {return gimp_item_is_parent(ID);}
+      // Fix me!
+      get {return null;}
+      // get {return new Item(gimp_item_get_parent(ID));}
+    }
+
+    public List<Item> Children
+    {
+      get 
+      {
+	var children = new List<Item>();
+
+	int numChildren;
+	IntPtr ptr = gimp_item_get_children(ID, out numChildren);
+
+	if (numChildren > 0)
+	  {
+	    var dest = new int[numChildren];
+	    Marshal.Copy(ptr, dest, 0, numChildren);
+	    // Fix me: instantiate concrete objects based on type iso Item objects
+	    Array.ForEach(dest, childID => children.Add(new Item(childID)));
+	  }
+	return children;
+      }
     }
 
     public string Name
@@ -141,17 +184,17 @@ namespace Gimp
 	}
     }
 
-    public void ParasiteAttach(Parasite parasite)
+    public void AttachParasite(Parasite parasite)
     {
-      if (!gimp_item_parasite_attach(ID, parasite.Ptr))
+      if (!gimp_item_attach_parasite(ID, parasite.Ptr))
         {
 	  throw new GimpSharpException();
         }
     }
 
-    public void ParasiteDetach(Parasite parasite)
+    public void DetachParasite(Parasite parasite)
     {
-      if (!gimp_item_parasite_detach(ID, parasite.Name))
+      if (!gimp_item_detach_parasite(ID, parasite.Name))
         {
 	  throw new GimpSharpException();
         }
@@ -190,11 +233,20 @@ namespace Gimp
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_item_is_text_layer(Int32 item_ID);
     [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_item_is_channel(Int32 item_ID);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_item_is_layer_mask(Int32 item_ID);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_item_is_selection(Int32 item_ID);
+    [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_item_is_vectors(Int32 item_ID);
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_item_is_group(Int32 item_ID);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_item_is_parent(Int32 item_ID);
+    static extern Int32 gimp_item_get_parent(Int32 item_ID);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern IntPtr gimp_item_get_children(Int32 item_ID,
+						out int num_children);
     [DllImport("libgimp-2.0-0.dll")]
     extern static string gimp_item_get_name(Int32 item_ID);
     [DllImport("libgimp-2.0-0.dll")]
@@ -216,9 +268,9 @@ namespace Gimp
     [DllImport("libgimp-2.0-0.dll")]
     extern static bool gimp_item_set_tattoo(Int32 item_ID, int tattoo);
     [DllImport("libgimp-2.0-0.dll")]
-    extern static bool gimp_item_parasite_attach(Int32 item_ID, IntPtr parasite);
+    extern static bool gimp_item_attach_parasite(Int32 item_ID, IntPtr parasite);
     [DllImport("libgimp-2.0-0.dll")]
-    extern static bool gimp_item_parasite_detach(Int32 item_ID, string name);
+    extern static bool gimp_item_detach_parasite(Int32 item_ID, string name);
     [DllImport("libgimp-2.0-0.dll")]
     static extern IntPtr gimp_item_parasite_find(Int32 item_ID, string name);
     [DllImport("libgimp-2.0-0.dll")]

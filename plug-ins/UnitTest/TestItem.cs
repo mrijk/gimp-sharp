@@ -94,21 +94,21 @@ namespace Gimp
     }
 
     [Test]
-    public void ParasiteAttach()
+    public void AttachParasite()
     {
       var vectors = new Vectors(_image, "firstVector");
       var parasite = new Parasite("foo", 0, 13);
-      vectors.ParasiteAttach(parasite);
+      vectors.AttachParasite(parasite);
       Assert.AreEqual(1, vectors.ParasiteList.Count);
     }
 
     [Test]
-    public void ParasiteDetach()
+    public void DetachParasite()
     {
       var vectors = new Vectors(_image, "firstVector");
       var parasite = new Parasite("foo", 0, 13);
-      vectors.ParasiteAttach(parasite);
-      vectors.ParasiteDetach(parasite);
+      vectors.AttachParasite(parasite);
+      vectors.DetachParasite(parasite);
       Assert.AreEqual(0, vectors.ParasiteList.Count);
     }
 
@@ -117,7 +117,7 @@ namespace Gimp
     {
       var vectors = new Vectors(_image, "firstVector");
       var parasite = new Parasite("foo", 0, 13);
-      vectors.ParasiteAttach(parasite);
+      vectors.AttachParasite(parasite);
       var found = vectors.ParasiteFind("foo");
       Assert.AreEqual(parasite, found);
       Assert.IsNull(vectors.ParasiteFind("bar"));

@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2012 Maurits Rijk
 //
 // Image.cs
 //
@@ -285,9 +285,18 @@ namespace Gimp
       return (layerID == -1) ? null : new Layer(layerID);
     }
 
+    // Fix me: deprecated in GIMP 2.8
     public void AddLayer(Layer layer, int position)
     {
       if (!gimp_image_add_layer(ID, layer.ID, position))
+        {
+	  throw new GimpSharpException();
+        }
+    }
+
+    public void InsertLayer(Layer layer, Item parent, int position)
+    {
+      if (!gimp_image_insert_layer(ID, layer.ID, parent != null ? parent.ID : 0, position))
         {
 	  throw new GimpSharpException();
         }
@@ -343,6 +352,7 @@ namespace Gimp
       return gimp_image_get_layer_position(ID, layer.ID);
     }
 
+    // Fix me: deprecated in GIMP 2.8
     public void AddChannel(Channel channel, int position)
     {
       if (!gimp_image_add_channel(ID, channel.ID, position))
@@ -354,6 +364,14 @@ namespace Gimp
     public void AddChannel(Channel channel)
     {
       AddChannel(channel, 0);
+    }
+
+    public void InsertChannel(Channel channel, Item parent, int position)
+    {
+      if (!gimp_image_insert_channel(ID, channel.ID, parent.ID, position))
+        {
+	  throw new GimpSharpException();			  
+        }
     }
 
     public void RemoveChannel(Channel channel)
@@ -647,9 +665,18 @@ namespace Gimp
         }
     }
 
+    // Fix me: deprecated in GIMP 2.8
     public void AddVectors(Vectors vectors, int position)
     {
       if (!gimp_image_add_vectors(ID, vectors.ID, position))
+        {
+	  throw new GimpSharpException();
+        }
+    }
+
+    public void InsertVectors(Vectors vectors, Item parent, int position)
+    {
+      if (!gimp_image_insert_vectors(ID, vectors.ID, parent.ID, position))
         {
 	  throw new GimpSharpException();
         }
@@ -955,6 +982,11 @@ namespace Gimp
 					    Int32 layer_ID,
 					    int position);
     [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_image_insert_layer(Int32 image_ID,
+					       Int32 layer_ID,
+					       Int32 parent_ID,
+					       int position);
+    [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_image_remove_layer(Int32 image_ID,
 					       Int32 layer_ID);
     [DllImport("libgimp-2.0-0.dll")]
@@ -976,6 +1008,11 @@ namespace Gimp
     static extern bool gimp_image_add_channel(Int32 image_ID,
 					      Int32 channel_ID,
 					      int position);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_image_insert_channel(Int32 image_ID,
+						 Int32 channel_ID,
+						 Int32 parent_ID,
+						 int position);
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_image_remove_channel(Int32 image_ID,
 						 Int32 channel_ID);
@@ -1092,6 +1129,11 @@ namespace Gimp
     static extern bool gimp_image_add_vectors(Int32 image_ID,
 					      Int32 vectors_ID,
 					      int position);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_image_insert_vectors(Int32 image_ID,
+						 Int32 vectors_ID,
+						 Int32 parent_ID,
+						 int position);
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_image_remove_vectors(Int32 image_ID,
 						 Int32 vectors_ID);

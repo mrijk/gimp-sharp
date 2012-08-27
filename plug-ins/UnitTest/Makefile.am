@@ -13,10 +13,20 @@ MYSOURCES = 	Dialog.cs			\
 		UnitTester.cs
 
 TESTSOURCES = 	TestBoolMatrix.cs		\
+		TestChannel.cs			\
+		TestDimensions.cs		\
+		TestDisplay.cs			\
+		TestFloatingSelection.cs	\
+		TestGimpUnit.cs			\
 		TestCoordinate.cs		\
 		TestCoordinateList.cs		\
+		TestDrawable.cs			\
+		TestGrid.cs			\
+		TestGuide.cs			\
+		TestHSV.cs			\
 		TestImage.cs			\
 		TestItem.cs			\
+		TestLayerGroup.cs		\
 		TestVectors.cs			\
 		TestVector2.cs			\
 		TestVector3.cs			\
@@ -26,20 +36,11 @@ FAILING = \
 		TestBrush.cs			\
 		TestContext.cs			\
 		TestBrushList.cs		\
-		TestChannel.cs			\
 		TestChannelList.cs		\
-		TestDimensions.cs		\
-		TestDisplay.cs			\
-		TestDrawable.cs			\
-		TestFloatingSelection.cs	\
-		TestGimpUnit.cs			\
 		TestGimp.cs			\
 		TestGradient.cs			\
 		TestGradientList.cs		\
 		TestGradientSegment.cs		\
-		TestGrid.cs			\
-		TestGuide.cs			\
-		TestHSV.cs			\
 		TestImageList.cs		\
 		TestIntCoordinate.cs		\
 		TestLayer.cs			\

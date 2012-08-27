@@ -267,7 +267,6 @@ namespace Gimp
       GetRequiredParameters();
 
       var procedures = GetSupportedProcedures();
-
       var procedure = procedures[name];
       var inParam = procedure.InParams;
 
@@ -373,7 +372,7 @@ namespace Gimp
 	    {
 	      Reset();
 	    }
-	  else if (type >=0)		// User defined response
+	  else if (type >= 0)		// User defined response
 	    {
 	      DialogRun(type);
 	      Console.WriteLine("Type: " + type);

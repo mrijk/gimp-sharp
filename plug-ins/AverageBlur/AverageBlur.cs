@@ -47,7 +47,6 @@ namespace Gimp.AverageBlur
 
       iter.IterateSrc(pixel => average.Add(pixel));
       average /= iter.Count;
-
       iter.IterateDest(() => average);
     }
   }

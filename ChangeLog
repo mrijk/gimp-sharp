@@ -1,4 +1,18 @@
+2012-08-27  Maurits  <maurits.rijk@gmail.com>
+
+	* lib/Image.cs: new functionality for Layer groups
+
+	* plug-ins/UnitTest/TestLayerGroups.cs: new unit test for LayerGroup
+
+	* plug-ins/UnitTest/Makefile.am: changed accordingly
+
+	* lib/LayerGroup.cs: new file
+
+	* lib/Makefile.am: changed accordingly
+
 2012-08-26  Maurits  <maurits.rijk@gmail.com>
+
+	* lib/Drawable.cs: inherit from Item
 
 	* plug-ins/UnitTest/TestVectors.cs: move bunch of tests to TestItem since
 	Item is now the base class for Vectors.

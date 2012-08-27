@@ -195,7 +195,7 @@ namespace Gimp
       int data = 13;
       var parasite = new Parasite(name, 0, data);
 
-      _drawable.ParasiteAttach(parasite);
+      _drawable.AttachParasite(parasite);
 
       list = _drawable.ParasiteList;
       Assert.AreEqual(1, list.Count);
@@ -203,27 +203,27 @@ namespace Gimp
     }
 
     [Test]
-    public void ParasiteAttach()
+    public void AttachParasite()
     {
       string name = "parasite";
       int data = 13;
       var parasite = new Parasite(name, 0, data);
 
-      _drawable.ParasiteAttach(parasite);
+      _drawable.AttachParasite(parasite);
       var found = _drawable.ParasiteFind(name);
       Assert.IsNotNull(found);
       Assert.AreEqual(name, found.Name);
     }
 
     [Test]
-    public void ParasiteDetach()
+    public void DetachParasite()
     {
       string name = "parasite";
       int data = 13;
       var parasite = new Parasite(name, 0, data);
 
-      _drawable.ParasiteAttach(parasite);
-      _drawable.ParasiteDetach(name);
+      _drawable.AttachParasite(parasite);
+      _drawable.DetachParasite(parasite);
       var found = _drawable.ParasiteFind(name);
       Assert.IsNull(found);
       Assert.AreEqual(0, _drawable.ParasiteList.Count);

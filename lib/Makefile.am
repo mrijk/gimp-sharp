@@ -74,6 +74,7 @@ MYSOURCES = 				\
 	IntStore.cs			\
 	Item.cs				\
 	Layer.cs			\
+	LayerGroup.cs			\
 	LayerList.cs			\
 	Image.cs			\
 	ImageList.cs			\
