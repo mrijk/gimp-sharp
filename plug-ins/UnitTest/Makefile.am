@@ -27,6 +27,7 @@ TESTSOURCES = 	TestBoolMatrix.cs		\
 		TestImage.cs			\
 		TestItem.cs			\
 		TestLayerGroup.cs		\
+		TestLayerList.cs		\
 		TestVectors.cs			\
 		TestVector2.cs			\
 		TestVector3.cs			\

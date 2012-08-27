@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2012 Maurits Rijk
 //
 // DrawableList.cs
 //
@@ -48,8 +48,14 @@ namespace Gimp
 	{
 	  var dest = new int[numDrawables];
 	  Marshal.Copy(ptr, dest, 0, numDrawables);
-	  Array.ForEach(dest, drawableID => Add(new T() {ID = drawableID}));
+	  Array.ForEach(dest, 
+			drawableID => Add(NewFromItem(new Item(drawableID))));
 	}
+    }
+
+    protected virtual T NewFromItem(Item item)
+    {
+      return new T() {ID = item.ID};
     }
 
     public IEnumerator<T> GetEnumerator()

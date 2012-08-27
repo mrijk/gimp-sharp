@@ -1,7 +1,7 @@
 // GIMP# - A C# wrapper around the GIMP Library
 // Copyright (C) 2004-2012 Maurits Rijk
 //
-// LayerGroup.cs
+// TestLayerList.cs
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -20,21 +20,45 @@
 //
 
 using System;
-using System.Runtime.InteropServices;
+
+using NUnit.Framework;
 
 namespace Gimp
 {
-  public class LayerGroup : Layer
+  [TestFixture]
+  public class TestLayerList
   {
-    public LayerGroup(Image image) : base(gimp_layer_group_new(image.ID))
+    int _width = 64;
+    int _height = 128;
+    ImageBaseType _type = ImageBaseType.Rgb;
+
+    Image _image;
+
+    [SetUp]
+    public void Init()
     {
+      _image = new Image(_width, _height, _type);
     }
 
-    internal LayerGroup(Int32 layerID) : base(layerID)
+    [TearDown]
+    public void Exit()
     {
+      _image.Delete();
     }
 
-    [DllImport("libgimp-2.0-0.dll")]
-    static extern Int32 gimp_layer_group_new(Int32 image_ID);
+    [Test]
+    public void AddTwoDifferentLayerTypes()
+    {
+      var layer = new Layer(_image, "test1", ImageType.Rgb);
+      _image.InsertLayer(layer, null, 0);
+
+      var fontSize = new FontSize(32, Unit.Pixel);
+      var textLayer = new TextLayer(_image, "Hello World", "Sans", fontSize);
+      _image.InsertLayer(textLayer, null, 0);
+
+      Assert.AreEqual(2, _image.Layers.Count);
+      Assert.IsTrue(_image.Layers[0] is TextLayer);
+      Assert.IsTrue(_image.Layers[1] is Layer);
+    }
   }
 }

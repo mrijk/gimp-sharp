@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2012 Maurits Rijk
 //
 // LayerList.cs
 //
@@ -33,6 +33,26 @@ namespace Gimp
     internal LayerList(IntPtr ptr, int numLayers)
     {
       FillListFromPtr(ptr, numLayers);
+    }
+
+    protected override Layer NewFromItem(Item item)
+    {
+      if (item.IsTextLayer)
+	{
+	  return new TextLayer(item.ID);
+	}
+      else if (item.IsGroup)
+	{
+	  return new LayerGroup(item.ID);
+	}
+      else if (item.IsLayer) 
+	{
+	  return new Layer(item.ID);
+	}
+      else
+	{
+	  throw new GimpSharpException("Unknown type in LayerList.Add");
+	}
     }
 
     [DllImport("libgimp-2.0-0.dll")]

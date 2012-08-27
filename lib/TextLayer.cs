@@ -39,6 +39,10 @@ namespace Gimp
     {
     }
 
+    internal TextLayer(Int32 layerID) : base(layerID)
+    {
+    }
+
     public string Text
     {
       get {return gimp_text_layer_get_text(ID);}

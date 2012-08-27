@@ -2,7 +2,8 @@
 
 	* lib/Image.cs: new functionality for Layer groups
 
-	* plug-ins/UnitTest/TestLayerGroups.cs: new unit test for LayerGroup
+	* plug-ins/UnitTest/TestLayerGroups.cs
+	* plug-ins/UnitTest/TestLayerList.cs: new files
 
 	* plug-ins/UnitTest/Makefile.am: changed accordingly
 
