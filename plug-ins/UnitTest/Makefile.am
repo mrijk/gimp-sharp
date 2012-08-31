@@ -25,9 +25,16 @@ TESTSOURCES = 	TestBoolMatrix.cs		\
 		TestGuide.cs			\
 		TestHSV.cs			\
 		TestImage.cs			\
+		TestIntCoordinate.cs		\
 		TestItem.cs			\
+		TestLayer.cs			\
 		TestLayerGroup.cs		\
 		TestLayerList.cs		\
+		TestPixel.cs			\
+		TestRectangle.cs		\
+		TestRGB.cs			\
+		TestSelection.cs		\
+		TestTextLayer.cs		\
 		TestVectors.cs			\
 		TestVector2.cs			\
 		TestVector3.cs			\
@@ -43,8 +50,6 @@ FAILING = \
 		TestGradientList.cs		\
 		TestGradientSegment.cs		\
 		TestImageList.cs		\
-		TestIntCoordinate.cs		\
-		TestLayer.cs			\
 		TestMask.cs			\
 		TestOffset.cs			\
 		TestPalette.cs			\
@@ -54,20 +59,15 @@ FAILING = \
 		TestPath.cs			\
 		TestPattern.cs			\
 		TestPatternList.cs		\
-		TestPixel.cs			\
 		TestPixelFetcher.cs		\
 		TestPixelRgn.cs			\
 		TestPlugins.cs			\
 		TestProceduralDb.cs		\
 		TestProcedure.cs		\
 		TestRcQuery.cs			\
-		TestRectangle.cs		\
 		TestRegionIterator.cs		\
 		TestRgnIterator.cs		\
-		TestRGB.cs			\
-		TestSelection.cs		\
 		TestStroke.cs			\
-		TestTextLayer.cs		\
 		TestUndo.cs
 
 EXTRA_DIST = $(MYSOURCES) $(TESTSOURCES) UnitTest UnitTest.png

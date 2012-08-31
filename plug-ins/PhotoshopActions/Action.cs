@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2010 Maurits Rijk
+// Copyright (C) 2006-2012 Maurits Rijk
 //
 // Action.cs
 //
@@ -95,7 +95,7 @@ namespace Gimp.PhotoshopActions
 					ActionEvent.SelectedLayer.Bpp);
 		    }
 		  var layer = new Layer(ActionEvent.SelectedLayer);
-		  ActionEvent.ActiveImage.AddLayer(layer, 0);
+		  ActionEvent.ActiveImage.InsertLayer(layer, 0);
 		  ActionEvent.SelectedLayer = layer;
 		}
 	    }

@@ -1,5 +1,5 @@
 // The Splitter plug-in
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2012 Maurits Rijk
 //
 // Renderer.cs
 //
@@ -106,7 +106,7 @@ namespace Gimp.Splitter
 	  var layer = new Layer(image, name, ImageType.Rgba);
 	  layer.Translate(GetValue<int>(translate_x), GetValue<int>(translate_y));
 	  layer.AddAlpha();
-	  image.AddLayer(layer, 0);
+	  image.InsertLayer(layer, 0);
 
 	  destPR = new PixelRgn(layer, image.Bounds, true, false);
 	  return layer;

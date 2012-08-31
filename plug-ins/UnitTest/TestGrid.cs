@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2012 Maurits Rijk
 //
 // TestGrid.cs
 //
@@ -36,9 +36,8 @@ namespace Gimp
     public void Init()
     {
       _image = new Image(_width, _height, ImageBaseType.Rgb);
-
       var layer = new Layer(_image, "test", ImageType.Rgb);
-      _image.AddLayer(layer, 0);
+      _image.InsertLayer(layer, 0);
     }
 
     [TearDown]

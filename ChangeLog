@@ -1,3 +1,31 @@
+2012-08-31  Maurits  <maurits.rijk@gmail.com>
+
+	* plug-ins/UnitTest/TestPixelFetcher.cs
+	* plug-ins/UnitTest/TestImage.cs
+	* plug-ins/UnitTest/TestVectors.cs
+	* plug-ins/Splitter/Renderer.cs
+	* plug-ins/PicturePackage/ImageRenderer.cs
+	* plug-ins/PhotoshopActions/Action.cs
+	* plug-ins/PhotoshopActions/AddLayerEvent.cs
+	* plug-ins/PhotoshopActions/CopyToLayerEvent.cs
+	* plug-ins/PhotoshopActions/DuplicateLayerByNameEvent.cs
+	* plug-ins/PhotoshopActions/DuplicateLayerEvent.cs
+	* plug-ins/PhotoshopActions/MakeBackgroundLayerEvent.cs
+	* plug-ins/PhotoshopActions/MakeContentLayerEvent.cs
+	* plug-ins/PhotoshopActions/NewDocumentEvent.cs
+	* plug-ins/PhotoshopActions/SmoothnessEvent.cs
+	* lib/FilePlugin.cs: replaced AddLayer by InsertLayer
+
+	* lib/Image.cs: remove deprecated AddLayer
+
+	* lib/LayerGroup.cs: added convenience method Insert
+
+	* lib/Drawable.cs: moved Equals and GetHashCode to base class
+
+	* lib/Item.cs: implemented Parent property
+
+	* plug-ins/UnitTest/TestLayerGroup.cs: added some more tests
+
 2012-08-27  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Image.cs: new functionality for Layer groups

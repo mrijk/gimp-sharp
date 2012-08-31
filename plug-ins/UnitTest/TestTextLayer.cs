@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2012 Maurits Rijk
 //
 // TestTextLayer.cs
 //
@@ -49,7 +49,7 @@ namespace Gimp
     {
       var layer = new TextLayer(_image, "Hello World", "Sans", 
 				new FontSize(32, Unit.Pixel));
-      _image.AddLayer(layer, 0);
+      _image.InsertLayer(layer, 0);
       Assert.AreEqual(1, _image.Layers.Count);
     }
 
@@ -78,7 +78,7 @@ namespace Gimp
     {
       var fontSize = new FontSize(32, Unit.Pixel);
       var layer = new TextLayer(_image, "Hello World", "Sans", fontSize);
-      _image.AddLayer(layer, 0);
+      _image.InsertLayer(layer, 0);
       Assert.AreEqual(fontSize, layer.FontSize);
       var newFontSize = new FontSize(1, Unit.Inch);
       layer.FontSize = newFontSize;
@@ -175,7 +175,7 @@ namespace Gimp
     {
       var fontSize = new FontSize(32, Unit.Pixel);
       var layer = new TextLayer(_image, "Hello World", "Sans", fontSize);
-      _image.AddLayer(layer, 0);
+      _image.InsertLayer(layer, 0);
       return layer;
     }
   }

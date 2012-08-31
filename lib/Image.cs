@@ -285,15 +285,6 @@ namespace Gimp
       return (layerID == -1) ? null : new Layer(layerID);
     }
 
-    // Fix me: deprecated in GIMP 2.8
-    public void AddLayer(Layer layer, int position)
-    {
-      if (!gimp_image_add_layer(ID, layer.ID, position))
-        {
-	  throw new GimpSharpException();
-        }
-    }
-
     public void InsertLayer(Layer layer, Item parent, int position)
     {
       if (!gimp_image_insert_layer(ID, layer.ID, parent != null ? parent.ID : 0, position))
@@ -302,9 +293,14 @@ namespace Gimp
         }
     }
 
+    public void InsertLayer(Layer layer, int position)
+    {
+      InsertLayer(layer, null, position);
+    }
+
     public void Add(Layer layer, int position)
     {
-      AddLayer(layer.DelayedConstruct(this), position);
+      InsertLayer(layer.DelayedConstruct(this), position);
     }
 
     public void RemoveLayer(Layer layer)

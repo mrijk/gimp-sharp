@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2012 Maurits Rijk
 //
 // FilePlugin.cs
 //
@@ -158,8 +158,8 @@ namespace Gimp
     {
       var image = new Image(width, height, baseType) {Filename = filename};
       var layer = new Layer(image, "Background", type);
-      image.AddLayer(layer, 0);
-      
+      image.InsertLayer(layer, 0);
+
       return image;
     }
 

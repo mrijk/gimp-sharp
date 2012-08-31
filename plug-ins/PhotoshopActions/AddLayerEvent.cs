@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2012 Maurits Rijk
 //
 // AddLayerEvent.cs
 //
@@ -65,7 +65,7 @@ namespace Gimp.PhotoshopActions
     */
     LayerModeEffects GetMode()
     {
-      LayerModeEffects mode = LayerModeEffects.Normal;
+      var mode = LayerModeEffects.Normal;
 
       if (_mode == null)
 	return mode;
@@ -101,17 +101,8 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
-      Image image = ActiveImage;
-
-      string name;
-      if (_name == null)
-	{
-	  name = "Layer " + _layerNr++;
-	}
-      else
-	{
-	  name = _name;
-	}
+      var image = ActiveImage;
+      var name = _name ?? "Layer " + _layerNr++;
 
       ImageType imageType;
       switch (image.BaseType)
@@ -127,8 +118,8 @@ namespace Gimp.PhotoshopActions
 	  break;
 	}
 
-      Layer layer = new Layer(image, name, imageType, 100, GetMode());
-      image.AddLayer(layer, 0);
+      var layer = new Layer(image, name, imageType, 100, GetMode());
+      image.InsertLayer(layer, 0);
       image.ActiveLayer = layer;
       SelectedLayer = layer;
 

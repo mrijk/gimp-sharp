@@ -55,7 +55,7 @@ namespace Gimp
     {
       var layer = new TextLayer(_image, "Hello World", "Sans", 
 				new FontSize(32, Unit.Pixel));
-      _image.AddLayer(layer, 0);
+      _image.InsertLayer(layer, 0);
       var vectors = new Vectors(_image, layer);
       Assert.IsTrue(vectors.IsValid);
       Assert.IsTrue(vectors.Strokes.Count > 0);

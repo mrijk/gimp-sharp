@@ -808,22 +808,6 @@ namespace Gimp
 	}
     }
 
-    // Misc routines
-
-    public override bool Equals(object o)
-    {
-      if (o is Drawable)
-	{
-	  return (o as Drawable).ID == ID;
-	}
-      return false;
-    }
-
-    public override int GetHashCode()
-    {
-      return ID;
-    }
-
     new internal Int32 ID
     {
       get {return base.ID;}

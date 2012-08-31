@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2012 Maurits Rijk
 //
 // MakePatternEvent.cs
 //
@@ -42,17 +42,17 @@ namespace Gimp.PhotoshopActions
       // Look for script-fu-selection-to-pattern as example. The basic idea
       // is to create a new image and save it as a .pat file 
 
-      Selection selection = ActiveImage.Selection;
+      var selection = ActiveImage.Selection;
       bool nonEmpty;
-      Rectangle bounds = selection.Bounds(out nonEmpty);
+      var bounds = selection.Bounds(out nonEmpty);
       int width = bounds.Width;
       int height = bounds.Height;
 
-      Image image = new Image(width, height, ActiveImage.BaseType);
-      Layer layer = new Layer(image, "test", width, height,
-			      ImageType.Rgb, 100, 
-			      LayerModeEffects.Normal);
-      image.AddLayer(layer, 0);
+      var image = new Image(width, height, ActiveImage.BaseType);
+      var layer = new Layer(image, "test", width, height,
+			    ImageType.Rgb, 100, 
+			    LayerModeEffects.Normal);
+      image.InsertLayer(layer, 0);
       Console.WriteLine("{0} {1}", image.Width, image.Height);
 
       ActiveDrawable.EditCopy();

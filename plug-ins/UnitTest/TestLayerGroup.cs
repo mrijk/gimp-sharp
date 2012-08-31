@@ -48,7 +48,6 @@ namespace Gimp
     public void CreateLayerGroup()
     {
       var group = new LayerGroup(_image);
-      group.Name = "Foo";
       Assert.IsTrue(group.IsGroup);
       Assert.IsTrue(group.IsLayer);
       Assert.AreEqual(_image, group.Image);
@@ -64,6 +63,32 @@ namespace Gimp
       var layer = new Layer(_image, "test1", ImageType.Rgb);
       _image.InsertLayer(layer, group, 0);
       Assert.AreEqual(1, group.Children.Count);
+    }
+
+    [Test]
+    public void NestedLayerGroupOne()
+    {
+      var group1 = new LayerGroup(_image) {Name = "Foo"};
+     _image.InsertLayer(group1, null, 0);      
+
+      var group2 = new LayerGroup(_image) {Name = "Bar"};
+      _image.InsertLayer(group2, group1, 0);
+
+      Assert.IsNotNull(group2.Parent);
+      Assert.AreEqual(group1, group2.Parent);
+    }
+
+    [Test]
+    public void NestedLayerGroupTwo()
+    {
+      var group1 = new LayerGroup(_image) {Name = "Foo"};
+     _image.InsertLayer(group1, 0);
+
+      var group2 = new LayerGroup(_image) {Name = "Bar"};
+      group1.Insert(group2, 0);
+
+      Assert.IsNotNull(group2.Parent);
+      Assert.AreEqual(group1, group2.Parent);
     }
   }
 }

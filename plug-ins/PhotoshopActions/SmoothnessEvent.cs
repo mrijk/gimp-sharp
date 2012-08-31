@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2012 Maurits Rijk
 //
 // SmoothnessEvent.cs
 //
@@ -30,7 +30,7 @@ namespace Gimp.PhotoshopActions
       Image image = ActiveImage;
 
       Layer layer = new Layer(image, "tmpLayer", ImageType.Rgba);
-      image.AddLayer(layer, 0);
+      image.InsertLayer(layer, 0);
       layer.EditFill(FillType.Foreground);
 
       Selection selection = image.Selection;

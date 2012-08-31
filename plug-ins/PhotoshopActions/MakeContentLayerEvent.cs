@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2012 Maurits Rijk
 //
 // MakeContentLayerEvent.cs
 //
@@ -70,11 +70,11 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
-      Image image = ActiveImage;
+      var image = ActiveImage;
 
       _layerNr++;
-      Layer layer = new Layer(image, "Color Fill " + _layerNr, ImageType.Rgba);
-      image.AddLayer(layer, 0);
+      var layer = new Layer(image, "Color Fill " + _layerNr, ImageType.Rgba);
+      image.InsertLayer(layer, 0);
       image.ActiveLayer = layer;
       SelectedLayer = layer;
 

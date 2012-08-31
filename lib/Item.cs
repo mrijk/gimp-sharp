@@ -99,9 +99,8 @@ namespace Gimp
 
     public Item Parent
     {
-      // Fix me!
-      get {return null;}
-      // get {return new Item(gimp_item_get_parent(ID));}
+      // Fix me: instantiate concrete object based on type iso Item object
+      get {return new Item(gimp_item_get_parent(ID));}
     }
 
     public List<Item> Children
@@ -218,6 +217,20 @@ namespace Gimp
     internal int ID
     {
       get {return _ID;}
+    }
+
+    public override bool Equals(object o)
+    {
+      if (o is Item)
+	{
+	  return ID == (o as Item).ID;
+	}
+      return false;
+    }
+
+    public override int GetHashCode()
+    {
+      return ID.GetHashCode();
     }
 
     [DllImport("libgimp-2.0-0.dll")]

@@ -34,6 +34,12 @@ namespace Gimp
     {
     }
 
+
+    public void Insert(Layer layer, int position)
+    {
+      Image.InsertLayer(layer, this, position);
+    }
+
     [DllImport("libgimp-2.0-0.dll")]
     static extern Int32 gimp_layer_group_new(Int32 image_ID);
   }

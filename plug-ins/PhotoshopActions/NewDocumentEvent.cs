@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2010 Maurits Rijk
+// Copyright (C) 2006-2012 Maurits Rijk
 //
 // NewDocumentEvent.cs
 //
@@ -91,7 +91,7 @@ namespace Gimp.PhotoshopActions
 
       var image = new Image(width, height, type);
       var layer = new Layer(image, "Layer 1", width, height, imageType);
-      image.AddLayer(layer, 0);
+      image.InsertLayer(layer, 0);
 
       layer.Fill(fillType);
 

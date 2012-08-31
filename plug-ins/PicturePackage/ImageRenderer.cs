@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2012 Maurits Rijk
 //
 // ImageRendererer.cs
 //
@@ -18,7 +18,7 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
+// using System;
 
 namespace Gimp.PicturePackage
 {
@@ -50,7 +50,7 @@ namespace Gimp.PicturePackage
       int iw = (int) w;
       int ih = (int) h;
 
-      Image clone = RotateAndScale(image, w, h);
+      var clone = RotateAndScale(image, w, h);
       int tw = clone.Width;
       int th = clone.Height;
 
@@ -60,7 +60,7 @@ namespace Gimp.PicturePackage
       layer.Translate(ix, iy);
 
       // clone.Delete();
-      _composed.AddLayer(layer, -1);
+      _composed.InsertLayer(layer, -1);
     }
   }
 }

@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2012 Maurits Rijk
 //
 // TestImage.cs
 //
@@ -178,7 +178,7 @@ namespace Gimp
     public void ActiveLayer()
     {
       var layer = new Layer(_image, "test", ImageType.Rgb);
-      _image.AddLayer(layer, 0);
+      _image.InsertLayer(layer, 0);
 
       var active = _image.ActiveLayer;
       Assert.AreEqual(layer.Name, active.Name);
@@ -191,7 +191,7 @@ namespace Gimp
       var c = new Coordinate<int>(_width / 2, _height / 2);
       Assert.IsNull(_image.PickCorrelateLayer(c));
 
-      _image.AddLayer(layer, 0);
+      _image.InsertLayer(layer, 0);
 
       var picked = _image.PickCorrelateLayer(c);
       Assert.AreEqual(layer, picked);
@@ -207,7 +207,7 @@ namespace Gimp
     public void ActiveDrawable()
     {
       var layer = new Layer(_image, "test", ImageType.Rgb);
-      _image.AddLayer(layer, 0);
+      _image.InsertLayer(layer, 0);
       Assert.AreEqual(layer, _image.ActiveDrawable);
     }
 
@@ -215,7 +215,7 @@ namespace Gimp
     public void RemoveLayer()
     {
       var layer = new Layer(_image, "test", ImageType.Rgb);
-      _image.AddLayer(layer, 0);
+      _image.InsertLayer(layer, 0);
       Assert.AreEqual(1, _image.Layers.Count);
       _image.RemoveLayer(layer);
       Assert.AreEqual(0, _image.Layers.Count);
@@ -225,9 +225,9 @@ namespace Gimp
     public void RaiseLayer()
     {
       var layer1 = new Layer(_image, "test1", ImageType.Rgb);
-      _image.AddLayer(layer1, 0);
+      _image.InsertLayer(layer1, 0);
       var layer2 = new Layer(_image, "test2", ImageType.Rgb);
-      _image.AddLayer(layer2, 0);
+      _image.InsertLayer(layer2, 0);
 
       Assert.AreEqual(1, layer1.Position);
       Assert.AreEqual(0, layer2.Position);
@@ -240,9 +240,9 @@ namespace Gimp
     public void LowerLayer()
     {
       var layer1 = new Layer(_image, "test1", ImageType.Rgb);
-      _image.AddLayer(layer1, 0);
+      _image.InsertLayer(layer1, 0);
       var layer2 = new Layer(_image, "test2", ImageType.Rgb);
-      _image.AddLayer(layer2, 0);
+      _image.InsertLayer(layer2, 0);
 
       Assert.AreEqual(1, layer1.Position);
       Assert.AreEqual(0, layer2.Position);
@@ -255,9 +255,9 @@ namespace Gimp
     public void RaiseLayerToTop()
     {
       var layer1 = new Layer(_image, "test1", ImageType.Rgb);
-      _image.AddLayer(layer1, 0);
+      _image.InsertLayer(layer1, 0);
       var layer2 = new Layer(_image, "test2", ImageType.Rgb);
-      _image.AddLayer(layer2, 0);
+      _image.InsertLayer(layer2, 0);
 
       Assert.AreEqual(1, layer1.Position);
       Assert.AreEqual(0, layer2.Position);
@@ -270,9 +270,9 @@ namespace Gimp
     public void LowerLayerToBottom()
     {
       var layer1 = new Layer(_image, "test1", ImageType.Rgb);
-      _image.AddLayer(layer1, 0);
+      _image.InsertLayer(layer1, 0);
       var layer2 = new Layer(_image, "test2", ImageType.Rgb);
-      _image.AddLayer(layer2, 0);
+      _image.InsertLayer(layer2, 0);
 
       Assert.AreEqual(1, layer1.Position);
       Assert.AreEqual(0, layer2.Position);
@@ -285,9 +285,9 @@ namespace Gimp
     public void GetLayerPosition()
     {
       var layer1 = new Layer(_image, "test1", ImageType.Rgb);
-      _image.AddLayer(layer1, 0);
+      _image.InsertLayer(layer1, 0);
       var layer2 = new Layer(_image, "test2", ImageType.Rgb);
-      _image.AddLayer(layer2, 0);
+      _image.InsertLayer(layer2, 0);
 
       Assert.AreEqual(1, _image.GetLayerPosition(layer1));
       Assert.AreEqual(0, _image.GetLayerPosition(layer2));
@@ -355,9 +355,9 @@ namespace Gimp
     public void Flatten()
     {
       var layer1 = new Layer(_image, "test1", ImageType.Rgb);
-      _image.AddLayer(layer1, 0);
+      _image.InsertLayer(layer1, 0);
       var layer2 = new Layer(_image, "test2", ImageType.Rgb);
-      _image.AddLayer(layer2, 0);
+      _image.InsertLayer(layer2, 0);
 
       Assert.AreEqual(2, _image.Layers.Count);
       _image.Flatten();
@@ -368,9 +368,9 @@ namespace Gimp
     public void MergeVisibleLayers()
     {
       var layer1 = new Layer(_image, "test1", ImageType.Rgb);
-      _image.AddLayer(layer1, 0);
+      _image.InsertLayer(layer1, 0);
       var layer2 = new Layer(_image, "test2", ImageType.Rgb);
-      _image.AddLayer(layer2, 0);
+      _image.InsertLayer(layer2, 0);
 
       Assert.AreEqual(2, _image.Layers.Count);
       _image.MergeVisibleLayers(MergeType.ClipToImage);
@@ -381,9 +381,9 @@ namespace Gimp
     public void MergeDown()
     {
       var layer1 = new Layer(_image, "test1", ImageType.Rgb);
-      _image.AddLayer(layer1, 0);
+      _image.InsertLayer(layer1, 0);
       var layer2 = new Layer(_image, "test2", ImageType.Rgb);
-      _image.AddLayer(layer2, 0);
+      _image.InsertLayer(layer2, 0);
 
       Assert.AreEqual(2, _image.Layers.Count);
       _image.MergeDown(layer1, MergeType.ClipToImage);
@@ -406,7 +406,7 @@ namespace Gimp
     public void GetThumbnail()
     {
       var layer = new Layer(_image, "test", ImageType.Rgb);
-      _image.AddLayer(layer, 0);
+      _image.InsertLayer(layer, 0);
       var dimensions = new Dimensions(19, 23);
       var thumbnail = _image.GetThumbnail(dimensions, Transparency.KeepAlpha);
       int width = thumbnail.GetLength(1);
@@ -418,7 +418,7 @@ namespace Gimp
     public void ConvertGrayscale()
     {
       var layer = new Layer(_image, "test", ImageType.Rgb);
-      _image.AddLayer(layer, 0);
+      _image.InsertLayer(layer, 0);
 
       var type = _image.BaseType;
 
@@ -433,7 +433,7 @@ namespace Gimp
     public void ConvertIndexed()
     {
       var layer = new Layer(_image, "test", ImageType.Rgb);
-      _image.AddLayer(layer, 0);
+      _image.InsertLayer(layer, 0);
 
       _image.ConvertIndexed(ConvertDitherType.No, ConvertPaletteType.Web,
 			    0, false, false, "");

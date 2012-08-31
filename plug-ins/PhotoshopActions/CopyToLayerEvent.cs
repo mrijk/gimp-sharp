@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2012 Maurits Rijk
 //
 // CopyToLayerEvent.cs
 //
@@ -37,19 +37,17 @@ namespace Gimp.PhotoshopActions
 	  
 	  ActiveImage.FloatingSelection.Offsets = 
 	    new Offset(rectangle.X1, rectangle.Y1);
-	  Layer layer = ActiveImage.FloatingSelection.ToLayer();
+	  var layer = ActiveImage.FloatingSelection.ToLayer();
 
 	  // Fix me: why can't I use layer here?
-	  Layer dummy = new Layer(ActiveImage.ActiveDrawable);
+	  var dummy = new Layer(ActiveImage.ActiveDrawable) {Name = "Layer 1"};
 	  dummy.ResizeToImageSize();
-	  dummy.Name = "Layer 1";
 	}
       else
 	{
-	  Image image = ActiveImage;
-	  Layer layer = new Layer(SelectedLayer);
-	  layer.Name = "Layer 1";
-	  image.AddLayer(layer, 0);
+	  var image = ActiveImage;
+	  var layer = new Layer(SelectedLayer) {Name = "Layer 1"};
+	  image.InsertLayer(layer, 0);
 	  image.ActiveLayer = layer;
 	  SelectedLayer = layer;
 	}

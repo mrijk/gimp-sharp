@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2012 Maurits Rijk
 //
 // DuplicateLayerByNameEvent.cs
 //
@@ -50,9 +50,9 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
-      Layer layer = ActiveImage.Layers[_name];
-      Layer newLayer = new Layer(layer);
-      ActiveImage.AddLayer(newLayer, layer.Position);
+      var layer = ActiveImage.Layers[_name];
+      var newLayer = new Layer(layer);
+      ActiveImage.InsertLayer(newLayer, layer.Position);
       SelectedLayer = newLayer;
       return true;
     }
