@@ -21,6 +21,8 @@ TESTSOURCES = 	TestBoolMatrix.cs		\
 		TestCoordinate.cs		\
 		TestCoordinateList.cs		\
 		TestDrawable.cs			\
+		TestGimp.cs			\
+		TestGradient.cs			\
 		TestGrid.cs			\
 		TestGuide.cs			\
 		TestHSV.cs			\
@@ -30,11 +32,19 @@ TESTSOURCES = 	TestBoolMatrix.cs		\
 		TestLayer.cs			\
 		TestLayerGroup.cs		\
 		TestLayerList.cs		\
+		TestMask.cs			\
+		TestOffset.cs			\
+		TestParasite.cs			\
+		TestPath.cs			\
 		TestPixel.cs			\
+		TestProcedure.cs		\
+		TestRcQuery.cs			\
 		TestRectangle.cs		\
 		TestRGB.cs			\
 		TestSelection.cs		\
+		TestStroke.cs			\
 		TestTextLayer.cs		\
+		TestUndo.cs			\
 		TestVectors.cs			\
 		TestVector2.cs			\
 		TestVector3.cs			\
@@ -43,32 +53,26 @@ TESTSOURCES = 	TestBoolMatrix.cs		\
 FAILING = \
 		TestBrush.cs			\
 		TestContext.cs			\
+		TestPlugins.cs			\
+		TestProceduralDb.cs		\
+		Dummy.cs
+
+UNKNOWN = \
 		TestBrushList.cs		\
 		TestChannelList.cs		\
-		TestGimp.cs			\
-		TestGradient.cs			\
 		TestGradientList.cs		\
 		TestGradientSegment.cs		\
 		TestImageList.cs		\
-		TestMask.cs			\
-		TestOffset.cs			\
 		TestPalette.cs			\
 		TestPaletteEntry.cs		\
 		TestPaletteList.cs		\
-		TestParasite.cs			\
-		TestPath.cs			\
 		TestPattern.cs			\
 		TestPatternList.cs		\
 		TestPixelFetcher.cs		\
 		TestPixelRgn.cs			\
-		TestPlugins.cs			\
-		TestProceduralDb.cs		\
-		TestProcedure.cs		\
-		TestRcQuery.cs			\
 		TestRegionIterator.cs		\
 		TestRgnIterator.cs		\
-		TestStroke.cs			\
-		TestUndo.cs
+		Dummy.cs
 
 EXTRA_DIST = $(MYSOURCES) $(TESTSOURCES) UnitTest UnitTest.png
 

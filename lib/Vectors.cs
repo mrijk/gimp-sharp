@@ -77,6 +77,7 @@ namespace Gimp
 	}
     }
 
+    // Fix me: deprecated
     public void ToSelection(ChannelOps operation, bool antialias, bool feather,
 			    double featherRadiusX, double featherRadiusY)
     {

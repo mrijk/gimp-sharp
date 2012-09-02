@@ -1,3 +1,9 @@
+2012-09-02  Maurits  <maurits.rijk@gmail.com>
+
+	* plug-ins/UnitTest/Makefile.am: reactivated some unittests
+
+	* plug-ins/UnitTest/TestMask.cs: replaced AddLayer by InsertLayer
+
 2012-08-31  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/UnitTest/TestPixelFetcher.cs
