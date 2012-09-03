@@ -1134,6 +1134,24 @@ namespace Gimp
     static extern bool gimp_image_remove_vectors(Int32 image_ID,
 						 Int32 vectors_ID);
     [DllImport("libgimp-2.0-0.dll")]
+    static extern int gimp_image_get_item_position(Int32 image_ID,
+						   Int32 item_ID);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_image_raise_item(Int32 image_ID, Int32 item_ID);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_image_lower_item(Int32 image_ID, Int32 item_ID);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_image_raise_item_to_top(Int32 image_ID, 
+						    Int32 item_ID);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_image_lower_item_to_bottom(Int32 image_ID, 
+						       Int32 item_ID);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_image_reorder_item(Int32 image_ID, 
+					       Int32 item_ID,
+					       Int32 parent_ID,
+					       int position);
+    [DllImport("libgimp-2.0-0.dll")]
     static extern Int32 gimp_image_get_active_vectors(Int32 image_ID);
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_image_set_active_vectors(Int32 image_ID,

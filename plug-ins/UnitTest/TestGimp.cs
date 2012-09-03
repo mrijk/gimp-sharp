@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2012 Maurits Rijk
 //
 // TestGimp.cs
 //
@@ -52,6 +52,43 @@ namespace Gimp
     {
       var version = Gimp.Version;
       Assert.IsTrue(version.Micro >= 0);
+    }
+
+    [Test]
+    public void PID()
+    {
+      Assert.IsTrue(Gimp.PID > 0);
+    }
+
+    [Test]
+    public void AttachParasite()
+    {
+      var parasite = new Parasite("foo", 0, 13);
+      Gimp.AttachParasite(parasite);
+      Assert.AreEqual(1, Gimp.ParasiteList.Count);
+      Gimp.DetachParasite(parasite);
+    }
+
+    [Test]
+    public void DetachParasite()
+    {
+      var parasite = new Parasite("foo", 0, 13);
+      Gimp.AttachParasite(parasite);
+      Assert.AreEqual(1, Gimp.ParasiteList.Count);
+      Gimp.DetachParasite(parasite);
+      Assert.AreEqual(0, Gimp.ParasiteList.Count);
+    }
+
+    [Test]
+    public void GetParasite()
+    {
+      Assert.IsNull(Gimp.GetParasite("foo"));
+      var parasite = new Parasite("foo", 0, 13);
+      Gimp.AttachParasite(parasite);
+      var found = Gimp.GetParasite("foo");
+      Assert.IsNotNull(found);
+      Assert.AreEqual(parasite, found);
+      Gimp.DetachParasite(parasite);
     }
 
     [Test]

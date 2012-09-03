@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2012 Maurits Rijk
 //
 // ParasiteList.cs
 //
@@ -32,11 +32,12 @@ namespace Gimp
 
     public ParasiteList()
     {
+      _list = new List<Parasite>();
     }
 
     internal delegate bool GetParasitesFunc(Int32 ID, 
 					    out int num_parasites,
-					    out IntPtr parasties);
+					    out IntPtr parasites);
     internal delegate IntPtr ParasiteFindFunc(Int32 ID, string name);
 
     internal ParasiteList(Int32 ID, GetParasitesFunc getParasites,

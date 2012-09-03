@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2012 Maurits Rijk
 //
 // Gimp.cs
 //
@@ -75,6 +75,54 @@ namespace Gimp
       get {return new Version(gimp_version());}
     }
 
+    static public int PID
+    {
+      get {return gimp_getpid();}
+    }
+
+    static public void AttachParasite(Parasite parasite)
+    {
+      if (!gimp_attach_parasite(parasite.Ptr))
+        {
+	  throw new GimpSharpException();
+        }
+    }
+
+    static public void DetachParasite(Parasite parasite)
+    {
+      if (!gimp_detach_parasite(parasite.Name))
+        {
+	  throw new GimpSharpException();
+        }
+    }
+
+    static public Parasite GetParasite(string name)
+    {
+      IntPtr found = gimp_get_parasite(name);
+      return (found == IntPtr.Zero) ? null : new Parasite(found);
+    }
+
+    static public ParasiteList ParasiteList
+    {
+      get
+	{
+	  int numParasites;
+
+	  IntPtr ptr = gimp_get_parasite_list(out numParasites);
+
+	  var parasites = new ParasiteList();
+
+	  for (int i = 0; i < numParasites; i++)
+	    {
+	      IntPtr tmp = (IntPtr) Marshal.PtrToStructure(ptr, typeof(IntPtr));
+	      var name = (string) Marshal.PtrToStringAnsi(tmp);
+	      parasites.Add(GetParasite(name));
+	      ptr = (IntPtr)((int)ptr + Marshal.SizeOf(tmp));
+	    }
+	  return parasites;
+	}
+    }
+
     static public string PdbError
     {
       get {return gimp_get_pdb_error();}
@@ -103,16 +151,6 @@ namespace Gimp
     static public double Gamma
     {
       get {return gimp_gamma();}
-    }
-
-    static public bool InstallCmap
-    {
-      get {return gimp_install_cmap();}
-    }
-
-    static public int Mincolors
-    {
-      get {return gimp_min_colors();}
     }
 
     static public bool ShowToolTips
@@ -271,6 +309,16 @@ namespace Gimp
     [DllImport("libgimp-2.0-0.dll")]
       static extern string gimp_version();
     [DllImport("libgimp-2.0-0.dll")]
+      static extern int gimp_getpid();
+    [DllImport("libgimp-2.0-0.dll")]
+      extern static bool gimp_attach_parasite(IntPtr parasite);
+    [DllImport("libgimp-2.0-0.dll")]
+      extern static bool gimp_detach_parasite(string name);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern IntPtr gimp_get_parasite(string name);
+    [DllImport("libgimp-2.0-0.dll")]
+      static extern IntPtr gimp_get_parasite_list(out int num_parasites);
+    [DllImport("libgimp-2.0-0.dll")]
       static extern string gimp_get_pdb_error();
     [DllImport("libgimp-2.0-0.dll")]
       static extern uint gimp_tile_width();
@@ -282,10 +330,6 @@ namespace Gimp
       static extern IntPtr gimp_shm_addr();
     [DllImport("libgimp-2.0-0.dll")]
       static extern double gimp_gamma();
-    [DllImport("libgimp-2.0-0.dll")]
-      static extern bool gimp_install_cmap();
-    [DllImport("libgimp-2.0-0.dll")]
-      static extern int gimp_min_colors();
     [DllImport("libgimp-2.0-0.dll")]
       static extern bool gimp_show_tool_tips();
     [DllImport("libgimp-2.0-0.dll")]

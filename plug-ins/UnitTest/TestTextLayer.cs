@@ -64,6 +64,20 @@ namespace Gimp
     }
 
     [Test]
+    public void GetMarkup()
+    {
+      var layer = CreateTextLayer();
+      Assert.IsTrue(false);
+    }
+
+    [Test]
+    public void GetSetHintStyle()
+    {
+      var layer = CreateTextLayer();
+      Assert.IsTrue(false);
+    }
+
+    [Test]
     public void GetSetFont()
     {
       var layer = CreateTextLayer();
@@ -177,6 +191,15 @@ namespace Gimp
       var layer = new TextLayer(_image, "Hello World", "Sans", fontSize);
       _image.InsertLayer(layer, 0);
       return layer;
+    }
+
+    [Test]
+    public void Resize()
+    {
+      var layer = CreateTextLayer();
+      layer.Resize(2 * _width, 2 * _height, 0, 0);
+      Assert.AreEqual(2 * _width, layer.Width);
+      Assert.AreEqual(2 * _height, layer.Height);
     }
   }
 }

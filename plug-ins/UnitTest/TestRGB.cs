@@ -164,7 +164,9 @@ namespace Gimp
       RGB rgb = new RGB(0, 0, 0);
       rgb.ParseCss("#nonsense");
     }
-    // Fix me: next text segfaults!
+
+    // Fix me: next test segfaults on RGB.ListNames. However if I call this 
+    // function in a plug-in everything seems to be fine
 #if false
     [Test]
     public void ListNames()

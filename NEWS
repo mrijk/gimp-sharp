@@ -1,6 +1,8 @@
 Overview of Changes in Gimp# 0.19
 =================================
-- Started GIMP 2.8 API coverage. This will break compatibilty with older versions!
+- Started GIMP 2.8 API coverage. This will break compatibilty with older 
+  versions!
+- Removed deprecated functionality.
 
 Overview of Changes in Gimp# 0.18
 =================================

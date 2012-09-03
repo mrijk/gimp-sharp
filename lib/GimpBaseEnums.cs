@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2012 Maurits Rijk
 //
 // GimpBaseEnums.cs
 //
@@ -248,6 +248,14 @@ namespace Gimp
   {
     Ltr,
     Rtl
+  }
+
+  public enum TextHintStyle
+  {
+    None,
+    Slight,
+    Medium,
+    Full
   }
 
   public enum TextJustification

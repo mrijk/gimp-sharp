@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2012 Maurits Rijk
 //
 // TextLayer.cs
 //
@@ -49,6 +49,23 @@ namespace Gimp
       set
       {
 	if (!gimp_text_layer_set_text(ID, value))
+	{
+	  throw new GimpSharpException();
+	}
+      }
+    }
+
+    public string Markup
+    {
+      get {return gimp_text_layer_get_markup(ID);}
+    }
+
+    public TextHintStyle HintStyle
+    {
+      get {return gimp_text_layer_get_hint_style(ID);}
+      set
+      {
+	if (!gimp_text_layer_set_hint_style(ID, value))
 	{
 	  throw new GimpSharpException();
 	}
@@ -218,6 +235,19 @@ namespace Gimp
       }
     }
 
+    public void Resize(int width, int height)
+    {
+      if (!gimp_text_layer_resize(_ID, width, height))
+	{
+	  throw new GimpSharpException();
+	}
+    }
+
+    public void Resize(Dimensions dimensions)
+    {
+      Resize(dimensions.Width, dimensions.Height);
+    }
+
     [DllImport("libgimp-2.0-0.dll")]
     static extern Int32 gimp_text_fontname(Int32 image_ID,
 					   Int32 drawable_ID,
@@ -239,6 +269,13 @@ namespace Gimp
     static extern string gimp_text_layer_get_text(Int32 layer_ID);
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_text_layer_set_text(Int32 layer_ID, string text);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern string gimp_text_layer_get_markup(Int32 layer_ID);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern TextHintStyle gimp_text_layer_get_hint_style(Int32 layer_ID);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_text_layer_set_hint_style(Int32 layer_ID, 
+						      TextHintStyle style);
     [DllImport("libgimp-2.0-0.dll")]
     static extern string gimp_text_layer_get_font(Int32 layer_ID);
     [DllImport("libgimp-2.0-0.dll")]
@@ -305,5 +342,9 @@ namespace Gimp
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_text_layer_set_letter_spacing(Int32 layer_ID, 
 							  double letter_spacing);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_text_layer_resize(Int32 layer_ID,
+					      int width,
+					      int height);
   }
 }
