@@ -58,11 +58,12 @@ namespace Gimp
     public void TestRefresh()
     {
       var images = new ImageList();
+      int count = images.Count;
       var image = CreateImage();
 
-      Assert.AreEqual(1, images.Count);
+      Assert.AreEqual(count, images.Count);
       images.Refresh();
-      Assert.AreEqual(2, images.Count);
+      Assert.AreEqual(count + 1, images.Count);
 
       image.Delete(); 
     }
@@ -79,7 +80,7 @@ namespace Gimp
 	{
 	  count++;
 	}
-      Assert.AreEqual(3, count);
+      Assert.AreEqual(images.Count, count);
 
       image2.Delete();
       image1.Delete();
@@ -95,7 +96,7 @@ namespace Gimp
       var images = new ImageList();
       
       images.ForEach(image => count++);
-      Assert.AreEqual(3, count);
+      Assert.AreEqual(images.Count, count);
 
       image2.Delete();
       image1.Delete();

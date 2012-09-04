@@ -311,64 +311,19 @@ namespace Gimp
         }
     }
 
-    public void RaiseLayer(Layer layer)
-    {
-      if (!gimp_image_raise_layer(ID, layer.ID))
-        {
-	  throw new GimpSharpException();
-        }
-    }
-       
-    public void LowerLayer(Layer layer)
-    {
-      if (!gimp_image_lower_layer(ID, layer.ID))
-        {
-	  throw new GimpSharpException();
-        }
-    }
-
-    public void RaiseLayerToTop(Layer layer)
-    {
-      if (!gimp_image_raise_layer_to_top(ID, layer.ID))
-        {
-	  throw new GimpSharpException();
-        }
-    }
-       
-    public void LowerLayerToBottom(Layer layer)
-    {
-      if (!gimp_image_lower_layer_to_bottom(ID, layer.ID))
-        {
-	  throw new GimpSharpException();
-        }
-    }
-
-    public int GetLayerPosition(Layer layer)
-    {
-      return gimp_image_get_layer_position(ID, layer.ID);
-    }
-
-    // Fix me: deprecated in GIMP 2.8
-    public void AddChannel(Channel channel, int position)
-    {
-      if (!gimp_image_add_channel(ID, channel.ID, position))
-        {
-	  throw new GimpSharpException();			  
-        }
-    }
-
-    public void AddChannel(Channel channel)
-    {
-      AddChannel(channel, 0);
-    }
-
     public void InsertChannel(Channel channel, Item parent, int position)
     {
-      if (!gimp_image_insert_channel(ID, channel.ID, parent.ID, position))
+      if (!gimp_image_insert_channel(ID, channel.ID, parent != null ? parent.ID : 0, 
+				     position))
         {
 	  throw new GimpSharpException();			  
         }
     }
+
+    public void AddChannel(Channel channel, int position = 0)
+    {
+      InsertChannel(channel, null, position);
+    }    
 
     public void RemoveChannel(Channel channel)
     {
@@ -378,25 +333,49 @@ namespace Gimp
         }
     }
 
-    public void RaiseChannel(Channel channel)
+    public void RaiseItem(Item item)
     {
-      if (!gimp_image_raise_channel(ID, channel.ID))
+      if (!gimp_image_raise_item(ID, item.ID))
         {
 	  throw new GimpSharpException();			  
         }
     }
        
-    public void LowerChannel(Channel channel)
+    public void LowerItem(Item item)
     {
-      if (!gimp_image_lower_channel(ID, channel.ID))
+      if (!gimp_image_lower_item(ID, item.ID))
         {
 	  throw new GimpSharpException();			  
         }
     }
 
-    public int GetChannelPosition(Channel channel)
+    public void LowerItemToBottom(Item item)
     {
-      return gimp_image_get_channel_position(ID, channel.ID);
+      if (!gimp_image_lower_item_to_bottom(ID, item.ID))
+        {
+	  throw new GimpSharpException();
+        }
+    }
+
+    public void RaiseItemToTop(Item item)
+    {
+      if (!gimp_image_raise_item_to_top(ID, item.ID))
+        {
+	  throw new GimpSharpException();
+        }
+    }
+
+    public void ReorderItem(Item item, Item parent, int position)
+    {
+      if (!gimp_image_reorder_item(ID, item.ID, parent.ID, position))
+        {
+	  throw new GimpSharpException();
+        }
+    }
+
+    public int GetItemPosition(Item item)
+    {
+      return gimp_image_get_item_position(ID, item.ID);
     }
 
     public Layer Flatten()
@@ -500,6 +479,26 @@ namespace Gimp
 	      throw new GimpSharpException();
             }
 	}
+    }
+
+    public string URI
+    {
+      get {return gimp_image_get_uri(ID);}
+    }
+
+    public string XcfURI
+    {
+      get {return gimp_image_get_xcf_uri(ID);}
+    }
+
+    public string ImportedURI
+    {
+      get {return gimp_image_get_imported_uri(ID);}
+    }
+
+    public string ExportedURI
+    {
+      get {return gimp_image_get_exported_uri(ID);}
     }
 
     public string Name
@@ -631,6 +630,11 @@ namespace Gimp
       return new Vectors(gimp_image_get_vectors_by_tattoo(ID, tattoo.ID));
     }
 
+    public Layer GetLayerByName(string name)
+    {
+      return new Layer(gimp_image_get_layer_by_name(ID, name));
+    }
+    
     public Parasite ParasiteFind(string name)
     {
       IntPtr found = gimp_image_parasite_find(ID, name);
@@ -661,18 +665,15 @@ namespace Gimp
         }
     }
 
-    // Fix me: deprecated in GIMP 2.8
-    public void AddVectors(Vectors vectors, int position)
+    public void AddVectors(Vectors vectors, int position = 0)
     {
-      if (!gimp_image_add_vectors(ID, vectors.ID, position))
-        {
-	  throw new GimpSharpException();
-        }
+      InsertVectors(vectors, null, position);
     }
 
     public void InsertVectors(Vectors vectors, Item parent, int position)
     {
-      if (!gimp_image_insert_vectors(ID, vectors.ID, parent.ID, position))
+      if (!gimp_image_insert_vectors(ID, vectors.ID, 
+				     parent != null ? parent.ID : 0, position))
         {
 	  throw new GimpSharpException();
         }
@@ -700,43 +701,6 @@ namespace Gimp
 	      throw new GimpSharpException();
 	    }
 	}
-    }
-
-    public void LowerVectors(Vectors vectors)
-    {
-      if (!gimp_image_lower_vectors(ID, vectors.ID))
-        {
-	  throw new GimpSharpException();
-        }
-    }
-
-    public void RaiseVectors(Vectors vectors)
-    {
-      if (!gimp_image_raise_vectors(ID, vectors.ID))
-        {
-	  throw new GimpSharpException();
-        }
-    }
-
-    public void LowerVectorsToBottom(Vectors vectors)
-    {
-      if (!gimp_image_lower_vectors_to_bottom(ID, vectors.ID))
-        {
-	  throw new GimpSharpException();
-        }
-    }
-
-    public void RaiseVectorsToTop(Vectors vectors)
-    {
-      if (!gimp_image_raise_vectors_to_top(ID, vectors.ID))
-        {
-	  throw new GimpSharpException();
-        }
-    }
-
-    public int GetVectorsPosition(Vectors vectors)
-    {
-      return gimp_image_get_vectors_position(ID, vectors.ID);
     }
 
     public void ConvertRgb()
@@ -974,10 +938,6 @@ namespace Gimp
     static extern Int32 gimp_image_pick_correlate_layer(Int32 image_ID,
 							int x, int y);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_add_layer(Int32 image_ID,
-					    Int32 layer_ID,
-					    int position);
-    [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_image_insert_layer(Int32 image_ID,
 					       Int32 layer_ID,
 					       Int32 parent_ID,
@@ -986,25 +946,6 @@ namespace Gimp
     static extern bool gimp_image_remove_layer(Int32 image_ID,
 					       Int32 layer_ID);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_raise_layer(Int32 image_ID,
-					      Int32 layer_ID);
-    [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_lower_layer(Int32 image_ID,
-					      Int32 layer_ID);
-    [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_raise_layer_to_top(Int32 image_ID,
-						     Int32 layer_ID);
-    [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_lower_layer_to_bottom(Int32 image_ID,
-							Int32 layer_ID);
-    [DllImport("libgimp-2.0-0.dll")]
-    static extern int gimp_image_get_layer_position(Int32 image_ID,
-						    Int32 layer_ID);
-    [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_add_channel(Int32 image_ID,
-					      Int32 channel_ID,
-					      int position);
-    [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_image_insert_channel(Int32 image_ID,
 						 Int32 channel_ID,
 						 Int32 parent_ID,
@@ -1012,15 +953,6 @@ namespace Gimp
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_image_remove_channel(Int32 image_ID,
 						 Int32 channel_ID);
-    [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_raise_channel(Int32 image_ID,
-						Int32 channel_ID);
-    [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_lower_channel(Int32 image_ID,
-						Int32 channel_ID);
-    [DllImport("libgimp-2.0-0.dll")]
-    static extern int gimp_image_get_channel_position(Int32 image_ID,
-						      Int32 channel_ID);
     [DllImport("libgimp-2.0-0.dll")]
     static extern Int32 gimp_image_flatten(Int32 image_ID);
     [DllImport("libgimp-2.0-0.dll")]
@@ -1068,6 +1000,14 @@ namespace Gimp
     static extern bool gimp_image_set_filename(Int32 image_ID, 
 					       string filename);
     [DllImport("libgimp-2.0-0.dll")]
+    static extern string gimp_image_get_uri(Int32 image_ID);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern string gimp_image_get_xcf_uri(Int32 image_ID);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern string gimp_image_get_imported_uri(Int32 image_ID);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern string gimp_image_get_exported_uri(Int32 image_ID);
+    [DllImport("libgimp-2.0-0.dll")]
     static extern string gimp_image_get_name(Int32 image_ID);
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_image_get_resolution(Int32 image_ID,
@@ -1106,6 +1046,9 @@ namespace Gimp
     static extern Int32 gimp_image_get_vectors_by_tattoo(Int32 image_ID,
                                                          int tattoo);
     [DllImport("libgimp-2.0-0.dll")]
+    static extern Int32 gimp_image_get_layer_by_name(Int32 image_ID,
+						     string name);
+    [DllImport("libgimp-2.0-0.dll")]
     static extern IntPtr gimp_image_parasite_find(Int32 image_ID,
                                                   string name);
     [DllImport("libgimp-2.0-0.dll")]
@@ -1120,11 +1063,6 @@ namespace Gimp
                                                       int flags,
                                                       int size,
                                                       object data);
-
-    [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_add_vectors(Int32 image_ID,
-					      Int32 vectors_ID,
-					      int position);
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_image_insert_vectors(Int32 image_ID,
 						 Int32 vectors_ID,
@@ -1156,22 +1094,6 @@ namespace Gimp
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_image_set_active_vectors(Int32 image_ID,
 						     Int32 active_vectors_ID);
-    [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_lower_vectors(Int32 image_ID,
-						Int32 vectors_ID);
-    [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_raise_vectors(Int32 image_ID,
-						Int32 vectors_ID);
-    [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_lower_vectors_to_bottom(Int32 image_ID,
-							  Int32 vectors_ID);
-    [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_image_raise_vectors_to_top(Int32 image_ID,
-						       Int32 vectors_ID);
-    [DllImport("libgimp-2.0-0.dll")]
-    static extern int gimp_image_get_vectors_position(Int32 image_ID,
-						      Int32 vectors_ID);
-
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_image_convert_rgb(Int32 image_ID);
     [DllImport("libgimp-2.0-0.dll")]

@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2012 Maurits Rijk
 //
 // TestGimpUnit.cs
 //
@@ -31,7 +31,7 @@ namespace Gimp
     [Test]
     public void GetNumberOfUnits()
     {
-      Assert.AreEqual((int) Unit.End + 1, GimpUnit.NumberOfUnits);
+      Assert.IsTrue(GimpUnit.NumberOfUnits >= GimpUnit.NumberOfBuiltInUnits);
     }
 
     [Test]

@@ -27,6 +27,7 @@ TESTSOURCES = 	TestBoolMatrix.cs		\
 		TestGuide.cs			\
 		TestHSV.cs			\
 		TestImage.cs			\
+		TestImageList.cs		\
 		TestIntCoordinate.cs		\
 		TestItem.cs			\
 		TestLayer.cs			\
@@ -45,24 +46,23 @@ TESTSOURCES = 	TestBoolMatrix.cs		\
 		TestStroke.cs			\
 		TestTextLayer.cs		\
 		TestUndo.cs			\
-		TestVectors.cs			\
 		TestVector2.cs			\
 		TestVector3.cs			\
+		TestVectors.cs			\
 		TestVersion.cs
 
 FAILING = \
 		TestBrush.cs			\
+		TestBrushList.cs		\
 		TestContext.cs			\
 		TestPlugins.cs			\
 		TestProceduralDb.cs		\
 		Dummy.cs
 
 UNKNOWN = \
-		TestBrushList.cs		\
 		TestChannelList.cs		\
 		TestGradientList.cs		\
 		TestGradientSegment.cs		\
-		TestImageList.cs		\
 		TestPalette.cs			\
 		TestPaletteEntry.cs		\
 		TestPaletteList.cs		\

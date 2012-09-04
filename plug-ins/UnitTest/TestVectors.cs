@@ -125,8 +125,8 @@ namespace Gimp
       var second = new Vectors(_image, "secondVector");
       _image.AddVectors(first, -1);
       _image.AddVectors(second, -1);
-      Assert.AreEqual(1, _image.GetVectorsPosition(first));
-      Assert.AreEqual(0, _image.GetVectorsPosition(second));
+      Assert.AreEqual(1, _image.GetItemPosition(first));
+      Assert.AreEqual(0, _image.GetItemPosition(second));
     }
 
     [Test]
@@ -148,9 +148,9 @@ namespace Gimp
       _image.AddVectors(first, -1);
       _image.AddVectors(second, -1);
 
-      _image.LowerVectors(second);
-      Assert.AreEqual(0, _image.GetVectorsPosition(first));
-      Assert.AreEqual(1, _image.GetVectorsPosition(second));
+      _image.LowerItem(second);
+      Assert.AreEqual(0, _image.GetItemPosition(first));
+      Assert.AreEqual(1, _image.GetItemPosition(second));
     }
 
     [Test]
@@ -161,9 +161,9 @@ namespace Gimp
       _image.AddVectors(first, -1);
       _image.AddVectors(second, -1);
 
-      _image.RaiseVectors(first);
-      Assert.AreEqual(0, _image.GetVectorsPosition(first));
-      Assert.AreEqual(1, _image.GetVectorsPosition(second));
+      _image.RaiseItem(first);
+      Assert.AreEqual(0, _image.GetItemPosition(first));
+      Assert.AreEqual(1, _image.GetItemPosition(second));
     }
 
     [Test]
@@ -174,9 +174,9 @@ namespace Gimp
       _image.AddVectors(first, -1);
       _image.AddVectors(second, -1);
 
-      _image.LowerVectorsToBottom(second);
-      Assert.AreEqual(0, _image.GetVectorsPosition(first));
-      Assert.AreEqual(1, _image.GetVectorsPosition(second));
+      _image.LowerItemToBottom(second);
+      Assert.AreEqual(0, _image.GetItemPosition(first));
+      Assert.AreEqual(1, _image.GetItemPosition(second));
     }
 
     [Test]
@@ -187,9 +187,9 @@ namespace Gimp
       _image.AddVectors(first, -1);
       _image.AddVectors(second, -1);
 
-      _image.RaiseVectorsToTop(first);
-      Assert.AreEqual(0, _image.GetVectorsPosition(first));
-      Assert.AreEqual(1, _image.GetVectorsPosition(second));
+      _image.RaiseItemToTop(first);
+      Assert.AreEqual(0, _image.GetItemPosition(first));
+      Assert.AreEqual(1, _image.GetItemPosition(second));
     }
 
     [Test]

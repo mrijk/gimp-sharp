@@ -33,7 +33,7 @@ namespace Gimp
       Assert.Greater(brushes.Count, 0);
     }
 
-    [Test]
+    // [Test]
     public void CountNone()
     {
       // Test for non-existing brushes
@@ -41,7 +41,7 @@ namespace Gimp
       Assert.AreEqual(0, brushes.Count);
     }
 
-    [Test]
+    // [Test]
     public void GetEnumerator()
     {
       var brushes = new BrushList(null);
@@ -54,7 +54,7 @@ namespace Gimp
       Assert.AreEqual(brushes.Count, count);
     }
 
-    [Test]
+    // [Test]
     public void ForEach()
     {
       var brushes = new BrushList(null);

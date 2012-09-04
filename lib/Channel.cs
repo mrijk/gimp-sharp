@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2012 Maurits Rijk
 //
 // Channel.cs
 //
@@ -92,21 +92,6 @@ namespace Gimp
 	      throw new GimpSharpException();
 	    }
 	}
-    }
-
-    public int Position
-    {
-      get {return Image.GetChannelPosition(this);}
-    }
-
-    public void Lower()
-    {
-      Image.LowerChannel(this);
-    }
-
-    public void Raise()
-    {
-      Image.RaiseChannel(this);
     }
 
     public void CombineMasks(Channel channel, ChannelOps operation,

@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2012 Maurits Rijk
 //
 // TestDisplay.cs
 //
@@ -18,8 +18,6 @@
 // Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 // Boston, MA 02111-1307, USA.
 //
-
-using System;
 
 using NUnit.Framework;
 
@@ -49,11 +47,12 @@ namespace Gimp
       display.Delete();
       images.Refresh();
 
-      /// Todo: the next assert fails!
+      /// Todo: the next assert fails! The number of images is still the same.
       Assert.AreEqual(count, images.Count);
+      image.Delete();
     }
 
-    // [Test]
+    [Test]
     public void IsValid()
     {
       int width = 21;
@@ -66,6 +65,7 @@ namespace Gimp
       Assert.IsTrue(display.Valid);
 
       display.Delete();
+      image.Delete();
       Display.DisplaysFlush();
       Assert.IsFalse(display.Valid);
     }

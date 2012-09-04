@@ -39,6 +39,27 @@ namespace Gimp
     {
     }
 
+    static Item Instantiate(int ID)
+    {
+      var item = new Item(ID);
+      // The order matters!
+      if (item.IsSelection)
+	return null; // new Selection(ID);
+      else if (item.IsChannel)
+	return new Channel(ID);
+      else if (item.IsTextLayer)
+	return new TextLayer(ID);
+      else if (item.IsLayerMask)
+	return new Mask(ID);
+      else if (item.IsGroup)
+	return new LayerGroup(ID);
+      else if (item.IsVectors)
+	return new Vectors(ID);
+      else if (item.IsLayer)
+	return new Layer(ID);
+      return null;
+    }
+
     public bool IsValid
     {
       get {return gimp_item_is_valid(ID);}
@@ -99,8 +120,11 @@ namespace Gimp
 
     public Item Parent
     {
-      // Fix me: instantiate concrete object based on type iso Item object
-      get {return new Item(gimp_item_get_parent(ID));}
+      get 
+      {
+	Int32 parentID = gimp_item_get_parent(ID);
+	return (parentID == -1) ? null : Instantiate(parentID);
+      }
     }
 
     public List<Item> Children
@@ -116,8 +140,7 @@ namespace Gimp
 	  {
 	    var dest = new int[numChildren];
 	    Marshal.Copy(ptr, dest, 0, numChildren);
-	    // Fix me: instantiate concrete objects based on type iso Item objects
-	    Array.ForEach(dest, childID => children.Add(new Item(childID)));
+	    Array.ForEach(dest, childID => children.Add(Instantiate(childID)));
 	  }
 	return children;
       }
@@ -214,6 +237,75 @@ namespace Gimp
 	}
     }
 
+    public void Lower()
+    {
+      Image.LowerItem(this);
+    }
+
+    public void Raise()
+    {
+      Image.RaiseItem(this);
+    }
+
+    public int Position
+    {
+      get {return Image.GetItemPosition(this);}
+    }
+
+    public Item TransformFlipSimple(OrientationType flipType, bool autoCenter, 
+				    double axis)
+    {
+      return new Item(gimp_item_transform_flip_simple(ID, flipType, autoCenter,
+						      axis));
+    }
+
+    public Item TransformFlip(double x0, double y0, double x1, double y1)
+    {
+      return new Item(gimp_item_transform_flip (ID, x0, y0, x1, y1));
+    }
+
+    public Item TransformPerspective(double x0, double y0, double x1, double y1,
+				     double x2, double y2, double x3, double y3)
+    {
+      return new Item(gimp_item_transform_perspective(ID, x0, y0, x1, y1, x2, y2, x3, y3));
+    }
+
+    public Item TransformRotateSimple(RotationType rotate_type, bool auto_center,
+				      int centerX, int centerY)
+    {
+      return new Item(gimp_item_transform_rotate_simple(ID, rotate_type, auto_center, 
+							centerX, centerY));
+    }
+
+    public Item TransformRotate(double angle, bool auto_center,
+				int centerX, int centerY)
+    {
+      return new Item(gimp_item_transform_rotate(ID, angle, auto_center, 
+						 centerX, centerY));
+    }
+    public Item TransformScale(double x0, double y0, double x1, double y1)
+    {
+      return new Item(gimp_item_transform_scale(ID, x0, y0, x1, y1));
+    }
+
+    public Item Transform2d(double sourceX, double sourceY,
+			    double scaleX, double scaleY,
+			    double angle, double destX, double destY)
+    {
+      return new Item(gimp_item_transform_2d(ID, sourceX, sourceY, scaleX, scaleY,
+					     angle, destX, destY));
+    }
+
+    public Item TransformMatrix(double coeff_0_0, double coeff_0_1, double coeff_0_2, 
+				double coeff_1_0, double coeff_1_1, double coeff_1_2,
+				double coeff_2_0, double coeff_2_1, double coeff_2_2)
+    {
+      return new Item(gimp_item_transform_matrix(ID, 
+						 coeff_0_0, coeff_0_1, coeff_0_2, 
+						 coeff_1_0, coeff_1_1, coeff_1_2, 
+						 coeff_2_0, coeff_2_1, coeff_2_2));
+    }
+
     internal int ID
     {
       get {return _ID;}
@@ -290,5 +382,66 @@ namespace Gimp
     static extern bool gimp_item_parasite_list(Int32 item_ID,
 					       out int num_parasites,
 					       out IntPtr parasites);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern Int32 gimp_item_transform_flip_simple(Int32 item_ID,
+							OrientationType flip_type,
+							bool auto_center,
+							double axis);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern Int32 gimp_item_transform_flip(Int32 item_ID,
+						 double x0, double y0,
+						 double x1, double y1);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern Int32 gimp_item_transform_perspective(Int32 item_ID,
+							double x0,
+							double y0,
+							double x1,
+							double y1,
+							double x2,
+							double y2,
+							double x3,
+							double y3);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern Int32 gimp_item_transform_rotate_simple(Int32 item_ID,
+							  RotationType rotate_type,
+							  bool auto_center,
+							  int center_x,
+							  int center_y);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern Int32 gimp_item_transform_rotate(Int32 item_ID,
+						   double angle,
+						   bool auto_center,
+						   int center_x,
+						   int center_y);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern Int32 gimp_item_transform_scale(Int32 item_ID,
+						  double x0,
+						  double y0,
+						  double x1,
+						  double y1);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern Int32 gimp_item_transform_shear(Int32 item_ID,
+						  OrientationType shear_type,
+						  double magnitude);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern Int32 gimp_item_transform_2d(Int32 item_ID,
+					       double source_x,
+					       double source_y,
+					       double scale_x,
+					       double scale_y,
+					       double angle,
+					       double dest_x,
+					       double dest_y);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern Int32 gimp_item_transform_matrix(Int32 item_ID,
+						   double coeff_0_0,
+						   double coeff_0_1,
+						   double coeff_0_2,
+						   double coeff_1_0,
+						   double coeff_1_1,
+						   double coeff_1_2,
+						   double coeff_2_0,
+						   double coeff_2_1,
+						   double coeff_2_2);
   }
 }

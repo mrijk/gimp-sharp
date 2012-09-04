@@ -67,14 +67,15 @@ namespace Gimp
     public void GetMarkup()
     {
       var layer = CreateTextLayer();
-      Assert.IsTrue(false);
+      Assert.IsNull(layer.Markup);
     }
 
     [Test]
     public void GetSetHintStyle()
     {
       var layer = CreateTextLayer();
-      Assert.IsTrue(false);
+      layer.HintStyle = TextHintStyle.Medium;
+      Assert.AreEqual(TextHintStyle.Medium, layer.HintStyle);
     }
 
     [Test]

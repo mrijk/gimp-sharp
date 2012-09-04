@@ -64,11 +64,6 @@ namespace Gimp
 	}
     }
 
-    public int Position
-    {
-      get {return Image.GetVectorsPosition(this);}
-    }
-
     public void RemoveStroke(Stroke stroke)
     {
       if (!gimp_vectors_remove_stroke(_ID, stroke.ID))

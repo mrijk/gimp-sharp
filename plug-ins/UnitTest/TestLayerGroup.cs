@@ -54,6 +54,19 @@ namespace Gimp
     }
 
     [Test]
+    public void Parent()
+    {
+      var group = new LayerGroup(_image);
+      _image.InsertLayer(group, null, 0);
+
+      var layer = new Layer(_image, "test1", ImageType.Rgb);
+      _image.InsertLayer(layer, group, 0);
+
+      Assert.IsTrue(layer.Parent is LayerGroup);
+      Assert.IsNull(layer.Parent.Parent);
+    }
+
+    [Test]
     public void GetChildren()
     {
       var group = new LayerGroup(_image);
@@ -63,6 +76,8 @@ namespace Gimp
       var layer = new Layer(_image, "test1", ImageType.Rgb);
       _image.InsertLayer(layer, group, 0);
       Assert.AreEqual(1, group.Children.Count);
+
+      Assert.IsTrue(group.Children[0] is Layer);
     }
 
     [Test]

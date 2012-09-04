@@ -277,21 +277,6 @@ namespace Gimp
       get {return gimp_layer_is_floating_sel(_ID);}
     }
 
-    public int Position
-    {
-      get {return Image.GetLayerPosition(this);}
-    }
-
-    public void Lower()
-    {
-      Image.LowerLayer(this);
-    }
-
-    public void Raise()
-    {
-      Image.RaiseLayer(this);
-    }
-
     public void SetBuffer(byte[] buffer)
     {
       var rgn = new PixelRgn(this, true, false);

@@ -1,3 +1,18 @@
+2012-09-04  Maurits  <maurits.rijk@gmail.com>
+
+	* plug-ins/UnitTest/TestGimpUnit.cs: fix unit tests
+
+	* plug-ins/UnitTest/TestTextLayer.cs: implemented some tests
+
+	* plug-ins/UnitTest/TestImage.cs
+	* plug-ins/UnitTest/TestVectors.cs
+	* lib/Channel.cs
+	* lib/Vectors.cs
+	* lib/Item.cs
+	* lib/Layer.cs: moved Raise and Lower to Item class
+
+	* lib/Image.cs: removed deprecated functionality
+
 2012-09-03  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/GimpBaseEnums.cs: added TextHintStyle

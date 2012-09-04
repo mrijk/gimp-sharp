@@ -231,7 +231,7 @@ namespace Gimp
 
       Assert.AreEqual(1, layer1.Position);
       Assert.AreEqual(0, layer2.Position);
-      _image.RaiseLayer(layer1);
+      _image.RaiseItem(layer1);
       Assert.AreEqual(0, layer1.Position);
       Assert.AreEqual(1, layer2.Position);
     }
@@ -246,7 +246,7 @@ namespace Gimp
 
       Assert.AreEqual(1, layer1.Position);
       Assert.AreEqual(0, layer2.Position);
-      _image.LowerLayer(layer2);
+      _image.LowerItem(layer2);
       Assert.AreEqual(0, layer1.Position);
       Assert.AreEqual(1, layer2.Position);
     }
@@ -261,7 +261,7 @@ namespace Gimp
 
       Assert.AreEqual(1, layer1.Position);
       Assert.AreEqual(0, layer2.Position);
-      _image.RaiseLayerToTop(layer1);
+      _image.RaiseItemToTop(layer1);
       Assert.AreEqual(0, layer1.Position);
       Assert.AreEqual(1, layer2.Position);
     }
@@ -276,7 +276,7 @@ namespace Gimp
 
       Assert.AreEqual(1, layer1.Position);
       Assert.AreEqual(0, layer2.Position);
-      _image.LowerLayerToBottom(layer2);
+      _image.LowerItemToBottom(layer2);
       Assert.AreEqual(0, layer1.Position);
       Assert.AreEqual(1, layer2.Position);
     }
@@ -289,8 +289,8 @@ namespace Gimp
       var layer2 = new Layer(_image, "test2", ImageType.Rgb);
       _image.InsertLayer(layer2, 0);
 
-      Assert.AreEqual(1, _image.GetLayerPosition(layer1));
-      Assert.AreEqual(0, _image.GetLayerPosition(layer2));
+      Assert.AreEqual(1, _image.GetItemPosition(layer1));
+      Assert.AreEqual(0, _image.GetItemPosition(layer2));
     }
 
     [Test]
@@ -321,7 +321,7 @@ namespace Gimp
       _image.AddChannel(channel2);
 
       int position = channel1.Position;
-      _image.RaiseChannel(channel1);
+      _image.RaiseItem(channel1);
       Assert.AreEqual(position - 1, channel1.Position);
       Assert.AreEqual(position, channel2.Position);
     }
@@ -335,7 +335,7 @@ namespace Gimp
       _image.AddChannel(channel2);
 
       int position = channel1.Position;
-      _image.LowerChannel(channel2);
+      _image.LowerItem(channel2);
       Assert.AreEqual(position - 1, channel1.Position);
       Assert.AreEqual(position, channel2.Position);
     }
@@ -347,8 +347,8 @@ namespace Gimp
       _image.AddChannel(channel1);
       var channel2 = new Channel(_image, "test2", new RGB(0, 255, 0));
       _image.AddChannel(channel2);
-      Assert.AreEqual(1, _image.GetChannelPosition(channel1));
-      Assert.AreEqual(0, _image.GetChannelPosition(channel2));
+      Assert.AreEqual(1, _image.GetItemPosition(channel1));
+      Assert.AreEqual(0, _image.GetItemPosition(channel2));
     }
 
     [Test]
