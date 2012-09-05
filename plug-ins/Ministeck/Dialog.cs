@@ -1,5 +1,5 @@
 // The Ministeck plug-in
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2012 Maurits Rijk
 //
 // Dialog.cs
 //
@@ -22,12 +22,12 @@ using Gtk;
 
 namespace Gimp.Ministeck
 {
-  public class Dialog : GimpDialogWithPreview<DrawablePreview>
+  public class Dialog : GimpDialogWithPreview
   {
     readonly Image _image;
 
     public Dialog(Image image, Drawable drawable, VariableSet variables) : 
-      base("Ministeck", drawable, variables)
+      base("Ministeck", drawable, variables, () => new DrawablePreview(drawable))
     {
       _image = image;
 

@@ -1,5 +1,5 @@
 // The Sky plug-in
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2012 Maurits Rijk
 //
 // Code ported from Physically Modeled Media Plug-In for The GIMP
 //                  Copyright (c) 2000-2001 David A. Bartold
@@ -26,10 +26,10 @@ using Gtk;
 
 namespace Gimp.Sky
 {
-  public class Dialog : GimpDialogWithPreview<AspectPreview>
+  public class Dialog : GimpDialogWithPreview
   {
     public Dialog(Drawable drawable, VariableSet variables) : 
-      base("Sky", drawable, variables)
+      base("Sky", drawable, variables, () => new AspectPreview(drawable))
     {
       var vbox = new VBox(false, 12) {BorderWidth = 12};
       VBox.PackStart(vbox, true, true, 0);

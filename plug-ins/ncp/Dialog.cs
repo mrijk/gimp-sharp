@@ -1,5 +1,5 @@
 // The ncp plug-in
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2012 Maurits Rijk
 //
 // Dialog.cs
 //
@@ -19,16 +19,15 @@
 //
 
 using System;
-using Gtk;
 
 namespace Gimp.ncp
 {
-  public class Dialog : GimpDialogWithPreview<AspectPreview>
+  public class Dialog : GimpDialogWithPreview
   {
     ScaleEntry _closestEntry;
 
     public Dialog(Drawable drawable, VariableSet variables) : 
-      base("ncp", drawable, variables)
+      base("ncp", drawable, variables, () => new AspectPreview(drawable))
     {
       var table = new GimpTable(4, 3) {ColumnSpacing = 6, RowSpacing = 6};
       Vbox.PackStart(table, false, false, 0);

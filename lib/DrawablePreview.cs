@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2012 Maurits Rijk
 //
 // DrawablePreview.cs
 //
@@ -29,19 +29,11 @@ namespace Gimp
     public Drawable Drawable {get; private set;}
     readonly int _bpp;
 
-    public DrawablePreview(Drawable drawable, bool toggle) :
+    public DrawablePreview(Drawable drawable, bool toggle = false) :
       base(gimp_drawable_preview_new(drawable.Ptr, toggle))
     {
       Drawable = drawable;
       _bpp = drawable.Bpp;
-    }
-
-    // Only used internally!
-    public DrawablePreview() {}
-
-    internal override GimpPreview Instantiate(Drawable drawable)
-    {
-      return new DrawablePreview(drawable, false);
     }
 
     public void DrawRegion(PixelRgn region)

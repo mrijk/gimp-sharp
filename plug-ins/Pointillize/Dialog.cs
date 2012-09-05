@@ -1,5 +1,5 @@
 // The Pointillize plug-in
-// Copyright (C) 2006-2011 Maurits Rijk
+// Copyright (C) 2006-2012 Maurits Rijk
 //
 // Dialog.cs
 //
@@ -22,10 +22,10 @@ using Gtk;
 
 namespace Gimp.Pointillize
 {
-  public class Dialog: GimpDialogWithPreview<AspectPreview>
+  public class Dialog: GimpDialogWithPreview
   {
     public Dialog(Drawable drawable, VariableSet variables) : 
-      base(_("Pointillize"), drawable, variables)
+      base(_("Pointillize"), drawable, variables, () => new AspectPreview(drawable))
     {
       var table = new GimpTable(1, 3);
       VBox.PackStart(table, false, false, 0);

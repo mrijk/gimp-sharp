@@ -1,5 +1,5 @@
 // The QR plug-in
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2012 Maurits Rijk
 //
 // Dialog.cs
 //
@@ -22,10 +22,10 @@ using Gtk;
 
 namespace Gimp.QR
 {
-  public class Dialog : GimpDialogWithPreview<AspectPreview>
+  public class Dialog : GimpDialogWithPreview
   {
     public Dialog(Drawable drawable, VariableSet variables) : 
-      base("QR", drawable, variables)
+      base("QR", drawable, variables, () => new AspectPreview(drawable))
     {
       var table = new GimpTable(4, 2) {
 	ColumnSpacing = 6, RowSpacing = 6};

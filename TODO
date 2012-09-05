@@ -1,5 +1,7 @@
 Release 0.19
 ------------
+- Remove boilerplate code for UpdatePreview in most plug-ins
+- support all GIMP 2.8.x functionality
 - Fix Raindrops plug-in
 - Clean-up Forge plug-in
 - Interface for Web Service plug-in

@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2012 Maurits Rijk
 //
 // DrawableComboBox.cs
 //
@@ -29,10 +29,6 @@ namespace Gimp
 
   public class DrawableComboBox : IntComboBox
   {
-    public DrawableComboBox() : this(null, IntPtr.Zero)
-    {
-    }
-
     public DrawableComboBox(DrawableConstraintFunc constraint, IntPtr data) : 
       base(gimp_drawable_combo_box_new(constraint, data))
     {

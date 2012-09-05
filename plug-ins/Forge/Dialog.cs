@@ -1,5 +1,5 @@
 // The Forge plug-in
-// Copyright (C) 2006-2021 Maurits Rijk
+// Copyright (C) 2006-2012 Maurits Rijk
 //
 // Dialog.cs
 //
@@ -30,7 +30,7 @@ namespace Gimp.Forge
     Stars
   }
 
-  public class Dialog : GimpDialogWithPreview<AspectPreview>
+  public class Dialog : GimpDialogWithPreview
   {
     // Flag for spin buttons values specified by the user
     bool dimspec, powerspec;
@@ -43,7 +43,7 @@ namespace Gimp.Forge
     readonly Variable<int> _type;
 
     public Dialog(Drawable drawable, VariableSet variables) : 
-      base(_("Forge"), drawable, variables)
+      base(_("Forge"), drawable, variables, () => new AspectPreview(drawable))
     {
       _type = GetVariable<int>("type");
 

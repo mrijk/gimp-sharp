@@ -91,6 +91,11 @@ namespace Gimp
       return Get<T>(identifier).Value;
     }
 
+    public dynamic GetVar(string identifier)
+    {
+      return GetValue<object>(identifier);
+    }
+
     public ClonedVariable<T> GetClone<T>(string identifier)
     {
       return new ClonedVariable<T>(Get<T>(identifier));

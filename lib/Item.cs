@@ -39,8 +39,11 @@ namespace Gimp
     {
     }
 
-    static Item Instantiate(int ID)
+    static protected Item Instantiate(int ID)
     {
+      if (ID == -1)
+	return null;
+
       var item = new Item(ID);
       // The order matters!
       if (item.IsSelection)
@@ -120,11 +123,7 @@ namespace Gimp
 
     public Item Parent
     {
-      get 
-      {
-	Int32 parentID = gimp_item_get_parent(ID);
-	return (parentID == -1) ? null : Instantiate(parentID);
-      }
+      get {return Instantiate(gimp_item_get_parent(ID));}
     }
 
     public List<Item> Children

@@ -1,5 +1,5 @@
 // The Raindrops plug-in
-// Copyright (C) 2004-2011 Maurits Rijk, Massimo Perga
+// Copyright (C) 2004-2012 Maurits Rijk, Massimo Perga
 //
 // Dialog.cs
 //
@@ -24,12 +24,12 @@ using Gtk;
 
 namespace Gimp.Raindrops
 {
-  public class Dialog : GimpDialogWithPreview<DrawablePreview>
+  public class Dialog : GimpDialogWithPreview
   {
     readonly Image _image;
 
     public Dialog(Image image, Drawable drawable, VariableSet variables) : 
-      base("Raindrops", drawable, variables)
+      base("Raindrops", drawable, variables, () => new AspectPreview(drawable))
     {
       _image = image;
 

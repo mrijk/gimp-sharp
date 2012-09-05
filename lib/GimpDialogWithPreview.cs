@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2012 Maurits Rijk
 //
 // GimpDialog.cs
 //
@@ -19,19 +19,20 @@
 // Boston, MA 02111-1307, USA.
 //
 
+using System;
 using Gtk;
 
 namespace Gimp
 {
-  public abstract class GimpDialogWithPreview<T> : GimpDialog 
-  where T : GimpPreview, new()
+  public abstract class GimpDialogWithPreview : GimpDialog 
   {
     protected Drawable Drawable {get; private set;}
     protected GimpPreview Preview {get; private set;}
     protected VBox Vbox {get; private set;}
 
     public GimpDialogWithPreview(string title, Drawable drawable, 
-				 VariableSet variables) : 
+				 VariableSet variables, 
+				 Func<GimpPreview> factory) : 
       base(title, variables)
     {
       Drawable = drawable;
@@ -39,8 +40,7 @@ namespace Gimp
       Vbox = new VBox(false, 0) {BorderWidth = 12};
       VBox.PackStart(Vbox, true, true, 0);
 
-      var factory = new T();
-      Preview = factory.Instantiate(drawable);
+      Preview = factory();
 
       Preview.Invalidated += delegate {UpdatePreview(Preview);};
 

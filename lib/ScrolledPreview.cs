@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2012 Maurits Rijk
 //
 // ScrolledPreview.cs
 //
@@ -31,9 +31,6 @@ namespace Gimp
     public ScrolledPreview(IntPtr ptr) : base (ptr)
     {
     }
-
-    // Only used internally!
-    public ScrolledPreview() {}
 
     public void SetPosition(int x, int y)
     {

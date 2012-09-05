@@ -1,4 +1,26 @@
+2012-09-05  Maurits  <maurits.rijk@gmail.com>
+
+	* plug-ins/ncp/Dialog.cs
+	* plug-ins/Swirlies/Dialog.cs
+	* plug-ins/Sky/Dialog.cs
+	* plug-ins/Raindrops/Dialog.cs
+	* plug-ins/Pointillize/Dialog.cs
+	* plug-ins/Ministeck/Dialog.cs
+	* plug-ins/Forge/Dialog.cs
+	* lib/DrawablePreview.cs
+	* lib/AspectPreview.cs
+	* lib/ScrolledPreview.cs
+	* lib/GimpDialogWithPreview.cs: use factory parameter instead of generics
+
+	* lib/Mask.cs: use Instantiate method
+
+	* lib/Item.cs: made Instantiate method available for subclasses
+
+	* lib/DrawableComboBox.cs: minor clean-up
+
 2012-09-04  Maurits  <maurits.rijk@gmail.com>
+
+	* plug-ins/ncp/Dialog.cs: minor clean-up
 
 	* plug-ins/UnitTest/TestGimpUnit.cs: fix unit tests
 

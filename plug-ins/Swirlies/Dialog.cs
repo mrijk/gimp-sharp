@@ -1,5 +1,5 @@
 // The Swirlies plug-in
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2012 Maurits Rijk
 //
 // Dialog.cs
 //
@@ -23,12 +23,12 @@ using Gtk;
 
 namespace Gimp.Swirlies
 {
-  public class Dialog : GimpDialogWithPreview<AspectPreview>
+  public class Dialog : GimpDialogWithPreview
   {
     readonly ProgressBar _progress;
 
     public Dialog(Drawable drawable, VariableSet variables) : 
-      base(_("Swirlies"), drawable, variables)
+      base(_("Swirlies"), drawable, variables, () => new AspectPreview(drawable))
     {
       _progress = new ProgressBar();
       Vbox.PackStart(_progress, false, false, 0);
