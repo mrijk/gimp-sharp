@@ -1,5 +1,5 @@
  // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2012 Maurits Rijk
 //
 // Context.cs
 //
@@ -40,6 +40,14 @@ namespace Gimp
     static public void Pop()
     {
       if (!gimp_context_pop())
+	{
+	  throw new GimpSharpException();
+	}
+    }
+
+    static public void SetDefaults()
+    {
+      if (!gimp_context_set_defaults())
 	{
 	  throw new GimpSharpException();
 	}
@@ -139,6 +147,62 @@ namespace Gimp
 	}
     }
 
+    public static double BrushSize
+    {
+      get {return gimp_context_get_brush_size();}
+      set
+	{
+	  if (!gimp_context_set_brush_size(value))
+	    {
+	      throw new GimpSharpException();
+	    }
+	}
+    }
+
+    public static void SetBrushDefaultSize()
+    {
+      if (!gimp_context_set_brush_default_size())
+	{
+	  throw new GimpSharpException();
+	}
+    }
+
+    public static double BrushAspectRatio
+    {
+      get {return gimp_context_get_brush_aspect_ratio();}
+      set
+	{
+	  if (!gimp_context_set_brush_aspect_ratio(value))
+	    {
+	      throw new GimpSharpException();
+	    }
+	}
+    }
+
+    public static double BrushAngle
+    {
+      get {return gimp_context_get_brush_angle();}
+      set
+	{
+	  if (!gimp_context_set_brush_angle(value))
+	    {
+	      throw new GimpSharpException();
+	    }
+	}
+    }
+
+    public static string Dynamics
+    {
+      get {return gimp_context_get_dynamics();}
+      set
+	{
+	  if (!gimp_context_set_dynamics(value))
+	    {
+	      throw new GimpSharpException();
+	    }
+	}
+    }
+
     public static Pattern Pattern
     {
       get {return new Pattern(gimp_context_get_pattern(), false);}
@@ -187,6 +251,50 @@ namespace Gimp
 	}
     }
 
+    public static bool Antialias
+    {
+      get {return gimp_context_get_antialias();}
+      set
+	{
+	  if (!gimp_context_set_antialias(value))
+	    {
+	      throw new GimpSharpException();
+	    }
+	}
+    }
+
+    public static bool Feather
+    {
+      get {return gimp_context_get_feather();}
+      set
+	{
+	  if (!gimp_context_set_feather(value))
+	    {
+	      throw new GimpSharpException();
+	    }
+	}
+    }
+
+    public static Coordinate<double> FeatherRadius
+    {
+      get 
+	{
+	  double x, y;
+	  if (!gimp_context_get_feather_radius(out x, out y))
+	    {
+	      throw new GimpSharpException();
+	    }
+	  return new Coordinate<double>(x, y);
+	}
+      set
+	{
+	  if (!gimp_context_set_feather_radius(value.X, value.Y))
+	    {
+	      throw new GimpSharpException();
+	    }
+	}
+    }
+
     public static string PaintMethod
     {
       get {return gimp_context_get_paint_method();}
@@ -223,6 +331,8 @@ namespace Gimp
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_context_pop();
     [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_context_set_defaults();
+    [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_context_get_foreground(out GimpRGB foreground);
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_context_set_foreground(ref GimpRGB foreground);
@@ -247,6 +357,24 @@ namespace Gimp
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_context_set_brush(string name);
     [DllImport("libgimp-2.0-0.dll")]
+    static extern double gimp_context_get_brush_size();
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_context_set_brush_size(double size);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_context_set_brush_default_size();
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern double gimp_context_get_brush_aspect_ratio();
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_context_set_brush_aspect_ratio(double aspect);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern double gimp_context_get_brush_angle();
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_context_set_brush_angle(double angle);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern string gimp_context_get_dynamics();
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_context_set_dynamics(string name);
+    [DllImport("libgimp-2.0-0.dll")]
     static extern string gimp_context_get_pattern();
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_context_set_pattern(string name);
@@ -262,6 +390,20 @@ namespace Gimp
     static extern string gimp_context_get_font();
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_context_set_font(string name);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_context_get_antialias();
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_context_set_antialias(bool antialias);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_context_get_feather();
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_context_set_feather(bool feather);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_context_get_feather_radius(out double feather_radius_x,
+						       out double feather_radius_y);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_context_set_feather_radius(double feather_radius_x,
+						       double feather_radius_y);
     [DllImport("libgimp-2.0-0.dll")]
     static extern string gimp_context_get_paint_method();
     [DllImport("libgimp-2.0-0.dll")]

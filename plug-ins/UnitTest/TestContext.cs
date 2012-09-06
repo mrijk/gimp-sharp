@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2012 Maurits Rijk
 //
 // TestContext.cs
 //
@@ -48,6 +48,12 @@ namespace Gimp
       Context.Foreground = new RGB(11, 12, 13);
       Context.Pop();
       Assert.AreEqual(previous, Context.Foreground);
+    }
+
+    [Test]
+    public void SetDefaults()
+    {
+      Assert.IsTrue(false);
     }
 
     [Test]
@@ -114,6 +120,36 @@ namespace Gimp
     }
 
     [Test]
+    public void BrushSize()
+    {
+      Assert.IsTrue(false);
+    }
+
+    [Test]
+    public void SetBrushDefaultSize()
+    {
+      Assert.IsTrue(false);
+    }
+
+    [Test]
+    public void BrushAspectRatio()
+    {
+      Assert.IsTrue(false);
+    }
+
+    [Test]
+    public void BrushAngle()
+    {
+      Assert.IsTrue(false);
+    }
+
+    [Test]
+    public void Dynamics()
+    {
+      Assert.IsTrue(false);
+    }
+
+    [Test]
     public void Pattern()
     {
       foreach (Pattern pattern in new PatternList(null))
@@ -141,6 +177,132 @@ namespace Gimp
 	  Context.Palette = palette;
 	  Assert.AreEqual(palette, Context.Palette);
 	}
+    }
+
+    [Test]
+    public void Font()
+    {
+      Assert.IsTrue(false);
+    }
+
+    [Test]
+    public void Antialias()
+    {
+      Assert.IsTrue(false);
+    }
+
+    [Test]
+    public void Feather()
+    {
+      Assert.IsTrue(false);
+    }
+
+    [Test]
+    public void FeatherRadius()
+    {
+      Assert.IsTrue(false);
+    }
+
+    [Test]
+    public void SampleMerged()
+    {
+      Assert.IsTrue(false);
+    }
+
+    [Test]
+    public void SampleCriterion()
+    {
+      Assert.IsTrue(false);
+    }
+
+    [Test]
+    public void SampleThreshold()
+    {
+      Assert.IsTrue(false);
+    }
+
+    [Test]
+    public void SampleThresholdInt()
+    {
+      Assert.IsTrue(false);
+    }
+
+    [Test]
+    public void SampleTransparent()
+    {
+      Assert.IsTrue(false);
+    }
+
+    [Test]
+    public void Interpolation()
+    {
+      Assert.IsTrue(false);
+    }
+
+    [Test]
+    public void TransformDirection()
+    {
+      Assert.IsTrue(false);
+    }
+
+    [Test]
+    public void TransformResize()
+    {
+      Assert.IsTrue(false);
+    }
+
+    [Test]
+    public void TransformRecursion()
+    {
+      Assert.IsTrue(false);
+    }
+
+    [Test]
+    public void InkSize()
+    {
+      Assert.IsTrue(false);
+    }
+
+    [Test]
+    public void InkAngle()
+    {
+      Assert.IsTrue(false);
+    }
+
+    [Test]
+    public void InkSizeSensitivity()
+    {
+      Assert.IsTrue(false);
+    }
+
+    [Test]
+    public void InkTiltSensitivity()
+    {
+      Assert.IsTrue(false);
+    }
+
+    [Test]
+    public void InkSpeedSensitivity()
+    {
+      Assert.IsTrue(false);
+    }
+
+    [Test]
+    public void InkBlobType()
+    {
+      Assert.IsTrue(false);
+    }
+
+    [Test]
+    public void InkBlobAspectRatio()
+    {
+      Assert.IsTrue(false);
+    }
+
+    [Test]
+    public void InkBlobAngle()
+    {
+      Assert.IsTrue(false);
     }
 
     [Test]
