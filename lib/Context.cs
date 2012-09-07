@@ -307,6 +307,210 @@ namespace Gimp
 	}
     }
 
+    public static bool SampleMerged
+    {
+      get {return gimp_context_get_sample_merged();}
+      set
+	{
+	  if (!gimp_context_set_sample_merged(value))
+	    {
+	      throw new GimpSharpException();
+	    }
+	}
+    }
+
+    public static SelectCriterion SampleCriterion
+    {
+      get {return gimp_context_get_sample_criterion();}
+      set
+	{
+	  if (!gimp_context_set_sample_criterion(value))
+	    {
+	      throw new GimpSharpException();
+	    }
+	}
+    }
+
+    public static double SampleThreshold
+    {
+      get {return gimp_context_get_sample_threshold();}
+      set
+	{
+	  if (!gimp_context_set_sample_threshold(value))
+	    {
+	      throw new GimpSharpException();
+	    }
+	}
+    }
+
+    public static int SampleThresholdInt
+    {
+      get {return gimp_context_get_sample_threshold_int();}
+      set
+	{
+	  if (!gimp_context_set_sample_threshold_int(value))
+	    {
+	      throw new GimpSharpException();
+	    }
+	}
+    }
+
+    public static bool SampleTransparent
+    {
+      get {return gimp_context_get_sample_transparent();}
+      set
+	{
+	  if (!gimp_context_set_sample_transparent(value))
+	    {
+	      throw new GimpSharpException();
+	    }
+	}
+    }
+
+    public static InterpolationType Interpolation
+    {
+      get {return gimp_context_get_interpolation();}
+      set
+	{
+	  if (!gimp_context_set_interpolation(value))
+	    {
+	      throw new GimpSharpException();
+	    }
+	}
+    }
+
+    public static TransformResize TransformResize
+    {
+      get {return gimp_context_get_transform_resize();}
+      set
+	{
+	  if (!gimp_context_set_transform_resize(value))
+	    {
+	      throw new GimpSharpException();
+	    }
+	}
+    }
+
+    public static TransformDirection TransformDirection
+    {
+      get {return gimp_context_get_transform_direction();}
+      set
+	{
+	  if (!gimp_context_set_transform_direction(value))
+	    {
+	      throw new GimpSharpException();
+	    }
+	}
+    }
+
+    public static int TransformRecursion
+    {
+      get {return gimp_context_get_transform_recursion();}
+      set
+	{
+	  if (!gimp_context_set_transform_recursion(value))
+	    {
+	      throw new GimpSharpException();
+	    }
+	}
+    }
+
+    public static double InkSize
+    {
+      get {return gimp_context_get_ink_size();}
+      set
+	{
+	  if (!gimp_context_set_ink_size(value))
+	    {
+	      throw new GimpSharpException();
+	    }
+	}
+    }
+
+    public static double InkAngle
+    {
+      get {return gimp_context_get_ink_angle();}
+      set
+	{
+	  if (!gimp_context_set_ink_angle(value))
+	    {
+	      throw new GimpSharpException();
+	    }
+	}
+    }
+
+    public static double InkSizeSensitivity
+    {
+      get {return gimp_context_get_ink_size_sensitivity();}
+      set
+	{
+	  if (!gimp_context_set_ink_size_sensitivity(value))
+	    {
+	      throw new GimpSharpException();
+	    }
+	}
+    }
+
+    public static double InkTiltSensitivity
+    {
+      get {return gimp_context_get_ink_tilt_sensitivity();}
+      set
+	{
+	  if (!gimp_context_set_ink_tilt_sensitivity(value))
+	    {
+	      throw new GimpSharpException();
+	    }
+	}
+    }
+
+    public static double InkSpeedSensitivity
+    {
+      get {return gimp_context_get_ink_speed_sensitivity();}
+      set
+	{
+	  if (!gimp_context_set_ink_speed_sensitivity(value))
+	    {
+	      throw new GimpSharpException();
+	    }
+	}
+    }
+
+    public static InkBlobType InkBlobType
+    {
+      get {return gimp_context_get_ink_blob_type();}
+      set
+	{
+	  if (!gimp_context_set_ink_blob_type(value))
+	    {
+	      throw new GimpSharpException();
+	    }
+	}
+    }
+
+    public static double InkBlobAspectRatio
+    {
+      get {return gimp_context_get_ink_blob_aspect_ratio();}
+      set
+	{
+	  if (!gimp_context_set_ink_blob_aspect_ratio(value))
+	    {
+	      throw new GimpSharpException();
+	    }
+	}
+    }
+
+    public static double InkBlobAngle
+    {
+      get {return gimp_context_get_ink_blob_angle();}
+      set
+	{
+	  if (!gimp_context_set_ink_blob_angle(value))
+	    {
+	      throw new GimpSharpException();
+	    }
+	}
+    }
+
     public static List<string> PaintMethods
     {
       get 
@@ -348,6 +552,10 @@ namespace Gimp
     static extern double gimp_context_get_opacity();
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_context_set_opacity(double opacity);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern string gimp_context_get_paint_method();
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_context_set_paint_method(string name);
     [DllImport("libgimp-2.0-0.dll")]
     static extern LayerModeEffects gimp_context_get_paint_mode();
     [DllImport("libgimp-2.0-0.dll")]
@@ -405,9 +613,73 @@ namespace Gimp
     static extern bool gimp_context_set_feather_radius(double feather_radius_x,
 						       double feather_radius_y);
     [DllImport("libgimp-2.0-0.dll")]
-    static extern string gimp_context_get_paint_method();
+    static extern bool gimp_context_get_sample_merged();
     [DllImport("libgimp-2.0-0.dll")]
-    static extern bool gimp_context_set_paint_method(string name);
+    static extern bool gimp_context_set_sample_merged(bool sample_merged);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern SelectCriterion gimp_context_get_sample_criterion();
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_context_set_sample_criterion(SelectCriterion sample_criterion);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern double gimp_context_get_sample_threshold();
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_context_set_sample_threshold(double sample_threshold);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern int gimp_context_get_sample_threshold_int();
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_context_set_sample_threshold_int(int sample_threshold);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_context_get_sample_transparent();
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_context_set_sample_transparent(bool sample_transparent);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern InterpolationType gimp_context_get_interpolation();
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_context_set_interpolation(InterpolationType interpolation);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern TransformDirection gimp_context_get_transform_direction();
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_context_set_transform_direction(TransformDirection transform_direction);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern TransformResize gimp_context_get_transform_resize();
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_context_set_transform_resize(TransformResize transform_resize);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern int gimp_context_get_transform_recursion();
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_context_set_transform_recursion(int transform_recursion);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern double gimp_context_get_ink_size();
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_context_set_ink_size(double size);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern double gimp_context_get_ink_angle();
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_context_set_ink_angle(double angle);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern double gimp_context_get_ink_size_sensitivity();
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_context_set_ink_size_sensitivity(double size);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern double gimp_context_get_ink_tilt_sensitivity();
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_context_set_ink_tilt_sensitivity(double tilt);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern double gimp_context_get_ink_speed_sensitivity();
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_context_set_ink_speed_sensitivity(double speed);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern InkBlobType gimp_context_get_ink_blob_type();
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_context_set_ink_blob_type(InkBlobType type);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern double gimp_context_get_ink_blob_aspect_ratio();
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_context_set_ink_blob_aspect_ratio(double aspect);
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern double gimp_context_get_ink_blob_angle();
+    [DllImport("libgimp-2.0-0.dll")]
+    static extern bool gimp_context_set_ink_blob_angle(double angle);
     [DllImport("libgimp-2.0-0.dll")]
     static extern bool gimp_context_list_paint_methods(
 				      out int num_paint_methods,

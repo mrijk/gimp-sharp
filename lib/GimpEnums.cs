@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2012 Maurits Rijk
 //
 // GimpEnums.cs
 //
@@ -108,6 +108,13 @@ namespace Gimp
     Blue,
     Magenta
   }
+
+  public enum InkBlobType
+  {
+    Circle,
+    Square,
+    Diamond
+  } 
 
   public enum LayerModeEffects
   {

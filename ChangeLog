@@ -1,3 +1,11 @@
+2012-09-07  Maurits  <maurits.rijk@gmail.com>
+
+	* plug-ins/UnitTest/TestContext.cs: implemented unit tests
+
+	* lib/GimpEnums.cs: new enum InkBlobType
+
+	* lib/Context.cs: more GIMP 2.8 functionality
+
 2012-09-06  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/UnitTest/TestContext.cs

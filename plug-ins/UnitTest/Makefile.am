@@ -14,6 +14,7 @@ MYSOURCES = 	Dialog.cs			\
 
 TESTSOURCES = 	TestBoolMatrix.cs		\
 		TestChannel.cs			\
+		TestContext.cs			\
 		TestDimensions.cs		\
 		TestDisplay.cs			\
 		TestFloatingSelection.cs	\
@@ -54,7 +55,6 @@ TESTSOURCES = 	TestBoolMatrix.cs		\
 FAILING = \
 		TestBrush.cs			\
 		TestBrushList.cs		\
-		TestContext.cs			\
 		TestPlugins.cs			\
 		TestProceduralDb.cs		\
 		Dummy.cs
