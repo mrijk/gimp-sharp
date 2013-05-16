@@ -522,7 +522,6 @@ namespace Gimp
 	    {
 	      throw new GimpSharpException();
 	    }
-
 	  var methods = Util.ToStringList(paintMethods, numPaintMethods);
 	  // TODO: find out if next line is needed
 	  Marshaller.Free(paintMethods);

@@ -123,27 +123,37 @@ namespace Gimp
     }
 
     [Test]
-    public void BrushSize()
+    public void GetSetBrushSize()
     {
-      Assert.IsTrue(false);
+      double size = 3.14;
+      Context.BrushSize = size;
+      Assert.AreEqual(size, Context.BrushSize);
     }
 
     [Test]
     public void SetBrushDefaultSize()
     {
-      Assert.IsTrue(false);
+      Context.SetBrushDefaultSize();
+      double defaultSize = Context.BrushSize;
+      Context.BrushSize = 3.14;
+      Context.SetBrushDefaultSize();
+      Assert.AreEqual(defaultSize, Context.BrushSize);
     }
 
     [Test]
     public void BrushAspectRatio()
     {
-      Assert.IsTrue(false);
+      double ratio = 2.0;
+      Context.BrushAspectRatio = ratio;
+      Assert.AreEqual(ratio, Context.BrushAspectRatio);
     }
 
     [Test]
-    public void BrushAngle()
+    public void GetSetBrushAngle()
     {
-      Assert.IsTrue(false);
+      double angle = 3.14;
+      Context.BrushAngle = angle;
+      Assert.AreEqual(angle, Context.BrushAngle);
     }
 
     [Test]
@@ -185,7 +195,9 @@ namespace Gimp
     [Test]
     public void GetSetFont()
     {
-      Assert.IsTrue(false);
+      var font = "Serif";
+      Context.Font = font;
+      Assert.AreEqual(font, Context.Font);
     }
 
     [Test]

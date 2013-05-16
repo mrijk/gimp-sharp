@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2012 Maurits Rijk
 //
 // Tile.cs
 //
@@ -55,23 +55,17 @@ namespace Gimp
 
     static public ulong CacheSize
     {
-      set
-	{
-	  gimp_tile_cache_size(value);
-	}
+      set {gimp_tile_cache_size(value);}
     }
 
     static public ulong CacheNtiles
     {
-      set
-	{
-	  gimp_tile_cache_ntiles(value);
-	}
+      set {gimp_tile_cache_ntiles(value);}
     }
 
     static public void CacheDefault(Drawable drawable)
     {
-      Tile.CacheNtiles = (ulong) (2 * (drawable.Width / Gimp.TileWidth + 1));
+      CacheNtiles = (ulong) (2 * (drawable.Width / Gimp.TileWidth + 1));
     }
 
     [DllImport("libgimp-2.0-0.dll")]
