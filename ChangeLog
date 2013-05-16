@@ -1,3 +1,7 @@
+2013-05-16  Maurits  <maurits.rijk@gmail.com>
+
+	* plug-ins/PhotoshopActions/PhotoshopActions.cs: minor clean-up
+
 2012-11-23  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/UnitTest/EventCollector.cs: compatible with Mono 3.0.x

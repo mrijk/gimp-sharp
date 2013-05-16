@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2011 Maurits Rijk
+// Copyright (C) 2006-2013 Maurits Rijk
 //
 // PhotoshopActions.cs
 //
@@ -36,7 +36,7 @@ namespace Gimp.PhotoshopActions
 			   "Play Photoshop action files",
 			   "Maurits Rijk",
 			   "(C) Maurits Rijk",
-			   "2006-2011",
+			   "2006-2013",
 			   "Photoshop Actions...",
 			   "",
 			   inParams)
