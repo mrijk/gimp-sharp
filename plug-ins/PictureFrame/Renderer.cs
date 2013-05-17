@@ -1,5 +1,5 @@
 // The PictureFrame plug-in
-// Copyright (C) 2006-2011 Oded Coster
+// Copyright (C) 2006-2013 Oded Coster
 //
 // Renderer.cs
 //
@@ -32,14 +32,13 @@ namespace Gimp.PictureFrame
     {
       try
 	{
-	  string imagePath = GetValue<string>("image_path");
+	  var imagePath = GetValue<string>("image_path");
 	  var frame = Image.Load(RunMode.Interactive, imagePath, imagePath);
-	  var newLayer = new Layer(frame.ActiveLayer, image) 
-	    {Visible = true};
+	  var newLayer = new Layer(frame.ActiveLayer, image) {Visible = true};
           
 	  image.UndoGroupStart();
 	  
-	  image.AddLayer(newLayer, -1); 
+	  image.Add(newLayer, -1); 
 	  image.ActiveLayer = newLayer;
 	  
 	  image.UndoGroupEnd();

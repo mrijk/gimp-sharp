@@ -1,5 +1,5 @@
 // The Shatter plug-in
-// Copyright (C) 2006-2011 Maurits Rijk
+// Copyright (C) 2006-2013 Maurits Rijk
 //
 // Dialog.cs
 //
@@ -22,10 +22,10 @@ using Gtk;
 
 namespace Gimp.Shatter
 {
-  public class Dialog : GimpDialogWithPreview<AspectPreview>
+  public class Dialog : GimpDialogWithPreview
   {
     public Dialog(Drawable drawable, VariableSet variables) : 
-      base("Shatter", drawable, variables)
+      base("Shatter", drawable, variables, () => new AspectPreview(drawable))
     {
       var table = new GimpTable(4, 3, false) {
 	ColumnSpacing = 6, RowSpacing = 6};

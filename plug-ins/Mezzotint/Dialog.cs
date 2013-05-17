@@ -1,5 +1,5 @@
 // The Mezzotint plug-in
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2013 Maurits Rijk
 //
 // Dialog.cs
 //
@@ -22,10 +22,11 @@ using Gtk;
 
 namespace Gimp.Mezzotint
 {
-  public class Dialog : GimpDialogWithPreview<DrawablePreview>
+  public class Dialog : GimpDialogWithPreview
   {
     public Dialog(Drawable drawable, VariableSet variables) : 
-      base("Mezzotint", drawable, variables)
+      base("Mezzotint", drawable, variables, 
+	   () => new DrawablePreview(drawable))
     {
       var type = new GimpComboBox(GetVariable<int>("type"),
 	new string[] {_("Fine dots"), _("Medium dots"), _("Grainy dots"),
