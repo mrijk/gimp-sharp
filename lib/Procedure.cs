@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2013 Maurits Rijk
 //
 // Procedure.cs
 //
@@ -75,7 +75,7 @@ namespace Gimp
       return ProceduralDb.ProcExists(name);
     }
 
-    public void Install(bool usesImage, bool usesDrawable)
+    public void Install()
     {
       gimp_install_procedure(Name, _blurb, _help, _author, _copyright, _date, 
 			     _menu_path, _image_types, PDBProcType.Plugin, 
@@ -205,7 +205,6 @@ namespace Gimp
       IntPtr returnArgsPtr = gimp_run_procedure2(Name, out n_return_vals, 
 						 parameters.Count, 
 						 parameters.ToStructArray());
-      Console.WriteLine("RunProcedure2");
       return ParseReturnArgs(returnArgsPtr, n_return_vals);
     }
 
@@ -214,7 +213,7 @@ namespace Gimp
     {
       var paramDef = GetParamDef(num_args, argsPtr);
 
-      int i = 0;
+      int i = parameters.Count;
 
       foreach (object obj in list)
 	{
@@ -242,12 +241,14 @@ namespace Gimp
     GimpParamDef[] GetParamDef(int num_args, IntPtr argsPtr)
     {
       var paramDef = new GimpParamDef[num_args];
-      for (int i = 0; i < num_args; i++)
-	{
-	  paramDef[i] = (GimpParamDef) 
-	    Marshal.PtrToStructure(argsPtr, typeof(GimpParamDef));
-	  argsPtr = (IntPtr)((int)argsPtr + Marshal.SizeOf(paramDef[i]));
-	}
+      var type = typeof(GimpParamDef);
+      var seq = new IntPtrSeq(argsPtr, num_args, Marshal.SizeOf(type));
+
+      seq.ForEach((i, ptr) => 
+	  {
+	    paramDef[i] = (GimpParamDef) Marshal.PtrToStructure(ptr, type);
+	  });
+
       return paramDef;
     }
 

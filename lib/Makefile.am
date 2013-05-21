@@ -71,6 +71,7 @@ MYSOURCES = 				\
 	ImageComboBox.cs		\
 	IntComboBox.cs			\
 	IntCoordinate.cs		\
+	IntPtrSeq.cs			\
 	IntStore.cs			\
 	Item.cs				\
 	Layer.cs			\

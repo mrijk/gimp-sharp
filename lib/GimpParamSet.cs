@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2012 Maurits Rijk
+// Copyright (C) 2004-2013 Maurits Rijk
 //
 // GimpParamSet.cs
 //
@@ -28,7 +28,7 @@ namespace Gimp
 {
   public class GimpParamSet : IEnumerable<GimpParam>
   {
-    List<GimpParam> _set = new List<GimpParam>();
+    readonly List<GimpParam> _set = new List<GimpParam>();
 
     public GimpParamSet()
     {
@@ -36,13 +36,8 @@ namespace Gimp
 
     public GimpParamSet(IntPtr ptr, int n)
     {
-      int size = GimpParam.Size;
-
-      for (int i = 0; i < n; i++)
-	{
-	  Add(new GimpParam(ptr));
-	  ptr = (IntPtr)((int)ptr + size);
-	}
+      var seq = new IntPtrSeq(ptr, n, GimpParam.Size);
+      seq.ForEach(x => Add(new GimpParam(x)));
     }
 
     public void Add(GimpParam param)
@@ -72,7 +67,7 @@ namespace Gimp
       IntPtr returnVals = Marshal.AllocCoTaskMem(Count * size);
       IntPtr paramPtr = returnVals;
 
-      foreach (GimpParam param in _set)
+      foreach (var param in _set)
 	{
 	  param.Fill(paramPtr);
 	  paramPtr = (IntPtr)((int) paramPtr + size);

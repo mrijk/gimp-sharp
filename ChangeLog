@@ -1,3 +1,13 @@
+2013-05-21  Maurits  <maurits.rijk@gmail.com>
+
+	* lib/Plugin.cs: minor clean-up
+
+	* lib/GimpParamSet.cs: use new class
+
+	* lib/IntPtrSeq.cs: new class to abstract iteration over IntPtr
+
+	* lib/Makefile.am: changed accordingly
+
 2013-05-17  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Shatter/Dialog.cs

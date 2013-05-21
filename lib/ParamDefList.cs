@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2012 Maurits Rijk
+// Copyright (C) 2004-2013 Maurits Rijk
 //
 // ParamDefList.cs
 //
@@ -135,14 +135,9 @@ namespace Gimp
       int size = GimpParam.Size;
 
       return_vals = Marshal.AllocCoTaskMem(n_return_vals * size);
-      IntPtr paramPtr = return_vals;
 
-      for (int i = 0; i < n_return_vals; i++)
-	{
-	  var param = this[i].GetGimpParam();
-	  param.Fill(paramPtr);
-	  paramPtr = (IntPtr)((int)paramPtr + size);
-	}
+      var seq = new IntPtrSeq(return_vals, n_return_vals, size);
+      seq.ForEach((i, ptr) => this[i].GetGimpParam().Fill(ptr));
     }
 
     public void Add(ParamDef p)

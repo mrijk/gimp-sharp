@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2012 Maurits Rijk
+// Copyright (C) 2004-2013 Maurits Rijk
 //
 // Plugin.cs
 //
@@ -134,22 +134,14 @@ namespace Gimp
 
     void GetRequiredParameters()
     {
-      foreach (MethodInfo method in GetMethods())
+      var methods = Array.FindAll(GetMethods(), method => method.Name == "Render");
+      foreach (var method in methods) 
 	{
-	  if (method.Name == "Render")
-	    {
-	      foreach (var parameter in method.GetParameters())
-		{
-		  if (parameter.ParameterType == typeof(Drawable))
-		    {
-		      _usesDrawable = true;
-		    }
-		  if (parameter.ParameterType == typeof(Image))
-		    {
-		      _usesImage = true;
-		    }
-		}
-	    }
+	  var parameters = method.GetParameters();
+	  _usesDrawable = Array.Exists(parameters, 
+				       p => p.ParameterType == typeof(Drawable));
+	  _usesImage = Array.Exists(parameters, 
+				    p => p.ParameterType == typeof(Image));
 	}
     }
 
@@ -163,7 +155,7 @@ namespace Gimp
       GetRequiredParameters();
 
       var procedures = GetSupportedProcedures();
-      procedures.Install(_usesImage, _usesDrawable);     
+      procedures.Install();
     }
 
     ProcedureSet GetSupportedProcedures()
@@ -298,22 +290,10 @@ namespace Gimp
 
       GetRequiredParameters();
 
-      if (_usesDrawable && _usesImage)
-	{
-	  Render(_image, _drawable);
-	}
-      else if (_usesDrawable)
-	{
-	  Render(_drawable);
-	}
-      else if (_usesImage)
-	{
-	  Render(_image);
-	}
-      else
-	{
-	  Render();
-	}
+      Render(_image, _drawable);
+      Render(_drawable);
+      Render(_image);
+      Render();
 
       // TODO: maybe a check could/should be added here if we need to flush
       // the displays at all.

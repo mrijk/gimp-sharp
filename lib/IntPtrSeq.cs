@@ -1,7 +1,7 @@
 // GIMP# - A C# wrapper around the GIMP Library
 // Copyright (C) 2004-2013 Maurits Rijk
 //
-// ProcedureSet.cs
+// IntPtrSeq.cs
 //
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public
@@ -19,42 +19,36 @@
 // Boston, MA 02111-1307, USA.
 //
 
-using System.Collections.Generic;
-using System.Linq;
+using System;
 
 namespace Gimp
 {
-  public class ProcedureSet
+  public class IntPtrSeq
   {
-    Dictionary<string, Procedure> _set = new Dictionary<string, Procedure>();
+    readonly IntPtr _ptr;
+    readonly int _size;
+    readonly int _n;
 
-    public ProcedureSet(IEnumerable<Procedure> procedures)
+    public IntPtrSeq(IntPtr ptr, int n, int size)
     {
-      foreach (var procedure in procedures)
+      _ptr = ptr;
+      _n = n;
+      _size = size;
+    }
+
+    public void ForEach(Action<IntPtr> action)
+    {
+      ForEach((_, ptr) => action(ptr));
+    }
+
+    public void ForEach(Action<int, IntPtr> action)
+    {
+      IntPtr ptr = _ptr;
+      for (int i = 0; i < _n; i++)
 	{
-	  Add(procedure);
+	  action(i, ptr);
+	  ptr = (IntPtr)((int)ptr + _size);
 	}
-    }
-
-    public Procedure this[string name]
-    {
-      get {return _set[name];}
-    }
-
-    public void Add(Procedure procedure)
-    {
-      _set[procedure.Name] = procedure;
-    }
-
-
-    public int Count
-    {
-      get {return _set.Count;}
-    }
-
-    public void Install()
-    {
-      _set.Values.ToList().ForEach(p => p.Install());
     }
   }
 }
