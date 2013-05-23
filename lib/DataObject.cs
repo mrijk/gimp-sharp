@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2013 Maurits Rijk
 //
 // DataObject.cs
 //
@@ -51,6 +51,11 @@ namespace Gimp
 	  return (o as DataObject).Name == Name;
 	}
       return false;
+    }
+
+    public override int GetHashCode()
+    {
+      return _name.GetHashCode();
     }
   }
 }

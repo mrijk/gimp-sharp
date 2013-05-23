@@ -26,14 +26,11 @@ namespace Gimp
 {
   public class ProcedureSet
   {
-    Dictionary<string, Procedure> _set = new Dictionary<string, Procedure>();
+    readonly Dictionary<string, Procedure> _set;
 
     public ProcedureSet(IEnumerable<Procedure> procedures)
     {
-      foreach (var procedure in procedures)
-	{
-	  Add(procedure);
-	}
+      _set = procedures.ToDictionary(p => p.Name);
     }
 
     public Procedure this[string name]
@@ -45,7 +42,6 @@ namespace Gimp
     {
       _set[procedure.Name] = procedure;
     }
-
 
     public int Count
     {

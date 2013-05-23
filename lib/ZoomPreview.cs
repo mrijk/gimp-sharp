@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2013 Maurits Rijk
 //
 // ZoomPreview.cs
 //
@@ -34,14 +34,37 @@ namespace Gimp
       Drawable = drawable;
     }
 
+    public ZoomPreview(Drawable drawable, ZoomModel model) : 
+      base(gimp_zoom_preview_new_with_model(drawable.Ptr, model.Ptr))
+    {
+      Drawable = drawable;
+    }
+
+    // Fix me: implement GetSource
+
     public double Factor
     {
       get {return gimp_zoom_preview_get_factor(Handle);}
     }
 
+    public ZoomModel Model
+    {
+      get {return new ZoomModel(gimp_zoom_preview_get_model(Handle));}
+    }
+
     [DllImport("libgimpui-2.0-0.dll")]
-    extern static IntPtr gimp_zoom_preview_new(IntPtr drawable);
+      extern static IntPtr gimp_zoom_preview_new(IntPtr drawable);
     [DllImport("libgimpui-2.0-0.dll")]
-    extern static double gimp_zoom_preview_get_factor(IntPtr preview);
+      extern static IntPtr gimp_zoom_preview_new_with_model(IntPtr drawable,
+							    IntPtr model);
+    [DllImport("libgimpui-2.0-0.dll")]
+      extern static double gimp_zoom_preview_get_factor(IntPtr preview);
+    [DllImport("libgimpui-2.0-0.dll")]
+      extern static IntPtr gimp_zoom_preview_get_source(IntPtr preview,
+							out int width,
+							out int height,
+							out int bpp);
+    [DllImport("libgimpui-2.0-0.dll")]
+      extern static IntPtr gimp_zoom_preview_get_model(IntPtr preview);
   }
 }

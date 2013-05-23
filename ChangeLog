@@ -1,3 +1,17 @@
+2013-05-22  Maurits  <maurits.rijk@gmail.com>
+
+	* lib/GimpFrame.cs: formatting
+
+	* lib/ZoomPreview.cs: implement new methods
+
+	* lib/DataObject.cs: implemented GetHashCode to avoid warning
+
+	* lib/ZoomModel.cs: new file
+
+	* lib/Makefile.am: changed accordingly
+
+	* lib/ProcedureSet.cs: minor clean-up
+
 2013-05-21  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Plugin.cs: minor clean-up

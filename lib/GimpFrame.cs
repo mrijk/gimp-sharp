@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2013 Maurits Rijk
 //
 // GimpFrame.cs
 //
@@ -27,19 +27,19 @@ using Mono.Unix;
 using Gtk;
 
 namespace Gimp
+{
+  public class GimpFrame : Frame
   {
-    public class GimpFrame : Frame
+    public GimpFrame(string label) : base(gimp_frame_new(label))
     {
-      public GimpFrame(string label) : base(gimp_frame_new(label))
-      {
-      }
-
-      static protected string _(string s)
-      {
-	return Catalog.GetString(s);
-      }
-
-      [DllImport("libgimpwidgets-2.0-0.dll")]
-      extern static IntPtr gimp_frame_new(string label);
     }
+      
+    static protected string _(string s)
+    {
+      return Catalog.GetString(s);
+    }
+      
+    [DllImport("libgimpwidgets-2.0-0.dll")]
+      extern static IntPtr gimp_frame_new(string label);
   }
+}

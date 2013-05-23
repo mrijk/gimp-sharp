@@ -295,8 +295,6 @@ namespace Gimp
       Render(_image);
       Render();
 
-      // TODO: maybe a check could/should be added here if we need to flush
-      // the displays at all.
       Display.DisplaysFlush();
 
       stopWatch.Stop();

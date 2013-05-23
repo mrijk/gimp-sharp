@@ -133,6 +133,7 @@ MYSOURCES = 				\
 	Version.cs			\
 	VerticalGuide.cs		\
 	XmlNodeListExtensions.cs	\
+	ZoomModel.cs			\
 	ZoomPreview.cs
 
 EXTRA_DIST = $(MYSOURCES) $(LIBRARY).config
