@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2013 Maurits Rijk
 //
 // LayoutSet.cs
 //
@@ -81,17 +81,14 @@ namespace Gimp.PicturePackage
       get {return _set[index];}
     }
 
-    public event SelectHandler SelectEvent;
+    public event SelectHandler SelectEvent = (_) => {};
 
     public Layout Selected
     {
       set
 	{
 	  _selected = value;
-	  if (SelectEvent != null)
-	    {
-	      SelectEvent(value);
-	    }
+	  SelectEvent(value);
 	}
 
       get {return _selected;}

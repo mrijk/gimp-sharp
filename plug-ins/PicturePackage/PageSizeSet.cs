@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2013 Maurits Rijk
 //
 // PageSizeSet.cs
 //
@@ -20,30 +20,27 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Gimp.PicturePackage
 {
   public class PageSizeSet
   {
-    readonly List<PageSize> _set = new List<PageSize>();
+    readonly SortedSet<PageSize> _set = new SortedSet<PageSize>();
 
     public void Add(PageSize size)
     {
-      int index = _set.BinarySearch(size);
-      if (index < 0)
-	{
-	  _set.Insert(-index - 1, size);
-	}
+      _set.Add(size);
     }
 
     public PageSize this[int index]
     {
-      get {return _set[index];}
+      get {return _set.ElementAt(index);}
     }
 
     public void ForEach(Action<PageSize> action)
     {
-      _set.ForEach(action);
+      _set.ToList().ForEach(action);
     }
   }
 }

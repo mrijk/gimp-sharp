@@ -1,3 +1,16 @@
+2013-05-24  Maurits  <maurits.rijk@gmail.com>
+
+	* plug-ins/PicturePackage/LayoutSet.cs: use empty delegate to avoid null
+	pointer check
+
+	* plug-ins/PicturePackage/RectangleSet.cs: use Aggregate iso ForEach
+
+	* lib/CoordinateGenerator.cs: clean-up
+
+2013-05-23  Maurits  <maurits.rijk@gmail.com>
+
+	* lib/Procedure.cs: make names consistent
+
 2013-05-22  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/GimpFrame.cs: formatting

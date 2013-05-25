@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2013 Maurits Rijk
 //
 // CoordinateGenerator.cs
 //
@@ -32,7 +32,7 @@ namespace Gimp
     public CoordinateGenerator(Rectangle rectangle, Action<int> update = null)
     {
       _rectangle = rectangle;
-      _update = update;
+      _update = update ?? ((_) => {});
     }
 
     public IEnumerator<IntCoordinate> GetEnumerator()
@@ -43,21 +43,15 @@ namespace Gimp
 	    {
 	      yield return new IntCoordinate(x, y);
 	    }
+	  _update(y);
 	}
     }
 
     public void ForEach(Action<IntCoordinate> action)
     {
-      for (int y = _rectangle.Y1; y < _rectangle.Y2; y++)
+      foreach (var c in this)
 	{
-	  for (int x = _rectangle.X1; x < _rectangle.X2; x++)
-	    {
-	      action(new IntCoordinate(x, y));
-	    }
-	  if (_update != null)
-	    {
-	      _update(y);
-	    }
+	  action(c);
 	}
     }
   }

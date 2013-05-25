@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2013 Maurits Rijk
 //
 // RectangleSet.cs
 //
@@ -19,6 +19,7 @@
 //
 
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Gimp.PicturePackage
 {
@@ -47,11 +48,12 @@ namespace Gimp.PicturePackage
 
     public bool Render(ProviderFactory factory, ParentRenderer renderer)
     {
-      bool retVal = false;
       factory.Reset();
-      _set.ForEach(rectangle => retVal |= rectangle.Render(factory, renderer));
+      bool retVal = _set.Aggregate(false, (b, rectangle) =>
+				   b || rectangle.Render(factory, renderer));
       factory.Cleanup();
       renderer.Cleanup();
+
       return retVal;
     }
   }

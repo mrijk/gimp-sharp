@@ -36,8 +36,8 @@ namespace Gimp
     string _author;
     string _copyright;
     string _date;
-    string _menu_path;
-    string _image_types;
+    string _menuPath;
+    string _imageTypes;
 
     // Fix me: this name looks to much like _menu_path
     public string MenuPath {get; set;}
@@ -48,8 +48,8 @@ namespace Gimp
 
     public Procedure(string name, string blurb, string help, 
 		     string author, string copyright, 
-		     string date, string menu_path, 
-		     string image_types,
+		     string date, string menuPath, 
+		     string imageTypes,
 		     ParamDefList inParams = null,
 		     ParamDefList outParams = null)
     {
@@ -59,8 +59,8 @@ namespace Gimp
       _author = author;
       _copyright = copyright;
       _date = date;
-      _menu_path = menu_path;
-      _image_types = image_types;
+      _menuPath = menuPath;
+      _imageTypes = imageTypes;
       _inParams = inParams ?? new ParamDefList();
       _outParams = outParams ?? new ParamDefList(false);
     }
@@ -78,7 +78,7 @@ namespace Gimp
     public void Install()
     {
       gimp_install_procedure(Name, _blurb, _help, _author, _copyright, _date, 
-			     _menu_path, _image_types, PDBProcType.Plugin, 
+			     _menuPath, _imageTypes, PDBProcType.Plugin, 
 			     _inParams.Count, _outParams.Count,
 			     _inParams.GetGimpParamDef(), 
 			     _outParams.GetGimpParamDef());
