@@ -1,5 +1,5 @@
 // The Trim plug-in
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2013 Maurits Rijk
 //
 // Renderer.cs
 //
@@ -19,6 +19,7 @@
 //
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Gimp.Trim
@@ -36,31 +37,26 @@ namespace Gimp.Trim
 
       var trimColor = GetTrimColor(src, drawable);
 
-      Predicate<bool> notTrue = (b) => {return !b;};
+      var tb = GetLowerUpper(trimColor, src.Rows, "top", "bottom");
+      var lr = GetLowerUpper(trimColor, src.Columns, "left", "right");
 
-      int height = drawable.Height;
-      var rows = new bool[height];
-      int y = 0;
-      src.ForEachRow(row => rows[y++] = AllEqual(row, trimColor));
-
-      int y1 = (GetValue<bool>("top")) ? Array.FindIndex(rows, notTrue) : 0;
-      int y2 = (GetValue<bool>("bottom")) ? 
-	Array.FindLastIndex(rows, notTrue) + 1 : height;
-
-      int width = drawable.Width;
-      var cols = new bool[width];
-      int x = 0;
-      src.ForEachColumn(col => cols[x++] = AllEqual(col, trimColor));
-
-      int x1 = (GetValue<bool>("left")) ? Array.FindIndex(cols, notTrue) : 0;
-      int x2 = (GetValue<bool>("right")) ? 
-	Array.FindLastIndex(cols, notTrue) + 1 : width;
-
-      var croppingArea = new Rectangle(x1, y1, x2, y2);
+      var croppingArea = new Rectangle(lr.Item1, tb.Item1, lr.Item2, tb.Item2);
       if (croppingArea != image.Bounds)
 	{
 	  image.Crop(croppingArea);
 	}
+    }
+
+    Tuple<int, int> GetLowerUpper(Pixel trimColor, IEnumerable<Pixel[]> array,
+				  string lower, string upper)
+    {
+      Predicate<bool> notTrue = (b) => {return !b;};
+
+      var rows = array.Select(x => AllEqual(x, trimColor)).ToList();
+      
+      return Tuple.Create((GetValue<bool>(lower)) ? rows.FindIndex(notTrue) : 0,
+			  (GetValue<bool>(upper)) ? rows.FindLastIndex(notTrue) + 1 
+			  : rows.Count());
     }
 
     Pixel GetTrimColor(PixelRgn src, Drawable drawable)

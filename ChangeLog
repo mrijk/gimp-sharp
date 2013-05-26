@@ -1,3 +1,16 @@
+2013-05-26  Maurits  <maurits.rijk@gmail.com>
+
+	* plug-ins/Trim/Renderer.cs: use new convenience routines
+
+	* lib/PixelRgn.cs: implement convenience routines to get row and column
+	enumerators.
+
+2013-05-25  Maurits  <maurits.rijk@gmail.com>
+
+	* plug-ins/QR/Renderer.cs: use dictionary to convert from int to string
+
+	* plug-ins/PicturePackage/DirImageProviderFactory.cs: minor clean-up
+
 2013-05-24  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PicturePackage/LayoutSet.cs: use empty delegate to avoid null

@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2013 Maurits Rijk
 //
 // DirImageProviderFactory.cs
 //
@@ -40,11 +40,9 @@ namespace Gimp.PicturePackage
 
     public override ImageProvider Provide()
     {
-      while (_index < _files.Length)
+      for (; _index < _files.Length; _index++)
 	{
-	  string file = _files[_index++];
-	  
-	  var provider = new FileImageProvider(file, file);
+	  var provider = new FileImageProvider(_files[_index]);
 	  if (provider.GetImage() != null)
 	    {
 	      return provider;

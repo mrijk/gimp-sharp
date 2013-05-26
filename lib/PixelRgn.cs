@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2013 Maurits Rijk
 //
 // PixelRgn.cs
 //
@@ -20,6 +20,7 @@
 //
 
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace Gimp
@@ -159,10 +160,22 @@ namespace Gimp
 
     public void ForEachRow(Action<Pixel[]> action)
     {
-      int width = _drawable.Width;
-      for (int y = 0; y < _drawable.Height; y++) 
+      foreach (var row in Rows)
 	{
-	  action(GetRow(0, y, width));
+	  action(row);
+	}
+    }
+
+    public IEnumerable<Pixel[]> Rows
+    {
+      get
+	{
+	  int width = _drawable.Width;
+	  for (int y = 0; y < _drawable.Height; y++) 
+	    {
+	      yield return GetRow(0, y, width);
+	    }
+	  yield break;
 	}
     }
 
@@ -206,10 +219,22 @@ namespace Gimp
 
     public void ForEachColumn(Action<Pixel[]> action)
     {
-      int height = _drawable.Height;
-      for (int x = 0; x < _drawable.Width; x++) 
+      foreach (var column in Columns)
 	{
-	  action(GetColumn(x, 0, height));
+	  action(column);
+	}
+    }
+
+    public IEnumerable<Pixel[]> Columns
+    {
+      get
+	{
+	  int height = _drawable.Height;
+	  for (int x = 0; x < _drawable.Width; x++) 
+	    {
+	      yield return GetColumn(x, 0, height);
+	    }
+	  yield break;
 	}
     }
 

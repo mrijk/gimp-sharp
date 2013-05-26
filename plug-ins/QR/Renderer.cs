@@ -1,5 +1,5 @@
 // The QR plug-in
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2013 Maurits Rijk
 //
 // Renderer.cs
 //
@@ -19,6 +19,7 @@
 //
 
 using System;
+using System.Collections.Generic;
 
 namespace Gimp.QR
 {
@@ -72,19 +73,11 @@ namespace Gimp.QR
 
     string GetEncodingString()
     {
-      int encoding = GetValue<int>("encoding");
-      if (encoding == 1) 
-	{
-	  return "Shift_JIS";
-	}
-      else if (encoding == 2)
-	{
-	  return "ISO-8859-1";
-	}
-      else
-	{
-	  return "UTF-8";
-	}
+      return new Dictionary<int, string> {
+	{0, "UTF-8"}, 
+	{1, "Shift_JIS"}, 
+	{2, "ISO-8859-1"}
+      }[GetValue<int>("encoding")];
     }
   }
 }
