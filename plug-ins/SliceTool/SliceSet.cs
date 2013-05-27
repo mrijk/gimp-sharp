@@ -1,5 +1,5 @@
 // The SliceTool plug-in
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2013 Maurits Rijk
 //
 // SliceSet.cs
 //
@@ -90,9 +90,15 @@ namespace Gimp.SliceTool
       return _set.Find(slice => slice.PointOn(c));
     }
 
-    public bool IsEndPoint(Slice s)
+    bool IsEndPoint(Slice s)
     {
       return _set.Exists(slice => slice.Begin == s || slice.End == s);
+    }
+
+    public Slice MayRemove(SliceSet orthogonal, IntCoordinate c)
+    {
+      var slice = Find(c);
+      return (slice == null || orthogonal.IsEndPoint(slice)) ? null : slice; 
     }
 
     public void Remove(Slice slice)

@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2013 Maurits Rijk
 //
 // SliceData.cs
 //
@@ -28,8 +28,8 @@ namespace Gimp.SliceTool
   public class SliceData
   {
     RectangleSet _rectangles = new RectangleSet();
-    SliceSet _horizontalSlices = new SliceSet();
-    SliceSet _verticalSlices = new SliceSet();
+    readonly SliceSet _horizontalSlices = new SliceSet();
+    readonly SliceSet _verticalSlices = new SliceSet();
 
     public RectangleSet Rectangles
     {
@@ -87,20 +87,8 @@ namespace Gimp.SliceTool
 
     public Slice MayRemove(IntCoordinate c)
     {
-      var slice = _horizontalSlices.Find(c);
-      if (slice == null)
-        {
-	  slice = _verticalSlices.Find(c);
-	  if (slice != null && !_horizontalSlices.IsEndPoint(slice))
-	    {
-	      return slice;
-	    }
-        }
-      else if (!_verticalSlices.IsEndPoint(slice))
-        {
-	  return slice;
-        }
-      return null;
+      return _horizontalSlices.MayRemove(_verticalSlices, c) 
+	?? _verticalSlices.MayRemove(_horizontalSlices, c);
     }
 
     public void Remove(Slice slice)

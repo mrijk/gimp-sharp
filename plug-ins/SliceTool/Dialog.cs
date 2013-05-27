@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2013 Maurits Rijk
 //
 // Dialog.cs
 //
@@ -104,7 +104,7 @@ namespace Gimp.SliceTool
       _filename = filename;	// Fix me!
       string p = (filename == null) 
 	? _("<Untitled>") : System.IO.Path.GetFileName(filename);
-      Title = string.Format(_("Slice Tool 0.6 - {0}"), p);
+      Title = string.Format(_("Slice Tool 0.7 - {0}"), p);
     }
 
     Widget CreatePreview(Drawable drawable, SliceData sliceData)

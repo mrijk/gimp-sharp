@@ -1,5 +1,5 @@
 // The SliceTool plug-in
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2013 Maurits Rijk
 //
 // RectangleSet.cs
 //
@@ -43,7 +43,8 @@ namespace Gimp.SliceTool
     public delegate void SelectedRectangleChangedHandler(object sender,
 							 SelectedChangedEventArgs args);
 
-    public event SelectedRectangleChangedHandler SelectedRectangleChanged;
+    public event SelectedRectangleChangedHandler SelectedRectangleChanged = 
+      delegate {};
 
     readonly List<Rectangle> _set = new List<Rectangle>();
     Rectangle _selected;
@@ -65,11 +66,8 @@ namespace Gimp.SliceTool
 
     void OnSelectedRectangleChanged(Rectangle newSelected)
     {
-      if (SelectedRectangleChanged != null)
-	{
-	  var args = new SelectedChangedEventArgs(_selected, newSelected);
-	  SelectedRectangleChanged(this, args);
-	}
+      var args = new SelectedChangedEventArgs(Selected, newSelected);
+      SelectedRectangleChanged(this, args);
     }
 
     void Flush()

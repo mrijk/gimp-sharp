@@ -1,3 +1,12 @@
+2013-05-27  Maurits  <maurits.rijk@gmail.com>
+
+	* plug-ins/SliceTool/RectangleSet.cs: use empty delegate to avoid null
+	pointer check
+
+	* plug-ins/SliceTool/Dialog.cs: bump version number
+
+	* plug-ins/SliceTool/SliceTool.cs: minor clean-up
+
 2013-05-26  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/Trim/Renderer.cs: use new convenience routines

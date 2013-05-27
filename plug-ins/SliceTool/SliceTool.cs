@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2013 Maurits Rijk
 //
 // SliceTool.cs
 //
@@ -38,7 +38,7 @@ namespace Gimp.SliceTool
 			   _("The Image Slice Tool is used to apply image slicing and rollovers."),
 			   "Maurits Rijk",
 			   "(C) Maurits Rijk",
-			   "2005-2011",
+			   "2005-2013",
 			   _("Slice Tool..."),
 			   "RGB*, GRAY*")
 	{
@@ -62,12 +62,11 @@ namespace Gimp.SliceTool
 					  ButtonsType.YesNo, 
 					  _("Some data has been changed!\n") + 
 			      _("Do you really want to discard your changes?"));
-	  var response = (ResponseType) message.Run();
-	  return response == ResponseType.Yes;
+	  return (ResponseType) message.Run() == ResponseType.Yes;
 	}
       return true;
     }
-    
+
     override protected void DialogRun(ResponseType type)
     {
       (Dialog as Dialog).DialogRun(type);
