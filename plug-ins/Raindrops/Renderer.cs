@@ -1,5 +1,5 @@
 // The Raindrops plug-in
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2013 Maurits Rijk
 //
 // Renderer.cs
 //
@@ -43,11 +43,10 @@ namespace Gimp.Raindrops
       int number = GetValue<int>("number");
 
       var factory = new RaindropFactory(dropSize, fishEye, dimensions);
+
       for (int numBlurs = 0; numBlurs <= number; numBlurs++)
 	{
-	  Console.WriteLine("Before0");
 	  var raindrop = factory.Create();
-	  Console.WriteLine("Before1");
 	  if (raindrop == null)
 	    {
 	      if (progress != null)
@@ -55,13 +54,10 @@ namespace Gimp.Raindrops
 	      break;
 	    }
 
-	  Console.WriteLine("Before");
 	  raindrop.Render(factory.BoolMatrix, pf, drawable);
-	  Console.WriteLine("After: " + number);
 
 	  if (progress != null)
 	    progress.Update((double) numBlurs / number);
-	  Console.WriteLine("After1");
 	}
 
       pf.Dispose();

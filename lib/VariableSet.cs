@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2013 Maurits Rijk
 //
 // Variable.cs
 //
@@ -44,7 +44,7 @@ namespace Gimp
   {
     List<IVariable> _set = new List<IVariable>();
     
-    public event EventHandler ValueChanged;
+    public event EventHandler ValueChanged = delegate {};
 
     public void Add(IVariable v)
     {
@@ -103,10 +103,7 @@ namespace Gimp
 
     public void Changed()
     {
-      if (ValueChanged != null)
-	{
-	  ValueChanged(this, new EventArgs());
-	}
+      ValueChanged(this, new EventArgs());
     }
 
     public void Reset()

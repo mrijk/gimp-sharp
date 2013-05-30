@@ -1,3 +1,15 @@
+2013-05-30  Maurits  <maurits.rijk@gmail.com>
+
+	* plug-ins/Raindrops/Renderer.cs: removed debugging info
+
+	* lib/Coordinate.cs: fixed operator== for null parameters
+
+	* plug-ins/Raindrops/RaindropFactory.cs: removed debugging info
+
+	* plug-ins/Raindrops/Raindrop.cs: minor clean-up
+
+	* lib/VariableSet.cs: use empty delegate to avoid null pointer check
+
 2013-05-27  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/SliceTool/RectangleSet.cs: use empty delegate to avoid null

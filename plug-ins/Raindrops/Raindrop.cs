@@ -1,5 +1,5 @@
 // The Raindrops plug-in
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2013 Maurits Rijk
 //
 // Raindrop.cs
 //
@@ -46,7 +46,7 @@ namespace Gimp.Raindrops
     {
       var dimensions = drawable.Dimensions;
       RenderDrop(boolMatrix, pf, dimensions);
-      // RenderShadow(pf, drawable, dimensions);
+      RenderShadow(pf, drawable, dimensions);
     }
 
     void RenderDrop(BoolMatrix boolMatrix, PixelFetcher pf, 
@@ -58,11 +58,6 @@ namespace Gimp.Raindrops
       int y1 = _newSize - _radius;
       var rectangle = new Rectangle(x0, y0, x1, y1);
 
-      Console.WriteLine("Dimensions: " + dimensions);
-
-      Console.WriteLine("Matrix: {0} x {1}", boolMatrix.Width, 
-			boolMatrix.Height);
-      
       foreach (var c in new CoordinateGenerator(rectangle))
 	{
 	  double r = c.Radius;
@@ -83,9 +78,9 @@ namespace Gimp.Raindrops
 		{
 		  boolMatrix[n, m] = true;
 
-		  // var newColor = pf[l, k] + GetBright(oldRadius, a);
-		  // newColor.Clamp0255();
-		  // pf[l, k] = newColor;
+		  var newColor = pf[l, k] + GetBright(oldRadius, a);
+		  newColor.Clamp0255();
+		  pf[l, k] = newColor;
 		}
 	    }
 	}
@@ -141,58 +136,58 @@ namespace Gimp.Raindrops
 
       if (OldRadius >= 0.9 * _radius)
 	{
-	  if ((a <= 0) && (a > -2.25))
+	  if (a <= 0 && a > -2.25)
 	    bright = -80;
-	  else if ((a <= -2.25) && (a > -2.5))
+	  else if (a <= -2.25 && a > -2.5)
 	    bright = -40;
-	  else if ((a <= 0.25) && (a > 0))
+	  else if (a <= 0.25 && a > 0)
 	    bright = -40;
 	}
       else if (OldRadius >= 0.8 * _radius)
 	{
-	  if ((a <= -0.75) && (a > -1.50))
+	  if (a <= -0.75 && a > -1.50)
 	    bright = -40;
-	  else if ((a <= 0.10) && (a > -0.75))
+	  else if (a <= 0.10 && a > -0.75)
 	    bright = -30;
-	  else if ((a <= -1.50) && (a > -2.35))
+	  else if (a <= -1.50 && a > -2.35)
 	    bright = -30;
 	}
       else if (OldRadius >= 0.7 * _radius)
 	{
-	  if ((a <= -0.10) && (a > -2.0))
+	  if (a <= -0.10 && a > -2.0)
 	    bright = -20;
-	  else if ((a <= 2.50) && (a > 1.90))
+	  else if (a <= 2.50 && a > 1.90)
 	    bright = 60;
 	}
       else if (OldRadius >= 0.6 * _radius)
 	{
-	  if ((a <= -0.50) && (a > -1.75))
+	  if (a <= -0.50 && a > -1.75)
 	    bright = -20;
-	  else if ((a <= 0) && (a > -0.25))
+	  else if (a <= 0 && a > -0.25)
 	    bright = 20;
-	  else if ((a <= -2.0) && (a > -2.25))
+	  else if (a <= -2.0 && a > -2.25)
 	    bright = 20;
 	}
       else if (OldRadius >= 0.5 * _radius)
 	{
-	  if ((a <= -0.25) && (a > -0.50))
+	  if (a <= -0.25 && a > -0.50)
 	    bright = 30;
-	  else if ((a <= -1.75 ) && (a > -2.0))
+	  else if (a <= -1.75 && a > -2.0)
 	    bright = 30;
 	}
       else if (OldRadius >= 0.4 * _radius)
 	{
-	  if ((a <= -0.5) && (a > -1.75))
+	  if (a <= -0.5 && a > -1.75)
 	    bright = 40;
 	}
       else if (OldRadius >= 0.3 * _radius)
 	{
-	  if ((a <= 0) && (a > -2.25))
+	  if (a <= 0 && a > -2.25)
 	    bright = 30;
 	}
       else if (OldRadius >= 0.2 * _radius)
 	{
-	  if ((a <= -0.5) && (a > -1.75))
+	  if (a <= -0.5 && a > -1.75)
 	    bright = 20;
 	}
       return bright;

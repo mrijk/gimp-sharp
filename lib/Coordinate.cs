@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2013 Maurits Rijk
 //
 // Coordinate.cs
 //
@@ -60,6 +60,16 @@ namespace Gimp
     public static bool operator==(Coordinate<T> coordinate1, 
 				  Coordinate<T> coordinate2)
     {
+      if (ReferenceEquals(coordinate1, coordinate2))
+	{
+	  return true;
+	}
+
+      if (((object) coordinate1 == null) || ((object) coordinate2 == null))
+	{
+	  return false;
+	}
+
       return coordinate1.Equals(coordinate2);
     }
 
