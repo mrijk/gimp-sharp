@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2013 Maurits Rijk
 //
 // Parasite.cs
 //
@@ -73,6 +73,16 @@ namespace Gimp
 
     public static bool operator==(Parasite parasite1, Parasite parasite2)
     {
+      if (ReferenceEquals(parasite1, parasite2))
+	{
+	  return true;
+	}
+
+      if (((object) parasite1 == null) || ((object) parasite2 == null))
+	{
+	  return false;
+	}
+
       return parasite1._parasite.Equals(parasite2._parasite);
     }
 

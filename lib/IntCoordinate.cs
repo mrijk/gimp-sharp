@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2013 Maurits Rijk
 //
 // IntCoordinate.cs
 //
@@ -20,7 +20,6 @@
 //
 
 using System;
-using System.Collections.Generic;
 
 namespace Gimp
 {

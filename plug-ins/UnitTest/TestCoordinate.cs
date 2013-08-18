@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2013 Maurits Rijk
 //
 // TestCoordinate.cs
 //
@@ -93,6 +93,15 @@ namespace Gimp
       Assert.IsFalse(c1 != c2);
       Assert.IsFalse(c1 == c3);
       Assert.IsTrue(c1 != c3);
+    }
+
+    [Test]
+    public void OperatorsWithNull()
+    {
+      var c1 = new Coordinate<int>(13, 14);
+      var c2 = (Coordinate<int>) null;
+      Assert.IsFalse(c1 == c2);
+      Assert.IsFalse(c2 == c1);
     }
   }
 }
