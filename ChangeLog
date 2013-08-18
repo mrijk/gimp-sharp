@@ -1,3 +1,8 @@
+2013-08-18  Maurits  <maurits.rijk@gmail.com>
+
+	* plug-ins/PhotoshopActions/SetContentLayerEvent.cs: make sure
+	plug-in doesn't crash on unknown set event
+
 2013-05-31  Maurits  <maurits.rijk@gmail.com>
 
 	* lib/Parasite.cs: check for null parameters

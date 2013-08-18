@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2013 Maurits Rijk
 //
 // SetContentLayerEvent.cs
 //
@@ -48,11 +48,15 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
-      RGB rgb = _color.GetColor();
-      yield return "Slot Color: RGB color";
-      yield return String.Format("Red: {0:F3}", rgb.R * 255);
-      yield return String.Format("Green: {0:F3}", rgb.G * 255);
-      yield return String.Format("Blue: {0:F3}", rgb.B * 255);
+      // Fix me: contentlayer can also be a gradient layer and not only a fill layer!!!
+      if (_color != null) 
+	{
+	  RGB rgb = _color.GetColor();
+	  yield return "Slot Color: RGB color";
+	  yield return String.Format("Red: {0:F3}", rgb.R * 255);
+	  yield return String.Format("Green: {0:F3}", rgb.G * 255);
+	  yield return String.Format("Blue: {0:F3}", rgb.B * 255);
+	}
     }
 
     override public bool Execute()

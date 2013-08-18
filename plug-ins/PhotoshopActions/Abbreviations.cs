@@ -458,6 +458,7 @@ namespace Gimp.PhotoshopActions
 
     public static string Get(string key)
     {
+      if (key == null) return "key == null!!";
       return GetFullString(key) ?? key;
     }
 
