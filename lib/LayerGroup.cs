@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2012 Maurits Rijk
+// Copyright (C) 2004-2013 Maurits Rijk
 //
 // LayerGroup.cs
 //
@@ -33,7 +33,6 @@ namespace Gimp
     internal LayerGroup(Int32 layerID) : base(layerID)
     {
     }
-
 
     public void Insert(Layer layer, int position)
     {

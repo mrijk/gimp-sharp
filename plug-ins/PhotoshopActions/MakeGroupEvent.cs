@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2013 Maurits Rijk
 //
 // MakeGroupEvent.cs
 //
@@ -28,11 +28,6 @@ namespace Gimp.PhotoshopActions
     {
     }
 
-    public override bool IsExecutable
-    {
-      get {return false;}
-    }
-
     public override string EventForDisplay
     {
       get {return base.EventForDisplay + " Group";}
@@ -51,6 +46,20 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
+      var image = ActiveImage;
+      var group = new LayerGroup(image);
+
+      // Fixme: Insert only one. Should be all selected layers
+
+      var layer = SelectedLayer;
+      var name = layer.Name;
+      var copy = new Layer(layer);
+
+      image.InsertLayer(group, -1);
+      group.Insert(copy, -1);
+      image.RemoveLayer(layer);
+      copy.Name = name;
+
       return true;
     }
   }

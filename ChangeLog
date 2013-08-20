@@ -1,3 +1,10 @@
+2013-08-20  Maurits  <maurits.rijk@gmail.com>
+
+	* lib/LayerGroup.cs: remove empty line
+
+	* plug-ins/PhotoshopActions/MakeGroupEvent.cs (PhotoshopActions):
+	implemented this event
+
 2013-08-18  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/SetContentLayerEvent.cs: make sure
