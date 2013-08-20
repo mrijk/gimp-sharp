@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2010 Maurits Rijk
+// Copyright (C) 2006-2013 Maurits Rijk
 //
 // SelectLayerByNameEvent.cs
 //
@@ -25,12 +25,16 @@ namespace Gimp.PhotoshopActions
 {
   public class SelectLayerByNameEvent : SelectEvent
   {
-    string _name;
+    readonly string _name;
+    readonly EnumParameter _modifier;
+    readonly BoolParameter _makeVisible;
 
     public SelectLayerByNameEvent(ActionEvent srcEvent, string name) : 
       base(srcEvent)
     {
       _name = name;
+      _modifier = Parameters["selectionModifier"] as EnumParameter;
+      _makeVisible = Parameters["MkVs"] as BoolParameter;
     }
 
     public override string EventForDisplay
@@ -40,21 +44,25 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
-      var makeVisible = Parameters["MkVs"] as BoolParameter;
-
-      if (makeVisible != null)
+      if (_modifier != null)
 	{
-	  yield return (makeVisible.Value ? "With" : "Without") + 
+	  yield return "Modification: " + Abbreviations.Get(_modifier.Value);
+	}
+
+      if (_makeVisible != null)
+	{
+	  yield return (_makeVisible.Value ? "With" : "Without") + 
 	    " Make Visible";
 	}
     }
 
     override public bool Execute()
     {
-      Console.WriteLine("Visible: " + (Parameters["MkVs"] != null));
+      // SelectedLayer = ActiveImage.Layers[_name];
+      // ActiveImage.ActiveLayer = SelectedLayer;
 
-      SelectedLayer = ActiveImage.Layers[_name];
-      ActiveImage.ActiveLayer = SelectedLayer;
+      bool add = _modifier != null;
+      SelectLayer(ActiveImage.Layers[_name], add);
 
       return true;
     }

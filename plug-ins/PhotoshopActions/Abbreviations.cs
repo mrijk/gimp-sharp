@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2010 Maurits Rijk
+// Copyright (C) 2006-2013 Maurits Rijk
 //
 // Abbreviations.cs
 //
@@ -35,6 +35,7 @@ namespace Gimp.PhotoshopActions
 	{"AdLf", "left edges"},
 	{"AdNs", "Add Noise"},
 	{"addNoise", "Add Noise"},
+	{"addToSelectionContinuous", "Add Continuous"},
 	{"AdRg", "right edges"},
 	{"AdTp", "top edges"},
 	{"Al", "all"},

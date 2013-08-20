@@ -49,18 +49,24 @@ namespace Gimp.PhotoshopActions
       var image = ActiveImage;
       var group = new LayerGroup(image);
 
-      // Fixme: Insert only one. Should be all selected layers
+      image.InsertLayer(group, -1);
 
-      var layer = SelectedLayer;
+      System.Console.WriteLine("SelectedLayers: " + SelectedLayers.Count);
+      //      SelectedLayers.ForEach(layer => MoveLayerToGroup(layer, group));
+      SelectedLayers.ForEach(l => System.Console.WriteLine(l.Name));
+
+      return true;
+    }
+
+    void MoveLayerToGroup(Layer layer, LayerGroup group)
+    {
       var name = layer.Name;
       var copy = new Layer(layer);
 
-      image.InsertLayer(group, -1);
-      group.Insert(copy, -1);
-      image.RemoveLayer(layer);
-      copy.Name = name;
+      group.Insert(copy, -1);      
 
-      return true;
+      ActiveImage.RemoveLayer(layer);
+      copy.Name = name;
     }
   }
 }

@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2013 Maurits Rijk
 //
 // SelectEvent.cs
 //
@@ -60,11 +60,6 @@ namespace Gimp.PhotoshopActions
 		case "Chnl":
 		  return new SelectChannelByNameEvent(this, name.Key);
 		case "Lyr":
-		  if (Parameters.Count > 2)
-		    {
-		      // TODO: implement multiple selection
-		      Console.WriteLine("SelectEvent: multiple selection");
-		    }
 		  return new SelectLayerByNameEvent(this, name.Key);
 		case "SnpS":
 		  return new SelectSnapshotEvent(this, name.Key);

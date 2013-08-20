@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2010 Maurits Rijk
+// Copyright (C) 2006-2013 Maurits Rijk
 //
 // ActionEvent.cs
 //
@@ -51,9 +51,7 @@ namespace Gimp.PhotoshopActions
 
     static LinkedLayersSet _linkedLayersSet = new LinkedLayersSet();
 
-    // TODO: this should become a set
     static List<Layer> _selectedLayers = new List<Layer>();
-    static Layer _selectedLayer;
 
     // TODO: this is a hack
     public static Channel SelectedChannel {get; set;}
@@ -96,26 +94,36 @@ namespace Gimp.PhotoshopActions
 	  _activeImage = value;
 	  if (_activeImage != null)
 	    {
-	      _selectedLayer = _activeImage.Layers[0];
+	      SelectLayer(_activeImage.Layers[0]);
 	    }
 	}
     }
 
     public static Layer SelectedLayer
     {
-      get {return _selectedLayer;}
+      get {return SelectedLayers[0];}
       set 
 	{
-	  _selectedLayer = value;
-	  Console.WriteLine("SelectedLayer: " + value.Name);
-	  _activeImage.ActiveLayer = value;
-	  ActiveDrawable = value;
+	  SelectLayer(value);
+	  //	  _activeImage.ActiveLayer = value;
+	  // ActiveDrawable = value;
 	}
     }
 
     public static List<Layer> SelectedLayers
     {
       get {return _selectedLayers;}
+    }
+
+    protected static void SelectLayer(Layer layer, bool add = false)
+    {
+      Console.WriteLine("SelectLayer: " + layer.Name);
+      // Fix me: check if layer is not already in this list
+      if (!add)
+	SelectedLayers.Clear();
+      SelectedLayers.Add(layer);
+      ActiveImage.ActiveLayer = layer;
+      ActiveDrawable = layer;
     }
 
     public static LinkedLayersSet LinkedLayersSet
@@ -157,7 +165,7 @@ namespace Gimp.PhotoshopActions
     {
       iter = store.AppendValues(iter, EventForDisplay, this);
 
-      foreach (string s in ListParameters())
+      foreach (var s in ListParameters())
 	{
 	  store.AppendValues(iter, s);
 	}
@@ -165,7 +173,7 @@ namespace Gimp.PhotoshopActions
 
     protected virtual IEnumerable ListParameters()
     {
-      foreach (String s in Parameters.ListParameters())
+      foreach (var s in Parameters.ListParameters())
 	{
 	  yield return s;
 	}
