@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2012 Maurits Rijk
+// Copyright (C) 2006-2013 Maurits Rijk
 //
 // AddLayerEvent.cs
 //
@@ -21,6 +21,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace Gimp.PhotoshopActions
 {
@@ -34,8 +35,6 @@ namespace Gimp.PhotoshopActions
     string _name;
     [Parameter("Md")]
     EnumParameter _mode;
-
-    static int _layerNr = 1;
 
     public AddLayerEvent(ActionEvent srcEvent) : base(srcEvent) 
     {
@@ -102,7 +101,7 @@ namespace Gimp.PhotoshopActions
     override public bool Execute()
     {
       var image = ActiveImage;
-      var name = _name ?? "Layer " + _layerNr++;
+      var name = _name ?? GetNextUnnamedLayer();
 
       ImageType imageType;
       switch (image.BaseType)
@@ -126,6 +125,23 @@ namespace Gimp.PhotoshopActions
       layer.Fill(FillType.Transparent);
 
       return true;
+    }
+
+    string GetNextUnnamedLayer()
+    {
+      int max = 1;
+
+      var regex = new Regex(@"Layer ([0-9]+)");
+      foreach (var layer in ActiveImage.Layers)
+	{
+	  if (regex.IsMatch(layer.Name)) {
+	    var matches = regex.Matches(layer.Name);
+	    int nr = Convert.ToInt32(matches[0].Groups[1].Value);
+	    if (nr > max)
+	      max = nr;
+	  }
+	}
+      return "Layer " + (max + 1);
     }
   }
 }
