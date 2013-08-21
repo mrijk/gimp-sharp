@@ -58,9 +58,6 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
-      // SelectedLayer = ActiveImage.Layers[_name];
-      // ActiveImage.ActiveLayer = SelectedLayer;
-
       bool add = _modifier != null;
       SelectLayer(ActiveImage.Layers[_name], add);
 

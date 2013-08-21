@@ -51,9 +51,7 @@ namespace Gimp.PhotoshopActions
 
       image.InsertLayer(group, -1);
 
-      System.Console.WriteLine("SelectedLayers: " + SelectedLayers.Count);
-      //      SelectedLayers.ForEach(layer => MoveLayerToGroup(layer, group));
-      SelectedLayers.ForEach(l => System.Console.WriteLine(l.Name));
+      SelectedLayers.ForEach(layer => MoveLayerToGroup(layer, group));
 
       return true;
     }
