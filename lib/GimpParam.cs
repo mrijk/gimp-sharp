@@ -26,17 +26,19 @@ namespace Gimp
 {
   public class GimpParam
   {
-    dynamic _param;
+    // public dynamic _param;
+    public GimpParam64 _param;
 
     public GimpParam()
     {
-      _param = CreateGimpParam();
+      // _param = CreateGimpParam();
+      _param = new GimpParam64();
     }
 
     public GimpParam(IntPtr ptr)
     {
       Type type = (arch64) ? typeof(GimpParam64) : typeof(GimpParam32);
-      _param = Marshal.PtrToStructure(ptr, type);
+      _param = (GimpParam64) Marshal.PtrToStructure(ptr, type);
     }
 
     public GimpParam(PDBArgType type, object value) : this()
@@ -83,6 +85,8 @@ namespace Gimp
     {
       get {
 	dynamic foo = CreateGimpParam();
+	Console.WriteLine("Architecture: " + arch64);
+	Console.WriteLine("Size GimpParam: " + Marshal.SizeOf(foo));
 	return Marshal.SizeOf(foo);
       }
     }

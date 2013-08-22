@@ -178,20 +178,22 @@ namespace Gimp
 				       out argsPtr,
 				       out return_vals))
 	{	
-	  Console.WriteLine("Run 1");
+	  Console.WriteLine("Run 1: " + image.Width);
+	  Console.WriteLine("Run 1: " + drawable.Width);
 	  // First 3 parameters are default
 	  var parameters = new GimpParamSet() {
 	    new GimpParam(PDBArgType.Int32, RunMode.Noninteractive),
 	    new GimpParam(PDBArgType.Image, image),
 	    new GimpParam(PDBArgType.Drawable, drawable)
 	  };
-	  Console.WriteLine("Run 2");
+	  Console.WriteLine("Run 2: " + GimpParam.Size);
 
 	  ParseParameters(parameters, num_args, argsPtr, list);
 	  // Todo: destroy argsPtr!
-	  Console.WriteLine("Run 3");
+	  Console.WriteLine("Run 3 with " + parameters.Count);
 
 	  RunProcedure2(Name, parameters);
+	  // RunProcedure2(Name, image, drawable);
 	}
       else
 	{
@@ -204,8 +206,34 @@ namespace Gimp
       int n_return_vals;
       IntPtr returnArgsPtr = gimp_run_procedure2(Name, out n_return_vals, 
 						 parameters.Count, 
-						 parameters.ToStructArray());
-      return ParseReturnArgs(returnArgsPtr, n_return_vals);
+						 parameters.ToArray());
+      //      return ParseReturnArgs(returnArgsPtr, n_return_vals);
+
+      return null;
+    }
+
+    List<object> RunProcedure2(string Name, Image image, Drawable drawable)
+    {
+      int n_return_vals;
+
+      var parameters = new GimpParam64[6];
+
+      parameters[0].type = PDBArgType.Int32;
+      parameters[0].data.d_int32 = (Int32) RunMode.Noninteractive;	
+      parameters[1].type = PDBArgType.Image;
+      parameters[1].data.d_image = image.ID;
+      parameters[2].type = PDBArgType.Drawable;
+      parameters[2].data.d_drawable = drawable.ID;
+      parameters[3].type = PDBArgType.Float;
+      parameters[3].data.d_float = 15;
+      parameters[4].type = PDBArgType.Float;
+      parameters[4].data.d_float = 15;
+      parameters[5].type = PDBArgType.Int32;
+      parameters[5].data.d_int32 = 1;
+
+      IntPtr returnArgsPtr = gimp_run_procedure2(Name, out n_return_vals, 
+						 6, parameters);
+      return null;
     }
 
     void ParseParameters(GimpParamSet parameters, int num_args, IntPtr argsPtr, 
@@ -331,7 +359,7 @@ namespace Gimp
     public static extern IntPtr gimp_run_procedure2(string name,
 						    out int n_return_vals,
 						    int n_params,
-						    IntPtr _params);
+						    GimpParam64[] _params);
     [DllImport("libgimp-2.0-0.dll")]
     public static extern void gimp_destroy_params(IntPtr _params, int n_params);
   }

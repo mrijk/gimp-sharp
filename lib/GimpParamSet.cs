@@ -64,7 +64,7 @@ namespace Gimp
     {
       int size = GimpParam.Size;
  
-      IntPtr returnVals = Marshal.AllocCoTaskMem(Count * size);
+      IntPtr returnVals = Marshal.AllocHGlobal(Count * size);
       IntPtr paramPtr = returnVals;
 
       foreach (var param in _set)
@@ -75,5 +75,20 @@ namespace Gimp
 
       return returnVals;
     }
+
+    public GimpParam64[] ToArray()
+    {
+      var returnVals = new GimpParam64[Count];
+
+      int i = 0;
+
+      foreach (var param in _set)
+	{
+	  returnVals[i++] = param._param;
+	}
+
+      return returnVals;
+    }
+
   }
 }

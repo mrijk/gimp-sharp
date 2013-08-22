@@ -11,12 +11,12 @@ Release 0.19
 1) Set selection to polygon
 2) Merge Layers
 3) Set/Clear quick mask
-4) Make group
+4) Convert mode to IndC
 5) Polar Coordinates
 6) Contract
 7) Apply Image
 8) Lighting Effects
-9) Convert mode to IndC
+9) 
 10)
 
 - Support for Ruby.NET or IronRuby
