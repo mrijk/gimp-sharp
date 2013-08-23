@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2013 Maurits Rijk
 //
 // SelectBrushEvent.cs
 //
@@ -34,7 +34,7 @@ namespace Gimp.PhotoshopActions
 
     public override string EventForDisplay
     {
-      get {return base.EventForDisplay + " brush";}
+      get {return base.EventForDisplay + " " + Abbreviations.Get(_type);}
     }
  
     override public bool Execute()

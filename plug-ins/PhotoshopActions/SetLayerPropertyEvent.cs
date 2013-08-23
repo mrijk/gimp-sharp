@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2010 Maurits Rijk
+// Copyright (C) 2006-2013 Maurits Rijk
 //
 // SetLayerPropertyEvent.cs
 //
@@ -83,6 +83,9 @@ namespace Gimp.PhotoshopActions
 		case "Lghn":
 		  // TODO: not a perfect match
 		  layer.Mode = LayerModeEffects.LightenOnly;
+		  break;
+		case "linearLight":
+		  layer.Mode = LayerModeEffects.GrainMerge;
 		  break;
 		case "Mltp":
 		  layer.Mode = LayerModeEffects.Multiply;

@@ -1,3 +1,15 @@
+2013-08-23  Maurits  <maurits.rijk@gmail.com>
+
+	* plug-ins/PhotoshopActions/SelectBrushEvent.cs: translate _type for
+	correct display
+
+	* plug-ins/PhotoshopActions/Abbreviations.cs: add missing abbreviations
+
+2013-08-22  Maurits  <maurits.rijk@gmail.com>
+
+	* plug-ins/PhotoshopActions/SetLayerPropertyEvent.cs: map Linear Light
+	mode to GrainMerge
+
 2013-08-21  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/AddLayerEvent.cs: generate layer name

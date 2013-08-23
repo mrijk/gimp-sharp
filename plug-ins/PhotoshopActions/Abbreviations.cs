@@ -27,6 +27,7 @@ namespace Gimp.PhotoshopActions
   {
     static readonly Dictionary<string, string> _map = 
       new Dictionary<string, string>() {
+	{"AbTl", "airbrush"},
 	{"ActP", "Actual Pixels"},
 	{"AdBt", "bottom edges"},
 	{"AdCH", "horizontal centers"},
@@ -134,6 +135,7 @@ namespace Gimp.PhotoshopActions
 	{"DrkI", "Dark Intensity"},
 	{"Drkn", "darken"},
 	{"DrSh", "Drop Shadow"},
+	{"Dslc", "Deselect"},
 	{"DspF", "Displace File"},
 	{"DspM", "Displacement Map"},
 	{"Dstn", "Distance"},
@@ -254,9 +256,10 @@ namespace Gimp.PhotoshopActions
 	{"Lmns", "luminosity"},
 	{"Ln", "line"}, 
 	{"LngL", "long lines"},
+	{"LngS", "long strokes"},
 	{"Lnr", "linear"},
 	{"Lns", "Lens"},
-	{"LngS", "long strokes"},
+	{"LnsF", "Lens Flare"},
 	{"LPBt", "light position bottom"},
 	{"LPLf", "light position left"},
 	{"LPRg", "light position right"},
