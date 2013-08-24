@@ -96,11 +96,11 @@ namespace Gimp.PhotoshopActions
 	  // during parsing. Move to Execute
 	  if (_activeImage != null)
 	    {
-	      var layers = _activeImage.Layers;
-	      if (layers.Count == 1 && layers[0].Name == "Background")
-		{
-		  layers[0].Name = "Layer 1";
-		}
+	      //	      var layers = _activeImage.Layers;
+	      //if (layers.Count == 1 && layers[0].Name == "Background")
+	      //		{
+	      //	  layers[0].Name = "Layer 1";
+	      //	}
 	      SelectLayer(_activeImage.Layers[0]);
 	    }
 	}

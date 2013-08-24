@@ -32,6 +32,7 @@ namespace Gimp.PhotoshopActions
     List<ActionSet> _set = new List<ActionSet>();
     readonly Image _image;
     readonly Drawable _drawable;
+    bool _first_run = true;
 
     public Dialog(Image image, Drawable drawable, VariableSet variables) : 
       base("Photoshop Actions", variables)
@@ -127,9 +128,13 @@ namespace Gimp.PhotoshopActions
     void RenameToBackground()
     {
       // First layer in Photoshop is always called 'Background'
-      var image = ActionEvent.ActiveImage;
-      var layer = image.Layers[0];
-      layer.Name = "Background";
+      if (_first_run)
+	{
+	  _first_run = false;
+	  var image = ActionEvent.ActiveImage;
+	  var layer = image.Layers[0];
+	  layer.Name = "Background";
+	}
     }
 
     void RenderActive(TreeViewColumn column, CellRenderer cell, 

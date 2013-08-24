@@ -1,5 +1,6 @@
 2013-08-24  Maurits  <maurits.rijk@gmail.com>
 
+	* plug-ins/PhotoshopActions/SelectLayerEvent.cs
 	* plug-ins/PhotoshopActions/ActionSet.cs: minor cleanup
 
 	* plug-ins/PhotoshopActions/StrokeEvent.cs: this event is executable

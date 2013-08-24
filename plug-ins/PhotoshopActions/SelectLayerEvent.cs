@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2013 Maurits Rijk
 //
 // SelectLayerEvent.cs
 //
@@ -47,7 +47,7 @@ namespace Gimp.PhotoshopActions
       switch (_mode)
 	{
 	case "Frwr":
-	  LayerList layers = ActiveImage.Layers;
+	  var layers = ActiveImage.Layers;
 	  int index = layers.GetIndex(SelectedLayer);
 	  SelectedLayer = layers[index - 1];
 	  break;

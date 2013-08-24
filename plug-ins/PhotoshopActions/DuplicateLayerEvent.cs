@@ -55,12 +55,13 @@ namespace Gimp.PhotoshopActions
 	}
       else
 	{
-	  var rx = new Regex(@"(.*copy)#(.+)");
+	  var rx = new Regex(@"(.* copy)(.+)");
 	  var m = rx.Match(layer.Name);
 	  if (m.Groups.Count == 3)
 	    {
 	      int nr = Convert.ToInt32("1") + 1;
 	      layer.Name = m.Groups[1] + " " + nr;
+	      Console.WriteLine("Duplicate 4: " + layer.Name);
 	    }
 	}
 
