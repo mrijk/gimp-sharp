@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2013 Maurits Rijk
 //
 // SelectBrushByIndexEvent.cs
 //
@@ -34,7 +34,9 @@ namespace Gimp.PhotoshopActions
 
     public override bool IsExecutable
     {
-      get {return false;}
+      // Fix me: provide mappings for all brushes
+      // 11: soft round, 21 pixels
+      get {return _index == 11;}
     }
 
     public override string EventForDisplay
@@ -44,6 +46,10 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
+      var brushes = new BrushList();
+      var brush = brushes.Find("2. Hardness 025");
+      Context.Brush = brush;
+      
       return true;
     }
   }

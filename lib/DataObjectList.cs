@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2013 Maurits Rijk
 //
 // DataObjectList.cs
 //
@@ -50,6 +50,11 @@ namespace Gimp
     public void ForEach(Action<T> action)
     {
       _list.ForEach(action);
+    }
+
+    public T Find(string name)
+    {
+      return _list.Find(item => item.Name == name);
     }
 
     public int Count

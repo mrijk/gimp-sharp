@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2013 Maurits Rijk
 //
 // StrokeEvent.cs
 //
@@ -42,6 +42,7 @@ namespace Gimp.PhotoshopActions
 
     public StrokeEvent()
     {
+      _executable = true;
     }
 
     public StrokeEvent(ActionEvent srcEvent) : base(srcEvent)

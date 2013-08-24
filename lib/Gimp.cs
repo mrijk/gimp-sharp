@@ -303,6 +303,11 @@ namespace Gimp
     {
       return Marshaller.FilenamePtrToString(filenamePtr);
     }
+
+    static public void DisplaysFlush()
+    {
+      Display.DisplaysFlush();
+    }
     
     [DllImport("libgimp-2.0-0.dll")]
       static extern void gimp_quit();

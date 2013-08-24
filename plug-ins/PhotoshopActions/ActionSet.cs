@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2013 Maurits Rijk
 //
 // ActionSet.cs
 //
@@ -62,7 +62,7 @@ namespace Gimp.PhotoshopActions
 
     public bool Execute(string actionName)
     {
-      foreach (Action action in _set)
+      foreach (var action in _set)
 	{
 	  if (action.Name == actionName)
 	    {

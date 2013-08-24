@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2011 Maurits Rijk
+// Copyright (C) 2006-2013 Maurits Rijk
 //
 // Dialog.cs
 //
@@ -81,6 +81,8 @@ namespace Gimp.PhotoshopActions
       var play = new Button(Stock.Execute);
       play.Clicked += delegate
 	{
+	  RenameToBackground();
+
 	  var paths = view.Selection.GetSelectedRows();
 	  var path = paths[0];	// Assume only 1 is selected
 
@@ -98,9 +100,7 @@ namespace Gimp.PhotoshopActions
 	    {
 	      actions.Execute(indices[1]);
 	    }
-
-	  // Fix me! Next line should be enabled
-	  // Display.DisplaysFlush();
+	  Gimp.DisplaysFlush();
 	};      
       hbox.PackStart(play, false, true, 0);
 
@@ -122,6 +122,14 @@ namespace Gimp.PhotoshopActions
 				       IntPtr.Zero, null);
 
       ActionEvent.ActionSetCollection = _set;
+    }
+
+    void RenameToBackground()
+    {
+      // First layer in Photoshop is always called 'Background'
+      var image = ActionEvent.ActiveImage;
+      var layer = image.Layers[0];
+      layer.Name = "Background";
     }
 
     void RenderActive(TreeViewColumn column, CellRenderer cell, 
