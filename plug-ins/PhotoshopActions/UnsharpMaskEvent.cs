@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2013 Maurits Rijk
 //
 // UnsharpMaskEvent.cs
 //
@@ -41,13 +41,10 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
-      if (ActiveImage == null)
-	{
-	  Console.WriteLine("Please open image first");
-	  return false;
-	}
+      // Photoshop amount between 1 - 500 %, GIMP 0 - 10
 
-      RunProcedure("plug_in_unsharp_mask", _radius, _amount, (int) _threshold);
+      RunProcedure("plug_in_unsharp_mask", _radius, _amount / 1000, 
+		   (int) _threshold);
 
       return true;
     }

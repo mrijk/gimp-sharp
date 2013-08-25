@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2012 Maurits Rijk
+// Copyright (C) 2006-2013 Maurits Rijk
 //
 // DuplicateLayerEvent.cs
 //
@@ -61,7 +61,6 @@ namespace Gimp.PhotoshopActions
 	    {
 	      int nr = Convert.ToInt32("1") + 1;
 	      layer.Name = m.Groups[1] + " " + nr;
-	      Console.WriteLine("Duplicate 4: " + layer.Name);
 	    }
 	}
 

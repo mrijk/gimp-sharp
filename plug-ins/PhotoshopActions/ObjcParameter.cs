@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2013 Maurits Rijk
 //
 // ObjcParameter.cs
 //
@@ -76,9 +76,9 @@ namespace Gimp.PhotoshopActions
 	  yield return String.Format("{0}: {1}", UppercaseName, 
 				     Abbreviations.Get(ClassID2));
 	}
-      foreach (Parameter child in _children)
+      foreach (var child in _children)
 	{
-	  foreach (string s in child.Format())
+	  foreach (var s in child.Format())
 	    {
 	      yield return s;
 	    }
@@ -107,6 +107,13 @@ namespace Gimp.PhotoshopActions
     {
       switch (ClassID2)
 	{
+	case "CMYC":
+	  double cyan = GetValueAsDouble("Cyn") / 255.0;
+	  double magenta = GetValueAsDouble("Mgnt") / 255.0;
+	  double yellow = GetValueAsDouble("Ylw") / 255.0;
+	  double black = GetValueAsDouble("Blck") / 255.0;
+
+	  return new RGB(new CMYK(cyan, magenta, yellow, black));
 	case "RGBC":
 	  double red = GetValueAsDouble("Rd") / 255.0;
 	  double green = GetValueAsDouble("Grn") / 255.0;
@@ -127,8 +134,8 @@ namespace Gimp.PhotoshopActions
 
     public Gradient GetGradient()
     {
-      string name = GetValueAsString("Nm");
-      ListParameter colors = Parameters["Clrs"] as ListParameter;
+      var name = GetValueAsString("Nm");
+      var colors = Parameters["Clrs"] as ListParameter;
       return GradientClassEvent.CreateGradient(name, colors);
     }
 
@@ -149,7 +156,7 @@ namespace Gimp.PhotoshopActions
 
     public string GetValueAsString(string name)
     {
-      Parameter parameter = _children[name];
+      var parameter = _children[name];
 
       if (parameter is TextParameter)
 	{

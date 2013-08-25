@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2013 Maurits Rijk
 //
 // FillEvent.cs
 //
@@ -37,19 +37,11 @@ namespace Gimp.PhotoshopActions
     [Parameter("Md")]
     EnumParameter _mode;
 
-    public override bool IsExecutable
-    {
-      get 
-	{
-	  return _from == null || Gimp.Version > new Version("2.3.10");
-	}
-    }
-
     override public bool Execute()
     {
       Context.Push();
 
-      Drawable drawable = ActiveImage.ActiveDrawable;
+      var drawable = ActiveImage.ActiveDrawable;
       if (_from == null && _mode == null)
 	{
 	  FillType fillType;
@@ -82,61 +74,62 @@ namespace Gimp.PhotoshopActions
 	}
       else
 	{
-	  if (Gimp.Version > new Version("2.3.10"))
+	  var layerMode = LayerModeEffects.Normal;
+	  double x, y;
+
+	  if (_mode != null)
 	    {
-	      LayerModeEffects layerMode = LayerModeEffects.Normal;
-	      double x, y;
-
-	      if (_mode != null)
+	      switch (_mode.Value)
 		{
-		  switch (_mode.Value)
-		    {
-		    case "Mltp":
-		      layerMode = LayerModeEffects.Multiply;
-		      break;
-		    case "Nrml":
-		      layerMode = LayerModeEffects.Normal ;
-		      break;
-		    default:
-		      Console.WriteLine("FillEvent-2: with {0} not supported!", 
-					_mode.Value);
-		      break;
-		    }
-		  x = y = 0;
-		}
-	      else
-		{
-		  x = _from.GetValueAsDouble("Hrzn");
-		  y = _from.GetValueAsDouble("Vrtc");
-		}
-
-	      BucketFillMode fillMode;
-
-	      switch (_using.Value)
-		{
-		case "BckC":
-		  fillMode = BucketFillMode.Background;
+		case "Mltp":
+		  layerMode = LayerModeEffects.Multiply;
 		  break;
-		case "Blck":
-		  Context.Foreground = new RGB(0, 0, 0);
-		  fillMode = BucketFillMode.Foreground;
-		  break;
-		case "FrgC":
-		  fillMode = BucketFillMode.Foreground;
-		  break;
-		case "Ptrn":
-		  fillMode = BucketFillMode.Pattern;
+		case "Nrml":
+		  layerMode = LayerModeEffects.Normal ;
 		  break;
 		default:
-		  Console.WriteLine("FillEvent-3: with {0} not supported!", 
-				    _using.Value);
-		  return false;
+		  Console.WriteLine("FillEvent-2: with {0} not supported!", 
+				    _mode.Value);
+		  break;
 		}
-
-	      drawable.EditBucketFill(fillMode, layerMode,
-				      _opacity, _tolerance, false, true,
-				      SelectCriterion.Composite, x, y);
+	      x = y = 0;
 	    }
+	  else
+	    {
+	      x = _from.GetValueAsDouble("Hrzn");
+	      y = _from.GetValueAsDouble("Vrtc");
+	    }
+
+	  BucketFillMode fillMode;
+
+	  switch (_using.Value)
+	    {
+	    case "BckC":
+	      fillMode = BucketFillMode.Background;
+	      break;
+	    case "Blck":
+	      Context.Foreground = new RGB(0, 0, 0);
+	      fillMode = BucketFillMode.Foreground;
+	      break;
+	    case "FrgC":
+	      fillMode = BucketFillMode.Foreground;
+	      break;
+	    case "Ptrn":
+	      fillMode = BucketFillMode.Pattern;
+	      break;
+	    case "Wht":
+	      Context.Foreground = new RGB(255, 255, 255);
+	      fillMode = BucketFillMode.Foreground;
+	      break;
+	    default:
+	      Console.WriteLine("FillEvent-3: with {0} not supported!", 
+				_using.Value);
+	      return false;
+	    }
+	  
+	  drawable.EditBucketFill(fillMode, layerMode,
+				  _opacity, _tolerance, false, true,
+				  SelectCriterion.Composite, x, y);
 	}
 
       Context.Pop();

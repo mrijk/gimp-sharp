@@ -17,6 +17,7 @@ MYSOURCES = 				\
 	ByColorSelectTool.cs		\
 	Channel.cs 			\
 	ChannelList.cs 			\
+	CMYK.cs				\
 	Context.cs			\
 	Coordinate.cs			\
 	CoordinateGenerator.cs		\

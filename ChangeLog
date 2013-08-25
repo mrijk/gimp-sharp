@@ -1,5 +1,19 @@
 2013-08-24  Maurits  <maurits.rijk@gmail.com>
 
+	* plug-ins/PhotoshopActions/UnsharpMaskEvent.cs: tweak parameters
+
+	* plug-ins/PhotoshopActions/CloudsEvent.cs: clean-up
+
+	* lib/CMYK.cs: new file
+
+	* lib/Makefile.am: changed accordingly
+
+	* plug-ins/PhotoshopActions/ObjcParameter.cs: support CMYK
+
+	* plug-ins/PhotoshopActions/FillEvent.cs: clean up and support filling
+	with white
+
+	* plug-ins/PhotoshopActions/ObjcParameter.cs
 	* plug-ins/PhotoshopActions/SelectLayerEvent.cs
 	* plug-ins/PhotoshopActions/ActionSet.cs: minor cleanup
 

@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2012 Maurits Rijk
+// Copyright (C) 2004-2013 Maurits Rijk
 //
 // RGB.cs
 //
@@ -52,6 +52,12 @@ namespace Gimp
     {
       var tmp = hsv.GimpHSV;
       gimp_hsv_to_rgb(ref tmp, ref _rgb);
+    }
+
+    public RGB(CMYK cmyk)
+    {
+      var tmp = cmyk.GimpCMYK;
+      gimp_cmyk_to_rgb(ref tmp, ref _rgb);
     }
 
     public RGB(Gdk.Color color) : 
@@ -295,8 +301,9 @@ namespace Gimp
     [DllImport("libgimpcolor-2.0-0.dll")]
     static extern void gimp_hsv_to_rgb(ref GimpHSV hsv,
 				       ref GimpRGB rgb);
-
-
+    [DllImport("libgimpcolor-2.0-0.dll")]
+    static extern void gimp_cmyk_to_rgb(ref GimpCMYK cmyk,
+					ref GimpRGB rgb);
     [DllImport("libgimpcolor-2.0-0.dll")]
     static extern void gimp_rgb_set(ref GimpRGB rgb,
 				    double red,

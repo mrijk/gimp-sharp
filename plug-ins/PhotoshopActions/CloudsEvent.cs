@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2013 Maurits Rijk
 //
 // CloudsEvent.cs
 //
@@ -26,10 +26,10 @@ namespace Gimp.PhotoshopActions
   {
     override public bool Execute()
     {
-      Random random = new Random();
+      var random = new Random();
 
       RunProcedure("plug_in_plasma", random.Next(), 1.0);
-      // ActiveDrawable.Desaturate();
+      ActiveDrawable.Desaturate();
 
       return true;
     }
