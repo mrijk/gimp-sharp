@@ -1,5 +1,5 @@
 To install Gimp# you will need Mono 2.8.x or higher. Gimp# will
-work with GIMP 2.6. GIMP 2.4 (and lower) is not tested anymore.
+work with GIMP 2.8. GIMP 2.6 (and lower) is not tested anymore.
 
 Building Gimp# is easy:
 
@@ -10,12 +10,19 @@ Building Gimp# is easy:
 5) become root
 6) $ make install
 
+If installing from git instead of from the package, do "autoreconf -i"
+before "./configure". Otherwise the configure step will fail with
+config.status: error: cannot find input file: `Makefile.in'
+
 Note: configure has the option --with-unittest which will build the
 UnitTest plug-in. --with-incomplete and --with-pdn will build
 additional incomplete (yet) plug-ins.
 
 The files will be installed in your GIMP plug-in directory, for
-example in /usr/local/lib/gimp/2.0/plug-ins/
+example in /usr/local/lib/gimp/2.0/plug-ins/ (the path is not based on
+the --prefix given to ./configure, but what gimptool-2.0 returns, in
+order for GIMP to notice the plugins).
+
 
 At the moment Gimp# will install 15 plug-ins for you:
 
