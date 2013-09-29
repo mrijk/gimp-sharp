@@ -46,6 +46,7 @@ install:
 	$(INSTALL) PicturePackage $(DESTDIR)$(GIMPPLUGINDIR)
 	@for lang in `ls po | grep .mo`;\
 		do localedir=`echo $$lang | sed -e's/.mo//'`;\
-		echo "Copying po/$$lang to $(GIMPLOCALE)/$$localedir/LC_MESSAGES/PicturePackage.mo";\
-		$(INSTALL_DATA) po/$$lang $(GIMPLOCALE)/$$localedir/LC_MESSAGES/PicturePackage.mo;\
+		echo "Copying po/$$lang to $(DESTDIR)$(GIMPLOCALE)/$$localedir/LC_MESSAGES/PicturePackage.mo";\
+		$(INSTALL_DATA) -d $(DESTDIR)$(GIMPLOCALE)/$$localedir/LC_MESSAGES/;\
+		$(INSTALL_DATA) po/$$lang $(DESTDIR)$(GIMPLOCALE)/$$localedir/LC_MESSAGES/PicturePackage.mo;\
 		done
