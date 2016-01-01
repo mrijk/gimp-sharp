@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2013 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // ZoomPreview.cs
 //
@@ -42,15 +42,10 @@ namespace Gimp
 
     // Fix me: implement GetSource
 
-    public double Factor
-    {
-      get {return gimp_zoom_preview_get_factor(Handle);}
-    }
+    public double Factor => gimp_zoom_preview_get_factor(Handle);
 
-    public ZoomModel Model
-    {
-      get {return new ZoomModel(gimp_zoom_preview_get_model(Handle));}
-    }
+    public ZoomModel Model => 
+      new ZoomModel(gimp_zoom_preview_get_model(Handle));
 
     [DllImport("libgimpui-2.0-0.dll")]
       extern static IntPtr gimp_zoom_preview_new(IntPtr drawable);

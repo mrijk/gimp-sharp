@@ -23,73 +23,37 @@ namespace Gimp
 {
   public class Rectangle
   {
-    readonly Coordinate<int> _upperLeft = new Coordinate<int>();
-    readonly Coordinate<int> _lowerRight = new Coordinate<int>();
+    public Coordinate<int> UpperLeft {get;} = new Coordinate<int>();
+    public Coordinate<int> LowerRight {get;} = new Coordinate<int>();
+
+    public int X1 => UpperLeft.X;
+    public int Y1 => UpperLeft.Y;
+    public int X2 => LowerRight.X;
+    public int Y2 => LowerRight.Y;
+
+    public int Width => X2 - X1;
+    public int Height => Y2 - Y1;
+    public int Area => Width * Height;
 
     public Rectangle(int x1, int y1, int x2, int y2)
     {
-      _upperLeft.X = x1;
-      _upperLeft.Y = y1;
-      _lowerRight.X = x2;
-      _lowerRight.Y = y2;
+      UpperLeft.X = x1;
+      UpperLeft.Y = y1;
+      LowerRight.X = x2;
+      LowerRight.Y = y2;
     }
 
     public Rectangle(Coordinate<int> upperLeft, int width, int height)
     {
-      _upperLeft = upperLeft;
-      _lowerRight = new Coordinate<int>(upperLeft.X + width,
-					upperLeft.Y + height);
+      UpperLeft = upperLeft;
+      LowerRight = new Coordinate<int>(upperLeft.X + width,
+				       upperLeft.Y + height);
     }
 
     public Rectangle(Coordinate<int> upperLeft, Coordinate<int> lowerRight)
     {
-      _upperLeft = upperLeft;
-      _lowerRight = lowerRight;
-    }
-
-    public int X1
-    {
-      get {return _upperLeft.X;}
-    }
-
-    public int Y1
-    {
-      get {return _upperLeft.Y;}
-    }
-
-    public int X2
-    {
-      get {return _lowerRight.X;}
-    }
-
-    public int Y2
-    {
-      get {return _lowerRight.Y;}
-    }
-
-    public Coordinate<int> UpperLeft
-    {
-      get {return _upperLeft;}
-    }
-
-    public Coordinate<int> LowerRight
-    {
-      get {return _lowerRight;}
-    }
-
-    public int Width
-    {
-      get {return _lowerRight.X - _upperLeft.X;}
-    }
-
-    public int Height
-    {
-      get {return _lowerRight.Y - _upperLeft.Y;}
-    }
-
-    public int Area
-    {
-      get {return Width * Height;}
+      UpperLeft = upperLeft;
+      LowerRight = lowerRight;
     }
 
     public override bool Equals(object o)
@@ -105,7 +69,7 @@ namespace Gimp
 
     public override int GetHashCode()
     {
-      return _upperLeft.GetHashCode() + _lowerRight.GetHashCode();
+      return UpperLeft.GetHashCode() + LowerRight.GetHashCode();
     }
 
     public static bool operator==(Rectangle rectangle1, Rectangle rectangle2)

@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // Guide.cs
 //
@@ -29,6 +29,10 @@ namespace Gimp
     protected readonly Int32 _imageID;
     protected readonly Int32 _guideID;
 
+    public int Position => gimp_image_get_guide_position(_imageID, _guideID);
+    public OrientationType Orientation =>
+      gimp_image_get_guide_orientation(_imageID, _guideID);
+
     internal Guide(Image image, Int32 guideID) : this(image.ID, guideID)
     {
     }
@@ -47,20 +51,10 @@ namespace Gimp
         }
     }
 
-    public int Position
-    {
-      get {return gimp_image_get_guide_position(_imageID, _guideID);}
-    }
-
     public Guide FindNext()
     {
       Int32 next = gimp_image_find_next_guide(_imageID, _guideID);
       return (next == 0) ? null : new Guide(_imageID, next);
-    }
-
-    public OrientationType Orientation
-    {
-      get {return gimp_image_get_guide_orientation(_imageID, _guideID);}
     }
 
     [DllImport("libgimp-2.0-0.dll")]

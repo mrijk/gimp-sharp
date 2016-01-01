@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // Brush.cs
 //
@@ -121,15 +121,9 @@ namespace Gimp
       set {gimp_brush_set_hardness(Name, value);}
     }
 
-    public bool Generated
-    {
-      get {return gimp_brush_is_generated(Name);}
-    }
+    public bool Generated => gimp_brush_is_generated(Name);
 
-    public bool Editable
-    {
-      get {return gimp_brush_is_editable(Name);}
-    }
+    public bool Editable => gimp_brush_is_editable(Name);
 
     [DllImport("libgimp-2.0-0.dll")]
     extern static string gimp_brush_new(string name);

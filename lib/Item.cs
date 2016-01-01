@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2012 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // Item.cs
 //
@@ -63,10 +63,7 @@ namespace Gimp
       return null;
     }
 
-    public bool IsValid
-    {
-      get {return gimp_item_is_valid(ID);}
-    }
+    public bool IsValid => gimp_item_is_valid(ID);
 
     public void Delete()
     {
@@ -76,55 +73,18 @@ namespace Gimp
 	}
     }
 
-    public Image Image
-    {
-      get {return new Image(gimp_item_get_image(ID));}
-    }
+    public Image Image => new Image(gimp_item_get_image(ID));
 
-    public bool IsDrawable
-    {
-      get {return gimp_item_is_drawable(ID);}
-    }
+    public bool IsDrawable => gimp_item_is_drawable(ID);
+    public bool IsLayer => gimp_item_is_layer(ID);
+    public bool IsTextLayer => gimp_item_is_text_layer(ID);
+    public bool IsChannel => gimp_item_is_channel(ID);
+    public bool IsLayerMask => gimp_item_is_layer_mask(ID);
+    public bool IsSelection => gimp_item_is_selection(ID);
+    public bool IsVectors => gimp_item_is_vectors(ID);
+    public bool IsGroup => gimp_item_is_group(ID);
 
-    public bool IsLayer
-    {
-      get {return gimp_item_is_layer(ID);}
-    }
-
-    public bool IsTextLayer
-    {
-      get {return gimp_item_is_text_layer(ID);}
-    }
-
-    public bool IsChannel
-    {
-      get {return gimp_item_is_channel(ID);}
-    }
-
-    public bool IsLayerMask
-    {
-      get {return gimp_item_is_layer_mask(ID);}
-    }
-
-    public bool IsSelection
-    {
-      get {return gimp_item_is_selection(ID);}
-    }
-
-    public bool IsVectors
-    {
-      get {return gimp_item_is_vectors(ID);}
-    }
-
-    public bool IsGroup
-    {
-      get {return gimp_item_is_group(ID);}
-    }
-
-    public Item Parent
-    {
-      get {return Instantiate(gimp_item_get_parent(ID));}
-    }
+    public Item Parent => Instantiate(gimp_item_get_parent(ID));
 
     public List<Item> Children
     {
@@ -227,14 +187,8 @@ namespace Gimp
       return (found == IntPtr.Zero) ? null : new Parasite(found);
     }
 
-    public ParasiteList ParasiteList
-    {
-      get
-	{
-	  return new ParasiteList(ID, gimp_item_parasite_list,
-				  gimp_item_parasite_find);
-	}
-    }
+    public ParasiteList ParasiteList => 
+      new ParasiteList(ID, gimp_item_parasite_list, gimp_item_parasite_find);
 
     public void Lower()
     {
@@ -246,10 +200,7 @@ namespace Gimp
       Image.RaiseItem(this);
     }
 
-    public int Position
-    {
-      get {return Image.GetItemPosition(this);}
-    }
+    public int Position => Image.GetItemPosition(this);
 
     public Item TransformFlipSimple(OrientationType flipType, bool autoCenter, 
 				    double axis)

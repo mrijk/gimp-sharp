@@ -36,6 +36,8 @@ namespace Gimp
     readonly int _bppWithoutAlpha;
     readonly int[] _rgb;
 
+    public int Bpp => _bpp;
+
     public Pixel(int bpp)
     {
       _bpp = bpp;
@@ -71,11 +73,6 @@ namespace Gimp
     internal Pixel(PixelRgn rgn, byte[] rgb) : this(rgb)
     {
       _rgn = rgn;
-    }
-
-    public int Bpp
-    {
-      get {return _bpp;}
     }
 
     public void Fill(Func<int> func)
@@ -203,10 +200,7 @@ namespace Gimp
       set {_rgb[(_bpp == 2) ? 1 : 3] = value;}
     }
 
-    public bool HasAlpha
-    {
-      get {return _bpp == 2 || _bpp == 4;}
-    }
+    public bool HasAlpha => Bpp == 2 || Bpp == 4;
 
     public void Clamp0255()
     {

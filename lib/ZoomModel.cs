@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2013 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // ZoomModel.cs
 //
@@ -40,6 +40,9 @@ namespace Gimp
   public class ZoomModel
   {
     readonly IntPtr _model;
+    internal IntPtr Ptr => _model;
+
+    public double Factor => gimp_zoom_model_get_factor(_model);
 
     public ZoomModel()
     {
@@ -61,11 +64,6 @@ namespace Gimp
       gimp_zoom_model_zoom(_model, zoomType, scale);
     }
 
-    public double Factor
-    {
-      get {return gimp_zoom_model_get_factor(_model);}
-    }
-
     public void GetFraction(out int numerator, out int denominator)
     {
       gimp_zoom_model_get_fraction(_model, out numerator, out denominator);
@@ -76,11 +74,6 @@ namespace Gimp
     public static double ZoomStep(ZoomType zoomType, double scale)
     {
       return gimp_zoom_model_zoom_step(zoomType, scale);
-    }
-
-    internal IntPtr Ptr
-    {
-      get {return _model;}
     }
 
     [DllImport("libgimpui-2.0-0.dll")]

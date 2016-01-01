@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // Buffer.cs
 //
@@ -37,7 +37,7 @@ namespace Gimp
 
     public void Delete()
     {
-      if (!gimp_buffer_delete(_name))
+      if (!gimp_buffer_delete(Name))
         {
 	  throw new GimpSharpException();
         }
@@ -56,25 +56,13 @@ namespace Gimp
       set {_name = gimp_buffer_rename(_name, value);}
     }
 
-    public int Width
-    {
-      get {return gimp_buffer_get_width(Name);}
-    }
+    public int Width => gimp_buffer_get_width(Name);
 
-    public int Height
-    {
-      get {return gimp_buffer_get_height(Name);}
-    }
+    public int Height => gimp_buffer_get_height(Name);
 
-    public int Bytes
-    {
-      get {return gimp_buffer_get_bytes(Name);}
-    }
+    public int Bytes => gimp_buffer_get_bytes(Name);
 
-    public ImageBaseType ImageType
-    {
-      get {return gimp_buffer_get_image_type(Name);}
-    }
+    public ImageBaseType ImageType => gimp_buffer_get_image_type(Name);
 
     [DllImport("libgimp-2.0-0.dll")]
     static extern IntPtr gimp_buffers_get_list(string filter, 

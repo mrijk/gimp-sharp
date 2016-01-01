@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // HSV.cs
 //
@@ -26,6 +26,12 @@ namespace Gimp
   public sealed class HSV
   {
     GimpHSV _hsv = new GimpHSV();
+    internal GimpHSV GimpHSV => _hsv;
+
+    public double Hue => _hsv.h;
+    public double Saturation => _hsv.s;
+    public double Value => _hsv.v;
+    public double Alpha => _hsv.a;
 
     public HSV(double hue, double saturation, double value)
     {
@@ -35,11 +41,6 @@ namespace Gimp
     public HSV(HSV hsv)
     {
       _hsv = hsv._hsv;
-    }
-
-    internal GimpHSV GimpHSV
-    {
-      get {return _hsv;}
     }
 
     public override bool Equals(object o)
@@ -64,26 +65,6 @@ namespace Gimp
     public static bool operator!=(HSV hsv1, HSV hsv2)
     {
       return !(hsv1 == hsv2);
-    }
-
-    public double Hue
-    {
-      get {return _hsv.h;}
-    }
-
-    public double Saturation
-    {
-      get {return _hsv.s;}
-    }
-
-    public double Value
-    {
-      get {return _hsv.v;}
-    }
-
-    public double Alpha
-    {
-      get {return _hsv.a;}
     }
 
     public void Clamp()

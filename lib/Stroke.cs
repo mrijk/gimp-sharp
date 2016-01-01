@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2008 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // Stroke.cs
 //
@@ -29,15 +29,12 @@ namespace Gimp
     readonly Int32 _vectorsID;
     readonly int _strokeID;
 
+    internal int ID => _strokeID;
+
     internal Stroke(Int32 vectorsID, int strokeID)
     {
       _vectorsID = vectorsID;
       _strokeID = strokeID;
-    }
-
-    internal int ID
-    {
-      get {return _strokeID;}
     }
 
     public void Close()

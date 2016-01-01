@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // BrushInfo.cs
 //
@@ -23,10 +23,10 @@ namespace Gimp
 {
   public sealed class BrushInfo
   {
-    public int Width {get; private set;}
-    public int Height {get; private set;}
-    public int MaskBpp {get; private set;}
-    public int ColorBpp {get; private set;}
+    public int Width {get;}
+    public int Height {get;}
+    public int MaskBpp {get;}
+    public int ColorBpp {get;}
 
     public BrushInfo(int width, int height, int maskBpp, int colorBpp)
     {
