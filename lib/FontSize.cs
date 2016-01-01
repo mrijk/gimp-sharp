@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // FontSize.cs
 //
@@ -19,8 +19,6 @@
 // Boston, MA 02111-1307, USA.
 //
 
-using System;
-
 namespace Gimp
 {
   public class FontSize
@@ -38,7 +36,7 @@ namespace Gimp
     {
       if (o is FontSize)
 	{
-	  FontSize fontsize = (FontSize) o;
+	  var fontsize = o as FontSize;
 	  return fontsize.Size == Size &&
 	    fontsize.Unit == Unit;
 	}
@@ -64,7 +62,7 @@ namespace Gimp
 
     public override string ToString()
     {
-      return string.Format("({0} {1})", Size, Unit);
+      return $"({Size} {Unit})";
     }
   }
 }

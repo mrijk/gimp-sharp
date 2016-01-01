@@ -1,5 +1,13 @@
 2016-01-01  Maurits Rijk  <maurits.rijk@gmail.com>
 
+	* lib/Version.cs
+	* lib/Vector3.cs
+	* lib/Vector2.cs
+	* lib/RGB.cs
+	* lib/Rectangle.cs
+	* lib/Pixel.cs
+	* lib/FontSize.cs
+	* lib/Offset.cs
 	* lib/Dimensions.cs
 	* lib/Coordinate.cs: Minor cleanup with C# 6 string interpolation
 

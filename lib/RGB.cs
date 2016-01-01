@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2013 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // RGB.cs
 //
@@ -295,7 +295,7 @@ namespace Gimp
       byte r, g, b;
 
       GetUchar(out r, out g, out b);
-      return string.Format("({0} {1} {2})", r, g, b);
+      return $"({r} {g} {b})";
     }
 
     [DllImport("libgimpcolor-2.0-0.dll")]

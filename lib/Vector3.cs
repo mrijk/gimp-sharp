@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // Vector3.cs
 //
@@ -19,7 +19,6 @@
 // Boston, MA 02111-1307, USA.
 //
 
-using System;
 using System.Runtime.InteropServices;
 
 namespace Gimp
@@ -154,7 +153,7 @@ namespace Gimp
 
     public override string ToString()
     {
-      return string.Format("({0}, {1}, {2})", X, Y, Z);
+      return $"({X}, {Y}, {Z})";
     }
 
     [DllImport("libgimpmath-2.0-0.dll")]

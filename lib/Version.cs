@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // Version.cs
 //
@@ -111,7 +111,7 @@ namespace Gimp
 
     public override string ToString()
     {
-      return string.Format("{0}.{1}.{2}", Major, Minor, Micro);
+      return $"{Major}.{Minor}.{Micro}";
     }
   }
 }

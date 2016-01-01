@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // Rectangle.cs
 //
@@ -18,8 +18,6 @@
 // Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 // Boston, MA 02111-1307, USA.
 //
-
-using System;
 
 namespace Gimp
 {
@@ -122,7 +120,7 @@ namespace Gimp
 
     public override string ToString()
     {
-      return string.Format("({0}, {1}, {2}, {3})", X1, Y1, X2, Y2);
+      return $"({X1}, {Y1}, {X2}, {Y2})";
     }
   }
 }

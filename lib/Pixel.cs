@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // Pixel.cs
 //
@@ -287,7 +287,7 @@ namespace Gimp
 
     public override string ToString()
     {
-      return string.Format("({0} {1} {2})", _rgb[0], _rgb[1], _rgb[2]);
+      return $"({_rgb[0]} {_rgb[1]} {_rgb[2]})";
     }
 
     static internal Pixel[,] ConvertToPixelArray(IntPtr src, 
