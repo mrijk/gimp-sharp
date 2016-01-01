@@ -1,3 +1,8 @@
+2016-01-01  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* lib/Dimensions.cs
+	* lib/Coordinate.cs: Minor cleanup with C# 6 string interpolation
+
 2013-08-24  Maurits  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/UnsharpMaskEvent.cs: tweak parameters

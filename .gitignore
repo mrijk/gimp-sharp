@@ -1,0 +1,4 @@
+*.exe
+*.mo
+Makefile
+Makefile.in
