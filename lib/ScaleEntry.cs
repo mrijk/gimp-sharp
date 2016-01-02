@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // ScaleEntry.cs
 //
@@ -82,10 +82,7 @@ namespace Gimp
       variable.ValueChanged += delegate {Value = variable.Value;};
     }
 
-    public int ValueAsInt
-    {
-      get {return (int) Value;}
-    }
+    public int ValueAsInt => (int) Value;
 
     public bool Sensitive
     {

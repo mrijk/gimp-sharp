@@ -260,15 +260,9 @@ namespace Gimp
       gimp_rgb_gamma(ref _rgb, gamma);
     }
 
-    public double Luminance
-    {
-      get {return gimp_rgb_luminance(ref _rgb);}
-    }
+    public double Luminance => gimp_rgb_luminance(ref _rgb);
 
-    public double LuminanceUchar
-    {
-      get {return gimp_rgb_luminance_uchar(ref _rgb);}
-    }
+    public double LuminanceUchar => gimp_rgb_luminance_uchar(ref _rgb);
 
     public static RGB Interpolate(double value, RGB rgb1, RGB rgb2)
     {

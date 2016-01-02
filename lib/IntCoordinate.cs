@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2013 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // IntCoordinate.cs
 //
@@ -19,7 +19,7 @@
 // Boston, MA 02111-1307, USA.
 //
 
-using System;
+using static System.Math;
 
 namespace Gimp
 {
@@ -45,19 +45,10 @@ namespace Gimp
       return x * x + y * y;
     }
 
-    public int Distance(IntCoordinate c)
-    {
-      return Distance(c.X, c.Y);
-    }
+    public int Distance(IntCoordinate c) => Distance(c.X, c.Y);
 
-    public double Radius
-    {
-      get {return Math.Sqrt(X * X + Y * Y);}
-    }
+    public double Radius => Sqrt(X * X + Y * Y);
 
-    public double Angle
-    {
-      get {return Math.Atan2(X, Y);}
-    }
+    public double Angle => Atan2(X, Y);
   }
 }

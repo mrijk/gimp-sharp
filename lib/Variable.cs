@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // Variable.cs
 //
@@ -31,8 +31,8 @@ namespace Gimp
 
     T _value;
 
-    public string Identifier {get; private set;}
-    public string Description {get; private set;}
+    public string Identifier {get;}
+    public string Description {get;}
     public T DefaultValue {get; set;}
 
     public Variable(string identifier, string description, T defaultValue)
@@ -64,10 +64,7 @@ namespace Gimp
 	}
     }
 
-    public Type Type
-    {
-      get {return typeof(T);}
-    }
+    public Type Type => typeof(T);
 
     public void Register(VariableSet variables)
     {

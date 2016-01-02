@@ -82,9 +82,6 @@ namespace Gimp
       return !(rectangle1 == rectangle2);
     }
 
-    public override string ToString()
-    {
-      return $"({X1}, {Y1}, {X2}, {Y2})";
-    }
+    public override string ToString() => $"({X1}, {Y1}, {X2}, {Y2})";
   }
 }

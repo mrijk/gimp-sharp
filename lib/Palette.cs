@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // Palette.cs
 //
@@ -128,15 +128,9 @@ namespace Gimp
         }
     }
 
-    public bool IsEditable
-    {
-      get {return gimp_palette_is_editable(Name);}
-    }
+    public bool IsEditable => gimp_palette_is_editable(Name);
 
-    public PaletteEntry this[int index]
-    {
-      get {return new PaletteEntry(this, index);}
-    }
+    public PaletteEntry this[int index] => new PaletteEntry(this, index);
 
     [DllImport("libgimp-2.0-0.dll")]
     static extern string gimp_palette_new(string name);

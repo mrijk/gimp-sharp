@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2013 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // Parasite.cs
 //
@@ -27,6 +27,17 @@ namespace Gimp
   public class Parasite
   {
     readonly IntPtr _parasite;
+
+    public ulong Flags => gimp_parasite_flags(_parasite);
+    public string Name => gimp_parasite_name(_parasite);
+
+    // Fix me: doesn't work yet!
+    public object Data => gimp_parasite_data(_parasite);
+    public UInt32 DataSize => gimp_parasite_data_size(_parasite);
+    public bool IsPersistent => gimp_parasite_is_persistent(_parasite);
+    public bool IsUndoable => gimp_parasite_is_undoable(_parasite);
+
+    internal IntPtr Ptr => _parasite;
 
     public const int Persistent = 1;
     public const int Undoable = 2;
@@ -101,45 +112,9 @@ namespace Gimp
       return gimp_parasite_is_type(_parasite, name);
     }
 
-    public bool IsPersistent
-    {
-      get {return gimp_parasite_is_persistent(_parasite);}
-    }
-
-    public bool IsUndoable
-    {
-      get {return gimp_parasite_is_undoable(_parasite);}
-    }
-
     public bool HasFlag(ulong flag)
     {
       return gimp_parasite_has_flag(_parasite, flag);
-    }
-
-    public ulong Flags
-    {
-      get {return gimp_parasite_flags(_parasite);}
-    }
-
-    public string Name
-    {
-      get {return gimp_parasite_name(_parasite);}
-    }
-
-    // Fix me: doesn't work yet!
-    public object Data
-    {
-      get {return gimp_parasite_data(_parasite);}
-    }
-
-    public UInt32 DataSize
-    {
-      get {return gimp_parasite_data_size(_parasite);}
-    }
-
-    internal IntPtr Ptr
-    {
-      get {return _parasite;}
     }
 
     [DllImport("libgimp-2.0-0.dll")]

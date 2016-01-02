@@ -29,6 +29,8 @@ namespace Gimp
   {
     protected Int32 _ID;
 
+    internal int ID => _ID;
+
     public Item(int ID)
     {
       _ID = ID;
@@ -254,11 +256,6 @@ namespace Gimp
 						 coeff_0_0, coeff_0_1, coeff_0_2, 
 						 coeff_1_0, coeff_1_1, coeff_1_2, 
 						 coeff_2_0, coeff_2_1, coeff_2_2));
-    }
-
-    internal int ID
-    {
-      get {return _ID;}
     }
 
     public override bool Equals(object o)

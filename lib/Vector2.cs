@@ -26,6 +26,7 @@ namespace Gimp
   public class Vector2
   {
     GimpVector2 _vector;
+    public double Length => gimp_vector2_length(ref _vector);
 
     public Vector2(double x = 0.0, double y = 0.0)
     {
@@ -39,11 +40,6 @@ namespace Gimp
     public void Set(double x, double y)
     {
       gimp_vector2_set(ref _vector, x, y);
-    }
-
-    public double Length
-    {
-      get {return gimp_vector2_length(ref _vector);}
     }
 
     public double X
@@ -100,15 +96,11 @@ namespace Gimp
       return this;
     }
 
-    public static Vector2 operator + (Vector2 v1, Vector2 v2)
-    {
-      return (new Vector2(v1)).Add(v2);
-    }
+    public static Vector2 operator + (Vector2 v1, Vector2 v2) =>
+      (new Vector2(v1)).Add(v2);
 
-    public static Vector2 operator - (Vector2 v1, Vector2 v2)
-    {
-      return (new Vector2(v1)).Sub(v2);
-    }
+    public static Vector2 operator - (Vector2 v1, Vector2 v2) =>
+      (new Vector2(v1)).Sub(v2);
 
     public static Vector2 operator - (Vector2 vector)
     {
@@ -124,25 +116,18 @@ namespace Gimp
       return v;
     }
 
-    public double InnerProduct(Vector2 vector)
-    {
-      return gimp_vector2_inner_product(ref _vector, ref vector._vector);
-    }
+    public double InnerProduct(Vector2 vector) =>
+      gimp_vector2_inner_product(ref _vector, ref vector._vector);
 
-    public double CrossProduct(Vector2 vector)
-    {
-      return gimp_vector2_cross_product(ref _vector, ref vector._vector);
-    }
+    public double CrossProduct(Vector2 vector) =>
+      gimp_vector2_cross_product(ref _vector, ref vector._vector);
 
     public void Rotate(double alpha)
     {
       gimp_vector2_rotate(ref _vector, alpha);
     }
 
-    public override string ToString()
-    {
-      return $"({X}, {Y})";
-    }
+    public override string ToString() => $"({X}, {Y})";
 
     [DllImport("libgimpmath-2.0-0.dll")]
     static extern GimpVector2 gimp_vector2_new(double x, double y);

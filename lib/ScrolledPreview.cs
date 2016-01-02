@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2012 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // ScrolledPreview.cs
 //
@@ -44,15 +44,8 @@ namespace Gimp
 				       vscrollbarPolicy);
     }
 
-    protected void Freeze()
-    {
-      gimp_scrolled_preview_freeze(Handle);
-    }
-
-    protected void Thaw()
-    {
-      gimp_scrolled_preview_thaw(Handle);
-    }
+    protected void Freeze() => gimp_scrolled_preview_freeze(Handle);
+    protected void Thaw() => gimp_scrolled_preview_thaw(Handle);
 
     [DllImport("libgimpui-2.0-0.dll")]
     extern static void gimp_scrolled_preview_set_position(IntPtr preview,

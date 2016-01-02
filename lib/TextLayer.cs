@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2012 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // TextLayer.cs
 //
@@ -55,10 +55,7 @@ namespace Gimp
       }
     }
 
-    public string Markup
-    {
-      get {return gimp_text_layer_get_markup(ID);}
-    }
+    public string Markup => gimp_text_layer_get_markup(ID);
 
     public TextHintStyle HintStyle
     {

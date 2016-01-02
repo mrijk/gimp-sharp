@@ -29,6 +29,10 @@ namespace Gimp
     readonly int _minor;
     readonly int _micro;
 
+    public uint Major => (uint) _major;
+    public uint Minor => (uint) _minor;
+    public uint Micro => (uint) _micro;
+
     public Version(string version)
     {
       var numbers = version.Split('.');
@@ -94,24 +98,6 @@ namespace Gimp
       return !(v1 > v2 || v1 == v2);
     }
 
-    public uint Major
-    {
-      get {return (uint) _major;}
-    }
-
-    public uint Minor
-    {
-      get {return (uint) _minor;}
-    }
-
-    public uint Micro
-    {
-      get {return (uint) _micro;}
-    }
-
-    public override string ToString()
-    {
-      return $"{Major}.{Minor}.{Micro}";
-    }
+    public override string ToString() => $"{Major}.{Minor}.{Micro}";
   }
 }

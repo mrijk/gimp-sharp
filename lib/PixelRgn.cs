@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2013 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // PixelRgn.cs
 //
@@ -47,6 +47,15 @@ namespace Gimp
     readonly int _bpp;
     readonly bool _dirty;
     readonly Drawable _drawable;
+
+    public int X => (int) pr->x;
+    public int Y => (int) pr->y;
+    public int W => (int) pr->w;
+    public int H => (int) pr->h;
+    public int Rowstride => (int) pr->rowstride;
+    public bool Dirty => _dirty;
+
+    internal GimpPixelRgn PR => *pr;
 
     public PixelRgn(Drawable drawable, int x, int y, int width, int height,
 		    bool dirty, bool shadow)
@@ -256,41 +265,6 @@ namespace Gimp
     public void SetColumn(byte[] col, int x, int y)
     {
       gimp_pixel_rgn_set_col(ref *pr, col, x, y, col.Length);
-    }
-
-    public int X
-    {
-      get {return (int) pr->x;}
-    }
-
-    public int Y
-    {
-      get {return (int) pr->y;}
-    }
-
-    public int W
-    {
-      get {return (int) pr->w;}
-    }
-
-    public int H
-    {
-      get {return (int) pr->h;}
-    }
-
-    public int Rowstride
-    {
-      get {return (int) pr->rowstride;}
-    }
-
-    public bool Dirty
-    {
-      get {return _dirty;}
-    }
-
-    internal GimpPixelRgn PR
-    {
-      get {return *pr;}
     }
 
     public Pixel this[int row, int col]

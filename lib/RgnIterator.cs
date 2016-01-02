@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // RgnIterator.cs
 //
@@ -44,10 +44,7 @@ namespace Gimp
       _rectangle = drawable.MaskBounds;
     }
 
-    public int Count
-    {
-      get {return _rectangle.Area;}
-    }
+    public int Count => _rectangle.Area;
 
     public void IterateSrc(Action<Pixel> func)
     {

@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2012 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // Vectors.cs
 //
@@ -66,7 +66,7 @@ namespace Gimp
 
     public void RemoveStroke(Stroke stroke)
     {
-      if (!gimp_vectors_remove_stroke(_ID, stroke.ID))
+      if (!gimp_vectors_remove_stroke(ID, stroke.ID))
 	{
 	  throw new GimpSharpException();
 	}
@@ -76,7 +76,7 @@ namespace Gimp
     public void ToSelection(ChannelOps operation, bool antialias, bool feather,
 			    double featherRadiusX, double featherRadiusY)
     {
-      if (!gimp_vectors_to_selection(_ID, operation, antialias, feather,
+      if (!gimp_vectors_to_selection(ID, operation, antialias, feather,
 				     featherRadiusX, featherRadiusY))
         {
 	  throw new GimpSharpException();
@@ -90,7 +90,7 @@ namespace Gimp
 
     public void ExportToFile(string filename)
     {
-      if (!gimp_vectors_export_to_file(Image.ID, filename, _ID))
+      if (!gimp_vectors_export_to_file(Image.ID, filename, ID))
         {
 	  throw new GimpSharpException();
         }
@@ -98,7 +98,7 @@ namespace Gimp
 
     public string ExportToString()
     {
-      return gimp_vectors_export_to_string(Image.ID, _ID);
+      return gimp_vectors_export_to_string(Image.ID, ID);
     }
 
     public Stroke NewFromPoints(VectorsStrokeType type, 
@@ -106,9 +106,9 @@ namespace Gimp
 				bool closed)
     {
       var tmp = controlpoints.ToArray();
-      int strokeID = gimp_vectors_stroke_new_from_points(_ID, type, tmp.Length,
+      int strokeID = gimp_vectors_stroke_new_from_points(ID, type, tmp.Length,
 							 tmp, closed);
-      return new Stroke(_ID, strokeID);
+      return new Stroke(ID, strokeID);
     }
 
     public Stroke BezierStrokeNewEllipse(Coordinate<double> c, 
@@ -116,17 +116,14 @@ namespace Gimp
 					 double angle)
     {
       return 
-	new Stroke(_ID, gimp_vectors_bezier_stroke_new_ellipse(_ID, c.X, c.Y,
-							       radiusX,
-							       radiusY,
-							       angle));
+	new Stroke(ID, gimp_vectors_bezier_stroke_new_ellipse(ID, c.X, c.Y,
+							      radiusX,
+							      radiusY,
+							      angle));
     }
 
-    public Stroke BezierStrokeNewMoveto(Coordinate<double> c)
-    {
-      return new Stroke(_ID, 
-			gimp_vectors_bezier_stroke_new_moveto(_ID, c.X, c.Y));
-    }
+    public Stroke BezierStrokeNewMoveto(Coordinate<double> c) =>
+      new Stroke(ID, gimp_vectors_bezier_stroke_new_moveto(ID, c.X, c.Y));
 
     [DllImport("libgimp-2.0-0.dll")]
     extern static Int32 gimp_vectors_new(Int32 image_ID, string name);

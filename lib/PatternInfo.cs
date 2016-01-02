@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // PatternInfo.cs
 //
@@ -23,9 +23,9 @@ namespace Gimp
 {
   public sealed class PatternInfo
   {
-    public int Width {get; private set;}
-    public int Height {get; private set;}
-    public int Bpp {get; private set;}
+    public int Width {get;}
+    public int Height {get;}
+    public int Bpp {get;}
 
     public PatternInfo(int width, int height, int bpp)
     {

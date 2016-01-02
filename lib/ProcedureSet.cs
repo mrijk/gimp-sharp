@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2013 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // ProcedureSet.cs
 //
@@ -27,25 +27,18 @@ namespace Gimp
   public class ProcedureSet
   {
     readonly Dictionary<string, Procedure> _set;
+    public int Count => _set.Count;
+
+    public Procedure this[string name] => _set[name];
 
     public ProcedureSet(IEnumerable<Procedure> procedures)
     {
       _set = procedures.ToDictionary(p => p.Name);
     }
 
-    public Procedure this[string name]
-    {
-      get {return _set[name];}
-    }
-
     public void Add(Procedure procedure)
     {
       _set[procedure.Name] = procedure;
-    }
-
-    public int Count
-    {
-      get {return _set.Count;}
     }
 
     public void Install()

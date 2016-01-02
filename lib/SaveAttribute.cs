@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // SaveAttribute.cs
 //
@@ -27,7 +27,7 @@ namespace Gimp
   public class SaveAttribute : Attribute
   {
     internal FieldInfo Field {get; set;}
-    public string Name {get; private set;}
+    public string Name {get;}
     
     public SaveAttribute()
     {

@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // ImageList.cs
 //
@@ -30,6 +30,9 @@ namespace Gimp
   {
     readonly List<Image> _list = new List<Image>();
 
+    public int Count => _list.Count;
+    public Image this[int index] => _list[index];
+
     public ImageList()
     {
       Refresh();
@@ -49,25 +52,9 @@ namespace Gimp
 	}
     }
 
-    public IEnumerator<Image> GetEnumerator()
-    {
-      return _list.GetEnumerator();
-    }
+    public IEnumerator<Image> GetEnumerator() => _list.GetEnumerator();
 
-    public void ForEach(Action<Image> action)
-    {
-      _list.ForEach(action);
-    }
-
-    public int Count
-    {
-      get {return _list.Count;}
-    }
-
-    public Image this[int index]
-    {
-      get {return _list[index];}
-    }
+    public void ForEach(Action<Image> action) => _list.ForEach(action);
 
     public int GetIndex(Image key)
     {

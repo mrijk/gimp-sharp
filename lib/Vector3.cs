@@ -27,6 +27,8 @@ namespace Gimp
   {
     GimpVector3 _vector;
 
+    public double Length => gimp_vector3_length(ref _vector);
+
     public Vector3(double x = 0.0, double y = 0.0, double z = 0.0)
     {
       _vector = gimp_vector3_new(x, y, z);
@@ -44,11 +46,6 @@ namespace Gimp
     public void Set(double x, double y, double z)
     {
       gimp_vector3_set(ref _vector, x, y, z);
-    }
-
-    public double Length
-    {
-      get {return gimp_vector3_length(ref _vector);}
     }
 
     public double X
@@ -84,9 +81,10 @@ namespace Gimp
       return X.GetHashCode() + Y.GetHashCode() + Z.GetHashCode();
     }
 
-    public void Mul(double factor)
+    public Vector3 Mul(double factor)
     {
       gimp_vector3_mul(ref _vector, factor);
+      return this;
     }
 
     public void Normalize()
@@ -94,9 +92,10 @@ namespace Gimp
       gimp_vector3_normalize(ref _vector);
     }
 
-    public void Neg()
+    public Vector3 Neg()
     {
       gimp_vector3_neg(ref _vector);
+      return this;
     }
 
     public Vector3 Add(Vector3 vector)
@@ -111,50 +110,28 @@ namespace Gimp
       return this;
     }
 
-    public static Vector3 operator + (Vector3 v1, Vector3 v2)
-    {
-      return (new Vector3(v1)).Add(v2);
+    public static Vector3 operator + (Vector3 v1, Vector3 v2) =>
+      (new Vector3(v1)).Add(v2);
 
-    }
+    public static Vector3 operator - (Vector3 v1, Vector3 v2) =>
+      (new Vector3(v1)).Sub(v2);
 
-    public static Vector3 operator - (Vector3 v1, Vector3 v2)
-    {
-      return (new Vector3(v1)).Sub(v2);
-    }
+    public static Vector3 operator - (Vector3 vector) =>
+      (new Vector3(vector)).Neg();
 
-    public static Vector3 operator - (Vector3 vector)
-    {
-      var v = new Vector3(vector);
-      v.Neg();
-      return v;
-    }
+    public static Vector3 operator * (Vector3 vector, double factor) =>
+      (new Vector3(vector)).Mul(factor);
 
-    public static Vector3 operator * (Vector3 vector, double factor)
-    {
-      var v = new Vector3(vector);
-      v.Mul(factor);
-      return v;
-    }
+    public double InnerProduct(Vector3 vector) =>
+      gimp_vector3_inner_product(ref _vector, ref vector._vector);
 
-    public double InnerProduct(Vector3 vector)
-    {
-      return gimp_vector3_inner_product(ref _vector, ref vector._vector);
-    }
+    public double CrossProduct(Vector3 vector) =>
+      gimp_vector3_cross_product(ref _vector, ref vector._vector);
 
-    public double CrossProduct(Vector3 vector)
-    {
-      return gimp_vector3_cross_product(ref _vector, ref vector._vector);
-    }
-
-    public void Rotate(double alpha, double beta, double gamma)
-    {
+    public void Rotate(double alpha, double beta, double gamma) =>
       gimp_vector3_rotate(ref _vector, alpha, beta, gamma);
-    }
 
-    public override string ToString()
-    {
-      return $"({X}, {Y}, {Z})";
-    }
+    public override string ToString() => $"({X}, {Y}, {Z})";
 
     [DllImport("libgimpmath-2.0-0.dll")]
     static extern GimpVector3 gimp_vector3_new(double x,

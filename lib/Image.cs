@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2012 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // Image.cs
 //
@@ -32,6 +32,13 @@ namespace Gimp
   public sealed class Image : IEnumerable
   {
     internal Int32 _imageID;
+
+    public bool IsValid => gimp_image_is_valid(ID);
+    public ImageBaseType BaseType => gimp_image_base_type(ID);
+    public int Width => gimp_image_width(ID);
+    public int Height => gimp_image_height(ID);
+    public Rectangle Bounds => new Rectangle(0, 0, Width, Height);
+    public Dimensions Dimensions => new Dimensions(Width, Height);
      
     internal Image(Int32 imageID)
     {
@@ -119,36 +126,6 @@ namespace Gimp
         }
     }
     
-    public bool IsValid
-    {
-      get {return gimp_image_is_valid(ID);}
-    }
-
-    public ImageBaseType BaseType
-    {
-      get {return gimp_image_base_type(ID);}
-    }
-
-    public int Width
-    {
-      get {return gimp_image_width(ID);}
-    }
-
-    public int Height
-    {
-      get {return gimp_image_height(ID);}
-    }
-
-    public Rectangle Bounds
-    {
-      get {return new Rectangle(0, 0, Width, Height);}
-    }
-
-    public Dimensions Dimensions
-    {
-      get {return new Dimensions(Width, Height);}
-    }
-
     public void Flip(OrientationType flip_type)
     {
       if (!gimp_image_flip(ID, flip_type))
@@ -231,21 +208,13 @@ namespace Gimp
       Crop(rectangle.Width, rectangle.Height, rectangle.X1, rectangle.Y1);
     }
       
-    public LayerList Layers
-    {
-      get {return new LayerList(this);}
-    }
+    public LayerList Layers => new LayerList(this);
 
     // Beware: this ChannelList isn't updated when channels are added!
-    public ChannelList Channels
-    {
-      get {return new ChannelList(this);}
-    }
+    public ChannelList Channels => new ChannelList(this);
 
-    public Drawable ActiveDrawable
-    {
-      get {return new Drawable(gimp_image_get_active_drawable(ID));}
-    }
+    public Drawable ActiveDrawable => 
+      new Drawable(gimp_image_get_active_drawable(ID));
 
     public FloatingSelection FloatingSelection
     {
@@ -401,10 +370,7 @@ namespace Gimp
         }
     }
 
-    public bool IsDirty
-    {
-      get {return gimp_image_is_dirty(ID);}
-    }
+    public bool IsDirty => gimp_image_is_dirty(ID);
 
     public Layer ActiveLayer
     {
@@ -438,10 +404,7 @@ namespace Gimp
 	}
     }
 
-    public Selection Selection
-    {
-      get {return new Selection(ID, gimp_image_get_selection(ID));}
-    }
+    public Selection Selection => new Selection(ID, gimp_image_get_selection(ID));
 
     public bool GetComponentActive(ChannelType component)
     {
@@ -481,30 +444,11 @@ namespace Gimp
 	}
     }
 
-    public string URI
-    {
-      get {return gimp_image_get_uri(ID);}
-    }
-
-    public string XcfURI
-    {
-      get {return gimp_image_get_xcf_uri(ID);}
-    }
-
-    public string ImportedURI
-    {
-      get {return gimp_image_get_imported_uri(ID);}
-    }
-
-    public string ExportedURI
-    {
-      get {return gimp_image_get_exported_uri(ID);}
-    }
-
-    public string Name
-    {
-      get {return gimp_image_get_name(ID);}
-    }
+    public string URI => gimp_image_get_uri(ID);
+    public string XcfURI => gimp_image_get_xcf_uri(ID);
+    public string ImportedURI => gimp_image_get_imported_uri(ID);
+    public string ExportedURI => gimp_image_get_exported_uri(ID);
+    public string Name => gimp_image_get_name(ID);
 
     public Resolution Resolution
     {
@@ -758,10 +702,7 @@ namespace Gimp
         }
     }
 
-    public bool UndoEnabled
-    {
-      get {return gimp_image_undo_is_enabled(ID);}
-    }
+    public bool UndoEnabled => gimp_image_undo_is_enabled(ID);
 
     public void UndoGroupEnd()
     {
@@ -863,20 +804,11 @@ namespace Gimp
       set {_imageID = value;}
     }
        
-    public GuideCollection Guides
-    {
-      get {return new GuideCollection(this);}
-    }
+    public GuideCollection Guides => new GuideCollection(this);
 
-    public Grid Grid
-    {
-      get {return new Grid(ID);}
-    }
+    public Grid Grid => new Grid(ID);
 
-    public override string ToString()
-    {
-      return "Image: " + ID;
-    }
+    public override string ToString() => "Image: " + ID;
 
     [DllImport("libgimp-2.0-0.dll")]
     static extern Int32 gimp_image_new(int width, int height, 

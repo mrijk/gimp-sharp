@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2013 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // Variable.cs
 //
@@ -52,20 +52,11 @@ namespace Gimp
       v.Register(this);
     }
     
-    public IEnumerator<IVariable> GetEnumerator()
-    {
-      return _set.GetEnumerator();
-    }
+    public IEnumerator<IVariable> GetEnumerator() => _set.GetEnumerator();
     
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-      return GetEnumerator();
-    }
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-    public void ForEach(Action<IVariable> action)
-    {
-      _set.ForEach(action);
-    }
+    public void ForEach(Action<IVariable> action) => _set.ForEach(action);
 
     public IVariable this[string identifier]
     {

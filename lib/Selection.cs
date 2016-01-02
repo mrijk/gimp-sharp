@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // Selection.cs
 //
@@ -67,10 +67,7 @@ namespace Gimp
         }
     }
 
-    public bool Empty
-    {
-      get {return gimp_selection_is_empty(_imageID);}
-    }
+    public bool Empty => gimp_selection_is_empty(_imageID);
 
     public Layer Float(Drawable drawable, int offx, int offy)
     {
@@ -91,15 +88,9 @@ namespace Gimp
       return new Channel(gimp_selection_save(_imageID));
     }
 
-    public int Value(int x, int y)
-    {
-      return gimp_selection_value(_imageID, x, y);
-    }
+    public int Value(int x, int y) => gimp_selection_value(_imageID, x, y);
 
-    public int this[int x, int y]
-    {
-      get {return Value(x, y);}
-    }
+    public int this[int x, int y] => Value(x, y);
 
     public void Grow(int steps)
     {
@@ -157,10 +148,7 @@ namespace Gimp
         }
     }
 
-    public void Translate(Offset offset)
-    {
-      Translate(offset.X, offset.Y);
-    }
+    public void Translate(Offset offset) => Translate(offset.X, offset.Y);
 
     public void LayerAlpha(Layer layer)
     {

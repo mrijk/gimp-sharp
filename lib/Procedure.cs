@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2013 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // Procedure.cs
 //
@@ -315,10 +315,7 @@ namespace Gimp
 	}
     }
 
-    public ParamDefList InParams
-    {
-      get {return _inParams;}
-    }
+    public ParamDefList InParams => _inParams;
     
     [DllImport("libgimp-2.0-0.dll")]
     public static extern void gimp_install_procedure(

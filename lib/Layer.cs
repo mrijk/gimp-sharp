@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // Layer.cs
 //
@@ -272,10 +272,7 @@ namespace Gimp
 	}
     }
 
-    public bool IsFloatingSelection
-    {
-      get {return gimp_layer_is_floating_sel(_ID);}
-    }
+    public bool IsFloatingSelection => gimp_layer_is_floating_sel(_ID);
 
     public void SetBuffer(byte[] buffer)
     {

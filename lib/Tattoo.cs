@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // Tattoo.cs
 //
@@ -25,6 +25,8 @@ namespace Gimp
   {
     readonly int _tattooID;
 
+    public int ID => _tattooID;
+
     public Tattoo(int tattooID)
     {
       _tattooID = tattooID;
@@ -42,11 +44,6 @@ namespace Gimp
     public override int GetHashCode()
     {
       return _tattooID.GetHashCode();
-    }
-
-    public int ID
-    {
-      get {return _tattooID;}
     }
   }
 }

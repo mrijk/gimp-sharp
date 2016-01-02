@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2012 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // ParasiteList.cs
 //
@@ -29,6 +29,10 @@ namespace Gimp
   public sealed class ParasiteList
   {
     readonly List<Parasite> _list;
+
+    public int Count => _list.Count;
+
+    public Parasite this[int index] => _list[index];
 
     public ParasiteList()
     {
@@ -63,29 +67,10 @@ namespace Gimp
       return (found == IntPtr.Zero) ? null : new Parasite(found);
     }
 
-    public IEnumerator<Parasite> GetEnumerator()
-    {
-      return _list.GetEnumerator();
-    }
+    public IEnumerator<Parasite> GetEnumerator() => _list.GetEnumerator();
 
-    public void Add(Parasite parasite)
-    {
-      _list.Add(parasite);
-    }
+    public void Add(Parasite parasite) => _list.Add(parasite);
 
-    public void ForEach(Action<Parasite> action)
-    {
-      _list.ForEach(action);
-    }
-
-    public int Count
-    {
-      get {return _list.Count;}
-    }
-
-    public Parasite this[int index]
-    {
-      get {return _list[index];}
-    }
+    public void ForEach(Action<Parasite> action) => _list.ForEach(action);
   }
 }

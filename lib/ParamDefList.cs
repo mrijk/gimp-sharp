@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2013 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // ParamDefList.cs
 //
@@ -33,6 +33,8 @@ namespace Gimp
   {
     readonly List<ParamDef> _set;
 
+    public int Count => _set.Count;
+
     public ParamDefList(bool usesImage, bool usesDrawable)
     {
       _set = new List<ParamDef>()
@@ -64,20 +66,11 @@ namespace Gimp
       variables.ForEach(v => Add(new ParamDef(v.Identifier, v.Type, v.Description)));
     }
 
-    public IEnumerator<ParamDef> GetEnumerator()
-    {
-      return _set.GetEnumerator();
-    }
+    public IEnumerator<ParamDef> GetEnumerator() => _set.GetEnumerator();
 
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-      return GetEnumerator();
-    }
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-    public ParamDef this[int index]
-    {
-      get {return _set[index];}
-    }
+    public ParamDef this[int index] => _set[index];
 
     public void Marshall(IntPtr paramPtr, int n_params)
     {
@@ -140,21 +133,11 @@ namespace Gimp
       seq.ForEach((i, ptr) => this[i].GetGimpParam().Fill(ptr));
     }
 
-    public void Add(ParamDef p)
-    {
-      _set.Add(p);
-    }
+    public void Add(ParamDef p) => _set.Add(p);
 
-    public ParamDef Lookup(string name)
-    {
-      return _set.Find(p => p.Name == name);
-    }
+    public ParamDef Lookup(string name) => _set.Find(p => p.Name == name);
 
-    public object GetValue(string name)
-    {
-      var p = Lookup(name);
-      return (p == null) ? null : p.Value;
-    }
+    public object GetValue(string name) => Lookup(name)?.Value;
     
     public void SetValue(string name, object value)
     {
@@ -163,11 +146,6 @@ namespace Gimp
 	{
 	  p.Value = value;
 	}
-    }
-
-    public int Count 
-    {
-      get {return _set.Count;}
     }
 
     public GimpParamDef[] GetGimpParamDef()

@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2012 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // Drawable.cs
 //
@@ -31,6 +31,18 @@ namespace Gimp
   {
     protected IntPtr _drawable;
     protected int _bpp;
+
+    public bool HasAlpha => gimp_drawable_has_alpha(ID);
+    public ImageType TypeWithAlpha => gimp_drawable_type_with_alpha(ID);
+    public ImageType Type => gimp_drawable_type(ID);
+
+    public bool IsRGB => gimp_drawable_is_rgb(ID);
+    public bool IsGray => gimp_drawable_is_gray(ID);
+    public bool IsIndexed => gimp_drawable_is_indexed(ID);
+
+    public int Bpp => _bpp;
+    public int Width => gimp_drawable_width(ID);
+    public int Height => gimp_drawable_height(ID);
 
     public Drawable(Int32 drawableID) : base(drawableID)
     {
@@ -136,20 +148,11 @@ namespace Gimp
       Update(rectangle.X1, rectangle.Y1, rectangle.Width, rectangle.Height);
     }
 
-    public void Update()
-    {
-      Update(Bounds);
-    }
+    public void Update() => Update(Bounds);
 
-    public Rectangle Bounds
-    {
-      get {return new Rectangle(0, 0, Width, Height);}
-    }
+    public Rectangle Bounds => new Rectangle(0, 0, Width, Height);
 
-    public Dimensions Dimensions
-    {
-      get {return new Dimensions(Width, Height);}
-    }
+    public Dimensions Dimensions => new Dimensions(Width, Height);
 
     public Rectangle MaskBounds
     {
@@ -189,51 +192,6 @@ namespace Gimp
     public bool MergeShadow(bool undo)
     {
       return gimp_drawable_merge_shadow(ID, undo);
-    }
-
-    public bool HasAlpha
-    {
-      get {return gimp_drawable_has_alpha(ID);}
-    }
-
-    public ImageType TypeWithAlpha
-    {
-      get {return gimp_drawable_type_with_alpha(ID);}
-    }
-
-    public ImageType Type
-    {
-      get {return gimp_drawable_type(ID);}
-    }
-
-    public bool IsRGB
-    {
-      get {return gimp_drawable_is_rgb(ID);}
-    }
-
-    public bool IsGray
-    {
-      get {return gimp_drawable_is_gray(ID);}
-    }
-
-    public bool IsIndexed
-    {
-      get {return gimp_drawable_is_indexed(ID);}
-    }
-
-    public int Bpp
-    {
-      get {return _bpp;}
-    }
-
-    public int Width
-    {
-      get {return gimp_drawable_width(ID);}
-    }
-
-    public int Height
-    {
-      get {return gimp_drawable_height(ID);}
     }
 
     public virtual Offset Offsets
@@ -568,11 +526,11 @@ namespace Gimp
         }
     }
 
-    public void Threshold(int low_threshold,
-                          int high_threshold)
+    public void Threshold(int lowThreshold,
+                          int highThreshold)
     {
-      if (!gimp_threshold(ID, low_threshold,
-                          high_threshold))
+      if (!gimp_threshold(ID, lowThreshold,
+                          highThreshold))
         {
 	  throw new GimpSharpException();
         }
@@ -795,10 +753,7 @@ namespace Gimp
 
     // Convenience routines
 
-    public Pixel CreatePixel()
-    {
-      return new Pixel(Bpp);
-    }
+    public Pixel CreatePixel() => new Pixel(Bpp);
 
     public void Save(string filename)
     {
@@ -819,15 +774,9 @@ namespace Gimp
 	}
     }
 
-    internal IntPtr Ptr
-    {
-      get {return _drawable;}
-    }
+    internal IntPtr Ptr => _drawable;
 
-    public override string ToString()
-    {
-      return "Drawable: " + ID;
-    }
+    public override string ToString() => "Drawable: " + ID;
 
     [DllImport("libgimp-2.0-0.dll")]
     static extern IntPtr gimp_drawable_get(Int32 drawable_ID);

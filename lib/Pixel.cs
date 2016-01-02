@@ -41,8 +41,8 @@ namespace Gimp
     public Pixel(int bpp)
     {
       _bpp = bpp;
-      _bppWithoutAlpha = (HasAlpha) ? _bpp - 1 : _bpp;
-      _rgb = new int[_bpp];
+      _bppWithoutAlpha = (HasAlpha) ? bpp - 1 : bpp;
+      _rgb = new int[bpp];
     }
 
     public Pixel(byte[] rgb) : this(rgb.Length)
@@ -148,10 +148,7 @@ namespace Gimp
 	}
     }
 
-    static byte ConvertToByte(int value)
-    {
-      return (byte) value;
-    }
+    static byte ConvertToByte(int value) => (byte) value;
 
     public void CopyTo(byte[] dest, long index)
     {
@@ -259,30 +256,19 @@ namespace Gimp
       return this;
     }
 
-    public static Pixel operator / (Pixel p, int v)
-    {
-      return (new Pixel(p)).Divide(v);
-    }
+    public static Pixel operator / (Pixel p, int v) => 
+      (new Pixel(p)).Divide(v);
 
-    public static Pixel operator + (Pixel p1, Pixel p2)
-    {
-      return (new Pixel(p1)).Add(p2);
-    }
+    public static Pixel operator + (Pixel p1, Pixel p2) =>
+      (new Pixel(p1)).Add(p2);
 
-    public static Pixel operator - (Pixel p1, Pixel p2)
-    {
-      return (new Pixel(p1)).Substract(p2);
-    }
+    public static Pixel operator - (Pixel p1, Pixel p2) =>
+      (new Pixel(p1)).Substract(p2);
 
-    public static Pixel operator + (Pixel p, int v)
-    {
-      return (new Pixel(p)).Add(v);
-    }
+    public static Pixel operator + (Pixel p, int v) => 
+      (new Pixel(p)).Add(v);
 
-    public override string ToString()
-    {
-      return $"({_rgb[0]} {_rgb[1]} {_rgb[2]})";
-    }
+    public override string ToString() => $"({_rgb[0]} {_rgb[1]} {_rgb[2]})";
 
     static internal Pixel[,] ConvertToPixelArray(IntPtr src, 
 						 Dimensions dimensions,
