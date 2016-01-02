@@ -1,5 +1,5 @@
 // The SliceTool plug-in
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // XmlNodeExtensions.cs
 //

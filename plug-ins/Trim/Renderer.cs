@@ -1,5 +1,5 @@
 // The Trim plug-in
-// Copyright (C) 2004-2013 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // Renderer.cs
 //
@@ -76,9 +76,7 @@ namespace Gimp.Trim
 	}
     }
 
-    bool AllEqual(Pixel[] array, Pixel p)
-    {
-      return array.All(pixel => pixel.IsSameColor(p));
-    }
+    bool AllEqual(Pixel[] array, Pixel p) => 
+      array.All(pixel => pixel.IsSameColor(p));
   }
 }

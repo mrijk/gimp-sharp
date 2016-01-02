@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2013 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // SliceTool.cs
 //
@@ -38,7 +38,7 @@ namespace Gimp.SliceTool
 			   _("The Image Slice Tool is used to apply image slicing and rollovers."),
 			   "Maurits Rijk",
 			   "(C) Maurits Rijk",
-			   "2005-2013",
+			   "2005-2016",
 			   _("Slice Tool..."),
 			   "RGB*, GRAY*")
 	{

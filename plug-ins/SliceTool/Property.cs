@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // Property.cs
 //
@@ -37,7 +37,7 @@ namespace Gimp.SliceTool
     {
       if (Value.Length > 0)
         {
-	  w.Write(" {0}=\"{1}\"", Name, Value);
+	  w.Write($" {Name}=\"{Value}\"");
         }
     }
 

@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2013 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // SliceData.cs
 //
@@ -31,10 +31,7 @@ namespace Gimp.SliceTool
     readonly SliceSet _horizontalSlices = new SliceSet();
     readonly SliceSet _verticalSlices = new SliceSet();
 
-    public RectangleSet Rectangles
-    {
-      get {return _rectangles;}
-    }
+    public RectangleSet Rectangles => _rectangles;
 
     public void Init(Drawable drawable)
     {
@@ -70,15 +67,9 @@ namespace Gimp.SliceTool
       _rectangles.Slice(slice);
     }
 
-    public Rectangle FindRectangle(IntCoordinate c)
-    {
-      return _rectangles.Find(c);
-    }
+    public Rectangle FindRectangle(IntCoordinate c) => _rectangles.Find(c);
 
-    public void SelectRectangle(IntCoordinate c)
-    {
-      _rectangles.Select(c);
-    }
+    public void SelectRectangle(IntCoordinate c) => _rectangles.Select(c);
 
     public Slice FindSlice(IntCoordinate c)
     {
@@ -162,10 +153,8 @@ namespace Gimp.SliceTool
 
       w.WriteLine("<html>");
       w.WriteLine("<head>");
-      w.WriteLine("<meta name=\"Author\" content=\"{0}\">",
-                  Environment.UserName);
-      w.WriteLine("<meta name=\"Generator\" content=\"GIMP {0}\">",
-                  Gimp.Version);
+      w.WriteLine($"<meta name=\"Author\" content=\"{Environment.UserName}\">");
+      w.WriteLine($"<meta name=\"Generator\" content=\"GIMP {Gimp.Version}\">");
       w.WriteLine("<title></title>");
       WriteJavaScript(w);
       w.WriteLine("</head>");

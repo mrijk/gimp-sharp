@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // Rectangle.cs
 //
@@ -30,8 +30,17 @@ namespace Gimp.SliceTool
     public VerticalSlice Right {get; set;}
     public HorizontalSlice Top {get; set;}
     public HorizontalSlice Bottom {get; set;}
+
+    public int X1 => Left.X;
+    public int Y1 => Top.Y;
+    public int X2 => Right.X;
+    public int Y2 => Bottom.Y;
+    public int Width => X2 - X1;
+    public int Height => Y2 - Y1;
     
     readonly PropertySet _properties = new PropertySet();
+
+    public bool Changed => _properties.Changed;
     
     public bool Include {get; set;}
 
@@ -67,10 +76,7 @@ namespace Gimp.SliceTool
       return (Y1 == rectangle.Y1) ? X1 - rectangle.X1 : Y1 - rectangle.Y1;
     }
 
-    public bool IntersectsWith(Slice slice)
-    {
-      return slice.IntersectsWith(this);
-    }
+    public bool IntersectsWith(Slice slice) => slice.IntersectsWith(this);
 
     public bool Normalize(Slice slice)
     {
@@ -132,10 +138,7 @@ namespace Gimp.SliceTool
       return null;
     }
 
-    public Rectangle Slice(Slice slice)
-    {
-      return slice.SliceRectangle(this);
-    }
+    public Rectangle Slice(Slice slice) => slice.SliceRectangle(this);
 
     public bool IsInside(IntCoordinate c)
     {
@@ -147,22 +150,17 @@ namespace Gimp.SliceTool
       renderer.DrawRectangle(X1, Y1, Width, Height);
     }
 
-    public HorizontalSlice CreateHorizontalSlice(int y)
-    {
-      return new HorizontalSlice(Left, Right, y);
-    }
+    public HorizontalSlice CreateHorizontalSlice(int y) =>
+      new HorizontalSlice(Left, Right, y);
 
-    public VerticalSlice CreateVerticalSlice(int x)
-    {
-      return new VerticalSlice(Top, Bottom, x);
-    }
+    public VerticalSlice CreateVerticalSlice(int x) =>
+      new VerticalSlice(Top, Bottom, x);
 
     string GetFilename(string name, bool useGlobalExtension)
     {
       string extension = (Extension == null || useGlobalExtension)
         ? _globalExtension : Extension;
-      return string.Format("{0}_{1}x{2}.{3}", name, Top.Index, Left.Index, 
-                           extension);
+      return $"{name}_{Top.Index}x{Left.Index}.{extension}";
     }
 
     public void WriteHTML(StreamWriter w, string name, 
@@ -192,8 +190,8 @@ namespace Gimp.SliceTool
 
 	  w.Write("<img name=\"{0}\"", name + index);
 	  w.Write(" src=\"{0}\"", GetFilename(name, useGlobalExtension));
-	  w.Write(" width=\"{0}\"", Width);
-	  w.Write(" height=\"{0}\"", Height);
+	  w.Write($" width=\"{Width}\"");
+	  w.Write($" height=\"{Height}\"");
 	  w.Write(" border=\"0\"");
 
 	  _properties.WriteHTML(w, "AltText");
@@ -234,55 +232,17 @@ namespace Gimp.SliceTool
       Bottom = hslices[Bottom.Index] as HorizontalSlice;
     }
 
-    public int X1
-    {
-      get {return Left.X;}
-    }
-
-    public int Y1
-    {
-      get {return Top.Y;}
-    }
-
-    public int X2
-    {
-      get {return Right.X;}
-    }
-
-    public int Y2
-    {
-      get {return Bottom.Y;}
-    }
-
-    public int Width
-    {
-      get {return X2 - X1;}
-    }
-
-    public int Height
-    {
-      get {return Y2 - Y1;}
-    }
-
     public void SetProperty(string name, string value)
     {
       _properties[name] = value;
     }
 
-    public string GetProperty(string name)
-    {
-      return _properties[name];
-    }
+    public string GetProperty(string name) =>  _properties[name];
 
     public static string GlobalExtension
     {
       get {return _globalExtension;}
       set {_globalExtension = value;}
-    }
-
-    public bool Changed
-    {
-      get {return _properties.Changed;}
     }
   }
 }

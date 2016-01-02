@@ -1,5 +1,5 @@
 // The SliceTool plug-in
-// Copyright (C) 2004-2013 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // SliceSet.cs
 //
@@ -30,20 +30,13 @@ namespace Gimp.SliceTool
 
     bool _changed = false;
 
-    public IEnumerator<Slice> GetEnumerator()
-    {
-      return _set.GetEnumerator();
-    }
+    public IEnumerator<Slice> GetEnumerator() => _set.GetEnumerator();
+    public Slice this[int index] => _set[index];
 
     public void Add(Slice slice)
     {
       Changed = true;
       _set.Add(slice);
-    }
-
-    public Slice this[int index]
-    {
-      get {return _set[index];}
     }
 
     public void Clear()

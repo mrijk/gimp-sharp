@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // VerticalSlice.cs
 //
@@ -38,10 +38,8 @@ namespace Gimp.SliceTool
     {
     }
 
-    public static Slice Load(XmlNode node)
-    {
-      return LoadFromNode(node, new VerticalSlice());
-    }
+    public static Slice Load(XmlNode node) =>
+      LoadFromNode(node, new VerticalSlice());
 
     override public void Draw(PreviewRenderer renderer)
     {
@@ -54,10 +52,8 @@ namespace Gimp.SliceTool
 	&& Y1 <= rectangle.Y1 && Y2 >= rectangle.Y2;
     }
 
-    override public bool IsPartOf(Rectangle rectangle)
-    {
-      return rectangle.HasVerticalSlice(this);
-    }
+    override public bool IsPartOf(Rectangle rectangle) =>
+      rectangle.HasVerticalSlice(this);
 
     override public Rectangle SliceRectangle(Rectangle rectangle)
     {
@@ -87,19 +83,9 @@ namespace Gimp.SliceTool
       set {Position = value;}
     }
 
-    public int Y1
-    {
-      get {return Begin.Position;}
-    }
+    public int Y1 => Begin.Position;
+    public int Y2 => End.Position;
 
-    public int Y2
-    {
-      get {return End.Position;}
-    }
-
-    override public Cursor Cursor
-    {
-      get {return _cursor;}
-    }
+    override public Cursor Cursor => _cursor;
   }
 }

@@ -1,5 +1,7 @@
 2016-01-02  Maurits Rijk  <maurits.rijk@gmail.com>
 
+	* plug-ins/SliceTool/*.cs
+	* plug-ins/Trim/*.cs
 	* lib/*.cs: Minor cleanup using new C# 6 features
 
 2016-01-01  Maurits Rijk  <maurits.rijk@gmail.com>

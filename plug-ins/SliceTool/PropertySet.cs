@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // PropertySet.cs
 //
@@ -59,16 +59,9 @@ namespace Gimp.SliceTool
       set {GetProperty(name).Value = value;}
     }
 
-    Property GetProperty(string name)
-    {
-      var property = _set[name];
-      return property;
-    }
+    Property GetProperty(string name) => _set[name];
 
-    public bool Exists(string name)
-    {
-      return !String.IsNullOrEmpty(this[name]);
-    }
+    public bool Exists(string name) => !String.IsNullOrEmpty(this[name]);
 
     public void WriteHTML(StreamWriter w, string name)
     {

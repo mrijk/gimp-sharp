@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // Format.cs
 //
@@ -94,9 +94,6 @@ namespace Gimp.SliceTool
 	}
     }
 
-    public bool Apply
-    {
-      get {return _apply.Active;}
-    }
+    public bool Apply => _apply.Active;
   }
 }

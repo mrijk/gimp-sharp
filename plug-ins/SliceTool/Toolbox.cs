@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // Toolbox.cs
 //
@@ -78,7 +78,7 @@ namespace Gimp.SliceTool
     RadioToolButton AddToggle(RadioToolButton group, string icon, 
 			      string tooltipText, MouseFunc func)
     {
-      var list = (group == null) ? null : group.Group;
+      var list = group?.Group;
 
       var toggle = new RadioToolButton(list, icon) {TooltipText = tooltipText};
       toggle.Clicked += delegate
@@ -93,10 +93,7 @@ namespace Gimp.SliceTool
       return toggle;
     }
 
-    string _(string s)
-    {
-      return Catalog.GetString(s);
-    }
+    string _(string s) => Catalog.GetString(s);
 
     void AddStockIcon(IconFactory factory, string stockId, string filename)
     {

@@ -1,5 +1,5 @@
 // The Trim plug-in
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // Trim.cs
 //
@@ -41,7 +41,7 @@ namespace Gimp.Trim
 			   _("Trim"),
 			   "Maurits Rijk",
 			   "(C) Maurits Rijk",
-			   "2004-2011",
+			   "2004-2016",
 			   "Trim...",
 			   "RGB*, GRAY*",
 			   new ParamDefList(Variables))

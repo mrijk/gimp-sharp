@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // HorizontalSlice.cs
 //
@@ -39,10 +39,8 @@ namespace Gimp.SliceTool
     {
     }
 
-    public static Slice Load(XmlNode node)
-    {
-      return LoadFromNode(node, new HorizontalSlice());
-    }
+    public static Slice Load(XmlNode node) =>
+      LoadFromNode(node, new HorizontalSlice());
 
     override public void Draw(PreviewRenderer renderer)
     {
@@ -88,19 +86,10 @@ namespace Gimp.SliceTool
       set {Position = value;}
     }
 
-    public int X1
-    {
-      get {return Begin.Position;}
-    }
+    public int X1 => Begin.Position;
 
-    public int X2
-    {
-      get {return End.Position;}
-    }
+    public int X2 => End.Position;
 
-    override public Cursor Cursor
-    {
-      get {return _cursor;}
-    }
+    override public Cursor Cursor => _cursor;
   }
 }
