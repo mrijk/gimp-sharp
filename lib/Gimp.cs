@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2012 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // Gimp.cs
 //
@@ -61,6 +61,23 @@ namespace Gimp
 
   public static class Gimp
   {
+    static public Version Version => new Version(gimp_version());
+    static public int PID => gimp_getpid();
+    static public string PdbError => gimp_get_pdb_error();
+    static public uint TileWidth => gimp_tile_width();
+    static public uint TileHeight => gimp_tile_height();
+    static public int ShmID => gimp_shm_ID();
+    static public IntPtr ShmAddr => gimp_shm_addr();
+    static public double Gamma => gimp_gamma();
+    static public bool ShowToolTips => gimp_show_tool_tips();
+    static public bool ShowHelpButton => gimp_show_help_button();
+    static public CheckSize CheckSize => gimp_check_size();
+    static public CheckType CheckType => gimp_check_type();
+    static public Int32 DefaultDisplay => gimp_default_display();
+    static public string DefaultComment => gimp_get_default_comment();
+    static public Unit DefaultUnit => gimp_get_default_unit();
+    static public string ModuleLoadInhibit => gimp_get_module_load_inhibit();
+
     static public string Directory
     {
       get
@@ -68,16 +85,6 @@ namespace Gimp
         IntPtr tmp = gimp_directory();
         return Marshaller.FilenamePtrToString(tmp);
       }
-    }
-
-    static public Version Version
-    {
-      get {return new Version(gimp_version());}
-    }
-
-    static public int PID
-    {
-      get {return gimp_getpid();}
     }
 
     static public void AttachParasite(Parasite parasite)
@@ -121,61 +128,6 @@ namespace Gimp
 	    }
 	  return parasites;
 	}
-    }
-
-    static public string PdbError
-    {
-      get {return gimp_get_pdb_error();}
-    }
-
-    static public uint TileWidth
-    {
-      get {return gimp_tile_width();}
-    }
-
-    static public uint TileHeight
-    {
-      get {return gimp_tile_height();}
-    }
-
-    static public int ShmID
-    {
-      get {return gimp_shm_ID();}
-    }
-
-    static public IntPtr ShmAddr
-    {
-      get {return gimp_shm_addr();}
-    }
-
-    static public double Gamma
-    {
-      get {return gimp_gamma();}
-    }
-
-    static public bool ShowToolTips
-    {
-      get {return gimp_show_tool_tips();}
-    }
-
-    static public bool ShowHelpButton
-    {
-      get {return gimp_show_help_button();}
-    }
-
-    static public CheckSize CheckSize
-    {
-      get {return gimp_check_size();}
-    }
-
-    static public CheckType CheckType
-    {
-      get {return gimp_check_type();}
-    }
-
-    static public Int32 DefaultDisplay
-    {
-      get {return gimp_default_display();}
     }
 
     static public void Quit()
@@ -254,21 +206,6 @@ namespace Gimp
 	{
 	  return gimp_get_color_configuration();
 	}
-    }
-
-    static public string DefaultComment
-    {
-      get {return gimp_get_default_comment();}
-    }
-
-    static public Unit DefaultUnit
-    {
-      get {return gimp_get_default_unit();}
-    }
-
-    static public string ModuleLoadInhibit
-    {
-      get {return gimp_get_module_load_inhibit();}
     }
 
     static public Resolution MonitorResolution

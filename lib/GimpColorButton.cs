@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // GimpColorButton.cs
 //
@@ -20,7 +20,6 @@
 //
 
 using System;
-using System.Collections;
 using System.Runtime.InteropServices;
 
 using GLib;
@@ -71,10 +70,7 @@ namespace Gimp
 	}
     }
 
-    public bool Alpha
-    {
-      get {return gimp_color_button_has_alpha(Handle);}
-    }
+    public bool Alpha => gimp_color_button_has_alpha(Handle);
 
     public ColorAreaType Type
     {

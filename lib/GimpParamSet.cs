@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2013 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // GimpParamSet.cs
 //
@@ -29,6 +29,7 @@ namespace Gimp
   public class GimpParamSet : IEnumerable<GimpParam>
   {
     readonly List<GimpParam> _set = new List<GimpParam>();
+    public int Count => _set.Count;
 
     public GimpParamSet()
     {
@@ -53,11 +54,6 @@ namespace Gimp
     IEnumerator IEnumerable.GetEnumerator()
     {
       return GetEnumerator();
-    }
-
-    public int Count
-    {
-      get {return _set.Count;}
     }
 
     public IntPtr ToStructArray()

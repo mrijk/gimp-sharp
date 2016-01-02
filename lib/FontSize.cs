@@ -60,9 +60,6 @@ namespace Gimp
       return !(fontsize1 == fontsize2);
     }
 
-    public override string ToString()
-    {
-      return $"({Size} {Unit})";
-    }
+    public override string ToString() => $"({Size} {Unit})";
   }
 }

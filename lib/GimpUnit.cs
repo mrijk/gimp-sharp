@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // GimpUnit.cs
 //
@@ -28,6 +28,18 @@ namespace Gimp
   {
     Unit _unit;
 
+    public double Factor => gimp_unit_get_factor(_unit);
+    public int Digits => gimp_unit_get_digits(_unit);
+    public string Identifier => gimp_unit_get_identifier(_unit);
+    public string Symbol => gimp_unit_get_symbol(_unit);
+    public string Abbreviation => gimp_unit_get_abbreviation(_unit);
+    public string Singular => gimp_unit_get_singular(_unit);
+    public string Plural => gimp_unit_get_plural(_unit);
+
+    static public int NumberOfUnits => gimp_unit_get_number_of_units();
+    static public int NumberOfBuiltInUnits => 
+      gimp_unit_get_number_of_built_in_units();
+
     public GimpUnit(string identifier, double factor, int digits, 
 		    string symbol, string abbreviation, string singular,
 		    string plural)
@@ -40,51 +52,6 @@ namespace Gimp
     {
       get {return gimp_unit_get_deletion_flag(_unit);}
       set {gimp_unit_set_deletion_flag(_unit, value);}
-    }
-
-    public double Factor
-    {
-      get {return gimp_unit_get_factor(_unit);}
-    }
-
-    public int Digits
-    {
-      get {return gimp_unit_get_digits(_unit);}
-    }
-
-    public string Identifier
-    {
-      get {return gimp_unit_get_identifier(_unit);}
-    }
-
-    public string Symbol
-    {
-      get {return gimp_unit_get_symbol(_unit);}
-    }
-
-    public string Abbreviation
-    {
-      get {return gimp_unit_get_abbreviation(_unit);}
-    }
-
-    public string Singular
-    {
-      get {return gimp_unit_get_singular(_unit);}
-    }
-
-    public string Plural
-    {
-      get {return gimp_unit_get_plural(_unit);}
-    }
-
-    static public int NumberOfUnits
-    {
-      get {return gimp_unit_get_number_of_units();}
-    }
-
-    static public int NumberOfBuiltInUnits
-    {
-      get {return gimp_unit_get_number_of_built_in_units();}
     }
 
     [DllImport("libgimp-2.0-0.dll")]

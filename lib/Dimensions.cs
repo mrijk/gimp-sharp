@@ -64,9 +64,6 @@ namespace Gimp
       return !(dimensions1 == dimensions2);
     }
 
-    public override string ToString()
-    {
-      return $"({Width} X {Height})";
-    }
+    public override string ToString() => $"({Width} X {Height})";
   }
 }

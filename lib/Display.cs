@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // Display.cs
 //
@@ -29,6 +29,9 @@ namespace Gimp
   {
     readonly Int32 _displayID = -1;
 
+    public bool Valid => gimp_display_is_valid(_displayID);
+    public int WindowHandle => gimp_display_get_window_handle(_displayID);
+
     public Display(Image image)
     {
       Debug.Assert(image != null);
@@ -42,16 +45,6 @@ namespace Gimp
         {
 	  throw new GimpSharpException();
         }
-    }
-
-    public bool Valid
-    {
-      get {return gimp_display_is_valid(_displayID);}
-    }
-
-    public int WindowHandle
-    {
-      get {return gimp_display_get_window_handle(_displayID);}
     }
 
     public static void DisplaysFlush()

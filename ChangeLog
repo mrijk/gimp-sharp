@@ -1,14 +1,6 @@
 2016-01-02  Maurits Rijk  <maurits.rijk@gmail.com>
 
-	* lib/AssemblyInfo.cs: Update copyright
-
-	* lib/Brush.cs
-	* lib/BrushInfo.cs
-	* lib/Pixel.cs
-	* lib/Stroke.cs
-	* lib/Item.cs
-	* lib/Guide.cs
-	* lib/ZoomModel.cs: Minor cleanup using new C# 6 features
+	* lib/*.cs: Minor cleanup using new C# 6 features
 
 2016-01-01  Maurits Rijk  <maurits.rijk@gmail.com>
 

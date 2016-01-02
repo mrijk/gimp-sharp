@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2012 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // GradientSegment.cs
 //
@@ -82,14 +82,10 @@ namespace Gimp
       return _gradient.SegmentSetRightPosition(_segment, position);
     }
 
-    public GradientSegmentType BlendingFunction
-    {
-      get {return _gradient.SegmentGetBlendingFunction(_segment);}
-    }
+    public GradientSegmentType BlendingFunction => 
+      _gradient.SegmentGetBlendingFunction(_segment);
 
-    public GradientSegmentColor BlendingColoringType
-    {
-      get {return _gradient.SegmentGetBlendingColoringType(_segment);}
-    }
+    public GradientSegmentColor BlendingColoringType =>
+      _gradient.SegmentGetBlendingColoringType(_segment);
   }
 }

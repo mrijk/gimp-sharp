@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // GimpPreview.cs
 //
@@ -120,10 +120,7 @@ namespace Gimp
 	}
     }
 
-    public PreviewArea Area
-    {
-      get {return new PreviewArea(gimp_preview_get_area(Handle));}
-    }
+    public PreviewArea Area => new PreviewArea(gimp_preview_get_area(Handle));
 
     public void Draw()
     {
@@ -160,10 +157,7 @@ namespace Gimp
       set {gimp_preview_set_default_cursor(Handle, value);}
     }
 
-    public HBox Controls
-    {
-      get {return new HBox(gimp_preview_get_controls(Handle));}
-    }
+    public HBox Controls => new HBox(gimp_preview_get_controls(Handle));
 
     [GLib.Signal("invalidated")]
     public event EventHandler Invalidated {
@@ -173,18 +167,19 @@ namespace Gimp
       }
       remove {
 	GLib.Signal sig = GLib.Signal.Lookup(this, "invalidated");
-	sig.RemoveDelegate (value);                        }
+	sig.RemoveDelegate(value);
+      }
     }
 
     [DllImport("libgimpwidgets-2.0-0.dll")]
-    extern static void gimp_preview_set_update (IntPtr preview,
-						bool update);
+    extern static void gimp_preview_set_update(IntPtr preview,
+					       bool update);
     [DllImport("libgimpwidgets-2.0-0.dll")]
-    extern static bool gimp_preview_get_update (IntPtr preview);
+    extern static bool gimp_preview_get_update(IntPtr preview);
     [DllImport("libgimpwidgets-2.0-0.dll")]
-    extern static void gimp_preview_set_bounds (IntPtr preview,
-						int xmin, int ymin, 
-						int xmax, int ymax);
+    extern static void gimp_preview_set_bounds(IntPtr preview,
+					       int xmin, int ymin, 
+					       int xmax, int ymax);
     [DllImport("libgimpwidgets-2.0-0.dll")]
     extern static void gimp_preview_get_position(IntPtr preview,
 						 out int x, out int y);

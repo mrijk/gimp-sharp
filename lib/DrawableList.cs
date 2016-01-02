@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2012 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // DrawableList.cs
 //
@@ -29,6 +29,9 @@ namespace Gimp
   public abstract class DrawableList<T> where T : Drawable, new()
   {
     readonly List<T> _list = new List<T>();
+
+    public int Count => _list.Count;
+    public T this[int index] => _list[index];
 
     protected delegate IntPtr GetDrawablesFunc(Int32 drawable_ID, 
 					       out int num_drawables);
@@ -71,16 +74,6 @@ namespace Gimp
     public void ForEach(Action<T> action)
     {
       _list.ForEach(action);
-    }
-
-    public int Count
-    {
-      get {return _list.Count;}
-    }
-
-    public T this[int index]
-    {
-      get {return _list[index];}
     }
 
     public T this[string name]

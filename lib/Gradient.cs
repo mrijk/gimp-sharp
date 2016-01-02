@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // Gradient.cs
 //
@@ -27,6 +27,9 @@ namespace Gimp
 {
   public sealed class Gradient : DataObject
   {
+    public bool Editable => gimp_gradient_is_editable(Name);
+    public int NumberOfSegments => gimp_gradient_get_number_of_segments(Name);
+
     public Gradient(string name) : base(gimp_gradient_new(name))
     {
     }
@@ -81,16 +84,6 @@ namespace Gimp
         {
 	  throw new GimpSharpException();
         }
-    }
-
-    public bool Editable
-    {
-      get {return gimp_gradient_is_editable(Name);}
-    }
-
-    public int NumberOfSegments
-    {
-      get {return gimp_gradient_get_number_of_segments(Name);}
     }
 
     public RGB SegmentGetLeftColor(int segment, out double opacity)

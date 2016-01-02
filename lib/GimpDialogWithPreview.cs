@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2012 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // GimpDialog.cs
 //
@@ -26,9 +26,9 @@ namespace Gimp
 {
   public abstract class GimpDialogWithPreview : GimpDialog 
   {
-    protected Drawable Drawable {get; private set;}
-    protected GimpPreview Preview {get; private set;}
-    protected VBox Vbox {get; private set;}
+    protected Drawable Drawable {get;}
+    protected GimpPreview Preview {get;}
+    protected VBox Vbox {get;}
 
     public GimpDialogWithPreview(string title, Drawable drawable, 
 				 VariableSet variables, 

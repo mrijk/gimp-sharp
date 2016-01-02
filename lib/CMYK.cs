@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2013 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // CMYK.cs
 //
@@ -27,6 +27,13 @@ namespace Gimp
   {
     GimpCMYK _cmyk = new GimpCMYK();
 
+    public double Cyan => _cmyk.c;
+    public double Magenta => _cmyk.m;
+    public double Yellow => _cmyk.y;
+    public double Black => _cmyk.k;
+
+    internal GimpCMYK GimpCMYK =>  _cmyk;
+
     public CMYK(double cyan, double magenta, double yellow, double black)
     {
       gimp_cmyk_set(ref _cmyk, cyan, magenta, yellow, black);
@@ -35,11 +42,6 @@ namespace Gimp
     public CMYK(CMYK cmyk)
     {
       _cmyk = cmyk._cmyk;
-    }
-
-    internal GimpCMYK GimpCMYK
-    {
-      get {return _cmyk;}
     }
 
     public override bool Equals(object o)
@@ -64,26 +66,6 @@ namespace Gimp
     public static bool operator!=(CMYK cmyk1, CMYK cmyk2)
     {
       return !(cmyk1 == cmyk2);
-    }
-
-    public double Cyan
-    {
-      get {return _cmyk.c;}
-    }
-
-    public double Magenta
-    {
-      get {return _cmyk.m;}
-    }
-
-    public double Yellow
-    {
-      get {return _cmyk.y;}
-    }
-
-    public double Black
-    {
-      get {return _cmyk.k;}
     }
 
     public void Clamp()

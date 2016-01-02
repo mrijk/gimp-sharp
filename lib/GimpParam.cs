@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2012 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // GimpParam.cs
 //
@@ -144,9 +144,6 @@ namespace Gimp
       Marshal.StructureToPtr(_param, ptr, false);
     }
 
-    static bool arch64
-    {
-      get {return IntPtr.Size == 8;}
-    }
+    static bool arch64 => IntPtr.Size == 8;
   }
 }
