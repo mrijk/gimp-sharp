@@ -1,5 +1,5 @@
 // The Ministeck plug-in
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // ShapeDescriptionSet.cs
 //
@@ -18,7 +18,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
 using System.Collections.Generic;
 
 namespace Gimp.Ministeck
@@ -26,6 +25,7 @@ namespace Gimp.Ministeck
   public class ShapeDescriptionSet
   {
     readonly List<ShapeDescription> _set;
+    public int Count => _set.Count;
 
     public ShapeDescriptionSet(params ShapeDescription[] shapes)
     {
@@ -37,19 +37,11 @@ namespace Gimp.Ministeck
       _set = new List<ShapeDescription>(s._set);
     }
 
-    public IEnumerator<ShapeDescription> GetEnumerator()
-    {
-      return _set.GetEnumerator();
-    }
+    public IEnumerator<ShapeDescription> GetEnumerator() => _set.GetEnumerator();
 
     public void Insert(int index, ShapeDescription val)
     {
       _set.Insert(index, val);
-    }
-
-    public int Count
-    {
-      get {return _set.Count;}
     }
   }
 }
