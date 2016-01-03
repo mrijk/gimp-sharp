@@ -1,5 +1,5 @@
 // The UpdateCheck plug-in
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // UpdateCheck.cs
 //
@@ -42,7 +42,7 @@ namespace Gimp.UpdateCheck
 			   _("Check for updates"),
 			   "Maurits Rijk",
 			   "(C) Maurits Rijk",
-			   "2006-2011",
+			   "2006-2016",
 			   _("Check for Updates..."),
 			   "",
 			   new ParamDefList(Variables))

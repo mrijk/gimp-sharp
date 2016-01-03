@@ -1,5 +1,5 @@
 // The Sky plug-in
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // Code ported from Physically Modeled Media Plug-In for The GIMP
 //                  Copyright (c) 2000-2001 David A. Bartold
@@ -22,7 +22,6 @@
 //
 
 using System;
-using System.Collections.Generic;
 
 namespace Gimp.Sky
 {
@@ -64,7 +63,7 @@ namespace Gimp.Sky
 			   _("Sky"),
 			   "Maurits Rijk",
 			   "(C) Maurits Rijk",
-			   "2007-2011",
+			   "2007-2016",
 			   _("Sky..."),
 			   "RGB*",
 			   new ParamDefList(Variables))

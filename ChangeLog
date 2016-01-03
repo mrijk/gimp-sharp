@@ -1,3 +1,9 @@
+2016-01-03  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/Pointillize/*.cs
+	* plug-ins/Sky/*.cs
+	* plug-ins/UpdateCheck/*.cs: cleanup with new C# 6 features
+
 2016-01-02  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* plug-ins/Ministeck/Ministeck.cs

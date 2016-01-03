@@ -1,5 +1,5 @@
 // The UpdateCheck plug-in
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // Renderer.cs
 //
@@ -101,10 +101,7 @@ namespace Gimp.UpdateCheck
       if (timedOut) 
 	{
 	  var request = state as HttpWebRequest;
-	  if (request != null) 
-	    {
-	      request.Abort();
-	    }
+	  request?.Abort();
 	}
     }
 
