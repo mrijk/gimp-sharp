@@ -18,15 +18,19 @@ an iteration through the guides of an image. In C# this looks like:
 	
 or even:
 
+```csharp
    image.Guides.ForEach(guide => // Do something);
+```
 		
-In C this would have been:
+In C this would have been a bit more verbose:
 
+```csharp
    gint32 guide_ID = 0:
    while ((guide_ID = gimp_image_find_next_guide(image_ID, guide_ID)) != 0)
    {
 	// Do something
    }
+```
 
 - Gimp# also offers a base plug-in class which does the difficult
 stuff for you. Implementing a new plug-in is just a matter of
