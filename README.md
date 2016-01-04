@@ -1,4 +1,5 @@
 Gimp#
+=====
 
 - I have only tested my code with GIMP 2.8. Gimp# will NOT work with GIMP 2.0.x! 
   It might still work with GIMP 2.4 and 2.6.
@@ -8,10 +9,12 @@ not just a wrapper. It also adds a thin layer which adds C# specific
 features, like iterating through a collection.  An example of this is
 an iteration through the guides of an image. In C# this looks like:
 
+```csharp
    foreach (Guide guide in image.Guides)
    {
 	// Do something
    }
+```
 	
 or even:
 
