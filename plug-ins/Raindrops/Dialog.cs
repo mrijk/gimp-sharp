@@ -1,5 +1,5 @@
 // The Raindrops plug-in
-// Copyright (C) 2004-2012 Maurits Rijk, Massimo Perga
+// Copyright (C) 2004-2016 Maurits Rijk, Massimo Perga
 //
 // Dialog.cs
 //

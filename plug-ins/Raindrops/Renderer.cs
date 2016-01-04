@@ -1,5 +1,5 @@
 // The Raindrops plug-in
-// Copyright (C) 2004-2013 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // Renderer.cs
 //
@@ -49,15 +49,13 @@ namespace Gimp.Raindrops
 	  var raindrop = factory.Create();
 	  if (raindrop == null)
 	    {
-	      if (progress != null)
-		progress.Update(1.0);
+	      progress?.Update(1.0);
 	      break;
 	    }
 
 	  raindrop.Render(factory.BoolMatrix, pf, drawable);
 
-	  if (progress != null)
-	    progress.Update((double) numBlurs / number);
+	  progress?.Update((double) numBlurs / number);
 	}
 
       pf.Dispose();

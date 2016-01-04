@@ -1,5 +1,5 @@
 // The Raindrops plug-in
-// Copyright (C) 2004-2013 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // RaindropFactory.cs
 //
@@ -26,7 +26,7 @@ namespace Gimp.Raindrops
   public class RaindropFactory
   {
     readonly Random _random = new Random();
-    public BoolMatrix BoolMatrix {get; private set;}
+    public BoolMatrix BoolMatrix {get;}
     readonly int _dropSize;
     readonly double _newCoeff;
 
@@ -46,9 +46,6 @@ namespace Gimp.Raindrops
       return (center == null) ? null : new Raindrop(center, size, _newCoeff);
     }
 
-    int Clamp(int x, int l, int u)
-    {
-      return (x < l) ? l : ((x > u) ? u : x);
-    }
+    int Clamp(int x, int l, int u) =>  (x < l) ? l : ((x > u) ? u : x);
   }
 }

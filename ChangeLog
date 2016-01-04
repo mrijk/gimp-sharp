@@ -1,3 +1,7 @@
+2016-01-04  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/Raindrops/*.cs: cleanup with new C# 6 features
+
 2016-01-03  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* plug-ins/Pointillize/*.cs
