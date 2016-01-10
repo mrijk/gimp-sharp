@@ -78,7 +78,7 @@ namespace Gimp.UnitTest
     {
     }
 
-    public void TestFinished(TestCaseResult testResult)
+    public void TestFinished(TestResult testResult)
     {
       if (testResult.Executed)
 	{
@@ -104,7 +104,7 @@ namespace Gimp.UnitTest
     {
     }
 
-    public void SuiteFinished(TestSuiteResult suiteResult) 
+    public void SuiteFinished(TestResult suiteResult) 
     {
     }
     

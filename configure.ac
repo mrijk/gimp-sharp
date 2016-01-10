@@ -1,7 +1,7 @@
 dnl Process this file with autoconf to produce a configure script.
 
 AC_INIT
-AC_CONFIG_SRCDIR([README])
+AC_CONFIG_SRCDIR([README.md])
 AM_INIT_AUTOMAKE(gimp-sharp, 0.19)
 LT_INIT
 AC_CONFIG_HEADERS([config.h])
