@@ -1,5 +1,5 @@
 // The Fragment plug-in
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // Fragment.cs
 //
@@ -34,7 +34,7 @@ namespace Gimp.Fragment
 			   _("Creates four copies of the pixels in the selection, averages them, and offsets them from each other."),
 			   "Maurits Rijk",
 			   "(C) Maurits Rijk",
-			   "2006-2011",
+			   "2006-2016",
 			   _("Fragment"),
 			   "RGB*, GRAY*")
 	{
@@ -51,12 +51,10 @@ namespace Gimp.Fragment
       using (var pf = new PixelFetcher(drawable) {EdgeMode = EdgeMode.Black})
 	{
 	  iter.IterateDest((x, y) => 
-	    {
-	      return (pf[y - 4, x - 4] +
-		      pf[y - 4, x + 4] +
-		      pf[y + 4, x - 4] +
-		      pf[y + 4, x + 4]) / 4;
-	    });
+			   (pf[y - 4, x - 4] +
+			    pf[y - 4, x + 4] +
+			    pf[y + 4, x - 4] +
+			    pf[y + 4, x + 4]) / 4);
 	}
     }
   }

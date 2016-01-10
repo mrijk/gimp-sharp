@@ -1,5 +1,5 @@
 // The Forge plug-in
-// Copyright (C) 2006-2011 Massimo Perga (massimo.perga@gmail.com)
+// Copyright (C) 2006-2016 Massimo Perga (massimo.perga@gmail.com)
 //
 // Forge.cs
 //
@@ -49,7 +49,7 @@ namespace Gimp.Forge
 			   _("Creates an artificial world."),
 			   "Massimo Perga, Maurits Rijk",
 			   "(C) Massimo Perga, Maurits Rijk",
-			   "2006-2011",
+			   "2006-2016",
 			   _("Forge..."),
 			   "RGB*",
 			   new ParamDefList(Variables))

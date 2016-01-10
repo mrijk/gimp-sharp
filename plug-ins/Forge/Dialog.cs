@@ -1,5 +1,5 @@
 // The Forge plug-in
-// Copyright (C) 2006-2012 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // Dialog.cs
 //
@@ -229,25 +229,13 @@ namespace Gimp.Forge
 	};
     }
 
-    bool IsPlanet
-    {
-      get {return IsType(ForgeType.Planet);}
-    }
+    bool IsPlanet => IsType(ForgeType.Planet);
 
-    bool IsClouds
-    {
-      get {return IsType(ForgeType.Clouds);}
-    }
+    bool IsClouds => IsType(ForgeType.Clouds);
 
-    bool IsStars
-    {
-      get {return IsType(ForgeType.Stars);}
-    }
+    bool IsStars => IsType(ForgeType.Stars);
 
-    bool IsType(ForgeType type)
-    {
-      return _type.Value == (int) type;
-    }
+    bool IsType(ForgeType type) => _type.Value == (int) type;
 
     override protected void UpdatePreview(GimpPreview preview)
     {

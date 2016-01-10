@@ -1,5 +1,5 @@
 // The Forge plug-in
-// Copyright (C) 2006-2010 Maurits Rijk (maurits.rijk@gmail.com)
+// Copyright (C) 2006-2016 Maurits Rijk (maurits.rijk@gmail.com)
 //
 // Complex.cs
 //
@@ -18,7 +18,7 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
+using static System.Math;
 
 namespace Gimp.Forge
 {
@@ -33,14 +33,9 @@ namespace Gimp.Forge
       Imag = imag;
     }
 
-    static public Complex FromRadiusPhase(double radius, double phase)
-    {
-      return new Complex(radius * Math.Cos(phase), radius * Math.Sin(phase));
-    }
+    static public Complex FromRadiusPhase(double radius, double phase) =>
+      new Complex(radius * Cos(phase), radius * Sin(phase));
 
-    public Complex Conjugate
-    {
-      get {return new Complex(Real, -Imag);}
-    }
+    public Complex Conjugate => new Complex(Real, -Imag);
   }
 }

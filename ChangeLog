@@ -1,3 +1,9 @@
+2016-01-10  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/Forge/*.cs: cleanup with new C# 6 features
+
+	* plug-ins/Fragment/Fragment.cs: simplify lambda function
+
 2016-01-04  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* plug-ins/Raindrops/*.cs: cleanup with new C# 6 features
