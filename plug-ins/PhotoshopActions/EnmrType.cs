@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // EnmrParameter.cs
 //
@@ -40,14 +40,12 @@ namespace Gimp.PhotoshopActions
       Type = parser.ReadTokenOrString();
       Value = parser.ReadTokenOrString();
 
-      DebugOutput.Dump("Enmr: c = {0}, k = {1}, t = {2}, v = {3}",
-		       ClassID, Key, Type, Value);
+      DebugOutput.Dump($"Enmr: c = {ClassID}, k = {Key}, t = {Type}, v = {Value}");
     }
  
     public override IEnumerable<string> Format()
     {
-      yield return String.Format("{0}: {1}", Abbreviations.Get(Key), 
-				 Abbreviations.Get(Value));
+      yield return $"{Abbreviations.Get(Key)}: {Abbreviations.Get(Value)}";
     }
   }
 }

@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2012 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // SetEvent.cs
 //
@@ -38,10 +38,7 @@ namespace Gimp.PhotoshopActions
       _executable = true;
     }
 
-    public override bool IsExecutable
-    {
-      get {return _executable;}
-    }
+    public override bool IsExecutable => _executable;
 
     override public ActionEvent Parse(ActionParser parser)
     {
@@ -51,7 +48,7 @@ namespace Gimp.PhotoshopActions
 	{
 	  if (_obj.Set[0] is PropertyType)
 	    {
-	      PropertyType property = _obj.Set[0] as PropertyType;
+	      var property = _obj.Set[0] as PropertyType;
 
 	      switch (property.ClassID2)
 		{
@@ -126,7 +123,7 @@ namespace Gimp.PhotoshopActions
 	    }
 	  else if (_obj.Set[0] is IndexType)
 	    {
-	      IndexType index = _obj.Set[0] as IndexType;
+	      var index = _obj.Set[0] as IndexType;
 	      switch (index.Key)
 		{
 		case "Chnl":
@@ -139,7 +136,7 @@ namespace Gimp.PhotoshopActions
 	    }
 	  else if (_obj.Set[0] is NameType)
 	    {
-	      NameType name = _obj.Set[0] as NameType;
+	      var name = _obj.Set[0] as NameType;
 	      switch (name.ClassID2)
 		{
 		case "Chnl":

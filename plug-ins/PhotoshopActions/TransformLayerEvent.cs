@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2010 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // TransformLayerEvent.cs
 //
@@ -52,37 +52,35 @@ namespace Gimp.PhotoshopActions
     {
     }
 
-    public override string EventForDisplay
-    {
-      get {return base.EventForDisplay + " current layer";}
-    }
+    public override string EventForDisplay =>
+      base.EventForDisplay + " current layer";
+
 #if false
     protected override IEnumerable ListParameters()
     {
-      ObjcParameter objc = Parameters["Ofst"] as ObjcParameter;
+      var objc = Parameters["Ofst"] as ObjcParameter;
       if (objc != null)
 	{
 	  yield return "Offset";
 	}
 
-      DoubleParameter width = Parameters["Wdth"] as DoubleParameter;
+      var width = Parameters["Wdth"] as DoubleParameter;
       if (width != null)
 	{
 	  yield return width.Format();
 	}
 
-      ObjcParameter position = Parameters["Pstn"] as ObjcParameter;
+      var position = Parameters["Pstn"] as ObjcParameter;
       if (position != null)
 	{
 	  if (position.Contains("Hrzn"))
 	    _horizontal = position.GetValueAsDouble("Hrzn");
 	  if (position.Contains("Vrtc"))
 	    _vertical = position.GetValueAsDouble("Vrtc");
-	  yield return String.Format("Position: {0}, {1}", _horizontal,
-				     _vertical);
+	  yield return $"Position: {_horizontal}, {_vertical}";
 	}
 
-      BoolParameter relative = Parameters["Rltv"] as BoolParameter;
+      var relative = Parameters["Rltv"] as BoolParameter;
       if (relative != null)
 	{
 	  yield return relative.Format("Relative");
@@ -154,7 +152,7 @@ namespace Gimp.PhotoshopActions
 	  int h = (int) (horizontal * ActiveDrawable.Width / 100);
 	  int v = (int) (vertical * ActiveDrawable.Height / 100);
 
-	  Console.WriteLine("Offset: {0}, {1}", h, v);
+	  Console.WriteLine($"Offset: {h}, {v}");
 
 	  SelectedLayer.Translate(h, v);
 	}
@@ -178,7 +176,7 @@ namespace Gimp.PhotoshopActions
 	  double horizontal = skew.GetValueAsDouble("Hrzn");
 	  double vertical = skew.GetValueAsDouble("Vrtc");
 
-	  Console.WriteLine("Skew: {0} {1}", horizontal, vertical);
+	  Console.WriteLine($"Skew: {horizontal} {vertical}");
 
 	  if (horizontal != 0.0)
 	    {
@@ -208,9 +206,6 @@ namespace Gimp.PhotoshopActions
 	}
     }
 
-    double GetRad(double d)
-    {
-      return d * Math.PI /180;
-    }
+    double GetRad(double d) =>  d * Math.PI /180;
   }
 }

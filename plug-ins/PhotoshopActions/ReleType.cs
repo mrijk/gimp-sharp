@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // ReleType.cs
 //
@@ -35,8 +35,7 @@ namespace Gimp.PhotoshopActions
       ClassID2 = parser.ReadTokenOrString();
       Offset = parser.ReadInt32();
 
-      DebugOutput.Dump("Rele: c = {0}, c2 = {1}, i = {2}", ClassID, ClassID2, 
-		       Offset);
+      DebugOutput.Dump($"Rele: c = {ClassID}, c2 = {ClassID2}, i = {Offset}");
     }
   }
 }

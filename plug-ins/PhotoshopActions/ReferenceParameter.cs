@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // ReferenceParameter.cs
 //
@@ -29,10 +29,7 @@ namespace Gimp.PhotoshopActions
   {
     List<ReferenceType> _set = new List<ReferenceType>();
 
-    public List<ReferenceType> Set
-    {
-      get {return _set;}
-    }
+    public List<ReferenceType> Set => _set;
 
     public override void Parse(ActionParser parser)
     {

@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // ObArParameter.cs
 //
@@ -33,20 +33,11 @@ namespace Gimp.PhotoshopActions
     CoordinateList<double> _value = new CoordinateList<double>();
     string _units;
 
-    public string ClassID2
-    {
-      get {return _classID2;}
-    }
+    public string ClassID2 => _classID2;
 
-    public CoordinateList<double> Value
-    {
-      get {return _value;}
-    }
+    public CoordinateList<double> Value => _value;
 
-    public string Units
-    {
-      get {return _units;}
-    }
+    public string Units => _units;
 
     public override void Parse(ActionParser parser)
     {

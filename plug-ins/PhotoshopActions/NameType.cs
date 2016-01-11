@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // NameType.cs
 //
@@ -38,14 +38,12 @@ namespace Gimp.PhotoshopActions
       ClassID2 = parser.ReadTokenOrString();
       Key = parser.ReadTokenOrUnicodeString();
 
-      DebugOutput.Dump("Name: c = {0}, c2 = {1}, k = {2}", ClassID, 
-		       ClassID2, Key);
+      DebugOutput.Dump("Name: c = {ClassID}, c2 = {ClassID2}, k = {Key}");
     }
 
     public override IEnumerable<string> Format()
     {
-      yield return String.Format("{0} {1}", Abbreviations.Get(ClassID2), 
-				 Abbreviations.Get(Key));
+      yield return $"{Abbreviations.Get(ClassID2)} {Abbreviations.Get(Key)}";
     }
   }
 }
