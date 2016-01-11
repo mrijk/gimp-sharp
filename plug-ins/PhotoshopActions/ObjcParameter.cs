@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2013 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // ObjcParameter.cs
 //
@@ -31,20 +31,11 @@ namespace Gimp.PhotoshopActions
     string _classID2;
     ParameterSet _children = new ParameterSet();
 
-    public string ClassID2
-    {
-      get {return _classID2;}
-    }
+    public string ClassID2 => _classID2;
 
-    public ParameterSet Parameters
-    {
-      get {return _children;}
-    }
+    public ParameterSet Parameters => _children;
 
-    public bool Contains(string name)
-    {
-      return _children[name] != null;
-    }
+    public bool Contains(string name) => _children[name] != null;
 
     public override void Parse(ActionParser parser)
     {
@@ -139,20 +130,14 @@ namespace Gimp.PhotoshopActions
       return GradientClassEvent.CreateGradient(name, colors);
     }
 
-    public RGB GetValueAsColor(string name)
-    {
-      return (_children[name] as ObjcParameter).GetColor();
-    }
+    public RGB GetValueAsColor(string name) =>
+      (_children[name] as ObjcParameter).GetColor();
 
-    public double GetValueAsDouble(string name)
-    {
-      return (_children[name] as DoubleParameter).Value;
-    }
+    public double GetValueAsDouble(string name) =>
+      (_children[name] as DoubleParameter).Value;
 
-    public long GetValueAsLong(string name)
-    {
-      return (_children[name] as LongParameter).Value;
-    }
+    public long GetValueAsLong(string name) =>
+      (_children[name] as LongParameter).Value;
 
     public string GetValueAsString(string name)
     {

@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // UngroupEvent.cs
 //
@@ -25,14 +25,8 @@ namespace Gimp.PhotoshopActions
 {
   public class UngroupEvent : ActionEvent
   {
-    public override bool IsExecutable
-    {
-      get {return false;}
-    }
+    public override bool IsExecutable => false;
 
-    override public bool Execute()
-    {
-      return true;
-    }
+    override public bool Execute() => true;
   }
 }

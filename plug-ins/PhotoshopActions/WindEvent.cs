@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // WindEvent.cs
 //
@@ -29,13 +29,7 @@ namespace Gimp.PhotoshopActions
     [Parameter("Drct")]
     EnumParameter _direction;
 
-    public override bool IsExecutable
-    {
-      get 
-	{
-	  return _mode.Value == "Wnd";
-	}
-    }
+    public override bool IsExecutable => _mode.Value == "Wnd";
 
     override public bool Execute()
     {

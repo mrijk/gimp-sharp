@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2009 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // UnimplementedEvent.cs
 //
@@ -26,10 +26,7 @@ namespace Gimp.PhotoshopActions
     {
     }
 
-    public override bool IsExecutable
-    {
-      get {return false;}
-    }
+    public override bool IsExecutable => false;
     
     override public ActionEvent Parse(ActionParser parser)
     {

@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2013 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // ActionSet.cs
 //
@@ -31,7 +31,7 @@ namespace Gimp.PhotoshopActions
 
     bool _enabled = true;
 
-    public string Name {get; private set;}
+    public string Name {get;}
     public byte Expanded {private get; set;}
     public int SetChildren {get; set;}
 
@@ -40,20 +40,11 @@ namespace Gimp.PhotoshopActions
       Name = name;
     }
 
-    public string ExtendedName
-    {
-      get {return Name + " (" + SetChildren + ")";}
-    }
+    public string ExtendedName => Name + " (" + SetChildren + ")";
 
-    public void Add(Action action)
-    {
-      _set.Add(action);
-    }
+    public void Add(Action action) => _set.Add(action);
 
-    public IEnumerator<Action> GetEnumerator()
-    {
-      return _set.GetEnumerator();
-    }
+    public IEnumerator<Action> GetEnumerator() => _set.GetEnumerator();
 
     public void Execute(int action)
     {
@@ -78,14 +69,8 @@ namespace Gimp.PhotoshopActions
       _set[action].Execute(n);
     }
 
-    public bool IsExecutable
-    {
-      get
-	{
-	  return SetChildren == NrOfActions &&
-	    _set.TrueForAll(action => action.IsExecutable);
-	}
-    }
+    public bool IsExecutable => SetChildren == NrOfActions &&
+      _set.TrueForAll(action => action.IsExecutable);
 
     public bool IsEnabled
     {
@@ -97,33 +82,14 @@ namespace Gimp.PhotoshopActions
 	}
     }
 
-    public int ActionEvents
-    {
-      get 
-	{
-	  return _set.Select(action => action.ActionEvents).Sum();
-	}
-    }
+    public int ActionEvents => _set.Select(action => action.ActionEvents).Sum();
     
-    public int ExecutableActionEvents
-    {
-      get 
-	{
-	  return _set.Select(action => action.ExecutableActionEvents).Sum();
-	}
-    }
+    public int ExecutableActionEvents =>
+      _set.Select(action => action.ExecutableActionEvents).Sum();
 
-    public int NrOfActions
-    {
-      get {return _set.Count;}
-    }
+    public int NrOfActions => _set.Count;
 
-    public int ExecutableActions
-    {
-      get 
-	{
-	  return _set.Where(action => action.IsExecutable).Count();
-	}
-    }
+    public int ExecutableActions =>
+      _set.Where(action => action.IsExecutable).Count();
   }
 }

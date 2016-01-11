@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // Parameter.cs
 //
@@ -32,10 +32,7 @@ namespace Gimp.PhotoshopActions
     public virtual void Fill(Object obj, FieldInfo field) {}
     public abstract IEnumerable<string> Format();
 
-    protected string UppercaseName
-    {
-      get {return Abbreviations.GetUppercased(Name);}
-    }
+    protected string UppercaseName => Abbreviations.GetUppercased(Name);
 
     protected bool CheckFillType(FieldInfo field)
     {

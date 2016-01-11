@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // VariationsEvent.cs
 //
@@ -46,10 +46,7 @@ namespace Gimp.PhotoshopActions
     [Parameter("Strt")]
     int _saturation;
 
-    public override bool IsExecutable
-    {
-      get {return false;}
-    }
+    public override bool IsExecutable => false;
 
     protected override IEnumerable ListParameters()
     {
@@ -65,11 +62,8 @@ namespace Gimp.PhotoshopActions
       yield return "Saturation: " + _saturation;
     }
 
-    override public bool Execute()
-    {
-      // TODO: implement this. Could be handled by the FilterPack plug-in,
-      // but that one can't be run non-interactively :(
-      return false;
-    }
+    // TODO: implement this. Could be handled by the FilterPack plug-in,
+    // but that one can't be run non-interactively :(
+    override public bool Execute() => false;
   }
 }

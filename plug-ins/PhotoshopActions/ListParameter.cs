@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // ListParameter.cs
 //
@@ -29,25 +29,13 @@ namespace Gimp.PhotoshopActions
   {
     readonly List<Parameter> _set = new List<Parameter>();
 
-    public List<Parameter> Set
-    {
-      get {return _set;}
-    }
+    public List<Parameter> Set => _set;
 
-    public Parameter this[int index]
-    {
-      get {return _set[index];}
-    }
+    public Parameter this[int index] => _set[index];
 
-    public IEnumerator<Parameter> GetEnumerator()
-    {
-      return _set.GetEnumerator();
-    }
+    public IEnumerator<Parameter> GetEnumerator() => _set.GetEnumerator();
 
-    public int Count
-    {
-      get {return _set.Count;}
-    }
+    public int Count => _set.Count;
 
     public override void Parse(ActionParser parser)
     {
