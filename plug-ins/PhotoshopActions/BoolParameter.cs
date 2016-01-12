@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // BoolParameter.cs
 //
@@ -40,14 +40,9 @@ namespace Gimp.PhotoshopActions
 
     public override IEnumerable<string> Format()
     {
-      yield return String.Format("{0} {1}",
-				 (Value) ? "With" : "Without",
-				 Abbreviations.Get(Name));
+      yield return $"{(Value) ? "With" : "Without"} {Abbreviations.Get(Name)}";
     }
 
-    public string Format(string s)
-    {
-      return ((Value) ? "With " : "Without ") + s;
-    }
+    public string Format(string s) => ((Value) ? "With " : "Without ") + s;
   }
 }

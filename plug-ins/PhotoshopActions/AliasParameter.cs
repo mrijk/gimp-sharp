@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2010 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // AliasParameter.cs
 //
@@ -36,7 +36,7 @@ namespace Gimp.PhotoshopActions
 
     public override IEnumerable<string> Format()
     {
-      yield return String.Format("{0}: ???", Abbreviations.Get(Name));
+      yield return $"{Abbreviations.Get(Name)}: ???";
     }
 
     public override void Fill(Object obj, FieldInfo field)

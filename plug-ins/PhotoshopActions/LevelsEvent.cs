@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // LevelsEvent.cs
 //
@@ -32,19 +32,16 @@ namespace Gimp.PhotoshopActions
     {
       if (_adjustment != null)
 	{
-	  ObjcParameter objc = _adjustment[0] as ObjcParameter;
+	  var objc = _adjustment[0] as ObjcParameter;
 	  if (objc.Contains("Gmm"))
 	    {
 	      yield return "Gamma: " + objc.GetValueAsDouble("Gmm");
 	    }
 	  if (objc.Contains("Chnl"))
 	    {
-	      ReferenceParameter channel = objc.Parameters["Chnl"] as 
-		ReferenceParameter;
+	      var channel = objc.Parameters["Chnl"] as ReferenceParameter;
 	      string value = (channel.Set[0] as EnmrType).Value;
-	      yield return String.Format("{0}: {1}", 
-					 Abbreviations.Get("Chnl"), 
-					 Abbreviations.Get(value));
+	      yield return $"{Abbreviations.Get("Chnl")}: {Abbreviations.Get(value)}";
 	    }
 	}
     }

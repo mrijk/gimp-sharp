@@ -65,32 +65,21 @@ namespace Gimp
 	var found = _set.Find(v => v.Identifier == identifier);
 	if (found == null) 
 	  {
-	    throw new GimpSharpException(String.Format("VariableSet: variable {0} not found",
-					 identifier));
+	    throw new GimpSharpException($"VariableSet: variable {identifier} not found");
 	  }
 	return found;
       }
     }
 
-    public Variable<T> Get<T>(string identifier)
-    {
-      return this[identifier] as Variable<T>;
-    }
+    public Variable<T> Get<T>(string identifier) => 
+      this[identifier] as Variable<T>;
 
-    public T GetValue<T>(string identifier)
-    {
-      return Get<T>(identifier).Value;
-    }
+    public T GetValue<T>(string identifier) => Get<T>(identifier).Value;
 
-    public dynamic GetVar(string identifier)
-    {
-      return GetValue<object>(identifier);
-    }
+    public dynamic GetVar(string identifier) => GetValue<object>(identifier);
 
-    public ClonedVariable<T> GetClone<T>(string identifier)
-    {
-      return new ClonedVariable<T>(Get<T>(identifier));
-    }
+    public ClonedVariable<T> GetClone<T>(string identifier) =>
+      new ClonedVariable<T>(Get<T>(identifier));
 
     public void Changed()
     {

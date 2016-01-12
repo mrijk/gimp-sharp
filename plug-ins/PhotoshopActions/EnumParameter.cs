@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // EnumParameter.cs
 //
@@ -53,8 +53,7 @@ namespace Gimp.PhotoshopActions
 
     public override IEnumerable<string> Format()
     {
-      yield return String.Format("{0}: {1}", UppercaseName,
-				 Abbreviations.Get(Value));
+      yield return $"{UppercaseName}: {Abbreviations.Get(Value)}";
     }
   }
 }

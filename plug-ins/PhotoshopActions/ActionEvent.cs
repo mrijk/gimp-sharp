@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2013 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // ActionEvent.cs
 //
@@ -70,15 +70,9 @@ namespace Gimp.PhotoshopActions
       _parameters = srcEvent._parameters;
     }
 
-    public ParameterSet Parameters
-    {
-      get {return _parameters;}
-    }
+    public ParameterSet Parameters => _parameters;
 
-    public virtual bool IsExecutable
-    {
-      get {return true;}
-    }
+    public virtual bool IsExecutable => true;
 
     public static Drawable ActiveDrawable
     {
@@ -117,10 +111,7 @@ namespace Gimp.PhotoshopActions
 	}
     }
 
-    public static List<Layer> SelectedLayers
-    {
-      get {return _selectedLayers;}
-    }
+    public static List<Layer> SelectedLayers => _selectedLayers;
 
     protected static void SelectLayer(Layer layer, bool add = false)
     {
@@ -133,25 +124,18 @@ namespace Gimp.PhotoshopActions
       ActiveDrawable = layer;
     }
 
-    public static LinkedLayersSet LinkedLayersSet
-    {
-      get {return _linkedLayersSet;}
-    }
+    public static LinkedLayersSet LinkedLayersSet => _linkedLayersSet;
 
     protected string Format(bool value, string s)
     {
       return ((value) ? "With " : "Without ") + Abbreviations.Get(s);
     }
 
-    protected string Format(string value, string s)
-    {
-      return String.Format("{0}: \"{1}\"", Abbreviations.Get(s), value);
-    }
+    protected string Format(string value, string s) => 
+      $"{Abbreviations.Get(s)}: \"{value}\"";
 
-    protected string Format(int value, string s)
-    {
-      return String.Format("{0}: {1}", Abbreviations.Get(s), value);
-    }
+    protected string Format(int value, string s) =>
+      $"{Abbreviations.Get(s)}: {value}";
 
     protected string Format(double value, string s)
     {
@@ -198,7 +182,7 @@ namespace Gimp.PhotoshopActions
 
     public virtual bool Execute()
     {
-      Console.WriteLine("Execute {0} not implemented", EventForDisplay);
+      Console.WriteLine($"Execute {EventForDisplay} not implemented");
       return true;
     }
 

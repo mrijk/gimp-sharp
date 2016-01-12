@@ -31,11 +31,11 @@ namespace Gimp.PhotoshopActions
 
     public List<Parameter> Set => _set;
 
-    public Parameter this[int index] => _set[index];
+    public Parameter this[int index] => Set[index];
 
-    public IEnumerator<Parameter> GetEnumerator() => _set.GetEnumerator();
+    public IEnumerator<Parameter> GetEnumerator() => Set.GetEnumerator();
 
-    public int Count => _set.Count;
+    public int Count => Set.Count;
 
     public override void Parse(ActionParser parser)
     {
@@ -70,17 +70,17 @@ namespace Gimp.PhotoshopActions
 	      DebugOutput.Level++;
 	      parameter.Parse(parser);
 	      DebugOutput.Level--;
-	      _set.Add(parameter);
+	      Set.Add(parameter);
 	    }
 	}
     }
 
     public override IEnumerable<string> Format()
     {
-      yield return String.Format("{0}: {1}", UppercaseName, "list (fix me!)");
-      foreach (Parameter parameter in Set)
+      yield return $"{UppercaseName}: list (fix me!)";
+      foreach (var parameter in Set)
 	{
-	  foreach (string s in parameter.Format())
+	  foreach (var s in parameter.Format())
 	    {
 	      yield return s;
 	    }
