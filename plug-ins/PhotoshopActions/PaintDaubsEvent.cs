@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // PaintDaubsEvent.cs
 //
@@ -34,10 +34,7 @@ namespace Gimp.PhotoshopActions
     [Parameter("BrsT")]
     EnumParameter _brushType;
 
-    public override bool IsExecutable
-    {
-      get {return false;}
-    }
+    public override bool IsExecutable => false;
 
     protected override IEnumerable ListParameters()
     {
@@ -50,9 +47,6 @@ namespace Gimp.PhotoshopActions
       yield return "Brushtype: " + Abbreviations.Get(_brushType.Value);
     }
 
-    override public bool Execute()
-    {
-      return false;
-    }
+    override public bool Execute() => false;
   }
 }

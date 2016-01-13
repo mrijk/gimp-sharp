@@ -28,7 +28,7 @@ namespace Gimp.PhotoshopActions
   public class ParameterSet
   {
     Dictionary<string, Parameter> _set = new Dictionary<string, Parameter>();
-    List<Parameter> _list = new List<Parameter>();
+    List<Parameter> Parameters {get;} = new List<Parameter>();
 
     public int Count => _set.Count;
 
@@ -64,7 +64,7 @@ namespace Gimp.PhotoshopActions
 	}
     }
 
-    public IEnumerator<Parameter> GetEnumerator() => _list.GetEnumerator();
+    public IEnumerator<Parameter> GetEnumerator() => Parameters.GetEnumerator();
 
     public void Parse(ActionParser parser, int numberOfItems)
     {
@@ -74,7 +74,7 @@ namespace Gimp.PhotoshopActions
 	  if (parameter != null)
 	    {
 	      _set[parameter.Name] = parameter;
-	      _list.Add(parameter);
+	      Parameters.Add(parameter);
 	    }
 	}
     }
@@ -87,7 +87,7 @@ namespace Gimp.PhotoshopActions
 
     public IEnumerable<string> ListParameters()
     {
-      foreach (var child in _list)
+      foreach (var child in Parameters)
 	{
 	  if (child.Name != "null")
 	    {

@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // RasterizeAllEvent.cs
 //
@@ -37,11 +37,9 @@ namespace Gimp.PhotoshopActions
 	yield return Format(_item, "What");
     }
     */
-    override public bool Execute()
-    {
-      // We don't do anything here becausea the layers are automatically
-      // rasterized if we apply a filter to them!
-      return true;
-    }
+
+    // We don't do anything here becausea the layers are automatically
+    // rasterized if we apply a filter to them!
+    override public bool Execute() => true;
   }
 }

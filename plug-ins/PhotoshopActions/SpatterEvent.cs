@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // SpatterEvent.cs
 //
@@ -30,10 +30,7 @@ namespace Gimp.PhotoshopActions
     [Parameter("Smth")]
     int _smoothen;
 
-    public override bool IsExecutable
-    {
-      get {return false;}
-    }
+    public override bool IsExecutable => false;
 
     protected override IEnumerable ListParameters()
     {
@@ -41,9 +38,6 @@ namespace Gimp.PhotoshopActions
       yield return "Smoothen: " + _smoothen;
     }
 
-    override public bool Execute()
-    {
-      return false;
-    }
+    override public bool Execute() => false;
   }
 }

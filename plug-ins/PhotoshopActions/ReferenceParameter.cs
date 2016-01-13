@@ -27,9 +27,8 @@ namespace Gimp.PhotoshopActions
 {
   public class ReferenceParameter : Parameter
   {
-    List<ReferenceType> _set = new List<ReferenceType>();
-
-    public List<ReferenceType> Set => _set;
+    public List<ReferenceType> Set {get; private set;} = 
+      new List<ReferenceType>();
 
     public override void Parse(ActionParser parser)
     {
@@ -70,7 +69,7 @@ namespace Gimp.PhotoshopActions
 	  if (referenceType != null)
 	    {
 	      referenceType.Parse(parser);
-	      _set.Add(referenceType);
+	      Set.Add(referenceType);
 	    }
 	}
     }
@@ -78,7 +77,7 @@ namespace Gimp.PhotoshopActions
     public override IEnumerable<string> Format()
     {
       // yield return "ReferenceParameter";
-      foreach (ReferenceType type in _set)
+      foreach (ReferenceType type in Set)
 	{
 	  foreach (string s in type.Format())
 	    {

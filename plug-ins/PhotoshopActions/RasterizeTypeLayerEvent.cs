@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // RasterizeTypeLayerEvent.cs
 //
@@ -18,23 +18,14 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-using System.Collections;
-
 namespace Gimp.PhotoshopActions
 {
   public class RasterizeTypeLayerEvent : ActionEvent
   {
-    public override string EventForDisplay
-    {
-      get {return "Rasterize Type Layer";}
-    }
+    public override string EventForDisplay => "Rasterize Type Layer";
 
-    override public bool Execute()
-    {
-      // We don't do anything here because the text layer is automatically
-      // rasterized if we apply a filter on it!
-      return true;
-    }
+    // We don't do anything here because the text layer is automatically
+    // rasterized if we apply a filter on it!
+    override public bool Execute() => true;
   }
 }

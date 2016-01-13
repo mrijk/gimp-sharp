@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // TransformSelectionEvent.cs
 //
@@ -29,26 +29,24 @@ namespace Gimp.PhotoshopActions
     {
     }
 
-    public override string EventForDisplay
-    {
-      get {return base.EventForDisplay + " Selection";}
-    }
+    public override string EventForDisplay =>
+      base.EventForDisplay + " Selection";
 
     protected override IEnumerable ListParameters()
     {
-      ObjcParameter objc = Parameters["Ofst"] as ObjcParameter;
+      var objc = Parameters["Ofst"] as ObjcParameter;
       if (objc != null)
 	{
 	  yield return "Offset";
 	}
 
-      DoubleParameter width = Parameters["Wdth"] as DoubleParameter;
+      var width = Parameters["Wdth"] as DoubleParameter;
       if (width != null)
 	{
 	  yield return "Width: " + width.Value;
 	}
 
-      DoubleParameter height = Parameters["Hght"] as DoubleParameter;
+      var height = Parameters["Hght"] as DoubleParameter;
       if (height != null)
 	{
 	  yield return "Height: " + height.Value;
@@ -57,14 +55,14 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
-      DoubleParameter width = Parameters["Wdth"] as DoubleParameter;
+      var width = Parameters["Wdth"] as DoubleParameter;
       double widthPercentage = (width == null) ? 100 : width.Value;
 
-      DoubleParameter height = Parameters["Hght"] as DoubleParameter;
+      var height = Parameters["Hght"] as DoubleParameter;
       double heightPercentage = (height == null) ? 100 : height.Value;
 
       bool nonEmpty;
-      Rectangle bounds = ActiveImage.Selection.Bounds(out nonEmpty);
+      var bounds = ActiveImage.Selection.Bounds(out nonEmpty);
       double newWidth = bounds.Width * widthPercentage / 100;
       double newHeight = bounds.Height * heightPercentage / 100;
 
@@ -73,7 +71,7 @@ namespace Gimp.PhotoshopActions
       double y = bounds.Y1 + (bounds.Height - newHeight) / 2;
 
       // TODO: for now assume that the selection is always rectangular
-      RectangleSelectTool tool = new RectangleSelectTool(ActiveImage);
+      var tool = new RectangleSelectTool(ActiveImage);
       tool.Select(x, y, newWidth, newHeight, ChannelOps.Replace, false, 0);
 
       return true;

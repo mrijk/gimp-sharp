@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2013 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // StrokeEvent.cs
 //
@@ -50,20 +50,17 @@ namespace Gimp.PhotoshopActions
       _executable = true;
     }
 
-    public override bool IsExecutable
-    {
-      get {return _executable;}
-    }
+    public override bool IsExecutable => _executable;
 
     override public ActionEvent Parse(ActionParser parser)
     {
-      ActionEvent myEvent = base.Parse(parser);
+      var myEvent = base.Parse(parser);
 
       if (_obj != null)
 	{
 	  if (_obj.Set[0] is PropertyType)
 	    {
-	      PropertyType property = _obj.Set[0] as PropertyType;
+	      var property = _obj.Set[0] as PropertyType;
 
 	      switch (property.ClassID2)
 		{

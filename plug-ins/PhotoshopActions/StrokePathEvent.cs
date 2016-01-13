@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // StrokePathColorEvent.cs
 //
@@ -29,24 +29,16 @@ namespace Gimp.PhotoshopActions
     {
     }
 
-    public override bool IsExecutable
-    {
-      get {return false;}
-    }
+    public override bool IsExecutable => false;
 
     protected override IEnumerable ListParameters()
     {
       yield break;
     }
 
-    public override string EventForDisplay
-    {
-      get {return base.EventForDisplay + " Work Path";}
-    }
+    public override string EventForDisplay =>
+      base.EventForDisplay + " Work Path";
 
-    override public bool Execute()
-    {
-      return true;
-    }
+    override public bool Execute() => true;
   }
 }

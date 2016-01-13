@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2010 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // TrimEvent.cs
 //
@@ -35,10 +35,7 @@ namespace Gimp.PhotoshopActions
     [Parameter("Rght")]
     bool _right;
 
-    public override bool IsExecutable
-    {
-      get {return _top && _bottom && _left && _right;}
-    }
+    public override bool IsExecutable => _top && _bottom && _left && _right;
 
     protected override IEnumerable ListParameters()
     {

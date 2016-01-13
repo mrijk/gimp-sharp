@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2012 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // SmoothnessEvent.cs
 //
@@ -27,13 +27,13 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
-      Image image = ActiveImage;
+      var image = ActiveImage;
 
-      Layer layer = new Layer(image, "tmpLayer", ImageType.Rgba);
+      var layer = new Layer(image, "tmpLayer", ImageType.Rgba);
       image.InsertLayer(layer, 0);
       layer.EditFill(FillType.Foreground);
 
-      Selection selection = image.Selection;
+      var selection = image.Selection;
       selection.None();
 
       RunProcedure("plug_in_gauss", image, layer, _radius, _radius, 1);
