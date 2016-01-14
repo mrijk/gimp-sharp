@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // MoveEvent.cs
 //
@@ -40,10 +40,7 @@ namespace Gimp.PhotoshopActions
       _executable = true;
     }
 
-    public override bool IsExecutable
-    {
-      get {return _executable;}
-    }
+    public override bool IsExecutable => _executable;
 
     override public ActionEvent Parse(ActionParser parser)
     {
@@ -57,7 +54,7 @@ namespace Gimp.PhotoshopActions
 	      
 	      if (type.Set[0] is EnmrType)
 		{
-		  EnmrType enmr = type.Set[0] as EnmrType;
+		  var enmr = type.Set[0] as EnmrType;
 		  
 		  switch (enmr.Key)
 		    {
@@ -70,7 +67,7 @@ namespace Gimp.PhotoshopActions
 		}
 	      else if (type.Set[0] is IndexType)
 		{
-		  IndexType index = type.Set[0] as IndexType;
+		  var index = type.Set[0] as IndexType;
 		  switch (index.Key)
 		    {
 		    case "Lyr":
@@ -84,7 +81,7 @@ namespace Gimp.PhotoshopActions
 	    }
 	  else if (_type is ObjcParameter)
 	    {
-	      ObjcParameter type = _type as ObjcParameter;
+	      var type = _type as ObjcParameter;
 
 	      if (type.ClassID2 == "Ofst")
 		{

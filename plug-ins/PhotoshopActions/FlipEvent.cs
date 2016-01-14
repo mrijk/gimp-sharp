@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // FlipEvent.cs
 //
@@ -28,10 +28,8 @@ namespace Gimp.PhotoshopActions
     [Parameter("Axis")]
     EnumParameter _axis;
 
-    public override string EventForDisplay
-    {
-      get {return base.EventForDisplay + " current layer";}
-    }
+    public override string EventForDisplay =>
+      base.EventForDisplay + " current layer";
 
     protected override IEnumerable ListParameters()
     {
@@ -41,7 +39,7 @@ namespace Gimp.PhotoshopActions
     override public bool Execute()
     {
 #if false
-      Image image = ActiveImage;
+      var image = ActiveImage;
 
       if (_axis.Value == "Hrzn")
 	{
@@ -54,7 +52,7 @@ namespace Gimp.PhotoshopActions
 #else	// We need to flip the drawable, not the whole image!
 
 
-      Drawable drawable = ActiveImage.ActiveDrawable;
+      var drawable = ActiveImage.ActiveDrawable;
 
       if (_axis.Value == "Hrzn")
 	{

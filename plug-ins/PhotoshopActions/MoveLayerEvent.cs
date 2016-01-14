@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // MoveLayerEvent.cs
 //
@@ -33,10 +33,8 @@ namespace Gimp.PhotoshopActions
       _direction = direction;
     }
     
-    public override string EventForDisplay
-    {
-      get {return base.EventForDisplay + " current layer";}
-    }
+    public override string EventForDisplay =>
+      base.EventForDisplay + " current layer";
 
     protected override IEnumerable ListParameters()
     {

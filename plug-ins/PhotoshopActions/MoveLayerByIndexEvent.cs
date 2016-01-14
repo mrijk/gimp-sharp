@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // MoveLayerByIndexEvent.cs
 //
@@ -37,7 +37,7 @@ namespace Gimp.PhotoshopActions
     {
       get 
 	{
-	  ReferenceParameter obj = Parameters["null"] as ReferenceParameter;
+	  var obj = Parameters["null"] as ReferenceParameter;
 	  if (obj == null)
 	    {
 	      return base.EventForDisplay + " current layer";
@@ -61,7 +61,7 @@ namespace Gimp.PhotoshopActions
     {
       yield return "To: layer " + _index;
 
-      BoolParameter adjust = Parameters["Adjs"] as BoolParameter;
+      var adjust = Parameters["Adjs"] as BoolParameter;
       if (adjust != null)
 	{
 	  yield return ((adjust.Value) ? "With" : "Without") + 
@@ -71,7 +71,7 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
-      ReferenceParameter obj = Parameters["null"] as ReferenceParameter;
+      var obj = Parameters["null"] as ReferenceParameter;
       Layer layer;
 
       if (obj == null)
