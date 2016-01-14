@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // DarkStrokesEvent.cs
 //
@@ -32,10 +32,7 @@ namespace Gimp.PhotoshopActions
     [Parameter("WhtI")]
     int _whiteIntensity;
 
-    public override bool IsExecutable
-    {
-      get {return false;}
-    }
+    public override bool IsExecutable => false;
 
     protected override IEnumerable ListParameters()
     {
@@ -44,9 +41,6 @@ namespace Gimp.PhotoshopActions
       yield return "White Intensity: " + _whiteIntensity;
     }
 
-    override public bool Execute()
-    {
-      return true;
-    }
+    override public bool Execute() => true;
   }
 }

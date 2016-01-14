@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // DeleteChannelByNameEvent.cs
 //
@@ -30,10 +30,8 @@ namespace Gimp.PhotoshopActions
       _name = name;
     }
 
-    public override string EventForDisplay
-    {
-      get {return base.EventForDisplay + " channel \"" + _name + "\"";}
-    }
+    public override string EventForDisplay =>
+      base.EventForDisplay + " channel \"" + _name + "\"";
 
     override public bool Execute()
     {

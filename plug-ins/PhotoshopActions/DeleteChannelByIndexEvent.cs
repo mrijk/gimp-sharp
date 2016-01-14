@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // DeleteChannelByIndexEvent.cs
 //
@@ -18,8 +18,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-
 namespace Gimp.PhotoshopActions
 {
   public class DeleteChannelByIndexEvent : ActionEvent
@@ -32,13 +30,8 @@ namespace Gimp.PhotoshopActions
       _index = index;
     }
 
-    public override string EventForDisplay
-    {
-      get 
-	{
-	  return base.EventForDisplay + " channel " + _index;
-	}
-    }
+    public override string EventForDisplay => 
+      base.EventForDisplay + " channel " + _index;
 
     override public bool Execute()
     {
