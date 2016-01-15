@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2013 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // MakeGroupEvent.cs
 //
@@ -28,16 +28,14 @@ namespace Gimp.PhotoshopActions
     {
     }
 
-    public override string EventForDisplay
-    {
-      get {return base.EventForDisplay + " Group";}
-    }
+    public override string EventForDisplay =>
+      base.EventForDisplay + " Group";
 
     protected override IEnumerable ListParameters()
     {
       yield return "From: current layer";
 
-      ObjcParameter usng = Parameters["Usng"] as ObjcParameter;
+      var usng = Parameters["Usng"] as ObjcParameter;
       if (usng != null)
 	{
 	  yield return "Name: \"" + usng.GetValueAsString("Nm") + "\"";

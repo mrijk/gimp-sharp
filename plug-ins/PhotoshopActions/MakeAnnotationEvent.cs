@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // MakeAnnotationEvent.cs
 //
@@ -40,15 +40,10 @@ namespace Gimp.PhotoshopActions
       _using.Fill(this);
     }
 
-    public override bool IsExecutable
-    {
-      get {return false;}
-    }
+    public override bool IsExecutable => false;
 
-    public override string EventForDisplay
-    {
-      get {return base.EventForDisplay + " Annotation";}
-    }
+    public override string EventForDisplay =>
+      base.EventForDisplay + " Annotation";
 
     protected override IEnumerable ListParameters()
     {
@@ -58,9 +53,6 @@ namespace Gimp.PhotoshopActions
       yield return Format(_type, "annotType");
     }
 
-    override public bool Execute()
-    {
-      return true;
-    }
+    override public bool Execute() => true;
   }
 }

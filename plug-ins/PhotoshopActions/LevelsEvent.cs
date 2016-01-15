@@ -67,11 +67,10 @@ namespace Gimp.PhotoshopActions
 
       if (_adjustment != null)
 	{
-	  ObjcParameter objc = _adjustment[0] as ObjcParameter;
+	  var objc = _adjustment[0] as ObjcParameter;
 	  double gamma = (objc.Parameters["Gmm"] as DoubleParameter).Value;
 
-	  ReferenceParameter obj = objc.Parameters["Chnl"] as 
-	    ReferenceParameter;
+	  var obj = objc.Parameters["Chnl"] as ReferenceParameter;
 	  string channel = (obj.Set[0] as EnmrType).Value;
 
 	  if (channel == "Cmps")

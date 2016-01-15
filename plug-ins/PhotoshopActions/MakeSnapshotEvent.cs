@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // MakeSnapshotEvent.cs
 //
@@ -28,27 +28,22 @@ namespace Gimp.PhotoshopActions
     {
     }
 
-    public override string EventForDisplay
-    {
-      get {return base.EventForDisplay + " snapshot";}
-    }
+    public override string EventForDisplay =>
+      base.EventForDisplay + " snapshot";
 
     protected override IEnumerable ListParameters()
     {
       yield return "From: Current History State";
 
-      EnumParameter usng = Parameters["Usng"] as EnumParameter;
+      var usng = Parameters["Usng"] as EnumParameter;
       if (usng != null)
 	{
 	  yield return "Using: " + Abbreviations.Get(usng.Value);
 	}
     }
 
-    override public bool Execute()
-    {
-      // Dummy event. Probably not needed in GIMP because we have
-      // unlimited UNDO
-      return true;
-    }
+    // Dummy event. Probably not needed in GIMP because we have
+    // unlimited UNDO
+    override public bool Execute() => true;
   }
 }

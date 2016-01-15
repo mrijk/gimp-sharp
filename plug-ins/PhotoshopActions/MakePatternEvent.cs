@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2012 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // MakePatternEvent.cs
 //
@@ -32,10 +32,8 @@ namespace Gimp.PhotoshopActions
       Parameters.Fill(this);
     }
 
-    public override string EventForDisplay
-    {
-      get {return base.EventForDisplay + " Pattern";}
-    }
+    public override string EventForDisplay =>
+      base.EventForDisplay + " Pattern";
 
     override public bool Execute()
     {

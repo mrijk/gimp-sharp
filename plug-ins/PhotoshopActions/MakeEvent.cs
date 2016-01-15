@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // MakeEvent.cs
 //
@@ -40,10 +40,7 @@ namespace Gimp.PhotoshopActions
       _executable = true;
     }
 
-    public override bool IsExecutable
-    {
-      get {return _executable;}
-    }
+    public override bool IsExecutable => _executable;
 
     override public ActionEvent Parse(ActionParser parser)
     {
@@ -66,7 +63,7 @@ namespace Gimp.PhotoshopActions
 	    case "Lyr":
 	      return new AddLayerEvent(this);
 	    default:
-	      Console.WriteLine("MakeEvent-2: {0} not implemented", classID);
+	      Console.WriteLine($"MakeEvent-2: {classID} not implemented");
 	      break;
 	    }
 	}

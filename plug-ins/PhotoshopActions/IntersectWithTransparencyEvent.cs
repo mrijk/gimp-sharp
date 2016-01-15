@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2010 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // IntersectWithTransparencyEvent.cs
 //
@@ -18,9 +18,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-using System.Collections;
-
 namespace Gimp.PhotoshopActions
 {
   public class IntersectWithTransparencyEvent : ActionEvent
@@ -30,19 +27,11 @@ namespace Gimp.PhotoshopActions
     [Parameter("With")]
     ObjcParameter _with;
 
-    public override bool IsExecutable
-    {
-      get {return false;}
-    }
+    public override bool IsExecutable => false;
 
-    public override string EventForDisplay
-    {
-      get {return base.EventForDisplay + " transparency channel";}
-    }
+    public override string EventForDisplay =>
+      base.EventForDisplay + " transparency channel";
 
-    override public bool Execute()
-    {
-      return false;
-    }
+    override public bool Execute() => false;
   }
 }

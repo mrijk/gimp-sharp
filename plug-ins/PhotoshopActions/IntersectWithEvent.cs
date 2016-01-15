@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2010 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // IntersectWithEvent.cs
 //
@@ -28,21 +28,10 @@ namespace Gimp.PhotoshopActions
     [Parameter("T")]
     ObjcParameter _objc;
 
-    public override bool IsExecutable
-    {
-      get 
-	{
-	  return (_objc.ClassID2 == "Plgn");;
-	}
-    }
+    public override bool IsExecutable => _objc.ClassID2 == "Plgn";
 
-    public override string EventForDisplay
-    {
-      get 
-	{
-	  return base.EventForDisplay + " Selection";
-	}
-    }
+    public override string EventForDisplay =>
+      base.EventForDisplay + " Selection";
 
     protected override IEnumerable ListParameters()
     {

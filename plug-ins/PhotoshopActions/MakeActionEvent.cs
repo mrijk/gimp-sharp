@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // MakeActionEvent.cs
 //
@@ -37,15 +37,10 @@ namespace Gimp.PhotoshopActions
       _using.Fill(this);
     }
 
-    public override bool IsExecutable
-    {
-      get {return false;}
-    }
+    public override bool IsExecutable => false;
 
-    public override string EventForDisplay
-    {
-      get {return base.EventForDisplay + " action";}
-    }
+    public override string EventForDisplay =>
+      base.EventForDisplay + " action";
 
     protected override IEnumerable ListParameters()
     {
@@ -53,9 +48,6 @@ namespace Gimp.PhotoshopActions
       yield return Format(_functionKey, "FncK");
     }
 
-    override public bool Execute()
-    {
-      return true;
-    }
+    override public bool Execute() => true;
   }
 }

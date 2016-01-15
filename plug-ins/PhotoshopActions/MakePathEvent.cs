@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // MakePathEvent.cs
 //
@@ -26,18 +26,9 @@ namespace Gimp.PhotoshopActions
     {
     }
 
-    public override bool IsExecutable
-    {
-      get 
-	{
-	  return Parameters["From"] != null;
-	}
-    }
+    public override bool IsExecutable => Parameters["From"] != null;
 
-    public override string EventForDisplay
-    {
-      get {return base.EventForDisplay + " Path";}
-    }
+    public override string EventForDisplay => base.EventForDisplay + " Path";
 
     override public bool Execute()
     {

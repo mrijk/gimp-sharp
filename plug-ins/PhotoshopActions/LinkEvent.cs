@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // LinkEvent.cs
 //
@@ -28,16 +28,14 @@ namespace Gimp.PhotoshopActions
     [Parameter("T")]
     ListParameter _list;
 
-    public override string EventForDisplay
-    {
-      get {return base.EventForDisplay + " current layer";}
-    }
+    public override string EventForDisplay =>
+      base.EventForDisplay + " current layer";
 
     protected override IEnumerable ListParameters()
     {
       foreach (ReferenceParameter parameter in _list)
 	{
-	  NameType name = parameter.Set[0] as NameType;
+	  var name = parameter.Set[0] as NameType;
 	  if (name != null)
 	    {
 	      yield return "layer \"" + name.Key + "\"";
@@ -47,14 +45,14 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
-      LayerList layers = ActiveImage.Layers;
+      var layers = ActiveImage.Layers;
 
       foreach (ReferenceParameter parameter in _list)
 	{
-	  NameType name = parameter.Set[0] as NameType;
+	  var name = parameter.Set[0] as NameType;
 	  if (name != null)
 	    {
-	      Layer layer = layers[name.Key];
+	      var layer = layers[name.Key];
 	      LinkedLayersSet.Link(SelectedLayer, layer);
 	    }
 	}
