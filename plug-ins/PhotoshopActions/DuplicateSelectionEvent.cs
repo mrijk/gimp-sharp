@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // DuplicateSelectionEvent.cs
 //
@@ -30,15 +30,13 @@ namespace Gimp.PhotoshopActions
       Parameters.Fill(this);
     }
 
-    public override string EventForDisplay
-    {
-      get {return base.EventForDisplay + " Selection";}
-    }
+    public override string EventForDisplay =>
+      base.EventForDisplay + " Selection";
 
     override public bool Execute()
     {
-      Layer layer = ActiveImage.ActiveLayer;
-      Channel channel = ActiveImage.Selection.Save();
+      var layer = ActiveImage.ActiveLayer;
+      var channel = ActiveImage.Selection.Save();
       channel.Name = (_name == null) ? "Alpha 1" : _name;
       SelectedLayer = layer;
       return true;

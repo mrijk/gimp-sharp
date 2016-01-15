@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // GradientClassEvent.cs
 //
@@ -40,10 +40,7 @@ namespace Gimp.PhotoshopActions
     [Parameter("Grad")]
     ObjcParameter _gradient;
 
-    public override bool IsExecutable
-    {
-      get {return _gradient != null || _with != null;}
-    }
+    public override bool IsExecutable => _gradient != null || _with != null;
 
     /*
     protected override IEnumerable ListParameters()
@@ -56,7 +53,7 @@ namespace Gimp.PhotoshopActions
 
     static public Gradient CreateGradient(string name, ListParameter colors)
     {
-      Gradient gradient = new Gradient("Photoshop." + name);
+      var gradient = new Gradient("Photoshop." + name);
       gradient.SegmentRangeSplitUniform(0, -1, colors.Count);
 
       int segment = 0;
@@ -106,7 +103,7 @@ namespace Gimp.PhotoshopActions
       double x2 = _to.GetValueAsDouble("Hrzn");
       double y2 = _to.GetValueAsDouble("Vrtc");
 
-      Console.WriteLine("from ({0}, {1}) to ({2}, {3})", x1, y1, x2, y2);
+      Console.WriteLine($"from ({x1}, {y1}) to ({x2}, {y2})");
 
       // Fix me!
       GradientType gradientType;
@@ -127,7 +124,7 @@ namespace Gimp.PhotoshopActions
 	{
 	  string name = _gradient.GetValueAsString("Nm");
 	  Console.WriteLine("Name: " + name);
-	  ListParameter colors = _gradient.Parameters["Clrs"] as ListParameter;
+	  var colors = _gradient.Parameters["Clrs"] as ListParameter;
 
 	  gradient = CreateGradient(name, colors);
 	}

@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-207 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // IExecutable.cs
 //
@@ -22,15 +22,8 @@ namespace Gimp.PhotoshopActions
 {
   public interface IExecutable
   {
-    bool IsExecutable 
-    {
-      get;
-    }
+    bool IsExecutable {get;}
 
-    bool IsEnabled
-    {
-      get;
-      set;
-    }
+    bool IsEnabled {get; set;}
   }
 }  

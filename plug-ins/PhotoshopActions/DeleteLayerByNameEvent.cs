@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // DeleteLayerByNameEvent.cs
 //
@@ -30,14 +30,12 @@ namespace Gimp.PhotoshopActions
       _name = name;
     }
 
-    public override string EventForDisplay
-    {
-      get {return base.EventForDisplay + " layer \"" + _name + "\"";}
-    }
+    public override string EventForDisplay =>
+      base.EventForDisplay + " layer \"" + _name + "\"";
 
     override public bool Execute()
     {
-      Layer layer = ActiveImage.Layers[_name];
+      var layer = ActiveImage.Layers[_name];
       ActiveImage.RemoveLayer(layer);
       return true;
     }

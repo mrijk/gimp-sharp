@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // DuplicateEvent.cs
 //
@@ -38,10 +38,7 @@ namespace Gimp.PhotoshopActions
       _executable = true;
     }
 
-    public override bool IsExecutable
-    {
-      get {return _executable;}
-    }
+    public override bool IsExecutable => _executable;
 
     override public ActionEvent Parse(ActionParser parser)
     {
@@ -51,7 +48,7 @@ namespace Gimp.PhotoshopActions
 	{
 	  if (_obj.Set[0] is EnmrType)
 	    {
-	      EnmrType type = _obj.Set[0] as EnmrType;
+	      var type = _obj.Set[0] as EnmrType;
 	      
 	      switch (type.Key)
 		{
@@ -68,7 +65,7 @@ namespace Gimp.PhotoshopActions
 	    }
 	  else if (_obj.Set[0] is NameType)
 	    {
-	      NameType type = _obj.Set[0] as NameType;
+	      var type = _obj.Set[0] as NameType;
 
 	      switch (type.ClassID2)
 		{
@@ -84,7 +81,7 @@ namespace Gimp.PhotoshopActions
 	    }
 	  else if (_obj.Set[0] is PropertyType)
 	    {
-	      PropertyType type = _obj.Set[0] as PropertyType;
+	      var type = _obj.Set[0] as PropertyType;
 	      
 	      switch (type.ClassID2)
 		{

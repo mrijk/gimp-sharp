@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // HideEvent.cs
 //
@@ -38,20 +38,17 @@ namespace Gimp.PhotoshopActions
       _executable = true;
     }
 
-    public override bool IsExecutable
-    {
-      get {return _executable;}
-    }
+    public override bool IsExecutable => _executable;
 
     override public ActionEvent Parse(ActionParser parser)
     {
       base.Parse(parser);
 
-      ReferenceParameter obj = _list.Set[0] as ReferenceParameter;
+      var obj = _list.Set[0] as ReferenceParameter;
 
       if (obj.Set[0] is EnmrType)
 	{
-	  EnmrType enmr = obj.Set[0] as EnmrType;
+	  var enmr = obj.Set[0] as EnmrType;
 	  
 	  switch (enmr.Key)
 	    {
@@ -66,7 +63,7 @@ namespace Gimp.PhotoshopActions
 	}
       else if (obj.Set[0] is NameType)
 	{
-	  NameType name = obj.Set[0] as NameType;
+	  var name = obj.Set[0] as NameType;
 	  
 	  switch (name.ClassID2)
 	    {
@@ -81,7 +78,7 @@ namespace Gimp.PhotoshopActions
 	}
       else if (obj.Set[0] is PropertyType)
 	{
-	  PropertyType property = obj.Set[0] as PropertyType;
+	  var property = obj.Set[0] as PropertyType;
 	  switch (property.ClassID2)
 	    {
 	    case "Lyr":

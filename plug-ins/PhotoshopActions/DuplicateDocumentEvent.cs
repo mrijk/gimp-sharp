@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // DuplicateDocumentEvent.cs
 //
@@ -37,11 +37,8 @@ namespace Gimp.PhotoshopActions
       Parameters.Fill(this);
     }
 
-    public override string EventForDisplay
-    {
-      get {return base.EventForDisplay + " " + Abbreviations.Get(_which) + 
-	     " document";}
-    }
+    public override string EventForDisplay =>
+      base.EventForDisplay + " " + Abbreviations.Get(_which) + " document";
 
     protected override IEnumerable ListParameters()
     {

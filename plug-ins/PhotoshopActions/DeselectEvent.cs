@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // DeselectEvent.cs
 //
@@ -39,10 +39,7 @@ namespace Gimp.PhotoshopActions
       _executable = true;
     }
 
-    public override bool IsExecutable
-    {
-      get {return _executable;}
-    }
+    public override bool IsExecutable => _executable;
 
     override public ActionEvent Parse(ActionParser parser)
     {
@@ -52,7 +49,7 @@ namespace Gimp.PhotoshopActions
 
       if (parameter is ClassType)
 	{
-	  ClassType type = parameter as ClassType;
+	  var type = parameter as ClassType;
 	  switch (type.ClassID2)
 	    {
 	    case "Path":
@@ -75,9 +72,6 @@ namespace Gimp.PhotoshopActions
       yield break;
     }
 
-    override public bool Execute()
-    {
-      return true;
-    }
+    override public bool Execute() => true;
   }
 }

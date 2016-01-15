@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // DiffuseEvent.cs
 //
@@ -18,7 +18,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
 using System.Collections;
 
 namespace Gimp.PhotoshopActions
@@ -28,10 +27,7 @@ namespace Gimp.PhotoshopActions
     [Parameter("Md")]
     EnumParameter _mode;
 
-    public override bool IsExecutable
-    {
-      get {return _mode.Value == "Nrml";}
-    }
+    public override bool IsExecutable => _mode.Value == "Nrml";
 
     protected override IEnumerable ListParameters()
     {

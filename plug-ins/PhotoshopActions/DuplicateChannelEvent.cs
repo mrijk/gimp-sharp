@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // DuplicateChannelEvent.cs
 //
@@ -51,17 +51,11 @@ namespace Gimp.PhotoshopActions
       }
     }
 
-    public override bool IsExecutable
-    {
-      get 
-	{
-	  return Gimp.Version > new Version("2.3.0");
-	}
-    }
+    public override bool IsExecutable => Gimp.Version > new Version("2.3.0");
 
     protected override IEnumerable ListParameters()
     {
-      TextParameter name = Parameters["Nm"] as TextParameter;
+      var name = Parameters["Nm"] as TextParameter;
       if (name == null)
 	{
 	  yield break;

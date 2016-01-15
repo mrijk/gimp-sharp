@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // HueSaturationEvent.cs
 //
@@ -31,13 +31,8 @@ namespace Gimp.PhotoshopActions
 
     int _hue, _saturation, _lightness;
 
-    public override bool IsExecutable
-    {
-      get 
-	{
-	  return _adjustment == null || _adjustment.Count == 1;
-	}
-    }
+    public override bool IsExecutable =>
+      _adjustment == null || _adjustment.Count == 1;
 
     override public ActionEvent Parse(ActionParser parser)
     {
@@ -53,7 +48,7 @@ namespace Gimp.PhotoshopActions
 	}
       else if (_adjustment[0] is ObjcParameter)
 	{
-	  ObjcParameter objc = _adjustment[0] as ObjcParameter;
+	  var objc = _adjustment[0] as ObjcParameter;
 	  
 	  _hue = (int) objc.GetValueAsLong("H");
 	  _saturation = (int) objc.GetValueAsLong("Strt");

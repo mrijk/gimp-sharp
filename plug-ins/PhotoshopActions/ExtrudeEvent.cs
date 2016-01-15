@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // ExtrudeEvent.cs
 //
@@ -37,10 +37,7 @@ namespace Gimp.PhotoshopActions
     [Parameter("ExtR")]
     EnumParameter _extrudeRandom;
 
-    public override bool IsExecutable
-    {
-      get {return false;}
-    }
+    public override bool IsExecutable => false;
 
     protected override IEnumerable ListParameters()
     {
@@ -52,9 +49,6 @@ namespace Gimp.PhotoshopActions
       yield return Format(_extrudeRandom, "ExtR");
     }
 
-    override public bool Execute()
-    {
-      return true;
-    }
+    override public bool Execute() => true;
   }
 }

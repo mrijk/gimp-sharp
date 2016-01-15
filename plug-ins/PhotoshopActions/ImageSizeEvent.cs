@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // ImageSizeEvent.cs
 //
@@ -18,8 +18,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-
 namespace Gimp.PhotoshopActions
 {
   public class ImageSizeEvent : ActionEvent
@@ -37,13 +35,11 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {      
-      DoubleParameter width = Parameters["Wdth"] as DoubleParameter; 
-      if (width != null)
-	_width = width.GetPixels(ActiveImage.Width);
+      var width = Parameters["Wdth"] as DoubleParameter; 
+      _width = width?.GetPixels(ActiveImage.Width) ?? 0;
 
-      DoubleParameter height = Parameters["Hght"] as DoubleParameter; 
-      if (height != null)
-	_height = height.GetPixels(ActiveImage.Height);
+      var height = Parameters["Hght"] as DoubleParameter; 
+      _height = height?.GetPixels(ActiveImage.Height) ?? 0;
       
       if (_constrainProportions)
 	{

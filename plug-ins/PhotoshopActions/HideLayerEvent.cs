@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // HideLayerEvent.cs
 //
@@ -52,14 +52,9 @@ namespace Gimp.PhotoshopActions
 	}
     }
 
-    public override string EventForDisplay
-    {
-      get 
-	{
-	  return base.EventForDisplay + 
-	    ((_name == null) ? " current layer" : " layer \"" + _name + "\"");
-	}
-    }
+    public override string EventForDisplay =>
+      base.EventForDisplay + 
+      ((_name == null) ? " current layer" : " layer \"" + _name + "\"");
 
     protected override IEnumerable ListParameters()
     {
@@ -68,10 +63,7 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
-      if (_layer == null)
-	{
-	  _layer = ActiveImage.Layers[_name];
-	}
+      _layer = _layer ?? ActiveImage.Layers[_name];
       _layer.Visible = false;
 
       return true;

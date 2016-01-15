@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2010 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // DeleteGuideEvent.cs
 //
@@ -24,10 +24,7 @@ namespace Gimp.PhotoshopActions
   {
     string _type;
 
-    public override bool IsExecutable
-    {
-      get {return _type == "Al";}
-    }
+    public override bool IsExecutable => _type == "Al";
 
     public DeleteGuideEvent(ActionEvent srcEvent, string type) : base(srcEvent)
     {

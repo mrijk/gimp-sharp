@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // DifferenceCloudsEvent.cs
 //
@@ -18,19 +18,11 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-
 namespace Gimp.PhotoshopActions
 {
   public class DifferenceCloudsEvent : ActionEvent
   {
-    public override bool IsExecutable
-    {
-      get 
-	{
-	  return Gimp.Version > new Version("2.3.10");
-	}
-    }
+    public override bool IsExecutable => Gimp.Version > new Version("2.3.10");
 
     override public bool Execute()
     {

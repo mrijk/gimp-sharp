@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // IndexParameter.cs
 //
@@ -35,8 +35,7 @@ namespace Gimp.PhotoshopActions
       Key = parser.ReadTokenOrString();
       Index = parser.ReadInt32();
 
-      DebugOutput.Dump("Index: c = {0}, k = {1}, i = {2}", _classID, Key,
-		       Index); 
+      DebugOutput.Dump($"Index: c = {_classID}, k = {Key}, i = {Index}");
     }
   }
 }

@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // GradientMapEvent.cs
 //
@@ -37,7 +37,7 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
-      Gradient gradient = _gradient.GetGradient();
+      var gradient = _gradient.GetGradient();
 
       Context.Push();
       Context.Gradient = gradient;
