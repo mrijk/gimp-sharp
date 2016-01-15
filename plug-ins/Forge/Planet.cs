@@ -1,5 +1,5 @@
 // The Forge plug-in
-// Copyright (C) 2006-2011 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // Planet.cs
 //
@@ -180,10 +180,7 @@ namespace Gimp.Forge
 	}
     }
 
-    RGB RenderLand(double val)
-    {
-      return Land.GetLand(val);
-    }
+    RGB RenderLand(double val) => Land.GetLand(val);
 
     // Water. Generate clouds above water based on elevation.
 	      
@@ -235,10 +232,8 @@ namespace Gimp.Forge
       return new Pixel(ir, ig, ib);
     }
 
-    double Cast(double low, double high)
-    {
-      return low + (high - low) * _random.NextDouble();
-    }
+    double Cast(double low, double high) => 
+      low + (high - low) * _random.NextDouble();
   }
 
   class RenderInfo

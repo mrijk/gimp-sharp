@@ -24,24 +24,24 @@ namespace Gimp.Ministeck
 {
   public class ShapeDescriptionSet
   {
-    readonly List<ShapeDescription> _set;
-    public int Count => _set.Count;
+    List<ShapeDescription> Set {get;}
+    public int Count => Set.Count;
 
     public ShapeDescriptionSet(params ShapeDescription[] shapes)
     {
-      _set = new List<ShapeDescription>(shapes);
+      Set = new List<ShapeDescription>(shapes);
     }
 
     public ShapeDescriptionSet(ShapeDescriptionSet s)
     {
-      _set = new List<ShapeDescription>(s._set);
+      Set = new List<ShapeDescription>(s.Set);
     }
 
-    public IEnumerator<ShapeDescription> GetEnumerator() => _set.GetEnumerator();
+    public IEnumerator<ShapeDescription> GetEnumerator() => Set.GetEnumerator();
 
     public void Insert(int index, ShapeDescription val)
     {
-      _set.Insert(index, val);
+      Set.Insert(index, val);
     }
   }
 }

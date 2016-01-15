@@ -1,5 +1,5 @@
 // The Ministeck plug-in
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // CornerShape.cs
 //
@@ -22,11 +22,10 @@ namespace Gimp.Ministeck
 {
   public class CornerShape : Shape
   {
-    int Size {get; set;}
+    int Size {get;} = Painter.Size;
 
     public CornerShape()
     {
-      Size = Painter.Size;
       Combine(new ShapeDescription(ShapeOne) {{0, 1}, {1, 0}},
 	      new ShapeDescription(ShapeTwo) {{1, 0}, {1, 1}},
 	      new ShapeDescription(ShapeThree) {{0, 1}, {1, 1}},

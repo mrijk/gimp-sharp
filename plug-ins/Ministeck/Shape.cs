@@ -1,5 +1,5 @@
 // The Ministeck plug-in
-// Copyright (C) 2004-2010 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // Shape.cs
 //
@@ -19,7 +19,6 @@
 //
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace Gimp.Ministeck
