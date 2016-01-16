@@ -1,5 +1,5 @@
 // The Forge plug-in
-// Copyright (C) 2006-2007 Massimo Perga (massimo.perga@gmail.com)
+// Copyright (C) 2006-2016 Massimo Perga (massimo.perga@gmail.com)
 //
 // StarFactory.cs
 //
@@ -109,9 +109,7 @@ namespace Gimp.Forge
       return rgb;
     }
 
-    double Cast(double low, double high)
-    {
-      return low + (high - low) * _random.NextDouble();
-    }
+    double Cast(double low, double high) =>
+      low + (high - low) * _random.NextDouble();
   }
 }

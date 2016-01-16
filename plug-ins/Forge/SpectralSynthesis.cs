@@ -1,5 +1,5 @@
 // The Forge plug-in
-// Copyright (C) 2006-2010 Maurits Rijk (maurits.rijk@gmail.com)
+// Copyright (C) 2006-2016 Maurits Rijk (maurits.rijk@gmail.com)
 //
 // SpectralSynthesis.cs
 //

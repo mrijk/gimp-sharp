@@ -1,5 +1,5 @@
 // The QR plug-in
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // QR.cs
 //
@@ -43,7 +43,7 @@ namespace Gimp.QR
 			   _("Generates QR codes"),
 			   "Maurits Rijk",
 			   "(C) Maurits Rijk",
-			   "2010-2011",
+			   "2010-2016",
 			   "QR codes...",
 			   "*",
 			   new ParamDefList(Variables))

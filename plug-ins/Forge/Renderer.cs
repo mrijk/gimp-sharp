@@ -1,5 +1,5 @@
 // The Forge plug-in
-// Copyright (C) 2006-2021 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // Renderer.cs
 //
@@ -116,9 +116,7 @@ namespace Gimp.Forge
       Planet(drawable, new AspectPreviewUpdater(preview));
     }
 
-    double Cast(double low, double high)
-    {
-      return low + (high - low) * _random.NextDouble();
-    }
+    double Cast(double low, double high) =>
+      low + (high - low) * _random.NextDouble();
   }
 }

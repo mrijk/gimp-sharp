@@ -19,6 +19,7 @@
 //
 
 using System;
+using static System.Math;
 
 namespace Gimp.Forge
 {
@@ -102,17 +103,17 @@ namespace Gimp.Forge
 
     Vector3 IncidentLightDirectionVector()
     {
-      double shang = _hourspec ? _hourangle : Cast(0, 2 * Math.PI);
-      double siang = _inclspec ? _inclangle : Cast(-Math.PI * 0.12, Math.PI * 0.12);
+      double shang = _hourspec ? _hourangle : Cast(0, 2 * PI);
+      double siang = _inclspec ? _inclangle : Cast(-PI * 0.12, PI * 0.12);
  
-      var sunvec = new Vector3(Math.Sin(shang) * Math.Cos(siang), Math.Sin(siang),
-			       Math.Cos(shang) * Math.Cos(siang));
+      var sunvec = new Vector3(Sin(shang) * Cos(siang), Sin(siang),
+			       Cos(shang) * Cos(siang));
       
       // Allow only 25% of random pictures to be crescents
       
       if (!_hourspec && ((_random.Next() % 100) < 75)) 
 	{
-	  sunvec.Z = Math.Abs(sunvec.Z);
+	  sunvec.Z = Abs(sunvec.Z);
 	}
 
       return sunvec;
@@ -154,8 +155,8 @@ namespace Gimp.Forge
 
       var sv = new Vector3(sunvec.X, sunvec.Y * info.dy, sunvec.Z * info.sqomdysq);
 
-      double azimuth = Math.Asin(((double) c.Y / (height - 1)) * 2 - 1);
-      int lcos = (int) ((height / 2) * Math.Abs(Math.Cos(azimuth)));
+      double azimuth = Asin(((double) c.Y / (height - 1)) * 2 - 1);
+      int lcos = (int) ((height / 2) * Abs(Cos(azimuth)));
 
       if (c.X >= width / 2 - lcos && c.X <= width / 2 + lcos)
 	{
@@ -163,7 +164,7 @@ namespace Gimp.Forge
 	  	  
 	  var rgb = (r >= 128) ? RenderLand(r) : RenderWater(r);
 	  
-	  double icet = Math.Pow(Math.Abs(Math.Sin(azimuth)), 1.0 / _icelevel) 
+	  double icet = Pow(Abs(Sin(azimuth)), 1.0 / _icelevel) 
 	    - 0.5;
 	  RenderPolarIceCaps(r, icet, rgb);
  
@@ -192,8 +193,8 @@ namespace Gimp.Forge
 
     void RenderPolarIceCaps(double val, double icet, RGB rgb)
     {
-      double ice = Math.Max(0.0, icet + 
-			    _glaciers * Math.Max(-0.5, (val - 128) / 128.0));
+      double ice = Max(0.0, icet + 
+			    _glaciers * Max(-0.5, (val - 128) / 128.0));
       if  (ice > 0.125) 
 	{
 	  rgb.R = rgb.G = rgb.B = 255;
@@ -207,18 +208,18 @@ namespace Gimp.Forge
       double dx = 2 * ((width / 2 - x) / ((double) height));
       double dxsq = dx * dx;
 
-      double di = sv.X * dx + sv.Y + sv.Z * Math.Sqrt(1.0 - dxsq);
-      di = Math.Min(1.0, Math.Max(0.0, di));
+      double di = sv.X * dx + sv.Y + sv.Z * Sqrt(1.0 - dxsq);
+      di = Min(1.0, Max(0.0, di));
 
       // Calculate  atmospheric absorption  based on the
       // thickness of atmosphere traversed by  light  on
       // its way to the surface.
  
-      double ds = Math.Min(1.0, Math.Sqrt(dxsq + dysq));
+      double ds = Min(1.0, Sqrt(dxsq + dysq));
       double dsq = ds * ds;
-      double athfac = Math.Sqrt(atthick * atthick - 1.0);
-      double dsat = atSatFac * ((Math.Sqrt(atthick * atthick - dsq) -
-				 Math.Sqrt(1.0 * 1.0 - dsq)) / athfac);
+      double athfac = Sqrt(atthick * atthick - 1.0);
+      double dsat = atSatFac * ((Sqrt(atthick * atthick - dsq) -
+				 Sqrt(1.0 * 1.0 - dsq)) / athfac);
 
       double inx = planetAmbient + (1.0 - planetAmbient) * di;
       
@@ -275,7 +276,7 @@ namespace Gimp.Forge
 	{
 	  double bx = (n - 1) * (j / (width - 1.0));
 	  
-	  _bxf[j] = (uint) Math.Floor(bx);
+	  _bxf[j] = (uint) Floor(bx);
 	  _bxc[j] = _bxf[j] + 1;
 	  _u[j] = bx - _bxf[j];
 	  _u1[j] = 1 - _u[j];
@@ -288,11 +289,11 @@ namespace Gimp.Forge
 
       dy = 2 * (((_height / 2) - y) / ((double) _height));
       dysq = dy * dy;
-      sqomdysq = Math.Sqrt(1.0 - dysq);
+      sqomdysq = Sqrt(1.0 - dysq);
 
-      _byf = (int) (Math.Floor(by) * _n);
+      _byf = (int) (Floor(by) * _n);
       _byc = _byf + _n;
-      _t = by - Math.Floor(by);
+      _t = by - Floor(by);
       _t1 = 1 - _t;
     }
 

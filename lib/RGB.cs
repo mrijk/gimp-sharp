@@ -72,10 +72,7 @@ namespace Gimp
       _rgb = rgb;
     }
 
-    internal GimpRGB GimpRGB
-    {
-      get {return _rgb;}
-    }
+    internal GimpRGB GimpRGB => _rgb;
 
     public override bool Equals(object o)
     {
@@ -87,20 +84,11 @@ namespace Gimp
       return false;
     }
 
-    public override int GetHashCode()
-    {
-      return _rgb.GetHashCode();
-    }
+    public override int GetHashCode() => _rgb.GetHashCode();
 
-    public static bool operator==(RGB rgb1, RGB rgb2)
-    {
-      return rgb1.Equals(rgb2);
-    }
+    public static bool operator==(RGB rgb1, RGB rgb2) => rgb1.Equals(rgb2);
 
-    public static bool operator!=(RGB rgb1, RGB rgb2)
-    {
-      return !(rgb1 == rgb2);
-    }
+    public static bool operator!=(RGB rgb1, RGB rgb2) => !(rgb1 == rgb2);
 
     public double R
     {
@@ -216,10 +204,7 @@ namespace Gimp
       return result;
     }
 
-    public static RGB operator-(RGB rgb, double v)
-    {
-      return rgb + (-v);
-    }
+    public static RGB operator-(RGB rgb, double v) => rgb + (-v);
 
     public static RGB operator-(RGB rgb1, RGB rgb2)
     {
@@ -235,20 +220,11 @@ namespace Gimp
       return result;
     }
 
-    public double Distance(RGB rgb)
-    {
-      return gimp_rgb_distance(ref _rgb, ref rgb._rgb);
-    }
+    public double Distance(RGB rgb) => gimp_rgb_distance(ref _rgb, ref rgb._rgb);
 
-    public double Max
-    {
-      get {return gimp_rgb_max(ref _rgb);}
-    }
+    public double Max => gimp_rgb_max(ref _rgb);
 
-    public double Min
-    {
-      get {return gimp_rgb_min(ref _rgb);}
-    }
+    public double Min => gimp_rgb_min(ref _rgb);
 
     public void Clamp()
     {
