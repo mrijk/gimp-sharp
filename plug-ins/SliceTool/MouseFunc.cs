@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // MouseFunc.cs
 //
@@ -29,8 +29,8 @@ namespace Gimp.SliceTool
   {
     static readonly Cursor _defaultCursor;
 
-    public SliceData SliceData {get; private set;}
-    public Preview Preview {get; private set;}
+    public SliceData SliceData {get;}
+    public Preview Preview {get;}
 
     public MouseFunc(SliceData sliceData, Preview preview)
     {
@@ -58,15 +58,9 @@ namespace Gimp.SliceTool
     virtual protected void OnRelease() {}
     virtual protected void OnMove(IntCoordinate c) {}
     
-    virtual public Cursor GetCursor(IntCoordinate c)
-    {
-      return _defaultCursor;
-    }
+    virtual public Cursor GetCursor(IntCoordinate c) => _defaultCursor;
 
-    virtual public MouseFunc GetActualFunc(IntCoordinate c) 
-    {
-      return this;
-    }
+    virtual public MouseFunc GetActualFunc(IntCoordinate c)  => this;
 
     public void OnButtonPress(object o, ButtonPressEventArgs args)
     {
@@ -89,9 +83,6 @@ namespace Gimp.SliceTool
       OnMove((o as Preview).GetXY(args));
     }
 
-    public bool SliceIsSelectable(Slice slice)
-    {
-      return !(slice == null || slice.Locked);
-    }
+    public bool SliceIsSelectable(Slice slice) => !(slice == null || slice.Locked);
   }
 }

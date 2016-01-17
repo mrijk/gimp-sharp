@@ -53,10 +53,8 @@ namespace Gimp.SliceTool
 	&& X1 <= rectangle.X1 && X2 >= rectangle.X2;
     }
 
-    override public bool IsPartOf(Rectangle rectangle)
-    {
-      return rectangle.HasHorizontalSlice(this);
-    }
+    override public bool IsPartOf(Rectangle rectangle) =>
+      rectangle.HasHorizontalSlice(this);
 
     override public Rectangle SliceRectangle(Rectangle rectangle)
     {
@@ -70,10 +68,8 @@ namespace Gimp.SliceTool
       Y = c.Y;
     }
 
-    override public bool PointOn(IntCoordinate c)
-    {
-      return c.X >= X1 && c.X <= X2 && Math.Abs(c.Y - Y) < 5;
-    }
+    override public bool PointOn(IntCoordinate c) =>
+      c.X >= X1 && c.X <= X2 && Math.Abs(c.Y - Y) < 5;
  
     override public void Save(StreamWriter w)
     {

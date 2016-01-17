@@ -85,8 +85,6 @@ namespace Gimp
     {
       get {
 	dynamic foo = CreateGimpParam();
-	Console.WriteLine("Architecture: " + arch64);
-	Console.WriteLine("Size GimpParam: " + Marshal.SizeOf(foo));
 	return Marshal.SizeOf(foo);
       }
     }

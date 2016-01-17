@@ -78,15 +78,11 @@ namespace Gimp.SliceTool
       _set.ForEach(slice => slice.Draw(renderer));
     }
 
-    public Slice Find(IntCoordinate c)
-    {
-      return _set.Find(slice => slice.PointOn(c));
-    }
+    public Slice Find(IntCoordinate c) =>
+      _set.Find(slice => slice.PointOn(c));
 
-    bool IsEndPoint(Slice s)
-    {
-      return _set.Exists(slice => slice.Begin == s || slice.End == s);
-    }
+    bool IsEndPoint(Slice s) =>
+      _set.Exists(slice => slice.Begin == s || slice.End == s);
 
     public Slice MayRemove(SliceSet orthogonal, IntCoordinate c)
     {
@@ -94,10 +90,7 @@ namespace Gimp.SliceTool
       return (slice == null || orthogonal.IsEndPoint(slice)) ? null : slice; 
     }
 
-    public void Remove(Slice slice)
-    {
-      _set.Remove(slice);
-    }
+    public bool Remove(Slice slice) => _set.Remove(slice);
 
     public void SetIndex()
     {

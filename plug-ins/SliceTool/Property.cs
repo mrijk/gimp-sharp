@@ -24,7 +24,7 @@ namespace Gimp.SliceTool
 {
   public class Property
   {
-    public string Name {get; private set;}
+    public string Name {get;}
     public bool Changed {get; set;}
     string _value = "";
 

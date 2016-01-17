@@ -40,9 +40,7 @@ namespace Gimp.SliceTool
       return (SliceIsSelectable(slice)) ? slice.Cursor : base.GetCursor(c);
     }
 
-    override public MouseFunc GetActualFunc(IntCoordinate c)
-    {
-      return MoveSliceFunc.GetActualFunc(c, this);
-    }
+    override public MouseFunc GetActualFunc(IntCoordinate c) =>
+      MoveSliceFunc.GetActualFunc(c, this);
   }
 }

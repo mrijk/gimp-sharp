@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // CreateFunc.cs
 //
@@ -18,7 +18,7 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
+using static System.Math;
 
 using Gdk;
 
@@ -71,7 +71,7 @@ namespace Gimp.SliceTool
       bool rectangleChanged = rectangle != _endRectangle;
       _endRectangle = rectangle;
 
-      bool horizontal = Math.Abs(c.X - _x) > Math.Abs(c.Y - _y);
+      bool horizontal = Abs(c.X - _x) > Abs(c.Y - _y);
       bool orientationChanged = horizontal != _horizontal;
       _horizontal = horizontal;
 

@@ -51,10 +51,8 @@ namespace Gimp
       _matrix[c.Y, c.X] = value;
     }
 
-    public bool IsInside(IntCoordinate c)
-    {
-      return c.X >= 0 && c.X < Width && c.Y >= 0 && c.Y < Height;
-    }
+    public bool IsInside(IntCoordinate c) =>
+      c.X >= 0 && c.X < Width && c.Y >= 0 && c.Y < Height;
 
     public IntCoordinate Generate(int radius, int maxTries = 10000)
     {

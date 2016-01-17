@@ -1,3 +1,7 @@
+2016-01-16  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/*.cs: even more cleanup
+
 2016-01-15  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/*.cs: cleanup with new C# 6 features

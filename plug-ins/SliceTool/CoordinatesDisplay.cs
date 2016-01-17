@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // CoordinatesDisplay.cs
 //
@@ -34,7 +34,7 @@ namespace Gimp.SliceTool
       preview.MotionNotifyEvent += (o, args) =>
 	{
 	  var c = preview.GetXY(args);
-	  Text = "x: " + c.X + ", y: " + c.Y;
+	  Text = $"x: {c.X}, y: {c.Y}";
 	};
     }
   }

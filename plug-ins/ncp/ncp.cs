@@ -1,5 +1,5 @@
 // The ncp plug-in
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // ncp.cs
 //
@@ -43,7 +43,7 @@ namespace Gimp.ncp
 			   _("Generates 2D textures"),
 			   "Maurits Rijk",
 			   "(C) Maurits Rijk",
-			   "2004-2011",
+			   "2004-2016",
 			   "NCP...",
 			   "RGB*, GRAY*",
 			   new ParamDefList(Variables))

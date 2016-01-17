@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // BaseRenderer.cs
 //
@@ -25,26 +25,18 @@ namespace Gimp
 {
   public abstract class BaseRenderer
   {
-    public VariableSet Variables {get; private set;}
+    public VariableSet Variables {get;}
 
     protected BaseRenderer(VariableSet variables)
     {
       Variables = variables;
     }
 
-    static protected string _(string s)
-    {
-      return Catalog.GetString(s);
-    }
+    static protected string _(string s) => Catalog.GetString(s);
 
-    public Variable<T> GetVariable<T>(string identifier)
-    {
-      return Variables.Get<T>(identifier);
-    }
+    public Variable<T> GetVariable<T>(string identifier) => 
+      Variables.Get<T>(identifier);
 
-    public T GetValue<T>(string identifier)
-    {
-      return Variables.Get<T>(identifier).Value;
-    }
+    public T GetValue<T>(string identifier) => Variables.Get<T>(identifier).Value;
   }
 }

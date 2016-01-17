@@ -50,7 +50,7 @@ namespace Gimp.Trim
     Tuple<int, int> GetLowerUpper(Pixel trimColor, IEnumerable<Pixel[]> array,
 				  string lower, string upper)
     {
-      Predicate<bool> notTrue = (b) => {return !b;};
+      Predicate<bool> notTrue = b => !b;
 
       var rows = array.Select(x => AllEqual(x, trimColor)).ToList();
       

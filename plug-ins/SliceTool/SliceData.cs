@@ -71,16 +71,12 @@ namespace Gimp.SliceTool
 
     public void SelectRectangle(IntCoordinate c) => _rectangles.Select(c);
 
-    public Slice FindSlice(IntCoordinate c)
-    {
-      return _horizontalSlices.Find(c) ?? _verticalSlices.Find(c); 
-    }
+    public Slice FindSlice(IntCoordinate c) =>
+      _horizontalSlices.Find(c) ?? _verticalSlices.Find(c); 
 
-    public Slice MayRemove(IntCoordinate c)
-    {
-      return _horizontalSlices.MayRemove(_verticalSlices, c) 
-	?? _verticalSlices.MayRemove(_horizontalSlices, c);
-    }
+    public Slice MayRemove(IntCoordinate c) =>
+      _horizontalSlices.MayRemove(_verticalSlices, c) ?? 
+      _verticalSlices.MayRemove(_horizontalSlices, c);
 
     public void Remove(Slice slice)
     {
@@ -211,10 +207,7 @@ namespace Gimp.SliceTool
 	}
     }
 
-    public Rectangle Selected
-    {
-      get {return _rectangles.Selected;}
-    }
+    public Rectangle Selected => _rectangles.Selected;
 
     public bool Changed
     {

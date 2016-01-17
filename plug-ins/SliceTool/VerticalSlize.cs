@@ -46,11 +46,9 @@ namespace Gimp.SliceTool
       renderer.DrawLine(X, Y1, X, Y2);
     }
 
-    override public bool IntersectsWith(Rectangle rectangle)
-    {
-      return X > rectangle.X1 && X < rectangle.X2
-	&& Y1 <= rectangle.Y1 && Y2 >= rectangle.Y2;
-    }
+    override public bool IntersectsWith(Rectangle rectangle) =>
+      X > rectangle.X1 && X < rectangle.X2 && 
+      Y1 <= rectangle.Y1 && Y2 >= rectangle.Y2;
 
     override public bool IsPartOf(Rectangle rectangle) =>
       rectangle.HasVerticalSlice(this);
@@ -67,10 +65,8 @@ namespace Gimp.SliceTool
       X = c.X;
     }
 
-    override public bool PointOn(IntCoordinate c)
-    {
-      return c.Y >= Y1 && c.Y <= Y2 && Math.Abs(c.X - X) < 5;
-    }
+    override public bool PointOn(IntCoordinate c) =>
+      c.Y >= Y1 && c.Y <= Y2 && Math.Abs(c.X - X) < 5;
  
     override public void Save(StreamWriter w)
     {

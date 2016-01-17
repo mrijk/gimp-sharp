@@ -44,29 +44,15 @@ namespace Gimp
       _cmyk = cmyk._cmyk;
     }
 
-    public override bool Equals(object o)
-    {
-      if (o is CMYK)
-	{
-	  return _cmyk.Equals((o as CMYK)._cmyk);
-	}
-      return false;
-    }
+    public override bool Equals(object o) =>
+      (o is CMYK) ? _cmyk.Equals((o as CMYK)._cmyk) : false;
 
-    public override int GetHashCode()
-    {
-      return _cmyk.GetHashCode();
-    }
+    public override int GetHashCode() => _cmyk.GetHashCode();
 
-    public static bool operator==(CMYK cmyk1, CMYK cmyk2)
-    {
-      return cmyk1._cmyk.Equals(cmyk2._cmyk);
-    }
+    public static bool operator==(CMYK cmyk1, CMYK cmyk2) =>
+      cmyk1._cmyk.Equals(cmyk2._cmyk);
 
-    public static bool operator!=(CMYK cmyk1, CMYK cmyk2)
-    {
-      return !(cmyk1 == cmyk2);
-    }
+    public static bool operator!=(CMYK cmyk1, CMYK cmyk2) => !(cmyk1 == cmyk2);
 
     public void Clamp()
     {

@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // FileExistsDialog.cs
 //
@@ -38,7 +38,7 @@ namespace Gimp.SliceTool
     {
       var response = (ResponseType) Run();
       Destroy();
-      return (response == ResponseType.Yes);
+      return response == ResponseType.Yes;
     }
   }
 }

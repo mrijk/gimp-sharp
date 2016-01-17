@@ -50,10 +50,7 @@ namespace Gimp
       return false;
     }
 
-    public override int GetHashCode()
-    {
-      return X.GetHashCode() + Y.GetHashCode();
-    }
+    public override int GetHashCode() => X.GetHashCode() + Y.GetHashCode();
 
     public static bool operator==(Coordinate<T> coordinate1, 
 				  Coordinate<T> coordinate2)
@@ -72,14 +69,9 @@ namespace Gimp
     }
 
     public static bool operator!=(Coordinate<T> coordinate1, 
-				  Coordinate<T> coordinate2)
-    {
-      return !(coordinate1 == coordinate2);
-    }
+				  Coordinate<T> coordinate2) =>
+      !(coordinate1 == coordinate2);
 
-    public override string ToString()
-    {
-      return $"({X}, {Y})";
-    }
+    public override string ToString() => $"({X}, {Y})";
   }
 }
