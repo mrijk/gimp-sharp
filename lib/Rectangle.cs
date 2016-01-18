@@ -58,29 +58,19 @@ namespace Gimp
 
     public override bool Equals(object o)
     {
-      if (o is Rectangle)
-	{
-	  var rectangle = o as Rectangle;
-	  return rectangle.UpperLeft == UpperLeft &&
-	    rectangle.LowerRight == LowerRight;
-	}
-      return false;
+      var rectangle = o as Rectangle;
+      return rectangle?.UpperLeft == UpperLeft && 
+	rectangle?.LowerRight == LowerRight;
     }
 
-    public override int GetHashCode()
-    {
-      return UpperLeft.GetHashCode() + LowerRight.GetHashCode();
-    }
+    public override int GetHashCode() =>
+      UpperLeft.GetHashCode() + LowerRight.GetHashCode();
 
-    public static bool operator==(Rectangle rectangle1, Rectangle rectangle2)
-    {
-      return rectangle1.Equals(rectangle2);
-    }
+    public static bool operator==(Rectangle rectangle1, Rectangle rectangle2) =>
+      rectangle1.Equals(rectangle2);
 
-    public static bool operator!=(Rectangle rectangle1, Rectangle rectangle2)
-    {
-      return !(rectangle1 == rectangle2);
-    }
+    public static bool operator!=(Rectangle rectangle1, Rectangle rectangle2) =>
+      !(rectangle1 == rectangle2);
 
     public override string ToString() => $"({X1}, {Y1}, {X2}, {Y2})";
   }

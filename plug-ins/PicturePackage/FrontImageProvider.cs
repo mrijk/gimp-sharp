@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // FrontImageProvider.cs
 //
@@ -29,9 +29,6 @@ namespace Gimp.PicturePackage
       _image = image;
     }
 
-    override public Image GetImage()
-    {
-      return _image;
-    }
+    override public Image GetImage() => _image;
   }
 }

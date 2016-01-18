@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2013 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // ImageRendererer.cs
 //
@@ -52,7 +52,7 @@ namespace Gimp.PicturePackage
       int tw = clone.Width;
       int th = clone.Height;
 
-      Layer layer = new Layer(clone.ActiveDrawable, _composed);
+      var layer = new Layer(clone.ActiveDrawable, _composed);
       ix += (iw - tw) / 2;
       iy += (ih - th) / 2;
       layer.Translate(ix, iy);

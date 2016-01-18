@@ -1,5 +1,5 @@
 // The Difference Clouds plug-in
-// Copyright (C) 2006-2011 Massimo Perga (massimo.perga@gmail.com)
+// Copyright (C) 2006-2016 Massimo Perga (massimo.perga@gmail.com)
 //
 // DifferenceClouds.cs
 //
@@ -41,7 +41,7 @@ namespace Gimp.DifferenceClouds
 			   _("Creates difference clouds."),
 			   "Massimo Perga",
 			   "(C) Massimo Perga",
-			   "2006-2011",
+			   "2006-2016",
 			   _("Difference Clouds..."),
 			   "RGB*",
 			   new ParamDefList(Variables))

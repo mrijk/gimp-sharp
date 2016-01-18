@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2006 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // Renderer.cs
 //
@@ -63,10 +63,7 @@ namespace Gimp.PicturePackage
 
     void ClearCache()
     {
-      if (_cache != null)
-	{
-	  _cache.Delete();
-	}
+      _cache?.Delete();
     }
 
     public void Cleanup()

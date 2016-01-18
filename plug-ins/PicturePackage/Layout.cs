@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // Layout.cs
 //
@@ -74,15 +74,10 @@ namespace Gimp.PicturePackage
       _rectangles.Add(rectangle);
     }
 
-    public Rectangle Find(Coordinate<double> c)
-    {
-      return _rectangles.Find(c);
-    }
+    public Rectangle Find(Coordinate<double> c) =>  _rectangles.Find(c);
 
-    public bool Render(ProviderFactory factory, ParentRenderer renderer)
-    {
-      return _rectangles.Render(factory, renderer);
-    }
+    public bool Render(ProviderFactory factory, ParentRenderer renderer) =>
+      _rectangles.Render(factory, renderer);
 
     public PageSize GetPageSize(int resolution)
     {
@@ -96,10 +91,8 @@ namespace Gimp.PicturePackage
 	}
     }
 
-    public bool PageSizeEquals(PageSize pageSize, int resolution)
-    {
-      return GetPageSize(resolution).CompareTo(pageSize) == 0;
-    }
+    public bool PageSizeEquals(PageSize pageSize, int resolution) =>
+      GetPageSize(resolution).CompareTo(pageSize) == 0;
 
     public PageSize GetPageSizeInPixels(int resolution)
     {

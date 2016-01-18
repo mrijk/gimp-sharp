@@ -77,10 +77,7 @@ namespace Gimp
       return false;
     }
 
-    public override int GetHashCode()
-    {
-      return _parasite.GetHashCode();
-    }
+    public override int GetHashCode() => _parasite.GetHashCode();
 
     public static bool operator==(Parasite parasite1, Parasite parasite2)
     {
@@ -97,25 +94,17 @@ namespace Gimp
       return parasite1._parasite.Equals(parasite2._parasite);
     }
 
-    public static bool operator!=(Parasite parasite1, Parasite parasite2)
-    {
-      return !(parasite1 == parasite2);
-    }
+    public static bool operator!=(Parasite parasite1, Parasite parasite2) =>
+      !(parasite1 == parasite2);
 
     public void Free()
     {
       gimp_parasite_free(_parasite);
     }
 
-    public bool IsType(string name)
-    {
-      return gimp_parasite_is_type(_parasite, name);
-    }
+    public bool IsType(string name) => gimp_parasite_is_type(_parasite, name);
 
-    public bool HasFlag(ulong flag)
-    {
-      return gimp_parasite_has_flag(_parasite, flag);
-    }
+    public bool HasFlag(ulong flag) => gimp_parasite_has_flag(_parasite, flag);
 
     [DllImport("libgimp-2.0-0.dll")]
     static extern IntPtr gimp_parasite_new (string name, UInt32 flags, 

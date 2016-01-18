@@ -1,5 +1,5 @@
 // The Difference Clouds plug-in
-// Copyright (C) 2006-2011 Maurits Rijk (maurits.rijk@gmail.com)
+// Copyright (C) 2006-2016 Maurits Rijk (maurits.rijk@gmail.com)
 //
 // IndexedColorsMap.cs
 //
@@ -35,15 +35,9 @@ namespace Gimp.DifferenceClouds
 	Select(i => RGB.Interpolate(i / 256.0, fgBytes, bgBytes)).ToArray();
     }
 
-    public RGB this[int index]
-    {
-      get {return _indexedColorsMap[index];}
-    }
+    public RGB this[int index] => _indexedColorsMap[index];
 
-    public byte this[int index, int b]
-    {
-      get {return this[index].Bytes[b];}
-    }
+    public byte this[int index, int b] => this[index].Bytes[b];
   }
 }
 

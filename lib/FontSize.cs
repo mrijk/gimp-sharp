@@ -34,12 +34,8 @@ namespace Gimp
 
     public override bool Equals(object o)
     {
-      if (o is FontSize)
-	{
-	  var fontsize = o as FontSize;
-	  return fontsize.Size == Size && fontsize.Unit == Unit;
-	}
-      return false;
+      var fontsize = o as FontSize;
+      return fontsize?.Size == Size && fontsize?.Unit == Unit;
     }
 
     public override int GetHashCode() => (int) Size + Unit.GetHashCode();

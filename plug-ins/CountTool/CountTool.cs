@@ -1,5 +1,5 @@
 // The CountTool plug-in
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // CountTool.cs
 //
@@ -18,8 +18,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-
 namespace Gimp.CountTool
 {
   class CountTool : Plugin
@@ -36,7 +34,7 @@ namespace Gimp.CountTool
 			   _("Count Tool"),
 			   "Maurits Rijk",
 			   "(C) Maurits Rijk",
-			   "2006-2011",
+			   "2006-2016",
 			   _("Count Tool..."),
 			   "RGB*, GRAY*")
 	{

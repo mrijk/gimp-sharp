@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // FileImageProvider.cs
 //
@@ -45,11 +45,8 @@ namespace Gimp.PicturePackage
 
     override public void Release()
     {
-      if (_image != null)
-	{
-	  _image.Delete();
-	  _image = null;
-	}
+      _image?.Delete();
+      _image = null;
     }
   }
 }

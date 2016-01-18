@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2011 Maurits Rijk, Massimo Perga
+// Copyright (C) 2004-2016 Maurits Rijk, Massimo Perga
 //
 // PicturePackage.cs
 //
@@ -55,7 +55,7 @@ namespace Gimp.PicturePackage
 			   _("Picture package"),
 			   "Maurits Rijk, Massimo Perga",
 			   "Maurits Rijk, Massimo Perga",
-			   "2004-2011",
+			   "2004-2016",
 			   _("Picture Package..."),
 			   "",
 			   new ParamDefList(Variables))

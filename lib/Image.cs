@@ -60,19 +60,9 @@ namespace Gimp
       ID = gimp_image_duplicate(image._imageID);
     }
 
-    public Image Duplicate()
-    {
-      return new Image(this);
-    }
+    public Image Duplicate() => new Image(this);
 
-    public override bool Equals(object o)
-    {
-      if (o is Image)
-	{
-	  return ID == (o as Image).ID;
-	}
-      return false;
-    }
+    public override bool Equals(object o) => (o as Image)?.ID == ID;
 
     public override int GetHashCode() =>  ID.GetHashCode();
 

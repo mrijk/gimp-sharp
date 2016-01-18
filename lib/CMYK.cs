@@ -44,8 +44,7 @@ namespace Gimp
       _cmyk = cmyk._cmyk;
     }
 
-    public override bool Equals(object o) =>
-      (o is CMYK) ? _cmyk.Equals((o as CMYK)._cmyk) : false;
+    public override bool Equals(object o) => _cmyk.Equals((o as CMYK)?._cmyk);
 
     public override int GetHashCode() => _cmyk.GetHashCode();
 

@@ -241,14 +241,7 @@ namespace Gimp
 					     coeff_1_0, coeff_1_1, coeff_1_2, 
 					     coeff_2_0, coeff_2_1, coeff_2_2));
 
-    public override bool Equals(object o)
-    {
-      if (o is Item)
-	{
-	  return ID == (o as Item).ID;
-	}
-      return false;
-    }
+    public override bool Equals(object o) => (o as Item)?.ID == ID;
 
     public override int GetHashCode() => ID.GetHashCode();
 

@@ -32,18 +32,8 @@ namespace Gimp
       _tattooID = tattooID;
     }
 
-    public override bool Equals(object o)
-    {
-      if (o is Tattoo)
-	{
-	  return (o as Tattoo).ID == ID;
-	}
-      return false;
-    }
+    public override bool Equals(object o) => (o as Tattoo)?.ID == ID;
 
-    public override int GetHashCode()
-    {
-      return _tattooID.GetHashCode();
-    }
+    public override int GetHashCode() => _tattooID.GetHashCode();
   }
 }

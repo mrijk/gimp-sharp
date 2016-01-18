@@ -1,5 +1,5 @@
 // The KoalaPaint plug-in
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // KoalaPaint.cs
 //
@@ -42,7 +42,7 @@ namespace Gimp.KoalaPaint
 			  _("This plug-in loads images of the Koala Paint file format."),
 			  "Maurits Rijk",
 			  "(C) Maurits Rijk",
-			  "1999-2011",
+			  "1999-2016",
 			  _("KoalaPaint Image"));
     }
 
@@ -92,28 +92,26 @@ namespace Gimp.KoalaPaint
       return image;
     }
 
-    RGB[] GetColormap()
-    {
-      return new RGB[]
-	{
-	  new RGB(0x00, 0x00, 0x00),
-	  new RGB(0xff, 0xff, 0xff),
-	  new RGB(0x88, 0x00, 0x00),
-	  new RGB(0xaa, 0xff, 0xee),
-	  new RGB(0xcc, 0x44, 0xcc),
-	  new RGB(0x00, 0xcc, 0x55),
-	  new RGB(0x00, 0x00, 0xaa),
-	  new RGB(0xee, 0xee, 0x77),
-	  new RGB(0xdd, 0x88, 0x55),
-	  new RGB(0x66, 0x44, 0x00),
-	  new RGB(0xff, 0x77, 0x77),
-	  new RGB(0x33, 0x33, 0x33),
-	  new RGB(0x77, 0x77, 0x77),
-	  new RGB(0xaa, 0xff, 0x66),
-	  new RGB(0x00, 0x88, 0xff),
-	  new RGB(0xbb, 0xbb, 0xbb)
-	};
-    }
+    RGB[] GetColormap() => 
+      new RGB[]
+      {
+	new RGB(0x00, 0x00, 0x00),
+	new RGB(0xff, 0xff, 0xff),
+	new RGB(0x88, 0x00, 0x00),
+	new RGB(0xaa, 0xff, 0xee),
+	new RGB(0xcc, 0x44, 0xcc),
+	new RGB(0x00, 0xcc, 0x55),
+	new RGB(0x00, 0x00, 0xaa),
+	new RGB(0xee, 0xee, 0x77),
+	new RGB(0xdd, 0x88, 0x55),
+	new RGB(0x66, 0x44, 0x00),
+	new RGB(0xff, 0x77, 0x77),
+	new RGB(0x33, 0x33, 0x33),
+	new RGB(0x77, 0x77, 0x77),
+	new RGB(0xaa, 0xff, 0x66),
+	new RGB(0x00, 0x88, 0xff),
+	new RGB(0xbb, 0xbb, 0xbb)
+      };
 
     byte GetColor(int row, int col, int index)
     {
@@ -128,14 +126,8 @@ namespace Gimp.KoalaPaint
 	return LowNibble(_color[offset]);
     }
 
-    byte LowNibble(byte val)
-    {
-      return (byte) (val & 0x0f);
-    }
+    byte LowNibble(byte val) => (byte) (val & 0x0f);
 
-    byte HighNibble(byte val)
-    {
-      return (byte) ((val >> 4) & 0x0f);
-    }
+    byte HighNibble(byte val) => (byte) ((val >> 4) & 0x0f);
   }
 }

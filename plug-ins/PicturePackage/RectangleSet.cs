@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2013 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // RectangleSet.cs
 //
@@ -36,15 +36,10 @@ namespace Gimp.PicturePackage
       _set.Add(rectangle);
     }
 
-    public Rectangle this[int index]
-    {
-      get {return _set[index];}
-    }
+    public Rectangle this[int index] => _set[index];
 
-    public Rectangle Find(Coordinate<double> c)
-    {
-      return _set.Find(rectangle => rectangle.Inside(c));
-    }
+    public Rectangle Find(Coordinate<double> c) =>
+      _set.Find(rectangle => rectangle.Inside(c));
 
     public bool Render(ProviderFactory factory, ParentRenderer renderer)
     {

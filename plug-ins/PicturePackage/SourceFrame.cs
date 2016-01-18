@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // SourceFrame.cs
 //
@@ -65,10 +65,7 @@ namespace Gimp.PicturePackage
 
     void SetFileEntry(bool isDir)
     {
-      if (_choose != null)
-	{
-	  _choose.Hide();
-	}
+      _choose?.Hide();
 
       if (isDir)
 	{
@@ -76,7 +73,7 @@ namespace Gimp.PicturePackage
 					  FileChooserAction.SelectFolder);
 	  _choose.SelectionChanged += delegate
 	    {
-	      string directory = _choose.Filename;
+	      var directory = _choose.Filename;
 	      if (directory.Length > 0)
 	      {
 		_loader.Value = new DirImageProviderFactory(directory, 
@@ -90,7 +87,7 @@ namespace Gimp.PicturePackage
 					  FileChooserAction.Open);
 	  _choose.SelectionChanged += delegate
 	    {
-	      string fileName = _choose.Filename;
+	      var fileName = _choose.Filename;
 	      if (fileName.Length > 0)
 	      {
 		_loader.Value = new FileImageProviderFactory(fileName);
@@ -172,14 +169,9 @@ namespace Gimp.PicturePackage
       return button;
     }
 
-    CheckButton CreateIncludeToggleButton()
-    {
-      return new GimpCheckButton(_("_Include All Subfolders"), _recursive);
-    }
+    CheckButton CreateIncludeToggleButton() =>
+      new GimpCheckButton(_("_Include All Subfolders"), _recursive);
 
-    public Image Image
-    {
-      get {return _imageBox.Active;}
-    }
+    public Image Image =>  _imageBox.Active;
   }
 }

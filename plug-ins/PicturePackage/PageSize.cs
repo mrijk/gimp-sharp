@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // PageSize.cs
 //
@@ -24,8 +24,8 @@ namespace Gimp.PicturePackage
 {
   public class PageSize : IComparable
   {
-    public double Width {get; private set;}
-    public double Height {get; private set;}
+    public double Width {get;}
+    public double Height {get;}
 
     public PageSize(double width, double height)
     {
@@ -33,10 +33,7 @@ namespace Gimp.PicturePackage
       Height = height;
     }
 
-    public Dimensions ToDimensions()
-    {
-      return new Dimensions((int) Width, (int) Height);
-    }
+    public Dimensions ToDimensions() => new Dimensions((int) Width, (int) Height);
 
     public int CompareTo(object obj)
     {

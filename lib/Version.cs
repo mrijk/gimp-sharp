@@ -46,32 +46,18 @@ namespace Gimp
 
     public override bool Equals(object o)
     {
-      if (o is Version)
-	{
-	  var v = o as Version;
-	  return v._major == _major &&
-	    v._minor == _minor &&
-	    v._micro == _micro;
-	}
-      return false;
+      var v = o as Version;
+      return v?._major == _major &&
+	v?._minor == _minor &&
+	v?._micro == _micro;
     }
 
-    public override int GetHashCode()
-    {
-      return _major ^ _minor ^ _micro;
-    }
+    public override int GetHashCode() => _major ^ _minor ^ _micro;
 
-    public static bool operator==(Version v1, Version v2)
-    {
-      return v1.Major == v2.Major &&
-	v1.Minor == v2.Minor &&
-	v1.Micro == v2.Micro;
-    }
+    public static bool operator==(Version v1, Version v2) =>
+      v1.Major == v2.Major && v1.Minor == v2.Minor && v1.Micro == v2.Micro;
 
-    public static bool operator!=(Version v1, Version v2)
-    {
-      return !(v1 == v2);
-    }
+    public static bool operator!=(Version v1, Version v2) =>  !(v1 == v2);
 
     public static bool operator>(Version v1, Version v2)
     {

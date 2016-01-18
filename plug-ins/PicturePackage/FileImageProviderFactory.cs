@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2007 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // FileImageProviderFactory.cs
 //
@@ -29,10 +29,7 @@ namespace Gimp.PicturePackage
       _provider = new FileImageProvider(filename);
     }
 
-    public override ImageProvider Provide()
-    {
-      return _provider;
-    }
+    public override ImageProvider Provide() => _provider;
 
     public override void Cleanup()
     {

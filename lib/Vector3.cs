@@ -68,18 +68,12 @@ namespace Gimp
 
     public override bool Equals(object o)
     {
-      if (o is Vector3)
-	{
-	  var vector = o as Vector3;
-	  return vector.X == X && vector.Y == Y && vector.Z == Z;
-	}
-      return false;
+      var vector = o as Vector3;
+      return vector?.X == X && vector?.Y == Y && vector?.Z == Z;
     }
 
-    public override int GetHashCode()
-    {
-      return X.GetHashCode() + Y.GetHashCode() + Z.GetHashCode();
-    }
+    public override int GetHashCode() =>
+      X.GetHashCode() + Y.GetHashCode() + Z.GetHashCode();
 
     public Vector3 Mul(double factor)
     {
