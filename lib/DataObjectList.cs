@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2013 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // DataObjectList.cs
 //
@@ -42,25 +42,15 @@ namespace Gimp
 
     protected abstract T CreateT(string name);
 
-    public IEnumerator<T> GetEnumerator()
-    {
-      return _list.GetEnumerator();
-    }
+    public IEnumerator<T> GetEnumerator() => _list.GetEnumerator();
 
     public void ForEach(Action<T> action)
     {
       _list.ForEach(action);
     }
 
-    public T Find(string name)
-    {
-      return _list.Find(item => item.Name == name);
-    }
+    public T Find(string name) => _list.Find(item => item.Name == name);
 
-    public int Count
-    {
-      // get {return _list.Count;}
-      get {return _foo;}
-    }
+    public int Count => _foo; // _list.Count;
   }
 }

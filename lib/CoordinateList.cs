@@ -49,15 +49,9 @@ namespace Gimp
 	}
     }
 
-    public IEnumerator<Coordinate<T>> GetEnumerator()
-    {
-      return _list.GetEnumerator();
-    }
+    public IEnumerator<Coordinate<T>> GetEnumerator() => _list.GetEnumerator();
 
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-      return GetEnumerator();
-    }
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
     public void ForEach(Action<Coordinate<T>> action)
     {
@@ -80,10 +74,8 @@ namespace Gimp
       set {_list[index] = value;}
     }
 
-    public bool TrueForAll(Predicate<Coordinate<T>> predicate)
-    {
-      return _list.TrueForAll(predicate);
-    }
+    public bool TrueForAll(Predicate<Coordinate<T>> predicate) =>
+      _list.TrueForAll(predicate);
 
     public override bool Equals(object o)
     {
@@ -94,22 +86,15 @@ namespace Gimp
       return false;
     }
 
-    public override int GetHashCode()
-    {
-      return _list.GetHashCode();
-    }
+    public override int GetHashCode() => _list.GetHashCode();
 
     public static bool operator==(CoordinateList<T> list1, 
-				  CoordinateList<T> list2)
-    {
-      return list1.Equals(list2);
-    }
+				  CoordinateList<T> list2) => 
+      list1.Equals(list2);
 
     public static bool operator!=(CoordinateList<T> list1, 
-				  CoordinateList<T> list2)
-    {
-      return !(list1 == list2);
-    }
+				  CoordinateList<T> list2) => 
+      !(list1 == list2);
 
     public T[] ToArray()
     {

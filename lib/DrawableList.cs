@@ -56,15 +56,9 @@ namespace Gimp
 	}
     }
 
-    protected virtual T NewFromItem(Item item)
-    {
-      return new T() {ID = item.ID};
-    }
+    protected virtual T NewFromItem(Item item) => new T() {ID = item.ID};
 
-    public IEnumerator<T> GetEnumerator()
-    {
-      return _list.GetEnumerator();
-    }
+    public IEnumerator<T> GetEnumerator() => _list.GetEnumerator();
 
     protected void Add(T drawable)
     {
@@ -76,14 +70,9 @@ namespace Gimp
       _list.ForEach(action);
     }
 
-    public T this[string name]
-    {
-      get {return _list.Find(drawable => drawable.Name == name);}
-    }
+    public T this[string name] => _list.Find(drawable => drawable.Name == name);
 
-    public int GetIndex(T key)
-    {
-      return _list.FindIndex(drawable => drawable.Name == key.Name);
-    }
+    public int GetIndex(T key) =>
+      _list.FindIndex(drawable => drawable.Name == key.Name);
   }
 }

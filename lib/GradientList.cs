@@ -30,15 +30,10 @@ namespace Gimp
     {
     }
 
-    protected override IntPtr GetList(string filter, out int numDataObjects)
-    {
-      return gimp_gradients_get_list(filter, out numDataObjects);
-    }
+    protected override IntPtr GetList(string filter, out int numDataObjects) =>
+      gimp_gradients_get_list(filter, out numDataObjects);
 
-    protected override Gradient CreateT(string name)
-    {
-      return new Gradient(name, false);
-    }
+    protected override Gradient CreateT(string name) => new Gradient(name, false);
 
     static public void Refresh()
     {
@@ -49,6 +44,6 @@ namespace Gimp
     extern static void gimp_gradients_refresh();
     [DllImport("libgimp-2.0-0.dll")]
     extern static IntPtr gimp_gradients_get_list(string filter, 
-                                                out int num_gradients);
+						 out int num_gradients);
   }
 }

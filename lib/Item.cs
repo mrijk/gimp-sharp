@@ -205,58 +205,41 @@ namespace Gimp
     public int Position => Image.GetItemPosition(this);
 
     public Item TransformFlipSimple(OrientationType flipType, bool autoCenter, 
-				    double axis)
-    {
-      return new Item(gimp_item_transform_flip_simple(ID, flipType, autoCenter,
-						      axis));
-    }
+				    double axis) =>
+      new Item(gimp_item_transform_flip_simple(ID, flipType, autoCenter, axis));
 
-    public Item TransformFlip(double x0, double y0, double x1, double y1)
-    {
-      return new Item(gimp_item_transform_flip (ID, x0, y0, x1, y1));
-    }
+    public Item TransformFlip(double x0, double y0, double x1, double y1) =>
+      new Item(gimp_item_transform_flip (ID, x0, y0, x1, y1));
 
     public Item TransformPerspective(double x0, double y0, double x1, double y1,
-				     double x2, double y2, double x3, double y3)
-    {
-      return new Item(gimp_item_transform_perspective(ID, x0, y0, x1, y1, x2, y2, x3, y3));
-    }
+				     double x2, double y2, double x3, double y3) =>
+      new Item(gimp_item_transform_perspective(ID, x0, y0, x1, y1, x2, y2, x3, y3));
 
     public Item TransformRotateSimple(RotationType rotate_type, bool auto_center,
-				      int centerX, int centerY)
-    {
-      return new Item(gimp_item_transform_rotate_simple(ID, rotate_type, auto_center, 
-							centerX, centerY));
-    }
+				      int centerX, int centerY) =>
+      new Item(gimp_item_transform_rotate_simple(ID, rotate_type, auto_center, 
+						 centerX, centerY));
 
     public Item TransformRotate(double angle, bool auto_center,
-				int centerX, int centerY)
-    {
-      return new Item(gimp_item_transform_rotate(ID, angle, auto_center, 
-						 centerX, centerY));
-    }
-    public Item TransformScale(double x0, double y0, double x1, double y1)
-    {
-      return new Item(gimp_item_transform_scale(ID, x0, y0, x1, y1));
-    }
+				int centerX, int centerY) =>
+      new Item(gimp_item_transform_rotate(ID, angle, auto_center, centerX, centerY));
+
+    public Item TransformScale(double x0, double y0, double x1, double y1) =>
+      new Item(gimp_item_transform_scale(ID, x0, y0, x1, y1));
 
     public Item Transform2d(double sourceX, double sourceY,
 			    double scaleX, double scaleY,
-			    double angle, double destX, double destY)
-    {
-      return new Item(gimp_item_transform_2d(ID, sourceX, sourceY, scaleX, scaleY,
-					     angle, destX, destY));
-    }
+			    double angle, double destX, double destY) =>
+      new Item(gimp_item_transform_2d(ID, sourceX, sourceY, scaleX, scaleY,
+				      angle, destX, destY));
 
     public Item TransformMatrix(double coeff_0_0, double coeff_0_1, double coeff_0_2, 
 				double coeff_1_0, double coeff_1_1, double coeff_1_2,
 				double coeff_2_0, double coeff_2_1, double coeff_2_2)
-    {
-      return new Item(gimp_item_transform_matrix(ID, 
-						 coeff_0_0, coeff_0_1, coeff_0_2, 
-						 coeff_1_0, coeff_1_1, coeff_1_2, 
-						 coeff_2_0, coeff_2_1, coeff_2_2));
-    }
+      => new Item(gimp_item_transform_matrix(ID, 
+					     coeff_0_0, coeff_0_1, coeff_0_2, 
+					     coeff_1_0, coeff_1_1, coeff_1_2, 
+					     coeff_2_0, coeff_2_1, coeff_2_2));
 
     public override bool Equals(object o)
     {
@@ -267,10 +250,7 @@ namespace Gimp
       return false;
     }
 
-    public override int GetHashCode()
-    {
-      return ID.GetHashCode();
-    }
+    public override int GetHashCode() => ID.GetHashCode();
 
     [DllImport("libgimp-2.0-0.dll")]
     extern static bool gimp_item_is_valid(Int32 item_ID);

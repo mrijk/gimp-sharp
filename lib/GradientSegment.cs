@@ -37,50 +37,33 @@ namespace Gimp
       _gradient.SegmentSetLeftColor(_segment, color, opacity);
     }
 
-    public RGB GetLeftColor(out double opacity)
-    {
-      return _gradient.SegmentGetLeftColor(_segment, out opacity);
-    }
+    public RGB GetLeftColor(out double opacity) =>
+      _gradient.SegmentGetLeftColor(_segment, out opacity);
 
     public void SetRightColor(RGB color, double opacity)
     {
       _gradient.SegmentSetRightColor(_segment, color, opacity);
     }
 
-    public RGB GetRightColor(out double opacity)
-    {
-      return _gradient.SegmentGetRightColor(_segment, out opacity);
-    }
+    public RGB GetRightColor(out double opacity) =>
+      _gradient.SegmentGetRightColor(_segment, out opacity);
 
-    public double GetLeftPosition()
-    {
-      return _gradient.SegmentGetLeftPosition(_segment);
-    }
+    public double GetLeftPosition() => _gradient.SegmentGetLeftPosition(_segment);
 
-    public double SetLeftPosition(double position)
-    {
-      return _gradient.SegmentSetLeftPosition(_segment, position);
-    }
+    public double SetLeftPosition(double position) =>
+      _gradient.SegmentSetLeftPosition(_segment, position);
 
-    public double GetMiddlePosition()
-    {
-      return _gradient.SegmentGetMiddlePosition(_segment);
-    }
+    public double GetMiddlePosition() =>
+      _gradient.SegmentGetMiddlePosition(_segment);
 
-    public double SetMiddlePosition(double position)
-    {
-      return _gradient.SegmentSetMiddlePosition(_segment, position);
-    }
+    public double SetMiddlePosition(double position) =>
+      _gradient.SegmentSetMiddlePosition(_segment, position);
 
-    public double GetRightPosition()
-    {
-      return _gradient.SegmentGetRightPosition(_segment);
-    }
+    public double GetRightPosition() =>
+      _gradient.SegmentGetRightPosition(_segment);
 
-    public double SetRightPosition(double position)
-    {
-      return _gradient.SegmentSetRightPosition(_segment, position);
-    }
+    public double SetRightPosition(double position) =>
+      _gradient.SegmentSetRightPosition(_segment, position);
 
     public GradientSegmentType BlendingFunction => 
       _gradient.SegmentGetBlendingFunction(_segment);

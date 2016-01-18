@@ -59,10 +59,7 @@ namespace Gimp
     {
     }
 
-    static internal Drawable Create(Int32 drawableID)
-    {
-      return new Drawable(drawableID);
-    }
+    static internal Drawable Create(Int32 drawableID) => new Drawable(drawableID);
 
     public void Detach()
     {
@@ -74,15 +71,11 @@ namespace Gimp
       gimp_drawable_flush(_drawable);
     }
 
-    public Tile GetTile(bool shadow, int row, int col)
-    {
-      return new Tile(gimp_drawable_get_tile(ID, shadow, row, col));
-    }
+    public Tile GetTile(bool shadow, int row, int col) =>
+      new Tile(gimp_drawable_get_tile(ID, shadow, row, col));
 
-    public Tile GetTile2(bool shadow, int x, int y)
-    {
-      return new Tile(gimp_drawable_get_tile2(ID, shadow, x, y));
-    }
+    public Tile GetTile2(bool shadow, int x, int y) =>
+      new Tile(gimp_drawable_get_tile2(ID, shadow, x, y));
 
     public Pixel[,] GetThumbnailData(Dimensions dimensions)
     {
@@ -189,10 +182,7 @@ namespace Gimp
       return colorUchar;
     }
 
-    public bool MergeShadow(bool undo)
-    {
-      return gimp_drawable_merge_shadow(ID, undo);
-    }
+    public bool MergeShadow(bool undo) => gimp_drawable_merge_shadow(ID, undo);
 
     public virtual Offset Offsets
     {
@@ -261,46 +251,29 @@ namespace Gimp
         }
     }
 
-    public FloatingSelection EditPaste(bool pasteInto)
-    {
-      return new FloatingSelection(gimp_edit_paste(ID, pasteInto));
-    }
+    public FloatingSelection EditPaste(bool pasteInto) =>
+      new FloatingSelection(gimp_edit_paste(ID, pasteInto));
 
-    static public FloatingSelection EditPasteAsNew()
-    {
-      return new FloatingSelection(gimp_edit_paste_as_new());
-    }
+    static public FloatingSelection EditPasteAsNew() =>
+      new FloatingSelection(gimp_edit_paste_as_new());
 
-    public Buffer EditNamedCut(string bufferName)
-    {
-      return CreateNewBuffer(gimp_edit_named_cut(ID, bufferName));
-    }
+    public Buffer EditNamedCut(string bufferName) =>
+      CreateNewBuffer(gimp_edit_named_cut(ID, bufferName));
 
-    public Buffer EditNamedCopy(string bufferName)
-    {
-      return CreateNewBuffer(gimp_edit_named_copy(ID, bufferName));
-    }
+    public Buffer EditNamedCopy(string bufferName) =>
+      CreateNewBuffer(gimp_edit_named_copy(ID, bufferName));
 
-    public Buffer EditNamedCopyVisible(string bufferName)
-    {
-      return CreateNewBuffer(gimp_edit_named_copy_visible(ID, bufferName));
-    }
+    public Buffer EditNamedCopyVisible(string bufferName) =>
+      CreateNewBuffer(gimp_edit_named_copy_visible(ID, bufferName));
 
-    Buffer CreateNewBuffer(string name)
-    {
-      return (name == null) ? null : new Buffer(name);
-    }
+    Buffer CreateNewBuffer(string name) =>
+      (name == null) ? null : new Buffer(name);
 
-    public FloatingSelection EditNamedPaste(string bufferName, bool pasteInto)
-    {
-      return new FloatingSelection(gimp_edit_named_paste(ID, bufferName, 
-							 pasteInto));
-    }
+    public FloatingSelection EditNamedPaste(string bufferName, bool pasteInto) =>
+      new FloatingSelection(gimp_edit_named_paste(ID, bufferName, pasteInto));
 
-    static public FloatingSelection EditNamedPasteAsNew(string bufferName)
-    {
-      return new FloatingSelection(gimp_edit_named_paste_as_new(bufferName));
-    }
+    static public FloatingSelection EditNamedPasteAsNew(string bufferName) =>
+      new FloatingSelection(gimp_edit_named_paste_as_new(bufferName));
 
     public void EditClear()
     {
@@ -540,13 +513,9 @@ namespace Gimp
 
     public Drawable TransformFlipSimple(OrientationType flip_type,
 					bool auto_center, double axis,
-					bool clip_result)
-    {
-      return new Drawable(gimp_drawable_transform_flip_simple(ID, flip_type,
-							      auto_center,
-							      axis,
-							      clip_result));
-    }
+					bool clip_result) =>
+      new Drawable(gimp_drawable_transform_flip_simple(ID, flip_type, auto_center,
+						       axis, clip_result));
 
     public Drawable TransformFlip(double x0,
 				  double y0,
@@ -556,24 +525,20 @@ namespace Gimp
 				  InterpolationType interpolation,
 				  bool supersample,
 				  int recursion_level,
-				  bool clip_result)
-    {
-      return new Drawable(gimp_drawable_transform_flip
-			  (ID, x0, y0, x1, y1, transform_direction,
-			   interpolation, supersample, recursion_level,
-			   clip_result));
-    }
+				  bool clip_result) =>
+      new Drawable(gimp_drawable_transform_flip(ID, x0, y0, x1, y1, 
+						transform_direction, interpolation, 
+						supersample, recursion_level,
+						clip_result));
 
     public Drawable TransformFlip(double x0,
 				  double y0,
 				  double x1,
 				  double y1,
 				  bool interpolate,
-				  bool clip_result)
-    {
-      return new Drawable(gimp_drawable_transform_flip_default
-			  (ID, x0, y0, x1, y1, interpolate, clip_result));
-    }
+				  bool clip_result) =>
+      new Drawable(gimp_drawable_transform_flip_default(ID, x0, y0, x1, y1, 
+							interpolate, clip_result));
 
     public Drawable TransformPerspective(double x0,
 					 double y0,

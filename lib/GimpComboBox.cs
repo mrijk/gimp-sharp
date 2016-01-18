@@ -40,9 +40,7 @@ namespace Gimp
       variable.ValueChanged += delegate {Active = variable.Value;};
     }
 
-    public static ComboBox NewText(Variable<int> variable)
-    {
-      return new GimpComboBox(ComboBox.NewText().Handle, variable);
-    }
+    public static ComboBox NewText(Variable<int> variable) =>
+      new GimpComboBox(ComboBox.NewText().Handle, variable);
   }
 }

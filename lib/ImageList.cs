@@ -56,10 +56,7 @@ namespace Gimp
 
     public void ForEach(Action<Image> action) => _list.ForEach(action);
 
-    public int GetIndex(Image key)
-    {
-      return _list.FindIndex(image => image.ID == key.ID);
-    }
+    public int GetIndex(Image key) => _list.FindIndex(image => image.ID == key.ID);
 
     [DllImport("libgimp-2.0-0.dll")]
     static extern IntPtr gimp_image_list(out int num_images);

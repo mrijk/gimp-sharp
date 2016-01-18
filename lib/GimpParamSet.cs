@@ -46,15 +46,9 @@ namespace Gimp
       _set.Add(param);
     }
 
-    public IEnumerator<GimpParam> GetEnumerator()
-    {
-      return _set.GetEnumerator();
-    }
+    public IEnumerator<GimpParam> GetEnumerator() => _set.GetEnumerator();
 
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-      return GetEnumerator();
-    }
+    IEnumerator IEnumerable.GetEnumerator() =>  GetEnumerator();
 
     public IntPtr ToStructArray()
     {

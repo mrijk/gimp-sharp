@@ -52,20 +52,11 @@ namespace Gimp
       return false;
     }
 
-    public override int GetHashCode()
-    {
-      return _hsv.GetHashCode();
-    }
+    public override int GetHashCode() => _hsv.GetHashCode();
 
-    public static bool operator==(HSV hsv1, HSV hsv2)
-    {
-      return hsv1._hsv.Equals(hsv2._hsv);
-    }
+    public static bool operator==(HSV hsv1, HSV hsv2) => hsv1._hsv.Equals(hsv2._hsv);
 
-    public static bool operator!=(HSV hsv1, HSV hsv2)
-    {
-      return !(hsv1 == hsv2);
-    }
+    public static bool operator!=(HSV hsv1, HSV hsv2) => !(hsv1 == hsv2);
 
     public void Clamp()
     {

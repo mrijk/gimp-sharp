@@ -68,15 +68,10 @@ namespace Gimp
       return false;
     }
 
-    public override int GetHashCode()
-    {
-      return Name.GetHashCode();
-    }
+    public override int GetHashCode() => Name.GetHashCode();
 
-    protected override string TryRename(string newName)
-    {
-      return gimp_gradient_rename(Name, newName);
-    }
+    protected override string TryRename(string newName) =>
+      gimp_gradient_rename(Name, newName);
 
     public void Delete()
     {
@@ -315,11 +310,9 @@ namespace Gimp
     }
 
     public double SegmentRangeMove(int startSegment, int endSegment,
-				   double delta, bool controlCompress)
-    {
-      return gimp_gradient_segment_range_move(Name, startSegment, endSegment, 
-					      delta, controlCompress);
-    }
+				   double delta, bool controlCompress) =>
+      gimp_gradient_segment_range_move(Name, startSegment, endSegment, 
+				       delta, controlCompress);
 
     [DllImport("libgimp-2.0-0.dll")]
     extern static string gimp_gradient_new(string name);

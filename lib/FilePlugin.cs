@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2012 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // FilePlugin.cs
 //
@@ -73,26 +73,17 @@ namespace Gimp
 	}
     }
 
-    virtual protected Image Load()
-    {
-      return null;
-    }
+    virtual protected Image Load() => null;
 
-    protected byte[] ReadBytes(int count)
-    {
-      return Reader.ReadBytes(count);
-    }
+    protected byte[] ReadBytes(int count) => Reader.ReadBytes(count);
 
-    protected byte ReadByte()
-    {
-      return Reader.ReadByte();
-    }
+    protected byte ReadByte() => Reader.ReadByte();
 
     void SaveFile(ParamDefList inParam, ParamDefList outParam)
     {
       var image = (Image) inParam[1].Value;
       var drawable = (Drawable) inParam[2].Value;
-      string filename = (string) inParam[3].Value;
+      var filename = (string) inParam[3].Value;
       
       if (!Save(image, drawable, filename))
 	{
@@ -148,10 +139,7 @@ namespace Gimp
     }
 
     virtual protected bool Save(Image image, Drawable drawable, 
-				string filename)
-    {
-      return false;
-    }
+				string filename) => false;
 
     protected Image NewImage(int width, int height, ImageBaseType baseType,
 			     ImageType type, string filename)

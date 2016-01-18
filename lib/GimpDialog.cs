@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // GimpDialog.cs
 //
@@ -101,15 +101,10 @@ namespace Gimp
       Variables = variables;
     }
 
-    static protected string _(string s)
-    {
-      return Catalog.GetString(s);
-    }
+    static protected string _(string s) => Catalog.GetString(s);
 
-    public Variable<T> GetVariable<T>(string identifier)
-    {
-      return Variables.Get<T>(identifier);
-    }
+    public Variable<T> GetVariable<T>(string identifier) =>
+      Variables.Get<T>(identifier);
 
     public new ResponseType Run()
     {

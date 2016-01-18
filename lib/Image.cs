@@ -74,10 +74,7 @@ namespace Gimp
       return false;
     }
 
-    public override int GetHashCode()
-    {
-      return ID.GetHashCode();
-    }
+    public override int GetHashCode() =>  ID.GetHashCode();
 
     public IEnumerator GetEnumerator()
     {
@@ -91,10 +88,8 @@ namespace Gimp
       return (imageID >= 0) ? new Image(imageID) : null;
     }
 
-    public Layer LoadLayer(RunMode runMode, string filename)
-    {
-      return new Layer(gimp_file_load_layer(runMode, ID, filename));
-    }
+    public Layer LoadLayer(RunMode runMode, string filename) =>
+      new Layer(gimp_file_load_layer(runMode, ID, filename));
 
     public LayerList LoadLayers(RunMode runMode, string filename)
     {
@@ -112,11 +107,9 @@ namespace Gimp
     }
 
     // Used internally to save a single drawable
-    internal bool Save(Drawable drawable, string filename)
-    {
-      return gimp_file_save(RunMode.Noninteractive, ID, drawable.ID, 
-			    filename, filename);
-    }
+    internal bool Save(Drawable drawable, string filename) =>
+      gimp_file_save(RunMode.Noninteractive, ID, drawable.ID, 
+		     filename, filename);
 
     public void Delete()
     {
@@ -342,25 +335,17 @@ namespace Gimp
         }
     }
 
-    public int GetItemPosition(Item item)
-    {
-      return gimp_image_get_item_position(ID, item.ID);
-    }
+    public int GetItemPosition(Item item) =>
+      gimp_image_get_item_position(ID, item.ID);
 
-    public Layer Flatten()
-    {
-      return new Layer(gimp_image_flatten(ID));
-    }
+    public Layer Flatten() =>
+      new Layer(gimp_image_flatten(ID));
 
-    public Layer MergeVisibleLayers(MergeType merge_type)
-    {
-      return new Layer(gimp_image_merge_visible_layers(ID, merge_type));
-    }
+    public Layer MergeVisibleLayers(MergeType merge_type) =>
+      new Layer(gimp_image_merge_visible_layers(ID, merge_type));
 
-    public Layer MergeDown(Layer layer, MergeType merge_type)
-    {
-      return new Layer(gimp_image_merge_down(ID, layer.ID, merge_type));
-    }
+    public Layer MergeDown(Layer layer, MergeType merge_type) =>
+      new Layer(gimp_image_merge_down(ID, layer.ID, merge_type));
 
     public void CleanAll()
     {
@@ -495,16 +480,11 @@ namespace Gimp
 	}
     }
 
-    public Layer GetLayerByTattoo(Tattoo tattoo)
-    {
-      return new Layer(gimp_image_get_layer_by_tattoo(ID, tattoo.ID));
-    }
+    public Layer GetLayerByTattoo(Tattoo tattoo) =>
+      new Layer(gimp_image_get_layer_by_tattoo(ID, tattoo.ID));
 
-    public Channel GetChannelByTattoo(Tattoo tattoo)
-    {
-      return new Channel(gimp_image_get_channel_by_tattoo(ID, 
-                                                          tattoo.ID));
-    }
+    public Channel GetChannelByTattoo(Tattoo tattoo) =>
+      new Channel(gimp_image_get_channel_by_tattoo(ID, tattoo.ID));
 
     public RGB[] Colormap
     {
@@ -569,15 +549,11 @@ namespace Gimp
 	}
     }
 
-    public Vectors GetVectorsByTattoo(Tattoo tattoo)
-    {
-      return new Vectors(gimp_image_get_vectors_by_tattoo(ID, tattoo.ID));
-    }
+    public Vectors GetVectorsByTattoo(Tattoo tattoo) =>
+      new Vectors(gimp_image_get_vectors_by_tattoo(ID, tattoo.ID));
 
-    public Layer GetLayerByName(string name)
-    {
-      return new Layer(gimp_image_get_layer_by_name(ID, name));
-    }
+    public Layer GetLayerByName(string name) =>
+      new Layer(gimp_image_get_layer_by_name(ID, name));
     
     public Parasite ParasiteFind(string name)
     {

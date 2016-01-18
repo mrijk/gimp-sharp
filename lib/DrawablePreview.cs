@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2012 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // DrawablePreview.cs
 //
@@ -58,8 +58,7 @@ namespace Gimp
 	  int y = src.Y;
 	  var pixel = func(src);
 	  
-	  int index = 
-	  (y - rectangle.Y1) * rowStride + (x - rectangle.X1) * _bpp;
+	  int index = (y - rectangle.Y1) * rowStride + (x - rectangle.X1) * _bpp;
 	  pixel.CopyTo(buffer, index);
 	});
       DrawBuffer(buffer, rowStride);

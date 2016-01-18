@@ -182,10 +182,7 @@ namespace Gimp
 
     // Implementation of gimprc
 
-    static public string RcQuery(string token)
-    {
-      return gimp_gimprc_query(token);
-    }
+    static public string RcQuery(string token) => gimp_gimprc_query(token);
 
     static public void RcSet(string token, string value)
     {
@@ -221,25 +218,17 @@ namespace Gimp
 	}
     }
 
-    static public string ThemeDirectory
-    {
-      get {return FilenamePtrToString(gimp_get_theme_dir());}
-    }
+    static public string ThemeDirectory =>
+      FilenamePtrToString(gimp_get_theme_dir());
 
-    static public string LocaleDirectory
-    {
-      get {return FilenamePtrToString(gimp_locale_directory());}
-    }
+    static public string LocaleDirectory =>
+      FilenamePtrToString(gimp_locale_directory());
 
-    static public string PluginDirectory
-    {
-      get {return FilenamePtrToString(gimp_plug_in_directory());}
-    }
+    static public string PluginDirectory =>
+      FilenamePtrToString(gimp_plug_in_directory());
 
-    static string FilenamePtrToString(IntPtr filenamePtr)
-    {
-      return Marshaller.FilenamePtrToString(filenamePtr);
-    }
+    static string FilenamePtrToString(IntPtr filenamePtr) =>
+      Marshaller.FilenamePtrToString(filenamePtr);
 
     static public void DisplaysFlush()
     {

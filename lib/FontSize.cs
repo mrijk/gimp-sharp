@@ -37,28 +37,20 @@ namespace Gimp
       if (o is FontSize)
 	{
 	  var fontsize = o as FontSize;
-	  return fontsize.Size == Size &&
-	    fontsize.Unit == Unit;
+	  return fontsize.Size == Size && fontsize.Unit == Unit;
 	}
       return false;
     }
 
-    public override int GetHashCode()
-    {
-      return (int) Size + Unit.GetHashCode();
-    }
+    public override int GetHashCode() => (int) Size + Unit.GetHashCode();
 
     public static bool operator==(FontSize fontsize1, 
-				  FontSize fontsize2)
-    {
-      return fontsize1.Equals(fontsize2);
-    }
+				  FontSize fontsize2) =>
+      fontsize1.Equals(fontsize2);
 
     public static bool operator!=(FontSize fontsize1, 
-				  FontSize fontsize2)
-    {
-      return !(fontsize1 == fontsize2);
-    }
+				  FontSize fontsize2) =>
+      !(fontsize1 == fontsize2);
 
     public override string ToString() => $"({Size} {Unit})";
   }

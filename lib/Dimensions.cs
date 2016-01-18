@@ -32,10 +32,8 @@ namespace Gimp
       Height = height;
     }
 
-    public bool IsInside(int x, int y)
-    {
-      return x >= 0 && x < Width && y >= 0 && y < Height;
-    }
+    public bool IsInside(int x, int y) =>
+      x >= 0 && x < Width && y >= 0 && y < Height;
 
     public override bool Equals(object o)
     {
@@ -47,22 +45,15 @@ namespace Gimp
       return false;
     }
 
-    public override int GetHashCode()
-    {
-      return Width + Height;
-    }
+    public override int GetHashCode() => Width + Height;
 
     public static bool operator==(Dimensions dimensions1, 
-				  Dimensions dimensions2)
-    {
-      return dimensions1.Equals(dimensions2);
-    }
+				  Dimensions dimensions2) =>
+      dimensions1.Equals(dimensions2);
 
     public static bool operator!=(Dimensions dimensions1, 
-				  Dimensions dimensions2)
-    {
-      return !(dimensions1 == dimensions2);
-    }
+				  Dimensions dimensions2) =>
+      !(dimensions1 == dimensions2);
 
     public override string ToString() => $"({Width} X {Height})";
   }

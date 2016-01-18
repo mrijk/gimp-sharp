@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2013 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // DataObject.cs
 //
@@ -36,10 +36,7 @@ namespace Gimp
       set {Rename(value);}
     }
 
-    public string Rename(string newName)
-    {
-      return _name = TryRename(newName);
-    }
+    public string Rename(string newName) => _name = TryRename(newName);
 
     protected abstract string TryRename(string newName);
     
@@ -53,9 +50,6 @@ namespace Gimp
       return false;
     }
 
-    public override int GetHashCode()
-    {
-      return _name.GetHashCode();
-    }
+    public override int GetHashCode() => _name.GetHashCode();
   }
 }
