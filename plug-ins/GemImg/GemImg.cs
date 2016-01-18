@@ -1,5 +1,5 @@
 // The GemImg plug-in
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // GemImg.cs
 //
@@ -43,7 +43,7 @@ namespace Gimp.GemImg
 			  _("This plug-in loads images of the GEM-Image file format."),
 			  "Maurits Rijk",
 			  "(C) Maurits Rijk",
-			  "2008-2011",
+			  "2008-2016",
 			  _("GEM Image"));
     }
 

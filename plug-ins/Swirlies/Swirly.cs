@@ -1,5 +1,5 @@
 // The Swirlies plug-in
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // Swirly.cs
 //
@@ -19,6 +19,7 @@
 //
 
 using System;
+using static System.Math;
 
 namespace Gimp.Swirlies
 {
@@ -30,7 +31,7 @@ namespace Gimp.Swirlies
     
     const double LINEAR_PHASE_SHIFT_MAX = 0.3;
     
-    const double SECONDARY_COEFFICIENT_MAX = Math.PI;
+    const double SECONDARY_COEFFICIENT_MAX = PI;
     
     const double MIXED_COEFFICIENT_MAX = SECONDARY_COEFFICIENT_MAX / 400.0;
     
@@ -259,8 +260,8 @@ namespace Gimp.Swirlies
 	    {
 	      double dy = zoom * (y - height * ((double) ty + _y));
 	      double d2 = dx * dx + dy * dy;
-	      double angle = Math.Atan2(dy, dx);
-	      double d = Math.Sqrt(d2);
+	      double angle = Atan2(dy, dx);
+	      double d = Sqrt(d2);
 
 	      double Eccc = Pccc + Accc * angle + Dccc * d;
 	      double Eccs = Pccs + Accs * angle + Dccs * d;
@@ -295,39 +296,29 @@ namespace Gimp.Swirlies
 	      double Eszk = Pszk + Aszk * angle + Dszk * d;
 	      double Eszz = Pszz + Aszz * angle + Dszz * d;
 
-	      double Ecc = Pcc + Acc * angle + Dcc * d + Ccc * Math.Cos(Eccc)
-		+ Scc * Math.Sin(Eccs) + Kcc * d * Math.Cos(Ecck) + Zcc
-		* d * Math.Sin(Eccz);
-	      double Ecs = Pcs + Acs * angle + Dcs * d + Ccs * Math.Cos(Ecsc)
-		+ Scs * Math.Sin(Ecss) + Kcs * d * Math.Cos(Ecsk) + Zcs
-		* d * Math.Sin(Ecsz);
-	      double Eck = Pck + Ack * angle + Dck * d + Cck * Math.Cos(Eckc)
-		+ Sck * Math.Sin(Ecks) + Kck * d * Math.Cos(Eckk) + Zck
-		* d * Math.Sin(Eckz);
-	      double Ecz = Pcz + Acz * angle + Dcz * d + Ccz * Math.Cos(Eczc)
-		+ Scz * Math.Sin(Eczs) + Kcz * d * Math.Cos(Eczk) + Zcz
-		* d * Math.Sin(Eczz);
-	      double Esc = Psc + Asc * angle + Dsc * d + Csc * Math.Cos(Escc)
-		+ Ssc * Math.Sin(Escs) + Ksc * d * Math.Cos(Esck) + Zsc
-		* d * Math.Sin(Escz);
-	      double Ess = Pss + Ass * angle + Dss * d + Css * Math.Cos(Essc)
-		+ Sss * Math.Sin(Esss) + Kss * d * Math.Cos(Essk) + Zss
-		* d * Math.Sin(Essz);
-	      double Esk = Psk + Ask * angle + Dsk * d + Csk * Math.Cos(Eskc)
-		+ Ssk * Math.Sin(Esks) + Ksk * d * Math.Cos(Eskk) + Zsk
-		* d * Math.Sin(Eskz);
-	      double Esz = Psz + Asz * angle + Dsz * d + Csz * Math.Cos(Eszc)
-		+ Ssz * Math.Sin(Eszs) + Ksz * d * Math.Cos(Eszk) + Zsz
-		* d * Math.Sin(Eszz);
+	      double Ecc = Pcc + Acc * angle + Dcc * d + Ccc * Cos(Eccc)
+		+ Scc * Sin(Eccs) + Kcc * d * Cos(Ecck) + Zcc * d * Sin(Eccz);
+	      double Ecs = Pcs + Acs * angle + Dcs * d + Ccs * Cos(Ecsc)
+		+ Scs * Sin(Ecss) + Kcs * d * Cos(Ecsk) + Zcs * d * Sin(Ecsz);
+	      double Eck = Pck + Ack * angle + Dck * d + Cck * Cos(Eckc)
+		+ Sck * Sin(Ecks) + Kck * d * Cos(Eckk) + Zck * d * Sin(Eckz);
+	      double Ecz = Pcz + Acz * angle + Dcz * d + Ccz * Cos(Eczc)
+		+ Scz * Sin(Eczs) + Kcz * d * Cos(Eczk) + Zcz * d * Sin(Eczz);
+	      double Esc = Psc + Asc * angle + Dsc * d + Csc * Cos(Escc)
+		+ Ssc * Sin(Escs) + Ksc * d * Cos(Esck) + Zsc * d * Sin(Escz);
+	      double Ess = Pss + Ass * angle + Dss * d + Css * Cos(Essc)
+		+ Sss * Sin(Esss) + Kss * d * Cos(Essk) + Zss * d * Sin(Essz);
+	      double Esk = Psk + Ask * angle + Dsk * d + Csk * Cos(Eskc)
+		+ Ssk * Sin(Esks) + Ksk * d * Cos(Eskk) + Zsk * d * Sin(Eskz);
+	      double Esz = Psz + Asz * angle + Dsz * d + Csz * Cos(Eszc)
+		+ Ssz * Sin(Eszs) + Ksz * d * Cos(Eszk) + Zsz * d * Sin(Eszz);
 
-	      double Ec = Pc + Ac * angle + Dc * d + Cc * Math.Cos(Ecc) + Sc
-		* Math.Sin(Ecs) + Kc * d * Math.Cos(Eck) + Zc * d
-		* Math.Sin(Ecz);
-	      double Es = Ps + As * angle + Ds * d + Cs * Math.Cos(Esc) + Ss
-		* Math.Sin(Ess) + Ks * d * Math.Cos(Esk) + Zs * d
-		* Math.Sin(Esz);
+	      double Ec = Pc + Ac * angle + Dc * d + Cc * Cos(Ecc) + Sc
+		* Sin(Ecs) + Kc * d * Cos(Eck) + Zc * d * Sin(Ecz);
+	      double Es = Ps + As * angle + Ds * d + Cs * Cos(Esc) + Ss
+		* Sin(Ess) + Ks * d * Cos(Esk) + Zs * d * Sin(Esz);
 
-	      double F = (C * Math.Cos(Ec) + S * Math.Sin(Es)) / d2;
+	      double F = (C * Cos(Ec) + S * Sin(Es)) / d2;
 
 	      rgb.R += F * r;
 	      rgb.G += F * g;
@@ -336,35 +327,20 @@ namespace Gimp.Swirlies
 	}
     }
 
-    private static double drand48s() 
-    {
-      return 1.0 - 2.0 * random.NextDouble();
-    }
+    private static double drand48s() => 1.0 - 2.0 * random.NextDouble();
     
-    private static double rand_phase_shift() 
-    {
-      return 2.0 * Math.PI * random.NextDouble();
-    }
+    private static double rand_phase_shift() => 2.0 * PI * random.NextDouble();
     
-    private static double rand_angle_multiplier(double m, double n) 
-    {
-      return n - m + 1.0
-	+ Math.Floor(ANGLE_MULTIPLIER_MAX * random.NextDouble());
-    }
+    private static double rand_angle_multiplier(double m, double n) =>
+      n - m + 1.0 + Floor(ANGLE_MULTIPLIER_MAX * random.NextDouble());
     
-    private static double rand_linear_phase_shift(double m, double n) 
-    {
-      return LINEAR_PHASE_SHIFT_MAX * drand48s() / (m + n);
-    }
+    private static double rand_linear_phase_shift(double m, double n) =>
+      LINEAR_PHASE_SHIFT_MAX * drand48s() / (m + n);
     
-    private static double rand_secondary_coefficient(double m, double n) 
-    {
-      return (m + 2.0 * n) * SECONDARY_COEFFICIENT_MAX * drand48s();
-    }
+    private static double rand_secondary_coefficient(double m, double n) =>
+      (m + 2.0 * n) * SECONDARY_COEFFICIENT_MAX * drand48s();
     
-    private static double rand_mixed_coefficient(double m, double n) 
-    {
-      return (2.0 * m + n) * MIXED_COEFFICIENT_MAX * drand48s();
-    }
+    private static double rand_mixed_coefficient(double m, double n) =>
+      (2.0 * m + n) * MIXED_COEFFICIENT_MAX * drand48s();
   }
 }

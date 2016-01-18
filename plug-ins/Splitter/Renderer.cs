@@ -1,5 +1,5 @@
 // The Splitter plug-in
-// Copyright (C) 2004-2012 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // Renderer.cs
 //
@@ -116,10 +116,10 @@ namespace Gimp.Splitter
 
     void Rotate(Layer layer, int angle)
     {
-      if (angle != 0 && layer != null)
+      if (angle != 0)
 	{
-	  layer.TransformRotate(angle * Math.PI / 180.0,
-				true, 0, 0, true, false);
+	  layer?.TransformRotate(angle * Math.PI / 180.0,
+				 true, 0, 0, true, false);
 	}
     }
 

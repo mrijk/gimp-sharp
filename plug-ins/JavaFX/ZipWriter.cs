@@ -1,5 +1,5 @@
 // The JavaFX plug-in
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // ZipWriter.cs
 //
@@ -67,10 +67,7 @@ namespace Gimp.JavaFX
       }
     }
 
-    String GetTemporaryDirectory()
-    {
-      return Gimp.Directory + "/tmp/";
-    }
+    String GetTemporaryDirectory() => Gimp.Directory + "/tmp/";
 
     void WriteContent()
     {
@@ -141,15 +138,9 @@ namespace Gimp.JavaFX
       RemoveTemporaryFile(fullpath);
     }
 
-    string GetFilename(Layer layer)
-    {
-      return layer.Name + ".png";
-    }
+    string GetFilename(Layer layer) => layer.Name + ".png";
 
-    string GetFullPath(string filename)
-    {
-      return GetTemporaryDirectory() + filename;
-    }
+    string GetFullPath(string filename) => GetTemporaryDirectory() + filename;
 
     void AddFileToZip(string fullpath)
     {

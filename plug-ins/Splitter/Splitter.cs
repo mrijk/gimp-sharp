@@ -1,5 +1,5 @@
 // The Splitter plug-in
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // Splitter.cs
 //
@@ -50,7 +50,7 @@ namespace Gimp.Splitter
 			   _("Splits an image in separate parts using a formula of the form f(x, y) = 0"),
 			   "Maurits Rijk",
 			   "(C) Maurits Rijk",
-			   "1999 - 2011",
+			   "1999 - 2016",
 			   _("Splitter..."),
 			   "RGB*",
 			   new ParamDefList(Variables))

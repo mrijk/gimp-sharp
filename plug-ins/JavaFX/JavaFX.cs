@@ -1,5 +1,5 @@
 // The JavaFX plug-in
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // JavaFX.cs
 //
@@ -34,7 +34,7 @@ namespace Gimp.JavaFX
 			   _("JavaFX"),
 			   "Maurits Rijk",
 			   "(C) Maurits Rijk",
-			   "2006-2011",
+			   "2006-2016",
 			   _("Save As JavaFX"),
 			   "RGB*, GRAY*")
 	{

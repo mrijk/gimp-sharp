@@ -1,5 +1,5 @@
 // The Mezzotint plug-in
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // Mezzotint.cs
 //
@@ -37,7 +37,7 @@ namespace Gimp.Mezzotint
 			   _("Mezzotint"),
 			   "Maurits Rijk",
 			   "(C) Maurits Rijk",
-			   "2007-2011",
+			   "2007-2016",
 			   _("Mezzotint..."),
 			   "RGB*")
 	{

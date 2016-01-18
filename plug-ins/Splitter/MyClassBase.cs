@@ -1,5 +1,5 @@
 // The Splitter plug-in
-// Copyright (C) 2004-2009 Maurits Rijk
+// Copyright (C) 2004-2016 Maurits Rijk
 //
 // MyClassBase.cs
 //
@@ -18,14 +18,14 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
+using static System.Math;
 
 namespace Gimp.Splitter
 {
   public class MyClassBase
   {
-    protected double pi = Math.PI;
-    protected double e = Math.E;
+    protected double pi = PI;
+    protected double e = E;
 
     public double w {get; set;}		// image width
     public double h {get; set;}		// image height
@@ -34,99 +34,42 @@ namespace Gimp.Splitter
     {
     }
 
-    public virtual double eval(double x, double y)
-    {
-      return 0.0;
-    }
+    public virtual double eval(double x, double y) => 0.0;
 
-    protected double abs(double x)
-    {
-      return Math.Abs(x);
-    }
+    protected double abs(double x) => Abs(x);
 
-    protected double acos(double x)
-    {
-      return Math.Acos(x);
-    }
+    protected double acos(double x) => Acos(x);
 
-    protected double asin(double x)
-    {
-      return Math.Asin(x);
-    }
+    protected double asin(double x) => Asin(x);
 
-    protected double atan(double x)
-    {
-      return Math.Atan(x);
-    }
+    protected double atan(double x) => Atan(x);
 
-    protected double atan2(double y, double x)
-    {
-      return Math.Atan2(y, x);
-    }
+    protected double atan2(double y, double x) => Atan2(y, x);
 
-    protected double cos(double x)
-    {
-      return Math.Cos(x);
-    }
+    protected double cos(double x) => Cos(x);
 
-    protected double cosh(double x)
-    {
-      return Math.Cosh(x);
-    }
+    protected double cosh(double x) => Cosh(x);
 
-    protected double exp(double x)
-    {
-      return Math.Exp(x);
-    }
+    protected double exp(double x) => Exp(x);
 
-    protected double floor(double x)
-    {
-      return Math.Floor(x);
-    }
+    protected double floor(double x) => Floor(x);
 
-    protected double log(double x)
-    {
-      return Math.Log(x);
-    }
+    protected double log(double x) => Log(x);
 
-    protected double log(double x, double y)
-    {
-      return Math.Log(x, y);
-    }
+    protected double log(double x, double y) => Log(x, y);
 
-    protected double log10(double x)
-    {
-      return Math.Log(x);
-    }
+    protected double log10(double x) => Log(x);
 
-    protected double pow(double x, double y)
-    {
-      return Math.Pow(x, y);
-    }
+    protected double pow(double x, double y) => Pow(x, y);
 
-    protected double sin(double x)
-    {
-      return Math.Sin(x);
-    }
+    protected double sin(double x) => Sin(x);
 
-    protected double sinh(double x)
-    {
-      return Math.Sinh(x);
-    }
+    protected double sinh(double x) => Sinh(x);
 
-    protected double sqrt(double x)
-    {
-      return Math.Sqrt(x);
-    }
+    protected double sqrt(double x) => Sqrt(x);
 
-    protected double tan(double x)
-    {
-      return Math.Tan(x);
-    }
+    protected double tan(double x) => Tan(x);
 
-    protected double tanh(double x)
-    {
-      return Math.Tanh(x);
-    }
+    protected double tanh(double x) => Tanh(x);
   }
 }
