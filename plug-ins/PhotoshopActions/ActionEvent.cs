@@ -126,10 +126,8 @@ namespace Gimp.PhotoshopActions
 
     public static LinkedLayersSet LinkedLayersSet => _linkedLayersSet;
 
-    protected string Format(bool value, string s)
-    {
-      return ((value) ? "With " : "Without ") + Abbreviations.Get(s);
-    }
+    protected string Format(bool value, string s) =>
+      ((value) ? "With " : "Without ") + Abbreviations.Get(s);
 
     protected string Format(string value, string s) => 
       $"{Abbreviations.Get(s)}: \"{value}\"";
@@ -137,10 +135,8 @@ namespace Gimp.PhotoshopActions
     protected string Format(int value, string s) =>
       $"{Abbreviations.Get(s)}: {value}";
 
-    protected string Format(double value, string s)
-    {
-      return String.Format("{0}: {1:F3}", Abbreviations.Get(s), value);
-    }
+    protected string Format(double value, string s) =>
+      String.Format("{0}: {1:F3}", Abbreviations.Get(s), value);
 
     protected string Format(EnumParameter parameter, string s)
     {

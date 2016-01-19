@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // ClearEvent.cs
 //
@@ -19,7 +19,6 @@
 //
 
 using System;
-using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
@@ -39,10 +38,7 @@ namespace Gimp.PhotoshopActions
       _executable = true;
     }
 
-    public override bool IsExecutable
-    {
-      get {return _executable;}
-    }
+    public override bool IsExecutable => _executable;
 
     override public ActionEvent Parse(ActionParser parser)
     {
@@ -52,7 +48,7 @@ namespace Gimp.PhotoshopActions
 	{
 	  if (_obj.Set[0] is PropertyType)
 	    {
-	      PropertyType property = _obj.Set[0] as PropertyType;
+	      var property = _obj.Set[0] as PropertyType;
 
 	      switch (property.ClassID2)
 		{
@@ -73,8 +69,7 @@ namespace Gimp.PhotoshopActions
 	    }
 	  else
 	    {
-	      Console.WriteLine("ClearEvent.Parse: {0} unknown type",
-				_obj.Set[0]);
+	      Console.WriteLine($"ClearEvent.Parse: {_obj.Set[0]} unknown type");
 	    }
 	}
       return this;

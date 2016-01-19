@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // ApplyStyleEvent.cs
 //
@@ -18,7 +18,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
 using System.Collections;
 
 namespace Gimp.PhotoshopActions
@@ -28,16 +27,13 @@ namespace Gimp.PhotoshopActions
     [Parameter("null")]
     ReferenceParameter _obj;
 
-    public override bool IsExecutable
-    {
-      get {return false;}
-    }
+    public override bool IsExecutable => false;
 
     public override string EventForDisplay
     {
       get 
 	{
-	  NameType name = _obj.Set[0] as NameType;
+	  var name = _obj.Set[0] as NameType;
 	  return base.EventForDisplay + " style \"" + name.Key + "\"";
 	}
     }
@@ -47,9 +43,6 @@ namespace Gimp.PhotoshopActions
       yield return "To: current layer";
     }
 
-    override public bool Execute()
-    {
-      return true;
-    }
+    override public bool Execute() => true;
   }
 }

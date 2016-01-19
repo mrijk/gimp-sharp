@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // CrystallizeEvent.cs
 //
@@ -25,14 +25,8 @@ namespace Gimp.PhotoshopActions
     [Parameter("ClSz")]
     int _cellSize;
 
-    public override bool IsExecutable
-    {
-      get {return false;}
-    }
+    public override bool IsExecutable => false;
 
-    override public bool Execute()
-    {
-      return true;
-    }
+    override public bool Execute() => true;
   }
 }

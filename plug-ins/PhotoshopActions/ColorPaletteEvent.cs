@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // ColorPaletteEvent.cs
 //
@@ -32,10 +32,7 @@ namespace Gimp.PhotoshopActions
     [Parameter("PprB")]
     int _paperBrightness;
 
-    public override bool IsExecutable
-    {
-      get {return false;}
-    }
+    public override bool IsExecutable => false;
 
     protected override IEnumerable ListParameters()
     {
@@ -44,9 +41,6 @@ namespace Gimp.PhotoshopActions
       yield return Format(_paperBrightness, "PprB");
     }
 
-    override public bool Execute()
-    {
-      return false;
-    }
+    override public bool Execute() => false;
   }
 }

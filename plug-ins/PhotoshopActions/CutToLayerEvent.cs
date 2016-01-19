@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // CutToLayerEvent.cs
 //
@@ -26,7 +26,7 @@ namespace Gimp.PhotoshopActions
     {
       bool nonEmpty;
 
-      Rectangle rectangle = ActiveImage.Selection.Bounds(out nonEmpty);
+      var rectangle = ActiveImage.Selection.Bounds(out nonEmpty);
 
       if (nonEmpty)
 	{
@@ -35,13 +35,13 @@ namespace Gimp.PhotoshopActions
 	  
 	  ActiveImage.FloatingSelection.Offsets = 
 	    new Offset(rectangle.X1, rectangle.Y1);
-	  Layer layer = ActiveImage.FloatingSelection.ToLayer();
+	  var layer = ActiveImage.FloatingSelection.ToLayer();
 	  // Fix me: why can't I use layer here?
 	  new Layer(ActiveImage.ActiveDrawable).ResizeToImageSize();
 	}
       else
 	{
-	  // TODO: what does PS handle this?
+	  // TODO: how does PS handle this?
 	}
       return true;
     }

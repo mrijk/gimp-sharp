@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2012 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // Action.cs
 //
@@ -38,14 +38,8 @@ namespace Gimp.PhotoshopActions
     public int NrOfChildren {get; set;}
     public string Name {get; set;}
 
-    public bool IsExecutable
-    {
-      get
-	{
-	  return ActionEvents == NrOfChildren &&
-	    _set.TrueForAll(e => e.IsExecutable);
-	}
-    }
+    public bool IsExecutable => ActionEvents == NrOfChildren &&
+      _set.TrueForAll(e => e.IsExecutable);
 
     public bool IsEnabled
     {
@@ -57,18 +51,9 @@ namespace Gimp.PhotoshopActions
 	}
     }
 
-    public int ActionEvents
-    {
-      get {return _set.Count;}
-    }
+    public int ActionEvents => _set.Count;
 
-    public int ExecutableActionEvents
-    {
-      get
-	{
-	  return _set.Where(e => e.IsExecutable).Count();
-	}
-    }
+    public int ExecutableActionEvents => _set.Where(e => e.IsExecutable).Count();
 
     public void Add(ActionEvent actionEvent)
     {
@@ -112,9 +97,6 @@ namespace Gimp.PhotoshopActions
       _set[n].Execute();
     }
 
-    public IEnumerator<ActionEvent> GetEnumerator()
-    {
-      return _set.GetEnumerator();
-    }
+    public IEnumerator<ActionEvent> GetEnumerator() => _set.GetEnumerator();
   }
 }

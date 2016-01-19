@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2013 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // AddLayerEvent.cs
 //
@@ -39,14 +39,11 @@ namespace Gimp.PhotoshopActions
     public AddLayerEvent(ActionEvent srcEvent) : base(srcEvent) 
     {
       Parameters.Fill(this);
-      if (_objc != null)
-	_objc.Fill(this);
+      _objc?.Fill(this);
     }
 
-    public override string EventForDisplay
-    {
-      get {return base.EventForDisplay + " layer";}
-    }
+    public override string EventForDisplay => base.EventForDisplay + " layer";
+
     /*
     protected override IEnumerable ListParameters()
     {

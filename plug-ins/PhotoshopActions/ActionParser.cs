@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2009 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // ActionParser.cs
 //
@@ -187,15 +187,9 @@ namespace Gimp.PhotoshopActions
 	}
     }
 
-    public byte ReadByte()
-    {
-      return _binReader.ReadByte();
-    }
+    public byte ReadByte() => _binReader.ReadByte();
 
-    public byte[] ReadBytes(int length)
-    {
-      return _binReader.ReadBytes(length);
-    }
+    public byte[] ReadBytes(int length) => _binReader.ReadBytes(length);
 
     int ReadInt16()
     {
@@ -343,7 +337,7 @@ namespace Gimp.PhotoshopActions
 	}
 
       string type = ReadFourByteString();
-      DebugOutput.Dump("key: {0} ({1})", key, type);
+      DebugOutput.Dump($"key: {key} ({type})");
 
       Parameter parameter = null;
 
@@ -418,10 +412,7 @@ namespace Gimp.PhotoshopActions
       return encoding.GetString(buffer);
     }
 
-    public string ReadString()
-    {
-      return ReadString(ReadInt32());
-    }
+    public string ReadString() => ReadString(ReadInt32());
 
     public string ReadTokenOrString()
     {
@@ -459,9 +450,6 @@ namespace Gimp.PhotoshopActions
       return encoding.GetString(buffer);
     }
 
-    public string ReadUnicodeString()
-    {
-      return ReadUnicodeString(ReadInt32());
-    }
+    public string ReadUnicodeString() => ReadUnicodeString(ReadInt32());
   }
 }

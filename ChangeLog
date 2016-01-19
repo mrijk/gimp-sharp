@@ -1,3 +1,7 @@
+2016-01-19  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* plug-ins/PhotoshopActions/*.cs: more cleanup
+
 2016-01-18  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* lib/*.cs: improved use of 'as' and 'is'

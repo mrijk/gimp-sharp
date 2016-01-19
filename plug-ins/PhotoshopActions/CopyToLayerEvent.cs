@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2012 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // CopyToLayerEvent.cs
 //
@@ -18,8 +18,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-
 namespace Gimp.PhotoshopActions
 {
   public class CopyToLayerEvent : ActionEvent
@@ -28,7 +26,7 @@ namespace Gimp.PhotoshopActions
     {
       bool nonEmpty;
 
-      Rectangle rectangle = ActiveImage.Selection.Bounds(out nonEmpty);
+      var rectangle = ActiveImage.Selection.Bounds(out nonEmpty);
 
       if (nonEmpty)
 	{

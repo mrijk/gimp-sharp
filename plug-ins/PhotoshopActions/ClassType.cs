@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // ClassParameter.cs
 //
@@ -33,7 +33,7 @@ namespace Gimp.PhotoshopActions
 	}
       ClassID2 = parser.ReadTokenOrString();
 
-      DebugOutput.Dump("class: c = {0}, c2 = {1}", ClassID, ClassID2);
+      DebugOutput.Dump($"class: c = {ClassID}, c2 = {ClassID2}");
     }
   }
 }

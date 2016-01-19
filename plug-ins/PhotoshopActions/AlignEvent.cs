@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2007 Maurits Rijk
+// Copyright (C) 2007-2016 Maurits Rijk
 //
 // AlignEvent.cs
 //
@@ -28,10 +28,8 @@ namespace Gimp.PhotoshopActions
     [Parameter("Usng")]
     EnumParameter _using;
 
-    public override string EventForDisplay
-    {
-      get {return base.EventForDisplay + " linked layer";}
-    }
+    public override string EventForDisplay =>
+      base.EventForDisplay + " linked layer";
 
     protected override IEnumerable ListParameters()
     {
@@ -43,9 +41,9 @@ namespace Gimp.PhotoshopActions
       // TODO: assume we are only aligning to the selection
 
       bool nonEmpty;
-      Rectangle bounds = ActiveImage.Selection.Bounds(out nonEmpty);
-      Layer layer = SelectedLayer;
-      Offset offset = layer.Offsets;
+      var bounds = ActiveImage.Selection.Bounds(out nonEmpty);
+      var layer = SelectedLayer;
+      var offset = layer.Offsets;
 
       switch (_using.Value)
 	{

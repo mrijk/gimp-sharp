@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // ConvertModeEvent.cs
 //
@@ -36,7 +36,7 @@ namespace Gimp.PhotoshopActions
 	{
 	  if (_type != null && (_type is TypeParameter))
 	    {
-	      TypeParameter type = _type as TypeParameter;
+	      var type = _type as TypeParameter;
 	      if (type.Value == "IndC" || type.Value == "RGBM" || 
 		  type.Value == "Grys")
 		{
@@ -75,7 +75,7 @@ namespace Gimp.PhotoshopActions
     {
       if (_type is TypeParameter)
 	{
-	  TypeParameter type = _type as TypeParameter;
+	  var type = _type as TypeParameter;
 
 	  switch (type.Value)
 	    {

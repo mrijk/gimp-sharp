@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // AddMaskEvent.cs
 //
@@ -18,8 +18,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-
 namespace Gimp.PhotoshopActions
 {
   public class AddMaskEvent : ActionEvent
@@ -28,20 +26,17 @@ namespace Gimp.PhotoshopActions
     {
     }
 
-    public override string EventForDisplay
-    {
-      get {return base.EventForDisplay + " mask";}
-    }
+    public override string EventForDisplay => base.EventForDisplay + " mask";
 
     override public bool Execute()
     {
       // Fix me, this is an ugly construction
-      Layer layer = new Layer(ActiveDrawable);
+      var layer = new Layer(ActiveDrawable);
       if (!layer.HasAlpha)
 	{
 	  layer.AddAlpha();
 	}
-      Mask mask = layer.CreateMask(AddMaskType.White);
+      var mask = layer.CreateMask(AddMaskType.White);
       layer.Mask = mask;
       ActiveDrawable = mask;
 

@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // CurvesEvent.cs
 //
@@ -35,22 +35,21 @@ namespace Gimp.PhotoshopActions
       yield return "Channel: composite channel";
       yield return "Curve: point list";
      
-      foreach (Coordinate<byte> c in GetControlPoints())
+      foreach (var c in GetControlPoints())
 	{
-	  yield return String.Format("point: {0}, {1}", c.X, c.Y);
+	  yield return String.Format($"point: {c.X}, {c.Y}");
 	}
     }
 
     CoordinateList<byte> GetControlPoints()
     {
-      ObjcParameter objc = _adjustment[0] as ObjcParameter;
+      var objc = _adjustment[0] as ObjcParameter;
       
-      ReferenceParameter obj = objc.Parameters["Chnl"] as 
-	ReferenceParameter;
+      var obj = objc.Parameters["Chnl"] as ReferenceParameter;
       
-      ListParameter curve = objc.Parameters["Crv"] as ListParameter;
+      var curve = objc.Parameters["Crv"] as ListParameter;
 
-      CoordinateList<byte> controlPoints = new CoordinateList<byte>();
+      var controlPoints = new CoordinateList<byte>();
 
       // Dirty hack. Fixme!
       if (curve == null)
@@ -58,7 +57,7 @@ namespace Gimp.PhotoshopActions
       
       foreach (Parameter parameter in curve)
 	{
-	  ObjcParameter point = parameter as ObjcParameter;
+	  var point = parameter as ObjcParameter;
 	  double x = 
 	    (point.Parameters["Hrzn"] as DoubleParameter).Value;
 	  double y = 
@@ -74,19 +73,18 @@ namespace Gimp.PhotoshopActions
     {
       if (_adjustment != null)
 	{
-	  ObjcParameter objc = _adjustment[0] as ObjcParameter;
+	  var objc = _adjustment[0] as ObjcParameter;
 
-	  ReferenceParameter obj = objc.Parameters["Chnl"] as 
-	    ReferenceParameter;
-	  string origChannel = (obj.Set[0] as EnmrType).Value;
+	  var obj = objc.Parameters["Chnl"] as ReferenceParameter;
+	  var origChannel = (obj.Set[0] as EnmrType).Value;
 
-	  ListParameter curve = objc.Parameters["Crv"] as ListParameter;
+	  var curve = objc.Parameters["Crv"] as ListParameter;
 	  
-	  CoordinateList<byte> controlPoints = new CoordinateList<byte>();
+	  var controlPoints = new CoordinateList<byte>();
 	  
 	  foreach (Parameter parameter in curve)
 	    {
-	      ObjcParameter point = parameter as ObjcParameter;
+	      var point = parameter as ObjcParameter;
 	      double x = 
 		(point.Parameters["Hrzn"] as DoubleParameter).Value;
 	      double y = 

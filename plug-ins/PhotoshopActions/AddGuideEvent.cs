@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // AddGuideEvent.cs
 //
@@ -55,7 +55,7 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
-      Image image = ActiveImage;
+      var image = ActiveImage;
       int position;
 
       if (image == null)

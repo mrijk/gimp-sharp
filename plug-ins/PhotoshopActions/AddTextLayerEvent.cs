@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // AddTextLayerEvent.cs
 //
@@ -32,22 +32,20 @@ namespace Gimp.PhotoshopActions
     {
     }
 
-    public override string EventForDisplay
-    {
-      get {return base.EventForDisplay + " text layer";}
-    }
+    public override string EventForDisplay =>
+      base.EventForDisplay + " text layer";
 
     protected override IEnumerable ListParameters()
     {
-      ObjcParameter _using = Parameters["Usng"] as ObjcParameter;
+      var _using = Parameters["Usng"] as ObjcParameter;
       _using.Fill(this);
       yield return "Text: \"" + _text + "\"";
     }
 
     override public bool Execute()
     {
-      Layer layer = new TextLayer(ActiveImage, 10, 10, _text, 0, true,
-				  48, SizeType.Points, "Sans");
+      var layer = new TextLayer(ActiveImage, 10, 10, _text, 0, true,
+				48, SizeType.Points, "Sans");
 
       return true;
     }

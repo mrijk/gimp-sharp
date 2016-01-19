@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // ClearQuickMaskEvent.cs
 //
@@ -18,9 +18,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-using System.Collections;
-
 namespace Gimp.PhotoshopActions
 {
   public class ClearQuickMaskEvent : ClearEvent
@@ -29,14 +26,11 @@ namespace Gimp.PhotoshopActions
     {
     }
 
-    public override string EventForDisplay
-    {
-      get {return base.EventForDisplay + " Quick Mask";}
-    }
+    public override string EventForDisplay => base.EventForDisplay + " Quick Mask";
 
     override public bool Execute()
     {
-      Channel channel = ActiveImage.Channels["Quick Mask"];
+      var channel = ActiveImage.Channels["Quick Mask"];
       ActiveImage.Selection.Load(channel);
       ActiveImage.RemoveChannel(channel);
 

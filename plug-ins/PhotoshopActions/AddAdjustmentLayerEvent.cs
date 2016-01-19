@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // AddAdjustmentLayerEvent.cs
 //
@@ -18,29 +18,19 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-
 namespace Gimp.PhotoshopActions
 {
   public class AddAdjustmentLayerEvent : ActionEvent
   {
-    public override bool IsExecutable
-    {
-      get {return false;}
-    }
+    public override bool IsExecutable => false;
 
     public AddAdjustmentLayerEvent(ActionEvent srcEvent) : base(srcEvent) 
     {
     }
 
-    public override string EventForDisplay
-    {
-      get {return base.EventForDisplay + " adjustment layer";}
-    }
+    public override string EventForDisplay =>
+      base.EventForDisplay + " adjustment layer";
 
-    override public bool Execute()
-    {
-      return true;
-    }
+    override public bool Execute() => true;
   }
 }

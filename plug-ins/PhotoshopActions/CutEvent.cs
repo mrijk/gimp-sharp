@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Cutright (C) 2006 Maurits Rijk
+// Cutright (C) 2006-2016 Maurits Rijk
 //
 // CutEvent.cs
 //

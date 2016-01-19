@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // ColorRangeEvent.cs
 //
@@ -18,7 +18,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
 using System.Collections;
 
 namespace Gimp.PhotoshopActions
@@ -34,10 +33,7 @@ namespace Gimp.PhotoshopActions
     [Parameter("Mxm")]
     ObjcParameter _maximum;
 
-    public override bool IsExecutable
-    {
-      get {return false;}
-    }
+    public override bool IsExecutable => false;
 
     protected override IEnumerable ListParameters()
     {
@@ -48,11 +44,8 @@ namespace Gimp.PhotoshopActions
 	}
     }
 
-    override public bool Execute()
-    {
-      // TODO: this event selects a color range. We can select a single color
-      // with the ByColorSelectTool
-      return false;
-    }
+    // TODO: this event selects a color range. We can select a single color
+    // with the ByColorSelectTool
+    override public bool Execute() => false;
   }
 }

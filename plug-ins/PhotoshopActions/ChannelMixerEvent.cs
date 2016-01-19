@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // ChannelMixerEvent.cs
 //
@@ -41,33 +41,23 @@ namespace Gimp.PhotoshopActions
 
       if (_monochrome)
 	{
-	  DoubleParameter red, green, blue;
+	  var red = _grey.Parameters["Rd"] as DoubleParameter;
+	  var green = _grey.Parameters["Grn"] as DoubleParameter;
+	  var blue = _grey.Parameters["Bl"] as DoubleParameter;
 
-	  red = _grey.Parameters["Rd"] as DoubleParameter;
-	  green = _grey.Parameters["Grn"] as DoubleParameter;
-	  blue = _grey.Parameters["Bl"] as DoubleParameter;
-
-	  if (red != null)
-	    _r = red.Value;
-	  if (green != null)
-	    _g = green.Value;
-	  if (blue != null)
-	    _b = blue.Value;     
+	  _r = red?.Value ?? 0;
+	  _g = green?.Value ?? 0;
+	  _b = blue?.Value ?? 0;
 	}
       else
 	{
-	  DoubleParameter red, green, blue;
+	  var red = _red.Parameters["Rd"] as DoubleParameter;
+	  var green = _green.Parameters["Grn"] as DoubleParameter;
+	  var blue = _blue.Parameters["Bl"] as DoubleParameter;
 
-	  red = _red.Parameters["Rd"] as DoubleParameter;
-	  green = _green.Parameters["Grn"] as DoubleParameter;
-	  blue = _blue.Parameters["Bl"] as DoubleParameter;
-
-	  if (red != null)
-	    _r = red.Value;
-	  if (green != null)
-	    _g = green.Value;
-	  if (blue != null)
-	    _b = blue.Value;     
+	  _r = red?.Value ?? 0;
+	  _g = green?.Value ?? 0;
+	  _b = blue?.Value ?? 0;
 	}
 
 
