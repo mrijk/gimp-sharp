@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2012 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // NewDocumentEvent.cs
 //

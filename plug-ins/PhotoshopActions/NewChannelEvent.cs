@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2016 Maurits Rijk
 //
 // NewChannelEvent.cs
 //
@@ -56,9 +56,9 @@ namespace Gimp.PhotoshopActions
     override public bool Execute()
     {
       RGB rgb = _objc.GetColor();
-      Channel channel = new Channel(ActiveImage, "Alpha 1", 
-				    ActiveImage.Width, ActiveImage.Height,
-				    _opacity, rgb);
+      var channel = new Channel(ActiveImage, "Alpha 1", 
+				ActiveImage.Width, ActiveImage.Height,
+				_opacity, rgb);
       ActiveImage.AddChannel(channel, -1);
       return true;
     }
