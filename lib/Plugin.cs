@@ -92,20 +92,13 @@ namespace Gimp
       gimp_main(ref _info, progargs.Length, progargs);
     }
 
-    public Variable<T> GetVariable<T>(string identifier)
-    {
-      return Variables.Get<T>(identifier);
-    }
+    public Variable<T> GetVariable<T>(string identifier) =>
+      Variables.Get<T>(identifier);
 
-    public T GetValue<T>(string identifier)
-    {
-      return GetVariable<T>(identifier).Value;
-    }
+    public T GetValue<T>(string identifier) =>
+      GetVariable<T>(identifier).Value;
 
-    static protected string _(string s)
-    {
-      return Catalog.GetString(s);
-    }
+    static protected string _(string s) => Catalog.GetString(s);
 
     protected virtual void Init() 
     {
@@ -145,10 +138,8 @@ namespace Gimp
 	}
     }
 
-    protected Pixbuf LoadImage(string filename)
-    {
-      return new Pixbuf(Assembly.GetCallingAssembly(), filename);
-    }
+    protected Pixbuf LoadImage(string filename) =>
+      new Pixbuf(Assembly.GetCallingAssembly(), filename);
 
     virtual protected void Query()
     {
@@ -318,10 +309,7 @@ namespace Gimp
 
     virtual protected void DialogRun(ResponseType type) {}
 
-    virtual protected bool OnClose()
-    {
-      return true;
-    }
+    virtual protected bool OnClose() => true;
 
     protected bool DialogRun()
     {
