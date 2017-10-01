@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2017 Maurits Rijk
 //
 // Brush.cs
 //
@@ -55,9 +55,8 @@ namespace Gimp
     {
       get
 	{
-	  int width, height, maskBpp, colorBpp;
-	  if (!gimp_brush_get_info(Name, out width, out height, out maskBpp,
-				   out colorBpp))
+	  if (!gimp_brush_get_info(Name, out int width, out int height, out int maskBpp,
+				   out int colorBpp))
 	    {
 	      throw new GimpSharpException();
 	    }
@@ -69,8 +68,7 @@ namespace Gimp
     {
       get
 	{
-          int spacing;
-          if (!gimp_brush_get_spacing(Name, out spacing))
+          if (!gimp_brush_get_spacing(Name, out int spacing))
             {
 	      throw new GimpSharpException();
             }
@@ -87,38 +85,38 @@ namespace Gimp
 	
     public BrushGeneratedShape Shape
     {
-      get {return gimp_brush_get_shape(Name);}
-      set {gimp_brush_set_shape(Name, value);}
+      get => gimp_brush_get_shape(Name);
+      set => gimp_brush_set_shape(Name, value);
     }
 
     public int Spikes
     {
-      get {return gimp_brush_get_spikes(Name);}
-      set {gimp_brush_set_spikes(Name, value);}
+      get => gimp_brush_get_spikes(Name);
+      set => gimp_brush_set_spikes(Name, value);
     }
 
     public double Angle
     {
-      get {return gimp_brush_get_angle(Name);}
-      set {gimp_brush_set_angle(Name, value);}
+      get => gimp_brush_get_angle(Name);
+      set => gimp_brush_set_angle(Name, value);
     }
 
     public double Radius
     {
-      get {return gimp_brush_get_radius(Name);}
-      set {gimp_brush_set_radius(Name, value);}
+      get => gimp_brush_get_radius(Name);
+      set => gimp_brush_set_radius(Name, value);
     }
 
     public double AspectRatio
     {
-      get {return gimp_brush_get_aspect_ratio(Name);}
-      set {gimp_brush_set_aspect_ratio(Name, value);}
+      get => gimp_brush_get_aspect_ratio(Name);
+      set => gimp_brush_set_aspect_ratio(Name, value);
     }
 
     public double Hardness
     {
-      get {return gimp_brush_get_hardness(Name);}
-      set {gimp_brush_set_hardness(Name, value);}
+      get => gimp_brush_get_hardness(Name);
+      set => gimp_brush_set_hardness(Name, value);
     }
 
     public bool Generated => gimp_brush_is_generated(Name);

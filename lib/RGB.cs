@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2017 Maurits Rijk
 //
 // RGB.cs
 //
@@ -92,25 +92,25 @@ namespace Gimp
 
     public double R
     {
-      get {return _rgb.r;}
-      set {_rgb.r = value;}
+      get => _rgb.r;
+      set => _rgb.r = value;
     }
 
     public double G
     {
-      get {return _rgb.g;}
-      set {_rgb.g = value;}
+      get => _rgb.g;
+      set => _rgb.g = value;
     }
 
     public double B
     {
-      get {return _rgb.b;}
-      set {_rgb.b = value;}
+      get => _rgb.b;
+      set => _rgb.b = value;
     }
 
     public double Alpha
     {
-      get {return _rgb.a;}
+      get => _rgb.a;
       set {gimp_rgb_set_alpha(ref _rgb, value);}
     }
 
@@ -253,18 +253,14 @@ namespace Gimp
     {
       get
 	{
-	  byte r, g, b;
-	  
-	  GetUchar(out r, out g, out b);
+	  GetUchar(out byte r, out byte g, out byte b);
 	  return new byte[]{r, g, b};
 	}
     }
 
     public override string ToString()
     {
-      byte r, g, b;
-
-      GetUchar(out r, out g, out b);
+      GetUchar(out byte r, out byte g, out byte b);
       return $"({r} {g} {b})";
     }
 

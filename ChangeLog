@@ -1,3 +1,7 @@
+2017-10-01  Maurits Rijk  <maurits.rijk@gmail.com>
+
+	* lib/*.cs: switch to csc and C# 7 features
+
 2016-01-19  Maurits Rijk  <maurits.rijk@gmail.com>
 
 	* plug-ins/PhotoshopActions/*.cs: more cleanup

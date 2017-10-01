@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2017 Maurits Rijk
 //
 // Dimensions.cs
 //
@@ -30,6 +30,11 @@ namespace Gimp
     {
       Width = width;
       Height = height;
+    }
+
+    public void Deconstruct(out int width, out int height) {
+      width = Width;
+      height = Height;
     }
 
     public bool IsInside(int x, int y) =>

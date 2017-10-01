@@ -3,7 +3,9 @@
 LIBRARY_NAME=	gimp-sharp
 LIBRARY=	$(LIBRARY_NAME).dll
 
-ASSEMBLIES=	-r:Mono.Posix /pkg:gtk-sharp-2.0
+ASSEMBLIES=	\
+	/reference:Mono.Posix.dll \
+	`pkg-config --libs gtk-sharp-2.0`
 
 MYSOURCES = 				\
 	AspectPreview.cs 		\

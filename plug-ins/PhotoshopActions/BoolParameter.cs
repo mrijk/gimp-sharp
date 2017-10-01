@@ -40,7 +40,8 @@ namespace Gimp.PhotoshopActions
 
     public override IEnumerable<string> Format()
     {
-      yield return $"{(Value) ? "With" : "Without"} {Abbreviations.Get(Name)}";
+      // yield return $"{(Value) ? "With" : "Without"} {Abbreviations.Get(Name)}";
+      yield return $"{Abbreviations.Get(Name)}";
     }
 
     public string Format(string s) => ((Value) ? "With " : "Without ") + s;

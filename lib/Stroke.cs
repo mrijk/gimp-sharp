@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2017 Maurits Rijk
 //
 // Stroke.cs
 //
@@ -52,22 +52,18 @@ namespace Gimp
 
     public CoordinateList<double> GetPoints(out bool closed)
     {
-      int numPoints;
-      IntPtr ptr;
-
       // Ignore return type
-      gimp_vectors_stroke_get_points(_vectorsID, _strokeID, out numPoints, 
-				     out ptr, out closed);
+      gimp_vectors_stroke_get_points(_vectorsID, _strokeID, out int numPoints, 
+				     out IntPtr ptr, out closed);
       return new CoordinateList<double>(ptr, numPoints);
     }
 
     public Coordinate<double> GetPointAtDist(double dist, double precision,
 					     out double slope, out bool valid)
     {
-      double xPoint, yPoint;
       if (!gimp_vectors_stroke_get_point_at_dist(_vectorsID, _strokeID,
 						 dist, precision, 
-						 out xPoint, out yPoint,
+						 out double xPoint, out double yPoint,
 						 out slope, out valid))
 	{
 	  throw new GimpSharpException();
@@ -78,10 +74,8 @@ namespace Gimp
     public CoordinateList<double> Interpolate(double precision, 
 					      out bool closed)
     {
-      int numCoords;
-
       IntPtr ptr = gimp_vectors_stroke_interpolate(_vectorsID, _strokeID,
-						   precision, out numCoords,
+						   precision, out int numCoords,
 						   out closed);
       return new CoordinateList<double>(ptr, numCoords);
     }

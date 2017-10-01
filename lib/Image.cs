@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2017 Maurits Rijk
 //
 // Image.cs
 //
@@ -83,9 +83,8 @@ namespace Gimp
 
     public LayerList LoadLayers(RunMode runMode, string filename)
     {
-      int numLayers;
       IntPtr ptr = gimp_file_load_layers(runMode, ID, filename, 
-					 out numLayers);
+					 out int numLayers);
       return new LayerList(ptr, numLayers);
     }
 
@@ -221,10 +220,9 @@ namespace Gimp
                          bool sampleMerged, bool sampleAverage, 
 			 double averageRadius)
     {
-      GimpRGB color;
       if (!gimp_image_pick_color(ID, drawable.ID, c.X, c.Y, 
 				 sampleMerged, sampleAverage, averageRadius, 
-				 out color))
+				 out GimpRGB color))
         {
 	  return null;
         }
@@ -349,7 +347,7 @@ namespace Gimp
 
     public Layer ActiveLayer
     {
-      get {return new Layer(gimp_image_get_active_layer(ID));}
+      get => new Layer(gimp_image_get_active_layer(ID));
       set 
 	{
           if (!gimp_image_set_active_layer(ID, value.ID))
@@ -361,7 +359,7 @@ namespace Gimp
 
     public Channel ActiveChannel
     {
-      get {return new Channel(gimp_image_get_active_channel(ID));}
+      get => new Channel(gimp_image_get_active_channel(ID));
       set 
 	{
           if (!gimp_image_set_active_channel(ID, value.ID))
@@ -381,10 +379,8 @@ namespace Gimp
 
     public Selection Selection => new Selection(ID, gimp_image_get_selection(ID));
 
-    public bool GetComponentActive(ChannelType component)
-    {
-      return gimp_image_get_component_active(ID, component);
-    }
+    public bool GetComponentActive(ChannelType component) => 
+      gimp_image_get_component_active(ID, component);
 
     public void SetComponentActive(ChannelType component, bool active)
     {
@@ -394,10 +390,8 @@ namespace Gimp
         }
     }
 
-    public bool GetComponentVisible(ChannelType component)
-    {
-      return gimp_image_get_component_visible(ID, component);
-    }
+    public bool GetComponentVisible(ChannelType component) =>
+      gimp_image_get_component_visible(ID, component);
 
     public void SetComponentVisible(ChannelType component, bool visible)
     {
@@ -409,7 +403,7 @@ namespace Gimp
 
     public string Filename
     {
-      get {return gimp_image_get_filename(ID);}
+      get => gimp_image_get_filename(ID);
       set
 	{
           if (!gimp_image_set_filename(ID, value))
@@ -429,9 +423,8 @@ namespace Gimp
     {
       get
 	{
-	  double xresolution, yresolution;
-	  if (!gimp_image_get_resolution(ID, out xresolution, 
-					 out yresolution))
+	  if (!gimp_image_get_resolution(ID, out double xresolution, 
+					 out double yresolution))
 	    {
 	      throw new GimpSharpException();
 	    }
@@ -448,7 +441,7 @@ namespace Gimp
 
     public Unit Unit
     {
-      get {return gimp_image_get_unit(ID);}
+      get => gimp_image_get_unit(ID);
       set 
 	{
           if (!gimp_image_set_unit(ID, value))
@@ -460,7 +453,7 @@ namespace Gimp
 
     public int TattooState
     {
-      get {return gimp_image_get_tattoo_state(ID);}
+      get => gimp_image_get_tattoo_state(ID);
       set 
 	{
           if (!gimp_image_set_tattoo_state(ID, value))
@@ -480,8 +473,7 @@ namespace Gimp
     {
       get
 	{
-          int num_colors;
-          IntPtr cmap = gimp_image_get_colormap(ID, out num_colors);
+          IntPtr cmap = gimp_image_get_colormap(ID, out int num_colors);
 	  var rgb = new RGB[num_colors];
 	  var tmp = new byte[3];
 
@@ -533,8 +525,7 @@ namespace Gimp
     {
       get
 	{
-	  int numVectors;
-	  IntPtr ptr = gimp_image_get_vectors(ID, out numVectors);
+	  IntPtr ptr = gimp_image_get_vectors(ID, out int numVectors);
 	  return GetVectorsFromIntPtr(ptr, numVectors);
 	}
     }
@@ -722,12 +713,10 @@ namespace Gimp
     ImportVectorsFromFile(string filename, bool merge, bool scale)
     {
       var vectors = new List<Vectors>();
-      int numVectors;
-      IntPtr vectorsIds;
 
       if (!gimp_vectors_import_from_file(ID, filename, merge, scale,
-					 out numVectors,
-					 out vectorsIds))
+					 out int numVectors,
+					 out IntPtr vectorsIds))
 	{
 	  throw new GimpSharpException();
 	}
@@ -737,12 +726,9 @@ namespace Gimp
     public List<Vectors>
     ImportVectorsFromString(string source, bool merge, bool scale)
     {
-      int numVectors;
-      IntPtr vectorsIds;
-
       if (!gimp_vectors_import_from_string(ID, source, -1, merge, scale,
-					   out numVectors,
-					   out vectorsIds))
+					   out int numVectors,
+					   out IntPtr vectorsIds))
 	{
 	  throw new GimpSharpException();
 	}
@@ -766,8 +752,8 @@ namespace Gimp
 
     internal Int32 ID
     {
-      get {return _imageID;}
-      set {_imageID = value;}
+      get => _imageID;
+      set => _imageID = value;
     }
        
     public GuideCollection Guides => new GuideCollection(this);

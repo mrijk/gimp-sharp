@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2017 Maurits Rijk
 //
 // Drawable.cs
 //
@@ -79,12 +79,10 @@ namespace Gimp
 
     public Pixel[,] GetThumbnailData(Dimensions dimensions)
     {
-      int width = dimensions.Width;
-      int height = dimensions.Height;
-      int bpp;
+      (var width, var height) = dimensions;
 
       IntPtr src = gimp_drawable_get_thumbnail_data(ID, ref width,
-                                                    ref height, out bpp);
+                                                    ref height, out int bpp);
       var thumbnail = 
 	Pixel.ConvertToPixelArray(src, new Dimensions(width, height), bpp);
       Marshaller.Free(src);
@@ -95,16 +93,14 @@ namespace Gimp
     public Pixel[,] GetThumbnailData(Rectangle rectangle,
 				     Dimensions dimensions)
     {
-      int width = dimensions.Width;
-      int height = dimensions.Height;
-      int bpp;
+      (var width, var height) = dimensions;
 
       IntPtr src = gimp_drawable_get_sub_thumbnail_data(ID, rectangle.X1,
 							rectangle.Y1,
 							rectangle.Width,
 							rectangle.Height,
 							ref width, ref height, 
-							out bpp);
+							out int bpp);
       var thumbnail = 
 	Pixel.ConvertToPixelArray(src, new Dimensions(width, height), bpp);
       Marshaller.Free(src);
@@ -151,8 +147,7 @@ namespace Gimp
     {
       get 
 	{
-	  int x1, y1, x2, y2;
-	  gimp_drawable_mask_bounds(ID, out x1, out y1, out x2, out y2);
+	  gimp_drawable_mask_bounds(ID, out int x1, out int y1, out int x2, out int y2);
 	  return new Rectangle(x1, y1, x2, y2);
 	}
     }
@@ -161,9 +156,8 @@ namespace Gimp
     {
       get 
 	{
-	  int x1, y1, x2, y2;
-	  if (gimp_drawable_mask_intersect(ID, out x1, out y1, 
-					   out x2, out y2))
+	  if (gimp_drawable_mask_intersect(ID, out int x1, out int y1, 
+					   out int x2, out int y2))
 	    {
 	      return new Rectangle(x1, y1, x2, y2);
 	    }
@@ -188,8 +182,7 @@ namespace Gimp
     {
       get
 	{
-	  int offX, offY;
-	  if (!(gimp_drawable_offsets(ID, out offX, out offY)))
+	  if (!(gimp_drawable_offsets(ID, out int offX, out int offY)))
 	    {
 	      throw new GimpSharpException();
 	    }
@@ -730,7 +723,7 @@ namespace Gimp
 
     new internal Int32 ID
     {
-      get {return base.ID;}
+      get => base.ID;
       set 
 	{
 	  _ID = value;

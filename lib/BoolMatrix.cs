@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2017 Maurits Rijk
 //
 // BoolMatrix.cs
 //
@@ -40,8 +40,8 @@ namespace Gimp
 
     public bool this[int row, int col]
     {
-      set {_matrix[row, col] = value;}
-      get {return _matrix[row, col];}
+      set => _matrix[row, col] = value;
+      get => _matrix[row, col];
     }
 
     public bool Get(IntCoordinate c) => _matrix[c.Y, c.X];

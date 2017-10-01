@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2017 Maurits Rijk
 //
 // Channel.cs
 //
@@ -63,14 +63,14 @@ namespace Gimp
 
     public bool ShowMasked
     {
-      get {return gimp_channel_get_show_masked(ID);}
-      set {gimp_channel_set_show_masked(ID, value);}
+      get => gimp_channel_get_show_masked(ID);
+      set => gimp_channel_set_show_masked(ID, value);
     }
 
     public double Opacity
     {
-      get {return gimp_channel_get_opacity(ID);}
-      set {gimp_channel_set_opacity(ID, value);}
+      get => gimp_channel_get_opacity(ID);
+      set => gimp_channel_set_opacity(ID, value);
     }
 
     public RGB Color

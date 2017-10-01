@@ -168,9 +168,6 @@ namespace Gimp
     {
       RunMode run_mode = (RunMode) inParam[0].Value;
 
-      Console.WriteLine("Run: " + _usesDrawable);
-      Console.WriteLine("Drawable: " + inParam[2].Value);
-
       if (_usesImage)
 	{
 	  _image = (Image) inParam[1].Value;

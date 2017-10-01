@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2017 Maurits Rijk
 //
 // Coordinate.cs
 //
@@ -31,7 +31,7 @@ namespace Gimp
   {
     readonly List<Coordinate<T>> _list = new List<Coordinate<T>>();
 
-    public int Count =>  _list.Count;
+    public int Count => _list.Count;
 
     public CoordinateList()
     {
@@ -70,8 +70,8 @@ namespace Gimp
 
     public Coordinate<T> this[int index]
     {
-      get {return _list[index];}
-      set {_list[index] = value;}
+      get => _list[index];
+      set => _list[index] = value;
     }
 
     public bool TrueForAll(Predicate<Coordinate<T>> predicate) =>
