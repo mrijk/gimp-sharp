@@ -398,19 +398,14 @@ namespace Gimp.PhotoshopActions
       return parameter;
     }
 
-    public string ReadFourByteString()
-    {
-      var buffer = _binReader.ReadBytes(4);
-      var encoding = Encoding.ASCII;
-      return encoding.GetString(buffer).Trim();
-    }
-
     string ReadString(int length)
     {
       var buffer = _binReader.ReadBytes(length);
       var encoding = Encoding.ASCII;
       return encoding.GetString(buffer);
     }
+
+    public string ReadFourByteString() => ReadString(4).Trim();
 
     public string ReadString() => ReadString(ReadInt32());
 
