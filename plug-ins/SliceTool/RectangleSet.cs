@@ -1,5 +1,5 @@
 // The SliceTool plug-in
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2017 Maurits Rijk
 //
 // RectangleSet.cs
 //
@@ -52,7 +52,7 @@ namespace Gimp.SliceTool
 
     public Rectangle Selected 
     {
-      get {return _selected;}
+      get => _selected;
 
       private set 
       {

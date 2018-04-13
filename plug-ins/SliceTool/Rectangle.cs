@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2017 Maurits Rijk
 //
 // Rectangle.cs
 //
@@ -237,12 +237,12 @@ namespace Gimp.SliceTool
       _properties[name] = value;
     }
 
-    public string GetProperty(string name) =>  _properties[name];
+    public string GetProperty(string name) => _properties[name];
 
     public static string GlobalExtension
     {
-      get {return _globalExtension;}
-      set {_globalExtension = value;}
+      get => _globalExtension;
+      set => _globalExtension = value;
     }
   }
 }

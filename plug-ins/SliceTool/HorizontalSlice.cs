@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2017 Maurits Rijk
 //
 // HorizontalSlice.cs
 //
@@ -78,8 +78,8 @@ namespace Gimp.SliceTool
 
     public int Y
     {
-      get {return Position;}
-      set {Position = value;}
+      get => Position;
+      set => Position = value;
     }
 
     public int X1 => Begin.Position;

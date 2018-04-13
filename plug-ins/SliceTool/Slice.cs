@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2017 Maurits Rijk
 //
 // Slice.cs
 //
@@ -67,7 +67,7 @@ namespace Gimp.SliceTool
     
     public int Position
     {
-      get {return _position;}
+      get => _position;
       set 
 	{
 	  Changed = (_position != value);

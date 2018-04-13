@@ -1,5 +1,5 @@
 // The SliceTool plug-in
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2017 Maurits Rijk
 //
 // SliceSet.cs
 //
@@ -47,11 +47,8 @@ namespace Gimp.SliceTool
 
     public bool Changed
     {
-      get 
-	{
-	  return _changed || _set.Exists(slice => slice.Changed);
-	}
-      set {_changed = value;}
+      get => _changed || _set.Exists(slice => slice.Changed);
+      set => _changed = value;
     }
 
     public void Sort()

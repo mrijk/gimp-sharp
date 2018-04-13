@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2017 Maurits Rijk
 //
 // Property.cs
 //
@@ -43,7 +43,7 @@ namespace Gimp.SliceTool
 
     public virtual string Value
     {
-      get {return _value;}
+      get => _value;
       set 
 	{
           if (value != _value)
