@@ -1,5 +1,5 @@
 // The Splitter plug-in
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2018 Maurits Rijk
 //
 // Renderer.cs
 //
@@ -36,13 +36,11 @@ namespace Gimp.Splitter
       var newImage = new Image(image.Dimensions, image.BaseType);
       var srcPR = new PixelRgn(drawable, image.Bounds, false, false);
 
-      PixelRgn destPR1 = null;
       var layer1 = AddLayer(newImage, 1, _("layer_one"), "translate_1_x",
-			    "translate_1_y", out destPR1);
+			    "translate_1_y", out var destPR1);
 
-      PixelRgn destPR2 = null;
       var layer2 = AddLayer(newImage, 2, _("layer_two"), "translate_2_x",
-			    "translate_2_y", out destPR2);
+			    "translate_2_y", out var destPR2);
 
       var transparent = new Pixel(4);
 

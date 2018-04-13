@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2017 Maurits Rijk
+// Copyright (C) 2004-2018 Maurits Rijk
 //
 // SliceData.cs
 //
@@ -27,7 +27,7 @@ namespace Gimp.SliceTool
 {
   public class SliceData
   {
-    RectangleSet _rectangles = new RectangleSet();
+    readonly RectangleSet _rectangles = new RectangleSet();
     readonly SliceSet _horizontalSlices = new SliceSet();
     readonly SliceSet _verticalSlices = new SliceSet();
 
@@ -35,8 +35,7 @@ namespace Gimp.SliceTool
 
     public void Init(Drawable drawable)
     {
-      int width = drawable.Width;
-      int height = drawable.Height;
+      var (width, height) = drawable.Dimensions;
 
       var left = new VerticalSlice(null, null, 0) {Locked = true};
       _verticalSlices.Add(left);
@@ -211,12 +210,9 @@ namespace Gimp.SliceTool
 
     public bool Changed
     {
-      get 
-	{
-          return _rectangles.Changed
+      get => _rectangles.Changed
             || _horizontalSlices.Changed
             || _verticalSlices.Changed;
-	}
       private set
 	{
 	  _verticalSlices.Changed = value;

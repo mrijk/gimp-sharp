@@ -1,5 +1,5 @@
 // The ncp plug-in
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2018 Maurits Rijk
 //
 // Renderer.cs
 //
@@ -62,7 +62,7 @@ namespace Gimp.ncp
     Pixel DoNCP(IntCoordinate c)
     {
       int b = 0;
-      Func<int> func = () => _calculator.Calc(b++, c);
+      int func() => _calculator.Calc(b++, c);
 
       if (_color)
 	{

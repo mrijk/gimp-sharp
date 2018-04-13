@@ -1,5 +1,5 @@
 // The Pointillize plug-in
-// Copyright (C) 2006-2016 Maurits Rijk
+// Copyright (C) 2006-2018 Maurits Rijk
 //
 // Pointillize.cs
 //
@@ -37,7 +37,7 @@ namespace Gimp.Pointillize
 			   _("Create pointillist paintings"),
 			   "Maurits Rijk",
 			   "(C) Maurits Rijk",
-			   "2006-2016",
+			   "2006-2018",
 			   _("Pointillize..."),
 			   "RGB*, GRAY*",
 			   new ParamDefList(Variables))

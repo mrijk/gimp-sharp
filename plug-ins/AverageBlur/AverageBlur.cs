@@ -1,5 +1,5 @@
 // The AverageBlur plug-in
-// Copyright (C) 2004-2011 Maurits Rijk
+// Copyright (C) 2004-2018 Maurits Rijk
 //
 // AverageBlur.cs
 //
@@ -34,7 +34,7 @@ namespace Gimp.AverageBlur
 			   _("Average blur"),
 			   "Maurits Rijk",
 			   "(C) Maurits Rijk",
-			   "2006-2011",
+			   "2006-2018",
 			   _("Average"),
 			   "RGB*, GRAY*")
 	{MenuPath = "<Image>/Filters/Blur"};

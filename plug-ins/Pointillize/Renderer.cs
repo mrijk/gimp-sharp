@@ -1,5 +1,5 @@
 // The Pointillize plug-in
-// Copyright (C) 2006-2016 Maurits Rijk
+// Copyright (C) 2006-2018 Maurits Rijk
 //
 // Renderer.cs
 //

@@ -1,5 +1,5 @@
 // The Pointillize plug-in
-// Copyright (C) 2006-2016 Maurits Rijk
+// Copyright (C) 2006-2018 Maurits Rijk
 //
 // ColorCoordinateSet.cs
 //
@@ -44,8 +44,7 @@ namespace Gimp.Pointillize
 
       var pf = new PixelFetcher(drawable, false);
 
-      _width = drawable.Width;
-      _height = drawable.Height;
+      (_width, _height) = drawable.Dimensions;
       
       int nrOfCells = (int) (2.5 * _width * _height / _cellSize2);
 
@@ -60,8 +59,7 @@ namespace Gimp.Pointillize
       foreach (var c in new RandomCoordinateGenerator(_width - 1, _height - 1, 
 						      nrOfCells))
 	{
-	  int x = c.X;
-	  int y = c.Y;
+	  var (x, y) = c;
 
 	  var color = pf.GetPixel(c);
 	  color.AddNoise(5);

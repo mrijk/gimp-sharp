@@ -40,6 +40,12 @@ namespace Gimp
     {
     }
 
+    public void Deconstruct(out T x, out T y)
+    {
+      x = X;
+      y = Y;
+    }	
+
     public override bool Equals(object o)
     {
       if (o is Coordinate<T>)
