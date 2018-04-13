@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2018 Maurits Rijk
 //
 // Selection.cs
 //
@@ -46,8 +46,7 @@ namespace Gimp
 
     public new Rectangle Bounds(out bool nonEmpty)
     {
-      int x1, y1, x2, y2;
-      Bounds(out nonEmpty, out x1, out y1, out x2, out y2);
+      Bounds(out nonEmpty, out int x1, out int y1, out int x2, out int y2);
       return new Rectangle(x1, y1, x2, y2);
     }
 

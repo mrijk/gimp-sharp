@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2018 Maurits Rijk
 //
 // Path.cs
 //
@@ -45,7 +45,7 @@ namespace Gimp
 
     public bool Locked
     {
-      get {return gimp_path_get_locked(_imageID, _name);}
+      get => gimp_path_get_locked(_imageID, _name);
       set
 	{
           if (!gimp_path_set_locked(_imageID, _name, value))
@@ -57,7 +57,7 @@ namespace Gimp
 
     public Tattoo Tattoo
     {
-      get {return new Tattoo(gimp_path_get_tattoo(_imageID, _name));}
+      get => new Tattoo(gimp_path_get_tattoo(_imageID, _name));
       set
 	{
           if (!gimp_path_set_tattoo(_imageID, _name, value.ID))

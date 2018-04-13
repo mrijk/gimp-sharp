@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2018 Maurits Rijk
 //
 // Pixel.cs
 //
@@ -119,15 +119,11 @@ namespace Gimp
 
     public RGB Color
     {
-      get 
-	{
-	  return new RGB((byte) Red, (byte) Green, (byte) Blue);
-	}
+      get => new RGB((byte) Red, (byte) Green, (byte) Blue);
 
       set
 	{
-	  byte r, g, b;
-	  value.GetUchar(out r, out g, out b);
+	  value.GetUchar(out byte r, out byte g, out byte b);
 	  _rgb[0] = r;
 	  _rgb[1] = g;
 	  _rgb[2] = b;
@@ -169,31 +165,31 @@ namespace Gimp
 
     public int this[int index]
     {
-      get {return _rgb[index];}
+      get => _rgb[index];
       set {_rgb[index] = value;}
     }
 
     public int Red
     {
-      get {return _rgb[0];}
+      get => _rgb[0];
       set {_rgb[0] = value;}
     }
 	
     public int Green
     {
-      get {return _rgb[1];}
+      get => _rgb[1];
       set {_rgb[1] = value;}
     }
 
     public int Blue
     {
-      get {return _rgb[2];}
+      get => _rgb[2];
       set {_rgb[2] = value;}
     }
 
     public int Alpha
     {
-      get {return _rgb[(_bpp == 2) ? 1 : 3];}
+      get => _rgb[(_bpp == 2) ? 1 : 3];
       set {_rgb[(_bpp == 2) ? 1 : 3] = value;}
     }
 
@@ -207,10 +203,7 @@ namespace Gimp
 	}
     }
 
-    int Clamp(int rgb)
-    {
-      return (rgb < 0) ? 0 : ((rgb > 255) ? 255 : rgb);
-    }
+    int Clamp(int rgb) => (rgb < 0) ? 0 : ((rgb > 255) ? 255 : rgb);
 
     public void AddNoise(int noise)
     {
