@@ -1,5 +1,5 @@
 // The PicturePackage plug-in
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2018 Maurits Rijk
 //
 // Rectangle.cs
 //
@@ -89,8 +89,7 @@ namespace Gimp.PicturePackage
 
     public bool Inside(Coordinate<double> c)
     {
-      double x = c.X;
-      double y = c.Y;
+      var (x, y) = c;
       return x >= _x && x <= _x + _w && y >= _y && y <= _y + _h;
     }
   }

@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2018 Maurits Rijk
 //
 // ParasiteList.cs
 //
@@ -47,9 +47,7 @@ namespace Gimp
     internal ParasiteList(Int32 ID, GetParasitesFunc getParasites,
 			  ParasiteFindFunc parasiteFind)
     {
-      int numParasites;
-      IntPtr parasites;
-      if (getParasites(ID, out numParasites, out parasites))
+      if (getParasites(ID, out int numParasites, out IntPtr parasites))
 	{
 	  _list = Util.ToList<Parasite>(parasites, numParasites,
 					(s) => ParasiteFind(ID, parasiteFind,

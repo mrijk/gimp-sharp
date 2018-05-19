@@ -79,7 +79,7 @@ namespace Gimp
 
     public Pixel[,] GetThumbnailData(Dimensions dimensions)
     {
-      (var width, var height) = dimensions;
+      var (width, height) = dimensions;
 
       IntPtr src = gimp_drawable_get_thumbnail_data(ID, ref width,
                                                     ref height, out int bpp);
@@ -93,7 +93,7 @@ namespace Gimp
     public Pixel[,] GetThumbnailData(Rectangle rectangle,
 				     Dimensions dimensions)
     {
-      (var width, var height) = dimensions;
+      var (width, height) = dimensions;
 
       IntPtr src = gimp_drawable_get_sub_thumbnail_data(ID, rectangle.X1,
 							rectangle.Y1,
