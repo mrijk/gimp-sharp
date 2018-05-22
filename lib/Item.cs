@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2018 Maurits Rijk
 //
 // Item.cs
 //
@@ -94,8 +94,7 @@ namespace Gimp
       {
 	var children = new List<Item>();
 
-	int numChildren;
-	IntPtr ptr = gimp_item_get_children(ID, out numChildren);
+	IntPtr ptr = gimp_item_get_children(ID, out int numChildren);
 
 	if (numChildren > 0)
 	  {
@@ -109,7 +108,7 @@ namespace Gimp
 
     public string Name
     {
-      get {return gimp_item_get_name(ID);}
+      get => gimp_item_get_name(ID);
       set
 	{
 	  if (!gimp_item_set_name(ID, value))
@@ -121,7 +120,7 @@ namespace Gimp
 
     public bool Visible
     {
-      get {return gimp_item_get_visible(_ID);}
+      get => gimp_item_get_visible(_ID);
       set
 	{
 	  if (!gimp_item_set_visible(_ID, value))
@@ -133,7 +132,7 @@ namespace Gimp
 
     public bool Linked
     {
-      get {return gimp_item_get_linked(ID);}
+      get => gimp_item_get_linked(ID);
       set 
 	{
 	  if (!gimp_item_set_linked(ID, value))
@@ -145,7 +144,7 @@ namespace Gimp
 
     public bool LockContent
     {
-      get {return gimp_item_get_lock_content(ID);}
+      get => gimp_item_get_lock_content(ID);
       set 
 	{
 	  if (!gimp_item_set_lock_content(ID, value))
@@ -157,7 +156,7 @@ namespace Gimp
 
     public Tattoo Tattoo
     {
-      get {return new Tattoo(gimp_item_get_tattoo(ID));}
+      get => new Tattoo(gimp_item_get_tattoo(ID));
       set
 	{
 	  if (!gimp_item_set_tattoo(ID, value.ID))

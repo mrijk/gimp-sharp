@@ -32,7 +32,7 @@ namespace Gimp
 
     public string Name
     {
-      get {return _name;}
+      get => _name;
       set {Rename(value);}
     }
 

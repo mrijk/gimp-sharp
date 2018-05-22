@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2017 Maurits Rijk
+// Copyright (C) 2004-2018 Maurits Rijk
 //
 // RGB.cs
 //
@@ -20,7 +20,6 @@
 //
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;

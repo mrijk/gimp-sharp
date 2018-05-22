@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2018 Maurits Rijk
 //
 // ImageList.cs
 //
@@ -20,7 +20,6 @@
 //
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
@@ -41,8 +40,7 @@ namespace Gimp
     public void Refresh()
     {
       _list.Clear();
-      int numImages;
-      IntPtr list = gimp_image_list(out numImages);
+      IntPtr list = gimp_image_list(out int numImages);
 
       if (numImages != 0)
 	{

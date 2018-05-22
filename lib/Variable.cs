@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2018 Maurits Rijk
 //
 // Variable.cs
 //
@@ -49,7 +49,7 @@ namespace Gimp
 
     public T Value
     {
-      get {return _value;}
+      get => _value;
       set 
 	{
 	  if (!value.Equals(_value))

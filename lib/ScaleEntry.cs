@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2018 Maurits Rijk
 //
 // ScaleEntry.cs
 //
@@ -91,7 +91,7 @@ namespace Gimp
 
     public bool Logarithmic
     {
-      get {return gimp_scale_entry_get_logarithmic(Handle);}
+      get => gimp_scale_entry_get_logarithmic(Handle);
       set {gimp_scale_entry_set_logarithmic(Handle, value);}
     }
 

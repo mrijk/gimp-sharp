@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2018 Maurits Rijk
 //
 // PaletteList.cs
 //
@@ -31,9 +31,7 @@ namespace Gimp
     }
 
     protected override IntPtr GetList(string filter, out int numDataObjects)
-    {
-      return gimp_palettes_get_list(filter, out numDataObjects);
-    }
+      => gimp_palettes_get_list(filter, out numDataObjects);
 
     protected override Palette CreateT(string name) => new Palette(name, false);
 

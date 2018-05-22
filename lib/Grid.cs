@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2018 Maurits Rijk
 //
 // Grid.cs
 //
@@ -37,8 +37,8 @@ namespace Gimp
     {
       get
 	{
-	  double xspacing, yspacing; 
-	  if (!gimp_image_grid_get_spacing(_imageID, out xspacing, out yspacing))
+	  if (!gimp_image_grid_get_spacing(_imageID, out double xspacing, 
+					   out double yspacing))
 	    {
 	      throw new GimpSharpException();
 	    }
@@ -57,8 +57,8 @@ namespace Gimp
     {
       get
 	{
-	  double xoffset, yoffset; 
-	  if (!gimp_image_grid_get_offset(_imageID, out xoffset, out yoffset))
+	  if (!gimp_image_grid_get_offset(_imageID, out double xoffset, 
+					  out double yoffset))
 	    {
 	      throw new GimpSharpException();
 	    }
@@ -117,10 +117,7 @@ namespace Gimp
 
     public GridStyle Style
     {
-      get 
-	{
-	  return gimp_image_grid_get_style(_imageID);
-	}
+      get => gimp_image_grid_get_style(_imageID);
       set
 	{
 	  if (!gimp_image_grid_set_style(_imageID, value))

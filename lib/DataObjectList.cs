@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2018 Maurits Rijk
 //
 // DataObjectList.cs
 //
@@ -32,8 +32,7 @@ namespace Gimp
 
     public DataObjectList(string filter)
     {
-      int numDataObjects;
-      IntPtr ptr = GetList(filter, out numDataObjects);
+      IntPtr ptr = GetList(filter, out int numDataObjects);
       _foo = numDataObjects;
       _list = Util.ToList<T>(ptr, numDataObjects, CreateT);
     }

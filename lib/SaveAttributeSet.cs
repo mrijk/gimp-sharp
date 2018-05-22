@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2018 Maurits Rijk
 //
 // SaveAttributeSet.cs
 //
@@ -28,7 +28,7 @@ namespace Gimp
 {
   public sealed class SaveAttributeSet
   {
-    internal Type _type;
+    readonly internal Type _type;
 
     public SaveAttributeSet(Type type)
     {

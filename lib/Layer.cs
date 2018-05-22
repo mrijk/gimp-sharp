@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2018 Maurits Rijk
 //
 // Layer.cs
 //
@@ -162,7 +162,7 @@ namespace Gimp
 
     public new Offset Offsets
     {
-      get {return base.Offsets;}
+      get => base.Offsets;
       set
 	{
 	  if (!gimp_layer_set_offsets(_ID, value.X, value.Y))
@@ -203,7 +203,7 @@ namespace Gimp
 
     public bool LockAlpha
     {
-      get {return gimp_layer_get_lock_alpha(_ID);}
+      get => gimp_layer_get_lock_alpha(_ID);
       set 
 	{
 	  if (!gimp_layer_set_lock_alpha(_ID, value))
@@ -215,7 +215,7 @@ namespace Gimp
 
     public bool ApplyMask
     {
-      get {return gimp_layer_get_apply_mask(_ID);}
+      get => gimp_layer_get_apply_mask(_ID);
       set 
 	{
 	  if (!gimp_layer_set_apply_mask(_ID, value))
@@ -227,7 +227,7 @@ namespace Gimp
 
     public bool ShowMask
     {
-      get {return gimp_layer_get_show_mask(_ID);}
+      get => gimp_layer_get_show_mask(_ID);
       set 
 	{
 	  if (!gimp_layer_set_show_mask(_ID, value))
@@ -239,7 +239,7 @@ namespace Gimp
 
     public bool EditMask
     {
-      get {return gimp_layer_get_edit_mask(_ID);}
+      get => gimp_layer_get_edit_mask(_ID);
       set 
 	{
 	  if (!gimp_layer_set_edit_mask(_ID, value))
@@ -251,7 +251,7 @@ namespace Gimp
 
     public double Opacity
     {
-      get {return gimp_layer_get_opacity(_ID);}
+      get => gimp_layer_get_opacity(_ID);
       set {
 	if (!gimp_layer_set_opacity(_ID, value))
 	  {
@@ -262,7 +262,7 @@ namespace Gimp
   
     public LayerModeEffects Mode
     {
-      get {return gimp_layer_get_mode(_ID);}
+      get => gimp_layer_get_mode(_ID);
       set 
 	{
 	  if (!gimp_layer_set_mode(_ID, value))

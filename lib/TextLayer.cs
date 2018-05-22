@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2018 Maurits Rijk
 //
 // TextLayer.cs
 //
@@ -45,7 +45,7 @@ namespace Gimp
 
     public string Text
     {
-      get {return gimp_text_layer_get_text(ID);}
+      get => gimp_text_layer_get_text(ID);
       set
       {
 	if (!gimp_text_layer_set_text(ID, value))
@@ -59,7 +59,7 @@ namespace Gimp
 
     public TextHintStyle HintStyle
     {
-      get {return gimp_text_layer_get_hint_style(ID);}
+      get => gimp_text_layer_get_hint_style(ID);
       set
       {
 	if (!gimp_text_layer_set_hint_style(ID, value))
@@ -71,7 +71,7 @@ namespace Gimp
 
     public string Font
     {
-      get {return gimp_text_layer_get_font(ID);}
+      get => gimp_text_layer_get_font(ID);
       set
       {
 	if (!gimp_text_layer_set_font(ID, value))
@@ -85,8 +85,7 @@ namespace Gimp
     {
       get
       {
-	Unit unit;
-	double size = gimp_text_layer_get_font_size(ID, out unit); 
+	double size = gimp_text_layer_get_font_size(ID, out Unit unit); 
 	return new FontSize(size, unit);
       }
       set
@@ -102,8 +101,7 @@ namespace Gimp
     {
       get
       {
-	bool autohint;
-	bool hinting = gimp_text_layer_get_hinting(ID, out autohint);
+	bool hinting = gimp_text_layer_get_hinting(ID, out bool autohint);
 	return new FontHinting(hinting, autohint);
       }
       set
@@ -117,7 +115,7 @@ namespace Gimp
 
     public bool Antialias
     {
-      get {return gimp_text_layer_get_antialias(ID);}
+      get => gimp_text_layer_get_antialias(ID);
       set
       {
 	if (!gimp_text_layer_set_antialias(ID, value))
@@ -129,7 +127,7 @@ namespace Gimp
 
     public bool Kerning
     {
-      get {return gimp_text_layer_get_kerning(ID);}
+      get => gimp_text_layer_get_kerning(ID);
       set
       {
 	if (!gimp_text_layer_set_kerning(ID, value))
@@ -141,7 +139,7 @@ namespace Gimp
 
     public string Language
     {
-      get {return gimp_text_layer_get_language(ID);}
+      get => gimp_text_layer_get_language(ID);
       set
       {
 	if (!gimp_text_layer_set_language(ID, value))
@@ -153,7 +151,7 @@ namespace Gimp
 
     public TextDirection BaseDirection
     {
-      get {return gimp_text_layer_get_base_direction(ID);}
+      get => gimp_text_layer_get_base_direction(ID);
       set
       {
 	if (!gimp_text_layer_set_base_direction(ID, value))
@@ -165,7 +163,7 @@ namespace Gimp
 
     public TextJustification Justification
     {
-      get {return gimp_text_layer_get_justification(ID);}
+      get => gimp_text_layer_get_justification(ID);
       set
       {
 	if (!gimp_text_layer_set_justification(ID, value))
@@ -198,7 +196,7 @@ namespace Gimp
 
     public double Indent
     {
-      get {return gimp_text_layer_get_indent(ID);}
+      get => gimp_text_layer_get_indent(ID);
       set
       {
 	if (!gimp_text_layer_set_indent(ID, value))
@@ -210,7 +208,7 @@ namespace Gimp
 
     public double LineSpacing
     {
-      get {return gimp_text_layer_get_line_spacing(ID);}
+      get => gimp_text_layer_get_line_spacing(ID);
       set
       {
 	if (!gimp_text_layer_set_line_spacing(ID, value))
@@ -222,7 +220,7 @@ namespace Gimp
 
     public double LetterSpacing
     {
-      get {return gimp_text_layer_get_letter_spacing(ID);}
+      get => gimp_text_layer_get_letter_spacing(ID);
       set
       {
 	if (!gimp_text_layer_set_letter_spacing(ID, value))
