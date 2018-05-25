@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2018 Maurits Rijk
 //
 // GimpUnit.cs
 //
@@ -25,7 +25,7 @@ namespace Gimp
 {
   public sealed class GimpUnit
   {
-    Unit _unit;
+    readonly Unit _unit;
 
     public double Factor => gimp_unit_get_factor(_unit);
     public int Digits => gimp_unit_get_digits(_unit);
@@ -49,8 +49,8 @@ namespace Gimp
 
     public bool DeletionFlag
     {
-      get {return gimp_unit_get_deletion_flag(_unit);}
-      set {gimp_unit_set_deletion_flag(_unit, value);}
+      get => gimp_unit_get_deletion_flag(_unit);
+      set => gimp_unit_set_deletion_flag(_unit, value);
     }
 
     [DllImport("libgimp-2.0-0.dll")]

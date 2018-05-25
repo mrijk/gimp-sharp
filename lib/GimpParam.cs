@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2018 Maurits Rijk
 //
 // GimpParam.cs
 //
@@ -91,14 +91,14 @@ namespace Gimp
 
     public PDBArgType type
     {
-      get {return _param.type;}
-      set {_param.type = value;}
+      get => _param.type;
+      set => _param.type = value;
     }
 
     public ParamData data
     {
-      get {return _param.data;}
-      set {_param.data = value;}
+      get => _param.data;
+      set => _param.data = value;
     }
 
     public static GimpParam GetIntParam(Object obj)

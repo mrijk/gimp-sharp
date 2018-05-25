@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2018 Maurits Rijk
 //
 // DrawableList.cs
 //
@@ -40,8 +40,7 @@ namespace Gimp
 
     protected DrawableList(Image image, GetDrawablesFunc getDrawables)
     {
-      int numDrawables;
-      IntPtr ptr = getDrawables(image.ID, out numDrawables);
+      IntPtr ptr = getDrawables(image.ID, out int numDrawables);
       FillListFromPtr(ptr, numDrawables);
     }
     
@@ -60,15 +59,9 @@ namespace Gimp
 
     public IEnumerator<T> GetEnumerator() => _list.GetEnumerator();
 
-    protected void Add(T drawable)
-    {
-      _list.Add(drawable);
-    }
+    protected void Add(T drawable) => _list.Add(drawable);
 
-    public void ForEach(Action<T> action)
-    {
-      _list.ForEach(action);
-    }
+    public void ForEach(Action<T> action) => _list.ForEach(action);
 
     public T this[string name] => _list.Find(drawable => drawable.Name == name);
 

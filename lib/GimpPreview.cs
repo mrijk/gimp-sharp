@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2018 Maurits Rijk
 //
 // GimpPreview.cs
 //
@@ -37,12 +37,12 @@ namespace Gimp
     {
     }
 
-    virtual internal GimpPreview Instantiate(Drawable drawable) {return null;}
+    virtual internal GimpPreview Instantiate(Drawable drawable) => null;
 
     public bool Update
     {
-      get {return gimp_preview_get_update(Handle);}
-      set {gimp_preview_set_update(Handle, value);}
+      get => gimp_preview_get_update(Handle);
+      set => gimp_preview_set_update(Handle, value);
     }
 
     public void SetBounds(int xmin, int ymin, int xmax, int ymax)
@@ -62,8 +62,7 @@ namespace Gimp
 
     public Coordinate<int> Transform(Coordinate<int> src)
     {
-      int dest_x, dest_y;
-      Transform(src.X, src.Y, out dest_x, out dest_y);
+      Transform(src.X, src.Y, out int dest_x, out int dest_y);
       return new Coordinate<int>(dest_x, dest_y);
     }
 
@@ -75,8 +74,7 @@ namespace Gimp
 
     public Coordinate<int> Untransform(Coordinate<int> src)
     {
-      int dest_x, dest_y;
-      Untransform(src.X, src.Y, out dest_x, out dest_y);
+      Untransform(src.X, src.Y, out int dest_x, out int dest_y);
       return new Coordinate<int>(dest_x, dest_y);
     }
 
@@ -89,8 +87,7 @@ namespace Gimp
     {
       get
 	{
-	  int x, y;
-	  GetPosition(out x, out y);
+	  GetPosition(out int x, out int y);
 	  return new Offset(x, y);
 	}
     }
@@ -99,8 +96,7 @@ namespace Gimp
     {
       get
 	{
-	  int width, height;
-	  GetSize(out width, out height);
+	  GetSize(out int width, out int height);
 	  return new Dimensions(width, height);
 	}
     }
@@ -113,9 +109,8 @@ namespace Gimp
 	}
       get
 	{
-	  int x, y, width, height;
-	  GetPosition(out x, out y);
-	  GetSize(out width, out height);
+	  GetPosition(out int x, out int y);
+	  GetSize(out int width, out int height);
 	  return new Rectangle(x, y, x + width, y + height);
 	}
     }

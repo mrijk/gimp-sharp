@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2018 Maurits Rijk
 //
 // PixelFetcher.cs
 //
@@ -62,7 +62,7 @@ namespace Gimp
     {
       set
 	{
-	  GimpRGB rgb = value.GimpRGB;
+	  var rgb = value.GimpRGB;
 	  gimp_pixel_fetcher_set_bg_color(_ptr, ref rgb);
 	}
     }
@@ -73,10 +73,7 @@ namespace Gimp
       return new Pixel(_dummy);
     }
 
-    public Pixel GetPixel(Coordinate<int> c)
-    {
-      return GetPixel(c.X, c.Y);
-    }
+    public Pixel GetPixel(Coordinate<int> c) => GetPixel(c.X, c.Y);
 
     public void PutPixel(int x, int y, Pixel pixel)
     {
@@ -100,15 +97,8 @@ namespace Gimp
 
     public Pixel this[int row, int col]
     {
-      set
-	{
-	  PutPixel(col, row, value);
-	}
-
-      get
-	{
-	  return GetPixel(col, row);
-	}
+      get => GetPixel(col, row);
+      set => PutPixel(col, row, value);
     }
 
     [DllImport("libgimp-2.0-0.dll")]

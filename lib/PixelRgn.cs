@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2018 Maurits Rijk
 //
 // PixelRgn.cs
 //
@@ -87,27 +87,17 @@ namespace Gimp
     {
     }
 
-    public static IntPtr Register(PixelRgn rgn)
-    {
-      return gimp_pixel_rgns_register(1, ref *rgn.pr);
-    }
+    public static IntPtr Register(PixelRgn rgn) =>
+      gimp_pixel_rgns_register(1, ref *rgn.pr);
 
-    public static IntPtr Register(PixelRgn rgn1, PixelRgn rgn2)
-    {
-      return gimp_pixel_rgns_register(2, ref *rgn1.pr, ref *rgn2.pr);
-    }
+    public static IntPtr Register(PixelRgn rgn1, PixelRgn rgn2) =>
+      gimp_pixel_rgns_register(2, ref *rgn1.pr, ref *rgn2.pr);
 
     public static IntPtr Register(PixelRgn rgn1, PixelRgn rgn2, 
-				  PixelRgn rgn3)
-    {
-      return gimp_pixel_rgns_register(3, ref *rgn1.pr, ref *rgn2.pr,
-              ref *rgn3.pr);
-    }
+				  PixelRgn rgn3) =>
+      gimp_pixel_rgns_register(3, ref *rgn1.pr, ref *rgn2.pr, ref *rgn3.pr);
 
-    public static IntPtr Process(IntPtr priPtr)
-    {
-      return gimp_pixel_rgns_process(priPtr);
-    }
+    public static IntPtr Process(IntPtr priPtr) => gimp_pixel_rgns_process(priPtr);
 
     public void GetPixel(byte[] buf, int x, int y)
     {
@@ -132,11 +122,8 @@ namespace Gimp
       return buf;
     }
 
-    public byte[] GetRect(Rectangle rectangle)
-    {
-      return GetRect(rectangle.X1, rectangle.Y1, rectangle.Width,
-		     rectangle.Height);
-    }
+    public byte[] GetRect(Rectangle rectangle) =>
+      GetRect(rectangle.X1, rectangle.Y1, rectangle.Width, rectangle.Height);
 
     public void SetRect(byte[] buf, int x, int y, int width, int height)
     {

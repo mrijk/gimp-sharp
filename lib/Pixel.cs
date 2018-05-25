@@ -132,16 +132,8 @@ namespace Gimp
 
     public byte[] Bytes
     {
-      set
-	{
-	  Array.Copy(value, _rgb, _bpp);
-	}
-
-      get
-	{
-	  return Array.ConvertAll(_rgb, 
-				  new Converter<int, byte>(ConvertToByte));
-	}
+      get => Array.ConvertAll(_rgb, new Converter<int, byte>(ConvertToByte));
+      set => Array.Copy(value, _rgb, _bpp);
     }
 
     static byte ConvertToByte(int value) => (byte) value;
@@ -267,8 +259,7 @@ namespace Gimp
 						 Dimensions dimensions,
 						 int bpp)
     {
-      int width = dimensions.Width;
-      int height = dimensions.Height;
+      var (width, height) = dimensions;
       var dest = new byte[width * height * bpp];
       Marshal.Copy(src, dest, 0, width * height * bpp);
 

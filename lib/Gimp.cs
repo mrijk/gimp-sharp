@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2018 Maurits Rijk
 //
 // Gimp.cs
 //
@@ -113,9 +113,7 @@ namespace Gimp
     {
       get
 	{
-	  int numParasites;
-
-	  IntPtr ptr = gimp_get_parasite_list(out numParasites);
+	  IntPtr ptr = gimp_get_parasite_list(out int numParasites);
 
 	  var parasites = new ParasiteList();
 
@@ -199,18 +197,14 @@ namespace Gimp
 
     static public IntPtr ColorConfiguration
     {
-      get
-	{
-	  return gimp_get_color_configuration();
-	}
+      get => gimp_get_color_configuration();
     }
 
     static public Resolution MonitorResolution
     {
       get
 	{
-	  double xres, yres;
-	  if (!gimp_get_monitor_resolution(out xres, out yres))
+	  if (!gimp_get_monitor_resolution(out double xres, out double yres))
 	    {
 	      throw new GimpSharpException();
 	    }

@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2018 Maurits Rijk
 //
 // FileEntry.cs
 //
@@ -37,8 +37,8 @@ namespace Gimp
 
     public string FileName
     {
-      get {return gimp_file_entry_get_filename(Handle);}
-      set {gimp_file_entry_set_filename(Handle, value);}
+      get => gimp_file_entry_get_filename(Handle);
+      set => gimp_file_entry_set_filename(Handle, value);
     }
 
     [GLib.Signal("filename_changed")]

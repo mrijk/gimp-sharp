@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2018 Maurits Rijk
 //
 // GimpColorButton.cs
 //
@@ -79,8 +79,8 @@ namespace Gimp
 
     public bool Update
     {
-      get {return gimp_color_button_get_update(Handle);}
-      set {gimp_color_button_set_update(Handle, value);}
+      get => gimp_color_button_get_update(Handle);
+      set => gimp_color_button_set_update(Handle, value);
     }
 
     [GLib.Signal("color_changed")]

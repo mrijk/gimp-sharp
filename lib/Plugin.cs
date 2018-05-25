@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2018 Maurits Rijk
 //
 // Plugin.cs
 //
@@ -112,10 +112,8 @@ namespace Gimp
 
     protected virtual Procedure GetProcedure() {return null;}
 
-    bool HasMethod(string methodName)
-    {
-      return Array.Exists(GetMethods(), m => m.Name == methodName);
-    }
+    bool HasMethod(string methodName) =>
+      Array.Exists(GetMethods(), m => m.Name == methodName);
 
     MethodInfo[] GetMethods()
     {
@@ -252,8 +250,7 @@ namespace Gimp
 
       inParam.Marshall(paramPtr, n_params);
 
-      ParamDefList outParam;
-      Run(name, inParam, out outParam);
+      Run(name, inParam, out var outParam);
       outParam.Marshall(out return_vals, out n_return_vals);
     }
 
