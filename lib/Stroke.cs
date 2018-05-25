@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2017 Maurits Rijk
+// Copyright (C) 2004-2018 Maurits Rijk
 //
 // Stroke.cs
 //
@@ -45,10 +45,8 @@ namespace Gimp
 	}
     }
 
-    public double GetLength(double precision)
-    {
-      return gimp_vectors_stroke_get_length(_vectorsID, _strokeID, precision);
-    }
+    public double GetLength(double precision) => 
+      gimp_vectors_stroke_get_length(_vectorsID, _strokeID, precision);
 
     public CoordinateList<double> GetPoints(out bool closed)
     {

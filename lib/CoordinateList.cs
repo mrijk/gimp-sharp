@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2017 Maurits Rijk
+// Copyright (C) 2004-2018 Maurits Rijk
 //
 // Coordinate.cs
 //
@@ -53,20 +53,11 @@ namespace Gimp
 
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-    public void ForEach(Action<Coordinate<T>> action)
-    {
-      _list.ForEach(action);
-    }
+    public void ForEach(Action<Coordinate<T>> action) => _list.ForEach(action);
 	
-    public void Add(Coordinate<T> coordinate)
-    {
-      _list.Add(coordinate);
-    }
+    public void Add(Coordinate<T> coordinate) => _list.Add(coordinate);
 	
-    public void Add(T x, T y)
-    {
-      _list.Add(new Coordinate<T>(x, y));
-    }
+    public void Add(T x, T y) => _list.Add(new Coordinate<T>(x, y));
 
     public Coordinate<T> this[int index]
     {
