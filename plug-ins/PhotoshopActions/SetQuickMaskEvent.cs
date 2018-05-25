@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2018 Maurits Rijk
 //
 // SetQuickMaskEvent.cs
 //
@@ -18,9 +18,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-using System.Collections;
-
 namespace Gimp.PhotoshopActions
 {
   public class SetQuickMaskEvent : SetEvent
@@ -31,12 +28,12 @@ namespace Gimp.PhotoshopActions
 
     public override string EventForDisplay
     {
-      get {return base.EventForDisplay + " Quick Mask";}
+      get => base.EventForDisplay + " Quick Mask";
     }
 
     override public bool Execute()
     {
-      Channel channel = ActiveImage.Selection.Save();
+      var channel = ActiveImage.Selection.Save();
       channel.Name = "Quick Mask";
       channel.Visible = true;
 

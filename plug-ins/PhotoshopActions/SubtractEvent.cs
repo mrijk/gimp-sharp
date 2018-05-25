@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2018 Maurits Rijk
 //
 // SubtractEvent.cs
 //
@@ -47,7 +47,7 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
-      Channel channel = ActiveImage.Channels[_name];
+      var channel = ActiveImage.Channels[_name];
       ActiveImage.Selection.Combine(channel, ChannelOps.Subtract);
       return true;
     }

@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2016 Maurits Rijk
+// Copyright (C) 2006-2018 Maurits Rijk
 //
 // AddEvent.cs
 //
@@ -34,17 +34,17 @@ namespace Gimp.PhotoshopActions
     {
       get 
 	{
-	  if (_obj.Set[0] is NameType)
+	  switch (_obj.Set[0])
 	    {
-	      _name = (_obj.Set[0] as NameType).Key;
+	    case NameType action:
+	      _name = action.Key;
 	      return base.EventForDisplay + " channel \"" + _name + "\"";
-	    }
-	  else if (_obj.Set[0] is EnmrType)
-	    {
-	      _name = Abbreviations.Get((_obj.Set[0] as EnmrType).Value);
+	    case EnmrType action:
+	      _name = Abbreviations.Get(action.Value);
 	      return base.EventForDisplay + " " + _name + " channel";
+	    default: 
+	      return base.EventForDisplay;
 	    }
-	  return base.EventForDisplay;
 	}
     }
 
@@ -59,7 +59,7 @@ namespace Gimp.PhotoshopActions
 
       // Channel channel = ActiveImage.Channels[_name];
 
-      Channel channel = new Channel(ActiveImage, ChannelType.Green, "Green");
+      var channel = new Channel(ActiveImage, ChannelType.Green, "Green");
       ActiveImage.AddChannel(channel, 0);
 
       ActiveImage.Selection.Combine(channel, ChannelOps.Add);

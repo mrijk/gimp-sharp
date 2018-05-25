@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2018 Maurits Rijk
 //
 // SetColorEvent.cs
 //
@@ -34,10 +34,7 @@ namespace Gimp.PhotoshopActions
 
     protected RGB Color
     {
-      get 
-	{
-	  return _objc.GetColor();
-	}
+      get => _objc.GetColor();
     }
   }
 }

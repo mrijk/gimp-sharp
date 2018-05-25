@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2018 Maurits Rijk
 //
 // ShowLayerEvent.cs
 //
@@ -54,7 +54,7 @@ namespace Gimp.PhotoshopActions
 
     public override string EventForDisplay
     {
-      get {return base.EventForDisplay + " current layer";}
+      get => base.EventForDisplay + " current layer";
     }
 
 #if false

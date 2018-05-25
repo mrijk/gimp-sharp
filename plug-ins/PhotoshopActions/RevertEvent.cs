@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2018 Maurits Rijk
 //
 // RevertEvent.cs
 //
@@ -27,13 +27,10 @@ namespace Gimp.PhotoshopActions
   {
     public override bool IsExecutable
     {
-      get {return false;}
+      get => false;
     }
 
-    override public bool Execute()
-    {
-      // Revert to last saved state
-      return false;
-    }
+    // Revert to last saved state
+    override public bool Execute() => false;
   }
 }

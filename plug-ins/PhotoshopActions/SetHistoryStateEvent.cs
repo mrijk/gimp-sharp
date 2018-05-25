@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2018 Maurits Rijk
 //
 // SetHistoryStateEvent.cs
 //
@@ -28,13 +28,10 @@ namespace Gimp.PhotoshopActions
 
     public override string EventForDisplay
     {
-      get {return base.EventForDisplay + " Current History State";}
+      get => base.EventForDisplay + " Current History State";
     }
 
-    override public bool Execute()
-    {
-      // Not really implemented, but we can safely ignore this
-      return true;
-    }
+    // Not really implemented, but we can safely ignore this
+    override public bool Execute() => true;
   }
 }

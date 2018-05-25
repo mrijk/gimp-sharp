@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2018 Maurits Rijk
 //
 // SaveEvent.cs
 //
@@ -29,7 +29,7 @@ namespace Gimp.PhotoshopActions
 
     protected override IEnumerable ListParameters()
     {
-      Parameter saveAs = Parameters["As"];
+      var saveAs = Parameters["As"];
       if (saveAs != null)
 	{
 	  string fileType = "unknown extension";
@@ -43,7 +43,7 @@ namespace Gimp.PhotoshopActions
 	  yield return "Byte Order: ";
 	}
 
-      Parameter saveIn = Parameters["In"];
+      var saveIn = Parameters["In"];
       if (saveIn != null)
 	{
 	  if (saveIn is AliasParameter)

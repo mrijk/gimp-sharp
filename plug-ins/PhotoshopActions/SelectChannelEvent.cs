@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2018 Maurits Rijk
 //
 // SelectChannelEvent.cs
 //
@@ -36,7 +36,7 @@ namespace Gimp.PhotoshopActions
     {
       get 
 	{
-	  Channel channel = ActiveImage.Channels[_name];
+	  var channel = ActiveImage.Channels[_name];
 	  if (channel == null)	// Default channel
 	    {
 	      return base.EventForDisplay + " " + Abbreviations.Get(_name) + 
@@ -51,7 +51,7 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
-      Channel channel = ActiveImage.Channels[_name];
+      var channel = ActiveImage.Channels[_name];
       if (channel == null)	// Default channel
 	{
 	  SelectedChannelName = _name;

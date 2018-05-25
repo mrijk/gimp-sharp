@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2018 Maurits Rijk
 //
 // SetTextLayerPropertyEvent.cs
 //
@@ -33,14 +33,11 @@ namespace Gimp.PhotoshopActions
       Parameters.Fill(this);
     }
 
-    public override bool IsExecutable
-    {
-      get {return false;}
-    }
+    public override bool IsExecutable => false;
 
     public override string EventForDisplay
     {
-      get {return base.EventForDisplay + " current text layer";}
+      get => base.EventForDisplay + " current text layer";
     }
 
     protected override IEnumerable ListParameters()
@@ -48,9 +45,6 @@ namespace Gimp.PhotoshopActions
       yield break;
     }
 
-    override public bool Execute()
-    {
-      return false;
-    }
+    override public bool Execute() => false;
   }
 }

@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2016 Maurits Rijk
+// Copyright (C) 2006-2018 Maurits Rijk
 //
 // ActionSet.cs
 //
@@ -46,10 +46,7 @@ namespace Gimp.PhotoshopActions
 
     public IEnumerator<Action> GetEnumerator() => _set.GetEnumerator();
 
-    public void Execute(int action)
-    {
-      _set[action].Execute();
-    }
+    public void Execute(int action) => _set[action].Execute();
 
     public bool Execute(string actionName)
     {
@@ -64,17 +61,14 @@ namespace Gimp.PhotoshopActions
       return false;
     }
 
-    public void Execute(int action, int n)
-    {
-      _set[action].Execute(n);
-    }
+    public void Execute(int action, int n) => _set[action].Execute(n);
 
     public bool IsExecutable => SetChildren == NrOfActions &&
       _set.TrueForAll(action => action.IsExecutable);
 
     public bool IsEnabled
     {
-      get {return _enabled;}
+      get => _enabled;
       set 
 	{
 	  _enabled = value;

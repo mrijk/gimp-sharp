@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2018 Maurits Rijk
 //
 // SetGradientEvent.cs
 //
@@ -33,15 +33,11 @@ namespace Gimp.PhotoshopActions
       Parameters.Fill(this);
     }
 
-    public override bool IsExecutable
-    {
-      get {return false;}
-    }
+    public override bool IsExecutable => false;
 
     public override string EventForDisplay
     {
-      get {return base.EventForDisplay + 
-	     " Gradients of current application";}
+      get => base.EventForDisplay + " Gradients of current application";
     }
 
     protected override IEnumerable ListParameters()
@@ -49,9 +45,6 @@ namespace Gimp.PhotoshopActions
       yield return Format(_path, "T");
     }
 
-    override public bool Execute()
-    {
-      return true;
-    }
+    override public bool Execute() => true;
   }
 }

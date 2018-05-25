@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2018 Maurits Rijk
 //
 // SharpenEdgesEvent.cs
 //
@@ -18,21 +18,13 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-
 namespace Gimp.PhotoshopActions
 {
   public class SharpenEdgesEvent : ActionEvent
   {
-    public override bool IsExecutable
-    {
-      get {return false;}
-    }
+    public override bool IsExecutable => false;
 
-    override public bool Execute()
-    {
-      // TODO: maybe use unsharp mask for this?
-      return true;
-    }
+    // TODO: maybe use unsharp mask for this?
+    override public bool Execute() => true;
   }
 }

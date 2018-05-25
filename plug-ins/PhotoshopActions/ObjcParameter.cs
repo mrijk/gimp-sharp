@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2016 Maurits Rijk
+// Copyright (C) 2006-2018 Maurits Rijk
 //
 // ObjcParameter.cs
 //
@@ -76,15 +76,9 @@ namespace Gimp.PhotoshopActions
 	}
     }
 
-    public void Fill(Object obj)
-    {
-      _children.Fill(obj);
-    }
+    public void Fill(Object obj) => _children.Fill(obj);
 
-    public override void Fill(Object obj, FieldInfo field)
-    {
-      field.SetValue(obj, this);
-    }
+    public override void Fill(Object obj, FieldInfo field) => field.SetValue(obj, this);
 
     public IEnumerable ListParameters()
     {
@@ -143,16 +137,13 @@ namespace Gimp.PhotoshopActions
     {
       var parameter = _children[name];
 
-      if (parameter is TextParameter)
+      switch (parameter)
 	{
-	  return (parameter as TextParameter).Value;
-	}
-      else if (parameter is EnumParameter)
-	{
-	  return (parameter as EnumParameter).Value;
-	}
-      else
-	{
+	case EnumParameter enumParameter:
+	  return enumParameter.Value;
+	case TextParameter textParameter:
+	  return textParameter.Value;
+	default: 
 	  Console.WriteLine("GetValueAsString: " + parameter);
 	  return null;
 	}

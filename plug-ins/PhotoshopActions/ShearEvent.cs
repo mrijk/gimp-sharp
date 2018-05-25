@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2018 Maurits Rijk
 //
 // ShearEvent.cs
 //
@@ -34,10 +34,7 @@ namespace Gimp.PhotoshopActions
     [Parameter("ShrE")]
     int _shearEnd;
 
-    public override bool IsExecutable
-    {
-      get {return false;}
-    }
+    public override bool IsExecutable => false;
 
     protected override IEnumerable ListParameters()
     {
@@ -48,10 +45,7 @@ namespace Gimp.PhotoshopActions
       yield return "Shear End: " + _shearEnd;
     }
 
-    override public bool Execute()
-    {
-      // Implement this using the shear tool
-      return false;
-    }
+    // Implement this using the shear tool
+    override public bool Execute() => false;
   }
 }

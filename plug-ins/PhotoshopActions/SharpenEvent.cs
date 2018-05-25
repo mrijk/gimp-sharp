@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2009 Maurits Rijk
+// Copyright (C) 2006-2018 Maurits Rijk
 //
 // SharpenEvent.cs
 //

@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2016 Maurits Rijk
+// Copyright (C) 2006-2018 Maurits Rijk
 //
 // ActionEvent.cs
 //
@@ -76,13 +76,13 @@ namespace Gimp.PhotoshopActions
 
     public static Drawable ActiveDrawable
     {
-      get {return _activeDrawable;}
-      set {_activeDrawable = value;}
+      get => _activeDrawable;
+      set => _activeDrawable = value;
     }
 
     public static Image ActiveImage
     {
-      get {return _activeImage;}
+      get => _activeImage;
       set 
 	{
 	  _activeImage = value;
@@ -102,7 +102,7 @@ namespace Gimp.PhotoshopActions
 
     public static Layer SelectedLayer
     {
-      get {return SelectedLayers[0];}
+      get => SelectedLayers[0];
       set 
 	{
 	  SelectLayer(value);

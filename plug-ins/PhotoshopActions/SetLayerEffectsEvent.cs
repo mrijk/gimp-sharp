@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2018 Maurits Rijk
 //
 // SetLayerEffectsEvent.cs
 //
@@ -30,19 +30,13 @@ namespace Gimp.PhotoshopActions
       Parameters.Fill(this);
     }
 
-    public override bool IsExecutable
-    {
-      get {return false;}
-    }
+    public override bool IsExecutable => false;
 
     public override string EventForDisplay
     {
-      get {return base.EventForDisplay + " Layer Styles of current layer";}
+      get => base.EventForDisplay + " Layer Styles of current layer";
     }
 
-    override public bool Execute()
-    {
-      return false;
-    }
+    override public bool Execute() => false;
   }
 }
