@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2018 Maurits Rijk
 //
 // PatternList.cs
 //
@@ -30,10 +30,8 @@ namespace Gimp
     {
     }
 
-    protected override IntPtr GetList(string filter, out int numDataObjects)
-    {
-      return gimp_patterns_get_list(filter, out numDataObjects);
-    }
+    protected override IntPtr GetList(string filter, out int numDataObjects) =>
+      gimp_patterns_get_list(filter, out numDataObjects);
 
     protected override Pattern CreateT(string name) => new Pattern(name, false);
 

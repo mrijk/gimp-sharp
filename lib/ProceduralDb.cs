@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2018 Maurits Rijk
 //
 // ProceduralDb.cs
 //
@@ -27,10 +27,7 @@ namespace Gimp
 {
   public sealed class ProceduralDb
   {
-    public static string TempName()
-    {
-      return gimp_procedural_db_temp_name();
-    }
+    public static string TempName() => gimp_procedural_db_temp_name();
 
     public static byte[] GetData(string identifier)
     {
@@ -67,12 +64,9 @@ namespace Gimp
 				     string author, string copyright, 
 				     string date, string procedureType)
     {
-      int numMatches;
-      IntPtr ptr;
-
       if (!gimp_procedural_db_query(name, blurb, help, author, copyright, 
-				    date, procedureType, out numMatches,
-				    out ptr))
+				    date, procedureType, out int numMatches,
+				    out IntPtr ptr))
 	{
 	  throw new GimpSharpException();
 	}
@@ -80,15 +74,10 @@ namespace Gimp
       return Util.ToStringList(ptr, numMatches);
     }
     
-    public static bool ProcExists(string name)
-    {
-      return gimp_procedural_db_proc_exists(name);
-    }
+    public static bool ProcExists(string name) => gimp_procedural_db_proc_exists(name);
 
-    public static int GetDataSize(string identifier)
-    {
-      return gimp_procedural_db_get_data_size(identifier);
-    }
+    public static int GetDataSize(string identifier) =>
+      gimp_procedural_db_get_data_size(identifier);
 
     [DllImport("libgimp-2.0-0.dll")]
     static extern string gimp_procedural_db_temp_name();

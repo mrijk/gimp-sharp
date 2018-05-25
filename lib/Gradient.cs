@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2018 Maurits Rijk
 //
 // Gradient.cs
 //
@@ -125,8 +125,7 @@ namespace Gimp
 
     public double SegmentGetLeftPosition(int segment)
     {
-      double position;
-      if (!gimp_gradient_segment_get_left_pos(Name, segment, out position))
+      if (!gimp_gradient_segment_get_left_pos(Name, segment, out double position))
 	{
 	  throw new GimpSharpException();
 	}
@@ -135,9 +134,8 @@ namespace Gimp
 
     public double SegmentSetLeftPosition(int segment, double pos)
     {
-      double finalPos;
       if (!gimp_gradient_segment_set_left_pos(Name, segment, pos,
-					      out finalPos))
+					      out double finalPos))
 	{
 	  throw new GimpSharpException();
 	}
@@ -146,8 +144,7 @@ namespace Gimp
 
     public double SegmentGetMiddlePosition(int segment)
     {
-      double position;
-      if (!gimp_gradient_segment_get_middle_pos(Name, segment, out position))
+      if (!gimp_gradient_segment_get_middle_pos(Name, segment, out double position))
 	{
 	  throw new GimpSharpException();
 	}
@@ -156,9 +153,8 @@ namespace Gimp
 
     public double SegmentSetMiddlePosition(int segment, double pos)
     {
-      double finalPos;
       if (!gimp_gradient_segment_set_middle_pos(Name, segment, pos,
-						out finalPos))
+						out double finalPos))
 	{
 	  throw new GimpSharpException();
 	}
@@ -167,8 +163,7 @@ namespace Gimp
 
     public double SegmentGetRightPosition(int segment)
     {
-      double position;
-      if (!gimp_gradient_segment_get_right_pos(Name, segment, out position))
+      if (!gimp_gradient_segment_get_right_pos(Name, segment, out double position))
 	{
 	  throw new GimpSharpException();
 	}
@@ -177,9 +172,8 @@ namespace Gimp
 
     public double SegmentSetRightPosition(int segment, double pos)
     {
-      double finalPos;
       if (!gimp_gradient_segment_set_right_pos(Name, segment, pos,
-					       out finalPos))
+					       out double finalPos))
 	{
 	  throw new GimpSharpException();
 	}
@@ -188,10 +182,9 @@ namespace Gimp
 
     public GradientSegmentType SegmentGetBlendingFunction(int segment)
     {
-      GradientSegmentType blendFunc;
       if (!gimp_gradient_segment_get_blending_function(Name,
 						       segment,
-						       out blendFunc))
+						       out var blendFunc))
       {
 	throw new GimpSharpException();
       }
@@ -200,10 +193,9 @@ namespace Gimp
 
     public GradientSegmentColor SegmentGetBlendingColoringType(int segment)
     {
-      GradientSegmentColor coloringType;
       if (!gimp_gradient_segment_get_coloring_type(Name,
 						   segment,
-						   out coloringType))
+						   out var coloringType))
 	{
 	  throw new GimpSharpException();
 	}

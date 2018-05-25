@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2018 Maurits Rijk
 //
 // Procedure.cs
 //
@@ -70,10 +70,7 @@ namespace Gimp
       Name = name;
     }
 
-    static public bool Exists(string name)
-    {
-      return ProceduralDb.ProcExists(name);
-    }
+    static public bool Exists(string name) => ProceduralDb.ProcExists(name);
 
     public void Install()
     {
@@ -88,23 +85,17 @@ namespace Gimp
 
     public List<object> Run(params object[] list)
     {
-      PDBProcType proc_type;
-      int num_args;
-      int num_values;
-      IntPtr argsPtr;
-      IntPtr return_vals;
-    
       if (gimp_procedural_db_proc_info(Name, 
 				       out _blurb, 
 				       out _help,
 				       out _author,
 				       out _copyright,
 				       out _date,
-				       out proc_type,
-				       out num_args,
-				       out num_values,
-				       out argsPtr,
-				       out return_vals))
+				       out var proc_type,
+				       out int num_args,
+				       out int num_values,
+				       out IntPtr argsPtr,
+				       out IntPtr return_vals))
 	{
 	  var parameters = new GimpParamSet() {
 	    new GimpParam(PDBArgType.Int32, RunMode.Noninteractive)
@@ -160,23 +151,17 @@ namespace Gimp
 
     public void Run(Image image, Drawable drawable, params object[] list)
     {
-      PDBProcType proc_type;
-      int num_args;
-      int num_values;
-      IntPtr argsPtr;
-      IntPtr return_vals;
-    
       if (gimp_procedural_db_proc_info(Name, 
 				       out _blurb, 
 				       out _help,
 				       out _author,
 				       out _copyright,
 				       out _date,
-				       out proc_type,
-				       out num_args,
-				       out num_values,
-				       out argsPtr,
-				       out return_vals))
+				       out var proc_type,
+				       out int num_args,
+				       out int num_values,
+				       out IntPtr argsPtr,
+				       out IntPtr return_vals))
 	{	
 	  Console.WriteLine("Run 1: " + image.Width);
 	  Console.WriteLine("Run 1: " + drawable.Width);
@@ -203,8 +188,7 @@ namespace Gimp
 
     List<object> RunProcedure2(string Name, GimpParamSet parameters)
     {
-      int n_return_vals;
-      IntPtr returnArgsPtr = gimp_run_procedure2(Name, out n_return_vals, 
+      IntPtr returnArgsPtr = gimp_run_procedure2(Name, out int n_return_vals, 
 						 parameters.Count, 
 						 parameters.ToArray());
       //      return ParseReturnArgs(returnArgsPtr, n_return_vals);
@@ -214,8 +198,6 @@ namespace Gimp
 
     List<object> RunProcedure2(string Name, Image image, Drawable drawable)
     {
-      int n_return_vals;
-
       var parameters = new GimpParam64[6];
 
       parameters[0].type = PDBArgType.Int32;
@@ -231,7 +213,7 @@ namespace Gimp
       parameters[5].type = PDBArgType.Int32;
       parameters[5].data.d_int32 = 1;
 
-      IntPtr returnArgsPtr = gimp_run_procedure2(Name, out n_return_vals, 
+      IntPtr returnArgsPtr = gimp_run_procedure2(Name, out int n_return_vals, 
 						 6, parameters);
       return null;
     }

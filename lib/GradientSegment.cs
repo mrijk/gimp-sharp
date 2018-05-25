@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2018 Maurits Rijk
 //
 // GradientSegment.cs
 //
@@ -32,18 +32,14 @@ namespace Gimp
       _segment = segment;
     }
 
-    public void SetLeftColor(RGB color, double opacity)
-    {
+    public void SetLeftColor(RGB color, double opacity) =>
       _gradient.SegmentSetLeftColor(_segment, color, opacity);
-    }
 
     public RGB GetLeftColor(out double opacity) =>
       _gradient.SegmentGetLeftColor(_segment, out opacity);
 
-    public void SetRightColor(RGB color, double opacity)
-    {
+    public void SetRightColor(RGB color, double opacity) =>
       _gradient.SegmentSetRightColor(_segment, color, opacity);
-    }
 
     public RGB GetRightColor(out double opacity) =>
       _gradient.SegmentGetRightColor(_segment, out opacity);

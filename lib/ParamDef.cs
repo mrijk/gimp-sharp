@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2018 Maurits Rijk
 //
 // ParamDef.cs
 //
@@ -78,20 +78,15 @@ namespace Gimp
     }
 
     // Can this be done by a casting overload?
-    internal GimpParam GetGimpParam()
-    {
-      return new GimpParam(GetGimpType(), Value);
-    }
+    internal GimpParam GetGimpParam() => new GimpParam(GetGimpType(), Value);
 
     public GimpParamDef GimpParamDef
     {
-      get 
-	{
-	  return new GimpParamDef() {
-	    type = GetGimpType(),
-	      name = Name,
-	      description = Description};
-	}
+      get => new GimpParamDef() {
+	type = GetGimpType(),
+	name = Name,
+	description = Description
+      };
     }
   }
 

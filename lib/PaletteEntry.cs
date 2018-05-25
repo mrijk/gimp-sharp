@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2018 Maurits Rijk
 //
 // PaletteEntry.cs
 //
@@ -39,9 +39,8 @@ namespace Gimp
     {
       get
 	{
-	  string entry_name;
 	  if (!gimp_palette_entry_get_name(_paletteName, Index, 
-					   out entry_name))
+					   out var entry_name))
 	    {
 	      throw new GimpSharpException();
 	    }
@@ -60,8 +59,7 @@ namespace Gimp
     {
       get
 	{
-	  var rgb = new GimpRGB();
-	  if (!gimp_palette_entry_get_color(_paletteName, Index, out rgb))
+	  if (!gimp_palette_entry_get_color(_paletteName, Index, out var rgb))
 	    {
 	      throw new GimpSharpException();
 	    }

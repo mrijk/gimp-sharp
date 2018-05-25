@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2018 Maurits Rijk
 //
 // Pattern.cs
 //
@@ -43,8 +43,7 @@ namespace Gimp
     {
       get
 	{
-	  int width, height, bpp;
-	  if (!gimp_pattern_get_info(Name, out width, out height, out bpp))
+	  if (!gimp_pattern_get_info(Name, out int width, out int height, out int bpp))
 	    {
 	      throw new GimpSharpException();
 	    }
@@ -55,10 +54,9 @@ namespace Gimp
     public Pixel[] GetPixels(out int width, out int height, out int bpp,
 			     out int numColorBytes)
     {
-      IntPtr colorBytes;
       if (!gimp_pattern_get_pixels(Name, out width, out height,
 				   out bpp, out numColorBytes,
-				   out colorBytes))
+				   out IntPtr colorBytes))
         {
 	  throw new GimpSharpException();
         }

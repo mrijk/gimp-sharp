@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2018 Maurits Rijk
 //
 // Guide.cs
 //
@@ -30,6 +30,7 @@ namespace Gimp
     protected readonly Int32 _guideID;
 
     public int Position => gimp_image_get_guide_position(_imageID, _guideID);
+
     public OrientationType Orientation =>
       gimp_image_get_guide_orientation(_imageID, _guideID);
 

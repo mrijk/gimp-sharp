@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2018 Maurits Rijk
 //
 // Palette.cs
 //
@@ -57,15 +57,10 @@ namespace Gimp
       return false;
     }
 
-    public override int GetHashCode()
-    {
-      return Name.GetHashCode();
-    }
+    public override int GetHashCode() => Name.GetHashCode();
 
-    protected override string TryRename(string newName)
-    {
-      return gimp_palette_rename(Name, newName);
-    }
+    protected override string TryRename(string newName) => 
+      gimp_palette_rename(Name, newName);
 
     public void Delete()
     {
@@ -85,10 +80,7 @@ namespace Gimp
 
     public int Columns
     {
-      get 
-	{
-	  return gimp_palette_get_columns(Name);
-	}
+      get => gimp_palette_get_columns(Name);
       set
 	{
 	  if (!gimp_palette_set_columns(Name, value))
@@ -102,8 +94,7 @@ namespace Gimp
     {
       get 
 	{
-	  int num_colors;
-	  GetInfo(out num_colors);
+	  GetInfo(out int num_colors);
 	  return num_colors;
 	}
     }

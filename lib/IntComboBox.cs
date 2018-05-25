@@ -1,5 +1,5 @@
 // GIMP# - A C# wrapper around the GIMP Library
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2018 Maurits Rijk
 //
 // IntComboBox.cs
 //
@@ -46,8 +46,7 @@ namespace Gimp
     {
       get 
 	{
-	  int val;
-	  if (!gimp_int_combo_box_get_active(Handle, out val))
+	  if (!gimp_int_combo_box_get_active(Handle, out int val))
 	    {
 	      throw new GimpSharpException();
 	    }
