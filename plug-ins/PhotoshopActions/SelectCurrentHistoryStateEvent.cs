@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2018 Maurits Rijk
 //
 // SelectCurrentHistoryStateEvent.cs
 //
@@ -18,8 +18,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-
 namespace Gimp.PhotoshopActions
 {
   public class SelectCurrentHistoryStateEvent : ActionEvent
@@ -28,23 +26,14 @@ namespace Gimp.PhotoshopActions
       base(srcEvent)
     {
     }
-
-    public override bool IsExecutable
-    {
-      get {return false;}
-    }
+      
+    public override bool IsExecutable => false;
 
     public override string EventForDisplay
     {
-      get 
-	{
-	  return base.EventForDisplay + " Current History State ";
-	}
+      get => base.EventForDisplay + " Current History State ";
     }
 
-    override public bool Execute()
-    {
-      return true;
-    }
+    override public bool Execute() => true;
   }
 }

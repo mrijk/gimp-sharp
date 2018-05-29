@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2018 Maurits Rijk
 //
 // SelectChannelByIndexEvent.cs
 //
@@ -18,8 +18,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-
 namespace Gimp.PhotoshopActions
 {
   public class SelectChannelByIndexEvent : ActionEvent
@@ -34,15 +32,12 @@ namespace Gimp.PhotoshopActions
 
     public override string EventForDisplay
     {
-      get 
-	{
-	  return base.EventForDisplay + " channel " + _index;
-	}
+      get => base.EventForDisplay + " channel " + _index;
     }
 
     override public bool Execute()
     {
-      Channel channel = ActiveImage.Channels[_index - 4];
+      var channel = ActiveImage.Channels[_index - 4];
       SelectedChannel = channel;
 
       return true;

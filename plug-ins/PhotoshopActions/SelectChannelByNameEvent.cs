@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2018 Maurits Rijk
 //
 // SelectChannelByNameEvent.cs
 //
@@ -35,7 +35,7 @@ namespace Gimp.PhotoshopActions
 
     public override string EventForDisplay
     {
-      get {return base.EventForDisplay + " channel \"" + _name + "\"";}
+      get => base.EventForDisplay + " channel \"" + _name + "\"";
     }
 
     override public bool Execute()

@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2018 Maurits Rijk
 //
 // SelectEllipseEvent.cs
 //
@@ -18,7 +18,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
 using System.Collections;
 
 namespace Gimp.PhotoshopActions
@@ -40,8 +39,7 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
-      double x, y, width, height;
-      GetBounds(_objc, out x, out y, out width, out height);
+      GetBounds(_objc, out double x, out double y, out double width, out double height);
       EllipseSelectTool tool = new EllipseSelectTool(ActiveImage);
       tool.Select(x, y ,width, height, ChannelOps.Replace, 
 		  true, false, 0);

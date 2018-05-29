@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2018 Maurits Rijk
 //
 // SelectHistoryStateEvent.cs
 //
@@ -39,10 +39,7 @@ namespace Gimp.PhotoshopActions
       _offset = offset;
     }
 
-    public override bool IsExecutable
-    {
-      get {return false;}
-    }
+    public override bool IsExecutable => false;
 
     public override string EventForDisplay
     {
@@ -60,9 +57,6 @@ namespace Gimp.PhotoshopActions
 	}
     }
 
-    override public bool Execute()
-    {
-      return true;
-    }
+    override public bool Execute() => true;
   }
 }

@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2018 Maurits Rijk
 //
 // SelectionByIndexEvent.cs
 //
@@ -18,7 +18,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
 using System.Collections;
 
 namespace Gimp.PhotoshopActions
@@ -40,7 +39,7 @@ namespace Gimp.PhotoshopActions
 
     override public bool Execute()
     {
-      Channel channel = ActiveImage.Channels[_index];
+      var channel = ActiveImage.Channels[_index];
       ActiveImage.Selection.Combine(channel, ChannelOps.Add);
       return false;
     }
