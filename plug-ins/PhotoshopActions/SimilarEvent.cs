@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2010 Maurits Rijk
+// Copyright (C) 2006-2018 Maurits Rijk
 //
 // SimilarEvent.cs
 //
@@ -32,7 +32,7 @@ namespace Gimp.PhotoshopActions
 
     public override string EventForDisplay
     {
-      get {return base.EventForDisplay + " Selection";}
+      get => base.EventForDisplay + " Selection";
     }
 
     override public bool Execute()

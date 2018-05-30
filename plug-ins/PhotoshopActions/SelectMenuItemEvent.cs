@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2018 Maurits Rijk
 //
 // SelectMenuItemEvent.cs
 //
@@ -18,13 +18,11 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-
 namespace Gimp.PhotoshopActions
 {
   public class SelectMenuItemEvent : SelectEvent
   {
-    string _name;
+    readonly string _name;
 
     public SelectMenuItemEvent(SelectEvent srcEvent, string name) : 
       base(srcEvent)
@@ -34,21 +32,14 @@ namespace Gimp.PhotoshopActions
 
     public override bool IsExecutable
     {
-      get {return false;}
+      get => false;
     }
 
     public override string EventForDisplay
     {
-      get 
-	{
-	  return base.EventForDisplay + " " + Abbreviations.Get(_name) + 
-	    " menu item";
-	}
+      get => base.EventForDisplay + " " + Abbreviations.Get(_name) + " menu item";
     }
 
-    override public bool Execute()
-    {
-      return true;
-    }
+    override public bool Execute() => true;
   }
 }

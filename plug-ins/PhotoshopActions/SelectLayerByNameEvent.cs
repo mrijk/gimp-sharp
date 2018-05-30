@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2013 Maurits Rijk
+// Copyright (C) 2006-2018 Maurits Rijk
 //
 // SelectLayerByNameEvent.cs
 //
@@ -39,7 +39,7 @@ namespace Gimp.PhotoshopActions
 
     public override string EventForDisplay
     {
-      get {return base.EventForDisplay + " layer \"" + _name + "\"";}
+      get => base.EventForDisplay + " layer \"" + _name + "\"";
     }
 
     protected override IEnumerable ListParameters()

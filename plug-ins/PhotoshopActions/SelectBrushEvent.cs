@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2013 Maurits Rijk
+// Copyright (C) 2006-2018 Maurits Rijk
 //
 // SelectBrushEvent.cs
 //
@@ -18,7 +18,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
 using System.Collections;
 
 namespace Gimp.PhotoshopActions
@@ -34,14 +33,11 @@ namespace Gimp.PhotoshopActions
 
     public override string EventForDisplay
     {
-      get {return base.EventForDisplay + " " + Abbreviations.Get(_type);}
+      get => base.EventForDisplay + " " + Abbreviations.Get(_type);
     }
  
-    override public bool Execute()
-    {
-      // This is just selecting the Brush menu in the GUI. Nothing to implement
-      // here.
-      return true;
-    }
+    // This is just selecting the Brush menu in the GUI. Nothing to implement
+    // here.
+    override public bool Execute() => true;
   }
 }

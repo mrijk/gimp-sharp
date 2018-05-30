@@ -1,5 +1,5 @@
 // The SliceTool plug-in
-// Copyright (C) 2004-2017 Maurits Rijk
+// Copyright (C) 2004-2018 Maurits Rijk
 //
 // SliceSet.cs
 //

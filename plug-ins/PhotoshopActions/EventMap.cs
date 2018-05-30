@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2010 Maurits Rijk
+// Copyright (C) 2006-2018 Maurits Rijk
 //
 // EventMap.cs
 //
@@ -264,9 +264,8 @@ namespace Gimp.PhotoshopActions
     public ActionEvent Lookup(string eventName)
     {
       ActionEvent myEvent = null;
-      string eventType;
 
-      if (_map.TryGetValue(eventName, out eventType))
+      if (_map.TryGetValue(eventName, out string eventType))
 	{
 	  eventType = "Gimp.PhotoshopActions." + eventType;
 	  Type type = Assembly.GetEntryAssembly().GetType(eventType);

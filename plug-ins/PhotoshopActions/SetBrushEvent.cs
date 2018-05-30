@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2018 Maurits Rijk
 //
 // SetBrushEvent.cs
 //
@@ -48,12 +48,12 @@ namespace Gimp.PhotoshopActions
 
     public override bool IsExecutable
     {
-      get {return false;}
+      get => false;
     }
 
     public override string EventForDisplay
     {
-      get {return base.EventForDisplay + " current brush";}
+      get => base.EventForDisplay + " current brush";
     }
 
     protected override IEnumerable ListParameters()
@@ -66,9 +66,6 @@ namespace Gimp.PhotoshopActions
       yield return Format(_name, "Nm");
     }
 
-    override public bool Execute()
-    {
-      return true;
-    }
+    override public bool Execute() => true;
   }
 }

@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2018 Maurits Rijk
 //
 // SelectSingleColumnEvent.cs
 //
@@ -25,7 +25,7 @@ namespace Gimp.PhotoshopActions
 {
   public class SelectSingleColumnEvent : SelectionEvent
   {
-    ObjcParameter _objc;
+    readonly ObjcParameter _objc;
 
     public SelectSingleColumnEvent(SelectionEvent srcEvent, 
 				   ObjcParameter objc) : 
@@ -36,7 +36,7 @@ namespace Gimp.PhotoshopActions
 
     public override bool IsExecutable
     {
-      get {return false;}
+      get => false;
     }
 
     protected override IEnumerable ListParameters()
@@ -45,9 +45,6 @@ namespace Gimp.PhotoshopActions
       yield return "Top: fix me!";
     }
 
-    override public bool Execute()
-    {
-      return true;
-    }
+    override public bool Execute() => true;
   }
 }

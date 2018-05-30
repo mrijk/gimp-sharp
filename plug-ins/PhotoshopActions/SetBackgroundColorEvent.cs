@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2018 Maurits Rijk
 //
 // SetBackgroundColorEvent.cs
 //
@@ -18,8 +18,6 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
-
 namespace Gimp.PhotoshopActions
 {
   public class SetBackgroundColorEvent : SetColorEvent
@@ -30,7 +28,7 @@ namespace Gimp.PhotoshopActions
     
     public override string EventForDisplay
     {
-      get {return base.EventForDisplay + " background color";}
+      get => base.EventForDisplay + " background color";
     }
 
     override public bool Execute()

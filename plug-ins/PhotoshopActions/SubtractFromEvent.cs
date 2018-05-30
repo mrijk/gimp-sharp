@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2010 Maurits Rijk
+// Copyright (C) 2006-2018 Maurits Rijk
 //
 // SubtractFromEvent.cs
 //
@@ -38,9 +38,6 @@ namespace Gimp.PhotoshopActions
       return true;
     }
 
-    double GetByName(string name)
-    {
-      return (_rectangle.Parameters[name] as DoubleParameter).Value;
-    }
+    double GetByName(string name) => (_rectangle.Parameters[name] as DoubleParameter).Value;
   }
 }

@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2010 Maurits Rijk
+// Copyright (C) 2006-2018 Maurits Rijk
 //
 // SelectPointEvent.cs
 //
@@ -32,7 +32,7 @@ namespace Gimp.PhotoshopActions
     [Parameter("Cntg")]
     readonly bool _contiguous;
 
-    Coordinate<double> _coordinate;
+    readonly Coordinate<double> _coordinate;
 
     public SelectPointEvent(SelectionEvent srcEvent, ObjcParameter objc) : 
       base(srcEvent)

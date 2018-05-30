@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2018 Maurits Rijk
 //
 // SelectionFromChannelEvent.cs
 //
@@ -17,8 +17,6 @@
 // along with this program; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
-
-using System;
 
 namespace Gimp.PhotoshopActions
 {
@@ -40,7 +38,7 @@ namespace Gimp.PhotoshopActions
 	}
       else
 	{
-	  Channel channel = ActiveImage.Channels[_name];
+	  var channel = ActiveImage.Channels[_name];
 	  ActiveImage.Selection.Combine(channel, ChannelOps.Replace);
 	}
       return false;

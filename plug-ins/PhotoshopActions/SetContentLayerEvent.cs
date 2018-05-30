@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2013 Maurits Rijk
+// Copyright (C) 2006-2018 Maurits Rijk
 //
 // SetContentLayerEvent.cs
 //
@@ -36,14 +36,11 @@ namespace Gimp.PhotoshopActions
       _objc.Fill(this);
     }
 
-    public override bool IsExecutable
-    {
-      get {return false;}
-    }
+    public override bool IsExecutable => false;
 
     public override string EventForDisplay
     {
-      get {return base.EventForDisplay + " current fill layer";}
+      get => base.EventForDisplay + " current fill layer";
     }
 
     protected override IEnumerable ListParameters()
@@ -59,9 +56,6 @@ namespace Gimp.PhotoshopActions
 	}
     }
 
-    override public bool Execute()
-    {
-      return true;
-    }
+    override public bool Execute() => true;
   }
 }

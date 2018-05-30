@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2018 Maurits Rijk
 //
 // SetFileInfoEvent.cs
 //
@@ -43,7 +43,7 @@ namespace Gimp.PhotoshopActions
 
     public override string EventForDisplay
     {
-      get {return base.EventForDisplay + " File Info of current document";}
+      get => base.EventForDisplay + " File Info of current document";
     }
 
     protected override IEnumerable ListParameters()

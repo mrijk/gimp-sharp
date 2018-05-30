@@ -1,5 +1,5 @@
 // The SliceTool plug-in
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2018 Maurits Rijk
 //
 // CreateTableFunc.cs
 //
@@ -54,12 +54,10 @@ namespace Gimp.SliceTool
     override public Cursor GetCursor(IntCoordinate c)
     {
       var slice = SliceData.FindSlice(c);
-      return (SliceIsSelectable(slice)) ? slice.Cursor : _cursor;
+      return SliceIsSelectable(slice) ? slice.Cursor : _cursor;
     }
 
-    override public MouseFunc GetActualFunc(IntCoordinate c)
-    {
-      return MoveSliceFunc.GetActualFunc(c, this);
-    }
+    override public MouseFunc GetActualFunc(IntCoordinate c) =>
+      MoveSliceFunc.GetActualFunc(c, this);
   }
 }

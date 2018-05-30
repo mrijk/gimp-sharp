@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2007 Maurits Rijk
+// Copyright (C) 2006-2018 Maurits Rijk
 //
 // SelectSnapshotEvent.cs
 //
@@ -18,14 +18,13 @@
 // Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 //
 
-using System;
 using System.Collections;
 
 namespace Gimp.PhotoshopActions
 {
   public class SelectSnapshotEvent : SelectEvent
   {
-    string _name;
+    readonly string _name;
 
     public SelectSnapshotEvent(SelectEvent srcEvent, string name) : 
       base(srcEvent)
@@ -35,13 +34,10 @@ namespace Gimp.PhotoshopActions
 
     public override string EventForDisplay
     {
-      get {return base.EventForDisplay + " snapshot \"" + _name + "\"";}
+      get => base.EventForDisplay + " snapshot \"" + _name + "\"";
     }
  
-    override public bool Execute()
-    {
-      // Not really implemented, but we can safely ignore this
-      return true;
-    }
+    // Not really implemented, but we can safely ignore this
+    override public bool Execute() => true;
   }
 }

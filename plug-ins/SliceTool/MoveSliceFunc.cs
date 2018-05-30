@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2018 Maurits Rijk
 //
 // MoveSliceFunc.cs
 //
@@ -50,7 +50,7 @@ namespace Gimp.SliceTool
     public static MouseFunc GetActualFunc(IntCoordinate c, MouseFunc func)
     {
       var slice = func.SliceData.FindSlice(c);
-      return (func.SliceIsSelectable(slice)) 
+      return func.SliceIsSelectable(slice)
 	? new MoveSliceFunc(func.SliceData, func.Preview, slice) : func;
     }
   }

@@ -1,5 +1,5 @@
 // The Slice Tool plug-in
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2018 Maurits Rijk
 //
 // CreateFunc.cs
 //
@@ -45,8 +45,8 @@ namespace Gimp.SliceTool
 
     override protected void OnPress(IntCoordinate c) 
     {
-      _x = c.X;
-      _y = c.Y;
+      (_x, _y) = c;
+
       _rectangle = SliceData.FindRectangle(c);
       _slice = _rectangle.CreateHorizontalSlice(_y);
       _horizontal = true;

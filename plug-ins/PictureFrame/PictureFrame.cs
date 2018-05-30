@@ -1,5 +1,5 @@
 // The PictureFrame plug-in
-// Copyright (C) 2006-2011 Oded Coster
+// Copyright (C) 2006-2018 Oded Coster
 //
 // PictureFrame.cs
 //
@@ -37,7 +37,7 @@ namespace Gimp.PictureFrame
 			   _("Picture frame"),
 			   "Oded Coster",
 			   "(C) Oded Coster",
-			   "2006-2011",
+			   "2006-2018",
 			   _("Picture frame..."),
 			   "RGB*, GRAY*")
 	{

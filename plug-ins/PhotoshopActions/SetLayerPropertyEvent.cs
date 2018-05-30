@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2013 Maurits Rijk
+// Copyright (C) 2006-2018 Maurits Rijk
 //
 // SetLayerPropertyEvent.cs
 //
@@ -43,12 +43,9 @@ namespace Gimp.PhotoshopActions
 
     public override string EventForDisplay
     {
-      get 
-	{
-	  return base.EventForDisplay + ((_name == null) 
-					 ? " current layer"
-					 : " layer \"" + _name + "\"");
-	}
+      get => base.EventForDisplay + ((_name == null) 
+				     ? " current layer"
+				     : " layer \"" + _name + "\"");
     }
 
     override public bool Execute()
@@ -155,9 +152,6 @@ namespace Gimp.PhotoshopActions
 #endif
     }
 
-    int ColorDodge(int src, int dest)
-    {
-      return 255;
-    }
+    int ColorDodge(int src, int dest) => 255;
   }
 }

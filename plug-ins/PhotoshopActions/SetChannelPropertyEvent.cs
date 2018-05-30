@@ -1,5 +1,5 @@
 // The PhotoshopActions plug-in
-// Copyright (C) 2006-2008 Maurits Rijk
+// Copyright (C) 2006-2018 Maurits Rijk
 //
 // SetChannelPropertyEvent.cs
 //
@@ -34,16 +34,13 @@ namespace Gimp.PhotoshopActions
 
     public override string EventForDisplay
     {
-      get 
-	{
-	  return base.EventForDisplay + " current channel";
-	}
+      get => base.EventForDisplay + " current channel";
     }
 
     override public bool Execute()
     {
-      Channel channel = ActiveImage.ActiveChannel;
-      foreach (Parameter parameter in _objc.Parameters)
+      var channel = ActiveImage.ActiveChannel;
+      foreach (var parameter in _objc.Parameters)
 	{
 	  switch (parameter.Name)
 	    {
