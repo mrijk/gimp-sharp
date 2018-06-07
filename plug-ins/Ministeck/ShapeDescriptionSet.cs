@@ -1,5 +1,5 @@
 // The Ministeck plug-in
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2018 Maurits Rijk
 //
 // ShapeDescriptionSet.cs
 //
@@ -39,9 +39,6 @@ namespace Gimp.Ministeck
 
     public IEnumerator<ShapeDescription> GetEnumerator() => Set.GetEnumerator();
 
-    public void Insert(int index, ShapeDescription val)
-    {
-      Set.Insert(index, val);
-    }
+    public void Insert(int index, ShapeDescription val) => Set.Insert(index, val);
   }
 }

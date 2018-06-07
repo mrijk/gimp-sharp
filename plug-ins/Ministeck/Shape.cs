@@ -1,5 +1,5 @@
 // The Ministeck plug-in
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2018 Maurits Rijk
 //
 // Shape.cs
 //
@@ -64,24 +64,15 @@ namespace Gimp.Ministeck
       return false;
     }
 
-    protected void LineStart(IntCoordinate c)
-    {
-      Painter.LineStart(c);
-    }
+    protected void LineStart(IntCoordinate c) => Painter.LineStart(c);
 
     protected void Rectangle(IntCoordinate c, int w, int h)
     {
       Painter.Rectangle(c, w, h);
     }
 
-    protected void HLine(int len)
-    {
-      Painter.HLine(len);
-    }
+    protected void HLine(int len) => Painter.HLine(len);
 
-    protected void VLine(int len)
-    {
-      Painter.VLine(len);
-    }
+    protected void VLine(int len) => Painter.VLine(len);
   }
 }

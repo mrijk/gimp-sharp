@@ -1,5 +1,5 @@
 // The Ministeck plug-in
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2018 Maurits Rijk
 //
 // OneByOneShape.cs
 //

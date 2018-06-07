@@ -1,5 +1,5 @@
 // The Ministeck plug-in
-// Copyright (C) 2004-2016 Maurits Rijk
+// Copyright (C) 2004-2018 Maurits Rijk
 //
 // Ministeck.cs
 //
@@ -41,7 +41,7 @@ namespace Gimp.Ministeck
 			   _("Generates Ministeck"),
 			   "Maurits Rijk",
 			   "(C) Maurits Rijk",
-			   "2004-2016",
+			   "2004-2018",
 			   _("Ministeck..."),
 			   "RGB*, GRAY*",
 			   new ParamDefList(Variables))
