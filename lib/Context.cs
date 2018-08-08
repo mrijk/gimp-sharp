@@ -113,7 +113,7 @@ namespace Gimp
 
     public static double Opacity
     {
-      get {return gimp_context_get_opacity();}
+      get => gimp_context_get_opacity();
       set
 	{
 	  if (!gimp_context_set_opacity(value))
@@ -125,7 +125,7 @@ namespace Gimp
 
     public static LayerModeEffects PaintMode
     {
-      get {return gimp_context_get_paint_mode();}
+      get => gimp_context_get_paint_mode();
       set
 	{
 	  if (!gimp_context_set_paint_mode(value))
@@ -137,7 +137,7 @@ namespace Gimp
 
     public static Brush Brush
     {
-      get {return new Brush(gimp_context_get_brush(), false);}
+      get => new Brush(gimp_context_get_brush(), false);
       set
 	{
 	  if (!gimp_context_set_brush(value.Name))
@@ -149,7 +149,7 @@ namespace Gimp
 
     public static double BrushSize
     {
-      get {return gimp_context_get_brush_size();}
+      get => gimp_context_get_brush_size();
       set
 	{
 	  if (!gimp_context_set_brush_size(value))
@@ -169,7 +169,7 @@ namespace Gimp
 
     public static double BrushAspectRatio
     {
-      get {return gimp_context_get_brush_aspect_ratio();}
+      get => gimp_context_get_brush_aspect_ratio();
       set
 	{
 	  if (!gimp_context_set_brush_aspect_ratio(value))
@@ -181,7 +181,7 @@ namespace Gimp
 
     public static double BrushAngle
     {
-      get {return gimp_context_get_brush_angle();}
+      get => gimp_context_get_brush_angle();
       set
 	{
 	  if (!gimp_context_set_brush_angle(value))
@@ -193,7 +193,7 @@ namespace Gimp
 
     public static string Dynamics
     {
-      get {return gimp_context_get_dynamics();}
+      get => gimp_context_get_dynamics();
       set
 	{
 	  if (!gimp_context_set_dynamics(value))
@@ -205,7 +205,7 @@ namespace Gimp
 
     public static Pattern Pattern
     {
-      get {return new Pattern(gimp_context_get_pattern(), false);}
+      get => new Pattern(gimp_context_get_pattern(), false);
       set
 	{
 	  if (!gimp_context_set_pattern(value.Name))
@@ -217,7 +217,7 @@ namespace Gimp
 
     public static Gradient Gradient
     {
-      get {return new Gradient(gimp_context_get_gradient(), false);}
+      get => new Gradient(gimp_context_get_gradient(), false);
       set
 	{
 	  if (!gimp_context_set_gradient(value.Name))
@@ -229,7 +229,7 @@ namespace Gimp
 
     public static Palette Palette
     {
-      get {return new Palette(gimp_context_get_palette(), false);}
+      get => new Palette(gimp_context_get_palette(), false);
       set
 	{
 	  if (!gimp_context_set_palette(value.Name))
@@ -241,7 +241,7 @@ namespace Gimp
 
     public static string Font
     {
-      get {return gimp_context_get_font();}
+      get => gimp_context_get_font();
       set
 	{
 	  if (!gimp_context_set_font(value))
@@ -253,7 +253,7 @@ namespace Gimp
 
     public static bool Antialias
     {
-      get {return gimp_context_get_antialias();}
+      get => gimp_context_get_antialias();
       set
 	{
 	  if (!gimp_context_set_antialias(value))
@@ -265,7 +265,7 @@ namespace Gimp
 
     public static bool Feather
     {
-      get {return gimp_context_get_feather();}
+      get => gimp_context_get_feather();
       set
 	{
 	  if (!gimp_context_set_feather(value))
@@ -279,8 +279,7 @@ namespace Gimp
     {
       get 
 	{
-	  double x, y;
-	  if (!gimp_context_get_feather_radius(out x, out y))
+	  if (!gimp_context_get_feather_radius(out double x, out double y))
 	    {
 	      throw new GimpSharpException();
 	    }
@@ -297,7 +296,7 @@ namespace Gimp
 
     public static string PaintMethod
     {
-      get {return gimp_context_get_paint_method();}
+      get => gimp_context_get_paint_method();
       set
 	{
 	  if (!gimp_context_set_paint_method(value))
@@ -309,7 +308,7 @@ namespace Gimp
 
     public static bool SampleMerged
     {
-      get {return gimp_context_get_sample_merged();}
+      get => gimp_context_get_sample_merged();
       set
 	{
 	  if (!gimp_context_set_sample_merged(value))
@@ -321,7 +320,7 @@ namespace Gimp
 
     public static SelectCriterion SampleCriterion
     {
-      get {return gimp_context_get_sample_criterion();}
+      get => gimp_context_get_sample_criterion();
       set
 	{
 	  if (!gimp_context_set_sample_criterion(value))
@@ -333,7 +332,7 @@ namespace Gimp
 
     public static double SampleThreshold
     {
-      get {return gimp_context_get_sample_threshold();}
+      get => gimp_context_get_sample_threshold();
       set
 	{
 	  if (!gimp_context_set_sample_threshold(value))
@@ -345,7 +344,7 @@ namespace Gimp
 
     public static int SampleThresholdInt
     {
-      get {return gimp_context_get_sample_threshold_int();}
+      get => gimp_context_get_sample_threshold_int();
       set
 	{
 	  if (!gimp_context_set_sample_threshold_int(value))
@@ -357,7 +356,7 @@ namespace Gimp
 
     public static bool SampleTransparent
     {
-      get {return gimp_context_get_sample_transparent();}
+      get => gimp_context_get_sample_transparent();
       set
 	{
 	  if (!gimp_context_set_sample_transparent(value))
@@ -369,7 +368,7 @@ namespace Gimp
 
     public static InterpolationType Interpolation
     {
-      get {return gimp_context_get_interpolation();}
+      get => gimp_context_get_interpolation();
       set
 	{
 	  if (!gimp_context_set_interpolation(value))
@@ -381,7 +380,7 @@ namespace Gimp
 
     public static TransformResize TransformResize
     {
-      get {return gimp_context_get_transform_resize();}
+      get => gimp_context_get_transform_resize();
       set
 	{
 	  if (!gimp_context_set_transform_resize(value))
@@ -393,7 +392,7 @@ namespace Gimp
 
     public static TransformDirection TransformDirection
     {
-      get {return gimp_context_get_transform_direction();}
+      get => gimp_context_get_transform_direction();
       set
 	{
 	  if (!gimp_context_set_transform_direction(value))
@@ -405,7 +404,7 @@ namespace Gimp
 
     public static int TransformRecursion
     {
-      get {return gimp_context_get_transform_recursion();}
+      get => gimp_context_get_transform_recursion();
       set
 	{
 	  if (!gimp_context_set_transform_recursion(value))
@@ -417,7 +416,7 @@ namespace Gimp
 
     public static double InkSize
     {
-      get {return gimp_context_get_ink_size();}
+      get => gimp_context_get_ink_size();
       set
 	{
 	  if (!gimp_context_set_ink_size(value))
@@ -429,7 +428,7 @@ namespace Gimp
 
     public static double InkAngle
     {
-      get {return gimp_context_get_ink_angle();}
+      get => gimp_context_get_ink_angle();
       set
 	{
 	  if (!gimp_context_set_ink_angle(value))
@@ -441,7 +440,7 @@ namespace Gimp
 
     public static double InkSizeSensitivity
     {
-      get {return gimp_context_get_ink_size_sensitivity();}
+      get => gimp_context_get_ink_size_sensitivity();
       set
 	{
 	  if (!gimp_context_set_ink_size_sensitivity(value))
@@ -453,7 +452,7 @@ namespace Gimp
 
     public static double InkTiltSensitivity
     {
-      get {return gimp_context_get_ink_tilt_sensitivity();}
+      get => gimp_context_get_ink_tilt_sensitivity();
       set
 	{
 	  if (!gimp_context_set_ink_tilt_sensitivity(value))
@@ -465,7 +464,7 @@ namespace Gimp
 
     public static double InkSpeedSensitivity
     {
-      get {return gimp_context_get_ink_speed_sensitivity();}
+      get => gimp_context_get_ink_speed_sensitivity();
       set
 	{
 	  if (!gimp_context_set_ink_speed_sensitivity(value))
@@ -477,7 +476,7 @@ namespace Gimp
 
     public static InkBlobType InkBlobType
     {
-      get {return gimp_context_get_ink_blob_type();}
+      get => gimp_context_get_ink_blob_type();
       set
 	{
 	  if (!gimp_context_set_ink_blob_type(value))
@@ -489,7 +488,7 @@ namespace Gimp
 
     public static double InkBlobAspectRatio
     {
-      get {return gimp_context_get_ink_blob_aspect_ratio();}
+      get => gimp_context_get_ink_blob_aspect_ratio();
       set
 	{
 	  if (!gimp_context_set_ink_blob_aspect_ratio(value))
@@ -501,7 +500,7 @@ namespace Gimp
 
     public static double InkBlobAngle
     {
-      get {return gimp_context_get_ink_blob_angle();}
+      get => gimp_context_get_ink_blob_angle();
       set
 	{
 	  if (!gimp_context_set_ink_blob_angle(value))
@@ -515,10 +514,8 @@ namespace Gimp
     {
       get 
 	{
-	  int numPaintMethods;
-	  IntPtr paintMethods;
-	  if (!gimp_context_list_paint_methods(out numPaintMethods, 
-					       out paintMethods)) 
+	  if (!gimp_context_list_paint_methods(out int numPaintMethods, 
+					       out IntPtr paintMethods)) 
 	    {
 	      throw new GimpSharpException();
 	    }

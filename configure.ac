@@ -33,7 +33,7 @@ PKG_CHECK_MODULES(MONO_DEPENDENCY, mono, has_mono=true, has_mono=false)
 if test "x$has_mono" = "xtrue"; then
     AC_PATH_PROG(RUNTIME, mono, no)
     AC_PATH_PROG(CSC, csc, no)
-    CSC_FLAGS=
+    CSC_FLAGS=-langversion:7.2
     AC_SUBST(CSC_FLAGS)
     LIB_PREFIX=.so
     LIB_SUFFIX=

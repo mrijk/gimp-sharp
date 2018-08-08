@@ -44,14 +44,14 @@ namespace Gimp
 
     public double X
     {
-      get {return _vector.x;}
-      set {_vector.x = value;}
+      get => _vector.x;
+      set => _vector.x = value;
     }
 
     public double Y
     {
-      get {return _vector.y;}
-      set {_vector.y = value;}
+      get => _vector.y;
+      set => _vector.y = value;
     }
 
     public override bool Equals(object o)

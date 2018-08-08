@@ -52,12 +52,12 @@ namespace Gimp
 
     public override int GetHashCode() => Width + Height;
 
-    public static bool operator==(Dimensions dimensions1, 
-				  Dimensions dimensions2) =>
+    public static bool operator==(in Dimensions dimensions1, 
+				  in Dimensions dimensions2) =>
       dimensions1.Equals(dimensions2);
 
-    public static bool operator!=(Dimensions dimensions1, 
-				  Dimensions dimensions2) =>
+    public static bool operator!=(in Dimensions dimensions1, 
+				  in Dimensions dimensions2) =>
       !(dimensions1 == dimensions2);
 
     public override string ToString() => $"({Width} X {Height})";
